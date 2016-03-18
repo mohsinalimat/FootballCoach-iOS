@@ -985,7 +985,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(long)[t teamPollScore]]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)[t teamPollScore]]];
             }
             break;
         case 1:
@@ -996,7 +996,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(long)[t teamStrengthOfWins]]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)[t teamStrengthOfWins]]];
             }
             break;
         case 2:
@@ -1007,7 +1007,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(t.teamPoints/t.numGames)]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamPoints/t.numGames)]];
             }
             break;
         case 3:
@@ -1018,7 +1018,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppPoints/t.numGames)]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppPoints/t.numGames)]];
             }
             break;
         case 4:
@@ -1029,7 +1029,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(t.teamYards/t.numGames)]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamYards/t.numGames)]];
             }
             break;
         case 5:
@@ -1040,7 +1040,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppYards/t.numGames)]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppYards/t.numGames)]];
             }
             break;
         case 6: //Collections.sort( teams, new TeamCompPYPG() );
@@ -1051,7 +1051,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(t.teamPassYards/t.numGames)]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamPassYards/t.numGames)]];
             }
             break;
         case 7: //Collections.sort( teams, new TeamCompRYPG() );
@@ -1062,7 +1062,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(t.teamRushYards/t.numGames)]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamRushYards/t.numGames)]];
             }
             break;
         case 8: //Collections.sort( teams, new TeamCompOPYPG() );
@@ -1073,7 +1073,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppPassYards/t.numGames)]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppPassYards/t.numGames)]];
             }
             break;
         case 9: //Collections.sort( teams, new TeamCompORYPG() );
@@ -1084,7 +1084,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppRushYards/t.numGames)]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppRushYards/t.numGames)]];
             }
             break;
         case 10: //Collections.sort( teams, new TeamCompTODiff() );
@@ -1096,9 +1096,9 @@
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
                 if (t.teamTODiff > 0) {
-                    [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamTODiff]];
+                    [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamTODiff]];
                 } else {
-                    [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamTODiff]];
+                    [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamTODiff]];
                 }
             }
             break;
@@ -1110,7 +1110,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamOffTalent]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamOffTalent]];
             }
             break;
         case 12: //Collections.sort( teams, new TeamCompDefTalent() );
@@ -1121,7 +1121,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamDefTalent]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamDefTalent]];
             }
             break;
         case 13: //Collections.sort( teams, new TeamCompPrestige() );
@@ -1132,7 +1132,7 @@
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamPrestige]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamPrestige]];
             }
             break;
         default:
@@ -1144,7 +1144,7 @@
             }] copy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStringStarUser:(i+1)],[t strRepWithBowlResults],(long)[t teamPollScore]]];
+                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)[t teamPollScore]]];
             }
             break;
     }

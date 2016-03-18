@@ -96,16 +96,16 @@
 
 //players on team
 //offense
-@property (strong, nonatomic) NSMutableArray *teamQBs;
-@property (strong, nonatomic) NSMutableArray *teamRBs;
-@property (strong, nonatomic) NSMutableArray *teamWRs;
-@property (strong, nonatomic) NSMutableArray *teamKs;
-@property (strong, nonatomic) NSMutableArray *teamOLs;
+@property (strong, nonatomic) NSMutableArray<PlayerQB*> *teamQBs;
+@property (strong, nonatomic) NSMutableArray<PlayerRB*> *teamRBs;
+@property (strong, nonatomic) NSMutableArray<PlayerWR*> *teamWRs;
+@property (strong, nonatomic) NSMutableArray<PlayerK*> *teamKs;
+@property (strong, nonatomic) NSMutableArray<PlayerOL*> *teamOLs;
 
 //defense
-@property (strong, nonatomic) NSMutableArray *teamF7s;
-@property (strong, nonatomic) NSMutableArray *teamSs;
-@property (strong, nonatomic) NSMutableArray *teamCBs;
+@property (strong, nonatomic) NSMutableArray<PlayerF7*> *teamF7s;
+@property (strong, nonatomic) NSMutableArray<PlayerS*> *teamSs;
+@property (strong, nonatomic) NSMutableArray<PlayerCB*> *teamCBs;
 
 @property (strong, nonatomic) TeamStrategy *offensiveStrategy;
 @property (strong, nonatomic) TeamStrategy *defensiveStrategy;
@@ -150,15 +150,13 @@
 -(NSInteger)getCompositeOLRush;
 -(NSInteger)getCompositeF7Pass;
 -(NSInteger)getCompositeF7Rush;
--(NSMutableArray*)getTeamStatsStrings;
 -(NSString*)getTeamStatsStringCSV;
--(NSMutableArray*)getGameScheduleStrings;
--(NSMutableArray*)getGameSummaryStrings;
+-(NSMutableArray*)getGameSummaryStrings:(NSInteger)gameNumber;
 -(NSString*)getSeasonSummaryString;
--(NSMutableArray*)getPlayerStatsStrings;
 -(NSMutableArray*)getPlayerStatsExpandListStrings;
 -(NSDictionary*)getPlayerStatsExpandListMap:(NSArray*)playerStatsGroupHeaders;
--(NSString*)getRankString;
+-(NSString*)getRankString:(NSInteger)num;
+-(NSString*)getRankStrStarUser:(NSInteger)num;
 -(NSInteger)numGames;
 -(NSInteger)getConfWins;
 -(NSString*)strRep;
@@ -168,7 +166,6 @@
 -(NSString*)gameSummaryStringScore:(Game*)g;
 -(NSString*)gameSummaryStringOpponent:(Game*)g;
 -(NSString*)getGraduatingPlayersString;
--(NSString*)getTeamNeeds;
 -(NSMutableArray*)getQBRecruits;
 -(NSMutableArray*)getRBRecruits;
 -(NSMutableArray*)getWRRecruits;
