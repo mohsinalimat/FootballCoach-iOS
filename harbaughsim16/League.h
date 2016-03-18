@@ -34,13 +34,6 @@
 @property (strong, nonatomic)  Game *semiG23;
 @property (strong, nonatomic)  Game *ncg;
 @property (strong, nonatomic)  NSMutableArray<Game*> *bowlGames;
-/*
-@property (strong, nonatomic)  Game *roseBowl;
-@property (strong, nonatomic)  Game *sugarBowl;
-@property (strong, nonatomic)  Game *orangeBowl;
-@property (strong, nonatomic)  Game *peachBowl;
-@property (strong, nonatomic)  Game *cottonBowl;
-@property (strong, nonatomic)  Game *fiestaBowl;*/
 
 //User Team
 @property (strong, nonatomic)  Team *userTeam;
@@ -48,7 +41,34 @@
 
 
 +(NSArray*)bowlGameTitles;
++(instancetype)newLeagueFromCSV:(NSString*)namesCSV;
++(instancetype)newLeagueFromSaveFile:(NSData*)saveFileData names:(NSString*)namesCSV;
 
+-(NSInteger)getConfNumber:(NSString*)conf;
+-(void)playWeek;
+-(void)scheduleBowlGames;
+-(void)playBowlGames;
+-(void)playBowl:(Game*)g;
+-(void)updateLeagueHistory;
+-(void)advanceSeason;
+-(void)updateTeamHistories;
+-(void)updateTeamTalentRatings;
+-(NSString*)getRandName;
+-(NSArray<Player*>*)getHeisman;
+-(NSString*)getTop5HeismanStr;
+-(NSString*)getHeismanCeremonyStr;
+-(NSString*)getLeagueHistoryStr;
+-(NSArray*)getTeamListStr;
+-(NSString*)getBowlGameWatchStr;
+-(NSString*)getGameSummaryBowl:(Game*)g;
+-(NSString*)getCCGsStr;
+-(Team*)findTeam:(NSString*)name;
+-(Conference*)findConference:(NSString*)name;
+-(NSString*)ncgSummaryStr;
+-(NSString*)seasonSummaryStr;
+-(BOOL)saveLeague:(NSData*)saveFile;
+-(void)setTeamRanks;
+-(NSArray*)getTeamRankingsStr:(NSInteger)selection;
 
 
 @end

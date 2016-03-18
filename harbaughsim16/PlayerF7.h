@@ -13,8 +13,6 @@
 @property (nonatomic) NSInteger ratF7Rsh;
 @property (nonatomic) NSInteger ratF7Pas;
 
--(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq power:(NSInteger)pow rush:(NSInteger)rsh pass:(NSInteger)pass;
--(instancetype)initWithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t;
 +(instancetype)newF7WithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq power:(NSInteger)pow rush:(NSInteger)rsh pass:(NSInteger)pass;
 +(instancetype)newF7WithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t;
 @end

@@ -13,6 +13,16 @@
 @class Player;
 @class League;
 
+@class PlayerQB;
+@class PlayerRB;
+@class PlayerWR;
+@class PlayerOL;
+@class PlayerK;
+@class PlayerF7;
+@class PlayerCB;
+@class PlayerS;
+
+
 #define PLAYERS_PER_TEAM 53
 
 @interface Team : NSObject
@@ -41,8 +51,8 @@
 @property (strong, nonatomic) Game *oocGame0;
 @property (strong, nonatomic) Game *oocGame4;
 @property (strong, nonatomic) Game *oocGame9;
-@property (strong, nonatomic) NSArray *gameWLSchedule;
-@property (strong, nonatomic) NSArray *gameWinsAgainst;
+@property (strong, nonatomic) NSMutableArray *gameWLSchedule;
+@property (strong, nonatomic) NSMutableArray *gameWinsAgainst;
 @property (strong, nonatomic) NSString *confChampion;
 @property (strong, nonatomic) NSString *semifinalWL;
 @property (strong, nonatomic) NSString *natlChampWL;
@@ -123,14 +133,14 @@
 -(NSInteger)getOffensiveTalent;
 -(NSInteger)getDefensiveTalent;
 
--(Player*)getQB:(NSInteger)depth;
--(Player*)getRB:(NSInteger)depth;
--(Player*)getWR:(NSInteger)depth;
--(Player*)getK:(NSInteger)depth;
--(Player*)getOL:(NSInteger)depth;
--(Player*)getS:(NSInteger)depth;
--(Player*)getCB:(NSInteger)depth;
--(Player*)getF7:(NSInteger)depth;
+-(PlayerQB*)getQB:(NSInteger)depth;
+-(PlayerRB*)getRB:(NSInteger)depth;
+-(PlayerWR*)getWR:(NSInteger)depth;
+-(PlayerK*)getK:(NSInteger)depth;
+-(PlayerOL*)getOL:(NSInteger)depth;
+-(PlayerS*)getS:(NSInteger)depth;
+-(PlayerCB*)getCB:(NSInteger)depth;
+-(PlayerF7*)getF7:(NSInteger)depth;
 
 -(NSInteger)getPassProf;
 -(NSInteger)getRushProf;
@@ -149,7 +159,6 @@
 -(NSMutableArray*)getPlayerStatsExpandListStrings;
 -(NSDictionary*)getPlayerStatsExpandListMap:(NSArray*)playerStatsGroupHeaders;
 -(NSString*)getRankString;
--(NSString*)getRankStringStarUser:(NSInteger)num;
 -(NSInteger)numGames;
 -(NSInteger)getConfWins;
 -(NSString*)strRep;

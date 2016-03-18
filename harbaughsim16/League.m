@@ -68,6 +68,13 @@
         }
         
         Conference *south = _conferences[0];
+        Conference *lakes = _conferences[1];
+        Conference *north = _conferences[2];
+        Conference *cowboy = _conferences[3];
+        Conference *pacific = _conferences[4];
+        Conference *mountain = _conferences[5];
+        
+        //SOUTH
         [south.confTeams addObject:[Team newTeamWithName:@"Alabama" abbreviation:@"ALA" conference:@"SOUTH" league:self prestige:95 rivalTeam:@"GEO"]]; //"Alabama", "ALA", "SOUTH", this, 95, "GEO" )
         [south.confTeams addObject:[Team newTeamWithName:@"Georgia" abbreviation:@"GEO" conference:@"SOUTH" league:self prestige:90 rivalTeam:@"ALA"]];//south.confTeams.add( new Team( "Georgia", "GEO", "SOUTH", this, 90, "ALA" ));
         [south.confTeams addObject:[Team newTeamWithName:@"Florida" abbreviation:@"FLA" conference:@"SOUTH" league:self prestige:85 rivalTeam:@"TEN"]];//south.confTeams.add( new Team( "Florida", "FLA", "SOUTH", this, 85, "TEN" ));
@@ -79,78 +86,66 @@
         [south.confTeams addObject:[Team newTeamWithName:@"Key West" abbreviation:@"KYW" conference:@"SOUTH" league:self prestige:65 rivalTeam:@"ATL"]];//south.confTeams.add( new Team( "Key West", "KYW", "SOUTH", this, 65, "ATL" ));
         [south.confTeams addObject:[Team newTeamWithName:@"Kentucky" abbreviation:@"KTY" conference:@"SOUTH" league:self prestige:50 rivalTeam:@"ARK"]];//south.confTeams.add( new Team( "Kentucky", "KTY", "SOUTH", this, 50, "ARK" ));
         
-        
-        Conference *lakes = _conferences[1];
-        Conference *north = _conferences[2];
-        Conference *cowboy = _conferences[3];
-        Conference *pacific = _conferences[4];
-        Conference *mountain = _conferences[5];
-        
-        /*
-         
-         
          
          //LAKES
-         conferences.get(1).confTeams.add( new Team( "Ohio State", "OHI", "LAKES", this, 90, "MIC" ));
-         conferences.get(1).confTeams.add( new Team( "Michigan", "MIC", "LAKES", this, 90, "OHI" ));
-         conferences.get(1).confTeams.add( new Team( "Michigan St", "MSU", "LAKES", this, 80, "MIN" ));
-         conferences.get(1).confTeams.add( new Team( "Wisconsin", "WIS", "LAKES", this, 70, "IND" ));
-         conferences.get(1).confTeams.add( new Team( "Minnesota", "MIN", "LAKES", this, 70, "MSU" ));
-         conferences.get(1).confTeams.add( new Team( "Univ of Chicago", "CHI", "LAKES", this, 70, "DET" ));
-         conferences.get(1).confTeams.add( new Team( "Detroit St", "DET", "LAKES", this, 65, "CHI" ));
-         conferences.get(1).confTeams.add( new Team( "Indiana", "IND", "LAKES", this, 65, "WIS" ));
-         conferences.get(1).confTeams.add( new Team( "Cleveland St", "CLE", "LAKES", this, 55, "MIL" ));
-         conferences.get(1).confTeams.add( new Team( "Milwaukee", "MIL", "LAKES", this, 45, "CLE" ));
+         [lakes.confTeams addObject:[Team newTeamWithName:@"Ohio State" abbreviation:@"OHI" conference:@"LAKES" league:self prestige:90 rivalTeam:@"MIC"]];//lakes.confTeams.add( new Team( "Ohio State", "OHI", "LAKES", this, 90, "MIC" ));
+         [lakes.confTeams addObject:[Team newTeamWithName:@"Michigan" abbreviation:@"MIC" conference:@"LAKES" league:self prestige:90 rivalTeam:@"MIC"]];//lakes.confTeams.add( new Team( "Michigan", "MIC", "LAKES", this, 90, "OHI" ));
+         [lakes.confTeams addObject:[Team newTeamWithName:@"Michigan St" abbreviation:@"MSU" conference:@"LAKES" league:self prestige:80 rivalTeam:@"MIN"]];//lakes.confTeams.add( new Team( "Michigan St", "MSU", "LAKES", this, 80, "MIN" ));
+         [lakes.confTeams addObject:[Team newTeamWithName:@"Wisconsin" abbreviation:@"WIS" conference:@"LAKES" league:self prestige:70 rivalTeam:@"IND"]];//lakes.confTeams.add( new Team( "Wisconsin", "WIS", "LAKES", this, 70, "IND" ));
+         [lakes.confTeams addObject:[Team newTeamWithName:@"Minnesota" abbreviation:@"MIN" conference:@"LAKES" league:self prestige:70 rivalTeam:@"MSU"]];//lakes.confTeams.add( new Team( "Minnesota", "MIN", "LAKES", this, 70, "MSU" ));
+         [lakes.confTeams addObject:[Team newTeamWithName:@"Univ of Chicago" abbreviation:@"CHI" conference:@"LAKES" league:self prestige:70 rivalTeam:@"DET"]];//lakes.confTeams.add( new Team( "Univ of Chicago", "CHI", "LAKES", this, 70, "DET" ));
+         [lakes.confTeams addObject:[Team newTeamWithName:@"Detroit St" abbreviation:@"DET" conference:@"LAKES" league:self prestige:65 rivalTeam:@"CHI"]];//lakes.confTeams.add( new Team( "Detroit St", "DET", "LAKES", this, 65, "CHI" ));
+         [lakes.confTeams addObject:[Team newTeamWithName:@"Indiana" abbreviation:@"IND" conference:@"LAKES" league:self prestige:65 rivalTeam:@"WIS"]];//lakes.confTeams.add( new Team( "Indiana", "IND", "LAKES", this, 65, "WIS" ));
+         [lakes.confTeams addObject:[Team newTeamWithName:@"Cleveland State" abbreviation:@"CLE" conference:@"LAKES" league:self prestige:55 rivalTeam:@"MIL"]];//lakes.confTeams.add( new Team( "Cleveland St", "CLE", "LAKES", this, 55, "MIL" ));
+         [lakes.confTeams addObject:[Team newTeamWithName:@"Milwaukee" abbreviation:@"MIL" conference:@"LAKES" league:self prestige:45 rivalTeam:@"CLE"]];//lakes.confTeams.add( new Team( "Milwaukee", "MIL", "LAKES", this, 45, "CLE" ));
          
          //NORTH
-         conferences.get(2).confTeams.add( new Team( "New York St", "NYS", "NORTH", this, 90, "NYC" ));
-         conferences.get(2).confTeams.add( new Team( "New Jersey", "NWJ", "NORTH", this, 85, "PEN" ));
-         conferences.get(2).confTeams.add( new Team( "New York City", "NYC", "NORTH", this, 75, "NYS" ));
-         conferences.get(2).confTeams.add( new Team( "Pennsylvania", "PEN", "NORTH", this, 75, "NWJ" ));
-         conferences.get(2).confTeams.add( new Team( "Maryland", "MAR", "NORTH", this, 70, "WDC" ));
-         conferences.get(2).confTeams.add( new Team( "Washington DC", "WDC", "NORTH", this, 70, "MAR" ));
-         conferences.get(2).confTeams.add( new Team( "Boston St", "BOS", "NORTH", this, 65, "VER" ));
-         conferences.get(2).confTeams.add( new Team( "Pittsburgh", "PIT", "NORTH", this, 60, "MAI" ));
-         conferences.get(2).confTeams.add( new Team( "Maine", "MAI", "NORTH", this, 50, "PIT" ));
-         conferences.get(2).confTeams.add( new Team( "Vermont", "VER", "NORTH", this, 45, "BOS" ));
+        [north.confTeams addObject:[Team newTeamWithName:@"New York St" abbreviation:@"NYS" conference:@"NORTH" league:self prestige:90 rivalTeam:@"NYC"]];//north.confTeams.add( new Team( "New York St", "NYS", "NORTH", this, 90, "NYC" ));
+         [north.confTeams addObject:[Team newTeamWithName:@"New Jersey" abbreviation:@"NWJ" conference:@"NORTH" league:self prestige:85 rivalTeam:@"PEN"]];//north.confTeams.add( new Team( "New Jersey", "NWJ", "NORTH", this, 85, "PEN" ));
+         [north.confTeams addObject:[Team newTeamWithName:@"New York City" abbreviation:@"NYC" conference:@"NORTH" league:self prestige:75 rivalTeam:@"NYS"]];//north.confTeams.add( new Team( "New York City", "NYC", "NORTH", this, 75, "NYS" ));
+         [north.confTeams addObject:[Team newTeamWithName:@"Pennsylvania" abbreviation:@"PEN" conference:@"NORTH" league:self prestige:75 rivalTeam:@"NWJ"]];//north.confTeams.add( new Team( "Pennsylvania", "PEN", "NORTH", this, 75, "NWJ" ));
+         [north.confTeams addObject:[Team newTeamWithName:@"Maryland" abbreviation:@"MAR" conference:@"NORTH" league:self prestige:70 rivalTeam:@"WDC"]];//north.confTeams.add( new Team( "Maryland", "MAR", "NORTH", this, 70, "WDC" ));
+         [north.confTeams addObject:[Team newTeamWithName:@"Washington DC" abbreviation:@"WDC" conference:@"NORTH" league:self prestige:70 rivalTeam:@"MAR"]];//north.confTeams.add( new Team( "Washington DC", "WDC", "NORTH", this, 70, "MAR" ));
+         [north.confTeams addObject:[Team newTeamWithName:@"Boston St" abbreviation:@"BOS" conference:@"NORTH" league:self prestige:65 rivalTeam:@"VER"]];//north.confTeams.add( new Team( "Boston St", "BOS", "NORTH", this, 65, "VER" ));
+         [north.confTeams addObject:[Team newTeamWithName:@"Pittsburgh" abbreviation:@"PIT" conference:@"NORTH" league:self prestige:60 rivalTeam:@"MAI"]];//north.confTeams.add( new Team( "Pittsburgh", "PIT", "NORTH", this, 60, "MAI" ));
+         [north.confTeams addObject:[Team newTeamWithName:@"Maine" abbreviation:@"MAI" conference:@"NORTH" league:self prestige:50 rivalTeam:@"PIT"]];//north.confTeams.add( new Team( "Maine", "MAI", "NORTH", this, 50, "PIT" ));
+         [north.confTeams addObject:[Team newTeamWithName:@"Vermont" abbreviation:@"VER" conference:@"NORTH" league:self prestige:45 rivalTeam:@"BOS"]];//north.confTeams.add( new Team( "Vermont", "VER", "NORTH", this, 45, "BOS" ));
          
          //COWBY
-         conferences.get(3).confTeams.add( new Team( "Oklahoma", "OKL", "COWBY", this, 90, "TEX" ));
-         conferences.get(3).confTeams.add( new Team( "Texas", "TEX", "COWBY", this, 90, "OKL" ));
-         conferences.get(3).confTeams.add( new Team( "Houston", "HOU", "COWBY", this, 80, "DAL" ));
-         conferences.get(3).confTeams.add( new Team( "Dallas", "DAL", "COWBY", this, 80, "HOU" ));
-         conferences.get(3).confTeams.add( new Team( "Alamo St", "AMO", "COWBY", this, 70, "PAS" ));
-         conferences.get(3).confTeams.add( new Team( "Oklahoma St", "OKS", "COWBY", this, 70, "TUL" ));
-         conferences.get(3).confTeams.add( new Team( "El Paso St", "PAS", "COWBY", this, 60, "AMO" ));
-         conferences.get(3).confTeams.add( new Team( "Texas St", "TXS", "COWBY", this, 60, "AUS" ));
-         conferences.get(3).confTeams.add( new Team( "Tulsa", "TUL", "COWBY", this, 55, "OKS" ));
-         conferences.get(3).confTeams.add( new Team( "Univ of Austin", "AUS", "COWBY", this, 50, "TXS" ));
+         [cowboy.confTeams addObject:[Team newTeamWithName:@"Oklahoma" abbreviation:@"OKL" conference:@"COWBY" league:self prestige:90 rivalTeam:@"TEX"]];//cowboy.confTeams.add( new Team( "Oklahoma", "OKL", "COWBY", this, 90, "TEX" ));
+         [cowboy.confTeams addObject:[Team newTeamWithName:@"Texas" abbreviation:@"TEX" conference:@"COWBY" league:self prestige:90 rivalTeam:@"OKL"]];//cowboy.confTeams.add( new Team( "Texas", "TEX", "COWBY", this, 90, "OKL" ));
+         [cowboy.confTeams addObject:[Team newTeamWithName:@"Houston" abbreviation:@"HOU" conference:@"COWBY" league:self prestige:80 rivalTeam:@"DAL"]];//cowboy.confTeams.add( new Team( "Houston", "HOU", "COWBY", this, 80, "DAL" ));
+         [cowboy.confTeams addObject:[Team newTeamWithName:@"Dallas" abbreviation:@"DAL" conference:@"COWBY" league:self prestige:80 rivalTeam:@"HOU"]];//cowboy.confTeams.add( new Team( "Dallas", "DAL", "COWBY", this, 80, "HOU" ));
+         [cowboy.confTeams addObject:[Team newTeamWithName:@"Alamo St" abbreviation:@"AMO" conference:@"COWBY" league:self prestige:70 rivalTeam:@"PAS"]];//cowboy.confTeams.add( new Team( "Alamo St", "AMO", "COWBY", this, 70, "PAS" ));
+         [cowboy.confTeams addObject:[Team newTeamWithName:@"Oklahoma St" abbreviation:@"OKS" conference:@"COWBY" league:self prestige:70 rivalTeam:@"TUL"]];//cowboy.confTeams.add( new Team( "Oklahoma St", "OKS", "COWBY", this, 70, "TUL" ));
+         [cowboy.confTeams addObject:[Team newTeamWithName:@"El Paso St" abbreviation:@"PAS" conference:@"COWBY" league:self prestige:60 rivalTeam:@"AMO"]];//cowboy.confTeams.add( new Team( "El Paso St", "PAS", "COWBY", this, 60, "AMO" ));
+         [cowboy.confTeams addObject:[Team newTeamWithName:@"Texas St" abbreviation:@"TXS" conference:@"COWBY" league:self prestige:60 rivalTeam:@"AUS"]];//cowboy.confTeams.add( new Team( "Texas St", "TXS", "COWBY", this, 60, "AUS" ));
+         [cowboy.confTeams addObject:[Team newTeamWithName:@"Tulsa" abbreviation:@"TUL" conference:@"COWBY" league:self prestige:55 rivalTeam:@"OKS"]];//cowboy.confTeams.add( new Team( "Tulsa", "TUL", "COWBY", this, 55, "OKS" ));
+         [cowboy.confTeams addObject:[Team newTeamWithName:@"Univ of Austin" abbreviation:@"AUS" conference:@"COWBY" league:self prestige:50 rivalTeam:@"TXS"]];//cowboy.confTeams.add( new Team( "Univ of Austin", "AUS", "COWBY", this, 50, "TXS" ));
          
          //PACIF
-         conferences.get(4).confTeams.add( new Team( "California", "CAL", "PACIF", this, 90, "ULA" ));
-         conferences.get(4).confTeams.add( new Team( "Oregon", "ORE", "PACIF", this, 85, "WAS" ));
-         conferences.get(4).confTeams.add( new Team( "Los Angeles", "ULA", "PACIF", this, 80, "CAL" ));
-         conferences.get(4).confTeams.add( new Team( "Oakland St", "OAK", "PACIF", this, 75, "HOL" ));
-         conferences.get(4).confTeams.add( new Team( "Washington", "WAS", "PACIF", this, 75, "ORE" ));
-         conferences.get(4).confTeams.add( new Team( "Hawaii", "HAW", "PACIF", this, 70, "SAM" ));
-         conferences.get(4).confTeams.add( new Team( "Seattle", "SEA", "PACIF", this, 70, "SAN" ));
-         conferences.get(4).confTeams.add( new Team( "Hollywood St", "HOL", "PACIF", this, 70, "OAK" ));
-         conferences.get(4).confTeams.add( new Team( "San Diego St", "SAN", "PACIF", this, 60, "SEA" ));
-         conferences.get(4).confTeams.add( new Team( "American Samoa", "SAM", "PACIF", this, 25, "HAW" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"California" abbreviation:@"CAL" conference:@"PACIF" league:self prestige:90 rivalTeam:@"ULA"]];//pacific.confTeams.add( new Team( "California", "CAL", "PACIF", this, 90, "ULA" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"Oregon" abbreviation:@"ORE" conference:@"PACIF" league:self prestige:85 rivalTeam:@"WAS"]];//pacific.confTeams.add( new Team( "Oregon", "ORE", "PACIF", this, 85, "WAS" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"Los Angeles" abbreviation:@"ULA" conference:@"PACIF" league:self prestige:80 rivalTeam:@"CAL"]];//pacific.confTeams.add( new Team( "Los Angeles", "ULA", "PACIF", this, 80, "CAL" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"Oakland St" abbreviation:@"OAK" conference:@"PACIF" league:self prestige:75 rivalTeam:@"HOL"]];//pacific.confTeams.add( new Team( "Oakland St", "OAK", "PACIF", this, 75, "HOL" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"Washington" abbreviation:@"WAS" conference:@"PACIF" league:self prestige:75 rivalTeam:@"ORE"]];//pacific.confTeams.add( new Team( "Washington", "WAS", "PACIF", this, 75, "ORE" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"Hawaii" abbreviation:@"HAW" conference:@"PACIF" league:self prestige:70 rivalTeam:@"SAM"]];//pacific.confTeams.add( new Team( "Hawaii", "HAW", "PACIF", this, 70, "SAM" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"Seattle" abbreviation:@"SEA" conference:@"PACIF" league:self prestige:70 rivalTeam:@"SAN"]];//pacific.confTeams.add( new Team( "Seattle", "SEA", "PACIF", this, 70, "SAN" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"Hollywood St" abbreviation:@"HOL" conference:@"PACIF" league:self prestige:70 rivalTeam:@"OAK"]];//pacific.confTeams.add( new Team( "Hollywood St", "HOL", "PACIF", this, 70, "OAK" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"San Diego St" abbreviation:@"SAN" conference:@"PACIF" league:self prestige:60 rivalTeam:@"SEA"]];//pacific.confTeams.add( new Team( "San Diego St", "SAN", "PACIF", this, 60, "SEA" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"American Samoa" abbreviation:@"SAM" conference:@"PACIF" league:self prestige:25 rivalTeam:@"HAW"]];//pacific.confTeams.add( new Team( "American Samoa", "SAM", "PACIF", this, 25, "HAW" ));
          
          //MOUNT
-         conferences.get(5).confTeams.add( new Team( "Colorado", "COL", "MOUNT", this, 80, "DEN" ));
-         conferences.get(5).confTeams.add( new Team( "Yellowstone St", "YEL", "MOUNT", this, 75, "ALB" ));
-         conferences.get(5).confTeams.add( new Team( "Utah", "UTA", "MOUNT", this, 75, "SAL" ));
-         conferences.get(5).confTeams.add( new Team( "Univ of Denver", "DEN", "MOUNT", this, 75, "COL" ));
-         conferences.get(5).confTeams.add( new Team( "Albuquerque", "ALB", "MOUNT", this, 70, "YEL" ));
-         conferences.get(5).confTeams.add( new Team( "Salt Lake St", "SAL", "MOUNT", this, 65, "UTA" ));
-         conferences.get(5).confTeams.add( new Team( "Wyoming", "WYO", "MOUNT", this, 60, "MON" ));
-         conferences.get(5).confTeams.add( new Team( "Montana", "MON", "MOUNT", this, 55, "WYO" ));
-         conferences.get(5).confTeams.add( new Team( "Las Vegas", "LSV", "MOUNT", this, 50, "PHO" ));
-         conferences.get(5).confTeams.add( new Team( "Phoenix", "PHO", "MOUNT", this, 45, "LSV" ));
-         
-         */
+         [mountain.confTeams addObject:[Team newTeamWithName:@"Colorado" abbreviation:@"COL" conference:@"MOUNT" league:self prestige:80 rivalTeam:@"DEN"]];//mountain.confTeams.add( new Team( "Colorado", "COL", "MOUNT", this, 80, "DEN" ));
+         [mountain.confTeams addObject:[Team newTeamWithName:@"Yellowstone St" abbreviation:@"YEL" conference:@"MOUNT" league:self prestige:75 rivalTeam:@"ALB"]];//mountain.confTeams.add( new Team( "Yellowstone St", "YEL", "MOUNT", this, 75, "ALB" ));
+         [mountain.confTeams addObject:[Team newTeamWithName:@"Utah" abbreviation:@"UTA" conference:@"MOUNT" league:self prestige:75 rivalTeam:@"SAL"]];//mountain.confTeams.add( new Team( "Utah", "UTA", "MOUNT", this, 75, "SAL" ));
+         [mountain.confTeams addObject:[Team newTeamWithName:@"Univ of Denver" abbreviation:@"DEN" conference:@"MOUNT" league:self prestige:75 rivalTeam:@"COL"]];//mountain.confTeams.add( new Team( "Univ of Denver", "DEN", "MOUNT", this, 75, "COL" ));
+         [mountain.confTeams addObject:[Team newTeamWithName:@"Albuquerque" abbreviation:@"ALB" conference:@"MOUNT" league:self prestige:70 rivalTeam:@"YEL"]];//mountain.confTeams.add( new Team( "Albuquerque", "ALB", "MOUNT", this, 70, "YEL" ));
+         [mountain.confTeams addObject:[Team newTeamWithName:@"Salt Lake St" abbreviation:@"SAL" conference:@"MOUNT" league:self prestige:65 rivalTeam:@"UTA"]];//mountain.confTeams.add( new Team( "Salt Lake St", "SAL", "MOUNT", this, 65, "UTA" ));
+         [mountain.confTeams addObject:[Team newTeamWithName:@"Wyoming" abbreviation:@"WYO" conference:@"MOUNT" league:self prestige:60 rivalTeam:@"MON"]];//mountain.confTeams.add( new Team( "Wyoming", "WYO", "MOUNT", this, 60, "MON" ));
+         [mountain.confTeams addObject:[Team newTeamWithName:@"Montana" abbreviation:@"MON" conference:@"MOUNT" league:self prestige:55 rivalTeam:@"WYO"]];//mountain.confTeams.add( new Team( "Montana", "MON", "MOUNT", this, 55, "WYO" ));
+         [mountain.confTeams addObject:[Team newTeamWithName:@"Las Vegas" abbreviation:@"LSV" conference:@"MOUNT" league:self prestige:50 rivalTeam:@"PHO"]];//mountain.confTeams.add( new Team( "Las Vegas", "LSV", "MOUNT", this, 50, "PHO" ));
+         [mountain.confTeams addObject:[Team newTeamWithName:@"Phoenix" abbreviation:@"PHO" conference:@"MOUNT" league:self prestige:25 rivalTeam:@"LSV"]];//mountain.confTeams.add( new Team( "Phoenix", "PHO", "MOUNT", this, 45, "LSV" ));
         
         
         _teamList = [NSMutableArray array];
@@ -363,48 +358,8 @@
     _semiG23 = [Game newGameWithHome:_teamList[1] away:_teamList[2] name:@"Semis, 2v3"];
     [[_teamList[1] gameSchedule] addObject:_semiG23];
     [[_teamList[2] gameSchedule] addObject:_semiG23];
-    
-    //other bowl games
-    /*_bowlGames[0] = new Game( teamList.get(4), teamList.get(6), bowlNames[0] );
-    _teamList.get(4).gameSchedule.add(bowlGames[0]);
-    _teamList.get(6).gameSchedule.add(bowlGames[0]);
-    
-    _bowlGames[1] = new Game( teamList.get(5), teamList.get(7), bowlNames[1] );
-    _teamList.get(5).gameSchedule.add(bowlGames[1]);
-    _teamList.get(7).gameSchedule.add(bowlGames[1]);
-    
-    _bowlGames[2] = new Game( teamList.get(8), teamList.get(14), bowlNames[2] );
-    _teamList.get(8).gameSchedule.add(bowlGames[2]);
-    _teamList.get(14).gameSchedule.add(bowlGames[2]);
-    
-    _bowlGames[3] = new Game( teamList.get(9), teamList.get(15), bowlNames[3] );
-    _teamList.get(9).gameSchedule.add(bowlGames[3]);
-    _teamList.get(15).gameSchedule.add(bowlGames[3]);
-    
-    _bowlGames[4] = new Game( teamList.get(10), teamList.get(11), bowlNames[4] );
-    _teamList.get(10).gameSchedule.add(bowlGames[4]);
-    _teamList.get(11).gameSchedule.add(bowlGames[4]);
-    
-    _bowlGames[5] = new Game( teamList.get(12), teamList.get(13), bowlNames[5] );
-    _teamList.get(12).gameSchedule.add(bowlGames[5]);
-    _teamList.get(13).gameSchedule.add(bowlGames[5]);
-    
-    _bowlGames[6] = new Game( teamList.get(16), teamList.get(20), bowlNames[6] );
-    _teamList.get(16).gameSchedule.add(bowlGames[6]);
-    _teamList.get(20).gameSchedule.add(bowlGames[6]);
-    
-    _bowlGames[7] = new Game( teamList.get(17), teamList.get(21), bowlNames[7] );
-    _teamList.get(17).gameSchedule.add(bowlGames[7]);
-    _teamList.get(21).gameSchedule.add(bowlGames[7]);
-    
-    _bowlGames[8] = new Game( teamList.get(18), teamList.get(22), bowlNames[8] );
-    _teamList.get(18).gameSchedule.add(bowlGames[8]);
-    _teamList.get(22).gameSchedule.add(bowlGames[8]);
-    
-    _bowlGames[9] = new Game( teamList.get(19), teamList.get(23), bowlNames[9] );
-    _teamList.get(19).gameSchedule.add(bowlGames[9]);
-    _teamList.get(23).gameSchedule.add(bowlGames[9]);*/
-    
+
+    //other bowls
     if ([[self class] bowlGameTitles].count > _teamList.count) {
         for (int i = 0; i < 20; i+=2) {
             NSString *bowlName = [[self class] bowlGameTitles][i];

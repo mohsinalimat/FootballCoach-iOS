@@ -284,62 +284,62 @@
     cbNeeds = [needs[6] integerValue];
     f7Needs = [needs[7] integerValue];
     
-    /*
+    
     NSInteger stars = _teamPrestige/20 + 1;
     NSInteger chance = 20 - (_teamPrestige - 20*( _teamPrestige/20 )); //between 0 and 20
     
     for( int i = 0; i < qbNeeds; ++i ) {
         //make QBs
         if ( 100*arc4random() < 5*chance ) {
-            _teamQBs.add( new PlayerQB(league.getRandName(), (int)(4*Math.random() + 1), stars-1, this) );
+            [_teamQBs addObject:[PlayerQB newQBWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars - 1) team:self]];
         } else {
-            _teamQBs.add( new PlayerQB(league.getRandName(), (int)(4*Math.random() + 1), stars, this) );
+            [_teamQBs addObject:[PlayerQB newQBWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars) team:self]];
         }
     }
     
     for( int i = 0; i < kNeeds; ++i ) {
         //make Ks
         if ( 100*arc4random() < 5*chance ) {
-            teamKs.add( new PlayerK(league.getRandName(), (int)(4*Math.random() + 1), stars-1) );
+            [_teamKs addObject:[PlayerK newKWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars - 1) team:self]];
         } else {
-            teamKs.add( new PlayerK(league.getRandName(), (int)(4*Math.random() + 1), stars) );
+            [_teamKs addObject:[PlayerK newKWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars) team:self]];
         }
     }
     
     for( int i = 0; i < rbNeeds; ++i ) {
         //make RBs
         if ( 100*arc4random() < 5*chance ) {
-            teamRBs.add( new PlayerRB(league.getRandName(), (int)(4*Math.random() + 1), stars-1, this) );
+            [_teamRBs addObject:[PlayerRB newRBWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars - 1) team:self]];
         } else {
-            teamRBs.add( new PlayerRB(league.getRandName(), (int)(4*Math.random() + 1), stars, this) );
+            [_teamRBs addObject:[PlayerRB newRBWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars) team:self]];
         }
     }
     
     for( int i = 0; i < wrNeeds; ++i ) {
         //make WRs
         if ( 100*arc4random() < 5*chance ) {
-            teamWRs.add( new PlayerWR(league.getRandName(), (int)(4*Math.random() + 1), stars-1, this) );
+            [_teamWRs addObject:[PlayerWR newWRWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars - 1) team:self]];
         } else {
-            teamWRs.add( new PlayerWR(league.getRandName(), (int)(4*Math.random() + 1), stars, this) );
+            [_teamWRs addObject:[PlayerWR newWRWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars) team:self]];
         }
     }
     
     for( int i = 0; i < olNeeds; ++i ) {
         //make OLs
         if ( 100*arc4random() < 5*chance ) {
-            teamOLs.add( new PlayerOL(league.getRandName(), (int)(4*Math.random() + 1), stars-1) );
+            [_teamOLs addObject:[PlayerOL newOLWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars - 1) team:self]];
         } else {
-            teamOLs.add( new PlayerOL(league.getRandName(), (int)(4*Math.random() + 1), stars) );
+            [_teamOLs addObject:[PlayerOL newOLWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars) team:self]];
         }
     }
     
     for( int i = 0; i < cbNeeds; ++i ) {
         //make CBs
         if ( 100*arc4random() < 5*chance ) {
-            [_teamCBs addObject:[[PlayerCB alloc] initWithName:[_league getRandomName] year:(NSInteger)(4*arc4random() + 1) stars:(stars - 1)]];
+             [_teamCBs addObject:[PlayerCB newCBWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars - 1)]];
             //teamCBs.add( new PlayerCB(league.getRandName(), (int)(4*Math.random() + 1), stars-1) );
         } else {
-            [_teamCBs addObject:[[PlayerCB alloc] initWithName:[_league getRandomName] year:(NSInteger)(4*arc4random() + 1) stars:(stars)]];
+            [_teamCBs addObject:[PlayerCB newCBWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars)]];
             //teamCBs.add( new PlayerCB(league.getRandName(), (int)(4*Math.random() + 1), stars) );
         }
     }
@@ -347,20 +347,20 @@
     for( int i = 0; i < f7Needs; ++i ) {
         //make F7s
         if ( 100*arc4random() < 5*chance ) {
-            teamF7s.add( new PlayerF7(league.getRandName(), (int)(4*Math.random() + 1), stars-1) );
+            [_teamF7s addObject:[PlayerF7 newF7WithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars - 1) team:self]];
         } else {
-            teamF7s.add( new PlayerF7(league.getRandName(), (int)(4*Math.random() + 1), stars) );
+            [_teamF7s addObject:[PlayerF7 newF7WithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars) team:self]];
         }
     }
     
     for( int i = 0; i < sNeeds; ++i ) {
         //make Ss
         if ( 100*arc4random() < 5*chance ) {
-            teamSs.add( new PlayerS(league.getRandName(), (int)(4*Math.random() + 1), stars-1) );
+            [_teamSs addObject:[PlayerS newSWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars - 1)]];
         } else {
-            teamSs.add( new PlayerS(league.getRandName(), (int)(4*Math.random() + 1), stars) );
+            [_teamSs addObject:[PlayerS newSWithName:[_league getRandName] year:(NSInteger)(4*arc4random() + 1) stars:(stars)]];
         }
-    }*/
+    }
     
     //done making players, sort them
     [self sortPlayers];
@@ -390,8 +390,8 @@
     _oocGame0 = nil;
     _oocGame4 = nil;
     _oocGame9 = nil;
-    _gameWinsAgainst = [NSArray array];
-    _gameWLSchedule = [NSArray array];
+    _gameWinsAgainst = [NSMutableArray array];
+    _gameWLSchedule = [NSMutableArray array];
     _confChampion = @"";
     _semifinalWL = @"";
     _natlChampWL = @"";
@@ -487,7 +487,7 @@
     return ( [self getRushDef] + [self getPassDef] ) / 2;
 }
 
--(Player*)getQB:(NSInteger)depth {
+-(PlayerQB*)getQB:(NSInteger)depth {
     if ( depth < _teamQBs.count && depth >= 0 ) {
         return _teamQBs[depth];
     } else {
@@ -495,7 +495,7 @@
     }
 }
 
--(Player*)getRB:(NSInteger)depth {
+-(PlayerRB*)getRB:(NSInteger)depth {
     if ( depth < _teamRBs.count && depth >= 0 ) {
         return _teamRBs[depth];
     } else {
@@ -503,7 +503,7 @@
     }
 }
 
--(Player*)getWR:(NSInteger)depth {
+-(PlayerWR*)getWR:(NSInteger)depth {
     if ( depth < _teamWRs.count && depth >= 0 ) {
         return _teamWRs[depth];
     } else {
@@ -511,7 +511,7 @@
     }
 }
 
--(Player*)getK:(NSInteger)depth {
+-(PlayerK*)getK:(NSInteger)depth {
     if ( depth < _teamKs.count && depth >= 0 ) {
         return _teamKs[depth];
     } else {
@@ -519,7 +519,7 @@
     }
 }
 
--(Player*)getOL:(NSInteger)depth {
+-(PlayerOL*)getOL:(NSInteger)depth {
     if ( depth < _teamOLs.count && depth >= 0 ) {
         return _teamOLs[depth];
     } else {
@@ -527,7 +527,7 @@
     }
 }
 
--(Player*)getS:(NSInteger)depth {
+-(PlayerS*)getS:(NSInteger)depth {
     if ( depth < _teamSs.count && depth >= 0 ) {
         return _teamSs[depth];
     } else {
@@ -535,7 +535,7 @@
     }
 }
 
--(Player*)getCB:(NSInteger)depth {
+-(PlayerCB*)getCB:(NSInteger)depth {
     if ( depth < _teamCBs.count && depth >= 0 ) {
         return _teamCBs[depth];
     } else {
@@ -543,7 +543,7 @@
     }
 }
 
--(Player*)getF7:(NSInteger)depth {
+-(PlayerF7*)getF7:(NSInteger)depth {
     if ( depth < _teamF7s.count && depth >= 0 ) {
         return _teamF7s[depth];
     } else {
@@ -602,13 +602,38 @@
 -(NSArray*)getGameSummaryStrings {
     
 }
+*/
 
 -(NSString*)getSeasonSummaryString {
+    NSMutableString *summary = [NSMutableString stringWithFormat:@"Your team, %@, finished the season ranked #%ld with %ld wins and %ld losses.",_name, _rankTeamPollScore, _wins, _losses];
+    NSInteger expectedPollFinish = 100 - _teamPrestige;
+    NSInteger diffExpected = expectedPollFinish - _rankTeamPollScore;
+    NSInteger oldPrestige = _teamPrestige;
+    NSInteger newPrestige = oldPrestige;
+    if (_teamPrestige > 55 || diffExpected > 0 ) {
+        newPrestige = (int)pow(_teamPrestige, 1 + (float)diffExpected/1500);// + diffExpected/2500);
+    }
     
+    if ((newPrestige - oldPrestige) > 0) {
+        [summary appendFormat:@"\n\nGreat job, coach! You exceeded expectations and gained %ld prestige! This will help your recruiting.", (long)(newPrestige - oldPrestige)];
+    } else if ((newPrestige - oldPrestige) < 0) {
+        [summary appendFormat:@"\n\nA bit of a down year, coach? You fell short expectations and lost %ld prestige. This will hurt your recruiting.",(long)(oldPrestige - newPrestige) ];
+    } else {
+        [summary appendString:@"\n\nWell, your team performed exactly how many expected. This won't hurt or help recruiting, but try to improve next year!"];
+    }
+    
+    if (_wonRivalryGame) {
+        [summary appendString:@"\n\nFuture recruits were impressed that you won your rivalry game. You gained 2 prestige."];
+    } else {
+        [summary appendString:@"\n\nSince you couldn't win your rivalry game, recruits aren't excited to attend your school. You lost 2 prestige."];
+    }
+    
+    return summary;
 }
 
+/*
 -(NSArray*)getPlayerStatsStrings {
-    
+ 
 }
 
 -(NSArray*)getPlayerStatsExpandListStrings {
@@ -618,31 +643,57 @@
 -(NSDictionary*)getPlayerStatsExpandListMap:(NSArray*)playerStatsGroupHeaders {
     
 }
-
--(NSString*)getRankString {
-    
+*/
+-(NSString*)getRankString:(NSInteger)num {
+    if (num == 11) {
+        return @"11th";
+    } else if (num == 12) {
+        return @"12th";
+    } else if (num == 13) {
+        return @"13th";
+    } else if (num%10 == 1) {
+        return [NSString stringWithFormat:@"%ldst",(long)num];
+    } else if (num%10 == 2) {
+        return [NSString stringWithFormat:@"%ldnd",(long)num];
+    } else if (num%10 == 3){
+        return [NSString stringWithFormat:@"%ldrd",(long)num];
+    } else {
+        return [NSString stringWithFormat:@"%ldth",(long)num];
+    }
 }
 
--(NSString*)getRankStringStarUser:(NSInteger)num {
-    
-}
 
 -(NSInteger)numGames {
-    
+    if (_wins + _losses > 0 ) {
+        return _wins + _losses;
+    } else return 1;
 }
 
 -(NSInteger)getConfWins {
-    
+    int confWins = 0;
+    Game *g;
+    for (int i = 0; i < _gameWLSchedule.count; ++i) {
+        g = _gameSchedule[i];
+        if ( [g.gameName isEqualToString:@"In Conf" ] || [g.gameName isEqualToString:@"Rivalry Game"] ) {
+            // in conference game, see if was won
+            if ( [g.homeTeam isEqual: self] && g.homeScore > g.awayScore ) {
+                confWins++;
+            } else if ( [g.awayTeam isEqual: self] && g.homeScore < g.awayScore ) {
+                confWins++;
+            }
+        }
+    }
+    return confWins;
 }
 
 -(NSString*)strRep {
-    
+    return [NSString stringWithFormat:@"#%ld %@ (%ld-%ld)",(long)_rankTeamPollScore,_abbreviation,(long)_wins,(long)_losses];
 }
 
 -(NSString*)strRepWithBowlResults {
-    
+    return [NSString stringWithFormat:@"#%ld %@ (%ld-%ld) %@ %@ %@",(long)_rankTeamPollScore,_abbreviation,(long)_wins,(long)_losses,_confChampion,_semifinalWL,_natlChampWL];
 }
-
+/*
 -(NSString*)weekSummaryString {
     
 }
@@ -666,14 +717,25 @@
 -(NSString*)getTeamNeeds {
     
 }
-
+*/
 -(NSArray*)getQBRecruits {
-   
-    
-}
+    NSMutableArray* recruits = [NSMutableArray array];;
+    int stars;
+    for (int i = 0; i < _numberOfRecruits; ++i) {
+        stars = (int)(5*(float)(_numberOfRecruits - i/2)/_numberOfRecruits);
+        recruits[i] = [PlayerQB newQBWithName:[_league getRandName] year:1 stars:stars team:nil];//new PlayerQB(league.getRandName(), 1, stars, null);
+    }
+    [recruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        return a.ratOvr > b.ratOvr ? -1 : a.ratOvr == b.ratOvr ? 0 : 1;
+    }];
+    return recruits;
 
+}
+/*
 -(NSArray*)getRBRecruits {
-    
+ 
 }
 
 -(NSArray*)getWRRecruits {
@@ -703,35 +765,35 @@
 -(NSString *)getRecruitsInfoSaveFile {
     
 }
-
+*/
 -(NSString *)getPlayerInfoSaveFile {
     NSMutableString *sb = [NSMutableString string];
-    for (PlayerQB *qb in teamQBs) {
-        [sb appendString:[NSString stringWithFormat:@"QB %@,%@,%@,%@,%@,%@,%@,%@,%@\n",qb.name,qb.year,qb.ratPot,qb.ratFootIQ,qb.ratPassPow,qb.ratPassAcc,qb.ratPassEva, qb.ratOvr, qb.ratImprovement]];
+    for (PlayerQB *qb in _teamQBs) {
+        [sb appendString:[NSString stringWithFormat:@"QB %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",qb.name,(long)qb.year,(long)qb.ratPot,(long)qb.ratFootIQ,(long)qb.ratPassPow,(long)qb.ratPassAcc,(long)qb.ratPassEva,(long)qb.ratOvr,(long)qb.ratImprovement]];
     }
-    for (PlayerRB *rb in teamRBs) {
-        sb.append("RB," + rb.name + "," + rb.year + "," + rb.ratPot + "," + rb.ratFootIQ + "," + rb.ratRushPow + "," + rb.ratRushSpd + "," + rb.ratRushEva + "," + rb.ratOvr + "," + rb.ratImprovement + "%\n");
+    for (PlayerRB *rb in _teamRBs) {
+        [sb appendString:[NSString stringWithFormat:@"RB %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",rb.name,(long)rb.year,(long)rb.ratPot,(long)rb.ratFootIQ,(long)rb.ratRushPow,(long)rb.ratRushSpd,(long)rb.ratRushEva,(long)rb.ratOvr,(long)rb.ratImprovement]];
     }
-    for (PlayerWR *wr in teamWRs) {
-        sb.append("WR," + wr.name + "," + wr.year + "," + wr.ratPot + "," + wr.ratFootIQ + "," + wr.ratRecCat + "," + wr.ratRecSpd + "," + wr.ratRecEva + "," + wr.ratOvr + "," + wr.ratImprovement + "%\n");
+    for (PlayerWR *wr in _teamWRs) {
+        [sb appendString:[NSString stringWithFormat:@"WR %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",wr.name,(long)wr.year,(long)wr.ratPot,(long)wr.ratFootIQ,(long)wr.ratRecCat,(long)wr.ratRecSpd,(long)wr.ratRecEva,(long)wr.ratOvr,(long)wr.ratImprovement]];
     }
-    for (PlayerK *k in teamKs) {
-        sb.append("K," + k.name + "," + k.year + "," + k.ratPot + "," + k.ratFootIQ + "," + k.ratKickPow + "," + k.ratKickAcc + "," + k.ratKickFum + "," + k.ratOvr + "," + k.ratImprovement + "%\n");
+    for (PlayerK *k in _teamKs) {
+         [sb appendString:[NSString stringWithFormat:@"K %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",k.name,(long)k.year,(long)k.ratPot,(long)k.ratFootIQ,(long)k.ratKickPow,(long)k.ratKickAcc,(long)k.ratKickFum,(long)k.ratOvr,(long)k.ratImprovement]];
     }
-    for (PlayerOL *ol in teamOLs) {
-        sb.append("OL," + ol.name + "," + ol.year + "," + ol.ratPot + "," + ol.ratFootIQ + "," + ol.ratOLPow + "," + ol.ratOLBkR + "," + ol.ratOLBkP + "," + ol.ratOvr + "," + ol.ratImprovement + "%\n");
+    for (PlayerOL *ol in _teamOLs) {
+        [sb appendString:[NSString stringWithFormat:@"OL %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",ol.name,(long)ol.year,(long)ol.ratPot,(long)ol.ratFootIQ,(long)ol.ratOLPow,(long)ol.ratOLBkP,(long)ol.ratOLBkR,(long)ol.ratOvr,(long)ol.ratImprovement]];
     }
-    for (PlayerS *s in teamSs) {
-        sb.append("S," + s.name + "," + s.year + "," + s.ratPot + "," + s.ratFootIQ + "," + s.ratSCov + "," + s.ratSSpd + "," + s.ratSTkl + "," + s.ratOvr + "," + s.ratImprovement + "%\n");
+    for (PlayerS *s in _teamSs) {
+        [sb appendString:[NSString stringWithFormat:@"S %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",s.name,(long)s.year,(long)s.ratPot,(long)s.ratFootIQ,(long)s.ratSCov,(long)s.ratSSpd,(long)s.ratSTkl,(long)s.ratOvr,(long)s.ratImprovement]];
     }
-    for (PlayerCB *cb in teamCBs) {
-        sb.append("CB," + cb.name + "," + cb.year + "," + cb.ratPot + "," + cb.ratFootIQ + "," + cb.ratCBCov + "," + cb.ratCBSpd + "," + cb.ratCBTkl + "," + cb.ratOvr + "," + cb.ratImprovement + "%\n");
+    for (PlayerCB *cb in _teamCBs) {
+        [sb appendString:[NSString stringWithFormat:@"CB %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",cb.name,(long)cb.year,(long)cb.ratPot,(long)cb.ratFootIQ,(long)cb.ratCBCov,(long)cb.ratCBSpd,(long)cb.ratCBTkl,(long)cb.ratOvr,(long)cb.ratImprovement]];
     }
-    for (PlayerF7 *f7 in teamF7s) {
-        sb.append("F7," + f7.name + "," + f7.year + "," + f7.ratPot + "," + f7.ratFootIQ + "," + f7.ratF7Pow + "," + f7.ratF7Rsh + "," + f7.ratF7Pas + "," + f7.ratOvr + "," + f7.ratImprovement + "%\n");
+    for (PlayerF7 *f7 in _teamF7s) {
+        [sb appendString:[NSString stringWithFormat:@"F7 %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",f7.name,(long)f7.year,(long)f7.ratPot,(long)f7.ratFootIQ,(long)f7.ratF7Pow,(long)f7.ratF7Pas,(long)f7.ratF7Rsh,(long)f7.ratOvr,(long)f7.ratImprovement]];
     }
     return [sb copy];
-}*/
+}
 
 -(NSArray*)getOffensiveTeamStrategies {
     return @[
