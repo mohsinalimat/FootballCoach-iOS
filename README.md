@@ -1,5 +1,5 @@
-# FootballCoach-iOS
-An iOS Port of https://github.com/jonesguy14/footballcoach
+# Football Coach for iOS
+An iOS Port of https://github.com/jonesguy14/footballcoach.
 
 **NOTE**: As of March 17, 2016, nothing in this repo is at a working status. I am still in the process of translating all of the Java code in the [CFBsimPack folder of FootballCoach](https://github.com/jonesguy14/footballcoach/tree/master/app/src/main/java/CFBsimPack) to Objective-C by hand.
 Please check back later to see if this project is in working condition.
