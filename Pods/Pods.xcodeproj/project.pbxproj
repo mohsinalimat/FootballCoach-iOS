@@ -1,0 +1,504 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0563698EF002C7024815F3531C7E835D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		19AF65A2530F893103B975F7B02A3EDD /* Pods-harbaughsim16-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8336B8ACEAD504F1753865EFF698BF9B /* Pods-harbaughsim16-dummy.m */; };
+		4E5B4EEA50BEF0B4D0FE2394D3EB119A /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 25C744C065C4619184B9421F410F1F62 /* HexColors.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		596758BBEC68789E6C8928ECE3FC341C /* HexColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BC04C44AD4D4CFA90FB7A875193517A /* HexColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		890049142C3BDF715F7BF43DA817FF19 /* Pods-harbaughsim16-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C5331B216DEAC9C2C452305D54D33852 /* Pods-harbaughsim16-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8DCF5C0EE6AC7543935C51AA756864C0 /* HexColors-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D946C8B7CBCA93373729CA458161617E /* HexColors-dummy.m */; };
+		B768EAA4F040B54F0CC187469BE9DEC3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		D1E92AEC9F093E10C69F2B89A14F49F5 /* HexColors-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A5E59DFA5A6537C1492E09F7EED969 /* HexColors-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		78AB7AAD65F3CEBC814E346D7F832484 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C408D4E183A88B763793C217A66A1950;
+			remoteInfo = HexColors;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01A4BEFF36384A2A9AA1D90DDE5F0EA4 /* Pods-harbaughsim16-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-harbaughsim16-acknowledgements.markdown"; sourceTree = "<group>"; };
+		048B7152597EE5642138ED88E7A40D0F /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0ED77E2A7F87E536699608E732B5DB25 /* Pods-harbaughsim16.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-harbaughsim16.modulemap"; sourceTree = "<group>"; };
+		12C34EBCA61D298D1CED29711FB6FC82 /* HexColors-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-prefix.pch"; sourceTree = "<group>"; };
+		25C744C065C4619184B9421F410F1F62 /* HexColors.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HexColors.m; path = Classes/HexColors.m; sourceTree = "<group>"; };
+		3DBBEFCE306744B5E840D9E8250320F2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		4BC04C44AD4D4CFA90FB7A875193517A /* HexColors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HexColors.h; path = Classes/HexColors.h; sourceTree = "<group>"; };
+		4E553C46940C8122D3F4A9CB32442462 /* HexColors.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = HexColors.modulemap; sourceTree = "<group>"; };
+		53A5E59DFA5A6537C1492E09F7EED969 /* HexColors-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-umbrella.h"; sourceTree = "<group>"; };
+		63C743A65667FACB627C1A100658251F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75734F50CE77175EB4480B4865ECD662 /* Pods-harbaughsim16-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-harbaughsim16-acknowledgements.plist"; sourceTree = "<group>"; };
+		8336B8ACEAD504F1753865EFF698BF9B /* Pods-harbaughsim16-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-harbaughsim16-dummy.m"; sourceTree = "<group>"; };
+		8587C1D7632B42A3C3122C450C15343B /* Pods-harbaughsim16-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-harbaughsim16-resources.sh"; sourceTree = "<group>"; };
+		9DF76639085F1CBE160C78AEFE71D847 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE3ECB6FB859F121B615FA83227B169F /* Pods-harbaughsim16-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-harbaughsim16-frameworks.sh"; sourceTree = "<group>"; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C5331B216DEAC9C2C452305D54D33852 /* Pods-harbaughsim16-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-harbaughsim16-umbrella.h"; sourceTree = "<group>"; };
+		CC8EEC784382E9477BDD001BF58FA4B0 /* HexColors.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HexColors.xcconfig; sourceTree = "<group>"; };
+		D0AA9E7AD9221D22434A6181A2FD2628 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
+		D946C8B7CBCA93373729CA458161617E /* HexColors-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "HexColors-dummy.m"; sourceTree = "<group>"; };
+		DC38A20492FA49D3D210591CE6FF98D4 /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4BA155DC3466C96A26E2FED0479F99BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B768EAA4F040B54F0CC187469BE9DEC3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4B89A63D4DCD755427F00CB4E7A892B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0563698EF002C7024815F3531C7E835D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		11F37E59DF4EC34F8D95CD8D9E644BAE /* Pods-harbaughsim16 */ = {
+			isa = PBXGroup;
+			children = (
+				63C743A65667FACB627C1A100658251F /* Info.plist */,
+				0ED77E2A7F87E536699608E732B5DB25 /* Pods-harbaughsim16.modulemap */,
+				01A4BEFF36384A2A9AA1D90DDE5F0EA4 /* Pods-harbaughsim16-acknowledgements.markdown */,
+				75734F50CE77175EB4480B4865ECD662 /* Pods-harbaughsim16-acknowledgements.plist */,
+				8336B8ACEAD504F1753865EFF698BF9B /* Pods-harbaughsim16-dummy.m */,
+				AE3ECB6FB859F121B615FA83227B169F /* Pods-harbaughsim16-frameworks.sh */,
+				8587C1D7632B42A3C3122C450C15343B /* Pods-harbaughsim16-resources.sh */,
+				C5331B216DEAC9C2C452305D54D33852 /* Pods-harbaughsim16-umbrella.h */,
+				D0AA9E7AD9221D22434A6181A2FD2628 /* Pods-harbaughsim16.debug.xcconfig */,
+				DC38A20492FA49D3D210591CE6FF98D4 /* Pods-harbaughsim16.release.xcconfig */,
+			);
+			name = "Pods-harbaughsim16";
+			path = "Target Support Files/Pods-harbaughsim16";
+			sourceTree = "<group>";
+		};
+		63576997F49219B0C3A81D40187B0D48 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				4E553C46940C8122D3F4A9CB32442462 /* HexColors.modulemap */,
+				CC8EEC784382E9477BDD001BF58FA4B0 /* HexColors.xcconfig */,
+				D946C8B7CBCA93373729CA458161617E /* HexColors-dummy.m */,
+				12C34EBCA61D298D1CED29711FB6FC82 /* HexColors-prefix.pch */,
+				53A5E59DFA5A6537C1492E09F7EED969 /* HexColors-umbrella.h */,
+				3DBBEFCE306744B5E840D9E8250320F2 /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/HexColors";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				F9A417A795CBB0D3515C1BAEC1225A8D /* Pods */,
+				99FF7D552653DA56E7CC157235BE3730 /* Products */,
+				DF96B045900B6CB7FAEBB96ED187EF3A /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		99FF7D552653DA56E7CC157235BE3730 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9DF76639085F1CBE160C78AEFE71D847 /* HexColors.framework */,
+				048B7152597EE5642138ED88E7A40D0F /* Pods_harbaughsim16.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B92820B0C9D6131483F9E979A33913E0 /* HexColors */ = {
+			isa = PBXGroup;
+			children = (
+				4BC04C44AD4D4CFA90FB7A875193517A /* HexColors.h */,
+				25C744C065C4619184B9421F410F1F62 /* HexColors.m */,
+				63576997F49219B0C3A81D40187B0D48 /* Support Files */,
+			);
+			path = HexColors;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BF6342C8B29F4CEEA088EFF7AB4DE362 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		DF96B045900B6CB7FAEBB96ED187EF3A /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				11F37E59DF4EC34F8D95CD8D9E644BAE /* Pods-harbaughsim16 */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		F9A417A795CBB0D3515C1BAEC1225A8D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B92820B0C9D6131483F9E979A33913E0 /* HexColors */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		9411B07C29587EBD6593C07EBE5C2CA5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				890049142C3BDF715F7BF43DA817FF19 /* Pods-harbaughsim16-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D17BEB90EB4C27B46F1BB2CD8FF0C542 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1E92AEC9F093E10C69F2B89A14F49F5 /* HexColors-umbrella.h in Headers */,
+				596758BBEC68789E6C8928ECE3FC341C /* HexColors.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		83E8A712D217CD91B3E3494872151FE2 /* Pods-harbaughsim16 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4C18B96CB097358FDBDD657B24AE8D41 /* Build configuration list for PBXNativeTarget "Pods-harbaughsim16" */;
+			buildPhases = (
+				EA86871F41A73A16EAD5D65E0F2CB448 /* Sources */,
+				A4B89A63D4DCD755427F00CB4E7A892B /* Frameworks */,
+				9411B07C29587EBD6593C07EBE5C2CA5 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F7E0446BE6B2E808FEDF1B1BDC669821 /* PBXTargetDependency */,
+			);
+			name = "Pods-harbaughsim16";
+			productName = "Pods-harbaughsim16";
+			productReference = 048B7152597EE5642138ED88E7A40D0F /* Pods_harbaughsim16.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		C408D4E183A88B763793C217A66A1950 /* HexColors */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 120D0B17EB9DEF64F2E1BC979F24A556 /* Build configuration list for PBXNativeTarget "HexColors" */;
+			buildPhases = (
+				67EF9044B76E629170DD09EE2E94E76D /* Sources */,
+				4BA155DC3466C96A26E2FED0479F99BA /* Frameworks */,
+				D17BEB90EB4C27B46F1BB2CD8FF0C542 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HexColors;
+			productName = HexColors;
+			productReference = 9DF76639085F1CBE160C78AEFE71D847 /* HexColors.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 99FF7D552653DA56E7CC157235BE3730 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C408D4E183A88B763793C217A66A1950 /* HexColors */,
+				83E8A712D217CD91B3E3494872151FE2 /* Pods-harbaughsim16 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		67EF9044B76E629170DD09EE2E94E76D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DCF5C0EE6AC7543935C51AA756864C0 /* HexColors-dummy.m in Sources */,
+				4E5B4EEA50BEF0B4D0FE2394D3EB119A /* HexColors.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA86871F41A73A16EAD5D65E0F2CB448 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19AF65A2530F893103B975F7B02A3EDD /* Pods-harbaughsim16-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F7E0446BE6B2E808FEDF1B1BDC669821 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HexColors;
+			target = C408D4E183A88B763793C217A66A1950 /* HexColors */;
+			targetProxy = 78AB7AAD65F3CEBC814E346D7F832484 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1721A073E7763C1231F99B7B183E3471 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC8EEC784382E9477BDD001BF58FA4B0 /* HexColors.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/HexColors/HexColors-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/HexColors/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/HexColors/HexColors.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = HexColors;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2CE686FF7383A8EE787CEB6EC93A8573 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CC8EEC784382E9477BDD001BF58FA4B0 /* HexColors.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/HexColors/HexColors-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/HexColors/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/HexColors/HexColors.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = HexColors;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		32D0FD1A0F853169021BFA63EF363986 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0AA9E7AD9221D22434A6181A2FD2628 /* Pods-harbaughsim16.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-harbaughsim16/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_harbaughsim16;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		5CE5176205D06FF3FFE3DDDA9291E44B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		74857149DC1E0D599B8A01A78349A926 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = "RELEASE=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		75A5D601357F5C4BFAF0268BE59CAC29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC38A20492FA49D3D210591CE6FF98D4 /* Pods-harbaughsim16.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-harbaughsim16/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_harbaughsim16;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		120D0B17EB9DEF64F2E1BC979F24A556 /* Build configuration list for PBXNativeTarget "HexColors" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1721A073E7763C1231F99B7B183E3471 /* Debug */,
+				2CE686FF7383A8EE787CEB6EC93A8573 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5CE5176205D06FF3FFE3DDDA9291E44B /* Debug */,
+				74857149DC1E0D599B8A01A78349A926 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4C18B96CB097358FDBDD657B24AE8D41 /* Build configuration list for PBXNativeTarget "Pods-harbaughsim16" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32D0FD1A0F853169021BFA63EF363986 /* Debug */,
+				75A5D601357F5C4BFAF0268BE59CAC29 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
