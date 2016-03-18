@@ -31,8 +31,8 @@
     return [[League alloc] initFromCSV:namesCSV];
 }
 
-+(instancetype)newLeagueFromSaveFile:(NSData*)saveFileData names:(NSString*)namesCSV {
-    return [[League alloc] initWithSaveFile:saveFileData names:namesCSV];
++(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName names:(NSString*)namesCSV {
+    return [[League alloc] initWithSaveFile:saveFileName names:namesCSV];
 }
 
 -(instancetype)initFromCSV:(NSString*)namesCSV {
@@ -169,24 +169,18 @@
     return self;
 }
 
--(instancetype)initWithSaveFile:(NSData*)saveFileData names:(NSString*)nameCSV {
+-(instancetype)initWithSaveFile:(NSString*)saveFileName names:(NSString*)nameCSV {
     self = [super init];
     if (self) {
         heismanDecided = NO;
         _hasScheduledBowls = NO;
         //NSString *line = nil;
         _currentWeek = 0;
-        
-        /*
-        try {
-            // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader = new BufferedReader( new FileReader(saveFile) );
-            
-            //First ignore the save file info
-            bufferedReader.readLine();
-            
+        NSError *error;
+        /*NSString *line = [NSString stringWithContentsOfFile:saveFileName encoding:NSUTF8StringEncoding error:&error];
+        if (line) {
             //Next get league history
-            leagueHistory = new ArrayList<String[]>();
+            _leagueHistory = [NSMutableArray array];
             while((line = bufferedReader.readLine()) != null && !line.equals("END_LEAGUE_HIST")) {
                 leagueHistory.add(line.split("%"));
             }
@@ -229,47 +223,37 @@
             while((line = bufferedReader.readLine()) != null && !line.equals("END_USER_TEAM")) {
                 userTeam.teamHistory.add(line);
             }
-            
-            // Always close files.
-            bufferedReader.close();
-            
-            //read names from file
-            nameList = new ArrayList<String>();
-            String[] namesSplit = namesCSV.split(",");
-            for (String n : namesSplit) {
-                nameList.add(n.trim());
-            }
-            
-            //set up schedule
-            for (int i = 0; i < conferences.size(); ++i ) {
-                conferences.get(i).setUpSchedule();
-            }
-            for (int i = 0; i < conferences.size(); ++i ) {
-                conferences.get(i).setUpOOCSchedule();
-            }
-            for (int i = 0; i < conferences.size(); ++i ) {
-                conferences.get(i).insertOOCSchedule();
-            }
-            
-            // Initialize new stories lists
-            newsStories = new ArrayList< ArrayList<String> >();
-            for (int i = 0; i < 16; ++i) {
-                newsStories.add(new ArrayList<String>());
-            }
-            newsStories.get(0).add("New Season!>Ready for the new season, coach? Whether the National Championship is " +
-                                   "on your mind, or just a winning season, good luck!");
-            
         }
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                               "Unable to open file");
-        }
-        catch(IOException ex) {
-            System.out.println(
-                               "Error reading file");
-        }
-        */
         
+        
+        //read names from file
+        nameList = new ArrayList<String>();
+        String[] namesSplit = namesCSV.split(",");
+        for (String n : namesSplit) {
+            nameList.add(n.trim());
+        }
+        
+        //set up schedule
+        for (int i = 0; i < conferences.size(); ++i ) {
+            conferences.get(i).setUpSchedule();
+        }
+        for (int i = 0; i < conferences.size(); ++i ) {
+            conferences.get(i).setUpOOCSchedule();
+        }
+        for (int i = 0; i < conferences.size(); ++i ) {
+            conferences.get(i).insertOOCSchedule();
+        }
+        
+        // Initialize new stories lists
+        newsStories = new ArrayList< ArrayList<String> >();
+        for (int i = 0; i < 16; ++i) {
+            newsStories.add(new ArrayList<String>());
+        }
+        newsStories.get(0).add("New Season!>Ready for the new season, coach? Whether the National Championship is " +
+                               "on your mind, or just a winning season, good luck!");
+        
+        
+         */
     }
     return self;
 }

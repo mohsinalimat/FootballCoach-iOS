@@ -42,7 +42,7 @@
 
 +(NSArray*)bowlGameTitles;
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV;
-+(instancetype)newLeagueFromSaveFile:(NSData*)saveFileData names:(NSString*)namesCSV;
++(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName names:(NSString*)namesCSV;
 
 -(NSInteger)getConfNumber:(NSString*)conf;
 -(void)playWeek;
