@@ -6,13 +6,13 @@
 //  Copyright © 2016 Akshay Easwaran. All rights reserved.
 //
 
-#import "FirstViewController.h"
+#import "NewsViewController.h"
 
-@interface FirstViewController ()
+@interface NewsViewController ()
 
 @end
 
-@implementation FirstViewController
+@implementation NewsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

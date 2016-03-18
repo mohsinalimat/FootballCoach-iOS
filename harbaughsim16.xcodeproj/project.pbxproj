@@ -9,11 +9,27 @@
 /* Begin PBXBuildFile section */
 		75924A201C99CCC000B165AD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A1F1C99CCC000B165AD /* main.m */; };
 		75924A231C99CCC000B165AD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A221C99CCC000B165AD /* AppDelegate.m */; };
-		75924A261C99CCC000B165AD /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A251C99CCC000B165AD /* FirstViewController.m */; };
-		75924A291C99CCC000B165AD /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A281C99CCC000B165AD /* SecondViewController.m */; };
-		75924A2C1C99CCC000B165AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75924A2A1C99CCC000B165AD /* Main.storyboard */; };
+		75924A261C99CCC000B165AD /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A251C99CCC000B165AD /* NewsViewController.m */; };
 		75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75924A2D1C99CCC000B165AD /* Assets.xcassets */; };
 		75924A311C99CCC000B165AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75924A2F1C99CCC000B165AD /* LaunchScreen.storyboard */; };
+		75924A3D1C99CD8D00B165AD /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A3C1C99CD8D00B165AD /* Team.m */; };
+		75924A491C99CF7C00B165AD /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A481C99CF7C00B165AD /* Game.m */; };
+		75924A4C1C99D03300B165AD /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A4B1C99D03300B165AD /* Player.m */; };
+		75924A4F1C99D05E00B165AD /* Conference.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A4E1C99D05E00B165AD /* Conference.m */; };
+		75924A521C99D1C600B165AD /* TeamStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A511C99D1C600B165AD /* TeamStrategy.m */; };
+		75924A551C99D24500B165AD /* League.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A541C99D24500B165AD /* League.m */; };
+		75924A581C99E62F00B165AD /* PlayerQB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A571C99E62F00B165AD /* PlayerQB.m */; };
+		75924A5B1C99E63800B165AD /* PlayerRB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A5A1C99E63800B165AD /* PlayerRB.m */; };
+		75924A5E1C99E64400B165AD /* PlayerWR.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A5D1C99E64400B165AD /* PlayerWR.m */; };
+		75924A611C99E64D00B165AD /* PlayerK.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A601C99E64D00B165AD /* PlayerK.m */; };
+		75924A641C99E65600B165AD /* PlayerOL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A631C99E65600B165AD /* PlayerOL.m */; };
+		75924A671C99E65E00B165AD /* PlayerS.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A661C99E65E00B165AD /* PlayerS.m */; };
+		75924A6A1C99E66700B165AD /* PlayerCB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A691C99E66700B165AD /* PlayerCB.m */; };
+		75924A6D1C99E66E00B165AD /* PlayerF7.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A6C1C99E66E00B165AD /* PlayerF7.m */; };
+		75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */; };
+		75BABF3F1C9A5D2F00A68CD6 /* RosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3E1C9A5D2F00A68CD6 /* RosterViewController.m */; };
+		75BABF421C9A5D3800A68CD6 /* RecruitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */; };
+		75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,14 +37,47 @@
 		75924A1F1C99CCC000B165AD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75924A211C99CCC000B165AD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		75924A221C99CCC000B165AD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		75924A241C99CCC000B165AD /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		75924A251C99CCC000B165AD /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		75924A271C99CCC000B165AD /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		75924A281C99CCC000B165AD /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
-		75924A2B1C99CCC000B165AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		75924A241C99CCC000B165AD /* NewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
+		75924A251C99CCC000B165AD /* NewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
 		75924A2D1C99CCC000B165AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75924A301C99CCC000B165AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		75924A321C99CCC000B165AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75924A3B1C99CD8D00B165AD /* Team.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Team.h; sourceTree = "<group>"; };
+		75924A3C1C99CD8D00B165AD /* Team.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Team.m; sourceTree = "<group>"; };
+		75924A471C99CF7C00B165AD /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		75924A481C99CF7C00B165AD /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
+		75924A4A1C99D03300B165AD /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		75924A4B1C99D03300B165AD /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		75924A4D1C99D05E00B165AD /* Conference.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Conference.h; sourceTree = "<group>"; };
+		75924A4E1C99D05E00B165AD /* Conference.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Conference.m; sourceTree = "<group>"; };
+		75924A501C99D1C600B165AD /* TeamStrategy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStrategy.h; sourceTree = "<group>"; };
+		75924A511C99D1C600B165AD /* TeamStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStrategy.m; sourceTree = "<group>"; };
+		75924A531C99D24500B165AD /* League.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = League.h; sourceTree = "<group>"; };
+		75924A541C99D24500B165AD /* League.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = League.m; sourceTree = "<group>"; };
+		75924A561C99E62F00B165AD /* PlayerQB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerQB.h; sourceTree = "<group>"; };
+		75924A571C99E62F00B165AD /* PlayerQB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerQB.m; sourceTree = "<group>"; };
+		75924A591C99E63800B165AD /* PlayerRB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerRB.h; sourceTree = "<group>"; };
+		75924A5A1C99E63800B165AD /* PlayerRB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerRB.m; sourceTree = "<group>"; };
+		75924A5C1C99E64400B165AD /* PlayerWR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerWR.h; sourceTree = "<group>"; };
+		75924A5D1C99E64400B165AD /* PlayerWR.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerWR.m; sourceTree = "<group>"; };
+		75924A5F1C99E64D00B165AD /* PlayerK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerK.h; sourceTree = "<group>"; };
+		75924A601C99E64D00B165AD /* PlayerK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerK.m; sourceTree = "<group>"; };
+		75924A621C99E65600B165AD /* PlayerOL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerOL.h; sourceTree = "<group>"; };
+		75924A631C99E65600B165AD /* PlayerOL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerOL.m; sourceTree = "<group>"; };
+		75924A651C99E65E00B165AD /* PlayerS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerS.h; sourceTree = "<group>"; };
+		75924A661C99E65E00B165AD /* PlayerS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerS.m; sourceTree = "<group>"; };
+		75924A681C99E66700B165AD /* PlayerCB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerCB.h; sourceTree = "<group>"; };
+		75924A691C99E66700B165AD /* PlayerCB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerCB.m; sourceTree = "<group>"; };
+		75924A6B1C99E66E00B165AD /* PlayerF7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerF7.h; sourceTree = "<group>"; };
+		75924A6C1C99E66E00B165AD /* PlayerF7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerF7.m; sourceTree = "<group>"; };
+		75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
+		75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
+		75BABF3D1C9A5D2F00A68CD6 /* RosterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RosterViewController.h; sourceTree = "<group>"; };
+		75BABF3E1C9A5D2F00A68CD6 /* RosterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RosterViewController.m; sourceTree = "<group>"; };
+		75BABF401C9A5D3800A68CD6 /* RecruitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitingViewController.h; sourceTree = "<group>"; };
+		75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecruitingViewController.m; sourceTree = "<group>"; };
+		75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTeamViewController.h; sourceTree = "<group>"; };
+		75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTeamViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,14 +112,20 @@
 			children = (
 				75924A211C99CCC000B165AD /* AppDelegate.h */,
 				75924A221C99CCC000B165AD /* AppDelegate.m */,
-				75924A241C99CCC000B165AD /* FirstViewController.h */,
-				75924A251C99CCC000B165AD /* FirstViewController.m */,
-				75924A271C99CCC000B165AD /* SecondViewController.h */,
-				75924A281C99CCC000B165AD /* SecondViewController.m */,
-				75924A2A1C99CCC000B165AD /* Main.storyboard */,
+				75924A241C99CCC000B165AD /* NewsViewController.h */,
+				75924A251C99CCC000B165AD /* NewsViewController.m */,
+				75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */,
+				75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */,
+				75BABF3D1C9A5D2F00A68CD6 /* RosterViewController.h */,
+				75BABF3E1C9A5D2F00A68CD6 /* RosterViewController.m */,
+				75BABF401C9A5D3800A68CD6 /* RecruitingViewController.h */,
+				75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */,
+				75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */,
+				75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */,
 				75924A2D1C99CCC000B165AD /* Assets.xcassets */,
 				75924A2F1C99CCC000B165AD /* LaunchScreen.storyboard */,
 				75924A321C99CCC000B165AD /* Info.plist */,
+				75BABF461C9A5E5E00A68CD6 /* CFBSimPack */,
 				75924A1E1C99CCC000B165AD /* Supporting Files */,
 			);
 			path = harbaughsim16;
@@ -82,6 +137,41 @@
 				75924A1F1C99CCC000B165AD /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		75BABF461C9A5E5E00A68CD6 /* CFBSimPack */ = {
+			isa = PBXGroup;
+			children = (
+				75924A531C99D24500B165AD /* League.h */,
+				75924A541C99D24500B165AD /* League.m */,
+				75924A3B1C99CD8D00B165AD /* Team.h */,
+				75924A3C1C99CD8D00B165AD /* Team.m */,
+				75924A501C99D1C600B165AD /* TeamStrategy.h */,
+				75924A511C99D1C600B165AD /* TeamStrategy.m */,
+				75924A4D1C99D05E00B165AD /* Conference.h */,
+				75924A4E1C99D05E00B165AD /* Conference.m */,
+				75924A4A1C99D03300B165AD /* Player.h */,
+				75924A4B1C99D03300B165AD /* Player.m */,
+				75924A561C99E62F00B165AD /* PlayerQB.h */,
+				75924A571C99E62F00B165AD /* PlayerQB.m */,
+				75924A591C99E63800B165AD /* PlayerRB.h */,
+				75924A5A1C99E63800B165AD /* PlayerRB.m */,
+				75924A5C1C99E64400B165AD /* PlayerWR.h */,
+				75924A5D1C99E64400B165AD /* PlayerWR.m */,
+				75924A5F1C99E64D00B165AD /* PlayerK.h */,
+				75924A601C99E64D00B165AD /* PlayerK.m */,
+				75924A621C99E65600B165AD /* PlayerOL.h */,
+				75924A631C99E65600B165AD /* PlayerOL.m */,
+				75924A651C99E65E00B165AD /* PlayerS.h */,
+				75924A661C99E65E00B165AD /* PlayerS.m */,
+				75924A681C99E66700B165AD /* PlayerCB.h */,
+				75924A691C99E66700B165AD /* PlayerCB.m */,
+				75924A6B1C99E66E00B165AD /* PlayerF7.h */,
+				75924A6C1C99E66E00B165AD /* PlayerF7.m */,
+				75924A471C99CF7C00B165AD /* Game.h */,
+				75924A481C99CF7C00B165AD /* Game.m */,
+			);
+			name = CFBSimPack;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,7 +233,6 @@
 			files = (
 				75924A311C99CCC000B165AD /* LaunchScreen.storyboard in Resources */,
 				75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */,
-				75924A2C1C99CCC000B165AD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,24 +243,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75924A291C99CCC000B165AD /* SecondViewController.m in Sources */,
+				75924A4C1C99D03300B165AD /* Player.m in Sources */,
+				75924A581C99E62F00B165AD /* PlayerQB.m in Sources */,
+				75924A6D1C99E66E00B165AD /* PlayerF7.m in Sources */,
+				75BABF3F1C9A5D2F00A68CD6 /* RosterViewController.m in Sources */,
+				75BABF421C9A5D3800A68CD6 /* RecruitingViewController.m in Sources */,
 				75924A231C99CCC000B165AD /* AppDelegate.m in Sources */,
-				75924A261C99CCC000B165AD /* FirstViewController.m in Sources */,
+				75924A5E1C99E64400B165AD /* PlayerWR.m in Sources */,
+				75924A611C99E64D00B165AD /* PlayerK.m in Sources */,
+				75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */,
+				75924A4F1C99D05E00B165AD /* Conference.m in Sources */,
+				75924A491C99CF7C00B165AD /* Game.m in Sources */,
+				75924A261C99CCC000B165AD /* NewsViewController.m in Sources */,
+				75924A551C99D24500B165AD /* League.m in Sources */,
+				75924A6A1C99E66700B165AD /* PlayerCB.m in Sources */,
+				75924A3D1C99CD8D00B165AD /* Team.m in Sources */,
 				75924A201C99CCC000B165AD /* main.m in Sources */,
+				75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */,
+				75924A641C99E65600B165AD /* PlayerOL.m in Sources */,
+				75924A5B1C99E63800B165AD /* PlayerRB.m in Sources */,
+				75924A671C99E65E00B165AD /* PlayerS.m in Sources */,
+				75924A521C99D1C600B165AD /* TeamStrategy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		75924A2A1C99CCC000B165AD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				75924A2B1C99CCC000B165AD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		75924A2F1C99CCC000B165AD /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -268,6 +366,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = harbaughsim16/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.harbaughsim16;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -279,6 +378,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = harbaughsim16/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.harbaughsim16;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -304,6 +404,7 @@
 				75924A371C99CCC000B165AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

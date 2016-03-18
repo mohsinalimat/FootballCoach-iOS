@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  FirstViewController.h
 //  harbaughsim16
 //
 //  Created by Akshay Easwaran on 3/16/16.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
+@interface NewsViewController : UIViewController
 
 
 @end
