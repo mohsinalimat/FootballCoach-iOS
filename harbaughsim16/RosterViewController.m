@@ -9,5 +9,8 @@
 #import "RosterViewController.h"
 
 @implementation RosterViewController
-
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"Roster";
+}
 @end

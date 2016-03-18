@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B126401C40074476E0CBD5E /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 816834A7F9C15B63FF8EA2BB /* Pods_harbaughsim16.framework */; };
+		7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */; };
+		7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */; };
+		7510B84D1C9C76D700BE9CD6 /* TeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B84C1C9C76D700BE9CD6 /* TeamViewController.m */; };
+		7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */; };
 		75924A201C99CCC000B165AD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A1F1C99CCC000B165AD /* main.m */; };
 		75924A231C99CCC000B165AD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A221C99CCC000B165AD /* AppDelegate.m */; };
 		75924A261C99CCC000B165AD /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A251C99CCC000B165AD /* NewsViewController.m */; };
@@ -26,6 +31,17 @@
 		75924A671C99E65E00B165AD /* PlayerS.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A661C99E65E00B165AD /* PlayerS.m */; };
 		75924A6A1C99E66700B165AD /* PlayerCB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A691C99E66700B165AD /* PlayerCB.m */; };
 		75924A6D1C99E66E00B165AD /* PlayerF7.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A6C1C99E66E00B165AD /* PlayerF7.m */; };
+		75A86C881C9C790D0034140C /* FCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A86C871C9C790D0034140C /* FCTableViewController.m */; };
+		75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C891C9C7AA80034140C /* news@3x.png */; };
+		75A86C901C9C7AA80034140C /* roster@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C8B1C9C7AA80034140C /* roster@3x.png */; };
+		75A86C911C9C7AA80034140C /* schedule@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C8C1C9C7AA80034140C /* schedule@3x.png */; };
+		75A86C921C9C7AA80034140C /* team@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C8D1C9C7AA80034140C /* team@3x.png */; };
+		75A86C981C9C7C0C0034140C /* news-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C931C9C7C0C0034140C /* news-selected@3x.png */; };
+		75A86C991C9C7C0C0034140C /* recruit-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C941C9C7C0C0034140C /* recruit-selected@3x.png */; };
+		75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C951C9C7C0C0034140C /* recruit@3x.png */; };
+		75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C961C9C7C0C0034140C /* schedule-selected@3x.png */; };
+		75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C971C9C7C0C0034140C /* team-selected@3x.png */; };
+		75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */; };
 		75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */; };
 		75BABF3F1C9A5D2F00A68CD6 /* RosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3E1C9A5D2F00A68CD6 /* RosterViewController.m */; };
 		75BABF421C9A5D3800A68CD6 /* RecruitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */; };
@@ -33,6 +49,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44F9430C6D467B894D8E6C88 /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.release.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
+		7510B8451C9C76BE00BE9CD6 /* TeamSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamSelectionViewController.h; sourceTree = "<group>"; };
+		7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamSelectionViewController.m; sourceTree = "<group>"; };
+		7510B8481C9C76C900BE9CD6 /* GameDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDetailViewController.h; sourceTree = "<group>"; };
+		7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailViewController.m; sourceTree = "<group>"; };
+		7510B84B1C9C76D700BE9CD6 /* TeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamViewController.h; sourceTree = "<group>"; };
+		7510B84C1C9C76D700BE9CD6 /* TeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamViewController.m; sourceTree = "<group>"; };
+		7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		75924A1B1C99CCC000B165AD /* harbaughsim16.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = harbaughsim16.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75924A1F1C99CCC000B165AD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75924A211C99CCC000B165AD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -70,6 +95,18 @@
 		75924A691C99E66700B165AD /* PlayerCB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerCB.m; sourceTree = "<group>"; };
 		75924A6B1C99E66E00B165AD /* PlayerF7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerF7.h; sourceTree = "<group>"; };
 		75924A6C1C99E66E00B165AD /* PlayerF7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerF7.m; sourceTree = "<group>"; };
+		75A86C861C9C790D0034140C /* FCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCTableViewController.h; sourceTree = "<group>"; };
+		75A86C871C9C790D0034140C /* FCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCTableViewController.m; sourceTree = "<group>"; };
+		75A86C891C9C7AA80034140C /* news@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "news@3x.png"; sourceTree = "<group>"; };
+		75A86C8B1C9C7AA80034140C /* roster@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roster@3x.png"; sourceTree = "<group>"; };
+		75A86C8C1C9C7AA80034140C /* schedule@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule@3x.png"; sourceTree = "<group>"; };
+		75A86C8D1C9C7AA80034140C /* team@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "team@3x.png"; sourceTree = "<group>"; };
+		75A86C931C9C7C0C0034140C /* news-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "news-selected@3x.png"; sourceTree = "<group>"; };
+		75A86C941C9C7C0C0034140C /* recruit-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recruit-selected@3x.png"; sourceTree = "<group>"; };
+		75A86C951C9C7C0C0034140C /* recruit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "recruit@3x.png"; sourceTree = "<group>"; };
+		75A86C961C9C7C0C0034140C /* schedule-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule-selected@3x.png"; sourceTree = "<group>"; };
+		75A86C971C9C7C0C0034140C /* team-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "team-selected@3x.png"; sourceTree = "<group>"; };
+		75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roster-selected@3x.png"; sourceTree = "<group>"; };
 		75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
 		75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
 		75BABF3D1C9A5D2F00A68CD6 /* RosterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RosterViewController.h; sourceTree = "<group>"; };
@@ -78,6 +115,8 @@
 		75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecruitingViewController.m; sourceTree = "<group>"; };
 		75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTeamViewController.h; sourceTree = "<group>"; };
 		75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTeamViewController.m; sourceTree = "<group>"; };
+		816834A7F9C15B63FF8EA2BB /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAC021E4350CD61827E4ADB7 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,17 +124,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B126401C40074476E0CBD5E /* Pods_harbaughsim16.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7510B8441C9C76AD00BE9CD6 /* Base Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				75924A241C99CCC000B165AD /* NewsViewController.h */,
+				75924A251C99CCC000B165AD /* NewsViewController.m */,
+				75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */,
+				75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */,
+				75BABF3D1C9A5D2F00A68CD6 /* RosterViewController.h */,
+				75BABF3E1C9A5D2F00A68CD6 /* RosterViewController.m */,
+				75BABF401C9A5D3800A68CD6 /* RecruitingViewController.h */,
+				75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */,
+				75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */,
+				75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */,
+			);
+			name = "Base Tabs";
+			sourceTree = "<group>";
+		};
 		75924A121C99CCC000B165AD = {
 			isa = PBXGroup;
 			children = (
 				75924A1D1C99CCC000B165AD /* harbaughsim16 */,
 				75924A1C1C99CCC000B165AD /* Products */,
+				A166FA420F5A47450B706E0D /* Pods */,
+				9E01BE51791486545CD182A1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,19 +171,21 @@
 			children = (
 				75924A211C99CCC000B165AD /* AppDelegate.h */,
 				75924A221C99CCC000B165AD /* AppDelegate.m */,
-				75924A241C99CCC000B165AD /* NewsViewController.h */,
-				75924A251C99CCC000B165AD /* NewsViewController.m */,
-				75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */,
-				75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */,
-				75BABF3D1C9A5D2F00A68CD6 /* RosterViewController.h */,
-				75BABF3E1C9A5D2F00A68CD6 /* RosterViewController.m */,
-				75BABF401C9A5D3800A68CD6 /* RecruitingViewController.h */,
-				75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */,
-				75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */,
-				75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */,
+				7510B8451C9C76BE00BE9CD6 /* TeamSelectionViewController.h */,
+				7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */,
+				7510B8481C9C76C900BE9CD6 /* GameDetailViewController.h */,
+				7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */,
+				7510B84B1C9C76D700BE9CD6 /* TeamViewController.h */,
+				7510B84C1C9C76D700BE9CD6 /* TeamViewController.m */,
+				7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */,
+				7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */,
+				75A86C861C9C790D0034140C /* FCTableViewController.h */,
+				75A86C871C9C790D0034140C /* FCTableViewController.m */,
+				7510B8441C9C76AD00BE9CD6 /* Base Tabs */,
 				75924A2D1C99CCC000B165AD /* Assets.xcassets */,
 				75924A2F1C99CCC000B165AD /* LaunchScreen.storyboard */,
 				75924A321C99CCC000B165AD /* Info.plist */,
+				75A86C9F1C9C7CAA0034140C /* Images */,
 				75BABF461C9A5E5E00A68CD6 /* CFBSimPack */,
 				75924A1E1C99CCC000B165AD /* Supporting Files */,
 			);
@@ -137,6 +198,23 @@
 				75924A1F1C99CCC000B165AD /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		75A86C9F1C9C7CAA0034140C /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				75A86C931C9C7C0C0034140C /* news-selected@3x.png */,
+				75A86C941C9C7C0C0034140C /* recruit-selected@3x.png */,
+				75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */,
+				75A86C951C9C7C0C0034140C /* recruit@3x.png */,
+				75A86C961C9C7C0C0034140C /* schedule-selected@3x.png */,
+				75A86C971C9C7C0C0034140C /* team-selected@3x.png */,
+				75A86C891C9C7AA80034140C /* news@3x.png */,
+				75A86C8B1C9C7AA80034140C /* roster@3x.png */,
+				75A86C8C1C9C7AA80034140C /* schedule@3x.png */,
+				75A86C8D1C9C7AA80034140C /* team@3x.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		75BABF461C9A5E5E00A68CD6 /* CFBSimPack */ = {
@@ -174,6 +252,23 @@
 			name = CFBSimPack;
 			sourceTree = "<group>";
 		};
+		9E01BE51791486545CD182A1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				816834A7F9C15B63FF8EA2BB /* Pods_harbaughsim16.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A166FA420F5A47450B706E0D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FAC021E4350CD61827E4ADB7 /* Pods-harbaughsim16.debug.xcconfig */,
+				44F9430C6D467B894D8E6C88 /* Pods-harbaughsim16.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -181,9 +276,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75924A351C99CCC000B165AD /* Build configuration list for PBXNativeTarget "harbaughsim16" */;
 			buildPhases = (
+				3C62C6932E1DFA7793EB4A43 /* Check Pods Manifest.lock */,
 				75924A171C99CCC000B165AD /* Sources */,
 				75924A181C99CCC000B165AD /* Frameworks */,
 				75924A191C99CCC000B165AD /* Resources */,
+				420717E5DD0E35E3620D859B /* Embed Pods Frameworks */,
+				91BB9B24087F393AA71E4295 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -231,12 +329,70 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75A86C911C9C7AA80034140C /* schedule@3x.png in Resources */,
 				75924A311C99CCC000B165AD /* LaunchScreen.storyboard in Resources */,
+				75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */,
+				75A86C901C9C7AA80034140C /* roster@3x.png in Resources */,
 				75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */,
+				75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */,
+				75A86C991C9C7C0C0034140C /* recruit-selected@3x.png in Resources */,
+				75A86C981C9C7C0C0034140C /* news-selected@3x.png in Resources */,
+				75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */,
+				75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */,
+				75A86C921C9C7AA80034140C /* team@3x.png in Resources */,
+				75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3C62C6932E1DFA7793EB4A43 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		420717E5DD0E35E3620D859B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		91BB9B24087F393AA71E4295 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		75924A171C99CCC000B165AD /* Sources */ = {
@@ -245,16 +401,19 @@
 			files = (
 				75924A4C1C99D03300B165AD /* Player.m in Sources */,
 				75924A581C99E62F00B165AD /* PlayerQB.m in Sources */,
+				7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */,
 				75924A6D1C99E66E00B165AD /* PlayerF7.m in Sources */,
 				75BABF3F1C9A5D2F00A68CD6 /* RosterViewController.m in Sources */,
 				75BABF421C9A5D3800A68CD6 /* RecruitingViewController.m in Sources */,
 				75924A231C99CCC000B165AD /* AppDelegate.m in Sources */,
 				75924A5E1C99E64400B165AD /* PlayerWR.m in Sources */,
+				75A86C881C9C790D0034140C /* FCTableViewController.m in Sources */,
 				75924A611C99E64D00B165AD /* PlayerK.m in Sources */,
 				75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */,
 				75924A4F1C99D05E00B165AD /* Conference.m in Sources */,
 				75924A491C99CF7C00B165AD /* Game.m in Sources */,
 				75924A261C99CCC000B165AD /* NewsViewController.m in Sources */,
+				7510B84D1C9C76D700BE9CD6 /* TeamViewController.m in Sources */,
 				75924A551C99D24500B165AD /* League.m in Sources */,
 				75924A6A1C99E66700B165AD /* PlayerCB.m in Sources */,
 				75924A3D1C99CD8D00B165AD /* Team.m in Sources */,
@@ -263,6 +422,8 @@
 				75924A641C99E65600B165AD /* PlayerOL.m in Sources */,
 				75924A5B1C99E63800B165AD /* PlayerRB.m in Sources */,
 				75924A671C99E65E00B165AD /* PlayerS.m in Sources */,
+				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,
+				7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */,
 				75924A521C99D1C600B165AD /* TeamStrategy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,6 +524,7 @@
 		};
 		75924A361C99CCC000B165AD /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FAC021E4350CD61827E4ADB7 /* Pods-harbaughsim16.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = harbaughsim16/Info.plist;
@@ -375,6 +537,7 @@
 		};
 		75924A371C99CCC000B165AD /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 44F9430C6D467B894D8E6C88 /* Pods-harbaughsim16.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = harbaughsim16/Info.plist;

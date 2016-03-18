@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FCTableViewController.h"
 
-@interface ScheduleViewController : UITableViewController
+@interface ScheduleViewController : FCTableViewController
 
 @end

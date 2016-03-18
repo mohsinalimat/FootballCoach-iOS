@@ -9,5 +9,8 @@
 #import "ScheduleViewController.h"
 
 @implementation ScheduleViewController
-
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"Schedule";
+}
 @end

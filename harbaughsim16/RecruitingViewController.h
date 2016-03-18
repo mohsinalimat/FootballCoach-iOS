@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FCTableViewController.h"
 
-@interface RecruitingViewController : UITableViewController
+@interface RecruitingViewController : FCTableViewController
 
 @end

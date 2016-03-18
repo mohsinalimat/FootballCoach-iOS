@@ -176,7 +176,7 @@
         _hasScheduledBowls = NO;
         //NSString *line = nil;
         _currentWeek = 0;
-        NSError *error;
+        //NSError *error;
         /*NSString *line = [NSString stringWithContentsOfFile:saveFileName encoding:NSUTF8StringEncoding error:&error];
         if (line) {
             //Next get league history

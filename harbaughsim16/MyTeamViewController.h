@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FCTableViewController.h"
 
-@interface MyTeamViewController : UITableViewController
+@interface MyTeamViewController : FCTableViewController
 
 @end

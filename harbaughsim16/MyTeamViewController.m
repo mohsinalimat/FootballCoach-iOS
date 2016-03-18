@@ -9,5 +9,8 @@
 #import "MyTeamViewController.h"
 
 @implementation MyTeamViewController
-
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"My Team";
+}
 @end

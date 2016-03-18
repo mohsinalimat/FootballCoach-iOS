@@ -9,5 +9,8 @@
 #import "RecruitingViewController.h"
 
 @implementation RecruitingViewController
-
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"Recruiting";
+}
 @end

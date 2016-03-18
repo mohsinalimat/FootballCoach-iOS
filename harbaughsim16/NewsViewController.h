@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FCTableViewController.h"
 
-@interface NewsViewController : UIViewController
+@interface NewsViewController : FCTableViewController
 
 
 @end
