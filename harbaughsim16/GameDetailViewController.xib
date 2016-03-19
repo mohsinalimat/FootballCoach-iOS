@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameDetailViewController">
+            <connections>
+                <outlet property="gameDetailCell" destination="g06-wq-bf0" id="Ecf-Sd-n1V"/>
+                <outlet property="view" destination="Zsp-Z9-KuK" id="1AW-ee-4kb"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Zsp-Z9-KuK">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <connections>
+                <outlet property="dataSource" destination="-1" id="N3d-K0-M1k"/>
+                <outlet property="delegate" destination="-1" id="nGz-DH-Slu"/>
+            </connections>
+            <point key="canvasLocation" x="404" y="352"/>
+        </tableView>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="175" id="g06-wq-bf0" customClass="HBGameDetailCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="175"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g06-wq-bf0" id="jKc-5m-uSG">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="174.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#1 CLM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ajk-KI-f6T">
+                        <rect key="frame" x="20" y="13" width="111" height="40"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xqz-8T-D6e">
+                        <rect key="frame" x="139" y="23" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#2 ALA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yH9-kr-8Nn">
+                        <rect key="frame" x="189" y="14" width="111" height="40"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZQ-kn-HqP">
+                        <rect key="frame" x="20" y="61" width="111" height="51"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="60" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qoA-kM-Zvf">
+                        <rect key="frame" x="189" y="61" width="111" height="51"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Final (OT)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rEt-RA-oS4">
+                        <rect key="frame" x="20" y="119" width="280" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="jKX-JB-CoG"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="National Championship Game" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UQL-Ir-ZJH">
+                        <rect key="frame" x="20" y="144" width="280" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="UQL-Ir-ZJH" firstAttribute="top" secondItem="rEt-RA-oS4" secondAttribute="bottom" constant="4" id="3nT-rr-vrP"/>
+                    <constraint firstItem="qoA-kM-Zvf" firstAttribute="baseline" secondItem="KZQ-kn-HqP" secondAttribute="baseline" id="5wp-Ws-V4f"/>
+                    <constraint firstItem="yH9-kr-8Nn" firstAttribute="centerY" secondItem="Xqz-8T-D6e" secondAttribute="centerY" id="6fh-h5-51l"/>
+                    <constraint firstItem="rEt-RA-oS4" firstAttribute="trailing" secondItem="qoA-kM-Zvf" secondAttribute="trailing" id="9j3-ch-CcR"/>
+                    <constraint firstItem="qoA-kM-Zvf" firstAttribute="top" secondItem="yH9-kr-8Nn" secondAttribute="bottom" constant="7" id="CaJ-RI-Wbc"/>
+                    <constraint firstItem="rEt-RA-oS4" firstAttribute="centerX" secondItem="Xqz-8T-D6e" secondAttribute="centerX" id="Gq0-K3-sRI"/>
+                    <constraint firstItem="rEt-RA-oS4" firstAttribute="top" secondItem="Xqz-8T-D6e" secondAttribute="bottom" constant="75" id="GvV-kd-NLb"/>
+                    <constraint firstItem="rEt-RA-oS4" firstAttribute="trailing" secondItem="UQL-Ir-ZJH" secondAttribute="trailing" id="HQw-vo-XzP"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="UQL-Ir-ZJH" secondAttribute="bottom" constant="1.5" id="Hhg-6r-j03"/>
+                    <constraint firstItem="KZQ-kn-HqP" firstAttribute="leading" secondItem="rEt-RA-oS4" secondAttribute="leading" id="IvD-YU-9L1"/>
+                    <constraint firstItem="rEt-RA-oS4" firstAttribute="top" secondItem="KZQ-kn-HqP" secondAttribute="bottom" constant="7" id="Ljy-Ug-mnZ"/>
+                    <constraint firstItem="UQL-Ir-ZJH" firstAttribute="leading" secondItem="rEt-RA-oS4" secondAttribute="leading" id="Vas-fI-lit"/>
+                    <constraint firstItem="yH9-kr-8Nn" firstAttribute="leading" secondItem="Xqz-8T-D6e" secondAttribute="trailing" constant="8" symbolic="YES" id="XuT-Dn-LwJ"/>
+                    <constraint firstItem="qoA-kM-Zvf" firstAttribute="trailing" secondItem="yH9-kr-8Nn" secondAttribute="trailing" id="YZA-sW-NaZ"/>
+                    <constraint firstItem="Ajk-KI-f6T" firstAttribute="leading" secondItem="KZQ-kn-HqP" secondAttribute="leading" id="a7W-NA-kxJ"/>
+                    <constraint firstItem="rEt-RA-oS4" firstAttribute="centerX" secondItem="jKc-5m-uSG" secondAttribute="centerX" id="aIf-YS-gCJ"/>
+                    <constraint firstItem="qoA-kM-Zvf" firstAttribute="leading" secondItem="KZQ-kn-HqP" secondAttribute="trailing" constant="58" id="c7M-5e-56m"/>
+                    <constraint firstItem="Ajk-KI-f6T" firstAttribute="trailing" secondItem="KZQ-kn-HqP" secondAttribute="trailing" id="c9T-qB-Aki"/>
+                    <constraint firstItem="KZQ-kn-HqP" firstAttribute="firstBaseline" secondItem="qoA-kM-Zvf" secondAttribute="firstBaseline" id="e79-sN-z2e"/>
+                    <constraint firstItem="Xqz-8T-D6e" firstAttribute="leading" secondItem="Ajk-KI-f6T" secondAttribute="trailing" constant="8" symbolic="YES" id="lxw-6P-UUs"/>
+                    <constraint firstItem="Ajk-KI-f6T" firstAttribute="top" secondItem="jKc-5m-uSG" secondAttribute="topMargin" constant="5" id="ndG-ao-ryr"/>
+                    <constraint firstItem="Xqz-8T-D6e" firstAttribute="centerY" secondItem="Ajk-KI-f6T" secondAttribute="centerY" id="oHg-8R-iwi"/>
+                    <constraint firstItem="Ajk-KI-f6T" firstAttribute="leading" secondItem="jKc-5m-uSG" secondAttribute="leadingMargin" constant="12" id="yOT-9U-YKN"/>
+                    <constraint firstItem="KZQ-kn-HqP" firstAttribute="centerY" secondItem="jKc-5m-uSG" secondAttribute="centerY" id="yy7-MG-cje"/>
+                    <constraint firstItem="Xqz-8T-D6e" firstAttribute="top" secondItem="jKc-5m-uSG" secondAttribute="topMargin" constant="15" id="zQf-fk-3iV"/>
+                    <constraint firstItem="KZQ-kn-HqP" firstAttribute="top" secondItem="Ajk-KI-f6T" secondAttribute="bottom" constant="8" symbolic="YES" id="zn9-M8-9mw"/>
+                    <constraint firstItem="yH9-kr-8Nn" firstAttribute="leading" secondItem="qoA-kM-Zvf" secondAttribute="leading" id="zqF-To-Eex"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="awayLabel" destination="Ajk-KI-f6T" id="T71-xm-D6O"/>
+                <outlet property="awayScore" destination="KZQ-kn-HqP" id="Nh0-Ro-yE1"/>
+                <outlet property="homeLabel" destination="yH9-kr-8Nn" id="tNE-XN-OCY"/>
+                <outlet property="homeScore" destination="qoA-kM-Zvf" id="J1o-pm-E60"/>
+                <outlet property="nameLabel" destination="UQL-Ir-ZJH" id="HBH-fw-zdy"/>
+                <outlet property="timeLabel" destination="rEt-RA-oS4" id="yk2-lJ-UZv"/>
+            </connections>
+            <point key="canvasLocation" x="421" y="782.5"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -6,10 +6,10 @@
 //  Copyright © 2016 Akshay Easwaran. All rights reserved.
 //
 
-#import "StatDetailViewController.h"
+#import "PlayerDetailViewController.h"
 #import "Player.h"
 
-@interface StatDetailViewController ()
+@interface PlayerDetailViewController ()
 {
     Player *selectedPlayer;
     IBOutlet UILabel *nameLabel;
@@ -18,7 +18,7 @@
 }
 @end
 
-@implementation StatDetailViewController
+@implementation PlayerDetailViewController
 -(instancetype)initWithPlayer:(Player*)player {
     self = [super init];
     if(self) {

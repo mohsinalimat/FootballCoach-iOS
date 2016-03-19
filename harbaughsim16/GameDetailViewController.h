@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Game;
 
 @interface GameDetailViewController : UITableViewController
-
+-(instancetype)initWithGame:(Game*)game;
 @end

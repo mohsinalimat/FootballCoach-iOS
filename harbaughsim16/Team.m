@@ -126,11 +126,11 @@
             _conference = teamInfo[0];
             _name = teamInfo[1];
             _abbreviation = teamInfo[2];
-            _teamPrestige = [teamInfo[3] integerValue];
-            _totalWins = [teamInfo[4] integerValue];
-            _totalLosses = [teamInfo[5] integerValue];
-            _totalCCs = [teamInfo[6] integerValue];
-            _totalNCs = [teamInfo[7] integerValue];
+            _teamPrestige = [teamInfo[3] intValue];
+            _totalWins = [teamInfo[4] intValue];
+            _totalLosses = [teamInfo[5] intValue];
+            _totalCCs = [teamInfo[6] intValue];
+            _totalNCs = [teamInfo[7] intValue];
             _rivalTeam = teamInfo[8];
         }
         
@@ -275,14 +275,14 @@
 -(void)recruitPlayers:(NSArray*)needs {
     
     int qbNeeds, rbNeeds, wrNeeds, kNeeds, olNeeds, sNeeds, cbNeeds, f7Needs = 0;
-    qbNeeds = [needs[0] integerValue];
-    rbNeeds = [needs[1] integerValue];
-    wrNeeds = [needs[2] integerValue];
-    kNeeds = [needs[3] integerValue];
-    olNeeds = [needs[4] integerValue];
-    sNeeds = [needs[5] integerValue];
-    cbNeeds = [needs[6] integerValue];
-    f7Needs = [needs[7] integerValue];
+    qbNeeds = [needs[0] intValue];
+    rbNeeds = [needs[1] intValue];
+    wrNeeds = [needs[2] intValue];
+    kNeeds = [needs[3] intValue];
+    olNeeds = [needs[4] intValue];
+    sNeeds = [needs[5] intValue];
+    cbNeeds = [needs[6] intValue];
+    f7Needs = [needs[7] intValue];
     
     
     int stars = _teamPrestige/20 + 1;
@@ -369,14 +369,14 @@
 -(void)recruitPlayersFreshman:(NSArray*)needs {
     
     int qbNeeds, rbNeeds, wrNeeds, kNeeds, olNeeds, sNeeds, cbNeeds, f7Needs = 0;
-    qbNeeds = [needs[0] integerValue];
-    rbNeeds = [needs[1] integerValue];
-    wrNeeds = [needs[2] integerValue];
-    kNeeds = [needs[3] integerValue];
-    olNeeds = [needs[4] integerValue];
-    sNeeds = [needs[5] integerValue];
-    cbNeeds = [needs[6] integerValue];
-    f7Needs = [needs[7] integerValue];
+    qbNeeds = [needs[0] intValue];
+    rbNeeds = [needs[1] intValue];
+    wrNeeds = [needs[2] intValue];
+    kNeeds = [needs[3] intValue];
+    olNeeds = [needs[4] intValue];
+    sNeeds = [needs[5] intValue];
+    cbNeeds = [needs[6] intValue];
+    f7Needs = [needs[7] intValue];
     
     
     int stars = _teamPrestige/20 + 1;
@@ -460,50 +460,50 @@
 }
 
 -(void)recruitWalkOns {
-    int needs = 2 - _teamQBs.count;
+    int needs = 2 - [NSNumber numberWithInteger:_teamQBs.count].intValue;
     for( int i = 0; i < needs; ++i ) {
         //make QBs
         //_teamQBs.add( new PlayerQB(league.getRandName(), 1, 2, this) );
         [_teamQBs addObject:[PlayerQB newQBWithName:[_league getRandName] year:1 stars:2 team:self]];
     }
     
-    needs = 4 - _teamRBs.count;
+    needs = 4 - [NSNumber numberWithInteger:_teamRBs.count].intValue;
     for( int i = 0; i < needs; ++i ) {
         //make RBs
         [_teamRBs addObject:[PlayerRB newRBWithName:[_league getRandName] year:1 stars:2 team:self]];
     }
     
-    needs = 6 - _teamWRs.count;
+    needs = 6 - [NSNumber numberWithInteger:_teamWRs.count].intValue;
     for( int i = 0; i < needs; ++i ) {
         //make WRs
         [_teamWRs addObject:[PlayerWR newWRWithName:[_league getRandName] year:1 stars:2 team:self]];
     }
     
-    needs = 10 - _teamOLs.count;
+    needs = 10 - [NSNumber numberWithInteger:_teamOLs.count].intValue;
     for( int i = 0; i < needs; ++i ) {
         //make OLs
         [_teamOLs addObject:[PlayerOL newOLWithName:[_league getRandName] year:1 stars:2 team:self]];
     }
     
-    needs = 2 - _teamKs.count;
+    needs = 2 - [NSNumber numberWithInteger:_teamKs.count].intValue;
     for( int i = 0; i < needs; ++i ) {
         //make Ks
         [_teamKs addObject:[PlayerK newKWithName:[_league getRandName] year:1 stars:2 team:self]];
     }
     
-    needs = 2 - _teamSs.count;
+    needs = 2 - [NSNumber numberWithInteger:_teamSs.count].intValue;
     for( int i = 0; i < needs; ++i ) {
         //make Ss
         [_teamSs addObject:[PlayerS newSWithName:[_league getRandName] year:1 stars:2]];
     }
     
-    needs = 6 - _teamCBs.count;
+    needs = 6 - [NSNumber numberWithInteger:_teamCBs.count].intValue;
     for( int i = 0; i < needs; ++i ) {
         //make CBs
         [_teamCBs addObject:[PlayerCB newCBWithName:[_league getRandName] year:1 stars:2]];
     }
     
-    needs = 14 - _teamF7s.count;
+    needs = 14 - [NSNumber numberWithInteger:_teamF7s.count].intValue;
     for( int i = 0; i < needs; ++i ) {
         //make F7s
         [_teamF7s addObject:[PlayerF7 newF7WithName:[_league getRandName] year:1 stars:2 team:self]];
@@ -846,7 +846,7 @@
 }
 
 -(NSString*)getSeasonSummaryString {
-    NSMutableString *summary = [NSMutableString stringWithFormat:@"Your team, %@, finished the season ranked #%ld with %ld wins and %ld losses.",_name, _rankTeamPollScore, _wins, _losses];
+    NSMutableString *summary = [NSMutableString stringWithFormat:@"Your team, %@, finished the season ranked #%d with %d wins and %d losses.",_name, _rankTeamPollScore, _wins, _losses];
     int expectedPollFinish = 100 - _teamPrestige;
     int diffExpected = expectedPollFinish - _rankTeamPollScore;
     int oldPrestige = _teamPrestige;
@@ -931,7 +931,7 @@
         if ( [_gameWLSchedule[i] isEqualToString:@"W"] ) rivalryGameStr = @"Won vs Rival! +2 Prestige\n";
         else rivalryGameStr = @"Lost vs Rival! -2 Prestige\n";
     }
-    return [NSString stringWithFormat:@"%@%@ %@\nNew poll rank: #%ld %@ (%ld-%ld)",rivalryGameStr,_name,gameSummary,_rankTeamPollScore,_abbreviation,(long)_wins,(long)_losses];
+    return [NSString stringWithFormat:@"%@%@ %@\nNew poll rank: #%d %@ (%ld-%ld)",rivalryGameStr,_name,gameSummary,_rankTeamPollScore,_abbreviation,(long)_wins,(long)_losses];
 }
 
 -(NSString*)gameSummaryString:(Game*)g {

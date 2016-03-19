@@ -110,7 +110,7 @@
 
 -(NSArray*)getDetailStatsList:(int)games {
     NSMutableArray *pStats = [NSMutableArray array];
-    [pStats addObject:[NSString stringWithFormat:@"Potential: %ldyds/gm\nStrength: %@",self.ratPot,[self getLetterGrade:_ratOLPow]]];
+    [pStats addObject:[NSString stringWithFormat:@"Potential: %dyds/gm\nStrength: %@\n",self.ratPot,[self getLetterGrade:_ratOLPow]]];
     [pStats addObject:[NSString stringWithFormat:@"Run Block: %@\nPass Block: %@",[self getLetterGrade:_ratOLBkR],[self getLetterGrade:_ratOLBkP]]];
     return [pStats copy];
 }

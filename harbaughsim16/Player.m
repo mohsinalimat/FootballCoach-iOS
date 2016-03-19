@@ -39,7 +39,6 @@
     } else if (_year == 4 ) {
         return @"Sr";
     }
-    NSLog(@"ERROR YEAR: %d", _year);
     return @"ERROR";
 }
 

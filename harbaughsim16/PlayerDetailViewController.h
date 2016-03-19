@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 @class Player;
 
-@interface StatDetailViewController : UIViewController
+@interface PlayerDetailViewController : UIViewController
 -(instancetype)initWithPlayer:(Player*)player;
 @end

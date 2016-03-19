@@ -23,11 +23,12 @@
 		7571DD2D1C9CCD8100E67080 /* HBScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD2B1C9CCD8100E67080 /* HBScheduleCell.xib */; };
 		7571DD331C9CD3A200E67080 /* play-week@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD321C9CD3A200E67080 /* play-week@3x.png */; };
 		7571DD351C9CF8E300E67080 /* MyTeamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD341C9CF8E300E67080 /* MyTeamViewController.xib */; };
-		7571DD381C9CFD4000E67080 /* StatisticsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD371C9CFD4000E67080 /* StatisticsViewController.m */; };
+		7571DD381C9CFD4000E67080 /* RosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD371C9CFD4000E67080 /* RosterViewController.m */; };
 		7571DD3C1C9CFF6500E67080 /* HBStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD3A1C9CFF6500E67080 /* HBStatsCell.m */; };
 		7571DD3D1C9CFF6500E67080 /* HBStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD3B1C9CFF6500E67080 /* HBStatsCell.xib */; };
-		7571DD411C9D032F00E67080 /* StatDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD3F1C9D032F00E67080 /* StatDetailViewController.m */; };
-		7571DD421C9D032F00E67080 /* StatDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD401C9D032F00E67080 /* StatDetailViewController.xib */; };
+		7571DD411C9D032F00E67080 /* PlayerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD3F1C9D032F00E67080 /* PlayerDetailViewController.m */; };
+		7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */; };
+		7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD431C9D0C7000E67080 /* GameDetailViewController.xib */; };
 		75924A201C99CCC000B165AD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A1F1C99CCC000B165AD /* main.m */; };
 		75924A231C99CCC000B165AD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A221C99CCC000B165AD /* AppDelegate.m */; };
 		75924A261C99CCC000B165AD /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A251C99CCC000B165AD /* NewsViewController.m */; };
@@ -59,7 +60,6 @@
 		75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C971C9C7C0C0034140C /* team-selected@3x.png */; };
 		75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */; };
 		75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */; };
-		75BABF3F1C9A5D2F00A68CD6 /* RosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3E1C9A5D2F00A68CD6 /* RosterViewController.m */; };
 		75BABF421C9A5D3800A68CD6 /* RecruitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */; };
 		75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */; };
 /* End PBXBuildFile section */
@@ -88,14 +88,15 @@
 		7571DD2B1C9CCD8100E67080 /* HBScheduleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBScheduleCell.xib; sourceTree = "<group>"; };
 		7571DD321C9CD3A200E67080 /* play-week@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-week@3x.png"; sourceTree = "<group>"; };
 		7571DD341C9CF8E300E67080 /* MyTeamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyTeamViewController.xib; sourceTree = "<group>"; };
-		7571DD361C9CFD4000E67080 /* StatisticsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticsViewController.h; sourceTree = "<group>"; };
-		7571DD371C9CFD4000E67080 /* StatisticsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticsViewController.m; sourceTree = "<group>"; };
+		7571DD361C9CFD4000E67080 /* RosterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RosterViewController.h; sourceTree = "<group>"; };
+		7571DD371C9CFD4000E67080 /* RosterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RosterViewController.m; sourceTree = "<group>"; };
 		7571DD391C9CFF6500E67080 /* HBStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBStatsCell.h; sourceTree = "<group>"; };
 		7571DD3A1C9CFF6500E67080 /* HBStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBStatsCell.m; sourceTree = "<group>"; };
 		7571DD3B1C9CFF6500E67080 /* HBStatsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBStatsCell.xib; sourceTree = "<group>"; };
-		7571DD3E1C9D032F00E67080 /* StatDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatDetailViewController.h; sourceTree = "<group>"; };
-		7571DD3F1C9D032F00E67080 /* StatDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatDetailViewController.m; sourceTree = "<group>"; };
-		7571DD401C9D032F00E67080 /* StatDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatDetailViewController.xib; sourceTree = "<group>"; };
+		7571DD3E1C9D032F00E67080 /* PlayerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerDetailViewController.h; sourceTree = "<group>"; };
+		7571DD3F1C9D032F00E67080 /* PlayerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDetailViewController.m; sourceTree = "<group>"; };
+		7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerDetailViewController.xib; sourceTree = "<group>"; };
+		7571DD431C9D0C7000E67080 /* GameDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameDetailViewController.xib; sourceTree = "<group>"; };
 		75924A1B1C99CCC000B165AD /* harbaughsim16.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = harbaughsim16.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75924A1F1C99CCC000B165AD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75924A211C99CCC000B165AD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -147,8 +148,6 @@
 		75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roster-selected@3x.png"; sourceTree = "<group>"; };
 		75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
 		75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
-		75BABF3D1C9A5D2F00A68CD6 /* RosterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RosterViewController.h; sourceTree = "<group>"; };
-		75BABF3E1C9A5D2F00A68CD6 /* RosterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RosterViewController.m; sourceTree = "<group>"; };
 		75BABF401C9A5D3800A68CD6 /* RecruitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitingViewController.h; sourceTree = "<group>"; };
 		75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecruitingViewController.m; sourceTree = "<group>"; };
 		75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTeamViewController.h; sourceTree = "<group>"; };
@@ -177,11 +176,14 @@
 				75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */,
 				75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */,
 				7571DD271C9CC9A000E67080 /* ScheduleViewController.xib */,
-				7571DD361C9CFD4000E67080 /* StatisticsViewController.h */,
-				7571DD371C9CFD4000E67080 /* StatisticsViewController.m */,
-				7571DD3E1C9D032F00E67080 /* StatDetailViewController.h */,
-				7571DD3F1C9D032F00E67080 /* StatDetailViewController.m */,
-				7571DD401C9D032F00E67080 /* StatDetailViewController.xib */,
+				7510B8481C9C76C900BE9CD6 /* GameDetailViewController.h */,
+				7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */,
+				7571DD431C9D0C7000E67080 /* GameDetailViewController.xib */,
+				7571DD361C9CFD4000E67080 /* RosterViewController.h */,
+				7571DD371C9CFD4000E67080 /* RosterViewController.m */,
+				7571DD3E1C9D032F00E67080 /* PlayerDetailViewController.h */,
+				7571DD3F1C9D032F00E67080 /* PlayerDetailViewController.m */,
+				7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */,
 				7571DD291C9CCD8100E67080 /* HBScheduleCell.h */,
 				7571DD2A1C9CCD8100E67080 /* HBScheduleCell.m */,
 				7571DD2B1C9CCD8100E67080 /* HBScheduleCell.xib */,
@@ -220,8 +222,6 @@
 				75924A221C99CCC000B165AD /* AppDelegate.m */,
 				7510B8451C9C76BE00BE9CD6 /* TeamSelectionViewController.h */,
 				7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */,
-				7510B8481C9C76C900BE9CD6 /* GameDetailViewController.h */,
-				7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */,
 				7510B84B1C9C76D700BE9CD6 /* TeamViewController.h */,
 				7510B84C1C9C76D700BE9CD6 /* TeamViewController.m */,
 				7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */,
@@ -231,8 +231,6 @@
 				7571DD191C9CB1DC00E67080 /* IntroViewController.h */,
 				7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */,
 				7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */,
-				75BABF3D1C9A5D2F00A68CD6 /* RosterViewController.h */,
-				75BABF3E1C9A5D2F00A68CD6 /* RosterViewController.m */,
 				75BABF401C9A5D3800A68CD6 /* RecruitingViewController.h */,
 				75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */,
 				7510B8441C9C76AD00BE9CD6 /* Base Tabs */,
@@ -392,7 +390,8 @@
 				75A86C911C9C7AA80034140C /* schedule@3x.png in Resources */,
 				75924A311C99CCC000B165AD /* LaunchScreen.storyboard in Resources */,
 				75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */,
-				7571DD421C9D032F00E67080 /* StatDetailViewController.xib in Resources */,
+				7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */,
+				7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */,
 				7571DD221C9CC62400E67080 /* news-sort@3x.png in Resources */,
 				7571DD281C9CC9A000E67080 /* ScheduleViewController.xib in Resources */,
 				75A86C901C9C7AA80034140C /* roster@3x.png in Resources */,
@@ -472,9 +471,8 @@
 				75924A4C1C99D03300B165AD /* Player.m in Sources */,
 				75924A581C99E62F00B165AD /* PlayerQB.m in Sources */,
 				7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */,
-				7571DD411C9D032F00E67080 /* StatDetailViewController.m in Sources */,
+				7571DD411C9D032F00E67080 /* PlayerDetailViewController.m in Sources */,
 				75924A6D1C99E66E00B165AD /* PlayerF7.m in Sources */,
-				75BABF3F1C9A5D2F00A68CD6 /* RosterViewController.m in Sources */,
 				75BABF421C9A5D3800A68CD6 /* RecruitingViewController.m in Sources */,
 				75924A231C99CCC000B165AD /* AppDelegate.m in Sources */,
 				75924A5E1C99E64400B165AD /* PlayerWR.m in Sources */,
@@ -485,7 +483,7 @@
 				75924A491C99CF7C00B165AD /* Game.m in Sources */,
 				7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */,
 				75924A261C99CCC000B165AD /* NewsViewController.m in Sources */,
-				7571DD381C9CFD4000E67080 /* StatisticsViewController.m in Sources */,
+				7571DD381C9CFD4000E67080 /* RosterViewController.m in Sources */,
 				7510B84D1C9C76D700BE9CD6 /* TeamViewController.m in Sources */,
 				75924A551C99D24500B165AD /* League.m in Sources */,
 				75924A6A1C99E66700B165AD /* PlayerCB.m in Sources */,

@@ -9,6 +9,7 @@
 #import "ScheduleViewController.h"
 #import "Team.h"
 #import "HBScheduleCell.h"
+#import "GameDetailViewController.h"
 
 #import "HexColors.h"
 
@@ -36,8 +37,6 @@
     self.title = @"Schedule";
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 60;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"stats"] style:UIBarButtonItemStylePlain target:self action:@selector(openStatsPage)];
-    
     self.tableView.tableHeaderView = teamHeaderView;
     [self.tableView registerNib:[UINib nibWithNibName:@"HBScheduleCell" bundle:nil] forCellReuseIdentifier:@"HBScheduleCell"];
     [self setupTeamHeader];
@@ -59,10 +58,6 @@
     [self.tableView reloadData];
 }
 
--(void)openStatsPage {
-    NSLog(@"STATS");
-}
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -80,6 +75,12 @@
     [cell.gameSummaryLabel setText:[userTeam getGameSummaryStrings:index][2]];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    Game *game = schedule[indexPath.row];
+    [self.navigationController pushViewController:[[GameDetailViewController alloc] initWithGame:game] animated:YES];
 }
 
 -(IBAction)playWeek:(id)sender {

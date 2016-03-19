@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "NewsViewController.h"
 #import "ScheduleViewController.h"
-#import "StatisticsViewController.h"
+#import "RosterViewController.h"
 #import "MyTeamViewController.h"
 #import "IntroViewController.h"
 
@@ -42,7 +42,7 @@
     scheduleNav.tabBarItem.image = [UIImage imageNamed:@"schedule"];
     scheduleNav.tabBarItem.selectedImage = [UIImage imageNamed:@"schedule-selected"];
     
-    UINavigationController *statsNav = [[UINavigationController alloc] initWithRootViewController:[[StatisticsViewController alloc] init]];
+    UINavigationController *statsNav = [[UINavigationController alloc] initWithRootViewController:[[RosterViewController alloc] init]];
     statsNav.title = @"Stats";
     statsNav.tabBarItem.image = [UIImage imageNamed:@"stats"];
     
