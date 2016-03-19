@@ -11,7 +11,6 @@
 #import "Team.h"
 #import "HBStatsCell.h"
 #import "Player.h"
-
 #import "PlayerQB.h"
 #import "PlayerRB.h"
 #import "PlayerWR.h"
@@ -20,12 +19,22 @@
 #import "PlayerF7.h"
 #import "PlayerCB.h"
 #import "PlayerS.h"
-
 #import "PlayerDetailViewController.h"
+
+#import "HexColors.h"
+@interface HBButtonView : UIView
+@property (weak, nonatomic) IBOutlet UIButton *button;
+@end
+@implementation HBButtonView
+-(IBAction)goToRecruiting:(id)sender {
+    NSLog(@"RECRUIT");
+}
+@end
 
 @interface RosterViewController ()
 {
     Team *userTeam;
+    IBOutlet HBButtonView *buttonView;
 }
 @end
 
@@ -36,6 +45,16 @@
     self.title = @"Roster";
     [self.tableView registerNib:[UINib nibWithNibName:@"HBStatsCell" bundle:nil] forCellReuseIdentifier:@"HBStatsCell"];
     userTeam = [HBSharedUtils getLeague].userTeam;
+    self.tableView.tableHeaderView = buttonView;
+    [self.view setBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#009740"]];
+    //[[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+    //[[UITableViewHeaderFooterView appearanceWhenContainedInInstancesOfClasses:@[[self class]]].contentView setBackgroundColor:[UIColor lightGrayColor]];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.contentView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F7F7F7"];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -42,6 +42,7 @@
                     <constraint firstItem="ape-RA-E95" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="rfq-QW-Ndi"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="nameLabel" destination="Fbs-WS-Wsg" id="foF-OA-rLT"/>
                 <outlet property="yrLabel" destination="ape-RA-E95" id="EBb-ab-zAb"/>
