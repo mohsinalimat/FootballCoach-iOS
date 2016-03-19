@@ -8,31 +8,32 @@
 
 #import <Foundation/Foundation.h>
 #import "Team.h"
+#import "HBSharedUtils.h"
 
 @interface Player : NSObject
 
 @property (strong, nonatomic) Team *team;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *position;
-@property (nonatomic) NSInteger ratOvr;
-@property (nonatomic) NSInteger year;
-@property (nonatomic) NSInteger ratPot;
-@property (nonatomic) NSInteger ratFootIQ;
-@property (nonatomic) NSInteger ratImprovement;
-@property (nonatomic) NSInteger cost;
+@property (nonatomic) int ratOvr;
+@property (nonatomic) int year;
+@property (nonatomic) int ratPot;
+@property (nonatomic) int ratFootIQ;
+@property (nonatomic) int ratImprovement;
+@property (nonatomic) int cost;
 @property (strong, nonatomic) NSMutableArray *ratingsVector;
 
 
 +(NSArray *)letterGrades;
 -(NSString*)getYearString;
 -(void)advanceSeason;
--(NSInteger)getHeismanScore;
+-(int)getHeismanScore;
 -(NSString*)getInitialName;
 -(NSString*)getPosNameYrOvrPot_Str;
 -(NSString*)getPosNameYrOvrPot_OneLine;
 -(NSString*)getLetterGradeWithString:(NSString*)num;
 -(NSString*)getLetterGradePotWithString:(NSString*)num;
--(NSString*)getLetterGrade:(NSInteger)num;
--(NSString*)getLetterGradePot:(NSInteger)num;
--(NSArray*)getDetailedStatsList:(NSInteger)games;
+-(NSString*)getLetterGrade:(int)num;
+-(NSString*)getLetterGradePot:(int)num;
+-(NSArray*)getDetailedStatsList:(int)games;
 @end

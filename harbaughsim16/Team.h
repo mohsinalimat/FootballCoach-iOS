@@ -36,15 +36,15 @@
 @property (strong, nonatomic) NSMutableArray *teamHistory;
 @property (nonatomic) BOOL isUserControlled;
 @property (nonatomic) BOOL wonRivalryGame;
-@property (nonatomic) NSInteger recruitingMoney;
-@property (nonatomic) NSInteger numberOfRecruits;
+@property (nonatomic) int recruitingMoney;
+@property (nonatomic) int numberOfRecruits;
 
-@property (nonatomic) NSInteger wins;
-@property (nonatomic) NSInteger losses;
-@property (nonatomic) NSInteger totalWins;
-@property (nonatomic) NSInteger totalLosses;
-@property (nonatomic) NSInteger totalCCs;
-@property (nonatomic) NSInteger totalNCs;
+@property (nonatomic) int wins;
+@property (nonatomic) int losses;
+@property (nonatomic) int totalWins;
+@property (nonatomic) int totalLosses;
+@property (nonatomic) int totalCCs;
+@property (nonatomic) int totalNCs;
 
 //Game Log variables
 @property (strong, nonatomic) NSMutableArray *gameSchedule;
@@ -59,40 +59,40 @@
 
 
 //Team stats
-@property (nonatomic) NSInteger teamPoints;
-@property (nonatomic) NSInteger teamOppPoints;
-@property (nonatomic) NSInteger teamYards;
-@property (nonatomic) NSInteger teamOppYards;
-@property (nonatomic) NSInteger teamPassYards;
-@property (nonatomic) NSInteger teamRushYards;
-@property (nonatomic) NSInteger teamOppPassYards;
-@property (nonatomic) NSInteger teamOppRushYards;
-@property (nonatomic) NSInteger teamTODiff;
-@property (nonatomic) NSInteger teamOffTalent;
-@property (nonatomic) NSInteger teamDefTalent;
-@property (nonatomic) NSInteger teamPrestige;
-@property (nonatomic) NSInteger teamPollScore;
-@property (nonatomic) NSInteger teamStrengthOfWins;
+@property (nonatomic) int teamPoints;
+@property (nonatomic) int teamOppPoints;
+@property (nonatomic) int teamYards;
+@property (nonatomic) int teamOppYards;
+@property (nonatomic) int teamPassYards;
+@property (nonatomic) int teamRushYards;
+@property (nonatomic) int teamOppPassYards;
+@property (nonatomic) int teamOppRushYards;
+@property (nonatomic) int teamTODiff;
+@property (nonatomic) int teamOffTalent;
+@property (nonatomic) int teamDefTalent;
+@property (nonatomic) int teamPrestige;
+@property (nonatomic) int teamPollScore;
+@property (nonatomic) int teamStrengthOfWins;
 
-@property (nonatomic) NSInteger rankTeamPoints;
-@property (nonatomic) NSInteger rankTeamOppPoints;
-@property (nonatomic) NSInteger rankTeamYards;
-@property (nonatomic) NSInteger rankTeamOppYards;
-@property (nonatomic) NSInteger rankTeamPassYards;
-@property (nonatomic) NSInteger rankTeamRushYards;
-@property (nonatomic) NSInteger rankTeamOppPassYards;
-@property (nonatomic) NSInteger rankTeamOppRushYards;
-@property (nonatomic) NSInteger rankTeamTODiff;
-@property (nonatomic) NSInteger rankTeamOffTalent;
-@property (nonatomic) NSInteger rankTeamDefTalent;
-@property (nonatomic) NSInteger rankTeamPrestige;
-@property (nonatomic) NSInteger rankTeamPollScore;
-@property (nonatomic) NSInteger rankTeamStrengthOfWins;
+@property (nonatomic) int rankTeamPoints;
+@property (nonatomic) int rankTeamOppPoints;
+@property (nonatomic) int rankTeamYards;
+@property (nonatomic) int rankTeamOppYards;
+@property (nonatomic) int rankTeamPassYards;
+@property (nonatomic) int rankTeamRushYards;
+@property (nonatomic) int rankTeamOppPassYards;
+@property (nonatomic) int rankTeamOppRushYards;
+@property (nonatomic) int rankTeamTODiff;
+@property (nonatomic) int rankTeamOffTalent;
+@property (nonatomic) int rankTeamDefTalent;
+@property (nonatomic) int rankTeamPrestige;
+@property (nonatomic) int rankTeamPollScore;
+@property (nonatomic) int rankTeamStrengthOfWins;
 
 //prestige/talent improvements
-@property (nonatomic) NSInteger diffPrestige;
-@property (nonatomic) NSInteger diffOffTalent;
-@property (nonatomic) NSInteger diffDefTalent;
+@property (nonatomic) int diffPrestige;
+@property (nonatomic) int diffOffTalent;
+@property (nonatomic) int diffDefTalent;
 
 //players on team
 //offense
@@ -112,9 +112,9 @@
 
 
 
--(instancetype)initWithName:(NSString*)name abbreviation:(NSString*)abbr conference:(NSString*)conference league:(League*)league prestige:(NSInteger)prestige rivalTeam:(NSString*)rivalTeamAbbr;
+-(instancetype)initWithName:(NSString*)name abbreviation:(NSString*)abbr conference:(NSString*)conference league:(League*)league prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
 -(instancetype)initWithString:(NSString*)loadStr league:(League*)league;
-+ (instancetype)newTeamWithName:(NSString*)name abbreviation:(NSString*)abbr conference:(NSString*)conference league:(League*)league prestige:(NSInteger)prestige rivalTeam:(NSString*)rivalTeamAbbr;
++ (instancetype)newTeamWithName:(NSString*)name abbreviation:(NSString*)abbr conference:(NSString*)conference league:(League*)league prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
 
 -(void)updateTalentRatings;
 -(void)advanceSeason;
@@ -130,35 +130,35 @@
 -(NSString*)getTeamHistoryString;
 -(void)updateStrengthOfWins;
 -(void)sortPlayers;
--(NSInteger)getOffensiveTalent;
--(NSInteger)getDefensiveTalent;
+-(int)getOffensiveTalent;
+-(int)getDefensiveTalent;
 
--(PlayerQB*)getQB:(NSInteger)depth;
--(PlayerRB*)getRB:(NSInteger)depth;
--(PlayerWR*)getWR:(NSInteger)depth;
--(PlayerK*)getK:(NSInteger)depth;
--(PlayerOL*)getOL:(NSInteger)depth;
--(PlayerS*)getS:(NSInteger)depth;
--(PlayerCB*)getCB:(NSInteger)depth;
--(PlayerF7*)getF7:(NSInteger)depth;
+-(PlayerQB*)getQB:(int)depth;
+-(PlayerRB*)getRB:(int)depth;
+-(PlayerWR*)getWR:(int)depth;
+-(PlayerK*)getK:(int)depth;
+-(PlayerOL*)getOL:(int)depth;
+-(PlayerS*)getS:(int)depth;
+-(PlayerCB*)getCB:(int)depth;
+-(PlayerF7*)getF7:(int)depth;
 
--(NSInteger)getPassProf;
--(NSInteger)getRushProf;
--(NSInteger)getPassDef;
--(NSInteger)getRushDef;
--(NSInteger)getCompositeOLPass;
--(NSInteger)getCompositeOLRush;
--(NSInteger)getCompositeF7Pass;
--(NSInteger)getCompositeF7Rush;
+-(int)getPassProf;
+-(int)getRushProf;
+-(int)getPassDef;
+-(int)getRushDef;
+-(int)getCompositeOLPass;
+-(int)getCompositeOLRush;
+-(int)getCompositeF7Pass;
+-(int)getCompositeF7Rush;
 -(NSString*)getTeamStatsStringCSV;
--(NSMutableArray*)getGameSummaryStrings:(NSInteger)gameNumber;
+-(NSMutableArray*)getGameSummaryStrings:(int)gameNumber;
 -(NSString*)getSeasonSummaryString;
 -(NSMutableArray*)getPlayerStatsExpandListStrings;
 -(NSDictionary*)getPlayerStatsExpandListMap:(NSArray*)playerStatsGroupHeaders;
--(NSString*)getRankString:(NSInteger)num;
--(NSString*)getRankStrStarUser:(NSInteger)num;
--(NSInteger)numGames;
--(NSInteger)getConfWins;
+-(NSString*)getRankString:(int)num;
+-(NSString*)getRankStrStarUser:(int)num;
+-(int)numGames;
+-(int)getConfWins;
 -(NSString*)strRep;
 -(NSString*)strRepWithBowlResults;
 -(NSString*)weekSummaryString;

@@ -18,6 +18,7 @@
     NSMutableArray<Player*> *heismanCandidates;
     NSString *heismanWinnerStrFull;
 }
+
 @property (strong, nonatomic)  NSMutableArray<NSArray*> *leagueHistory;
 @property (strong, nonatomic)  NSMutableArray<NSString*> *heismanHistory;
 @property (strong, nonatomic)  NSMutableArray<Conference*> *conferences;
@@ -26,7 +27,7 @@
 @property (strong, nonatomic)  NSMutableArray<NSMutableArray*> *newsStories;
 
 //Current week, 1-14
-@property (nonatomic) NSInteger currentWeek;
+@property (nonatomic) int currentWeek;
 
 //Bowl Games
 @property (nonatomic)  BOOL hasScheduledBowls;
@@ -39,12 +40,11 @@
 @property (strong, nonatomic)  Team *userTeam;
 
 
-
 +(NSArray*)bowlGameTitles;
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV;
 +(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName names:(NSString*)namesCSV;
 
--(NSInteger)getConfNumber:(NSString*)conf;
+-(int)getConfNumber:(NSString*)conf;
 -(void)playWeek;
 -(void)scheduleBowlGames;
 -(void)playBowlGames;
@@ -68,7 +68,7 @@
 -(NSString*)seasonSummaryStr;
 -(BOOL)saveLeague:(NSData*)saveFile;
 -(void)setTeamRanks;
--(NSArray*)getTeamRankingsStr:(NSInteger)selection;
+-(NSArray*)getTeamRankingsStr:(int)selection;
 
 
 @end

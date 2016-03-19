@@ -23,15 +23,15 @@
     NSString *tdInfo;
     
     //private variables used when simming games
-    NSInteger gameTime;
+    int gameTime;
     BOOL gamePoss; //1 if home, 0 if away
-    NSInteger gameYardLine;
-    NSInteger gameDown;
-    NSInteger gameYardsNeed;
+    int gameYardLine;
+    int gameDown;
+    int gameYardsNeed;
     
 }
-@property (nonatomic) NSInteger homeScore;
-@property (nonatomic) NSInteger awayScore;
+@property (nonatomic) int homeScore;
+@property (nonatomic) int awayScore;
 @property (strong, nonatomic) Team *homeTeam;
 @property (strong, nonatomic) Team *awayTeam;
 @property (nonatomic) BOOL hasPlayed;
@@ -40,11 +40,11 @@
 
 @property (strong, nonatomic) NSMutableArray<NSNumber*>* homeQScore;
 @property (strong, nonatomic) NSMutableArray<NSNumber*>* awayQScore;
-@property (nonatomic) NSInteger homeYards;
-@property (nonatomic) NSInteger awayYards;
-@property (nonatomic) NSInteger numOT;
-@property (nonatomic) NSInteger homeTOs;
-@property (nonatomic) NSInteger awayTOs;
+@property (nonatomic) int homeYards;
+@property (nonatomic) int awayYards;
+@property (nonatomic) int numOT;
+@property (nonatomic) int homeTOs;
+@property (nonatomic) int awayTOs;
 
 @property (strong, nonatomic) NSMutableArray* HomeQBStats;
 @property (strong, nonatomic) NSMutableArray* AwayQBStats;
@@ -71,9 +71,9 @@
 -(instancetype)initWithHome:(Team*)home away:(Team*)away name:(NSString*)name;
 -(NSArray<NSString*>*)getGameSummaryStrings;
 -(NSArray<NSString*>*)getGameScoutStrings;
--(NSInteger)getPassYards:(BOOL)ha;
--(NSInteger)getRushYards:(BOOL)ha;
--(NSInteger)getHFAdv;
+-(int)getPassYards:(BOOL)ha;
+-(int)getRushYards:(BOOL)ha;
+-(int)getHFAdv;
 -(NSString*)getEventPrefix;
 -(NSString*)convGameTime;
 -(void)addNewsStory;
@@ -87,10 +87,10 @@
 -(void)qbSack:(Team*)offense;
 -(void)safety;
 -(void)qbInterception:(Team*)offense;
--(void)passingTD:(Team*)offense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(NSInteger)yardsGained;
--(void)passCompletion:(Team*)offense defense:(Team*)defense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(NSInteger)yardsGained;
--(void)passAttempt:(Team*)offense defense:(Team*)defense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(NSInteger)yardsGained;
--(void)rushAttempt:(Team*)offense defense:(Team*)defense rusher:(PlayerRB*)selRB rb1Pref:(double)rb1Pref rb2Pref:(double)rb2Pref yardsGained:(NSInteger)yardsGained;
--(void)addPointsQuarter:(NSInteger)points;
--(NSInteger)normalize:(NSInteger)rating;
+-(void)passingTD:(Team*)offense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
+-(void)passCompletion:(Team*)offense defense:(Team*)defense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
+-(void)passAttempt:(Team*)offense defense:(Team*)defense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
+-(void)rushAttempt:(Team*)offense defense:(Team*)defense rusher:(PlayerRB*)selRB rb1Pref:(double)rb1Pref rb2Pref:(double)rb2Pref yardsGained:(int)yardsGained;
+-(void)addPointsQuarter:(int)points;
+-(int)normalize:(int)rating;
 @end

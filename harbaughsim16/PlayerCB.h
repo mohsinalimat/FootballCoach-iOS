@@ -9,12 +9,11 @@
 #import "Player.h"
 
 @interface PlayerCB : Player
-@property (nonatomic) NSInteger ratCBCov;
-@property (nonatomic) NSInteger ratCBSpd;
-@property (nonatomic) NSInteger ratCBTkl;
-+(instancetype)newCBWithName:(NSString*)name team:(Team*)team year:(NSInteger)year potential:(NSInteger)potential iq:(NSInteger)iq coverage:(NSInteger)coverage speed:(NSInteger)speed tackling:(NSInteger)tackling;
-+(instancetype)newCBWithName:(NSString*)name year:(NSInteger)year stars:(NSInteger)stars;
--(NSMutableArray*)getRatingsVector;
+@property (nonatomic) int ratCBCov;
+@property (nonatomic) int ratCBSpd;
+@property (nonatomic) int ratCBTkl;
++(instancetype)newCBWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling;
++(instancetype)newCBWithName:(NSString*)name year:(int)year stars:(int)stars;
 -(void)advanceSeason;
--(NSArray*)getDetailedStatsList:(NSInteger)games;
+-(NSArray*)getDetailedStatsList:(int)games;
 @end

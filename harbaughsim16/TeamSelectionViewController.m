@@ -10,4 +10,9 @@
 
 @implementation TeamSelectionViewController
 
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    
+}
+
 @end

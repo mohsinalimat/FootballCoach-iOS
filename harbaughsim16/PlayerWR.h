@@ -9,21 +9,21 @@
 #import "Player.h"
 
 @interface PlayerWR : Player
-@property (nonatomic) NSInteger ratRecCat;
+@property (nonatomic) int ratRecCat;
 //RecSpd affects how long his passes are
-@property (nonatomic) NSInteger ratRecSpd;
+@property (nonatomic) int ratRecSpd;
 //RecEva affects how easily he can dodge tackles
-@property (nonatomic) NSInteger ratRecEva;
+@property (nonatomic) int ratRecEva;
 
 //public Vector ratingsVector;
 
 //Stats
-@property (nonatomic) NSInteger statsTargets;
-@property (nonatomic) NSInteger statsReceptions;
-@property (nonatomic) NSInteger statsRecYards;
-@property (nonatomic) NSInteger statsTD;
-@property (nonatomic) NSInteger statsDrops;
-@property (nonatomic) NSInteger statsFumbles;
-+(instancetype)newWRWithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq catch:(NSInteger)cat speed:(NSInteger)spd eva:(NSInteger)eva;
-+(instancetype)newWRWithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t;
+@property (nonatomic) int statsTargets;
+@property (nonatomic) int statsReceptions;
+@property (nonatomic) int statsRecYards;
+@property (nonatomic) int statsTD;
+@property (nonatomic) int statsDrops;
+@property (nonatomic) int statsFumbles;
++(instancetype)newWRWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq catch:(int)cat speed:(int)spd eva:(int)eva;
++(instancetype)newWRWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t;
 @end

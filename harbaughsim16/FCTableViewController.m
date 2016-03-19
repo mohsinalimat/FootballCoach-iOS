@@ -7,9 +7,12 @@
 //
 
 #import "FCTableViewController.h"
+#import "HexColors.h"
 
 @implementation FCTableViewController
-
+-(void)viewDidLoad {
+    [super viewDidLoad];
+}
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }

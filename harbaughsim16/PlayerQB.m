@@ -11,7 +11,7 @@
 #import "Team.h"
 
 @implementation PlayerQB
--(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq power:(NSInteger)pow accuracy:(NSInteger)acc eva:(NSInteger)eva {
+-(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc eva:(int)eva {
     self = [super init];
     if (self) {
         self.team = t;
@@ -24,7 +24,7 @@
         _ratPassAcc = acc;
         _ratPassEva = eva;
         
-        self.cost = (NSInteger)(powf((float)self.ratOvr/3.5,2.0)) + (NSInteger)(arc4random()*100) - 50;
+        self.cost = (int)(powf((float)self.ratOvr/3.5,2.0)) + (int)(arc4random()%100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
@@ -49,7 +49,7 @@
     return self;
 }
 
--(instancetype)initWithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t {
+-(instancetype)initWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t {
     self = [super init];
     if (self) {
         self.name = nm;
@@ -62,7 +62,7 @@
         _ratPassEva = (int) (60 + self.year*5 + stars*5 - 25*arc4random());
         self.ratOvr = (_ratPassPow*3 + _ratPassAcc*4 + _ratPassEva)/8;
         
-        self.cost = (int)pow((float)self.ratOvr/3.5,2) + (int)(arc4random()*100) - 50;
+        self.cost = (int)pow((float)self.ratOvr/3.5,2) + (int)(arc4random()%100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
@@ -85,11 +85,11 @@
     return self;
 }
 
-+(instancetype)newQBWithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq power:(NSInteger)pow accuracy:(NSInteger)acc eva:(NSInteger)eva {
++(instancetype)newQBWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc eva:(int)eva {
     return [[PlayerQB alloc] initWithName:nm team:t year:yr potential:pot footballIQ:iq power:pow accuracy:acc eva:eva];
 }
 
-+(instancetype)newQBWithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t {
++(instancetype)newQBWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t {
     return [[PlayerQB alloc] initWithName:nm year:yr stars:stars team:t];
 }
 
@@ -121,16 +121,16 @@
 
 -(void)advanceSeason {
     self.year++;
-    NSInteger oldOvr = self.ratOvr;
-    self.ratFootIQ += (int)(arc4random()*(self.ratPot - 25))/10;
-    _ratPassPow += (int)(arc4random()*(self.ratPot - 25))/10;
-    _ratPassAcc += (int)(arc4random()*(self.ratPot - 25))/10;
-    _ratPassEva += (int)(arc4random()*(self.ratPot - 25))/10;
-    if ( arc4random()*100 < self.ratPot ) {
+    int oldOvr = self.ratOvr;
+    self.ratFootIQ += (int)(arc4random()%(self.ratPot - 25))/10;
+    _ratPassPow += (int)(arc4random()%(self.ratPot - 25))/10;
+    _ratPassAcc += (int)(arc4random()%(self.ratPot - 25))/10;
+    _ratPassEva += (int)(arc4random()%(self.ratPot - 25))/10;
+    if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
         //breakthrough
-        _ratPassPow += (int)(arc4random()*(self.ratPot - 30))/10;
-        _ratPassAcc += (int)(arc4random()*(self.ratPot - 30))/10;
-        _ratPassEva += (int)(arc4random()*(self.ratPot - 30))/10;
+        _ratPassPow += (int)(arc4random()%(self.ratPot - 30))/10;
+        _ratPassAcc += (int)(arc4random()%(self.ratPot - 30))/10;
+        _ratPassEva += (int)(arc4random()%(self.ratPot - 30))/10;
     }
     
     self.ratOvr = (_ratPassPow*3 + _ratPassAcc*4 + _ratPassEva)/8;
@@ -144,15 +144,15 @@
     self.statsSacked = 0;
 }
 
--(NSInteger)getHeismanScore {
+-(int)getHeismanScore {
     return self.statsTD * 150 - self.statsInt * 250 + self.statsPassYards;
 }
 
--(NSArray*)getDetailStatsList:(NSInteger)games {
+-(NSArray*)getDetailStatsList:(int)games {
     NSMutableArray *pStats = [NSMutableArray array];
-    [pStats addObject:[NSString stringWithFormat:@"TD/Int: %ld/%ld\nComp Percent: %ld%%",(long)_statsTD,(long)_statsInt, (100*_statsPassComp/(_statsPassAtt+1))]];
+    [pStats addObject:[NSString stringWithFormat:@"TD/Int: %ld/%ld\nComp Percent: %d%%",(long)_statsTD,(long)_statsInt, (100*_statsPassComp/(_statsPassAtt+1))]];
     [pStats addObject:[NSString stringWithFormat:@"Pass Yards: %ldyds\nYards/Att: %fyds", (long)_statsPassYards ,((double)(10*_statsPassYards/(_statsPassAtt+1))/10)]];
-    [pStats addObject:[NSString stringWithFormat:@"Yds/Game: %ldyds/gm\nPass Strength: %@",(_statsPassYards/games),[self getLetterGrade:_ratPassPow]]];
+    [pStats addObject:[NSString stringWithFormat:@"Yds/Game: %dyds/gm\nPass Strength: %@",(_statsPassYards/games),[self getLetterGrade:_ratPassPow]]];
     [pStats addObject:[NSString stringWithFormat:@"Accuracy: %@\nEvasion: %@",[self getLetterGrade:_ratPassAcc],[self getLetterGrade:_ratPassEva]]];
     return [pStats copy];
 }

@@ -9,5 +9,13 @@
 #import "SettingsViewController.h"
 
 @implementation SettingsViewController
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"Settings";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(dismissVC)];
+}
 
+-(void)dismissVC {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

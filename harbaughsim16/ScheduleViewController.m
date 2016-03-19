@@ -7,10 +7,85 @@
 //
 
 #import "ScheduleViewController.h"
+#import "Team.h"
+#import "HBScheduleCell.h"
+
+#import "HexColors.h"
+
+@interface HBTeamView : UIView
+@property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
+@property (weak, nonatomic) IBOutlet UILabel *teamRecordLabel;
+@end
+
+@implementation HBTeamView
+@end
+
+@interface ScheduleViewController ()
+{
+    NSArray *schedule;
+    Team *userTeam;
+    IBOutlet HBTeamView *teamHeaderView;
+}
+@end
 
 @implementation ScheduleViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    userTeam = [HBSharedUtils getLeague].userTeam;
+    schedule = [[HBSharedUtils getLeague].userTeam.gameSchedule copy];
     self.title = @"Schedule";
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 60;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"stats"] style:UIBarButtonItemStylePlain target:self action:@selector(openStatsPage)];
+    
+    self.tableView.tableHeaderView = teamHeaderView;
+    [self.tableView registerNib:[UINib nibWithNibName:@"HBScheduleCell" bundle:nil] forCellReuseIdentifier:@"HBScheduleCell"];
+    [self setupTeamHeader];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupTeamHeader) name:@"playedWeek" object:nil];
+    [self.view setBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#009740"]];
 }
+
+-(void)setupTeamHeader {
+    NSString *rank = @"";
+    if (userTeam.rankTeamPollScore < 26) {
+        rank = [NSString stringWithFormat:@"#%ld ",(long)userTeam.rankTeamPollScore];
+    }
+    [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, userTeam.name]];
+    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld-%ld",(long)userTeam.wins,(long)userTeam.losses]];
+}
+
+-(void)reloadSchedule {
+    schedule = [[HBSharedUtils getLeague].userTeam.gameSchedule copy];
+    [self.tableView reloadData];
+}
+
+-(void)openStatsPage {
+    NSLog(@"STATS");
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return schedule.count;
+}
+
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    HBScheduleCell *cell = (HBScheduleCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScheduleCell"];
+    //Game *game = schedule[indexPath.row];
+    int index = [NSNumber numberWithInteger:indexPath.row].intValue;
+    [cell.gameNameLabel setText:[userTeam getGameSummaryStrings:index][0]];
+    [cell.gameScoreLabel setText:[userTeam getGameSummaryStrings:index][1]];
+    [cell.gameSummaryLabel setText:[userTeam getGameSummaryStrings:index][2]];
+    
+    return cell;
+}
+
+-(IBAction)playWeek:(id)sender {
+    [[HBSharedUtils getLeague] playWeek];
+    [self reloadSchedule];
+    [self setupTeamHeader];
+}
+
 @end

@@ -9,11 +9,11 @@
 #import "Player.h"
 
 @interface PlayerS : Player
-@property (nonatomic) NSInteger ratSCov;
+@property (nonatomic) int ratSCov;
 //CBSpd affects how good he is at not letting up deep passes
-@property (nonatomic) NSInteger ratSSpd;
+@property (nonatomic) int ratSSpd;
 //CBTkl affects how good he is at tackling
-@property (nonatomic) NSInteger ratSTkl;
-+(instancetype)newSWithName:(NSString*)name team:(Team*)team year:(NSInteger)year potential:(NSInteger)potential iq:(NSInteger)iq coverage:(NSInteger)coverage speed:(NSInteger)speed tackling:(NSInteger)tackling;
-+(instancetype)newSWithName:(NSString*)name year:(NSInteger)year stars:(NSInteger)stars;
+@property (nonatomic) int ratSTkl;
++(instancetype)newSWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling;
++(instancetype)newSWithName:(NSString*)name year:(int)year stars:(int)stars;
 @end

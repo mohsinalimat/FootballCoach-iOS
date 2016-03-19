@@ -9,21 +9,21 @@
 #import "Player.h"
 
 @interface PlayerQB : Player
-@property (nonatomic) NSInteger ratPassPow;
+@property (nonatomic) int ratPassPow;
 //PassAcc affects how accurate his passes are
-@property (nonatomic) NSInteger ratPassAcc;
+@property (nonatomic) int ratPassAcc;
 //PassEva (evasiveness) affects how easily he can dodge sacks
-@property (nonatomic) NSInteger ratPassEva;
+@property (nonatomic) int ratPassEva;
 
 //Stats
-@property (nonatomic) NSInteger statsPassAtt;
-@property (nonatomic) NSInteger statsPassComp;
-@property (nonatomic) NSInteger statsTD;
-@property (nonatomic) NSInteger statsInt;
-@property (nonatomic) NSInteger statsPassYards;
-@property (nonatomic) NSInteger statsSacked;
+@property (nonatomic) int statsPassAtt;
+@property (nonatomic) int statsPassComp;
+@property (nonatomic) int statsTD;
+@property (nonatomic) int statsInt;
+@property (nonatomic) int statsPassYards;
+@property (nonatomic) int statsSacked;
 
-+(instancetype)newQBWithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq power:(NSInteger)pow accuracy:(NSInteger)acc eva:(NSInteger)eva;
-+(instancetype)newQBWithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t;
++(instancetype)newQBWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc eva:(int)eva;
++(instancetype)newQBWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t;
 -(NSMutableArray*)getStatsVector;
 @end

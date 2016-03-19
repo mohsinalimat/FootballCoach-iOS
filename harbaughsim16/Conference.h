@@ -12,12 +12,12 @@
 
 @interface Conference : NSObject
 @property (strong, nonatomic) NSString *confName;
-@property (nonatomic) NSInteger confPrestige;
+@property (nonatomic) int confPrestige;
 @property (strong, nonatomic) NSMutableArray<Team*> *confTeams;
 @property (strong, nonatomic) League *league;
 @property (strong, nonatomic) Game *ccg;
-@property (nonatomic) NSInteger week;
-@property (nonatomic) NSInteger robinWeek;
+@property (nonatomic) int week;
+@property (nonatomic) int robinWeek;
 
 +(instancetype)newConferenceWithName:(NSString*)name league:(League*)league;
 -(NSString*)getCCGString;

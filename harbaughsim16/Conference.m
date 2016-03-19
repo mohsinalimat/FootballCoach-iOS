@@ -28,8 +28,8 @@
     if (_ccg == nil) {
         // Give prediction, find top 2 teams
         Team *team1 = nil, *team2 = nil;
-        NSInteger score1 = 0, score2 = 0;
-        for (NSInteger i = _confTeams.count-1; i >= 0; --i) { //count backwards so higher ranked teams are predicted
+        int score1 = 0, score2 = 0;
+        for (int i = [NSNumber numberWithInteger:_confTeams.count].intValue - 1; i >= 0; --i) { //count backwards so higher ranked teams are predicted
             Team *t = _confTeams[i];
             if ([t getConfWins] >= score1) {
                 score2 = score1;
@@ -90,6 +90,7 @@
          return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
      
      }] copy];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
 
 -(void)scheduleConfChamp {
@@ -117,7 +118,7 @@
         }
     }] mutableCopy];
      
-    NSInteger winsFirst = [_confTeams[0] getConfWins];
+    int winsFirst = [_confTeams[0] getConfWins];
     Team *t = _confTeams[0];
     int i = 0;
     NSMutableArray *teamTB = [NSMutableArray array];
@@ -141,7 +142,7 @@
      
      }
      
-    NSInteger winsSecond = [_confTeams[1] getConfWins];
+    int winsSecond = [_confTeams[1] getConfWins];
      t = _confTeams[1];
      i = 1;
      [teamTB removeAllObjects];
@@ -214,7 +215,7 @@
             }
             
             for (int i = 0; i < 10; ++i) {
-                int selTeam = (int)(availTeams.count * arc4random());
+                int selTeam = (int)(arc4random() % availTeams.count);
                 Team *a = _confTeams[i];
                 Team *b = availTeams[selTeam];
                 

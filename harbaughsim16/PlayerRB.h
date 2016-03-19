@@ -10,19 +10,19 @@
 
 @interface PlayerRB : Player
 
-@property (nonatomic) NSInteger ratRushPow;
+@property (nonatomic) int ratRushPow;
 //RushSpd affects how long he can run
-@property (nonatomic) NSInteger ratRushSpd;
+@property (nonatomic) int ratRushSpd;
 //RushEva affects how easily he can dodge tackles
-@property (nonatomic) NSInteger ratRushEva;
+@property (nonatomic) int ratRushEva;
 
 //Stats
-@property (nonatomic) NSInteger statsRushAtt;
-@property (nonatomic) NSInteger statsRushYards;
-@property (nonatomic) NSInteger statsTD;
-@property (nonatomic) NSInteger statsFumbles;
+@property (nonatomic) int statsRushAtt;
+@property (nonatomic) int statsRushYards;
+@property (nonatomic) int statsTD;
+@property (nonatomic) int statsFumbles;
 -(NSMutableArray*)getStatsVector;
-+(instancetype)newRBWithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq power:(NSInteger)pow speed:(NSInteger)spd eva:(NSInteger)eva;
-+(instancetype)newRBWithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t;
++(instancetype)newRBWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow speed:(int)spd eva:(int)eva;
++(instancetype)newRBWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t;
 
 @end

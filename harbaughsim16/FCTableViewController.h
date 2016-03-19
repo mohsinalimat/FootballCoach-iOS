@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HBSharedUtils.h"
+#import "League.h"
 
 @interface FCTableViewController : UITableViewController
 

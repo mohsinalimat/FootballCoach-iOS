@@ -39,6 +39,7 @@
     } else if (_year == 4 ) {
         return @"Sr";
     }
+    NSLog(@"ERROR YEAR: %d", _year);
     return @"ERROR";
 }
 
@@ -46,7 +47,7 @@
     _year ++;
 }
 
--(NSInteger)getHeismanScore {
+-(int)getHeismanScore {
     return 0;
 }
 
@@ -65,34 +66,34 @@
 }
 
 -(NSString*)getLetterGradeWithString:(NSString*)num {
-    NSInteger ind = ([num integerValue] - 50)/5;
+    int ind = ([num intValue] - 50)/5;
     if (ind > 9) ind = 9;
     if (ind < 0) ind = 0;
     return [[self class] letterGrades][ind];
 }
 
 -(NSString*)getLetterGradePotWithString:(NSString*)num {
-    NSInteger ind = ([num integerValue]) / 10;
+    int ind = ([num intValue]) / 10;
     if (ind > 9) ind = 9;
     if (ind < 0) ind = 0;
     return [[self class] letterGrades][ind];
 }
 
--(NSString*)getLetterGrade:(NSInteger)num {
-    NSInteger ind = (num - 50)/5;
+-(NSString*)getLetterGrade:(int)num {
+    int ind = (num - 50)/5;
     if (ind > 9) ind = 9;
     if (ind < 0) ind = 0;
     return [[self class] letterGrades][ind];
 }
 
--(NSString*)getLetterGradePot:(NSInteger)num {
-    NSInteger ind = num / 10;
+-(NSString*)getLetterGradePot:(int)num {
+    int ind = num / 10;
     if (ind > 9) ind = 9;
     if (ind < 0) ind = 0;
     return [[self class] letterGrades][ind];
 }
 
--(NSArray*)getDetailedStatsList:(NSInteger)games {
+-(NSArray*)getDetailedStatsList:(int)games {
     return nil;
 }
 

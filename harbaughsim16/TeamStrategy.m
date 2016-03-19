@@ -23,7 +23,7 @@
     return strat;
 }
 
-+(instancetype)newStrategyWithName:(NSString *)name description:(NSString *)description rYB:(NSInteger)rYB rAB:(NSInteger)rAB pYB:(NSInteger)pYB pAB:(NSInteger)pAB {
++(instancetype)newStrategyWithName:(NSString *)name description:(NSString *)description rYB:(int)rYB rAB:(int)rAB pYB:(int)pYB pAB:(int)pAB {
     TeamStrategy *strat = [[self class] newStrategy];
     if (self) {
         strat.stratName = name;

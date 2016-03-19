@@ -10,7 +10,7 @@
 
 @implementation PlayerK
 
--(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq power:(NSInteger)pow accuracy:(NSInteger)acc fum:(NSInteger)fum {
+-(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum {
     self = [super init];
     if (self) {
         self.team = t;
@@ -23,7 +23,7 @@
         _ratKickAcc = acc;
         _ratKickFum = fum;
         
-        self.cost = (NSInteger)(powf((float)self.ratOvr/3.5,2.0)) + (NSInteger)(arc4random()*100) - 50;
+        self.cost = (int)(powf((float)self.ratOvr/3.5,2.0)) + (int)(arc4random()%100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
@@ -43,7 +43,7 @@
     return self;
 }
 
--(instancetype)initWithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t {
+-(instancetype)initWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t {
     self = [super init];
     if (self) {
         self.name = nm;
@@ -56,7 +56,7 @@
         _ratKickFum = (int) (60 + self.year*5 + stars*5 - 25*arc4random());
         self.ratOvr = (_ratKickPow + _ratKickAcc)/2;
         
-        self.cost = (int)pow((float)self.ratOvr/3.5,2) + (int)(arc4random()*100) - 50;
+        self.cost = (int)pow((float)self.ratOvr/3.5,2) + (int)(arc4random()%100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
@@ -77,11 +77,11 @@
     return self;
 }
 
-+(instancetype)newKWithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq power:(NSInteger)pow accuracy:(NSInteger)acc fum:(NSInteger)fum {
++(instancetype)newKWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum {
     return [[PlayerK alloc] initWithName:nm team:t year:yr potential:pot footballIQ:iq power:pow accuracy:acc fum:fum];
 }
 
-+(instancetype)newKWithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t {
++(instancetype)newKWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t {
     return [[PlayerK alloc] initWithName:nm year:yr stars:stars team:t];
 }
 
@@ -111,16 +111,16 @@
 
 -(void)advanceSeason {
     self.year++;
-    NSInteger oldOvr = self.ratOvr;
-    self.ratFootIQ += (int)(arc4random()*(self.ratPot - 25))/10;
-    _ratKickPow += (int)(arc4random()*(self.ratPot - 25))/10;
-    _ratKickAcc += (int)(arc4random()*(self.ratPot - 25))/10;
-    _ratKickFum += (int)(arc4random()*(self.ratPot - 25))/10;
-    if ( arc4random()*100 < self.ratPot ) {
+    int oldOvr = self.ratOvr;
+    self.ratFootIQ += (int)(arc4random()%(self.ratPot - 25))/10;
+    _ratKickPow += (int)(arc4random()%(self.ratPot - 25))/10;
+    _ratKickAcc += (int)(arc4random()%(self.ratPot - 25))/10;
+    _ratKickFum += (int)(arc4random()%(self.ratPot - 25))/10;
+    if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
         //breakthrough
-        _ratKickPow += (int)(arc4random()*(self.ratPot - 30))/10;
-        _ratKickAcc += (int)(arc4random()*(self.ratPot - 30))/10;
-        _ratKickFum += (int)(arc4random()*(self.ratPot - 30))/10;
+        _ratKickPow += (int)(arc4random()%(self.ratPot - 30))/10;
+        _ratKickAcc += (int)(arc4random()%(self.ratPot - 30))/10;
+        _ratKickFum += (int)(arc4random()%(self.ratPot - 30))/10;
     }
     self.ratOvr = (_ratKickPow + _ratKickAcc)/2;
     self.ratImprovement = self.ratOvr - oldOvr;
@@ -131,16 +131,16 @@
     _statsFGMade = 0;
 }
 
--(NSArray*)getDetailedStatsList:(NSInteger)games {
+-(NSArray*)getDetailedStatsList:(int)games {
     NSMutableArray *pStats = [NSMutableArray array];
     if (_statsXPAtt > 0) {
-        [pStats addObject:[NSString stringWithFormat:@"XP Made/Att: %ld/%ld\nXP Percentage: %ld%%",(long)_statsXPMade,(long)_statsXPAtt, (100 * (_statsXPMade/_statsXPAtt))]];
+        [pStats addObject:[NSString stringWithFormat:@"XP Made/Att: %ld/%ld\nXP Percentage: %d%%",(long)_statsXPMade,(long)_statsXPAtt, (100 * (_statsXPMade/_statsXPAtt))]];
     } else {
         [pStats addObject:@"XP Made/Att: 0/0\nXP Percentage: 0%%"];
     }
     
     if (_statsFGAtt > 0) {
-        [pStats addObject:[NSString stringWithFormat:@"FG Made/Att: %ld/%ld\nFG Percentage: %ld%%",(long)_statsFGMade,(long)_statsFGAtt, (100 * (_statsFGMade/_statsFGAtt))]];
+        [pStats addObject:[NSString stringWithFormat:@"FG Made/Att: %ld/%ld\nFG Percentage: %d%%",(long)_statsFGMade,(long)_statsFGAtt, (100 * (_statsFGMade/_statsFGAtt))]];
     } else {
         [pStats addObject:@"FG Made/Att: 0/0\n FG Percentage: 0%%"];
     }

@@ -63,8 +63,7 @@
         _nameList = [NSMutableArray array];
         NSArray *namesSplit = [namesCSV componentsSeparatedByString:@","];
         for (NSString *n in namesSplit) {
-            [_nameList addObject:[n stringByTrimmingCharactersInSet:
-                                  [NSCharacterSet whitespaceCharacterSet]]];
+            [_nameList addObject:[n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]];
         }
         
         Conference *south = _conferences[0];
@@ -259,7 +258,7 @@
 }
 
 
--(NSInteger)getConfNumber:(NSString*)conf {
+-(int)getConfNumber:(NSString*)conf {
     if ([conf isEqualToString:@"SOUTH"]) return 0;
     if ([conf isEqualToString:@"LAKES"]) return 1;
     if ([conf isEqualToString:@"NORTH"]) return 2;
@@ -387,6 +386,7 @@
         //_newsStories.get(14).add(semiG14.homeTeam.name + " wins the " + semiG14.gameName +"!\n" + semiG14.homeTeam.strRep() + " defeats " + semiG14.awayTeam.strRep() + " in the semifinals, winning " + semiG14.homeScore + " to " + semiG14.awayScore + ". " + semiG14.homeTeam.name + " advances to the National Championship!" );
         NSMutableArray *week14 = _newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",_semiG14.homeTeam.name, _semiG14.gameName, _semiG14.homeTeam.strRep, _semiG14.awayTeam.strRep, (long)_semiG14.homeScore, (long)_semiG14.awayScore, _semiG14.homeTeam.name]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
         
     } else {
         _semiG14.homeTeam.semifinalWL = @"SFL";
@@ -394,7 +394,7 @@
         semi14winner = _semiG14.awayTeam;
         NSMutableArray *week14 = _newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",_semiG14.awayTeam.name, _semiG14.gameName, _semiG14.awayTeam.strRep, _semiG14.homeTeam.strRep, (long)_semiG14.awayScore, (long)_semiG14.homeScore, _semiG14.awayTeam.name]];
-       
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
     
     if (_semiG23.homeScore > _semiG23.awayScore ) {
@@ -404,6 +404,7 @@
         //_newsStories.get(14).add(semiG14.homeTeam.name + " wins the " + semiG14.gameName +"!\n" + semiG14.homeTeam.strRep() + " defeats " + semiG14.awayTeam.strRep() + " in the semifinals, winning " + semiG14.homeScore + " to " + semiG14.awayScore + ". " + semiG14.homeTeam.name + " advances to the National Championship!" );
         NSMutableArray *week14 = _newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",_semiG23.homeTeam.name, _semiG23.gameName, _semiG23.homeTeam.strRep, _semiG23.awayTeam.strRep, (long)_semiG23.homeScore, (long)_semiG23.awayScore, _semiG23.homeTeam.name]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
         
     } else {
         _semiG23.homeTeam.semifinalWL = @"SFL";
@@ -411,6 +412,7 @@
         semi23winner = _semiG23.awayTeam;
         NSMutableArray *week14 = _newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",_semiG23.awayTeam.name, _semiG23.gameName, _semiG23.awayTeam.strRep, _semiG23.homeTeam.strRep, (long)_semiG23.awayScore, (long)_semiG23.homeScore, _semiG23.awayTeam.name]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
         
     }
     
@@ -428,12 +430,14 @@
         g.awayTeam.semifinalWL = @"BL";
         //newsStories.get(14).add( g.homeTeam.name + " wins the " + g.gameName +"!>" + g.homeTeam.strRep() + " defeats " + g.awayTeam.strRep() + " in the " + g.gameName + ", winning " + g.homeScore + " to " + g.awayScore + "." );
         NSMutableArray *week14 = _newsStories[14];
-        [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %ld to %ld.",g.homeTeam, g.gameName, g.homeTeam.strRep, g.awayTeam.strRep, g.gameName, g.homeScore, g.awayScore]];
+        [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %d to %d.",g.homeTeam.name, g.gameName, g.homeTeam.strRep, g.awayTeam.strRep, g.gameName, g.homeScore, g.awayScore]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     } else {
         g.homeTeam.semifinalWL = @"BL";
         g.awayTeam.semifinalWL = @"BW";
         NSMutableArray *week14 = _newsStories[14];
-        [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %ld to %ld.",g.awayTeam, g.gameName, g.awayTeam.strRep, g.homeTeam.strRep, g.gameName, g.awayScore, g.homeScore]];
+        [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %d to %d.",g.awayTeam.name, g.gameName, g.awayTeam.strRep, g.homeTeam.strRep, g.gameName, g.awayScore, g.homeScore]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
 }
 
@@ -494,16 +498,16 @@
 }
 
 -(NSString*)getRandName {
-    int fn = (int)(arc4random()*_nameList.count);
-    int ln = (int)(arc4random()*_nameList.count);
+    int fn = (int)(arc4random()%_nameList.count);
+    int ln = (int)(arc4random()%_nameList.count);
     return [NSString stringWithFormat:@"%@ %@",_nameList[fn],_nameList[ln]];
 }
 
 
 -(NSArray<Player*>*)getHeisman {
     heisman = nil;
-    NSInteger heismanScore = 0;
-    NSInteger tempScore = 0;
+    int heismanScore = 0;
+    int tempScore = 0;
     heismanCandidates = [NSMutableArray array];
     for ( int i = 0; i < _teamList.count; ++i ) {
         //qb
@@ -623,6 +627,7 @@
         if (putNewsStory) {
             NSMutableArray *week13 = _newsStories[13];
             [week13 addObject:[NSString stringWithFormat:@"%@ is the Player of the Year!\n",heismanWinnerStr]];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
         }
         
         heismanWinnerStrFull = heismanStats;
@@ -940,7 +945,7 @@
 
 }
 
--(NSArray*)getTeamRankingsStr:(NSInteger)selection {
+-(NSArray*)getTeamRankingsStr:(int)selection {
     //0 = poll score
     //1 = sos
     //2 = points

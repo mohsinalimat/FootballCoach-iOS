@@ -9,7 +9,7 @@
 #import "PlayerWR.h"
 
 @implementation PlayerWR
--(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq catch:(NSInteger)cat speed:(NSInteger)spd eva:(NSInteger)eva {
+-(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq catch:(int)cat speed:(int)spd eva:(int)eva {
     self = [super init];
     if (self) {
         self.team = t;
@@ -22,7 +22,7 @@
         _ratRecSpd = spd;
         _ratRecEva = eva;
         
-        self.cost = (NSInteger)(powf((float)self.ratOvr/5,2.0)) + (NSInteger)(arc4random()*100) - 50;
+        self.cost = (int)(powf((float)self.ratOvr/5,2.0)) + (int)(arc4random()%100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
@@ -46,7 +46,7 @@
     return self;
 }
 
--(instancetype)initWithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t {
+-(instancetype)initWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t {
     self = [super init];
     if (self) {
         self.name = nm;
@@ -59,7 +59,7 @@
         _ratRecEva = (int) (60 + self.year*5 + stars*5 - 25*arc4random());
         self.ratOvr = (_ratRecCat*2 + _ratRecSpd + _ratRecEva)/4;
         
-        self.cost = (int)pow((float)self.ratOvr/5,2) + (int)(arc4random()*100) - 50;
+        self.cost = (int)pow((float)self.ratOvr/5,2) + (int)(arc4random()%100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
@@ -83,11 +83,11 @@
     return self;
 }
 
-+(instancetype)newWRWithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq catch:(NSInteger)cat speed:(NSInteger)spd eva:(NSInteger)eva {
++(instancetype)newWRWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq catch:(int)cat speed:(int)spd eva:(int)eva {
     return [[PlayerWR alloc] initWithName:nm team:t year:yr potential:pot footballIQ:iq catch:cat speed:spd eva:eva];
 }
 
-+(instancetype)newWRWithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t {
++(instancetype)newWRWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t {
     return [[PlayerWR alloc] initWithName:nm year:yr stars:stars team:t];
 }
 
@@ -119,16 +119,16 @@
 
 -(void)advanceSeason {
     self.year++;
-    NSInteger oldOvr = self.ratOvr;
-    self.ratFootIQ += (int)(arc4random()*(self.ratPot - 25))/10;
-    _ratRecCat += (int)(arc4random()*(self.ratPot - 25))/10;
-    _ratRecSpd += (int)(arc4random()*(self.ratPot - 25))/10;
-    _ratRecEva += (int)(arc4random()*(self.ratPot - 25))/10;
-    if ( arc4random()*100 < self.ratPot ) {
+    int oldOvr = self.ratOvr;
+    self.ratFootIQ += (int)(arc4random()%(self.ratPot - 25))/10;
+    _ratRecCat += (int)(arc4random()%(self.ratPot - 25))/10;
+    _ratRecSpd += (int)(arc4random()%(self.ratPot - 25))/10;
+    _ratRecEva += (int)(arc4random()%(self.ratPot - 25))/10;
+    if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
         //breakthrough
-        _ratRecCat += (int)(arc4random()*(self.ratPot - 30))/10;
-        _ratRecSpd += (int)(arc4random()*(self.ratPot - 30))/10;
-        _ratRecEva += (int)(arc4random()*(self.ratPot - 30))/10;
+        _ratRecCat += (int)(arc4random()%(self.ratPot - 30))/10;
+        _ratRecSpd += (int)(arc4random()%(self.ratPot - 30))/10;
+        _ratRecEva += (int)(arc4random()%(self.ratPot - 30))/10;
     }
     self.ratOvr = (_ratRecCat*2 + _ratRecSpd + _ratRecEva)/4;
     self.ratImprovement = self.ratOvr - oldOvr;
@@ -141,18 +141,20 @@
     _statsFumbles = 0;
 }
 
--(NSArray*)getDetailedStatsList:(NSInteger)games {
+-(NSArray*)getDetailedStatsList:(int)games {
     NSMutableArray *pStats = [NSMutableArray array];
-    [pStats addObject:[NSString stringWithFormat:@"TDs/Fumbles: %ld/%ld\nCatch Percent: %ld%%",(long)self.ratPot,(long)self.statsFumbles,(100*_statsReceptions/(_statsTargets+1))]];
-    [pStats addObject:[NSString stringWithFormat:@"Rec Yards: %ld yds\nYds/Tgt: %f yds",(long)self.statsRecYards,((double)(10*_statsRecYards/(_statsTargets+1))/10)]];
-    [pStats addObject:[NSString stringWithFormat:@"Yards/Game: %ld yds/gm\nCatching: %@",(_statsRecYards/games),[self getLetterGrade:_ratRecCat]]];
-    [pStats addObject:[NSString stringWithFormat:@"Rec Speed: %@\Evasion: %@",[self getLetterGrade:_ratRecSpd],[self getLetterGrade:_ratRecEva]]];
+    [pStats addObject:[NSString stringWithFormat:@"TDs/Fumbles: %ld/%ld\nCatch Percent: %d%%\n",(long)self.ratPot,(long)self.statsFumbles,(100*_statsReceptions/(_statsTargets+1))]];
+    [pStats addObject:[NSString stringWithFormat:@"Rec Yards: %ld yds\nYds/Tgt: %f yds\n",(long)self.statsRecYards,((double)(10*_statsRecYards/(_statsTargets+1))/10)]];
+    if(games > 0) {
+        [pStats addObject:[NSString stringWithFormat:@"Yards/Game: %d yds/gm\nCatching: %@\n",(_statsRecYards/games),[self getLetterGrade:_ratRecCat]]];
+    }
+    [pStats addObject:[NSString stringWithFormat:@"Rec Speed: %@\nEvasion: %@",[self getLetterGrade:_ratRecSpd],[self getLetterGrade:_ratRecEva]]];
     
     
     return [pStats copy];
 }
 
--(NSInteger)getHeismanScore {
+-(int)getHeismanScore {
     return _statsTD * 150 - _statsFumbles * 100 - _statsDrops * 50 + _statsRecYards * 2;
 }
 

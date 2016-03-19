@@ -28,10 +28,15 @@
         _awayTeam = away;
         
         _homeScore = 0;
-        _homeQScore = [NSMutableArray arrayWithCapacity:10];
+        _homeQScore = [NSMutableArray array];
         _awayScore = 0;
-        _awayQScore = [NSMutableArray arrayWithCapacity:10];
+        _awayQScore = [NSMutableArray array];
         _numOT = 0;
+        
+        for (int i = 0; i < 10; i++) {
+            [_homeQScore addObject:@(0)];
+            [_awayQScore addObject:@(0)];
+        }
         
         _homeTOs = 0;
         _awayTOs = 0;
@@ -39,25 +44,49 @@
         gameEventLog = [NSMutableString stringWithFormat:@"LOG: #%ld %@ (%ld-%ld) @ #%ld %@ (%ld-%ld)\n---------------------------------------------------------",(long)_awayTeam.rankTeamPollScore,_awayTeam.abbreviation,(long)_awayTeam.wins,(long)_awayTeam.losses,(long)_homeTeam.rankTeamPollScore,_homeTeam.abbreviation,(long)_homeTeam.wins,(long)_homeTeam.losses];
         
         //initialize arrays, set everything to zero
-        _HomeQBStats = [NSMutableArray arrayWithCapacity:6];
-        _AwayQBStats = [NSMutableArray arrayWithCapacity:6];
+        _HomeQBStats = [NSMutableArray array];
+        _AwayQBStats = [NSMutableArray array];
         
-        _HomeRB1Stats = [NSMutableArray arrayWithCapacity:4];
-        _HomeRB2Stats = [NSMutableArray arrayWithCapacity:4];
-        _AwayRB1Stats = [NSMutableArray arrayWithCapacity:4];
-        _AwayRB2Stats = [NSMutableArray arrayWithCapacity:4];
+        _HomeRB1Stats = [NSMutableArray array];
+        _HomeRB2Stats = [NSMutableArray array];
+        _AwayRB1Stats = [NSMutableArray array];
+        _AwayRB2Stats = [NSMutableArray array];
         
-        _HomeWR1Stats = [NSMutableArray arrayWithCapacity:6];
-        _HomeWR2Stats = [NSMutableArray arrayWithCapacity:6];
-        _HomeWR3Stats = [NSMutableArray arrayWithCapacity:6];
-        _AwayWR1Stats = [NSMutableArray arrayWithCapacity:6];
-        _AwayWR2Stats = [NSMutableArray arrayWithCapacity:6];
-        _AwayWR3Stats = [NSMutableArray arrayWithCapacity:6];
+        _HomeWR1Stats = [NSMutableArray array];
+        _HomeWR2Stats = [NSMutableArray array];
+        _HomeWR3Stats = [NSMutableArray array];
+        _AwayWR1Stats = [NSMutableArray array];
+        _AwayWR2Stats = [NSMutableArray array];
+        _AwayWR3Stats = [NSMutableArray array];
         
-        _HomeKStats = [NSMutableArray arrayWithCapacity:6];
-        _AwayKStats = [NSMutableArray arrayWithCapacity:6];
+        _HomeKStats = [NSMutableArray array];
+        _AwayKStats = [NSMutableArray array];
         
-        //playGame();
+        
+        for (int i = 0; i < 6; i++) {
+            [_HomeQBStats addObject:@(0)];
+            [_AwayQBStats addObject:@(0)];
+            
+            [_HomeKStats addObject:@(0)];
+            [_AwayKStats addObject:@(0)];
+            
+            [_HomeWR1Stats addObject:@(0)];
+            [_AwayWR1Stats addObject:@(0)];
+            
+            [_HomeWR2Stats addObject:@(0)];
+            [_AwayWR2Stats addObject:@(0)];
+            
+            [_HomeWR3Stats addObject:@(0)];
+            [_AwayWR3Stats addObject:@(0)];
+        }
+        
+        for (int i = 0; i < 4; i++) {
+            [_HomeRB1Stats addObject:@(0)];
+            [_AwayRB1Stats addObject:@(0)];
+            [_HomeRB2Stats addObject:@(0)];
+            [_AwayRB2Stats addObject:@(0)];
+        }
+        
         _hasPlayed = false;
         
         _gameName = @"";
@@ -82,9 +111,9 @@
         _gameName = name;
         
         _homeScore = 0;
-        _homeQScore = [NSMutableArray arrayWithCapacity:10];
+        _homeQScore = [NSMutableArray array];
         _awayScore = 0;
-        _awayQScore = [NSMutableArray arrayWithCapacity:10];
+        _awayQScore = [NSMutableArray array];
         _numOT = 0;
         
         _homeTOs = 0;
@@ -93,25 +122,53 @@
         gameEventLog = [NSMutableString stringWithFormat:@"LOG: #%ld %@ (%ld-%ld) @ #%ld %@ (%ld-%ld)\n---------------------------------------------------------",(long)_awayTeam.rankTeamPollScore,_awayTeam.abbreviation,(long)_awayTeam.wins,(long)_awayTeam.losses,(long)_homeTeam.rankTeamPollScore,_homeTeam.abbreviation,(long)_homeTeam.wins,(long)_homeTeam.losses];
         
         //initialize arrays, set everything to zero
-        _HomeQBStats = [NSMutableArray arrayWithCapacity:6];
-        _AwayQBStats = [NSMutableArray arrayWithCapacity:6];
+        _HomeQBStats = [NSMutableArray array];
+        _AwayQBStats = [NSMutableArray array];
         
-        _HomeRB1Stats = [NSMutableArray arrayWithCapacity:4];
-        _HomeRB2Stats = [NSMutableArray arrayWithCapacity:4];
-        _AwayRB1Stats = [NSMutableArray arrayWithCapacity:4];
-        _AwayRB2Stats = [NSMutableArray arrayWithCapacity:4];
+        _HomeRB1Stats = [NSMutableArray array];
+        _HomeRB2Stats = [NSMutableArray array];
+        _AwayRB1Stats = [NSMutableArray array];
+        _AwayRB2Stats = [NSMutableArray array];
         
-        _HomeWR1Stats = [NSMutableArray arrayWithCapacity:6];
-        _HomeWR2Stats = [NSMutableArray arrayWithCapacity:6];
-        _HomeWR3Stats = [NSMutableArray arrayWithCapacity:6];
-        _AwayWR1Stats = [NSMutableArray arrayWithCapacity:6];
-        _AwayWR2Stats = [NSMutableArray arrayWithCapacity:6];
-        _AwayWR3Stats = [NSMutableArray arrayWithCapacity:6];
+        _HomeWR1Stats = [NSMutableArray array];
+        _HomeWR2Stats = [NSMutableArray array];
+        _HomeWR3Stats = [NSMutableArray array];
+        _AwayWR1Stats = [NSMutableArray array];
+        _AwayWR2Stats = [NSMutableArray array];
+        _AwayWR3Stats = [NSMutableArray array];
         
-        _HomeKStats = [NSMutableArray arrayWithCapacity:6];
-        _AwayKStats = [NSMutableArray arrayWithCapacity:6];
+        _HomeKStats = [NSMutableArray array];
+        _AwayKStats = [NSMutableArray array];
         
-        //playGame();
+        
+        for (int i = 0; i < 10; i++) {
+            [_homeQScore addObject:@(0)];
+            [_awayQScore addObject:@(0)];
+        }
+        for (int i = 0; i < 6; i++) {
+            [_HomeQBStats addObject:@(0)];
+            [_AwayQBStats addObject:@(0)];
+            
+            [_HomeKStats addObject:@(0)];
+            [_AwayKStats addObject:@(0)];
+            
+            [_HomeWR1Stats addObject:@(0)];
+            [_AwayWR1Stats addObject:@(0)];
+            
+            [_HomeWR2Stats addObject:@(0)];
+            [_AwayWR2Stats addObject:@(0)];
+            
+            [_HomeWR3Stats addObject:@(0)];
+            [_AwayWR3Stats addObject:@(0)];
+        }
+        
+        for (int i = 0; i < 4; i++) {
+            [_HomeRB1Stats addObject:@(0)];
+            [_AwayRB1Stats addObject:@(0)];
+            [_HomeRB2Stats addObject:@(0)];
+            [_AwayRB2Stats addObject:@(0)];
+        }
+        
         _hasPlayed = false;
         
         if ([_gameName isEqualToString:@"In Conf"] && [_homeTeam.rivalTeam isEqualToString:_awayTeam.abbreviation]) {
@@ -261,14 +318,14 @@
     NSString *gameL = @"Ranking\nRecord\nPPG\nOpp PPG\nYPG\nOpp YPG\n\nPass YPG\nRush YPG\nOpp PYPG\nOpp RYPG\n\nOff Talent\nDef Talent\nPrestige";
     NSString *gameC = @"";
     NSString *gameR = @"";
-    NSInteger g = _awayTeam.numGames;
+    int g = _awayTeam.numGames;
     Team *t = _awayTeam;
     
-    gameC = [NSString stringWithFormat:@"#%ld %@\n%ld-%ld\n%ld (%ld)\n%ld (%ld)\n%ld (%ld)\n%ld (%ld)\n\n%ld (%ld)\n%ld (%ld)\n%ld (%ld)\n%ld (%ld)\n%ld (%ld)\n\n%ld (%ld)\n%ld (%ld)\n",(long)t.rankTeamPollScore,t.abbreviation,(long)t.wins,(long)t.losses,(long)t.teamPoints,(long)t.rankTeamPoints,(t.teamOppPoints/g),(long)t.rankTeamOppPoints,(t.teamYards/g), (long)t.rankTeamYards,(t.teamOppYards/g), (long)t.rankTeamOppYards,(t.teamPassYards/g),(long)t.rankTeamPassYards,(t.teamRushYards/g),(long)t.rankTeamRushYards,(t.teamOppPassYards/g),(long)t.rankTeamOppPassYards,(t.teamOppRushYards/g),(long)t.rankTeamOppRushYards, (long)t.teamOffTalent, (long)t.rankTeamOffTalent, (long)t.teamDefTalent, (long)t.rankTeamDefTalent, (long)t.teamPrestige, (long)t.rankTeamPrestige];
+    gameC = [NSString stringWithFormat:@"#%ld %@\n%ld-%ld\n%ld (%ld)\n%d (%ld)\n%d (%ld)\n%d (%ld)\n\n%d (%ld)\n%d (%ld)\n%d (%ld)\n%d (%ld)\n%ld (%ld)\n\n%ld (%ld)\n%ld (%ld)\n",(long)t.rankTeamPollScore,t.abbreviation,(long)t.wins,(long)t.losses,(long)t.teamPoints,(long)t.rankTeamPoints,(t.teamOppPoints/g),(long)t.rankTeamOppPoints,(t.teamYards/g), (long)t.rankTeamYards,(t.teamOppYards/g), (long)t.rankTeamOppYards,(t.teamPassYards/g),(long)t.rankTeamPassYards,(t.teamRushYards/g),(long)t.rankTeamRushYards,(t.teamOppPassYards/g),(long)t.rankTeamOppPassYards,(t.teamOppRushYards/g),(long)t.rankTeamOppRushYards, (long)t.teamOffTalent, (long)t.rankTeamOffTalent, (long)t.teamDefTalent, (long)t.rankTeamDefTalent, (long)t.teamPrestige, (long)t.rankTeamPrestige];
     
     g = _homeTeam.numGames;
     t = _homeTeam;
-    gameR = [NSString stringWithFormat:@"#%ld %@\n%ld-%ld\n%ld (%ld)\n%ld (%ld)\n%ld (%ld)\n%ld (%ld)\n\n%ld (%ld)\n%ld (%ld)\n%ld (%ld)\n%ld (%ld)\n%ld (%ld)\n\n%ld (%ld)\n%ld (%ld)\n",(long)t.rankTeamPollScore,t.abbreviation,(long)t.wins,(long)t.losses,(long)t.teamPoints,(long)t.rankTeamPoints,(t.teamOppPoints/g),(long)t.rankTeamOppPoints,(t.teamYards/g), (long)t.rankTeamYards,(t.teamOppYards/g), (long)t.rankTeamOppYards,(t.teamPassYards/g),(long)t.rankTeamPassYards,(t.teamRushYards/g),(long)t.rankTeamRushYards,(t.teamOppPassYards/g),(long)t.rankTeamOppPassYards,(t.teamOppRushYards/g),(long)t.rankTeamOppRushYards, (long)t.teamOffTalent, (long)t.rankTeamOffTalent, (long)t.teamDefTalent, (long)t.rankTeamDefTalent, (long)t.teamPrestige, (long)t.rankTeamPrestige];
+    gameR = [NSString stringWithFormat:@"#%ld %@\n%ld-%ld\n%ld (%ld)\n%d (%ld)\n%d (%ld)\n%d (%ld)\n\n%d (%ld)\n%d (%ld)\n%d (%ld)\n%d (%ld)\n%ld (%ld)\n\n%ld (%ld)\n%ld (%ld)\n",(long)t.rankTeamPollScore,t.abbreviation,(long)t.wins,(long)t.losses,(long)t.teamPoints,(long)t.rankTeamPoints,(t.teamOppPoints/g),(long)t.rankTeamOppPoints,(t.teamYards/g), (long)t.rankTeamYards,(t.teamOppYards/g), (long)t.rankTeamOppYards,(t.teamPassYards/g),(long)t.rankTeamPassYards,(t.teamRushYards/g),(long)t.rankTeamRushYards,(t.teamOppPassYards/g),(long)t.rankTeamOppPassYards,(t.teamOppRushYards/g),(long)t.rankTeamOppRushYards, (long)t.teamOffTalent, (long)t.rankTeamOffTalent, (long)t.teamDefTalent, (long)t.rankTeamDefTalent, (long)t.teamPrestige, (long)t.rankTeamPrestige];
     
     [gameSum addObject:gameL];
     [gameSum addObject:gameC];
@@ -279,30 +336,30 @@
     return [gameSum copy];
 }
 
--(NSInteger)getPassYards:(BOOL)ha {
+-(int)getPassYards:(BOOL)ha {
     if (!ha) {
         NSNumber *qbYd = _HomeQBStats[4];
-        return qbYd.integerValue;
+        return qbYd.intValue;
     } else {
         NSNumber *qbYd = _AwayQBStats[4];
-        return qbYd.integerValue;
+        return qbYd.intValue;
     }
 }
 
--(NSInteger)getRushYards:(BOOL)ha {
+-(int)getRushYards:(BOOL)ha {
     if (!ha){
       //return HomeRB1Stats[1] + HomeRB2Stats[1];
         NSNumber *rb1Yd = _HomeRB1Stats[1];
         NSNumber *rb2Yd = _HomeRB2Stats[1];
-        return rb1Yd.integerValue + rb2Yd.integerValue;
+        return rb1Yd.intValue + rb2Yd.intValue;
     } else {
         NSNumber *rb1Yd = _AwayRB1Stats[1];
         NSNumber *rb2Yd = _AwayRB2Stats[1];
-        return rb1Yd.integerValue + rb2Yd.integerValue;
+        return rb1Yd.intValue + rb2Yd.intValue;
     }
 }
 
--(NSInteger)getHFAdv {
+-(int)getHFAdv {
     if ( gamePoss ) return 3;
     else return 0;
 }
@@ -318,9 +375,9 @@
 }
 
 -(NSString*)convGameTime {
-    NSInteger qNum = (3600 - gameTime) / 900 + 1;
-    NSInteger minTime;
-    NSInteger secTime;
+    int qNum = (3600 - gameTime) / 900 + 1;
+    int minTime;
+    int secTime;
     NSMutableString *secStr =[NSMutableString string];
     if ( qNum >= 4 && _numOT > 0 ) {
         minTime = gameTime / 60;
@@ -421,6 +478,7 @@
             }
         }
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"playedGame" object:nil];
 }
 
 -(void)addNewsStory {
@@ -428,7 +486,7 @@
     if (_numOT >= 3) {
         // Thriller in OT
         Team *winner, *loser;
-        NSInteger winScore, loseScore;
+        int winScore, loseScore;
         if (_awayScore > _homeScore) {
             winner = _awayTeam;
             loser = _homeTeam;
@@ -442,7 +500,7 @@
         }
         
         currentWeekNews = _homeTeam.league.newsStories[_homeTeam.league.currentWeek+1];
-        [currentWeekNews addObject:[NSString stringWithFormat:@"%ldOT Thriller!\n%@ and %@ played an absolutely thrilling game that went to %ld overtimes, with %@ finally emerging victories %ld to %ld.", (long)_numOT, winner.strRep, loser.strRep, (long)_numOT, winner.name, (long)winScore, (long)loseScore]];
+        [currentWeekNews addObject:[NSString stringWithFormat:@"%ldOT Thriller!\n%@ and %@ played an absolutely thrilling game that went to %ld overtimes, with %@ finally emerging victorious %ld to %ld.", (long)_numOT, winner.strRep, loser.strRep, (long)_numOT, winner.name, (long)winScore, (long)loseScore]];
     }
     else if (_homeScore > _awayScore && _awayTeam.losses == 1 && _awayTeam.league.currentWeek > 5) {
         // 5-0 or better team given first loss
@@ -465,6 +523,7 @@
         currentWeekNews = _homeTeam.league.newsStories[_awayTeam.league.currentWeek+1];
         [currentWeekNews addObject:[NSString stringWithFormat:@"Upset! %@ beats %@\n%@ pulls off the upset on the road against %@, winning %ld to %ld.", _homeTeam.strRep, _awayTeam.strRep, _homeTeam.name, _awayTeam.name, (long)_homeScore, (long)_awayScore]];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
 
 -(void)runPlay:(Team *)offense defense:(Team *)defense {
@@ -472,8 +531,8 @@
         gamePoss = !gamePoss;
         gameDown = 1;
     }
-    double preferPass = ([offense getPassProf]*2 - [defense getPassDef]) * arc4random() - 10;
-    double preferRush = ([offense getRushProf]*2 - [defense getRushDef]) * arc4random() + offense.offensiveStrategy.rushYdBonus;
+    double preferPass = ([offense getPassProf]*2 - [defense getPassDef]) *[HBSharedUtils randomValue] - 10;
+    double preferRush = ([offense getRushProf]*2 - [defense getRushDef]) *[HBSharedUtils randomValue] + offense.offensiveStrategy.rushYdBonus;
     
     if ( gameTime <= 30 ) {
         if ( ((gamePoss && (_awayScore - _homeScore) <= 3) || (!gamePoss && (_homeScore - _awayScore) <= 3)) && gameYardLine > 60 ) {
@@ -536,9 +595,9 @@
     BOOL gotTD = false;
     BOOL gotFumble = false;
     //choose WR to throw to, better WRs more often
-    double WR1pref = pow([offense getWR:0].ratOvr , 1 ) * arc4random();
-    double WR2pref = pow([offense getWR:1].ratOvr , 1 ) * arc4random();
-    double WR3pref = pow([offense getWR:2].ratOvr , 1 ) * arc4random();
+    double WR1pref = pow([offense getWR:0].ratOvr , 1 ) * [HBSharedUtils randomValue];
+    double WR2pref = pow([offense getWR:1].ratOvr , 1 ) * [HBSharedUtils randomValue];
+    double WR3pref = pow([offense getWR:2].ratOvr , 1 ) * [HBSharedUtils randomValue];
     
     PlayerWR *selWR;
     PlayerCB *selCB;
@@ -564,8 +623,8 @@
     }
     
     //get how much pressure there is on qb, check if sack
-    NSInteger pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass] - [self getHFAdv];
-    if ( arc4random()*100 < pressureOnQB/8 ) {
+    int pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass] - [self getHFAdv];
+    if ([HBSharedUtils randomValue]*100 < pressureOnQB/8 ) {
         //sacked!
         [self qbSack:offense];
         return;
@@ -596,10 +655,10 @@
             yardsGain = (int) (( [self normalize:[offense getQB:0].ratPassPow] + [self normalize:selWR.ratRecSpd] - [self normalize:selCB.ratCBSpd] )*arc4random()/3.7 + offense.offensiveStrategy.passYdBonus/2 - defense.defensiveStrategy.passYdBonus);
             //see if receiver can get yards after catch
             double escapeChance = ([self normalize:(selWR.ratRecEva)*3 - selCB.ratCBTkl - [defense getS:0].ratOvr]*arc4random() + offense.offensiveStrategy.passYdBonus - defense.defensiveStrategy.passAgBonus);
-            if ( escapeChance > 92 || arc4random() > 0.95 ) {
+            if ( escapeChance > 92 ||[HBSharedUtils randomValue] > 0.95 ) {
                 yardsGain += 3 + selWR.ratRecSpd*arc4random()/3;
             }
-            if ( escapeChance > 75 && arc4random() < (0.1 + (offense.offensiveStrategy.passAgBonus)-defense.defensiveStrategy.passAgBonus)/200) {
+            if ( escapeChance > 75 &&[HBSharedUtils randomValue] < (0.1 + (offense.offensiveStrategy.passAgBonus)-defense.defensiveStrategy.passAgBonus)/200) {
                 //wr escapes for TD
                 yardsGain += 100;
             }
@@ -674,8 +733,8 @@
     BOOL gotTD = false;
     //pick RB to run
     PlayerRB *selRB;
-    double RB1pref = pow( [offense getRB:0].ratOvr , 1.5 ) * arc4random();
-    double RB2pref = pow( [offense getRB:1].ratOvr , 1.5 ) * arc4random();
+    double RB1pref = pow( [offense getRB:0].ratOvr , 1.5 ) *[HBSharedUtils randomValue];
+    double RB2pref = pow( [offense getRB:1].ratOvr , 1.5 ) *[HBSharedUtils randomValue];
     
     if (RB1pref > RB2pref) {
         selRB = [offense getRB:0];
@@ -683,14 +742,14 @@
         selRB = [offense getRB:1];
     }
     
-    NSInteger blockAdv = [offense getCompositeOLRush ] - [defense getCompositeF7Rush];
-    int yardsGain = (int) ((selRB.ratRushSpd + blockAdv + [self getHFAdv]) * arc4random() / 10 + offense.offensiveStrategy.rushYdBonus/2 - defense.defensiveStrategy.rushYdBonus/2);
+    int blockAdv = [offense getCompositeOLRush ] - [defense getCompositeF7Rush];
+    int yardsGain = (int) ((selRB.ratRushSpd + blockAdv + [self getHFAdv]) *[HBSharedUtils randomValue] / 10 + offense.offensiveStrategy.rushYdBonus/2 - defense.defensiveStrategy.rushYdBonus/2);
     if (yardsGain < 2) {
         yardsGain += selRB.ratRushPow/20 - 3 - defense.defensiveStrategy.rushYdBonus/2;
     } else {
         //break free from tackles
         if (arc4random() < ( 0.28 + ( offense.offensiveStrategy.rushAgBonus - defense.defensiveStrategy.rushYdBonus/2 )/50 )) {
-            yardsGain += selRB.ratRushEva/5 * arc4random();
+            yardsGain += selRB.ratRushEva/5 *[HBSharedUtils randomValue];
         }
     }
     
@@ -811,7 +870,7 @@
             kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
             [_AwayKStats replaceObjectAtIndex:2 withObject:kStat2];
         }
-         [gameEventLog appendString:[NSString stringWithFormat:@"%@ %@ K %@ made the %ld yard FG.",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (110-gameYardLine)]];
+         [gameEventLog appendString:[NSString stringWithFormat:@"%@ %@ K %@ made the %d yard FG.",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (110-gameYardLine)]];
         [self addPointsQuarter:3];
         //offense.teamPoints += 3;
         //defense.teamOppPoints += 3;
@@ -822,7 +881,7 @@
     } else {
         //miss
         
-        [gameEventLog appendString:[NSString stringWithFormat:@"%@ %@ K %@ missed the %ld yard FG!",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (110-gameYardLine)]];
+        [gameEventLog appendString:[NSString stringWithFormat:@"%@ %@ K %@ missed the %d yard FG!",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (110-gameYardLine)]];
         [offense getK:0].statsFGAtt++;
         gameYardLine = 100 - gameYardLine;
         gameDown = 1;
@@ -847,10 +906,10 @@
     if ( ((gamePoss && (_awayScore - _homeScore) == 2) || (!gamePoss && (_homeScore - _awayScore) == 2)) && gameTime < 300 ) {
         //go for 2
         BOOL successConversion = false;
-        if ( arc4random() < 0.5 ) {
+        if ([HBSharedUtils randomValue] < 0.5 ) {
             //rushing
-            NSInteger blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
-            NSInteger yardsGain = (([offense getRB:0].ratRushSpd + blockAdv) * arc4random() / 6);
+            int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
+            int yardsGain = (([offense getRB:0].ratRushSpd + blockAdv) *[HBSharedUtils randomValue] / 6);
             if ( yardsGain > 5 ) {
                 successConversion = true;
                 if ( gamePoss ) { // home possession
@@ -864,7 +923,7 @@
                 [gameEventLog appendString:[NSString stringWithFormat:@"%@ %@ %@ stopped at the line of scrimmage, failed the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
             }
         } else {
-            NSInteger pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass];
+            int pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass];
             double completion = ( [self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
             if ( 100*arc4random() < completion ) {
                 successConversion = true;
@@ -882,7 +941,7 @@
         
     } else {
         //kick XP
-        if ( arc4random()*100 < 20 + [offense getK:0].ratKickAcc ) {
+        if ([HBSharedUtils randomValue]*100 < 20 + [offense getK:0].ratKickAcc ) {
             //made XP
             if ( gamePoss ) { // home possession
                 _homeScore += 1;
@@ -919,7 +978,7 @@
     if ( gameTime < 180 && ((gamePoss && (_awayScore - _homeScore) <= 8 && (_awayScore - _homeScore) > 0)
                             || (!gamePoss && (_homeScore - _awayScore) <=8 && (_homeScore - _awayScore) > 0))) {
         // Yes, do onside
-        if ([offense getK:0].ratKickFum * arc4random() > 60 || arc4random() < 0.1) {
+        if ([offense getK:0].ratKickFum *[HBSharedUtils randomValue] > 60 ||[HBSharedUtils randomValue] < 0.1) {
             //Success!
             [gameEventLog appendString:[NSString stringWithFormat:@"%@ %@ K %@ successfully executes onside kick! %@ has possession!",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
         } else {
@@ -1013,7 +1072,7 @@
     gameYardLine = 100 - gameYardLine;
 }
 
--(void)passingTD:(Team *)offense receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(NSInteger)yardsGained {
+-(void)passingTD:(Team *)offense receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(int)yardsGained {
     if ( gamePoss ) { // home possession
         _homeScore += 6;
         NSNumber *qbStat = _HomeQBStats[2];
@@ -1037,7 +1096,7 @@
 }
 
 
--(void)passCompletion:(Team *)offense defense:(Team *)defense receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(NSInteger)yardsGained {
+-(void)passCompletion:(Team *)offense defense:(Team *)defense receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(int)yardsGained {
     [offense getQB:0].statsPassComp++;
     [offense getQB:0].statsPassYards += yardsGained;
     selWR.statsReceptions++;
@@ -1063,7 +1122,7 @@
     }
 }
 
--(void)passAttempt:(Team *)offense defense:(Team *)defense receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(NSInteger)yardsGained {
+-(void)passAttempt:(Team *)offense defense:(Team *)defense receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(int)yardsGained {
     PlayerQB *qb = [offense getQB:0];
     qb.statsPassAtt++;
     selWR.statsTargets++;
@@ -1107,7 +1166,7 @@
     }
 }
 
--(void)rushAttempt:(Team *)offense defense:(Team *)defense rusher:(PlayerRB *)selRB rb1Pref:(double)rb1Pref rb2Pref:(double)rb2Pref yardsGained:(NSInteger)yardsGained {
+-(void)rushAttempt:(Team *)offense defense:(Team *)defense rusher:(PlayerRB *)selRB rb1Pref:(double)rb1Pref rb2Pref:(double)rb2Pref yardsGained:(int)yardsGained {
     selRB.statsRushAtt++;
     selRB.statsRushYards += yardsGained;
     offense.teamRushYards += yardsGained;
@@ -1154,10 +1213,10 @@
     }
 }
 
--(void)addPointsQuarter:(NSInteger)points {
+-(void)addPointsQuarter:(int)points {
     if ( gamePoss ) {
         //home poss
-        NSInteger index = 0;
+        int index = 0;
         if ( gameTime > 2700 ) {
             index = 0;
         } else if ( gameTime > 1800 ) {
@@ -1173,12 +1232,13 @@
                 index = 9;
             }
         }
+        
         NSNumber *quarter = _homeQScore[index];
-        quarter = [NSNumber numberWithInteger:quarter.integerValue + points];
+        quarter = [NSNumber numberWithInt:quarter.intValue + points];
         [_homeQScore replaceObjectAtIndex:index withObject:quarter];
     } else {
         //away
-        NSInteger index = 0;
+        int index = 0;
         if ( gameTime > 2700 ) {
             index = 0;
         } else if ( gameTime > 1800 ) {
@@ -1195,12 +1255,12 @@
             }
         }
         NSNumber *quarter = _awayQScore[index];
-        quarter = [NSNumber numberWithInteger:quarter.integerValue + points];
+        quarter = [NSNumber numberWithInt:quarter.intValue + points];
         [_awayQScore replaceObjectAtIndex:index withObject:quarter];
     }
 }
 
--(NSInteger)normalize:(NSInteger)rating {
+-(int)normalize:(int)rating {
     return (100 + rating)/2;
 }
 

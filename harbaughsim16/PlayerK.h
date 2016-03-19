@@ -9,15 +9,15 @@
 #import "Player.h"
 
 @interface PlayerK : Player
-@property (nonatomic) NSInteger ratKickPow;
-@property (nonatomic) NSInteger ratKickAcc;
-@property (nonatomic) NSInteger ratKickFum;
-@property (nonatomic) NSInteger statsXPAtt;
-@property (nonatomic) NSInteger statsXPMade;
-@property (nonatomic) NSInteger statsFGAtt;
-@property (nonatomic) NSInteger statsFGMade;
+@property (nonatomic) int ratKickPow;
+@property (nonatomic) int ratKickAcc;
+@property (nonatomic) int ratKickFum;
+@property (nonatomic) int statsXPAtt;
+@property (nonatomic) int statsXPMade;
+@property (nonatomic) int statsFGAtt;
+@property (nonatomic) int statsFGMade;
 -(NSMutableArray*)getStatsVector;
 
-+(instancetype)newKWithName:(NSString *)nm team:(Team *)t year:(NSInteger)yr potential:(NSInteger)pot footballIQ:(NSInteger)iq power:(NSInteger)pow accuracy:(NSInteger)acc fum:(NSInteger)fum;
-+(instancetype)newKWithName:(NSString*)nm year:(NSInteger)yr stars:(NSInteger)stars team:(Team*)t;
++(instancetype)newKWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum;
++(instancetype)newKWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t;
 @end

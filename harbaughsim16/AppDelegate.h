@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class League;
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) League* league;
 
 @end
 
