@@ -2,13 +2,13 @@
 //  HBStatsCell.m
 //  harbaughsim16
 //
-//  Created by Akshay Easwaran on 3/19/16.
+//  Created by Akshay Easwaran on 3/18/16.
 //  Copyright © 2016 Akshay Easwaran. All rights reserved.
 //
 
-#import "HBStatsCell.h"
+#import "HBRosterCell.h"
 
-@implementation HBStatsCell
+@implementation HBRosterCell
 
 - (void)awakeFromNib {
     // Initialization code

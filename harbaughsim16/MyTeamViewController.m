@@ -65,7 +65,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 1;
+        return 2;
     } else {
         return 3;
     }
@@ -81,7 +81,11 @@
     NSString *title = @"";
     
     if (indexPath.section == 0) {
-        title = @"Recruiting";
+        if (indexPath.row == 0) {
+            title = @"Offensive Strategy";
+        } else {
+            title = @"Defensive Strategy";
+        }
     } else {
         if (indexPath.row == 0) {
             title = @"Team History";

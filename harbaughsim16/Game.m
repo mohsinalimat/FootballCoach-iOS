@@ -179,161 +179,141 @@
     return self;
 }
 
--(NSArray<NSString*>*)getGameSummaryStrings {
-    NSMutableArray<NSString*> *gameSum = [NSMutableArray array];
-    /**
-     * [0] is left side
-     * [1] is center
-     * [2] is right
-     * [3] is bottom (game log)
-     */
-    NSMutableString *gameL = [NSMutableString string];
-    NSMutableString *gameC = [NSMutableString string];
-    NSMutableString *gameR = [NSMutableString string];
-    
-    [gameL appendString:@"\nPoints\nYards\nPass Yards\nRush Yards\nTOs\n\n"];
-    [gameC appendString:[NSString stringWithFormat:@"#%ld %@\n%ld\n%ld yds\n%ld pyads\n%ldryds\n%ld TOs\n\n",(long)_awayTeam.rankTeamPollScore,_awayTeam.abbreviation,(long)_awayScore,(long)_awayYards,(long)[self getPassYards:TRUE],(long)[self getRushYards:TRUE],(long)_awayTOs]];
-    [gameR appendString:[NSString stringWithFormat:@"#%ld %@\n%ld\n%ld yds\n%ld pyads\n%ldryds\n%ld TOs\n\n",(long)_homeTeam.rankTeamPollScore,_homeTeam.abbreviation,(long)_homeScore,(long)_homeYards,(long)[self getPassYards:FALSE],(long)[self getRushYards:FALSE],(long)_homeTOs]];
-    
-    /**
-     * QBs
-     */
-    [gameL appendString:@"QBs\nName\nYr Ovr/Pot\nTD/Int\nPass Yards\nComp/Att\n"];
-    [gameC appendString:[NSString stringWithFormat:@"%@\n%@\n",_awayTeam.abbreviation,[_awayTeam getQB:0].getInitialName]];
-    [gameC appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_awayTeam getQB:0].getYearString,(long)[_awayTeam getQB:0].ratOvr,(long)[_awayTeam getQB:0].ratPot]];
-    [gameC appendString:[NSString stringWithFormat:@"%@/%@\n",[_AwayQBStats[2] string],[_AwayQBStats[3] string]]]; //td/int
-    [gameC appendString:[NSString stringWithFormat:@"%@yds\n",[_AwayQBStats[4] string]]]; //pass yards
-    [gameC appendString:[NSString stringWithFormat:@"%@/%@\n",[_AwayQBStats[0] string],[_AwayQBStats[1] string]]];//pass comp/att
-    
-    [gameR appendString:[NSString stringWithFormat:@"%@\n%@\n",_homeTeam.abbreviation,[_homeTeam getQB:0].getInitialName]];
-    [gameR appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_homeTeam getQB:0].getYearString,(long)[_homeTeam getQB:0].ratOvr,(long)[_homeTeam getQB:0].ratPot]];
-    [gameR appendString:[NSString stringWithFormat:@"%@/%@\n",[_HomeQBStats[2] string],[_HomeQBStats[3] string]]]; //td/int
-    [gameR appendString:[NSString stringWithFormat:@"%@yds\n",[_HomeQBStats[4] string]]]; //pass yards
-    [gameR appendString:[NSString stringWithFormat:@"%@/%@\n",[_HomeQBStats[0] string],[_HomeQBStats[1] string]]];//pass comp/att
-    
-    /**
-     * RBs
-     */
-    [gameL appendString:@"\nRBs\nRB1 Name\nYr Ovr/Pot\nTD/Fum\nRush Yards\nYds/Att\n"];
-    [gameC appendString:[NSString stringWithFormat:@"%@\n%@\n",_awayTeam.abbreviation,[_awayTeam getRB:0].getInitialName]];
-    [gameC appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_awayTeam getRB:0].getYearString,(long)[_awayTeam getRB:0].ratOvr,(long)[_awayTeam getRB:0].ratPot]];
-    [gameC appendString:[NSString stringWithFormat:@"%@/%@\n",[_AwayRB1Stats[2] string],[_AwayRB1Stats[3] string]]];
-    [gameC appendString:[NSString stringWithFormat:@"%@yds\n",[_AwayRB1Stats[1] string]]];
-    [gameC appendString:[NSString stringWithFormat:@"%f\n",((double)((10*[_AwayRB1Stats[1] doubleValue])/[_AwayRB1Stats[0] doubleValue])/10)]];
-    
-    [gameR appendString:[NSString stringWithFormat:@"%@\n%@\n",_homeTeam.abbreviation,[_homeTeam getRB:0].getInitialName]];
-    [gameR appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_homeTeam getRB:0].getYearString,(long)[_homeTeam getRB:0].ratOvr,(long)[_homeTeam getRB:0].ratPot]];
-    [gameR appendString:[NSString stringWithFormat:@"%@/%@\n",[_HomeRB1Stats[2] string],[_HomeRB1Stats[3] string]]];
-    [gameR appendString:[NSString stringWithFormat:@"%@yds\n",[_HomeRB1Stats[1] string]]];
-    [gameR appendString:[NSString stringWithFormat:@"%f\n",((double)((10*[_HomeRB1Stats[1] doubleValue])/[_HomeRB1Stats[0] doubleValue])/10)]];
-    
-    [gameL appendString:@"\n"]; [gameC appendString:@"\n"]; [gameR appendString:@"\n"];
-    
-    [gameL appendString:@"RB2 Name\nYr Ovr/Pot\nTD/Fum\nRush Yards\nYds/Att\n"];
-    [gameC appendString:[NSString stringWithFormat:@"%@\n%@\n",_awayTeam.abbreviation,[_awayTeam getRB:1].getInitialName]];
-    [gameC appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_awayTeam getRB:1].getYearString,(long)[_awayTeam getRB:1].ratOvr,(long)[_awayTeam getRB:1].ratPot]];
-    [gameC appendString:[NSString stringWithFormat:@"%@/%@\n",[_AwayRB2Stats[2] string],[_AwayRB2Stats[3] string]]];
-    [gameC appendString:[NSString stringWithFormat:@"%@yds\n",[_AwayRB2Stats[1] string]]];
-    [gameC appendString:[NSString stringWithFormat:@"%f\n",((double)((10*[_AwayRB2Stats[1] doubleValue])/[_AwayRB2Stats[0] doubleValue])/10)]];
-    
-    [gameR appendString:[NSString stringWithFormat:@"%@\n%@\n",_homeTeam.abbreviation,[_homeTeam getRB:1].getInitialName]];
-    [gameR appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_homeTeam getRB:1].getYearString,(long)[_homeTeam getRB:1].ratOvr,(long)[_homeTeam getRB:1].ratPot]];
-    [gameR appendString:[NSString stringWithFormat:@"%@/%@\n",[_HomeRB2Stats[2] string],[_HomeRB2Stats[3] string]]];
-    [gameR appendString:[NSString stringWithFormat:@"%@yds\n",[_HomeRB2Stats[1] string]]];
-    [gameR appendString:[NSString stringWithFormat:@"%f\n",((double)((10*[_HomeRB2Stats[1] doubleValue])/[_HomeRB2Stats[0] doubleValue])/10)]];
-    
-    /**
-     * WRs
-     */
-    [gameL appendString:@"\nWRs\nWR1 Name\nYr Ovr/Pot\nTD/Fum\nRec Yards\nRec/Tgts\n" ];
-
-    [gameC appendString:[NSString stringWithFormat:@"%@\n%@\n",_awayTeam.abbreviation,[_awayTeam getWR:0].getInitialName]];
-    [gameC appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_awayTeam getWR:0].getYearString,(long)[_awayTeam getWR:0].ratOvr,(long)[_awayTeam getWR:0].ratPot]];
-    [gameC appendString:[NSString stringWithFormat:@"%@/%@\n",[_AwayWR1Stats[3] string],[_AwayWR1Stats[5] string]]];
-    [gameC appendString:[NSString stringWithFormat:@"%@yds\n",[_AwayWR1Stats[2] string]]];
-    [gameC appendString:[NSString stringWithFormat:@"%@/%@\n",[_AwayWR1Stats[0] string],[_AwayWR1Stats[1] string]]];
-    
-    [gameR appendString:[NSString stringWithFormat:@"%@\n%@\n",_homeTeam.abbreviation,[_homeTeam getWR:0].getInitialName]];
-    [gameR appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_homeTeam getWR:0].getYearString,(long)[_homeTeam getWR:0].ratOvr,(long)[_homeTeam getWR:0].ratPot]];
-    [gameR appendString:[NSString stringWithFormat:@"%@/%@\n",[_HomeWR1Stats[2] string],[_HomeWR1Stats[3] string]]];
-    [gameR appendString:[NSString stringWithFormat:@"%@yds\n",[_HomeWR1Stats[4] string]]];
-    [gameR appendString:[NSString stringWithFormat:@"%@/%@\n",[_HomeWR1Stats[0] string],[_HomeWR1Stats[1] string]]];
-    
-    [gameL appendString:@"\n"]; [gameC appendString:@"\n"]; [gameR appendString:@"\n"];
-    
-    [gameL appendString:@"WR2 Name\nYr Ovr/Pot\nTD/Fum\nRec Yards\nRec/Tgts\n" ];
-    [gameC appendString:[NSString stringWithFormat:@"%@\n%@\n",_awayTeam.abbreviation,[_awayTeam getWR:1].getInitialName]];
-    [gameC appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_awayTeam getWR:1].getYearString,(long)[_awayTeam getWR:1].ratOvr,(long)[_awayTeam getWR:1].ratPot]];
-    [gameC appendString:[NSString stringWithFormat:@"%@/%@\n",[_AwayWR2Stats[3] string],[_AwayWR2Stats[5] string]]];
-    [gameC appendString:[NSString stringWithFormat:@"%@yds\n",[_AwayWR2Stats[2] string]]];
-    [gameC appendString:[NSString stringWithFormat:@"%@/%@\n",[_AwayWR2Stats[0] string],[_AwayWR2Stats[1] string]]];
-    
-    [gameR appendString:[NSString stringWithFormat:@"%@\n%@\n",_homeTeam.abbreviation,[_homeTeam getWR:1].getInitialName]];
-    [gameR appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_homeTeam getWR:1].getYearString,(long)[_homeTeam getWR:1].ratOvr,(long)[_homeTeam getWR:1].ratPot]];
-    [gameR appendString:[NSString stringWithFormat:@"%@/%@\n",[_HomeWR2Stats[2] string],[_HomeWR2Stats[3] string]]];
-    [gameR appendString:[NSString stringWithFormat:@"%@yds\n",[_HomeWR2Stats[4] string]]];
-    [gameR appendString:[NSString stringWithFormat:@"%@/%@\n",[_HomeWR2Stats[0] string],[_HomeWR2Stats[1] string]]];
-    
-    [gameL appendString:@"\n"]; [gameC appendString:@"\n"]; [gameR appendString:@"\n"];
-    
-    [gameL appendString:@"WR3 Name\nYr Ovr/Pot\nTD/Fum\nRec Yards\nRec/Tgts\n" ];
-    [gameC appendString:[NSString stringWithFormat:@"%@\n%@\n",_awayTeam.abbreviation,[_awayTeam getWR:2].getInitialName]];
-    [gameC appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_awayTeam getWR:2].getYearString,(long)[_awayTeam getWR:2].ratOvr,(long)[_awayTeam getWR:2].ratPot]];
-    [gameC appendString:[NSString stringWithFormat:@"%@/%@\n",[_AwayWR3Stats[3] string],[_AwayWR3Stats[5] string]]];
-    [gameC appendString:[NSString stringWithFormat:@"%@yds\n",[_AwayWR3Stats[2] string]]];
-    [gameC appendString:[NSString stringWithFormat:@"%@/%@\n",[_AwayWR3Stats[0] string],[_AwayWR3Stats[1] string]]];
-    
-    [gameR appendString:[NSString stringWithFormat:@"%@\n%@\n",_homeTeam.abbreviation,[_homeTeam getWR:2].getInitialName]];
-    [gameR appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_homeTeam getWR:2].getYearString,(long)[_homeTeam getWR:2].ratOvr,(long)[_homeTeam getWR:2].ratPot]];
-    [gameR appendString:[NSString stringWithFormat:@"%@/%@\n",[_HomeWR3Stats[2] string],[_HomeWR3Stats[3] string]]];
-    [gameR appendString:[NSString stringWithFormat:@"%@yds\n",[_HomeWR3Stats[4] string]]];
-    [gameR appendString:[NSString stringWithFormat:@"%@/%@\n",[_HomeWR3Stats[0] string],[_HomeWR3Stats[1] string]]];
-    
-    /**
-     * Ks
-     */
-    [gameL appendString:@"\nKs\nName\nYr Ovr/Pot\nFGM/FGA\nXPM/XPA\n"];
-    [gameC appendString:[NSString stringWithFormat:@"%@\n%@\n",_awayTeam.abbreviation,[_awayTeam getK:0].getInitialName]];
-    [gameC appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_awayTeam getK:0].getYearString,(long)[_awayTeam getK:0].ratOvr,(long)[_awayTeam getK:0].ratPot]];
-    [gameC appendString:[NSString stringWithFormat:@"%@/%@ FG %@/%@ XP",[_AwayKStats[2] string],[_AwayKStats[3] string],[_AwayKStats[0] string],[_AwayKStats[1] string]]];
-    
-    [gameR appendString:[NSString stringWithFormat:@"%@\n%@\n",_homeTeam.abbreviation,[_homeTeam getK:0].getInitialName]];
-    [gameR appendString:[NSString stringWithFormat:@"%@ %ld/%ld\n",[_homeTeam getK:0].getYearString,(long)[_homeTeam getK:0].ratOvr,(long)[_homeTeam getK:0].ratPot]];
-    [gameR appendString:[NSString stringWithFormat:@"%@/%@ FG %@/%@ XP",[_HomeKStats[2] string],[_HomeKStats[3] string],[_HomeKStats[0] string],[_HomeKStats[1] string]]];
-    
-    [gameSum addObject:gameL];
-    [gameSum addObject:gameC];
-    [gameSum addObject:gameR];
-    [gameSum addObject:gameEventLog];
-    
-    return gameSum;
-    
-    
-    
-    return [gameSum copy];
+-(NSString*)gameSummary {
+    return gameEventLog;
 }
 
--(NSArray<NSString*>*)getGameScoutStrings {
-    NSMutableArray<NSString*> *gameSum = [NSMutableArray array];
-    NSString *gameL = @"Ranking\nRecord\nPPG\nOpp PPG\nYPG\nOpp YPG\n\nPass YPG\nRush YPG\nOpp PYPG\nOpp RYPG\n\nOff Talent\nDef Talent\nPrestige";
-    NSString *gameC = @"";
-    NSString *gameR = @"";
-    int g = _awayTeam.numGames;
-    Team *t = _awayTeam;
+-(NSDictionary*)gameReport {
+    NSMutableDictionary *report = [NSMutableDictionary dictionary];
     
-    gameC = [NSString stringWithFormat:@"#%ld %@\n%ld-%ld\n%ld (%ld)\n%d (%ld)\n%d (%ld)\n%d (%ld)\n\n%d (%ld)\n%d (%ld)\n%d (%ld)\n%d (%ld)\n%ld (%ld)\n\n%ld (%ld)\n%ld (%ld)\n",(long)t.rankTeamPollScore,t.abbreviation,(long)t.wins,(long)t.losses,(long)t.teamPoints,(long)t.rankTeamPoints,(t.teamOppPoints/g),(long)t.rankTeamOppPoints,(t.teamYards/g), (long)t.rankTeamYards,(t.teamOppYards/g), (long)t.rankTeamOppYards,(t.teamPassYards/g),(long)t.rankTeamPassYards,(t.teamRushYards/g),(long)t.rankTeamRushYards,(t.teamOppPassYards/g),(long)t.rankTeamOppPassYards,(t.teamOppRushYards/g),(long)t.rankTeamOppRushYards, (long)t.teamOffTalent, (long)t.rankTeamOffTalent, (long)t.teamDefTalent, (long)t.rankTeamDefTalent, (long)t.teamPrestige, (long)t.rankTeamPrestige];
+    if (_hasPlayed) {
+        //Points/stats dictionary - away, home
+        NSMutableDictionary *gameStats = [NSMutableDictionary dictionary]; //score, total yards, pass yards, rush yards
+        [gameStats setObject:@[[NSString stringWithFormat:@"%d",_awayScore],
+                               [NSString stringWithFormat:@"%d",_homeScore]] forKey:@"Score"];
+        [gameStats setObject:@[[NSString stringWithFormat:@"%d",_awayYards],
+                               [NSString stringWithFormat:@"%d",_homeYards]] forKey:@"Total Yards"];
+        [gameStats setObject:@[[NSString stringWithFormat:@"%d",[self getPassYards:TRUE]],
+                               [NSString stringWithFormat:@"%d",[self getPassYards:FALSE]]] forKey:@"Pass Yards"];
+        [gameStats setObject:@[[NSString stringWithFormat:@"%d",[self getRushYards:TRUE]],
+                               [NSString stringWithFormat:@"%d",[self getRushYards:FALSE]]] forKey:@"Rush Yards"];
+        
+        [report setObject:gameStats forKey:@"gameStats"];
+        
+        //QBs - dicts go home, away - yes, I'm aware that's confusing
+        NSMutableDictionary *qbs = [NSMutableDictionary dictionary];
+        [qbs setObject:[_homeTeam getQB:0] forKey:@"homeQB"];
+        [qbs setObject:_HomeQBStats forKey:@"homeQBStats"];
+        
+        [qbs setObject:[_awayTeam getQB:0] forKey:@"awayQB"];
+        [qbs setObject:_AwayQBStats forKey:@"awayQBStats"];
+        [report setObject:qbs forKey:@"QBs"];
+        
+        //RBs
+        NSMutableDictionary *rbs = [NSMutableDictionary dictionary];
+        [rbs setObject:[_homeTeam getRB:0] forKey:@"homeRB1"];
+        [rbs setObject:_HomeRB1Stats forKey:@"homeRB1Stats"];
+        
+        [rbs setObject:[_homeTeam getRB:1] forKey:@"homeRB2"];
+        [rbs setObject:_HomeRB2Stats forKey:@"homeRB2Stats"];
+        
+        [rbs setObject:[_awayTeam getRB:0] forKey:@"awayRB1"];
+        [rbs setObject:_AwayRB1Stats forKey:@"awayRB1Stats"];
+        
+        [rbs setObject:[_awayTeam getRB:1] forKey:@"awayRB2"];
+        [rbs setObject:_AwayRB2Stats forKey:@"awayRB2Stats"];
+        
+        [report setObject:rbs forKey:@"RBs"];
+        
+        //WRs
+        NSMutableDictionary *wrs = [NSMutableDictionary dictionary];
+        
+        [wrs setObject:[_homeTeam getWR:0] forKey:@"homeWR1"];
+        [wrs setObject:_HomeWR1Stats forKey:@"homeWR1Stats"];
+        
+        [wrs setObject:[_homeTeam getWR:1] forKey:@"homeWR2"];
+        [wrs setObject:_HomeWR2Stats forKey:@"homeWR2Stats"];
+        
+        [wrs setObject:[_homeTeam getWR:2] forKey:@"homeWR3"];
+        [wrs setObject:_HomeWR3Stats forKey:@"homeWR3Stats"];
+        
+        [wrs setObject:[_awayTeam getWR:0] forKey:@"awayWR1"];
+        [wrs setObject:_AwayWR1Stats forKey:@"awayWR1Stats"];
+        
+        [wrs setObject:[_awayTeam getWR:1] forKey:@"awayWR2"];
+        [wrs setObject:_AwayWR2Stats forKey:@"awayWR2Stats"];
+        
+        [wrs setObject:[_awayTeam getWR:2] forKey:@"awayWR3"];
+        [wrs setObject:_AwayWR3Stats forKey:@"awayWR3Stats"];
+        
+        
+        [report setObject:wrs forKey:@"WRs"];
+        
+        //Ks
+        NSMutableDictionary *ks = [NSMutableDictionary dictionary];
+        [ks setObject:[_homeTeam getK:0] forKey:@"homeK"];
+        [ks setObject:_HomeKStats forKey:@"homeKStats"];
+        
+        [ks setObject:[_awayTeam getK:0] forKey:@"awayK"];
+        [ks setObject:_AwayKStats forKey:@"awayKStats"];
+        [report setObject:ks forKey:@"Ks"];
+        
+    } else {
+        // array goes away, home
+        double appg = ((double)_awayTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        double hppg = ((double)_homeTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        
+        double aoppg = ((double)_awayTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        double hoppg = ((double)_homeTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        
+        double aypg = ((double)_awayTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        double hypg = ((double)_homeTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        
+        double aoypg = ((double)_awayTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        double hoypg = ((double)_homeTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        
+        double apypg = ((double)_awayTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        double hpypg = ((double)_homeTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        
+        double arypg = ((double)_awayTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        double hrypg = ((double)_homeTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        
+        double aopypg = ((double)_awayTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        double hopypg = ((double)_homeTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        
+        double aorypg = ((double)_awayTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        double horypg = ((double)_homeTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        
+        
+        [report setObject:@[[NSString stringWithFormat:@"#%d",_awayTeam.rankTeamPollScore],
+                            [NSString stringWithFormat:@"#%d",_homeTeam.rankTeamPollScore]] forKey:@"Ranking"];
+        [report setObject:@[[NSString stringWithFormat:@"%d-%d",_awayTeam.wins,_awayTeam.losses],
+                            [NSString stringWithFormat:@"%d-%d",_awayTeam.wins,_homeTeam.losses]] forKey:@"Record"];
+        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",appg,_awayTeam.rankTeamPoints],
+                            [NSString stringWithFormat:@"%f (#%d)",hppg,_homeTeam.rankTeamPoints]] forKey:@"PPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",aoppg,_awayTeam.rankTeamOppPoints],
+                            [NSString stringWithFormat:@"%f (#%d)",hoppg,_homeTeam.rankTeamOppPoints]] forKey:@"Opp PPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",aypg,_awayTeam.rankTeamYards],
+                            [NSString stringWithFormat:@"%f (#%d)",hypg,_homeTeam.rankTeamYards]] forKey:@"YPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",aoypg,_awayTeam.rankTeamOppYards],
+                            [NSString stringWithFormat:@"%f (#%d)",hoypg,_homeTeam.rankTeamOppYards]] forKey:@"Opp YPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",apypg,_awayTeam.rankTeamPassYards],
+                            [NSString stringWithFormat:@"%f (#%d)",hpypg,_homeTeam.rankTeamPassYards]] forKey:@"Pass YPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",arypg,_awayTeam.rankTeamRushYards],
+                            [NSString stringWithFormat:@"%f (#%d)",hrypg,_homeTeam.rankTeamRushYards]] forKey:@"Rush YPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",aopypg,_awayTeam.rankTeamOppPassYards],
+                            [NSString stringWithFormat:@"%f (#%d)",hopypg,_homeTeam.rankTeamOppPassYards]] forKey:@"Opp PYPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",aorypg,_awayTeam.rankTeamOppRushYards],
+                            [NSString stringWithFormat:@"%f (#%d)",horypg,_homeTeam.rankTeamOppRushYards]] forKey:@"Opp RYPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",_awayTeam.teamOffTalent,_awayTeam.rankTeamOffTalent],
+                            [NSString stringWithFormat:@"%d (#%d)",_homeTeam.teamOffTalent,_homeTeam.rankTeamOffTalent]] forKey:@"Off Talent"];
+        [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",_awayTeam.teamDefTalent,_awayTeam.rankTeamDefTalent],
+                            [NSString stringWithFormat:@"%d (#%d)",_homeTeam.teamDefTalent,_homeTeam.rankTeamDefTalent]] forKey:@"Def Talent"];
+        [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",_awayTeam.teamPrestige,_awayTeam.rankTeamPrestige],
+                            [NSString stringWithFormat:@"%d (#%d)",_homeTeam.teamPrestige,_homeTeam.rankTeamPrestige]] forKey:@"Prestige"];
+    }
     
-    g = _homeTeam.numGames;
-    t = _homeTeam;
-    gameR = [NSString stringWithFormat:@"#%ld %@\n%ld-%ld\n%ld (%ld)\n%d (%ld)\n%d (%ld)\n%d (%ld)\n\n%d (%ld)\n%d (%ld)\n%d (%ld)\n%d (%ld)\n%ld (%ld)\n\n%ld (%ld)\n%ld (%ld)\n",(long)t.rankTeamPollScore,t.abbreviation,(long)t.wins,(long)t.losses,(long)t.teamPoints,(long)t.rankTeamPoints,(t.teamOppPoints/g),(long)t.rankTeamOppPoints,(t.teamYards/g), (long)t.rankTeamYards,(t.teamOppYards/g), (long)t.rankTeamOppYards,(t.teamPassYards/g),(long)t.rankTeamPassYards,(t.teamRushYards/g),(long)t.rankTeamRushYards,(t.teamOppPassYards/g),(long)t.rankTeamOppPassYards,(t.teamOppRushYards/g),(long)t.rankTeamOppRushYards, (long)t.teamOffTalent, (long)t.rankTeamOffTalent, (long)t.teamDefTalent, (long)t.rankTeamDefTalent, (long)t.teamPrestige, (long)t.rankTeamPrestige];
-    
-    [gameSum addObject:gameL];
-    [gameSum addObject:gameC];
-    [gameSum addObject:gameR];
-    [gameSum addObject:@"SCOUTING REPORT"];
-    
-    
-    return [gameSum copy];
+    return [report copy];
 }
 
 -(int)getPassYards:(BOOL)ha {

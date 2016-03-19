@@ -9,7 +9,7 @@
 #import "RosterViewController.h"
 #import "HBSharedUtils.h"
 #import "Team.h"
-#import "HBStatsCell.h"
+#import "HBRosterCell.h"
 #import "Player.h"
 #import "PlayerQB.h"
 #import "PlayerRB.h"
@@ -43,12 +43,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Roster";
-    [self.tableView registerNib:[UINib nibWithNibName:@"HBStatsCell" bundle:nil] forCellReuseIdentifier:@"HBStatsCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"HBRosterCell" bundle:nil] forCellReuseIdentifier:@"HBRosterCell"];
     userTeam = [HBSharedUtils getLeague].userTeam;
     self.tableView.tableHeaderView = buttonView;
     [self.view setBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#009740"]];
     //[[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
-    //[[UITableViewHeaderFooterView appearanceWhenContainedInInstancesOfClasses:@[[self class]]].contentView setBackgroundColor:[UIColor lightGrayColor]];
+    //
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
@@ -109,7 +109,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HBStatsCell *cell = (HBStatsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBStatsCell" forIndexPath:indexPath];
+    HBRosterCell *cell = (HBRosterCell*)[tableView dequeueReusableCellWithIdentifier:@"HBRosterCell" forIndexPath:indexPath];
     Player *player;
     if (indexPath.section == 0) {
         player = [userTeam getQB:0];

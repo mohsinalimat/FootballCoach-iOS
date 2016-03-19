@@ -69,8 +69,8 @@
 +(instancetype)newGameWithHome:(Team*)home away:(Team*)away;
 +(instancetype)newGameWithHome:(Team*)home away:(Team*)away name:(NSString*)name;
 -(instancetype)initWithHome:(Team*)home away:(Team*)away name:(NSString*)name;
--(NSArray<NSString*>*)getGameSummaryStrings;
--(NSArray<NSString*>*)getGameScoutStrings;
+-(NSString*)gameSummary;
+-(NSDictionary*)gameReport;
 -(int)getPassYards:(BOOL)ha;
 -(int)getRushYards:(BOOL)ha;
 -(int)getHFAdv;
