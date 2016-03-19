@@ -72,21 +72,34 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    
-    NSString *title = @"";
-    
     if (indexPath.section == 0) {
+        UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"StratCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"StratCell"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        
+        NSString *title = @"";
         if (indexPath.row == 0) {
             title = @"Offensive Strategy";
         } else {
             title = @"Defensive Strategy";
         }
+        
+        [cell.textLabel setText:title];
+        [cell.detailTextLabel setText:@"None"]; //change later
+        return cell;
+        
     } else {
+        UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        
+        NSString *title = @"";
+        
+
         if (indexPath.row == 0) {
             title = @"Team History";
         } else if (indexPath.row == 1) {
@@ -94,11 +107,12 @@
         } else {
             title = @"League History";
         }
+        [cell.textLabel setText:title];
+        
+        return cell;
     }
     
-    [cell.textLabel setText:title];
     
-    return cell;
 }
 
 @end

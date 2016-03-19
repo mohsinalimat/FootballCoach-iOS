@@ -10,7 +10,6 @@
 		3B126401C40074476E0CBD5E /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 816834A7F9C15B63FF8EA2BB /* Pods_harbaughsim16.framework */; };
 		7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */; };
 		7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */; };
-		7510B84D1C9C76D700BE9CD6 /* TeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B84C1C9C76D700BE9CD6 /* TeamViewController.m */; };
 		7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */; };
 		755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC461C9DD0DF001A8314 /* HBStatsCell.m */; };
 		755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC471C9DD0DF001A8314 /* HBStatsCell.xib */; };
@@ -73,7 +72,6 @@
 		75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C971C9C7C0C0034140C /* team-selected@3x.png */; };
 		75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */; };
 		75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */; };
-		75BABF421C9A5D3800A68CD6 /* RecruitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */; };
 		75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -83,8 +81,6 @@
 		7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamSelectionViewController.m; sourceTree = "<group>"; };
 		7510B8481C9C76C900BE9CD6 /* GameDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDetailViewController.h; sourceTree = "<group>"; };
 		7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailViewController.m; sourceTree = "<group>"; };
-		7510B84B1C9C76D700BE9CD6 /* TeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamViewController.h; sourceTree = "<group>"; };
-		7510B84C1C9C76D700BE9CD6 /* TeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamViewController.m; sourceTree = "<group>"; };
 		7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		755BBC451C9DD0DF001A8314 /* HBStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBStatsCell.h; sourceTree = "<group>"; };
@@ -176,8 +172,6 @@
 		75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roster-selected@3x.png"; sourceTree = "<group>"; };
 		75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
 		75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
-		75BABF401C9A5D3800A68CD6 /* RecruitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitingViewController.h; sourceTree = "<group>"; };
-		75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecruitingViewController.m; sourceTree = "<group>"; };
 		75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTeamViewController.h; sourceTree = "<group>"; };
 		75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTeamViewController.m; sourceTree = "<group>"; };
 		816834A7F9C15B63FF8EA2BB /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,8 +193,59 @@
 		7510B8441C9C76AD00BE9CD6 /* Base Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				75924A241C99CCC000B165AD /* NewsViewController.h */,
-				75924A251C99CCC000B165AD /* NewsViewController.m */,
+				755BBC691C9E10D0001A8314 /* News */,
+				755BBC681C9E10CB001A8314 /* Schedule */,
+				755BBC671C9E10BD001A8314 /* Roster */,
+				755BBC661C9E10AF001A8314 /* My Team */,
+			);
+			name = "Base Tabs";
+			sourceTree = "<group>";
+		};
+		755BBC651C9E10A1001A8314 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				75924A211C99CCC000B165AD /* AppDelegate.h */,
+				75924A221C99CCC000B165AD /* AppDelegate.m */,
+				7510B8451C9C76BE00BE9CD6 /* TeamSelectionViewController.h */,
+				7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */,
+				7571DD191C9CB1DC00E67080 /* IntroViewController.h */,
+				7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */,
+				7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */,
+			);
+			name = Intro;
+			sourceTree = "<group>";
+		};
+		755BBC661C9E10AF001A8314 /* My Team */ = {
+			isa = PBXGroup;
+			children = (
+				75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */,
+				75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */,
+				7571DD341C9CF8E300E67080 /* MyTeamViewController.xib */,
+				7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */,
+				7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */,
+			);
+			name = "My Team";
+			sourceTree = "<group>";
+		};
+		755BBC671C9E10BD001A8314 /* Roster */ = {
+			isa = PBXGroup;
+			children = (
+				7571DD361C9CFD4000E67080 /* RosterViewController.h */,
+				7571DD371C9CFD4000E67080 /* RosterViewController.m */,
+				7571DD451C9D34B300E67080 /* RosterViewController.xib */,
+				7571DD3E1C9D032F00E67080 /* PlayerDetailViewController.h */,
+				7571DD3F1C9D032F00E67080 /* PlayerDetailViewController.m */,
+				7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */,
+				7571DD391C9CFF6500E67080 /* HBRosterCell.h */,
+				7571DD3A1C9CFF6500E67080 /* HBRosterCell.m */,
+				7571DD3B1C9CFF6500E67080 /* HBRosterCell.xib */,
+			);
+			name = Roster;
+			sourceTree = "<group>";
+		};
+		755BBC681C9E10CB001A8314 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
 				75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */,
 				75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */,
 				7571DD271C9CC9A000E67080 /* ScheduleViewController.xib */,
@@ -213,23 +258,20 @@
 				755BBC451C9DD0DF001A8314 /* HBStatsCell.h */,
 				755BBC461C9DD0DF001A8314 /* HBStatsCell.m */,
 				755BBC471C9DD0DF001A8314 /* HBStatsCell.xib */,
-				7571DD361C9CFD4000E67080 /* RosterViewController.h */,
-				7571DD371C9CFD4000E67080 /* RosterViewController.m */,
-				7571DD451C9D34B300E67080 /* RosterViewController.xib */,
-				7571DD3E1C9D032F00E67080 /* PlayerDetailViewController.h */,
-				7571DD3F1C9D032F00E67080 /* PlayerDetailViewController.m */,
-				7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */,
 				7571DD291C9CCD8100E67080 /* HBScheduleCell.h */,
 				7571DD2A1C9CCD8100E67080 /* HBScheduleCell.m */,
 				7571DD2B1C9CCD8100E67080 /* HBScheduleCell.xib */,
-				7571DD391C9CFF6500E67080 /* HBRosterCell.h */,
-				7571DD3A1C9CFF6500E67080 /* HBRosterCell.m */,
-				7571DD3B1C9CFF6500E67080 /* HBRosterCell.xib */,
-				75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */,
-				75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */,
-				7571DD341C9CF8E300E67080 /* MyTeamViewController.xib */,
 			);
-			name = "Base Tabs";
+			name = Schedule;
+			sourceTree = "<group>";
+		};
+		755BBC691C9E10D0001A8314 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				75924A241C99CCC000B165AD /* NewsViewController.h */,
+				75924A251C99CCC000B165AD /* NewsViewController.m */,
+			);
+			name = News;
 			sourceTree = "<group>";
 		};
 		75924A121C99CCC000B165AD = {
@@ -253,21 +295,9 @@
 		75924A1D1C99CCC000B165AD /* harbaughsim16 */ = {
 			isa = PBXGroup;
 			children = (
-				75924A211C99CCC000B165AD /* AppDelegate.h */,
-				75924A221C99CCC000B165AD /* AppDelegate.m */,
-				7510B8451C9C76BE00BE9CD6 /* TeamSelectionViewController.h */,
-				7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */,
-				7510B84B1C9C76D700BE9CD6 /* TeamViewController.h */,
-				7510B84C1C9C76D700BE9CD6 /* TeamViewController.m */,
-				7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */,
-				7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */,
+				755BBC651C9E10A1001A8314 /* Intro */,
 				75A86C861C9C790D0034140C /* FCTableViewController.h */,
 				75A86C871C9C790D0034140C /* FCTableViewController.m */,
-				7571DD191C9CB1DC00E67080 /* IntroViewController.h */,
-				7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */,
-				7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */,
-				75BABF401C9A5D3800A68CD6 /* RecruitingViewController.h */,
-				75BABF411C9A5D3800A68CD6 /* RecruitingViewController.m */,
 				7510B8441C9C76AD00BE9CD6 /* Base Tabs */,
 				75924A2D1C99CCC000B165AD /* Assets.xcassets */,
 				75924A2F1C99CCC000B165AD /* LaunchScreen.storyboard */,
@@ -528,7 +558,6 @@
 				7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */,
 				7571DD411C9D032F00E67080 /* PlayerDetailViewController.m in Sources */,
 				75924A6D1C99E66E00B165AD /* PlayerF7.m in Sources */,
-				75BABF421C9A5D3800A68CD6 /* RecruitingViewController.m in Sources */,
 				75924A231C99CCC000B165AD /* AppDelegate.m in Sources */,
 				75924A5E1C99E64400B165AD /* PlayerWR.m in Sources */,
 				75A86C881C9C790D0034140C /* FCTableViewController.m in Sources */,
@@ -540,7 +569,6 @@
 				7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */,
 				75924A261C99CCC000B165AD /* NewsViewController.m in Sources */,
 				7571DD381C9CFD4000E67080 /* RosterViewController.m in Sources */,
-				7510B84D1C9C76D700BE9CD6 /* TeamViewController.m in Sources */,
 				75924A551C99D24500B165AD /* League.m in Sources */,
 				75924A6A1C99E66700B165AD /* PlayerCB.m in Sources */,
 				75924A3D1C99CD8D00B165AD /* Team.m in Sources */,
