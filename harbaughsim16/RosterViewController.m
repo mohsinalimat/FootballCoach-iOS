@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Stats";
+    self.title = @"Roster";
     [self.tableView registerNib:[UINib nibWithNibName:@"HBStatsCell" bundle:nil] forCellReuseIdentifier:@"HBStatsCell"];
     userTeam = [HBSharedUtils getLeague].userTeam;
 }
@@ -46,7 +46,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -54,8 +54,18 @@
         return 1;
     } else if (section == 1) {
         return 2;
-    } else {
+    } else if (section == 2) {
         return 3;
+    } else if (section == 3) {
+        return 5;
+    } else if (section == 4) {
+        return 7;
+    } else if (section == 5) {
+        return 3;
+    } else if (section == 6) {
+        return 1;
+    } else {
+        return 1;
     }
 }
 
@@ -64,8 +74,18 @@
         return @"QB";
     } else if (section == 1) {
         return @"RB";
-    } else {
+    } else if (section == 2) {
         return @"WR";
+    } else if (section == 3) {
+        return @"OL";
+    } else if (section == 4) {
+        return @"F7";
+    } else if (section == 5) {
+        return @"CB";
+    } else if (section == 6) {
+        return @"S";
+    } else {
+        return @"K";
     }
 }
 
@@ -75,19 +95,19 @@
     if (indexPath.section == 0) {
         player = [userTeam getQB:0];
     } else if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            player = [userTeam getRB:0];
-        } else {
-            player = [userTeam getRB:1];
-        }
+        player = [userTeam getRB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 2) {
+        player = [userTeam getWR:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 3) {
+        player = [userTeam getOL:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 4) {
+        player = [userTeam getF7:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 5) {
+        player = [userTeam getCB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 6) {
+        player = [userTeam getS:0];
     } else {
-        if (indexPath.row == 0) {
-            player = [userTeam getWR:0];
-        } else if (indexPath.row == 1) {
-            player = [userTeam getWR:1];
-        } else {
-            player = [userTeam getWR:2];
-        }
+        player = [userTeam getK:0];
     }
     [cell.nameLabel setText:[player getInitialName]];
     [cell.yrLabel setText:[player getYearString]];
@@ -101,19 +121,19 @@
     if (indexPath.section == 0) {
         player = [userTeam getQB:0];
     } else if (indexPath.section == 1) {
-        if (indexPath.row == 0) {
-            player = [userTeam getRB:0];
-        } else {
-            player = [userTeam getRB:1];
-        }
+        player = [userTeam getRB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 2) {
+        player = [userTeam getWR:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 3) {
+        player = [userTeam getOL:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 4) {
+        player = [userTeam getF7:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 5) {
+        player = [userTeam getCB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 6) {
+        player = [userTeam getS:0];
     } else {
-        if (indexPath.row == 0) {
-            player = [userTeam getWR:0];
-        } else if (indexPath.row == 1) {
-            player = [userTeam getWR:1];
-        } else {
-            player = [userTeam getWR:2];
-        }
+        player = [userTeam getK:0];
     }
     [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:player] animated:YES];
 }

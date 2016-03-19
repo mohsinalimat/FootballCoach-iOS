@@ -42,19 +42,10 @@
     scheduleNav.tabBarItem.image = [UIImage imageNamed:@"schedule"];
     scheduleNav.tabBarItem.selectedImage = [UIImage imageNamed:@"schedule-selected"];
     
-    UINavigationController *statsNav = [[UINavigationController alloc] initWithRootViewController:[[RosterViewController alloc] init]];
-    statsNav.title = @"Stats";
-    statsNav.tabBarItem.image = [UIImage imageNamed:@"stats"];
-    
-    /*UINavigationController *rosterNav = [[UINavigationController alloc] initWithRootViewController:[[RosterViewController alloc] init]];
+    UINavigationController *rosterNav = [[UINavigationController alloc] initWithRootViewController:[[RosterViewController alloc] init]];
     rosterNav.title = @"Roster";
     rosterNav.tabBarItem.image = [UIImage imageNamed:@"roster"];
     rosterNav.tabBarItem.selectedImage = [UIImage imageNamed:@"roster-selected"];
-    
-    UINavigationController *recruitingNav = [[UINavigationController alloc] initWithRootViewController:[[RecruitingViewController alloc] init]];
-    recruitingNav.title = @"Recruiting";
-    recruitingNav.tabBarItem.image = [UIImage imageNamed:@"recruit"];
-    recruitingNav.tabBarItem.selectedImage = [UIImage imageNamed:@"recruit-selected"];*/
     
     UINavigationController *teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyTeamViewController alloc] init]];
     teamNav.title = @"My Team";
@@ -63,7 +54,7 @@
     
     [self setupAppearance];
     
-    tabBarController.viewControllers = @[newsNav, scheduleNav, statsNav, teamNav];
+    tabBarController.viewControllers = @[newsNav, scheduleNav, rosterNav, teamNav];
     [self.window setRootViewController:tabBarController];
     [self.window makeKeyAndVisible];
     
