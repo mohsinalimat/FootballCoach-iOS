@@ -19,13 +19,8 @@ NSString *leaguePlayerNames = @"Tim, James, John, Robert, Michael, William, Davi
 
 -(IBAction)newDynasty {
     //push team selection on to stack
-    //[self.navigationController setNavigationBarHidden:NO];
-    //[self.navigationController pushViewController:[[TeamSelectionViewController alloc] init] animated:YES];
-    League *ligue = [League newLeagueFromCSV:leaguePlayerNames];
-    [ligue setUserTeam:ligue.teamList[0]];
-    [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:ligue];
-    NSLog(@"TEAM: %@ %@ %@ %ld", [ligue userTeam].abbreviation,[ligue userTeam].name,[ligue userTeam].rivalTeam, (long)[ligue userTeam].teamPrestige);
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:[League newLeagueFromCSV:leaguePlayerNames]] animated:YES];
 }
 
 

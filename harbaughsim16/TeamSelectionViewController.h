@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FCTableViewController.h"
+@class League;
 
-@interface TeamSelectionViewController : UITableViewController
-
+@interface TeamSelectionViewController : FCTableViewController
+-(instancetype)initWithLeague:(League*)selectedLeague;
 @end
