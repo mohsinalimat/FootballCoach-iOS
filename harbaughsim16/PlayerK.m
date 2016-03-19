@@ -137,13 +137,13 @@
     [stats setObject:[NSString stringWithFormat:@"%d",_statsXPAtt] forKey:@"xpAtt"];
     
     int xpPercent = (int)(100.0*((double)_statsXPMade/(double)_statsXPAtt));
-    [stats setObject:[NSString stringWithFormat:@"%d",xpPercent] forKey:@"xpPercentage"];
+    [stats setObject:[NSString stringWithFormat:@"%d%%",xpPercent] forKey:@"xpPercentage"];
     
     [stats setObject:[NSString stringWithFormat:@"%d",_statsFGMade] forKey:@"fgMade"];
     [stats setObject:[NSString stringWithFormat:@"%d",_statsFGAtt] forKey:@"fgAtt"];
     
     int fgPercent = (int)(100.0*((double)_statsFGMade/(double)_statsFGAtt));
-    [stats setObject:[NSString stringWithFormat:@"%d",fgPercent] forKey:@"fgPercentage"];
+    [stats setObject:[NSString stringWithFormat:@"%d%%",fgPercent] forKey:@"fgPercentage"];
     return [stats copy];
 }
 
