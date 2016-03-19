@@ -131,25 +131,31 @@
     _statsFGMade = 0;
 }
 
--(NSArray*)getDetailedStatsList:(int)games {
-    NSMutableArray *pStats = [NSMutableArray array];
-    if (_statsXPAtt > 0) {
-        [pStats addObject:[NSString stringWithFormat:@"XP Made/Att: %ld/%ld\nXP Percentage: %d%%",(long)_statsXPMade,(long)_statsXPAtt, (100 * (_statsXPMade/_statsXPAtt))]];
-    } else {
-        [pStats addObject:@"XP Made/Att: 0/0\nXP Percentage: 0%%"];
-    }
+-(NSDictionary*)detailedStats:(int)games {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[NSString stringWithFormat:@"%d",_statsXPMade] forKey:@"xpMade"];
+    [stats setObject:[NSString stringWithFormat:@"%d",_statsXPAtt] forKey:@"xpAtt"];
     
-    if (_statsFGAtt > 0) {
-        [pStats addObject:[NSString stringWithFormat:@"FG Made/Att: %ld/%ld\nFG Percentage: %d%%",(long)_statsFGMade,(long)_statsFGAtt, (100 * (_statsFGMade/_statsFGAtt))]];
-    } else {
-        [pStats addObject:@"FG Made/Att: 0/0\n FG Percentage: 0%%"];
-    }
+    int xpPercent = (int)(100.0*((double)_statsXPMade/(double)_statsXPAtt));
+    [stats setObject:[NSString stringWithFormat:@"%d",xpPercent] forKey:@"xpPercentage"];
     
-    [pStats addObject:[NSString stringWithFormat:@"Potential: %ld\nKick Strength: %@",(long)self.ratPot,[self getLetterGrade:_ratKickPow]]];
-    [pStats addObject:[NSString stringWithFormat:@"Kick Accuracy: %@\nClumsiness: %@",[self getLetterGrade:_ratKickAcc],[self getLetterGrade:_ratKickFum]]];
+    [stats setObject:[NSString stringWithFormat:@"%d",_statsFGMade] forKey:@"fgMade"];
+    [stats setObject:[NSString stringWithFormat:@"%d",_statsFGAtt] forKey:@"fgAtt"];
     
-    
-    return [pStats copy];
+    int fgPercent = (int)(100.0*((double)_statsFGMade/(double)_statsFGAtt));
+    [stats setObject:[NSString stringWithFormat:@"%d",fgPercent] forKey:@"fgPercentage"];
+    return [stats copy];
 }
+
+-(NSDictionary*)detailedRatings {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    
+    [stats setObject:[self getLetterGrade:_ratKickPow] forKey:@"kickPower"];
+    [stats setObject:[self getLetterGrade:_ratKickAcc] forKey:@"kickAccuracy"];
+    [stats setObject:[self getLetterGrade:_ratKickFum] forKey:@"kickClumsiness"];
+    
+    return [stats copy];
+}
+
 
 @end

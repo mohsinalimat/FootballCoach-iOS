@@ -136,15 +136,31 @@
     return _statsTD * 100 - _statsFumbles * 100 + (int)(_statsRushYards * 2.25);
 }
 
--(NSArray*)getDetailedStatsList:(int)games {
-    NSMutableArray<NSString*> *pStats = [NSMutableArray array];
-    [pStats addObject:[NSString stringWithFormat:@"TDs/Fum: %ld/%ld\nRush Att: %ld\n",(long)_statsTD,(long)_statsFumbles,(long)_statsRushAtt]];
-    [pStats addObject:[NSString stringWithFormat:@"Rush Yards: %ld\nYards/Att: %f yds\n",(long)_statsRushYards,((double)(10*_statsRushYards/(_statsRushAtt+1))/10)]];
-    if(games > 0) {
-        [pStats addObject:[NSString stringWithFormat:@"Yds/Game: %d yds/gm\nRush Power: %@\n", (_statsRushYards/games),[self getLetterGrade:_ratRushPow]]];
-    }
-    [pStats addObject:[NSString stringWithFormat:@"Rush Speed: %@\nEvasion: %@",[self getLetterGrade:_ratRushSpd],[self getLetterGrade:_ratRushEva]]];
-    return pStats;
+-(NSDictionary*)detailedStats:(int)games {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[NSString stringWithFormat:@"%d TDs",_statsTD] forKey:@"touchdowns"];
+    [stats setObject:[NSString stringWithFormat:@"%d Fum",_statsFumbles] forKey:@"fumbles"];
+    
+    [stats setObject:[NSString stringWithFormat:@"%d carries",_statsRushAtt] forKey:@"carries"];
+    [stats setObject:[NSString stringWithFormat:@"%d yards",_statsRushYards] forKey:@"rushYards"];
+    
+    int ypc = (int)((double)_statsRushYards/(double)_statsRushAtt);
+    [stats setObject:[NSString stringWithFormat:@"%d yds/carry",ypc] forKey:@"yardsPerCarry"];
+    
+    int ypg = (int)((double)_statsRushYards/(double)games);
+    [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"yardsPerGame"];
+    
+    
+    return [stats copy];
+}
+
+-(NSDictionary*)detailedRatings {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[self getLetterGrade:_ratRushPow] forKey:@"rushPower"];
+    [stats setObject:[self getLetterGrade:_ratRushSpd] forKey:@"rushAccuracy"];
+    [stats setObject:[self getLetterGrade:_ratRushEva] forKey:@"rushEvasion"];
+    
+    return [stats copy];
 }
 
 @end

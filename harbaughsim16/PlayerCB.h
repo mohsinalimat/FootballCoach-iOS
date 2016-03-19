@@ -14,6 +14,4 @@
 @property (nonatomic) int ratCBTkl;
 +(instancetype)newCBWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling;
 +(instancetype)newCBWithName:(NSString*)name year:(int)year stars:(int)stars;
--(void)advanceSeason;
--(NSArray*)getDetailedStatsList:(int)games;
 @end

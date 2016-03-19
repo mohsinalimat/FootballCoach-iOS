@@ -108,10 +108,24 @@
     self.ratImprovement = self.ratOvr - oldOvr;
 }
 
--(NSArray*)getDetailStatsList:(int)games {
-    NSMutableArray *pStats = [NSMutableArray array];
-    [pStats addObject:[NSString stringWithFormat:@"Potential: %dyds/gm\nStrength: %@\n",self.ratPot,[self getLetterGrade:_ratOLPow]]];
-    [pStats addObject:[NSString stringWithFormat:@"Run Block: %@\nPass Block: %@",[self getLetterGrade:_ratOLBkR],[self getLetterGrade:_ratOLBkP]]];
-    return [pStats copy];
+-(NSDictionary*)detailedStats:(int)games {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.ratPot] forKey:@"olPotential"];
+    [stats setObject:[self getLetterGrade:_ratOLPow] forKey:@"olPower"];
+    [stats setObject:[self getLetterGrade:_ratOLBkR] forKey:@"olRunBlock"];
+    [stats setObject:[self getLetterGrade:_ratOLBkP] forKey:@"olPassBlock"];
+    
+    return [stats copy];
 }
+
+-(NSDictionary*)detailedRatings {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[self getLetterGrade:_ratOLPow] forKey:@"olPower"];
+    [stats setObject:[self getLetterGrade:_ratOLBkR] forKey:@"olRunBlock"];
+    [stats setObject:[self getLetterGrade:_ratOLBkP] forKey:@"olPassBlock"];
+    
+    return [stats copy];
+}
+
+
 @end

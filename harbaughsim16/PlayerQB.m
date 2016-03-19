@@ -148,13 +148,31 @@
     return self.statsTD * 150 - self.statsInt * 250 + self.statsPassYards;
 }
 
--(NSArray*)getDetailStatsList:(int)games {
-    NSMutableArray *pStats = [NSMutableArray array];
-    [pStats addObject:[NSString stringWithFormat:@"TD/Int: %ld/%ld\nComp Percent: %d%%",(long)_statsTD,(long)_statsInt, (100*_statsPassComp/(_statsPassAtt+1))]];
-    [pStats addObject:[NSString stringWithFormat:@"Pass Yards: %ldyds\nYards/Att: %fyds", (long)_statsPassYards ,((double)(10*_statsPassYards/(_statsPassAtt+1))/10)]];
-    [pStats addObject:[NSString stringWithFormat:@"Yds/Game: %dyds/gm\nPass Strength: %@",(_statsPassYards/games),[self getLetterGrade:_ratPassPow]]];
-    [pStats addObject:[NSString stringWithFormat:@"Accuracy: %@\nEvasion: %@",[self getLetterGrade:_ratPassAcc],[self getLetterGrade:_ratPassEva]]];
-    return [pStats copy];
+-(NSDictionary*)detailedStats:(int)games {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[NSString stringWithFormat:@"%d TDs",_statsTD] forKey:@"touchdowns"];
+    [stats setObject:[NSString stringWithFormat:@"%d INTs",_statsInt] forKey:@"interceptions"];
+    
+    int compPercent = (int)(100.0*((double)_statsPassComp/(double)_statsPassAtt));
+    [stats setObject:[NSString stringWithFormat:@"%d%%",compPercent] forKey:@"completionPercentage"];
+    [stats setObject:[NSString stringWithFormat:@"%d yds",_statsPassYards] forKey:@"passYards"];
+    
+    int ypa = (int)((double)_statsPassYards/(double)_statsPassAtt);
+    [stats setObject:[NSString stringWithFormat:@"%d yards/att",ypa] forKey:@"yardsPerAttempt"];
+    
+    int ypg = (int)((double)_statsPassYards/(double)games);
+    [stats setObject:[NSString stringWithFormat:@"%d yards/gm",ypg] forKey:@"yardsPerGame"];
+    
+    return [stats copy];
+}
+
+-(NSDictionary*)detailedRatings {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[self getLetterGrade:_ratPassPow] forKey:@"passPower"];
+    [stats setObject:[self getLetterGrade:_ratPassAcc] forKey:@"passAccuracy"];
+    [stats setObject:[self getLetterGrade:_ratPassEva] forKey:@"passEvasion"];
+    
+    return [stats copy];
 }
 
 @end

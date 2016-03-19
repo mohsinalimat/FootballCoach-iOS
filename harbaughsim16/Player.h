@@ -35,5 +35,7 @@
 -(NSString*)getLetterGradePotWithString:(NSString*)num;
 -(NSString*)getLetterGrade:(int)num;
 -(NSString*)getLetterGradePot:(int)num;
--(NSArray*)getDetailedStatsList:(int)games;
+-(NSDictionary*)detailedStats:(int)games;
+-(NSDictionary*)detailedRatings;
+//-(NSArray*)getDetailedStatsList:(int)games;
 @end

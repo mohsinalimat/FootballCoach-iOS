@@ -109,10 +109,22 @@
     self.ratImprovement = self.ratOvr - oldOvr;
 }
 
--(NSArray*)getDetailStatsList:(int)games {
-    NSMutableArray *pStats = [NSMutableArray array];
-    [pStats addObject:[NSString stringWithFormat:@"Potential: %dyds/gm\nStrength: %@",self.ratPot,[self getLetterGrade:_ratF7Pow]]];
-    [pStats addObject:[NSString stringWithFormat:@"Run Stop: %@\nPass Pressure: %@",[self getLetterGrade:_ratF7Rsh],[self getLetterGrade:_ratF7Pas]]];
-    return [pStats copy];
+-(NSDictionary*)detailedStats:(int)games {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.ratPot] forKey:@"f7Potential"];
+    [stats setObject:[self getLetterGrade:_ratF7Pow] forKey:@"f7Pow"];
+    [stats setObject:[self getLetterGrade:_ratF7Rsh] forKey:@"f7Run"];
+    [stats setObject:[self getLetterGrade:_ratF7Pas] forKey:@"f7Pass"];
+    
+    return [stats copy];
+}
+
+-(NSDictionary*)detailedRatings {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[self getLetterGrade:_ratF7Pow] forKey:@"f7Power"];
+    [stats setObject:[self getLetterGrade:_ratF7Rsh] forKey:@"f7Rush"];
+    [stats setObject:[self getLetterGrade:_ratF7Pas] forKey:@"f7Pass"];
+    
+    return [stats copy];
 }
 @end

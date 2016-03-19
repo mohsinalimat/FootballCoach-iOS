@@ -154,7 +154,6 @@
 -(NSMutableArray*)getGameSummaryStrings:(int)gameNumber;
 -(NSString*)getSeasonSummaryString;
 -(NSMutableArray*)getPlayerStatsExpandListStrings;
--(NSDictionary*)getPlayerStatsExpandListMap:(NSArray*)playerStatsGroupHeaders;
 -(NSString*)getRankString:(int)num;
 -(NSString*)getRankStrStarUser:(int)num;
 -(int)numGames;

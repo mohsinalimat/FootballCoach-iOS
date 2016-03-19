@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @class Player;
+#import "FCTableViewController.h"
 
-@interface PlayerDetailViewController : UIViewController
+@interface PlayerDetailViewController : FCTableViewController
 -(instancetype)initWithPlayer:(Player*)player;
 @end

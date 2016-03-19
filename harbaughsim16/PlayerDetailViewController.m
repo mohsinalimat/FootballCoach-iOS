@@ -9,12 +9,20 @@
 #import "PlayerDetailViewController.h"
 #import "Player.h"
 
+@interface HBPlayerDetailView : UIView
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *yrLabel;
+@property (weak, nonatomic) IBOutlet UILabel *posLabel;
+@end
+@implementation HBPlayerDetailView
+@end
+
 @interface PlayerDetailViewController ()
 {
     Player *selectedPlayer;
-    IBOutlet UILabel *nameLabel;
-    IBOutlet UILabel *yrLabel;
-    IBOutlet UILabel *statsLabel;
+    IBOutlet HBPlayerDetailView *playerDetailView;
+    NSDictionary *stats;
+    NSDictionary *ratings;
 }
 @end
 
@@ -30,19 +38,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Player";
-    [nameLabel setText:selectedPlayer.name];
-    [yrLabel setText:[selectedPlayer getYearString]];
-    NSMutableString *stats = [NSMutableString string];
-    for (int i = 0; i < [selectedPlayer getDetailedStatsList:[HBSharedUtils getLeague].currentWeek].count; i++) {
-        [stats appendString:[selectedPlayer getDetailedStatsList:[HBSharedUtils getLeague].currentWeek][i]];
-    }
-    if (stats.length == 0) {
-        [statsLabel setText:@"Nothing yet"];
-        [statsLabel setTextColor:[UIColor lightTextColor]];
-    } else {
-        [statsLabel setText:stats];
-    }
-    
+    [playerDetailView.nameLabel setText:selectedPlayer.name];
+    [playerDetailView.yrLabel setText:[selectedPlayer getYearString]];
+    [playerDetailView.posLabel setText:selectedPlayer.position];
+    self.tableView.tableHeaderView = playerDetailView;
+    stats = [selectedPlayer detailedStats:[HBSharedUtils getLeague].currentWeek];
+    ratings = [selectedPlayer detailedRatings];
+    [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,14 +52,170 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        return @"Statistics";
+    } else {
+        return @"Ratings";
+    }
 }
-*/
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 1) {
+        return stats.allKeys.count;
+    } else {
+        return 3;
+    }
+}
+
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if(!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
+        [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+    }
+    
+    NSString *stat;
+    if (indexPath.section == 1) {
+        stat = stats.allValues[indexPath.row];
+        [cell.textLabel setText:[self getStatName:stats.allKeys[indexPath.row]]];
+    } else {
+        stat = ratings.allValues[indexPath.row];
+        [cell.textLabel setText:[self getStatName:ratings.allKeys[indexPath.row]]];
+    }
+    [cell.detailTextLabel setText:stat];
+    
+    
+    return cell;
+}
+
+
+-(NSString*)getStatName:(NSString*)key {
+    if ([key isEqualToString:@"touchdowns"]) {              //QBs
+        return @"Touchdowns";
+    } else if ([key isEqualToString:@"interceptions"]) {
+        return @"Interceptions";
+    } else if ([key isEqualToString:@"completionPercentage"]) {
+        return @"Completion Percentage";
+    } else if ([key isEqualToString:@"passYards"]) {
+        return @"Pass Yards";
+    } else if ([key isEqualToString:@"yardsPerGame"]) {
+        return @"Yards per Game";
+    } else if ([key isEqualToString:@"yardsPerAttempt"]) {
+        return @"Yards per Attempt";
+    } else if ([key isEqualToString:@"passPower"]) {
+        return @"Arm Strength";
+    } else if ([key isEqualToString:@"passAccuracy"]) {
+        return @"Pass Accuracy";
+    } else if ([key isEqualToString:@"passEvasion"]) {
+        return @"Evasion";
+    }
+    
+    else if ([key isEqualToString:@"fumbles"]) {          //RBs
+        return @"Fumbles";
+    } else if ([key isEqualToString:@"carries"]) {
+        return @"Carries";
+    } else if ([key isEqualToString:@"rushYards"]) {
+        return @"Rush Yards";
+    } else if ([key isEqualToString:@"yardsPerGame"]) {
+        return @"Yards per Game";
+    } else if ([key isEqualToString:@"yardsPerCarry"]) {
+        return @"Yards per Carry";
+    } else if ([key isEqualToString:@"rushPower"]) {
+        return @"Strength";
+    } else if ([key isEqualToString:@"rushSpeed"]) {
+        return @"Speed";
+    } else if ([key isEqualToString:@"rushEvasion"]) {
+        return @"Evasion";
+    }
+    
+    
+    else if ([key isEqualToString:@"yardsPerCatch"]) {   //WRs
+        return @"Yards Per Catch";
+    } else if ([key isEqualToString:@"catches"]) {
+        return @"Catches";
+    } else if ([key isEqualToString:@"recYards"]) {
+        return @"Receiving Yards";
+    } else if ([key isEqualToString:@"yardsPerGame"]) {
+        return @"Yards per Game";
+    } else if ([key isEqualToString:@"yardsPerAttempt"]) {
+        return @"Yards per Attempt";
+    } else if ([key isEqualToString:@"recCatch"]) {
+        return @"Catching Ability";
+    } else if ([key isEqualToString:@"recSpeed"]) {
+        return @"Speed";
+    } else if ([key isEqualToString:@"recEvasion"]) {
+        return @"Evasion";
+    }
+    
+    
+    else if ([key isEqualToString:@"olPotential"]) {          //OLs
+        return @"Potential";
+    } else if ([key isEqualToString:@"olPower"]) {
+        return @"Strength";
+    } else if ([key isEqualToString:@"olPassBlock"]) {
+        return @"Pass Blocking";
+    } else if ([key isEqualToString:@"olRunBlock"]) {
+        return @"Run Blocking";
+    }
+    
+    else if ([key isEqualToString:@"xpMade"]) {          //Ks
+        return @"XP Made";
+    } else if ([key isEqualToString:@"xpAtt"]) {
+        return @"XP Attempted";
+    } else if ([key isEqualToString:@"xpPercentage"]) {
+        return @"XP Percentage";
+    } else if ([key isEqualToString:@"fgMade"]) {
+        return @"FG Made";
+    } else if ([key isEqualToString:@"fgAtt"]) {
+        return @"FG Attempted";
+    } else if ([key isEqualToString:@"fgPercentage"]) {
+        return @"FG Percentage";
+    } else if ([key isEqualToString:@"kickPower"]) {
+        return @"Kicking Power";
+    } else if ([key isEqualToString:@"kickAccuracy"]) {
+        return @"Kick Accuracy";
+    } else if ([key isEqualToString:@"kickClumsiness"]) {
+        return @"Clumsiness";
+    }
+    
+    else if ([key isEqualToString:@"f7Potential"]) {          //F7s
+        return @"Potential";
+    } else if ([key isEqualToString:@"f7Power"]) {
+        return @"Strength";
+    } else if ([key isEqualToString:@"f7Rush"]) {
+        return @"Run Defense";
+    } else if ([key isEqualToString:@"f7Pass"]) {
+        return @"Pass Pressure";
+    }
+    
+    else if ([key isEqualToString:@"cbPotential"]) {          //CBs
+        return @"Potential";
+    } else if ([key isEqualToString:@"cbCoverage"]) {
+        return @"Coverage Ability";
+    } else if ([key isEqualToString:@"cbSpeed"]) {
+        return @"Speed";
+    } else if ([key isEqualToString:@"cbTackling"]) {
+        return @"Tackling Ability";
+    }
+    
+    else if ([key isEqualToString:@"sPotential"]) {          //Ss
+        return @"Potential";
+    } else if ([key isEqualToString:@"sCoverage"]) {
+        return @"Coverage Ability";
+    } else if ([key isEqualToString:@"sSpeed"]) {
+        return @"Speed";
+    } else if ([key isEqualToString:@"sTackling"]) {
+        return @"Tackling Ability";
+    }
+    
+    else {
+        return @"Unknown";
+    }
+}
 
 @end

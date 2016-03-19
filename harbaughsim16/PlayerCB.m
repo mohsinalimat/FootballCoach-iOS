@@ -99,11 +99,23 @@
     self.ratImprovement = self.ratOvr - oldOvr;
 }
 
--(NSArray*)getDetailedStatsList:(int)games {
-    NSMutableArray *pStats = [NSMutableArray array];
-    [pStats addObject:[NSString stringWithFormat:@"Potential: %ld>Coverage: %@",(long)self.ratPot,[self getLetterGrade:self.ratCBCov]]];
-    [pStats addObject:[NSString stringWithFormat:@"Speed: %@>Tackling: %@",[self getLetterGrade:self.ratCBSpd],[self getLetterGrade:self.ratCBTkl]]];
-    return [pStats copy];
+-(NSDictionary*)detailedStats:(int)games {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.ratPot] forKey:@"cbPotential"];
+    [stats setObject:[self getLetterGrade:_ratCBCov] forKey:@"cbCoverage"];
+    [stats setObject:[self getLetterGrade:_ratCBSpd] forKey:@"cbSpeed"];
+    [stats setObject:[self getLetterGrade:_ratCBTkl] forKey:@"cbTackling"];
+    
+    return [stats copy];
+}
+
+-(NSDictionary*)detailedRatings {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[self getLetterGrade:_ratCBCov] forKey:@"cbCoverage"];
+    [stats setObject:[self getLetterGrade:_ratCBSpd] forKey:@"cbSpeed"];
+    [stats setObject:[self getLetterGrade:_ratCBTkl] forKey:@"cbTackling"];
+    
+    return [stats copy];
 }
 
 @end

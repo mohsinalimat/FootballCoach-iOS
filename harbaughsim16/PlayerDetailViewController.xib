@@ -6,40 +6,71 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayerDetailViewController">
             <connections>
-                <outlet property="nameLabel" destination="VA6-14-kbk" id="Q5t-gv-vOy"/>
-                <outlet property="statsLabel" destination="3sC-6w-9hG" id="HNS-nc-VtS"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
-                <outlet property="yrLabel" destination="4GO-J1-QWL" id="Do0-LD-pgr"/>
+                <outlet property="playerDetailView" destination="yYv-PY-BVf" id="Kmo-gc-7tK"/>
+                <outlet property="view" destination="09K-Oj-GW0" id="uhe-o9-Gjd"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="09K-Oj-GW0">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" red="0.0" green="0.59215686270000001" blue="0.24882352939999999" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="dataSource" destination="-1" id="Cjv-HM-Pe5"/>
+                <outlet property="delegate" destination="-1" id="hXD-cn-fGq"/>
+            </connections>
+            <point key="canvasLocation" x="288" y="484"/>
+        </tableView>
+        <view contentMode="scaleToFill" id="yYv-PY-BVf" customClass="HBPlayerDetailView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4GO-J1-QWL">
-                    <rect key="frame" x="16" y="110" width="235" height="23"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1MK-hE-zWS">
+                    <rect key="frame" x="19" y="52" width="136" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="136" id="8VB-fF-AKL"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="First and Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VA6-14-kbk">
-                    <rect key="frame" x="16" y="79" width="382" height="29"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First and Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AgJ-RG-avh">
+                    <rect key="frame" x="19" y="21" width="291" height="29"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stats List" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sC-6w-9hG">
-                    <rect key="frame" x="16" y="159" width="382" height="485"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QB" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82b-vf-v75">
+                    <rect key="frame" x="318" y="24" width="77" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="77" id="a5g-ai-XHx"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.59215686270000001" blue="0.24882352939999999" alpha="1" colorSpace="calibratedRGB"/>
-            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-            <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+            <constraints>
+                <constraint firstItem="82b-vf-v75" firstAttribute="leading" secondItem="AgJ-RG-avh" secondAttribute="trailing" constant="8" symbolic="YES" id="3xU-nP-878"/>
+                <constraint firstItem="AgJ-RG-avh" firstAttribute="leading" secondItem="yYv-PY-BVf" secondAttribute="leading" constant="19" id="4Ts-ND-lrE"/>
+                <constraint firstAttribute="bottom" secondItem="82b-vf-v75" secondAttribute="bottom" constant="49" id="8FR-rb-6fv"/>
+                <constraint firstAttribute="trailing" secondItem="82b-vf-v75" secondAttribute="trailing" constant="19" id="9tO-fk-ewK"/>
+                <constraint firstAttribute="bottom" secondItem="1MK-hE-zWS" secondAttribute="bottom" constant="21" id="ajW-Qq-OBv"/>
+                <constraint firstItem="AgJ-RG-avh" firstAttribute="centerY" secondItem="82b-vf-v75" secondAttribute="centerY" id="qbo-Ju-Noj"/>
+                <constraint firstItem="1MK-hE-zWS" firstAttribute="top" secondItem="AgJ-RG-avh" secondAttribute="bottom" constant="2" id="rv1-th-IZo"/>
+                <constraint firstItem="AgJ-RG-avh" firstAttribute="top" secondItem="yYv-PY-BVf" secondAttribute="top" constant="21" id="tvI-YY-pjS"/>
+                <constraint firstItem="82b-vf-v75" firstAttribute="top" secondItem="yYv-PY-BVf" secondAttribute="top" constant="24" id="yA8-S3-BdQ"/>
+                <constraint firstItem="AgJ-RG-avh" firstAttribute="leading" secondItem="1MK-hE-zWS" secondAttribute="leading" id="ycy-Tq-VBg"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="nameLabel" destination="AgJ-RG-avh" id="S2C-fo-c0t"/>
+                <outlet property="posLabel" destination="82b-vf-v75" id="8vy-14-CyV"/>
+                <outlet property="yrLabel" destination="1MK-hE-zWS" id="GMe-Y5-Ef4"/>
+            </connections>
+            <point key="canvasLocation" x="323" y="-266"/>
         </view>
     </objects>
 </document>

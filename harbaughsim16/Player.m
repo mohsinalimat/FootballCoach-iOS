@@ -92,8 +92,11 @@
     return [[self class] letterGrades][ind];
 }
 
--(NSArray*)getDetailedStatsList:(int)games {
-    return nil;
+-(NSDictionary*)detailedStats:(int)games {
+    return [NSDictionary dictionary];
 }
 
+-(NSDictionary*)detailedRatings {
+    return [NSDictionary dictionary];
+}
 @end

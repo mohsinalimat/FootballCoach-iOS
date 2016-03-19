@@ -141,23 +141,35 @@
     _statsFumbles = 0;
 }
 
--(NSArray*)getDetailedStatsList:(int)games {
-    NSMutableArray *pStats = [NSMutableArray array];
-    [pStats addObject:[NSString stringWithFormat:@"TDs/Fumbles: %ld/%ld\nCatch Percent: %d%%\n",(long)self.ratPot,(long)self.statsFumbles,(100*_statsReceptions/(_statsTargets+1))]];
-    [pStats addObject:[NSString stringWithFormat:@"Rec Yards: %ld yds\nYds/Tgt: %f yds\n",(long)self.statsRecYards,((double)(10*_statsRecYards/(_statsTargets+1))/10)]];
-    if(games > 0) {
-        [pStats addObject:[NSString stringWithFormat:@"Yards/Game: %d yds/gm\nCatching: %@\n",(_statsRecYards/games),[self getLetterGrade:_ratRecCat]]];
-    }
-    [pStats addObject:[NSString stringWithFormat:@"Rec Speed: %@\nEvasion: %@",[self getLetterGrade:_ratRecSpd],[self getLetterGrade:_ratRecEva]]];
-    
-    
-    return [pStats copy];
-}
-
 -(int)getHeismanScore {
     return _statsTD * 150 - _statsFumbles * 100 - _statsDrops * 50 + _statsRecYards * 2;
 }
 
+-(NSDictionary*)detailedStats:(int)games {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[NSString stringWithFormat:@"%d TDs",_statsTD] forKey:@"touchdowns"];
+    [stats setObject:[NSString stringWithFormat:@"%d Fum",_statsFumbles] forKey:@"fumbles"];
+    
+    [stats setObject:[NSString stringWithFormat:@"%d catches",_statsReceptions] forKey:@"catches"];
+    [stats setObject:[NSString stringWithFormat:@"%d yards",_statsRecYards] forKey:@"recYards"];
+    
+    int ypc = (int)((double)_statsRecYards/(double)_statsReceptions);
+    [stats setObject:[NSString stringWithFormat:@"%d yds/catch",ypc] forKey:@"yardsPerCatch"];
+    
+    int ypg = (int)((double)_statsRecYards/(double)games);
+    [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"yardsPerGame"];
+    
+    
+    return [stats copy];
+}
 
+-(NSDictionary*)detailedRatings {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[self getLetterGrade:_ratRecCat] forKey:@"recCatch"];
+    [stats setObject:[self getLetterGrade:_ratRecSpd] forKey:@"recSpeed"];
+    [stats setObject:[self getLetterGrade:_ratRecEva] forKey:@"recEvasion"];
+    
+    return [stats copy];
+}
 
 @end
