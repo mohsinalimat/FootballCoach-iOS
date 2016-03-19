@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "League.h"
 
 @interface HBSharedUtils : NSObject
 +(double)randomValue;
 +(League*)getLeague;
++(UIColor *)styleColor;
 @end

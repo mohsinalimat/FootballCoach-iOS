@@ -274,6 +274,42 @@
 			name = News;
 			sourceTree = "<group>";
 		};
+		755BBC6A1C9E1196001A8314 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				75A86C861C9C790D0034140C /* FCTableViewController.h */,
+				75A86C871C9C790D0034140C /* FCTableViewController.m */,
+				7571DD1E1C9CBDA900E67080 /* HBSharedUtils.h */,
+				7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		755BBC6B1C9E11BD001A8314 /* Players */ = {
+			isa = PBXGroup;
+			children = (
+				75924A4A1C99D03300B165AD /* Player.h */,
+				75924A4B1C99D03300B165AD /* Player.m */,
+				75924A561C99E62F00B165AD /* PlayerQB.h */,
+				75924A571C99E62F00B165AD /* PlayerQB.m */,
+				75924A591C99E63800B165AD /* PlayerRB.h */,
+				75924A5A1C99E63800B165AD /* PlayerRB.m */,
+				75924A5C1C99E64400B165AD /* PlayerWR.h */,
+				75924A5D1C99E64400B165AD /* PlayerWR.m */,
+				75924A5F1C99E64D00B165AD /* PlayerK.h */,
+				75924A601C99E64D00B165AD /* PlayerK.m */,
+				75924A621C99E65600B165AD /* PlayerOL.h */,
+				75924A631C99E65600B165AD /* PlayerOL.m */,
+				75924A651C99E65E00B165AD /* PlayerS.h */,
+				75924A661C99E65E00B165AD /* PlayerS.m */,
+				75924A681C99E66700B165AD /* PlayerCB.h */,
+				75924A691C99E66700B165AD /* PlayerCB.m */,
+				75924A6B1C99E66E00B165AD /* PlayerF7.h */,
+				75924A6C1C99E66E00B165AD /* PlayerF7.m */,
+			);
+			name = Players;
+			sourceTree = "<group>";
+		};
 		75924A121C99CCC000B165AD = {
 			isa = PBXGroup;
 			children = (
@@ -296,14 +332,13 @@
 			isa = PBXGroup;
 			children = (
 				755BBC651C9E10A1001A8314 /* Intro */,
-				75A86C861C9C790D0034140C /* FCTableViewController.h */,
-				75A86C871C9C790D0034140C /* FCTableViewController.m */,
 				7510B8441C9C76AD00BE9CD6 /* Base Tabs */,
 				75924A2D1C99CCC000B165AD /* Assets.xcassets */,
 				75924A2F1C99CCC000B165AD /* LaunchScreen.storyboard */,
 				75924A321C99CCC000B165AD /* Info.plist */,
+				755BBC6A1C9E1196001A8314 /* Base */,
 				75A86C9F1C9C7CAA0034140C /* Images */,
-				75BABF461C9A5E5E00A68CD6 /* CFBSimPack */,
+				75BABF461C9A5E5E00A68CD6 /* Simulation Model */,
 				75924A1E1C99CCC000B165AD /* Supporting Files */,
 			);
 			path = harbaughsim16;
@@ -346,7 +381,7 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
-		75BABF461C9A5E5E00A68CD6 /* CFBSimPack */ = {
+		75BABF461C9A5E5E00A68CD6 /* Simulation Model */ = {
 			isa = PBXGroup;
 			children = (
 				75924A531C99D24500B165AD /* League.h */,
@@ -357,30 +392,11 @@
 				75924A511C99D1C600B165AD /* TeamStrategy.m */,
 				75924A4D1C99D05E00B165AD /* Conference.h */,
 				75924A4E1C99D05E00B165AD /* Conference.m */,
-				75924A4A1C99D03300B165AD /* Player.h */,
-				75924A4B1C99D03300B165AD /* Player.m */,
-				75924A561C99E62F00B165AD /* PlayerQB.h */,
-				75924A571C99E62F00B165AD /* PlayerQB.m */,
-				75924A591C99E63800B165AD /* PlayerRB.h */,
-				75924A5A1C99E63800B165AD /* PlayerRB.m */,
-				75924A5C1C99E64400B165AD /* PlayerWR.h */,
-				75924A5D1C99E64400B165AD /* PlayerWR.m */,
-				75924A5F1C99E64D00B165AD /* PlayerK.h */,
-				75924A601C99E64D00B165AD /* PlayerK.m */,
-				75924A621C99E65600B165AD /* PlayerOL.h */,
-				75924A631C99E65600B165AD /* PlayerOL.m */,
-				75924A651C99E65E00B165AD /* PlayerS.h */,
-				75924A661C99E65E00B165AD /* PlayerS.m */,
-				75924A681C99E66700B165AD /* PlayerCB.h */,
-				75924A691C99E66700B165AD /* PlayerCB.m */,
-				75924A6B1C99E66E00B165AD /* PlayerF7.h */,
-				75924A6C1C99E66E00B165AD /* PlayerF7.m */,
 				75924A471C99CF7C00B165AD /* Game.h */,
 				75924A481C99CF7C00B165AD /* Game.m */,
-				7571DD1E1C9CBDA900E67080 /* HBSharedUtils.h */,
-				7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */,
+				755BBC6B1C9E11BD001A8314 /* Players */,
 			);
-			name = CFBSimPack;
+			name = "Simulation Model";
 			sourceTree = "<group>";
 		};
 		9E01BE51791486545CD182A1 /* Frameworks */ = {

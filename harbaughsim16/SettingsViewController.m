@@ -31,7 +31,7 @@
     self.title = @"Settings";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(dismissVC)];
     
-    [self.view setBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#009740"]];
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
 }
 

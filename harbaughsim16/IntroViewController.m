@@ -17,6 +17,12 @@ NSString *leaguePlayerNames = @"Tim, James, John, Robert, Michael, William, Davi
 
 @implementation IntroViewController
 
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+}
+
+
 -(IBAction)newDynasty {
     //push team selection on to stack
     [self.navigationController setNavigationBarHidden:NO];

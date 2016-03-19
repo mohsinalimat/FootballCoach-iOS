@@ -157,7 +157,7 @@
 -(NSDictionary*)detailedRatings {
     NSMutableDictionary *stats = [NSMutableDictionary dictionary];
     [stats setObject:[self getLetterGrade:_ratRushPow] forKey:@"rushPower"];
-    [stats setObject:[self getLetterGrade:_ratRushSpd] forKey:@"rushAccuracy"];
+    [stats setObject:[self getLetterGrade:_ratRushSpd] forKey:@"rushSpeed"];
     [stats setObject:[self getLetterGrade:_ratRushEva] forKey:@"rushEvasion"];
     
     return [stats copy];

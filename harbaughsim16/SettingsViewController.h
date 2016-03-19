@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FCTableViewController.h"
 
-@interface SettingsViewController : UITableViewController
+@interface SettingsViewController : FCTableViewController
 
 @end

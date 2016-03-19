@@ -41,7 +41,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"HBScheduleCell" bundle:nil] forCellReuseIdentifier:@"HBScheduleCell"];
     [self setupTeamHeader];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupTeamHeader) name:@"playedWeek" object:nil];
-    [self.view setBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#009740"]];
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
 -(void)setupTeamHeader {
@@ -51,6 +51,7 @@
     }
     [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, userTeam.name]];
     [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld-%ld",(long)userTeam.wins,(long)userTeam.losses]];
+    [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
 -(void)reloadSchedule {

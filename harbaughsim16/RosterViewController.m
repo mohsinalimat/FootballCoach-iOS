@@ -46,9 +46,9 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"HBRosterCell" bundle:nil] forCellReuseIdentifier:@"HBRosterCell"];
     userTeam = [HBSharedUtils getLeague].userTeam;
     self.tableView.tableHeaderView = buttonView;
-    [self.view setBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#009740"]];
-    //[[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
-    //
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [buttonView setBackgroundColor:[HBSharedUtils styleColor]];
+    
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section

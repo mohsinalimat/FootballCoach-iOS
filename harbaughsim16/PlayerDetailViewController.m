@@ -9,6 +9,8 @@
 #import "PlayerDetailViewController.h"
 #import "Player.h"
 
+#import "HexColors.h"
+
 @interface HBPlayerDetailView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yrLabel;
@@ -45,6 +47,8 @@
     stats = [selectedPlayer detailedStats:[HBSharedUtils getLeague].currentWeek];
     ratings = [selectedPlayer detailedRatings];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+    [playerDetailView setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,6 +81,7 @@
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     NSString *stat;
@@ -88,6 +93,22 @@
         [cell.textLabel setText:[self getStatName:ratings.allKeys[indexPath.row]]];
     }
     [cell.detailTextLabel setText:stat];
+    
+    if (indexPath.section == 0) {
+        UIColor *letterColor;  //['#d7191c','#fdae61','#ffffbf','#a6d96a','#1a9641']
+        if ([stat containsString:@"A"]) {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#1a9641"];
+        } else if ([stat containsString:@"B"]) {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+        } else if ([stat containsString:@"C"]) {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#ffffbf"];
+        } else if ([stat containsString:@"D"]) {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+        } else {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+        }
+        [cell.detailTextLabel setTextColor:letterColor];
+    }
     
     
     return cell;

@@ -38,13 +38,14 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(openSettings)];
     [self setupTeamHeader];
     self.tableView.tableHeaderView = teamHeaderView;
-    [self.view setBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#009740"]];
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
 -(void)setupTeamHeader {
     [teamHeaderView.teamRankLabel setText:userTeam.name];
     [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%lu: %ld-%ld",[HBSharedUtils getLeague].leagueHistory.count + 1 + 2015,(long)userTeam.wins,(long)userTeam.losses]];
     [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Prestige: %d",userTeam.teamPrestige]];
+    [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
 -(void)openSettings {

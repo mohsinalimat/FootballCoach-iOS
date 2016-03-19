@@ -8,6 +8,7 @@
 
 #import "HBSharedUtils.h"
 #import "AppDelegate.h"
+#import "HexColors.h"
 
 #define ARC4RANDOM_MAX      0x100000000
 
@@ -18,5 +19,9 @@
 
 +(League*)getLeague {
     return [((AppDelegate*)[[UIApplication sharedApplication] delegate]) league];
+}
+
++(UIColor *)styleColor {
+    return [UIColor hx_colorWithHexRGBAString:@"#009740"]; //FC Android color: #3EB49F
 }
 @end
