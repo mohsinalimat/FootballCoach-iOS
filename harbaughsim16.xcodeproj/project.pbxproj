@@ -16,6 +16,14 @@
 		755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC471C9DD0DF001A8314 /* HBStatsCell.xib */; };
 		755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC4B1C9DEDF0001A8314 /* HBPlayerCell.m */; };
 		755BBC4E1C9DEDF0001A8314 /* HBPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC4C1C9DEDF0001A8314 /* HBPlayerCell.xib */; };
+		755BBC591C9E0A1B001A8314 /* FCIcon1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC4F1C9E0A1B001A8314 /* FCIcon1024.png */; };
+		755BBC5B1C9E0A1B001A8314 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC511C9E0A1B001A8314 /* Icon-60@2x.png */; };
+		755BBC5C1C9E0A1B001A8314 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC521C9E0A1B001A8314 /* Icon-60@3x.png */; };
+		755BBC5E1C9E0A1B001A8314 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC541C9E0A1B001A8314 /* Icon-Small@2x.png */; };
+		755BBC5F1C9E0A1B001A8314 /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC551C9E0A1B001A8314 /* Icon-Small@3x.png */; };
+		755BBC611C9E0A1B001A8314 /* Icon-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC571C9E0A1B001A8314 /* Icon-Spotlight-40@2x.png */; };
+		755BBC621C9E0A1B001A8314 /* Icon-Spotlight-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC581C9E0A1B001A8314 /* Icon-Spotlight-40@3x.png */; };
+		755BBC641C9E0A85001A8314 /* FCFootball.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC631C9E0A85001A8314 /* FCFootball.png */; };
 		7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */; };
 		7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */; };
 		7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */; };
@@ -85,6 +93,14 @@
 		755BBC4A1C9DEDF0001A8314 /* HBPlayerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBPlayerCell.h; sourceTree = "<group>"; };
 		755BBC4B1C9DEDF0001A8314 /* HBPlayerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPlayerCell.m; sourceTree = "<group>"; };
 		755BBC4C1C9DEDF0001A8314 /* HBPlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBPlayerCell.xib; sourceTree = "<group>"; };
+		755BBC4F1C9E0A1B001A8314 /* FCIcon1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCIcon1024.png; sourceTree = "<group>"; };
+		755BBC511C9E0A1B001A8314 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
+		755BBC521C9E0A1B001A8314 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
+		755BBC541C9E0A1B001A8314 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		755BBC551C9E0A1B001A8314 /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@3x.png"; sourceTree = "<group>"; };
+		755BBC571C9E0A1B001A8314 /* Icon-Spotlight-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@2x.png"; sourceTree = "<group>"; };
+		755BBC581C9E0A1B001A8314 /* Icon-Spotlight-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@3x.png"; sourceTree = "<group>"; };
+		755BBC631C9E0A85001A8314 /* FCFootball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCFootball.png; sourceTree = "<group>"; };
 		7571DD191C9CB1DC00E67080 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
@@ -274,6 +290,14 @@
 		75A86C9F1C9C7CAA0034140C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				755BBC631C9E0A85001A8314 /* FCFootball.png */,
+				755BBC4F1C9E0A1B001A8314 /* FCIcon1024.png */,
+				755BBC511C9E0A1B001A8314 /* Icon-60@2x.png */,
+				755BBC521C9E0A1B001A8314 /* Icon-60@3x.png */,
+				755BBC541C9E0A1B001A8314 /* Icon-Small@2x.png */,
+				755BBC551C9E0A1B001A8314 /* Icon-Small@3x.png */,
+				755BBC571C9E0A1B001A8314 /* Icon-Spotlight-40@2x.png */,
+				755BBC581C9E0A1B001A8314 /* Icon-Spotlight-40@3x.png */,
 				7571DD321C9CD3A200E67080 /* play-week@3x.png */,
 				7571DD211C9CC62400E67080 /* news-sort@3x.png */,
 				7571DD231C9CC62E00E67080 /* stats@3x.png */,
@@ -406,21 +430,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				755BBC5F1C9E0A1B001A8314 /* Icon-Small@3x.png in Resources */,
 				75A86C911C9C7AA80034140C /* schedule@3x.png in Resources */,
 				75924A311C99CCC000B165AD /* LaunchScreen.storyboard in Resources */,
 				755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */,
 				75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */,
+				755BBC5B1C9E0A1B001A8314 /* Icon-60@2x.png in Resources */,
 				7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */,
+				755BBC5C1C9E0A1B001A8314 /* Icon-60@3x.png in Resources */,
 				7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */,
 				7571DD221C9CC62400E67080 /* news-sort@3x.png in Resources */,
 				7571DD281C9CC9A000E67080 /* ScheduleViewController.xib in Resources */,
 				755BBC4E1C9DEDF0001A8314 /* HBPlayerCell.xib in Resources */,
 				7571DD461C9D34B300E67080 /* RosterViewController.xib in Resources */,
 				75A86C901C9C7AA80034140C /* roster@3x.png in Resources */,
+				755BBC641C9E0A85001A8314 /* FCFootball.png in Resources */,
 				7571DD2D1C9CCD8100E67080 /* HBScheduleCell.xib in Resources */,
 				75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */,
+				755BBC591C9E0A1B001A8314 /* FCIcon1024.png in Resources */,
+				755BBC621C9E0A1B001A8314 /* Icon-Spotlight-40@3x.png in Resources */,
 				75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */,
 				75A86C991C9C7C0C0034140C /* recruit-selected@3x.png in Resources */,
+				755BBC611C9E0A1B001A8314 /* Icon-Spotlight-40@2x.png in Resources */,
 				7571DD3D1C9CFF6500E67080 /* HBRosterCell.xib in Resources */,
 				75A86C981C9C7C0C0034140C /* news-selected@3x.png in Resources */,
 				7571DD241C9CC62E00E67080 /* stats@3x.png in Resources */,
@@ -431,6 +462,7 @@
 				7571DD261C9CC64200E67080 /* settings@3x.png in Resources */,
 				7571DD351C9CF8E300E67080 /* MyTeamViewController.xib in Resources */,
 				7571DD331C9CD3A200E67080 /* play-week@3x.png in Resources */,
+				755BBC5E1C9E0A1B001A8314 /* Icon-Small@2x.png in Resources */,
 				75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

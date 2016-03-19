@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -13,14 +14,39 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FCFootball.png" translatesAutoresizingMaskIntoConstraints="NO" id="SEf-fk-GJj">
+                                <rect key="frame" x="98" y="140" width="219" height="219"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football Coach" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ls5-LU-ij6">
+                                <rect key="frame" x="20" y="336" width="374" height="47"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.59215686274509804" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="SEf-fk-GJj" secondAttribute="bottom" constant="377" id="C1D-HN-ePr"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Ls5-LU-ij6" secondAttribute="bottom" constant="353" id="GOH-gN-H79"/>
+                            <constraint firstItem="SEf-fk-GJj" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="120" id="HE2-PJ-tSV"/>
+                            <constraint firstItem="Ls5-LU-ij6" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="MYV-tz-Kw3"/>
+                            <constraint firstItem="Ls5-LU-ij6" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="UPF-v3-l9l"/>
+                            <constraint firstItem="SEf-fk-GJj" firstAttribute="centerX" secondItem="Ls5-LU-ij6" secondAttribute="centerX" id="WWR-SW-7iw"/>
+                            <constraint firstItem="Ls5-LU-ij6" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="316" id="ZOD-Aa-i0C"/>
+                            <constraint firstItem="SEf-fk-GJj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="78" id="tvb-jh-zPE"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="FCFootball.png" width="2000" height="2000"/>
+    </resources>
 </document>
