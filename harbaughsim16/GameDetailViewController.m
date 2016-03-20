@@ -37,20 +37,10 @@
 @implementation HBGameDetailCell
 @end
 
-@interface HBGameSummaryCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *leftLabel;
-@property (weak, nonatomic) IBOutlet UILabel *rightLabel;
-@property (weak, nonatomic) IBOutlet UILabel *centerLabel;
-@end
-
-@implementation HBGameSummaryCell
-@end
-
 @interface GameDetailViewController ()
 {
     Game *selectedGame;
     IBOutlet HBGameDetailCell *gameDetailCell;
-    IBOutlet HBGameSummaryCell *gameSummaryCell;
     NSDictionary *stats;
     //game detail cell
     

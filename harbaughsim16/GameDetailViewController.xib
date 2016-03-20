@@ -9,7 +9,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameDetailViewController">
             <connections>
                 <outlet property="gameDetailCell" destination="g06-wq-bf0" id="Ecf-Sd-n1V"/>
-                <outlet property="gameSummaryCell" destination="fDw-rl-ZgD" id="R1S-Ax-Nfu"/>
                 <outlet property="view" destination="Zsp-Z9-KuK" id="1AW-ee-4kb"/>
             </connections>
         </placeholder>
@@ -116,56 +115,6 @@
                 <outlet property="timeLabel" destination="rEt-RA-oS4" id="yk2-lJ-UZv"/>
             </connections>
             <point key="canvasLocation" x="342" y="556.5"/>
-        </tableViewCell>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="345" id="fDw-rl-ZgD" customClass="HBGameSummaryCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="345"/>
-            <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fDw-rl-ZgD" id="EqQ-wn-q23">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="345"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stats" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JIX-cs-Yce">
-                        <rect key="frame" x="10" y="8" width="95" height="329"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="95" id="NKI-fI-BYk"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stats" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2B4-tG-ox8">
-                        <rect key="frame" x="113" y="8" width="95" height="329"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stats" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8QK-uA-WPe">
-                        <rect key="frame" x="216" y="8" width="95" height="329"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="8QK-uA-WPe" firstAttribute="baseline" secondItem="2B4-tG-ox8" secondAttribute="baseline" id="0tY-OQ-yJ3"/>
-                    <constraint firstItem="8QK-uA-WPe" firstAttribute="leading" secondItem="2B4-tG-ox8" secondAttribute="trailing" constant="8" symbolic="YES" id="8VC-xa-xTd"/>
-                    <constraint firstItem="JIX-cs-Yce" firstAttribute="leading" secondItem="EqQ-wn-q23" secondAttribute="leadingMargin" constant="2" id="EhX-bd-1yv"/>
-                    <constraint firstItem="2B4-tG-ox8" firstAttribute="centerX" secondItem="EqQ-wn-q23" secondAttribute="centerX" id="MJR-v4-9PA"/>
-                    <constraint firstItem="8QK-uA-WPe" firstAttribute="centerY" secondItem="EqQ-wn-q23" secondAttribute="centerY" id="T10-2J-hS2"/>
-                    <constraint firstItem="8QK-uA-WPe" firstAttribute="firstBaseline" secondItem="2B4-tG-ox8" secondAttribute="firstBaseline" id="kbX-Pi-WdA"/>
-                    <constraint firstItem="2B4-tG-ox8" firstAttribute="firstBaseline" secondItem="JIX-cs-Yce" secondAttribute="firstBaseline" id="mHZ-xC-Hg2"/>
-                    <constraint firstItem="2B4-tG-ox8" firstAttribute="leading" secondItem="JIX-cs-Yce" secondAttribute="trailing" constant="8" symbolic="YES" id="ogu-ya-1Rc"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="8QK-uA-WPe" secondAttribute="trailing" constant="1" id="uga-zE-uEP"/>
-                    <constraint firstItem="2B4-tG-ox8" firstAttribute="baseline" secondItem="JIX-cs-Yce" secondAttribute="baseline" id="wbV-Es-xTO"/>
-                    <constraint firstItem="2B4-tG-ox8" firstAttribute="top" secondItem="EqQ-wn-q23" secondAttribute="topMargin" id="x0Q-Jr-s6w"/>
-                </constraints>
-            </tableViewCellContentView>
-            <connections>
-                <outlet property="centerLabel" destination="2B4-tG-ox8" id="jbr-Vj-YTa"/>
-                <outlet property="leftLabel" destination="JIX-cs-Yce" id="sKh-g2-1pn"/>
-                <outlet property="rightLabel" destination="8QK-uA-WPe" id="N7W-96-NoU"/>
-            </connections>
-            <point key="canvasLocation" x="564" y="793.5"/>
         </tableViewCell>
     </objects>
 </document>

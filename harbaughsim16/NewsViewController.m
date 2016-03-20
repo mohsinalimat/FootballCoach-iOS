@@ -368,7 +368,7 @@
     
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row]];
     NSRange firstLine = [attString.string rangeOfString:@"\n"];
-    [attString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18] range:NSMakeRange(0, firstLine.location)];
+    [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
     
     
     [cell.textLabel setAttributedText:attString];
