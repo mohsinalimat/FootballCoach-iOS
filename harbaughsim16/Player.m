@@ -72,11 +72,11 @@
 }
 
 -(NSString*)getPosNameYrOvrPot_Str {
-    return [NSString stringWithFormat:@"%@ %@ [%@]> Ovr: %ld, Pot: %ld", _position, _name, [self getYearString], (long)_ratOvr, (long)_ratPot];
+    return [NSString stringWithFormat:@"%@ %@ [%@] - Ovr: %ld, Pot: %ld\n", _position, _name, [self getYearString], (long)_ratOvr, (long)_ratPot];
 }
 
 -(NSString*)getPosNameYrOvrPot_OneLine {
-    return [NSString stringWithFormat:@"%@ %@ [%@]> Ovr: %ld, Pot: %ld", _position, [self getInitialName], [self getYearString], (long)_ratOvr, (long)_ratPot];
+    return [NSString stringWithFormat:@"%@ %@ [%@] - Ovr: %ld, Pot: %ld\n", _position, [self getInitialName], [self getYearString], (long)_ratOvr, (long)_ratPot];
 }
 
 -(NSString*)getLetterGradeWithString:(NSString*)num {

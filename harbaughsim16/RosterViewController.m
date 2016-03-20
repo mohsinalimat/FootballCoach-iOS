@@ -22,19 +22,10 @@
 #import "PlayerDetailViewController.h"
 
 #import "HexColors.h"
-@interface HBButtonView : UIView
-@property (weak, nonatomic) IBOutlet UIButton *button;
-@end
-@implementation HBButtonView
--(IBAction)goToRecruiting:(id)sender {
-    NSLog(@"RECRUIT");
-}
-@end
 
 @interface RosterViewController ()
 {
     Team *userTeam;
-    IBOutlet HBButtonView *buttonView;
 }
 @end
 
@@ -45,9 +36,7 @@
     self.title = @"Roster";
     [self.tableView registerNib:[UINib nibWithNibName:@"HBRosterCell" bundle:nil] forCellReuseIdentifier:@"HBRosterCell"];
     userTeam = [HBSharedUtils getLeague].userTeam;
-    self.tableView.tableHeaderView = buttonView;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-    [buttonView setBackgroundColor:[HBSharedUtils styleColor]];
     
 }
 

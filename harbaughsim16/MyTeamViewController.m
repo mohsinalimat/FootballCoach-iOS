@@ -34,16 +34,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"My Team";
-    userTeam = [HBSharedUtils getLeague].userTeam;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(openSettings)];
     [self setupTeamHeader];
     self.tableView.tableHeaderView = teamHeaderView;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupTeamHeader) name:@"endedSeason" object:nil];
 }
 
 -(void)setupTeamHeader {
+    userTeam = [HBSharedUtils getLeague].userTeam;
     [teamHeaderView.teamRankLabel setText:userTeam.name];
-    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%lu: %ld-%ld",[HBSharedUtils getLeague].leagueHistory.count + 1 + 2015,(long)userTeam.wins,(long)userTeam.losses]];
+    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%lu: %ld-%ld",[HBSharedUtils getLeague].leagueHistory.count + 2016,(long)userTeam.wins,(long)userTeam.losses]];
     [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Prestige: %d",userTeam.teamPrestige]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
 }
@@ -54,7 +55,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return 20;
+        return 0;
     } else {
         return [super tableView:tableView heightForHeaderInSection:section];
     }

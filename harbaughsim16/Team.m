@@ -577,7 +577,7 @@
 }
 
 -(void)updateTeamHistory {
-    [_teamHistory addObject:[NSString stringWithFormat:@"%lu: #%ld %@ (%ld-%ld) %@ %@ %@",(_teamHistory.count + 2015),(long)_rankTeamPollScore, _abbreviation, (long)_wins, (long)_losses, _confChampion, _semifinalWL, _natlChampWL]];
+    [_teamHistory addObject:[NSString stringWithFormat:@"%lu: #%ld %@ (%ld-%ld) %@ %@ %@",(_teamHistory.count + 2016),(long)_rankTeamPollScore, _abbreviation, (long)_wins, (long)_losses, _confChampion, _semifinalWL, _natlChampWL]];
 }
 
 -(NSString*)getTeamHistoryString {

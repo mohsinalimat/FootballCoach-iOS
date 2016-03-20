@@ -1,10 +1,13 @@
 PODS:
   - HexColors (4.0.0)
+  - Whisper (2.1)
 
 DEPENDENCIES:
   - HexColors
+  - Whisper
 
 SPEC CHECKSUMS:
   HexColors: 5f95843ef89aff6a72e1fd3a8ebabf205cc43379
+  Whisper: 18b574de21a089c0d664b115f26e0d9ccbbadbab
 
 COCOAPODS: 0.39.0

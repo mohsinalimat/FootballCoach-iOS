@@ -38,6 +38,7 @@
 
 //User Team
 @property (strong, nonatomic)  Team *userTeam;
+@property (nonatomic) int recruitingStage;
 
 
 +(NSArray*)bowlGameTitles;

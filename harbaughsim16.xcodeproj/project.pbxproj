@@ -23,6 +23,9 @@
 		755BBC611C9E0A1B001A8314 /* Icon-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC571C9E0A1B001A8314 /* Icon-Spotlight-40@2x.png */; };
 		755BBC621C9E0A1B001A8314 /* Icon-Spotlight-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC581C9E0A1B001A8314 /* Icon-Spotlight-40@3x.png */; };
 		755BBC641C9E0A85001A8314 /* FCFootball.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC631C9E0A85001A8314 /* FCFootball.png */; };
+		755BBC6D1C9E423B001A8314 /* NewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC6C1C9E423B001A8314 /* NewsViewController.xib */; };
+		755BBC751C9E4D35001A8314 /* WhisperBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC741C9E4D35001A8314 /* WhisperBridge.swift */; };
+		755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC771C9E5930001A8314 /* RecruitingViewController.m */; };
 		7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */; };
 		7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */; };
 		7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */; };
@@ -97,6 +100,11 @@
 		755BBC571C9E0A1B001A8314 /* Icon-Spotlight-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@2x.png"; sourceTree = "<group>"; };
 		755BBC581C9E0A1B001A8314 /* Icon-Spotlight-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@3x.png"; sourceTree = "<group>"; };
 		755BBC631C9E0A85001A8314 /* FCFootball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCFootball.png; sourceTree = "<group>"; };
+		755BBC6C1C9E423B001A8314 /* NewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsViewController.xib; sourceTree = "<group>"; };
+		755BBC731C9E4D34001A8314 /* harbaughsim16-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "harbaughsim16-Bridging-Header.h"; sourceTree = "<group>"; };
+		755BBC741C9E4D35001A8314 /* WhisperBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhisperBridge.swift; sourceTree = "<group>"; };
+		755BBC761C9E5930001A8314 /* RecruitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitingViewController.h; sourceTree = "<group>"; };
+		755BBC771C9E5930001A8314 /* RecruitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecruitingViewController.m; sourceTree = "<group>"; };
 		7571DD191C9CB1DC00E67080 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
@@ -230,6 +238,8 @@
 		755BBC671C9E10BD001A8314 /* Roster */ = {
 			isa = PBXGroup;
 			children = (
+				755BBC761C9E5930001A8314 /* RecruitingViewController.h */,
+				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
 				7571DD361C9CFD4000E67080 /* RosterViewController.h */,
 				7571DD371C9CFD4000E67080 /* RosterViewController.m */,
 				7571DD451C9D34B300E67080 /* RosterViewController.xib */,
@@ -270,6 +280,9 @@
 			children = (
 				75924A241C99CCC000B165AD /* NewsViewController.h */,
 				75924A251C99CCC000B165AD /* NewsViewController.m */,
+				755BBC6C1C9E423B001A8314 /* NewsViewController.xib */,
+				755BBC741C9E4D35001A8314 /* WhisperBridge.swift */,
+				755BBC731C9E4D34001A8314 /* harbaughsim16-Bridging-Header.h */,
 			);
 			name = News;
 			sourceTree = "<group>";
@@ -503,6 +516,7 @@
 				7571DD241C9CC62E00E67080 /* stats@3x.png in Resources */,
 				75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */,
 				75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */,
+				755BBC6D1C9E423B001A8314 /* NewsViewController.xib in Resources */,
 				75A86C921C9C7AA80034140C /* team@3x.png in Resources */,
 				7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */,
 				7571DD261C9CC64200E67080 /* settings@3x.png in Resources */,
@@ -570,6 +584,7 @@
 			files = (
 				75924A4C1C99D03300B165AD /* Player.m in Sources */,
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
+				755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */,
 				75924A581C99E62F00B165AD /* PlayerQB.m in Sources */,
 				7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */,
 				7571DD411C9D032F00E67080 /* PlayerDetailViewController.m in Sources */,
@@ -597,6 +612,7 @@
 				7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */,
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,
 				7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */,
+				755BBC751C9E4D35001A8314 /* WhisperBridge.swift in Sources */,
 				75924A521C99D1C600B165AD /* TeamStrategy.m in Sources */,
 				7571DD3C1C9CFF6500E67080 /* HBRosterCell.m in Sources */,
 			);
@@ -701,11 +717,14 @@
 			baseConfigurationReference = FAC021E4350CD61827E4ADB7 /* Pods-harbaughsim16.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = harbaughsim16/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.harbaughsim16;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "harbaughsim16/harbaughsim16-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -714,11 +733,13 @@
 			baseConfigurationReference = 44F9430C6D467B894D8E6C88 /* Pods-harbaughsim16.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = harbaughsim16/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.harbaughsim16;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "harbaughsim16/harbaughsim16-Bridging-Header.h";
 			};
 			name = Release;
 		};

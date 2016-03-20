@@ -40,6 +40,7 @@
 -(instancetype)initFromCSV:(NSString*)namesCSV {
     self = [super init];
     if (self){
+        _recruitingStage = -1;
         heismanDecided = NO;
         _hasScheduledBowls = NO;
         _leagueHistory = [NSMutableArray array];
@@ -173,6 +174,7 @@
 -(instancetype)initWithSaveFile:(NSString*)saveFileName names:(NSString*)nameCSV {
     self = [super init];
     if (self) {
+        _recruitingStage = -1;
         heismanDecided = NO;
         _hasScheduledBowls = NO;
         //NSString *line = nil;
@@ -305,7 +307,7 @@
             _ncg.awayTeam.natlChampWL = @"NCL";
             _ncg.homeTeam.totalNCs++;
             NSMutableArray *week15 = _newsStories[15];
-            [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", _ncg.homeTeam.name, [_ncg.homeTeam strRep], [_ncg.awayTeam strRep], (long)_ncg.homeScore, (long)_ncg.awayScore, _ncg.homeTeam.name]];
+            [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", _ncg.homeTeam.name, [_ncg.homeTeam strRep], [_ncg.awayTeam strRep], (long)_ncg.homeScore, (long)_ncg.awayScore, _ncg.homeTeam.name]];
             
         } else {
             _ncg.homeTeam.semifinalWL = @"";
@@ -314,7 +316,7 @@
             _ncg.homeTeam.natlChampWL = @"NCL";
             _ncg.awayTeam.totalNCs++;
             NSMutableArray *week15 = _newsStories[15];
-            [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", _ncg.awayTeam.name, [_ncg.awayTeam strRep], [_ncg.homeTeam strRep], (long)_ncg.awayScore, (long)_ncg.homeScore, _ncg.awayTeam.name]];
+            [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", _ncg.awayTeam.name, [_ncg.awayTeam strRep], [_ncg.homeTeam strRep], (long)_ncg.awayScore, (long)_ncg.homeScore, _ncg.awayTeam.name]];
         }
     }
     
@@ -628,7 +630,7 @@
         // Add news story
         if (putNewsStory) {
             NSMutableArray *week13 = _newsStories[13];
-            [week13 addObject:[NSString stringWithFormat:@"%@ is the Player of the Year!\n",heismanWinnerStr]];
+            [week13 addObject:[NSString stringWithFormat:@"%@\n",heismanWinnerStr]];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
         }
         
@@ -642,7 +644,7 @@
 -(NSString*)getLeagueHistoryStr {
     NSMutableString *hist = [NSMutableString string];
     for (int i = 0; i < _leagueHistory.count; ++i) {
-        [hist appendString:[NSString stringWithFormat:@"%d:\n",(2015+i)]];
+        [hist appendString:[NSString stringWithFormat:@"%d:\n",(2016+i)]];
         [hist appendString:[NSString stringWithFormat:@"\tChampions: %@\n",_leagueHistory[i][0]]];
         [hist appendString:[NSString stringWithFormat:@"\tPOTY: %@\n",_heismanHistory[i]]];
     }
@@ -772,7 +774,7 @@
 
 -(BOOL)saveLeague:(NSData*)saveFile {
     /*StringBuilder sb = new StringBuilder();
-    sb.append((2015+leagueHistory.size())+": " + userTeam.abbr + " (" + userTeam.totalWins + "-" + userTeam.totalLosses + ") " +
+    sb.append((2016+leagueHistory.size())+": " + userTeam.abbr + " (" + userTeam.totalWins + "-" + userTeam.totalLosses + ") " +
               userTeam.totalCCs + " CCs, " + userTeam.totalNCs + " NCs%\n");
     
     for (int i = 0; i < leagueHistory.size(); ++i) {

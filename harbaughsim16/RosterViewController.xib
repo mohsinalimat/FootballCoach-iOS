@@ -6,7 +6,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RosterViewController">
             <connections>
-                <outlet property="buttonView" destination="ywH-1b-f7s" id="5x6-Xf-7oc"/>
                 <outlet property="view" destination="SyL-t4-uql" id="AV5-TX-ROi"/>
             </connections>
         </placeholder>
@@ -21,28 +20,5 @@
             </connections>
             <point key="canvasLocation" x="406" y="382"/>
         </tableView>
-        <view contentMode="scaleToFill" id="ywH-1b-f7s" customClass="HBButtonView">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="82"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NTr-pQ-AmB">
-                    <rect key="frame" x="8" y="17" width="398" height="49"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                    <state key="normal" title="Recruit Players">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="goToRecruiting:" destination="ywH-1b-f7s" eventType="touchUpInside" id="hHh-zc-MRh"/>
-                    </connections>
-                </button>
-            </subviews>
-            <color key="backgroundColor" red="0.0" green="0.59215686270000001" blue="0.24882352939999999" alpha="1" colorSpace="calibratedRGB"/>
-            <nil key="simulatedStatusBarMetrics"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="button" destination="NTr-pQ-AmB" id="Q5d-wB-mYt"/>
-            </connections>
-            <point key="canvasLocation" x="331" y="-109"/>
-        </view>
     </objects>
 </document>

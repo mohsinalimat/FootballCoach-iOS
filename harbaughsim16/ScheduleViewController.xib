@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScheduleViewController">
             <connections>
-                <outlet property="teamHeaderView" destination="MEG-Wt-WCh" id="ilw-9g-l4M"/>
+                <outlet property="teamHeaderView" destination="VoR-8k-67q" id="p0r-qL-7jP"/>
                 <outlet property="view" destination="lUK-q8-CAv" id="7wJ-Ct-pd8"/>
             </connections>
         </placeholder>
@@ -22,57 +22,58 @@
             </connections>
             <point key="canvasLocation" x="242" y="398"/>
         </tableView>
-        <view contentMode="scaleToFill" id="MEG-Wt-WCh" customClass="HBTeamView">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="65"/>
+        <view contentMode="scaleToFill" id="VoR-8k-67q" customClass="HBTeamView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(10-3)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Yg-jV-Ql7">
-                    <rect key="frame" x="15" y="36" width="59" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#1 Yellowstone St" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Pv-QT-toU">
+                    <rect key="frame" x="8" y="11" width="168" height="23"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="21" id="TLd-eF-bFA"/>
-                        <constraint firstAttribute="width" constant="59" id="iwm-71-fXG"/>
+                        <constraint firstAttribute="height" constant="23" id="Mx7-q1-WUh"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zbj-f0-b8i">
+                    <rect key="frame" x="8" y="42" width="304" height="25"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title=" Play Week" image="play-week"/>
+                    <connections>
+                        <action selector="playWeek:" destination="-1" eventType="touchUpInside" id="u5P-Tm-tzr"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(10-3)" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ndw-SE-qhr">
+                    <rect key="frame" x="198" y="10" width="114" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="114" id="5uU-NE-AkB"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#1 Yellowstone St" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QxG-CL-oo0">
-                    <rect key="frame" x="15" y="11" width="168" height="23"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSG-bP-F0R">
-                    <rect key="frame" x="191" y="20" width="114" height="25"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="114" id="DTv-CW-3Cb"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" title=" Play Week" image="play-week"/>
-                    <connections>
-                        <action selector="playWeek:" destination="-1" eventType="touchUpInside" id="9O3-uZ-gIo"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.59215686270000001" blue="0.24882352939999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="8Yg-jV-Ql7" firstAttribute="bottom" secondItem="MEG-Wt-WCh" secondAttribute="bottomMargin" id="1b6-x1-l3p"/>
-                <constraint firstItem="QxG-CL-oo0" firstAttribute="top" secondItem="MEG-Wt-WCh" secondAttribute="top" constant="11" id="4UY-Q6-HMl"/>
-                <constraint firstAttribute="trailing" secondItem="iSG-bP-F0R" secondAttribute="trailing" constant="15" id="MTo-ri-OMp"/>
-                <constraint firstItem="QxG-CL-oo0" firstAttribute="leading" secondItem="MEG-Wt-WCh" secondAttribute="leading" constant="15" id="Pes-9N-iVk"/>
-                <constraint firstItem="iSG-bP-F0R" firstAttribute="centerY" secondItem="MEG-Wt-WCh" secondAttribute="centerY" id="TB8-nD-LGt"/>
-                <constraint firstItem="iSG-bP-F0R" firstAttribute="leading" secondItem="QxG-CL-oo0" secondAttribute="trailing" constant="8" symbolic="YES" id="q4M-DQ-l9a"/>
-                <constraint firstItem="8Yg-jV-Ql7" firstAttribute="top" secondItem="QxG-CL-oo0" secondAttribute="bottom" constant="2" id="tM1-Dg-cxT"/>
-                <constraint firstItem="8Yg-jV-Ql7" firstAttribute="leading" secondItem="QxG-CL-oo0" secondAttribute="leading" id="xAD-Pa-ma5"/>
+                <constraint firstItem="5Pv-QT-toU" firstAttribute="leading" secondItem="VoR-8k-67q" secondAttribute="leadingMargin" id="9vP-ty-maW"/>
+                <constraint firstItem="5Pv-QT-toU" firstAttribute="baseline" secondItem="Ndw-SE-qhr" secondAttribute="baseline" id="JmR-Ea-lXs"/>
+                <constraint firstItem="5Pv-QT-toU" firstAttribute="leading" secondItem="Zbj-f0-b8i" secondAttribute="leading" id="MDt-gG-a4l"/>
+                <constraint firstItem="Zbj-f0-b8i" firstAttribute="trailing" secondItem="Ndw-SE-qhr" secondAttribute="trailing" id="TcU-Z6-RSY"/>
+                <constraint firstItem="Ndw-SE-qhr" firstAttribute="leading" secondItem="5Pv-QT-toU" secondAttribute="trailing" constant="22" id="aaa-GI-EKg"/>
+                <constraint firstItem="5Pv-QT-toU" firstAttribute="top" secondItem="VoR-8k-67q" secondAttribute="top" constant="11" id="cNk-md-vre"/>
+                <constraint firstItem="Zbj-f0-b8i" firstAttribute="trailing" secondItem="VoR-8k-67q" secondAttribute="trailingMargin" id="egk-sM-UJs"/>
+                <constraint firstItem="Ndw-SE-qhr" firstAttribute="top" secondItem="VoR-8k-67q" secondAttribute="top" constant="10" id="iQ2-We-YSe"/>
+                <constraint firstItem="Zbj-f0-b8i" firstAttribute="top" secondItem="5Pv-QT-toU" secondAttribute="bottom" constant="8" symbolic="YES" id="y6p-1G-xys"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="teamRankLabel" destination="QxG-CL-oo0" id="vUE-Fs-tZX"/>
-                <outlet property="teamRecordLabel" destination="8Yg-jV-Ql7" id="lzF-km-9lE"/>
+                <outlet property="playButton" destination="Zbj-f0-b8i" id="MeO-9Q-6IS"/>
+                <outlet property="teamRankLabel" destination="5Pv-QT-toU" id="KLC-n7-An4"/>
+                <outlet property="teamRecordLabel" destination="Ndw-SE-qhr" id="cu5-BJ-ylp"/>
             </connections>
-            <point key="canvasLocation" x="301" y="771.5"/>
+            <point key="canvasLocation" x="298" y="831.5"/>
         </view>
     </objects>
     <resources>

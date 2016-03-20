@@ -13,12 +13,17 @@
 #define ARC4RANDOM_MAX      0x100000000
 
 @implementation HBSharedUtils
+
 +(double)randomValue {
     return ((double)arc4random() / ARC4RANDOM_MAX);
 }
 
 +(League*)getLeague {
     return [((AppDelegate*)[[UIApplication sharedApplication] delegate]) league];
+}
+
++(int)leagueRecruitingStage {
+    return [HBSharedUtils getLeague].recruitingStage;
 }
 
 +(UIColor *)styleColor {

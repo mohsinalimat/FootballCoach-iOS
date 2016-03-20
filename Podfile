@@ -5,4 +5,5 @@ use_frameworks!
 
 target 'harbaughsim16' do
 pod 'HexColors'
+pod 'Whisper'
 end

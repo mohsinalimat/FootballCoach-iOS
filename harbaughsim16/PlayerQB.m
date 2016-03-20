@@ -150,15 +150,16 @@
 
 -(NSDictionary*)detailedStats:(int)games {
     NSMutableDictionary *stats = [NSMutableDictionary dictionary];
-    [stats setObject:[NSString stringWithFormat:@"%d TDs",_statsTD] forKey:@"touchdowns"];
-    [stats setObject:[NSString stringWithFormat:@"%d INTs",_statsInt] forKey:@"interceptions"];
+    
+    [stats setObject:[NSString stringWithFormat:@"%d",_statsPassComp] forKey:@"completions"];
+    [stats setObject:[NSString stringWithFormat:@"%d",_statsPassAtt] forKey:@"attempts"];
+    [stats setObject:[NSString stringWithFormat:@"%d yds",_statsPassYards] forKey:@"passYards"];
     
     int compPercent = 0;
     if (_statsPassYards > 0) {
         compPercent = (int)(100.0*((double)_statsPassComp/(double)_statsPassAtt));
     }
     [stats setObject:[NSString stringWithFormat:@"%d%%",compPercent] forKey:@"completionPercentage"];
-    [stats setObject:[NSString stringWithFormat:@"%d yds",_statsPassYards] forKey:@"passYards"];
     
     int ypa = 0;
     if (_statsPassAtt > 0) {
@@ -171,6 +172,10 @@
         ypg = (int)((double)_statsPassYards/(double)games);
     }
     [stats setObject:[NSString stringWithFormat:@"%d yards/gm",ypg] forKey:@"yardsPerGame"];
+    
+    [stats setObject:[NSString stringWithFormat:@"%d TDs",_statsTD] forKey:@"touchdowns"];
+    [stats setObject:[NSString stringWithFormat:@"%d INTs",_statsInt] forKey:@"interceptions"];
+    
     
     return [stats copy];
 }

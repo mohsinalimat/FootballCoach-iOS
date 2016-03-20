@@ -11,45 +11,44 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="287" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="287" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A. Easwaran" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fbs-WS-Wsg">
-                        <rect key="frame" x="38" y="11" width="165" height="28"/>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fr" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ape-RA-E95">
-                        <rect key="frame" x="10" y="11" width="20" height="28"/>
+                        <rect key="frame" x="119" y="8" width="24" height="33.5"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="20" id="lVw-Xf-Atk"/>
+                            <constraint firstAttribute="width" constant="24" id="sN8-eW-ZNN"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6L-VD-kYF">
-                        <rect key="frame" x="248" y="11" width="31" height="28"/>
+                        <rect key="frame" x="248" y="8" width="31" height="33.5"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="31" id="b5W-em-Iv2"/>
+                            <constraint firstAttribute="width" constant="31" id="2zX-bG-0GC"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A. Easwaran" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fbs-WS-Wsg">
+                        <rect key="frame" x="18" y="10" width="96" height="29"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="c6L-VD-kYF" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Hxr-yr-uRK"/>
-                    <constraint firstItem="ape-RA-E95" firstAttribute="baseline" secondItem="c6L-VD-kYF" secondAttribute="baseline" id="MSk-qJ-h95"/>
-                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="top" secondItem="c6L-VD-kYF" secondAttribute="top" id="SdQ-eq-NX0"/>
-                    <constraint firstItem="c6L-VD-kYF" firstAttribute="leading" secondItem="Fbs-WS-Wsg" secondAttribute="trailing" constant="45" id="U4h-mz-Ipu"/>
-                    <constraint firstItem="ape-RA-E95" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="UfA-bt-n5b"/>
-                    <constraint firstItem="ape-RA-E95" firstAttribute="bottom" secondItem="Fbs-WS-Wsg" secondAttribute="bottom" id="YRB-vh-CUb"/>
-                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="c9Y-zo-hZi"/>
-                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="top" secondItem="ape-RA-E95" secondAttribute="top" id="ch3-Cf-PgY"/>
-                    <constraint firstItem="ape-RA-E95" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="oAq-7q-Q9P"/>
-                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="leading" secondItem="ape-RA-E95" secondAttribute="trailing" constant="8" symbolic="YES" id="rv9-Xz-T6a"/>
+                    <constraint firstItem="ape-RA-E95" firstAttribute="leading" secondItem="Fbs-WS-Wsg" secondAttribute="trailing" constant="5" id="8GZ-0N-dW6"/>
+                    <constraint firstItem="c6L-VD-kYF" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="BHK-kb-ypv"/>
+                    <constraint firstItem="ape-RA-E95" firstAttribute="bottom" secondItem="Fbs-WS-Wsg" secondAttribute="bottom" constant="2.5" id="CM5-6b-GJO"/>
+                    <constraint firstItem="ape-RA-E95" firstAttribute="baseline" secondItem="c6L-VD-kYF" secondAttribute="baseline" constant="-1" id="P27-Gz-qmi"/>
+                    <constraint firstItem="c6L-VD-kYF" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="STy-x5-kUT"/>
+                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="Ygc-IR-JPH"/>
+                    <constraint firstItem="c6L-VD-kYF" firstAttribute="top" secondItem="ape-RA-E95" secondAttribute="top" id="dzZ-tI-ci1"/>
+                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="er4-e1-q9F"/>
+                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="top" secondItem="ape-RA-E95" secondAttribute="top" constant="2" id="vAX-qd-SAf"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

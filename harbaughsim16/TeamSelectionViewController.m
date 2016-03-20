@@ -42,6 +42,7 @@
         [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [league setUserTeam:userTeam];
             [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
             [self dismissViewControllerAnimated:YES completion:nil];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
