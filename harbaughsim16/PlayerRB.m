@@ -23,7 +23,7 @@
         _ratRushSpd = spd;
         _ratRushEva = eva;
         
-        self.cost = (int)(powf((float)self.ratOvr/4,2.0)) + (int)(arc4random()%100) - 50;
+        self.cost = (int)(powf((float)self.ratOvr/4,2.0)) + (int)([HBSharedUtils randomValue]*100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
@@ -52,14 +52,14 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
-        self.ratPot = (int) (50 + 50*arc4random());
-        self.ratFootIQ = (int) (50 + stars*4 + 30*arc4random());
-        _ratRushPow = (int) (60 + self.year*5 + stars*5 - 25*arc4random());
-        _ratRushSpd = (int) (60 + self.year*5 + stars*5 - 25*arc4random());
-        _ratRushEva = (int) (60 + self.year*5 + stars*5 - 25*arc4random());
+        self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
+        self.ratFootIQ = (int) (50 + stars*4 + 30* [HBSharedUtils randomValue]);
+        _ratRushPow = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
+        _ratRushSpd = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
+        _ratRushEva = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
         self.ratOvr = (_ratRushPow + _ratRushSpd + _ratRushEva)/3;
         
-        self.cost = (int)pow((float)self.ratOvr/4,2) + (int)(arc4random()%100) - 50;
+        self.cost = (int)pow((float)self.ratOvr/4,2) + (int)([HBSharedUtils randomValue]*100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
@@ -113,15 +113,15 @@
 -(void)advanceSeason {
     self.year++;
     int oldOvr = self.ratOvr;
-    self.ratFootIQ += (int)(arc4random()%(self.ratPot - 25))/10;
-    self.ratRushPow += (int)(arc4random()%(self.ratPot - 25))/10;
-    self.ratRushSpd += (int)(arc4random()%(self.ratPot - 25))/10;
-    self.ratRushEva += (int)(arc4random()%(self.ratPot - 25))/10;
+    self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+    self.ratRushPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+    self.ratRushSpd += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+    self.ratRushEva += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
     if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
         //breakthrough
-        self.ratRushPow += (int)(arc4random()%(self.ratPot - 30))/10;
-        self.ratRushSpd += (int)(arc4random()%(self.ratPot - 30))/10;
-        self.ratRushEva += (int)(arc4random()%(self.ratPot - 30))/10;
+        self.ratRushPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+        self.ratRushSpd += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+        self.ratRushEva += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
     }
     self.ratOvr = (self.ratRushPow + self.ratRushSpd + self.ratRushEva)/3;
     self.ratImprovement = self.ratOvr - oldOvr;
@@ -144,10 +144,16 @@
     [stats setObject:[NSString stringWithFormat:@"%d carries",_statsRushAtt] forKey:@"carries"];
     [stats setObject:[NSString stringWithFormat:@"%d yards",_statsRushYards] forKey:@"rushYards"];
     
-    int ypc = (int)((double)_statsRushYards/(double)_statsRushAtt);
+    int ypc = 0;
+    if (_statsRushAtt > 0) {
+        ypc = (int)((double)_statsRushYards/(double)_statsRushAtt);
+    }
     [stats setObject:[NSString stringWithFormat:@"%d yds/carry",ypc] forKey:@"yardsPerCarry"];
     
-    int ypg = (int)((double)_statsRushYards/(double)games);
+    int ypg = 0;
+    if (games > 0) {
+        ypg = (int)((double)_statsRushYards/(double)games);
+    }
     [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"yardsPerGame"];
     
     

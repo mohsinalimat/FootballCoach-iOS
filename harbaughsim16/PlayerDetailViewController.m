@@ -41,7 +41,7 @@
     [super viewDidLoad];
     self.title = @"Player";
     [playerDetailView.nameLabel setText:selectedPlayer.name];
-    [playerDetailView.yrLabel setText:[selectedPlayer getYearString]];
+    [playerDetailView.yrLabel setText:[selectedPlayer getFullYearString]];
     [playerDetailView.posLabel setText:selectedPlayer.position];
     self.tableView.tableHeaderView = playerDetailView;
     stats = [selectedPlayer detailedStats:[HBSharedUtils getLeague].currentWeek];
@@ -101,7 +101,7 @@
         } else if ([stat containsString:@"B"]) {
             letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
         } else if ([stat containsString:@"C"]) {
-            letterColor = [UIColor hx_colorWithHexRGBAString:@"#ffffbf"];
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
         } else if ([stat containsString:@"D"]) {
             letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
         } else {

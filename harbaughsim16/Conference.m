@@ -8,6 +8,7 @@
 
 #import "Conference.h"
 #import "Team.h"
+#import "HBSharedUtils.h"
 
 @implementation Conference
 
@@ -215,12 +216,12 @@
             }
             
             for (int i = 0; i < 10; ++i) {
-                int selTeam = (int)(arc4random() % availTeams.count);
+                int selTeam = (int)([HBSharedUtils randomValue] * availTeams.count);
                 Team *a = _confTeams[i];
                 Team *b = availTeams[selTeam];
                 
                 Game *gm;
-                if (arc4random() > 0.5) {
+                if ([HBSharedUtils randomValue] > 0.5) {
                     gm = [Game newGameWithHome:a away:b name:[NSString stringWithFormat:@"%@ vs %@",[a.conference substringWithRange:NSMakeRange(0, 3)],[b.conference substringWithRange:NSMakeRange(0, 3)]]];
                 } else {
                     gm = [Game newGameWithHome:b away:a name:[NSString stringWithFormat:@"%@ vs %@",[b.conference substringWithRange:NSMakeRange(0, 3)],[a.conference substringWithRange:NSMakeRange(0, 3)]]];
@@ -259,7 +260,7 @@
             }
             
             Game *gm;
-            if (arc4random() > 0.5) {
+            if ([HBSharedUtils randomValue] > 0.5) {
                 gm = [Game
                       newGameWithHome:a away:b name:@"In Conf"];
             } else {

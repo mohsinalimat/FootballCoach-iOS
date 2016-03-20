@@ -130,7 +130,7 @@
     }
     [cell.nameLabel setText:[player getInitialName]];
     [cell.yrLabel setText:[player getYearString]];
-    
+    [cell.ovrLabel setText:[NSString stringWithFormat:@"%d", player.ratOvr]];
     return cell;
 }
 

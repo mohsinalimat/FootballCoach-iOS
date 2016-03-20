@@ -11,5 +11,5 @@
 @interface HBRosterCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yrLabel;
-
+@property (weak, nonatomic) IBOutlet UILabel *ovrLabel;
 @end

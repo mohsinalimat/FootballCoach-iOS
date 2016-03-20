@@ -11,40 +11,51 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="287" height="49.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="287" height="50"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A. Easwaran" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fbs-WS-Wsg">
-                        <rect key="frame" x="62" y="11" width="126" height="28"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="126" id="xes-7V-f61"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="38" y="11" width="165" height="28"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frsh" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ape-RA-E95">
-                        <rect key="frame" x="16" y="11" width="38" height="28"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fr" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ape-RA-E95">
+                        <rect key="frame" x="10" y="11" width="20" height="28"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="38" id="eXC-h0-mbP"/>
+                            <constraint firstAttribute="width" constant="20" id="lVw-Xf-Atk"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c6L-VD-kYF">
+                        <rect key="frame" x="248" y="11" width="31" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="31" id="b5W-em-Iv2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="leading" secondItem="ape-RA-E95" secondAttribute="trailing" constant="8" symbolic="YES" id="AvF-jJ-ul9"/>
-                    <constraint firstItem="ape-RA-E95" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Iwu-KK-wvg"/>
-                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="bottom" secondItem="ape-RA-E95" secondAttribute="bottom" id="PNx-OE-Kdr"/>
-                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="top" secondItem="ape-RA-E95" secondAttribute="top" id="XZK-SK-2rh"/>
-                    <constraint firstItem="ape-RA-E95" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="8" id="bZD-K5-kfB"/>
-                    <constraint firstItem="ape-RA-E95" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="rfq-QW-Ndi"/>
+                    <constraint firstItem="c6L-VD-kYF" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="Hxr-yr-uRK"/>
+                    <constraint firstItem="ape-RA-E95" firstAttribute="baseline" secondItem="c6L-VD-kYF" secondAttribute="baseline" id="MSk-qJ-h95"/>
+                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="top" secondItem="c6L-VD-kYF" secondAttribute="top" id="SdQ-eq-NX0"/>
+                    <constraint firstItem="c6L-VD-kYF" firstAttribute="leading" secondItem="Fbs-WS-Wsg" secondAttribute="trailing" constant="45" id="U4h-mz-Ipu"/>
+                    <constraint firstItem="ape-RA-E95" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="UfA-bt-n5b"/>
+                    <constraint firstItem="ape-RA-E95" firstAttribute="bottom" secondItem="Fbs-WS-Wsg" secondAttribute="bottom" id="YRB-vh-CUb"/>
+                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="c9Y-zo-hZi"/>
+                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="top" secondItem="ape-RA-E95" secondAttribute="top" id="ch3-Cf-PgY"/>
+                    <constraint firstItem="ape-RA-E95" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="oAq-7q-Q9P"/>
+                    <constraint firstItem="Fbs-WS-Wsg" firstAttribute="leading" secondItem="ape-RA-E95" secondAttribute="trailing" constant="8" symbolic="YES" id="rv9-Xz-T6a"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="nameLabel" destination="Fbs-WS-Wsg" id="foF-OA-rLT"/>
+                <outlet property="ovrLabel" destination="c6L-VD-kYF" id="Yjd-UO-ew0"/>
                 <outlet property="yrLabel" destination="ape-RA-E95" id="EBb-ab-zAb"/>
             </connections>
             <point key="canvasLocation" x="305" y="363"/>

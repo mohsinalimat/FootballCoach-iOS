@@ -21,6 +21,8 @@
 #import "PlayerCB.h"
 #import "PlayerS.h"
 
+#import "HBSharedUtils.h"
+
 @implementation League
 
 +(NSArray*)bowlGameTitles {
@@ -498,8 +500,8 @@
 }
 
 -(NSString*)getRandName {
-    int fn = (int)(arc4random()%_nameList.count);
-    int ln = (int)(arc4random()%_nameList.count);
+    int fn = (int)([HBSharedUtils randomValue] * _nameList.count);
+    int ln = (int)([HBSharedUtils randomValue] * _nameList.count);
     return [NSString stringWithFormat:@"%@ %@",_nameList[fn],_nameList[ln]];
 }
 

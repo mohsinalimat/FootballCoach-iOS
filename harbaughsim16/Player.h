@@ -26,6 +26,7 @@
 
 +(NSArray *)letterGrades;
 -(NSString*)getYearString;
+-(NSString*)getFullYearString;
 -(void)advanceSeason;
 -(int)getHeismanScore;
 -(NSString*)getInitialName;

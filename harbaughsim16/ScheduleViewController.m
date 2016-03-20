@@ -46,7 +46,7 @@
 
 -(void)setupTeamHeader {
     NSString *rank = @"";
-    if (userTeam.rankTeamPollScore < 26) {
+    if (userTeam.rankTeamPollScore < 26 && userTeam.rankTeamPollScore > 0) {
         rank = [NSString stringWithFormat:@"#%ld ",(long)userTeam.rankTeamPollScore];
     }
     [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, userTeam.name]];

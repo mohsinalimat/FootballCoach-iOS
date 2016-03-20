@@ -24,7 +24,7 @@
         _ratPassAcc = acc;
         _ratPassEva = eva;
         
-        self.cost = (int)(powf((float)self.ratOvr/3.5,2.0)) + (int)(arc4random()%100) - 50;
+        self.cost = (int)(powf((float)self.ratOvr/3.5,2.0)) + (int)([HBSharedUtils randomValue]*100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
@@ -55,14 +55,14 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
-        self.ratPot = (int) (50 + 50*arc4random());
-        self.ratFootIQ = (int) (50 + stars*4 + 30*arc4random());
-        _ratPassPow = (int) (60 + self.year*5 + stars*5 - 25*arc4random());
-        _ratPassAcc = (int) (60 + self.year*5 + stars*5 - 25*arc4random());
-        _ratPassEva = (int) (60 + self.year*5 + stars*5 - 25*arc4random());
+        self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
+        self.ratFootIQ = (int) (50 + stars*4 + 30* [HBSharedUtils randomValue]);
+        _ratPassPow = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
+        _ratPassAcc = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
+        _ratPassEva = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
         self.ratOvr = (_ratPassPow*3 + _ratPassAcc*4 + _ratPassEva)/8;
         
-        self.cost = (int)pow((float)self.ratOvr/3.5,2) + (int)(arc4random()%100) - 50;
+        self.cost = (int)pow((float)self.ratOvr/3.5,2) + (int)([HBSharedUtils randomValue]*100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
@@ -122,15 +122,15 @@
 -(void)advanceSeason {
     self.year++;
     int oldOvr = self.ratOvr;
-    self.ratFootIQ += (int)(arc4random()%(self.ratPot - 25))/10;
-    _ratPassPow += (int)(arc4random()%(self.ratPot - 25))/10;
-    _ratPassAcc += (int)(arc4random()%(self.ratPot - 25))/10;
-    _ratPassEva += (int)(arc4random()%(self.ratPot - 25))/10;
+    self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+    _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+    _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+    _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
     if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
         //breakthrough
-        _ratPassPow += (int)(arc4random()%(self.ratPot - 30))/10;
-        _ratPassAcc += (int)(arc4random()%(self.ratPot - 30))/10;
-        _ratPassEva += (int)(arc4random()%(self.ratPot - 30))/10;
+        _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+        _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+        _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
     }
     
     self.ratOvr = (_ratPassPow*3 + _ratPassAcc*4 + _ratPassEva)/8;
@@ -153,14 +153,23 @@
     [stats setObject:[NSString stringWithFormat:@"%d TDs",_statsTD] forKey:@"touchdowns"];
     [stats setObject:[NSString stringWithFormat:@"%d INTs",_statsInt] forKey:@"interceptions"];
     
-    int compPercent = (int)(100.0*((double)_statsPassComp/(double)_statsPassAtt));
+    int compPercent = 0;
+    if (_statsPassYards > 0) {
+        compPercent = (int)(100.0*((double)_statsPassComp/(double)_statsPassAtt));
+    }
     [stats setObject:[NSString stringWithFormat:@"%d%%",compPercent] forKey:@"completionPercentage"];
     [stats setObject:[NSString stringWithFormat:@"%d yds",_statsPassYards] forKey:@"passYards"];
     
-    int ypa = (int)((double)_statsPassYards/(double)_statsPassAtt);
+    int ypa = 0;
+    if (_statsPassAtt > 0) {
+        ypa = (int)((double)_statsPassYards/(double)_statsPassAtt);
+    }
     [stats setObject:[NSString stringWithFormat:@"%d yards/att",ypa] forKey:@"yardsPerAttempt"];
     
-    int ypg = (int)((double)_statsPassYards/(double)games);
+    int ypg = 0;
+    if (games > 0) {
+        ypg = (int)((double)_statsPassYards/(double)games);
+    }
     [stats setObject:[NSString stringWithFormat:@"%d yards/gm",ypg] forKey:@"yardsPerGame"];
     
     return [stats copy];

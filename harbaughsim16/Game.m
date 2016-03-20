@@ -260,51 +260,73 @@
         
     } else {
         // array goes away, home
-        double appg = ((double)_awayTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        double hppg = ((double)_homeTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        int appg, hppg, aoppg, hoppg, aypg, hypg, aoypg, hoypg, apypg, hpypg, aopypg, hopypg, aorypg, horypg, arypg, hrypg;
         
-        double aoppg = ((double)_awayTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        double hoppg = ((double)_homeTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        
-        double aypg = ((double)_awayTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        double hypg = ((double)_homeTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        
-        double aoypg = ((double)_awayTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        double hoypg = ((double)_homeTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        
-        double apypg = ((double)_awayTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        double hpypg = ((double)_homeTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        
-        double arypg = ((double)_awayTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        double hrypg = ((double)_homeTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        
-        double aopypg = ((double)_awayTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        double hopypg = ((double)_homeTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        
-        double aorypg = ((double)_awayTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-        double horypg = ((double)_homeTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        if ([HBSharedUtils getLeague].currentWeek > 0) {
+            appg = (int)((double)_awayTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            hppg = (int)((double)_homeTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            
+            aoppg = (int)((double)_awayTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            hoppg = (int)((double)_homeTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            
+            aypg = (int)((double)_awayTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            hypg = (int)((double)_homeTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            
+            aoypg = (int)((double)_awayTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            hoypg = (int)((double)_homeTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            
+            apypg = (int)((double)_awayTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            hpypg = (int)((double)_homeTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            
+            arypg = (int)((double)_awayTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            hrypg = (int)((double)_homeTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            
+            aopypg = (int)((double)_awayTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            hopypg = (int)((double)_homeTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            
+            aorypg = (int)((double)_awayTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            horypg = (int)((double)_homeTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+        } else {
+            appg = 0;
+            hppg = 0;
+            aoppg = 0;
+            hoppg = 0;
+            aypg = 0;
+            hypg = 0;
+            aoypg = 0;
+            hoypg = 0;
+            apypg = 0;
+            hpypg = 0;
+            aopypg = 0;
+            hopypg = 0;
+            aorypg = 0;
+            horypg = 0;
+            arypg = 0;
+            hrypg = 0;
+
+        }
         
         
         [report setObject:@[[NSString stringWithFormat:@"#%d",_awayTeam.rankTeamPollScore],
                             [NSString stringWithFormat:@"#%d",_homeTeam.rankTeamPollScore]] forKey:@"Ranking"];
         [report setObject:@[[NSString stringWithFormat:@"%d-%d",_awayTeam.wins,_awayTeam.losses],
                             [NSString stringWithFormat:@"%d-%d",_awayTeam.wins,_homeTeam.losses]] forKey:@"Record"];
-        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",appg,_awayTeam.rankTeamPoints],
-                            [NSString stringWithFormat:@"%f (#%d)",hppg,_homeTeam.rankTeamPoints]] forKey:@"PPG"];
-        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",aoppg,_awayTeam.rankTeamOppPoints],
-                            [NSString stringWithFormat:@"%f (#%d)",hoppg,_homeTeam.rankTeamOppPoints]] forKey:@"Opp PPG"];
-        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",aypg,_awayTeam.rankTeamYards],
-                            [NSString stringWithFormat:@"%f (#%d)",hypg,_homeTeam.rankTeamYards]] forKey:@"YPG"];
-        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",aoypg,_awayTeam.rankTeamOppYards],
-                            [NSString stringWithFormat:@"%f (#%d)",hoypg,_homeTeam.rankTeamOppYards]] forKey:@"Opp YPG"];
-        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",apypg,_awayTeam.rankTeamPassYards],
-                            [NSString stringWithFormat:@"%f (#%d)",hpypg,_homeTeam.rankTeamPassYards]] forKey:@"Pass YPG"];
-        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",arypg,_awayTeam.rankTeamRushYards],
-                            [NSString stringWithFormat:@"%f (#%d)",hrypg,_homeTeam.rankTeamRushYards]] forKey:@"Rush YPG"];
-        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",aopypg,_awayTeam.rankTeamOppPassYards],
-                            [NSString stringWithFormat:@"%f (#%d)",hopypg,_homeTeam.rankTeamOppPassYards]] forKey:@"Opp PYPG"];
-        [report setObject:@[[NSString stringWithFormat:@"%f (#%d)",aorypg,_awayTeam.rankTeamOppRushYards],
-                            [NSString stringWithFormat:@"%f (#%d)",horypg,_homeTeam.rankTeamOppRushYards]] forKey:@"Opp RYPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",appg,_awayTeam.rankTeamPoints],
+                            [NSString stringWithFormat:@"%d (#%d)",hppg,_homeTeam.rankTeamPoints]] forKey:@"PPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aoppg,_awayTeam.rankTeamOppPoints],
+                            [NSString stringWithFormat:@"%d (#%d)",hoppg,_homeTeam.rankTeamOppPoints]] forKey:@"Opp PPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aypg,_awayTeam.rankTeamYards],
+                            [NSString stringWithFormat:@"%d (#%d)",hypg,_homeTeam.rankTeamYards]] forKey:@"YPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aoypg,_awayTeam.rankTeamOppYards],
+                            [NSString stringWithFormat:@"%d (#%d)",hoypg,_homeTeam.rankTeamOppYards]] forKey:@"Opp YPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",apypg,_awayTeam.rankTeamPassYards],
+                            [NSString stringWithFormat:@"%d (#%d)",hpypg,_homeTeam.rankTeamPassYards]] forKey:@"Pass YPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",arypg,_awayTeam.rankTeamRushYards],
+                            [NSString stringWithFormat:@"%d (#%d)",hrypg,_homeTeam.rankTeamRushYards]] forKey:@"Rush YPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aopypg,_awayTeam.rankTeamOppPassYards],
+                            [NSString stringWithFormat:@"%d (#%d)",hopypg,_homeTeam.rankTeamOppPassYards]] forKey:@"Opp PYPG"];
+        [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aorypg,_awayTeam.rankTeamOppRushYards],
+                            [NSString stringWithFormat:@"%d (#%d)",horypg,_homeTeam.rankTeamOppRushYards]] forKey:@"Opp RYPG"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",_awayTeam.teamOffTalent,_awayTeam.rankTeamOffTalent],
                             [NSString stringWithFormat:@"%d (#%d)",_homeTeam.teamOffTalent,_homeTeam.rankTeamOffTalent]] forKey:@"Off Talent"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",_awayTeam.teamDefTalent,_awayTeam.rankTeamDefTalent],
@@ -351,7 +373,7 @@
     NSString *yardsNeedAdj = [NSString stringWithFormat:@"%ld",(long)gameYardsNeed];
     
     if (gameYardLine + gameYardsNeed >= 100) yardsNeedAdj = @"Goal";
-    return [NSString stringWithFormat:@"\n\%@ %ld - %ld %@, Time: %@,\n\t%@ %ld and %@ at %ld yard line.\n",_homeTeam.abbreviation,(long)_homeScore,(long)_awayScore,_awayTeam.abbreviation, [self convGameTime],possStr,(long)gameDown,yardsNeedAdj,(long)gameYardLine];
+    return [NSString stringWithFormat:@"\n\n%@ %ld - %ld %@, Time: %@,\n\t%@ %ld and %@ at %ld yard line.\n",_homeTeam.abbreviation,(long)_homeScore,(long)_awayScore,_awayTeam.abbreviation, [self convGameTime],possStr,(long)gameDown,yardsNeedAdj,(long)gameYardLine];
 }
 
 -(NSString*)convGameTime {
@@ -368,7 +390,7 @@
         } else {
             [secStr appendString:[NSString stringWithFormat:@"%ld", (long)secTime]];
         }
-        return [NSString stringWithFormat:@"%ld: %@ OT%ld",(long)minTime,secStr,(long)_numOT];
+        return [NSString stringWithFormat:@"%ld:%@ OT%ld",(long)minTime,secStr,(long)_numOT];
     } else {
         minTime = (gameTime - 900*(4-qNum)) / 60;
         secTime = (gameTime - 900*(4-qNum)) - 60*minTime;
@@ -377,7 +399,7 @@
         } else {
             [secStr appendString:[NSString stringWithFormat:@"%ld", (long)secTime]];
         }
-        return [NSString stringWithFormat:@"%ld: %@ Q%ld",(long)minTime,secStr,(long)qNum];
+        return [NSString stringWithFormat:@"%ld:%@ Q%ld",(long)minTime,secStr,(long)qNum];
     }
 }
 
@@ -614,7 +636,7 @@
     double intChance = (pressureOnQB + [defense getS:0].ratOvr - ([offense getQB:0].ratPassAcc+[offense getQB:0].ratFootIQ+100)/3)/18
     + offense.offensiveStrategy.passAgBonus + defense.defensiveStrategy.passAgBonus;
     if (intChance < 0.015) intChance = 0.015;
-    if ( 100*arc4random() < intChance ) {
+    if ( 100* [HBSharedUtils randomValue] < intChance ) {
         //Interception
         [self qbInterception:offense];
         return;
@@ -622,8 +644,8 @@
     
     //throw ball, check for completion
     double completion = ( [self getHFAdv] + [self normalize:[offense getQB:0].ratPassAcc] + [self normalize:selWR.ratRecCat] - [self normalize:selCB.ratCBCov])/2 + 18.25 - pressureOnQB/16.8 - offense.offensiveStrategy.passAgBonus - defense.defensiveStrategy.passAgBonus;
-    if ( 100*arc4random() < completion ) {
-        if ( 100*arc4random() < (100 - selWR.ratRecCat)/3 ) {
+    if ( 100* [HBSharedUtils randomValue] < completion ) {
+        if ( 100* [HBSharedUtils randomValue] < (100 - selWR.ratRecCat)/3 ) {
             //drop
             gameDown++;
             NSNumber *wrStat = selWRStats[4];
@@ -632,11 +654,11 @@
             selWR.statsDrops++;
         } else {
             //no drop
-            yardsGain = (int) (( [self normalize:[offense getQB:0].ratPassPow] + [self normalize:selWR.ratRecSpd] - [self normalize:selCB.ratCBSpd] )*arc4random()/3.7 + offense.offensiveStrategy.passYdBonus/2 - defense.defensiveStrategy.passYdBonus);
+            yardsGain = (int) (( [self normalize:[offense getQB:0].ratPassPow] + [self normalize:selWR.ratRecSpd] - [self normalize:selCB.ratCBSpd] )* [HBSharedUtils randomValue]/3.7 + offense.offensiveStrategy.passYdBonus/2 - defense.defensiveStrategy.passYdBonus);
             //see if receiver can get yards after catch
-            double escapeChance = ([self normalize:(selWR.ratRecEva)*3 - selCB.ratCBTkl - [defense getS:0].ratOvr]*arc4random() + offense.offensiveStrategy.passYdBonus - defense.defensiveStrategy.passAgBonus);
+            double escapeChance = ([self normalize:(selWR.ratRecEva)*3 - selCB.ratCBTkl - [defense getS:0].ratOvr]* [HBSharedUtils randomValue] + offense.offensiveStrategy.passYdBonus - defense.defensiveStrategy.passAgBonus);
             if ( escapeChance > 92 ||[HBSharedUtils randomValue] > 0.95 ) {
-                yardsGain += 3 + selWR.ratRecSpd*arc4random()/3;
+                yardsGain += 3 + selWR.ratRecSpd* [HBSharedUtils randomValue]/3;
             }
             if ( escapeChance > 75 &&[HBSharedUtils randomValue] < (0.1 + (offense.offensiveStrategy.passAgBonus)-defense.defensiveStrategy.passAgBonus)/200) {
                 //wr escapes for TD
@@ -656,7 +678,7 @@
             } else {
                 //check for fumble
                 double fumChance = ([defense getS:0].ratSTkl + selCB.ratCBTkl)/2;
-                if ( 100*arc4random() < fumChance/40 ) {
+                if ( 100* [HBSharedUtils randomValue] < fumChance/40 ) {
                     //Fumble!
                     gotFumble = true;
                 }
@@ -705,7 +727,7 @@
         [self kickOff:offense];
     }
     
-    gameTime -= 15 + 15*arc4random();
+    gameTime -= 15 + 15* [HBSharedUtils randomValue];
 
 }
 
@@ -728,7 +750,7 @@
         yardsGain += selRB.ratRushPow/20 - 3 - defense.defensiveStrategy.rushYdBonus/2;
     } else {
         //break free from tackles
-        if (arc4random() < ( 0.28 + ( offense.offensiveStrategy.rushAgBonus - defense.defensiveStrategy.rushYdBonus/2 )/50 )) {
+        if ([HBSharedUtils randomValue] < ( 0.28 + ( offense.offensiveStrategy.rushAgBonus - defense.defensiveStrategy.rushYdBonus/2 )/50 )) {
             yardsGain += selRB.ratRushEva/5 *[HBSharedUtils randomValue];
         }
     }
@@ -784,10 +806,10 @@
         [self kickXP:offense defense:defense];
         [self kickOff:offense];
     } else {
-        gameTime -= 25 + 15*arc4random();
+        gameTime -= 25 + 15* [HBSharedUtils randomValue];
         //check for fumble
         double fumChance = ([defense getS:0].ratSTkl + [defense getCompositeF7Rush] - [self getHFAdv])/2 + offense.offensiveStrategy.rushAgBonus;
-        if ( 100*arc4random() < fumChance/40 ) {
+        if ( 100* [HBSharedUtils randomValue] < fumChance/40 ) {
             //Fumble!
             if ( gamePoss ) {
                 _homeTOs++;
@@ -828,7 +850,7 @@
     double fgAccRatio = pow((110 - gameYardLine)/50,1.25);
     double fgDistChance = ( [self getHFAdv] + [offense getK:0].ratKickPow - fgDistRatio*80 );
     double fgAccChance = ( [self getHFAdv] + [offense getK:0].ratKickAcc - fgAccRatio*80 );
-    if ( fgDistChance > 20 && fgAccChance*arc4random() > 15 ) {
+    if ( fgDistChance > 20 && fgAccChance* [HBSharedUtils randomValue] > 15 ) {
         // made the fg
         if ( gamePoss ) { // home possession
             _homeScore += 3;
@@ -905,7 +927,7 @@
         } else {
             int pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass];
             double completion = ( [self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
-            if ( 100*arc4random() < completion ) {
+            if ( 100* [HBSharedUtils randomValue] < completion ) {
                 successConversion = true;
                 if ( gamePoss ) { // home possession
                     _homeScore += 2;
@@ -971,7 +993,7 @@
         gameYardsNeed = 10;
     } else {
         // Just regular kick off
-        gameYardLine = (int) (100 - ([offense getK:0].ratKickPow + 20 - 40*arc4random() ));
+        gameYardLine = (int) (100 - ([offense getK:0].ratKickPow + 20 - 40* [HBSharedUtils randomValue] ));
         if ( gameYardLine <= 0 ) gameYardLine = 20;
         gameDown = 1;
         gameYardsNeed = 10;
@@ -980,7 +1002,7 @@
 }
 
 -(void)puntPlay:(Team *)offense {
-    gameYardLine = (int) (100 - ( gameYardLine + [offense getK:0].ratKickPow/3 + 20 - 10*arc4random() ));
+    gameYardLine = (int) (100 - ( gameYardLine + [offense getK:0].ratKickPow/3 + 20 - 10* [HBSharedUtils randomValue] ));
     if ( gameYardLine < 0 ) {
         gameYardLine = 20;
     }
@@ -988,7 +1010,7 @@
     gameYardsNeed = 10;
     gamePoss = !gamePoss;
     
-    gameTime -= 20 + 15*arc4random();
+    gameTime -= 20 + 15* [HBSharedUtils randomValue];
 }
 
 -(void)qbSack:(Team *)offense {

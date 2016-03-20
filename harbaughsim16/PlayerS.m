@@ -22,7 +22,7 @@
         self.ratSSpd = speed;
         self.ratSTkl = tackling;
         self.position = @"S";
-        self.cost = pow(self.ratOvr / 6, 2) + (arc4random() % 100) - 50;
+        self.cost = pow(self.ratOvr / 6, 2) + ([HBSharedUtils randomValue] * 100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)", name, [self getYearString]]];
@@ -49,13 +49,14 @@
     if(self) {
         self.name = name;
         self.year = year;
-        self.ratPot = (int)(arc4random()%50 + 50);
-        self.ratFootIQ = (int) (50 + stars*4 + 30*arc4random());
-        self.ratSCov = (int) (60 + year*5 + stars*5 - 25*arc4random());
-        self.ratSSpd = (int) (60 + year*5 + stars*5 - 25*arc4random());
-        self.ratSTkl = (int) (60 + year*5 + stars*5 - 25*arc4random());
+        self.ratPot = (int)([HBSharedUtils randomValue]*50 + 50);
+        self.ratFootIQ = (int) (50 + stars*4 + 30* [HBSharedUtils randomValue]);
+        self.ratSCov = (int) (60 + year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
+        self.ratSSpd = (int) (60 + year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
+        self.ratSTkl = (int) (60 + year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
+        self.ratOvr = (self.ratSCov*2 + self.ratSSpd + self.ratSTkl)/4;
         self.position = @"S";
-        self.cost = pow(self.ratOvr / 6, 2) + (arc4random() % 100) - 50;
+        self.cost = pow(self.ratOvr / 6, 2) + ([HBSharedUtils randomValue] * 100) - 50;
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)", name, [self getYearString]]];
@@ -84,15 +85,15 @@
 -(void)advanceSeason {
     self.year++;
     int oldOvr = self.ratOvr;
-    self.ratFootIQ += (int)(arc4random()%(self.ratPot - 25))/10;
-    self.ratSCov += (int)(arc4random()%(self.ratPot - 25))/10;
-    self.ratSSpd += (int)(arc4random()%(self.ratPot - 25))/10;
-    self.ratSTkl += (int)(arc4random()%(self.ratPot - 25))/10;
+    self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+    self.ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+    self.ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+    self.ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
     if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
         //breakthrough
-        self.ratSCov += (int)(arc4random()%(self.ratPot - 30))/10;
-        self.ratSSpd += (int)(arc4random()%(self.ratPot - 30))/10;
-        self.ratSTkl += (int)(arc4random()%(self.ratPot - 30))/10;
+        self.ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+        self.ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+        self.ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
     }
     self.ratOvr = (self.ratSCov * 2 + self.ratSSpd + self.ratSTkl) / 4;
     self.ratImprovement = self.ratOvr - oldOvr;

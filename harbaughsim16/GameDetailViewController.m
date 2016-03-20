@@ -83,12 +83,12 @@
     [super viewDidLoad];
     self.title = @"Game";
     NSString *homeRank = @"";
-    if (selectedGame.homeTeam.rankTeamPollScore < 26) {
+    if (selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
         homeRank = [NSString stringWithFormat:@"#%d ",selectedGame.homeTeam.rankTeamPollScore];
     }
     [gameDetailCell.homeLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.abbreviation]];
     NSString *awayRank = @"";
-    if (selectedGame.awayTeam.rankTeamPollScore < 26) {
+    if (selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
         awayRank = [NSString stringWithFormat:@"#%d ",selectedGame.awayTeam.rankTeamPollScore];
     }
     [gameDetailCell.awayLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.abbreviation]];

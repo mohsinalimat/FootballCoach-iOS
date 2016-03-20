@@ -42,6 +42,21 @@
     return @"ERROR";
 }
 
+-(NSString*)getFullYearString {
+    if (_year == 0) {
+        return @"High School";
+    } else if (_year == 1 ) {
+        return @"Freshman";
+    } else if (_year == 2 ) {
+        return @"Sophomore";
+    } else if (_year == 3 ) {
+        return @"Junior";
+    } else if (_year == 4 ) {
+        return @"Senior";
+    }
+    return @"ERROR";
+}
+
 -(void)advanceSeason {
     _year ++;
 }
