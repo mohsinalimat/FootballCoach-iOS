@@ -58,6 +58,8 @@
         _totalLosses = 0;
         _totalCCs = 0;
         _totalNCs = 0;
+        _teamStatOffNum = 1;
+        _teamStatDefNum = 1;
         
         _name = name;
         _abbreviation = abbr;
@@ -79,8 +81,8 @@
          
         _teamPollScore = _teamPrestige + [self getOffensiveTalent] + [self getDefensiveTalent];
         
-        _offensiveStrategy = [[TeamStrategy alloc] init];
-        _defensiveStrategy = [[TeamStrategy alloc] init];
+        _offensiveStrategy = [self getOffensiveTeamStrategies][_teamStatOffNum];
+        _defensiveStrategy = [self getDefensiveTeamStrategies][_teamStatDefNum];
         _numberOfRecruits = 30;
     }
     return self;
@@ -155,18 +157,24 @@
 }
 
 -(void)advanceSeason {
+    
+    if (_wonRivalryGame && (_teamPrestige - [_league findTeam:_rivalTeam].teamPrestige < 20) ) {
+        _teamPrestige += 2;
+    } else if (!_wonRivalryGame && ([_league findTeam:_rivalTeam].teamPrestige - _teamPrestige < 20 || [_name isEqualToString:@"American Samoa"])) {
+        _teamPrestige -= 2;
+    }
+    
     int expectedPollFinish = 100 - _teamPrestige;
     int diffExpected = expectedPollFinish - _rankTeamPollScore;
     int oldPrestige = _teamPrestige;
     
-    if ( (_teamPrestige > 45 && ![_name isEqualToString:@"American Samoa"]) || diffExpected > 0 ) {
-        _teamPrestige = (int)pow(_teamPrestige, 1 + (float)diffExpected/1500);
+    if ((_teamPrestige > 45 && ![_name isEqualToString:@"American Samoa"]) || diffExpected > 0 ) {
+        _teamPrestige = (int)pow(_teamPrestige, 1 + (float)diffExpected/1500);// + diffExpected/2500);
     }
     
-    if (_wonRivalryGame) {
-        _teamPrestige += 2;
-    } else {
-        _teamPrestige -= 2;
+    if (_rankTeamPollScore == 1 ) {
+        // NCW
+        _teamPrestige += 3;
     }
     
     if (_teamPrestige > 95) _teamPrestige = 95;
@@ -778,6 +786,100 @@
     return compositeF7 / 7;
 }
 
+-(NSArray*)getTeamStatsArray {
+    NSMutableArray *ts0 = [NSMutableArray array];
+    
+    //[ts0 appendFormat:@"%ld",(long)_teamPollScore];
+    //[ts0 appendString:@"AP Votes"];
+    //[ts0 appendFormat:@"%@",[self getRankString:_rankTeamPollScore]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d",_teamPollScore], @"AP Votes",[self getRankString:_rankTeamPollScore]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)_teamOffTalent];
+    //[ts0 appendString:@"Off Talent,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamOffTalent]];
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d",_teamOffTalent], @"Offensive Talent",[self getRankString:_rankTeamOffTalent]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)_teamDefTalent];
+    //[ts0 appendString:@"Def Talent,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamDefTalent]];
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d",_teamDefTalent], @"Defensive Talent",[self getRankString:_rankTeamDefTalent]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)_teamPrestige];
+    //[ts0 appendString:@"Prestige,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamPrestige]];
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d",_teamPrestige], @"Prestige",[self getRankString:_rankTeamPrestige]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)_teamStrengthOfWins];
+    //[ts0 appendString:@"SOS,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamStrengthOfWins]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d",_teamStrengthOfWins], @"Strength of Schedule",[self getRankString:_rankTeamStrengthOfWins]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)(_teamPoints/[self numGames])];
+    //[ts0 appendString:@"Points,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamPoints]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d pts/gm",(_teamPoints/[self numGames])], @"Points Per Game",[self getRankString:_rankTeamPoints]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)(_teamOppPoints/[self numGames])];
+    //[ts0 appendString:@"Opp Points,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_teamOppPoints]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d pts/gm",(_teamOppPoints/[self numGames])], @"Opponent Points Per Game",[self getRankString:_rankTeamOppPoints]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)(_teamYards/[self numGames])];
+    //[ts0 appendString:@"Yards,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamYards]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(_teamYards/[self numGames])], @"Yards Per Game",[self getRankString:_rankTeamYards]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)(_teamOppYards/[self numGames])];
+    //[ts0 appendString:@"Opp Yards,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamOppYards]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(_teamOppYards/[self numGames])], @"Opp Yards Per Game",[self getRankString:_rankTeamYards]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)(_teamPassYards/[self numGames])];
+    //[ts0 appendString:@"Pass Yards,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamPassYards]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(_teamPassYards/[self numGames])], @"Pass Yards Per Game",[self getRankString:_rankTeamPassYards]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)(_teamRushYards/[self numGames])];
+    //[ts0 appendString:@"Rush Yards,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamRushYards]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(_teamRushYards/[self numGames])], @"Rush Yards Per Game",[self getRankString:_rankTeamRushYards]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)(_teamOppPassYards/[self numGames])];
+    //[ts0 appendString:@"Opp Pass YPG,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamOppPassYards]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(_teamOppPassYards/[self numGames])], @"Opp Pass Yards Per Game",[self getRankString:_rankTeamOppPassYards]]];
+    
+    //[ts0 appendFormat:@"%ld,",(long)(_teamOppRushYards/[self numGames])];
+    //[ts0 appendString:@"Opp Rush YPG,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamOppRushYards]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(_teamOppRushYards/[self numGames])], @"Opp Rush Yards Per Game",[self getRankString:_rankTeamOppRushYards]]];
+    
+    NSString *turnoverDifferential = @"0";
+    if (_teamTODiff > 0) {
+        turnoverDifferential = [NSString stringWithFormat:@"+%d",_teamTODiff];
+    } else if (_teamTODiff == 0) {
+        turnoverDifferential = @"0";
+    } else {
+        turnoverDifferential = [NSString stringWithFormat:@"%d",_teamTODiff];
+    }
+    //[ts0 appendString:@"TO Diff,"];
+    //[ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamTODiff]];
+    [ts0 addObject:@[turnoverDifferential, @"Turnover Differential",[self getRankString:_rankTeamTODiff]]];
+    
+    return [ts0 copy];
+}
+
+
 -(NSString*)getTeamStatsStringCSV {
     NSMutableString *ts0 = [NSMutableString string];;
     
@@ -826,7 +928,7 @@
     } else if (_teamTODiff == 0) {
         [ts0 appendString:@"0,"];
     } else {
-        [ts0 appendFormat:@"-%ld,",(long)_teamTODiff];
+        [ts0 appendFormat:@"%ld,",(long)_teamTODiff];
     }
     [ts0 appendString:@"TO Diff,"];
     [ts0 appendFormat:@"%@\n",[self getRankString:_rankTeamTODiff]];
@@ -852,8 +954,12 @@
     int diffExpected = expectedPollFinish - _rankTeamPollScore;
     int oldPrestige = _teamPrestige;
     int newPrestige = oldPrestige;
-    if (_teamPrestige > 55 || diffExpected > 0 ) {
+    if (_teamPrestige > 45 || diffExpected > 0 ) {
         newPrestige = (int)pow(_teamPrestige, 1 + (float)diffExpected/1500);// + diffExpected/2500);
+    }
+    
+    if ([_natlChampWL isEqualToString:@"NCW"]) {
+            [summary appendString:@"\n\nYou won the National Championship! Recruits want to play for winners and you have proved that you are one. You gain +3 prestige!"];
     }
     
     if ((newPrestige - oldPrestige) > 0) {
@@ -864,10 +970,14 @@
         [summary appendString:@"\n\nWell, your team performed exactly how many expected. This won't hurt or help recruiting, but try to improve next year!"];
     }
     
-    if (_wonRivalryGame) {
+    if (_wonRivalryGame && (_teamPrestige - [_league findTeam:_rivalTeam].teamPrestige < 20) ) {
         [summary appendString:@"\n\nFuture recruits were impressed that you won your rivalry game. You gained 2 prestige."];
-    } else {
+    } else if (!_wonRivalryGame && ([_league findTeam:_rivalTeam].teamPrestige - _teamPrestige < 20 || [_name isEqualToString:@"American Samoa"])) {
         [summary appendString:@"\n\nSince you couldn't win your rivalry game, recruits aren't excited to attend your school. You lost 2 prestige."];
+    } else if (_wonRivalryGame) {
+        [summary appendString:@"\n\nGood job winning your rivalry game, but it was expected given the state of their program. You gain no prestige for this."];
+    }else {
+        [summary appendString:@"\n\nYou lost your rivalry game, but this was expected given your rebuilding program. You lost no prestige for this."];
     }
     
     return summary;
@@ -938,17 +1048,30 @@
     NSString *gameSummary = [NSString stringWithFormat:@"%@ %@",_gameWLSchedule[i],[self gameSummaryString:g]];
     NSString *rivalryGameStr = @"";
     if ([g.gameName isEqualToString:@"Rivalry Game"]) {
-        if ( [_gameWLSchedule[i] isEqualToString:@"W"] ) rivalryGameStr = @"Won vs Rival! +2 Prestige\n";
-        else rivalryGameStr = @"Lost vs Rival! -2 Prestige\n";
+        if ( [_gameWLSchedule[i] isEqualToString:@"W"] ) rivalryGameStr = @"Won against Rival! ";
+        else rivalryGameStr = @"Lost against Rival! ";
     }
-    return [NSString stringWithFormat:@"%@%@ %@\nNew poll rank: #%d %@ (%ld-%ld)",rivalryGameStr,_name,gameSummary,_rankTeamPollScore,_abbreviation,(long)_wins,(long)_losses];
+
+    if (_rankTeamPollScore > 0 && _rankTeamPollScore < 26) {
+        return [NSString stringWithFormat:@"%@#%d %@ %@",rivalryGameStr,_rankTeamPollScore, _name,gameSummary];
+    } else {
+        return [NSString stringWithFormat:@"%@%@ %@",rivalryGameStr,_name,gameSummary];
+    }
 }
 
 -(NSString*)gameSummaryString:(Game*)g {
     if ([g.homeTeam isEqual: self]) {
-        return [NSString stringWithFormat:@"%ld - %ld vs #%ld %@",(long)g.homeScore,(long)g.awayScore,(long)g.awayTeam.rankTeamPollScore,g.awayTeam.abbreviation];
+        if (g.awayTeam.rankTeamPollScore > 0 && g.awayTeam.rankTeamPollScore < 26) {
+            return [NSString stringWithFormat:@"%ld - %ld vs #%ld %@",(long)g.homeScore,(long)g.awayScore,(long)g.awayTeam.rankTeamPollScore,g.awayTeam.abbreviation];
+        } else {
+            return [NSString stringWithFormat:@"%ld - %ld vs %@",(long)g.homeScore,(long)g.awayScore,g.awayTeam.abbreviation];
+        }
     } else {
-        return [NSString stringWithFormat:@"%ld - %ld @ #%ld %@",(long)g.awayScore,(long)g.homeScore,(long)g.homeTeam.rankTeamPollScore,g.homeTeam.abbreviation];
+        if (g.homeTeam.rankTeamPollScore > 0 && g.homeTeam.rankTeamPollScore < 26) {
+            return [NSString stringWithFormat:@"%ld - %ld vs #%ld %@",(long)g.awayScore,(long)g.homeScore,(long)g.homeTeam.rankTeamPollScore,g.homeTeam.abbreviation];
+        } else {
+            return [NSString stringWithFormat:@"%ld - %ld vs %@",(long)g.awayScore,(long)g.homeScore,g.homeTeam.abbreviation];
+        }
     }
 }
 

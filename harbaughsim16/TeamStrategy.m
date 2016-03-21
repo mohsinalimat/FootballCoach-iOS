@@ -11,28 +11,23 @@
 @implementation TeamStrategy
 
 +(instancetype)newStrategy {
-    TeamStrategy *strat  = [super init];
-    if (self) {
-        strat.stratName = @"No Preference";
-        strat.stratDescription = @"Will play a normal O/D with no bonus either way, but no penalties either.";
-        strat.rushYdBonus = 0;
-        strat.rushAgBonus = 0;
-        strat.passYdBonus = 0;
-        strat.passAgBonus = 0;
-    }
-    return strat;
+    return [[TeamStrategy alloc] initWithName:@"No Preference" description:@"Will play a normal O/D with no bonus either way, but no penalties either." rYB:0 rAB:0 pYB:0 pAB:0];
 }
 
 +(instancetype)newStrategyWithName:(NSString *)name description:(NSString *)description rYB:(int)rYB rAB:(int)rAB pYB:(int)pYB pAB:(int)pAB {
-    TeamStrategy *strat = [[self class] newStrategy];
+    return [[TeamStrategy alloc] initWithName:name description:description rYB:rYB rAB:rAB pYB:pYB pAB:pAB];
+}
+
+-(instancetype)initWithName:(NSString *)name description:(NSString *)description rYB:(int)rYB rAB:(int)rAB pYB:(int)pYB pAB:(int)pAB {
+    self = [super init];
     if (self) {
-        strat.stratName = name;
-        strat.stratDescription = description;
-        strat.rushYdBonus = rYB;
-        strat.rushAgBonus = rAB;
-        strat.passYdBonus = pYB;
-        strat.passAgBonus = pAB;
+        self.stratName = name;
+        self.stratDescription = description;
+        self.rushYdBonus = rYB;
+        self.rushAgBonus = rAB;
+        self.passYdBonus = pYB;
+        self.passAgBonus = pAB;
     }
-    return strat;
+    return self;
 }
 @end

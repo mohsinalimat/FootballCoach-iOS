@@ -13,6 +13,8 @@
 #import "HBStatsCell.h"
 #import "HBPlayerCell.h"
 #import "PlayerDetailViewController.h"
+#import "TeamViewController.h"
+#import "HBScoreCell.h"
 
 #import "PlayerQB.h"
 #import "PlayerRB.h"
@@ -42,20 +44,6 @@
     Game *selectedGame;
     IBOutlet HBGameDetailCell *gameDetailCell;
     NSDictionary *stats;
-    //game detail cell
-    
-    //game stats
-        //home qb
-        //away qb
-    
-        //home rbs (2)
-        //away rbs (2)
-    
-        //home WRs
-        //away WRs
-    
-        //home K
-        //away K
 }
 @end
 
@@ -72,28 +60,10 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Game";
-    NSString *homeRank = @"";
-    if (selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
-        homeRank = [NSString stringWithFormat:@"#%d ",selectedGame.homeTeam.rankTeamPollScore];
-    }
-    [gameDetailCell.homeLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.abbreviation]];
-    NSString *awayRank = @"";
-    if (selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
-        awayRank = [NSString stringWithFormat:@"#%d ",selectedGame.awayTeam.rankTeamPollScore];
-    }
-    [gameDetailCell.awayLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.abbreviation]];
-    [gameDetailCell.homeScore setText:[NSString stringWithFormat:@"%d",selectedGame.homeScore]];
-    [gameDetailCell.awayScore setText:[NSString stringWithFormat:@"%d",selectedGame.awayScore]];
-    [gameDetailCell.nameLabel setText:selectedGame.gameName];
-    if (selectedGame.hasPlayed) {
-        [gameDetailCell.timeLabel setText:@"Final"];
-    } else {
-        [gameDetailCell.timeLabel setText:@"TBP"];
-    }
-    
     stats = [selectedGame gameReport];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBStatsCell" bundle:nil] forCellReuseIdentifier:@"HBStatsCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"HBScoreCell" bundle:nil] forCellReuseIdentifier:@"HBScoreCell"];
     
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
@@ -121,8 +91,8 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            return 175;
+        if (indexPath.row == 0 || indexPath.row == 1) {
+            return 75;
         } else {
             return 50;
         }
@@ -147,6 +117,18 @@
     } else if (section == 5) {
         return @"Kickers";
     } else {
+        return selectedGame.gameName;
+    }
+}
+
+-(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        if (!selectedGame.hasPlayed) {
+            return @"TBP";
+        } else {
+            return @"Final";
+        }
+    } else {
         return nil;
     }
 }
@@ -162,13 +144,13 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (!selectedGame.hasPlayed) {
         if (section == 0) {
-            return 1;
+            return 2;
         } else {
             return stats.allKeys.count;
         }
     } else {
         if (section == 0) {
-            return 2;
+            return 3;
         } else if (section == 1) {
             return 4;
         } else if (section == 2) {
@@ -186,7 +168,25 @@
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!selectedGame.hasPlayed) {
         if (indexPath.section == 0) {
-            return gameDetailCell;
+            HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
+            if (indexPath.row == 0) {
+                NSString *awayRank = @"";
+                if (selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
+                    awayRank = [NSString stringWithFormat:@"#%d ",selectedGame.awayTeam.rankTeamPollScore];
+                }
+                [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.name]];
+                [cell.teamAbbrevLabel setText:selectedGame.awayTeam.abbreviation];
+                [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.awayScore]];
+            } else {
+                NSString *homeRank = @"";
+                if (selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
+                    homeRank = [NSString stringWithFormat:@"#%d ",selectedGame.homeTeam.rankTeamPollScore];
+                }
+                [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.name]];
+                [cell.teamAbbrevLabel setText:selectedGame.homeTeam.abbreviation];
+                [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.homeScore]];
+            }
+            return cell;
         } else {
             HBStatsCell *statsCell = (HBStatsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBStatsCell"];
             NSArray *stat; //= stats.allValues[indexPath.row];
@@ -196,23 +196,27 @@
             } else if (indexPath.row == 1) {
                 title = @"Record";
             } else if (indexPath.row == 2) {
-                title = @"PPG";
+                title = @"Offensive Talent";
             } else if (indexPath.row == 3) {
-                title = @"Opp PPG";
+                title = @"Defensive Talent";
             } else if (indexPath.row == 4) {
-                title = @"YPG";
-            } else if (indexPath.row == 5) {
-                title = @"Opp YPG";
-            } else if (indexPath.row == 6) {
-                title = @"Pass YPG";
-            } else if (indexPath.row == 7) {
-                title = @"Opp PYPG";
-            } else if (indexPath.row == 8) {
-                title = @"Rush YPG";
-            } else if (indexPath.row == 9) {
-                title = @"Opp RYPG";
-            } else {
                 title = @"Prestige";
+            } else if (indexPath.row == 5) {
+                title = @"Points Per Game";
+            } else if (indexPath.row == 6) {
+                title = @"Opp Points Per Game";
+            } else if (indexPath.row == 7) {
+                title = @"Yards Per Game";
+            } else if (indexPath.row == 8) {
+                title = @"Opp Yards Per Game";
+            } else if (indexPath.row == 9) {
+                title = @"Pass Yards Per Game";
+            } else if (indexPath.row == 10) {
+                title = @"Opp Pass YPG";
+            } else if (indexPath.row == 11) {
+                title = @"Rush Yards Per Game";
+            } else {
+                title = @"Opp Rush YPG";
             }
             stat = stats[title];
             
@@ -225,8 +229,26 @@
         }
     } else {
         if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-                return gameDetailCell;
+            if (indexPath.row == 0 || indexPath.row == 1) {
+                HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
+                if (indexPath.row == 0) {
+                    NSString *awayRank = @"";
+                    if (selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
+                        awayRank = [NSString stringWithFormat:@"#%d ",selectedGame.awayTeam.rankTeamPollScore];
+                    }
+                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.name]];
+                    [cell.teamAbbrevLabel setText:selectedGame.awayTeam.abbreviation];
+                    [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.awayScore]];
+                } else {
+                    NSString *homeRank = @"";
+                    if (selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
+                        homeRank = [NSString stringWithFormat:@"#%d ",selectedGame.homeTeam.rankTeamPollScore];
+                    }
+                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.name]];
+                    [cell.teamAbbrevLabel setText:selectedGame.homeTeam.abbreviation];
+                    [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.homeScore]];
+                }
+                return cell;
             } else {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ButtonCell"];
                 
@@ -423,10 +445,14 @@
                     plyr = kStats[@"awayK"];
                 }
             } else {
-                if (indexPath.section == 0 && indexPath.row == 1) {
-                    [self viewGameSummary];
-                } else {
-                    //do nothing
+                if (indexPath.section == 0) {
+                    if (indexPath.row == 0) {
+                        [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                    } else if (indexPath.row == 1) {
+                        [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                    } else {
+                        [self viewGameSummary];
+                    }
                 }
             }
             
@@ -434,6 +460,16 @@
                 [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:plyr] animated:YES];
             }
             
+        }
+    } else {
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+                [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+            } else if (indexPath.row == 1) {
+                [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+            } else {
+                [self viewGameSummary];
+            }
         }
     }
     

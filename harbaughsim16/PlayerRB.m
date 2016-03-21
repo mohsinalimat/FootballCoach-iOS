@@ -133,7 +133,7 @@
 }
 
 -(int)getHeismanScore {
-    return _statsTD * 100 - _statsFumbles * 100 + (int)(_statsRushYards * 2.25);
+    return _statsTD * 100 - _statsFumbles * 80 + (int)(_statsRushYards * 2.35);
 }
 
 -(NSDictionary*)detailedStats:(int)games {

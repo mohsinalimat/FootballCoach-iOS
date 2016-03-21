@@ -312,25 +312,25 @@
         [report setObject:@[[NSString stringWithFormat:@"%d-%d",_awayTeam.wins,_awayTeam.losses],
                             [NSString stringWithFormat:@"%d-%d",_awayTeam.wins,_homeTeam.losses]] forKey:@"Record"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",appg,_awayTeam.rankTeamPoints],
-                            [NSString stringWithFormat:@"%d (#%d)",hppg,_homeTeam.rankTeamPoints]] forKey:@"PPG"];
+                            [NSString stringWithFormat:@"%d (#%d)",hppg,_homeTeam.rankTeamPoints]] forKey:@"Points Per Game"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aoppg,_awayTeam.rankTeamOppPoints],
-                            [NSString stringWithFormat:@"%d (#%d)",hoppg,_homeTeam.rankTeamOppPoints]] forKey:@"Opp PPG"];
+                            [NSString stringWithFormat:@"%d (#%d)",hoppg,_homeTeam.rankTeamOppPoints]] forKey:@"Opp Points Per Game"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aypg,_awayTeam.rankTeamYards],
-                            [NSString stringWithFormat:@"%d (#%d)",hypg,_homeTeam.rankTeamYards]] forKey:@"YPG"];
+                            [NSString stringWithFormat:@"%d (#%d)",hypg,_homeTeam.rankTeamYards]] forKey:@"Yards Per Game"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aoypg,_awayTeam.rankTeamOppYards],
-                            [NSString stringWithFormat:@"%d (#%d)",hoypg,_homeTeam.rankTeamOppYards]] forKey:@"Opp YPG"];
+                            [NSString stringWithFormat:@"%d (#%d)",hoypg,_homeTeam.rankTeamOppYards]] forKey:@"Opp Yards Per Game"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",apypg,_awayTeam.rankTeamPassYards],
-                            [NSString stringWithFormat:@"%d (#%d)",hpypg,_homeTeam.rankTeamPassYards]] forKey:@"Pass YPG"];
+                            [NSString stringWithFormat:@"%d (#%d)",hpypg,_homeTeam.rankTeamPassYards]] forKey:@"Pass Yards Per Game"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",arypg,_awayTeam.rankTeamRushYards],
-                            [NSString stringWithFormat:@"%d (#%d)",hrypg,_homeTeam.rankTeamRushYards]] forKey:@"Rush YPG"];
+                            [NSString stringWithFormat:@"%d (#%d)",hrypg,_homeTeam.rankTeamRushYards]] forKey:@"Rush Yards Per Game"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aopypg,_awayTeam.rankTeamOppPassYards],
-                            [NSString stringWithFormat:@"%d (#%d)",hopypg,_homeTeam.rankTeamOppPassYards]] forKey:@"Opp PYPG"];
+                            [NSString stringWithFormat:@"%d (#%d)",hopypg,_homeTeam.rankTeamOppPassYards]] forKey:@"Opp Pass YPG"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aorypg,_awayTeam.rankTeamOppRushYards],
-                            [NSString stringWithFormat:@"%d (#%d)",horypg,_homeTeam.rankTeamOppRushYards]] forKey:@"Opp RYPG"];
+                            [NSString stringWithFormat:@"%d (#%d)",horypg,_homeTeam.rankTeamOppRushYards]] forKey:@"Opp Rush YPG"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",_awayTeam.teamOffTalent,_awayTeam.rankTeamOffTalent],
-                            [NSString stringWithFormat:@"%d (#%d)",_homeTeam.teamOffTalent,_homeTeam.rankTeamOffTalent]] forKey:@"Off Talent"];
+                            [NSString stringWithFormat:@"%d (#%d)",_homeTeam.teamOffTalent,_homeTeam.rankTeamOffTalent]] forKey:@"Offensive Talent"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",_awayTeam.teamDefTalent,_awayTeam.rankTeamDefTalent],
-                            [NSString stringWithFormat:@"%d (#%d)",_homeTeam.teamDefTalent,_homeTeam.rankTeamDefTalent]] forKey:@"Def Talent"];
+                            [NSString stringWithFormat:@"%d (#%d)",_homeTeam.teamDefTalent,_homeTeam.rankTeamDefTalent]] forKey:@"Defensive Talent"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",_awayTeam.teamPrestige,_awayTeam.rankTeamPrestige],
                             [NSString stringWithFormat:@"%d (#%d)",_homeTeam.teamPrestige,_homeTeam.rankTeamPrestige]] forKey:@"Prestige"];
     }
@@ -943,7 +943,7 @@
         
     } else {
         //kick XP
-        if ([HBSharedUtils randomValue]*100 < 20 + [offense getK:0].ratKickAcc ) {
+        if ([HBSharedUtils randomValue]*100 < 23 + [offense getK:0].ratKickAcc && [HBSharedUtils randomValue] > 0.01) {
             //made XP
             if ( gamePoss ) { // home possession
                 _homeScore += 1;

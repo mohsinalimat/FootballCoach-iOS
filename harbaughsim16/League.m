@@ -467,7 +467,23 @@
 
 -(void)advanceSeason {
     _currentWeek = 0;
-    //updateTeamHistories();
+    
+    // Bless a random team with lots of prestige
+    int blessNumber = (int)([HBSharedUtils randomValue]*9);
+    Team *blessTeam = _teamList[50 + blessNumber];
+    if (!blessTeam.isUserControlled) {
+        blessTeam.teamPrestige += 30;
+        if (blessTeam.teamPrestige > 90) blessTeam.teamPrestige = 90;
+    }
+    
+    //Curse a good team
+    int curseNumber = (int)([HBSharedUtils randomValue]*7);
+    Team *curseTeam = _teamList[3 + curseNumber];
+    if (!curseTeam.isUserControlled && curseTeam.teamPrestige > 85) {
+        curseTeam.teamPrestige -= 20;
+    }
+    
+    
     for (int t = 0; t < _teamList.count; ++t) {
         [_teamList[t] advanceSeason];
     }

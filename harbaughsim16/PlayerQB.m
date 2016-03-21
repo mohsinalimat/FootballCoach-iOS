@@ -145,7 +145,7 @@
 }
 
 -(int)getHeismanScore {
-    return self.statsTD * 150 - self.statsInt * 250 + self.statsPassYards;
+    return self.statsTD * 140 - self.statsInt * 250 + self.statsPassYards;
 }
 
 -(NSDictionary*)detailedStats:(int)games {

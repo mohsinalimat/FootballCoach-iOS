@@ -47,6 +47,11 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self setupTeamHeader];
+}
+
 -(void)setupTeamHeader {
     NSString *rank = @"";
     if (userTeam.rankTeamPollScore < 26 && userTeam.rankTeamPollScore > 0) {
@@ -95,6 +100,16 @@
     [cell.gameNameLabel setText:[userTeam getGameSummaryStrings:index][0]];
     [cell.gameScoreLabel setText:[userTeam getGameSummaryStrings:index][1]];
     [cell.gameSummaryLabel setText:[userTeam getGameSummaryStrings:index][2]];
+    
+    if (userTeam.gameWLSchedule.count > 0) {
+        if ([cell.gameScoreLabel.text containsString:@"W"]) {
+            [cell.gameScoreLabel setTextColor:[UIColor hx_colorWithHexRGBAString:@"#1a9641"]];
+        } else if ([cell.gameScoreLabel.text containsString:@"L"]) {
+            [cell.gameScoreLabel setTextColor:[UIColor hx_colorWithHexRGBAString:@"#d7191c"]];
+        } else {
+            [cell.gameScoreLabel setTextColor:[UIColor blackColor]];
+        }
+    }
     
     return cell;
 }

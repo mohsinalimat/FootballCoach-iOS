@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewsViewController">
@@ -26,16 +27,16 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mL7-SY-QoZ">
-                    <rect key="frame" x="12" y="11" width="168" height="23"/>
+                    <rect key="frame" x="8" y="11" width="168" height="23"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="23" id="ayW-C4-xf5"/>
+                        <constraint firstAttribute="height" constant="23" id="L4D-nr-SRS"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XMq-tq-hfK">
-                    <rect key="frame" x="12" y="42" width="297" height="25"/>
+                    <rect key="frame" x="8" y="42" width="304" height="25"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <state key="normal" title=" Play Week" image="play-week"/>
@@ -44,9 +45,9 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Eh-Ju-KAW">
-                    <rect key="frame" x="188" y="11" width="121" height="23"/>
+                    <rect key="frame" x="191" y="11" width="121" height="23"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="121" id="YjW-z0-egF"/>
+                        <constraint firstAttribute="width" constant="121" id="IcL-kH-zfQ"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -55,15 +56,15 @@
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.59215686270000001" blue="0.24882352939999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="XMq-tq-hfK" firstAttribute="leading" secondItem="mL7-SY-QoZ" secondAttribute="leading" id="1QH-yy-2Jz"/>
-                <constraint firstItem="XMq-tq-hfK" firstAttribute="top" secondItem="3Eh-Ju-KAW" secondAttribute="bottom" constant="8" symbolic="YES" id="KZS-5B-ugx"/>
-                <constraint firstItem="XMq-tq-hfK" firstAttribute="trailing" secondItem="3Eh-Ju-KAW" secondAttribute="trailing" id="OIz-zc-bPR"/>
-                <constraint firstItem="mL7-SY-QoZ" firstAttribute="top" secondItem="WLd-QH-EKX" secondAttribute="top" constant="11" id="bJt-Hj-rlp"/>
-                <constraint firstItem="3Eh-Ju-KAW" firstAttribute="top" secondItem="mL7-SY-QoZ" secondAttribute="top" id="dx8-PL-Mr3"/>
-                <constraint firstItem="3Eh-Ju-KAW" firstAttribute="leading" secondItem="mL7-SY-QoZ" secondAttribute="trailing" constant="8" symbolic="YES" id="gAK-4c-dck"/>
-                <constraint firstItem="XMq-tq-hfK" firstAttribute="top" secondItem="mL7-SY-QoZ" secondAttribute="bottom" constant="8" symbolic="YES" id="o6c-dS-eh6"/>
-                <constraint firstItem="XMq-tq-hfK" firstAttribute="centerX" secondItem="WLd-QH-EKX" secondAttribute="centerX" id="sCm-wd-Nqo"/>
-                <constraint firstItem="mL7-SY-QoZ" firstAttribute="leading" secondItem="WLd-QH-EKX" secondAttribute="leading" constant="12" id="t5Y-Tz-n1Q"/>
+                <constraint firstItem="mL7-SY-QoZ" firstAttribute="top" secondItem="3Eh-Ju-KAW" secondAttribute="top" id="1fe-Fg-IPi"/>
+                <constraint firstItem="XMq-tq-hfK" firstAttribute="trailing" secondItem="WLd-QH-EKX" secondAttribute="trailingMargin" id="38h-t1-8wc"/>
+                <constraint firstItem="3Eh-Ju-KAW" firstAttribute="leading" secondItem="mL7-SY-QoZ" secondAttribute="trailing" constant="15" id="9Ef-iZ-po3"/>
+                <constraint firstItem="mL7-SY-QoZ" firstAttribute="leading" secondItem="XMq-tq-hfK" secondAttribute="leading" id="Bgb-Gp-kpg"/>
+                <constraint firstItem="XMq-tq-hfK" firstAttribute="trailing" secondItem="3Eh-Ju-KAW" secondAttribute="trailing" id="D7h-As-qYw"/>
+                <constraint firstItem="XMq-tq-hfK" firstAttribute="top" secondItem="3Eh-Ju-KAW" secondAttribute="bottom" constant="8" symbolic="YES" id="Hhr-cx-jMv"/>
+                <constraint firstItem="XMq-tq-hfK" firstAttribute="top" secondItem="mL7-SY-QoZ" secondAttribute="bottom" constant="8" symbolic="YES" id="RUE-vT-QZW"/>
+                <constraint firstItem="mL7-SY-QoZ" firstAttribute="top" secondItem="WLd-QH-EKX" secondAttribute="top" constant="11" id="Ssk-5C-bZl"/>
+                <constraint firstItem="XMq-tq-hfK" firstAttribute="leading" secondItem="WLd-QH-EKX" secondAttribute="leadingMargin" id="dfB-XA-aCZ"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

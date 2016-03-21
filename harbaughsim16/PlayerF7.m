@@ -24,6 +24,9 @@
         _ratF7Pas = pass;
         
         self.cost = (int)(powf((float)self.ratOvr/6,2.0)) + (int)([HBSharedUtils randomValue]*100) - 50;
+        if (self.cost < 50) {
+            self.cost = 50;
+        }
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
@@ -55,6 +58,9 @@
         self.ratOvr = (_ratF7Pow*3 + _ratF7Rsh + _ratF7Pas)/5;
         
         self.cost = (int)pow((float)self.ratOvr/6,2) + (int)([HBSharedUtils randomValue]*100) - 50;
+        if (self.cost < 50) {
+            self.cost = 50;
+        }
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];

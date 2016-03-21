@@ -48,6 +48,11 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self setupTeamHeader];
+}
+
 -(void)simSeason {
     
     League *simLeague = [HBSharedUtils getLeague];
@@ -364,8 +369,7 @@
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    //NSMutableArray *week = ;
-    
+
     NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row]];
     NSRange firstLine = [attString.string rangeOfString:@"\n"];
     [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];

@@ -74,6 +74,9 @@
 @property (nonatomic) int teamPollScore;
 @property (nonatomic) int teamStrengthOfWins;
 
+@property (nonatomic) int teamStatOffNum;
+@property (nonatomic) int teamStatDefNum;
+
 @property (nonatomic) int rankTeamPoints;
 @property (nonatomic) int rankTeamOppPoints;
 @property (nonatomic) int rankTeamYards;
@@ -177,5 +180,5 @@
 -(NSString *)getPlayerInfoSaveFile;
 -(NSMutableArray*)getOffensiveTeamStrategies;
 -(NSMutableArray*)getDefensiveTeamStrategies;
-
+-(NSArray*)getTeamStatsArray;
 @end

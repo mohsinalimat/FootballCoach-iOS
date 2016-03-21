@@ -43,6 +43,9 @@
                     <state key="normal" title="How to Play">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="pushTutorial:" destination="-1" eventType="touchUpInside" id="z1m-ne-eBZ"/>
+                    </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FCFootball.png" translatesAutoresizingMaskIntoConstraints="NO" id="lwV-55-wVp">
                     <rect key="frame" x="98" y="82" width="219" height="219"/>

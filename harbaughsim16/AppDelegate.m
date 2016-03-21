@@ -12,6 +12,7 @@
 #import "RosterViewController.h"
 #import "MyTeamViewController.h"
 #import "IntroViewController.h"
+#import "TeamSearchViewController.h"
 
 #import "League.h"
 
@@ -47,6 +48,10 @@
     rosterNav.tabBarItem.image = [UIImage imageNamed:@"roster"];
     rosterNav.tabBarItem.selectedImage = [UIImage imageNamed:@"roster-selected"];
     
+    UINavigationController *searchNav = [[UINavigationController alloc] initWithRootViewController:[[TeamSearchViewController alloc] init]];
+    searchNav.title = @"Search";
+    searchNav.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:3];
+    
     UINavigationController *teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyTeamViewController alloc] init]];
     teamNav.title = @"My Team";
     teamNav.tabBarItem.image = [UIImage imageNamed:@"team"];
@@ -54,7 +59,7 @@
     
     [self setupAppearance];
     
-    tabBarController.viewControllers = @[newsNav, scheduleNav, rosterNav, teamNav];
+    tabBarController.viewControllers = @[newsNav, scheduleNav, rosterNav, searchNav, teamNav];
     [self.window setRootViewController:tabBarController];
     [self.window makeKeyAndVisible];
     
