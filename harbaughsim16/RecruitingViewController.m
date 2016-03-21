@@ -476,7 +476,7 @@
     if ([player isKindOfClass:[PlayerQB class]]) {
         [cell.stat2Label setText:@"Throwing Power"];
         [cell.stat2ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerQB*)player).ratPassPow]];
-        [cell.stat3Label setText:@"Throwing Accuracy"];
+        [cell.stat3Label setText:@"Throwing Acc."];
         [cell.stat3ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerQB*)player).ratPassAcc]];
         [cell.stat4Label setText:@"Evasion"];
         [cell.stat4ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerQB*)player).ratPassEva]];
