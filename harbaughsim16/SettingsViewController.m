@@ -47,7 +47,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 2;
+        return 3;
     } else {
         return 2;
     }
@@ -64,6 +64,8 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             [cell.textLabel setText:@"HexColors"];
+        } else if (indexPath.row == 1) {
+            [cell.textLabel setText:@"Whisper"];
         } else {
             [cell.textLabel setText:@"Icons8"];
         }
@@ -93,9 +95,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         NSString *url;
-        if (indexPath.row == 3) {
+        if (indexPath.row == 0) {
             url = @"https://github.com/mRs-/HexColors";
-        } else {
+        } else if (indexPath.row == 1){
+            url = @"https://github.com/hyperoslo/Whisper";
+        }else {
             url = @"http://icons8.com";
         }
         

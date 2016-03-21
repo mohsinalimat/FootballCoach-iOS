@@ -51,7 +51,7 @@
     [teams removeAllObjects];
     if (searchString.length > 0 || ![searchString isEqualToString:@""]) {
         for (Team *t in [HBSharedUtils getLeague].teamList) {
-            if ([t.name.lowercaseString containsString:searchString.lowercaseString] || [t.abbreviation.lowercaseString containsString:searchString.lowercaseString]) {
+            if ([t.name.lowercaseString containsString:searchString.lowercaseString] || [t.abbreviation.lowercaseString containsString:searchString.lowercaseString] || [t.conference.lowercaseString containsString:searchString.lowercaseString]) {
                 if (![teams containsObject:t]) {
                     [teams addObject:t];
                 }
