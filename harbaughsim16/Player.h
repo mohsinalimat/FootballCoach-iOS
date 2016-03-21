@@ -21,6 +21,7 @@
 @property (nonatomic) int ratFootIQ;
 @property (nonatomic) int ratImprovement;
 @property (nonatomic) int cost;
+@property (nonatomic) int gamesPlayed;
 @property (strong, nonatomic) NSMutableArray *ratingsVector;
 
 

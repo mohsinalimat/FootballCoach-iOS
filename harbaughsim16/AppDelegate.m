@@ -44,7 +44,7 @@
     scheduleNav.tabBarItem.selectedImage = [UIImage imageNamed:@"schedule-selected"];
     
     UINavigationController *rosterNav = [[UINavigationController alloc] initWithRootViewController:[[RosterViewController alloc] init]];
-    rosterNav.title = @"Roster";
+    rosterNav.title = @"Depth Chart";
     rosterNav.tabBarItem.image = [UIImage imageNamed:@"roster"];
     rosterNav.tabBarItem.selectedImage = [UIImage imageNamed:@"roster-selected"];
     

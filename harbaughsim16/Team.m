@@ -1446,11 +1446,131 @@
     return [pList copy];
 }
 
+-(void)setStarters:(NSArray<Player*>*)starters position:(int)position {
+    switch (position) {
+        case 0: {
+            NSMutableArray *oldQBs = [NSMutableArray array];
+            [oldQBs addObjectsFromArray:_teamQBs];
+            [_teamQBs removeAllObjects];
+            for (Player *p in starters) {
+                [_teamQBs addObject:(PlayerQB*)p];
+            }
+            for (PlayerQB *oldQb in oldQBs) {
+                if (![_teamQBs containsObject:oldQb]) {
+                    [_teamQBs addObject:oldQb];
+                }
+            }
+            break;
+        }
+        case 1: {
+            NSMutableArray *oldRBs = [NSMutableArray array];
+            [oldRBs addObjectsFromArray:_teamRBs];
+            [_teamRBs removeAllObjects];
+            for (Player *p in starters) {
+                [_teamRBs addObject:(PlayerRB*)p];
+            }
+            for (PlayerRB *oldRb in oldRBs) {
+                if (![_teamRBs containsObject:oldRb]) {
+                    [_teamRBs addObject:oldRb];
+                }
+            }
+            break;
+        }
+        case 2: {
+            NSMutableArray *oldWRs = [NSMutableArray array];
+            [oldWRs addObjectsFromArray:_teamWRs];
+            [_teamWRs removeAllObjects];
+            for (Player *p in starters) {
+                [_teamWRs addObject:(PlayerWR*)p];
+            }
+            for (PlayerWR *oldWR in oldWRs) {
+                if (![_teamWRs containsObject:oldWR]) {
+                    [_teamWRs addObject:oldWR];
+                }
+            }
+            break;
+        }
+        case 3: {
+            NSMutableArray *oldOLs = [NSMutableArray array];
+            [oldOLs addObjectsFromArray:_teamOLs];
+            [_teamOLs removeAllObjects];
+            for (Player *p in starters) {
+                [_teamOLs addObject:(PlayerOL*)p];
+            }
+            for (PlayerOL *oldOL in oldOLs) {
+                if (![_teamOLs containsObject:oldOL]) {
+                    [_teamOLs addObject:oldOL];
+                }
+            }
+            break;
+        }
+        case 4: {
+            NSMutableArray *oldF7s = [NSMutableArray array];
+            [oldF7s addObjectsFromArray:_teamF7s];
+            [_teamF7s removeAllObjects];
+            for (Player *p in starters) {
+                [_teamF7s addObject:(PlayerF7*)p];
+            }
+            for (PlayerF7 *oldF7 in oldF7s) {
+                if (![_teamF7s containsObject:oldF7]) {
+                    [_teamF7s addObject:oldF7];
+                }
+            }
+            break;
+        }
+        case 5: {
+            NSMutableArray *oldCBs = [NSMutableArray array];
+            [oldCBs addObjectsFromArray:_teamCBs];
+            [_teamCBs removeAllObjects];
+            for (Player *p in starters) {
+                [_teamCBs addObject:(PlayerCB*)p];
+            }
+            for (PlayerCB *oldCB in oldCBs) {
+                if (![_teamCBs containsObject:oldCB]) {
+                    [_teamCBs addObject:oldCB];
+                }
+            }
+            break;
+        }
+        case 6: {
+            NSMutableArray *oldSs = [NSMutableArray array];
+            [oldSs addObjectsFromArray:_teamSs];
+            [_teamSs removeAllObjects];
+            for (Player *p in starters) {
+                [_teamSs addObject:(PlayerS*)p];
+            }
+            for (PlayerS *oldS in oldSs) {
+                if (![_teamSs containsObject:oldS]) {
+                    [_teamSs addObject:oldS];
+                }
+            }
+            break;
+        }
+        case 7:{
+            NSMutableArray *oldKs = [NSMutableArray array];
+            [oldKs addObjectsFromArray:_teamKs];
+            [_teamKs removeAllObjects];
+            for (Player *p in starters) {
+                [_teamKs addObject:(PlayerK*)p];
+            }
+            for (PlayerK *oldK in oldKs) {
+                if (![_teamKs containsObject:oldK]) {
+                    [_teamKs addObject:oldK];
+                }
+            }
+            break;
+        }
+        default:
+            break;
+    }
+
+}
+
 /*
 -(NSDictionary*)getPlayerStatsExpandListMap:(NSArray*)playerStatsGroupHeaders {
     NSMutableDictionary *playerStatsMap = [NSMutableDictionary dictionary];
     NSString *ph;
-    
+ 
     ph = playerStatsGroupHeaders[0];
     [playerStatsMap setObject:[[self getQB:0] getDetailedStatsList:[self numGames]] forKey:ph];//.put(ph, getQB(0).getDetailStatsList(numGames()));
     

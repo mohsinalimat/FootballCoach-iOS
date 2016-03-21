@@ -156,8 +156,11 @@
                 [cell.textLabel setText:@"Completion Percentage"];
             } else if (indexPath.row == 4) {
                 [cell.detailTextLabel setText:stats[@"yardsPerAttempt"]];
-                [cell.textLabel setText:@"Yards per Attempt"];
+                [cell.textLabel setText:@"Yards Per Attempt"];
             } else if (indexPath.row == 5) {
+                [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                [cell.textLabel setText:@"Yards Per Game"];
+            } else if (indexPath.row == 6) {
                 [cell.detailTextLabel setText:stats[@"touchdowns"]];
                 [cell.textLabel setText:@"Touchdowns"];
             } else {
@@ -189,10 +192,10 @@
                 [cell.textLabel setText:@"Yards"];
             } else if (indexPath.row == 2) {
                 [cell.detailTextLabel setText:stats[@"yardsPerCarry"]];
-                [cell.textLabel setText:@"Yards per Carry"];
+                [cell.textLabel setText:@"Yards Per Carry"];
             } else if (indexPath.row == 3) {
                 [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
-                [cell.textLabel setText:@"Yards per Game"];
+                [cell.textLabel setText:@"Yards Per Game"];
             } else if (indexPath.row == 4) {
                 [cell.detailTextLabel setText:stats[@"touchdowns"]];
                 [cell.textLabel setText:@"Touchdowns"];
@@ -225,10 +228,10 @@
                 [cell.textLabel setText:@"Yards"];
             } else if (indexPath.row == 2) {
                 [cell.detailTextLabel setText:stats[@"yardsPerCatch"]];
-                [cell.textLabel setText:@"Yards per Catch"];
+                [cell.textLabel setText:@"Yards Per Catch"];
             } else if (indexPath.row == 3) {
                 [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
-                [cell.textLabel setText:@"Yards per Game"];
+                [cell.textLabel setText:@"Yards Per Game"];
             } else if (indexPath.row == 4) {
                 [cell.detailTextLabel setText:stats[@"touchdowns"]];
                 [cell.textLabel setText:@"Touchdowns"];
@@ -377,9 +380,9 @@
     } else if ([key isEqualToString:@"passYards"]) {
         return @"Pass Yards";
     } else if ([key isEqualToString:@"yardsPerGame"]) {
-        return @"Yards per Game";
+        return @"Yards Per Game";
     } else if ([key isEqualToString:@"yardsPerAttempt"]) {
-        return @"Yards per Attempt";
+        return @"Yards Per Attempt";
     } else if ([key isEqualToString:@"passPower"]) {
         return @"Arm Strength";
     } else if ([key isEqualToString:@"passAccuracy"]) {
@@ -395,9 +398,9 @@
     } else if ([key isEqualToString:@"rushYards"]) {
         return @"Rush Yards";
     } else if ([key isEqualToString:@"yardsPerGame"]) {
-        return @"Yards per Game";
+        return @"Yards Per Game";
     } else if ([key isEqualToString:@"yardsPerCarry"]) {
-        return @"Yards per Carry";
+        return @"Yards Per Carry";
     } else if ([key isEqualToString:@"rushPower"]) {
         return @"Strength";
     } else if ([key isEqualToString:@"rushSpeed"]) {
@@ -414,9 +417,9 @@
     } else if ([key isEqualToString:@"recYards"]) {
         return @"Receiving Yards";
     } else if ([key isEqualToString:@"yardsPerGame"]) {
-        return @"Yards per Game";
+        return @"Yards Per Game";
     } else if ([key isEqualToString:@"yardsPerAttempt"]) {
-        return @"Yards per Attempt";
+        return @"Yards Per Attempt";
     } else if ([key isEqualToString:@"recCatch"]) {
         return @"Catching Ability";
     } else if ([key isEqualToString:@"recSpeed"]) {
