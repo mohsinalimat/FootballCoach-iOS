@@ -1,7 +1,7 @@
 # Football Coach for iOS
 An iOS Port of https://github.com/jonesguy14/footballcoach.
 
-**NOTE**: As of March 19, 2016, this repo is at a semi-working status. The app can now simulate an entire season until the next season's recruiting session, but is still missing some vital functions like recruiting, advancing seasons, and saving game files. Please check back later to see if this project is in working condition.
+**NOTE**: As of March 21, 2016, this repo is at a semi-working status. The app can now simulate an entire season until the next season's recruiting session, but is still missing some vital functions like recruiting, advancing seasons, and saving game files. Please check back later to see if this project is in working condition.
 
 _The original README of FootballCoach is below._
 
