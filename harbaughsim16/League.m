@@ -40,7 +40,7 @@
 -(instancetype)initFromCSV:(NSString*)namesCSV {
     self = [super init];
     if (self){
-        _recruitingStage = -1;
+        _recruitingStage = 0;
         heismanDecided = NO;
         _hasScheduledBowls = NO;
         _leagueHistory = [NSMutableArray array];
@@ -174,7 +174,7 @@
 -(instancetype)initWithSaveFile:(NSString*)saveFileName names:(NSString*)nameCSV {
     self = [super init];
     if (self) {
-        _recruitingStage = -1;
+        _recruitingStage = 0;
         heismanDecided = NO;
         _hasScheduledBowls = NO;
         //NSString *line = nil;
@@ -503,6 +503,10 @@
     }
     
     _hasScheduledBowls = false;
+    
+    for (NSMutableArray *week in _newsStories) {
+        [week removeAllObjects];
+    }
 }
 
 -(void)updateTeamHistories {

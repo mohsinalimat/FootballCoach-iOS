@@ -182,4 +182,5 @@
 -(NSMutableArray*)getDefensiveTeamStrategies;
 -(NSArray*)getTeamStatsArray;
 -(void)setStarters:(NSArray<Player*>*)starters position:(int)position;
+-(NSArray*)graduateSeniorsAndGetTeamNeeds;
 @end

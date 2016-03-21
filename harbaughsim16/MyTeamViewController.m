@@ -40,8 +40,14 @@
     self.tableView.tableHeaderView = teamHeaderView;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupTeamHeader) name:@"endedSeason" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadStats) name:@"playedWeek" object:nil];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+}
+
+-(void)resetForNewSeason {
+    [self setupTeamHeader];
+    [self reloadStats];
 }
 
 -(void)setupTeamHeader {

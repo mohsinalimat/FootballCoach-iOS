@@ -125,10 +125,10 @@
     
     League *simLeague = [HBSharedUtils getLeague];
     
-    if (simLeague.recruitingStage == -1) {
+    if (simLeague.recruitingStage == 0) {
         // Perform action on click
         if (simLeague.currentWeek == 15) {
-            simLeague.recruitingStage = 0;
+            simLeague.recruitingStage = 1;
             [self startRecruiting];
         } else {
             NSInteger numGamesPlayed = userTeam.gameWLSchedule.count;
@@ -204,12 +204,22 @@
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Players Leaving", userTeam.abbreviation] message:[userTeam getGraduatingPlayersString] preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Start Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
         [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingViewController alloc] init]] animated:YES completion:nil];
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Sim Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to sim recruiting?" message:@"If you choose to do so, your team's recruiting will be done automatically and you will have no control over who assistant coaches bring to your program. Do you still want to quit, coach?" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            //sim recruiting for this guy
+            [[HBSharedUtils getLeague] updateLeagueHistory];
+            [[HBSharedUtils getLeague] updateTeamHistories];
+            [userTeam resetStats];
+            [userTeam recruitPlayersFreshman:[userTeam graduateSeniorsAndGetTeamNeeds]];
+            [[HBSharedUtils getLeague] advanceSeason];
+            [HBSharedUtils getLeague].recruitingStage = 0;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
+            [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
             NSLog(@"SIM RECRUITING");
         }]];
         
