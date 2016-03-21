@@ -1,8 +1,7 @@
 # Football Coach for iOS
 An iOS Port of https://github.com/jonesguy14/footballcoach.
 
-**NOTE**: As of March 19, 2016, this repo is at a barely-working status. Most of the vital Java code from the [CFBsimPack folder of FootballCoach](https://github.com/jonesguy14/footballcoach/tree/master/app/src/main/java/CFBsimPack) has been translated to Objective-C by hand. The app now runs if built, and some app functions are now available. However, for the most part, the app is filled with poorly handled data, riddled with bugs, and not complete. 
-Please check back later to see if this project is in working condition.
+**NOTE**: As of March 19, 2016, this repo is at a semi-working status. The app can now simulate an entire season until the next season's recruiting session, but is still missing some vital functions like recruiting, advancing seasons, and saving game files. Please check back later to see if this project is in working condition.
 
 _The original README of FootballCoach is below._
 
