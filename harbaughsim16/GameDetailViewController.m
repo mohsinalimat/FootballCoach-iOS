@@ -124,7 +124,7 @@
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 0) {
         if (!selectedGame.hasPlayed) {
-            return @"TBP";
+            return @"To be played";
         } else {
             return @"Final";
         }

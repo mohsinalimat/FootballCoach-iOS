@@ -27,6 +27,6 @@
 }
 
 +(UIColor *)styleColor {
-    return [UIColor hx_colorWithHexRGBAString:@"#009740"]; //FC Android color: #3EB49F
+    return [UIColor hx_colorWithHexRGBAString:@"#009740"]; //FC Android color: #3EB49F //FC iOS color: #009740
 }
 @end
