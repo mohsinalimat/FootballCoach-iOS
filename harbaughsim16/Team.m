@@ -46,6 +46,7 @@
         _oocGame9 = nil;
         _gameWinsAgainst = [NSMutableArray array];
         _gameWLSchedule = [NSMutableArray array];
+        _teamStreaks = [NSMutableDictionary dictionary];
         _confChampion = @"";
         _semifinalWL = @"";
         _natlChampWL = @"";

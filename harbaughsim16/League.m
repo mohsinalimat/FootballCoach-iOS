@@ -350,20 +350,20 @@
 
     //other bowls
     if ([[self class] bowlGameTitles].count > _teamList.count) {
-        for (int i = 0; i < 20; i+=2) {
+        for (int i = 4; i < 20; i+=2) {
             NSString *bowlName = [[self class] bowlGameTitles][i];
-            Team *home = _teamList[i + 4];
-            Team *away = _teamList[i + 5];
+            Team *home = _teamList[i];
+            Team *away = _teamList[[[self class] bowlGameTitles].count - i];
             Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
             [_bowlGames addObject:bowl];
             [home.gameSchedule addObject:bowl];
             [away.gameSchedule addObject:bowl];
         }
     } else {
-        for (int i = 0; i < [[self class] bowlGameTitles].count; i+=2) {
+        for (int i = 4; i < [[self class] bowlGameTitles].count; i+=2) {
             NSString *bowlName = [[self class] bowlGameTitles][i];
-            Team *home = _teamList[i + 4];
-            Team *away = _teamList[i + 5];
+            Team *home = _teamList[i];
+            Team *away = _teamList[[[self class] bowlGameTitles].count - i];
             Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
             [_bowlGames addObject:bowl];
             [home.gameSchedule addObject:bowl];

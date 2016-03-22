@@ -57,6 +57,7 @@
 @property (strong, nonatomic) Game *oocGame9;
 @property (strong, nonatomic) NSMutableArray *gameWLSchedule;
 @property (strong, nonatomic) NSMutableArray *gameWinsAgainst;
+@property (strong, nonatomic) NSMutableDictionary<NSString*, NSMutableArray*> *teamStreaks;
 @property (strong, nonatomic) NSString *confChampion;
 @property (strong, nonatomic) NSString *semifinalWL;
 @property (strong, nonatomic) NSString *natlChampWL;

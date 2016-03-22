@@ -437,6 +437,22 @@
             _awayTeam.totalLosses++;
             [_awayTeam.gameWLSchedule addObject:@"L"];
             [_homeTeam.gameWinsAgainst addObject:_awayTeam];
+            
+            if ([_homeTeam.teamStreaks.allKeys containsObject:_awayTeam.abbreviation]) {
+                NSMutableArray *streak = _homeTeam.teamStreaks[_awayTeam.abbreviation];
+                [streak addObject:@"W"];
+                [_homeTeam.teamStreaks setObject:streak forKey:_awayTeam.abbreviation];
+            } else {
+                [_homeTeam.teamStreaks setObject:[NSMutableArray arrayWithArray:@[@"W"]] forKey:_awayTeam.abbreviation];
+            }
+            
+            if ([_awayTeam.teamStreaks.allKeys containsObject:_homeTeam.abbreviation]) {
+                NSMutableArray *streak = _awayTeam.teamStreaks[_homeTeam.abbreviation];
+                [streak addObject:@"L"];
+                [_awayTeam.teamStreaks setObject:streak forKey:_homeTeam.abbreviation];
+            } else {
+                [_awayTeam.teamStreaks setObject:[NSMutableArray arrayWithArray:@[@"L"]] forKey:_homeTeam.abbreviation];
+            }
         } else {
             _homeTeam.losses++;
             _homeTeam.totalLosses++;
@@ -445,6 +461,22 @@
             _awayTeam.totalWins++;
             [_awayTeam.gameWLSchedule addObject:@"W"];
             [_awayTeam.gameWinsAgainst addObject:_homeTeam];
+            
+            if ([_homeTeam.teamStreaks.allKeys containsObject:_awayTeam.abbreviation]) {
+                NSMutableArray *streak = _homeTeam.teamStreaks[_awayTeam.abbreviation];
+                [streak addObject:@"L"];
+                [_homeTeam.teamStreaks setObject:streak forKey:_awayTeam.abbreviation];
+            } else {
+                [_homeTeam.teamStreaks setObject:[NSMutableArray arrayWithArray:@[@"L"]] forKey:_awayTeam.abbreviation];
+            }
+            
+            if ([_awayTeam.teamStreaks.allKeys containsObject:_homeTeam.abbreviation]) {
+                NSMutableArray *streak = _awayTeam.teamStreaks[_homeTeam.abbreviation];
+                [streak addObject:@"W"];
+                [_awayTeam.teamStreaks setObject:streak forKey:_homeTeam.abbreviation];
+            } else {
+                [_awayTeam.teamStreaks setObject:[NSMutableArray arrayWithArray:@[@"W"]] forKey:_homeTeam.abbreviation];
+            }
         }
         
         // Add points/opp points
@@ -524,6 +556,22 @@
         // Upset!
         currentWeekNews = _homeTeam.league.newsStories[_awayTeam.league.currentWeek+1];
         [currentWeekNews addObject:[NSString stringWithFormat:@"Upset! %@ beats %@\n%@ pulls off the upset on the road against %@, winning %ld to %ld.", _homeTeam.strRep, _awayTeam.strRep, _homeTeam.name, _awayTeam.name, (long)_homeScore, (long)_awayScore]];
+    } else if (_homeScore > _awayScore && [_homeTeam.teamStreaks[_awayTeam.abbreviation][_homeTeam.teamStreaks[_awayTeam.abbreviation].count - 1] isEqualToString:@"L"] && [_homeTeam.teamStreaks[_awayTeam.abbreviation][_homeTeam.teamStreaks[_awayTeam.abbreviation].count - 2] isEqualToString:@"L"] && [_homeTeam.teamStreaks[_awayTeam.abbreviation][_homeTeam.teamStreaks[_awayTeam.abbreviation].count - 3] isEqualToString:@"L"]) {
+        //home snaps losing streak
+        currentWeekNews = _homeTeam.league.newsStories[_awayTeam.league.currentWeek+1];
+        [currentWeekNews addObject:[NSString stringWithFormat:@"Losing Streak Broken! %@ beats %@\n%@ beats %@ %ld to %ld at home, snapping its skid against them.", _homeTeam.strRep, _awayTeam.strRep, _homeTeam.name, _awayTeam.name, (long)_homeScore, (long)_awayScore]];
+    } else if (_awayScore > _homeScore && [_awayTeam.teamStreaks[_homeTeam.abbreviation][_awayTeam.teamStreaks[_homeTeam.abbreviation].count - 1] isEqualToString:@"L"] && [_awayTeam.teamStreaks[_homeTeam.abbreviation][_awayTeam.teamStreaks[_homeTeam.abbreviation].count - 2] isEqualToString:@"L"] && [_awayTeam.teamStreaks[_homeTeam.abbreviation][_awayTeam.teamStreaks[_homeTeam.abbreviation].count - 3] isEqualToString:@"L"]) {
+        //away snaps losing streak
+        currentWeekNews = _awayTeam.league.newsStories[_homeTeam.league.currentWeek+1];
+        [currentWeekNews addObject:[NSString stringWithFormat:@"Losing Streak Broken! %@ beats %@\n%@ beats %@ %ld to %ld on the road, snapping its skid against them.", _awayTeam.strRep, _homeTeam.strRep, _awayTeam.name, _homeTeam.name, (long)_awayScore, (long)_homeScore]];
+    } else if (_homeScore < _awayScore && [_homeTeam.teamStreaks[_awayTeam.abbreviation][_homeTeam.teamStreaks[_awayTeam.abbreviation].count - 1] isEqualToString:@"W"] && [_homeTeam.teamStreaks[_awayTeam.abbreviation][_homeTeam.teamStreaks[_awayTeam.abbreviation].count - 2] isEqualToString:@"W"] && [_homeTeam.teamStreaks[_awayTeam.abbreviation][_homeTeam.teamStreaks[_awayTeam.abbreviation].count - 3] isEqualToString:@"W"]) {
+        //home loses winning streak
+        currentWeekNews = _homeTeam.league.newsStories[_awayTeam.league.currentWeek+1];
+        [currentWeekNews addObject:[NSString stringWithFormat:@"Winning Streak Over! %@ beats %@\n%@ beats %@ %ld to %ld at home, snapping %@'s streak against them.", _awayTeam.strRep, _homeTeam.strRep, _awayTeam.name, _homeTeam.name, (long)_awayScore, (long)_homeScore, _homeTeam.abbreviation]];
+    } else if (_awayScore < _homeScore && [_awayTeam.teamStreaks[_homeTeam.abbreviation][_awayTeam.teamStreaks[_homeTeam.abbreviation].count - 1] isEqualToString:@"W"] && [_awayTeam.teamStreaks[_homeTeam.abbreviation][_awayTeam.teamStreaks[_homeTeam.abbreviation].count - 2] isEqualToString:@"W"] && [_awayTeam.teamStreaks[_homeTeam.abbreviation][_awayTeam.teamStreaks[_homeTeam.abbreviation].count - 3] isEqualToString:@"W"]) {
+        //away loses winning streak
+        currentWeekNews = _awayTeam.league.newsStories[_homeTeam.league.currentWeek+1];
+        [currentWeekNews addObject:[NSString stringWithFormat:@"Winning Streak Over! %@ beats %@\n%@ beats %@ %ld to %ld at home, snapping %@'s streak against them.", _homeTeam.strRep, _awayTeam.strRep, _homeTeam.name, _awayTeam.name, (long)_homeScore, (long)_awayScore, _awayTeam.abbreviation]];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
@@ -1052,18 +1100,18 @@
         qbInt = [NSNumber numberWithInteger:qbInt.integerValue + 1];
         [_HomeQBStats replaceObjectAtIndex:3 withObject:qbInt];
         
-        NSNumber *qbStat = _HomeQBStats[1];
+        NSNumber *qbStat = _HomeQBStats[0];
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
-        [_HomeQBStats replaceObjectAtIndex:1 withObject:qbStat];
+        [_HomeQBStats replaceObjectAtIndex:0 withObject:qbStat];
         _homeTOs++;
     } else {
         NSNumber *qbInt = _AwayQBStats[3];
         qbInt = [NSNumber numberWithInteger:qbInt.integerValue + 1];
         [_AwayQBStats replaceObjectAtIndex:3 withObject:qbInt];
         
-        NSNumber *qbStat = _AwayQBStats[1];
+        NSNumber *qbStat = _AwayQBStats[0];
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
-        [_AwayQBStats replaceObjectAtIndex:1 withObject:qbStat];
+        [_AwayQBStats replaceObjectAtIndex:0 withObject:qbStat];
         _awayTOs++;
     }
     [gameEventLog appendString:[NSString stringWithFormat:@"%@TURNOVER!\n%@ QB %@ was intercepted.", [self getEventPrefix], offense.abbreviation, [offense getQB:0].name]];
@@ -1106,9 +1154,13 @@
     offense.teamPassYards += yardsGained;
     
     if ( gamePoss ) { // home possession
-        NSNumber *qbStat = _HomeQBStats[0];
-        qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
-        [_HomeQBStats replaceObjectAtIndex:0 withObject:qbStat];
+        NSNumber *qbAtt = _HomeQBStats[0];
+        qbAtt = [NSNumber numberWithInteger:qbAtt.integerValue + 1];
+        [_HomeQBStats replaceObjectAtIndex:0 withObject:qbAtt];
+        
+        NSNumber *qbComp = _HomeQBStats[1];
+        qbComp = [NSNumber numberWithInteger:qbComp.integerValue + 1];
+        [_HomeQBStats replaceObjectAtIndex:1 withObject:qbComp];
         
         NSNumber *wrTarget = selWRStats[0];
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];
@@ -1117,6 +1169,10 @@
         NSNumber *qbStat = _AwayQBStats[0];
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
         [_AwayQBStats replaceObjectAtIndex:0 withObject:qbStat];
+        
+        NSNumber *qbComp = _AwayQBStats[1];
+        qbComp = [NSNumber numberWithInteger:qbComp.integerValue + 1];
+        [_AwayQBStats replaceObjectAtIndex:1 withObject:qbComp];
         
         NSNumber *wrTarget = selWRStats[0];
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];

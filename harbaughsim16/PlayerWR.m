@@ -155,7 +155,7 @@
     
     int ypc = 0;
     if (_statsReceptions > 0) {
-        _statsReceptions = (int)((double)_statsRecYards/(double)_statsReceptions);
+        ypc = (int)((double)_statsRecYards/(double)_statsReceptions);
     }
     [stats setObject:[NSString stringWithFormat:@"%d yds/catch",ypc] forKey:@"yardsPerCatch"];
     

@@ -27,22 +27,9 @@
 
 #import "HexColors.h"
 
-@interface HBGameDetailCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *homeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *awayLabel;
-@property (weak, nonatomic) IBOutlet UILabel *homeScore;
-@property (weak, nonatomic) IBOutlet UILabel *awayScore;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@end
-
-@implementation HBGameDetailCell
-@end
-
 @interface GameDetailViewController ()
 {
     Game *selectedGame;
-    IBOutlet HBGameDetailCell *gameDetailCell;
     NSDictionary *stats;
 }
 @end
@@ -76,7 +63,7 @@
 
     NSString *summary = [selectedGame gameSummary];
     
-    CGSize size = [summary boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil].size;//[attributedText boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    CGSize size = [summary boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil].size;
     UITextView *postTextLabel = [[UITextView alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width - 30, size.height)];
     [postTextLabel setEditable:NO];
 
@@ -175,7 +162,7 @@
                     awayRank = [NSString stringWithFormat:@"#%d ",selectedGame.awayTeam.rankTeamPollScore];
                 }
                 [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.name]];
-                [cell.teamAbbrevLabel setText:selectedGame.awayTeam.abbreviation];
+                [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d, %@",selectedGame.awayTeam.wins,selectedGame.awayTeam.losses,selectedGame.awayTeam.conference]];
                 [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.awayScore]];
             } else {
                 NSString *homeRank = @"";
@@ -183,7 +170,7 @@
                     homeRank = [NSString stringWithFormat:@"#%d ",selectedGame.homeTeam.rankTeamPollScore];
                 }
                 [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.name]];
-                [cell.teamAbbrevLabel setText:selectedGame.homeTeam.abbreviation];
+                [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d, %@",selectedGame.homeTeam.wins,selectedGame.homeTeam.losses,selectedGame.homeTeam.conference]];
                 [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.homeScore]];
             }
             return cell;
@@ -290,6 +277,11 @@
                 stat2 = @"Yds";
                 stat3 = @"TDs";
                 stat4 = @"INTs";
+                
+                stat1Value = [NSString stringWithFormat:@"%d/%d",[plyrStats[1] intValue],[plyrStats[0] intValue]];
+                stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[4] intValue]];
+                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
+                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
             } else if (indexPath.section == 3) {
                 NSDictionary *rbStats = combinedStats[@"RBs"]; //carries, yds, td, fum
                 if (indexPath.row == 0) {
@@ -310,6 +302,10 @@
                 stat2 = @"Yds";
                 stat3 = @"TD";
                 stat4 = @"Fum";
+                stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[0] intValue]];
+                stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[1] intValue]];
+                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
+                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
             } else if (indexPath.section == 4) {
                 NSDictionary *wrStats = combinedStats[@"WRs"]; //catchs, yds, td, fum
                 if (indexPath.row == 0) {
@@ -337,6 +333,10 @@
                 stat2 = @"Yds";
                 stat3 = @"TD";
                 stat4 = @"Fum";
+                stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[0] intValue]];
+                stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
+                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
+                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[5] intValue]];
             } else {
                 NSDictionary *kStats = combinedStats[@"Ks"]; //xp made, xp att, fg made, fg att
                 if (indexPath.row == 0) {
@@ -350,12 +350,14 @@
                 stat2 = @"XPA";
                 stat3 = @"FGM";
                 stat4 = @"FGA";
+                
+                stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[0] intValue]];
+                stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[1] intValue]];
+                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
+                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
             }
             
-            stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[0] intValue]];
-            stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[1] intValue]];
-            stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
-            stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
+            
             
             [statsCell.playerLabel setText:[plyr getInitialName]];
             
@@ -445,7 +447,7 @@
                 } else {
                     plyr = wrStats[@"awayWR3"];
                 }
-            } else if (indexPath.section == 4) {
+            } else if (indexPath.section == 5) {
                 if (indexPath.row == 0) {
                     plyr = kStats[@"homeK"];
                 } else {

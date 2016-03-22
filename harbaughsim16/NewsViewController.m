@@ -337,15 +337,15 @@
         self.title = @"Latest News";
     } else {
         NSString *week = @"";
-        if (curNewsWeek > 0 && curNewsWeek < 12) {
+        if (curNewsWeek > 0 && curNewsWeek <= 12) {
             week = [NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)];
         } else if (curNewsWeek == 0) {
             week = @"Preseason";
-        } else if (curNewsWeek == 12) {
-            week = @"Conference Championships";
         } else if (curNewsWeek == 13) {
-            week = @"Bowl";
+            week = @"Conference Championships";
         } else if (curNewsWeek == 14) {
+            week = @"Bowl";
+        } else if (curNewsWeek == 15) {
             week = @"National Championship";
         } else  {
             week = @"Offseason";
