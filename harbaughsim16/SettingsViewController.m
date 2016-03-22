@@ -49,9 +49,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 2) {
-        return 3;
-    } else if (section == 1) {
         return 2;
+    } else if (section == 1) {
+        return 4;
     } else {
         return 1;
     }
@@ -70,6 +70,8 @@
             if (indexPath.row == 0) {
                 [cell.textLabel setText:@"HexColors"];
             } else if (indexPath.row == 1) {
+                [cell.textLabel setText:@"FCFileManager"];
+            } else if (indexPath.row == 2) {
                 [cell.textLabel setText:@"Whisper"];
             } else {
                 [cell.textLabel setText:@"Icons8"];
@@ -120,9 +122,11 @@
         NSString *url;
         if (indexPath.row == 0) {
             url = @"https://github.com/mRs-/HexColors";
-        } else if (indexPath.row == 1){
+        } else if (indexPath.row == 1) {
+            url = @"https://github.com/fabiocaccamo/FCFileManager";
+        } else if (indexPath.row == 2) {
             url = @"https://github.com/hyperoslo/Whisper";
-        }else {
+        } else {
             url = @"http://icons8.com";
         }
         
