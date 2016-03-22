@@ -1,12 +1,15 @@
 PODS:
+  - FCFileManager (1.0.17)
   - HexColors (4.0.0)
   - Whisper (2.1)
 
 DEPENDENCIES:
+  - FCFileManager
   - HexColors
   - Whisper
 
 SPEC CHECKSUMS:
+  FCFileManager: 8bfc931ce2a6223676147e9baf0e8a65c691eca6
   HexColors: 5f95843ef89aff6a72e1fd3a8ebabf205cc43379
   Whisper: 18b574de21a089c0d664b115f26e0d9ccbbadbab
 

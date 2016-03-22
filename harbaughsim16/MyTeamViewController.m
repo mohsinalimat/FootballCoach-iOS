@@ -11,6 +11,9 @@
 #import "Team.h"
 #import "League.h"
 #import "HBSharedUtils.h"
+#import "TeamHistoryViewController.h"
+#import "LeagueHistoryController.h"
+#import "HeismanHistoryViewController.h"
 
 #import "HexColors.h"
 
@@ -136,9 +139,9 @@
         if (indexPath.row == 0) {
             title = @"Team History";
         } else if (indexPath.row == 1) {
-            title = @"Conference History";
-        } else {
             title = @"League History";
+        } else {
+            title = @"Player of the Year History";
         }
         [cell.textLabel setText:title];
         
@@ -163,6 +166,21 @@
         [cell.detailTextLabel setText:stat];
         return cell;
 
+    }
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            [self.navigationController pushViewController:[[TeamHistoryViewController alloc] init] animated:YES];
+        } else if (indexPath.row == 1) {
+            //league
+            [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];
+        } else {
+            //heisman
+            [self.navigationController pushViewController:[[HeismanHistoryViewController alloc] init] animated:YES];
+        }
     }
 }
 

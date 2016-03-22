@@ -58,6 +58,12 @@
         _totalLosses = 0;
         _totalCCs = 0;
         _totalNCs = 0;
+        
+        _totalBowls = 0;
+        _totalBowlLosses = 0;
+        _totalCCLosses = 0;
+        _totalNCLosses = 0;
+        
         _teamStatOffNum = 1;
         _teamStatDefNum = 1;
         
@@ -87,7 +93,7 @@
     }
     return self;
 }
-
+/*
 -(instancetype)initWithString:(NSString*)loadStr league:(League*)league {
     self = [super init];
     if (self) {
@@ -148,7 +154,7 @@
         
     }
     return self;
-}
+}*/
 
 -(void)updateTalentRatings {
     _teamOffTalent = [self getOffensiveTalent];
@@ -687,7 +693,11 @@
 }
 
 -(void)updateTeamHistory {
-    [_teamHistory addObject:[NSString stringWithFormat:@"%lu: #%ld %@ (%ld-%ld) %@ %@ %@",(_teamHistory.count + 2016),(long)_rankTeamPollScore, _abbreviation, (long)_wins, (long)_losses, _confChampion, _semifinalWL, _natlChampWL]];
+    if (_rankTeamPollScore > 0 && _rankTeamPollScore < 26) {
+        [_teamHistory addObject:[NSString stringWithFormat:@"#%ld %@ (%ld-%ld) %@ %@ %@",(long)_rankTeamPollScore, _abbreviation, (long)_wins, (long)_losses, _confChampion, _semifinalWL, _natlChampWL]];
+    } else {
+        [_teamHistory addObject:[NSString stringWithFormat:@"%@ (%ld-%ld) %@ %@ %@", _abbreviation, (long)_wins, (long)_losses, _confChampion, _semifinalWL, _natlChampWL]];
+    }
 }
 
 -(NSString*)getTeamHistoryString {

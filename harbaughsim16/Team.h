@@ -45,6 +45,10 @@
 @property (nonatomic) int totalLosses;
 @property (nonatomic) int totalCCs;
 @property (nonatomic) int totalNCs;
+@property (nonatomic) int totalCCLosses;
+@property (nonatomic) int totalNCLosses;
+@property (nonatomic) int totalBowls;
+@property (nonatomic) int totalBowlLosses;
 
 //Game Log variables
 @property (strong, nonatomic) NSMutableArray *gameSchedule;
@@ -116,7 +120,7 @@
 
 
 -(instancetype)initWithName:(NSString*)name abbreviation:(NSString*)abbr conference:(NSString*)conference league:(League*)league prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
--(instancetype)initWithString:(NSString*)loadStr league:(League*)league;
+//-(instancetype)initWithString:(NSString*)loadStr league:(League*)league;
 + (instancetype)newTeamWithName:(NSString*)name abbreviation:(NSString*)abbr conference:(NSString*)conference league:(League*)league prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
 
 -(void)updateTalentRatings;

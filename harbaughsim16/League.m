@@ -306,6 +306,7 @@
             _ncg.homeTeam.natlChampWL = @"NCW";
             _ncg.awayTeam.natlChampWL = @"NCL";
             _ncg.homeTeam.totalNCs++;
+            _ncg.awayTeam.totalNCLosses++;
             NSMutableArray *week15 = _newsStories[15];
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", _ncg.homeTeam.name, [_ncg.homeTeam strRep], [_ncg.awayTeam strRep], (long)_ncg.homeScore, (long)_ncg.awayScore, _ncg.homeTeam.name]];
             
@@ -315,6 +316,7 @@
             _ncg.awayTeam.natlChampWL = @"NCW";
             _ncg.homeTeam.natlChampWL = @"NCL";
             _ncg.awayTeam.totalNCs++;
+            _ncg.homeTeam.totalNCLosses++;
             NSMutableArray *week15 = _newsStories[15];
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", _ncg.awayTeam.name, [_ncg.awayTeam strRep], [_ncg.homeTeam strRep], (long)_ncg.awayScore, (long)_ncg.homeScore, _ncg.awayTeam.name]];
         }
@@ -385,7 +387,9 @@
     Team *semi23winner;
     if (_semiG14.homeScore > _semiG14.awayScore ) {
         _semiG14.homeTeam.semifinalWL = @"SFW";
+        _semiG14.homeTeam.totalBowls++;
         _semiG14.awayTeam.semifinalWL = @"SFL";
+        _semiG14.awayTeam.totalBowlLosses++;
         semi14winner = _semiG14.homeTeam;
         //_newsStories.get(14).add(semiG14.homeTeam.name + " wins the " + semiG14.gameName +"!\n" + semiG14.homeTeam.strRep() + " defeats " + semiG14.awayTeam.strRep() + " in the semifinals, winning " + semiG14.homeScore + " to " + semiG14.awayScore + ". " + semiG14.homeTeam.name + " advances to the National Championship!" );
         NSMutableArray *week14 = _newsStories[14];
@@ -394,7 +398,9 @@
         
     } else {
         _semiG14.homeTeam.semifinalWL = @"SFL";
+        _semiG14.homeTeam.totalBowlLosses++;
         _semiG14.awayTeam.semifinalWL = @"SFW";
+        _semiG14.awayTeam.totalBowls++;
         semi14winner = _semiG14.awayTeam;
         NSMutableArray *week14 = _newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",_semiG14.awayTeam.name, _semiG14.gameName, _semiG14.awayTeam.strRep, _semiG14.homeTeam.strRep, (long)_semiG14.awayScore, (long)_semiG14.homeScore, _semiG14.awayTeam.name]];
@@ -403,7 +409,9 @@
     
     if (_semiG23.homeScore > _semiG23.awayScore ) {
         _semiG23.homeTeam.semifinalWL = @"SFW";
+        _semiG23.homeTeam.totalBowls++;
         _semiG23.awayTeam.semifinalWL = @"SFL";
+        _semiG23.awayTeam.totalBowlLosses++;
         semi23winner = _semiG23.homeTeam;
         //_newsStories.get(14).add(semiG14.homeTeam.name + " wins the " + semiG14.gameName +"!\n" + semiG14.homeTeam.strRep() + " defeats " + semiG14.awayTeam.strRep() + " in the semifinals, winning " + semiG14.homeScore + " to " + semiG14.awayScore + ". " + semiG14.homeTeam.name + " advances to the National Championship!" );
         NSMutableArray *week14 = _newsStories[14];
@@ -412,7 +420,9 @@
         
     } else {
         _semiG23.homeTeam.semifinalWL = @"SFL";
+        _semiG23.homeTeam.totalBowlLosses++;
         _semiG23.awayTeam.semifinalWL = @"SFW";
+        _semiG23.awayTeam.totalBowls++;
         semi23winner = _semiG23.awayTeam;
         NSMutableArray *week14 = _newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",_semiG23.awayTeam.name, _semiG23.gameName, _semiG23.awayTeam.strRep, _semiG23.homeTeam.strRep, (long)_semiG23.awayScore, (long)_semiG23.homeScore, _semiG23.awayTeam.name]];
@@ -431,14 +441,18 @@
     [g playGame];
     if (g.homeScore > g.awayScore ) {
         g.homeTeam.semifinalWL = @"BW";
+        g.homeTeam.totalBowls++;
         g.awayTeam.semifinalWL = @"BL";
+        g.awayTeam.totalBowlLosses++;
         //newsStories.get(14).add( g.homeTeam.name + " wins the " + g.gameName +"!>" + g.homeTeam.strRep() + " defeats " + g.awayTeam.strRep() + " in the " + g.gameName + ", winning " + g.homeScore + " to " + g.awayScore + "." );
         NSMutableArray *week14 = _newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %d to %d.",g.homeTeam.name, g.gameName, g.homeTeam.strRep, g.awayTeam.strRep, g.gameName, g.homeScore, g.awayScore]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     } else {
         g.homeTeam.semifinalWL = @"BL";
+        g.homeTeam.totalBowlLosses++;
         g.awayTeam.semifinalWL = @"BW";
+        g.awayTeam.totalBowls++;
         NSMutableArray *week14 = _newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %d to %d.",g.awayTeam.name, g.gameName, g.awayTeam.strRep, g.homeTeam.strRep, g.gameName, g.awayScore, g.homeScore]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];

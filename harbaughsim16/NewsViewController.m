@@ -174,6 +174,8 @@
 }
 
 -(void)resetSimButton {
+    [self.navigationItem.leftBarButtonItem setEnabled:NO];
+     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
     [self.navigationItem.leftBarButtonItem setEnabled:YES];
 }
 
