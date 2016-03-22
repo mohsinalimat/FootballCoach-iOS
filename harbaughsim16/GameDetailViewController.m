@@ -224,7 +224,7 @@
                         awayRank = [NSString stringWithFormat:@"#%d ",selectedGame.awayTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.name]];
-                    [cell.teamAbbrevLabel setText:selectedGame.awayTeam.abbreviation];
+                    [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d, %@",selectedGame.awayTeam.wins,selectedGame.awayTeam.losses,selectedGame.awayTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.awayScore]];
                 } else {
                     NSString *homeRank = @"";
@@ -232,7 +232,7 @@
                         homeRank = [NSString stringWithFormat:@"#%d ",selectedGame.homeTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.name]];
-                    [cell.teamAbbrevLabel setText:selectedGame.homeTeam.abbreviation];
+                    [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d, %@",selectedGame.homeTeam.wins,selectedGame.homeTeam.losses,selectedGame.homeTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.homeScore]];
                 }
                 return cell;
