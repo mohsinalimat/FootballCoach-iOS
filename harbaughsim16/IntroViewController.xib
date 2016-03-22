@@ -54,7 +54,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football Coach" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsJ-UO-vIc">
-                    <rect key="frame" x="20" y="278" width="374" height="47"/>
+                    <rect key="frame" x="20" y="276" width="374" height="47"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="47" id="36o-Gq-T5t"/>
                     </constraints>
@@ -79,7 +79,7 @@
                 <constraint firstItem="7Nf-jr-BBv" firstAttribute="top" secondItem="oWy-6d-c1z" secondAttribute="bottom" constant="8" symbolic="YES" id="lT7-C7-yUJ"/>
                 <constraint firstItem="oWy-6d-c1z" firstAttribute="trailing" secondItem="7Nf-jr-BBv" secondAttribute="trailing" id="lb0-eY-BMh"/>
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="lwV-55-wVp" secondAttribute="centerX" id="vYh-2Q-s3W"/>
-                <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="QsJ-UO-vIc" secondAttribute="bottom" constant="28" id="x97-VY-r9K"/>
+                <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="QsJ-UO-vIc" secondAttribute="bottom" constant="30" id="x97-VY-r9K"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
             <point key="canvasLocation" x="333" y="420"/>
