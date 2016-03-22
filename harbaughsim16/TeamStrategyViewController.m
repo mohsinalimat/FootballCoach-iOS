@@ -99,8 +99,10 @@
     
     if(isOffense) {
         [[HBSharedUtils getLeague].userTeam setOffensiveStrategy:teamStrats[indexPath.row]];
+        [[HBSharedUtils getLeague].userTeam setTeamStatOffNum:(int)indexPath.row];
     } else {
         [[HBSharedUtils getLeague].userTeam setDefensiveStrategy:teamStrats[indexPath.row]];
+        [[HBSharedUtils getLeague].userTeam setTeamStatDefNum:(int)indexPath.row];
     }
     [self.tableView reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changedStrategy" object:nil];

@@ -76,21 +76,30 @@
 }
 
 -(void)save {
-    if([FCFileManager existsItemAtPath:@"league.cfb"]) {
-        BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:[NSKeyedArchiver archivedDataWithRootObject:self]];
-        if (success) {
-            NSLog(@"Save was successful");
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        if([FCFileManager existsItemAtPath:@"league.cfb"]) {
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:[NSKeyedArchiver archivedDataWithRootObject:self]];
+                if (success) {
+                    NSLog(@"Save was successful");
+                } else {
+                    NSLog(@"Something went wrong on save");
+                }
+            });
+            
         } else {
-            NSLog(@"Something went wrong on save");
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                //Run UI Updates
+                BOOL success = [FCFileManager createFileAtPath:@"league.cfb" withContent:[NSKeyedArchiver archivedDataWithRootObject:self]];
+                if (success) {
+                    NSLog(@"Create and Save were successful");
+                } else {
+                    NSLog(@"Something went wrong on create and save");
+                }
+            });
         }
-    } else {
-        BOOL success = [FCFileManager createFileAtPath:@"league.cfb" withContent:[NSKeyedArchiver archivedDataWithRootObject:self]];
-        if (success) {
-            NSLog(@"Create and Save were successful");
-        } else {
-            NSLog(@"Something went wrong on create and save");
-        }
-    }
+        
+    });
 }
 
 +(BOOL)loadSavedData {
