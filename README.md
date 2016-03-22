@@ -1,7 +1,7 @@
 # Football Coach for iOS
 An iOS Port of https://github.com/jonesguy14/footballcoach.
 
-**NOTE**: As of March 21, 2016, this repo is at a semi-working status. The app can now simulate mulitple seasons, but is still missing some vital functions like saving game files. Please check back later to see if this project is in working condition.
+**NOTE**: As of March 22, 2016, this repo is at a semi-working status. The app can now simulate multiple seasons, but is still missing some vital functions like persisting game files. Please check back later to see if this project is in a release state.
 
 _The original README of FootballCoach is below._
 
@@ -87,7 +87,7 @@ As a coach, you can pick what strategy your team employs on offense and defense 
   - Utilize a more aggressive offense. Will pass a bit more.
   - Pass with a lower completion percentage and higher chance of interception.
   - However, passes that are caught will go for more yards.
-  - 
+  -
 [Offense] Conservative:
   - Utilize a more conservative offense. Will run a bit more.
   - Passes are more accurate but go for less yards.
@@ -119,4 +119,3 @@ Football Coach is not monetized and I have no plans to do so. I love college foo
 
 
 **[Download Football Coach from the Google Play Store](https://play.google.com/store/apps/details?id=achijones.footballcoach)**
-
