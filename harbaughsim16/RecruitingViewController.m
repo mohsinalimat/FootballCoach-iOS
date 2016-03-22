@@ -737,7 +737,7 @@
         [[HBSharedUtils getLeague].userTeam recruitWalkOns];
         [HBSharedUtils getLeague].recruitingStage  = 0;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@'s %ld Recruiting Class",[HBSharedUtils getLeague].userTeam.abbreviation, (2016 + [HBSharedUtils getLeague].leagueHistory.count)] message:recruitSummary preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@'s %lu Recruiting Class",[HBSharedUtils getLeague].userTeam.abbreviation, (2016 + [HBSharedUtils getLeague].leagueHistory.count)] message:recruitSummary preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [self.presentingViewController presentViewController:alert animated:YES completion:nil];
     }]];

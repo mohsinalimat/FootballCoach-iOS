@@ -38,7 +38,7 @@
     [teamHeaderView.teamNameLabel setText:userTeam.name];
     [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%d-%d",userTeam.totalWins, userTeam.totalLosses]];
     if (history.count> 1 || history.count == 0) {
-         [teamHeaderView.teamSeasonsLabel setText:[NSString stringWithFormat:@"Coaching for %ld seasons",history.count]];
+         [teamHeaderView.teamSeasonsLabel setText:[NSString stringWithFormat:@"Coaching for %ld seasons",(unsigned long)history.count]];
     } else {
          [teamHeaderView.teamSeasonsLabel setText:@"Coaching for 1 season"];
     }
@@ -100,7 +100,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             [cell.textLabel setText:@"Seasons"];
-            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld",history.count]];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld",(unsigned long)history.count]];
         } else if (indexPath.row == 1) {
             [cell.textLabel setText:@"Winning Percentage"];
             if ((userTeam.totalLosses + userTeam.totalWins) > 0) {
