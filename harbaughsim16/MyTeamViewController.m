@@ -57,7 +57,7 @@
     userTeam = [HBSharedUtils getLeague].userTeam;
     stats = [userTeam getTeamStatsArray];
     [teamHeaderView.teamRankLabel setText:userTeam.name];
-    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%lu: %ld-%ld",[HBSharedUtils getLeague].leagueHistory.count + 2016,(long)userTeam.wins,(long)userTeam.losses]];
+    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistory.count + 2016,(long)userTeam.wins,(long)userTeam.losses]];
     [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Prestige: %d",userTeam.teamPrestige]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
 }

@@ -47,7 +47,7 @@
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (2016 + indexPath.row)]];
+    [cell.textLabel setText:[NSString stringWithFormat:@"%ld",(long) (2016 + indexPath.row)]];
     [cell.detailTextLabel setText:heismanHistory[indexPath.row]];
     if([cell.detailTextLabel.text containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
         [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];

@@ -135,7 +135,7 @@
             }
         }
     } else {
-        [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (2016 + indexPath.row)]];
+        [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
         [cell.detailTextLabel setText:history[indexPath.row]];
     }
     

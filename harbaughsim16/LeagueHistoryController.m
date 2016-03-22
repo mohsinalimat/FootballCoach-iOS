@@ -54,7 +54,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     // Configure the cell...
-    [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (2016 + indexPath.row)]];
+    [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
     
     return cell;
 }
@@ -62,7 +62,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSMutableArray *leagueYear = leagueHistory[indexPath.row];
-    [self.navigationController pushViewController:[[LeagueYearViewController alloc] initWithYear:[NSString stringWithFormat:@"%ld", (2016 + indexPath.row)] top10:leagueYear] animated:YES];
+    [self.navigationController pushViewController:[[LeagueYearViewController alloc] initWithYear:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)] top10:leagueYear] animated:YES];
 }
 
 

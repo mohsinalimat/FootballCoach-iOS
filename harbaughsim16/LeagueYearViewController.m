@@ -58,7 +58,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     // Configure the cell...
-    [cell.textLabel setText:[NSString stringWithFormat:@"#%ld: %@", (1 + indexPath.row),top10[indexPath.row]]];
+    [cell.textLabel setText:[NSString stringWithFormat:@"#%ld: %@",(long) (1 + indexPath.row),top10[indexPath.row]]];
     
     return cell;
 }
