@@ -11,6 +11,7 @@
 #import "Conference.h"
 #import "Game.h"
 #import "Team.h"
+#import "AppDelegate.h"
 
 #import "PlayerQB.h"
 #import "PlayerRB.h"
@@ -23,7 +24,105 @@
 
 #import "HBSharedUtils.h"
 
+#import "FCFileManager.h"
+#import "AutoCoding.h"
+
 @implementation League
+
+- (void) encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeBool:heismanDecided forKey:@"heismanDecided"];
+    [encoder encodeObject:heisman forKey:@"heisman"];
+    [encoder encodeObject:heismanCandidates forKey:@"heismanCandidates"];
+    [encoder encodeObject:heismanWinnerStrFull forKey:@"heismanWinnerStrFull"];
+    [encoder encodeObject:_leagueHistory forKey:@"leagueHistory"];
+    [encoder encodeObject:_heismanHistory forKey:@"heismanHistory"];
+    [encoder encodeObject:_conferences forKey:@"conferences"];
+    [encoder encodeObject:_teamList forKey:@"teamList"];
+    [encoder encodeObject:_nameList forKey:@"nameList"];
+    [encoder encodeObject:_newsStories forKey:@"newsStories"];
+    [encoder encodeInt:_currentWeek forKey:@"currentWeek"];
+    [encoder encodeBool:_hasScheduledBowls forKey:@"hasScheduledBowls"];
+    [encoder encodeObject:_semiG14 forKey:@"semiG14"];
+    [encoder encodeObject:_semiG23 forKey:@"semiG23"];
+    [encoder encodeObject:_ncg forKey:@"ncg"];
+    [encoder encodeObject:_bowlGames forKey:@"bowlGames"];
+    [encoder encodeObject:_userTeam forKey:@"userTeam"];
+    [encoder encodeInt:_recruitingStage forKey:@"recruitingStage"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
+        heismanDecided = [decoder decodeBoolForKey:@"heismanDecided"];
+        heisman = [decoder decodeObjectForKey:@"heisman"];
+        heismanCandidates = [decoder decodeObjectForKey:@"heismanCandidates"];
+        heismanWinnerStrFull = [decoder decodeObjectForKey:@"heismanWinnerStrFull"];
+        _leagueHistory = [decoder decodeObjectForKey:@"leagueHistory"];
+        _heismanHistory = [decoder decodeObjectForKey:@"heismanHistory"];
+        _conferences = [decoder decodeObjectForKey:@"conferences"];
+        _teamList = [decoder decodeObjectForKey:@"teamList"];
+        _nameList = [decoder decodeObjectForKey:@"nameList"];
+        _newsStories = [decoder decodeObjectForKey:@"newsStories"];
+        _currentWeek = [decoder decodeIntForKey:@"currentWeek"];
+        _hasScheduledBowls = [decoder decodeBoolForKey:@"hasScheduledBowls"];
+        _semiG14 = [decoder decodeObjectForKey:@"semiG14"];
+        _semiG23 = [decoder decodeObjectForKey:@"semiG23"];
+        _ncg = [decoder decodeObjectForKey:@"ncg"];
+        _bowlGames = [decoder decodeObjectForKey:@"bowlGames"];
+        _userTeam = [decoder decodeObjectForKey:@"userTeam"];
+        _recruitingStage = [decoder decodeIntForKey:@"recruitingStage"];
+    }
+    return self;
+}
+
+-(void)save {
+    if([FCFileManager existsItemAtPath:@"league.cfb"]) {
+        BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:[NSKeyedArchiver archivedDataWithRootObject:self]];
+        if (success) {
+            NSLog(@"Save was successful");
+        } else {
+            NSLog(@"Something went wrong on save");
+        }
+    } else {
+        BOOL success = [FCFileManager createFileAtPath:@"league.cfb" withContent:[NSKeyedArchiver archivedDataWithRootObject:self]];
+        if (success) {
+            NSLog(@"Create and Save were successful");
+        } else {
+            NSLog(@"Something went wrong on create and save");
+        }
+    }
+}
+
++(BOOL)loadSavedData {
+    if ([FCFileManager existsItemAtPath:@"league.cfb"]) {
+        League *ligue = (League*)[NSKeyedUnarchiver unarchiveObjectWithData:[FCFileManager readFileAtPathAsData:@"league.cfb"]];
+         [ligue setUserTeam:ligue.userTeam];
+        NSLog(@"USERTEAM: %@", ligue.userTeam.dictionaryRepresentation);
+         [(AppDelegate*)[[UIApplication sharedApplication] delegate] setLeague:ligue];
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+-(instancetype)initWithSaveFile:(NSString*)saveFileName names:(NSString*)nameCSV {
+    self = [super init];
+    if (self) {
+        _recruitingStage = 0;
+        heismanDecided = NO;
+        _hasScheduledBowls = NO;
+        _currentWeek = 0;
+        League *ligue = (League*)[FCFileManager readFileAtPathAsCustomModel:saveFileName];
+        NSLog(@"LIGUE:\n\nConferences:\n\n%@\n\nTeams:\n\n%@\n\nHistory:\n\n%@\n\nHeismans:\n\n%@\n",ligue.conferences,ligue.teamList,ligue.leagueHistory,ligue.heismanHistory);
+        self = ligue;
+    }
+    return self;
+}
+
+-(instancetype)loadFromSaveFileWithNames:(NSString*)namesCSV {
+    return [[League alloc] initWithSaveFile:@"league.cfb" names:namesCSV];
+}
 
 +(NSArray*)bowlGameTitles {
     return @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
@@ -170,7 +269,7 @@
     }
     return self;
 }
-
+/*
 -(instancetype)initWithSaveFile:(NSString*)saveFileName names:(NSString*)nameCSV {
     self = [super init];
     if (self) {
@@ -180,7 +279,7 @@
         //NSString *line = nil;
         _currentWeek = 0;
         //NSError *error;
-        /*NSString *line = [NSString stringWithContentsOfFile:saveFileName encoding:NSUTF8StringEncoding error:&error];
+        NSString *line = [NSString stringWithContentsOfFile:saveFileName encoding:NSUTF8StringEncoding error:&error];
         if (line) {
             //Next get league history
             _leagueHistory = [NSMutableArray array];
@@ -256,10 +355,11 @@
                                "on your mind, or just a winning season, good luck!");
         
         
-         */
+ 
     }
     return self;
 }
+*/
 
 
 -(int)getConfNumber:(NSString*)conf {
@@ -324,6 +424,7 @@
     
     [self setTeamRanks];
     _currentWeek++;
+    [self save];
 }
 
 -(void)scheduleBowlGames {

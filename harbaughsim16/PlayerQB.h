@@ -8,7 +8,7 @@
 
 #import "Player.h"
 
-@interface PlayerQB : Player
+@interface PlayerQB : Player <NSCoding>
 @property (nonatomic) int ratPassPow;
 //PassAcc affects how accurate his passes are
 @property (nonatomic) int ratPassAcc;

@@ -10,7 +10,7 @@
 #import "Team.h"
 #import "HBSharedUtils.h"
 
-@interface Player : NSObject
+@interface Player : NSObject <NSCoding>
 
 @property (strong, nonatomic) Team *team;
 @property (strong, nonatomic) NSString *name;

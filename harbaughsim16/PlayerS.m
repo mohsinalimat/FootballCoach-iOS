@@ -9,6 +9,25 @@
 #import "PlayerS.h"
 
 @implementation PlayerS
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        _ratSCov = [aDecoder decodeIntForKey:@"ratSCov"];
+        _ratSSpd = [aDecoder decodeIntForKey:@"ratSSpd"];
+        _ratSTkl = [aDecoder decodeIntForKey:@"ratSTkl"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    
+    [aCoder encodeInt:_ratSCov forKey:@"ratSCov"];
+    [aCoder encodeInt:_ratSSpd forKey:@"ratSSpd"];
+    [aCoder encodeInt:_ratSTkl forKey:@"ratSTkl"];
+}
+
 -(instancetype)initWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling {
     self = [super init];
     if (self) {

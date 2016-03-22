@@ -8,7 +8,7 @@
 
 #import "Player.h"
 
-@interface PlayerWR : Player
+@interface PlayerWR : Player <NSCoding>
 @property (nonatomic) int ratRecCat;
 //RecSpd affects how long his passes are
 @property (nonatomic) int ratRecSpd;

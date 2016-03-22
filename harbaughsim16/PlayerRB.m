@@ -10,6 +10,34 @@
 #import "Team.h"
 
 @implementation PlayerRB
+
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        _ratRushPow = [aDecoder decodeIntForKey:@"ratRushPow"];
+        _ratRushSpd = [aDecoder decodeIntForKey:@"ratRushSpd"];
+        _ratRushEva = [aDecoder decodeIntForKey:@"ratRushEva"];
+        _statsRushAtt = [aDecoder decodeIntForKey:@"statsRushAtt"];
+        _statsTD = [aDecoder decodeIntForKey:@"statsTD"];
+        _statsFumbles = [aDecoder decodeIntForKey:@"statsFumbles"];
+        _statsRushYards = [aDecoder decodeIntForKey:@"statsRushYards"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    
+    [aCoder encodeInt:_ratRushPow forKey:@"ratRushPow"];
+    [aCoder encodeInt:_ratRushSpd forKey:@"ratRushSpd"];
+    [aCoder encodeInt:_ratRushEva forKey:@"ratRushEva"];
+    [aCoder encodeInt:_statsRushYards forKey:@"statsRushYards"];
+    [aCoder encodeInt:_statsFumbles forKey:@"statsFumbles"];
+    [aCoder encodeInt:_statsTD forKey:@"statsTD"];
+    [aCoder encodeInt:_statsRushAtt forKey:@"statsRushAtt"];
+}
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow speed:(int)spd eva:(int)eva {
     self = [super init];
     if (self) {

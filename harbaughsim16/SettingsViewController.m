@@ -49,9 +49,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 2) {
-        return 2;
+        return 3;
     } else if (section == 1) {
-        return 4;
+        return 5;
     } else {
         return 1;
     }
@@ -68,19 +68,23 @@
         
         if (indexPath.section == 1) {
             if (indexPath.row == 0) {
-                [cell.textLabel setText:@"HexColors"];
+                [cell.textLabel setText:@"AutoCoding"];
             } else if (indexPath.row == 1) {
                 [cell.textLabel setText:@"FCFileManager"];
             } else if (indexPath.row == 2) {
-                [cell.textLabel setText:@"Whisper"];
-            } else {
+                [cell.textLabel setText:@"HexColors"];
+            } else if (indexPath.row == 3) {
                 [cell.textLabel setText:@"Icons8"];
+            } else {
+                [cell.textLabel setText:@"Whisper"];
             }
         } else {
             if (indexPath.row == 0) {
                 [cell.textLabel setText:@"Developer's Website"];
-            } else {
+            } else if (indexPath.row == 1) {
                 [cell.textLabel setText:@"Email Developer"];
+            } else {
+                [cell.textLabel setText:@"Football Coach on GitHub"];
             }
         }
         return cell;
@@ -121,13 +125,20 @@
     if (indexPath.section == 1) {
         NSString *url;
         if (indexPath.row == 0) {
-            url = @"https://github.com/mRs-/HexColors";
+            //[cell.textLabel setText:@"AutoCoding"];
+            url = @"https://github.com/nicklockwood/AutoCoding";
         } else if (indexPath.row == 1) {
+            //[cell.textLabel setText:@"FCFileManager"];
             url = @"https://github.com/fabiocaccamo/FCFileManager";
         } else if (indexPath.row == 2) {
-            url = @"https://github.com/hyperoslo/Whisper";
-        } else {
+            //[cell.textLabel setText:@"HexColors"];
+            url = @"https://github.com/mRs-/HexColors";
+        } else if (indexPath.row == 3) {
+            //[cell.textLabel setText:@"Icons8"];
             url = @"http://icons8.com";
+        } else {
+            //[cell.textLabel setText:@"Whisper"];
+            url = @"https://github.com/hyperoslo/Whisper";
         }
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -144,12 +155,20 @@
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://akeaswaran.me"]];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
-        } else {
+        } else if (indexPath.row == 1) {
             MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
             [composer setMailComposeDelegate:self];
             [composer setToRecipients:@[@"akeaswaran@me.com"]];
             [composer setSubject:[NSString stringWithFormat:@"Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
             [self presentViewController:composer animated:YES completion:nil];
+        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/jonesguy14/footballcoach"]];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+
         }
     } else {
         

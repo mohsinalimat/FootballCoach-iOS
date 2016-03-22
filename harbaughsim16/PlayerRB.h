@@ -8,7 +8,7 @@
 
 #import "Player.h"
 
-@interface PlayerRB : Player
+@interface PlayerRB : Player <NSCoding>
 
 @property (nonatomic) int ratRushPow;
 //RushSpd affects how long he can run

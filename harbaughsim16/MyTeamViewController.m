@@ -38,7 +38,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"My Team";
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(openSettings)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(openSettings)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveUserTeam)];
     [self setupTeamHeader];
     self.tableView.tableHeaderView = teamHeaderView;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
@@ -46,6 +47,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadStats) name:@"playedWeek" object:nil];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+}
+
+-(void)saveUserTeam {
+    [[HBSharedUtils getLeague] save];
 }
 
 -(void)resetForNewSeason {

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TeamStrategy : NSObject
+@interface TeamStrategy : NSObject <NSCoding>
 
 @property (nonatomic) int rushYdBonus;
 @property (nonatomic) int rushAgBonus;

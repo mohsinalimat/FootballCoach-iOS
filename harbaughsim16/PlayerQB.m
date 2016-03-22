@@ -11,6 +11,37 @@
 #import "Team.h"
 
 @implementation PlayerQB
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        _ratPassPow = [aDecoder decodeIntForKey:@"ratPassPow"];
+        _ratPassAcc = [aDecoder decodeIntForKey:@"ratPassAcc"];
+        _ratPassEva = [aDecoder decodeIntForKey:@"ratPassEva"];
+        _statsPassAtt = [aDecoder decodeIntForKey:@"statsPassAtt"];
+        _statsPassComp = [aDecoder decodeIntForKey:@"statsPassComp"];
+        _statsTD = [aDecoder decodeIntForKey:@"statsTD"];
+        _statsInt = [aDecoder decodeIntForKey:@"statsInt"];
+        _statsPassYards = [aDecoder decodeIntForKey:@"statsPassYards"];
+        _statsSacked = [aDecoder decodeIntForKey:@"statsSacked"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+
+    [aCoder encodeInt:_ratPassPow forKey:@"ratPassPow"];
+    [aCoder encodeInt:_ratPassAcc forKey:@"ratPassAcc"];
+    [aCoder encodeInt:_ratPassEva forKey:@"ratPassEva"];
+    [aCoder encodeInt:_statsPassComp forKey:@"statsPassComp"];
+    [aCoder encodeInt:_statsSacked forKey:@"statsSacked"];
+    [aCoder encodeInt:_statsPassYards forKey:@"statsPassYards"];
+    [aCoder encodeInt:_statsInt forKey:@"statsInt"];
+    [aCoder encodeInt:_statsTD forKey:@"statsTD"];
+    [aCoder encodeInt:_statsPassAtt forKey:@"statsPassAtt"];
+}
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc eva:(int)eva {
     self = [super init];
     if (self) {

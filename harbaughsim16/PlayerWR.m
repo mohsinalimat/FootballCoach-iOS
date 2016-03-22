@@ -9,6 +9,37 @@
 #import "PlayerWR.h"
 
 @implementation PlayerWR
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        _ratRecCat = [aDecoder decodeIntForKey:@"ratRecCat"];
+        _ratRecSpd = [aDecoder decodeIntForKey:@"ratRecSpd"];
+        _ratRecEva = [aDecoder decodeIntForKey:@"ratRecEva"];
+        _statsTargets = [aDecoder decodeIntForKey:@"statsTargets"];
+        _statsReceptions = [aDecoder decodeIntForKey:@"statsReceptions"];
+        _statsDrops = [aDecoder decodeIntForKey:@"statsDrops"];
+        _statsTD = [aDecoder decodeIntForKey:@"statsTD"];
+        _statsFumbles = [aDecoder decodeIntForKey:@"statsFumbles"];
+        _statsRecYards = [aDecoder decodeIntForKey:@"statsRecYards"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    
+    [aCoder encodeInt:_ratRecCat forKey:@"ratRecCat"];
+    [aCoder encodeInt:_ratRecSpd forKey:@"ratRecSpd"];
+    [aCoder encodeInt:_ratRecEva forKey:@"ratRecEva"];
+    [aCoder encodeInt:_statsRecYards forKey:@"statsRecYards"];
+    [aCoder encodeInt:_statsFumbles forKey:@"statsFumbles"];
+    [aCoder encodeInt:_statsTD forKey:@"statsTD"];
+    [aCoder encodeInt:_statsReceptions forKey:@"statsReceptions"];
+    [aCoder encodeInt:_statsDrops forKey:@"statsDrops"];
+    [aCoder encodeInt:_statsTargets forKey:@"statsTargets"];
+}
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq catch:(int)cat speed:(int)spd eva:(int)eva {
     self = [super init];
     if (self) {

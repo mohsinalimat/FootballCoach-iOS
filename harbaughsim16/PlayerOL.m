@@ -9,6 +9,25 @@
 #import "PlayerOL.h"
 
 @implementation PlayerOL
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        _ratOLPow = [aDecoder decodeIntForKey:@"ratOLPow"];
+        _ratOLBkR = [aDecoder decodeIntForKey:@"ratOLBkR"];
+        _ratOLBkP = [aDecoder decodeIntForKey:@"ratOLBkP"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    
+    [aCoder encodeInt:_ratOLPow forKey:@"ratOLPow"];
+    [aCoder encodeInt:_ratOLBkR forKey:@"ratOLBkR"];
+    [aCoder encodeInt:_ratOLBkP forKey:@"ratOLBkP"];
+}
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow rush:(int)rsh pass:(int)pass {
     self = [super init];
     if (self) {

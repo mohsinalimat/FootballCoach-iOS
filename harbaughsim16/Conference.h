@@ -10,7 +10,7 @@
 #import "League.h"
 #import "Game.h"
 
-@interface Conference : NSObject
+@interface Conference : NSObject <NSCoding>
 @property (strong, nonatomic) NSString *confName;
 @property (nonatomic) int confPrestige;
 @property (strong, nonatomic) NSMutableArray<Team*> *confTeams;

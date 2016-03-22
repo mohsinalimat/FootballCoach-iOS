@@ -8,7 +8,7 @@
 
 #import "Player.h"
 
-@interface PlayerK : Player
+@interface PlayerK : Player <NSCoding>
 @property (nonatomic) int ratKickPow;
 @property (nonatomic) int ratKickAcc;
 @property (nonatomic) int ratKickFum;

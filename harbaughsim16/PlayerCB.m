@@ -10,6 +10,24 @@
 
 @implementation PlayerCB
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        _ratCBCov = [aDecoder decodeIntForKey:@"ratCBCov"];
+        _ratCBSpd = [aDecoder decodeIntForKey:@"ratCBSpd"];
+        _ratCBTkl = [aDecoder decodeIntForKey:@"ratCBTkl"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    
+    [aCoder encodeInt:_ratCBCov forKey:@"ratCBCov"];
+    [aCoder encodeInt:_ratCBSpd forKey:@"ratCBSpd"];
+    [aCoder encodeInt:_ratCBTkl forKey:@"ratCBTkl"];
+}
+
 -(instancetype)initWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling {
     self = [super init];
     if (self) {
@@ -27,7 +45,7 @@
         
         self.ratingsVector = [NSMutableArray array];
         [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)", name, [self getYearString]]];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%ld (%ld)",(long)self.ratOvr,(long)self.ratImprovement]];
+        //[self.ratingsVector addObject:[NSString stringWithFormat:@"%ld (%ld)",(long)self.ratOvr,(long)self.ratImprovement]];
         [self.ratingsVector addObject:@(self.ratPot)];
         [self.ratingsVector addObject:@(self.ratFootIQ)];
         [self.ratingsVector addObject:@(self.ratCBCov)];

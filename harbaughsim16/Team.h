@@ -22,10 +22,7 @@
 @class PlayerCB;
 @class PlayerS;
 
-
-#define PLAYERS_PER_TEAM 53
-
-@interface Team : NSObject
+@interface Team : NSObject <NSCoding>
 
 @property (strong, nonatomic) League *league;
 
@@ -120,9 +117,9 @@
 
 
 
--(instancetype)initWithName:(NSString*)name abbreviation:(NSString*)abbr conference:(NSString*)conference league:(League*)league prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
+-(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
 //-(instancetype)initWithString:(NSString*)loadStr league:(League*)league;
-+ (instancetype)newTeamWithName:(NSString*)name abbreviation:(NSString*)abbr conference:(NSString*)conference league:(League*)league prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
++ (instancetype)newTeamWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
 
 -(void)updateTalentRatings;
 -(void)advanceSeason;

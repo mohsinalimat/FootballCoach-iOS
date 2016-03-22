@@ -12,6 +12,32 @@
 
 @implementation Conference
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        _confName = [aDecoder decodeObjectForKey:@"confName"];
+        _confPrestige = [aDecoder decodeIntForKey:@"confPrestige"];
+        _confTeams = [aDecoder decodeObjectForKey:@"confTeams"];
+        _ccg = [aDecoder decodeObjectForKey:@"ccg"];
+        _week = [aDecoder decodeIntForKey:@"week"];
+        _robinWeek = [aDecoder decodeIntForKey:@"robinWeek"];
+        _league = [aDecoder decodeObjectForKey:@"league"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_confName forKey:@"confName"];
+    [aCoder encodeInt:_confPrestige forKey:@"confPrestige"];
+    [aCoder encodeObject:_confTeams forKey:@"confTeams"];
+    [aCoder encodeObject:_league forKey:@"league"];
+    //encoding and decoding leagues/conf may create endless loop - maybe not do that (EDIT: eh we'll see)
+    
+    [aCoder encodeObject:_ccg forKey:@"ccg"];
+    [aCoder encodeInt:_week forKey:@"week"];
+    [aCoder encodeInt:_robinWeek forKey:@"robinWeek"];
+}
+
 +(instancetype)newConferenceWithName:(NSString*)name league:(League*)league {
     Conference *conf = [[Conference alloc] init];
     if (conf) {

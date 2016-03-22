@@ -10,6 +10,39 @@
 
 @implementation Player
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        _name = [aDecoder decodeObjectForKey:@"name"];
+        _position = [aDecoder decodeObjectForKey:@"position"];
+        _ratOvr = [aDecoder decodeIntForKey:@"ratOvr"];
+        _ratPot = [aDecoder decodeIntForKey:@"ratPot"];
+        _ratImprovement = [aDecoder decodeIntForKey:@"ratImprovement"];
+        _year = [aDecoder decodeIntForKey:@"year"];
+        _ratFootIQ = [aDecoder decodeIntForKey:@"ratFootIQ"];
+        _cost = [aDecoder decodeIntForKey:@"cost"];
+        _gamesPlayed = [aDecoder decodeIntForKey:@"gamesPlayed"];
+        _ratingsVector = [aDecoder decodeObjectForKey:@"ratingsVector"];
+        _team = [aDecoder decodeObjectForKey:@"team"];
+        
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:_team forKey:@"team"];
+    [aCoder encodeObject:_name forKey:@"name"];
+    [aCoder encodeObject:_position forKey:@"position"];
+    [aCoder encodeInt:_ratOvr forKey:@"ratOvr"];
+    [aCoder encodeInt:_year forKey:@"year"];
+    [aCoder encodeInt:_ratPot forKey:@"ratPot"];
+    [aCoder encodeInt:_ratFootIQ forKey:@"ratFootIQ"];
+    [aCoder encodeInt:_ratImprovement forKey:@"ratImprovement"];
+    [aCoder encodeInt:_cost forKey:@"cost"];
+    [aCoder encodeInt:_gamesPlayed forKey:@"gamesPlayed"];
+    [aCoder encodeObject:_ratingsVector forKey:@"ratingsVector"];
+}
+
 - (NSComparisonResult)compare:(id)other
 {
     Player *player = (Player*)other;

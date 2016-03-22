@@ -169,14 +169,20 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
         }
     } else {
+        simLeague.recruitingStage = 1;
         [self startRecruiting];
     }
 }
 
 -(void)resetSimButton {
-    [self.navigationItem.leftBarButtonItem setEnabled:NO];
-     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
-    [self.navigationItem.leftBarButtonItem setEnabled:YES];
+    NSLog(@"RECRUITING STAGE: %d", [HBSharedUtils getLeague].recruitingStage);
+    if ([HBSharedUtils getLeague].recruitingStage == 0) {
+        [self.navigationItem.leftBarButtonItem setEnabled:NO];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+        [self.navigationItem.leftBarButtonItem setEnabled:YES];
+    } else {
+        [self.navigationItem.leftBarButtonItem setEnabled:NO];
+    }
 }
 
 -(void)startRecruiting {
@@ -207,7 +213,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
             [self.navigationItem.leftBarButtonItem setEnabled:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
-            
+            [[HBSharedUtils getLeague] save];
         }]];
         
         [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
@@ -238,7 +244,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Latest News";
-    //[self setupTeamHeader];
     [self reloadNews:[HBSharedUtils getLeague].currentWeek];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setTableHeaderView:teamHeaderView];
@@ -251,6 +256,7 @@
     self.view.backgroundColor = [HBSharedUtils styleColor];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+    [self resetSimButton];
 }
 
 -(void)refreshNews {

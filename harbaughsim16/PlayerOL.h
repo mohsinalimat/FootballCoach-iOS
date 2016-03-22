@@ -8,7 +8,7 @@
 
 #import "Player.h"
 
-@interface PlayerOL : Player
+@interface PlayerOL : Player <NSCoding>
 @property (nonatomic) int ratOLPow;
 //OLBkR affects how well he blocks for running plays
 @property (nonatomic) int ratOLBkR;

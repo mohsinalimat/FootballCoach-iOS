@@ -10,6 +10,24 @@
 
 @implementation PlayerF7
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        _ratF7Pow = [aDecoder decodeIntForKey:@"ratF7Pow"];
+        _ratF7Rsh = [aDecoder decodeIntForKey:@"ratF7Rsh"];
+        _ratF7Pas = [aDecoder decodeIntForKey:@"ratF7Pas"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    
+    [aCoder encodeInt:_ratF7Pow forKey:@"ratF7Pow"];
+    [aCoder encodeInt:_ratF7Rsh forKey:@"ratF7Rsh"];
+    [aCoder encodeInt:_ratF7Pas forKey:@"ratF7Pas"];
+}
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow rush:(int)rsh pass:(int)pass {
     self = [super init];
     if (self) {

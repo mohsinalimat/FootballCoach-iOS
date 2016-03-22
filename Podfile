@@ -7,4 +7,5 @@ target 'harbaughsim16' do
 pod 'HexColors'
 pod 'Whisper'
 pod 'FCFileManager'
+pod 'AutoCoding'
 end

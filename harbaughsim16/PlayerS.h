@@ -8,7 +8,7 @@
 
 #import "Player.h"
 
-@interface PlayerS : Player
+@interface PlayerS : Player <NSCoding>
 @property (nonatomic) int ratSCov;
 //CBSpd affects how good he is at not letting up deep passes
 @property (nonatomic) int ratSSpd;

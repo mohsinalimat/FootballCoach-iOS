@@ -12,7 +12,7 @@
 @class Team;
 @class Conference;
 
-@interface League : NSObject {
+@interface League : NSObject <NSCoding> {
     BOOL heismanDecided;
     Player *heisman;
     NSMutableArray<Player*> *heismanCandidates;
@@ -40,7 +40,7 @@
 @property (strong, nonatomic)  Team *userTeam;
 @property (nonatomic) int recruitingStage;
 
-
++(BOOL)loadSavedData;
 +(NSArray*)bowlGameTitles;
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV;
 +(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName names:(NSString*)namesCSV;
@@ -70,6 +70,6 @@
 -(BOOL)saveLeague:(NSData*)saveFile;
 -(void)setTeamRanks;
 -(NSArray*)getTeamRankingsStr:(int)selection;
-
+-(void)save;
 
 @end

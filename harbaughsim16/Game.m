@@ -21,6 +21,98 @@
 
 
 @implementation Game
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:gameEventLog forKey:@"gameEventLog"];
+    [aCoder encodeObject:tdInfo forKey:@"tdInfo"];
+    
+    [aCoder encodeInt:gameTime forKey:@"gameTime"];
+    [aCoder encodeBool:gamePoss forKey:@"gamePoss"];
+    [aCoder encodeInt:gameYardLine forKey:@"gameYardLine"];
+    [aCoder encodeInt:gameDown forKey:@"gameDown"];
+    [aCoder encodeInt:gameYardsNeed forKey:@"gameYardsNeed"];
+    
+    [aCoder encodeInt:_homeScore forKey:@"homeScore"];
+    [aCoder encodeInt:_awayScore forKey:@"awayScore"];
+    [aCoder encodeBool:_hasPlayed forKey:@"hasPlayed"];
+    [aCoder encodeObject:_gameName forKey:@"gameName"];
+    
+    [aCoder encodeObject:_homeQScore forKey:@"homeQScore"];
+    [aCoder encodeObject:_awayQScore forKey:@"awayQScore"];
+    
+    [aCoder encodeInt:_homeYards forKey:@"homeYards"];
+    [aCoder encodeInt:_awayYards forKey:@"awayYards"];
+    [aCoder encodeInt:_numOT forKey:@"numOT"];
+    [aCoder encodeInt:_homeTOs forKey:@"homeTOs"];
+    [aCoder encodeInt:_awayTOs forKey:@"awayTOs"];
+    
+    [aCoder encodeObject:_HomeQBStats forKey:@"HomeQBStats"];
+    
+    [aCoder encodeObject:_HomeRB1Stats forKey:@"HomeRB1Stats"];
+    [aCoder encodeObject:_HomeRB2Stats forKey:@"HomeRB2Stats"];
+    
+    [aCoder encodeObject:_HomeWR1Stats forKey:@"HomeWR1Stats"];
+    [aCoder encodeObject:_HomeWR2Stats forKey:@"HomeWR2Stats"];
+    [aCoder encodeObject:_HomeWR3Stats forKey:@"HomeWR3Stats"];
+    [aCoder encodeObject:_HomeKStats forKey:@"HomeKStats"];
+    
+    [aCoder encodeObject:_AwayQBStats forKey:@"AwayQBStats"];
+    
+    [aCoder encodeObject:_AwayRB1Stats forKey:@"AwayRB1Stats"];
+    [aCoder encodeObject:_AwayRB2Stats forKey:@"AwayRB2Stats"];
+    
+    [aCoder encodeObject:_AwayWR1Stats forKey:@"AwayWR1Stats"];
+    [aCoder encodeObject:_AwayWR2Stats forKey:@"AwayWR2Stats"];
+    [aCoder encodeObject:_AwayWR3Stats forKey:@"AwayWR3Stats"];
+    [aCoder encodeObject:_AwayKStats forKey:@"AwayKStats"];
+    
+    [aCoder encodeObject:_homeTeam forKey:@"homeTeam"];
+    [aCoder encodeObject:_awayTeam forKey:@"awayTeam"];
+    
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        gameEventLog = [aDecoder decodeObjectForKey:@"gameEventLog"];
+        tdInfo = [aDecoder decodeObjectForKey:@"tdInfo"];
+        gameTime = [aDecoder decodeIntForKey:@"gameTime"];
+        gamePoss = [aDecoder decodeBoolForKey:@"gamePoss"];
+        gameDown = [aDecoder decodeIntForKey:@"gameDown"];
+        gameYardsNeed = [aDecoder decodeIntForKey:@"gameYardsNeed"];
+        
+        _homeTeam = [aDecoder decodeObjectForKey:@"homeTeam"];
+        _awayTeam = [aDecoder decodeObjectForKey:@"awayTeam"];
+        
+        _homeScore = [aDecoder decodeIntForKey:@"homeScore"];
+        _awayScore = [aDecoder decodeIntForKey:@"awayScore"];
+        _numOT = [aDecoder decodeIntForKey:@"numOT"];
+        _homeTOs = [aDecoder decodeIntForKey:@"homeTOs"];
+        _awayTOs = [aDecoder decodeIntForKey:@"awayTOs"];
+        _awayYards = [aDecoder decodeIntForKey:@"awayYards"];
+        _homeYards = [aDecoder decodeIntForKey:@"homeYards"];
+        _hasPlayed = [aDecoder decodeBoolForKey:@"hasPlayed"];
+        _gameName = [aDecoder decodeObjectForKey:@"gameName"];
+        _homeQScore = [aDecoder decodeObjectForKey:@"homeQScore"];
+        _awayQScore = [aDecoder decodeObjectForKey:@"awayQScore"];
+        
+        _HomeQBStats = [aDecoder decodeObjectForKey:@"HomeQBStats"];
+        _HomeRB1Stats = [aDecoder decodeObjectForKey:@"HomeRB1Stats"];
+        _HomeRB2Stats = [aDecoder decodeObjectForKey:@"HomeRB2Stats"];
+        _HomeWR1Stats = [aDecoder decodeObjectForKey:@"HomeWR1Stats"];
+        _HomeWR2Stats = [aDecoder decodeObjectForKey:@"HomeWR2Stats"];
+        _HomeWR3Stats = [aDecoder decodeObjectForKey:@"HomeWR3Stats"];
+        
+        _AwayQBStats = [aDecoder decodeObjectForKey:@"AwayQBStats"];
+        _AwayRB1Stats = [aDecoder decodeObjectForKey:@"AwayRB1Stats"];
+        _AwayRB2Stats = [aDecoder decodeObjectForKey:@"AwayRB2Stats"];
+        _AwayWR1Stats = [aDecoder decodeObjectForKey:@"AwayWR1Stats"];
+        _AwayWR2Stats = [aDecoder decodeObjectForKey:@"AwayWR2Stats"];
+        _AwayWR3Stats = [aDecoder decodeObjectForKey:@"AwayWR3Stats"];
+    }
+    return self;
+}
+
 -(instancetype)initWithHome:(Team*)home away:(Team*)away {
     self = [super init];
     if (self) {

@@ -18,7 +18,7 @@
 @class PlayerCB;
 @class PlayerS;
 
-@interface Game : NSObject {
+@interface Game : NSObject <NSCoding> {
     NSMutableString *gameEventLog;
     NSString *tdInfo;
     

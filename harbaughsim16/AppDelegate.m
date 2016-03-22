@@ -64,8 +64,9 @@
     [self.window makeKeyAndVisible];
     
     
-    BOOL noFirstLaunch = true;//[[NSUserDefaults standardUserDefaults] boolForKey:kHBSimFirstLaunchKey];
-    if (noFirstLaunch) {
+    BOOL noFirstLaunch = [[NSUserDefaults standardUserDefaults] boolForKey:kHBSimFirstLaunchKey];
+    BOOL loadSavedData = [League loadSavedData];
+    if (!noFirstLaunch || !loadSavedData) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHBSimFirstLaunchKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
         

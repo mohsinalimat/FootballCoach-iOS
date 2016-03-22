@@ -10,6 +10,33 @@
 
 @implementation PlayerK
 
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        _ratKickPow = [aDecoder decodeIntForKey:@"ratKickPow"];
+        _ratKickAcc = [aDecoder decodeIntForKey:@"ratKickAcc"];
+        _ratKickFum = [aDecoder decodeIntForKey:@"ratKickFum"];
+        _statsXPAtt = [aDecoder decodeIntForKey:@"statsXPAtt"];
+        _statsXPMade = [aDecoder decodeIntForKey:@"statsXPMade"];
+        _statsFGAtt = [aDecoder decodeIntForKey:@"statsFGAtt"];
+        _statsFGMade = [aDecoder decodeIntForKey:@"statsFGMade"];
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    
+    [aCoder encodeInt:_ratKickPow forKey:@"ratKickPow"];
+    [aCoder encodeInt:_ratKickAcc forKey:@"ratKickAcc"];
+    [aCoder encodeInt:_ratKickFum forKey:@"ratKickFum"];
+    [aCoder encodeInt:_statsFGMade forKey:@"statsFGMade"];
+    [aCoder encodeInt:_statsFGAtt forKey:@"statsFGAtt"];
+    [aCoder encodeInt:_statsXPMade forKey:@"statsXPMade"];
+    [aCoder encodeInt:_statsXPAtt forKey:@"statsXPAtt"];
+}
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum {
     self = [super init];
     if (self) {

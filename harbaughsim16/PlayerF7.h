@@ -8,7 +8,7 @@
 
 #import "Player.h"
 
-@interface PlayerF7 : Player
+@interface PlayerF7 : Player <NSCoding>
 @property (nonatomic) int ratF7Pow;
 @property (nonatomic) int ratF7Rsh;
 @property (nonatomic) int ratF7Pas;
