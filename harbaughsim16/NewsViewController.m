@@ -303,15 +303,15 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"View news from a specific week" message:@"Which week would you like to see?" preferredStyle:UIAlertControllerStyleActionSheet];
     for (int i = 0; i < [HBSharedUtils getLeague].newsStories.count; i++) {
         NSString *week = @"";
-        if (i > 0 && i < 12) {
+        if (i > 0 && i <= 12) {
             week = [NSString stringWithFormat:@"Week %ld", (long)(i)];
         } else if (i == 0) {
             week = @"Preseason";
-        } else if (i == 12) {
-            week = @"Conference Championships";
         } else if (i == 13) {
-            week = @"Bowls";
+            week = @"Conference Championships";
         } else if (i == 14) {
+            week = @"Bowls";
+        } else if (i == 15) {
             week = @"National Championship";
         } else  {
             week = @"Offseason";
@@ -395,15 +395,15 @@
     
     [cell.textLabel setAttributedText:attString];
     [cell.textLabel sizeToFit];
-    if (curNewsWeek > 0 && curNewsWeek < 12) {
+    if (curNewsWeek > 0 && curNewsWeek <= 12) {
         [cell.detailTextLabel setText:[NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)]];
     } else if (curNewsWeek == 0) {
         [cell.detailTextLabel setText:@"Preseason"];
-    } else if (curNewsWeek == 12) {
-        [cell.detailTextLabel setText:@"Conference Championships"];
     } else if (curNewsWeek == 13) {
-        [cell.detailTextLabel setText:@"Bowls"];
+        [cell.detailTextLabel setText:@"Conference Championships"];
     } else if (curNewsWeek == 14) {
+        [cell.detailTextLabel setText:@"Bowls"];
+    } else if (curNewsWeek == 15) {
         [cell.detailTextLabel setText:@"National Championship"];
     } else  {
         [cell.detailTextLabel setText:@"Offseason"];

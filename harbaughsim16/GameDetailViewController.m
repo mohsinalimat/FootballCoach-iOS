@@ -358,7 +358,14 @@
             stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
             
             [statsCell.playerLabel setText:[plyr getInitialName]];
-            [statsCell.teamLabel setText:plyr.team.abbreviation];
+            
+            if (([self tableView:tableView numberOfRowsInSection:indexPath.section]/ 2) <= indexPath.row) {
+                [statsCell.teamLabel setText:selectedGame.awayTeam.abbreviation];
+            } else {
+                [statsCell.teamLabel setText:selectedGame.homeTeam.abbreviation];
+            }
+            
+            
             [statsCell.stat1Label setText:stat1];
             [statsCell.stat1ValueLabel setText:stat1Value];
             [statsCell.stat2Label setText:stat2];

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E64a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -17,11 +17,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FCFootball.png" translatesAutoresizingMaskIntoConstraints="NO" id="SEf-fk-GJj">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FCFootball.png" translatesAutoresizingMaskIntoConstraints="NO" id="SEf-fk-GJj">
                                 <rect key="frame" x="98" y="140" width="219" height="219"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football Coach" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ls5-LU-ij6">
-                                <rect key="frame" x="20" y="336" width="374" height="47"/>
+                                <rect key="frame" x="20" y="344" width="374" height="47"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -29,14 +29,14 @@
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.59215686274509804" blue="0.24705882352941178" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="SEf-fk-GJj" secondAttribute="bottom" constant="377" id="C1D-HN-ePr"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Ls5-LU-ij6" secondAttribute="bottom" constant="353" id="GOH-gN-H79"/>
-                            <constraint firstItem="SEf-fk-GJj" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="120" id="HE2-PJ-tSV"/>
-                            <constraint firstItem="Ls5-LU-ij6" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="MYV-tz-Kw3"/>
-                            <constraint firstItem="Ls5-LU-ij6" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="UPF-v3-l9l"/>
-                            <constraint firstItem="SEf-fk-GJj" firstAttribute="centerX" secondItem="Ls5-LU-ij6" secondAttribute="centerX" id="WWR-SW-7iw"/>
-                            <constraint firstItem="Ls5-LU-ij6" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="316" id="ZOD-Aa-i0C"/>
-                            <constraint firstItem="SEf-fk-GJj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="78" id="tvb-jh-zPE"/>
+                            <constraint firstItem="Ls5-LU-ij6" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="9yn-2u-LEx"/>
+                            <constraint firstItem="SEf-fk-GJj" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="120" id="Bty-zS-Z0C"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="SEf-fk-GJj" secondAttribute="bottom" constant="377" id="GvB-B5-yq8"/>
+                            <constraint firstItem="Ls5-LU-ij6" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="SJ6-9V-tYo"/>
+                            <constraint firstItem="SEf-fk-GJj" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="78" id="X0L-E6-yCn"/>
+                            <constraint firstItem="Ls5-LU-ij6" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="324" id="ZiR-R3-aj1"/>
+                            <constraint firstItem="Ls5-LU-ij6" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="h1H-Qh-bMP"/>
+                            <constraint firstItem="SEf-fk-GJj" firstAttribute="centerX" secondItem="Ls5-LU-ij6" secondAttribute="centerX" id="izH-5c-sh5"/>
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>

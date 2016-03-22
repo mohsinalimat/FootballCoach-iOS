@@ -60,6 +60,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSMutableArray *leagueYear = leagueHistory[indexPath.row];
     [self.navigationController pushViewController:[[LeagueYearViewController alloc] initWithYear:[NSString stringWithFormat:@"%ld", (2016 + indexPath.row)] top10:leagueYear] animated:YES];
 }

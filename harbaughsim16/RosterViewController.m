@@ -265,6 +265,7 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Player *player;
     if (indexPath.section == 0) {
         player = [userTeam getQB:[NSNumber numberWithInteger:indexPath.row].intValue];

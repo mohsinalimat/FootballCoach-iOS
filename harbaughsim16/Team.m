@@ -195,92 +195,125 @@
     int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, f7Needs=0;
     
     int i = 0;
-    while (i < _teamQBs.count) {
-        if ([_teamQBs[i] year] == 4) {
-            NSLog(@"Graduating senior %@ from %@", [_teamQBs[i] name], _abbreviation);
-            [_teamQBs removeObjectAtIndex:i];
-            qbNeeds++;
-        } else {
-            i++;
+    if(_teamQBs.count > 0) {
+        while (i < _teamQBs.count) {
+            if ([_teamQBs[i] year] == 4) {
+                NSLog(@"Graduating senior %@ from %@", [_teamQBs[i] name], _abbreviation);
+                [_teamQBs removeObjectAtIndex:i];
+                qbNeeds++;
+            } else {
+                i++;
+            }
         }
+    } else {
+        qbNeeds = 2;
     }
     
     i = 0;
-    while ( i < _teamRBs.count ) {
-        if ([_teamRBs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamRBs[i] name], _abbreviation);
-            [_teamRBs removeObjectAtIndex:i];
-            rbNeeds++;
-        } else {
-            i++;
+    if (_teamRBs.count > 0) {
+        while ( i < _teamRBs.count ) {
+            if ([_teamRBs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamRBs[i] name], _abbreviation);
+                [_teamRBs removeObjectAtIndex:i];
+                rbNeeds++;
+            } else {
+                i++;
+            }
         }
+    } else {
+        rbNeeds = 4;
     }
     
     i = 0;
-    while ( i < _teamWRs.count ) {
-        if ([_teamWRs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamWRs[i] name], _abbreviation);
-            [_teamWRs removeObjectAtIndex:i];
-            wrNeeds++;
-        } else {
-            i++;
+    if (_teamWRs.count > 0) {
+        while ( i < _teamWRs.count ) {
+            if ([_teamWRs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamWRs[i] name], _abbreviation);
+                [_teamWRs removeObjectAtIndex:i];
+                wrNeeds++;
+            } else {
+                i++;
+            }
         }
+    } else {
+        wrNeeds = 5;
     }
     
     i = 0;
-    while ( i < _teamKs.count ) {
-        if ([_teamKs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamKs[i] name], _abbreviation);
-            [_teamKs removeObjectAtIndex:i];
-            kNeeds++;
-        } else {
-            i++;
+    if (_teamKs.count > 0) {
+        while ( i < _teamKs.count ) {
+            if ([_teamKs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamKs[i] name], _abbreviation);
+                [_teamKs removeObjectAtIndex:i];
+                kNeeds++;
+            } else {
+                i++;
+            }
         }
+    } else {
+        kNeeds = 2;
     }
     
     i = 0;
-    while ( i < _teamOLs.count ) {
-        if ([_teamOLs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamOLs[i] name], _abbreviation);
-            [_teamOLs removeObjectAtIndex:i];
-            olNeeds++;
-        } else {
-            i++;
+    if (_teamOLs.count > 0) {
+        while ( i < _teamOLs.count ) {
+            if ([_teamOLs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamOLs[i] name], _abbreviation);
+                [_teamOLs removeObjectAtIndex:i];
+                olNeeds++;
+            } else {
+                i++;
+            }
         }
+    } else {
+        olNeeds = 7;
     }
     
     i = 0;
-    while ( i < _teamSs.count) {
-        if ([_teamSs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamSs[i] name], _abbreviation);
-            [_teamSs removeObjectAtIndex:i];
-            sNeeds++;
-        } else {
-            i++;
+    if (_teamSs.count > 0) {
+        while ( i < _teamSs.count) {
+            if ([_teamSs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamSs[i] name], _abbreviation);
+                [_teamSs removeObjectAtIndex:i];
+                sNeeds++;
+            } else {
+                i++;
+            }
         }
+    } else {
+        sNeeds = 2;
     }
     
     i = 0;
-    while ( i < _teamCBs.count ) {
-        if ([_teamCBs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamCBs[i] name], _abbreviation);
-            [_teamCBs removeObjectAtIndex:i];
-            cbNeeds++;
-        } else {
-            i++;
+    if (_teamCBs.count > 0) {
+        while ( i < _teamCBs.count ) {
+            if ([_teamCBs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamCBs[i] name], _abbreviation);
+                [_teamCBs removeObjectAtIndex:i];
+                cbNeeds++;
+            } else {
+                i++;
+            }
         }
+    } else {
+        cbNeeds = 5;
     }
     
     i = 0;
-    while ( i < _teamF7s.count ) {
-        if ([_teamF7s[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamF7s[i] name], _abbreviation);
-            [_teamF7s removeObjectAtIndex:i];
-            f7Needs++;
-        } else {
-            i++;
+    if (_teamF7s.count > 0) {
+        while ( i < _teamF7s.count ) {
+            if ([_teamF7s[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamF7s[i] name], _abbreviation);
+                [_teamF7s removeObjectAtIndex:i];
+                f7Needs++;
+            } else {
+                i++;
+            }
         }
+    } else {
+        f7Needs = 10;
     }
+    
     return @[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(f7Needs)];
 }
 
@@ -288,99 +321,131 @@
     int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, f7Needs=0;
     
     int i = 0;
-    while (i < _teamQBs.count) {
-        if ([_teamQBs[i] year] == 4) {
-            NSLog(@"Graduating senior %@ from %@", [_teamQBs[i] name], _abbreviation);
-            [_teamQBs removeObjectAtIndex:i];
-            qbNeeds++;
-        } else {
-            [_teamQBs[i] advanceSeason];
-            i++;
+    if (_teamQBs.count > 0) {
+        while (i < _teamQBs.count) {
+            if ([_teamQBs[i] year] == 4) {
+                NSLog(@"Graduating senior %@ from %@", [_teamQBs[i] name], _abbreviation);
+                [_teamQBs removeObjectAtIndex:i];
+                qbNeeds++;
+            } else {
+                [_teamQBs[i] advanceSeason];
+                i++;
+            }
         }
+    } else {
+        qbNeeds = 2;
     }
     
     i = 0;
-    while ( i < _teamRBs.count ) {
-        if ([_teamRBs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamRBs[i] name], _abbreviation);
-            [_teamRBs removeObjectAtIndex:i];
-            rbNeeds++;
-        } else {
-            [_teamRBs[i] advanceSeason];
-            i++;
+    if (_teamRBs.count > 0) {
+        while ( i < _teamRBs.count ) {
+            if ([_teamRBs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamRBs[i] name], _abbreviation);
+                [_teamRBs removeObjectAtIndex:i];
+                rbNeeds++;
+            } else {
+                [_teamRBs[i] advanceSeason];
+                i++;
+            }
         }
+    } else {
+        rbNeeds = 4;
     }
     
     i = 0;
-    while ( i < _teamWRs.count ) {
-        if ([_teamWRs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamWRs[i] name], _abbreviation);
-            [_teamWRs removeObjectAtIndex:i];
-            wrNeeds++;
-        } else {
-            [_teamWRs[i] advanceSeason];
-            i++;
+    if (_teamWRs.count > 0) {
+        while ( i < _teamWRs.count ) {
+            if ([_teamWRs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamWRs[i] name], _abbreviation);
+                [_teamWRs removeObjectAtIndex:i];
+                wrNeeds++;
+            } else {
+                [_teamWRs[i] advanceSeason];
+                i++;
+            }
         }
+    } else {
+        wrNeeds = 5;
     }
     
     i = 0;
-    while ( i < _teamKs.count ) {
-        if ([_teamKs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamKs[i] name], _abbreviation);
-            [_teamKs removeObjectAtIndex:i];
-            kNeeds++;
-        } else {
-            [_teamKs[i] advanceSeason];
-            i++;
+    if (_teamKs.count > 0) {
+        while ( i < _teamKs.count ) {
+            if ([_teamKs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamKs[i] name], _abbreviation);
+                [_teamKs removeObjectAtIndex:i];
+                kNeeds++;
+            } else {
+                [_teamKs[i] advanceSeason];
+                i++;
+            }
         }
+    } else {
+        kNeeds = 2;
     }
     
     i = 0;
-    while ( i < _teamOLs.count ) {
-        if ([_teamOLs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamOLs[i] name], _abbreviation);
-            [_teamOLs removeObjectAtIndex:i];
-            olNeeds++;
-        } else {
-            [_teamOLs[i] advanceSeason];
-            i++;
+    if (_teamOLs.count > 0) {
+        while ( i < _teamOLs.count ) {
+            if ([_teamOLs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamOLs[i] name], _abbreviation);
+                [_teamOLs removeObjectAtIndex:i];
+                olNeeds++;
+            } else {
+                [_teamOLs[i] advanceSeason];
+                i++;
+            }
         }
+    } else {
+        olNeeds = 7;
     }
     
     i = 0;
-    while ( i < _teamSs.count) {
-        if ([_teamSs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamSs[i] name], _abbreviation);
-            [_teamSs removeObjectAtIndex:i];
-            sNeeds++;
-        } else {
-            [_teamSs[i] advanceSeason];
-            i++;
+    if (_teamSs.count > 0) {
+        while ( i < _teamSs.count) {
+            if ([_teamSs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamSs[i] name], _abbreviation);
+                [_teamSs removeObjectAtIndex:i];
+                sNeeds++;
+            } else {
+                [_teamSs[i] advanceSeason];
+                i++;
+            }
         }
+    } else {
+        sNeeds = 2;
     }
     
     i = 0;
-    while ( i < _teamCBs.count ) {
-        if ([_teamCBs[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamCBs[i] name], _abbreviation);
-            [_teamCBs removeObjectAtIndex:i];
-            cbNeeds++;
-        } else {
-            [_teamCBs[i] advanceSeason];
-            i++;
+    if (_teamCBs.count > 0) {
+        while ( i < _teamCBs.count ) {
+            if ([_teamCBs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamCBs[i] name], _abbreviation);
+                [_teamCBs removeObjectAtIndex:i];
+                cbNeeds++;
+            } else {
+                [_teamCBs[i] advanceSeason];
+                i++;
+            }
         }
+    } else {
+        cbNeeds = 5;
     }
     
     i = 0;
-    while ( i < _teamF7s.count ) {
-        if ([_teamF7s[i] year] == 4 ) {
-            NSLog(@"Graduating senior %@ from %@", [_teamF7s[i] name], _abbreviation);
-            [_teamF7s removeObjectAtIndex:i];
-            f7Needs++;
-        } else {
-            [_teamF7s[i] advanceSeason];
-            i++;
+    if (_teamF7s.count > 0) {
+        while ( i < _teamF7s.count ) {
+            if ([_teamF7s[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [_teamF7s[i] name], _abbreviation);
+                [_teamF7s removeObjectAtIndex:i];
+                f7Needs++;
+            } else {
+                [_teamF7s[i] advanceSeason];
+                i++;
+            }
         }
+    } else {
+        f7Needs = 10;
     }
     
     if ( !_isUserControlled ) {
