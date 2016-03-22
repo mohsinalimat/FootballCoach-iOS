@@ -8,6 +8,7 @@
 
 #import "TeamViewController.h"
 #import "Team.h"
+#import "TeamRosterViewController.h"
 
 @interface HBTeamInfoView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
@@ -63,36 +64,70 @@
 #pragma mark - Table view data source
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0;
+    if (section == 0) {
+        return 0;
+    } else {
+        return [super tableView:tableView heightForHeaderInSection:section];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
+}
+
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 1) {
+        return @"Statistics";
+    } else {
+        return nil;
+    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return stats.count;
+    if (section == 0) {
+        return 1;
+    } else {
+        return stats.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"StatCell"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"StatCell"];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    NSArray *cellStat = stats[indexPath.row];
-    
-    NSString *stat = @"";
-    if ([HBSharedUtils getLeague].currentWeek > 0) {
-        stat = [NSString stringWithFormat:@"%@ (%@)", cellStat[0], cellStat[2]];
+    if (indexPath.section == 1) {
+        UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"StatCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"StatCell"];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        NSArray *cellStat = stats[indexPath.row];
+        
+        NSString *stat = @"";
+        if ([HBSharedUtils getLeague].currentWeek > 0) {
+            stat = [NSString stringWithFormat:@"%@ (%@)", cellStat[0], cellStat[2]];
+        } else {
+            stat = cellStat[0];
+        }
+        
+        [cell.textLabel setText:cellStat[1]];
+        [cell.detailTextLabel setText:stat];
+        return cell;
     } else {
-        stat = cellStat[0];
+        UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        [cell.textLabel setText:@"View Roster"];
+        return cell;
+
     }
-    
-    [cell.textLabel setText:cellStat[1]];
-    [cell.detailTextLabel setText:stat];
-    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0) {
+        [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
+    }
 }
 
 
