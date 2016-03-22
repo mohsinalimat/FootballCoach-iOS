@@ -41,10 +41,10 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHo-ef-G5P">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHo-ef-G5P">
                     <rect key="frame" x="33" y="410" width="348" height="49"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="49" id="s2Z-xK-mAz"/>
+                        <constraint firstAttribute="height" constant="49" id="CZE-FM-qkH"/>
                     </constraints>
                     <state key="normal" title="How to Play">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -57,6 +57,7 @@
             <color key="backgroundColor" red="0.0" green="0.59215686270000001" blue="0.24882352939999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="1Mg-0K-V1b"/>
+                <constraint firstItem="YHo-ef-G5P" firstAttribute="leading" secondItem="oWy-6d-c1z" secondAttribute="leading" id="37l-sb-ovo"/>
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CQb-tn-4yP"/>
                 <constraint firstItem="lwV-55-wVp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="98" id="DfX-bn-hlR"/>
                 <constraint firstItem="oWy-6d-c1z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="33" id="Ggn-we-C6p"/>
@@ -64,7 +65,9 @@
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="oWy-6d-c1z" secondAttribute="centerX" id="XSe-bf-qFo"/>
                 <constraint firstItem="lwV-55-wVp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="82" id="e2m-7F-Xcx"/>
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="lwV-55-wVp" secondAttribute="centerX" id="vYh-2Q-s3W"/>
+                <constraint firstItem="YHo-ef-G5P" firstAttribute="trailing" secondItem="oWy-6d-c1z" secondAttribute="trailing" id="va6-Tk-d2K"/>
                 <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="QsJ-UO-vIc" secondAttribute="bottom" constant="30" id="x97-VY-r9K"/>
+                <constraint firstItem="YHo-ef-G5P" firstAttribute="top" secondItem="oWy-6d-c1z" secondAttribute="bottom" constant="8" symbolic="YES" id="zjN-7E-JR7"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
             <point key="canvasLocation" x="333" y="420"/>
