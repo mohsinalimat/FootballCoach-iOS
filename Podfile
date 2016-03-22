@@ -8,4 +8,5 @@ pod 'HexColors'
 pod 'Whisper'
 pod 'FCFileManager'
 pod 'AutoCoding'
+pod 'STPopup'
 end

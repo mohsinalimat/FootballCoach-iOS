@@ -87,11 +87,13 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-harbaughsim16/AutoCoding.framework"
   install_framework "Pods-harbaughsim16/FCFileManager.framework"
   install_framework "Pods-harbaughsim16/HexColors.framework"
+  install_framework "Pods-harbaughsim16/STPopup.framework"
   install_framework "Pods-harbaughsim16/Whisper.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-harbaughsim16/AutoCoding.framework"
   install_framework "Pods-harbaughsim16/FCFileManager.framework"
   install_framework "Pods-harbaughsim16/HexColors.framework"
+  install_framework "Pods-harbaughsim16/STPopup.framework"
   install_framework "Pods-harbaughsim16/Whisper.framework"
 fi

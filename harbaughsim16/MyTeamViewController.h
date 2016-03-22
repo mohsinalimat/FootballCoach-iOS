@@ -10,5 +10,5 @@
 #import "FCTableViewController.h"
 
 @interface MyTeamViewController : FCTableViewController
-
+-(void)presentIntro;
 @end

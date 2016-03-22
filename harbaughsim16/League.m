@@ -97,7 +97,7 @@
     if ([FCFileManager existsItemAtPath:@"league.cfb"]) {
         League *ligue = (League*)[NSKeyedUnarchiver unarchiveObjectWithData:[FCFileManager readFileAtPathAsData:@"league.cfb"]];
          [ligue setUserTeam:ligue.userTeam];
-        NSLog(@"USERTEAM: %@", ligue.userTeam.dictionaryRepresentation);
+        //NSLog(@"USERTEAM: %@", ligue.userTeam.dictionaryRepresentation);
          [(AppDelegate*)[[UIApplication sharedApplication] delegate] setLeague:ligue];
          [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
         return YES;

@@ -12,8 +12,6 @@
 #import "harbaughsim16-swift.h"
 #import "RecruitingViewController.h"
 
-#define WHISPER_DELAY 1.0
-
 @interface HBTeamPlayView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
 @property (weak, nonatomic) IBOutlet UILabel *teamRecordLabel;
@@ -44,8 +42,6 @@
     
     [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
-    
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -62,9 +58,6 @@
         if (simLeague.currentWeek == 15) {
             simLeague.recruitingStage = 1;
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld Season Summary", (long)(2016 + userTeam.teamHistory.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
-            /*[alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                [self startRecruiting];
-            }]];*/
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alertController animated:YES completion:nil];
             
@@ -178,7 +171,7 @@
     NSLog(@"RECRUITING STAGE: %d", [HBSharedUtils getLeague].recruitingStage);
     if ([HBSharedUtils getLeague].recruitingStage == 0) {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+        //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
     } else {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
@@ -220,25 +213,6 @@
         [self presentViewController:alert animated:YES completion:nil];
     }]];
     [self presentViewController:alertController animated:YES completion:nil];
-    
-    
-    /*
-     @Override
-     public void onClick(DialogInterface dialog, int which) {
-     
-     saveLeagueFile = new File(getFilesDir(), "saveLeagueRecruiting.cfb");
-     simLeague.saveLeague(saveLeagueFile);
-     
-     //Get String of user team's players and such
-     StringBuilder sb = new StringBuilder();
-     sb.append(userTeam.conference + "," + userTeam.name + "," + userTeam.abbr + "," + userTeam.teamPrestige + "%\n");
-     sb.append(userTeam.getPlayerInfoSaveFile());
-     sb.append("END_TEAM_INFO%\n");
-     sb.append(userTeam.getRecruitsInfoSaveFile());
-     
-     }
-     });
-     */
 }
 
 - (void)viewDidLoad {
@@ -254,9 +228,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNews) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSeasonStart" object:nil];
     self.view.backgroundColor = [HBSharedUtils styleColor];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newSaveFile" object:nil];
+
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
-    [self resetSimButton];
+    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+    //[self resetSimButton];
+}
+
+-(void)reloadAll {
+    [self setupTeamHeader];
+    [self refreshNews];
 }
 
 -(void)refreshNews {
@@ -273,7 +254,7 @@
         [teamHeaderView.teamRankLabel setText:@" "];
         userTeam = [HBSharedUtils getLeague].userTeam;
     }
-    
+    userTeam = [HBSharedUtils getLeague].userTeam;
     if (userTeam) {
         NSString *rank = @"";
         if (userTeam.rankTeamPollScore < 26 && userTeam.rankTeamPollScore > 0) {

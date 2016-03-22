@@ -14,8 +14,11 @@
 #import "TeamHistoryViewController.h"
 #import "LeagueHistoryController.h"
 #import "HeismanHistoryViewController.h"
+#import "TeamStrategyViewController.h"
+#import "IntroViewController.h"
 
 #import "HexColors.h"
+#import "STPopup.h"
 
 @interface HBTeamHistoryView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
@@ -35,6 +38,14 @@
 @end
 
 @implementation MyTeamViewController
+
+
+-(void)presentIntro {
+    UINavigationController *introNav = [[UINavigationController alloc] initWithRootViewController:[[IntroViewController alloc] init]];
+    [introNav setNavigationBarHidden:YES];
+    [self.navigationController.tabBarController presentViewController:introNav animated:YES completion:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"My Team";
@@ -46,7 +57,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupTeamHeader) name:@"endedSeason" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadStats) name:@"playedWeek" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadStats) name:@"changedStrategy" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentIntro) name:@"noSaveFile" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupTeamHeader) name:@"newSaveFile" object:nil];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+    
 }
 
 -(void)saveUserTeam {
@@ -186,6 +201,18 @@
             //heisman
             [self.navigationController pushViewController:[[HeismanHistoryViewController alloc] init] animated:YES];
         }
+    } else if (indexPath.section == 0) {
+        if (indexPath.row == 0) { //offensive
+            STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:TRUE options:[[HBSharedUtils getLeague].userTeam getOffensiveTeamStrategies]]];
+            popupController.style = STPopupStyleBottomSheet;
+            [popupController presentInViewController:self];
+        } else { //defensive
+            STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:FALSE options:[[HBSharedUtils getLeague].userTeam getDefensiveTeamStrategies]]];
+            popupController.style = STPopupStyleBottomSheet;
+            [popupController presentInViewController:self];
+        }
+    } else {
+        
     }
 }
 

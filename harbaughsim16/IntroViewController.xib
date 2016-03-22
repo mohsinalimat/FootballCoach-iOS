@@ -19,32 +19,11 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="49" id="lwn-wD-ufk"/>
                     </constraints>
-                    <state key="normal" title="New Dynasty">
+                    <state key="normal" title="New Career">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="newDynasty" destination="-1" eventType="touchUpInside" id="JPO-PE-MHk"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Nf-jr-BBv">
-                    <rect key="frame" x="33" y="410" width="348" height="49"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="49" id="snI-2H-fQW"/>
-                    </constraints>
-                    <state key="normal" title="Load Dynasty">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHo-ef-G5P">
-                    <rect key="frame" x="33" y="467" width="348" height="49"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="49" id="s2Z-xK-mAz"/>
-                    </constraints>
-                    <state key="normal" title="How to Play">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="pushTutorial:" destination="-1" eventType="touchUpInside" id="z1m-ne-eBZ"/>
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FCFootball.png" translatesAutoresizingMaskIntoConstraints="NO" id="lwV-55-wVp">
@@ -62,22 +41,28 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHo-ef-G5P">
+                    <rect key="frame" x="33" y="410" width="348" height="49"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="s2Z-xK-mAz"/>
+                    </constraints>
+                    <state key="normal" title="How to Play">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="pushTutorial:" destination="-1" eventType="touchUpInside" id="z1m-ne-eBZ"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.59215686270000001" blue="0.24882352939999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="1Mg-0K-V1b"/>
-                <constraint firstItem="YHo-ef-G5P" firstAttribute="trailing" secondItem="7Nf-jr-BBv" secondAttribute="trailing" id="1R1-W1-DLF"/>
-                <constraint firstItem="7Nf-jr-BBv" firstAttribute="leading" secondItem="YHo-ef-G5P" secondAttribute="leading" id="4k5-hq-fjc"/>
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CQb-tn-4yP"/>
                 <constraint firstItem="lwV-55-wVp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="98" id="DfX-bn-hlR"/>
                 <constraint firstItem="oWy-6d-c1z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="33" id="Ggn-we-C6p"/>
-                <constraint firstItem="YHo-ef-G5P" firstAttribute="top" secondItem="7Nf-jr-BBv" secondAttribute="bottom" constant="8" symbolic="YES" id="HrE-CV-WvX"/>
                 <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="lwV-55-wVp" secondAttribute="bottom" constant="52" id="IPu-sx-hHs"/>
-                <constraint firstItem="7Nf-jr-BBv" firstAttribute="leading" secondItem="oWy-6d-c1z" secondAttribute="leading" id="O5V-we-GUO"/>
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="oWy-6d-c1z" secondAttribute="centerX" id="XSe-bf-qFo"/>
                 <constraint firstItem="lwV-55-wVp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="82" id="e2m-7F-Xcx"/>
-                <constraint firstItem="7Nf-jr-BBv" firstAttribute="top" secondItem="oWy-6d-c1z" secondAttribute="bottom" constant="8" symbolic="YES" id="lT7-C7-yUJ"/>
-                <constraint firstItem="oWy-6d-c1z" firstAttribute="trailing" secondItem="7Nf-jr-BBv" secondAttribute="trailing" id="lb0-eY-BMh"/>
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="lwV-55-wVp" secondAttribute="centerX" id="vYh-2Q-s3W"/>
                 <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="QsJ-UO-vIc" secondAttribute="bottom" constant="30" id="x97-VY-r9K"/>
             </constraints>

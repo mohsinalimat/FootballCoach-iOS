@@ -8,8 +8,10 @@
 
 #import "SettingsViewController.h"
 #import "HBSettingsCell.h"
+#import "MyTeamViewController.h"
 
 #import "HexColors.h"
+#import "FCFileManager.h"
 @import MessageUI;
 
 @interface SettingsViewController () <MFMailComposeViewControllerDelegate>
@@ -51,9 +53,9 @@
     if (section == 2) {
         return 3;
     } else if (section == 1) {
-        return 5;
+        return 6;
     } else {
-        return 1;
+        return 2;
     }
 }
 
@@ -75,6 +77,8 @@
                 [cell.textLabel setText:@"HexColors"];
             } else if (indexPath.row == 3) {
                 [cell.textLabel setText:@"Icons8"];
+            } else if (indexPath.row == 4) {
+                [cell.textLabel setText:@"STPopup"];
             } else {
                 [cell.textLabel setText:@"Whisper"];
             }
@@ -89,16 +93,26 @@
         }
         return cell;
     } else {
-        HBSettingsCell *setCell = (HBSettingsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBSettingsCell"];
         if (indexPath.row == 0) {
+            HBSettingsCell *setCell = (HBSettingsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBSettingsCell"];
             BOOL notifsOn = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
             [setCell.settingSwitch setOnTintColor:[HBSharedUtils styleColor]];
             [setCell.settingSwitch setOn:notifsOn];
             [setCell.titleLabel setText:@"In App Notifications"];
             [setCell.settingSwitch addTarget:self action:@selector(changeNotificationSettings:) forControlEvents:UIControlEventValueChanged];
+            
+            return setCell;
+        } else {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+                cell.backgroundColor = [UIColor whiteColor];
+                [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
+                [cell.textLabel setTextColor:[UIColor redColor]];
+            }
+            [cell.textLabel setText:@"Delete Save File"];
+            return cell;
         }
-        
-        return setCell;
     }
 }
 
@@ -136,6 +150,9 @@
         } else if (indexPath.row == 3) {
             //[cell.textLabel setText:@"Icons8"];
             url = @"http://icons8.com";
+        } else if (indexPath.row == 4) {
+            //[cell.textLabel setText:@"Icons8"];
+            url = @"https://github.com/kevin0571/STPopup";
         } else {
             //[cell.textLabel setText:@"Whisper"];
             url = @"https://github.com/hyperoslo/Whisper";
@@ -171,7 +188,28 @@
 
         }
     } else {
-        
+        if (indexPath.row == 1) {
+            NSLog(@"Delete save File");
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete your save file and start your career over?" message:@"This will take you back to the Team Selection screen." preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+                BOOL success = [FCFileManager removeItemAtPath:@"league.cfb"];
+                if (success) {
+                    [HBSharedUtils getLeague].userTeam = nil;
+                    
+                    [self dismissViewControllerAnimated:YES completion:^{
+                       // [((MyTeamViewController*)self.presentingViewController) performSelector:@selector(presentIntro) withObject:nil afterDelay:0.1];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"noSaveFile" object:nil];
+                    }];
+                    
+                } else {
+                    NSLog(@"ERROR");
+                }
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        }
     }
 }
 

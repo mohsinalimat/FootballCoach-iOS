@@ -44,6 +44,7 @@
             [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
             [league save];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
             [self dismissViewControllerAnimated:YES completion:nil];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];

@@ -138,6 +138,7 @@
     [self.navigationItem setRightBarButtonItem:addButton];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(scrollToPositionGroup)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSeasonStart" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSaveFile" object:nil];
 }
 
 -(void)dealloc {
@@ -145,6 +146,7 @@
 }
 
 -(void)reloadRoster {
+    userTeam = [HBSharedUtils getLeague].userTeam;
     [self.tableView reloadData];
 }
 

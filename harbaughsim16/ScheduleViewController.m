@@ -45,7 +45,14 @@
     [self setupTeamHeader];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSchedule) name:@"playedWeek" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSchedule) name:@"newSeasonStart" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newSaveFile" object:nil];
+
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+}
+
+-(void)reloadAll {
+    [self reloadSchedule];
+    [self setupTeamHeader];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -77,6 +84,7 @@
 }
 
 -(void)reloadSchedule {
+    userTeam = [HBSharedUtils getLeague].userTeam;
     schedule = [[HBSharedUtils getLeague].userTeam.gameSchedule copy];
     [self.tableView reloadData];
     [self setupTeamHeader];

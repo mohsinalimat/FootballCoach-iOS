@@ -17,6 +17,7 @@
 #import "League.h"
 
 #import "HexColors.h"
+#import "STPopup.h"
 
 #define kHBSimFirstLaunchKey @"firstLaunch"
 
@@ -96,6 +97,11 @@
     
     [[UIToolbar appearance] setBarTintColor:[HBSharedUtils styleColor]];
     [[UIToolbar appearance] setTintColor:[UIColor whiteColor]];
+    
+    [STPopupNavigationBar appearance].barTintColor = [HBSharedUtils styleColor];
+    [STPopupNavigationBar appearance].tintColor = [UIColor whiteColor];
+    [STPopupNavigationBar appearance].barStyle = UIBarStyleDefault;
+    
 }
 
 @end
