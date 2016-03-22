@@ -36,9 +36,9 @@
         [super setEditing:NO animated:NO];
         [self.tableView setEditing:NO animated:NO];
         [self.tableView reloadData];
-        for (int i = 0; i < self.tableView.numberOfSections; i++) {
+        /*for (int i = 0; i < self.tableView.numberOfSections; i++) {
             
-        }
+        }*/
         [self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
         [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
     } else {

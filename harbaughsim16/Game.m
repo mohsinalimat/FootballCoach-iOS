@@ -109,6 +109,9 @@
         _AwayWR1Stats = [aDecoder decodeObjectForKey:@"AwayWR1Stats"];
         _AwayWR2Stats = [aDecoder decodeObjectForKey:@"AwayWR2Stats"];
         _AwayWR3Stats = [aDecoder decodeObjectForKey:@"AwayWR3Stats"];
+        
+        _HomeKStats = [aDecoder decodeObjectForKey:@"HomeKStats"];
+        _AwayKStats = [aDecoder decodeObjectForKey:@"AwayKStats"];
     }
     return self;
 }
