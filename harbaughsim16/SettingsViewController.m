@@ -7,6 +7,7 @@
 //
 
 #import "SettingsViewController.h"
+#import "HBSettingsCell.h"
 
 #import "HexColors.h"
 @import MessageUI;
@@ -33,6 +34,7 @@
     
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+    [self.tableView registerNib:[UINib nibWithNibName:@"HBSettingsCell" bundle:nil] forCellReuseIdentifier:@"HBSettingsCell"];
 }
 
 -(void)dismissVC {
@@ -41,51 +43,72 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
+    if (section == 2) {
         return 3;
-    } else {
+    } else if (section == 1) {
         return 2;
+    } else {
+        return 1;
     }
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-        cell.backgroundColor = [UIColor whiteColor];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            [cell.textLabel setText:@"HexColors"];
-        } else if (indexPath.row == 1) {
-            [cell.textLabel setText:@"Whisper"];
-        } else {
-            [cell.textLabel setText:@"Icons8"];
+    if (indexPath.section == 1 || indexPath.section == 2) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+            cell.backgroundColor = [UIColor whiteColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
+        
+        if (indexPath.section == 1) {
+            if (indexPath.row == 0) {
+                [cell.textLabel setText:@"HexColors"];
+            } else if (indexPath.row == 1) {
+                [cell.textLabel setText:@"Whisper"];
+            } else {
+                [cell.textLabel setText:@"Icons8"];
+            }
+        } else {
+            if (indexPath.row == 0) {
+                [cell.textLabel setText:@"Developer's Website"];
+            } else {
+                [cell.textLabel setText:@"Email Developer"];
+            }
+        }
+        return cell;
     } else {
+        HBSettingsCell *setCell = (HBSettingsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBSettingsCell"];
         if (indexPath.row == 0) {
-            [cell.textLabel setText:@"Developer's Website"];
-        } else {
-            [cell.textLabel setText:@"Email Developer"];
+            BOOL notifsOn = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
+            [setCell.settingSwitch setOnTintColor:[HBSharedUtils styleColor]];
+            [setCell.settingSwitch setOn:notifsOn];
+            [setCell.titleLabel setText:@"In App Notifications"];
+            [setCell.settingSwitch addTarget:self action:@selector(changeNotificationSettings:) forControlEvents:UIControlEventValueChanged];
         }
+        
+        return setCell;
     }
-    return cell;
+}
+
+-(void)changeNotificationSettings:(UISwitch*)sender {
+    [[NSUserDefaults standardUserDefaults] setBool:sender.isOn forKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) return @"Libraries Used in this App";
-    else return @"Support";
+    if (section == 1) return @"Libraries Used in this App";
+    else if (section == 2) return @"Support";
+    else return @"Options";
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (section == 1)
+    if (section == 2)
         return [NSString stringWithFormat:@"Version %@ (%@)\nCopyright (c) 2016 Akshay Easwaran.",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
     else
         return nil;
@@ -93,7 +116,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0) {
+    if (indexPath.section == 1) {
         NSString *url;
         if (indexPath.row == 0) {
             url = @"https://github.com/mRs-/HexColors";
@@ -109,7 +132,7 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         }]];
         [self presentViewController:alert animated:YES completion:nil];
-    } else {
+    } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
@@ -124,6 +147,8 @@
             [composer setSubject:[NSString stringWithFormat:@"Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
             [self presentViewController:composer animated:YES completion:nil];
         }
+    } else {
+        
     }
 }
 

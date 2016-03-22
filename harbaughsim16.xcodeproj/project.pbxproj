@@ -11,6 +11,8 @@
 		7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */; };
 		7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */; };
 		7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */; };
+		751DF8201CA17F81003C62F2 /* HBSettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF81E1CA17F81003C62F2 /* HBSettingsCell.m */; };
+		751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */; };
 		755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC461C9DD0DF001A8314 /* HBStatsCell.m */; };
 		755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC471C9DD0DF001A8314 /* HBStatsCell.xib */; };
 		755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC4B1C9DEDF0001A8314 /* HBPlayerCell.m */; };
@@ -101,6 +103,9 @@
 		7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailViewController.m; sourceTree = "<group>"; };
 		7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		751DF81D1CA17F81003C62F2 /* HBSettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBSettingsCell.h; sourceTree = "<group>"; };
+		751DF81E1CA17F81003C62F2 /* HBSettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBSettingsCell.m; sourceTree = "<group>"; };
+		751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBSettingsCell.xib; sourceTree = "<group>"; };
 		755BBC451C9DD0DF001A8314 /* HBStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBStatsCell.h; sourceTree = "<group>"; };
 		755BBC461C9DD0DF001A8314 /* HBStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBStatsCell.m; sourceTree = "<group>"; };
 		755BBC471C9DD0DF001A8314 /* HBStatsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBStatsCell.xib; sourceTree = "<group>"; };
@@ -286,6 +291,9 @@
 				75E10F241CA0E0270000DA78 /* HeismanHistoryViewController.xib */,
 				7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */,
 				7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */,
+				751DF81D1CA17F81003C62F2 /* HBSettingsCell.h */,
+				751DF81E1CA17F81003C62F2 /* HBSettingsCell.m */,
+				751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */,
 			);
 			name = "My Team";
 			sourceTree = "<group>";
@@ -572,6 +580,7 @@
 				75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */,
 				755BBC591C9E0A1B001A8314 /* FCIcon1024.png in Resources */,
 				755BBC621C9E0A1B001A8314 /* Icon-Spotlight-40@3x.png in Resources */,
+				751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */,
 				75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */,
 				75A86C991C9C7C0C0034140C /* recruit-selected@3x.png in Resources */,
 				755BBC611C9E0A1B001A8314 /* Icon-Spotlight-40@2x.png in Resources */,
@@ -660,6 +669,7 @@
 				75E10F2A1CA0E0330000DA78 /* LeagueYearViewController.m in Sources */,
 				7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */,
 				7571DD411C9D032F00E67080 /* PlayerDetailViewController.m in Sources */,
+				751DF8201CA17F81003C62F2 /* HBSettingsCell.m in Sources */,
 				75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */,
 				75924A6D1C99E66E00B165AD /* PlayerF7.m in Sources */,
 				75924A231C99CCC000B165AD /* AppDelegate.m in Sources */,

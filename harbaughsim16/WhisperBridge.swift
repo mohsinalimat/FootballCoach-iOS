@@ -21,7 +21,12 @@ import Whisper
     }
     
     static public func shout(title: String, message: String, toViewController: UIViewController) {
-        let announcement = Announcement(title: title, subtitle: message)
-        Shout(announcement, to: toViewController)
+        let notifsOn = NSUserDefaults.standardUserDefaults().boolForKey("inAppNotifs");
+        if (notifsOn) {
+            let announcement = Announcement(title: title, subtitle: message)
+            Shout(announcement, to: toViewController)
+        } else {
+            NSLog("NOTIFS OFF");
+        }
     }
 }
