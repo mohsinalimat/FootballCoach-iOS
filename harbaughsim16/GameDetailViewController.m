@@ -271,7 +271,7 @@
                     plyrStats = qbStats[@"homeQBStats"];
                 } else {
                     plyr = qbStats[@"awayQB"];
-                    plyrStats = qbStats[@"homeQBStats"];
+                    plyrStats = qbStats[@"awayQBStats"];
                 }
                 stat1 = @"C/A"; //comp/att, yds, td, int
                 stat2 = @"Yds";

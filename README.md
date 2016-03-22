@@ -1,7 +1,7 @@
 # Football Coach for iOS
 An iOS Port of https://github.com/jonesguy14/footballcoach.
 
-**NOTE**: As of March 22, 2016, this repo is at a semi-working status. The app can now simulate multiple seasons, but is still missing some vital functions like persisting game files. Please check back later to see if this project is in a release state.
+**NOTE**: As of March 22, 2016, this repo is at a working status! The iOS version now matches most, if not all, of the [Android version]'s features.
 
 _The original README of FootballCoach is below._
 
@@ -110,7 +110,9 @@ When you press "Begin Recruiting" after the season, you can see who is leaving y
 
 ###Saving:
 
-In Football Coach, you can save your game at any time during the season. HOWEVER, since so much data is generated during the course of the season, Save Games are only saved FROM THE BEGINNING OF THE SEASON. For example, if you play through 5 games of the 2017 season, save your game, and then load it back up later, your game will start back at the beginning of the 2017 season.
+~~In Football Coach, you can save your game at any time during the season. HOWEVER, since so much data is generated during the course of the season, Save Games are only saved FROM THE BEGINNING OF THE SEASON. For example, if you play through 5 games of the 2017 season, save your game, and then load it back up later, your game will start back at the beginning of the 2017 season.~~
+
+The iOS version saves after each week is played and at the start of a new season, so you can pick up right where you left off!
 
 ###Donations:
 Football Coach is not monetized and I have no plans to do so. I love college football and seeing people use my app is all the encouragement I need. But if you love the app and you would like to let me know, you can donate via PayPal:
