@@ -18,12 +18,20 @@
         _ratPassPow = [aDecoder decodeIntForKey:@"ratPassPow"];
         _ratPassAcc = [aDecoder decodeIntForKey:@"ratPassAcc"];
         _ratPassEva = [aDecoder decodeIntForKey:@"ratPassEva"];
+        
         _statsPassAtt = [aDecoder decodeIntForKey:@"statsPassAtt"];
         _statsPassComp = [aDecoder decodeIntForKey:@"statsPassComp"];
         _statsTD = [aDecoder decodeIntForKey:@"statsTD"];
         _statsInt = [aDecoder decodeIntForKey:@"statsInt"];
         _statsPassYards = [aDecoder decodeIntForKey:@"statsPassYards"];
         _statsSacked = [aDecoder decodeIntForKey:@"statsSacked"];
+        
+        //_careerStatsPassAtt = [aDecoder decodeIntForKey:@"careerStatsPassAtt"];
+        //_careerStatsPassComp = [aDecoder decodeIntForKey:@"careerStatsPassComp"];
+        //_careerStatsTD = [aDecoder decodeIntForKey:@"careerStatsTD"];
+        //_careerStatsInt = [aDecoder decodeIntForKey:@"careerStatsInt"];
+        //_careerStatsPassYards = [aDecoder decodeIntForKey:@"careerStatsPassYards"];
+        //_careerStatsSacked = [aDecoder decodeIntForKey:@"careerStatsSacked"];
     }
     return self;
 }
@@ -34,12 +42,20 @@
     [aCoder encodeInt:_ratPassPow forKey:@"ratPassPow"];
     [aCoder encodeInt:_ratPassAcc forKey:@"ratPassAcc"];
     [aCoder encodeInt:_ratPassEva forKey:@"ratPassEva"];
+    
     [aCoder encodeInt:_statsPassComp forKey:@"statsPassComp"];
     [aCoder encodeInt:_statsSacked forKey:@"statsSacked"];
     [aCoder encodeInt:_statsPassYards forKey:@"statsPassYards"];
     [aCoder encodeInt:_statsInt forKey:@"statsInt"];
     [aCoder encodeInt:_statsTD forKey:@"statsTD"];
     [aCoder encodeInt:_statsPassAtt forKey:@"statsPassAtt"];
+    
+    //[aCoder encodeInt:_careerStatsPassComp forKey:@"careerStatsPassComp"];
+    //[aCoder encodeInt:_careerStatsSacked forKey:@"careerStatsSacked"];
+    //[aCoder encodeInt:_careerStatsPassYards forKey:@"careerStatsPassYards"];
+    //[aCoder encodeInt:_careerStatsInt forKey:@"careerStatsInt"];
+    //[aCoder encodeInt:_careerStatsTD forKey:@"careerStatsTD"];
+    //[aCoder encodeInt:_careerStatsPassAtt forKey:@"careerStatsPassAtt"];
 }
 
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc eva:(int)eva {
@@ -67,13 +83,19 @@
         [self.ratingsVector addObject:@(self.ratPassEva)];
         
         
-        
         _statsPassAtt = 0;
         _statsPassComp = 0;
         _statsTD = 0;
         _statsInt = 0;
         _statsPassYards = 0;
         _statsSacked = 0;
+        
+        //_careerStatsPassAtt = 0;
+        //_careerStatsPassComp = 0;
+        //_careerStatsTD = 0;
+        //_careerStatsInt = 0;
+        //_careerStatsPassYards = 0;
+        //_careerStatsSacked = 0;
         
         self.position = @"QB";
     }
@@ -111,6 +133,13 @@
         _statsPassYards = 0;
         _statsSacked = 0;
         
+        //_careerStatsPassAtt = 0;
+        //_careerStatsPassComp = 0;
+        //_careerStatsTD = 0;
+        //_careerStatsInt = 0;
+        //_careerStatsPassYards = 0;
+        //_careerStatsSacked = 0;
+        
         self.position = @"QB";
     }
     return self;
@@ -122,20 +151,6 @@
 
 +(instancetype)newQBWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t {
     return [[PlayerQB alloc] initWithName:nm year:yr stars:stars team:t];
-}
-
--(NSMutableArray*)getStatsVector {
-    NSMutableArray* v = [NSMutableArray array];
-    [v addObject:@(self.statsPassComp)];
-    [v addObject:@(self.statsPassAtt)];
-    [v addObject:@((float)((int)((float)self.statsPassComp/self.statsPassAtt*1000))/10)];
-    [v addObject:@(self.statsTD)];
-    [v addObject:@(self.statsInt)];
-    [v addObject:@(self.statsPassYards)];
-    [v addObject:@(self.statsPassYards)];
-    [v addObject:@((float)((int)((float)self.statsPassYards/self.statsPassAtt*100))/100)];
-    [v addObject:@(self.statsSacked)];
-    return v;
 }
 
 -(NSMutableArray*)getRatingsVector {
@@ -167,6 +182,14 @@
     self.ratOvr = (_ratPassPow*3 + _ratPassAcc*4 + _ratPassEva)/8;
     self.ratImprovement = self.ratOvr - oldOvr;
     //reset stats (keep career stats?)
+    
+    //self.careerStatsPassAtt += self.statsPassAtt;
+    //self.careerStatsTD += self.statsTD;
+    //self.careerStatsPassComp += self.statsPassComp;
+    //self.careerStatsInt += self.statsInt;
+    //self.careerStatsSacked += self.statsSacked;
+    //self.careerStatsPassYards += self.statsPassYards;
+    
     self.statsPassAtt = 0;
     self.statsPassComp = 0;
     self.statsTD = 0;
@@ -210,6 +233,38 @@
     
     return [stats copy];
 }
+/*
+-(NSDictionary*)careerStats:(int)games {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    
+    [stats setObject:[NSString stringWithFormat:@"%d",_careerStatsPassComp] forKey:@"completions"];
+    [stats setObject:[NSString stringWithFormat:@"%d",_careerStatsPassAtt] forKey:@"attempts"];
+    [stats setObject:[NSString stringWithFormat:@"%d yds",_careerStatsPassYards] forKey:@"passYards"];
+    
+    int compPercent = 0;
+    if (_careerStatsPassYards > 0) {
+        compPercent = (int)(100.0*((double)_careerStatsPassComp/(double)_careerStatsPassAtt));
+    }
+    [stats setObject:[NSString stringWithFormat:@"%d%%",compPercent] forKey:@"completionPercentage"];
+    
+    int ypa = 0;
+    if (_careerStatsPassAtt > 0) {
+        ypa = (int)((double)_careerStatsPassYards/(double)_careerStatsPassAtt);
+    }
+    [stats setObject:[NSString stringWithFormat:@"%d yards/att",ypa] forKey:@"yardsPerAttempt"];
+    
+    int ypg = 0;
+    if (games > 0) {
+        ypg = (int)((double)_careerStatsPassYards/(double)games);
+    }
+    [stats setObject:[NSString stringWithFormat:@"%d yards/gm",ypg] forKey:@"yardsPerGame"];
+    
+    [stats setObject:[NSString stringWithFormat:@"%d TDs",_careerStatsTD] forKey:@"touchdowns"];
+    [stats setObject:[NSString stringWithFormat:@"%d INTs",_careerStatsInt] forKey:@"interceptions"];
+    
+    
+    return [stats copy];
+}*/
 
 -(NSDictionary*)detailedRatings {
     NSMutableDictionary *stats = [NSMutableDictionary dictionary];

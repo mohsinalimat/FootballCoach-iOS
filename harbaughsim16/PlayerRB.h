@@ -21,7 +21,13 @@
 @property (nonatomic) int statsRushYards;
 @property (nonatomic) int statsTD;
 @property (nonatomic) int statsFumbles;
--(NSMutableArray*)getStatsVector;
+
+//@property (nonatomic) int careerStatsRushAtt;
+//@property (nonatomic) int careerStatsRushYards;
+//@property (nonatomic) int careerStatsTD;
+//@property (nonatomic) int careerStatsFumbles;
+
+
 +(instancetype)newRBWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow speed:(int)spd eva:(int)eva;
 +(instancetype)newRBWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t;
 

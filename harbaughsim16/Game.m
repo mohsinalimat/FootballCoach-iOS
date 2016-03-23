@@ -468,7 +468,13 @@
     NSString *yardsNeedAdj = [NSString stringWithFormat:@"%ld",(long)gameYardsNeed];
     
     if (gameYardLine + gameYardsNeed >= 100) yardsNeedAdj = @"Goal";
-    return [NSString stringWithFormat:@"\n\n%@ %ld - %ld %@, Time: %@,\n\t%@ %ld and %@ at %ld yard line.\n",_homeTeam.abbreviation,(long)_homeScore,(long)_awayScore,_awayTeam.abbreviation, [self convGameTime],possStr,(long)gameDown,yardsNeedAdj,(long)gameYardLine];
+    int gameDownAdj = 0;
+    if (gameDown > 4) {
+        gameDown = 4;
+    } else {
+        gameDownAdj = gameDown;
+    }
+    return [NSString stringWithFormat:@"\n\n%@ %ld - %ld %@, Time: %@,\n\t%@ %ld and %@ at %ld yard line.\n",_homeTeam.abbreviation,(long)_homeScore,(long)_awayScore,_awayTeam.abbreviation, [self convGameTime],possStr,(long)gameDownAdj,yardsNeedAdj,(long)gameYardLine];
 }
 
 -(NSString*)convGameTime {
@@ -675,6 +681,9 @@
     if ( gameDown > 4 ) {
         gamePoss = !gamePoss;
         gameDown = 1;
+        gameYardsNeed = 10;
+        gameYardLine = 100 - gameYardLine;
+        //[gameEventLog appendFormat:@"TURNOVER ON DOWNS\n%@ gets the ball on %dst down after %@ failed to convert on 4th down",defense.abbreviation, gameDown, offense.abbreviation];
     }
     double preferPass = ([offense getPassProf]*2 - [defense getPassDef]) *[HBSharedUtils randomValue] - 10;
     double preferRush = ([offense getRushProf]*2 - [defense getRushDef]) *[HBSharedUtils randomValue] + offense.offensiveStrategy.rushYdBonus;
@@ -795,6 +804,9 @@
             wrStat = [NSNumber numberWithInteger:wrStat.integerValue + 1];
             [selWRStats replaceObjectAtIndex:4 withObject:wrStat];
             selWR.statsDrops++;
+            [self passAttempt:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
+            gameTime -= (15*[HBSharedUtils randomValue]);
+            return;
         } else {
             //no drop
             yardsGain = (int) (( [self normalize:[offense getQB:0].ratPassPow] + [self normalize:selWR.ratRecSpd] - [self normalize:selCB.ratCBSpd] )* [HBSharedUtils randomValue]/3.7 + offense.offensiveStrategy.passYdBonus/2 - defense.defensiveStrategy.passYdBonus);
@@ -841,7 +853,10 @@
         
     } else {
         //no completion, advance downs
+        [self passAttempt:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
         gameDown++;
+        gameTime -= (15 * [HBSharedUtils randomValue]);
+        return;
     }
     
     //passAttempt(offense, selWR, selWRStats, yardsGain);
@@ -863,11 +878,15 @@
         }
         gamePoss = !gamePoss;
         gameYardLine = 100 - gameYardLine;
+        gameTime -= (15 * [HBSharedUtils randomValue]);
+        return;
     }
     
     if ( gotTD ) {
+        gameTime -= (15 * [HBSharedUtils randomValue]);
         [self kickXP:offense defense:defense];
         [self kickOff:offense];
+        return;
     }
     
     gameTime -= 15 + 15* [HBSharedUtils randomValue];
@@ -1017,8 +1036,6 @@
         }
          [gameEventLog appendString:[NSString stringWithFormat:@"%@ %@ K %@ made the %d yard FG.",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (110-gameYardLine)]];
         [self addPointsQuarter:3];
-        //offense.teamPoints += 3;
-        //defense.teamOppPoints += 3;
         [offense getK:0].statsFGMade++;
         [offense getK:0].statsFGAtt++;
         [self kickOff:offense];
@@ -1031,7 +1048,7 @@
         gameYardLine = 100 - gameYardLine;
         gameDown = 1;
         gameYardsNeed = 10;
-        gamePoss = !gamePoss;
+        
         if ( gamePoss ) { // home possession
             NSNumber *kStat1 = _HomeKStats[3];
             kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
@@ -1041,6 +1058,7 @@
             kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
             [_AwayKStats replaceObjectAtIndex:3 withObject:kStat1];
         }
+        gamePoss = !gamePoss;
     }
     
     gameTime -= 20;
@@ -1113,6 +1131,16 @@
             [offense getK:0].statsXPMade++;
         } else {
             [gameEventLog appendString:[NSString stringWithFormat:@"%@ %@ %@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+            
+            if ( gamePoss ) { // home possession
+                NSNumber *kStat2 = _HomeKStats[1];
+                kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                [_HomeKStats replaceObjectAtIndex:1 withObject:kStat2];
+            } else {
+                NSNumber *kStat2 = _AwayKStats[1];
+                kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
+            }
         }
         [offense getK:0].statsXPAtt++;
     }
@@ -1160,7 +1188,6 @@
     [offense getQB:0].statsSacked++;
     gameYardsNeed += 3;
     gameYardLine -= 3;
-    gameDown++;
     if ( gamePoss ) { // home possession
         NSNumber *qbSack = _HomeQBStats[5];
         qbSack = [NSNumber numberWithInteger:qbSack.integerValue + 1];
@@ -1173,8 +1200,11 @@
     
     if (gameYardLine < 0) {
         // Safety!
+        gameTime -= (10*[HBSharedUtils randomValue]);
         [self safety];
     }
+    
+    gameTime -= (25 + (10*[HBSharedUtils randomValue]));
 }
 
 -(void)safety {
