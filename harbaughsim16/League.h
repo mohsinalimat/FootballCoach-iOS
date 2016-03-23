@@ -71,5 +71,6 @@
 -(void)setTeamRanks;
 -(NSArray*)getTeamRankingsStr:(int)selection;
 -(void)save;
+-(void)advanceSeasonForAllExceptUser;
 
 @end

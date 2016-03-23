@@ -56,7 +56,7 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupTeamHeader) name:@"endedSeason" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newSeasonStart" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadStats) name:@"playedWeek" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"playedWeek" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadStats) name:@"changedStrategy" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentIntro) name:@"noSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newSaveFile" object:nil];

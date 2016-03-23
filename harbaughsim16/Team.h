@@ -126,7 +126,7 @@
 -(void)advanceSeasonPlayers;
 -(void)recruitPlayers:(NSArray*)needs;
 -(void)recruitPlayersFreshman:(NSArray*)needs;
--(void)recruitWalkOns;
+-(void)recruitWalkOns:(NSArray*)needs;
 -(void)recruitPlayersFromString:(NSString *)playerStr;
 -(void)recruitPlayerCSV:(NSString*)line;
 -(void)resetStats;
@@ -185,4 +185,5 @@
 -(NSArray*)getTeamStatsArray;
 -(void)setStarters:(NSArray<Player*>*)starters position:(int)position;
 -(NSArray*)graduateSeniorsAndGetTeamNeeds;
+-(void)simulateRecruitingSeason;
 @end

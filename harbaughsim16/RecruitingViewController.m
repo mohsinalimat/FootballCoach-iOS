@@ -23,6 +23,7 @@
 #import "PlayerS.h"
 
 #define TUTORIAL_SHOWN @"kHBTutorialShownKey"
+#import "CSNotificationView.h"
 
 @interface RecruitingViewController ()
 {
@@ -51,7 +52,7 @@
     NSInteger needWRs;
     NSInteger needOLs;
     NSInteger needKs;
-    NSInteger needSs;
+    NSInteger needsS;
     NSInteger needCBs;
     NSInteger needF7s;
     
@@ -141,7 +142,7 @@
     needOLs = [needs[4] intValue];
     needF7s  = [needs[7] intValue];
     needCBs  = [needs[6] intValue];
-    needSs = [needs[5] intValue];
+    needsS = [needs[5] intValue];
     needKs = [needs[3] intValue];
 }
 
@@ -232,7 +233,6 @@
     }
     
     [self reloadRecruits];
-    [self updatePositionNeeds];
     players = availAll;
     
     //display tutorial alert on first launch
@@ -250,7 +250,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finishRecruiting)];
     //[self.navigationItem.rightBarButtonItem setEnabled:NO];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissVC)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
     
     self.title = [NSString stringWithFormat:@"Budget: $%d",recruitingBudget];
     
@@ -416,19 +416,19 @@
         }
     }
     
-    if (needSs > 0) {
-        if (needSs > 1) {
-            [summary appendFormat:@"Need %ld Ss\n\n",(long)needSs];
+    if (needsS > 0) {
+        if (needsS > 1) {
+            [summary appendFormat:@"Need %ld Ss\n\n",(long)needsS];
         } else {
-            [summary appendFormat:@"Need %ld S\n\n",(long)needSs];
+            [summary appendFormat:@"Need %ld S\n\n",(long)needsS];
         }
     }
     
     if (needKs > 0) {
         if (needKs > 1) {
-            [summary appendFormat:@"Need %ld Ks\n\n",(long)needKs];
+            [summary appendFormat:@"Need %ld Ks",(long)needKs];
         } else {
-            [summary appendFormat:@"Need %ld K\n\n",(long)needKs];
+            [summary appendFormat:@"Need %ld K",(long)needKs];
         }
     }
     
@@ -436,18 +436,6 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
-}
-
--(void)updatePositionNeeds {
-    /*needQBs = 2  - [HBSharedUtils getLeague].userTeam.teamQBs.count;
-    needRBs = 4  - [HBSharedUtils getLeague].userTeam.teamRBs.count;
-    needWRs = 6  - [HBSharedUtils getLeague].userTeam.teamWRs.count;
-    needOLs = 10 - [HBSharedUtils getLeague].userTeam.teamOLs.count;
-    needKs  = 2  - [HBSharedUtils getLeague].userTeam.teamKs.count;
-    needSs  = 2  - [HBSharedUtils getLeague].userTeam.teamSs.count;
-    needCBs = 6  - [HBSharedUtils getLeague].userTeam.teamCBs.count;
-    needF7s = 14 - [HBSharedUtils getLeague].userTeam.teamF7s.count;*/
-    [self.tableView reloadData];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -604,7 +592,7 @@
                 [availSs removeObject:player];
             }
             [[HBSharedUtils getLeague].userTeam.teamSs addObject:(PlayerS*)player];
-            needSs--;
+            needsS--;
         } else { // PlayerK class
             if ([availKs containsObject:player]) {
                 [availKs removeObject:player];
@@ -615,11 +603,10 @@
         
         [[HBSharedUtils getLeague].userTeam sortPlayers];
         
-        [self updatePositionNeeds];
         [self reloadRecruits];
         [self.tableView reloadData];
         
-        [WhisperBridge shout:@"New Recruit!" message:[NSString stringWithFormat:@"Recruited %@ %@ (Ovr: %d) to %@!",player.position, player.name, player.ratOvr, [HBSharedUtils getLeague].userTeam.abbreviation] toViewController:self];
+        [CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"Recruited %@ %@ (Ovr: %d) to %@!",player.position, player.name, player.ratOvr, [HBSharedUtils getLeague].userTeam.abbreviation] duration:0.5];
         self.title = [NSString stringWithFormat:@"Budget: $%d",recruitingBudget];
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Coach, you don't have enough money in your budget to recruit this player! Try recruiting a cheaper one instead." preferredStyle:UIAlertControllerStyleAlert];
@@ -634,11 +621,76 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [[HBSharedUtils getLeague] updateLeagueHistory];
         [[HBSharedUtils getLeague] updateTeamHistories];
+        
+        
+        if (needQBs > 2) {
+            needQBs = 2;
+        } else {
+            if ([HBSharedUtils getLeague].userTeam.teamQBs.count >= 2) {
+                needQBs = 0;
+            }
+        }
+        
+        if (needRBs > 4) {
+            needRBs = 4;
+        } else {
+            if ([HBSharedUtils getLeague].userTeam.teamRBs.count >= 4) {
+                needRBs = 0;
+            }
+        }
+        
+        if (needWRs > 6) {
+            needWRs = 6;
+        } else {
+            if ([HBSharedUtils getLeague].userTeam.teamWRs.count >= 6) {
+                needWRs = 0;
+            }
+        }
+        
+        if (needKs > 2) {
+            needKs = 2;
+        } else {
+            if ([HBSharedUtils getLeague].userTeam.teamKs.count >= 2) {
+                needKs = 0;
+            }
+        }
+        
+        if (needOLs > 10) {
+            needOLs = 10;
+        } else {
+            if ([HBSharedUtils getLeague].userTeam.teamOLs.count >= 10) {
+                needOLs = 0;
+            }
+        }
+        
+        if (needsS > 2) {
+            needsS = 2;
+        } else {
+            if ([HBSharedUtils getLeague].userTeam.teamSs.count >= 2) {
+                needsS = 0;
+            }
+        }
+        
+        if (needCBs > 6) {
+            needCBs = 6;
+        } else {
+            if ([HBSharedUtils getLeague].userTeam.teamCBs.count >= 6) {
+                needCBs = 0;
+            }
+        }
+        
+        if (needF7s > 14) {
+            needF7s = 14;
+        } else {
+            if ([HBSharedUtils getLeague].userTeam.teamF7s.count >= 14) {
+                needF7s = 0;
+            }
+        }
+        
+        [[HBSharedUtils getLeague].userTeam recruitPlayersFreshman:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needsS), @(needCBs), @(needF7s)]];
         [[HBSharedUtils getLeague].userTeam resetStats];
-        [[HBSharedUtils getLeague].userTeam recruitPlayersFreshman:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needSs), @(needCBs), @(needF7s)]];
         [[HBSharedUtils getLeague] advanceSeason];
         [HBSharedUtils getLeague].recruitingStage = 0;
-        NSLog(@"SIM RECRUITING");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
@@ -700,19 +752,19 @@
         }
     }
     
-    if (needSs > 0) {
-        if (needSs > 1) {
-            [summary appendFormat:@"Need %ld Ss\n\n",(long)needSs];
+    if (needsS > 0) {
+        if (needsS > 1) {
+            [summary appendFormat:@"Need %ld Ss\n\n",(long)needsS];
         } else {
-            [summary appendFormat:@"Need %ld S\n\n",(long)needSs];
+            [summary appendFormat:@"Need %ld S\n\n",(long)needsS];
         }
     }
     
     if (needKs > 0) {
         if (needKs > 1) {
-            [summary appendFormat:@"Need %ld Ks\n\n",(long)needKs];
+            [summary appendFormat:@"Need %ld Ks",(long)needKs];
         } else {
-            [summary appendFormat:@"Need %ld K\n\n",(long)needKs];
+            [summary appendFormat:@"Need %ld K",(long)needKs];
         }
     }
     
@@ -722,11 +774,6 @@
         return a.ratOvr > b.ratOvr ? -1 : a.ratOvr == b.ratOvr ? 0 : 1;
     }];
     
-    NSMutableString *recruitSummary = [NSMutableString string];
-    
-    for (Player *p in playersRecruited) {
-        [recruitSummary appendFormat:@"%@ %@ (Ovr: %d, Pot: %d)\n", p.position, p.name, p.ratOvr, p.ratPot];
-    }
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you are done recruiting?" message:summary preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -736,14 +783,24 @@
         [[HBSharedUtils getLeague] updateTeamHistories];
         [[HBSharedUtils getLeague].userTeam resetStats];
         [[HBSharedUtils getLeague] advanceSeason];
-        [[HBSharedUtils getLeague].userTeam recruitWalkOns];
+        [[HBSharedUtils getLeague].userTeam recruitWalkOns:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needsS), @(needCBs), @(needF7s)]];
         [HBSharedUtils getLeague].recruitingStage = 0;
         [[HBSharedUtils getLeague] save];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@'s %ld Recruiting Class",[HBSharedUtils getLeague].userTeam.abbreviation, (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] message:recruitSummary preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
-        [self.presentingViewController presentViewController:alert animated:YES completion:nil];
+        
+        if (playersRecruited.count > 0) {
+            NSMutableString *recruitSummary = [NSMutableString string];
+            
+            for (Player *p in playersRecruited) {
+                [recruitSummary appendFormat:@"%@ %@ (Ovr: %d, Pot: %d)\n", p.position, p.name, p.ratOvr, p.ratPot];
+            }
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@'s %ld Recruiting Class",[HBSharedUtils getLeague].userTeam.abbreviation, (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] message:recruitSummary preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+            [self.presentingViewController presentViewController:alert animated:YES completion:nil];
+        }
+    
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];

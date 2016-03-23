@@ -5,8 +5,8 @@ use_frameworks!
 
 target 'harbaughsim16' do
 pod 'HexColors'
-pod 'Whisper'
 pod 'FCFileManager'
 pod 'AutoCoding'
 pod 'STPopup'
+pod 'CSNotificationView'
 end

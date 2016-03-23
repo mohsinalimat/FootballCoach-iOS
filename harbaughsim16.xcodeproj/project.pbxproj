@@ -75,6 +75,7 @@
 		75924A671C99E65E00B165AD /* PlayerS.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A661C99E65E00B165AD /* PlayerS.m */; };
 		75924A6A1C99E66700B165AD /* PlayerCB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A691C99E66700B165AD /* PlayerCB.m */; };
 		75924A6D1C99E66E00B165AD /* PlayerF7.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A6C1C99E66E00B165AD /* PlayerF7.m */; };
+		75A41B4C1CA311CF00025E53 /* close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A41B4B1CA311CF00025E53 /* close@3x.png */; };
 		75A86C881C9C790D0034140C /* FCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A86C871C9C790D0034140C /* FCTableViewController.m */; };
 		75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C891C9C7AA80034140C /* news@3x.png */; };
 		75A86C901C9C7AA80034140C /* roster@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C8B1C9C7AA80034140C /* roster@3x.png */; };
@@ -104,7 +105,7 @@
 		7510B8481C9C76C900BE9CD6 /* GameDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDetailViewController.h; sourceTree = "<group>"; };
 		7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailViewController.m; sourceTree = "<group>"; };
 		7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SettingsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		751DF81D1CA17F81003C62F2 /* HBSettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBSettingsCell.h; sourceTree = "<group>"; };
 		751DF81E1CA17F81003C62F2 /* HBSettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBSettingsCell.m; sourceTree = "<group>"; };
 		751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBSettingsCell.xib; sourceTree = "<group>"; };
@@ -128,7 +129,7 @@
 		755BBC631C9E0A85001A8314 /* FCFootball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCFootball.png; sourceTree = "<group>"; };
 		755BBC6C1C9E423B001A8314 /* NewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsViewController.xib; sourceTree = "<group>"; };
 		755BBC731C9E4D34001A8314 /* harbaughsim16-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "harbaughsim16-Bridging-Header.h"; sourceTree = "<group>"; };
-		755BBC741C9E4D35001A8314 /* WhisperBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhisperBridge.swift; sourceTree = "<group>"; };
+		755BBC741C9E4D35001A8314 /* WhisperBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = WhisperBridge.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		755BBC761C9E5930001A8314 /* RecruitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitingViewController.h; sourceTree = "<group>"; };
 		755BBC771C9E5930001A8314 /* RecruitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecruitingViewController.m; sourceTree = "<group>"; };
 		755BBC791C9F5F1A001A8314 /* TeamSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamSearchViewController.h; sourceTree = "<group>"; };
@@ -204,6 +205,7 @@
 		75924A691C99E66700B165AD /* PlayerCB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerCB.m; sourceTree = "<group>"; };
 		75924A6B1C99E66E00B165AD /* PlayerF7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerF7.h; sourceTree = "<group>"; };
 		75924A6C1C99E66E00B165AD /* PlayerF7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerF7.m; sourceTree = "<group>"; };
+		75A41B4B1CA311CF00025E53 /* close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@3x.png"; sourceTree = "<group>"; };
 		75A86C861C9C790D0034140C /* FCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCTableViewController.h; sourceTree = "<group>"; };
 		75A86C871C9C790D0034140C /* FCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCTableViewController.m; sourceTree = "<group>"; };
 		75A86C891C9C7AA80034140C /* news@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "news@3x.png"; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 		75A86C9F1C9C7CAA0034140C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				75A41B4B1CA311CF00025E53 /* close@3x.png */,
 				755BBC631C9E0A85001A8314 /* FCFootball.png */,
 				755BBC4F1C9E0A1B001A8314 /* FCIcon1024.png */,
 				755BBC511C9E0A1B001A8314 /* Icon-60@2x.png */,
@@ -580,6 +583,7 @@
 				755BBC5C1C9E0A1B001A8314 /* Icon-60@3x.png in Resources */,
 				7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */,
 				7571DD221C9CC62400E67080 /* news-sort@3x.png in Resources */,
+				75A41B4C1CA311CF00025E53 /* close@3x.png in Resources */,
 				7571DD281C9CC9A000E67080 /* ScheduleViewController.xib in Resources */,
 				755BBC4E1C9DEDF0001A8314 /* HBPlayerCell.xib in Resources */,
 				7571DD461C9D34B300E67080 /* RosterViewController.xib in Resources */,

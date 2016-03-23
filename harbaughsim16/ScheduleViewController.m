@@ -13,7 +13,7 @@
 #import "RecruitingViewController.h"
 
 #import "HexColors.h"
-#import "harbaughsim16-Swift.h"
+#import "CSNotificationView.h"
 
 @interface HBTeamView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
@@ -153,7 +153,12 @@
                 
             } else if (userTeam.gameWLSchedule.count > numGamesPlayed) {
                 // Played a game, show summary - show notification
-                [WhisperBridge shout:[NSString stringWithFormat:@"Week %d Update", simLeague.currentWeek] message:[userTeam weekSummaryString] toViewController:self];
+                NSString *gameSummary = [userTeam weekSummaryString];
+                if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                    [CSNotificationView showInViewController:self tintColor:[UIColor hx_colorWithHexRGBAString:@"#d7191c"] image:nil message:[NSString stringWithFormat:@"Week %ld Update - %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] duration:0.5];
+                } else {
+                    [CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"Week %ld Update - %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] duration:0.5];
+                }
                 
             }
             
@@ -163,15 +168,14 @@
                 if (!nextGame.hasPlayed) {
                     NSString *weekGameName = nextGame.gameName;
                     if ([weekGameName isEqualToString:@"NCG"]) {
-                        [WhisperBridge shout:@"Congratulations!" message:[NSString stringWithFormat:@"%@ was invited to the National Championship Game!",userTeam.name] toViewController:self];
+                        [CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"%@ was invited to the National Championship Game!",userTeam.name] duration:0.5];
                     } else {
-                        [WhisperBridge shout:@"Congratulations!" message:[NSString stringWithFormat:@"%@ was invited to the %@!",userTeam.name, weekGameName] toViewController:self];
+                        [CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"%@ was invited to the %@!",userTeam.name, weekGameName] duration:0.5];
                     }
                 } else if (simLeague.currentWeek == 12) {
-                    [WhisperBridge shout:@"Postseason Update" message:[NSString stringWithFormat:@"%@ was not invited to the %@ CCG.",userTeam.name,userTeam.conference] toViewController:self];
+                    [CSNotificationView showInViewController:self tintColor:[UIColor hx_colorWithHexRGBAString:@"#d7191c"] image:nil message:[NSString stringWithFormat:@"%@ was not invited to the %@ CCG.",userTeam.name,userTeam.conference] duration:0.5];
                 } else if (simLeague.currentWeek == 13) {
-                    //Toast.makeText(MainActivity.this, userTeam.name + " was not invited to a bowl game.", Toast.LENGTH_SHORT).show();
-                    [WhisperBridge shout:@"Postseason Update" message:[NSString stringWithFormat:@"%@ was not invited to a bowl game.",userTeam.name] toViewController:self];
+                    [CSNotificationView showInViewController:self tintColor:[UIColor hx_colorWithHexRGBAString:@"#d7191c"] image:nil message:[NSString stringWithFormat:@"%@ was not invited to a bowl game",userTeam.name] duration:0.5];
                     
                 }
             }
@@ -192,7 +196,6 @@
                 [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
             } else {
                 [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
-                [WhisperBridge shout:@"Offseason Update" message:@"Recruiting is now available!" toViewController:self];
             }
             
             [self reloadSchedule];
@@ -223,9 +226,8 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [[HBSharedUtils getLeague] updateLeagueHistory];
             [[HBSharedUtils getLeague] updateTeamHistories];
-            [userTeam resetStats];
-            [userTeam recruitPlayersFreshman:[userTeam graduateSeniorsAndGetTeamNeeds]];
-            [[HBSharedUtils getLeague] advanceSeason];
+            [userTeam simulateRecruitingSeason];
+            [[HBSharedUtils getLeague] advanceSeasonForAllExceptUser];
             [HBSharedUtils getLeague].recruitingStage = 0;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
             [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];

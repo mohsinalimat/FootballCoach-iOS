@@ -22,77 +22,6 @@
 
 @implementation Team
 @synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,teamStreaks,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls;
-/*
-- (NSArray *)propertyKeys
-{
-    NSMutableArray *array = [NSMutableArray array];
-    Class class = [self class];
-    while (class != [NSObject class])
-    {
-        unsigned int propertyCount;
-        objc_property_t *properties = class_copyPropertyList(class, &propertyCount);
-        for (int i = 0; i < propertyCount; i++)
-        {
-            //get property
-            objc_property_t property = properties[i];
-            const char *propertyName = property_getName(property);
-            NSString *key = [NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding];
-            
-            //check if read-only
-            BOOL readonly = NO;
-            const char *attributes = property_getAttributes(property);
-            NSString *encoding = [NSString stringWithCString:attributes encoding:NSUTF8StringEncoding];
-            if ([[encoding componentsSeparatedByString:@","] containsObject:@"R"])
-            {
-                readonly = YES;
-                
-                //see if there is a backing ivar with a KVC-compliant name
-                NSRange iVarRange = [encoding rangeOfString:@",V"];
-                if (iVarRange.location != NSNotFound)
-                {
-                    NSString *iVarName = [encoding substringFromIndex:iVarRange.location + 2];
-                    if ([iVarName isEqualToString:key] ||
-                        [iVarName isEqualToString:[@"_" stringByAppendingString:key]])
-                    {
-                        //setValue:forKey: will still work
-                        readonly = NO;
-                    }
-                }
-            }
-            
-            if (!readonly)
-            {
-                //exclude read-only properties
-                [array addObject:key];
-            }
-        }
-        free(properties);
-        class = [class superclass];
-    }
-    return array;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{
-    if ((self = [self init]))
-    {
-        for (NSString *key in [self propertyKeys])
-        {
-            id value = [aDecoder decodeObjectForKey:key];
-            [self setValue:value forKey:key];
-        }
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)aCoder
-{
-    for (NSString *key in [self propertyKeys])
-    {
-        id value = [self valueForKey:key];
-        [aCoder encodeObject:value forKey:key];
-    }
-}*/
 
 +(instancetype)newTeamWithName:(NSString *)nm abbreviation:(NSString *)abbr conference:(NSString *)conf league:(League *)league prestige:(int)prestige rivalTeam:(NSString *)rivalTeamAbbr {
     return [[Team alloc] initWithName:nm abbreviation:abbr conference:conf league:league prestige:prestige rivalTeam:rivalTeamAbbr];
@@ -246,7 +175,7 @@
             i++;
         }
     } else {
-        wrNeeds = 5;
+        wrNeeds = 6;
     }
     
     i = 0;
@@ -274,7 +203,7 @@
             i++;
         }
     } else {
-        olNeeds = 7;
+        olNeeds = 10;
     }
     
     i = 0;
@@ -302,7 +231,7 @@
             i++;
         }
     } else {
-        cbNeeds = 5;
+        cbNeeds = 6;
     }
     
     i = 0;
@@ -316,10 +245,146 @@
             i++;
         }
     } else {
-        f7Needs = 10;
+        f7Needs = 14;
     }
     
     return @[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(f7Needs)];
+}
+
+-(void)simulateRecruitingSeason {
+    int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, f7Needs=0;
+    
+    int i = 0;
+    if (teamQBs.count > 0) {
+        while (i < teamQBs.count) {
+            if ([teamQBs[i] year] == 4) {
+                NSLog(@"Graduating senior %@ from %@", [teamQBs[i] name], abbreviation);
+                [teamQBs removeObjectAtIndex:i];
+                qbNeeds++;
+            } else {
+                [teamQBs[i] advanceSeason];
+                i++;
+            }
+        }
+    } else {
+        qbNeeds = 2;
+    }
+    
+    i = 0;
+    if (teamRBs.count > 0) {
+        while ( i < teamRBs.count ) {
+            if ([teamRBs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [teamRBs[i] name], abbreviation);
+                [teamRBs removeObjectAtIndex:i];
+                rbNeeds++;
+            } else {
+                [teamRBs[i] advanceSeason];
+                i++;
+            }
+        }
+    } else {
+        rbNeeds = 4;
+    }
+    
+    i = 0;
+    if (teamWRs.count > 0) {
+        while ( i < teamWRs.count ) {
+            if ([teamWRs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [teamWRs[i] name], abbreviation);
+                [teamWRs removeObjectAtIndex:i];
+                wrNeeds++;
+            } else {
+                [teamWRs[i] advanceSeason];
+                i++;
+            }
+        }
+    } else {
+        wrNeeds = 5;
+    }
+    
+    i = 0;
+    if (teamKs.count > 0) {
+        while ( i < teamKs.count ) {
+            if ([teamKs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [teamKs[i] name], abbreviation);
+                [teamKs removeObjectAtIndex:i];
+                kNeeds++;
+            } else {
+                [teamKs[i] advanceSeason];
+                i++;
+            }
+        }
+    } else {
+        kNeeds = 2;
+    }
+    
+    i = 0;
+    if (teamOLs.count > 0) {
+        while ( i < teamOLs.count ) {
+            if ([teamOLs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [teamOLs[i] name], abbreviation);
+                [teamOLs removeObjectAtIndex:i];
+                olNeeds++;
+            } else {
+                [teamOLs[i] advanceSeason];
+                i++;
+            }
+        }
+    } else {
+        olNeeds = 7;
+    }
+    
+    i = 0;
+    if (teamSs.count > 0) {
+        while ( i < teamSs.count) {
+            if ([teamSs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [teamSs[i] name], abbreviation);
+                [teamSs removeObjectAtIndex:i];
+                sNeeds++;
+            } else {
+                [teamSs[i] advanceSeason];
+                i++;
+            }
+        }
+    } else {
+        sNeeds = 2;
+    }
+    
+    i = 0;
+    if (teamCBs.count > 0) {
+        while ( i < teamCBs.count ) {
+            if ([teamCBs[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [teamCBs[i] name], abbreviation);
+                [teamCBs removeObjectAtIndex:i];
+                cbNeeds++;
+            } else {
+                [teamCBs[i] advanceSeason];
+                i++;
+            }
+        }
+    } else {
+        cbNeeds = 5;
+    }
+    
+    i = 0;
+    if (teamF7s.count > 0) {
+        while ( i < teamF7s.count ) {
+            if ([teamF7s[i] year] == 4 ) {
+                NSLog(@"Graduating senior %@ from %@", [teamF7s[i] name], abbreviation);
+                [teamF7s removeObjectAtIndex:i];
+                f7Needs++;
+            } else {
+                [teamF7s[i] advanceSeason];
+                i++;
+            }
+        }
+    } else {
+        f7Needs = 10;
+    }
+    
+    [self recruitPlayersFreshman:@[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(f7Needs)]];
+    [self resetStats];
+    
 }
 
 -(void)advanceSeasonPlayers {
@@ -565,6 +630,72 @@
     cbNeeds = [needs[6] intValue];
     f7Needs = [needs[7] intValue];
     
+    if (qbNeeds > 2) {
+        qbNeeds = 2;
+    } else {
+        if (teamQBs.count >= 2) {
+            qbNeeds = 0;
+        }
+    }
+    
+    if (rbNeeds > 4) {
+        rbNeeds = 4;
+    } else {
+        if (teamRBs.count >= 4) {
+            rbNeeds = 0;
+        }
+    }
+    
+    if (wrNeeds > 6) {
+        wrNeeds = 6;
+    } else {
+        if (teamWRs.count >= 6) {
+            wrNeeds = 0;
+        }
+    }
+    
+    if (kNeeds > 2) {
+        kNeeds = 2;
+    } else {
+        if (teamKs.count >= 2) {
+            kNeeds = 0;
+        }
+    }
+    
+    if (olNeeds > 10) {
+        olNeeds = 10;
+    } else {
+        if (teamOLs.count >= 10) {
+            olNeeds = 0;
+        }
+    }
+    
+    if (sNeeds > 2) {
+        sNeeds = 2;
+    } else {
+        if (teamSs.count >= 2) {
+            sNeeds = 0;
+        }
+    }
+    
+    if (cbNeeds > 6) {
+        cbNeeds = 6;
+    } else {
+        if (teamCBs.count >= 6) {
+            cbNeeds = 0;
+        }
+    }
+    
+    if (f7Needs > 14) {
+        f7Needs = 14;
+    } else {
+        if (teamF7s.count >= 14) {
+            f7Needs = 0;
+        }
+    }
+    
+    NSLog(@"RECRUITING: %d QBs, %d RBs, %d WRs, %d OLs, %d Ks, %d F7, %d CBs, %d Ss", qbNeeds, rbNeeds,wrNeeds,olNeeds,kNeeds,f7Needs,cbNeeds,sNeeds);
+    
     
     int stars = teamPrestige/20 + 1;
     int chance = 20 - (teamPrestige - 20*( teamPrestige/20 )); //between 0 and 20
@@ -646,69 +777,126 @@
 
 }
 
--(void)recruitWalkOns {
-    int needs = 2 - [NSNumber numberWithInteger:teamQBs.count].intValue;
-    for( int i = 0; i < needs; ++i ) {
+-(void)recruitWalkOns:(NSArray*)needs {
+    int qbNeeds, rbNeeds, wrNeeds, kNeeds, olNeeds, sNeeds, cbNeeds, f7Needs = 0;
+    qbNeeds = [needs[0] intValue];
+    rbNeeds = [needs[1] intValue];
+    wrNeeds = [needs[2] intValue];
+    kNeeds = [needs[3] intValue];
+    olNeeds = [needs[4] intValue];
+    sNeeds = [needs[5] intValue];
+    cbNeeds = [needs[6] intValue];
+    f7Needs = [needs[7] intValue];
+    
+    if (qbNeeds > 2) {
+        qbNeeds = 2;
+    } else {
+        if (teamQBs.count >= 2) {
+            qbNeeds = 0;
+        }
+    }
+    
+    if (rbNeeds > 4) {
+        rbNeeds = 4;
+    } else {
+        if (teamRBs.count >= 4) {
+            rbNeeds = 0;
+        }
+    }
+    
+    if (wrNeeds > 6) {
+        wrNeeds = 6;
+    } else {
+        if (teamWRs.count >= 6) {
+            wrNeeds = 0;
+        }
+    }
+    
+    if (kNeeds > 2) {
+        kNeeds = 2;
+    } else {
+        if (teamKs.count >= 2) {
+            kNeeds = 0;
+        }
+    }
+    
+    if (olNeeds > 10) {
+        olNeeds = 10;
+    } else {
+        if (teamOLs.count >= 10) {
+            olNeeds = 0;
+        }
+    }
+    
+    if (sNeeds > 2) {
+        sNeeds = 2;
+    } else {
+        if (teamSs.count >= 2) {
+            sNeeds = 0;
+        }
+    }
+    
+    if (cbNeeds > 6) {
+        cbNeeds = 6;
+    } else {
+        if (teamCBs.count >= 6) {
+            cbNeeds = 0;
+        }
+    }
+    
+    if (f7Needs > 14) {
+        f7Needs = 14;
+    } else {
+        if (teamF7s.count >= 14) {
+            f7Needs = 0;
+        }
+    }
+    
+    NSLog(@"WALKONS: %d QBs, %d RBs, %d WRs, %d OLs, %d Ks, %d F7, %d CBs, %d Ss", qbNeeds, rbNeeds,wrNeeds,olNeeds,kNeeds,f7Needs,cbNeeds,sNeeds);
+    for( int i = 0; i < qbNeeds; ++i ) {
         //make QBs
         //teamQBs.add( new PlayerQB(league.getRandName(), 1, 2, this) );
-        [teamQBs addObject:[PlayerQB newQBWithName:[league getRandName] year:1 stars:2 team:self]];
+        [teamQBs addObject:[PlayerQB newQBWithName:[league getRandName] year:1 stars:1 team:self]];
     }
     
-    needs = 4 - [NSNumber numberWithInteger:teamRBs.count].intValue;
-    for( int i = 0; i < needs; ++i ) {
+
+    for( int i = 0; i < rbNeeds; ++i ) {
         //make RBs
-        [teamRBs addObject:[PlayerRB newRBWithName:[league getRandName] year:1 stars:2 team:self]];
+        [teamRBs addObject:[PlayerRB newRBWithName:[league getRandName] year:1 stars:1 team:self]];
     }
     
-    needs = 6 - [NSNumber numberWithInteger:teamWRs.count].intValue;
-    for( int i = 0; i < needs; ++i ) {
+    for( int i = 0; i < wrNeeds; ++i ) {
         //make WRs
-        [teamWRs addObject:[PlayerWR newWRWithName:[league getRandName] year:1 stars:2 team:self]];
+        [teamWRs addObject:[PlayerWR newWRWithName:[league getRandName] year:1 stars:1 team:self]];
     }
     
-    needs = 10 - [NSNumber numberWithInteger:teamOLs.count].intValue;
-    for( int i = 0; i < needs; ++i ) {
+    for( int i = 0; i < olNeeds; ++i ) {
         //make OLs
-        [teamOLs addObject:[PlayerOL newOLWithName:[league getRandName] year:1 stars:2 team:self]];
+        [teamOLs addObject:[PlayerOL newOLWithName:[league getRandName] year:1 stars:1 team:self]];
     }
     
-    needs = 2 - [NSNumber numberWithInteger:teamKs.count].intValue;
-    for( int i = 0; i < needs; ++i ) {
+    for( int i = 0; i < kNeeds; ++i ) {
         //make Ks
-        [teamKs addObject:[PlayerK newKWithName:[league getRandName] year:1 stars:2 team:self]];
+        [teamKs addObject:[PlayerK newKWithName:[league getRandName] year:1 stars:1 team:self]];
     }
     
-    needs = 2 - [NSNumber numberWithInteger:teamSs.count].intValue;
-    for( int i = 0; i < needs; ++i ) {
+    for( int i = 0; i < sNeeds; ++i ) {
         //make Ss
-        [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:1 stars:2]];
+        [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:1 stars:1]];
     }
     
-    needs = 6 - [NSNumber numberWithInteger:teamCBs.count].intValue;
-    for( int i = 0; i < needs; ++i ) {
+    for( int i = 0; i < cbNeeds; ++i ) {
         //make CBs
-        [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:1 stars:2]];
+        [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:1 stars:1]];
     }
     
-    needs = 14 - [NSNumber numberWithInteger:teamF7s.count].intValue;
-    for( int i = 0; i < needs; ++i ) {
+    for( int i = 0; i < f7Needs; ++i ) {
         //make F7s
         [teamF7s addObject:[PlayerF7 newF7WithName:[league getRandName] year:1 stars:2 team:self]];
     }
     
     //done making players, sort them
     [self sortPlayers];
-}
-
--(void)recruitPlayersFromString:(NSString *)playerStr {
-    NSArray *players = [playerStr componentsSeparatedByString:@"\n"];
-    for (NSString *p in players) {
-        [self recruitPlayerCSV:p];
-    }
-}
-
--(void)recruitPlayerCSV:(NSString*)line {
-    
 }
 
 -(void)resetStats {
@@ -955,9 +1143,10 @@
 -(int)getCompositeF7Pass {
     int compositeF7 = 0;
     for ( int i = 0; i < 7; ++i ) {
-        compositeF7 += (teamF7s[i].ratF7Pow + teamF7s[i].ratF7Pas)/2;
+        PlayerF7 *curF7 = teamF7s[i];
+        compositeF7 += ((curF7.ratF7Pow + curF7.ratF7Pas)/2);
     }
-    return compositeF7 / 7;
+    return (compositeF7 / 7);
 }
 
 -(int)getCompositeF7Rush {

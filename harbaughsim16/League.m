@@ -78,23 +78,24 @@
 -(void)save {
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         if([FCFileManager existsItemAtPath:@"league.cfb"]) {
+            NSError *error;
+            BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:[NSKeyedArchiver archivedDataWithRootObject:self] error:&error];
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:[NSKeyedArchiver archivedDataWithRootObject:self]];
                 if (success) {
                     NSLog(@"Save was successful");
                 } else {
-                    NSLog(@"Something went wrong on save");
+                    NSLog(@"Something went wrong on save: %@", error.localizedDescription);
                 }
             });
-            
         } else {
+            //Run UI Updates
+            NSError *error;
+            BOOL success = [FCFileManager createFileAtPath:@"league.cfb" withContent:[NSKeyedArchiver archivedDataWithRootObject:self] error:&error];
             dispatch_async(dispatch_get_main_queue(), ^(void){
-                //Run UI Updates
-                BOOL success = [FCFileManager createFileAtPath:@"league.cfb" withContent:[NSKeyedArchiver archivedDataWithRootObject:self]];
                 if (success) {
                     NSLog(@"Create and Save were successful");
                 } else {
-                    NSLog(@"Something went wrong on create and save");
+                    NSLog(@"Something went wrong on create and save: %@", error.localizedDescription);
                 }
             });
         }
@@ -278,98 +279,6 @@
     }
     return self;
 }
-/*
--(instancetype)initWithSaveFile:(NSString*)saveFileName names:(NSString*)nameCSV {
-    self = [super init];
-    if (self) {
-        _recruitingStage = 0;
-        heismanDecided = NO;
-        _hasScheduledBowls = NO;
-        //NSString *line = nil;
-        _currentWeek = 0;
-        //NSError *error;
-        NSString *line = [NSString stringWithContentsOfFile:saveFileName encoding:NSUTF8StringEncoding error:&error];
-        if (line) {
-            //Next get league history
-            _leagueHistory = [NSMutableArray array];
-            while((line = bufferedReader.readLine()) != null && !line.equals("END_LEAGUE_HIST")) {
-                leagueHistory.add(line.split("%"));
-            }
-            
-            //Next get heismans
-            heismanHistory = new ArrayList<String>();
-            while((line = bufferedReader.readLine()) != null && !line.equals("END_HEISMAN_HIST")) {
-                heismanHistory.add(line);
-            }
-            
-            //Next make all the teams
-            conferences = new ArrayList<Conference>();
-            teamList = new ArrayList<Team>();
-            conferences.add( new Conference("SOUTH", this) );
-            conferences.add( new Conference("LAKES", this) );
-            conferences.add( new Conference("NORTH", this) );
-            conferences.add( new Conference("COWBY", this) );
-            conferences.add( new Conference("PACIF", this) );
-            conferences.add( new Conference("MOUNT", this) );
-            String[] splits;
-            for(int i = 0; i < 60; ++i) { //Do for every team (60)
-                StringBuilder sbTeam = new StringBuilder();
-                while((line = bufferedReader.readLine()) != null && !line.equals("END_PLAYERS")) {
-                    sbTeam.append(line);
-                }
-                Team t = new Team(sbTeam.toString(), this);
-                conferences.get( getConfNumber(t.conference) ).confTeams.add(t);
-                teamList.add(t);
-            }
-            
-            //Set up user team
-            if ((line = bufferedReader.readLine()) != null) {
-                for (Team t : teamList) {
-                    if (t.name.equals(line)) {
-                        userTeam = t;
-                        userTeam.userControlled = true;
-                    }
-                }
-            }
-            while((line = bufferedReader.readLine()) != null && !line.equals("END_USER_TEAM")) {
-                userTeam.teamHistory.add(line);
-            }
-        }
-        
-        
-        //read names from file
-        nameList = new ArrayList<String>();
-        String[] namesSplit = namesCSV.split(",");
-        for (String n : namesSplit) {
-            nameList.add(n.trim());
-        }
-        
-        //set up schedule
-        for (int i = 0; i < conferences.size(); ++i ) {
-            conferences.get(i).setUpSchedule();
-        }
-        for (int i = 0; i < conferences.size(); ++i ) {
-            conferences.get(i).setUpOOCSchedule();
-        }
-        for (int i = 0; i < conferences.size(); ++i ) {
-            conferences.get(i).insertOOCSchedule();
-        }
-        
-        // Initialize new stories lists
-        newsStories = new ArrayList< ArrayList<String> >();
-        for (int i = 0; i < 16; ++i) {
-            newsStories.add(new ArrayList<String>());
-        }
-        newsStories.get(0).add("New Season!>Ready for the new season, coach? Whether the National Championship is " +
-                               "on your mind, or just a winning season, good luck!");
-        
-        
- 
-    }
-    return self;
-}
-*/
-
 
 -(int)getConfNumber:(NSString*)conf {
     if ([conf isEqualToString:@"SOUTH"]) return 0;
@@ -589,6 +498,56 @@
     }
     [_leagueHistory addObject:yearTop10];
 }
+
+-(void)advanceSeasonForAllExceptUser {
+    _currentWeek = 0;
+    
+    // Bless a random team with lots of prestige
+    int blessNumber = (int)([HBSharedUtils randomValue]*9);
+    Team *blessTeam = _teamList[50 + blessNumber];
+    if (!blessTeam.isUserControlled) {
+        blessTeam.teamPrestige += 30;
+        if (blessTeam.teamPrestige > 90) blessTeam.teamPrestige = 90;
+    }
+    
+    //Curse a good team
+    int curseNumber = (int)([HBSharedUtils randomValue]*7);
+    Team *curseTeam = _teamList[3 + curseNumber];
+    if (!curseTeam.isUserControlled && curseTeam.teamPrestige > 85) {
+        curseTeam.teamPrestige -= 20;
+    }
+    
+    
+    for (int t = 0; t < _teamList.count; ++t) {
+        if (![_teamList[t] isEqual:_userTeam]) {
+            [_teamList[t] advanceSeason];
+        }
+    }
+    for (int c = 0; c < _conferences.count; ++c) {
+        _conferences[c].robinWeek = 0;
+        _conferences[c].week = 0;
+    }
+    //set up schedule
+    for (int i = 0; i < _conferences.count; ++i ) {
+        [_conferences[i] setUpSchedule];
+    }
+    for (int i = 0; i < _conferences.count; ++i ) {
+        [_conferences[i] setUpOOCSchedule];
+    }
+    for (int i = 0; i < _conferences.count; ++i ) {
+        [_conferences[i] insertOOCSchedule];
+    }
+    
+    _hasScheduledBowls = false;
+    heismanDecided = NO;
+    [_bowlGames removeAllObjects];
+    
+    for (NSMutableArray *week in _newsStories) {
+        [week removeAllObjects];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+}
+
 
 -(void)advanceSeason {
     _currentWeek = 0;

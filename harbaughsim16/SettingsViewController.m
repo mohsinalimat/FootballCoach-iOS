@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Settings";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:self action:@selector(dismissVC)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
     
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
@@ -80,15 +80,15 @@
             if (indexPath.row == 0) {
                 [cell.textLabel setText:@"AutoCoding"];
             } else if (indexPath.row == 1) {
-                [cell.textLabel setText:@"FCFileManager"];
+                [cell.textLabel setText:@"CSNotificationView"];
             } else if (indexPath.row == 2) {
-                [cell.textLabel setText:@"HexColors"];
+                [cell.textLabel setText:@"FCFileManager"];
             } else if (indexPath.row == 3) {
-                [cell.textLabel setText:@"Icons8"];
+                [cell.textLabel setText:@"HexColors"];
             } else if (indexPath.row == 4) {
-                [cell.textLabel setText:@"STPopup"];
+                [cell.textLabel setText:@"Icons8"];
             } else {
-                [cell.textLabel setText:@"Whisper"];
+                [cell.textLabel setText:@"STPopup"];
             }
         } else {
             if (indexPath.row == 0) {
@@ -151,19 +151,19 @@
             url = @"https://github.com/nicklockwood/AutoCoding";
         } else if (indexPath.row == 1) {
             //[cell.textLabel setText:@"FCFileManager"];
-            url = @"https://github.com/fabiocaccamo/FCFileManager";
+            url = @"https://github.com/problame/CSNotificationView";
         } else if (indexPath.row == 2) {
+            //[cell.textLabel setText:@"FCFileManager"];
+            url = @"https://github.com/fabiocaccamo/FCFileManager";
+        } else if (indexPath.row == 3) {
             //[cell.textLabel setText:@"HexColors"];
             url = @"https://github.com/mRs-/HexColors";
-        } else if (indexPath.row == 3) {
-            //[cell.textLabel setText:@"Icons8"];
-            url = @"http://icons8.com";
         } else if (indexPath.row == 4) {
             //[cell.textLabel setText:@"Icons8"];
-            url = @"https://github.com/kevin0571/STPopup";
+            url = @"http://icons8.com";
         } else {
-            //[cell.textLabel setText:@"Whisper"];
-            url = @"https://github.com/hyperoslo/Whisper";
+            //[cell.textLabel setText:@"Icons8"];
+            url = @"https://github.com/kevin0571/STPopup";
         }
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
