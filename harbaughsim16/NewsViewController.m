@@ -9,7 +9,6 @@
 #import "NewsViewController.h"
 #import "Team.h"
 #import "Game.h"
-#import "harbaughsim16-swift.h"
 #import "RecruitingViewController.h"
 
 #import "CSNotificationView.h"

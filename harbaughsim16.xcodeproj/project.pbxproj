@@ -28,7 +28,6 @@
 		755BBC621C9E0A1B001A8314 /* Icon-Spotlight-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC581C9E0A1B001A8314 /* Icon-Spotlight-40@3x.png */; };
 		755BBC641C9E0A85001A8314 /* FCFootball.png in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC631C9E0A85001A8314 /* FCFootball.png */; };
 		755BBC6D1C9E423B001A8314 /* NewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC6C1C9E423B001A8314 /* NewsViewController.xib */; };
-		755BBC751C9E4D35001A8314 /* WhisperBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC741C9E4D35001A8314 /* WhisperBridge.swift */; };
 		755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC771C9E5930001A8314 /* RecruitingViewController.m */; };
 		755BBC7B1C9F5F1A001A8314 /* TeamSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC7A1C9F5F1A001A8314 /* TeamSearchViewController.m */; };
 		755BBC7D1C9F6964001A8314 /* TeamSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC7C1C9F6964001A8314 /* TeamSearchViewController.xib */; };
@@ -129,7 +128,6 @@
 		755BBC631C9E0A85001A8314 /* FCFootball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCFootball.png; sourceTree = "<group>"; };
 		755BBC6C1C9E423B001A8314 /* NewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsViewController.xib; sourceTree = "<group>"; };
 		755BBC731C9E4D34001A8314 /* harbaughsim16-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "harbaughsim16-Bridging-Header.h"; sourceTree = "<group>"; };
-		755BBC741C9E4D35001A8314 /* WhisperBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = WhisperBridge.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		755BBC761C9E5930001A8314 /* RecruitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitingViewController.h; sourceTree = "<group>"; };
 		755BBC771C9E5930001A8314 /* RecruitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecruitingViewController.m; sourceTree = "<group>"; };
 		755BBC791C9F5F1A001A8314 /* TeamSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamSearchViewController.h; sourceTree = "<group>"; };
@@ -362,7 +360,6 @@
 				75924A241C99CCC000B165AD /* NewsViewController.h */,
 				75924A251C99CCC000B165AD /* NewsViewController.m */,
 				755BBC6C1C9E423B001A8314 /* NewsViewController.xib */,
-				755BBC741C9E4D35001A8314 /* WhisperBridge.swift */,
 				755BBC731C9E4D34001A8314 /* harbaughsim16-Bridging-Header.h */,
 			);
 			name = News;
@@ -714,7 +711,6 @@
 				7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */,
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,
 				7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */,
-				755BBC751C9E4D35001A8314 /* WhisperBridge.swift in Sources */,
 				75924A521C99D1C600B165AD /* TeamStrategy.m in Sources */,
 				7571DD3C1C9CFF6500E67080 /* HBRosterCell.m in Sources */,
 			);

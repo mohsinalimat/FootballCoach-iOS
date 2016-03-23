@@ -10,7 +10,6 @@
 #import "League.h"
 #import "Team.h"
 #import "HBRecruitCell.h"
-#import "harbaughsim16-Swift.h"
 
 #import "Player.h"
 #import "PlayerQB.h"
