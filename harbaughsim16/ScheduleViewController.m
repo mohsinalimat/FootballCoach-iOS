@@ -118,6 +118,8 @@
         } else {
             [cell.gameScoreLabel setTextColor:[UIColor blackColor]];
         }
+    } else {
+        [cell.gameScoreLabel setTextColor:[UIColor blackColor]];
     }
     
     return cell;

@@ -262,7 +262,7 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"View a specific position" message:@"Which position would you like to see?" preferredStyle:UIAlertControllerStyleActionSheet];
     NSString *position = @"";
     if (playersRecruited.count > 0) {
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             if (i == 0) {
                 position = @"All Players";
             } else if (i == 1) {

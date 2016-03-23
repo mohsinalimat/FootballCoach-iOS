@@ -459,26 +459,22 @@
     [[_teamList[2] gameSchedule] addObject:_semiG23];
 
     //other bowls
-    if ([[self class] bowlGameTitles].count > _teamList.count) {
-        for (int i = 4; i < 20; i+=2) {
-            NSString *bowlName = [[self class] bowlGameTitles][i];
-            Team *home = _teamList[i];
-            Team *away = _teamList[[[self class] bowlGameTitles].count - i];
-            Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
-            [_bowlGames addObject:bowl];
-            [home.gameSchedule addObject:bowl];
-            [away.gameSchedule addObject:bowl];
-        }
-    } else {
-        for (int i = 4; i < [[self class] bowlGameTitles].count; i+=2) {
-            NSString *bowlName = [[self class] bowlGameTitles][i];
-            Team *home = _teamList[i];
-            Team *away = _teamList[[[self class] bowlGameTitles].count - i];
-            Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
-            [_bowlGames addObject:bowl];
-            [home.gameSchedule addObject:bowl];
-            [away.gameSchedule addObject:bowl];
-        }
+    NSMutableArray *bowlEligibleTeams = [NSMutableArray array];
+    for (int i = 4; i < ([[self class] bowlGameTitles].count * 2); i++) {
+        [bowlEligibleTeams addObject:_teamList[i]];
+    }
+    
+    for (int i = 0; i < [[self class] bowlGameTitles].count - 2; i+=2) {
+        NSString *bowlName = [[self class] bowlGameTitles][i];
+        Team *home = bowlEligibleTeams[i];
+        Team *away = bowlEligibleTeams[i + 1];
+        Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
+        NSLog(@"%@: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
+        [_bowlGames addObject:bowl];
+        [home.gameSchedule addObject:bowl];
+        [away.gameSchedule addObject:bowl];
+        [bowlEligibleTeams removeObject:home];
+        [bowlEligibleTeams removeObject:away];
     }
     
     
@@ -487,6 +483,9 @@
 }
 
 -(void)playBowlGames {
+    NSMutableArray *bowlNews = _newsStories[14];
+    [bowlNews removeAllObjects];
+    
     for (Game *g in _bowlGames) {
         [self playBowl:g];
     }
@@ -1079,7 +1078,7 @@
     _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Team *a = (Team*)obj1;
         Team *b = (Team*)obj2;
-        return a.teamOppYards/a.numGames < b.teamOppYards/b.numGames ? -1 : a.teamOppYards/a.numGames == b.teamOppYards/b.numGames ? 0 : 1;
+        return a.teamOffTalent > b.teamOffTalent ? -1 : a.teamOffTalent == b.teamOffTalent ? 0 : 1;
     }] mutableCopy];
     for (int t = 0; t < _teamList.count; ++t) {
         _teamList[t].rankTeamOffTalent = t+1;
@@ -1088,7 +1087,7 @@
     _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Team *a = (Team*)obj1;
         Team *b = (Team*)obj2;
-        return a.teamOffTalent > b.teamOffTalent ? -1 : a.teamOffTalent == b.teamOffTalent ? 0 : 1;
+        return a.teamDefTalent > b.teamDefTalent ? -1 : a.teamDefTalent == b.teamDefTalent ? 0 : 1;
     }] mutableCopy];
     for (int t = 0; t < _teamList.count; ++t) {
         _teamList[t].rankTeamDefTalent = t+1;
@@ -1255,7 +1254,7 @@
             teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 Team *a = (Team*)obj1;
                 Team *b = (Team*)obj2;
-                return a.teamOppYards/a.numGames < b.teamOppYards/b.numGames ? -1 : a.teamOppYards/a.numGames == b.teamOppYards/b.numGames ? 0 : 1;
+                return a.teamOffTalent > b.teamOffTalent ? -1 : a.teamOffTalent == b.teamOffTalent ? 0 : 1;
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
@@ -1266,7 +1265,7 @@
             teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 Team *a = (Team*)obj1;
                 Team *b = (Team*)obj2;
-                return a.teamOffTalent > b.teamOffTalent ? -1 : a.teamOffTalent == b.teamOffTalent ? 0 : 1;
+                return a.teamDefTalent > b.teamDefTalent ? -1 : a.teamDefTalent == b.teamDefTalent ? 0 : 1;
             }] mutableCopy];
             for (int i = 0; i < teams.count; ++i) {
                 t = teams[i];
