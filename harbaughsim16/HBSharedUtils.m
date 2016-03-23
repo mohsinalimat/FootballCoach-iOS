@@ -34,7 +34,7 @@
 
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController {
     BOOL weekNotifs = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
-    if (!weekNotifs) {
+    if (weekNotifs) {
         [CSNotificationView showInViewController:viewController tintColor:tintColor image:nil message:message duration:0.5];
     } else {
         NSLog(@"DON'T SEND NOTIFS");
