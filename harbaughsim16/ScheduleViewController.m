@@ -239,30 +239,8 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
     }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
-    
-    
-    /*
-     @Override
-     public void onClick(DialogInterface dialog, int which) {
-     simLeague.updateLeagueHistory();
-     simLeague.updateTeamHistories();
-     userTeam.resetStats();
-     simLeague.advanceSeason();
-     [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
-     saveLeagueFile = new File(getFilesDir(), "saveLeagueRecruiting.cfb");
-     simLeague.saveLeague(saveLeagueFile);
-     
-     //Get String of user team's players and such
-     StringBuilder sb = new StringBuilder();
-     sb.append(userTeam.conference + "," + userTeam.name + "," + userTeam.abbr + "," + userTeam.teamPrestige + "%\n");
-     sb.append(userTeam.getPlayerInfoSaveFile());
-     sb.append("END_TEAM_INFO%\n");
-     sb.append(userTeam.getRecruitsInfoSaveFile());
-     
-     }
-     });
-     */
 }
 
 @end

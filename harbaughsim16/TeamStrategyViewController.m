@@ -33,7 +33,7 @@
             self.title = @"Defensive Strategies";
             selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils getLeague].userTeam.teamStatDefNum inSection:0];
         }
-        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 280);
+        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 10 + (options.count * 90));
         teamStrats = options;
         
     }
