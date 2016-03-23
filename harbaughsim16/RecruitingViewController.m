@@ -262,7 +262,7 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"View a specific position" message:@"Which position would you like to see?" preferredStyle:UIAlertControllerStyleActionSheet];
     NSString *position = @"";
     if (playersRecruited.count > 0) {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 9; i++) {
             if (i == 0) {
                 position = @"All Players";
             } else if (i == 1) {
@@ -560,7 +560,6 @@
         if ([availAll containsObject:player]) {
             [availAll removeObject:player];
         }
-        [player setTeam:[HBSharedUtils getLeague].userTeam];
         
         if ([player isKindOfClass:[PlayerQB class]]) {
             if ([availQBs containsObject:player]) {
@@ -631,11 +630,11 @@
 -(void)dismissVC {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to quit recruiting?" message:@"If you choose to back out, your team's recruiting will be done automatically and you will have no control over who assistant coaches bring to your program. Do you still want to quit, coach?" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [[HBSharedUtils getLeague] advanceSeason];
-        [[HBSharedUtils getLeague].userTeam recruitPlayersFreshman:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needSs), @(needCBs), @(needF7s)]];
         [[HBSharedUtils getLeague] updateLeagueHistory];
         [[HBSharedUtils getLeague] updateTeamHistories];
         [[HBSharedUtils getLeague].userTeam resetStats];
+        [[HBSharedUtils getLeague].userTeam recruitPlayersFreshman:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needSs), @(needCBs), @(needF7s)]];
+        [[HBSharedUtils getLeague] advanceSeason];
         [HBSharedUtils getLeague].recruitingStage = 0;
         NSLog(@"SIM RECRUITING");
         [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
@@ -731,13 +730,11 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self dismissViewControllerAnimated:YES completion:nil];
         //save game
-        [[HBSharedUtils getLeague] advanceSeason];
-        //[[HBSharedUtils getLeague].userTeam recruitWalkOns];
-        [[HBSharedUtils getLeague].userTeam recruitPlayersFreshman:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needSs), @(needCBs), @(needF7s)]];
         [[HBSharedUtils getLeague] updateLeagueHistory];
         [[HBSharedUtils getLeague] updateTeamHistories];
         [[HBSharedUtils getLeague].userTeam resetStats];
-        
+        [[HBSharedUtils getLeague] advanceSeason];
+        [[HBSharedUtils getLeague].userTeam recruitWalkOns];
         [HBSharedUtils getLeague].recruitingStage = 0;
         [[HBSharedUtils getLeague] save];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
