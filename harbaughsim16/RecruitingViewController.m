@@ -531,7 +531,13 @@
 
 -(void)recruitPlayer:(UIButton*)sender {
     Player *p = players[sender.tag];
-    [self buyRecruit:p];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Are you sure you want to sign %@ %@ to your team?", p.position,p.name] message:[NSString stringWithFormat:@"This will cost $%ld.",(long)p.cost] preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self buyRecruit:p];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void)buyRecruit:(Player*)player { //Ole Mi$$
