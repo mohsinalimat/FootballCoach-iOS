@@ -108,7 +108,7 @@
     
     if (wonRivalryGame && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20) ) {
         teamPrestige += 2;
-    } else if (!wonRivalryGame && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
+    } else if (!wonRivalryGame && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || ![name isEqualToString:@"American Samoa"])) {
         teamPrestige -= 2;
     }
     
