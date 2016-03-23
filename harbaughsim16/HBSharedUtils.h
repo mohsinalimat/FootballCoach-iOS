@@ -16,4 +16,5 @@
 +(double)randomValue;
 +(League*)getLeague;
 +(UIColor *)styleColor;
++(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;
 @end

@@ -106,7 +106,7 @@
             BOOL notifsOn = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
             [setCell.settingSwitch setOnTintColor:[HBSharedUtils styleColor]];
             [setCell.settingSwitch setOn:notifsOn];
-            [setCell.titleLabel setText:@"In App Notifications"];
+            [setCell.titleLabel setText:@"Weekly Summary Notifications"];
             [setCell.settingSwitch addTarget:self action:@selector(changeNotificationSettings:) forControlEvents:UIControlEventValueChanged];
             
             return setCell;
