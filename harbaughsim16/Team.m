@@ -1776,7 +1776,13 @@
     gs[0] = g.gameName;
     if (gameNumber < gameWLSchedule.count) {
         gs[1] = [NSString stringWithFormat:@"%@ %@", gameWLSchedule[gameNumber], [self gameSummaryStringScore:g]];
-        if (g.numOT > 0) gs[1] = [gs[1] stringByAppendingFormat:@" (%dOT)",g.numOT];
+        if (g.numOT > 0){
+            if (g.numOT > 1) {
+                gs[1] = [gs[1] stringByAppendingFormat:@" (%dOT)",g.numOT];
+            } else {
+                gs[1] = [gs[1] stringByAppendingString:@" (OT)"];
+            }
+        }
     } else {
         gs[1] = @"---";
     }

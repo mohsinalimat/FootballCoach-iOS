@@ -104,7 +104,15 @@
     } else if (section == 5) {
         return @"Kickers";
     } else {
-        return selectedGame.gameName;
+        if ([selectedGame.gameName isEqualToString:@"NCG"]) {
+            return @"National Championship Game";
+        } else if ([selectedGame.gameName isEqualToString:@"Semis, 1v4"]) {
+            return @"National Semifinal - #1 vs #4";
+        } else if ([selectedGame.gameName isEqualToString:@"Semis, 2v3"]) {
+            return @"National Semifinal - #2 vs #3";
+        } else {
+            return selectedGame.gameName;
+        }
     }
 }
 
@@ -113,7 +121,15 @@
         if (!selectedGame.hasPlayed) {
             return @"To be played";
         } else {
-            return @"Final";
+            if (selectedGame.numOT > 0) {
+                if (selectedGame.numOT == 1) {
+                    return @"Final (OT)";
+                } else {
+                    return [NSString stringWithFormat:@"%ldOT",(long)selectedGame.numOT];
+                }
+            } else {
+                return @"Final";
+            }
         }
     } else {
         return nil;

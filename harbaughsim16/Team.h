@@ -127,8 +127,6 @@
 -(void)recruitPlayers:(NSArray*)needs;
 -(void)recruitPlayersFreshman:(NSArray*)needs;
 -(void)recruitWalkOns:(NSArray*)needs;
--(void)recruitPlayersFromString:(NSString *)playerStr;
--(void)recruitPlayerCSV:(NSString*)line;
 -(void)resetStats;
 -(void)updatePollScore;
 -(void)updateTeamHistory;
@@ -155,7 +153,6 @@
 -(int)getCompositeOLRush;
 -(int)getCompositeF7Pass;
 -(int)getCompositeF7Rush;
--(NSString*)getTeamStatsStringCSV;
 -(NSMutableArray*)getGameSummaryStrings:(int)gameNumber;
 -(NSString*)getSeasonSummaryString;
 -(NSMutableArray*)getPlayerStatsExpandListStrings;
@@ -178,8 +175,6 @@
 -(NSMutableArray*)getSRecruits;
 -(NSMutableArray*)getCBRecruits;
 -(NSMutableArray*)getF7Recruits;
--(NSString *)getRecruitsInfoSaveFile;
--(NSString *)getPlayerInfoSaveFile;
 -(NSMutableArray*)getOffensiveTeamStrategies;
 -(NSMutableArray*)getDefensiveTeamStrategies;
 -(NSArray*)getTeamStatsArray;
