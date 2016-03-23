@@ -553,6 +553,8 @@
     if (recruitingBudget >= playerCost) {
         recruitingBudget -= playerCost;
         [playersRecruited addObject:player];
+        [player setTeam:[HBSharedUtils getLeague].userTeam];
+        
         if ([players containsObject:player]) {
             [players removeObject:player];
         }
