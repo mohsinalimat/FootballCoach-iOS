@@ -464,6 +464,7 @@
         [bowlEligibleTeams addObject:_teamList[i]];
     }
     
+    [_bowlGames removeAllObjects];
     for (int i = 0; i < [[self class] bowlGameTitles].count - 2; i+=2) {
         NSString *bowlName = [[self class] bowlGameTitles][i];
         Team *home = bowlEligibleTeams[i];
@@ -556,7 +557,7 @@
         //newsStories.get(14).add( g.homeTeam.name + " wins the " + g.gameName +"!>" + g.homeTeam.strRep() + " defeats " + g.awayTeam.strRep() + " in the " + g.gameName + ", winning " + g.homeScore + " to " + g.awayScore + "." );
         NSMutableArray *week14 = _newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %d to %d.",g.homeTeam.name, g.gameName, g.homeTeam.strRep, g.awayTeam.strRep, g.gameName, g.homeScore, g.awayScore]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+       
     } else {
         g.homeTeam.semifinalWL = @"BL";
         g.homeTeam.totalBowlLosses++;
@@ -564,8 +565,9 @@
         g.awayTeam.totalBowls++;
         NSMutableArray *week14 = _newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %d to %d.",g.awayTeam.name, g.gameName, g.awayTeam.strRep, g.homeTeam.strRep, g.gameName, g.awayScore, g.homeScore]];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+       // [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
 
 -(void)updateLeagueHistory {
@@ -626,6 +628,8 @@
     }
     
     _hasScheduledBowls = false;
+    heismanDecided = NO;
+    [_bowlGames removeAllObjects];
     
     for (NSMutableArray *week in _newsStories) {
         [week removeAllObjects];

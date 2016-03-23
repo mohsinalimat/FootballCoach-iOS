@@ -168,68 +168,6 @@
     }
     return self;
 }
-/*
--(instancetype)initWithString:(NSString*)loadStr league:(League*)league {
-    self = [super init];
-    if (self) {
-        league = league;
-        isUserControlled = NO;
-        
-        teamQBs = [NSMutableArray array];
-        teamRBs = [NSMutableArray array];
-        teamWRs = [NSMutableArray array];
-        teamKs = [NSMutableArray array];
-        teamOLs = [NSMutableArray array];
-        teamF7s = [NSMutableArray array];
-        teamSs = [NSMutableArray array];
-        teamCBs = [NSMutableArray array];
-        
-        gameSchedule = [NSMutableArray array];
-        oocGame0 = nil;
-        oocGame4 = nil;
-        oocGame9 = nil;
-        gameWinsAgainst = [NSMutableArray array];
-        gameWLSchedule = [NSMutableArray array];
-        confChampion = @"";
-        semifinalWL = @"";
-        natlChampWL = @"";
-        
-        teamPoints = 0;
-        teamOppPoints = 0;
-        teamYards = 0;
-        teamOppYards = 0;
-        teamPassYards = 0;
-        teamRushYards = 0;
-        teamOppPassYards = 0;
-        teamOppRushYards = 0;
-        teamTODiff = 0;
-        
-        NSArray *lines = [loadStr componentsSeparatedByString:@"%"];
-        NSArray *teamInfo = [lines[0] componentsSeparatedByString:@","];
-        if (teamInfo.count == 9) {
-            conference = teamInfo[0];
-            name = teamInfo[1];
-            abbreviation = teamInfo[2];
-            teamPrestige = [teamInfo[3] intValue];
-            totalWins = [teamInfo[4] intValue];
-            totalLosses = [teamInfo[5] intValue];
-            totalCCs = [teamInfo[6] intValue];
-            totalNCs = [teamInfo[7] intValue];
-            rivalTeam = teamInfo[8];
-        }
-        
-        for (int i = 1; i < lines.count; ++i) {
-            [self recruitPlayerCSV: lines[i]];
-        }
-        
-        wonRivalryGame = false;
-        _offensiveStrategy = [[TeamStrategy alloc] init];
-        _defensiveStrategy = [[TeamStrategy alloc] init];
-        numberOfRecruits = 30;
-        
-    }
-    return self;
-}*/
 
 -(void)updateTalentRatings {
     teamOffTalent = [self getOffensiveTalent];
@@ -274,11 +212,10 @@
         while (i < teamQBs.count) {
             if ([teamQBs[i] year] == 4) {
                 NSLog(@"Graduating senior %@ from %@", [teamQBs[i] name], abbreviation);
-                [teamQBs removeObjectAtIndex:i];
+                //[teamQBs removeObjectAtIndex:i];
                 qbNeeds++;
-            } else {
-                i++;
             }
+            i++;
         }
     } else {
         qbNeeds = 2;
@@ -289,11 +226,10 @@
         while ( i < teamRBs.count ) {
             if ([teamRBs[i] year] == 4 ) {
                 NSLog(@"Graduating senior %@ from %@", [teamRBs[i] name], abbreviation);
-                [teamRBs removeObjectAtIndex:i];
+                //[teamRBs removeObjectAtIndex:i];
                 rbNeeds++;
-            } else {
-                i++;
             }
+            i++;
         }
     } else {
         rbNeeds = 4;
@@ -304,11 +240,10 @@
         while ( i < teamWRs.count ) {
             if ([teamWRs[i] year] == 4 ) {
                 NSLog(@"Graduating senior %@ from %@", [teamWRs[i] name], abbreviation);
-                [teamWRs removeObjectAtIndex:i];
+                //[teamWRs removeObjectAtIndex:i];
                 wrNeeds++;
-            } else {
-                i++;
             }
+            i++;
         }
     } else {
         wrNeeds = 5;
@@ -319,11 +254,10 @@
         while ( i < teamKs.count ) {
             if ([teamKs[i] year] == 4 ) {
                 NSLog(@"Graduating senior %@ from %@", [teamKs[i] name], abbreviation);
-                [teamKs removeObjectAtIndex:i];
+                //[teamKs removeObjectAtIndex:i];
                 kNeeds++;
-            } else {
-                i++;
             }
+            i++;
         }
     } else {
         kNeeds = 2;
@@ -334,11 +268,10 @@
         while ( i < teamOLs.count ) {
             if ([teamOLs[i] year] == 4 ) {
                 NSLog(@"Graduating senior %@ from %@", [teamOLs[i] name], abbreviation);
-                [teamOLs removeObjectAtIndex:i];
+                //[teamOLs removeObjectAtIndex:i];
                 olNeeds++;
-            } else {
-                i++;
             }
+            i++;
         }
     } else {
         olNeeds = 7;
@@ -349,11 +282,10 @@
         while ( i < teamSs.count) {
             if ([teamSs[i] year] == 4 ) {
                 NSLog(@"Graduating senior %@ from %@", [teamSs[i] name], abbreviation);
-                [teamSs removeObjectAtIndex:i];
+                //[teamSs removeObjectAtIndex:i];
                 sNeeds++;
-            } else {
-                i++;
             }
+            i++;
         }
     } else {
         sNeeds = 2;
@@ -364,11 +296,10 @@
         while ( i < teamCBs.count ) {
             if ([teamCBs[i] year] == 4 ) {
                 NSLog(@"Graduating senior %@ from %@", [teamCBs[i] name], abbreviation);
-                [teamCBs removeObjectAtIndex:i];
+                //[teamCBs removeObjectAtIndex:i];
                 cbNeeds++;
-            } else {
-                i++;
             }
+            i++;
         }
     } else {
         cbNeeds = 5;
@@ -379,11 +310,10 @@
         while ( i < teamF7s.count ) {
             if ([teamF7s[i] year] == 4 ) {
                 NSLog(@"Graduating senior %@ from %@", [teamF7s[i] name], abbreviation);
-                [teamF7s removeObjectAtIndex:i];
+                //[teamF7s removeObjectAtIndex:i];
                 f7Needs++;
-            } else {
-                i++;
             }
+            i++;
         }
     } else {
         f7Needs = 10;
