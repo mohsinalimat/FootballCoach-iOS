@@ -67,7 +67,6 @@
 -(Conference*)findConference:(NSString*)name;
 -(NSString*)ncgSummaryStr;
 -(NSString*)seasonSummaryStr;
--(BOOL)saveLeague:(NSData*)saveFile;
 -(void)setTeamRanks;
 -(NSArray*)getTeamRankingsStr:(int)selection;
 -(void)save;

@@ -358,29 +358,29 @@
         int appg, hppg, aoppg, hoppg, aypg, hypg, aoypg, hoypg, apypg, hpypg, aopypg, hopypg, aorypg, horypg, arypg, hrypg;
         
         if ([HBSharedUtils getLeague].currentWeek > 0) {
-            appg = (int)((double)_awayTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-            hppg = (int)((double)_homeTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            appg = (int)((double)_awayTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek)));
+            hppg = (int)((double)_homeTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek)));
             
-            aoppg = (int)((double)_awayTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-            hoppg = (int)((double)_homeTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            aoppg = (int)((double)_awayTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek)));
+            hoppg = (int)((double)_homeTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek)));
             
-            aypg = (int)((double)_awayTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-            hypg = (int)((double)_homeTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            aypg = (int)((double)_awayTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            hypg = (int)((double)_homeTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek)));
             
-            aoypg = (int)((double)_awayTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-            hoypg = (int)((double)_homeTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            aoypg = (int)((double)_awayTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            hoypg = (int)((double)_homeTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek)));
             
-            apypg = (int)((double)_awayTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-            hpypg = (int)((double)_homeTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            apypg = (int)((double)_awayTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            hpypg = (int)((double)_homeTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek)));
             
-            arypg = (int)((double)_awayTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-            hrypg = (int)((double)_homeTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            arypg = (int)((double)_awayTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            hrypg = (int)((double)_homeTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek)));
             
-            aopypg = (int)((double)_awayTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-            hopypg = (int)((double)_homeTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            aopypg = (int)((double)_awayTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            hopypg = (int)((double)_homeTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek)));
             
-            aorypg = (int)((double)_awayTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
-            horypg = (int)((double)_homeTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek - 1)));
+            aorypg = (int)((double)_awayTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            horypg = (int)((double)_homeTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek)));
         } else {
             appg = 0;
             hppg = 0;
@@ -405,7 +405,7 @@
         [report setObject:@[[NSString stringWithFormat:@"#%d",_awayTeam.rankTeamPollScore],
                             [NSString stringWithFormat:@"#%d",_homeTeam.rankTeamPollScore]] forKey:@"Ranking"];
         [report setObject:@[[NSString stringWithFormat:@"%d-%d",_awayTeam.wins,_awayTeam.losses],
-                            [NSString stringWithFormat:@"%d-%d",_awayTeam.wins,_homeTeam.losses]] forKey:@"Record"];
+                            [NSString stringWithFormat:@"%d-%d",_homeTeam.wins,_homeTeam.losses]] forKey:@"Record"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",appg,_awayTeam.rankTeamPoints],
                             [NSString stringWithFormat:@"%d (#%d)",hppg,_homeTeam.rankTeamPoints]] forKey:@"Points Per Game"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aoppg,_awayTeam.rankTeamOppPoints],
@@ -927,22 +927,22 @@
             if (RB1pref > RB2pref) {
                 NSNumber *kStat1 = _HomeRB1Stats[2];
                 kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
-                [_HomeRB1Stats replaceObjectAtIndex:3 withObject:kStat1];
+                [_HomeRB1Stats replaceObjectAtIndex:2 withObject:kStat1];
             } else {
                 NSNumber *kStat1 = _HomeRB2Stats[2];
                 kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
-                [_HomeRB2Stats replaceObjectAtIndex:3 withObject:kStat1];
+                [_HomeRB2Stats replaceObjectAtIndex:2 withObject:kStat1];
             }
         } else {
             _awayScore += 6;
             if (RB1pref > RB2pref) {
                 NSNumber *kStat1 = _AwayRB1Stats[2];
                 kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
-                [_AwayRB1Stats replaceObjectAtIndex:3 withObject:kStat1];
+                [_AwayRB1Stats replaceObjectAtIndex:2 withObject:kStat1];
             } else {
                 NSNumber *kStat1 = _AwayRB2Stats[2];
                 kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
-                [_AwayRB2Stats replaceObjectAtIndex:3 withObject:kStat1];
+                [_AwayRB2Stats replaceObjectAtIndex:2 withObject:kStat1];
             }
         }
         tdInfo = [NSString stringWithFormat:@"%@ RB %@ rushed %d yards for a TD.", offense.abbreviation,selRB.name,yardsGain];
@@ -1081,9 +1081,9 @@
                     _awayScore += 2;
                 }
                 [self addPointsQuarter:2];
-                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ rushed for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ rushed for the 2pt conversion.\n",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
             } else {
-                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ stopped at the line of scrimmage, failed the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ stopped at the line of scrimmage, failed the 2pt conversion.\n",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
             }
         } else {
             int pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass];
@@ -1096,9 +1096,9 @@
                     _awayScore += 2;
                 }
                 [self addPointsQuarter:2];
-                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ 2pt conversion is good! %@ completed the pass to %@ for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ 2pt conversion is good! %@ completed the pass to %@ for the 2pt conversion.\n",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
             } else {
-                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ 2pt conversion failed! %@'s pass incomplete to %@.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ 2pt conversion failed! %@'s pass incomplete to %@.\n",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
             }
         }
         
@@ -1126,11 +1126,11 @@
                 [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
             }
             
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ made the XP.\n",[self getEventPrefix],tdInfo,[offense getK:0].name]];
             [self addPointsQuarter:1];
             [offense getK:0].statsXPMade++;
         } else {
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ missed the XP.\n",[self getEventPrefix],tdInfo,[offense getK:0].name]];
         }
         [offense getK:0].statsXPAtt++;
     }
@@ -1143,10 +1143,10 @@
         // Yes, do onside
         if ([offense getK:0].ratKickFum *[HBSharedUtils randomValue] > 60 ||[HBSharedUtils randomValue] < 0.1) {
             //Success!
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ successfully executes onside kick! %@ has possession!",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ successfully executes onside kick! %@ has possession!\n",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
         } else {
             // Fail
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ failed to convert the onside kick. %@ lost possession.",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ failed to convert the onside kick. %@ lost possession.\n",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
             gamePoss = !gamePoss;
         }
         gameYardLine = 50;
@@ -1257,7 +1257,7 @@
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];
         [selWRStats replaceObjectAtIndex:3 withObject:wrTarget];
     }
-    tdInfo = [NSString stringWithFormat:@"%@ QB %@ threw a %ld yard TD to %@.",offense.abbreviation,[offense getQB:0].name,(long)yardsGained,selWR.name];
+    tdInfo = [NSString stringWithFormat:@"%@ QB %@ threw a %ld yard TD to %@.\n",offense.abbreviation,[offense getQB:0].name,(long)yardsGained,selWR.name];
     [offense getQB:0].statsTD++;
     selWR.statsTD++;
 }

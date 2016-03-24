@@ -22,6 +22,16 @@
     heismanHistory = [HBSharedUtils getLeague].heismanHistory;
     self.title = @"POTY History";
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
+}
+
+-(void)reloadAll {
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.tableView reloadData];
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {

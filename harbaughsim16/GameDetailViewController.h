@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FCTableViewController.h"
 @class Game;
 
-@interface GameDetailViewController : UITableViewController
+@interface GameDetailViewController : FCTableViewController
 -(instancetype)initWithGame:(Game*)game;
 @end

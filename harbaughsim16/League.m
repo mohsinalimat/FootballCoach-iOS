@@ -890,48 +890,6 @@
     return [sb copy];
 }
 
--(BOOL)saveLeague:(NSData*)saveFile {
-    /*StringBuilder sb = new StringBuilder();
-    sb.append((2016+leagueHistory.size())+": " + userTeam.abbr + " (" + userTeam.totalWins + "-" + userTeam.totalLosses + ") " +
-              userTeam.totalCCs + " CCs, " + userTeam.totalNCs + " NCs%\n");
-    
-    for (int i = 0; i < leagueHistory.size(); ++i) {
-        for (int j = 0; j < leagueHistory.get(i).length; ++j) {
-            sb.append(leagueHistory.get(i)[j] + "%");
-        }
-        sb.append("\n");
-    }
-    sb.append("END_LEAGUE_HIST\n");
-    
-    for (int i = 0; i < heismanHistory.size(); ++i) {
-        sb.append(heismanHistory.get(i) + "\n");
-    }
-    sb.append("END_HEISMAN_HIST\n");
-    
-    for (Team t : teamList) {
-        sb.append(t.conference + "," + t.name + "," + t.abbr + "," + t.teamPrestige + "," +
-                  t.totalWins + "," + t.totalLosses + "," + t.totalCCs + "," + t.totalNCs + "," + t.rivalTeam + "%\n");
-        sb.append(t.getPlayerInfoSaveFile());
-        sb.append("END_PLAYERS\n");
-    }
-    
-    sb.append(userTeam.name + "\n");
-    for (String s : userTeam.teamHistory) {
-        sb.append(s + "\n");
-    }
-    sb.append("END_USER_TEAM\n");
-    
-    try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-                                                                   new FileOutputStream(saveFile), "utf-8"))) {
-        writer.write(sb.toString());
-        return true;
-    } catch (Exception e) {
-        return false;
-    }*/
-    return YES;
-}
-
-
 -(void)setTeamRanks {
     //get team ranks for PPG, YPG, etc
     for (int i = 0; i < _teamList.count; ++i) {
@@ -996,7 +954,7 @@
     _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Team *a = (Team*)obj1;
         Team *b = (Team*)obj2;
-        return a.teamPassYards/a.numGames < b.teamPassYards/b.numGames ? -1 : a.teamPassYards/a.numGames == b.teamPassYards/b.numGames ? 0 : 1;
+        return a.teamPassYards/a.numGames > b.teamPassYards/b.numGames ? -1 : a.teamPassYards/a.numGames == b.teamPassYards/b.numGames ? 0 : 1;
     }] mutableCopy];
     for (int t = 0; t < _teamList.count; ++t) {
         _teamList[t].rankTeamPassYards = t+1;
@@ -1005,7 +963,7 @@
     _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Team *a = (Team*)obj1;
         Team *b = (Team*)obj2;
-        return a.teamRushYards/a.numGames < b.teamRushYards/b.numGames ? -1 : a.teamRushYards/a.numGames == b.teamRushYards/b.numGames ? 0 : 1;
+        return a.teamRushYards/a.numGames > b.teamRushYards/b.numGames ? -1 : a.teamRushYards/a.numGames == b.teamRushYards/b.numGames ? 0 : 1;
     }] mutableCopy];
     for (int t = 0; t < _teamList.count; ++t) {
         _teamList[t].rankTeamRushYards = t+1;

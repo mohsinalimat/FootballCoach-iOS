@@ -54,6 +54,14 @@
     [self.tableView setTableHeaderView:teamHeaderView];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
+}
+
+-(void)reloadAll {
+    [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.tableView setTableHeaderView:teamHeaderView];
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -9,9 +9,11 @@
 #import "SettingsViewController.h"
 #import "HBSettingsCell.h"
 #import "MyTeamViewController.h"
+#import "ColorSelectionViewController.h"
 
 #import "HexColors.h"
 #import "FCFileManager.h"
+#import "STPopup.h"
 @import MessageUI;
 
 @interface SettingsViewController () <MFMailComposeViewControllerDelegate>
@@ -37,6 +39,14 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBSettingsCell" bundle:nil] forCellReuseIdentifier:@"HBSettingsCell"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
+}
+
+-(void)reloadAll {
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.tableView reloadData];
+    self.navigationController.navigationBar.barTintColor = [HBSharedUtils styleColor];
+    
 }
 
 -(void)dismissVC {
@@ -63,7 +73,7 @@
     } else if (section == 1) {
         return 6;
     } else {
-        return 2;
+        return 3;
     }
 }
 
@@ -102,6 +112,23 @@
         return cell;
     } else {
         if (indexPath.row == 0) {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ColorPickerCell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"ColorPickerCell"];
+                cell.backgroundColor = [UIColor whiteColor];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+            }
+
+            [cell.textLabel setText:@"Theme Color"];
+            NSDictionary *selectedColor = [[NSUserDefaults standardUserDefaults] objectForKey:HB_CURRENT_THEME_COLOR];
+            if (selectedColor) {
+                [cell.detailTextLabel setText:selectedColor[@"title"]];
+            } else {
+                [cell.detailTextLabel setText:@"iOS Default"];
+            }
+            return cell;
+        } else if (indexPath.row == 1) {
             HBSettingsCell *setCell = (HBSettingsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBSettingsCell"];
             BOOL notifsOn = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
             [setCell.settingSwitch setOnTintColor:[HBSharedUtils styleColor]];
@@ -196,7 +223,7 @@
 
         }
     } else {
-        if (indexPath.row == 1) {
+        if (indexPath.row == 2) {
             NSLog(@"Delete save File");
             
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete your save file and start your career over?" message:@"This will take you back to the Team Selection screen." preferredStyle:UIAlertControllerStyleAlert];
@@ -217,6 +244,13 @@
             }]];
             [self presentViewController:alert animated:YES completion:nil];
             
+        } else {
+            if (indexPath.row == 0) {
+                STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[ColorSelectionViewController alloc] init]];
+                [popupController.navigationBar setDraggable:YES];
+                popupController.style = STPopupStyleBottomSheet;
+                [popupController presentInViewController:self];
+            }
         }
     }
 }

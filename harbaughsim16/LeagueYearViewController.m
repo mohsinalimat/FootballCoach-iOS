@@ -7,6 +7,8 @@
 //
 
 #import "LeagueYearViewController.h"
+#import "League.h"
+#import "Team.h"
 
 @interface LeagueYearViewController ()
 {
@@ -21,6 +23,16 @@
     [super viewDidLoad];
     self.title = [NSString stringWithFormat:@"%@ Season Recap",selectedYear];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
+}
+
+-(void)reloadAll {
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.tableView reloadData];
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,10 +68,15 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor whiteColor];
     }
     // Configure the cell...
     [cell.textLabel setText:[NSString stringWithFormat:@"#%ld: %@",(long) (1 + indexPath.row),top10[indexPath.row]]];
-    
+    if ([cell.textLabel.text containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+        [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+    } else {
+        [cell.textLabel setTextColor:[UIColor blackColor]];
+    }
     return cell;
 }
 @end

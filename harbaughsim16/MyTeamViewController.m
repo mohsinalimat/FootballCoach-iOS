@@ -61,7 +61,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentIntro) name:@"noSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newSaveFile" object:nil];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newStyleColor" object:nil];
     
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)saveUserTeam {
@@ -71,6 +76,7 @@
 -(void)resetForNewSeason {
     [self setupTeamHeader];
     [self reloadStats];
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
 -(void)setupTeamHeader {
@@ -204,10 +210,12 @@
     } else if (indexPath.section == 0) {
         if (indexPath.row == 0) { //offensive
             STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:TRUE options:[[HBSharedUtils getLeague].userTeam getOffensiveTeamStrategies]]];
+            [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
             [popupController presentInViewController:self];
         } else { //defensive
             STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:FALSE options:[[HBSharedUtils getLeague].userTeam getDefensiveTeamStrategies]]];
+            [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
             [popupController presentInViewController:self];
         }

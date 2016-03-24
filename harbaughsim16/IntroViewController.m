@@ -38,5 +38,8 @@ NSString *leaguePlayerNames = @"Tim, James, John, Robert, Michael, William, Davi
     [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:[League newLeagueFromCSV:leaguePlayerNames]] animated:YES];
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 
 @end

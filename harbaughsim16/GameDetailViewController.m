@@ -51,9 +51,18 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"HBStatsCell" bundle:nil] forCellReuseIdentifier:@"HBStatsCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBScoreCell" bundle:nil] forCellReuseIdentifier:@"HBScoreCell"];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)reloadAll {
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.tableView reloadData];
 }
 
 -(void)viewGameSummary {
@@ -65,6 +74,7 @@
     
     CGSize size = [summary boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil].size;
     UITextView *postTextLabel = [[UITextView alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width - 30, size.height)];
+    [postTextLabel setSelectable:NO];
     [postTextLabel setEditable:NO];
 
     [postTextLabel setText:summary];
@@ -110,6 +120,68 @@
             return @"National Semifinal - #1 vs #4";
         } else if ([selectedGame.gameName isEqualToString:@"Semis, 2v3"]) {
             return @"National Semifinal - #2 vs #3";
+        } else if ([selectedGame.gameName isEqualToString:@"In Conf"]) {
+            return [NSString stringWithFormat:@"%@ Conference Play",selectedGame.homeTeam.conference];
+        } else if ([selectedGame.gameName isEqualToString:@"SOU vs PAC"]) {
+            return @"South vs Pacific";
+        } else if ([selectedGame.gameName isEqualToString:@"PAC vs SOU"]) {
+            return @"Pacific vs South";
+        } else if ([selectedGame.gameName isEqualToString:@"SOU vs LAK"]) {
+            return @"South vs Lakes";
+        } else if ([selectedGame.gameName isEqualToString:@"LAK vs SOU"]) {
+            return @"Lakes vs South";
+        } else if ([selectedGame.gameName isEqualToString:@"SOU vs MOU"]) {
+            return @"South vs Mountain";
+        } else if ([selectedGame.gameName isEqualToString:@"MOU vs SOU"]) {
+            return @"Mountain vs South";
+        } else if ([selectedGame.gameName isEqualToString:@"SOU vs NOR"]) {
+            return @"South vs North";
+        } else if ([selectedGame.gameName isEqualToString:@"NOR vs SOU"]) {
+            return @"North vs South";
+        } else if ([selectedGame.gameName isEqualToString:@"SOU vs COW"]) {
+            return @"South vs Cowboy";
+        } else if ([selectedGame.gameName isEqualToString:@"COW vs SOU"]) {
+            return @"Cowboy vs South";
+        } else if ([selectedGame.gameName isEqualToString:@"NOR vs PAC"]) {
+            return @"North vs Pacific";
+        } else if ([selectedGame.gameName isEqualToString:@"PAC vs NOR"]) {
+            return @"Pacific vs North";
+        } else if ([selectedGame.gameName isEqualToString:@"PAC vs LAK"]) {
+            return @"Pacific vs Lakes";
+        } else if ([selectedGame.gameName isEqualToString:@"LAK vs PAC"]) {
+            return @"Lakes vs Pacific";
+        } else if ([selectedGame.gameName isEqualToString:@"PAC vs MOU"]) {
+            return @"Pacific vs Mountain";
+        } else if ([selectedGame.gameName isEqualToString:@"MOU vs PAC"]) {
+            return @"Mountain vs Pacific";
+        } else if ([selectedGame.gameName isEqualToString:@"PAC vs COW"]) {
+            return @"Pacific vs Cowboy";
+        } else if ([selectedGame.gameName isEqualToString:@"COW vs PAC"]) {
+            return @"Cowboy vs Pacific";
+        } else if ([selectedGame.gameName isEqualToString:@"COW vs NOR"]) {
+            return @"Cowboy vs North";
+        } else if ([selectedGame.gameName isEqualToString:@"NOR vs COW"]) {
+            return @"North vs Cowboy";
+        } else if ([selectedGame.gameName isEqualToString:@"COW vs LAK"]) {
+            return @"Cowboy vs Lakes";
+        } else if ([selectedGame.gameName isEqualToString:@"LAK vs COW"]) {
+            return @"Lakes vs Cowboy";
+        } else if ([selectedGame.gameName isEqualToString:@"COW vs MOU"]) {
+            return @"Cowboy vs Mountain";
+        } else if ([selectedGame.gameName isEqualToString:@"MOU vs COW"]) {
+            return @"Mountain vs Cowboy";
+        } else if ([selectedGame.gameName isEqualToString:@"LAK vs NOR"]) {
+            return @"Lakes vs North";
+        } else if ([selectedGame.gameName isEqualToString:@"NOR vs LAK"]) {
+            return @"North vs Lakes";
+        } else if ([selectedGame.gameName isEqualToString:@"LAK vs MOU"]) {
+            return @"Lakes vs Mountain";
+        } else if ([selectedGame.gameName isEqualToString:@"MOU vs LAK"]) {
+            return @"Mountain vs Lakes";
+        } else if ([selectedGame.gameName isEqualToString:@"MOU vs NOR"]) {
+            return @"Mountain vs North";
+        } else if ([selectedGame.gameName isEqualToString:@"NOR vs MOU"]) {
+            return @"North vs Mountain";
         } else {
             return selectedGame.gameName;
         }
@@ -320,8 +392,8 @@
                 stat4 = @"Fum";
                 stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[0] intValue]];
                 stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[1] intValue]];
-                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
-                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
+                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
+                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
             } else if (indexPath.section == 4) {
                 NSDictionary *wrStats = combinedStats[@"WRs"]; //catchs, yds, td, fum
                 if (indexPath.row == 0) {

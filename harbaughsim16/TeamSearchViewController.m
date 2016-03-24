@@ -41,6 +41,12 @@
     
     self.navigationItem.titleView = navSearchBar;
     //[navSearchBar becomeFirstResponder];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
+}
+
+-(void)reloadAll {
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.tableView reloadData];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
