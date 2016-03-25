@@ -478,7 +478,6 @@
             [cell.detailTextLabel setText:@"Offseason"];
         }
         
-        
         return cell;
     }
 }
@@ -488,13 +487,10 @@
         if (indexPath.section == 0) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
             if (indexPath.row == 0) {
-                NSLog(@"POLLS");
                 [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
             } else if (indexPath.row == 1) {
-                NSLog(@"HEISMAN");
                 [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
             } else {
-                NSLog(@"BOWLS");
                 [self.navigationController pushViewController:[[BowlProjectionViewController alloc] init] animated:YES];
             }
         }
