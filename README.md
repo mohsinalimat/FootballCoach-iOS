@@ -1,7 +1,7 @@
 # Football Coach for iOS
 An iOS Port of https://github.com/jonesguy14/footballcoach.
 
-**NOTE**: As of March 22, 2016, this repo is at a working status! The iOS version now matches most, if not all, of the [Android version](https://github.com/jonesguy14/footballcoach)'s features.
+**NOTE**: As of March 25, 2016, this repo is at beta status! The iOS version now matches all of the [Android version](https://github.com/jonesguy14/footballcoach)'s features.
 
 _The original README of FootballCoach is below._
 
