@@ -107,8 +107,8 @@
         //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
     }
     
-    [statsCell.playerLabel setText:[NSString stringWithFormat:@"%@ (%d votes)", [plyr getInitialName], [plyr getHeismanScore]]];
-    [statsCell.teamLabel setText:plyr.team.abbreviation];
+    [statsCell.playerLabel setText:[plyr getInitialName]];
+    [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ (%d votes)", plyr.team.abbreviation, [plyr getHeismanScore]]];
     
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
