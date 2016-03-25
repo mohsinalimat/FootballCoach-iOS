@@ -127,6 +127,8 @@
     _viewingSignees = NO;
     
     [self.tableView reloadData];
+    
+    
     self.title = [NSString stringWithFormat:@"Budget: $%d",recruitingBudget];
 }
 
@@ -153,6 +155,8 @@
     self.tableView.estimatedRowHeight = 140;
     recruitingBudget = [HBSharedUtils getLeague].userTeam.recruitingMoney;
     
+    NSInteger teamSize = [HBSharedUtils getLeague].userTeam.teamQBs.count + [HBSharedUtils getLeague].userTeam.teamRBs.count + [HBSharedUtils getLeague].userTeam.teamWRs.count + [HBSharedUtils getLeague].userTeam.teamKs.count + [HBSharedUtils getLeague].userTeam.teamSs.count + [HBSharedUtils getLeague].userTeam.teamCBs.count + [HBSharedUtils getLeague].userTeam.teamF7s.count;
+    
     playersRecruited = [NSMutableArray array];
     playersGraduating = [NSMutableArray array];
     teamPlayers = [NSMutableArray array];
@@ -169,6 +173,14 @@
     playersGraduating = [[[HBSharedUtils getLeague].userTeam.getGraduatingPlayersString componentsSeparatedByString:@"\n\n"
                          ] mutableCopy];
     recruitingBudget = [HBSharedUtils getLeague].userTeam.teamPrestige * 20;
+    
+    if (teamSize < 35) {
+        //adding bonus points if the draft screwed you
+        NSInteger recruitingBonus = (25 * (35 - teamSize));
+        recruitingBudget += recruitingBonus;
+        
+        [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"You've been awarded %ld extra points because of your losses to the pro draft!",(long)recruitingBonus] onViewController:self];
+    }
     
     //recruiting star distribution from here: http://www.cbssports.com/collegefootball/eye-on-college-football/21641769
     // 5-star: 13/100
@@ -706,7 +718,7 @@
         
         [[HBSharedUtils getLeague].userTeam recruitPlayersFreshman:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needsS), @(needCBs), @(needF7s)]];
         [[HBSharedUtils getLeague].userTeam resetStats];
-        [[HBSharedUtils getLeague] advanceSeason];
+        [[HBSharedUtils getLeague] advanceSeasonForAllExceptUser];
         [HBSharedUtils getLeague].recruitingStage = 0;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
         
@@ -799,7 +811,8 @@
         [[HBSharedUtils getLeague] updateLeagueHistory];
         [[HBSharedUtils getLeague] updateTeamHistories];
         [[HBSharedUtils getLeague].userTeam resetStats];
-        [[HBSharedUtils getLeague] advanceSeason];
+        [[HBSharedUtils getLeague].userTeam simulateRecruitingSeason];
+        [[HBSharedUtils getLeague] advanceSeasonForAllExceptUser];
         [[HBSharedUtils getLeague].userTeam recruitWalkOns:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needsS), @(needCBs), @(needF7s)]];
         [HBSharedUtils getLeague].recruitingStage = 0;
         [[HBSharedUtils getLeague] save];

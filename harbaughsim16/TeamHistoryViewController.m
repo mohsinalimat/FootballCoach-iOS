@@ -28,20 +28,33 @@
 
 @implementation TeamHistoryViewController
 
+-(instancetype)initWithTeam:(Team*)team {
+    if (self = [super initWithStyle:UITableViewStyleGrouped]) {
+        userTeam = team;
+    }
+    return self;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    userTeam = [HBSharedUtils getLeague].userTeam;
+    //userTeam = [HBSharedUtils getLeague].userTeam;
     history = [userTeam.teamHistory copy];
     self.title = [NSString stringWithFormat:@"%@ Team History", userTeam.abbreviation];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
     [teamHeaderView.teamNameLabel setText:userTeam.name];
     [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%d-%d",userTeam.totalWins, userTeam.totalLosses]];
-    if (history.count> 1 || history.count == 0) {
-         [teamHeaderView.teamSeasonsLabel setText:[NSString stringWithFormat:@"Coaching for %ld seasons",(unsigned long)history.count]];
+    if ([userTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
+        if (history.count> 1 || history.count == 0) {
+            [teamHeaderView.teamSeasonsLabel setText:[NSString stringWithFormat:@"Coaching for %ld seasons",(unsigned long)history.count]];
+        } else {
+            [teamHeaderView.teamSeasonsLabel setText:@"Coaching for 1 season"];
+        }
     } else {
-         [teamHeaderView.teamSeasonsLabel setText:@"Coaching for 1 season"];
+        [teamHeaderView.teamSeasonsLabel setText:@""];
     }
+    
     [self.tableView setTableHeaderView:teamHeaderView];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
 }

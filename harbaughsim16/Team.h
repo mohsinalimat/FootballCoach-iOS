@@ -22,7 +22,9 @@
 @class PlayerCB;
 @class PlayerS;
 
-@interface Team : NSObject <NSCoding>
+@interface Team : NSObject <NSCoding> {
+    NSMutableArray *playersLeaving;
+}
 
 @property (strong, nonatomic) League *league;
 

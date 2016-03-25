@@ -607,8 +607,10 @@
         if ([_gameName isEqualToString:@"Rivalry Game"]) {
             if (_homeScore > _awayScore) {
                 _homeTeam.wonRivalryGame = true;
+                _awayTeam.wonRivalryGame = false;
             } else {
                 _awayTeam.wonRivalryGame = true;
+                _homeTeam.wonRivalryGame = false;
             }
         }
     }
@@ -1358,13 +1360,13 @@
             [_HomeRB1Stats replaceObjectAtIndex:1 withObject:rb1Att];
             
         } else {
-            NSNumber *rb2 = _HomeRB1Stats[0];
+            NSNumber *rb2 = _HomeRB2Stats[0];
             rb2 = [NSNumber numberWithInteger:rb2.integerValue + 1];
-            [_HomeRB1Stats replaceObjectAtIndex:0 withObject:rb2];
+            [_HomeRB2Stats replaceObjectAtIndex:0 withObject:rb2];
             
-            NSNumber *rb2Att = _HomeRB1Stats[1];
+            NSNumber *rb2Att = _HomeRB2Stats[1];
             rb2Att = [NSNumber numberWithInteger:rb2Att.integerValue + yardsGained];
-            [_HomeRB1Stats replaceObjectAtIndex:1 withObject:rb2Att];
+            [_HomeRB2Stats replaceObjectAtIndex:1 withObject:rb2Att];
         }
     } else {
         _awayYards += yardsGained;

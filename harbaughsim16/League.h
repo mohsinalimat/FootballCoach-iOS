@@ -72,5 +72,6 @@
 -(NSArray*)getTeamRankingsStr:(int)selection;
 -(void)save;
 -(void)advanceSeasonForAllExceptUser;
-
+-(NSArray*)getBowlPredictions;
+-(NSArray*)getHeismanLeaders;
 @end

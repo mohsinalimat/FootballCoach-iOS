@@ -9,6 +9,8 @@
 #import "TeamViewController.h"
 #import "Team.h"
 #import "TeamRosterViewController.h"
+#import "TeamHistoryViewController.h"
+#import "TeamScheduleViewController.h"
 
 @interface HBTeamInfoView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
@@ -156,7 +158,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 1;
+        return 3;
     } else {
         return stats.count;
     }
@@ -188,7 +190,13 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-        [cell.textLabel setText:@"View Roster"];
+        if (indexPath.row == 0) {
+            [cell.textLabel setText:@"Roster"];
+        } else if (indexPath.row == 1) {
+            [cell.textLabel setText:@"Schedule"];
+        } else {
+            [cell.textLabel setText:@"Team History"];
+        }
         return cell;
 
     }
@@ -197,7 +205,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
+        if (indexPath.row == 0) {
+            [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
+        } else if (indexPath.row == 1) {
+            [self.navigationController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
+        } else {
+            [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+        }
     }
 }
 

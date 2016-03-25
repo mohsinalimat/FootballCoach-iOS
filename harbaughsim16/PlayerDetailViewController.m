@@ -50,7 +50,7 @@
     [super viewDidLoad];
     self.title = @"Player";
     [playerDetailView.nameLabel setText:selectedPlayer.name];
-    [playerDetailView.yrLabel setText:[NSString stringWithFormat:@"%@ (Ovr: %d)",[selectedPlayer getFullYearString],selectedPlayer.ratOvr]];
+    [playerDetailView.yrLabel setText:[NSString stringWithFormat:@"%@ (%@ - Ovr: %d)",[selectedPlayer getFullYearString],selectedPlayer.team.abbreviation,selectedPlayer.ratOvr]];
     [playerDetailView.posLabel setText:selectedPlayer.position];
     self.tableView.tableHeaderView = playerDetailView;
     stats = [selectedPlayer detailedStats:[HBSharedUtils getLeague].currentWeek];

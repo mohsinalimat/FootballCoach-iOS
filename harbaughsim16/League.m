@@ -490,9 +490,6 @@
 
 -(void)updateLeagueHistory {
     //update league history
-    for (int i = 0; i < _teamList.count; ++i) {
-        [_teamList[i] updatePollScore];
-    }
     _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Team *a = (Team*)obj1;
         Team *b = (Team*)obj2;
@@ -694,6 +691,17 @@
     }
 }
 
+-(NSArray*)getHeismanLeaders {
+    NSMutableArray *tempHeis = [NSMutableArray array];
+    NSArray *candidates = [self getHeisman];
+    for (int i = 0; i < 5; i++) {
+        Player *p = candidates[i];
+        [tempHeis addObject:p];
+    }
+    
+    return [tempHeis copy];
+}
+
 -(NSString*)getHeismanCeremonyStr {
     BOOL putNewsStory = false;
     if (!heismanDecided) {
@@ -776,6 +784,79 @@
         [hist appendString:[NSString stringWithFormat:@"\tPOTY: %@\n",_heismanHistory[i]]];
     }
     return hist;
+}
+
+-(NSArray*)getBowlPredictions {
+    if (!_hasScheduledBowls) {
+        //for (int i = 0; i < _teamList.count; ++i) {
+          //  [_teamList[i] updatePollScore];
+        //}
+        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+            
+        }] copy];
+        
+        
+        NSMutableArray* sb = [NSMutableArray array];
+        Team *t1;
+        Team *t2;
+        
+        //[sb appendString:@"Semifinal 1v4:\n\t\t"];
+        t1 = _teamList[0];
+        t2 = _teamList[3];
+        //[sb appendString:[NSString stringWithFormat:@"%@ vs %@\n\n", t1.strRep, t2.strRep]];
+        [sb addObject:[Game newGameWithHome:t1 away:t2 name:@"Semis, 1v4"]];
+        
+        //[sb appendString:@"Semifinal 2v3:\n\t\t"];
+        t1 = _teamList[1];
+        t2 = _teamList[2];
+        //[sb appendString:[NSString stringWithFormat:@"%@ vs %@\n\n", t1.strRep, t2.strRep]];
+        [sb addObject:[Game newGameWithHome:t1 away:t2 name:@"Semis, 2v3"]];
+        
+        NSMutableArray *bowlEligibleTeams = [NSMutableArray array];
+        for (int i = 4; i < ([[self class] bowlGameTitles].count * 2); i++) {
+            [bowlEligibleTeams addObject:_teamList[i]];
+        }
+        
+        [_bowlGames removeAllObjects];
+        for (int i = 0; i < [[self class] bowlGameTitles].count - 2; i+=2) {
+            NSString *bowlName = [[self class] bowlGameTitles][i];
+            Team *home = bowlEligibleTeams[i];
+            Team *away = bowlEligibleTeams[i + 1];
+            Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
+            NSLog(@"%@ Projection: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
+            [sb addObject:bowl];
+            //[_bowlGames addObject:bowl];
+            //[home.gameSchedule addObject:bowl];
+            //[away.gameSchedule addObject:bowl];
+            [bowlEligibleTeams removeObject:home];
+            [bowlEligibleTeams removeObject:away];
+        }
+
+        
+        return [sb copy];
+    } else {
+        // Games have already been scheduled, give actual teams
+        NSMutableArray *sb = [NSMutableArray array];
+        //[sb appendString:@"Bowl Game Results:\n\n"];
+        
+        //[sb appendString:@"Semifinal 1v4:\n"];
+        //[sb appendString:[self getGameSummaryBowl:_semiG14]];
+        [sb addObject:_semiG14];
+        [sb addObject:_semiG23];
+        //[sb appendString:@"Semifinal 2v3:\n"];
+        //[sb appendString:[self getGameSummaryBowl:_semiG23]];
+        
+        for (Game *bowl in _bowlGames) {
+            //[sb appendString:[NSString stringWithFormat:@"\n\n%@:\n", bowl.gameName]];
+            //[sb appendString:[self getGameSummaryBowl:bowl]];
+            [sb addObject:bowl];
+        }
+        
+        return [sb copy];
+    }
 }
 
 -(NSArray*)getTeamListStr {

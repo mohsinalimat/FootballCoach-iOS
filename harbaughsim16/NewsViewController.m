@@ -10,6 +10,9 @@
 #import "Team.h"
 #import "Game.h"
 #import "RecruitingViewController.h"
+#import "HeismanLeadersViewController.h"
+#import "BowlProjectionViewController.h"
+#import "RankingsViewController.h"
 
 #import "CSNotificationView.h"
 #import "HexColors.h"
@@ -366,7 +369,11 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if([HBSharedUtils getLeague]) {
-        return 1;
+        if ([HBSharedUtils getLeague].currentWeek > 5) {
+            return 2;
+        } else {
+            return 1;
+        }
     } else {
         return 0;
     }
@@ -374,46 +381,124 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if([HBSharedUtils getLeague]) {
-        return [news count];
+        if ([HBSharedUtils getLeague].currentWeek > 5) {
+            if (section == 0) {
+                return 3;
+            } else {
+                return [news count];
+            }
+        } else {
+            return [news count];
+        }
     } else {
         return 0;
     }
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-        [cell.textLabel setNumberOfLines:0];
-        [cell setBackgroundColor:[UIColor whiteColor]];
-        [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-        [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if ([HBSharedUtils getLeague].currentWeek > 5) {
+        if (indexPath.section == 0) {
+            UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"NewsCell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewsCell"];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            if (indexPath.row == 0) {
+                [cell.textLabel setText:@"Current Polls"];
+            } else if (indexPath.row == 1) {
+                [cell.textLabel setText:@"POTY Leaders"];
+            } else {
+                [cell.textLabel setText:@"Bowl Projections"];
+            }
+            return cell;
+        } else {
+            UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+                [cell.textLabel setNumberOfLines:0];
+                [cell setBackgroundColor:[UIColor whiteColor]];
+                [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
+                [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            
+            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row]];
+            NSRange firstLine = [attString.string rangeOfString:@"\n"];
+            [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
+            
+            
+            [cell.textLabel setAttributedText:attString];
+            [cell.textLabel sizeToFit];
+            if (curNewsWeek > 0 && curNewsWeek <= 12) {
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)]];
+            } else if (curNewsWeek == 0) {
+                [cell.detailTextLabel setText:@"Preseason"];
+            } else if (curNewsWeek == 13) {
+                [cell.detailTextLabel setText:@"Conference Championships"];
+            } else if (curNewsWeek == 14) {
+                [cell.detailTextLabel setText:@"Bowls"];
+            } else if (curNewsWeek == 15) {
+                [cell.detailTextLabel setText:@"National Championship"];
+            } else  {
+                [cell.detailTextLabel setText:@"Offseason"];
+            }
+            
+            
+            return cell;
+        }
+    } else {
+        UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+            [cell.textLabel setNumberOfLines:0];
+            [cell setBackgroundColor:[UIColor whiteColor]];
+            [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
+            [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row]];
+        NSRange firstLine = [attString.string rangeOfString:@"\n"];
+        [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
+        
+        
+        [cell.textLabel setAttributedText:attString];
+        [cell.textLabel sizeToFit];
+        if (curNewsWeek > 0 && curNewsWeek <= 12) {
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)]];
+        } else if (curNewsWeek == 0) {
+            [cell.detailTextLabel setText:@"Preseason"];
+        } else if (curNewsWeek == 13) {
+            [cell.detailTextLabel setText:@"Conference Championships"];
+        } else if (curNewsWeek == 14) {
+            [cell.detailTextLabel setText:@"Bowls"];
+        } else if (curNewsWeek == 15) {
+            [cell.detailTextLabel setText:@"National Championship"];
+        } else  {
+            [cell.detailTextLabel setText:@"Offseason"];
+        }
+        
+        
+        return cell;
     }
+}
 
-    NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row]];
-    NSRange firstLine = [attString.string rangeOfString:@"\n"];
-    [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
-    
-    
-    [cell.textLabel setAttributedText:attString];
-    [cell.textLabel sizeToFit];
-    if (curNewsWeek > 0 && curNewsWeek <= 12) {
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)]];
-    } else if (curNewsWeek == 0) {
-        [cell.detailTextLabel setText:@"Preseason"];
-    } else if (curNewsWeek == 13) {
-        [cell.detailTextLabel setText:@"Conference Championships"];
-    } else if (curNewsWeek == 14) {
-        [cell.detailTextLabel setText:@"Bowls"];
-    } else if (curNewsWeek == 15) {
-        [cell.detailTextLabel setText:@"National Championship"];
-    } else  {
-        [cell.detailTextLabel setText:@"Offseason"];
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([HBSharedUtils getLeague].currentWeek > 5) {
+        if (indexPath.section == 0) {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            if (indexPath.row == 0) {
+                NSLog(@"POLLS");
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
+            } else if (indexPath.row == 1) {
+                NSLog(@"HEISMAN");
+                [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
+            } else {
+                NSLog(@"BOWLS");
+                [self.navigationController pushViewController:[[BowlProjectionViewController alloc] init] animated:YES];
+            }
+        }
     }
-    
-    
-    return cell;
 }
 
 @end

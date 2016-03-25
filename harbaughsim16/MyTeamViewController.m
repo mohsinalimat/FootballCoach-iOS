@@ -16,6 +16,7 @@
 #import "HeismanHistoryViewController.h"
 #import "TeamStrategyViewController.h"
 #import "IntroViewController.h"
+#import "RankingsViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -184,12 +185,15 @@
         NSString *stat = @"";
         if ([HBSharedUtils getLeague].currentWeek > 0) {
             stat = [NSString stringWithFormat:@"%@ (%@)", cellStat[0], cellStat[2]];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         } else {
-           stat = cellStat[0];
+            stat = cellStat[0];
+            cell.accessoryType = UITableViewCellAccessoryNone;
         }
         
         [cell.textLabel setText:cellStat[1]];
         [cell.detailTextLabel setText:stat];
+        
         return cell;
 
     }
@@ -197,9 +201,41 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 2) {
+    if (indexPath.section == 1) {
+        if ([HBSharedUtils getLeague].currentWeek > 0) {
+            if (indexPath.row == 0) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
+            } else if (indexPath.row == 1) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOffTalent] animated:YES];
+            } else if (indexPath.row == 2) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeDefTalent] animated:YES];
+            } else if (indexPath.row == 3) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeTeamPrestige] animated:YES];
+            } else if (indexPath.row == 4) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeSOS] animated:YES];
+            } else if (indexPath.row == 5) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePPG] animated:YES];
+            } else if (indexPath.row == 6) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG] animated:YES];
+            } else if (indexPath.row == 7) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeYPG] animated:YES];
+            } else if (indexPath.row == 8) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG] animated:YES];
+            } else if (indexPath.row == 9) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePYPG] animated:YES];
+            } else if (indexPath.row == 10) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG] animated:YES];
+            } else if (indexPath.row == 11) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG] animated:YES];
+            } else if (indexPath.row == 12) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppRYPG] animated:YES];
+            } else {
+               [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeTODiff] animated:YES];
+            }
+        }
+    } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            [self.navigationController pushViewController:[[TeamHistoryViewController alloc] init] animated:YES];
+            [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:userTeam] animated:YES];
         } else if (indexPath.row == 1) {
             //league
             [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];

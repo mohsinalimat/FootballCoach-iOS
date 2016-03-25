@@ -20,6 +20,9 @@
 
 #import "AutoCoding.h"
 
+#define NFL_OVR 90
+#define NFL_CHANCE 0.5
+
 @implementation Team
 @synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,teamStreaks,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls;
 
@@ -133,15 +136,19 @@
     [self advanceSeasonPlayers];
 }
 
+-(BOOL)isPlayerDraftEligible:(Player*)player {
+    return (player.year == 3 && player.ratOvr >= NFL_OVR && [HBSharedUtils randomValue] < 0.5);
+}
+
 -(NSArray*)graduateSeniorsAndGetTeamNeeds {
     int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, f7Needs=0;
-    
+    playersLeaving = [NSMutableArray array];
     int i = 0;
     if(teamQBs.count > 0) {
         while (i < teamQBs.count) {
-            if ([teamQBs[i] year] == 4) {
-                NSLog(@"Graduating senior %@ from %@", [teamQBs[i] name], abbreviation);
-                //[teamQBs removeObjectAtIndex:i];
+            if ([teamQBs[i] year] >= 4 || [self isPlayerDraftEligible:teamQBs[i]]) {
+                NSLog(@"Graduating player %@ from %@", [teamQBs[i] name], abbreviation);
+                [playersLeaving addObject:teamQBs[i]];
                 qbNeeds++;
             }
             i++;
@@ -153,9 +160,9 @@
     i = 0;
     if (teamRBs.count > 0) {
         while ( i < teamRBs.count ) {
-            if ([teamRBs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamRBs[i] name], abbreviation);
-                //[teamRBs removeObjectAtIndex:i];
+            if ([teamRBs[i] year] >= 4 || [self isPlayerDraftEligible:teamRBs[i]]) {
+                NSLog(@"Graduating player %@ from %@", [teamRBs[i] name], abbreviation);
+                [playersLeaving addObject:teamRBs[i]];
                 rbNeeds++;
             }
             i++;
@@ -167,9 +174,9 @@
     i = 0;
     if (teamWRs.count > 0) {
         while ( i < teamWRs.count ) {
-            if ([teamWRs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamWRs[i] name], abbreviation);
-                //[teamWRs removeObjectAtIndex:i];
+            if ([teamWRs[i] year] >= 4 || [self isPlayerDraftEligible:teamWRs[i]]) {
+                NSLog(@"Graduating player %@ from %@", [teamWRs[i] name], abbreviation);
+                [playersLeaving addObject:teamWRs[i]];
                 wrNeeds++;
             }
             i++;
@@ -181,9 +188,9 @@
     i = 0;
     if (teamKs.count > 0) {
         while ( i < teamKs.count ) {
-            if ([teamKs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamKs[i] name], abbreviation);
-                //[teamKs removeObjectAtIndex:i];
+            if ([teamKs[i] year] >= 4 || [self isPlayerDraftEligible:teamKs[i]]) {
+                NSLog(@"Graduating player %@ from %@", [teamKs[i] name], abbreviation);
+                [playersLeaving addObject:teamKs[i]];
                 kNeeds++;
             }
             i++;
@@ -195,9 +202,9 @@
     i = 0;
     if (teamOLs.count > 0) {
         while ( i < teamOLs.count ) {
-            if ([teamOLs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamOLs[i] name], abbreviation);
-                //[teamOLs removeObjectAtIndex:i];
+            if ([teamOLs[i] year] >= 4 || [self isPlayerDraftEligible:teamOLs[i]]) {
+                NSLog(@"Graduating player %@ from %@", [teamOLs[i] name], abbreviation);
+                [playersLeaving addObject:teamOLs[i]];
                 olNeeds++;
             }
             i++;
@@ -209,9 +216,9 @@
     i = 0;
     if (teamSs.count > 0) {
         while ( i < teamSs.count) {
-            if ([teamSs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamSs[i] name], abbreviation);
-                //[teamSs removeObjectAtIndex:i];
+            if ([teamSs[i] year] >= 4 || [self isPlayerDraftEligible:teamSs[i]]) {
+                NSLog(@"Graduating player %@ from %@", [teamSs[i] name], abbreviation);
+                [playersLeaving addObject:teamSs[i]];
                 sNeeds++;
             }
             i++;
@@ -223,9 +230,9 @@
     i = 0;
     if (teamCBs.count > 0) {
         while ( i < teamCBs.count ) {
-            if ([teamCBs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamCBs[i] name], abbreviation);
-                //[teamCBs removeObjectAtIndex:i];
+            if ([teamCBs[i] year] >= 4 || [self isPlayerDraftEligible:teamCBs[i]]) {
+                NSLog(@"Graduating player %@ from %@", [teamCBs[i] name], abbreviation);
+                [playersLeaving addObject:teamCBs[i]];
                 cbNeeds++;
             }
             i++;
@@ -237,9 +244,9 @@
     i = 0;
     if (teamF7s.count > 0) {
         while ( i < teamF7s.count ) {
-            if ([teamF7s[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamF7s[i] name], abbreviation);
-                //[teamF7s removeObjectAtIndex:i];
+            if ([teamF7s[i] year] >= 4 || [self isPlayerDraftEligible:teamF7s[i]]) {
+                NSLog(@"Graduating player %@ from %@", [teamF7s[i] name], abbreviation);
+                [playersLeaving addObject:teamF7s[i]];
                 f7Needs++;
             }
             i++;
@@ -257,8 +264,8 @@
     int i = 0;
     if (teamQBs.count > 0) {
         while (i < teamQBs.count) {
-            if ([teamQBs[i] year] == 4) {
-                NSLog(@"Graduating senior %@ from %@", [teamQBs[i] name], abbreviation);
+            if ([teamQBs[i] year] >= 4 || [self isPlayerDraftEligible:teamQBs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamQBs[i] name], abbreviation);
                 [teamQBs removeObjectAtIndex:i];
                 qbNeeds++;
             } else {
@@ -273,8 +280,8 @@
     i = 0;
     if (teamRBs.count > 0) {
         while ( i < teamRBs.count ) {
-            if ([teamRBs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamRBs[i] name], abbreviation);
+            if ([teamRBs[i] year] >= 4 || [self isPlayerDraftEligible:teamRBs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamRBs[i] name], abbreviation);
                 [teamRBs removeObjectAtIndex:i];
                 rbNeeds++;
             } else {
@@ -289,8 +296,8 @@
     i = 0;
     if (teamWRs.count > 0) {
         while ( i < teamWRs.count ) {
-            if ([teamWRs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamWRs[i] name], abbreviation);
+            if ([teamWRs[i] year] >= 4 || [self isPlayerDraftEligible:teamWRs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamWRs[i] name], abbreviation);
                 [teamWRs removeObjectAtIndex:i];
                 wrNeeds++;
             } else {
@@ -305,8 +312,8 @@
     i = 0;
     if (teamKs.count > 0) {
         while ( i < teamKs.count ) {
-            if ([teamKs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamKs[i] name], abbreviation);
+            if ([teamKs[i] year] >= 4 || [self isPlayerDraftEligible:teamKs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamKs[i] name], abbreviation);
                 [teamKs removeObjectAtIndex:i];
                 kNeeds++;
             } else {
@@ -321,8 +328,8 @@
     i = 0;
     if (teamOLs.count > 0) {
         while ( i < teamOLs.count ) {
-            if ([teamOLs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamOLs[i] name], abbreviation);
+            if ([teamOLs[i] year] >= 4 || [self isPlayerDraftEligible:teamOLs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamOLs[i] name], abbreviation);
                 [teamOLs removeObjectAtIndex:i];
                 olNeeds++;
             } else {
@@ -337,8 +344,8 @@
     i = 0;
     if (teamSs.count > 0) {
         while ( i < teamSs.count) {
-            if ([teamSs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamSs[i] name], abbreviation);
+            if ([teamSs[i] year] >= 4 || [self isPlayerDraftEligible:teamSs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamSs[i] name], abbreviation);
                 [teamSs removeObjectAtIndex:i];
                 sNeeds++;
             } else {
@@ -353,8 +360,8 @@
     i = 0;
     if (teamCBs.count > 0) {
         while ( i < teamCBs.count ) {
-            if ([teamCBs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamCBs[i] name], abbreviation);
+            if ([teamCBs[i] year] >= 4 || [self isPlayerDraftEligible:teamCBs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamCBs[i] name], abbreviation);
                 [teamCBs removeObjectAtIndex:i];
                 cbNeeds++;
             } else {
@@ -369,8 +376,8 @@
     i = 0;
     if (teamF7s.count > 0) {
         while ( i < teamF7s.count ) {
-            if ([teamF7s[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamF7s[i] name], abbreviation);
+            if ([teamF7s[i] year] >= 4 || [self isPlayerDraftEligible:teamF7s[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamF7s[i] name], abbreviation);
                 [teamF7s removeObjectAtIndex:i];
                 f7Needs++;
             } else {
@@ -389,12 +396,11 @@
 
 -(void)advanceSeasonPlayers {
     int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, f7Needs=0;
-    
     int i = 0;
     if (teamQBs.count > 0) {
         while (i < teamQBs.count) {
-            if ([teamQBs[i] year] == 4) {
-                NSLog(@"Graduating senior %@ from %@", [teamQBs[i] name], abbreviation);
+            if ([teamF7s[i] year] >= 4 || [self isPlayerDraftEligible:teamQBs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamQBs[i] name], abbreviation);
                 [teamQBs removeObjectAtIndex:i];
                 qbNeeds++;
             } else {
@@ -409,8 +415,8 @@
     i = 0;
     if (teamRBs.count > 0) {
         while ( i < teamRBs.count ) {
-            if ([teamRBs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamRBs[i] name], abbreviation);
+            if ([teamF7s[i] year] >= 4 || [self isPlayerDraftEligible:teamRBs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamRBs[i] name], abbreviation);
                 [teamRBs removeObjectAtIndex:i];
                 rbNeeds++;
             } else {
@@ -425,8 +431,8 @@
     i = 0;
     if (teamWRs.count > 0) {
         while ( i < teamWRs.count ) {
-            if ([teamWRs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamWRs[i] name], abbreviation);
+            if ([teamF7s[i] year] >= 4 || [self isPlayerDraftEligible:teamWRs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamWRs[i] name], abbreviation);
                 [teamWRs removeObjectAtIndex:i];
                 wrNeeds++;
             } else {
@@ -441,8 +447,8 @@
     i = 0;
     if (teamKs.count > 0) {
         while ( i < teamKs.count ) {
-            if ([teamKs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamKs[i] name], abbreviation);
+            if ([teamF7s[i] year] >= 4 || [self isPlayerDraftEligible:teamKs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamKs[i] name], abbreviation);
                 [teamKs removeObjectAtIndex:i];
                 kNeeds++;
             } else {
@@ -457,8 +463,8 @@
     i = 0;
     if (teamOLs.count > 0) {
         while ( i < teamOLs.count ) {
-            if ([teamOLs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamOLs[i] name], abbreviation);
+            if ([teamF7s[i] year] >= 4 || [self isPlayerDraftEligible:teamOLs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamOLs[i] name], abbreviation);
                 [teamOLs removeObjectAtIndex:i];
                 olNeeds++;
             } else {
@@ -473,8 +479,8 @@
     i = 0;
     if (teamSs.count > 0) {
         while ( i < teamSs.count) {
-            if ([teamSs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamSs[i] name], abbreviation);
+            if ([teamF7s[i] year] >= 4 || [self isPlayerDraftEligible:teamSs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamSs[i] name], abbreviation);
                 [teamSs removeObjectAtIndex:i];
                 sNeeds++;
             } else {
@@ -489,8 +495,8 @@
     i = 0;
     if (teamCBs.count > 0) {
         while ( i < teamCBs.count ) {
-            if ([teamCBs[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamCBs[i] name], abbreviation);
+            if ([teamF7s[i] year] >= 4 || [self isPlayerDraftEligible:teamCBs[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamCBs[i] name], abbreviation);
                 [teamCBs removeObjectAtIndex:i];
                 cbNeeds++;
             } else {
@@ -505,8 +511,8 @@
     i = 0;
     if (teamF7s.count > 0) {
         while ( i < teamF7s.count ) {
-            if ([teamF7s[i] year] == 4 ) {
-                NSLog(@"Graduating senior %@ from %@", [teamF7s[i] name], abbreviation);
+            if ([teamF7s[i] year] >= 4 || [self isPlayerDraftEligible:teamF7s[i]])  {
+                NSLog(@"Graduating player %@ from %@", [teamF7s[i] name], abbreviation);
                 [teamF7s removeObjectAtIndex:i];
                 f7Needs++;
             } else {
@@ -1419,8 +1425,11 @@
     NSString *gameSummary = [NSString stringWithFormat:@"%@ %@",gameWLSchedule[i],[self gameSummaryString:g]];
     NSString *rivalryGameStr = @"";
     if ([g.gameName isEqualToString:@"Rivalry Game"]) {
-        if ( [gameWLSchedule[i] isEqualToString:@"W"] ) rivalryGameStr = @"Won against Rival! ";
-        else rivalryGameStr = @"Lost against Rival! ";
+        if ( [gameWLSchedule[i] isEqualToString:@"W"] ) {
+            rivalryGameStr = @"Won against Rival! ";
+        } else {
+            rivalryGameStr = @"Lost against Rival! ";
+        }
     }
 
     if (rankTeamPollScore > 0 && rankTeamPollScore < 26) {
@@ -1472,47 +1481,53 @@
 
 -(NSString*)getGraduatingPlayersString {
     NSMutableString *sb = [NSMutableString string];
-    
-    for ( PlayerQB *p in teamQBs ) {
-        if (p.year == 4) {
+    [self graduateSeniorsAndGetTeamNeeds];
+    /*for ( PlayerQB *p in teamQBs ) {
+        if (p.year == 4 || [self isPlayerDraftEligible:p]) {
             [sb appendFormat:@"%@\n",p.getPosNameYrOvrPot_OneLine];
         }
     }
     for ( PlayerRB *p in teamRBs ) {
-        if (p.year == 4) {
+        if (p.year == 4 || [self isPlayerDraftEligible:p]) {
             [sb appendFormat:@"%@\n",p.getPosNameYrOvrPot_OneLine];
         }
     }
     for ( PlayerWR *p in teamWRs ) {
-        if (p.year == 4) {
+        if (p.year == 4 || [self isPlayerDraftEligible:p]) {
             [sb appendFormat:@"%@\n",p.getPosNameYrOvrPot_OneLine];
         }
     }
     for ( PlayerOL *p in teamOLs ) {
-        if (p.year == 4) {
+        if (p.year == 4 || [self isPlayerDraftEligible:p]) {
             [sb appendFormat:@"%@\n",p.getPosNameYrOvrPot_OneLine];
         }
     }
     for ( PlayerK *p in teamKs ) {
-        if (p.year == 4) {
+        if (p.year == 4 || [self isPlayerDraftEligible:p]) {
             [sb appendFormat:@"%@\n",p.getPosNameYrOvrPot_OneLine];
         }
     }
     for ( PlayerS *p in teamSs ) {
-        if (p.year == 4) {
+        if (p.year == 4 || [self isPlayerDraftEligible:p]) {
             [sb appendFormat:@"%@\n",p.getPosNameYrOvrPot_OneLine];
         }
     }
     for ( PlayerCB *p in teamCBs) {
-        if (p.year == 4) {
+        if (p.year == 4 || [self isPlayerDraftEligible:p]) {
             [sb appendFormat:@"%@\n",p.getPosNameYrOvrPot_OneLine];
         }
     }
     for ( PlayerF7 *p in teamF7s ) {
-        if (p.year == 4) {
+        if (p.year == 4 || [self isPlayerDraftEligible:p]) {
             [sb appendFormat:@"%@\n",p.getPosNameYrOvrPot_OneLine];
         }
+    }*/
+    
+    for (Player *p in playersLeaving)
+    {
+        [sb appendFormat:@"%@\n", p.getPosNameYrOvrPot_OneLine];
     }
+    
     return [sb copy];
 }
 
@@ -1718,9 +1733,9 @@
 
 -(NSArray*)getOffensiveTeamStrategies {
     return @[
-             [TeamStrategy newStrategyWithName:@"Aggressive" description:@"Play a more aggressive offense. Will pass with lower completion percentage and higher chance of interception. However, catches will go for more yards." rYB:-1 rAB:2 pYB:3 pAB:2],
+             [TeamStrategy newStrategyWithName:@"Aggressive" description:@"Play a more aggressive offense. Will pass with lower completion percentage and higher chance of interception. However, catches will go for more yards." rYB:-1 rAB:2 pYB:3 pAB:1],
              [TeamStrategy newStrategyWithName:@"No Preference" description:@"Will play a normal offense with no bonus either way, but no penalties either." rYB:0 rAB:0 pYB:0 pAB:0],
-             [TeamStrategy newStrategyWithName:@"Conservative" description:@"Play a more conservative offense, running a bit more and passing slightly less. Passes are more accurate but shorter. Rushes are more likely to gain yards but less likely to break free for big plays." rYB:1 rAB:-2 pYB:-3 pAB:-2]
+             [TeamStrategy newStrategyWithName:@"Conservative" description:@"Play a more conservative offense, running a bit more and passing slightly less. Passes are more accurate but shorter. Rushes are more likely to gain yards but less likely to break free for big plays." rYB:1 rAB:-2 pYB:-3 pAB:-1]
              
              ];
 }
