@@ -59,6 +59,7 @@
     
     NSMutableArray<Player*>* positions;
     NSMutableArray<Player*>* players;
+    BOOL _viewingSignees;
 }
 @end
 
@@ -123,6 +124,7 @@
         Player *b = (Player*)obj2;
         return a.ratOvr > b.ratOvr ? -1 : a.ratOvr == b.ratOvr ? 0 : 1;
     }];
+    _viewingSignees = NO;
     
     [self.tableView reloadData];
     self.title = [NSString stringWithFormat:@"Budget: $%d",recruitingBudget];
@@ -240,7 +242,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:TUTORIAL_SHOWN];
         [[NSUserDefaults standardUserDefaults] synchronize];
         //display intro screen
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to Recruiting Season, Coach!" message:@"At the end of each season, graduating seniors leave the program and spots open up. As coach, you are responsible for recruiting the next class of players that will lead your team to bigger and better wins. You recruit based on a budget, which is determined by your team's prestige. Better teams will have more money to work with, while worse teams will have to save money wherever they can.\n\nWhen you press \"Start Recruiting\" after the season, you can see who is leaving your program and give you a sense of how many players you will need to replace. Next, the Recruiting menu opens up (where you are now). You can view the Top 200 recruits from every position to see the best of the best. Each Recruit has their positional ratings as well as an Overall and Potential. The cost of each recruit (insert Cam Newton and/or Ole Miss joke here) is determined by how good they are. Once you are done recruiting all the players you need, or that you can afford, press \"Done\" to advance to the next season." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to Recruiting Season, Coach!" message:@"At the end of each season, graduating seniors leave the program and spots open up. As coach, you are responsible for recruiting the next class of players that will lead your team to bigger and better wins. You recruit based on a budget of points, which is determined by your team's prestige. Better teams will have more points to work with, while worse teams will have to save points wherever they can.\n\nWhen you press \"Start Recruiting\" after the season, you can see who is leaving your program and give you a sense of how many players you will need to replace. Next, the Recruiting menu opens up (where you are now). You can view the Top 200 recruits from every position to see the best of the best. Each Recruit has their positional ratings as well as an Overall and Potential. The point cost of each recruit (insert Cam Newton and/or Ole Miss joke here) is determined by how good they are. Once you are done recruiting all the players you need, or that you can afford, press \"Done\" to advance to the next season." preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
     }
@@ -251,7 +253,7 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
     
-    self.title = [NSString stringWithFormat:@"Budget: $%d",recruitingBudget];
+    self.title = [NSString stringWithFormat:@"Budget: %d pts",recruitingBudget];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HBRecruitCell" bundle:nil] forCellReuseIdentifier:@"HBRecruitCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
@@ -286,24 +288,34 @@
             [alertController addAction:[UIAlertAction actionWithTitle:position style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if (i == 0) {
                     players = availAll;
+                    _viewingSignees = NO;
                 } else if (i == 1) {
                     players = playersRecruited;
+                    _viewingSignees = YES;
                 } else if (i == 2) {
                     players = availQBs;
+                    _viewingSignees = NO;
                 } else if (i == 3) {
                     players = availRBs;
+                    _viewingSignees = NO;
                 } else if (i == 4) {
                     players = availWRs;
+                    _viewingSignees = NO;
                 } else if (i == 5) {
                     players = availOLs;
+                    _viewingSignees = NO;
                 } else if (i == 6) {
                     players = availF7s;
+                    _viewingSignees = NO;
                 } else if (i == 7) {
                     players = availCBs;
+                    _viewingSignees = NO;
                 } else if (i == 8) {
                     players = availSs;
+                    _viewingSignees = NO;
                 } else {
                     players = availKs;
+                    _viewingSignees = NO;
                 }
                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
                 [self.tableView reloadData];
@@ -455,7 +467,7 @@
     [cell.nameLabel setText:player.name];
     [cell.positionLabel setText:player.position];
     [cell.ovrLabel setText:[NSString stringWithFormat:@"Ovr: %d",player.ratOvr]];
-    [cell.recruitButton setTitle:[NSString stringWithFormat:@"Recruit Player ($%d)", player.cost] forState:UIControlStateNormal];
+    [cell.recruitButton setTitle:[NSString stringWithFormat:@"Recruit Player (%d pts)", player.cost] forState:UIControlStateNormal];
     [cell.recruitButton addTarget:self action:@selector(recruitPlayer:) forControlEvents:UIControlEventTouchUpInside];
     [cell.recruitButton setTag:indexPath.row];
     [cell.stat1Label setText:@"Potential"];
@@ -518,7 +530,7 @@
         [cell.stat4ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerK*)player).ratKickFum]];
     }
     
-    if (player.cost > recruitingBudget) {
+    if (player.cost > recruitingBudget || _viewingSignees) {
         [cell.recruitButton setEnabled:NO];
         [cell.recruitButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     } else {
@@ -532,7 +544,7 @@
 -(void)recruitPlayer:(UIButton*)sender {
     Player *p = players[sender.tag];
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Are you sure you want to sign %@ %@ to your team?", p.position,p.name] message:[NSString stringWithFormat:@"This will cost $%ld.",(long)p.cost] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Are you sure you want to sign %@ %@ to your team?", p.position,p.name] message:[NSString stringWithFormat:@"This will cost %ld points.",(long)p.cost] preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self buyRecruit:p];
     }]];
@@ -542,7 +554,7 @@
 
 -(void)buyRecruit:(Player*)player { //Ole Mi$$
     int playerCost = player.cost;
-    NSLog(@"COST: $%d",playerCost);
+    NSLog(@"COST: %d points",playerCost);
     if (recruitingBudget >= playerCost) {
         recruitingBudget -= playerCost;
         [playersRecruited addObject:player];
@@ -612,7 +624,7 @@
         [self.tableView reloadData];
         
         [CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"Recruited %@ %@ (Ovr: %d) to %@!",player.position, player.name, player.ratOvr, [HBSharedUtils getLeague].userTeam.abbreviation] duration:0.5];
-        self.title = [NSString stringWithFormat:@"Budget: $%d",recruitingBudget];
+        self.title = [NSString stringWithFormat:@"Budget: %d pts",recruitingBudget];
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Coach, you don't have enough money in your budget to recruit this player! Try recruiting a cheaper one instead." preferredStyle:UIAlertControllerStyleAlert];
         

@@ -26,7 +26,10 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    teams = [NSMutableArray array];
+    teams = [HBSharedUtils getLeague].teamList;
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    teams=[[teams sortedArrayUsingDescriptors:@[sort]] mutableCopy];
+    
     navSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     [navSearchBar setPlaceholder:@"Search Teams"];
     [navSearchBar setDelegate:self];
@@ -41,7 +44,8 @@
     
     self.navigationItem.titleView = navSearchBar;
     //[navSearchBar becomeFirstResponder];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reloadTeams" object:nil];
 }
 
 -(void)reloadAll {

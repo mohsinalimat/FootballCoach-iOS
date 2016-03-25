@@ -31,6 +31,7 @@
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:heismanDecided forKey:@"heismanDecided"];
+    [encoder encodeBool:_canRebrandTeam forKey:@"canRebrandTeam"];
     [encoder encodeObject:heisman forKey:@"heisman"];
     [encoder encodeObject:heismanCandidates forKey:@"heismanCandidates"];
     [encoder encodeObject:heismanWinnerStrFull forKey:@"heismanWinnerStrFull"];
@@ -71,6 +72,13 @@
         _bowlGames = [decoder decodeObjectForKey:@"bowlGames"];
         _userTeam = [decoder decodeObjectForKey:@"userTeam"];
         _recruitingStage = [decoder decodeIntForKey:@"recruitingStage"];
+        
+        
+        if ([decoder containsValueForKey:@"canRebrandTeam"]) {
+            _canRebrandTeam = [decoder decodeBoolForKey:@"canRebrandTeam"];
+        } else {
+            _canRebrandTeam = false;
+        }
     }
     return self;
 }
@@ -107,7 +115,6 @@
     if ([FCFileManager existsItemAtPath:@"league.cfb"]) {
         League *ligue = (League*)[NSKeyedUnarchiver unarchiveObjectWithData:[FCFileManager readFileAtPathAsData:@"league.cfb"]];
          [ligue setUserTeam:ligue.userTeam];
-        //NSLog(@"USERTEAM: %@", ligue.userTeam.dictionaryRepresentation);
          [(AppDelegate*)[[UIApplication sharedApplication] delegate] setLeague:ligue];
          [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
         return YES;
@@ -291,6 +298,7 @@
 }
 
 -(void)playWeek {
+    _canRebrandTeam = NO;
     if (_currentWeek <= 12 ) {
         for (int i = 0; i < _conferences.count; ++i) {
             [_conferences[i] playWeek];
@@ -338,6 +346,7 @@
             NSMutableArray *week15 = _newsStories[15];
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", _ncg.awayTeam.name, [_ncg.awayTeam strRep], [_ncg.homeTeam strRep], (long)_ncg.awayScore, (long)_ncg.homeScore, _ncg.awayTeam.name]];
         }
+        _canRebrandTeam = YES;
     }
     
     [self setTeamRanks];

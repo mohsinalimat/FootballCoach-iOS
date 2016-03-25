@@ -10,6 +10,7 @@
 #import "HBSettingsCell.h"
 #import "MyTeamViewController.h"
 #import "ColorSelectionViewController.h"
+#import "Team.h"
 
 #import "HexColors.h"
 #import "FCFileManager.h"
@@ -31,6 +32,54 @@
 }
 
 
+-(void)changeTeamName{
+    if (![HBSharedUtils getLeague].canRebrandTeam) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"You can only rebrand your team during the offseason." preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else {
+        Team *userTeam = [HBSharedUtils getLeague].userTeam;
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rebrand Team" message:@"Enter your new team name and abbreviation below." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"Team Name";
+            textField.text = userTeam.name;
+        }];
+        
+        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"Abbreviation";
+            textField.text = userTeam.abbreviation;
+        }];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to rebrand your team?" message:@"You can rebrand again at any time during the offseason." preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                //save
+                UITextField *name = alert.textFields[0];
+                UITextField *abbrev = alert.textFields[1];
+                if ((![name.text isEqualToString:userTeam.name] || ![abbrev.text isEqualToString:userTeam.abbreviation]) && (name.text.length > 0 && abbrev.text.length > 0) && (![name.text isEqualToString:@""] && ![abbrev.text isEqualToString:@""])) {
+                    [[HBSharedUtils getLeague].userTeam setName:name.text];
+                    [[HBSharedUtils getLeague].userTeam setAbbreviation:abbrev.text];
+                    Team *rival = [[HBSharedUtils getLeague] findTeam:[HBSharedUtils getLeague].userTeam.rivalTeam];
+                    [rival setRivalTeam:abbrev.text];
+                    NSLog(@"CURRENT TEAM RIVAL IS LINKED TO ITS RIVAL ABBR: %@", rival.rivalTeam);
+                    [[HBSharedUtils getLeague] save];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
+                    [self.tableView reloadData];
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"Successfully rebranded your team to %@ (%@)!", name.text, abbrev.text] onViewController:self];
+                } else {
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:@"Unable to rebrand your team.\nInvalid inputs provided." onViewController:self];
+                }
+            }]];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }]];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Settings";
@@ -39,7 +88,7 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBSettingsCell" bundle:nil] forCellReuseIdentifier:@"HBSettingsCell"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
 }
 
 -(void)reloadAll {
@@ -111,7 +160,7 @@
         }
         return cell;
     } else {
-        if (indexPath.row == 0) {
+        /*if (indexPath.row == 0) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ColorPickerCell"];
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"ColorPickerCell"];
@@ -128,7 +177,7 @@
                 [cell.detailTextLabel setText:@"iOS Default"];
             }
             return cell;
-        } else if (indexPath.row == 1) {
+        } else */if (indexPath.row == 0) {
             HBSettingsCell *setCell = (HBSettingsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBSettingsCell"];
             BOOL notifsOn = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
             [setCell.settingSwitch setOnTintColor:[HBSharedUtils styleColor]];
@@ -143,9 +192,15 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
                 cell.backgroundColor = [UIColor whiteColor];
                 [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
-                [cell.textLabel setTextColor:[UIColor redColor]];
+                
             }
-            [cell.textLabel setText:@"Delete Save File"];
+            if (indexPath.row == 1) {
+                [cell.textLabel setText:@"Rebrand Team"];
+                [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+            } else {
+                [cell.textLabel setText:@"Delete Save File"];
+                [cell.textLabel setTextColor:[HBSharedUtils errorColor]];
+            }
             return cell;
         }
     }
@@ -245,11 +300,15 @@
             [self presentViewController:alert animated:YES completion:nil];
             
         } else {
-            if (indexPath.row == 0) {
+            /*if (indexPath.row == 0) {
                 STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[ColorSelectionViewController alloc] init]];
                 [popupController.navigationBar setDraggable:YES];
                 popupController.style = STPopupStyleBottomSheet;
                 [popupController presentInViewController:self];
+            }*/
+            
+            if (indexPath.row == 1) {
+                [self changeTeamName];
             }
         }
     }

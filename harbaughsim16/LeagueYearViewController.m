@@ -23,7 +23,7 @@
     [super viewDidLoad];
     self.title = [NSString stringWithFormat:@"%@ Season Recap",selectedYear];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
 }
 
 -(void)reloadAll {

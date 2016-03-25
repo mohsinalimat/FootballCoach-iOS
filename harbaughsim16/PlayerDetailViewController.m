@@ -56,7 +56,7 @@
     stats = [selectedPlayer detailedStats:[HBSharedUtils getLeague].currentWeek];
     ratings = [selectedPlayer detailedRatings];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [playerDetailView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }

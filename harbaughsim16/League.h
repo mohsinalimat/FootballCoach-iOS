@@ -39,6 +39,7 @@
 //User Team
 @property (strong, nonatomic)  Team *userTeam;
 @property (nonatomic) int recruitingStage;
+@property (nonatomic) BOOL canRebrandTeam;
 
 +(BOOL)loadSavedData;
 +(NSArray*)bowlGameTitles;

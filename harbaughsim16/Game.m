@@ -266,7 +266,7 @@
         
         _hasPlayed = false;
         
-        if ([_gameName isEqualToString:@"In Conf"] && [_homeTeam.rivalTeam isEqualToString:_awayTeam.abbreviation]) {
+        if ([_gameName isEqualToString:@"In Conf"] && ([_homeTeam.rivalTeam isEqualToString:_awayTeam.abbreviation] || [_awayTeam.rivalTeam isEqualToString:_homeTeam.abbreviation])) {
             // Rivalry game!
             _gameName = @"Rivalry Game";
         }
@@ -1202,11 +1202,11 @@
     if (gamePoss) {
         _awayScore += 2;
         [gameEventLog appendString:[NSString stringWithFormat:@"%@SAFETY!\n%@ QB %@ was tackled in the endzone! Result is a safety and %@ will get the ball.", [self getEventPrefix],_homeTeam.abbreviation,[_homeTeam getQB:0].name,_awayTeam.abbreviation]];
-        [self kickOff:_homeTeam];
+        [self freeKick:_homeTeam];
     } else {
         _homeScore += 2;
         [gameEventLog appendString:[NSString stringWithFormat:@"%@SAFETY!\n%@ QB %@ was tackled in the endzone! Result is a safety and %@ will get the ball.", [self getEventPrefix],_awayTeam.abbreviation,[_awayTeam getQB:0].name,_homeTeam.abbreviation]];
-        [self kickOff:_awayTeam];
+        [self freeKick:_awayTeam];
     }
 }
 
@@ -1386,6 +1386,35 @@
             [_AwayRB2Stats replaceObjectAtIndex:1 withObject:rb2Att];
         }
     }
+}
+
+-(void)freeKick:(Team*)offense {
+    if ( gameTime < 180 && ((gamePoss && (_awayScore - _homeScore) <= 8 && (_awayScore - _homeScore) > 0)
+                            || (!gamePoss && (_homeScore - _awayScore) <=8 && (_homeScore - _awayScore) > 0))) {
+        // Yes, do onside
+        if ([offense getK:0].ratKickFum * [HBSharedUtils randomValue] > 60 || [HBSharedUtils randomValue] < 0.1) {
+            //Success!
+           // gameEventLog += getEventPrefix() + offense.abbr + " K " + offense.getK(0).name + " successfully executes onside kick! " + offense.abbr + " has possession!";
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ successfully executes onside kick! %@ has possession!\n",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
+        } else {
+            // Fail
+            //gameEventLog += getEventPrefix() + offense.abbr + " K " + offense.getK(0).name + " failed the onside kick and lost possession.";
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ failed to convert the onside kick. %@ lost possession.\n",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
+            gamePoss = !gamePoss;
+        }
+        gameYardLine = 50;
+        gameDown = 1;
+        gameYardsNeed = 10;
+    } else {
+        // Just regular kick off
+        gameYardLine = (int) (115 - ( [offense getK:0].ratKickPow + 20 - 40*[HBSharedUtils randomValue] ));
+        if ( gameYardLine <= 0 ) gameYardLine = 20;
+        gameDown = 1;
+        gameYardsNeed = 10;
+        gamePoss = !gamePoss;
+    }
+    
+    gameTime -= (15*[HBSharedUtils randomValue]);
 }
 
 -(void)addPointsQuarter:(int)points {

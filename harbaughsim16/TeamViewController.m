@@ -37,6 +37,53 @@
     return self;
 }
 
+-(void)changeTeamName {
+    if (![HBSharedUtils getLeague].canRebrandTeam) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"You can only rebrand teams during the offseason." preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rebrand Team" message:@"Enter a new team name and abbreviation below." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"Team Name";
+            textField.text = selectedTeam.name;
+        }];
+        
+        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"Abbreviation";
+            textField.text = selectedTeam.abbreviation;
+        }];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to rebrand this team?" message:@"You can rebrand again at any time during the offseason." preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                //save
+                UITextField *name = alert.textFields[0];
+                UITextField *abbrev = alert.textFields[1];
+                if ((![name.text isEqualToString:selectedTeam.name] || ![abbrev.text isEqualToString:selectedTeam.abbreviation]) && (name.text.length > 0 && abbrev.text.length > 0) && (![name.text isEqualToString:@""] && ![abbrev.text isEqualToString:@""])) {
+                    [selectedTeam setName:name.text];
+                    [selectedTeam setAbbreviation:abbrev.text];
+                    Team *rival = [[HBSharedUtils getLeague] findTeam:selectedTeam.rivalTeam];
+                    [rival setRivalTeam:abbrev.text];
+                    NSLog(@"THIS TEAM RIVAL IS LINKED TO ITS RIVAL ABBR: %@", rival.rivalTeam);
+                    [[HBSharedUtils getLeague] save];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTeams" object:nil];
+                    [self.tableView reloadData];
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"Successfully rebranded this team to %@ (%@)!", name.text, abbrev.text] onViewController:self];
+                } else {
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:@"Unable to rebrand this team.\nInvalid inputs provided." onViewController:self];
+                }
+            }]];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alertController animated:YES completion:nil];
+        }]];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,10 +101,26 @@
     [self.tableView setTableHeaderView:teamHeaderView];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reloadTeams" object:nil];
+    
+    if ([HBSharedUtils getLeague].canRebrandTeam) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(changeTeamName)];
+    }
 }
 
 -(void)reloadAll {
+    NSString *rank = @"";
+    if (selectedTeam.rankTeamPollScore < 26 && selectedTeam.rankTeamPollScore > 0) {
+        rank = [NSString stringWithFormat:@"#%d ",selectedTeam.rankTeamPollScore];
+    }
+    [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, selectedTeam.name]];
+    
+    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistory.count + 2016,(long)selectedTeam.wins,(long)selectedTeam.losses]];
+    [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Prestige: %d",selectedTeam.teamPrestige]];
+    [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.tableView setTableHeaderView:teamHeaderView];
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setTableHeaderView:teamHeaderView];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];

@@ -30,7 +30,7 @@
     leagueHistory = [HBSharedUtils getLeague].leagueHistory;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     self.title = @"League History";
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newStyleColor" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
 }
 
 -(void)dealloc {

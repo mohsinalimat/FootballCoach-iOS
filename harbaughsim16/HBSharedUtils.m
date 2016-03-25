@@ -16,7 +16,7 @@
 static UIColor *styleColor = nil;
 
 @implementation HBSharedUtils
-+(void)initialize {
+/*+(void)initialize {
     if (!styleColor) {
         NSDictionary *themeColorData = [[NSUserDefaults standardUserDefaults] objectForKey:HB_CURRENT_THEME_COLOR];
         if (themeColorData) {
@@ -29,7 +29,7 @@ static UIColor *styleColor = nil;
             styleColor = [UIColor hx_colorWithHexRGBAString:@"#009740"];
         }
     }
-}
+}*/
 
 +(double)randomValue {
     return ((double)arc4random() / ARC4RANDOM_MAX);
@@ -44,14 +44,18 @@ static UIColor *styleColor = nil;
 }
 
 +(UIColor *)styleColor {
-    return styleColor;
+    return [UIColor hx_colorWithHexRGBAString:@"#009740"];
+}
+
++(UIColor *)errorColor {
+    return [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
 }
 
 +(void)setStyleColor:(NSDictionary*)colorDict {
     styleColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorDict[@"color"]];
     [[NSUserDefaults standardUserDefaults] setObject:colorDict forKey:HB_CURRENT_THEME_COLOR];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"newStyleColor" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
      [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setupAppearance];
     
 }

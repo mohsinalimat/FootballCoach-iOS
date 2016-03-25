@@ -61,7 +61,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentIntro) name:@"noSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newSaveFile" object:nil];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newStyleColor" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newTeamName" object:nil];
     
 }
 
