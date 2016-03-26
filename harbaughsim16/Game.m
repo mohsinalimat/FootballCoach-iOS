@@ -477,29 +477,46 @@
 }
 
 -(NSString*)convGameTime {
-    int qNum = (3600 - gameTime) / 900 + 1;
-    int minTime;
-    int secTime;
-    NSMutableString *secStr =[NSMutableString string];
-    if ( qNum >= 4 && _numOT > 0 ) {
-        minTime = gameTime / 60;
-        secTime = gameTime - 60*minTime;
-        if (secTime < 10) {
-            //secStr = "0" + secTime;
-            [secStr appendString:[NSString stringWithFormat:@"0%ld", (long)secTime]];
+    if (!playingOT) {
+        int qNum = (3600 - gameTime) / 900 + 1;
+        int minTime;
+        int secTime;
+        NSMutableString *secStr =[NSMutableString string];
+        if ( qNum >= 4 && _numOT > 0 ) {
+            minTime = gameTime / 60;
+            secTime = gameTime - 60*minTime;
+            if (secTime < 10) {
+                //secStr = "0" + secTime;
+                [secStr appendString:[NSString stringWithFormat:@"0%ld", (long)secTime]];
+            } else {
+                [secStr appendString:[NSString stringWithFormat:@"%ld", (long)secTime]];
+            }
+            return [NSString stringWithFormat:@"%ld:%@ OT%ld",(long)minTime,secStr,(long)_numOT];
         } else {
-            [secStr appendString:[NSString stringWithFormat:@"%ld", (long)secTime]];
+            minTime = (gameTime - 900*(4-qNum)) / 60;
+            secTime = (gameTime - 900*(4-qNum)) - 60*minTime;
+            if (secTime < 10) {
+                [secStr appendString:[NSString stringWithFormat:@"0%ld", (long)secTime]];
+            } else {
+                [secStr appendString:[NSString stringWithFormat:@"%ld", (long)secTime]];
+            }
+            return [NSString stringWithFormat:@"%ld:%@ Q%ld",(long)minTime,secStr,(long)qNum];
         }
-        return [NSString stringWithFormat:@"%ld:%@ OT%ld",(long)minTime,secStr,(long)_numOT];
+
     } else {
-        minTime = (gameTime - 900*(4-qNum)) / 60;
-        secTime = (gameTime - 900*(4-qNum)) - 60*minTime;
-        if (secTime < 10) {
-            [secStr appendString:[NSString stringWithFormat:@"0%ld", (long)secTime]];
+        if (!bottomOT) {
+            if (_numOT > 1) {
+                return [NSString stringWithFormat:@"TOP %ldOT",(long)_numOT];
+            } else {
+                return @"TOP OT";
+            }
         } else {
-            [secStr appendString:[NSString stringWithFormat:@"%ld", (long)secTime]];
+            if (_numOT > 1) {
+                return [NSString stringWithFormat:@"BOT %ldOT",(long)_numOT];
+            } else {
+                return @"BOT OT";
+            }
         }
-        return [NSString stringWithFormat:@"%ld:%@ Q%ld",(long)minTime,secStr,(long)qNum];
     }
 }
 
@@ -521,10 +538,29 @@
             } else {
                 [self runPlay:_awayTeam defense:_homeTeam];
             }
-            if (gameTime <= 0 && _homeScore == _awayScore) {
+            
+            /*if (gameTime <= 0 && _homeScore == _awayScore) {
                 gameTime = 900; //OT
                 gameYardLine = 20;
                 _numOT++;
+            }*/
+        }
+        
+        if (gameTime <= 0 && _homeScore == _awayScore) {
+            playingOT = YES;
+            gamePoss = FALSE;
+            gameYardLine = 75;
+            _numOT++;
+            gameTime = -1;
+            gameDown = 1;
+            gameYardsNeed = 10;
+            
+            while (playingOT) {
+                if (gamePoss) {
+                    [self runPlay:_homeTeam defense:_awayTeam];
+                } else {
+                    [self runPlay:_awayTeam defense:_homeTeam];
+                }
             }
         }
         
@@ -680,68 +716,103 @@
 
 -(void)runPlay:(Team *)offense defense:(Team *)defense {
     if ( gameDown > 4 ) {
-        [gameEventLog appendFormat:@"%@TURNOVER ON DOWNS!\n%@ failed to convert on 4th down. %@ takes over on downs.",[self getEventPrefix],offense.abbreviation,defense.abbreviation];
-        gamePoss = !gamePoss;
-        gameDown = 1;
-        gameYardsNeed = 10;
-        gameYardLine = 100 - gameYardLine;
-    }
-    double preferPass = ([offense getPassProf]*2 - [defense getPassDef]) *[HBSharedUtils randomValue] - 10;
-    double preferRush = ([offense getRushProf]*2 - [defense getRushDef]) *[HBSharedUtils randomValue] + offense.offensiveStrategy.rushYdBonus;
-    
-    if ( gameTime <= 30 ) {
-        if ( ((gamePoss && (_awayScore - _homeScore) <= 3) || (!gamePoss && (_homeScore - _awayScore) <= 3)) && gameYardLine > 60 ) {
-            //last second FGA
-            [self fieldGoalAtt:offense defense:defense];
+        if (!playingOT) {
+            [gameEventLog appendFormat:@"%@TURNOVER ON DOWNS!\n%@ failed to convert on 4th down. %@ takes over on downs.",[self getEventPrefix],offense.abbreviation,defense.abbreviation];
+            gamePoss = !gamePoss;
+            gameDown = 1;
+            gameYardsNeed = 10;
+            gameYardLine = 100 - gameYardLine;
         } else {
-            //hail mary
-            [self passingPlay:offense defense:defense];
+            [gameEventLog appendFormat:@"%@TURNOVER ON DOWNS!\n%@ failed to convert on 4th down in OT and lost possession.",[self getEventPrefix],offense.abbreviation];
+            [self resetForOT];
         }
-    }
-    else if ( gameDown >= 4 ) {
-        if ( ((gamePoss && (_awayScore - _homeScore) > 3) || (!gamePoss && (_homeScore - _awayScore) > 3)) && gameTime < 300 ) {
-            //go for it since we need 7 to win
-            if ( gameYardsNeed < 3 ) {
-                //rushingPlay( offense, defense );
-                [self rushingPlay:offense defense:defense];
+    } else {
+        double preferPass = ([offense getPassProf]*2 - [defense getPassDef]) *[HBSharedUtils randomValue] - 10;
+        double preferRush = ([offense getRushProf]*2 - [defense getRushDef]) *[HBSharedUtils randomValue] + offense.offensiveStrategy.rushYdBonus;
+        
+        if (gameDown == 1 && gameYardLine >= 91) {
+            gameYardsNeed = 100 - gameYardLine;
+        }
+        
+        if ( gameTime <= 30 && !playingOT ) {
+            if ( ((gamePoss && (_awayScore - _homeScore) <= 3) || (!gamePoss && (_homeScore - _awayScore) <= 3)) && gameYardLine > 60 ) {
+                //last second FGA
+                [self fieldGoalAtt:offense defense:defense];
             } else {
-                //passingPlay( offense, defense );
+                //hail mary
                 [self passingPlay:offense defense:defense];
             }
-        } else {
-            //4th down
-            if ( gameYardsNeed < 3 ) {
-                if ( gameYardLine > 65 ) {
+        }
+        else if ( gameDown >= 4 ) {
+            if ( ((gamePoss && (_awayScore - _homeScore) > 3) || (!gamePoss && (_homeScore - _awayScore) > 3)) && gameTime < 300 ) {
+                //go for it since we need 7 to win
+                if ( gameYardsNeed < 3 ) {
+                    //rushingPlay( offense, defense );
+                    [self rushingPlay:offense defense:defense];
+                } else {
+                    //passingPlay( offense, defense );
+                    [self passingPlay:offense defense:defense];
+                }
+            } else {
+                //4th down
+                if ( gameYardsNeed < 3 ) {
+                    if ( gameYardLine > 65 ) {
+                        //fga
+                        //fieldGoalAtt( offense, defense );
+                        [self fieldGoalAtt:offense defense:defense];
+                    } else if ( gameYardLine > 55 ) {
+                        // run play, go for it!
+                        //rushingPlay( offense, defense );
+                        [self rushingPlay:offense defense:defense];
+                    } else {
+                        //punt
+                        //puntPlay( offense );
+                        [self puntPlay:offense];
+                    }
+                } else if ( gameYardLine > 60 ) {
                     //fga
                     //fieldGoalAtt( offense, defense );
                     [self fieldGoalAtt:offense defense:defense];
-                } else if ( gameYardLine > 55 ) {
-                    // run play, go for it!
-                    //rushingPlay( offense, defense );
-                    [self rushingPlay:offense defense:defense];
                 } else {
                     //punt
                     //puntPlay( offense );
                     [self puntPlay:offense];
                 }
-            } else if ( gameYardLine > 60 ) {
-                //fga
-                //fieldGoalAtt( offense, defense );
-                [self fieldGoalAtt:offense defense:defense];
-            } else {
-                //punt
-                //puntPlay( offense );
-                [self puntPlay:offense];
             }
+        } else if ( (gameDown == 3 && gameYardsNeed > 4) || ((gameDown==1 || gameDown==2) && (preferPass >= preferRush)) ) {
+            // pass play
+            //passingPlay( offense, defense );
+            [self passingPlay:offense defense:defense];
+        } else {
+            //run play
+            //rushingPlay( offense, defense );
+            [self rushingPlay:offense defense:defense];
         }
-    } else if ( (gameDown == 3 && gameYardsNeed > 4) || ((gameDown==1 || gameDown==2) && (preferPass >= preferRush)) ) {
-        // pass play
-        //passingPlay( offense, defense );
-        [self passingPlay:offense defense:defense];
+    }
+}
+
+-(void)resetForOT {
+    if (bottomOT && _homeScore == _awayScore) {
+        gameYardLine = 75;
+        gameYardsNeed = 10;
+        gameDown = 1;
+        _numOT++;
+        if ((_numOT % 2) == 0) {
+            gamePoss = FALSE;
+        } else {
+            gamePoss = TRUE;
+        }
+        gameTime = -1;
+        bottomOT = FALSE;
+    } else if (!bottomOT) {
+        gamePoss = !gamePoss;
+        gameYardLine = 75;
+        gameYardsNeed = 10;
+        gameDown = 1;
+        gameTime = -1;
+        bottomOT = TRUE;
     } else {
-        //run play
-        //rushingPlay( offense, defense );
-        [self rushingPlay:offense defense:defense];
+        playingOT = FALSE;
     }
 }
 
@@ -840,15 +911,16 @@
                 }
             }
             
-            //check downs
-            gameYardsNeed -= yardsGain;
-            if ( gameYardsNeed <= 0 ) {
-                gameDown = 1;
-                gameYardsNeed = 10;
-            } else gameDown++;
+            if (!gotTD && !gotFumble) {
+                //check downs
+                gameYardsNeed -= yardsGain;
+                if ( gameYardsNeed <= 0) {
+                    gameDown = 1;
+                    gameYardsNeed = 10;
+                } else gameDown++;
+            }
             
             //stats management
-            //passCompletion(offense, defense, selWR, selWRStats, yardsGain);
             [self passCompletion:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
         }
         
@@ -870,23 +942,34 @@
         wrFum = [NSNumber numberWithInteger:wrFum.integerValue + 1];
         [selWRStats replaceObjectAtIndex:5 withObject:wrFum];
         selWR.statsFumbles++;
-        gameDown = 1;
-        gameYardsNeed = 10;
+    
         if ( gamePoss ) { // home possession
             _homeTOs++;
         } else {
             _awayTOs++;
         }
-        gamePoss = !gamePoss;
-        gameYardLine = 100 - gameYardLine;
-        gameTime -= (15 * [HBSharedUtils randomValue]);
-        return;
+        
+        if (!playingOT) {
+            gameDown = 1;
+            gameYardsNeed = 10;
+            gamePoss = !gamePoss;
+            gameYardLine = 100 - gameYardLine;
+            gameTime -= (15 * [HBSharedUtils randomValue]);
+            return;
+        } else {
+            [self resetForOT];
+            return;
+        }
     }
     
     if ( gotTD ) {
         gameTime -= (15 * [HBSharedUtils randomValue]);
         [self kickXP:offense defense:defense];
-        [self kickOff:offense];
+        if (!playingOT) {
+            [self kickOff:offense];
+        } else {
+            [self resetForOT];
+        }
         return;
     }
     
@@ -956,18 +1039,24 @@
     }
     
     //check downs
-    gameYardsNeed -= yardsGain;
-    if ( gameYardsNeed <= 0 ) {
-        gameDown = 1;
-        gameYardsNeed = 10;
-    } else gameDown++;
+    if (!gotTD) {
+        gameYardsNeed -= yardsGain;
+        if ( gameYardsNeed <= 0 ) {
+            gameDown = 1;
+            gameYardsNeed = 10;
+        } else gameDown++;
+    }
     
     //stats management
     [self rushAttempt:offense defense:defense rusher:selRB rb1Pref:RB1pref rb2Pref:RB2pref yardsGained:yardsGain];
     
     if ( gotTD ) {
         [self kickXP:offense defense:defense];
-        [self kickOff:offense];
+        if (!playingOT) {
+            [self kickOff:offense];
+        } else {
+            [self resetForOT];
+        }
     } else {
         gameTime -= 25 + 15* [HBSharedUtils randomValue];
         //check for fumble
@@ -1000,10 +1089,14 @@
             
             [gameEventLog  appendString:[NSString stringWithFormat:@"%@TURNOVER!\n%@ RB %@ fumbled the ball while rushing.",[self getEventPrefix], offense.abbreviation, selRB.name]];
             selRB.statsFumbles++;
-            gameDown = 1;
-            gameYardsNeed = 10;
-            gamePoss = !gamePoss;
-            gameYardLine = 100 - gameYardLine;
+            if (!playingOT) {
+                gameDown = 1;
+                gameYardsNeed = 10;
+                gamePoss = !gamePoss;
+                gameYardLine = 100 - gameYardLine;
+            } else {
+                [self resetForOT];
+            }
         }
     }
 }
@@ -1041,17 +1134,17 @@
         //defense.teamOppPoints += 3;
         [offense getK:0].statsFGMade++;
         [offense getK:0].statsFGAtt++;
-        [self kickOff:offense];
+        if (!playingOT) {
+            [self kickOff:offense];
+        } else {
+            [self resetForOT];
+        }
         
     } else {
         //miss
         
         [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ missed the %d yard FG!",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (110-gameYardLine)]];
         [offense getK:0].statsFGAtt++;
-        gameYardLine = 100 - gameYardLine;
-        gameDown = 1;
-        gameYardsNeed = 10;
-        gamePoss = !gamePoss;
         if ( gamePoss ) { // home possession
             NSNumber *kStat1 = _HomeKStats[3];
             kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
@@ -1061,6 +1154,15 @@
             kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
             [_AwayKStats replaceObjectAtIndex:3 withObject:kStat1];
         }
+        if (!playingOT) {
+            gameYardLine = MAX(100 - gameYardLine, 20);
+            gameDown = 1;
+            gameYardsNeed = 10;
+            gamePoss = !gamePoss;
+        } else {
+            [self resetForOT];
+        }
+        
     }
     
     gameTime -= 20;
@@ -1068,10 +1170,10 @@
 }
 
 -(void)kickXP:(Team *)offense defense:(Team *)defense {
-    if ( ((gamePoss && (_awayScore - _homeScore) == 2) || (!gamePoss && (_homeScore - _awayScore) == 2)) && gameTime < 300 ) {
+    if ((_numOT >= 3) || (((gamePoss && (_awayScore - _homeScore) == 2) || (!gamePoss && (_homeScore - _awayScore) == 2)) && gameTime < 300) ) {
         //go for 2
         BOOL successConversion = false;
-        if ([HBSharedUtils randomValue] < 0.5 ) {
+        if ([HBSharedUtils randomValue] <= 0.50 ) {
             //rushing
             int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
             int yardsGain = (([offense getRB:0].ratRushSpd + blockAdv) *[HBSharedUtils randomValue] / 6);
@@ -1083,9 +1185,9 @@
                     _awayScore += 2;
                 }
                 [self addPointsQuarter:2];
-                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ rushed for the 2pt conversion.\n",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ rushed for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
             } else {
-                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ stopped at the line of scrimmage, failed the 2pt conversion.\n",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ stopped at the line of scrimmage, failed the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
             }
         } else {
             int pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass];
@@ -1098,9 +1200,9 @@
                     _awayScore += 2;
                 }
                 [self addPointsQuarter:2];
-                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ 2pt conversion is good! %@ completed the pass to %@ for the 2pt conversion.\n",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ 2pt conversion is good! %@ completed the pass to %@ for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
             } else {
-                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ 2pt conversion failed! %@'s pass incomplete to %@.\n",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ 2pt conversion failed! %@'s pass incomplete to %@.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
             }
         }
         
@@ -1128,11 +1230,11 @@
                 [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
             }
             
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ made the XP.\n",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
             [self addPointsQuarter:1];
             [offense getK:0].statsXPMade++;
         } else {
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ missed the XP.\n",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
         }
         [offense getK:0].statsXPAtt++;
     }
@@ -1145,19 +1247,20 @@
         // Yes, do onside
         if ([offense getK:0].ratKickFum *[HBSharedUtils randomValue] > 60 ||[HBSharedUtils randomValue] < 0.1) {
             //Success!
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ successfully executes onside kick! %@ has possession!\n",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ successfully executes onside kick! %@ has possession!",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
         } else {
             // Fail
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ failed to convert the onside kick. %@ lost possession.\n",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ failed to convert the onside kick. %@ lost possession.",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
             gamePoss = !gamePoss;
         }
         gameYardLine = 50;
         gameDown = 1;
         gameYardsNeed = 10;
+        gameTime -= (4 + (5 * [HBSharedUtils randomValue]));
     } else {
         // Just regular kick off
         gameYardLine = (int) (100 - ([offense getK:0].ratKickPow + 20 - 40* [HBSharedUtils randomValue] ));
-        if ( gameYardLine <= 0 ) gameYardLine = 20;
+        if ( gameYardLine <= 0 ) gameYardLine = 25;
         gameDown = 1;
         gameYardsNeed = 10;
         gamePoss = !gamePoss;
@@ -1235,10 +1338,14 @@
     [gameEventLog appendString:[NSString stringWithFormat:@"%@TURNOVER!\n%@ QB %@ was intercepted.", [self getEventPrefix], offense.abbreviation, [offense getQB:0].name]];
     gameTime -= (15 * [HBSharedUtils randomValue]);
     [offense getQB:0].statsInt++;
-    gameDown = 1;
-    gameYardsNeed = 10;
-    gamePoss = !gamePoss;
-    gameYardLine = 100 - gameYardLine;
+    if (!playingOT) {
+        gameDown = 1;
+        gameYardsNeed = 10;
+        gamePoss = !gamePoss;
+        gameYardLine = 100 - gameYardLine;
+    } else {
+        [self resetForOT];
+    }
 }
 
 -(void)passingTD:(Team *)offense receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(int)yardsGained {
@@ -1398,25 +1505,32 @@
             //Success!
            // gameEventLog += getEventPrefix() + offense.abbr + " K " + offense.getK(0).name + " successfully executes onside kick! " + offense.abbr + " has possession!";
             [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ successfully executes onside kick! %@ has possession!\n",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
+            gameYardLine = 35;
+            gameDown = 1;
+            gameYardsNeed = 10;
         } else {
             // Fail
             //gameEventLog += getEventPrefix() + offense.abbr + " K " + offense.getK(0).name + " failed the onside kick and lost possession.";
             [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ failed to convert the onside kick. %@ lost possession.\n",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, offense.abbreviation]];
             gamePoss = !gamePoss;
+            gameYardLine = 65;
+            gameDown = 1;
+            gameYardsNeed = 10;
         }
-        gameYardLine = 50;
-        gameDown = 1;
-        gameYardsNeed = 10;
+        
+        gameTime -= (4 + (5 * [HBSharedUtils randomValue]));
+        
     } else {
         // Just regular kick off
         gameYardLine = (int) (115 - ( [offense getK:0].ratKickPow + 20 - 40*[HBSharedUtils randomValue] ));
-        if ( gameYardLine <= 0 ) gameYardLine = 20;
+        if ( gameYardLine <= 0 ) gameYardLine = 25;
         gameDown = 1;
         gameYardsNeed = 10;
         gamePoss = !gamePoss;
+        gameTime -= (15*[HBSharedUtils randomValue]);
     }
     
-    gameTime -= (15*[HBSharedUtils randomValue]);
+    
 }
 
 -(void)addPointsQuarter:(int)points {

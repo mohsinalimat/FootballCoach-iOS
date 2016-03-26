@@ -28,6 +28,8 @@
     int gameYardLine;
     int gameDown;
     int gameYardsNeed;
+    BOOL playingOT;
+    BOOL bottomOT;
     
 }
 @property (nonatomic) int homeScore;
