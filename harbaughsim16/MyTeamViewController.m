@@ -178,7 +178,6 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"StatCell"];
             cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         NSArray *cellStat = stats[indexPath.row];
         
@@ -186,16 +185,17 @@
         if ([HBSharedUtils getLeague].currentWeek > 0) {
             stat = [NSString stringWithFormat:@"%@ (%@)", cellStat[0], cellStat[2]];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
         } else {
             stat = cellStat[0];
             cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
         [cell.textLabel setText:cellStat[1]];
         [cell.detailTextLabel setText:stat];
         
         return cell;
-
     }
 }
 
