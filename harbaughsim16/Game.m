@@ -1030,7 +1030,7 @@
                 [_AwayRB2Stats replaceObjectAtIndex:2 withObject:kStat1];
             }
         }
-        tdInfo = [NSString stringWithFormat:@"%@ RB %@ rushed %d yards for a TD.", offense.abbreviation,selRB.name,yardsGain];
+        tdInfo = [NSString stringWithFormat:@"%@ RB %@ rushed %d yards for a TD.\n", offense.abbreviation,selRB.name,yardsGain];
         selRB.statsTD++;
         //offense.teamPoints += 6;
         //defense.teamOppPoints += 6;
@@ -1170,101 +1170,333 @@
 }
 
 -(void)kickXP:(Team *)offense defense:(Team *)defense {
-    
-    // No XP/2pt try if the TD puts the bottom OT offense ahead (aka wins the game)
-    if (playingOT && bottomOT && (((_numOT % 2 == 0) &&_awayScore >_homeScore) || ((_numOT % 2 != 0) && _homeScore >_awayScore)))
-    {
-        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@\n%@ wins on a walk-off touchdown!",[self getEventPrefix],tdInfo,offense.abbreviation]];
-    }
-    // If a TD is scored as time expires, there is no XP/2pt if the score difference is greater than 2
-    else if (!playingOT && gameTime <= 0 && ((_homeScore - _awayScore > 2) || (_awayScore -_homeScore > 2))) {
-        //Walkoff TD!
-        if ((abs(_homeScore -_awayScore) < 7) && ((gamePoss && _homeScore > _awayScore) || (!gamePoss && _awayScore > _homeScore))) {
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@\n%@ wins on a walk-off touchdown!",[self getEventPrefix],tdInfo,offense.abbreviation]];
-            
-        //Just rubbing in the win or saving some pride
+    if (!playingOT) {
+        if (gameTime <= 0 && abs(_homeScore - _awayScore) > 2) {
+            if (_awayScore > _homeScore && [_awayTeam.abbreviation isEqualToString:offense.abbreviation]) {
+                //AWAY WINS ON WALKOFF!
+                 [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ wins on a walk-off touchdown!",[self getEventPrefix],tdInfo,_awayTeam.abbreviation]];
+            } else if (_homeScore > _awayScore && [_homeTeam.abbreviation isEqualToString:offense.abbreviation]) {
+                //HOME WINS ON WALKOFF!
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ wins on a walk-off touchdown!",[self getEventPrefix],tdInfo,_homeTeam.abbreviation]];
+            }
         } else {
-           [gameEventLog appendString:[NSString stringWithFormat:@"%@%@",[self getEventPrefix],tdInfo]];
+            //NORMALLY KICK THE XP OR GO FOR 2
+            if (((gamePoss && (_awayScore -_homeScore) == 2) || (!gamePoss && (_homeScore -_awayScore) == 2)) && gameTime < 300) {
+                //go for 2
+                BOOL successConversion = false;
+                if ( [HBSharedUtils randomValue] <= 0.50 ) {
+                    //rushing
+                    int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
+                    int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
+                    if ( yardsGain > 5 ) {
+                        successConversion = true;
+                        if ( gamePoss ) { // home possession
+                            _homeScore += 2;
+                        } else {
+                            _awayScore += 2;
+                        }
+                        [self addPointsQuarter:2];
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ rushed for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                    } else {
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ stopped at the line of scrimmage, failed the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                    }
+                } else {
+                    int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
+                    double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
+                    if ( 100*[HBSharedUtils randomValue] < completion ) {
+                        successConversion = true;
+                        if ( gamePoss ) { // home possession
+                            _homeScore += 2;
+                        } else {
+                            _awayScore += 2;
+                        }
+                        [self addPointsQuarter:2];
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@2pt conversion is good! %@ completed the pass to %@ for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                    } else {
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@2pt conversion failed! %@'s pass incomplete to %@.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                    }
+                }
+            } else {
+                //kick XP
+                if ( [HBSharedUtils randomValue]*100 < 23 + [offense getK:0].ratKickAcc && [HBSharedUtils randomValue] > 0.01 ) {
+                    //made XP
+                    if ( gamePoss ) { // home possession
+                        _homeScore += 1;
+                        NSNumber *kStat1 = _HomeKStats[0];
+                        kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
+                        [_HomeKStats replaceObjectAtIndex:0 withObject:kStat1];
+                        
+                        NSNumber *kStat2 = _HomeKStats[1];
+                        kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                        [_HomeKStats replaceObjectAtIndex:1 withObject:kStat2];
+                    } else {
+                        _awayScore += 1;
+                        NSNumber *kStat1 = _AwayKStats[0];
+                        kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
+                        [_AwayKStats replaceObjectAtIndex:0 withObject:kStat1];
+                        
+                        NSNumber *kStat2 = _AwayKStats[1];
+                        kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                        [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
+                    }
+                    
+                    [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                    [self addPointsQuarter:1];
+                    [offense getK:0].statsXPMade++;
+                } else {
+                    [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                    // missed XP
+                    if ( gamePoss ) { // home possession
+                        NSNumber *kStat2 = _HomeKStats[1];
+                        kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                        [_HomeKStats replaceObjectAtIndex:1 withObject:kStat2];
+                    } else {
+                        NSNumber *kStat2 = _AwayKStats[1];
+                        kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                        [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
+                    }
+                }
+                [offense getK:0].statsXPAtt++;
+            }
         }
     } else {
-        if ( (_numOT >= 3) || (((gamePoss && (_awayScore -_homeScore) == 2) || (!gamePoss && (_homeScore -_awayScore) == 2)) && gameTime < 300 )) {
-            //go for 2
-            BOOL successConversion = false;
-            if ( [HBSharedUtils randomValue] <= 0.50 ) {
-                //rushing
-                int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
-                int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
-                if ( yardsGain > 5 ) {
-                    successConversion = true;
-                    if ( gamePoss ) { // home possession
-                       _homeScore += 2;
-                    } else {
-                       _awayScore += 2;
-                    }
-                    [self addPointsQuarter:2];
-                    [gameEventLog appendString:[NSString stringWithFormat:@"%@%@\n%@ rushed for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
-                } else {
-                    [gameEventLog appendString:[NSString stringWithFormat:@"%@%@\n%@ stopped at the line of scrimmage, failed the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
-                }
-            } else {
-                int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
-                double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
-                if ( 100*[HBSharedUtils randomValue] < completion ) {
-                    successConversion = true;
-                    if ( gamePoss ) { // home possession
-                       _homeScore += 2;
-                    } else {
-                       _awayScore += 2;
-                    }
-                    [self addPointsQuarter:2];
-                    [gameEventLog appendString:[NSString stringWithFormat:@"%@%@\n2pt conversion is good! %@ completed the pass to %@ for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
-                } else {
-                    [gameEventLog appendString:[NSString stringWithFormat:@"%@%@\n2pt conversion failed! %@'s pass incomplete to %@.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
-                }
-            }
-        } else {
-            //kick XP
-            if ( [HBSharedUtils randomValue]*100 < 23 + [offense getK:0].ratKickAcc && [HBSharedUtils randomValue] > 0.01 ) {
-                //made XP
-                if ( gamePoss ) { // home possession
-                    _homeScore += 1;
-                    NSNumber *kStat1 = _HomeKStats[0];
-                    kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
-                    [_HomeKStats replaceObjectAtIndex:0 withObject:kStat1];
-                    
-                    NSNumber *kStat2 = _HomeKStats[1];
-                    kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
-                    [_HomeKStats replaceObjectAtIndex:1 withObject:kStat2];
-                } else {
-                    _awayScore += 1;
-                    NSNumber *kStat1 = _AwayKStats[0];
-                    kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
-                    [_AwayKStats replaceObjectAtIndex:0 withObject:kStat1];
-                    
-                    NSNumber *kStat2 = _AwayKStats[1];
-                    kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
-                    [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
-                }
+        if (bottomOT) {     //IF IN BOTTOM FRAME OF OT AND THE OFFENSE SCORES A TD TO MAKE THE SCORE GREATER THAN THE DEFENSE, THEN NO XP ACTION - DECLARE A WINNER
+            if ([_homeTeam.abbreviation isEqualToString:offense.abbreviation] && _homeScore > _awayScore) {
                 
-                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
-                [self addPointsQuarter:1];
-                [offense getK:0].statsXPMade++;
+            } else if ([_awayTeam.abbreviation isEqualToString:offense.abbreviation] && _awayScore > _homeScore) {
+                
             } else {
-                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
-                // missed XP
-                if ( gamePoss ) { // home possession
-                    NSNumber *kStat2 = _HomeKStats[1];
-                    kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
-                    [_HomeKStats replaceObjectAtIndex:1 withObject:kStat2];
-                } else {
-                    NSNumber *kStat2 = _AwayKStats[1];
-                    kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
-                    [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
+                if (_numOT < 3) {
+                    if (((gamePoss && (_awayScore -_homeScore) == 2) || (!gamePoss && (_homeScore -_awayScore) == 2)) && gameTime < 300) {
+                        //go for 2
+                        BOOL successConversion = false;
+                        if ( [HBSharedUtils randomValue] <= 0.50 ) {
+                            //rushing
+                            int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
+                            int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
+                            if ( yardsGain > 5 ) {
+                                successConversion = true;
+                                if ( gamePoss ) { // home possession
+                                    _homeScore += 2;
+                                } else {
+                                    _awayScore += 2;
+                                }
+                                [self addPointsQuarter:2];
+                                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ rushed for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                            } else {
+                                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ stopped at the line of scrimmage, failed the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                            }
+                        } else {
+                            int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
+                            double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
+                            if ( 100*[HBSharedUtils randomValue] < completion ) {
+                                successConversion = true;
+                                if ( gamePoss ) { // home possession
+                                    _homeScore += 2;
+                                } else {
+                                    _awayScore += 2;
+                                }
+                                [self addPointsQuarter:2];
+                                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@2pt conversion is good! %@ completed the pass to %@ for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                            } else {
+                                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@2pt conversion failed! %@'s pass incomplete to %@.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                            }
+                        }
+                    } else {
+                        //kick XP
+                        if ( [HBSharedUtils randomValue]*100 < 23 + [offense getK:0].ratKickAcc && [HBSharedUtils randomValue] > 0.01 ) {
+                            //made XP
+                            if ( gamePoss ) { // home possession
+                                _homeScore += 1;
+                                NSNumber *kStat1 = _HomeKStats[0];
+                                kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
+                                [_HomeKStats replaceObjectAtIndex:0 withObject:kStat1];
+                                
+                                NSNumber *kStat2 = _HomeKStats[1];
+                                kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                                [_HomeKStats replaceObjectAtIndex:1 withObject:kStat2];
+                            } else {
+                                _awayScore += 1;
+                                NSNumber *kStat1 = _AwayKStats[0];
+                                kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
+                                [_AwayKStats replaceObjectAtIndex:0 withObject:kStat1];
+                                
+                                NSNumber *kStat2 = _AwayKStats[1];
+                                kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                                [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
+                            }
+                            
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                            [self addPointsQuarter:1];
+                            [offense getK:0].statsXPMade++;
+                        } else {
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                            // missed XP
+                            if ( gamePoss ) { // home possession
+                                NSNumber *kStat2 = _HomeKStats[1];
+                                kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                                [_HomeKStats replaceObjectAtIndex:1 withObject:kStat2];
+                            } else {
+                                NSNumber *kStat2 = _AwayKStats[1];
+                                kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                                [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
+                            }
+                        }
+                        [offense getK:0].statsXPAtt++;
+                    }
+                } else {        // always go for 2pt in >3OT
+                    BOOL successConversion = false;
+                    if ( [HBSharedUtils randomValue] <= 0.50 ) {
+                        //rushing
+                        int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
+                        int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
+                        if ( yardsGain > 5 ) {
+                            successConversion = true;
+                            if ( gamePoss ) { // home possession
+                                _homeScore += 2;
+                            } else {
+                                _awayScore += 2;
+                            }
+                            [self addPointsQuarter:2];
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ rushed for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                        } else {
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ stopped at the line of scrimmage, failed the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                        }
+                    } else {
+                        int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
+                        double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
+                        if ( 100*[HBSharedUtils randomValue] < completion ) {
+                            successConversion = true;
+                            if ( gamePoss ) { // home possession
+                                _homeScore += 2;
+                            } else {
+                                _awayScore += 2;
+                            }
+                            [self addPointsQuarter:2];
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@2pt conversion is good! %@ completed the pass to %@ for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                        } else {
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@2pt conversion failed! %@'s pass incomplete to %@.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                        }
+                    }
                 }
             }
-            [offense getK:0].statsXPAtt++;
+        } else {            // IF IN TOP FRAME OF OT, NORMALLY DO XP/2-PT EXCEPT IN 3OT+, WHERE 2PT IS REQUIRED
+            if (_numOT < 3) {
+                if (((gamePoss && (_awayScore -_homeScore) == 2) || (!gamePoss && (_homeScore -_awayScore) == 2)) && gameTime < 300) {
+                    //go for 2
+                    BOOL successConversion = false;
+                    if ( [HBSharedUtils randomValue] <= 0.50 ) {
+                        //rushing
+                        int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
+                        int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
+                        if ( yardsGain > 5 ) {
+                            successConversion = true;
+                            if ( gamePoss ) { // home possession
+                                _homeScore += 2;
+                            } else {
+                                _awayScore += 2;
+                            }
+                            [self addPointsQuarter:2];
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ rushed for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                        } else {
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ stopped at the line of scrimmage, failed the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                        }
+                    } else {
+                        int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
+                        double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
+                        if ( 100*[HBSharedUtils randomValue] < completion ) {
+                            successConversion = true;
+                            if ( gamePoss ) { // home possession
+                                _homeScore += 2;
+                            } else {
+                                _awayScore += 2;
+                            }
+                            [self addPointsQuarter:2];
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@2pt conversion is good! %@ completed the pass to %@ for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                        } else {
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@2pt conversion failed! %@'s pass incomplete to %@.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                        }
+                    }
+                } else {
+                    //kick XP
+                    if ( [HBSharedUtils randomValue]*100 < 23 + [offense getK:0].ratKickAcc && [HBSharedUtils randomValue] > 0.01 ) {
+                        //made XP
+                        if ( gamePoss ) { // home possession
+                            _homeScore += 1;
+                            NSNumber *kStat1 = _HomeKStats[0];
+                            kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
+                            [_HomeKStats replaceObjectAtIndex:0 withObject:kStat1];
+                            
+                            NSNumber *kStat2 = _HomeKStats[1];
+                            kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                            [_HomeKStats replaceObjectAtIndex:1 withObject:kStat2];
+                        } else {
+                            _awayScore += 1;
+                            NSNumber *kStat1 = _AwayKStats[0];
+                            kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
+                            [_AwayKStats replaceObjectAtIndex:0 withObject:kStat1];
+                            
+                            NSNumber *kStat2 = _AwayKStats[1];
+                            kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                            [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
+                        }
+                        
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                        [self addPointsQuarter:1];
+                        [offense getK:0].statsXPMade++;
+                    } else {
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                        // missed XP
+                        if ( gamePoss ) { // home possession
+                            NSNumber *kStat2 = _HomeKStats[1];
+                            kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                            [_HomeKStats replaceObjectAtIndex:1 withObject:kStat2];
+                        } else {
+                            NSNumber *kStat2 = _AwayKStats[1];
+                            kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
+                            [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
+                        }
+                    }
+                    [offense getK:0].statsXPAtt++;
+                }
+            } else {        // always go for 2pt in >3OT
+                BOOL successConversion = false;
+                if ( [HBSharedUtils randomValue] <= 0.50 ) {
+                    //rushing
+                    int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
+                    int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
+                    if ( yardsGain > 5 ) {
+                        successConversion = true;
+                        if ( gamePoss ) { // home possession
+                            _homeScore += 2;
+                        } else {
+                            _awayScore += 2;
+                        }
+                        [self addPointsQuarter:2];
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ rushed for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                    } else {
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ stopped at the line of scrimmage, failed the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getRB:0].name]];
+                    }
+                } else {
+                    int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
+                    double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
+                    if ( 100*[HBSharedUtils randomValue] < completion ) {
+                        successConversion = true;
+                        if ( gamePoss ) { // home possession
+                            _homeScore += 2;
+                        } else {
+                            _awayScore += 2;
+                        }
+                        [self addPointsQuarter:2];
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@2pt conversion is good! %@ completed the pass to %@ for the 2pt conversion.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                    } else {
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@2pt conversion failed! %@'s pass incomplete to %@.",[self getEventPrefix],tdInfo,[offense getQB:0].name, [offense getWR:0].name]];
+                    }
+                }
+            }
         }
     }
+    
 }
 
 -(void)kickOff:(Team *)offense {
