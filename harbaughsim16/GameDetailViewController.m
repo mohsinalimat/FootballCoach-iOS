@@ -197,7 +197,7 @@
                 if (selectedGame.numOT == 1) {
                     return @"Final (OT)";
                 } else {
-                    return [NSString stringWithFormat:@"%ldOT",(long)selectedGame.numOT];
+                    return [NSString stringWithFormat:@"Final (%ldOT)",(long)selectedGame.numOT];
                 }
             } else {
                 return @"Final";
