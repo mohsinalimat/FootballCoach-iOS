@@ -1262,9 +1262,9 @@
     } else {
         if (bottomOT) {     //IF IN BOTTOM FRAME OF OT AND THE OFFENSE SCORES A TD TO MAKE THE SCORE GREATER THAN THE DEFENSE, THEN NO XP ACTION - DECLARE A WINNER
             if ([_homeTeam.abbreviation isEqualToString:offense.abbreviation] && _homeScore > _awayScore) {
-                
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ wins on a walk-off touchdown!",[self getEventPrefix],tdInfo,_homeTeam.abbreviation]];
             } else if ([_awayTeam.abbreviation isEqualToString:offense.abbreviation] && _awayScore > _homeScore) {
-                
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ wins on a walk-off touchdown!",[self getEventPrefix],tdInfo,_awayTeam.abbreviation]];
             } else {
                 if (_numOT < 3) {
                     if (((gamePoss && (_awayScore -_homeScore) == 2) || (!gamePoss && (_homeScore -_awayScore) == 2)) && gameTime < 300) {
