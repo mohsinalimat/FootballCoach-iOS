@@ -136,17 +136,13 @@
     [self advanceSeasonPlayers];
 }
 
--(BOOL)isPlayerDraftEligible:(Player*)player {
-    return (player.year == 3 && player.ratOvr >= NFL_OVR && [HBSharedUtils randomValue] < 0.5);
-}
-
 -(NSArray*)graduateSeniorsAndGetTeamNeeds {
     int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, f7Needs=0;
     playersLeaving = [NSMutableArray array];
     int i = 0;
     if(teamQBs.count > 0) {
         while (i < teamQBs.count) {
-            if ([teamQBs[i] year] == 4|| [self isPlayerDraftEligible:teamQBs[i]]) {
+            if ([teamQBs[i] year] == 4) {
                 NSLog(@"Graduating player %@ from %@", [teamQBs[i] name], abbreviation);
                 [playersLeaving addObject:teamQBs[i]];
                 qbNeeds++;
@@ -160,7 +156,7 @@
     i = 0;
     if (teamRBs.count > 0) {
         while ( i < teamRBs.count ) {
-            if ([teamRBs[i] year] == 4|| [self isPlayerDraftEligible:teamRBs[i]]) {
+            if ([teamRBs[i] year] == 4) {
                 NSLog(@"Graduating player %@ from %@", [teamRBs[i] name], abbreviation);
                 [playersLeaving addObject:teamRBs[i]];
                 rbNeeds++;
@@ -174,7 +170,7 @@
     i = 0;
     if (teamWRs.count > 0) {
         while ( i < teamWRs.count ) {
-            if ([teamWRs[i] year] == 4|| [self isPlayerDraftEligible:teamWRs[i]]) {
+            if ([teamWRs[i] year] == 4) {
                 NSLog(@"Graduating player %@ from %@", [teamWRs[i] name], abbreviation);
                 [playersLeaving addObject:teamWRs[i]];
                 wrNeeds++;
@@ -188,7 +184,7 @@
     i = 0;
     if (teamKs.count > 0) {
         while ( i < teamKs.count ) {
-            if ([teamKs[i] year] == 4|| [self isPlayerDraftEligible:teamKs[i]]) {
+            if ([teamKs[i] year] == 4) {
                 NSLog(@"Graduating player %@ from %@", [teamKs[i] name], abbreviation);
                 [playersLeaving addObject:teamKs[i]];
                 kNeeds++;
@@ -202,7 +198,7 @@
     i = 0;
     if (teamOLs.count > 0) {
         while ( i < teamOLs.count ) {
-            if ([teamOLs[i] year] == 4|| [self isPlayerDraftEligible:teamOLs[i]]) {
+            if ([teamOLs[i] year] == 4) {
                 NSLog(@"Graduating player %@ from %@", [teamOLs[i] name], abbreviation);
                 [playersLeaving addObject:teamOLs[i]];
                 olNeeds++;
@@ -216,7 +212,7 @@
     i = 0;
     if (teamSs.count > 0) {
         while ( i < teamSs.count) {
-            if ([teamSs[i] year] == 4|| [self isPlayerDraftEligible:teamSs[i]]) {
+            if ([teamSs[i] year] == 4) {
                 NSLog(@"Graduating player %@ from %@", [teamSs[i] name], abbreviation);
                 [playersLeaving addObject:teamSs[i]];
                 sNeeds++;
@@ -230,7 +226,7 @@
     i = 0;
     if (teamCBs.count > 0) {
         while ( i < teamCBs.count ) {
-            if ([teamCBs[i] year] == 4|| [self isPlayerDraftEligible:teamCBs[i]]) {
+            if ([teamCBs[i] year] == 4) {
                 NSLog(@"Graduating player %@ from %@", [teamCBs[i] name], abbreviation);
                 [playersLeaving addObject:teamCBs[i]];
                 cbNeeds++;
@@ -244,7 +240,7 @@
     i = 0;
     if (teamF7s.count > 0) {
         while ( i < teamF7s.count ) {
-            if ([teamF7s[i] year] == 4|| [self isPlayerDraftEligible:teamF7s[i]]) {
+            if ([teamF7s[i] year] == 4) {
                 NSLog(@"Graduating player %@ from %@", [teamF7s[i] name], abbreviation);
                 [playersLeaving addObject:teamF7s[i]];
                 f7Needs++;
@@ -264,7 +260,7 @@
         int i = 0;
         if (teamQBs.count > 0) {
             while (i < teamQBs.count) {
-                if ([teamQBs[i] year] == 4|| [self isPlayerDraftEligible:teamQBs[i]])  {
+                if ([teamQBs[i] year] == 4)  {
                     NSLog(@"Graduating player %@ from %@", [teamQBs[i] name], abbreviation);
                     [teamQBs removeObjectAtIndex:i];
                     qbNeeds++;
@@ -280,7 +276,7 @@
         i = 0;
         if (teamRBs.count > 0) {
             while ( i < teamRBs.count ) {
-                if ([teamRBs[i] year] == 4|| [self isPlayerDraftEligible:teamRBs[i]])  {
+                if ([teamRBs[i] year] == 4)  {
                     NSLog(@"Graduating player %@ from %@", [teamRBs[i] name], abbreviation);
                     [teamRBs removeObjectAtIndex:i];
                     rbNeeds++;
@@ -296,7 +292,7 @@
         i = 0;
         if (teamWRs.count > 0) {
             while ( i < teamWRs.count ) {
-                if ([teamWRs[i] year] == 4|| [self isPlayerDraftEligible:teamWRs[i]])  {
+                if ([teamWRs[i] year] == 4)  {
                     NSLog(@"Graduating player %@ from %@", [teamWRs[i] name], abbreviation);
                     [teamWRs removeObjectAtIndex:i];
                     wrNeeds++;
@@ -312,7 +308,7 @@
         i = 0;
         if (teamKs.count > 0) {
             while ( i < teamKs.count ) {
-                if ([teamKs[i] year] == 4|| [self isPlayerDraftEligible:teamKs[i]])  {
+                if ([teamKs[i] year] == 4)  {
                     NSLog(@"Graduating player %@ from %@", [teamKs[i] name], abbreviation);
                     [teamKs removeObjectAtIndex:i];
                     kNeeds++;
@@ -328,7 +324,7 @@
         i = 0;
         if (teamOLs.count > 0) {
             while ( i < teamOLs.count ) {
-                if ([teamOLs[i] year] == 4|| [self isPlayerDraftEligible:teamOLs[i]])  {
+                if ([teamOLs[i] year] == 4)  {
                     NSLog(@"Graduating player %@ from %@", [teamOLs[i] name], abbreviation);
                     [teamOLs removeObjectAtIndex:i];
                     olNeeds++;
@@ -344,7 +340,7 @@
         i = 0;
         if (teamSs.count > 0) {
             while ( i < teamSs.count) {
-                if ([teamSs[i] year] == 4|| [self isPlayerDraftEligible:teamSs[i]])  {
+                if ([teamSs[i] year] == 4)  {
                     NSLog(@"Graduating player %@ from %@", [teamSs[i] name], abbreviation);
                     [teamSs removeObjectAtIndex:i];
                     sNeeds++;
@@ -360,7 +356,7 @@
         i = 0;
         if (teamCBs.count > 0) {
             while ( i < teamCBs.count ) {
-                if ([teamCBs[i] year] == 4|| [self isPlayerDraftEligible:teamCBs[i]])  {
+                if ([teamCBs[i] year] == 4)  {
                     NSLog(@"Graduating player %@ from %@", [teamCBs[i] name], abbreviation);
                     [teamCBs removeObjectAtIndex:i];
                     cbNeeds++;
@@ -376,7 +372,7 @@
         i = 0;
         if (teamF7s.count > 0) {
             while ( i < teamF7s.count ) {
-                if ([teamF7s[i] year] == 4|| [self isPlayerDraftEligible:teamF7s[i]])  {
+                if ([teamF7s[i] year] == 4)  {
                     NSLog(@"Graduating player %@ from %@", [teamF7s[i] name], abbreviation);
                     [teamF7s removeObjectAtIndex:i];
                     f7Needs++;
@@ -529,7 +525,7 @@
     int i = 0;
     if (teamQBs.count > 0) {
         while (i < teamQBs.count) {
-            if ([teamF7s[i] year] == 4|| [self isPlayerDraftEligible:teamQBs[i]])  {
+            if ([teamF7s[i] year] == 4)  {
                 NSLog(@"Graduating player %@ from %@", [teamQBs[i] name], abbreviation);
                 [teamQBs removeObjectAtIndex:i];
                 qbNeeds++;
@@ -545,7 +541,7 @@
     i = 0;
     if (teamRBs.count > 0) {
         while ( i < teamRBs.count ) {
-            if ([teamF7s[i] year] == 4|| [self isPlayerDraftEligible:teamRBs[i]])  {
+            if ([teamF7s[i] year] == 4)  {
                 NSLog(@"Graduating player %@ from %@", [teamRBs[i] name], abbreviation);
                 [teamRBs removeObjectAtIndex:i];
                 rbNeeds++;
@@ -561,7 +557,7 @@
     i = 0;
     if (teamWRs.count > 0) {
         while ( i < teamWRs.count ) {
-            if ([teamF7s[i] year] == 4|| [self isPlayerDraftEligible:teamWRs[i]])  {
+            if ([teamF7s[i] year] == 4)  {
                 NSLog(@"Graduating player %@ from %@", [teamWRs[i] name], abbreviation);
                 [teamWRs removeObjectAtIndex:i];
                 wrNeeds++;
@@ -577,7 +573,7 @@
     i = 0;
     if (teamKs.count > 0) {
         while ( i < teamKs.count ) {
-            if ([teamF7s[i] year] == 4|| [self isPlayerDraftEligible:teamKs[i]])  {
+            if ([teamF7s[i] year] == 4)  {
                 NSLog(@"Graduating player %@ from %@", [teamKs[i] name], abbreviation);
                 [teamKs removeObjectAtIndex:i];
                 kNeeds++;
@@ -593,7 +589,7 @@
     i = 0;
     if (teamOLs.count > 0) {
         while ( i < teamOLs.count ) {
-            if ([teamF7s[i] year] == 4|| [self isPlayerDraftEligible:teamOLs[i]])  {
+            if ([teamF7s[i] year] == 4)  {
                 NSLog(@"Graduating player %@ from %@", [teamOLs[i] name], abbreviation);
                 [teamOLs removeObjectAtIndex:i];
                 olNeeds++;
@@ -609,7 +605,7 @@
     i = 0;
     if (teamSs.count > 0) {
         while ( i < teamSs.count) {
-            if ([teamF7s[i] year] == 4|| [self isPlayerDraftEligible:teamSs[i]])  {
+            if ([teamF7s[i] year] == 4)  {
                 NSLog(@"Graduating player %@ from %@", [teamSs[i] name], abbreviation);
                 [teamSs removeObjectAtIndex:i];
                 sNeeds++;
@@ -625,7 +621,7 @@
     i = 0;
     if (teamCBs.count > 0) {
         while ( i < teamCBs.count ) {
-            if ([teamF7s[i] year] == 4|| [self isPlayerDraftEligible:teamCBs[i]])  {
+            if ([teamF7s[i] year] == 4)  {
                 NSLog(@"Graduating player %@ from %@", [teamCBs[i] name], abbreviation);
                 [teamCBs removeObjectAtIndex:i];
                 cbNeeds++;
@@ -641,7 +637,7 @@
     i = 0;
     if (teamF7s.count > 0) {
         while ( i < teamF7s.count ) {
-            if ([teamF7s[i] year] == 4|| [self isPlayerDraftEligible:teamF7s[i]])  {
+            if ([teamF7s[i] year] == 4)  {
                 NSLog(@"Graduating player %@ from %@", [teamF7s[i] name], abbreviation);
                 [teamF7s removeObjectAtIndex:i];
                 f7Needs++;
