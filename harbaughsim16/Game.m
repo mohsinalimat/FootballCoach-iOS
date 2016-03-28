@@ -734,7 +734,7 @@
             gameYardsNeed = 100 - gameYardLine;
         }
         
-        if ( gameTime <= 30 && !playingOT ) {
+        if ( gameTime <= 30 && !playingOT && ((gamePoss && (_awayScore > _homeScore)) || (!gamePoss && (_homeScore > _awayScore)))) {
             if ( ((gamePoss && (_awayScore - _homeScore) <= 3) || (!gamePoss && (_homeScore - _awayScore) <= 3)) && gameYardLine > 60 ) {
                 //last second FGA
                 [self fieldGoalAtt:offense defense:defense];
