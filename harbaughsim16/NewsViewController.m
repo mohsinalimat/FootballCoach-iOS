@@ -404,11 +404,19 @@
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
             if (indexPath.row == 0) {
-                [cell.textLabel setText:@"Current Polls"];
+                if ([HBSharedUtils getLeague].currentWeek >= 15) {
+                    cell.textLabel.text = @"Final Polls";
+                } else {
+                    cell.textLabel.text = @"Current Polls";
+                }
             } else if (indexPath.row == 1) {
                 [cell.textLabel setText:@"POTY Leaders"];
             } else {
-                [cell.textLabel setText:@"Bowl Projections"];
+                if ([HBSharedUtils getLeague].currentWeek >= 14) {
+                    cell.textLabel.text = @"Bowl Results";
+                } else {
+                    cell.textLabel.text = @"Bowl Predictions";
+                }
             }
             return cell;
         } else {

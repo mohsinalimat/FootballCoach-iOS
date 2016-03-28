@@ -29,7 +29,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Bowl Predictions";
+    if ([HBSharedUtils getLeague].currentWeek >= 14) {
+       self.title = @"Bowl Results";
+    } else {
+        self.title = @"Bowl Predictions";
+    }
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     bowlPredictions = [[HBSharedUtils getLeague] getBowlPredictions];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];

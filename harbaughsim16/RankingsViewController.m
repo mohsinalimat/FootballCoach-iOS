@@ -40,7 +40,11 @@
             
         }];
         [self.tableView reloadData];
-        self.title = @"Current Polls";
+        if ([HBSharedUtils getLeague].currentWeek >= 15) {
+            self.title = @"Final Polls";
+        } else {
+            self.title = @"Current Polls";
+        }
     } else if (selectedStatType == HBStatTypeOffTalent) {
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
