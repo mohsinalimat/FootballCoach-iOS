@@ -87,7 +87,7 @@ As a coach, you can pick what strategy your team employs on offense and defense 
   - Utilize a more aggressive offense. Will pass a bit more.
   - Pass with a lower completion percentage and higher chance of interception.
   - However, passes that are caught will go for more yards.
-  -
+
 [Offense] Conservative:
   - Utilize a more conservative offense. Will run a bit more.
   - Passes are more accurate but go for less yards.
