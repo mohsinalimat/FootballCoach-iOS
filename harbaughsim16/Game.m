@@ -528,7 +528,7 @@
         gameDown = 1;
         gamePoss = true;
         gameYardsNeed = 10;
-        gameYardLine = 20;
+        gameYardLine = 25;
         
         while ( gameTime > 0 ) {
             //play ball!
@@ -539,11 +539,6 @@
                 [self runPlay:_awayTeam defense:_homeTeam];
             }
             
-            /*if (gameTime <= 0 && _homeScore == _awayScore) {
-                gameTime = 900; //OT
-                gameYardLine = 20;
-                _numOT++;
-            }*/
         }
         
         if (gameTime <= 0 && _homeScore == _awayScore) {

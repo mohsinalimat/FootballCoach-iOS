@@ -552,7 +552,10 @@
     _hasScheduledBowls = false;
     heismanDecided = NO;
     [_bowlGames removeAllObjects];
-    
+
+    NSMutableArray *week0 = _newsStories[0];
+    [week0 addObject:[self randomCursedTeamStory:curseTeam]];
+    [week0 addObject:[self randomBlessedTeamStory:blessTeam]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
 
@@ -562,7 +565,10 @@
      
      "TEAMNAME has hired former alumnus and professional football coach, (build a player name), in hopes of revitalizing the program"*/
     
-    NSArray *stories = @[[NSString stringWithFormat:@"%@ gets new digs!\nAn anonymous benefactor has completely covered the cost of new training facilities for %@, resulting in large scale improvements to the program's infrastructure",t.abbreviation,t.name], [NSString stringWithFormat:@"%@ makes a big splash at head coach!\n%@ has hired former player and professional football coach %@ in hopes of revitalizing the program", t.abbreviation, t.name, [self getRandName]]];
+    NSArray *stories = @[
+                         [NSString stringWithFormat:@"%@ gets new digs!\nAn anonymous benefactor has completely covered the cost of new training facilities for %@, resulting in large scale improvements to the program's infrastructure.",t.abbreviation,t.name],
+                         [NSString stringWithFormat:@"%@ makes a big splash at head coach!\n%@ has hired alumnus and professional football coach %@ in hopes of revitalizing the program.", t.abbreviation, t.name, [self getRandName]]
+                         ];
     
     return stories[(int)([HBSharedUtils randomValue] * stories.count)];
 }
@@ -573,7 +579,10 @@
      "Long time coach of TEAMNAME, (build a player name), announces sudden retirement effectively immediately"
     */
     
-    NSArray *stories = @[[NSString stringWithFormat:@"League hits %@ with sanctions!\n%@ hit with two-year probation after league investigation finds program committed minor infractions.",t.abbreviation,t.name], [NSString stringWithFormat:@"The End of an Era\n%@ head coach %@ announces sudden retirement effectively immediately", t.abbreviation, [self getRandName]]];
+    NSArray *stories = @[
+                         [NSString stringWithFormat:@"League hits %@ with sanctions!\n%@ hit with two-year probation after league investigation finds program committed minor infractions.",t.abbreviation,t.name],
+                         [NSString stringWithFormat:@"The End of an Era at %@\n%@ head coach %@ announces sudden retirement effectively immediately.", t.abbreviation,t.abbreviation, [self getRandName]]
+                         ];
     
     return stories[(int)([HBSharedUtils randomValue] * stories.count)];
 }
