@@ -832,8 +832,18 @@
     int stars = teamPrestige/20 + 1;
     int chance = 20 - (teamPrestige - 20*( teamPrestige/20 )); //between 0 and 20
     
+    double starsBonusChance = 0.15;
+    double starsBonusDoubleChance = 0.05;
+    
     for( int i = 0; i < qbNeeds; ++i ) {
         //make QBs
+        stars = teamPrestige/20 + 1;
+        if ([HBSharedUtils randomValue] < starsBonusChance) {
+            stars += 1;
+        } else if ([HBSharedUtils randomValue] < starsBonusDoubleChance) {
+            stars += 2;
+        }
+        
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
             [teamQBs addObject:[PlayerQB newQBWithName:[league getRandName] year:1 stars:(stars - 1) team:self]];
         } else {
@@ -843,6 +853,13 @@
     
     for( int i = 0; i < kNeeds; ++i ) {
         //make Ks
+        stars = teamPrestige/20 + 1;
+        if ([HBSharedUtils randomValue] < starsBonusChance) {
+            stars += 1;
+        } else if ([HBSharedUtils randomValue] < starsBonusDoubleChance) {
+            stars += 2;
+        }
+        
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
             [teamKs addObject:[PlayerK newKWithName:[league getRandName] year:1 stars:(stars - 1) team:self]];
         } else {
@@ -852,6 +869,13 @@
     
     for( int i = 0; i < rbNeeds; ++i ) {
         //make RBs
+        stars = teamPrestige/20 + 1;
+        if ([HBSharedUtils randomValue] < starsBonusChance) {
+            stars += 1;
+        } else if ([HBSharedUtils randomValue] < starsBonusDoubleChance) {
+            stars += 2;
+        }
+        
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
             [teamRBs addObject:[PlayerRB newRBWithName:[league getRandName] year:1 stars:(stars - 1) team:self]];
         } else {
@@ -861,6 +885,13 @@
     
     for( int i = 0; i < wrNeeds; ++i ) {
         //make WRs
+        stars = teamPrestige/20 + 1;
+        if ([HBSharedUtils randomValue] < starsBonusChance) {
+            stars += 1;
+        } else if ([HBSharedUtils randomValue] < starsBonusDoubleChance) {
+            stars += 2;
+        }
+        
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
             [teamWRs addObject:[PlayerWR newWRWithName:[league getRandName] year:1 stars:(stars - 1) team:self]];
         } else {
@@ -870,6 +901,13 @@
     
     for( int i = 0; i < olNeeds; ++i ) {
         //make OLs
+        stars = teamPrestige/20 + 1;
+        if ([HBSharedUtils randomValue] < starsBonusChance) {
+            stars += 1;
+        } else if ([HBSharedUtils randomValue] < starsBonusDoubleChance) {
+            stars += 2;
+        }
+        
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
             [teamOLs addObject:[PlayerOL newOLWithName:[league getRandName] year:1 stars:(stars - 1) team:self]];
         } else {
@@ -879,6 +917,13 @@
     
     for( int i = 0; i < cbNeeds; ++i ) {
         //make CBs
+        stars = teamPrestige/20 + 1;
+        if ([HBSharedUtils randomValue] < starsBonusChance) {
+            stars += 1;
+        } else if ([HBSharedUtils randomValue] < starsBonusDoubleChance) {
+            stars += 2;
+        }
+        
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
             [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:1 stars:(stars - 1)]];
         } else {
@@ -888,6 +933,13 @@
     
     for( int i = 0; i < f7Needs; ++i ) {
         //make F7s
+        stars = teamPrestige/20 + 1;
+        if ([HBSharedUtils randomValue] < starsBonusChance) {
+            stars += 1;
+        } else if ([HBSharedUtils randomValue] < starsBonusDoubleChance) {
+            stars += 2;
+        }
+        
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
             [teamF7s addObject:[PlayerF7 newF7WithName:[league getRandName] year:1 stars:(stars - 1) team:self]];
         } else {
@@ -897,6 +949,13 @@
     
     for( int i = 0; i < sNeeds; ++i ) {
         //make Ss
+        stars = teamPrestige/20 + 1;
+        if ([HBSharedUtils randomValue] < starsBonusChance) {
+            stars += 1;
+        } else if ([HBSharedUtils randomValue] < starsBonusDoubleChance) {
+            stars += 2;
+        }
+        
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
             [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:1 stars:(stars - 1)]];
         } else {

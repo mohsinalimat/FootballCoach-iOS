@@ -729,7 +729,8 @@
             gameYardsNeed = 100 - gameYardLine;
         }
         
-        if ( gameTime <= 30 && !playingOT && ((gamePoss && (_awayScore > _homeScore)) || (!gamePoss && (_homeScore > _awayScore)))) {
+        //Under 30 seconds to play, check that the team with the ball is trailing or tied, do something based on the score difference
+        if ( gameTime <= 30 && !playingOT && ((gamePoss && (_awayScore >= _homeScore)) || (!gamePoss && (_homeScore >= _awayScore)))) {
             if ( ((gamePoss && (_awayScore - _homeScore) <= 3) || (!gamePoss && (_homeScore - _awayScore) <= 3)) && gameYardLine > 60 ) {
                 //last second FGA
                 [self fieldGoalAtt:offense defense:defense];
@@ -737,15 +738,12 @@
                 //hail mary
                 [self passingPlay:offense defense:defense];
             }
-        }
-        else if ( gameDown >= 4 ) {
+        } else if ( gameDown >= 4 ) {
             if ( ((gamePoss && (_awayScore - _homeScore) > 3) || (!gamePoss && (_homeScore - _awayScore) > 3)) && gameTime < 300 ) {
                 //go for it since we need 7 to win
                 if ( gameYardsNeed < 3 ) {
-                    //rushingPlay( offense, defense );
                     [self rushingPlay:offense defense:defense];
                 } else {
-                    //passingPlay( offense, defense );
                     [self passingPlay:offense defense:defense];
                 }
             } else {
@@ -753,34 +751,27 @@
                 if ( gameYardsNeed < 3 ) {
                     if ( gameYardLine > 65 ) {
                         //fga
-                        //fieldGoalAtt( offense, defense );
                         [self fieldGoalAtt:offense defense:defense];
                     } else if ( gameYardLine > 55 ) {
                         // run play, go for it!
-                        //rushingPlay( offense, defense );
                         [self rushingPlay:offense defense:defense];
                     } else {
                         //punt
-                        //puntPlay( offense );
                         [self puntPlay:offense];
                     }
                 } else if ( gameYardLine > 60 ) {
                     //fga
-                    //fieldGoalAtt( offense, defense );
                     [self fieldGoalAtt:offense defense:defense];
                 } else {
                     //punt
-                    //puntPlay( offense );
                     [self puntPlay:offense];
                 }
             }
         } else if ( (gameDown == 3 && gameYardsNeed > 4) || ((gameDown==1 || gameDown==2) && (preferPass >= preferRush)) ) {
             // pass play
-            //passingPlay( offense, defense );
             [self passingPlay:offense defense:defense];
         } else {
             //run play
-            //rushingPlay( offense, defense );
             [self rushingPlay:offense defense:defense];
         }
     }
