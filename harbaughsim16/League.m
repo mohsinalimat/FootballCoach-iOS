@@ -567,7 +567,8 @@
     
     NSArray *stories = @[
                          [NSString stringWithFormat:@"%@ gets new digs!\nAn anonymous benefactor has completely covered the cost of new training facilities for %@, resulting in large scale improvements to the program's infrastructure.",t.abbreviation,t.name],
-                         [NSString stringWithFormat:@"%@ makes a big splash at head coach!\n%@ has hired alumnus and professional football coach %@ in hopes of revitalizing the program.", t.abbreviation, t.name, [self getRandName]]
+                         [NSString stringWithFormat:@"%@ makes a big splash at head coach!\n%@ has hired alumnus and professional football coach %@ in hopes of revitalizing the program.", t.abbreviation, t.name, [self getRandName]],
+                         [NSString stringWithFormat:@"%@ hires new AD!\n%@ has hired alumnus %@ as athletic director, who has pledged to invest more in the school's football program.", t.abbreviation, t.name, [self getRandName]]
                          ];
     
     return stories[(int)([HBSharedUtils randomValue] * stories.count)];
@@ -581,6 +582,7 @@
     
     NSArray *stories = @[
                          [NSString stringWithFormat:@"League hits %@ with sanctions!\n%@ hit with two-year probation after league investigation finds program committed minor infractions.",t.abbreviation,t.name],
+                         [NSString stringWithFormat:@"Scandal at %@!\n%@ puts itself on a 3-year probation after school self-reports dozens of recruiting violations.",t.abbreviation,t.name],
                          [NSString stringWithFormat:@"The End of an Era at %@\n%@ head coach %@ announces sudden retirement effectively immediately.", t.abbreviation,t.abbreviation, [self getRandName]]
                          ];
     
