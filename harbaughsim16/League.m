@@ -472,7 +472,6 @@
         g.homeTeam.totalBowls++;
         g.awayTeam.semifinalWL = @"BL";
         g.awayTeam.totalBowlLosses++;
-        //newsStories.get(14).add( g.homeTeam.name + " wins the " + g.gameName +"!>" + g.homeTeam.strRep() + " defeats " + g.awayTeam.strRep() + " in the " + g.gameName + ", winning " + g.homeScore + " to " + g.awayScore + "." );
         NSMutableArray *week14 = _newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %d to %d.",g.homeTeam.name, g.gameName, g.homeTeam.strRep, g.awayTeam.strRep, g.gameName, g.homeScore, g.awayScore]];
        
@@ -508,12 +507,18 @@
 -(void)advanceSeasonForAllExceptUser {
     _currentWeek = 0;
     
+    for (NSMutableArray *week in _newsStories) {
+        [week removeAllObjects];
+    }
+    
     // Bless a random team with lots of prestige
     int blessNumber = (int)([HBSharedUtils randomValue]*9);
     Team *blessTeam = _teamList[50 + blessNumber];
     if (!blessTeam.isUserControlled) {
         blessTeam.teamPrestige += 30;
         if (blessTeam.teamPrestige > 90) blessTeam.teamPrestige = 90;
+        
+        
     }
     
     //Curse a good team
@@ -548,10 +553,29 @@
     heismanDecided = NO;
     [_bowlGames removeAllObjects];
     
-    for (NSMutableArray *week in _newsStories) {
-        [week removeAllObjects];
-    }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+}
+
+-(NSString*)randomBlessedTeamStory:(Team*)t {
+    /*
+     "An anonymous benefactor has completely covered the cost of new training facilities for TEAMNAME, resulting in large scale improvements to the program's infrastructure"
+     
+     "TEAMNAME has hired former alumnus and professional football coach, (build a player name), in hopes of revitalizing the program"*/
+    
+    NSArray *stories = @[[NSString stringWithFormat:@"%@ gets new digs!\nAn anonymous benefactor has completely covered the cost of new training facilities for %@, resulting in large scale improvements to the program's infrastructure",t.abbreviation,t.name], [NSString stringWithFormat:@"%@ makes a big splash at head coach!\n%@ has hired former player and professional football coach %@ in hopes of revitalizing the program", t.abbreviation, t.name, [self getRandName]]];
+    
+    return stories[(int)([HBSharedUtils randomValue] * stories.count)];
+}
+
+-(NSString*)randomCursedTeamStory:(Team*)t {
+    /*" TEAMNAME hit with two year probation after investigation finds program committed minor infractions"
+     
+     "Long time coach of TEAMNAME, (build a player name), announces sudden retirement effectively immediately"
+    */
+    
+    NSArray *stories = @[[NSString stringWithFormat:@"League hits %@ with sanctions!\n%@ hit with two-year probation after league investigation finds program committed minor infractions.",t.abbreviation,t.name], [NSString stringWithFormat:@"The End of an Era\n%@ head coach %@ announces sudden retirement effectively immediately", t.abbreviation, [self getRandName]]];
+    
+    return stories[(int)([HBSharedUtils randomValue] * stories.count)];
 }
 
 
@@ -599,6 +623,10 @@
     for (NSMutableArray *week in _newsStories) {
         [week removeAllObjects];
     }
+    
+    NSMutableArray *week0 = _newsStories[0];
+    [week0 addObject:[self randomCursedTeamStory:curseTeam]];
+    [week0 addObject:[self randomBlessedTeamStory:blessTeam]];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
 
