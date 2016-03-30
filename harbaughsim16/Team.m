@@ -159,7 +159,6 @@
         _teamRecordCompletions = qb.statsPassComp;
     }
     
-    
     if (rb1.statsTD > _teamRecordRushTDs) {
         _teamRecordRushTDs = rb1.statsTD;
     }
@@ -184,6 +183,49 @@
         _teamRecordRushYards = rb2.statsRushYards;
     }
     
+    if (wr1.statsTD > _teamRecordRecTDs) {
+        _teamRecordRecTDs = wr1.statsTD;
+    }
+    
+    if (wr1.statsFumbles > _teamRecordFum) {
+        _teamRecordFum = wr1.statsFumbles;
+    }
+    
+    if (wr1.statsRecYards > _teamRecordRecYards) {
+        _teamRecordRecYards = wr1.statsRecYards;
+    }
+    
+    if (wr2.statsTD > _teamRecordRecTDs) {
+        _teamRecordRecTDs = wr2.statsTD;
+    }
+    
+    if (wr2.statsFumbles > _teamRecordFum) {
+        _teamRecordFum = wr2.statsFumbles;
+    }
+    
+    if (wr2.statsRecYards > _teamRecordRecYards) {
+        _teamRecordRecYards = wr2.statsRecYards;
+    }
+    
+    if (wr3.statsTD > _teamRecordRecTDs) {
+        _teamRecordRecTDs = wr3.statsTD;
+    }
+    
+    if (wr3.statsFumbles > _teamRecordFum) {
+        _teamRecordFum = wr3.statsFumbles;
+    }
+    
+    if (wr3.statsRecYards > _teamRecordRecYards) {
+        _teamRecordRecYards = wr3.statsRecYards;
+    }
+    
+    if (k.statsFGMade > _teamRecordFGMade) {
+        _teamRecordFGMade = k.statsFGMade;
+    }
+    
+    if (k.statsXPMade > _teamRecordXPMade) {
+        _teamRecordXPMade = k.statsXPMade;
+    }
     
     
     [self advanceSeasonPlayers];
