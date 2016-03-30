@@ -18,10 +18,17 @@
         _ratRushPow = [aDecoder decodeIntForKey:@"ratRushPow"];
         _ratRushSpd = [aDecoder decodeIntForKey:@"ratRushSpd"];
         _ratRushEva = [aDecoder decodeIntForKey:@"ratRushEva"];
+        
         _statsRushAtt = [aDecoder decodeIntForKey:@"statsRushAtt"];
         _statsTD = [aDecoder decodeIntForKey:@"statsTD"];
         _statsFumbles = [aDecoder decodeIntForKey:@"statsFumbles"];
         _statsRushYards = [aDecoder decodeIntForKey:@"statsRushYards"];
+        
+        
+        _careerStatsRushAtt = [aDecoder decodeIntForKey:@"careerStatsRushAtt"];
+        _careerStatsTD = [aDecoder decodeIntForKey:@"careerStatsTD"];
+        _careerStatsFumbles = [aDecoder decodeIntForKey:@"careerStatsFumbles"];
+        _careerStatsRushYards = [aDecoder decodeIntForKey:@"careerStatsRushYards"];
     }
     return self;
 }
@@ -32,10 +39,16 @@
     [aCoder encodeInt:_ratRushPow forKey:@"ratRushPow"];
     [aCoder encodeInt:_ratRushSpd forKey:@"ratRushSpd"];
     [aCoder encodeInt:_ratRushEva forKey:@"ratRushEva"];
+    
     [aCoder encodeInt:_statsRushYards forKey:@"statsRushYards"];
     [aCoder encodeInt:_statsFumbles forKey:@"statsFumbles"];
     [aCoder encodeInt:_statsTD forKey:@"statsTD"];
     [aCoder encodeInt:_statsRushAtt forKey:@"statsRushAtt"];
+    
+    [aCoder encodeInt:_careerStatsRushYards forKey:@"careerStatsRushYards"];
+    [aCoder encodeInt:_careerStatsFumbles forKey:@"careerStatsFumbles"];
+    [aCoder encodeInt:_careerStatsTD forKey:@"careerStatsTD"];
+    [aCoder encodeInt:_careerStatsRushAtt forKey:@"careerStatsRushAtt"];
 }
 
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow speed:(int)spd eva:(int)eva {
@@ -68,6 +81,11 @@
         _statsRushYards = 0;
         _statsTD = 0;
         _statsFumbles = 0;
+        
+        self.careerStatsRushAtt = 0;
+        self.careerStatsRushYards = 0;
+        self.careerStatsTD = 0;
+        self.careerStatsFumbles = 0;
         
         self.position = @"RB";
     }
@@ -102,6 +120,11 @@
         _statsRushYards = 0;
         _statsTD = 0;
         _statsFumbles = 0;
+        
+        self.careerStatsRushAtt = 0;
+        self.careerStatsRushYards = 0;
+        self.careerStatsTD = 0;
+        self.careerStatsFumbles = 0;
         
         self.position = @"RB";
     }
@@ -153,7 +176,12 @@
     }
     self.ratOvr = (self.ratRushPow + self.ratRushSpd + self.ratRushEva)/3;
     self.ratImprovement = self.ratOvr - oldOvr;
-    //reset stats (keep career stats?)
+    
+    self.careerStatsRushAtt += self.statsRushAtt;
+    self.careerStatsRushYards += self.statsRushYards;
+    self.careerStatsTD += self.statsTD;
+    self.careerStatsFumbles += self.statsFumbles;
+    
     self.statsRushAtt = 0;
     self.statsRushYards = 0;
     self.statsTD = 0;
@@ -181,6 +209,30 @@
     int ypg = 0;
     if (games > 0) {
         ypg = (int)((double)_statsRushYards/(double)games);
+    }
+    [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"yardsPerGame"];
+    
+    
+    return [stats copy];
+}
+
+-(NSDictionary*)detailedCareerStats {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[NSString stringWithFormat:@"%d TDs",_careerStatsTD] forKey:@"touchdowns"];
+    [stats setObject:[NSString stringWithFormat:@"%d Fum",_careerStatsFumbles] forKey:@"fumbles"];
+    
+    [stats setObject:[NSString stringWithFormat:@"%d carries",_careerStatsRushAtt] forKey:@"carries"];
+    [stats setObject:[NSString stringWithFormat:@"%d yards",_careerStatsRushYards] forKey:@"rushYards"];
+    
+    int ypc = 0;
+    if (_careerStatsRushAtt > 0) {
+        ypc = (int)((double)_careerStatsRushYards/(double)_careerStatsRushAtt);
+    }
+    [stats setObject:[NSString stringWithFormat:@"%d yds/carry",ypc] forKey:@"yardsPerCarry"];
+    
+    int ypg = 0;
+    if (self.gamesPlayed > 0) {
+        ypg = (int)((double)_careerStatsRushYards/(double)self.gamesPlayed);
     }
     [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"yardsPerGame"];
     

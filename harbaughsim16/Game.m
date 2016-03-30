@@ -530,6 +530,74 @@
         gameYardsNeed = 10;
         gameYardLine = 25;
         
+        //Home Team Starters
+        [_homeTeam getQB:0].gamesPlayed++;
+        
+        [_homeTeam getRB:0].gamesPlayed++;
+        [_homeTeam getRB:1].gamesPlayed++;
+        
+        [_homeTeam getWR:0].gamesPlayed++;
+        [_homeTeam getWR:1].gamesPlayed++;
+        [_homeTeam getWR:2].gamesPlayed++;
+        
+        [_homeTeam getOL:0].gamesPlayed++;
+        [_homeTeam getOL:1].gamesPlayed++;
+        [_homeTeam getOL:2].gamesPlayed++;
+        [_homeTeam getOL:3].gamesPlayed++;
+        [_homeTeam getOL:4].gamesPlayed++;
+        
+        [_homeTeam getK:0].gamesPlayed++;
+        
+        [_homeTeam getS:0].gamesPlayed++;
+
+        [_homeTeam getCB:0].gamesPlayed++;
+        [_homeTeam getCB:1].gamesPlayed++;
+        [_homeTeam getCB:2].gamesPlayed++;
+        
+        [_homeTeam getF7:0].gamesPlayed++;
+        [_homeTeam getF7:1].gamesPlayed++;
+        [_homeTeam getF7:2].gamesPlayed++;
+        [_homeTeam getF7:3].gamesPlayed++;
+        [_homeTeam getF7:4].gamesPlayed++;
+        [_homeTeam getF7:5].gamesPlayed++;
+        [_homeTeam getF7:6].gamesPlayed++;
+        
+        
+        //Away Team starters
+        [_awayTeam getQB:0].gamesPlayed++;
+        
+        [_awayTeam getRB:0].gamesPlayed++;
+        [_awayTeam getRB:1].gamesPlayed++;
+        
+        [_awayTeam getWR:0].gamesPlayed++;
+        [_awayTeam getWR:1].gamesPlayed++;
+        [_awayTeam getWR:2].gamesPlayed++;
+        
+        [_awayTeam getOL:0].gamesPlayed++;
+        [_awayTeam getOL:1].gamesPlayed++;
+        [_awayTeam getOL:2].gamesPlayed++;
+        [_awayTeam getOL:3].gamesPlayed++;
+        [_awayTeam getOL:4].gamesPlayed++;
+        
+        [_awayTeam getK:0].gamesPlayed++;
+        
+        [_awayTeam getS:0].gamesPlayed++;
+        
+        [_awayTeam getCB:0].gamesPlayed++;
+        [_awayTeam getCB:1].gamesPlayed++;
+        [_awayTeam getCB:2].gamesPlayed++;
+        
+        [_awayTeam getF7:0].gamesPlayed++;
+        [_awayTeam getF7:1].gamesPlayed++;
+        [_awayTeam getF7:2].gamesPlayed++;
+        [_awayTeam getF7:3].gamesPlayed++;
+        [_awayTeam getF7:4].gamesPlayed++;
+        [_awayTeam getF7:5].gamesPlayed++;
+        [_awayTeam getF7:6].gamesPlayed++;
+        
+        
+        
+        
         while ( gameTime > 0 ) {
             //play ball!
             if (gamePoss) {

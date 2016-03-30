@@ -17,10 +17,35 @@
         _ratKickPow = [aDecoder decodeIntForKey:@"ratKickPow"];
         _ratKickAcc = [aDecoder decodeIntForKey:@"ratKickAcc"];
         _ratKickFum = [aDecoder decodeIntForKey:@"ratKickFum"];
+        
         _statsXPAtt = [aDecoder decodeIntForKey:@"statsXPAtt"];
         _statsXPMade = [aDecoder decodeIntForKey:@"statsXPMade"];
         _statsFGAtt = [aDecoder decodeIntForKey:@"statsFGAtt"];
         _statsFGMade = [aDecoder decodeIntForKey:@"statsFGMade"];
+        
+        if ([aDecoder containsValueForKey:@"careerStatsXPAtt"]) {
+            _careerStatsXPAtt = [aDecoder decodeIntForKey:@"careerStatsXPAtt"];
+        } else {
+            _careerStatsXPAtt = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerStatsXPMade"]) {
+            _careerStatsXPMade = [aDecoder decodeIntForKey:@"careerStatsXPMade"];
+        } else {
+            _careerStatsXPMade = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerStatsFGAtt"]) {
+            _careerStatsFGAtt = [aDecoder decodeIntForKey:@"careerStatsFGAtt"];
+        } else {
+            _careerStatsFGAtt = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerStatsFGMade"]) {
+            _careerStatsFGMade = [aDecoder decodeIntForKey:@"careerStatsFGMade"];
+        } else {
+            _careerStatsFGMade = 0;
+        }
     }
     return self;
 }
@@ -31,10 +56,16 @@
     [aCoder encodeInt:_ratKickPow forKey:@"ratKickPow"];
     [aCoder encodeInt:_ratKickAcc forKey:@"ratKickAcc"];
     [aCoder encodeInt:_ratKickFum forKey:@"ratKickFum"];
+    
     [aCoder encodeInt:_statsFGMade forKey:@"statsFGMade"];
     [aCoder encodeInt:_statsFGAtt forKey:@"statsFGAtt"];
     [aCoder encodeInt:_statsXPMade forKey:@"statsXPMade"];
     [aCoder encodeInt:_statsXPAtt forKey:@"statsXPAtt"];
+    
+    [aCoder encodeInt:_careerStatsFGMade forKey:@"careerStatsFGMade"];
+    [aCoder encodeInt:_careerStatsFGAtt forKey:@"careerStatsFGAtt"];
+    [aCoder encodeInt:_careerStatsXPMade forKey:@"careerStatsXPMade"];
+    [aCoder encodeInt:_careerStatsXPAtt forKey:@"careerStatsXPAtt"];
 }
 
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum {
@@ -65,6 +96,12 @@
         _statsXPMade = 0;
         _statsFGAtt = 0;
         _statsFGMade = 0;
+        
+        _careerStatsXPAtt = 0;
+        _careerStatsXPMade = 0;
+        _careerStatsFGAtt = 0;
+        _careerStatsFGMade = 0;
+        
         self.position = @"K";
     }
     return self;
@@ -98,6 +135,11 @@
         _statsXPMade = 0;
         _statsFGAtt = 0;
         _statsFGMade = 0;
+        
+        _careerStatsXPAtt = 0;
+        _careerStatsXPMade = 0;
+        _careerStatsFGAtt = 0;
+        _careerStatsFGMade = 0;
         
         self.position = @"K";
     }
@@ -151,7 +193,12 @@
     }
     self.ratOvr = (_ratKickPow + _ratKickAcc)/2;
     self.ratImprovement = self.ratOvr - oldOvr;
-    //reset stats (keep career stats?)
+    
+    _careerStatsXPAtt += _statsXPAtt;
+    _careerStatsXPMade += _statsXPMade;
+    _careerStatsFGAtt += _statsFGAtt;
+    _careerStatsFGMade += _statsFGMade;
+    
     _statsXPAtt = 0;
     _statsXPMade = 0;
     _statsFGAtt = 0;
@@ -175,6 +222,28 @@
     int fgPercent = 0;
     if (_statsFGAtt > 0) {
         fgPercent = (int)(100.0*((double)_statsFGMade/(double)_statsFGAtt));
+    }
+    [stats setObject:[NSString stringWithFormat:@"%d%%",fgPercent] forKey:@"fgPercentage"];
+    return [stats copy];
+}
+
+-(NSDictionary*)detailedCareerStats {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[NSString stringWithFormat:@"%d",_careerStatsXPMade] forKey:@"xpMade"];
+    [stats setObject:[NSString stringWithFormat:@"%d",_careerStatsXPAtt] forKey:@"xpAtt"];
+    
+    int xpPercent = 0;
+    if (_careerStatsXPAtt > 0) {
+        xpPercent = (int)(100.0*((double)_careerStatsXPMade/(double)_careerStatsXPAtt));
+    }
+    [stats setObject:[NSString stringWithFormat:@"%d%%",xpPercent] forKey:@"xpPercentage"];
+    
+    [stats setObject:[NSString stringWithFormat:@"%d",_careerStatsFGMade] forKey:@"fgMade"];
+    [stats setObject:[NSString stringWithFormat:@"%d",_careerStatsFGAtt] forKey:@"fgAtt"];
+    
+    int fgPercent = 0;
+    if (_careerStatsFGAtt > 0) {
+        fgPercent = (int)(100.0*((double)_careerStatsFGMade/(double)_careerStatsFGAtt));
     }
     [stats setObject:[NSString stringWithFormat:@"%d%%",fgPercent] forKey:@"fgPercentage"];
     return [stats copy];

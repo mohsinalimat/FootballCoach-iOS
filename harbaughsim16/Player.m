@@ -75,31 +75,59 @@
 }
 
 -(NSString*)getYearString {
-    if (_year == 0) {
-        return @"HS";
-    } else if (_year == 1 ) {
-        return @"Fr";
-    } else if (_year == 2 ) {
-        return @"So";
-    } else if (_year == 3 ) {
-        return @"Jr";
-    } else if (_year == 4 ) {
-        return @"Sr";
+    if (_hasRedshirt) {
+        if (_year == 0) {
+            return @"RS";
+        } else if (_year == 1 ) {
+            return @"RS Fr";
+        } else if (_year == 2 ) {
+            return @"RS So";
+        } else if (_year == 3 ) {
+            return @"RS Jr";
+        } else if (_year == 4 ) {
+            return @"RS Sr";
+        }
+    } else {
+        if (_year == 0) {
+            return @"HS";
+        } else if (_year == 1 ) {
+            return @"Fr";
+        } else if (_year == 2 ) {
+            return @"So";
+        } else if (_year == 3 ) {
+            return @"Jr";
+        } else if (_year == 4 ) {
+            return @"Sr";
+        }
     }
     return @"ERROR";
 }
 
 -(NSString*)getFullYearString {
-    if (_year == 0) {
-        return @"High School";
-    } else if (_year == 1 ) {
-        return @"Freshman";
-    } else if (_year == 2 ) {
-        return @"Sophomore";
-    } else if (_year == 3 ) {
-        return @"Junior";
-    } else if (_year == 4 ) {
-        return @"Senior";
+    if (_hasRedshirt) {
+        if (_year == 0) {
+            return @"Redshirt";
+        } else if (_year == 1 ) {
+            return @"Freshman (RS)";
+        } else if (_year == 2 ) {
+            return @"Sophomore (RS)";
+        } else if (_year == 3 ) {
+            return @"Junior (RS)";
+        } else if (_year == 4 ) {
+            return @"Senior (RS)";
+        }
+    } else {
+        if (_year == 0) {
+            return @"High School";
+        } else if (_year == 1 ) {
+            return @"Freshman";
+        } else if (_year == 2 ) {
+            return @"Sophomore";
+        } else if (_year == 3 ) {
+            return @"Junior";
+        } else if (_year == 4 ) {
+            return @"Senior";
+        }
     }
     return @"ERROR";
 }
@@ -155,6 +183,10 @@
 }
 
 -(NSDictionary*)detailedStats:(int)games {
+    return [NSDictionary dictionary];
+}
+
+-(NSDictionary*)detailedCareerStats {
     return [NSDictionary dictionary];
 }
 

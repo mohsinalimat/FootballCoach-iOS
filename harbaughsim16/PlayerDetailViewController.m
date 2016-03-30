@@ -33,6 +33,7 @@
     Player *selectedPlayer;
     IBOutlet HBPlayerDetailView *playerDetailView;
     NSDictionary *stats;
+    NSDictionary *careerStats;
     NSDictionary *ratings;
 }
 @end
@@ -54,6 +55,7 @@
     [playerDetailView.posLabel setText:selectedPlayer.position];
     self.tableView.tableHeaderView = playerDetailView;
     stats = [selectedPlayer detailedStats:[HBSharedUtils getLeague].currentWeek];
+    careerStats = [selectedPlayer detailedCareerStats];
     ratings = [selectedPlayer detailedRatings];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
@@ -82,7 +84,9 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 1) {
-        return @"Statistics";
+        return @"Season Stats";
+    } else if (section == 2) {
+        return @"Career Stats";
     } else {
         return @"Ratings";
     }
@@ -90,11 +94,11 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if ([selectedPlayer isKindOfClass:[PlayerQB class]]) {
-        return 2;
+        return 3;
     } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
-        return 2;
+        return 3;
     } else if ([selectedPlayer isKindOfClass:[PlayerWR class]]) {
-        return 2;
+        return 3;
     } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
         return 1;
     } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
@@ -104,13 +108,15 @@
     } else if ([selectedPlayer isKindOfClass:[PlayerS class]]) {
         return 1;
     } else { // PlayerK class
-        return 2;
+        return 3;
     }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 1) {
         return stats.allKeys.count;
+    } else if (section == 2) {
+        return careerStats.allKeys.count;
     } else {
         return 3;
     }
@@ -123,15 +129,6 @@
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
-    //NSString *stat;
-    /*if (indexPath.section == 1) {
-        stat = stats.allValues[indexPath.row];
-        [cell.textLabel setText:[self getStatName:stats.allKeys[indexPath.row]]];
-    } else {
-        stat = ratings.allValues[indexPath.row];
-        [cell.textLabel setText:[self getStatName:ratings.allKeys[indexPath.row]]];
-    }*/
     
     if ([selectedPlayer isKindOfClass:[PlayerQB class]]) {
         if (indexPath.section == 0) {   //ratings
@@ -150,28 +147,60 @@
             }
         } else {    //stats - comp, att, yds, CompPerc, Yd/att, ypg, TD, INT
             if (indexPath.row == 0) {
-                [cell.detailTextLabel setText:stats[@"completions"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"completions"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"completions"]];
+                }
                 [cell.textLabel setText:@"Completions"];
             } else if (indexPath.row == 1) {
-                [cell.detailTextLabel setText:stats[@"attempts"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"attempts"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"attempts"]];
+                }
                 [cell.textLabel setText:@"Pass Attempts"];
             } else if (indexPath.row == 2) {
-                [cell.detailTextLabel setText:stats[@"passYards"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"passYards"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"passYards"]];
+                }
                 [cell.textLabel setText:@"Yards"];
             } else if (indexPath.row == 3) {
-                [cell.detailTextLabel setText:stats[@"completionPercentage"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"completionPercentage"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"completionPercentage"]];
+                }
                 [cell.textLabel setText:@"Completion Percentage"];
             } else if (indexPath.row == 4) {
-                [cell.detailTextLabel setText:stats[@"yardsPerAttempt"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerAttempt"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"yardsPerAttempt"]];
+                }
                 [cell.textLabel setText:@"Yards Per Attempt"];
             } else if (indexPath.row == 5) {
-                [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+                }
                 [cell.textLabel setText:@"Yards Per Game"];
             } else if (indexPath.row == 6) {
-                [cell.detailTextLabel setText:stats[@"touchdowns"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"touchdowns"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+                }
                 [cell.textLabel setText:@"Touchdowns"];
             } else {
-                [cell.detailTextLabel setText:stats[@"interceptions"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"interceptions"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"interceptions"]];
+                }
                 [cell.textLabel setText:@"Interceptions"];
             }
         }
@@ -192,22 +221,46 @@
             }
         } else {    //stats - carries, yards, yd/car, ypg, TD, Fum
             if (indexPath.row == 0) {
-                [cell.detailTextLabel setText:stats[@"carries"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"carries"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"carries"]];
+                }
                 [cell.textLabel setText:@"Carries"];
             } else if (indexPath.row == 1) {
-                [cell.detailTextLabel setText:stats[@"rushYards"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"rushYards"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"rushYards"]];
+                }
                 [cell.textLabel setText:@"Yards"];
             } else if (indexPath.row == 2) {
-                [cell.detailTextLabel setText:stats[@"yardsPerCarry"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerCarry"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"yardsPerCarry"]];
+                }
                 [cell.textLabel setText:@"Yards Per Carry"];
             } else if (indexPath.row == 3) {
-                [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+                }
                 [cell.textLabel setText:@"Yards Per Game"];
             } else if (indexPath.row == 4) {
-                [cell.detailTextLabel setText:stats[@"touchdowns"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"touchdowns"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+                }
                 [cell.textLabel setText:@"Touchdowns"];
             } else {
-                [cell.detailTextLabel setText:stats[@"fumbles"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"fumbles"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"fumbles"]];
+                }
                 [cell.textLabel setText:@"Fumbles"];
             }
         }
@@ -228,22 +281,46 @@
             }
         } else {    //stats - catches, yards, yd/cat, ypg, TD, Fum
             if (indexPath.row == 0) {
-                [cell.detailTextLabel setText:stats[@"catches"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"catches"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"catches"]];
+                }
                 [cell.textLabel setText:@"Catches"];
             } else if (indexPath.row == 1) {
-                [cell.detailTextLabel setText:stats[@"recYards"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"recYards"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"recYards"]];
+                }
                 [cell.textLabel setText:@"Yards"];
             } else if (indexPath.row == 2) {
-                [cell.detailTextLabel setText:stats[@"yardsPerCatch"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerCatch"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"yardsPerCatch"]];
+                }
                 [cell.textLabel setText:@"Yards Per Catch"];
             } else if (indexPath.row == 3) {
-                [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+                }
                 [cell.textLabel setText:@"Yards Per Game"];
             } else if (indexPath.row == 4) {
-                [cell.detailTextLabel setText:stats[@"touchdowns"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"touchdowns"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+                }
                 [cell.textLabel setText:@"Touchdowns"];
             } else {
-                [cell.detailTextLabel setText:stats[@"fumbles"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"fumbles"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"fumbles"]];
+                }
                 [cell.textLabel setText:@"Fumbles"];
             }
         }
@@ -325,29 +402,51 @@
             }
         } else {    //stats - xp made, xp att, xp perc, fg made, fg att, fg perc
             if (indexPath.row == 0) {
-                [cell.detailTextLabel setText:stats[@"xpMade"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"xpMade"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"xpMade"]];
+                }
                 [cell.textLabel setText:@"XP Made"];
             } else if (indexPath.row == 1) {
-                [cell.detailTextLabel setText:stats[@"xpAtt"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"xpAtt"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"xpAtt"]];
+                }
                 [cell.textLabel setText:@"XP Attempted"];
             } else if (indexPath.row == 2) {
-                [cell.detailTextLabel setText:stats[@"xpPercentage"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"xpPercentage"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"xpPercentage"]];
+                }
                 [cell.textLabel setText:@"XP Percentage"];
             } else if (indexPath.row == 3) {
-                [cell.detailTextLabel setText:stats[@"fgMade"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"fgMade"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"fgMade"]];
+                }
                 [cell.textLabel setText:@"FG Made"];
             } else if (indexPath.row == 4) {
-                [cell.detailTextLabel setText:stats[@"fgAtt"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"fgAtt"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"fgAtt"]];
+                }
                 [cell.textLabel setText:@"FG Attempted"];
             } else {
-                [cell.detailTextLabel setText:stats[@"fgPercentage"]];
+                if (indexPath.section == 1) {
+                    [cell.detailTextLabel setText:stats[@"fgPercentage"]];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"fgPercentage"]];
+                }
                 [cell.textLabel setText:@"FG Percentage"];
             }
         }
     }
     
-    
-    //[cell.detailTextLabel setText:stat];
     NSString *stat = cell.detailTextLabel.text;
     
     if (indexPath.section == 0) {
@@ -364,141 +463,11 @@
             letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
         }
         [cell.detailTextLabel setTextColor:letterColor];
+    } else {
+        [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
     }
-    
     
     return cell;
-}
-
-
--(NSString*)getStatName:(NSString*)key {
-    if ([key isEqualToString:@"touchdowns"]) {              //QBs
-        return @"Touchdowns";
-    } else if ([key isEqualToString:@"interceptions"]) {
-        return @"Interceptions";
-    } else if ([key isEqualToString:@"completions"]) {
-        return @"Pass Completions";
-    } else if ([key isEqualToString:@"attempts"]) {
-        return @"Pass Attempts";
-    } else if ([key isEqualToString:@"interceptions"]) {
-        return @"Interceptions";
-    } else if ([key isEqualToString:@"completionPercentage"]) {
-        return @"Completion Percentage";
-    } else if ([key isEqualToString:@"passYards"]) {
-        return @"Pass Yards";
-    } else if ([key isEqualToString:@"yardsPerGame"]) {
-        return @"Yards Per Game";
-    } else if ([key isEqualToString:@"yardsPerAttempt"]) {
-        return @"Yards Per Attempt";
-    } else if ([key isEqualToString:@"passPower"]) {
-        return @"Arm Strength";
-    } else if ([key isEqualToString:@"passAccuracy"]) {
-        return @"Pass Accuracy";
-    } else if ([key isEqualToString:@"passEvasion"]) {
-        return @"Evasion";
-    }
-    
-    else if ([key isEqualToString:@"fumbles"]) {          //RBs
-        return @"Fumbles";
-    } else if ([key isEqualToString:@"carries"]) {
-        return @"Carries";
-    } else if ([key isEqualToString:@"rushYards"]) {
-        return @"Rush Yards";
-    } else if ([key isEqualToString:@"yardsPerGame"]) {
-        return @"Yards Per Game";
-    } else if ([key isEqualToString:@"yardsPerCarry"]) {
-        return @"Yards Per Carry";
-    } else if ([key isEqualToString:@"rushPower"]) {
-        return @"Strength";
-    } else if ([key isEqualToString:@"rushSpeed"]) {
-        return @"Speed";
-    } else if ([key isEqualToString:@"rushEvasion"]) {
-        return @"Evasion";
-    }
-    
-    
-    else if ([key isEqualToString:@"yardsPerCatch"]) {   //WRs
-        return @"Yards Per Catch";
-    } else if ([key isEqualToString:@"catches"]) {
-        return @"Catches";
-    } else if ([key isEqualToString:@"recYards"]) {
-        return @"Receiving Yards";
-    } else if ([key isEqualToString:@"yardsPerGame"]) {
-        return @"Yards Per Game";
-    } else if ([key isEqualToString:@"yardsPerAttempt"]) {
-        return @"Yards Per Attempt";
-    } else if ([key isEqualToString:@"recCatch"]) {
-        return @"Catching Ability";
-    } else if ([key isEqualToString:@"recSpeed"]) {
-        return @"Speed";
-    } else if ([key isEqualToString:@"recEvasion"]) {
-        return @"Evasion";
-    }
-    
-    
-    else if ([key isEqualToString:@"olPotential"]) {          //OLs
-        return @"Potential";
-    } else if ([key isEqualToString:@"olPower"]) {
-        return @"Strength";
-    } else if ([key isEqualToString:@"olPassBlock"]) {
-        return @"Pass Blocking";
-    } else if ([key isEqualToString:@"olRunBlock"]) {
-        return @"Run Blocking";
-    }
-    
-    else if ([key isEqualToString:@"xpMade"]) {          //Ks
-        return @"XP Made";
-    } else if ([key isEqualToString:@"xpAtt"]) {
-        return @"XP Attempted";
-    } else if ([key isEqualToString:@"xpPercentage"]) {
-        return @"XP Percentage";
-    } else if ([key isEqualToString:@"fgMade"]) {
-        return @"FG Made";
-    } else if ([key isEqualToString:@"fgAtt"]) {
-        return @"FG Attempted";
-    } else if ([key isEqualToString:@"fgPercentage"]) {
-        return @"FG Percentage";
-    } else if ([key isEqualToString:@"kickPower"]) {
-        return @"Kicking Power";
-    } else if ([key isEqualToString:@"kickAccuracy"]) {
-        return @"Kick Accuracy";
-    } else if ([key isEqualToString:@"kickClumsiness"]) {
-        return @"Clumsiness";
-    }
-    
-    else if ([key isEqualToString:@"f7Potential"]) {          //F7s
-        return @"Potential";
-    } else if ([key isEqualToString:@"f7Power"]) {
-        return @"Strength";
-    } else if ([key isEqualToString:@"f7Rush"]) {
-        return @"Run Defense";
-    } else if ([key isEqualToString:@"f7Pass"]) {
-        return @"Pass Pressure";
-    }
-    
-    else if ([key isEqualToString:@"cbPotential"]) {          //CBs
-        return @"Potential";
-    } else if ([key isEqualToString:@"cbCoverage"]) {
-        return @"Coverage Ability";
-    } else if ([key isEqualToString:@"cbSpeed"]) {
-        return @"Speed";
-    } else if ([key isEqualToString:@"cbTackling"]) {
-        return @"Tackling Ability";
-    }
-    
-    else if ([key isEqualToString:@"sPotential"]) {          //Ss
-        return @"Potential";
-    } else if ([key isEqualToString:@"sCoverage"]) {
-        return @"Coverage Ability";
-    } else if ([key isEqualToString:@"sSpeed"]) {
-        return @"Speed";
-    } else if ([key isEqualToString:@"sTackling"]) {
-        return @"Tackling Ability";
-    }
-    
-    else {
-        return @"Unknown";
-    }
 }
 
 @end

@@ -22,6 +22,43 @@
         _statsTD = [aDecoder decodeIntForKey:@"statsTD"];
         _statsFumbles = [aDecoder decodeIntForKey:@"statsFumbles"];
         _statsRecYards = [aDecoder decodeIntForKey:@"statsRecYards"];
+        
+        
+        if ([aDecoder containsValueForKey:@"careerStatsRecYards"]) {
+            _careerStatsRecYards = [aDecoder decodeIntForKey:@"careerStatsRecYards"];
+        } else {
+            _careerStatsRecYards = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerStatsReceptions"]) {
+            _careerStatsReceptions = [aDecoder decodeIntForKey:@"careerStatsReceptions"];
+        } else {
+            _careerStatsReceptions = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerStatsTD"]) {
+            _careerStatsTD = [aDecoder decodeIntForKey:@"careerStatsTD"];
+        } else {
+            _careerStatsTD = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerStatsTargets"]) {
+            _careerStatsTargets = [aDecoder decodeIntForKey:@"careerStatsTargets"];
+        } else {
+            _careerStatsTargets = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerStatsFumbles"]) {
+            _careerStatsFumbles = [aDecoder decodeIntForKey:@"careerStatsFumbles"];
+        } else {
+            _careerStatsFumbles = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerStatsDrops"]) {
+            _careerStatsDrops = [aDecoder decodeIntForKey:@"careerStatsDrops"];
+        } else {
+            _careerStatsDrops = 0;
+        }
     }
     return self;
 }
@@ -32,12 +69,20 @@
     [aCoder encodeInt:_ratRecCat forKey:@"ratRecCat"];
     [aCoder encodeInt:_ratRecSpd forKey:@"ratRecSpd"];
     [aCoder encodeInt:_ratRecEva forKey:@"ratRecEva"];
+    
     [aCoder encodeInt:_statsRecYards forKey:@"statsRecYards"];
     [aCoder encodeInt:_statsFumbles forKey:@"statsFumbles"];
     [aCoder encodeInt:_statsTD forKey:@"statsTD"];
     [aCoder encodeInt:_statsReceptions forKey:@"statsReceptions"];
     [aCoder encodeInt:_statsDrops forKey:@"statsDrops"];
     [aCoder encodeInt:_statsTargets forKey:@"statsTargets"];
+    
+    [aCoder encodeInt:_careerStatsRecYards forKey:@"careerStatsRecYards"];
+    [aCoder encodeInt:_careerStatsReceptions forKey:@"careerStatsReceptions"];
+    [aCoder encodeInt:_careerStatsTD forKey:@"careerStatsTD"];
+    [aCoder encodeInt:_careerStatsTargets forKey:@"careerStatsTargets"];
+    [aCoder encodeInt:_careerStatsFumbles forKey:@"careerStatsFumbles"];
+    [aCoder encodeInt:_careerStatsDrops forKey:@"careerStatsDrops"];
 }
 
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq catch:(int)cat speed:(int)spd eva:(int)eva {
@@ -72,6 +117,14 @@
         _statsTD = 0;
         _statsFumbles = 0;
         
+        _careerStatsReceptions = 0;
+        _careerStatsRecYards = 0;
+        _careerStatsTargets = 0;
+        _careerStatsDrops = 0;
+        _careerStatsFumbles = 0;
+        _careerStatsTD = 0;
+        _careerStatsFumbles = 0;
+        
         self.position = @"WR";
     }
     return self;
@@ -101,12 +154,19 @@
         [self.ratingsVector addObject:@(self.ratRecSpd)];
         [self.ratingsVector addObject:@(self.ratRecEva)];
         
+        _careerStatsReceptions = 0;
+        _careerStatsRecYards = 0;
+        _careerStatsTargets = 0;
+        _careerStatsDrops = 0;
+        _careerStatsFumbles = 0;
+        _careerStatsTD = 0;
+        _careerStatsFumbles = 0;
+        
+        _statsTargets = 0;
         _statsReceptions = 0;
         _statsRecYards = 0;
-        _statsTargets = 0;
-        _statsDrops = 0;
-        _statsFumbles = 0;
         _statsTD = 0;
+        _statsDrops = 0;
         _statsFumbles = 0;
         
         self.position = @"WR";
@@ -163,7 +223,14 @@
     }
     self.ratOvr = (_ratRecCat*2 + _ratRecSpd + _ratRecEva)/4;
     self.ratImprovement = self.ratOvr - oldOvr;
-    //reset stats (keep career stats?)
+    
+    self.careerStatsReceptions += self.statsReceptions;
+    self.careerStatsRecYards += self.statsRecYards;
+    self.careerStatsTD += self.statsTD;
+    self.careerStatsFumbles += self.statsFumbles;
+    self.careerStatsDrops += self.statsDrops;
+    self.careerStatsTargets += self.statsTargets;
+    
     _statsTargets = 0;
     _statsReceptions = 0;
     _statsRecYards = 0;
@@ -193,6 +260,30 @@
     int ypg = 0;
     if (games > 0) {
         ypg = (int)((double)_statsRecYards/(double)games);
+    }
+    [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"yardsPerGame"];
+    
+    
+    return [stats copy];
+}
+
+-(NSDictionary*)detailedCareerStats {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[NSString stringWithFormat:@"%d TDs",_careerStatsTD] forKey:@"touchdowns"];
+    [stats setObject:[NSString stringWithFormat:@"%d Fum",_careerStatsFumbles] forKey:@"fumbles"];
+    
+    [stats setObject:[NSString stringWithFormat:@"%d catches",_careerStatsReceptions] forKey:@"carries"];
+    [stats setObject:[NSString stringWithFormat:@"%d yards",_careerStatsRecYards] forKey:@"rushYards"];
+    
+    int ypc = 0;
+    if (_careerStatsReceptions > 0) {
+        ypc = (int)((double)_careerStatsRecYards/(double)_careerStatsReceptions);
+    }
+    [stats setObject:[NSString stringWithFormat:@"%d yds/catch",ypc] forKey:@"yardsPerCatch"];
+    
+    int ypg = 0;
+    if (self.gamesPlayed > 0) {
+        ypg = (int)((double)_careerStatsRecYards/(double)self.gamesPlayed);
     }
     [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"yardsPerGame"];
     

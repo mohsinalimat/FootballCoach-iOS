@@ -16,6 +16,12 @@
 @property (nonatomic) int statsXPMade;
 @property (nonatomic) int statsFGAtt;
 @property (nonatomic) int statsFGMade;
+
+@property (nonatomic) int careerStatsXPAtt;
+@property (nonatomic) int careerStatsXPMade;
+@property (nonatomic) int careerStatsFGAtt;
+@property (nonatomic) int careerStatsFGMade;
+
 -(NSMutableArray*)getStatsVector;
 
 +(instancetype)newKWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum;
