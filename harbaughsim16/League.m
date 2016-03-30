@@ -49,6 +49,34 @@
     [encoder encodeObject:_bowlGames forKey:@"bowlGames"];
     [encoder encodeObject:_userTeam forKey:@"userTeam"];
     [encoder encodeInt:_recruitingStage forKey:@"recruitingStage"];
+    
+    [encoder encodeInt:_leagueRecordFum forKey:@"leagueRecordFum"];
+    [encoder encodeInt:_leagueRecordInt forKey:@"leagueRecordInt"];
+    [encoder encodeInt:_leagueRecordFGMade forKey:@"leagueRecordFGMade"];
+    [encoder encodeInt:_leagueRecordRushAtt forKey:@"leagueRecordRushAtt"];
+    [encoder encodeInt:_leagueRecordXPMade forKey:@"leagueRecordXPMade"];
+    [encoder encodeInt:_leagueRecordPassTDs forKey:@"leagueRecordPassTDs"];
+    [encoder encodeInt:_leagueRecordRushTDs forKey:@"leagueRecordRushTDs"];
+    [encoder encodeInt:_leagueRecordRecTDs forKey:@"leagueRecordRecTDs"];
+    [encoder encodeInt:_leagueRecordReceptions forKey:@"leagueRecordReceptions"];
+    [encoder encodeInt:_leagueRecordCompletions forKey:@"leagueRecordCompletions"];
+    [encoder encodeInt:_leagueRecordRushYards forKey:@"leagueRecordRushYards"];
+    [encoder encodeInt:_leagueRecordRecYards forKey:@"leagueRecordRecYards"];
+    [encoder encodeInt:_leagueRecordPassYards forKey:@"leagueRecordPassYards"];
+    
+    [encoder encodeInt:_leagueRecordYearFum forKey:@"leagueRecordYearFum"];
+    [encoder encodeInt:_leagueRecordYearInt forKey:@"leagueRecordYearInt"];
+    [encoder encodeInt:_leagueRecordYearFGMade forKey:@"leagueRecordYearFGMade"];
+    [encoder encodeInt:_leagueRecordYearXPMade forKey:@"leagueRecordYearXPMade"];
+    [encoder encodeInt:_leagueRecordYearRecTDs forKey:@"leagueRecordYearRecTDs"];
+    [encoder encodeInt:_leagueRecordYearReceptions forKey:@"leagueRecordYearReceptions"];
+    [encoder encodeInt:_leagueRecordYearRushAtt forKey:@"leagueRecordYearRushAtt"];
+    [encoder encodeInt:_leagueRecordYearRushYards forKey:@"leagueRecordYearRushYards"];
+    [encoder encodeInt:_leagueRecordYearRushTDs forKey:@"leagueRecordYearRushTDs"];
+    [encoder encodeInt:_leagueRecordYearPassTDs forKey:@"leagueRecordYearPassTDs"];
+    [encoder encodeInt:_leagueRecordYearCompletions forKey:@"leagueRecordYearCompletions"];
+    [encoder encodeInt:_leagueRecordYearPassYards forKey:@"leagueRecordYearPassYards"];
+    
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -72,13 +100,38 @@
         _bowlGames = [decoder decodeObjectForKey:@"bowlGames"];
         _userTeam = [decoder decodeObjectForKey:@"userTeam"];
         _recruitingStage = [decoder decodeIntForKey:@"recruitingStage"];
+        _canRebrandTeam = [decoder decodeBoolForKey:@"canRebrandTeam"];
         
         
-        if ([decoder containsValueForKey:@"canRebrandTeam"]) {
-            _canRebrandTeam = [decoder decodeBoolForKey:@"canRebrandTeam"];
-        } else {
-            _canRebrandTeam = false;
-        }
+        _leagueRecordYearPassYards = [decoder decodeIntForKey:@"leagueRecordYearPassYards"];
+        _leagueRecordYearCompletions = [decoder decodeIntForKey:@"leagueRecordYearCompletions"];
+        _leagueRecordYearPassTDs = [decoder decodeIntForKey:@"leagueRecordYearPassTDs"];
+        _leagueRecordYearRushTDs = [decoder decodeIntForKey:@"leagueRecordYearRushTDs"];
+        _leagueRecordYearRushYards = [decoder decodeIntForKey:@"leagueRecordYearRushYards"];
+        _leagueRecordYearRushAtt = [decoder decodeIntForKey:@"leagueRecordYearRushAtt"];
+        _leagueRecordYearFum = [decoder decodeIntForKey:@"leagueRecordYearFum"];
+        _leagueRecordYearInt = [decoder decodeIntForKey:@"leagueRecordYearInt"];
+        _leagueRecordYearRecTDs = [decoder decodeIntForKey:@"leagueRecordYearRecTDs"];
+        _leagueRecordYearRecYards = [decoder decodeIntForKey:@"leagueRecordYearRecYards"];
+        _leagueRecordYearReceptions = [decoder decodeIntForKey:@"leagueRecordYearReceptions"];
+        _leagueRecordYearXPMade = [decoder decodeIntForKey:@"leagueRecordYearXPMade"];
+        _leagueRecordYearFGMade = [decoder decodeIntForKey:@"leagueRecordYearFGMade"];
+        
+        _leagueRecordPassYards = [decoder decodeIntForKey:@"leagueRecordPassYards"];
+        _leagueRecordCompletions = [decoder decodeIntForKey:@"leagueRecordCompletions"];
+        _leagueRecordPassTDs = [decoder decodeIntForKey:@"leagueRecordPassTDs"];
+        _leagueRecordRushTDs = [decoder decodeIntForKey:@"leagueRecordRushTDs"];
+        _leagueRecordRushAtt = [decoder decodeIntForKey:@"leagueRecordRushAtt"];
+        _leagueRecordRushYards = [decoder decodeIntForKey:@"leagueRecordRushYards"];
+        _leagueRecordRecYards = [decoder decodeIntForKey:@"leagueRecordRecYards"];
+        _leagueRecordRecTDs = [decoder decodeIntForKey:@"leagueRecordRecTDs"];
+        _leagueRecordReceptions = [decoder decodeIntForKey:@"leagueRecordReceptions"];
+        _leagueRecordFum = [decoder decodeIntForKey:@"leagueRecordFum"];
+        _leagueRecordInt = [decoder decodeIntForKey:@"leagueRecordInt"];
+        _leagueRecordXPMade = [decoder decodeIntForKey:@"leagueRecordXPMade"];
+        _leagueRecordFGMade = [decoder decodeIntForKey:@"leagueRecordFGMade"];
+        
+
     }
     return self;
 }

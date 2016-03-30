@@ -11,6 +11,7 @@
 #import "TeamRosterViewController.h"
 #import "TeamHistoryViewController.h"
 #import "TeamScheduleViewController.h"
+#import "TeamRecordsViewController.h"
 
 @interface HBTeamInfoView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
@@ -158,7 +159,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 3;
+        return 4;
     } else {
         return stats.count;
     }
@@ -194,8 +195,10 @@
             [cell.textLabel setText:@"Roster"];
         } else if (indexPath.row == 1) {
             [cell.textLabel setText:@"Schedule"];
-        } else {
+        } else if (indexPath.row == 2) {
             [cell.textLabel setText:@"Team History"];
+        } else {
+            [cell.textLabel setText:@"Team Records"];
         }
         return cell;
 
@@ -209,8 +212,10 @@
             [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
         } else if (indexPath.row == 1) {
             [self.navigationController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
-        } else {
+        } else if (indexPath.row == 1) {
             [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+        } else {
+            [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
         }
     }
 }

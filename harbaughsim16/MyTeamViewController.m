@@ -17,6 +17,8 @@
 #import "TeamStrategyViewController.h"
 #import "IntroViewController.h"
 #import "RankingsViewController.h"
+#import "TeamRecordsViewController.h"
+#import "LeagueRecordsViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -123,7 +125,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 2;
+        return 3;
     } else if (section == 2) {
         return 3;
     } else {
@@ -133,25 +135,38 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"StratCell"];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"StratCell"];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
-        
-        NSString *title = @"";
-        NSString *strat = @"";
-        if (indexPath.row == 0) {
-            title = @"Offensive Strategy";
-            strat = userTeam.offensiveStrategy.stratName;
+        if (indexPath.row < 2) {
+            UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"StratCell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"StratCell"];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            
+            NSString *title = @"";
+            NSString *strat = @"";
+            if (indexPath.row == 0) {
+                title = @"Offensive Strategy";
+                strat = userTeam.offensiveStrategy.stratName;
+            } else {
+                title = @"Defensive Strategy";
+                strat = userTeam.defensiveStrategy.stratName;
+            }
+            
+            [cell.textLabel setText:title];
+            [cell.detailTextLabel setText:strat];
+            return cell;
         } else {
-            title = @"Defensive Strategy";
-            strat = userTeam.defensiveStrategy.stratName;
+            UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"RecordCell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RecordCell"];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            
+            [cell.textLabel setText:@"Team Records"];
+            
+            return cell;
+
         }
-        
-        [cell.textLabel setText:title];
-        [cell.detailTextLabel setText:strat]; //change later
-        return cell;
         
     } else if (indexPath.section == 2) {
         UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
@@ -167,6 +182,8 @@
             title = @"Team History";
         } else if (indexPath.row == 1) {
             title = @"League History";
+        } else if (indexPath.row == 2) {
+            title = @"League Records";
         } else {
             title = @"Player of the Year History";
         }
@@ -239,6 +256,9 @@
         } else if (indexPath.row == 1) {
             //league
             [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];
+        } else if (indexPath.row == 2) {
+            //league records
+            [self.navigationController pushViewController:[[LeagueRecordsViewController alloc] init] animated:YES];
         } else {
             //heisman
             [self.navigationController pushViewController:[[HeismanHistoryViewController alloc] init] animated:YES];
@@ -249,14 +269,16 @@
             [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
             [popupController presentInViewController:self];
-        } else { //defensive
+        } else if (indexPath.row == 1) { //defensive
             STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:FALSE options:[[HBSharedUtils getLeague].userTeam getDefensiveTeamStrategies]]];
             [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
             [popupController presentInViewController:self];
+        } else { //teamRecords
+            [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:userTeam] animated:YES];
         }
     } else {
-        
+       //do nothing
     }
 }
 

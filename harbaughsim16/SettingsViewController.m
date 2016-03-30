@@ -9,7 +9,6 @@
 #import "SettingsViewController.h"
 #import "HBSettingsCell.h"
 #import "MyTeamViewController.h"
-#import "ColorSelectionViewController.h"
 #import "Team.h"
 
 #import "HexColors.h"
