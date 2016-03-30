@@ -86,7 +86,7 @@
     if (section == 1) {
         return @"Season Stats";
     } else if (section == 2) {
-        return @"Career Stats";
+        return [NSString stringWithFormat:@"Career Stats (up to %ld)", (2016 + [HBSharedUtils getLeague].leagueHistory.count - 1)];
     } else {
         return @"Ratings";
     }
