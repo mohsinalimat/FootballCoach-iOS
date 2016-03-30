@@ -133,6 +133,59 @@
     
     diffPrestige = teamPrestige - oldPrestige;
     NSLog(@"ADVANCING SEASON FOR: %@...", abbreviation);
+    
+    
+    PlayerQB *qb = [self getQB:0];
+    PlayerRB *rb1 = [self getRB:0];
+    PlayerRB *rb2 = [self getRB:0];
+    PlayerWR *wr1 = [self getWR:0];
+    PlayerWR *wr2 = [self getWR:0];
+    PlayerWR *wr3 = [self getWR:0];
+    PlayerK *k = [self getK:0];
+    
+    if (qb.statsTD > _teamRecordPassTDs) {
+        _teamRecordPassTDs = qb.statsTD;
+    }
+    
+    if (qb.statsInt > _teamRecordInt) {
+        _teamRecordInt = qb.statsInt;
+    }
+    
+    if (qb.statsPassYards > _teamRecordPassYards) {
+        _teamRecordPassYards = qb.statsPassYards;
+    }
+    
+    if (qb.statsPassComp > _teamRecordCompletions) {
+        _teamRecordCompletions = qb.statsPassComp;
+    }
+    
+    
+    if (rb1.statsTD > _teamRecordRushTDs) {
+        _teamRecordRushTDs = rb1.statsTD;
+    }
+    
+    if (rb1.statsFumbles > _teamRecordFum) {
+        _teamRecordFum = rb1.statsFumbles;
+    }
+    
+    if (rb1.statsRushYards > _teamRecordRushYards) {
+        _teamRecordRushYards = rb1.statsRushYards;
+    }
+    
+    if (rb2.statsTD > _teamRecordRushTDs) {
+        _teamRecordRushTDs = rb2.statsTD;
+    }
+    
+    if (rb2.statsFumbles > _teamRecordFum) {
+        _teamRecordFum = rb2.statsFumbles;
+    }
+    
+    if (rb2.statsRushYards > _teamRecordRushYards) {
+        _teamRecordRushYards = rb2.statsRushYards;
+    }
+    
+    
+    
     [self advanceSeasonPlayers];
 }
 

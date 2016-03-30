@@ -117,6 +117,23 @@
 @property (strong, nonatomic) TeamStrategy *offensiveStrategy;
 @property (strong, nonatomic) TeamStrategy *defensiveStrategy;
 
+//records
+@property (nonatomic) int teamRecordCompletions;
+@property (nonatomic) int teamRecordPassYards;
+@property (nonatomic) int teamRecordPassTDs;
+@property (nonatomic) int teamRecordInt;
+
+@property (nonatomic) int teamRecordFum;
+@property (nonatomic) int teamRecordRushYards;
+@property (nonatomic) int teamRecordRushAtt;
+@property (nonatomic) int teamRecordRushTDs;
+
+@property (nonatomic) int teamRecordRecYards;
+@property (nonatomic) int teamRecordReceptions;
+@property (nonatomic) int teamRecordRecTDs;
+
+@property (nonatomic) int teamRecordXPMade;
+@property (nonatomic) int teamRecordFGMade;
 
 
 -(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
