@@ -23,7 +23,8 @@
 @property (nonatomic) int cost;
 @property (nonatomic) int gamesPlayed;
 @property (strong, nonatomic) NSMutableArray *ratingsVector;
-
+@property (nonatomic) BOOL hasRedshirt;
+@property (nonatomic) BOOL isDraftEligible;
 
 +(NSArray *)letterGrades;
 -(NSString*)getYearString;

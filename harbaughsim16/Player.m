@@ -25,6 +25,18 @@
         _ratingsVector = [aDecoder decodeObjectForKey:@"ratingsVector"];
         _team = [aDecoder decodeObjectForKey:@"team"];
         
+        if ([aDecoder containsValueForKey:@"hasRedshirt"]) {
+            _hasRedshirt = [aDecoder decodeBoolForKey:@"hasRedshirt"];
+        } else {
+            _hasRedshirt = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"isDraftEligible"]) {
+            _isDraftEligible = [aDecoder decodeBoolForKey:@"isDraftEligible"];
+        } else {
+            _isDraftEligible = NO;
+        }
+        
     }
     return self;
 }
@@ -41,6 +53,8 @@
     [aCoder encodeInt:_cost forKey:@"cost"];
     [aCoder encodeInt:_gamesPlayed forKey:@"gamesPlayed"];
     [aCoder encodeObject:_ratingsVector forKey:@"ratingsVector"];
+    [aCoder encodeBool:_isDraftEligible forKey:@"isDraftEligible"];
+    [aCoder encodeBool:_hasRedshirt forKey:@"hasRedshirt"];
 }
 
 - (NSComparisonResult)compare:(id)other
