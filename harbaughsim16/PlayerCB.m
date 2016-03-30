@@ -69,7 +69,7 @@
         self.name = name;
         self.year = year;
         self.ratPot = (int)([HBSharedUtils randomValue]*50 + 50);
-        self.ratFootIQ = (int) (50 + stars*4 + 30* [HBSharedUtils randomValue]);
+        self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratCBCov = (int) (60 + year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
         self.ratCBSpd = (int) (60 + year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
         self.ratCBTkl = (int) (60 + year*5 + stars*5 - 25* [HBSharedUtils randomValue]);

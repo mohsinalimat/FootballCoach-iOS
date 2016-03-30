@@ -190,6 +190,7 @@
 -(int)getCompositeOLRush;
 -(int)getCompositeF7Pass;
 -(int)getCompositeF7Rush;
+-(int)getCompositeFootIQ;
 -(NSMutableArray*)getGameSummaryStrings:(int)gameNumber;
 -(NSString*)getSeasonSummaryString;
 -(NSMutableArray*)getPlayerStatsExpandListStrings;

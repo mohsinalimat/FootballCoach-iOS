@@ -109,7 +109,7 @@
 
 -(void)advanceSeason {
     
-    if (wonRivalryGame && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20) ) {
+    if (wonRivalryGame && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20)) {
         teamPrestige += 2;
     } else if (!wonRivalryGame && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
         teamPrestige -= 2;
@@ -1545,6 +1545,22 @@
         compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkP)/2;
     }
     return compositeOL / 5;
+}
+
+-(int)getCompositeFootIQ {
+    int comp = 0;
+    comp += [self getQB:0].ratFootIQ * 5;
+    comp += [self getRB:0].ratFootIQ + [self getRB:1].ratFootIQ;
+    comp += [self getWR:0].ratFootIQ + [self getWR:1].ratFootIQ + [self getWR:2].ratFootIQ;
+    for (int i = 0; i < 5; ++i) {
+        comp += [self getOL:i].ratFootIQ/5;
+    }
+    comp += [self getS:0].ratFootIQ * 5;
+    comp += [self getCB:0].ratFootIQ + [self getCB:1].ratFootIQ + [self getCB:2].ratFootIQ;
+    for (int i = 0; i < 7; ++i) {
+        comp += [self getF7:i].ratFootIQ/7;
+    }
+    return comp / 20;
 }
 
 -(int)getCompositeOLRush {

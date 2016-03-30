@@ -114,7 +114,7 @@
         self.year = yr;
         self.team = t;
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
-        self.ratFootIQ = (int) (50 + stars*4 + 30* [HBSharedUtils randomValue]);
+        self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
         _ratKickPow = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
         _ratKickAcc = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
         _ratKickFum = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);

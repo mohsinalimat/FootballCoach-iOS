@@ -457,8 +457,14 @@
 }
 
 -(int)getHFAdv {
-    if ( gamePoss ) return 3;
-    else return 0;
+    int footIQadv = ([_homeTeam getCompositeFootIQ] - [_awayTeam getCompositeFootIQ])/5;
+    if (footIQadv > 3) footIQadv = 3;
+    if (footIQadv < -3) footIQadv = -3;
+    if (gamePoss) {
+        return 3 + footIQadv;
+    } else {
+        return -footIQadv;
+    }
 }
 
 -(NSString*)getEventPrefix {
