@@ -41,6 +41,43 @@
 @property (nonatomic) int recruitingStage;
 @property (nonatomic) BOOL canRebrandTeam;
 
+
+//records
+@property (nonatomic) int leagueRecordCompletions;
+@property (nonatomic) int leagueRecordPassYards;
+@property (nonatomic) int leagueRecordPassTDs;
+@property (nonatomic) int leagueRecordInt;
+
+@property (nonatomic) int leagueRecordFum;
+@property (nonatomic) int leagueRecordRushYards;
+@property (nonatomic) int leagueRecordRushAtt;
+@property (nonatomic) int leagueRecordRushTDs;
+
+@property (nonatomic) int leagueRecordRecYards;
+@property (nonatomic) int leagueRecordReceptions;
+@property (nonatomic) int leagueRecordRecTDs;
+
+@property (nonatomic) int leagueRecordXPMade;
+@property (nonatomic) int leagueRecordFGMade;
+
+//Record years
+@property (nonatomic) int leagueRecordYearCompletions;
+@property (nonatomic) int leagueRecordYearPassYards;
+@property (nonatomic) int leagueRecordYearPassTDs;
+@property (nonatomic) int leagueRecordYearInt;
+
+@property (nonatomic) int leagueRecordYearFum;
+@property (nonatomic) int leagueRecordYearRushYards;
+@property (nonatomic) int leagueRecordYearRushAtt;
+@property (nonatomic) int leagueRecordYearRushTDs;
+
+@property (nonatomic) int leagueRecordYearRecYards;
+@property (nonatomic) int leagueRecordYearReceptions;
+@property (nonatomic) int leagueRecordYearRecTDs;
+
+@property (nonatomic) int leagueRecordYearXPMade;
+@property (nonatomic) int leagueRecordYearFGMade;
+
 +(BOOL)loadSavedData;
 +(NSArray*)bowlGameTitles;
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV;

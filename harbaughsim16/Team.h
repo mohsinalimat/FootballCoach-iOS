@@ -135,6 +135,24 @@
 @property (nonatomic) int teamRecordXPMade;
 @property (nonatomic) int teamRecordFGMade;
 
+//record years
+@property (nonatomic) int teamRecordYearCompletions;
+@property (nonatomic) int teamRecordYearPassYards;
+@property (nonatomic) int teamRecordYearPassTDs;
+@property (nonatomic) int teamRecordYearInt;
+
+@property (nonatomic) int teamRecordYearFum;
+@property (nonatomic) int teamRecordYearRushYards;
+@property (nonatomic) int teamRecordYearRushAtt;
+@property (nonatomic) int teamRecordYearRushTDs;
+
+@property (nonatomic) int teamRecordYearRecYards;
+@property (nonatomic) int teamRecordYearReceptions;
+@property (nonatomic) int teamRecordYearRecTDs;
+
+@property (nonatomic) int teamRecordYearXPMade;
+@property (nonatomic) int teamRecordYearFGMade;
+
 
 -(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
 //-(instancetype)initWithString:(NSString*)loadStr league:(League*)league;

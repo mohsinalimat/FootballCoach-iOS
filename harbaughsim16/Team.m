@@ -134,7 +134,7 @@
     diffPrestige = teamPrestige - oldPrestige;
     NSLog(@"ADVANCING SEASON FOR: %@...", abbreviation);
     
-    
+    //team records
     PlayerQB *qb = [self getQB:0];
     PlayerRB *rb1 = [self getRB:0];
     PlayerRB *rb2 = [self getRB:0];
@@ -143,88 +143,217 @@
     PlayerWR *wr3 = [self getWR:0];
     PlayerK *k = [self getK:0];
     
+    
+    //team records
     if (qb.statsTD > _teamRecordPassTDs) {
         _teamRecordPassTDs = qb.statsTD;
+        _teamRecordYearPassTDs = (int)(2016 + league.leagueHistory.count);
     }
     
     if (qb.statsInt > _teamRecordInt) {
         _teamRecordInt = qb.statsInt;
+        _teamRecordYearInt = (int)(2016 + league.leagueHistory.count);
     }
     
     if (qb.statsPassYards > _teamRecordPassYards) {
         _teamRecordPassYards = qb.statsPassYards;
+        _teamRecordYearPassYards = (int)(2016 + league.leagueHistory.count);
     }
     
     if (qb.statsPassComp > _teamRecordCompletions) {
         _teamRecordCompletions = qb.statsPassComp;
+        _teamRecordYearCompletions = (int)(2016 + league.leagueHistory.count);
     }
     
     if (rb1.statsTD > _teamRecordRushTDs) {
         _teamRecordRushTDs = rb1.statsTD;
+        _teamRecordYearRushTDs = (int)(2016 + league.leagueHistory.count);
     }
     
     if (rb1.statsFumbles > _teamRecordFum) {
         _teamRecordFum = rb1.statsFumbles;
+        _teamRecordYearFum = (int)(2016 + league.leagueHistory.count);
     }
     
     if (rb1.statsRushYards > _teamRecordRushYards) {
         _teamRecordRushYards = rb1.statsRushYards;
+        _teamRecordYearRushYards = (int)(2016 + league.leagueHistory.count);
     }
     
     if (rb2.statsTD > _teamRecordRushTDs) {
         _teamRecordRushTDs = rb2.statsTD;
+        _teamRecordYearRushTDs = (int)(2016 + league.leagueHistory.count);
     }
     
     if (rb2.statsFumbles > _teamRecordFum) {
         _teamRecordFum = rb2.statsFumbles;
+        _teamRecordYearFum = (int)(2016 + league.leagueHistory.count);
     }
     
     if (rb2.statsRushYards > _teamRecordRushYards) {
         _teamRecordRushYards = rb2.statsRushYards;
+        _teamRecordYearRushYards = (int)(2016 + league.leagueHistory.count);
     }
     
     if (wr1.statsTD > _teamRecordRecTDs) {
         _teamRecordRecTDs = wr1.statsTD;
+        _teamRecordYearRecTDs = (int)(2016 + league.leagueHistory.count);
     }
     
     if (wr1.statsFumbles > _teamRecordFum) {
         _teamRecordFum = wr1.statsFumbles;
+        _teamRecordYearFum = (int)(2016 + league.leagueHistory.count);
     }
     
     if (wr1.statsRecYards > _teamRecordRecYards) {
         _teamRecordRecYards = wr1.statsRecYards;
+        _teamRecordYearRecYards = (int)(2016 + league.leagueHistory.count);
     }
     
     if (wr2.statsTD > _teamRecordRecTDs) {
         _teamRecordRecTDs = wr2.statsTD;
+        _teamRecordYearRecTDs = (int)(2016 + league.leagueHistory.count);
     }
     
     if (wr2.statsFumbles > _teamRecordFum) {
         _teamRecordFum = wr2.statsFumbles;
+        _teamRecordYearFum = (int)(2016 + league.leagueHistory.count);
     }
     
     if (wr2.statsRecYards > _teamRecordRecYards) {
         _teamRecordRecYards = wr2.statsRecYards;
+        _teamRecordYearRecYards = (int)(2016 + league.leagueHistory.count);
     }
     
     if (wr3.statsTD > _teamRecordRecTDs) {
         _teamRecordRecTDs = wr3.statsTD;
+        _teamRecordYearRecTDs = (int)(2016 + league.leagueHistory.count);
     }
     
     if (wr3.statsFumbles > _teamRecordFum) {
         _teamRecordFum = wr3.statsFumbles;
+        _teamRecordYearFum = (int)(2016 + league.leagueHistory.count);
     }
     
     if (wr3.statsRecYards > _teamRecordRecYards) {
         _teamRecordRecYards = wr3.statsRecYards;
+        _teamRecordYearRecYards = (int)(2016 + league.leagueHistory.count);
     }
     
     if (k.statsFGMade > _teamRecordFGMade) {
         _teamRecordFGMade = k.statsFGMade;
+        _teamRecordYearFGMade = (int)(2016 + league.leagueHistory.count);
     }
     
     if (k.statsXPMade > _teamRecordXPMade) {
         _teamRecordXPMade = k.statsXPMade;
+        _teamRecordYearXPMade = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    //league records
+    if (qb.statsTD > league.leagueRecordPassTDs) {
+        league.leagueRecordPassTDs = qb.statsTD;
+        league.leagueRecordYearPassTDs = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (qb.statsInt > league.leagueRecordInt) {
+        league.leagueRecordInt = qb.statsInt;
+        league.leagueRecordYearInt = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (qb.statsPassYards > league.leagueRecordPassYards) {
+        league.leagueRecordPassYards = qb.statsPassYards;
+        league.leagueRecordYearPassYards = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (qb.statsPassComp > league.leagueRecordCompletions) {
+        league.leagueRecordCompletions = qb.statsPassComp;
+        league.leagueRecordYearCompletions = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (rb1.statsTD > league.leagueRecordRushTDs) {
+        league.leagueRecordRushTDs = rb1.statsTD;
+        league.leagueRecordYearRushTDs = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (rb1.statsFumbles > league.leagueRecordFum) {
+        league.leagueRecordFum = rb1.statsFumbles;
+        league.leagueRecordYearFum = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (rb1.statsRushYards > league.leagueRecordRushYards) {
+        league.leagueRecordRushYards = rb1.statsRushYards;
+        league.leagueRecordYearRushYards = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (rb2.statsTD > league.leagueRecordRushTDs) {
+        league.leagueRecordRushTDs = rb2.statsTD;
+        league.leagueRecordYearRushTDs = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (rb2.statsFumbles > league.leagueRecordFum) {
+        league.leagueRecordFum = rb2.statsFumbles;
+        league.leagueRecordYearFum = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (rb2.statsRushYards > league.leagueRecordRushYards) {
+        league.leagueRecordRushYards = rb2.statsRushYards;
+        league.leagueRecordYearRushYards = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (wr1.statsTD > _teamRecordRecTDs) {
+        _teamRecordRecTDs = wr1.statsTD;
+        league.leagueRecordYearRecTDs = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (wr1.statsFumbles > league.leagueRecordFum) {
+        league.leagueRecordFum = wr1.statsFumbles;
+        league.leagueRecordYearFum = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (wr1.statsRecYards > league.leagueRecordRecYards) {
+        league.leagueRecordRecYards = wr1.statsRecYards;
+        league.leagueRecordYearRecYards = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (wr2.statsTD > league.leagueRecordRecTDs) {
+        league.leagueRecordRecTDs = wr2.statsTD;
+        league.leagueRecordYearRecTDs = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (wr2.statsFumbles > league.leagueRecordFum) {
+        league.leagueRecordFum = wr2.statsFumbles;
+        league.leagueRecordYearFum = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (wr2.statsRecYards > league.leagueRecordRecYards) {
+        league.leagueRecordRecYards = wr2.statsRecYards;
+        league.leagueRecordYearRecYards = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (wr3.statsTD > league.leagueRecordRecTDs) {
+        league.leagueRecordRecTDs = wr3.statsTD;
+        league.leagueRecordYearRecTDs = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (wr3.statsFumbles > league.leagueRecordFum) {
+        league.leagueRecordFum = wr3.statsFumbles;
+        league.leagueRecordYearFum = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (wr3.statsRecYards > league.leagueRecordRecYards) {
+        league.leagueRecordRecYards = wr3.statsRecYards;
+        league.leagueRecordYearRecYards = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (k.statsFGMade > league.leagueRecordFGMade) {
+        league.leagueRecordFGMade = k.statsFGMade;
+        league.leagueRecordYearFGMade = (int)(2016 + league.leagueHistory.count);
+    }
+    
+    if (k.statsXPMade > league.leagueRecordXPMade) {
+        league.leagueRecordXPMade = k.statsXPMade;
+        league.leagueRecordYearXPMade = (int)(2016 + league.leagueHistory.count);
     }
     
     
