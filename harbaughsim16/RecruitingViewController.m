@@ -695,65 +695,65 @@
     
     if (needQBs > 0) {
         if (needQBs > 1) {
-            [summary appendFormat:@"Need %ld QBs\n\n",(long)needQBs];
+            [summary appendFormat:@"Need %ld active QBs\n\n",(long)needQBs];
         } else {
-            [summary appendFormat:@"Need %ld QB\n\n",(long)needQBs];
+            [summary appendFormat:@"Need %ld active QB\n\n",(long)needQBs];
         }
     }
     
     if (needRBs > 0) {
         if (needRBs > 1) {
-            [summary appendFormat:@"Need %ld RBs\n\n",(long)needRBs];
+            [summary appendFormat:@"Need %ld active RBs\n\n",(long)needRBs];
         } else {
-            [summary appendFormat:@"Need %ld RB\n\n",(long)needRBs];
+            [summary appendFormat:@"Need %ld active RB\n\n",(long)needRBs];
         }
     }
     
     if (needWRs > 0) {
         if (needWRs > 1) {
-            [summary appendFormat:@"Need %ld WRs\n\n",(long)needWRs];
+            [summary appendFormat:@"Need %ld active WRs\n\n",(long)needWRs];
         } else {
-            [summary appendFormat:@"Need %ld WR\n\n",(long)needWRs];
+            [summary appendFormat:@"Need %ld active WR\n\n",(long)needWRs];
         }
     }
     
     if (needOLs > 0) {
         if (needOLs > 1) {
-            [summary appendFormat:@"Need %ld OLs\n\n",(long)needOLs];
+            [summary appendFormat:@"Need %ld active OLs\n\n",(long)needOLs];
         } else {
-            [summary appendFormat:@"Need %ld OL\n\n",(long)needOLs];
+            [summary appendFormat:@"Need %ld active OL\n\n",(long)needOLs];
         }
     }
     
     if (needF7s > 0) {
         if (needF7s > 1) {
-            [summary appendFormat:@"Need %ld F7s\n\n",(long)needF7s];
+            [summary appendFormat:@"Need %ld active F7s\n\n",(long)needF7s];
         } else {
-            [summary appendFormat:@"Need %ld F7\n\n",(long)needF7s];
+            [summary appendFormat:@"Need %ld active F7\n\n",(long)needF7s];
         }
     }
     
     if (needCBs > 0) {
         if (needCBs > 1) {
-            [summary appendFormat:@"Need %ld CBs\n\n",(long)needCBs];
+            [summary appendFormat:@"Need %ld active CBs\n\n",(long)needCBs];
         } else {
-            [summary appendFormat:@"Need %ld CB\n\n",(long)needCBs];
+            [summary appendFormat:@"Need %ld active CB\n\n",(long)needCBs];
         }
     }
     
     if (needsS > 0) {
         if (needsS > 1) {
-            [summary appendFormat:@"Need %ld Ss\n\n",(long)needsS];
+            [summary appendFormat:@"Need %ld active Ss\n\n",(long)needsS];
         } else {
-            [summary appendFormat:@"Need %ld S\n\n",(long)needsS];
+            [summary appendFormat:@"Need %ld active S\n\n",(long)needsS];
         }
     }
     
     if (needKs > 0) {
         if (needKs > 1) {
-            [summary appendFormat:@"Need %ld Ks",(long)needKs];
+            [summary appendFormat:@"Need %ld active Ks",(long)needKs];
         } else {
-            [summary appendFormat:@"Need %ld K",(long)needKs];
+            [summary appendFormat:@"Need %ld active K",(long)needKs];
         }
     }
     
@@ -896,49 +896,49 @@
                 [availQBs removeObject:player];
             }
             [[HBSharedUtils getLeague].userTeam.teamQBs addObject:(PlayerQB*)player];
-            needQBs--;
+            //needQBs--;
         } else if ([player isKindOfClass:[PlayerRB class]]) {
             if ([availRBs containsObject:player]) {
                 [availRBs removeObject:player];
             }
             [[HBSharedUtils getLeague].userTeam.teamRBs addObject:(PlayerRB*)player];
-            needRBs--;
+            //needRBs--;
         } else if ([player isKindOfClass:[PlayerWR class]]) {
             if ([availWRs containsObject:player]) {
                 [availWRs removeObject:player];
             }
             [[HBSharedUtils getLeague].userTeam.teamWRs addObject:(PlayerWR*)player];
-            needWRs--;
+            //needWRs--;
         } else if ([player isKindOfClass:[PlayerOL class]]) {
             if ([availOLs containsObject:player]) {
                 [availOLs removeObject:player];
             }
             [[HBSharedUtils getLeague].userTeam.teamOLs addObject:(PlayerOL*)player];
-            needOLs--;
+            //needOLs--;
         } else if ([player isKindOfClass:[PlayerF7 class]]) {
             if ([availF7s containsObject:player]) {
                 [availF7s removeObject:player];
             }
             [[HBSharedUtils getLeague].userTeam.teamF7s addObject:(PlayerF7*)player];
-            needF7s--;
+            //needF7s--;
         } else if ([player isKindOfClass:[PlayerCB class]]) {
             if ([availCBs containsObject:player]) {
                 [availCBs removeObject:player];
             }
             [[HBSharedUtils getLeague].userTeam.teamCBs addObject:(PlayerCB*)player];
-            needCBs--;
+            //needCBs--;
         } else if ([player isKindOfClass:[PlayerS class]]) {
             if ([availSs containsObject:player]) {
                 [availSs removeObject:player];
             }
             [[HBSharedUtils getLeague].userTeam.teamSs addObject:(PlayerS*)player];
-            needsS--;
+            //needsS--;
         } else { // PlayerK class
             if ([availKs containsObject:player]) {
                 [availKs removeObject:player];
             }
             [[HBSharedUtils getLeague].userTeam.teamKs addObject:(PlayerK*)player];
-            needKs--;
+            //needKs--;
         }
         
         [[HBSharedUtils getLeague].userTeam sortPlayers];
@@ -1026,7 +1026,7 @@
         [self reloadRecruits];
         [self.tableView reloadData];
         
-        [CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"Recruited %@ %@ (Ovr: %d) to %@!",player.position, player.name, player.ratOvr, [HBSharedUtils getLeague].userTeam.abbreviation] duration:0.5];
+        [CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"Signed %@ %@ (Ovr: %d) to %@!",player.position, player.name, player.ratOvr, [HBSharedUtils getLeague].userTeam.abbreviation] duration:0.5];
         self.title = [NSString stringWithFormat:@"Budget: %d pts",recruitingBudget];
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Coach, you don't have enough points in your budget to sign this player! Try recruiting a cheaper one instead." preferredStyle:UIAlertControllerStyleAlert];
@@ -1060,65 +1060,65 @@
     
     if (needQBs > 0) {
         if (needQBs > 1) {
-            [summary appendFormat:@"Need %ld QBs\n\n",(long)needQBs];
+            [summary appendFormat:@"Need %ld active QBs\n\n",(long)needQBs];
         } else {
-            [summary appendFormat:@"Need %ld QB\n\n",(long)needQBs];
+            [summary appendFormat:@"Need %ld active QB\n\n",(long)needQBs];
         }
     }
     
     if (needRBs > 0) {
         if (needRBs > 1) {
-            [summary appendFormat:@"Need %ld RBs\n\n",(long)needRBs];
+            [summary appendFormat:@"Need %ld active RBs\n\n",(long)needRBs];
         } else {
-            [summary appendFormat:@"Need %ld RB\n\n",(long)needRBs];
+            [summary appendFormat:@"Need %ld active RB\n\n",(long)needRBs];
         }
     }
     
     if (needWRs > 0) {
         if (needWRs > 1) {
-            [summary appendFormat:@"Need %ld WRs\n\n",(long)needWRs];
+            [summary appendFormat:@"Need %ld active WRs\n\n",(long)needWRs];
         } else {
-            [summary appendFormat:@"Need %ld WR\n\n",(long)needWRs];
+            [summary appendFormat:@"Need %ld active WR\n\n",(long)needWRs];
         }
     }
     
     if (needOLs > 0) {
         if (needOLs > 1) {
-            [summary appendFormat:@"Need %ld OLs\n\n",(long)needOLs];
+            [summary appendFormat:@"Need %ld active OLs\n\n",(long)needOLs];
         } else {
-            [summary appendFormat:@"Need %ld OL\n\n",(long)needOLs];
+            [summary appendFormat:@"Need %ld active OL\n\n",(long)needOLs];
         }
     }
     
     if (needF7s > 0) {
         if (needF7s > 1) {
-            [summary appendFormat:@"Need %ld F7s\n\n",(long)needF7s];
+            [summary appendFormat:@"Need %ld active F7s\n\n",(long)needF7s];
         } else {
-            [summary appendFormat:@"Need %ld F7\n\n",(long)needF7s];
+            [summary appendFormat:@"Need %ld active F7\n\n",(long)needF7s];
         }
     }
     
     if (needCBs > 0) {
         if (needCBs > 1) {
-            [summary appendFormat:@"Need %ld CBs\n\n",(long)needCBs];
+            [summary appendFormat:@"Need %ld active CBs\n\n",(long)needCBs];
         } else {
-            [summary appendFormat:@"Need %ld CB\n\n",(long)needCBs];
+            [summary appendFormat:@"Need %ld active CB\n\n",(long)needCBs];
         }
     }
     
     if (needsS > 0) {
         if (needsS > 1) {
-            [summary appendFormat:@"Need %ld Ss\n\n",(long)needsS];
+            [summary appendFormat:@"Need %ld active Ss\n\n",(long)needsS];
         } else {
-            [summary appendFormat:@"Need %ld S\n\n",(long)needsS];
+            [summary appendFormat:@"Need %ld active S\n\n",(long)needsS];
         }
     }
     
     if (needKs > 0) {
         if (needKs > 1) {
-            [summary appendFormat:@"Need %ld Ks",(long)needKs];
+            [summary appendFormat:@"Need %ld active Ks",(long)needKs];
         } else {
-            [summary appendFormat:@"Need %ld K",(long)needKs];
+            [summary appendFormat:@"Need %ld active K",(long)needKs];
         }
     }
     
@@ -1175,7 +1175,11 @@
             NSMutableString *recruitSummary = [NSMutableString string];
             
             for (Player *p in playersRecruited) {
-                [recruitSummary appendFormat:@"%@ %@ (Ovr: %d, Pot: %d)\n", p.position, p.name, p.ratOvr, p.ratPot];
+                if (p.hasRedshirt) {
+                    [recruitSummary appendFormat:@"%@ %@ (RS - Ovr: %d, Pot: %d)\n", p.position, p.name, p.ratOvr, p.ratPot];
+                } else {
+                    [recruitSummary appendFormat:@"%@ %@ (Ovr: %d, Pot: %d)\n", p.position, p.name, p.ratOvr, p.ratPot];
+                }
             }
             
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@'s %ld Recruiting Class",[HBSharedUtils getLeague].userTeam.abbreviation, (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] message:recruitSummary preferredStyle:UIAlertControllerStyleAlert];
