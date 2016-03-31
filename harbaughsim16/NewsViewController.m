@@ -408,21 +408,6 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewsCell"];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
-            /*if (indexPath.row == 0) {
-                if ([HBSharedUtils getLeague].currentWeek >= 15) {
-                    cell.textLabel.text = @"Final Polls";
-                } else {
-                    cell.textLabel.text = @"Current Polls";
-                }
-            } else if (indexPath.row == 1) {
-                [cell.textLabel setText:@"POTY Leaders"];
-            } else {
-                if ([HBSharedUtils getLeague].currentWeek >= 14) {
-                    cell.textLabel.text = @"Bowl Results";
-                } else {
-                    cell.textLabel.text = @"Bowl Predictions";
-                }
-            }*/
             
             if ([HBSharedUtils getLeague].currentWeek >= 15) {
                 if (indexPath.row == 0) {
@@ -436,15 +421,23 @@
                 } else {
                     [cell.textLabel setText:@"All-Conference Teams"];
                 }
-            } else if ([HBSharedUtils getLeague].currentWeek >= 14) {
+            } else if ([HBSharedUtils getLeague].currentWeek == 13) {
                 if (indexPath.row == 0) {
                     cell.textLabel.text = @"Current Polls";
                 } else if (indexPath.row == 1) {
                     [cell.textLabel setText:@"POTY Results"];
                 } else {
-                   cell.textLabel.text = @"Bowl Results";
+                   cell.textLabel.text = @"Bowl Schedule";
                 }
-            } else {
+            } else if ([HBSharedUtils getLeague].currentWeek == 14) {
+                if (indexPath.row == 0) {
+                    cell.textLabel.text = @"Current Polls";
+                } else if (indexPath.row == 1) {
+                    [cell.textLabel setText:@"POTY Results"];
+                } else {
+                    cell.textLabel.text = @"Bowl Results";
+                }
+            }  else {
                 if (indexPath.row == 0) {
                     cell.textLabel.text = @"Current Polls";
                 } else if (indexPath.row == 1) {
