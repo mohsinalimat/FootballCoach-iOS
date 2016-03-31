@@ -304,6 +304,12 @@
 		755BBC661C9E10AF001A8314 /* Teams */ = {
 			isa = PBXGroup;
 			children = (
+				75C321C51CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.h */,
+				75C321C61CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m */,
+				75C321BF1CAD748F00906A38 /* AllLeagueTeamViewController.h */,
+				75C321C01CAD748F00906A38 /* AllLeagueTeamViewController.m */,
+				75C321C21CAD7BBB00906A38 /* AllConferenceTeamViewController.h */,
+				75C321C31CAD7BBB00906A38 /* AllConferenceTeamViewController.m */,
 				755BBC791C9F5F1A001A8314 /* TeamSearchViewController.h */,
 				755BBC7A1C9F5F1A001A8314 /* TeamSearchViewController.m */,
 				755BBC7C1C9F6964001A8314 /* TeamSearchViewController.xib */,
@@ -396,12 +402,6 @@
 				75924A241C99CCC000B165AD /* NewsViewController.h */,
 				75924A251C99CCC000B165AD /* NewsViewController.m */,
 				755BBC6C1C9E423B001A8314 /* NewsViewController.xib */,
-				75C321C51CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.h */,
-				75C321C61CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m */,
-				75C321BF1CAD748F00906A38 /* AllLeagueTeamViewController.h */,
-				75C321C01CAD748F00906A38 /* AllLeagueTeamViewController.m */,
-				75C321C21CAD7BBB00906A38 /* AllConferenceTeamViewController.h */,
-				75C321C31CAD7BBB00906A38 /* AllConferenceTeamViewController.m */,
 				755BBC761C9E5930001A8314 /* RecruitingViewController.h */,
 				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
 				754E90791CA58C0F00C450CF /* HeismanLeadersViewController.h */,
