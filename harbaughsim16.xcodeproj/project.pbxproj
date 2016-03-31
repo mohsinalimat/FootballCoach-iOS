@@ -95,6 +95,9 @@
 		75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */; };
 		75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */; };
 		75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */; };
+		75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C01CAD748F00906A38 /* AllLeagueTeamViewController.m */; };
+		75C321C41CAD7BBB00906A38 /* AllConferenceTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C31CAD7BBB00906A38 /* AllConferenceTeamViewController.m */; };
+		75C321C71CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C61CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m */; };
 		75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */; };
 		75E10F1E1CA0D9CA0000DA78 /* TeamHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75E10F1C1CA0D9CA0000DA78 /* TeamHistoryViewController.xib */; };
 		75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */; };
@@ -240,6 +243,12 @@
 		75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
 		75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTeamViewController.h; sourceTree = "<group>"; };
 		75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTeamViewController.m; sourceTree = "<group>"; };
+		75C321BF1CAD748F00906A38 /* AllLeagueTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllLeagueTeamViewController.h; sourceTree = "<group>"; };
+		75C321C01CAD748F00906A38 /* AllLeagueTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllLeagueTeamViewController.m; sourceTree = "<group>"; };
+		75C321C21CAD7BBB00906A38 /* AllConferenceTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllConferenceTeamViewController.h; sourceTree = "<group>"; };
+		75C321C31CAD7BBB00906A38 /* AllConferenceTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllConferenceTeamViewController.m; sourceTree = "<group>"; };
+		75C321C51CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllConferenceTeamConferenceSelectorViewController.h; sourceTree = "<group>"; };
+		75C321C61CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllConferenceTeamConferenceSelectorViewController.m; sourceTree = "<group>"; };
 		75E10F1A1CA0D9CA0000DA78 /* TeamHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamHistoryViewController.h; sourceTree = "<group>"; };
 		75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamHistoryViewController.m; sourceTree = "<group>"; };
 		75E10F1C1CA0D9CA0000DA78 /* TeamHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamHistoryViewController.xib; sourceTree = "<group>"; };
@@ -387,6 +396,12 @@
 				75924A241C99CCC000B165AD /* NewsViewController.h */,
 				75924A251C99CCC000B165AD /* NewsViewController.m */,
 				755BBC6C1C9E423B001A8314 /* NewsViewController.xib */,
+				75C321C51CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.h */,
+				75C321C61CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m */,
+				75C321BF1CAD748F00906A38 /* AllLeagueTeamViewController.h */,
+				75C321C01CAD748F00906A38 /* AllLeagueTeamViewController.m */,
+				75C321C21CAD7BBB00906A38 /* AllConferenceTeamViewController.h */,
+				75C321C31CAD7BBB00906A38 /* AllConferenceTeamViewController.m */,
 				755BBC761C9E5930001A8314 /* RecruitingViewController.h */,
 				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
 				754E90791CA58C0F00C450CF /* HeismanLeadersViewController.h */,
@@ -708,11 +723,13 @@
 				75924A4C1C99D03300B165AD /* Player.m in Sources */,
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
 				755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */,
+				75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */,
 				75924A581C99E62F00B165AD /* PlayerQB.m in Sources */,
 				75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */,
 				751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */,
 				755BBC7B1C9F5F1A001A8314 /* TeamSearchViewController.m in Sources */,
 				75E10F2A1CA0E0330000DA78 /* LeagueYearViewController.m in Sources */,
+				75C321C71CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m in Sources */,
 				7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */,
 				75880F8C1CAC949300AF2C1C /* LeagueRecordsViewController.m in Sources */,
 				7571DD411C9D032F00E67080 /* PlayerDetailViewController.m in Sources */,
@@ -727,6 +744,7 @@
 				75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */,
 				75880F8F1CAC949F00AF2C1C /* TeamRecordsViewController.m in Sources */,
 				755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */,
+				75C321C41CAD7BBB00906A38 /* AllConferenceTeamViewController.m in Sources */,
 				75924A4F1C99D05E00B165AD /* Conference.m in Sources */,
 				751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */,
 				75924A491C99CF7C00B165AD /* Game.m in Sources */,
