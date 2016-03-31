@@ -271,7 +271,7 @@
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/jonesguy14/footballcoach"]];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS"]];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
 
@@ -288,7 +288,6 @@
                     [HBSharedUtils getLeague].userTeam = nil;
                     
                     [self dismissViewControllerAnimated:YES completion:^{
-                       // [((MyTeamViewController*)self.presentingViewController) performSelector:@selector(presentIntro) withObject:nil afterDelay:0.1];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"noSaveFile" object:nil];
                     }];
                     
@@ -299,12 +298,6 @@
             [self presentViewController:alert animated:YES completion:nil];
             
         } else {
-            /*if (indexPath.row == 0) {
-                STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[ColorSelectionViewController alloc] init]];
-                [popupController.navigationBar setDraggable:YES];
-                popupController.style = STPopupStyleBottomSheet;
-                [popupController presentInViewController:self];
-            }*/
             
             if (indexPath.row == 1) {
                 [self changeTeamName];
