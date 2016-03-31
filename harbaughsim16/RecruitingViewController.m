@@ -474,7 +474,7 @@
         }
     }
     
-    NSLog(@"NEED TO RECRUIT: %ld QBs, %ld RBs, %ld, WRs, %ld OLs, %ld F7s, %ld CBs, %ld Ss, %ld Ks",needQBs,needRBs,needWRs,needOLs,needF7s,needCBs,needsS,needKs);
+    NSLog(@"NEED TO RECRUIT: %ld QBs, %ld RBs, %ld, WRs, %ld OLs, %ld F7s, %ld CBs, %ld Ss, %ld Ks",(long)needQBs,(long)needRBs,(long)needWRs,(long)needOLs,(long)needF7s,(long)needCBs,(long)needsS,(long)needKs);
     
     if (teamSize < 35) {
         //adding bonus points if the draft screwed you
