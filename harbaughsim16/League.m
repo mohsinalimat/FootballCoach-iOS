@@ -184,7 +184,7 @@
         _hasScheduledBowls = NO;
         _currentWeek = 0;
         League *ligue = (League*)[FCFileManager readFileAtPathAsCustomModel:saveFileName];
-        NSLog(@"LIGUE:\n\nConferences:\n\n%@\n\nTeams:\n\n%@\n\nHistory:\n\n%@\n\nHeismans:\n\n%@\n",ligue.conferences,ligue.teamList,ligue.leagueHistory,ligue.heismanHistory);
+        //NSLog(@"LIGUE:\n\nConferences:\n\n%@\n\nTeams:\n\n%@\n\nHistory:\n\n%@\n\nHeismans:\n\n%@\n",ligue.conferences,ligue.teamList,ligue.leagueHistory,ligue.heismanHistory);
         self = ligue;
     }
     return self;
@@ -441,7 +441,7 @@
         Team *home = bowlEligibleTeams[i];
         Team *away = bowlEligibleTeams[i + 1];
         Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
-        NSLog(@"%@: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
+        //NSLog(@"%@: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
         [_bowlGames addObject:bowl];
         [home.gameSchedule addObject:bowl];
         [away.gameSchedule addObject:bowl];
@@ -914,7 +914,7 @@
             Team *home = bowlEligibleTeams[i];
             Team *away = bowlEligibleTeams[i + 1];
             Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
-            NSLog(@"%@ Projection: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
+            //NSLog(@"%@ Projection: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
             [sb addObject:bowl];
             //[_bowlGames addObject:bowl];
             //[home.gameSchedule addObject:bowl];

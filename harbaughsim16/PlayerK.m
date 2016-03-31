@@ -179,7 +179,7 @@
 }
 
 -(void)advanceSeason {
-    self.year++;
+    
     int oldOvr = self.ratOvr;
     self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
     _ratKickPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
@@ -203,6 +203,7 @@
     _statsXPMade = 0;
     _statsFGAtt = 0;
     _statsFGMade = 0;
+    [super advanceSeason];
 }
 
 -(NSDictionary*)detailedStats:(int)games {

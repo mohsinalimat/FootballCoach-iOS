@@ -179,7 +179,6 @@
 }
 
 -(void)advanceSeason {
-    self.year++;
     int oldOvr = self.ratOvr;
     self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
     _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
@@ -208,7 +207,7 @@
     self.statsInt = 0;
     self.statsPassYards = 0;
     self.statsSacked = 0;
-
+    [super advanceSeason];
 }
 
 -(int)getHeismanScore {

@@ -7,6 +7,7 @@
 //
 
 #import "Player.h"
+#import "HBSharedUtils.h"
 
 @implementation Player
 
@@ -60,7 +61,40 @@
 - (NSComparisonResult)compare:(id)other
 {
     Player *player = (Player*)other;
-    return self.ratOvr > player.ratOvr ? -1 : self.ratOvr == player.ratOvr ? 0 : 1;
+    if (!self.hasRedshirt && !player.hasRedshirt) {
+        //return self.ratOvr > player.ratOvr ? -1 : self.ratOvr == player.ratOvr ? 0 : 1;
+        if (self.ratOvr > player.ratOvr) {
+            return -1;
+        } else if (self.ratOvr < player.ratOvr) {
+            return 1;
+        } else {
+            if (self.ratPot > player.ratPot) {
+                return -1;
+            } else if (self.ratPot < player.ratPot) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    } else if (self.hasRedshirt) {
+        return 1;
+    } else if (player.hasRedshirt) {
+        return -1;
+    } else {
+        if (self.ratOvr > player.ratOvr) {
+            return -1;
+        } else if (self.ratOvr < player.ratOvr) {
+            return 1;
+        } else {
+            if (self.ratPot > player.ratPot) {
+                return -1;
+            } else if (self.ratPot < player.ratPot) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }
 }
 
 + (NSArray *)letterGrades
@@ -133,7 +167,11 @@
 }
 
 -(void)advanceSeason {
-    _year ++;
+    self.year++;
+    if (self.hasRedshirt) {
+        self.hasRedshirt = NO;
+    }
+    self.isDraftEligible = (self.ratOvr >= 90 && [HBSharedUtils randomValue] < 0.5);
 }
 
 -(int)getHeismanScore {

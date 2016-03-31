@@ -116,7 +116,7 @@
 }
 
 -(void)advanceSeason {
-    self.year++;
+    
     int oldOvr = self.ratOvr;
     self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
     _ratF7Pow += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
@@ -131,6 +131,7 @@
     
     self.ratOvr = (_ratF7Pow*3 + _ratF7Rsh + _ratF7Pas)/5;
     self.ratImprovement = self.ratOvr - oldOvr;
+    [super advanceSeason];
 }
 
 -(NSDictionary*)detailedStats:(int)games {

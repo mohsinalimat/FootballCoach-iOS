@@ -26,9 +26,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1MK-hE-zWS">
-                    <rect key="frame" x="19" y="52" width="241" height="23"/>
+                    <rect key="frame" x="19" y="52" width="291" height="23"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="241" id="8VB-fF-AKL"/>
+                        <constraint firstAttribute="width" constant="291" id="8VB-fF-AKL"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>

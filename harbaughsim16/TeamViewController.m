@@ -68,7 +68,7 @@
                     [selectedTeam setAbbreviation:abbrev.text];
                     Team *rival = [[HBSharedUtils getLeague] findTeam:selectedTeam.rivalTeam];
                     [rival setRivalTeam:abbrev.text];
-                    NSLog(@"THIS TEAM RIVAL IS LINKED TO ITS RIVAL ABBR: %@", rival.rivalTeam);
+                    //NSLog(@"THIS TEAM RIVAL IS LINKED TO ITS RIVAL ABBR: %@", rival.rivalTeam);
                     [[HBSharedUtils getLeague] save];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTeams" object:nil];
                     [self.tableView reloadData];

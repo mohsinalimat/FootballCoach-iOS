@@ -60,7 +60,7 @@
                     [[HBSharedUtils getLeague].userTeam setAbbreviation:abbrev.text];
                     Team *rival = [[HBSharedUtils getLeague] findTeam:[HBSharedUtils getLeague].userTeam.rivalTeam];
                     [rival setRivalTeam:abbrev.text];
-                    NSLog(@"CURRENT TEAM RIVAL IS LINKED TO ITS RIVAL ABBR: %@", rival.rivalTeam);
+                    //NSLog(@"CURRENT TEAM RIVAL IS LINKED TO ITS RIVAL ABBR: %@", rival.rivalTeam);
                     [[HBSharedUtils getLeague] save];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
                     [self.tableView reloadData];
@@ -278,7 +278,7 @@
         }
     } else {
         if (indexPath.row == 2) {
-            NSLog(@"Delete save File");
+            //NSLog(@"Delete save File");
             
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete your save file and start your career over?" message:@"This will take you back to the Team Selection screen." preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
@@ -293,7 +293,7 @@
                     }];
                     
                 } else {
-                    NSLog(@"ERROR");
+                    //NSLog(@"ERROR");
                 }
             }]];
             [self presentViewController:alert animated:YES completion:nil];

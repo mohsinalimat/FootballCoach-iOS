@@ -22,9 +22,7 @@
 @class PlayerCB;
 @class PlayerS;
 
-@interface Team : NSObject <NSCoding> {
-    NSMutableArray *playersLeaving;
-}
+@interface Team : NSObject <NSCoding>
 
 @property (strong, nonatomic) League *league;
 
@@ -37,6 +35,7 @@
 @property (nonatomic) BOOL wonRivalryGame;
 @property (nonatomic) int recruitingMoney;
 @property (nonatomic) int numberOfRecruits;
+@property (strong, nonatomic) NSMutableArray<Player*> *playersLeaving;
 
 @property (nonatomic) int wins;
 @property (nonatomic) int losses;
@@ -155,7 +154,6 @@
 
 
 -(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
-//-(instancetype)initWithString:(NSString*)loadStr league:(League*)league;
 + (instancetype)newTeamWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
 
 -(void)updateTalentRatings;
@@ -217,6 +215,5 @@
 -(NSMutableArray*)getDefensiveTeamStrategies;
 -(NSArray*)getTeamStatsArray;
 -(void)setStarters:(NSArray<Player*>*)starters position:(int)position;
--(NSArray*)graduateSeniorsAndGetTeamNeeds;
--(void)simulateOffseason;
+-(void)getPlayersLeaving;
 @end

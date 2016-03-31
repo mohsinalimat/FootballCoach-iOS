@@ -53,7 +53,30 @@
 }
 
 -(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    Player *player;
+    if (indexPath.section == 0) {
+        player = [userTeam getQB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 1) {
+        player = [userTeam getRB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 2) {
+        player = [userTeam getWR:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 3) {
+        player = [userTeam getOL:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 4) {
+        player = [userTeam getF7:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 5) {
+        player = [userTeam getCB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 6) {
+        player = [userTeam getS:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else {
+        player = [userTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];
+    }
+    
+    if (player.hasRedshirt) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
@@ -75,11 +98,6 @@
 }
 
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    //NSString *item = [[arryData objectAtIndex:fromIndexPath.row] retain];
-    //[arryData removeObject:item];
-    //[arryData insertObject:item atIndex:toIndexPath.row];
-    //[item release];
-    
     if(sourceIndexPath.section == destinationIndexPath.section) {
         if (destinationIndexPath.section == 0) {
             PlayerQB *qb = userTeam.teamQBs[sourceIndexPath.row];
@@ -266,6 +284,13 @@
     [cell.nameLabel setText:[player getInitialName]];
     [cell.yrLabel setText:[player getYearString]];
     [cell.ovrLabel setText:[NSString stringWithFormat:@"%d", player.ratOvr]];
+    
+    if (player.hasRedshirt) {
+        [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+    } else {
+        [cell.nameLabel setTextColor:[UIColor blackColor]];
+    }
+    
     return cell;
 }
 

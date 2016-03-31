@@ -16,20 +16,6 @@
 static UIColor *styleColor = nil;
 
 @implementation HBSharedUtils
-/*+(void)initialize {
-    if (!styleColor) {
-        NSDictionary *themeColorData = [[NSUserDefaults standardUserDefaults] objectForKey:HB_CURRENT_THEME_COLOR];
-        if (themeColorData) {
-            UIColor *themeColor = [NSKeyedUnarchiver unarchiveObjectWithData:themeColorData[@"color"]];
-            styleColor = themeColor;
-        } else {
-            NSLog(@"NO EXISTING COLORS");
-            [[NSUserDefaults standardUserDefaults] setObject:@{@"title" : @"iOS Default", @"color" : [NSKeyedArchiver archivedDataWithRootObject:[UIColor hx_colorWithHexRGBAString:@"#009740"]]} forKey:HB_CURRENT_THEME_COLOR];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            styleColor = [UIColor hx_colorWithHexRGBAString:@"#009740"];
-        }
-    }
-}*/
 
 +(double)randomValue {
     return ((double)arc4random() / ARC4RANDOM_MAX);
@@ -74,7 +60,7 @@ static UIColor *styleColor = nil;
     if (weekNotifs) {
         [CSNotificationView showInViewController:viewController tintColor:tintColor image:nil message:message duration:0.5];
     } else {
-        NSLog(@"DON'T SEND NOTIFS");
+        //NSLog(@"DON'T SEND NOTIFS");
     }
 }
 @end

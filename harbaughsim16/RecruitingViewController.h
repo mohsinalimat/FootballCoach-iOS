@@ -10,5 +10,4 @@
 #import "FCTableViewController.h"
 
 @interface RecruitingViewController : FCTableViewController
-
 @end
