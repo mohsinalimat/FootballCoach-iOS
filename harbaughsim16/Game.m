@@ -444,8 +444,7 @@
 }
 
 -(int)getRushYards:(BOOL)ha {
-    if (!ha){
-      //return HomeRB1Stats[1] + HomeRB2Stats[1];
+    if (!ha) {
         NSNumber *rb1Yd = _HomeRB1Stats[1];
         NSNumber *rb2Yd = _HomeRB2Stats[1];
         return rb1Yd.intValue + rb2Yd.intValue;

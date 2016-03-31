@@ -133,7 +133,7 @@
     [stats setObject:[self getLetterGrade:_ratCBCov] forKey:@"cbCoverage"];
     [stats setObject:[self getLetterGrade:_ratCBSpd] forKey:@"cbSpeed"];
     [stats setObject:[self getLetterGrade:_ratCBTkl] forKey:@"cbTackling"];
-    
+    [stats setObject:[self getLetterGrade:self.ratFootIQ] forKey:@"footballIQ"];
     return [stats copy];
 }
 

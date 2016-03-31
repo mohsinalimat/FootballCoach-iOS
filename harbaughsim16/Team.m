@@ -478,7 +478,7 @@
     return @[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(f7Needs)];
 }
 
--(void)simulateRecruitingSeason {
+-(void)simulateOffseason {
     int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, f7Needs=0;
     if (!playersLeaving) {
         int i = 0;

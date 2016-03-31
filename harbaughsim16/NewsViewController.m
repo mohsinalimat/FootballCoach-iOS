@@ -212,7 +212,7 @@
         [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             [[HBSharedUtils getLeague] updateLeagueHistory];
             [[HBSharedUtils getLeague] updateTeamHistories];
-            [userTeam simulateRecruitingSeason];
+            [userTeam simulateOffseason];
             [[HBSharedUtils getLeague] advanceSeasonForAllExceptUser];
             [HBSharedUtils getLeague].recruitingStage = 0;
             [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];

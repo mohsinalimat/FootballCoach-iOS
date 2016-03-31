@@ -811,7 +811,7 @@
         [[HBSharedUtils getLeague] updateLeagueHistory];
         [[HBSharedUtils getLeague] updateTeamHistories];
         [[HBSharedUtils getLeague].userTeam resetStats];
-        [[HBSharedUtils getLeague].userTeam simulateRecruitingSeason];
+        [[HBSharedUtils getLeague].userTeam simulateOffseason];
         [[HBSharedUtils getLeague] advanceSeasonForAllExceptUser];
         [[HBSharedUtils getLeague].userTeam recruitWalkOns:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needsS), @(needCBs), @(needF7s)]];
         [HBSharedUtils getLeague].recruitingStage = 0;

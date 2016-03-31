@@ -148,7 +148,7 @@
     [stats setObject:[self getLetterGrade:_ratF7Pow] forKey:@"f7Pow"];
     [stats setObject:[self getLetterGrade:_ratF7Rsh] forKey:@"f7Run"];
     [stats setObject:[self getLetterGrade:_ratF7Pas] forKey:@"f7Pass"];
-    
+    [stats setObject:[self getLetterGrade:self.ratFootIQ] forKey:@"footballIQ"];
     return [stats copy];
 }
 @end

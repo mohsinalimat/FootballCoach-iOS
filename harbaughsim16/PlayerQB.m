@@ -284,6 +284,7 @@
     [stats setObject:[self getLetterGrade:_ratPassPow] forKey:@"passPower"];
     [stats setObject:[self getLetterGrade:_ratPassAcc] forKey:@"passAccuracy"];
     [stats setObject:[self getLetterGrade:_ratPassEva] forKey:@"passEvasion"];
+    [stats setObject:[self getLetterGrade:self.ratFootIQ] forKey:@"footballIQ"];
     
     return [stats copy];
 }

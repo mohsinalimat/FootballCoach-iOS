@@ -218,5 +218,5 @@
 -(NSArray*)getTeamStatsArray;
 -(void)setStarters:(NSArray<Player*>*)starters position:(int)position;
 -(NSArray*)graduateSeniorsAndGetTeamNeeds;
--(void)simulateRecruitingSeason;
+-(void)simulateOffseason;
 @end

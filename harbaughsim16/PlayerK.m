@@ -255,7 +255,7 @@
     [stats setObject:[self getLetterGrade:_ratKickPow] forKey:@"kickPower"];
     [stats setObject:[self getLetterGrade:_ratKickAcc] forKey:@"kickAccuracy"];
     [stats setObject:[self getLetterGrade:_ratKickFum] forKey:@"kickClumsiness"];
-    
+    [stats setObject:[self getLetterGrade:self.ratFootIQ] forKey:@"footballIQ"];
     return [stats copy];
 }
 

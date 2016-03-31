@@ -296,7 +296,7 @@
     [stats setObject:[self getLetterGrade:_ratRecCat] forKey:@"recCatch"];
     [stats setObject:[self getLetterGrade:_ratRecSpd] forKey:@"recSpeed"];
     [stats setObject:[self getLetterGrade:_ratRecEva] forKey:@"recEvasion"];
-    
+    [stats setObject:[self getLetterGrade:self.ratFootIQ] forKey:@"footballIQ"];
     return [stats copy];
 }
 

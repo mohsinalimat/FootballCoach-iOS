@@ -245,7 +245,7 @@
     [stats setObject:[self getLetterGrade:_ratRushPow] forKey:@"rushPower"];
     [stats setObject:[self getLetterGrade:_ratRushSpd] forKey:@"rushSpeed"];
     [stats setObject:[self getLetterGrade:_ratRushEva] forKey:@"rushEvasion"];
-    
+    [stats setObject:[self getLetterGrade:self.ratFootIQ] forKey:@"footballIQ"];
     return [stats copy];
 }
 

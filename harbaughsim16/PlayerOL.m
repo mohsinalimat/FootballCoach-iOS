@@ -142,7 +142,7 @@
     [stats setObject:[self getLetterGrade:_ratOLPow] forKey:@"olPower"];
     [stats setObject:[self getLetterGrade:_ratOLBkR] forKey:@"olRunBlock"];
     [stats setObject:[self getLetterGrade:_ratOLBkP] forKey:@"olPassBlock"];
-    
+    [stats setObject:[self getLetterGrade:self.ratFootIQ] forKey:@"footballIQ"];
     return [stats copy];
 }
 
