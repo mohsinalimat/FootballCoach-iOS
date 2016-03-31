@@ -38,6 +38,8 @@
         [self presentViewController:alertController animated:YES completion:nil];
     } else {
         Team *userTeam = [HBSharedUtils getLeague].userTeam;
+        NSString *oldName = userTeam.name;
+        NSString *oldAbbrev = userTeam.abbreviation;
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rebrand Team" message:@"Enter your new team name and abbreviation below." preferredStyle:UIAlertControllerStyleAlert];
         [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.placeholder = @"Team Name";
@@ -60,7 +62,48 @@
                     [[HBSharedUtils getLeague].userTeam setAbbreviation:abbrev.text];
                     Team *rival = [[HBSharedUtils getLeague] findTeam:[HBSharedUtils getLeague].userTeam.rivalTeam];
                     [rival setRivalTeam:abbrev.text];
-                    //NSLog(@"CURRENT TEAM RIVAL IS LINKED TO ITS RIVAL ABBR: %@", rival.rivalTeam);
+
+                    NSMutableArray *tempLeagueYear = [NSMutableArray array];
+                    for (int k = 0; k < [HBSharedUtils getLeague].leagueHistory.count; k++) {
+                        NSArray *leagueYear = [HBSharedUtils getLeague].leagueHistory[k];
+                        tempLeagueYear = [NSMutableArray arrayWithArray:leagueYear];
+                        for (int i =0; i < leagueYear.count; i++) {
+                            NSString *teamString = leagueYear[i];
+                            if ([teamString containsString:oldName]) {
+                                teamString = [teamString stringByReplacingOccurrencesOfString:oldName withString:name.text];
+                                NSLog(@"FOUND NAME MATCH IN LEAGUE HISTORY, REPLACING");
+                                [tempLeagueYear replaceObjectAtIndex:i withObject:teamString];
+                            }
+                            
+                            if ([teamString containsString:oldAbbrev]) {
+                                teamString = [teamString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
+                                [tempLeagueYear replaceObjectAtIndex:i withObject:teamString];
+                                NSLog(@"FOUND ABBREV MATCH IN LEAGUE HISTORY, REPLACING");
+                            }
+                        }
+                        
+                        [[HBSharedUtils getLeague].leagueHistory replaceObjectAtIndex:k withObject:[tempLeagueYear copy]];
+                        [tempLeagueYear removeAllObjects];
+                    }
+                    
+                    for (int j = 0; j < [HBSharedUtils getLeague].userTeam.teamHistory.count; j++) {
+                        NSString *yearString = [HBSharedUtils getLeague].userTeam.teamHistory[j];
+                        if ([yearString containsString:oldAbbrev]) {
+                            yearString = [yearString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
+                            NSLog(@"FOUND ABBREV MATCH IN TEAM HISTORY, REPLACING");
+                            [[HBSharedUtils getLeague].userTeam.teamHistory replaceObjectAtIndex:j withObject:yearString];
+                        }
+                    }
+                    
+                    for (int j = 0; j < [HBSharedUtils getLeague].heismanHistory.count; j++) {
+                        NSString *heisString = [HBSharedUtils getLeague].heismanHistory[j];
+                        if ([heisString containsString:[NSString stringWithFormat:@", %@ (", oldAbbrev]]) {
+                            heisString = [heisString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@", %@ (", oldAbbrev] withString:[NSString stringWithFormat:@", %@ (", abbrev.text]];
+                            NSLog(@"FOUND ABBREV MATCH IN HEISMAN HISTORY, REPLACING");
+                            [[HBSharedUtils getLeague].heismanHistory replaceObjectAtIndex:j withObject:heisString];
+                        }
+                    }
+                    
                     [[HBSharedUtils getLeague] save];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
                     [self.tableView reloadData];
@@ -159,24 +202,7 @@
         }
         return cell;
     } else {
-        /*if (indexPath.row == 0) {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ColorPickerCell"];
-            if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"ColorPickerCell"];
-                cell.backgroundColor = [UIColor whiteColor];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-            }
-
-            [cell.textLabel setText:@"Theme Color"];
-            NSDictionary *selectedColor = [[NSUserDefaults standardUserDefaults] objectForKey:HB_CURRENT_THEME_COLOR];
-            if (selectedColor) {
-                [cell.detailTextLabel setText:selectedColor[@"title"]];
-            } else {
-                [cell.detailTextLabel setText:@"iOS Default"];
-            }
-            return cell;
-        } else */if (indexPath.row == 0) {
+        if (indexPath.row == 0) {
             HBSettingsCell *setCell = (HBSettingsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBSettingsCell"];
             BOOL notifsOn = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
             [setCell.settingSwitch setOnTintColor:[HBSharedUtils styleColor]];

@@ -127,7 +127,7 @@
     if (section == 0) {
         return 3;
     } else if (section == 2) {
-        return 3;
+        return 4;
     } else {
         return stats.count;
     }
