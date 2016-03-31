@@ -427,17 +427,6 @@
     
     [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"Remaining Needs" style:UIBarButtonItemStylePlain target:self action:@selector(showRemainingNeeds)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(showRecruitCategories)]]];
     self.navigationController.toolbarHidden = NO;
-    
-    needQBs = 2 - [HBSharedUtils getLeague].userTeam.teamQBs.count;
-    needRBs = 4 - [HBSharedUtils getLeague].userTeam.teamRBs.count;
-    needWRs = 6 - [HBSharedUtils getLeague].userTeam.teamWRs.count;
-    needOLs = 10 - [HBSharedUtils getLeague].userTeam.teamOLs.count;
-    needF7s  = 14 - [HBSharedUtils getLeague].userTeam.teamF7s.count;
-    needCBs  = 6 - [HBSharedUtils getLeague].userTeam.teamCBs.count;
-    needsS = 2 - [HBSharedUtils getLeague].userTeam.teamSs.count;
-    needKs = 2 - [HBSharedUtils getLeague].userTeam.teamKs.count;
-    
-    //NSLog(@"NEED TO RECRUIT: %ld QBs, %ld RBs, %ld, WRs, %ld OLs, %ld F7s, %ld CBs, %ld Ss, %ld Ks",needQBs,needRBs,needWRs,needOLs,needF7s,needCBs,needsS,needKs);
 }
 
 -(void)viewDidLoad {
@@ -461,9 +450,31 @@
     availF7s = [NSMutableArray array];
     availAll = [NSMutableArray array];
     
-    playersGraduating = [[[HBSharedUtils getLeague].userTeam.getGraduatingPlayersString componentsSeparatedByString:@"\n\n"
-                         ] mutableCopy];
+    playersGraduating = [HBSharedUtils getLeague].userTeam.playersLeaving;
     recruitingBudget = [HBSharedUtils getLeague].userTeam.teamPrestige * 25;
+    
+    
+    for (Player *player in playersGraduating) {
+        if ([player isKindOfClass:[PlayerQB class]]) {
+            needQBs++;
+        } else if ([player isKindOfClass:[PlayerRB class]]) {
+            needRBs++;
+        } else if ([player isKindOfClass:[PlayerWR class]]) {
+            needWRs++;
+        } else if ([player isKindOfClass:[PlayerOL class]]) {
+            needOLs++;
+        } else if ([player isKindOfClass:[PlayerF7 class]]) {
+            needF7s++;
+        } else if ([player isKindOfClass:[PlayerCB class]]) {
+            needCBs++;
+        } else if ([player isKindOfClass:[PlayerS class]]) {
+            needsS++;
+        } else { // PlayerK class
+            needKs++;
+        }
+    }
+    
+    NSLog(@"NEED TO RECRUIT: %ld QBs, %ld RBs, %ld, WRs, %ld OLs, %ld F7s, %ld CBs, %ld Ss, %ld Ks",needQBs,needRBs,needWRs,needOLs,needF7s,needCBs,needsS,needKs);
     
     if (teamSize < 35) {
         //adding bonus points if the draft screwed you
@@ -947,7 +958,6 @@
 
 -(void)buyRecruit:(Player*)player { //Ole Mi$$
     int playerCost = player.cost;
-    //NSLog(@"COST: %d points",playerCost);
     if (recruitingBudget >= playerCost) {
         recruitingBudget -= playerCost;
         [playersRecruited addObject:player];
