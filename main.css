@@ -1,5 +1,5 @@
 body {
-    background: #009740;
+    background: #000000;
     color: white;
 }
 
@@ -9,6 +9,19 @@ body {
     margin-top: 100px;
     color: white;
     text-align: center;
+}
+
+.ios, .android {
+  width: 50%;
+  height: 100%;
+}
+
+.android {
+  background: #44B39F;
+}
+
+.ios {
+  background: #009740;
 }
 
 .bs-docs-footer-links {
@@ -33,7 +46,17 @@ body {
 
 .main-title {
   font-size: 75px;
-  margin-top:200px;
+  margin-top:20px;
+  text-align: center;
+}
+
+.main-subtitle {
+  text-align: center;
+}
+
+.app-info {
+  margin-top: 20px;
+  padding-bottom: 25px;
 }
 
 .icon-img {
@@ -48,6 +71,11 @@ body {
   border: 0px solid #000000;
 }
 
+.android-icon-img {
+  width: 360px;
+  margin-top: 100px;
+}
+
 @media (min-width:768px) {
     .bs-docs-footer p {
         margin-bottom: 0;
@@ -60,6 +88,10 @@ body {
     }
     .bs-docs-footer-links {
       margin-top: 30px;
+    }
+    .ios, .android {
+      width: 100%;
+      height: auto;
     }
 }
 
@@ -76,9 +108,9 @@ body {
       border: 0px solid #000000;
     }
 
-    .bs-docs-footer-links li {
-        display: block;
-        margin-bottom: 10px;
+    .android-icon-img {
+      width: 240px;
+      margin-top: 50px;
     }
 
     .main-title {
