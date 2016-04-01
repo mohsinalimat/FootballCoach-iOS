@@ -1,0 +1,90 @@
+body {
+    background: #009740;
+    color: white;
+}
+
+.bs-docs-footer {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-top: 100px;
+    color: white;
+    text-align: center;
+}
+
+.bs-docs-footer-links {
+    padding-left: 0;
+    margin-top: 100px;
+    color: white;
+}
+
+.store-footer-text {
+  margin-top: 10px;
+}
+
+.store-footer-text a {
+  color: white;
+  text-decoration: underline;
+}
+
+.bs-docs-footer-links li {
+    display: inline-block;
+    margin: 0 2px;
+}
+
+.main-title {
+  font-size: 75px;
+  margin-top:200px;
+}
+
+.icon-img {
+  width: 360px;
+  margin-top: 100px;
+  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+  border-radius: 78px 78px 78px 78px;
+  -moz-border-radius: 78px 78px 78px 78px;
+  -webkit-border-radius: 78px 78px 78px 78px;
+  border: 0px solid #000000;
+}
+
+@media (min-width:768px) {
+    .bs-docs-footer p {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width:1200px) {
+    .main-title {
+      margin-top: 30px;
+    }
+    .bs-docs-footer-links {
+      margin-top: 30px;
+    }
+}
+
+@media (max-width:750px) {
+    .icon-img {
+      width: 240px;
+      margin-top: 50px;
+      -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+      -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+      box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+      border-radius: 52px 52px 52px 52px;
+      -moz-border-radius: 52px 52px 52px 52px;
+      -webkit-border-radius: 52px 52px 52px 52px;
+      border: 0px solid #000000;
+    }
+
+    .bs-docs-footer-links li {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .main-title {
+      font-size: 50px;
+    }
+    .main-subtitle {
+      font-size: 25px;
+    }
+}
