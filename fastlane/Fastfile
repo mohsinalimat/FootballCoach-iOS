@@ -42,7 +42,7 @@ platform :ios do
   end
 
   after_all do |lane|
-    notification(subtitle: "Lane completed successfully")
+    notification(subtitle: "Lane completed successfully", message: "Fastlane finished this action")
   end
 
   error do |lane, exception|

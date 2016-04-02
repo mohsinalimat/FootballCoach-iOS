@@ -16,7 +16,7 @@ languages([
 # launch_arguments(["-favColor red"])
 
 # The name of the scheme which contains the UI Tests
-# scheme "SchemeName"
+scheme "Football CoachUITests"
 
 # Where should the resulting screenshots be stored?
 # output_directory "./screenshots"
