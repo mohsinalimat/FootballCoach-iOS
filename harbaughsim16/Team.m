@@ -1645,7 +1645,7 @@
     //[ts0 appendString:@"Opp Points,"];
     //[ts0 appendFormat:@"%@\n",[self getRankString:teamOppPoints]];
     
-    [ts0 addObject:@[[NSString stringWithFormat:@"%d pts/gm",(teamOppPoints/[self numGames])], @"Opponent Points Per Game",[self getRankString:rankTeamOppPoints]]];
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d pts/gm",(teamOppPoints/[self numGames])], @"Opp PPG",[self getRankString:rankTeamOppPoints]]];
     
     //[ts0 appendFormat:@"%ld,",(long)(teamYards/[self numGames])];
     //[ts0 appendString:@"Yards,"];
