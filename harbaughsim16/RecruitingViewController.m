@@ -474,6 +474,38 @@
         }
     }
     
+    if (needQBs > 2) {
+        needQBs = 2;
+    }
+    
+    if (needRBs > 4) {
+        needRBs = 4;
+    }
+    
+    if (needWRs > 6) {
+        needWRs = 6;
+    }
+    
+    if (needOLs > 10) {
+        needOLs = 10;
+    }
+    
+    if (needKs > 2) {
+        needKs = 2;
+    }
+    
+    if (needsS > 2) {
+        needsS = 2;
+    }
+    
+    if (needCBs > 6) {
+        needCBs = 6;
+    }
+    
+    if (needF7s > 14) {
+        needF7s = 14;
+    }
+    
     NSLog(@"NEED TO RECRUIT: %ld QBs, %ld RBs, %ld, WRs, %ld OLs, %ld F7s, %ld CBs, %ld Ss, %ld Ks",(long)needQBs,(long)needRBs,(long)needWRs,(long)needOLs,(long)needF7s,(long)needCBs,(long)needsS,(long)needKs);
     
     if (teamSize < 35) {

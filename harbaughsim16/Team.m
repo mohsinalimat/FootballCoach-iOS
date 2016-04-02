@@ -133,7 +133,6 @@
     if (teamPrestige < 45 && ![name isEqualToString:@"American Samoa"]) teamPrestige = 45;
     
     diffPrestige = teamPrestige - oldPrestige;
-    ////NSLog(@"ADVANCING SEASON FOR: %@...", abbreviation);
     
     //team records
     PlayerQB *qb = [self getQB:0];
@@ -1096,6 +1095,7 @@
     teamOppPassYards = 0;
     teamOppRushYards = 0;
     teamTODiff = 0;
+    wonRivalryGame = false;
     diffOffTalent = [self getOffensiveTalent] - teamOffTalent;
     teamOffTalent = [self getOffensiveTalent];
     diffDefTalent = [self getDefensiveTalent] - teamDefTalent;
