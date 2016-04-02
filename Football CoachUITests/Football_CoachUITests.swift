@@ -10,20 +10,18 @@ import XCTest
 
 class Football_CoachUITests: XCTestCase {
         
+    
     override func setUp() {
         super.setUp()
-        continueAfterFailure = false
+        
         let app = XCUIApplication()
         setupSnapshot(app)
         app.launch()
-
     }
     
-    override func tearDown() {
-        super.tearDown()
-    }
-    
-    func allScreenshots() {
+    func testExample()
+    {
+        snapshot("launch")
         XCUIApplication().tabBars.buttons["Schedule"].tap()
         snapshot("schedule")
         XCUIApplication().tabBars.buttons["Latest News"].tap()
@@ -33,5 +31,6 @@ class Football_CoachUITests: XCTestCase {
         XCUIApplication().tabBars.buttons["My Team"].tap()
         snapshot("myteam")
     }
+    
     
 }
