@@ -23,22 +23,13 @@ class Football_CoachUITests: XCTestCase {
         super.tearDown()
     }
     
-    func schedule() {
+    func allScreenshots() {
         XCUIApplication().tabBars.buttons["Schedule"].tap()
         snapshot("schedule")
-    }
-    
-    func home() {
         XCUIApplication().tabBars.buttons["Latest News"].tap()
         snapshot("home")
-    }
-    
-    func roster() {
         XCUIApplication().tabBars.buttons["Depth Chart"].tap()
         snapshot("roster")
-    }
-    
-    func myTeam() {
         XCUIApplication().tabBars.buttons["My Team"].tap()
         snapshot("myteam")
     }
