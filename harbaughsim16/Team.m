@@ -1657,31 +1657,31 @@
     //[ts0 appendString:@"Opp Yards,"];
     //[ts0 appendFormat:@"%@\n",[self getRankString:rankTeamOppYards]];
     
-    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamOppYards/[self numGames])], @"Opp Yards Per Game",[self getRankString:rankTeamYards]]];
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamOppYards/[self numGames])], @"Opp YPG",[self getRankString:rankTeamYards]]];
     
     //[ts0 appendFormat:@"%ld,",(long)(teamPassYards/[self numGames])];
     //[ts0 appendString:@"Pass Yards,"];
     //[ts0 appendFormat:@"%@\n",[self getRankString:rankTeamPassYards]];
     
-    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamPassYards/[self numGames])], @"Pass Yards Per Game",[self getRankString:rankTeamPassYards]]];
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamPassYards/[self numGames])], @"Pass YPG",[self getRankString:rankTeamPassYards]]];
     
     //[ts0 appendFormat:@"%ld,",(long)(teamRushYards/[self numGames])];
     //[ts0 appendString:@"Rush Yards,"];
     //[ts0 appendFormat:@"%@\n",[self getRankString:rankTeamRushYards]];
     
-    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamRushYards/[self numGames])], @"Rush Yards Per Game",[self getRankString:rankTeamRushYards]]];
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamRushYards/[self numGames])], @"Rush YPG",[self getRankString:rankTeamRushYards]]];
     
     //[ts0 appendFormat:@"%ld,",(long)(teamOppPassYards/[self numGames])];
     //[ts0 appendString:@"Opp Pass YPG,"];
     //[ts0 appendFormat:@"%@\n",[self getRankString:rankTeamOppPassYards]];
     
-    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamOppPassYards/[self numGames])], @"Opp Pass Yards Per Game",[self getRankString:rankTeamOppPassYards]]];
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamOppPassYards/[self numGames])], @"Opp Pass YPG",[self getRankString:rankTeamOppPassYards]]];
     
     //[ts0 appendFormat:@"%ld,",(long)(teamOppRushYards/[self numGames])];
     //[ts0 appendString:@"Opp Rush YPG,"];
     //[ts0 appendFormat:@"%@\n",[self getRankString:rankTeamOppRushYards]];
     
-    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamOppRushYards/[self numGames])], @"Opp Rush Yards Per Game",[self getRankString:rankTeamOppRushYards]]];
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamOppRushYards/[self numGames])], @"Opp Rush YPG",[self getRankString:rankTeamOppRushYards]]];
     
     NSString *turnoverDifferential = @"0";
     if (teamTODiff > 0) {

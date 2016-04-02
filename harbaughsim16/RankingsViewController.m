@@ -107,7 +107,7 @@
             
         }];
         [self.tableView reloadData];
-        self.title = @"Pass Yards Per Game";
+        self.title = @"Pass YPG";
     } else if (selectedStatType == HBStatTypeRYPG) {
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
@@ -116,7 +116,7 @@
             
         }];
         [self.tableView reloadData];
-        self.title = @"Rush Yards Per Game";
+        self.title = @"Rush YPG";
     } else if (selectedStatType == HBStatTypeOppPPG) {
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;

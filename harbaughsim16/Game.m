@@ -409,15 +409,15 @@
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",appg,_awayTeam.rankTeamPoints],
                             [NSString stringWithFormat:@"%d (#%d)",hppg,_homeTeam.rankTeamPoints]] forKey:@"Points Per Game"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aoppg,_awayTeam.rankTeamOppPoints],
-                            [NSString stringWithFormat:@"%d (#%d)",hoppg,_homeTeam.rankTeamOppPoints]] forKey:@"Opp Points Per Game"];
+                            [NSString stringWithFormat:@"%d (#%d)",hoppg,_homeTeam.rankTeamOppPoints]] forKey:@"Opp PPG"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aypg,_awayTeam.rankTeamYards],
                             [NSString stringWithFormat:@"%d (#%d)",hypg,_homeTeam.rankTeamYards]] forKey:@"Yards Per Game"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aoypg,_awayTeam.rankTeamOppYards],
-                            [NSString stringWithFormat:@"%d (#%d)",hoypg,_homeTeam.rankTeamOppYards]] forKey:@"Opp Yards Per Game"];
+                            [NSString stringWithFormat:@"%d (#%d)",hoypg,_homeTeam.rankTeamOppYards]] forKey:@"Opp YPG"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",apypg,_awayTeam.rankTeamPassYards],
-                            [NSString stringWithFormat:@"%d (#%d)",hpypg,_homeTeam.rankTeamPassYards]] forKey:@"Pass Yards Per Game"];
+                            [NSString stringWithFormat:@"%d (#%d)",hpypg,_homeTeam.rankTeamPassYards]] forKey:@"Pass YPG"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",arypg,_awayTeam.rankTeamRushYards],
-                            [NSString stringWithFormat:@"%d (#%d)",hrypg,_homeTeam.rankTeamRushYards]] forKey:@"Rush Yards Per Game"];
+                            [NSString stringWithFormat:@"%d (#%d)",hrypg,_homeTeam.rankTeamRushYards]] forKey:@"Rush YPG"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aopypg,_awayTeam.rankTeamOppPassYards],
                             [NSString stringWithFormat:@"%d (#%d)",hopypg,_homeTeam.rankTeamOppPassYards]] forKey:@"Opp Pass YPG"];
         [report setObject:@[[NSString stringWithFormat:@"%d (#%d)",aorypg,_awayTeam.rankTeamOppRushYards],

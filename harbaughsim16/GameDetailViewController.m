@@ -279,17 +279,17 @@
             } else if (indexPath.row == 5) {
                 title = @"Points Per Game";
             } else if (indexPath.row == 6) {
-                title = @"Opp Points Per Game";
+                title = @"Opp PPG";
             } else if (indexPath.row == 7) {
                 title = @"Yards Per Game";
             } else if (indexPath.row == 8) {
-                title = @"Opp Yards Per Game";
+                title = @"Opp YPG";
             } else if (indexPath.row == 9) {
-                title = @"Pass Yards Per Game";
+                title = @"Pass YPG";
             } else if (indexPath.row == 10) {
                 title = @"Opp Pass YPG";
             } else if (indexPath.row == 11) {
-                title = @"Rush Yards Per Game";
+                title = @"Rush YPG";
             } else {
                 title = @"Opp Rush YPG";
             }
