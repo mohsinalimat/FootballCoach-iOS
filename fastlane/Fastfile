@@ -9,7 +9,10 @@ platform :ios do
   end
 
   lane :screenshots do
-    snapshot
+    snapshot(
+      skip_open_summary: true,
+      clean: true
+    )
   end
 
   desc "Submit a new Beta Build to Apple TestFlight"
