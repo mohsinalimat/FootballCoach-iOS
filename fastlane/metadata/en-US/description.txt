@@ -1,5 +1,7 @@
 Made famous on Android, now available on iOS!
 
+——————————————————
+
 Football Coach is a college football simulator / management game.
 In Football Coach, you take the role of a newly hired coach at the school of your choice. Your goal is to win rivalry games, conference championships, and even the national championship! But with 60 teams total over 6 conferences, this task is easier said than done.
 
@@ -38,3 +40,8 @@ As a coach, you can pick what strategy your team employs on offense and defense 
 - Defensive scheme with emphasis on limiting the pass.
 - Will give up less yards on catches and be more likely to intercept passes.
 - However, rushing plays will go for more yards.
+
+——————————————————
+
+Check out the project on GitHub! - https://github.com/akeaswaran/footballcoach-ios 
+Also, check out the Android version on GitHub! - https://github.com/jonesguy14/footballcoach
