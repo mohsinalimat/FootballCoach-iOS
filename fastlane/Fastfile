@@ -1,0 +1,51 @@
+opt_out_usage
+fastlane_version "1.70.0"
+
+default_platform :ios
+
+platform :ios do
+  before_all do
+    ensure_git_status_clean
+    cocoapods
+  end
+
+  lane :screenshots do
+    snapshot
+  end
+
+  desc "Submit a new Beta Build to Apple TestFlight"
+  desc "This will also make sure the profile is up to date"
+  lane :beta do
+    clear_derived_data
+    gym(scheme: "harbaughsim16")
+    increment_build_number({
+      build_number: latest_testflight_build_number + 1
+    })
+    commit_version_bump
+    notification(subtitle: "Finished Building for TestFlight", message: "Now uploading...")
+    pilot
+    clean_build_artifacts
+  end
+
+  desc "Deploy a new version to the App Store"
+  lane :appstore do
+    clear_derived_data
+    verify_xcode
+    snapshot(
+      skip_open_summary: true,
+      clean: true
+    )
+    gym(scheme: "harbaughsim16")
+    notification(subtitle: "Finished Building for App Store", message: "Now uploading...")
+    deliver(force: true)
+    clean_build_artifacts
+  end
+
+  after_all do |lane|
+    notification(subtitle: "Lane completed successfully")
+  end
+
+  error do |lane, exception|
+    notification(subtitle: "Lane stopped execution unexpected with errors", message: exception.message)
+  end
+end
