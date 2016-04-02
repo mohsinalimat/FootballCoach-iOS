@@ -39,7 +39,10 @@ platform :ios do
     )
     gym(scheme: "harbaughsim16")
     notification(subtitle: "Finished Building for App Store", message: "Now uploading...")
-    deliver(force: true)
+    deliver(
+      force: true,
+      submit_for_review: true
+    )
     clean_build_artifacts
   end
 
