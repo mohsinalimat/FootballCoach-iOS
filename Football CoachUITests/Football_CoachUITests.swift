@@ -21,7 +21,6 @@ class Football_CoachUITests: XCTestCase {
     
     func testExample()
     {
-        snapshot("launch")
         XCUIApplication().tabBars.buttons["Schedule"].tap()
         snapshot("schedule")
         XCUIApplication().tabBars.buttons["Latest News"].tap()
