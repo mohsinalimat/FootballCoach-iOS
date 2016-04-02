@@ -1,7 +1,7 @@
 # Football Coach for iOS
 An iOS Port of https://github.com/jonesguy14/footballcoach.
 
-**NOTE**: As of March 25, 2016, this repo is at beta status!
+**PROJECT STATUS**: As of April 2, 2016, this app has been submitted to the iOS App Store. Check back later for a download link!
 
 _The original README of FootballCoach is below._
 
