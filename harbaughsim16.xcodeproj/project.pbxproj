@@ -17,6 +17,7 @@
 		751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */; };
 		752827121CB069CD00613B65 /* Football_CoachUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752827111CB069CD00613B65 /* Football_CoachUITests.swift */; };
 		7528271A1CB069D500613B65 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752827191CB069D500613B65 /* SnapshotHelper.swift */; };
+		75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 75300A5F1CB2DC96001EBBCB /* TeamStreak.m */; };
 		754E90781CA58BF800C450CF /* BowlProjectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E90771CA58BF800C450CF /* BowlProjectionViewController.m */; };
 		754E907B1CA58C0F00C450CF /* HeismanLeadersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E907A1CA58C0F00C450CF /* HeismanLeadersViewController.m */; };
 		754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E907D1CA59A0900C450CF /* RankingsViewController.m */; };
@@ -138,6 +139,8 @@
 		752827111CB069CD00613B65 /* Football_CoachUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Football_CoachUITests.swift; sourceTree = "<group>"; };
 		752827131CB069CD00613B65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		752827191CB069D500613B65 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		75300A5E1CB2DC96001EBBCB /* TeamStreak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreak.h; sourceTree = "<group>"; };
+		75300A5F1CB2DC96001EBBCB /* TeamStreak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreak.m; sourceTree = "<group>"; };
 		754E90761CA58BF800C450CF /* BowlProjectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BowlProjectionViewController.h; sourceTree = "<group>"; };
 		754E90771CA58BF800C450CF /* BowlProjectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BowlProjectionViewController.m; sourceTree = "<group>"; };
 		754E90791CA58C0F00C450CF /* HeismanLeadersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeismanLeadersViewController.h; sourceTree = "<group>"; };
@@ -570,6 +573,8 @@
 				75924A471C99CF7C00B165AD /* Game.h */,
 				75924A481C99CF7C00B165AD /* Game.m */,
 				755BBC6B1C9E11BD001A8314 /* Players */,
+				75300A5E1CB2DC96001EBBCB /* TeamStreak.h */,
+				75300A5F1CB2DC96001EBBCB /* TeamStreak.m */,
 			);
 			name = "Simulation Model";
 			sourceTree = "<group>";
@@ -807,6 +812,7 @@
 				75C321C71CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m in Sources */,
 				7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */,
 				75880F8C1CAC949300AF2C1C /* LeagueRecordsViewController.m in Sources */,
+				75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */,
 				7571DD411C9D032F00E67080 /* PlayerDetailViewController.m in Sources */,
 				751DF8201CA17F81003C62F2 /* HBSettingsCell.m in Sources */,
 				75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */,
@@ -934,7 +940,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -971,7 +977,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1019,6 +1025,7 @@
 				752827181CB069CD00613B65 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		75924A161C99CCC000B165AD /* Build configuration list for PBXProject "harbaughsim16" */ = {
 			isa = XCConfigurationList;

@@ -158,10 +158,9 @@
                 // Played a game, show summary - show notification
                 NSString *gameSummary = [userTeam weekSummaryString];
                 if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
-                    //[CSNotificationView showInViewController:self tintColor:[HBSharedUtils errorColor] image:nil message:[NSString stringWithFormat:@"Week %ld Update - %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] duration:0.5];
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"Week %ld Update - %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
                 } else {
-                    //[CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"Week %ld Update - %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] duration:0.5];
+                
                     [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"Week %ld Update - %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
                 }
                 
@@ -173,17 +172,13 @@
                 if (!nextGame.hasPlayed) {
                     NSString *weekGameName = nextGame.gameName;
                     if ([weekGameName isEqualToString:@"NCG"]) {
-                        //[CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"%@ was invited to the National Championship Game!",userTeam.name] duration:0.5];
                         [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"%@ was invited to the National Championship Game!",userTeam.name] onViewController:self];
                     } else {
-                        //[CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"%@ was invited to the %@!",userTeam.name, weekGameName] duration:0.5];
                         [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"%@ was invited to the %@!",userTeam.name, weekGameName] onViewController:self];
                     }
                 } else if (simLeague.currentWeek == 12) {
-                    //[CSNotificationView showInViewController:self tintColor:[HBSharedUtils errorColor] image:nil message:[NSString stringWithFormat:@"%@ was not invited to the %@ CCG.",userTeam.name,userTeam.conference] duration:0.5];
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"%@ was not invited to the %@ CCG.",userTeam.name,userTeam.conference] onViewController:self];
                 } else if (simLeague.currentWeek == 13) {
-                    //[CSNotificationView showInViewController:self tintColor:[HBSharedUtils errorColor] image:nil message:[NSString stringWithFormat:@"%@ was not invited to a bowl game",userTeam.name] duration:0.5];
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"%@ was not invited to a bowl game.",userTeam.name] onViewController:self];
                     
                 }
