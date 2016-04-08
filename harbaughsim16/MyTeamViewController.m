@@ -13,7 +13,6 @@
 #import "HBSharedUtils.h"
 #import "TeamHistoryViewController.h"
 #import "LeagueHistoryController.h"
-#import "HeismanHistoryViewController.h"
 #import "TeamStrategyViewController.h"
 #import "IntroViewController.h"
 #import "RankingsViewController.h"
@@ -53,7 +52,6 @@
     [super viewDidLoad];
     self.title = @"My Team";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(openSettings)];
-    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveUserTeam)];
     [self setupTeamHeader];
     self.tableView.tableHeaderView = teamHeaderView;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
@@ -127,7 +125,7 @@
     if (section == 0) {
         return 3;
     } else if (section == 2) {
-        return 4;
+        return 3;
     } else {
         return stats.count;
     }
@@ -182,10 +180,8 @@
             title = @"Team History";
         } else if (indexPath.row == 1) {
             title = @"League History";
-        } else if (indexPath.row == 2) {
-            title = @"League Records";
         } else {
-            title = @"Player of the Year History";
+            title = @"League Records";
         }
         [cell.textLabel setText:title];
         
@@ -256,12 +252,9 @@
         } else if (indexPath.row == 1) {
             //league
             [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];
-        } else if (indexPath.row == 2) {
+        } else {
             //league records
             [self.navigationController pushViewController:[[LeagueRecordsViewController alloc] init] animated:YES];
-        } else {
-            //heisman
-            [self.navigationController pushViewController:[[HeismanHistoryViewController alloc] init] animated:YES];
         }
     } else if (indexPath.section == 0) {
         if (indexPath.row == 0) { //offensive

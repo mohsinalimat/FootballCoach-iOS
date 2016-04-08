@@ -104,10 +104,6 @@
 		75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */; };
 		75E10F1E1CA0D9CA0000DA78 /* TeamHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75E10F1C1CA0D9CA0000DA78 /* TeamHistoryViewController.xib */; };
 		75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */; };
-		75E10F251CA0E0270000DA78 /* HeismanHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F231CA0E0270000DA78 /* HeismanHistoryViewController.m */; };
-		75E10F261CA0E0270000DA78 /* HeismanHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75E10F241CA0E0270000DA78 /* HeismanHistoryViewController.xib */; };
-		75E10F2A1CA0E0330000DA78 /* LeagueYearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F281CA0E0330000DA78 /* LeagueYearViewController.m */; };
-		75E10F2B1CA0E0330000DA78 /* LeagueYearViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75E10F291CA0E0330000DA78 /* LeagueYearViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,12 +269,6 @@
 		75E10F1C1CA0D9CA0000DA78 /* TeamHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamHistoryViewController.xib; sourceTree = "<group>"; };
 		75E10F1F1CA0E0170000DA78 /* LeagueHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueHistoryController.h; sourceTree = "<group>"; };
 		75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueHistoryController.m; sourceTree = "<group>"; };
-		75E10F221CA0E0270000DA78 /* HeismanHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeismanHistoryViewController.h; sourceTree = "<group>"; };
-		75E10F231CA0E0270000DA78 /* HeismanHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeismanHistoryViewController.m; sourceTree = "<group>"; };
-		75E10F241CA0E0270000DA78 /* HeismanHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeismanHistoryViewController.xib; sourceTree = "<group>"; };
-		75E10F271CA0E0330000DA78 /* LeagueYearViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueYearViewController.h; sourceTree = "<group>"; };
-		75E10F281CA0E0330000DA78 /* LeagueYearViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueYearViewController.m; sourceTree = "<group>"; };
-		75E10F291CA0E0330000DA78 /* LeagueYearViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeagueYearViewController.xib; sourceTree = "<group>"; };
 		816834A7F9C15B63FF8EA2BB /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC021E4350CD61827E4ADB7 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -366,12 +356,6 @@
 				75E10F1C1CA0D9CA0000DA78 /* TeamHistoryViewController.xib */,
 				75E10F1F1CA0E0170000DA78 /* LeagueHistoryController.h */,
 				75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */,
-				75E10F271CA0E0330000DA78 /* LeagueYearViewController.h */,
-				75E10F281CA0E0330000DA78 /* LeagueYearViewController.m */,
-				75E10F291CA0E0330000DA78 /* LeagueYearViewController.xib */,
-				75E10F221CA0E0270000DA78 /* HeismanHistoryViewController.h */,
-				75E10F231CA0E0270000DA78 /* HeismanHistoryViewController.m */,
-				75E10F241CA0E0270000DA78 /* HeismanHistoryViewController.xib */,
 				7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */,
 				7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */,
 				751DF8221CA1D66D003C62F2 /* TeamStrategyViewController.h */,
@@ -693,7 +677,6 @@
 				755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */,
 				75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */,
 				755BBC5B1C9E0A1B001A8314 /* Icon-60@2x.png in Resources */,
-				75E10F261CA0E0270000DA78 /* HeismanHistoryViewController.xib in Resources */,
 				75E10F1E1CA0D9CA0000DA78 /* TeamHistoryViewController.xib in Resources */,
 				7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */,
 				755BBC5C1C9E0A1B001A8314 /* Icon-60@3x.png in Resources */,
@@ -719,7 +702,6 @@
 				755BBC821C9F734E001A8314 /* TeamViewController.xib in Resources */,
 				7571DD241C9CC62E00E67080 /* stats@3x.png in Resources */,
 				75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */,
-				75E10F2B1CA0E0330000DA78 /* LeagueYearViewController.xib in Resources */,
 				75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */,
 				755BBC6D1C9E423B001A8314 /* NewsViewController.xib in Resources */,
 				75A86C921C9C7AA80034140C /* team@3x.png in Resources */,
@@ -808,7 +790,6 @@
 				75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */,
 				751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */,
 				755BBC7B1C9F5F1A001A8314 /* TeamSearchViewController.m in Sources */,
-				75E10F2A1CA0E0330000DA78 /* LeagueYearViewController.m in Sources */,
 				75C321C71CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m in Sources */,
 				7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */,
 				75880F8C1CAC949300AF2C1C /* LeagueRecordsViewController.m in Sources */,
@@ -832,7 +813,6 @@
 				7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */,
 				75924A261C99CCC000B165AD /* NewsViewController.m in Sources */,
 				7571DD381C9CFD4000E67080 /* RosterViewController.m in Sources */,
-				75E10F251CA0E0270000DA78 /* HeismanHistoryViewController.m in Sources */,
 				754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */,
 				75924A551C99D24500B165AD /* League.m in Sources */,
 				75924A6A1C99E66700B165AD /* PlayerCB.m in Sources */,
