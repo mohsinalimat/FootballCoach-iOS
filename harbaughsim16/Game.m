@@ -1350,11 +1350,11 @@
                         [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
                     }
                     
-                    [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                    [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
                     [self addPointsQuarter:1];
                     [offense getK:0].statsXPMade++;
                 } else {
-                    [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                    [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
                     // missed XP
                     if ( gamePoss ) { // home possession
                         NSNumber *kStat2 = _HomeKStats[1];
@@ -1436,11 +1436,11 @@
                                 [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
                             }
                             
-                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
                             [self addPointsQuarter:1];
                             [offense getK:0].statsXPMade++;
                         } else {
-                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
                             // missed XP
                             if ( gamePoss ) { // home possession
                                 NSNumber *kStat2 = _HomeKStats[1];
@@ -1551,11 +1551,11 @@
                             [_AwayKStats replaceObjectAtIndex:1 withObject:kStat2];
                         }
                         
-                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ made the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
                         [self addPointsQuarter:1];
                         [offense getK:0].statsXPMade++;
                     } else {
-                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ %@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ missed the XP.",[self getEventPrefix],tdInfo,[offense getK:0].name]];
                         // missed XP
                         if ( gamePoss ) { // home possession
                             NSNumber *kStat2 = _HomeKStats[1];
