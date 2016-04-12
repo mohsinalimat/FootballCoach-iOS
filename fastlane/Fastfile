@@ -20,13 +20,11 @@ platform :ios do
   lane :beta do
     clear_derived_data
     gym(scheme: "harbaughsim16")
-    increment_build_number({
-      build_number: latest_testflight_build_number + 1
-    })
-    commit_version_bump
     notification(subtitle: "Finished Building for TestFlight", message: "Now uploading...")
     pilot
     clean_build_artifacts
+    increment_build_number()
+    commit_version_bump
   end
 
   desc "Deploy a new version to the App Store"
