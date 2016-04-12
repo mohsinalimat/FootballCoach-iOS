@@ -1,5 +1,6 @@
 opt_out_usage
-fastlane_version "1.70.0"
+update_fastlane
+fastlane_version "1.80.0"
 
 default_platform :ios
 
