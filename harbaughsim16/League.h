@@ -11,12 +11,42 @@
 @class Game;
 @class Team;
 @class Conference;
+@class Record;
 
 @interface League : NSObject <NSCoding> {
     BOOL heismanDecided;
     Player *heisman;
     NSMutableArray<Player*> *heismanCandidates;
     NSString *heismanWinnerStrFull;
+    
+    //deprecated record tracking ivars
+    int leagueRecordCompletions;
+    int leagueRecordPassYards;
+    int leagueRecordPassTDs;
+    int leagueRecordInt;
+    int leagueRecordFum;
+    int leagueRecordRushYards;
+    int leagueRecordRushAtt;
+    int leagueRecordRushTDs;
+    int leagueRecordRecYards;
+    int leagueRecordReceptions;
+    int leagueRecordRecTDs;
+    int leagueRecordXPMade;
+    int leagueRecordFGMade;
+    int leagueRecordYearCompletions;
+    int leagueRecordYearPassYards;
+    int leagueRecordYearPassTDs;
+    int leagueRecordYearInt;
+    int leagueRecordYearFum;
+    int leagueRecordYearRushYards;
+    int leagueRecordYearRushAtt;
+    int leagueRecordYearRushTDs;
+    int leagueRecordYearRecYards;
+    int leagueRecordYearReceptions;
+    int leagueRecordYearRecTDs;
+    int leagueRecordYearXPMade;
+    int leagueRecordYearFGMade;
+    
 }
 
 @property (strong, nonatomic)  NSMutableArray<NSArray*> *leagueHistory;
@@ -25,6 +55,12 @@
 @property (strong, nonatomic)  NSMutableArray<Team*> *teamList;
 @property (strong, nonatomic)  NSMutableArray<NSString*> *nameList;
 @property (strong, nonatomic)  NSMutableArray<NSMutableArray*> *newsStories;
+@property (strong, nonatomic) Team *blessedTeam;
+@property (strong, nonatomic) Team *cursedTeam;
+@property (strong, nonatomic) NSString *blessedTeamCoachName;
+@property (strong, nonatomic) NSString *cursedTeamCoachName;
+@property (nonatomic) NSInteger blessedStoryIndex;
+@property (nonatomic) NSInteger cursedStoryIndex;
 
 //Current week, 1-14
 @property (nonatomic) int currentWeek;
@@ -37,46 +73,46 @@
 @property (strong, nonatomic)  NSMutableArray<Game*> *bowlGames;
 
 //User Team
-@property (strong, nonatomic)  Team *userTeam;
+@property (strong, nonatomic) Team *userTeam;
 @property (nonatomic) int recruitingStage;
 @property (nonatomic) BOOL canRebrandTeam;
 
+//Single Season Records
+@property (strong, nonatomic) Record *singleSeasonCompletionsRecord;
+@property (strong, nonatomic) Record *singleSeasonPassYardsRecord;
+@property (strong, nonatomic) Record *singleSeasonPassTDsRecord;
+@property (strong, nonatomic) Record *singleSeasonInterceptionsRecord;
 
-//records
-@property (nonatomic) int leagueRecordCompletions;
-@property (nonatomic) int leagueRecordPassYards;
-@property (nonatomic) int leagueRecordPassTDs;
-@property (nonatomic) int leagueRecordInt;
+@property (strong, nonatomic) Record *singleSeasonFumblesRecord;
+@property (strong, nonatomic) Record *singleSeasonRushYardsRecord;
+@property (strong, nonatomic) Record *singleSeasonCarriesRecord;
+@property (strong, nonatomic) Record *singleSeasonRushTDsRecord;
 
-@property (nonatomic) int leagueRecordFum;
-@property (nonatomic) int leagueRecordRushYards;
-@property (nonatomic) int leagueRecordRushAtt;
-@property (nonatomic) int leagueRecordRushTDs;
+@property (strong, nonatomic) Record *singleSeasonRecYardsRecord;
+@property (strong, nonatomic) Record *singleSeasonRecTDsRecord;
+@property (strong, nonatomic) Record *singleSeasonCatchesRecord;
 
-@property (nonatomic) int leagueRecordRecYards;
-@property (nonatomic) int leagueRecordReceptions;
-@property (nonatomic) int leagueRecordRecTDs;
+@property (strong, nonatomic) Record *singleSeasonXpMadeRecord;
+@property (strong, nonatomic) Record *singleSeasonFgMadeRecord;
 
-@property (nonatomic) int leagueRecordXPMade;
-@property (nonatomic) int leagueRecordFGMade;
+//career Records
+@property (strong, nonatomic) Record *careerCompletionsRecord;
+@property (strong, nonatomic) Record *careerPassYardsRecord;
+@property (strong, nonatomic) Record *careerPassTDsRecord;
+@property (strong, nonatomic) Record *careerInterceptionsRecord;
 
-//Record years
-@property (nonatomic) int leagueRecordYearCompletions;
-@property (nonatomic) int leagueRecordYearPassYards;
-@property (nonatomic) int leagueRecordYearPassTDs;
-@property (nonatomic) int leagueRecordYearInt;
+@property (strong, nonatomic) Record *careerFumblesRecord;
+@property (strong, nonatomic) Record *careerRushYardsRecord;
+@property (strong, nonatomic) Record *careerCarriesRecord;
+@property (strong, nonatomic) Record *careerRushTDsRecord;
 
-@property (nonatomic) int leagueRecordYearFum;
-@property (nonatomic) int leagueRecordYearRushYards;
-@property (nonatomic) int leagueRecordYearRushAtt;
-@property (nonatomic) int leagueRecordYearRushTDs;
+@property (strong, nonatomic) Record *careerRecYardsRecord;
+@property (strong, nonatomic) Record *careerRecTDsRecord;
+@property (strong, nonatomic) Record *careerCatchesRecord;
 
-@property (nonatomic) int leagueRecordYearRecYards;
-@property (nonatomic) int leagueRecordYearReceptions;
-@property (nonatomic) int leagueRecordYearRecTDs;
+@property (strong, nonatomic) Record *careerXpMadeRecord;
+@property (strong, nonatomic) Record *careerFgMadeRecord;
 
-@property (nonatomic) int leagueRecordYearXPMade;
-@property (nonatomic) int leagueRecordYearFGMade;
 
 +(BOOL)loadSavedData;
 +(NSArray*)bowlGameTitles;
@@ -111,4 +147,7 @@
 -(void)advanceSeasonForAllExceptUser;
 -(NSArray*)getBowlPredictions;
 -(NSArray*)getHeismanLeaders;
+
+-(NSArray*)singleSeasonRecords;
+-(NSArray*)careerRecords;
 @end

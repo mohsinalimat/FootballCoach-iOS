@@ -8,10 +8,15 @@
 
 #import "LeagueRecordsViewController.h"
 #import "League.h"
+#import "HBRecordCell.h"
+#import "Record.h"
+#import "Player.h"
 
 @interface LeagueRecordsViewController ()
 {
     League *curLeague;
+    NSArray *records;
+    NSInteger selectedIndex;
 }
 @end
 
@@ -30,6 +35,29 @@
     self.title = @"League Records";
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+    [self.tableView registerNib:[UINib nibWithNibName:@"HBRecordCell" bundle:nil] forCellReuseIdentifier:@"HBRecordCell"];
+    [self.tableView setRowHeight:87];
+    [self.tableView setEstimatedRowHeight:87];
+    //add seg control as title view
+    //if seg control index == 0 - display single season records
+    //if seg control index == 1 - display career records
+    UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:@[@"Season", @"Career"]];
+    [segControl setTintColor:[UIColor whiteColor]];
+    [segControl setSelectedSegmentIndex:0];
+    records = [curLeague singleSeasonRecords];
+    selectedIndex = 0;
+    [segControl addTarget:self action:@selector(switchViews:) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.titleView = segControl;
+}
+
+-(void)switchViews:(UISegmentedControl*)sender {
+    selectedIndex = sender.selectedSegmentIndex;
+    if (sender.selectedSegmentIndex == 0) {
+        records = [curLeague singleSeasonRecords];
+    } else {
+        records = [curLeague careerRecords];
+    }
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,11 +72,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 13;
+    return records.count;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
+    if (selectedIndex == 0) {
         return @"Single Season";
     } else {
         return @"Career";
@@ -56,52 +84,23 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-    }
-    
-    if (indexPath.row == 0) {
-        [cell.textLabel setText:@"Completions"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld", (long)curLeague.leagueRecordYearCompletions,(long)curLeague.leagueRecordCompletions]];
-    } else if (indexPath.row == 1) {
-        [cell.textLabel setText:@"Passing Yards"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld yds", (long)curLeague.leagueRecordYearPassYards,(long)curLeague.leagueRecordPassYards]];
-    } else if (indexPath.row == 2) {
-        [cell.textLabel setText:@"Passing Touchdowns"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld", (long)curLeague.leagueRecordYearPassTDs,(long)curLeague.leagueRecordPassTDs]];
-    } else if (indexPath.row == 3) {
-        [cell.textLabel setText:@"Interceptions"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld", (long)curLeague.leagueRecordYearInt,(long)curLeague.leagueRecordInt]];
-    } else if (indexPath.row == 4) {
-        [cell.textLabel setText:@"Carries"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld", (long)curLeague.leagueRecordYearRushAtt,(long)curLeague.leagueRecordRushAtt]];
-    } else if (indexPath.row == 5) {
-        [cell.textLabel setText:@"Rushing Yards"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld yds", (long)curLeague.leagueRecordYearRushYards,(long)curLeague.leagueRecordRushYards]];
-    } else if (indexPath.row == 6) {
-        [cell.textLabel setText:@"Rushing Touchdowns"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld", (long)curLeague.leagueRecordYearRushTDs,(long)curLeague.leagueRecordRushTDs]];
-    } else if (indexPath.row == 7) {
-        [cell.textLabel setText:@"Fumbles"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld", (long)curLeague.leagueRecordYearFum,(long)curLeague.leagueRecordFum]];
-    } else if (indexPath.row == 8) {
-        [cell.textLabel setText:@"Receptions"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld", (long)curLeague.leagueRecordYearReceptions,(long)curLeague.leagueRecordReceptions]];
-    } else if (indexPath.row == 9) {
-        [cell.textLabel setText:@"Receiving Yards"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld yds", (long)curLeague.leagueRecordYearRecYards,(long)curLeague.leagueRecordRecYards]];
-    } else if (indexPath.row == 10) {
-        [cell.textLabel setText:@"Receiving Touchdowns"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld", (long)curLeague.leagueRecordYearRecTDs,(long)curLeague.leagueRecordRecTDs]];
-    } else if (indexPath.row == 11) {
-        [cell.textLabel setText:@"Extra Points Made"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld", (long)curLeague.leagueRecordYearXPMade,(long)curLeague.leagueRecordXPMade]];
+    HBRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HBRecordCell"];
+    Record *curRecord = records[indexPath.row];
+    [cell.statLabel setText:[NSString stringWithFormat:@"%ld", (long)curRecord.statistic]];
+    [cell.yearLabel setText:[NSString stringWithFormat:@"%ld", (long)curRecord.year]];
+    if (curRecord.holder) {
+        [cell.playerLabel setText:[curRecord.holder getInitialName]];
+        [cell.teamLabel setText:curRecord.holder.team.abbreviation];
     } else {
-        [cell.textLabel setText:@"Field Goals Made"];
-        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld - %ld", (long)curLeague.leagueRecordYearFGMade,(long)curLeague.leagueRecordFGMade]];
+        [cell.playerLabel setText:@"No record holder"];
+        [cell.teamLabel setText:@"N/A"];
+    }
+    [cell.titleLabel setText:curRecord.title];
+    
+    if ([curRecord.holder.team isEqual:curLeague.userTeam]) {
+        [cell.playerLabel setTextColor:[HBSharedUtils styleColor]];
+    } else {
+        [cell.playerLabel setTextColor:[UIColor blackColor]];
     }
     
     return cell;

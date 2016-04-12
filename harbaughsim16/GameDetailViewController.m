@@ -15,6 +15,7 @@
 #import "PlayerDetailViewController.h"
 #import "TeamViewController.h"
 #import "HBScoreCell.h"
+#import "TeamStreak.h"
 
 #import "PlayerQB.h"
 #import "PlayerRB.h"
@@ -191,7 +192,12 @@
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 0) {
         if (!selectedGame.hasPlayed) {
-            return @"To be played";
+            if (selectedGame.homeTeam.streaks != nil && [selectedGame.homeTeam.streaks.allKeys containsObject:selectedGame.awayTeam.abbreviation]) {
+                TeamStreak *streak = selectedGame.homeTeam.streaks[selectedGame.awayTeam.abbreviation];
+                return [streak stringRepresentation];
+            } else {
+                return @"To be played";
+            }
         } else {
             if (selectedGame.numOT > 0) {
                 if (selectedGame.numOT == 1) {

@@ -7,6 +7,9 @@
 //
 
 #import "PlayerK.h"
+#import "Team.h"
+#import "League.h"
+#import "Record.h"
 
 @implementation PlayerK
 
@@ -260,5 +263,41 @@
     return [stats copy];
 }
 
+-(void)checkRecords {
+    //XpMade
+    if (self.statsXPMade > self.team.singleSeasonXpMadeRecord.statistic) {
+        self.team.singleSeasonXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.statsXPMade year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+    }
+    
+    if (self.careerStatsXPMade > self.team.careerXpMadeRecord.statistic) {
+        self.team.careerXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.careerStatsXPMade year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+    }
+    
+    if (self.statsXPMade > self.team.league.singleSeasonXpMadeRecord.statistic) {
+        self.team.league.singleSeasonXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.statsXPMade year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+    }
+    
+    if (self.careerStatsXPMade > self.team.league.careerXpMadeRecord.statistic) {
+        self.team.league.careerXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.careerStatsXPMade year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+    }
+    
+    //FGMade
+    if (self.statsFGMade > self.team.singleSeasonFgMadeRecord.statistic) {
+        self.team.singleSeasonFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.statsFGMade year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+    }
+    
+    if (self.careerStatsFGMade > self.team.careerFgMadeRecord.statistic) {
+        self.team.careerFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.careerStatsFGMade year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+    }
+    
+    if (self.statsFGMade > self.team.league.singleSeasonFgMadeRecord.statistic) {
+        self.team.league.singleSeasonFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.statsFGMade year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+    }
+    
+    if (self.careerStatsFGMade > self.team.league.careerFgMadeRecord.statistic) {
+        self.team.league.careerFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.careerStatsFGMade year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+    }
+    
+}
 
 @end

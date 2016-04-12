@@ -41,4 +41,5 @@
 -(NSDictionary*)detailedStats:(int)games;
 -(NSDictionary*)detailedCareerStats;
 -(NSDictionary*)detailedRatings;
+-(void)checkRecords;
 @end

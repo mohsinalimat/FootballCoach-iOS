@@ -37,13 +37,13 @@
     [navSearchBar setSearchBarStyle:UISearchBarStyleMinimal];
     [navSearchBar setKeyboardType:UIKeyboardTypeAlphabet];
     [navSearchBar setReturnKeyType:UIReturnKeySearch];
+    [navSearchBar setTintColor:[UIColor whiteColor]];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor lightTextColor]];
     [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
     
     self.navigationItem.titleView = navSearchBar;
-    //[navSearchBar becomeFirstResponder];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reloadTeams" object:nil];
 }

@@ -14,6 +14,12 @@
 #define HB_CURRENT_THEME_COLOR @"themeColor"
 #define HB_NUMBER_OF_COLOR_OPTIONS 4
 
+#ifdef DEBUG
+#define HBLog( s, ... ) NSLog( @"<%@:%d> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#else
+#define HBLog( s, ... )
+#endif
+
 @interface HBSharedUtils : NSObject
 +(double)randomValue;
 +(League*)getLeague;

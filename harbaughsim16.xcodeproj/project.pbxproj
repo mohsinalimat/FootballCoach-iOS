@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3B126401C40074476E0CBD5E /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 816834A7F9C15B63FF8EA2BB /* Pods_harbaughsim16.framework */; };
+		75097C5C1CBC1B55003E2538 /* HBRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75097C5A1CBC1B55003E2538 /* HBRecordCell.m */; };
+		75097C5D1CBC1B55003E2538 /* HBRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75097C5B1CBC1B55003E2538 /* HBRecordCell.xib */; };
 		7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */; };
 		7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */; };
 		7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */; };
@@ -45,6 +47,7 @@
 		755BBC871C9F7DA4001A8314 /* HBScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC851C9F7DA4001A8314 /* HBScoreCell.xib */; };
 		755BBC8B1CA03252001A8314 /* HBRecruitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC891CA03252001A8314 /* HBRecruitCell.m */; };
 		755BBC8C1CA03252001A8314 /* HBRecruitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */; };
+		7563A8E11CB7F6F20023E43B /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 7563A8E01CB7F6F20023E43B /* Record.m */; };
 		7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */; };
 		7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */; };
 		7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */; };
@@ -118,6 +121,9 @@
 
 /* Begin PBXFileReference section */
 		44F9430C6D467B894D8E6C88 /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.release.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
+		75097C591CBC1B55003E2538 /* HBRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBRecordCell.h; sourceTree = "<group>"; };
+		75097C5A1CBC1B55003E2538 /* HBRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBRecordCell.m; sourceTree = "<group>"; };
+		75097C5B1CBC1B55003E2538 /* HBRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBRecordCell.xib; sourceTree = "<group>"; };
 		7510B8451C9C76BE00BE9CD6 /* TeamSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamSelectionViewController.h; sourceTree = "<group>"; };
 		7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamSelectionViewController.m; sourceTree = "<group>"; };
 		7510B8481C9C76C900BE9CD6 /* GameDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDetailViewController.h; sourceTree = "<group>"; };
@@ -176,6 +182,8 @@
 		755BBC881CA03252001A8314 /* HBRecruitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBRecruitCell.h; sourceTree = "<group>"; };
 		755BBC891CA03252001A8314 /* HBRecruitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBRecruitCell.m; sourceTree = "<group>"; };
 		755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBRecruitCell.xib; sourceTree = "<group>"; };
+		7563A8DF1CB7F6F20023E43B /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
+		7563A8E01CB7F6F20023E43B /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
 		7571DD191C9CB1DC00E67080 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
@@ -347,6 +355,9 @@
 				7571DD341C9CF8E300E67080 /* MyTeamViewController.xib */,
 				75880F8A1CAC949300AF2C1C /* LeagueRecordsViewController.h */,
 				75880F8B1CAC949300AF2C1C /* LeagueRecordsViewController.m */,
+				75097C591CBC1B55003E2538 /* HBRecordCell.h */,
+				75097C5A1CBC1B55003E2538 /* HBRecordCell.m */,
+				75097C5B1CBC1B55003E2538 /* HBRecordCell.xib */,
 				75880F8D1CAC949F00AF2C1C /* TeamRecordsViewController.h */,
 				75880F8E1CAC949F00AF2C1C /* TeamRecordsViewController.m */,
 				754E907C1CA59A0900C450CF /* RankingsViewController.h */,
@@ -559,6 +570,8 @@
 				755BBC6B1C9E11BD001A8314 /* Players */,
 				75300A5E1CB2DC96001EBBCB /* TeamStreak.h */,
 				75300A5F1CB2DC96001EBBCB /* TeamStreak.m */,
+				7563A8DF1CB7F6F20023E43B /* Record.h */,
+				7563A8E01CB7F6F20023E43B /* Record.m */,
 			);
 			name = "Simulation Model";
 			sourceTree = "<group>";
@@ -709,6 +722,7 @@
 				7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */,
 				7571DD261C9CC64200E67080 /* settings@3x.png in Resources */,
 				7571DD351C9CF8E300E67080 /* MyTeamViewController.xib in Resources */,
+				75097C5D1CBC1B55003E2538 /* HBRecordCell.xib in Resources */,
 				7571DD331C9CD3A200E67080 /* play-week@3x.png in Resources */,
 				755BBC5E1C9E0A1B001A8314 /* Icon-Small@2x.png in Resources */,
 				754E90831CA5A59D00C450CF /* TeamScheduleViewController.xib in Resources */,
@@ -783,6 +797,7 @@
 			files = (
 				755BBC811C9F734E001A8314 /* TeamViewController.m in Sources */,
 				75924A4C1C99D03300B165AD /* Player.m in Sources */,
+				7563A8E11CB7F6F20023E43B /* Record.m in Sources */,
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
 				755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */,
 				75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */,
@@ -807,6 +822,7 @@
 				75880F8F1CAC949F00AF2C1C /* TeamRecordsViewController.m in Sources */,
 				755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */,
 				75C321C41CAD7BBB00906A38 /* AllConferenceTeamViewController.m in Sources */,
+				75097C5C1CBC1B55003E2538 /* HBRecordCell.m in Sources */,
 				75924A4F1C99D05E00B165AD /* Conference.m in Sources */,
 				751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */,
 				75924A491C99CF7C00B165AD /* Game.m in Sources */,

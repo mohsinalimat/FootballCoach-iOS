@@ -899,6 +899,7 @@
         [alertController addAction:[UIAlertAction actionWithTitle:@"No, just sign him." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
              [self buyRecruit:p];
         }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Don't sign him." style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];

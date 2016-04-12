@@ -478,8 +478,21 @@
     } else {
         gameDownAdj = gameDown;
     }
+    
+    NSString *downString = @"";
+    if (gameDownAdj == 1) {
+        downString = @"1st";
+    } else if (gameDownAdj == 2) {
+        downString = @"2nd";
+    } else if (gameDownAdj == 3) {
+        downString = @"3rd";
+    } else {
+        downString = @"4th";
+    }
+    
+    
     if (gameYardLine + gameYardsNeed >= 100) yardsNeedAdj = @"Goal";
-    return [NSString stringWithFormat:@"\n\n%@ %ld - %ld %@, Time: %@,\n\t%@ %ld and %@ at %ld yard line.\n",_homeTeam.abbreviation,(long)_homeScore,(long)_awayScore,_awayTeam.abbreviation, [self convGameTime],possStr,(long)gameDownAdj,yardsNeedAdj,(long)gameYardLine];
+    return [NSString stringWithFormat:@"\n\n%@ %ld - %ld %@, Time: %@\n%@ %@ and %@ at the %ld-yard line.\n",_homeTeam.abbreviation,(long)_homeScore,(long)_awayScore,_awayTeam.abbreviation, [self convGameTime],possStr,downString,yardsNeedAdj,(long)gameYardLine];
 }
 
 -(NSString*)convGameTime {
@@ -667,25 +680,39 @@
             [_awayTeam.gameWLSchedule addObject:@"L"];
             [_homeTeam.gameWinsAgainst addObject:_awayTeam];
             
-           /* if ([_homeTeam.streaks.allKeys containsObject:_awayTeam.abbreviation]) {
-                TeamStreak *streak = _homeTeam.streaks[_awayTeam.abbreviation];
-                [streak addWin];
-                [_homeTeam.streaks setObject:streak forKey:_awayTeam.abbreviation];
+            if (_homeTeam.streaks != nil) {
+                if ([_homeTeam.streaks.allKeys containsObject:_awayTeam.abbreviation]) {
+                    TeamStreak *streak = _homeTeam.streaks[_awayTeam.abbreviation];
+                    [streak addWin];
+                    [_homeTeam.streaks setObject:streak forKey:_awayTeam.abbreviation];
+                } else {
+                    TeamStreak *streak = [TeamStreak newStreakWithTeam:_homeTeam opponent:_awayTeam];
+                    [streak addWin];
+                    [_homeTeam.streaks setObject:streak forKey:_awayTeam.abbreviation];
+                }
             } else {
+                _homeTeam.streaks = [NSMutableDictionary dictionary];
                 TeamStreak *streak = [TeamStreak newStreakWithTeam:_homeTeam opponent:_awayTeam];
                 [streak addWin];
                 [_homeTeam.streaks setObject:streak forKey:_awayTeam.abbreviation];
             }
             
-            if ([_awayTeam.streaks.allKeys containsObject:_homeTeam.abbreviation]) {
-                TeamStreak *streak = _awayTeam.streaks[_homeTeam.abbreviation];
-                [streak addLoss];
-                [_awayTeam.streaks setObject:streak forKey:_homeTeam.abbreviation];
+            if (_awayTeam.streaks != nil) {
+                if ([_awayTeam.streaks.allKeys containsObject:_homeTeam.abbreviation]) {
+                    TeamStreak *streak = _awayTeam.streaks[_homeTeam.abbreviation];
+                    [streak addLoss];
+                    [_awayTeam.streaks setObject:streak forKey:_homeTeam.abbreviation];
+                } else {
+                    TeamStreak *streak = [TeamStreak newStreakWithTeam:_awayTeam opponent:_homeTeam];
+                    [streak addLoss];
+                    [_awayTeam.streaks setObject:streak forKey:_homeTeam.abbreviation];
+                }
             } else {
+                _awayTeam.streaks = [NSMutableDictionary dictionary];
                 TeamStreak *streak = [TeamStreak newStreakWithTeam:_awayTeam opponent:_homeTeam];
                 [streak addLoss];
                 [_awayTeam.streaks setObject:streak forKey:_homeTeam.abbreviation];
-            }*/
+            }
             
         } else {
             _homeTeam.losses++;
@@ -696,25 +723,40 @@
             [_awayTeam.gameWLSchedule addObject:@"W"];
             [_awayTeam.gameWinsAgainst addObject:_homeTeam];
             
-            /*if ([_homeTeam.streaks.allKeys containsObject:_awayTeam.abbreviation]) {
-                TeamStreak *streak = _homeTeam.streaks[_awayTeam.abbreviation];
-                [streak addLoss];
-                [_homeTeam.streaks setObject:streak forKey:_awayTeam.abbreviation];
+            if (_homeTeam.streaks != nil) {
+                if ([_homeTeam.streaks.allKeys containsObject:_awayTeam.abbreviation]) {
+                    TeamStreak *streak = _homeTeam.streaks[_awayTeam.abbreviation];
+                    [streak addLoss];
+                    [_homeTeam.streaks setObject:streak forKey:_awayTeam.abbreviation];
+                } else {
+                    TeamStreak *streak = [TeamStreak newStreakWithTeam:_homeTeam opponent:_awayTeam];
+                    [streak addLoss];
+                    [_homeTeam.streaks setObject:streak forKey:_awayTeam.abbreviation];
+                }
             } else {
+                _homeTeam.streaks = [NSMutableDictionary dictionary];
                 TeamStreak *streak = [TeamStreak newStreakWithTeam:_homeTeam opponent:_awayTeam];
                 [streak addLoss];
                 [_homeTeam.streaks setObject:streak forKey:_awayTeam.abbreviation];
+                
             }
             
-            if ([_awayTeam.streaks.allKeys containsObject:_homeTeam.abbreviation]) {
-                TeamStreak *streak = _awayTeam.streaks[_homeTeam.abbreviation];
-                [streak addWin];
-                [_awayTeam.streaks setObject:streak forKey:_homeTeam.abbreviation];
+            if (_awayTeam.streaks != nil) {
+                if ([_awayTeam.streaks.allKeys containsObject:_homeTeam.abbreviation]) {
+                    TeamStreak *streak = _awayTeam.streaks[_homeTeam.abbreviation];
+                    [streak addWin];
+                    [_awayTeam.streaks setObject:streak forKey:_homeTeam.abbreviation];
+                } else {
+                    TeamStreak *streak = [TeamStreak newStreakWithTeam:_awayTeam opponent:_homeTeam];
+                    [streak addWin];
+                    [_awayTeam.streaks setObject:streak forKey:_homeTeam.abbreviation];
+                }
             } else {
+                _awayTeam.streaks = [NSMutableDictionary dictionary];
                 TeamStreak *streak = [TeamStreak newStreakWithTeam:_awayTeam opponent:_homeTeam];
                 [streak addWin];
                 [_awayTeam.streaks setObject:streak forKey:_homeTeam.abbreviation];
-            }*/
+            }
         }
         
         if ([_gameName isEqualToString:@"Rivalry Game"]) {

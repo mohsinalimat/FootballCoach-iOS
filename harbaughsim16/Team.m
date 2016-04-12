@@ -17,14 +17,32 @@
 #import "PlayerCB.h"
 #import "PlayerS.h"
 #import "HBSharedUtils.h"
+#import "Record.h"
 
 #import "AutoCoding.h"
 
 #define NFL_OVR 90
 #define NFL_CHANCE 0.50
+#define NFL_NCW_BONUS 0.2
 
 @implementation Team
-@synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,teamStreaks,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,teamRecordYearCompletions,teamRecordYearRushAtt,teamRecordYearPassTDs,teamRecordCompletions,teamRecordYearXPMade,teamRecordYearRecTDs,teamRecordYearFGMade,teamRecordReceptions,teamRecordRushYards,teamRecordPassYards,teamRecordRecYards,teamRecordYearInt,teamRecordYearFum,teamRecordRushTDs,teamRecordRushAtt,teamRecordPassTDs,teamRecordXPMade,teamRecordRecTDs,teamRecordFGMade,teamRecordInt,teamRecordFum,teamRecordYearRushTDs,teamRecordYearRecYards,teamRecordYearPassYards,teamRecordYearRushYards,teamRecordYearReceptions,playersLeaving;
+@synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks;
+
+-(NSArray*)singleSeasonRecords {
+    if (singleSeasonCompletionsRecord != nil) {
+        return @[singleSeasonCompletionsRecord, singleSeasonPassYardsRecord, singleSeasonPassTDsRecord, singleSeasonInterceptionsRecord, singleSeasonCarriesRecord, singleSeasonRushYardsRecord, singleSeasonRushTDsRecord, singleSeasonFumblesRecord, singleSeasonCatchesRecord, singleSeasonRecYardsRecord, singleSeasonRecTDsRecord, singleSeasonXpMadeRecord, singleSeasonFgMadeRecord];
+    } else {
+        return @[];
+    }
+}
+
+-(NSArray*)careerRecords {
+    if (careerCompletionsRecord != nil) {
+        return @[careerCompletionsRecord, careerPassYardsRecord, careerPassTDsRecord, careerInterceptionsRecord, careerCarriesRecord, careerRushYardsRecord, careerRushTDsRecord, careerFumblesRecord, careerCatchesRecord, careerRecYardsRecord, careerRecTDsRecord, careerXpMadeRecord, careerFgMadeRecord];
+    } else {
+        return @[];
+    }
+}
 
 +(instancetype)newTeamWithName:(NSString *)nm abbreviation:(NSString *)abbr conference:(NSString *)conf league:(League *)league prestige:(int)prestige rivalTeam:(NSString *)rivalTeamAbbr {
     return [[Team alloc] initWithName:nm abbreviation:abbr conference:conf league:league prestige:prestige rivalTeam:rivalTeamAbbr];
@@ -54,6 +72,7 @@
         gameWinsAgainst = [NSMutableArray array];
         gameWLSchedule = [NSMutableArray array];
         teamStreaks = [NSMutableDictionary dictionary];
+        streaks = [NSMutableDictionary dictionary];
         confChampion = @"";
         semifinalWL = @"";
         natlChampWL = @"";
@@ -98,6 +117,34 @@
         offensiveStrategy = [self getOffensiveTeamStrategies][teamStatOffNum];
         defensiveStrategy = [self getDefensiveTeamStrategies][teamStatDefNum];
         numberOfRecruits = 30;
+        
+        careerCompletionsRecord = nil;
+        careerPassYardsRecord = nil;
+        careerPassTDsRecord = nil;
+        careerInterceptionsRecord = nil;
+        careerFumblesRecord = nil;
+        careerRushYardsRecord = nil;
+        careerRushTDsRecord = nil;
+        careerCarriesRecord = nil;
+        careerRecYardsRecord = nil;
+        careerRecTDsRecord = nil;
+        careerCatchesRecord = nil;
+        careerXpMadeRecord = nil;
+        careerFgMadeRecord = nil;
+        
+        singleSeasonCompletionsRecord = nil;
+        singleSeasonPassYardsRecord = nil;
+        singleSeasonPassTDsRecord = nil;
+        singleSeasonInterceptionsRecord = nil;
+        singleSeasonFumblesRecord = nil;
+        singleSeasonRushYardsRecord = nil;
+        singleSeasonRushTDsRecord = nil;
+        singleSeasonCarriesRecord = nil;
+        singleSeasonRecYardsRecord = nil;
+        singleSeasonRecTDsRecord = nil;
+        singleSeasonCatchesRecord = nil;
+        singleSeasonXpMadeRecord = nil;
+        singleSeasonFgMadeRecord = nil;
     }
     return self;
 }
@@ -143,267 +190,13 @@
     PlayerWR *wr3 = [self getWR:2];
     PlayerK *k = [self getK:0];
     
-    
-    //team records
-    if (qb.statsTD > teamRecordPassTDs) {
-        teamRecordPassTDs = qb.statsTD;
-        teamRecordYearPassTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (qb.statsInt > teamRecordInt) {
-        teamRecordInt = qb.statsInt;
-        teamRecordYearInt = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (qb.statsPassYards > teamRecordPassYards) {
-        teamRecordPassYards = qb.statsPassYards;
-        teamRecordYearPassYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (qb.statsPassComp > teamRecordCompletions) {
-        teamRecordCompletions = qb.statsPassComp;
-        teamRecordYearCompletions = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb1.statsTD > teamRecordRushTDs) {
-        teamRecordRushTDs = rb1.statsTD;
-        teamRecordYearRushTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb1.statsFumbles > teamRecordFum) {
-        teamRecordFum = rb1.statsFumbles;
-        teamRecordYearFum = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb1.statsRushYards > teamRecordRushYards) {
-        teamRecordRushYards = rb1.statsRushYards;
-        teamRecordYearRushYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb1.statsRushAtt > teamRecordRushAtt) {
-        teamRecordRushAtt = rb1.statsRushAtt;
-        teamRecordYearRushAtt = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb2.statsTD > teamRecordRushTDs) {
-        teamRecordRushTDs = rb2.statsTD;
-        teamRecordYearRushTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb2.statsFumbles > teamRecordFum) {
-        teamRecordFum = rb2.statsFumbles;
-        teamRecordYearFum = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb2.statsRushYards > teamRecordRushYards) {
-        teamRecordRushYards = rb2.statsRushYards;
-        teamRecordYearRushYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb2.statsRushAtt > teamRecordRushAtt) {
-        teamRecordRushAtt = rb2.statsRushAtt;
-        teamRecordYearRushAtt = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr1.statsTD > teamRecordRecTDs) {
-        teamRecordRecTDs = wr1.statsTD;
-        teamRecordYearRecTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr1.statsFumbles > teamRecordFum) {
-        teamRecordFum = wr1.statsFumbles;
-        teamRecordYearFum = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr1.statsReceptions > teamRecordReceptions) {
-        teamRecordReceptions = wr1.statsReceptions;
-        teamRecordYearReceptions = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr1.statsRecYards > teamRecordRecYards) {
-        teamRecordRecYards = wr1.statsRecYards;
-        teamRecordYearRecYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr2.statsTD > teamRecordRecTDs) {
-        teamRecordRecTDs = wr2.statsTD;
-        teamRecordYearRecTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    if (wr2.statsReceptions > teamRecordReceptions) {
-        teamRecordReceptions = wr2.statsReceptions;
-        teamRecordYearReceptions = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr2.statsFumbles > teamRecordFum) {
-        teamRecordFum = wr2.statsFumbles;
-        teamRecordYearFum = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr2.statsRecYards > teamRecordRecYards) {
-        teamRecordRecYards = wr2.statsRecYards;
-        teamRecordYearRecYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr3.statsTD > teamRecordRecTDs) {
-        teamRecordRecTDs = wr3.statsTD;
-        teamRecordYearRecTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr3.statsFumbles > teamRecordFum) {
-        teamRecordFum = wr3.statsFumbles;
-        teamRecordYearFum = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr3.statsReceptions > teamRecordReceptions) {
-        teamRecordReceptions = wr3.statsReceptions;
-        teamRecordYearReceptions = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr3.statsRecYards > teamRecordRecYards) {
-        teamRecordRecYards = wr3.statsRecYards;
-        teamRecordYearRecYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (k.statsFGMade > teamRecordFGMade) {
-        teamRecordFGMade = k.statsFGMade;
-        teamRecordYearFGMade = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (k.statsXPMade > teamRecordXPMade) {
-        teamRecordXPMade = k.statsXPMade;
-        teamRecordYearXPMade = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    //league records
-    if (qb.statsTD > league.leagueRecordPassTDs) {
-        league.leagueRecordPassTDs = qb.statsTD;
-        league.leagueRecordYearPassTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (qb.statsInt > league.leagueRecordInt) {
-        league.leagueRecordInt = qb.statsInt;
-        league.leagueRecordYearInt = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (qb.statsPassYards > league.leagueRecordPassYards) {
-        league.leagueRecordPassYards = qb.statsPassYards;
-        league.leagueRecordYearPassYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (qb.statsPassComp > league.leagueRecordCompletions) {
-        league.leagueRecordCompletions = qb.statsPassComp;
-        league.leagueRecordYearCompletions = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb1.statsTD > league.leagueRecordRushTDs) {
-        league.leagueRecordRushTDs = rb1.statsTD;
-        league.leagueRecordYearRushTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb1.statsRushAtt > league.leagueRecordRushAtt) {
-        league.leagueRecordRushAtt = rb1.statsRushAtt;
-        league.leagueRecordYearRushAtt = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb1.statsFumbles > league.leagueRecordFum) {
-        league.leagueRecordFum = rb1.statsFumbles;
-        league.leagueRecordYearFum = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb1.statsRushYards > league.leagueRecordRushYards) {
-        league.leagueRecordRushYards = rb1.statsRushYards;
-        league.leagueRecordYearRushYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb2.statsTD > league.leagueRecordRushTDs) {
-        league.leagueRecordRushTDs = rb2.statsTD;
-        league.leagueRecordYearRushTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    if (rb2.statsRushAtt > league.leagueRecordRushAtt) {
-        league.leagueRecordRushAtt = rb2.statsRushAtt;
-        league.leagueRecordYearRushAtt = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb2.statsFumbles > league.leagueRecordFum) {
-        league.leagueRecordFum = rb2.statsFumbles;
-        league.leagueRecordYearFum = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (rb2.statsRushYards > league.leagueRecordRushYards) {
-        league.leagueRecordRushYards = rb2.statsRushYards;
-        league.leagueRecordYearRushYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr1.statsTD > teamRecordRecTDs) {
-        teamRecordRecTDs = wr1.statsTD;
-        league.leagueRecordYearRecTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr1.statsFumbles > league.leagueRecordFum) {
-        league.leagueRecordFum = wr1.statsFumbles;
-        league.leagueRecordYearFum = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr1.statsReceptions > league.leagueRecordReceptions) {
-        league.leagueRecordReceptions = wr1.statsReceptions;
-        league.leagueRecordYearReceptions = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr1.statsRecYards > league.leagueRecordRecYards) {
-        league.leagueRecordRecYards = wr1.statsRecYards;
-        league.leagueRecordYearRecYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr2.statsTD > league.leagueRecordRecTDs) {
-        league.leagueRecordRecTDs = wr2.statsTD;
-        league.leagueRecordYearRecTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr2.statsReceptions > league.leagueRecordReceptions) {
-        league.leagueRecordReceptions = wr2.statsReceptions;
-        league.leagueRecordYearReceptions = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr2.statsFumbles > league.leagueRecordFum) {
-        league.leagueRecordFum = wr2.statsFumbles;
-        league.leagueRecordYearFum = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr2.statsRecYards > league.leagueRecordRecYards) {
-        league.leagueRecordRecYards = wr2.statsRecYards;
-        league.leagueRecordYearRecYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr3.statsTD > league.leagueRecordRecTDs) {
-        league.leagueRecordRecTDs = wr3.statsTD;
-        league.leagueRecordYearRecTDs = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr3.statsReceptions > league.leagueRecordReceptions) {
-        league.leagueRecordReceptions = wr3.statsReceptions;
-        league.leagueRecordYearReceptions = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr3.statsFumbles > league.leagueRecordFum) {
-        league.leagueRecordFum = wr3.statsFumbles;
-        league.leagueRecordYearFum = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (wr3.statsRecYards > league.leagueRecordRecYards) {
-        league.leagueRecordRecYards = wr3.statsRecYards;
-        league.leagueRecordYearRecYards = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (k.statsFGMade > league.leagueRecordFGMade) {
-        league.leagueRecordFGMade = k.statsFGMade;
-        league.leagueRecordYearFGMade = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
-    if (k.statsXPMade > league.leagueRecordXPMade) {
-        league.leagueRecordXPMade = k.statsXPMade;
-        league.leagueRecordYearXPMade = (int)(2016 + league.leagueHistory.count - 1);
-    }
-    
+    [qb checkRecords];
+    [rb1 checkRecords];
+    [rb2 checkRecords];
+    [wr1 checkRecords];
+    [wr2 checkRecords];
+    [wr3 checkRecords];
+    [k checkRecords];
     
     [self advanceSeasonPlayers];
 }
@@ -1923,10 +1716,15 @@
 
 -(void)getPlayersLeaving {
     playersLeaving = [NSMutableArray array];
+    NSInteger nflChance = NFL_CHANCE;
+    if ([natlChampWL isEqualToString:@"NCW"]) {
+        nflChance += NFL_NCW_BONUS;
+    }
+    
     if (playersLeaving.count == 0) {
         int i = 0;
         while (i < teamQBs.count) {
-            if (teamQBs[i].year == 4 || (teamQBs[i].year == 3 && teamQBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < NFL_CHANCE)) {
+            if (teamQBs[i].year == 4 || (teamQBs[i].year == 3 && teamQBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
                 [playersLeaving addObject:teamQBs[i]];
                 ////NSLog(@"ADDED %@ QB TO PLAYERS LEAVING", abbreviation);
             }
@@ -1935,7 +1733,7 @@
         
         i = 0;
         while (i < teamRBs.count) {
-            if (teamRBs[i].year == 4 || (teamRBs[i].year == 3 && teamRBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < NFL_CHANCE)) {
+            if (teamRBs[i].year == 4 || (teamRBs[i].year == 3 && teamRBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
                 [playersLeaving addObject:teamRBs[i]];
                 ////NSLog(@"ADDED %@ RB TO PLAYERS LEAVING", abbreviation);
             }
@@ -1944,7 +1742,7 @@
         
         i = 0;
         while (i < teamWRs.count) {
-            if (teamWRs[i].year == 4 || (teamWRs[i].year == 3 && teamWRs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < NFL_CHANCE)) {
+            if (teamWRs[i].year == 4 || (teamWRs[i].year == 3 && teamWRs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
                 [playersLeaving addObject:teamWRs[i]];
                 ////NSLog(@"ADDED %@ WR TO PLAYERS LEAVING", abbreviation);
             }
@@ -1953,7 +1751,7 @@
         
         i = 0;
         while (i < teamKs.count) {
-            if (teamKs[i].year == 4) {
+            if (teamKs[i].year == 4 || (teamKs[i].year == 3 && teamKs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
                 [playersLeaving addObject:teamKs[i]];
                 ////NSLog(@"ADDED %@ K TO PLAYERS LEAVING", abbreviation);
             }
@@ -1962,7 +1760,7 @@
         
         i = 0;
         while (i < teamOLs.count) {
-            if (teamOLs[i].year == 4 || (teamOLs[i].year == 3 && teamOLs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < NFL_CHANCE)) {
+            if (teamOLs[i].year == 4 || (teamOLs[i].year == 3 && teamOLs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
                 [playersLeaving addObject:teamOLs[i]];
                 ////NSLog(@"ADDED %@ OL TO PLAYERS LEAVING", abbreviation);
             }
@@ -1971,7 +1769,7 @@
         
         i = 0;
         while (i < teamSs.count) {
-            if (teamSs[i].year == 4 || (teamSs[i].year == 3 && teamSs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < NFL_CHANCE)) {
+            if (teamSs[i].year == 4 || (teamSs[i].year == 3 && teamSs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
                 [playersLeaving addObject:teamSs[i]];
                 ////NSLog(@"ADDED %@ S TO PLAYERS LEAVING", abbreviation);
             }
@@ -1980,7 +1778,7 @@
         
         i = 0;
         while (i < teamCBs.count) {
-            if (teamCBs[i].year == 4 || (teamCBs[i].year == 3 && teamCBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < NFL_CHANCE)) {
+            if (teamCBs[i].year == 4 || (teamCBs[i].year == 3 && teamCBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
                 [playersLeaving addObject:teamCBs[i]];
                 ////NSLog(@"ADDED %@ CB TO PLAYERS LEAVING", abbreviation);
             }
@@ -1989,7 +1787,7 @@
         
         i = 0;
         while (i < teamF7s.count) {
-            if (teamF7s[i].year == 4 || (teamF7s[i].year == 3 && teamF7s[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < NFL_CHANCE)) {
+            if (teamF7s[i].year == 4 || (teamF7s[i].year == 3 && teamF7s[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
                 [playersLeaving addObject:teamF7s[i]];
                 ////NSLog(@"ADDED %@ F7 TO PLAYERS LEAVING", abbreviation);
             }

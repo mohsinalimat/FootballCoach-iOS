@@ -231,4 +231,8 @@
 -(NSDictionary*)detailedRatings {
     return [NSDictionary dictionary];
 }
+
+-(void)checkRecords {
+    
+}
 @end
