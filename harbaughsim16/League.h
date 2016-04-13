@@ -115,7 +115,7 @@
 
 
 +(BOOL)loadSavedData;
-+(NSArray*)bowlGameTitles;
+-(NSArray*)bowlGameTitles;
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV;
 +(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName names:(NSString*)namesCSV;
 

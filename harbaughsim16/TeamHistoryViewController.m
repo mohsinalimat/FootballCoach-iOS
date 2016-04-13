@@ -42,7 +42,7 @@
     history = [userTeam.teamHistory copy];
     self.title = [NSString stringWithFormat:@"%@ Team History", userTeam.abbreviation];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-    
+    [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
     [teamHeaderView.teamNameLabel setText:userTeam.name];
     [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%d-%d",userTeam.totalWins, userTeam.totalLosses]];
     if ([userTeam isEqual:[HBSharedUtils getLeague].userTeam]) {

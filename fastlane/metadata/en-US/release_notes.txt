@@ -1,1 +1,8 @@
-Initial release. 
+* Fixed a bug where team abbreviations would not appear for some players.
+* Fixed a game-breaking issue where RBs were set as starters for CBs.
+* New colors and logo to unify the app's theme across platforms
+* Better record tracking
+* Better team streak tracking
+* Cleaner league history view
+* Fixed bowl game scheduling
+* Smaller pool of recruits

@@ -1036,7 +1036,7 @@
         
     } else {
         //no completion, advance downs
-        [self passAttempt:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
+        //[self passAttempt:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
         gameDown++;
         gameTime -= (15 * [HBSharedUtils randomValue]);
         return;
@@ -1751,9 +1751,9 @@
     offense.teamPassYards += yardsGained;
     
     if ( gamePoss ) { // home possession
-        NSNumber *qbAtt = _HomeQBStats[0];
+        /*NSNumber *qbAtt = _HomeQBStats[0];
         qbAtt = [NSNumber numberWithInteger:qbAtt.integerValue + 1];
-        [_HomeQBStats replaceObjectAtIndex:0 withObject:qbAtt];
+        [_HomeQBStats replaceObjectAtIndex:0 withObject:qbAtt];*/
         
         NSNumber *qbComp = _HomeQBStats[1];
         qbComp = [NSNumber numberWithInteger:qbComp.integerValue + 1];
@@ -1763,9 +1763,9 @@
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];
         [selWRStats replaceObjectAtIndex:0 withObject:wrTarget];
     } else {
-        NSNumber *qbStat = _AwayQBStats[0];
+        /*NSNumber *qbStat = _AwayQBStats[0];
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
-        [_AwayQBStats replaceObjectAtIndex:0 withObject:qbStat];
+        [_AwayQBStats replaceObjectAtIndex:0 withObject:qbStat];*/
         
         NSNumber *qbComp = _AwayQBStats[1];
         qbComp = [NSNumber numberWithInteger:qbComp.integerValue + 1];

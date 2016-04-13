@@ -498,10 +498,10 @@
     for( int i = 0; i < cbNeeds; ++i ) {
         //make CBs
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
-             [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:(int)(4* [HBSharedUtils randomValue] + 1) stars:(stars - 1)]];
+             [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:(int)(4* [HBSharedUtils randomValue] + 1) stars:(stars - 1) team:self]];
             //teamCBs addObject: new PlayerCB(league.getRandName(), (int)(4*[HBSharedUtils randomValue] + 1), stars-1) );
         } else {
-            [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:(int)(4* [HBSharedUtils randomValue] + 1) stars:(stars)]];
+            [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:(int)(4* [HBSharedUtils randomValue] + 1) stars:(stars) team:self]];
             //teamCBs addObject: new PlayerCB(league.getRandName(), (int)(4*[HBSharedUtils randomValue] + 1), stars) );
         }
     }
@@ -518,9 +518,9 @@
     for( int i = 0; i < sNeeds; ++i ) {
         //make Ss
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
-            [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:(int)(4* [HBSharedUtils randomValue] + 1) stars:(stars - 1)]];
+            [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:(int)(4* [HBSharedUtils randomValue] + 1) stars:(stars - 1) team:self]];
         } else {
-            [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:(int)(4* [HBSharedUtils randomValue] + 1) stars:(stars)]];
+            [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:(int)(4* [HBSharedUtils randomValue] + 1) stars:(stars) team:self]];
         }
     }
     
@@ -703,9 +703,9 @@
         }
         
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
-            [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:1 stars:(stars - 1)]];
+            [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:1 stars:(stars - 1) team:self]];
         } else {
-            [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:1 stars:(stars)]];
+            [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:1 stars:(stars) team:self]];
         }
     }
     
@@ -735,9 +735,9 @@
         }
         
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
-            [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:1 stars:(stars - 1)]];
+            [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:1 stars:(stars - 1) team:self]];
         } else {
-            [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:1 stars:(stars)]];
+            [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:1 stars:(stars) team:self]];
         }
     }
     
@@ -849,12 +849,12 @@
     
     for( int i = 0; i < sNeeds; ++i ) {
         //make Ss
-        [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:1 stars:1]];
+        [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:1 stars:1 team:self]];
     }
     
     for( int i = 0; i < cbNeeds; ++i ) {
         //make CBs
-        [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:1 stars:1]];
+        [teamCBs addObject:[PlayerCB newCBWithName:[league getRandName] year:1 stars:1 team:self]];
     }
     
     for( int i = 0; i < f7Needs; ++i ) {
@@ -2056,7 +2056,7 @@
     int stars;
     for (int i = 0; i < numberOfRecruits; ++i) {
         stars = (int)(5*(float)(numberOfRecruits - i/2)/numberOfRecruits);
-        recruits[i] = [PlayerS newSWithName:[league getRandName] year:1 stars:stars];
+        recruits[i] = [PlayerS newSWithName:[league getRandName] year:1 stars:stars team:self];
     }
     [recruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
@@ -2105,7 +2105,7 @@
     int stars;
     for (int i = 0; i < numCBrecruits; ++i) {
         stars = (int)(5*(float)(numCBrecruits - i/2)/numCBrecruits);
-        recruits[i] = [PlayerCB newCBWithName:[league getRandName] year:1 stars:stars];
+        recruits[i] = [PlayerCB newCBWithName:[league getRandName] year:1 stars:stars team:self];
     }
     
     [recruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {

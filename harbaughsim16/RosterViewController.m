@@ -123,7 +123,7 @@
             PlayerF7 *f7 = userTeam.teamF7s[sourceIndexPath.row];
             [userTeam.teamF7s removeObject:f7];
             [userTeam.teamF7s insertObject:f7 atIndex:destinationIndexPath.row];
-            [userTeam setStarters:[userTeam.teamRBs copy] position:4];
+            [userTeam setStarters:[userTeam.teamF7s copy] position:4];
         } else if (destinationIndexPath.section == 5) {
             PlayerCB *cb = userTeam.teamCBs[sourceIndexPath.row];
             [userTeam.teamCBs removeObject:cb];

@@ -59,13 +59,14 @@
     return [[PlayerCB alloc] initWithName:name team:team year:year potential:potential iq:iq coverage:coverage speed:speed tackling:tackling];
 }
 
-+(instancetype)newCBWithName:(NSString *)name year:(int)year stars:(int)stars {
-    return [[PlayerCB alloc] initWithName:name year:year stars:stars];
++(instancetype)newCBWithName:(NSString *)name year:(int)year stars:(int)stars team:(Team*)t {
+    return [[PlayerCB alloc] initWithName:name year:year stars:stars team:t];
 }
 
--(instancetype)initWithName:(NSString*)name year:(int)year stars:(int)stars {
+-(instancetype)initWithName:(NSString*)name year:(int)year stars:(int)stars team:(Team*)t {
     self = [super init];
     if(self) {
+        self.team = t;
         self.name = name;
         self.year = year;
         self.ratPot = (int)([HBSharedUtils randomValue]*50 + 50);

@@ -29,8 +29,8 @@ static UIColor *styleColor = nil;
     return [HBSharedUtils getLeague].recruitingStage;
 }
 
-+(UIColor *)styleColor {
-    return [UIColor hx_colorWithHexRGBAString:@"#009740"];
++(UIColor *)styleColor { //FC Android color: #3EB49F or #3DB39E //FC iOS color: #009740 //USA Red: #BB133E // USA Blue: #002147
+    return [UIColor hx_colorWithHexRGBAString:@"#3DB39E"];
 }
 
 +(UIColor *)errorColor {
@@ -59,8 +59,6 @@ static UIColor *styleColor = nil;
     BOOL weekNotifs = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
     if (weekNotifs) {
         [CSNotificationView showInViewController:viewController tintColor:tintColor image:nil message:message duration:0.5];
-    } else {
-        //NSLog(@"DON'T SEND NOTIFS");
     }
 }
 @end

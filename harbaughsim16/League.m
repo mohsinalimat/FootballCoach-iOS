@@ -453,7 +453,7 @@
     return [[League alloc] initWithSaveFile:@"league.cfb" names:namesCSV];
 }
 
-+(NSArray*)bowlGameTitles {
+-(NSArray*)bowlGameTitles {
     return @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
 }
 
@@ -792,22 +792,23 @@
 
     //other bowls
     NSMutableArray *bowlEligibleTeams = [NSMutableArray array];
-    for (int i = 4; i < ([[self class] bowlGameTitles].count * 2); i++) {
+    for (int i = 4; i < ([self bowlGameTitles].count * 2); i++) {
         [bowlEligibleTeams addObject:_teamList[i]];
     }
 
     [_bowlGames removeAllObjects];
-    for (int i = 0; i < [[self class] bowlGameTitles].count - 2; i+=2) {
-        NSString *bowlName = [[self class] bowlGameTitles][i];
-        Team *home = bowlEligibleTeams[i];
-        Team *away = bowlEligibleTeams[i + 1];
+    int j = 0;
+    int teamIndex = 0;
+    while (j < [self bowlGameTitles].count && teamIndex < bowlEligibleTeams.count) {
+        NSString *bowlName = [self bowlGameTitles][j];
+        Team *home = bowlEligibleTeams[teamIndex];
+        Team *away = bowlEligibleTeams[teamIndex + 1];
         Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
-        //NSLog(@"%@: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
         [_bowlGames addObject:bowl];
         [home.gameSchedule addObject:bowl];
         [away.gameSchedule addObject:bowl];
-        [bowlEligibleTeams removeObject:home];
-        [bowlEligibleTeams removeObject:away];
+        j++;
+        teamIndex+=2;
     }
 
 
@@ -1264,23 +1265,22 @@
         [sb addObject:[Game newGameWithHome:t1 away:t2 name:@"Semis, 2v3"]];
 
         NSMutableArray *bowlEligibleTeams = [NSMutableArray array];
-        for (int i = 4; i < ([[self class] bowlGameTitles].count * 2); i++) {
+        for (int i = 4; i < ([self bowlGameTitles].count * 2); i++) {
             [bowlEligibleTeams addObject:_teamList[i]];
         }
 
         [_bowlGames removeAllObjects];
-        for (int i = 0; i < [[self class] bowlGameTitles].count - 2; i+=2) {
-            NSString *bowlName = [[self class] bowlGameTitles][i];
-            Team *home = bowlEligibleTeams[i];
-            Team *away = bowlEligibleTeams[i + 1];
+        int j = 0;
+        int teamIndex = 0;
+        while (j < [self bowlGameTitles].count && teamIndex < bowlEligibleTeams.count) {
+            NSString *bowlName = [self bowlGameTitles][j];
+            Team *home = bowlEligibleTeams[teamIndex];
+            Team *away = bowlEligibleTeams[teamIndex + 1];
             Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
-            //NSLog(@"%@ Projection: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
+            NSLog(@"%@ Projection: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
+            j++;
+            teamIndex+=2;
             [sb addObject:bowl];
-            //[_bowlGames addObject:bowl];
-            //[home.gameSchedule addObject:bowl];
-            //[away.gameSchedule addObject:bowl];
-            [bowlEligibleTeams removeObject:home];
-            [bowlEligibleTeams removeObject:away];
         }
 
 
@@ -1288,18 +1288,10 @@
     } else {
         // Games have already been scheduled, give actual teams
         NSMutableArray *sb = [NSMutableArray array];
-        //[sb appendString:@"Bowl Game Results:\n\n"];
-
-        //[sb appendString:@"Semifinal 1v4:\n"];
-        //[sb appendString:[self getGameSummaryBowl:_semiG14]];
         [sb addObject:_semiG14];
         [sb addObject:_semiG23];
-        //[sb appendString:@"Semifinal 2v3:\n"];
-        //[sb appendString:[self getGameSummaryBowl:_semiG23]];
 
         for (Game *bowl in _bowlGames) {
-            //[sb appendString:[NSString stringWithFormat:@"\n\n%@:\n", bowl.gameName]];
-            //[sb appendString:[self getGameSummaryBowl:bowl]];
             [sb addObject:bowl];
         }
 
@@ -1344,8 +1336,8 @@
         t2 = _teamList[2];
         [sb appendString:[NSString stringWithFormat:@"%@ vs %@\n\n", t1.strRep, t2.strRep]];
 
-        for (int i = 0; i < [[self class] bowlGameTitles].count; i+=2) {
-            NSString *bowlName = [[self class] bowlGameTitles][i];
+        for (int i = 0; i < [self bowlGameTitles].count; i+=2) {
+            NSString *bowlName = [self bowlGameTitles][i];
             Team *home = _teamList[i + 4];
             Team *away = _teamList[i + 5];
             [sb appendString:[NSString stringWithFormat:@"%@:\n\t\t", bowlName]];
