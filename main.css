@@ -21,7 +21,7 @@ body {
 }
 
 .ios {
-  background: #009740;
+  background: #44B39F;
 }
 
 .bs-docs-footer-links {
@@ -62,13 +62,13 @@ body {
 .icon-img {
   width: 360px;
   margin-top: 100px;
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
   border-radius: 78px 78px 78px 78px;
   -moz-border-radius: 78px 78px 78px 78px;
   -webkit-border-radius: 78px 78px 78px 78px;
-  border: 0px solid #000000;
+  border: 1px solid rgb(55,55,55);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  -webkit-background-clip: padding-box; /* for Safari */
+  background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
 }
 
 .android-icon-img {
@@ -99,13 +99,13 @@ body {
     .icon-img {
       width: 240px;
       margin-top: 50px;
-      -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-      -moz-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
-      box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
       border-radius: 52px 52px 52px 52px;
       -moz-border-radius: 52px 52px 52px 52px;
       -webkit-border-radius: 52px 52px 52px 52px;
-      border: 0px solid #000000;
+      border: 1px solid rgb(55,55,55);
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      -webkit-background-clip: padding-box; /* for Safari */
+      background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
     }
 
     .android-icon-img {
