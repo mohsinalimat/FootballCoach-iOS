@@ -228,6 +228,7 @@
 -(NSString*)getRankStrStarUser:(int)num;
 -(int)numGames;
 -(int)getConfWins;
+-(int)getConfLosses;
 -(NSString*)strRep;
 -(NSString*)strRepWithBowlResults;
 -(NSString*)weekSummaryString;

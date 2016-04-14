@@ -163,7 +163,6 @@
          
          }] mutableCopy];
         for (int j = 0; j < teamTB.count; ++j) {
-            //_confTeams.set(j, teamTB.get(j));
             [_confTeams replaceObjectAtIndex:j withObject:teamTB[j]];
         }
      

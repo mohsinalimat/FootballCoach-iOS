@@ -1637,6 +1637,23 @@
     return confWins;
 }
 
+-(int)getConfLosses {
+    int confLosses = 0;
+    Game *g;
+    for (int i = 0; i < gameWLSchedule.count; ++i) {
+        g = gameSchedule[i];
+        if ( [g.gameName isEqualToString:@"In Conf" ] || [g.gameName isEqualToString:@"Rivalry Game"] ) {
+            // in conference game, see if was won
+            if ( [g.homeTeam isEqual: self] && g.homeScore < g.awayScore ) {
+                confLosses++;
+            } else if ( [g.awayTeam isEqual: self] && g.homeScore > g.awayScore ) {
+                confLosses++;
+            }
+        }
+    }
+    return confLosses;
+}
+
 -(NSString*)strRep {
     if (rankTeamPollScore > 0 && rankTeamPollScore < 26) {
         return [NSString stringWithFormat:@"#%ld %@ (%ld-%ld)",(long)rankTeamPollScore,abbreviation,(long)wins,(long)losses];
