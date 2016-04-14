@@ -1036,14 +1036,11 @@
         
     } else {
         //no completion, advance downs
-        //[self passAttempt:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
+        [self passAttempt:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
         gameDown++;
         gameTime -= (15 * [HBSharedUtils randomValue]);
         return;
     }
-    
-    //passAttempt(offense, selWR, selWRStats, yardsGain);
-    [self passAttempt:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
     
     
     if ( gotFumble ) {
@@ -1687,6 +1684,7 @@
 }
 
 -(void)qbInterception:(Team *)offense {
+    [offense getQB:0].statsPassAtt++;
     if ( gamePoss ) { // home possession
         NSNumber *qbInt = _HomeQBStats[3];
         qbInt = [NSNumber numberWithInteger:qbInt.integerValue + 1];
@@ -1745,31 +1743,51 @@
 
 -(void)passCompletion:(Team *)offense defense:(Team *)defense receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(int)yardsGained {
     [offense getQB:0].statsPassComp++;
+    [offense getQB:0].statsPassAtt++;
     [offense getQB:0].statsPassYards += yardsGained;
     selWR.statsReceptions++;
+    selWR.statsTargets++;
     selWR.statsRecYards += yardsGained;
     offense.teamPassYards += yardsGained;
     
     if ( gamePoss ) { // home possession
-        /*NSNumber *qbAtt = _HomeQBStats[0];
-        qbAtt = [NSNumber numberWithInteger:qbAtt.integerValue + 1];
-        [_HomeQBStats replaceObjectAtIndex:0 withObject:qbAtt];*/
+        _homeYards += yardsGained;
+        NSNumber *qbStatYd = _HomeQBStats[4];
+        qbStatYd = [NSNumber numberWithInteger:qbStatYd.integerValue + yardsGained];
+        [_HomeQBStats replaceObjectAtIndex:4 withObject:qbStatYd];
         
         NSNumber *qbComp = _HomeQBStats[1];
         qbComp = [NSNumber numberWithInteger:qbComp.integerValue + 1];
         [_HomeQBStats replaceObjectAtIndex:1 withObject:qbComp];
         
+        NSNumber *qbStat = _HomeQBStats[0];
+        qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
+        [_HomeQBStats replaceObjectAtIndex:0 withObject:qbStat];
+        
         NSNumber *wrTarget = selWRStats[0];
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];
         [selWRStats replaceObjectAtIndex:0 withObject:wrTarget];
+        
+        NSNumber *wr2Yds = selWRStats[2];
+        wr2Yds = [NSNumber numberWithInteger:wr2Yds.integerValue + yardsGained];
+        [selWRStats replaceObjectAtIndex:2 withObject:wr2Yds];
     } else {
-        /*NSNumber *qbStat = _AwayQBStats[0];
+        _awayYards += yardsGained;
+        NSNumber *qbStatYd = _AwayQBStats[4];
+        qbStatYd = [NSNumber numberWithInteger:qbStatYd.integerValue + yardsGained];
+        [_AwayQBStats replaceObjectAtIndex:4 withObject:qbStatYd];
+        
+        NSNumber *qbStat = _AwayQBStats[0];
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
-        [_AwayQBStats replaceObjectAtIndex:0 withObject:qbStat];*/
+        [_AwayQBStats replaceObjectAtIndex:0 withObject:qbStat];
         
         NSNumber *qbComp = _AwayQBStats[1];
         qbComp = [NSNumber numberWithInteger:qbComp.integerValue + 1];
         [_AwayQBStats replaceObjectAtIndex:1 withObject:qbComp];
+        
+        NSNumber *wr2Yds = selWRStats[2];
+        wr2Yds = [NSNumber numberWithInteger:wr2Yds.integerValue + yardsGained];
+        [selWRStats replaceObjectAtIndex:2 withObject:wr2Yds];
         
         NSNumber *wrTarget = selWRStats[0];
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];
@@ -1783,37 +1801,26 @@
     selWR.statsTargets++;
     
     if ( gamePoss ) { // home possession
-        _homeYards += yardsGained;
-         NSNumber *qbStatYd = _HomeQBStats[4];
-         qbStatYd = [NSNumber numberWithInteger:qbStatYd.integerValue + yardsGained];
-         [_HomeQBStats replaceObjectAtIndex:4 withObject:qbStatYd];
+        
          
-         NSNumber *qbStat = _HomeQBStats[0];
-         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
-         [_HomeQBStats replaceObjectAtIndex:0 withObject:qbStat];
-        
-        NSNumber *wr2Yds = selWRStats[2];
-        wr2Yds = [NSNumber numberWithInteger:wr2Yds.integerValue + yardsGained];
-        [selWRStats replaceObjectAtIndex:2 withObject:wr2Yds];
-        
+        NSNumber *qbStat = _HomeQBStats[0];
+        qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
+        [_HomeQBStats replaceObjectAtIndex:0 withObject:qbStat];
+
+
+
         NSNumber *wrTarget = selWRStats[1];
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];
         [selWRStats replaceObjectAtIndex:1 withObject:wrTarget];
         
         
     } else {
-        _awayYards += yardsGained;
-        NSNumber *qbStatYd = _AwayQBStats[4];
-        qbStatYd = [NSNumber numberWithInteger:qbStatYd.integerValue + yardsGained];
-        [_AwayQBStats replaceObjectAtIndex:4 withObject:qbStatYd];
         
         NSNumber *qbStat = _AwayQBStats[0];
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
         [_AwayQBStats replaceObjectAtIndex:0 withObject:qbStat];
         
-        NSNumber *wr2Yds = selWRStats[2];
-        wr2Yds = [NSNumber numberWithInteger:wr2Yds.integerValue + yardsGained];
-        [selWRStats replaceObjectAtIndex:2 withObject:wr2Yds];
+
         
         NSNumber *wrTarget = selWRStats[1];
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];
