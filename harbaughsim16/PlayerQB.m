@@ -280,7 +280,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    NSMutableDictionary *stats = [NSMutableDictionary dictionaryWithDictionary:[super detailedRatings]];
     [stats setObject:[self getLetterGrade:_ratPassPow] forKey:@"passPower"];
     [stats setObject:[self getLetterGrade:_ratPassAcc] forKey:@"passAccuracy"];
     [stats setObject:[self getLetterGrade:_ratPassEva] forKey:@"passEvasion"];

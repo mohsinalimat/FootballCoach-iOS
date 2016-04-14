@@ -157,10 +157,9 @@
     }
 }
 
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 2) {
-        return 3;
+        return 4;
     } else if (section == 1) {
         return 6;
     } else {
@@ -196,8 +195,10 @@
                 [cell.textLabel setText:@"Developer's Website"];
             } else if (indexPath.row == 1) {
                 [cell.textLabel setText:@"Email Developer"];
-            } else {
+            } else if (indexPath.row == 2) {
                 [cell.textLabel setText:@"Football Coach on GitHub"];
+            } else {
+                [cell.textLabel setText:@"Submit a Review"];
             }
         }
         return cell;
@@ -293,11 +294,19 @@
             [composer setToRecipients:@[@"akeaswaran@me.com"]];
             [composer setSubject:[NSString stringWithFormat:@"Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
             [self presentViewController:composer animated:YES completion:nil];
-        } else {
+        } else if (indexPath.row == 2) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS"]];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+
+        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to leave Football Coach?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:HB_APP_REVIEW_URL]];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
 

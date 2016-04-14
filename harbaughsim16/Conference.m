@@ -196,6 +196,104 @@
     [_confTeams[1].gameSchedule addObject:_ccg];
 }
 
+-(void)sortConfTeams {
+    _confTeams = [[_confTeams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Team *a = (Team*)obj1;
+        Team *b = (Team*)obj2;
+        if ([a getConfWins] > [b getConfWins]) {
+            return -1;
+        } else if ([a getConfWins] == [b getConfWins]) {
+            //check for h2h tiebreaker
+            if ([a.gameWinsAgainst containsObject:b]) {
+                return -1;
+            } else if ([b.gameWinsAgainst containsObject:a]) {
+                return 1;
+            } else {
+                return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+            }
+        } else {
+            return 1;
+        }
+    }] mutableCopy];
+}
+
+-(Game*)ccgPrediction {
+    if (!_ccg) { // ccg hasn't been scheduled so we can project it
+        for ( int i = 0; i < _confTeams.count; ++i ) {
+            [_confTeams[i] updatePollScore];
+        }
+        
+        _confTeams = [[_confTeams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            if ([a getConfWins] > [b getConfWins]) {
+                return -1;
+            } else if ([a getConfWins] == [b getConfWins]) {
+                //check for h2h tiebreaker
+                if ([a.gameWinsAgainst containsObject:b]) {
+                    return -1;
+                } else if ([b.gameWinsAgainst containsObject:a]) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else {
+                return 1;
+            }
+        }] mutableCopy];
+        
+        int winsFirst = [_confTeams[0] getConfWins];
+        Team *t = _confTeams[0];
+        int i = 0;
+        NSMutableArray *teamTB = [NSMutableArray array];
+        while ([t getConfWins] == winsFirst) {
+            [teamTB addObject:t];
+            ++i;
+            t = _confTeams[i];
+        }
+        if (teamTB.count > 2) {
+            // ugh 3 way tiebreaker
+            teamTB = [[teamTB sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                Team *a = (Team*)obj1;
+                Team *b = (Team*)obj2;
+                return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+                
+            }] mutableCopy];
+            for (int j = 0; j < teamTB.count; ++j) {
+                [_confTeams replaceObjectAtIndex:j withObject:teamTB[j]];
+            }
+            
+        }
+        
+        int winsSecond = [_confTeams[1] getConfWins];
+        t = _confTeams[1];
+        i = 1;
+        [teamTB removeAllObjects];
+        while ([t getConfWins] == winsSecond) {
+            [teamTB addObject:t];
+            ++i;
+            t = _confTeams[i];
+        }
+        if (teamTB.count > 2) {
+            // ugh 3 way tiebreaker
+            teamTB = [[teamTB sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                Team *a = (Team*)obj1;
+                Team *b = (Team*)obj2;
+                return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+                
+            }] mutableCopy];
+            for (int j = 0; j < teamTB.count; ++j) {
+                [_confTeams replaceObjectAtIndex:(j+1) withObject:teamTB[j]];
+            }
+            
+        }
+        
+        return [Game newGameWithHome:_confTeams[0]  away:_confTeams[1] name:[NSString stringWithFormat:@"%@ CCG", _confName]];
+    } else { //ccg has been scheduled/played so send that forward
+        return _ccg;
+    }
+}
+
 -(void)playWeek {
     if ( _week == 12 ) {
         [self playConfChamp];

@@ -37,6 +37,10 @@ static UIColor *styleColor = nil;
     return [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
 }
 
++(UIColor *)successColor {
+    return [UIColor hx_colorWithHexRGBAString:@"#1a9641"];
+}
+
 +(void)setStyleColor:(NSDictionary*)colorDict {
     styleColor = [NSKeyedUnarchiver unarchiveObjectWithData:colorDict[@"color"]];
     [[NSUserDefaults standardUserDefaults] setObject:colorDict forKey:HB_CURRENT_THEME_COLOR];

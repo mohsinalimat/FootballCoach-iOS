@@ -20,7 +20,8 @@
 @property (nonatomic) int robinWeek;
 
 +(instancetype)newConferenceWithName:(NSString*)name league:(League*)league;
--(NSString*)getCCGString;
+-(Game*)ccgPrediction;
+-(void)sortConfTeams;
 -(void)playConfChamp;
 -(void)scheduleConfChamp;
 -(void)playWeek;

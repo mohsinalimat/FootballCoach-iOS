@@ -66,7 +66,7 @@
     
     if (userTeam.gameWLSchedule.count > 0) {
         if ([cell.gameScoreLabel.text containsString:@"W"]) {
-            [cell.gameScoreLabel setTextColor:[UIColor hx_colorWithHexRGBAString:@"#1a9641"]];
+            [cell.gameScoreLabel setTextColor:[HBSharedUtils successColor]];
         } else if ([cell.gameScoreLabel.text containsString:@"L"]) {
             [cell.gameScoreLabel setTextColor:[HBSharedUtils errorColor]];
         } else {

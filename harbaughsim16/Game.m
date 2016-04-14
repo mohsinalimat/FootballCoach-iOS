@@ -671,8 +671,7 @@
         _awayTeam.teamTODiff += _homeTOs-_awayTOs;
         
         _hasPlayed = true;
-        
-        [self addNewsStory];
+
         
         //game over, add wins
         if (_homeScore > _awayScore) {
@@ -772,6 +771,8 @@
                 _homeTeam.wonRivalryGame = false;
             }
         }
+        
+        [self addNewsStory];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"playedGame" object:nil];
 }
@@ -1213,8 +1214,8 @@
 }
 
 -(void)fieldGoalAtt:(Team *)offense defense:(Team *)defense {
-    double fgDistRatio = pow((110 - gameYardLine)/50,2);
-    double fgAccRatio = pow((110 - gameYardLine)/50,1.25);
+    double fgDistRatio = pow((117 - gameYardLine)/50,2);
+    double fgAccRatio = pow((117 - gameYardLine)/50,1.25);
     double fgDistChance = ( [self getHFAdv] + [offense getK:0].ratKickPow - fgDistRatio*80 );
     double fgAccChance = ( [self getHFAdv] + [offense getK:0].ratKickAcc - fgAccRatio*80 );
     if ( fgDistChance > 20 && fgAccChance* [HBSharedUtils randomValue] > 15 ) {
@@ -1239,7 +1240,7 @@
             kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
             [_AwayKStats replaceObjectAtIndex:2 withObject:kStat2];
         }
-         [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ made the %d yard FG.",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (110-gameYardLine)]];
+         [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ made the %d yard FG.",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (117-gameYardLine)]];
         [self addPointsQuarter:3];
         //offense.teamPoints += 3;
         //defense.teamOppPoints += 3;
@@ -1254,7 +1255,7 @@
     } else {
         //miss
         
-        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ missed the %d yard FG!",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (110-gameYardLine)]];
+        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ missed the %d yard FG!",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (117-gameYardLine)]];
         [offense getK:0].statsFGAtt++;
         if ( gamePoss ) { // home possession
             NSNumber *kStat1 = _HomeKStats[3];

@@ -139,7 +139,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    NSMutableDictionary *stats = [NSMutableDictionary dictionaryWithDictionary:[super detailedRatings]];
     [stats setObject:[self getLetterGrade:_ratOLPow] forKey:@"olPower"];
     [stats setObject:[self getLetterGrade:_ratOLBkR] forKey:@"olRunBlock"];
     [stats setObject:[self getLetterGrade:_ratOLBkP] forKey:@"olPassBlock"];

@@ -89,6 +89,13 @@
             [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,bowl.awayTeam.name]];
             [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d, %@",bowl.awayTeam.wins,bowl.awayTeam.losses,bowl.awayTeam.conference]];
             [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.awayScore]];
+            if (bowl.homeScore < bowl.awayScore) {
+                [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
+                [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
+            } else {
+                [cell.teamNameLabel setTextColor:[UIColor blackColor]];
+                [cell.scoreLabel setTextColor:[UIColor blackColor]];
+            }
         } else {
             NSString *homeRank = @"";
             if (bowl.homeTeam.rankTeamPollScore < 26 && bowl.homeTeam.rankTeamPollScore > 0) {
@@ -97,6 +104,13 @@
             [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,bowl.homeTeam.name]];
             [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d, %@",bowl.homeTeam.wins,bowl.homeTeam.losses,bowl.homeTeam.conference]];
             [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.homeScore]];
+            if (bowl.homeScore > bowl.awayScore) {
+                [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
+                [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
+            } else {
+                [cell.teamNameLabel setTextColor:[UIColor blackColor]];
+                [cell.scoreLabel setTextColor:[UIColor blackColor]];
+            }
         }
         return cell;
 
@@ -107,7 +121,11 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ButtonCell"];
         }
         
-        [cell.textLabel setText:@"View Game"];
+        if (bowl.hasPlayed) {
+            [cell.textLabel setText:@"View Game"];
+        } else {
+            [cell.textLabel setText:@"Preview Matchup"];
+        }
         [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
         [cell.textLabel setTextColor:self.view.tintColor];
         [cell setAccessoryType:UITableViewCellAccessoryNone];

@@ -229,7 +229,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    return [NSDictionary dictionary];
+    return @{@"potential" : [self getLetterGrade:_ratPot]};
 }
 
 -(void)checkRecords {

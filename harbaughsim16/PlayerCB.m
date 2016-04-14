@@ -131,7 +131,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    NSMutableDictionary *stats = [NSMutableDictionary dictionaryWithDictionary:[super detailedRatings]];
     [stats setObject:[self getLetterGrade:_ratCBCov] forKey:@"cbCoverage"];
     [stats setObject:[self getLetterGrade:_ratCBSpd] forKey:@"cbSpeed"];
     [stats setObject:[self getLetterGrade:_ratCBTkl] forKey:@"cbTackling"];

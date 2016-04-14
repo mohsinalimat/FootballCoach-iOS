@@ -16,6 +16,8 @@
 #import "AllLeagueTeamViewController.h"
 #import "AllConferenceTeamConferenceSelectorViewController.h"
 #import "AllConferenceTeamViewController.h"
+#import "ConferenceStandingsSelectorViewController.h"
+#import "ConferenceStandingsViewController.h"
 
 #import "CSNotificationView.h"
 #import "HexColors.h"
@@ -239,6 +241,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToConfTeam:) name:@"pushToConfTeam" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToConfStandings:) name:@"pushToConfStandings" object:nil];
 }
 
 -(void)pushToConfTeam:(NSNotification*)confNotification {
@@ -247,8 +250,16 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self.navigationController pushViewController:[[AllConferenceTeamViewController alloc] initWithConference:conf] animated:YES];
     });
+}
 
-    
+
+
+-(void)pushToConfStandings:(NSNotification*)confNotification {
+    Conference *conf = (Conference*)[confNotification object];
+    //delay
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self.navigationController pushViewController:[[ConferenceStandingsViewController alloc] initWithConference:conf] animated:YES];
+    });
 }
 
 -(void)reloadAll {
@@ -385,9 +396,9 @@
         if ([HBSharedUtils getLeague].currentWeek > 5) {
             if (section == 0) {
                 if ([HBSharedUtils getLeague].currentWeek >= 15) {
-                    return 5;
+                    return 6;
                 } else {
-                    return 3;
+                    return 4;
                 }
             } else {
                 return [news count];
@@ -413,10 +424,12 @@
                 if (indexPath.row == 0) {
                     cell.textLabel.text = @"Final Polls";
                 } else if (indexPath.row == 1) {
-                    [cell.textLabel setText:@"POTY Results"];
+                    [cell.textLabel setText:@"Conference Standings"];
                 } else if (indexPath.row == 2) {
-                    cell.textLabel.text = @"Bowl Results";
+                    [cell.textLabel setText:@"POTY Results"];
                 } else if (indexPath.row == 3) {
+                    cell.textLabel.text = @"Bowl Results";
+                } else if (indexPath.row == 4) {
                     [cell.textLabel setText:@"All-League Team"];
                 } else {
                     [cell.textLabel setText:@"All-Conference Teams"];
@@ -425,6 +438,8 @@
                 if (indexPath.row == 0) {
                     cell.textLabel.text = @"Current Polls";
                 } else if (indexPath.row == 1) {
+                    [cell.textLabel setText:@"Conference Standings"];
+                } else if (indexPath.row == 2) {
                     [cell.textLabel setText:@"POTY Results"];
                 } else {
                    cell.textLabel.text = @"Bowl Schedule";
@@ -433,6 +448,8 @@
                 if (indexPath.row == 0) {
                     cell.textLabel.text = @"Current Polls";
                 } else if (indexPath.row == 1) {
+                    [cell.textLabel setText:@"Conference Standings"];
+                } else if (indexPath.row == 2) {
                     [cell.textLabel setText:@"POTY Results"];
                 } else {
                     cell.textLabel.text = @"Bowl Results";
@@ -441,6 +458,8 @@
                 if (indexPath.row == 0) {
                     cell.textLabel.text = @"Current Polls";
                 } else if (indexPath.row == 1) {
+                    [cell.textLabel setText:@"Conference Standings"];
+                } else if (indexPath.row == 2) {
                     [cell.textLabel setText:@"POTY Leaders"];
                 } else {
                    cell.textLabel.text = @"Bowl Predictions";
@@ -526,10 +545,15 @@
             if (indexPath.row == 0) {
                 [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
             } else if (indexPath.row == 1) {
-                [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
+                STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
+                [popupController.navigationBar setDraggable:YES];
+                popupController.style = STPopupStyleBottomSheet;
+                [popupController presentInViewController:self];
             } else if (indexPath.row == 2) {
-                [self.navigationController pushViewController:[[BowlProjectionViewController alloc] init] animated:YES];
+                [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
             } else if (indexPath.row == 3) {
+                [self.navigationController pushViewController:[[BowlProjectionViewController alloc] init] animated:YES];
+            } else if (indexPath.row == 4) {
                 [self.navigationController pushViewController:[[AllLeagueTeamViewController alloc] init] animated:YES];
             } else {
                 STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[AllConferenceTeamConferenceSelectorViewController alloc] init]];

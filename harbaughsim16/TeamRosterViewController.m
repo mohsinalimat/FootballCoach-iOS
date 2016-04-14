@@ -21,6 +21,7 @@
 #import "PlayerDetailViewController.h"
 
 #import "HexColors.h"
+#import "STPopup.h"
 
 @interface TeamRosterViewController ()
 {
@@ -34,13 +35,14 @@
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         selectedTeam = team;
+        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, ([UIScreen mainScreen].bounds.size.height / 2.0));
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = [NSString stringWithFormat:@"%@ Depth Chart",selectedTeam.abbreviation];
+    self.title = [NSString stringWithFormat:@"%@ Roster",selectedTeam.abbreviation];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBRosterCell" bundle:nil] forCellReuseIdentifier:@"HBRosterCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     

@@ -320,6 +320,13 @@
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.name]];
                     [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",selectedGame.awayTeam.wins,selectedGame.awayTeam.losses,(long)[selectedGame.awayTeam getConfWins], (long)[selectedGame.awayTeam getConfLosses],selectedGame.awayTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.awayScore]];
+                    if (selectedGame.homeScore < selectedGame.awayScore) {
+                        [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
+                        [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
+                    } else {
+                        [cell.teamNameLabel setTextColor:[UIColor blackColor]];
+                        [cell.scoreLabel setTextColor:[UIColor blackColor]];
+                    }
                 } else {
                     NSString *homeRank = @"";
                     if (selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
@@ -328,6 +335,13 @@
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.name]];
                     [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",selectedGame.homeTeam.wins,selectedGame.homeTeam.losses,(long)[selectedGame.homeTeam getConfWins], (long)[selectedGame.homeTeam getConfLosses],selectedGame.homeTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.homeScore]];
+                    if (selectedGame.homeScore > selectedGame.awayScore) {
+                        [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
+                        [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
+                    } else {
+                        [cell.teamNameLabel setTextColor:[UIColor blackColor]];
+                        [cell.scoreLabel setTextColor:[UIColor blackColor]];
+                    }
                 }
                 return cell;
             } else {

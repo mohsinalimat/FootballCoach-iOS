@@ -296,7 +296,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    NSMutableDictionary *stats = [NSMutableDictionary dictionaryWithDictionary:[super detailedRatings]];
     [stats setObject:[self getLetterGrade:_ratRecCat] forKey:@"recCatch"];
     [stats setObject:[self getLetterGrade:_ratRecSpd] forKey:@"recSpeed"];
     [stats setObject:[self getLetterGrade:_ratRecEva] forKey:@"recEvasion"];

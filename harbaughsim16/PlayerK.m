@@ -254,7 +254,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    NSMutableDictionary *stats = [NSMutableDictionary dictionaryWithDictionary:[super detailedRatings]];
     
     [stats setObject:[self getLetterGrade:_ratKickPow] forKey:@"kickPower"];
     [stats setObject:[self getLetterGrade:_ratKickAcc] forKey:@"kickAccuracy"];

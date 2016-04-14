@@ -118,7 +118,7 @@
     } else if (section == 2) {
         return careerStats.allKeys.count;
     } else {
-        return 4;
+        return ratings.count;
     }
 }
 
@@ -133,14 +133,18 @@
     if ([selectedPlayer isKindOfClass:[PlayerQB class]]) {
         if (indexPath.section == 0) {   //ratings
             if (indexPath.row == 0) {
+                //pot
+                [cell.detailTextLabel setText:ratings[@"potential"]];
+                [cell.textLabel setText:@"Potential"];
+            } else if (indexPath.row == 1) {
                 //pow
                 [cell.detailTextLabel setText:ratings[@"passPower"]];
                 [cell.textLabel setText:@"Throwing Power"];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 2) {
                 //acc
                 [cell.detailTextLabel setText:ratings[@"passAccuracy"]];
                 [cell.textLabel setText:@"Throwing Accuracy"];
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 //eva
                 [cell.detailTextLabel setText:ratings[@"passEvasion"]];
                 [cell.textLabel setText:@"Evasion"];
@@ -211,14 +215,18 @@
     } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
         if (indexPath.section == 0) {   //ratings
             if (indexPath.row == 0) {
+                //pot
+                [cell.detailTextLabel setText:ratings[@"potential"]];
+                [cell.textLabel setText:@"Potential"];
+            } else if (indexPath.row == 1) {
                 //pow
                 [cell.detailTextLabel setText:ratings[@"rushPower"]];
                 [cell.textLabel setText:@"Strength"];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 2) {
                 //spd
                 [cell.detailTextLabel setText:ratings[@"rushSpeed"]];
                 [cell.textLabel setText:@"Speed"];
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 //eva
                 [cell.detailTextLabel setText:ratings[@"rushEvasion"]];
                 [cell.textLabel setText:@"Evasion"];
@@ -275,14 +283,18 @@
     } else if ([selectedPlayer isKindOfClass:[PlayerWR class]]) {
         if (indexPath.section == 0) {   //ratings
             if (indexPath.row == 0) {
+                //pot
+                [cell.detailTextLabel setText:ratings[@"potential"]];
+                [cell.textLabel setText:@"Potential"];
+            } else if (indexPath.row == 1) {
                 //cat
                 [cell.detailTextLabel setText:ratings[@"recCatch"]];
                 [cell.textLabel setText:@"Catching"];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 2) {
                 //spd
                 [cell.detailTextLabel setText:ratings[@"recSpeed"]];
                 [cell.textLabel setText:@"Speed"];
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 //eva
                 [cell.detailTextLabel setText:ratings[@"recEvasion"]];
                 [cell.textLabel setText:@"Evasion"];
@@ -339,14 +351,18 @@
     } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
         //ratings
         if (indexPath.row == 0) {
+            //pot
+            [cell.detailTextLabel setText:ratings[@"potential"]];
+            [cell.textLabel setText:@"Potential"];
+        } else if (indexPath.row == 1) {
             //pow
             [cell.detailTextLabel setText:ratings[@"olPower"]];
             [cell.textLabel setText:@"Strength"];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             //blkP
             [cell.detailTextLabel setText:ratings[@"olPassBlock"]];
             [cell.textLabel setText:@"Pass Blocking"];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             //blkR
             [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
             [cell.textLabel setText:@"Run Blocking"];
@@ -358,14 +374,18 @@
     } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
         //ratings
         if (indexPath.row == 0) {
+            //pot
+            [cell.detailTextLabel setText:ratings[@"potential"]];
+            [cell.textLabel setText:@"Potential"];
+        } else if (indexPath.row == 1) {
             //pow
             [cell.detailTextLabel setText:ratings[@"f7Pow"]];
             [cell.textLabel setText:@"Strength"];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             //pass
             [cell.detailTextLabel setText:ratings[@"f7Pass"]];
             [cell.textLabel setText:@"Pass Pressure"];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             //rsh
             [cell.detailTextLabel setText:ratings[@"f7Run"]];
             [cell.textLabel setText:@"Run Stopping"];
@@ -377,14 +397,18 @@
     } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {
         //ratings
         if (indexPath.row == 0) {
+            //pot
+            [cell.detailTextLabel setText:ratings[@"potential"]];
+            [cell.textLabel setText:@"Potential"];
+        } else if (indexPath.row == 1) {
            //cov
             [cell.detailTextLabel setText:ratings[@"cbCoverage"]];
             [cell.textLabel setText:@"Coverage Ability"];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             //spd
             [cell.detailTextLabel setText:ratings[@"cbSpeed"]];
             [cell.textLabel setText:@"Speed"];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             //tkl
             [cell.detailTextLabel setText:ratings[@"cbTackling"]];
             [cell.textLabel setText:@"Tackling Ability"];
@@ -396,14 +420,18 @@
     } else if ([selectedPlayer isKindOfClass:[PlayerS class]]) {
         //ratings
         if (indexPath.row == 0) {
+            //pot
+            [cell.detailTextLabel setText:ratings[@"potential"]];
+            [cell.textLabel setText:@"Potential"];
+        } else if (indexPath.row == 1) {
             //cov
             [cell.detailTextLabel setText:ratings[@"sCoverage"]];
             [cell.textLabel setText:@"Coverage Ability"];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             //spd
             [cell.detailTextLabel setText:ratings[@"sSpeed"]];
             [cell.textLabel setText:@"Speed"];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             //tkl
             [cell.detailTextLabel setText:ratings[@"sTackling"]];
             [cell.textLabel setText:@"Tackling Ability"];
@@ -415,14 +443,18 @@
     } else { // PlayerK class
         if (indexPath.section == 0) {   //ratings
             if (indexPath.row == 0) {
+                //pot
+                [cell.detailTextLabel setText:ratings[@"potential"]];
+                [cell.textLabel setText:@"Potential"];
+            } else if (indexPath.row == 1) {
                 //pow
                 [cell.detailTextLabel setText:ratings[@"kickPower"]];
                 [cell.textLabel setText:@"Kick Power"];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 2) {
                 //acc
                 [cell.detailTextLabel setText:ratings[@"kickAccuracy"]];
                 [cell.textLabel setText:@"Kick Accuracy"];
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 //fum
                 [cell.detailTextLabel setText:ratings[@"kickClumsiness"]];
                 [cell.textLabel setText:@"Clumsiness"];
@@ -483,7 +515,7 @@
     if (indexPath.section == 0) {
         UIColor *letterColor;   //colors for ratings to tell what's what
         if ([stat containsString:@"A"]) {
-            letterColor = [UIColor hx_colorWithHexRGBAString:@"#1a9641"];
+            letterColor = [HBSharedUtils successColor];
         } else if ([stat containsString:@"B"]) {
             letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
         } else if ([stat containsString:@"C"]) {

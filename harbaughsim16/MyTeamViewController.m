@@ -18,6 +18,7 @@
 #import "RankingsViewController.h"
 #import "TeamRecordsViewController.h"
 #import "LeagueRecordsViewController.h"
+#import "ConferenceStandingsViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -65,6 +66,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newTeamName" object:nil];
     
 }
+
 
 -(void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

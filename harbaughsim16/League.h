@@ -136,7 +136,6 @@
 -(NSArray*)getTeamListStr;
 -(NSString*)getBowlGameWatchStr;
 -(NSString*)getGameSummaryBowl:(Game*)g;
--(NSString*)getCCGsStr;
 -(Team*)findTeam:(NSString*)name;
 -(Conference*)findConference:(NSString*)name;
 -(NSString*)ncgSummaryStr;

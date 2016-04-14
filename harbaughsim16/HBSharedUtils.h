@@ -14,17 +14,14 @@
 #define HB_CURRENT_THEME_COLOR @"themeColor"
 #define HB_NUMBER_OF_COLOR_OPTIONS 4
 
-#ifdef DEBUG
-#define HBLog( s, ... ) NSLog( @"<%@:%d> %@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__,  [NSString stringWithFormat:(s), ##__VA_ARGS__] )
-#else
-#define HBLog( s, ... )
-#endif
+#define HB_APP_REVIEW_URL @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1095701497&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software"
 
 @interface HBSharedUtils : NSObject
 +(double)randomValue;
 +(League*)getLeague;
 +(UIColor *)styleColor;
 +(UIColor *)errorColor;
++(UIColor *)successColor;
 +(void)setStyleColor:(NSDictionary*)colorDict;
 +(NSArray*)colorOptions;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;

@@ -971,6 +971,7 @@
     for (int c = 0; c < _conferences.count; ++c) {
         _conferences[c].robinWeek = 0;
         _conferences[c].week = 0;
+        _conferences[c].ccg = nil;
     }
     //set up schedule
     for (int i = 0; i < _conferences.count; ++i ) {
@@ -1239,16 +1240,30 @@
 
         return [sb copy];
     } else {
-        // Games have already been scheduled, give actual teams
-        NSMutableArray *sb = [NSMutableArray array];
-        [sb addObject:_semiG14];
-        [sb addObject:_semiG23];
-
-        for (Game *bowl in _bowlGames) {
-            [sb addObject:bowl];
+        if (!_ncg) {
+            // Games have already been scheduled, give actual teams
+            NSMutableArray *sb = [NSMutableArray array];
+            [sb addObject:_semiG14];
+            [sb addObject:_semiG23];
+            
+            for (Game *bowl in _bowlGames) {
+                [sb addObject:bowl];
+            }
+            
+            return [sb copy];
+        } else {
+            // Games have already been scheduled, give actual teams
+            NSMutableArray *sb = [NSMutableArray array];
+            [sb addObject:_ncg];
+            [sb addObject:_semiG14];
+            [sb addObject:_semiG23];
+            
+            for (Game *bowl in _bowlGames) {
+                [sb addObject:bowl];
+            }
+            
+            return [sb copy];
         }
-
-        return [sb copy];
     }
 }
 
@@ -1329,14 +1344,6 @@
             return [NSString stringWithFormat:@"%@ W %ld-%ld vs %@", g.awayTeam.strRep, (long)g.awayScore, (long)g.homeScore, g.homeTeam.strRep];
         }
     }
-}
-
--(NSString*)getCCGsStr {
-    NSMutableString *sb = [NSMutableString string];
-    for (Conference *c in _conferences) {
-        [sb appendString:[NSString stringWithFormat:@"%@\n\n",[c getCCGString]]];
-    }
-    return [sb copy];
 }
 
 -(Team*)findTeam:(NSString*)name {

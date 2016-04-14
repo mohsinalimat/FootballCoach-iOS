@@ -10,6 +10,7 @@
 #import "League.h"
 #import "Team.h"
 #import "HBRecruitCell.h"
+#import "TeamRosterViewController.h"
 
 #import "Player.h"
 #import "PlayerQB.h"
@@ -23,6 +24,7 @@
 
 #define TUTORIAL_SHOWN @"kHBTutorialShownKey"
 #import "CSNotificationView.h"
+#import "STPopup.h"
 
 @interface RecruitingViewController ()
 {
@@ -60,7 +62,6 @@
     NSMutableArray<Player*>* positions;
     NSMutableArray<Player*>* players;
     BOOL _viewingSignees;
-
 }
 @end
 
@@ -425,8 +426,15 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"Remaining Needs" style:UIBarButtonItemStylePlain target:self action:@selector(showRemainingNeeds)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(showRecruitCategories)]]];
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"roster"] style:UIBarButtonItemStylePlain target:self action:@selector(viewRoster)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"Remaining Needs" style:UIBarButtonItemStylePlain target:self action:@selector(showRemainingNeeds)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(showRecruitCategories)]]];
     self.navigationController.toolbarHidden = NO;
+}
+
+-(void)viewRoster {
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[TeamRosterViewController   alloc] initWithTeam:[HBSharedUtils getLeague].userTeam]];
+    [popupController.navigationBar setDraggable:YES];
+    popupController.style = STPopupStyleBottomSheet;
+    [popupController presentInViewController:self];
 }
 
 -(void)viewDidLoad {
@@ -787,6 +795,10 @@
         } else {
             [summary appendFormat:@"Need %ld active K",(long)needKs];
         }
+    }
+    
+    if (summary.length == 0 || [summary isEqualToString:@""]) {
+        [summary appendString:@"All positional needs filled"];
     }
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Remaining Needs",[HBSharedUtils getLeague].userTeam.abbreviation] message:summary preferredStyle:UIAlertControllerStyleAlert];
@@ -1200,9 +1212,11 @@
                 }
             }
             
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@'s %ld Recruiting Class",[HBSharedUtils getLeague].userTeam.abbreviation, (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] message:recruitSummary preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-            [self.presentingViewController presentViewController:alert animated:YES completion:nil];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@'s %ld Recruiting Class",[HBSharedUtils getLeague].userTeam.abbreviation, (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] message:recruitSummary preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+                [self.presentingViewController presentViewController:alert animated:YES completion:nil];
+            });
         }
     
     }]];
