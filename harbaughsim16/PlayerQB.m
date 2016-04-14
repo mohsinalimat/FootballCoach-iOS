@@ -223,7 +223,7 @@
     [stats setObject:[NSString stringWithFormat:@"%d yds",_statsPassYards] forKey:@"passYards"];
 
     int compPercent = 0;
-    if (_statsPassYards > 0) {
+    if (_statsPassAtt > 0) {
         compPercent = (int)(100.0*((double)_statsPassComp/(double)_statsPassAtt));
     }
     [stats setObject:[NSString stringWithFormat:@"%d%%",compPercent] forKey:@"completionPercentage"];
@@ -255,7 +255,7 @@
     [stats setObject:[NSString stringWithFormat:@"%d yds",_careerStatsPassYards] forKey:@"passYards"];
 
     int compPercent = 0;
-    if (_careerStatsPassYards > 0) {
+    if (_careerStatsPassAtt > 0) {
         compPercent = (int)(100.0*((double)_careerStatsPassComp/(double)_careerStatsPassAtt));
     }
     [stats setObject:[NSString stringWithFormat:@"%d%%",compPercent] forKey:@"completionPercentage"];

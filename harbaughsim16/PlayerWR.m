@@ -277,7 +277,7 @@
     [stats setObject:[NSString stringWithFormat:@"%d Fum",_careerStatsFumbles] forKey:@"fumbles"];
     
     [stats setObject:[NSString stringWithFormat:@"%d catches",_careerStatsReceptions] forKey:@"catches"];
-    [stats setObject:[NSString stringWithFormat:@"%d yards",_careerStatsRecYards] forKey:@"RecYards"];
+    [stats setObject:[NSString stringWithFormat:@"%d yards",_careerStatsRecYards] forKey:@"recYards"];
     
     int ypc = 0;
     if (_careerStatsReceptions > 0) {
