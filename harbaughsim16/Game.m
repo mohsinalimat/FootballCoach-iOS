@@ -1214,8 +1214,8 @@
 }
 
 -(void)fieldGoalAtt:(Team *)offense defense:(Team *)defense {
-    double fgDistRatio = pow((117 - gameYardLine)/50,2);
-    double fgAccRatio = pow((117 - gameYardLine)/50,1.25);
+    double fgDistRatio = pow((110 - gameYardLine)/50,2);
+    double fgAccRatio = pow((110 - gameYardLine)/50,1.25);
     double fgDistChance = ( [self getHFAdv] + [offense getK:0].ratKickPow - fgDistRatio*80 );
     double fgAccChance = ( [self getHFAdv] + [offense getK:0].ratKickAcc - fgAccRatio*80 );
     if ( fgDistChance > 20 && fgAccChance* [HBSharedUtils randomValue] > 15 ) {
