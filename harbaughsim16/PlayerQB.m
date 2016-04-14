@@ -200,7 +200,7 @@
     self.careerStatsTD += self.statsTD;
     self.careerStatsInt += self.statsInt;
     self.careerStatsSacked += self.statsSacked;
-    self.careerStatsPassYards =+ self.statsPassYards;
+    self.careerStatsPassYards += self.statsPassYards;
 
     self.statsPassAtt = 0;
     self.statsPassComp = 0;
