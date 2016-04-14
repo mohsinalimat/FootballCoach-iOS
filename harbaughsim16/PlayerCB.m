@@ -105,15 +105,15 @@
 -(void)advanceSeason {
     
     int oldOvr = self.ratOvr;
-    self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
-    self.ratCBCov += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
-    self.ratCBSpd += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
-    self.ratCBTkl += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+    self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
+    self.ratCBCov += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
+    self.ratCBSpd += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
+    self.ratCBTkl += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
     if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
         //breakthrough
-        self.ratCBCov += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
-        self.ratCBSpd += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
-        self.ratCBTkl += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+        self.ratCBCov += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
+        self.ratCBSpd += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
+        self.ratCBTkl += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
     }
     self.ratOvr = (self.ratCBCov * 2 + self.ratCBSpd + self.ratCBTkl) / 4;
     self.ratImprovement = self.ratOvr - oldOvr;
