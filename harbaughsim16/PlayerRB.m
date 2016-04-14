@@ -84,10 +84,10 @@
         _statsTD = 0;
         _statsFumbles = 0;
         
-        self.careerStatsRushAtt = 0;
-        self.careerStatsRushYards = 0;
-        self.careerStatsTD = 0;
-        self.careerStatsFumbles = 0;
+        _careerStatsRushAtt = 0;
+        _careerStatsRushYards = 0;
+        _careerStatsTD = 0;
+        _careerStatsFumbles = 0;
         
         self.position = @"RB";
     }
@@ -123,10 +123,10 @@
         _statsTD = 0;
         _statsFumbles = 0;
         
-        self.careerStatsRushAtt = 0;
-        self.careerStatsRushYards = 0;
-        self.careerStatsTD = 0;
-        self.careerStatsFumbles = 0;
+        _careerStatsRushAtt = 0;
+        _careerStatsRushYards = 0;
+        _careerStatsTD = 0;
+        _careerStatsFumbles = 0;
         
         self.position = @"RB";
     }
@@ -179,10 +179,10 @@
     self.ratOvr = (self.ratRushPow + self.ratRushSpd + self.ratRushEva)/3;
     self.ratImprovement = self.ratOvr - oldOvr;
     
-    self.careerStatsRushAtt += self.statsRushAtt;
-    self.careerStatsRushYards += self.statsRushYards;
-    self.careerStatsTD += self.statsTD;
-    self.careerStatsFumbles += self.statsFumbles;
+    //self.careerStatsRushAtt += self.statsRushAtt;
+    //self.careerStatsRushYards += self.statsRushYards;
+    //self.careerStatsTD += self.statsTD;
+    //self.careerStatsFumbles += self.statsFumbles;
     
     self.statsRushAtt = 0;
     self.statsRushYards = 0;

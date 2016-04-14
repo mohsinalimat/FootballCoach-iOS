@@ -227,12 +227,12 @@
     self.ratOvr = (_ratRecCat*2 + _ratRecSpd + _ratRecEva)/4;
     self.ratImprovement = self.ratOvr - oldOvr;
     
-    self.careerStatsReceptions += self.statsReceptions;
-    self.careerStatsRecYards += self.statsRecYards;
-    self.careerStatsTD += self.statsTD;
-    self.careerStatsFumbles += self.statsFumbles;
-    self.careerStatsDrops += self.statsDrops;
-    self.careerStatsTargets += self.statsTargets;
+    //self.careerStatsReceptions += self.statsReceptions;
+    //self.careerStatsRecYards += self.statsRecYards;
+    //self.careerStatsTD += self.statsTD;
+    //self.careerStatsFumbles += self.statsFumbles;
+    //self.careerStatsDrops += self.statsDrops;
+    //self.careerStatsTargets += self.statsTargets;
     
     _statsTargets = 0;
     _statsReceptions = 0;

@@ -197,10 +197,10 @@
     self.ratOvr = (_ratKickPow + _ratKickAcc)/2;
     self.ratImprovement = self.ratOvr - oldOvr;
     
-    _careerStatsXPAtt += _statsXPAtt;
-    _careerStatsXPMade += _statsXPMade;
-    _careerStatsFGAtt += _statsFGAtt;
-    _careerStatsFGMade += _statsFGMade;
+    //self.careerStatsXPAtt += _statsXPAtt;
+    //self.careerStatsXPMade += _statsXPMade;
+    //self.careerStatsFGAtt += _statsFGAtt;
+    //self.careerStatsFGMade += _statsFGMade;
     
     _statsXPAtt = 0;
     _statsXPMade = 0;

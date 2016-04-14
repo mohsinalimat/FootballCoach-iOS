@@ -195,12 +195,12 @@
     self.ratOvr = (_ratPassPow*3 + _ratPassAcc*4 + _ratPassEva)/8;
     self.ratImprovement = self.ratOvr - oldOvr;
 
-    self.careerStatsPassAtt += self.statsPassAtt;
-    self.careerStatsPassComp += self.statsPassComp;
-    self.careerStatsTD += self.statsTD;
-    self.careerStatsInt += self.statsInt;
-    self.careerStatsSacked += self.statsSacked;
-    self.careerStatsPassYards += self.statsPassYards;
+    //self.careerStatsPassAtt += self.statsPassAtt;
+    //self.careerStatsPassComp += self.statsPassComp;
+    //self.careerStatsTD += self.statsTD;
+    //self.careerStatsInt += self.statsInt;
+    //self.careerStatsSacked += self.statsSacked;
+    //self.careerStatsPassYards += self.statsPassYards;
 
     self.statsPassAtt = 0;
     self.statsPassComp = 0;

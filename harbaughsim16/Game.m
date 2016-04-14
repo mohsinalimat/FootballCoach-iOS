@@ -671,7 +671,170 @@
         _awayTeam.teamTODiff += _homeTOs-_awayTOs;
         
         _hasPlayed = true;
-
+        
+        NSNumber *qbComp, *qbAtt, *qbYds, *qbTD, *qbInt;
+        NSNumber *rb1Att, *rb1Yds, *rb1TDs, *rb1Fum;
+        NSNumber *rb2Att, *rb2Yds, *rb2TDs, *rb2Fum;
+        NSNumber *wr1Rec, *wr1Yds, *wr1TD, *wr1Fum, *wr1Drp, *wr1Tgt;
+        NSNumber *wr2Rec, *wr2Yds, *wr2TD, *wr2Fum, *wr2Drp, *wr2Tgt;
+        NSNumber *wr3Rec, *wr3Yds, *wr3TD, *wr3Fum, *wr3Drp, *wr3Tgt;
+        NSNumber *kXPM, *kXPA, *kFGM, *kFGA;
+        
+        //homeTeam career stats trackings
+        qbComp = _HomeQBStats[1];
+        [_homeTeam getQB:0].careerStatsPassComp += [qbComp intValue];
+        qbAtt = _HomeQBStats[0];
+        [_homeTeam getQB:0].careerStatsPassAtt += [qbAtt intValue];
+        qbYds = _HomeQBStats[4];
+        [_homeTeam getQB:0].careerStatsPassYards += [qbYds intValue];
+        qbTD = _HomeQBStats[2];
+        [_homeTeam getQB:0].careerStatsTD += [qbTD intValue];
+        qbInt = _HomeQBStats[3];
+        [_homeTeam getQB:0].careerStatsInt += [qbInt intValue];
+        
+        rb1Att = _HomeRB1Stats[0];
+        [_homeTeam getRB:0].careerStatsRushAtt += [rb1Att intValue];
+        rb1Yds = _HomeRB1Stats[1];
+        [_homeTeam getRB:0].careerStatsRushYards += [rb1Yds intValue];
+        rb1TDs = _HomeRB1Stats[2];
+        [_homeTeam getRB:0].careerStatsTD += [rb1TDs intValue];
+        rb1Fum = _HomeRB1Stats[3];
+        [_homeTeam getRB:0].careerStatsFumbles += [rb1Fum intValue];
+        
+        rb2Att = _HomeRB2Stats[0];
+        [_homeTeam getRB:1].careerStatsRushAtt += [rb2Att intValue];
+        rb2Yds = _HomeRB2Stats[1];
+        [_homeTeam getRB:1].careerStatsRushYards += [rb2Yds intValue];
+        rb2TDs = _HomeRB2Stats[2];
+        [_homeTeam getRB:1].careerStatsTD += [rb2TDs intValue];
+        rb2Fum = _HomeRB2Stats[3];
+        [_homeTeam getRB:1].careerStatsFumbles += [rb2Fum intValue];
+        
+        wr1Rec = _HomeWR1Stats[0];
+        [_homeTeam getWR:0].careerStatsReceptions += [wr1Rec intValue];
+        wr1Tgt = _HomeWR1Stats[1];
+        [_homeTeam getWR:0].careerStatsTargets += [wr1Tgt intValue];
+        wr1Yds = _HomeWR1Stats[2];
+        [_homeTeam getWR:0].careerStatsRecYards += [wr1Yds intValue];
+        wr1TD = _HomeWR1Stats[3];
+        [_homeTeam getWR:0].careerStatsTD += [wr1TD intValue];
+        wr1Drp = _HomeWR1Stats[4];
+        [_homeTeam getWR:0].careerStatsDrops += [wr1Drp intValue];
+        wr1Fum = _HomeWR1Stats[5];
+        [_homeTeam getWR:0].careerStatsFumbles += [wr1Fum intValue];
+        
+        wr2Rec = _HomeWR2Stats[0];
+        [_homeTeam getWR:1].careerStatsReceptions += [wr2Rec intValue];
+        wr2Tgt = _HomeWR2Stats[1];
+        [_homeTeam getWR:1].careerStatsTargets += [wr2Tgt intValue];
+        wr2Yds = _HomeWR2Stats[2];
+        [_homeTeam getWR:1].careerStatsRecYards += [wr2Yds intValue];
+        wr2TD = _HomeWR2Stats[3];
+        [_homeTeam getWR:1].careerStatsTD += [wr2TD intValue];
+        wr2Drp = _HomeWR2Stats[4];
+        [_homeTeam getWR:1].careerStatsDrops += [wr2Drp intValue];
+        wr2Fum = _HomeWR2Stats[5];
+        [_homeTeam getWR:1].careerStatsFumbles += [wr2Fum intValue];
+        
+        wr3Rec = _HomeWR3Stats[0];
+        [_homeTeam getWR:2].careerStatsReceptions += [wr3Rec intValue];
+        wr3Tgt = _HomeWR3Stats[1];
+        [_homeTeam getWR:2].careerStatsTargets += [wr3Tgt intValue];
+        wr3Yds = _HomeWR3Stats[2];
+        [_homeTeam getWR:2].careerStatsRecYards += [wr3Yds intValue];
+        wr3TD = _HomeWR3Stats[3];
+        [_homeTeam getWR:2].careerStatsTD += [wr3TD intValue];
+        wr3Drp = _HomeWR3Stats[4];
+        [_homeTeam getWR:2].careerStatsDrops += [wr3Drp intValue];
+        wr3Fum = _HomeWR3Stats[5];
+        [_homeTeam getWR:2].careerStatsFumbles += [wr3Fum intValue];
+        
+        kXPM = _HomeKStats[0];
+        [_homeTeam getK:0].careerStatsXPMade += [kXPM intValue];
+        kXPA = _HomeKStats[1];
+        [_homeTeam getK:0].careerStatsXPAtt += [kXPA intValue];
+        kFGM = _HomeKStats[2];
+        [_homeTeam getK:0].careerStatsFGMade += [kFGM intValue];
+        kFGA = _HomeKStats[3];
+        [_homeTeam getK:0].careerStatsFGAtt += [kFGA intValue];
+        
+        //away team career stats tracking
+        qbComp = _AwayQBStats[1];
+        [_awayTeam getQB:0].careerStatsPassComp += [qbComp intValue];
+        qbAtt = _AwayQBStats[0];
+        [_awayTeam getQB:0].careerStatsPassAtt += [qbAtt intValue];
+        qbYds = _AwayQBStats[4];
+        [_awayTeam getQB:0].careerStatsPassYards += [qbYds intValue];
+        qbTD = _AwayQBStats[2];
+        [_awayTeam getQB:0].careerStatsTD += [qbTD intValue];
+        qbInt = _AwayQBStats[3];
+        [_awayTeam getQB:0].careerStatsInt += [qbInt intValue];
+        
+        rb1Att = _AwayRB1Stats[0];
+        [_awayTeam getRB:0].careerStatsRushAtt += [rb1Att intValue];
+        rb1Yds = _AwayRB1Stats[1];
+        [_awayTeam getRB:0].careerStatsRushYards += [rb1Yds intValue];
+        rb1TDs = _AwayRB1Stats[2];
+        [_awayTeam getRB:0].careerStatsTD += [rb1TDs intValue];
+        rb1Fum = _AwayRB1Stats[3];
+        [_awayTeam getRB:0].careerStatsFumbles += [rb1Fum intValue];
+        
+        rb2Att = _AwayRB2Stats[0];
+        [_awayTeam getRB:1].careerStatsRushAtt += [rb2Att intValue];
+        rb2Yds = _AwayRB2Stats[1];
+        [_awayTeam getRB:1].careerStatsRushYards += [rb2Yds intValue];
+        rb2TDs = _AwayRB2Stats[2];
+        [_awayTeam getRB:1].careerStatsTD += [rb2TDs intValue];
+        rb2Fum = _AwayRB2Stats[3];
+        [_awayTeam getRB:1].careerStatsFumbles += [rb2Fum intValue];
+        
+        wr1Rec = _AwayWR1Stats[0];
+        [_awayTeam getWR:0].careerStatsReceptions += [wr1Rec intValue];
+        wr1Tgt = _AwayWR1Stats[1];
+        [_awayTeam getWR:0].careerStatsTargets += [wr1Tgt intValue];
+        wr1Yds = _AwayWR1Stats[2];
+        [_awayTeam getWR:0].careerStatsRecYards += [wr1Yds intValue];
+        wr1TD = _AwayWR1Stats[3];
+        [_awayTeam getWR:0].careerStatsTD += [wr1TD intValue];
+        wr1Drp = _AwayWR1Stats[4];
+        [_awayTeam getWR:0].careerStatsDrops += [wr1Drp intValue];
+        wr1Fum = _AwayWR1Stats[5];
+        [_awayTeam getWR:0].careerStatsFumbles += [wr1Fum intValue];
+        
+        wr2Rec = _AwayWR2Stats[0];
+        [_awayTeam getWR:1].careerStatsReceptions += [wr2Rec intValue];
+        wr2Tgt = _AwayWR2Stats[1];
+        [_awayTeam getWR:1].careerStatsTargets += [wr2Tgt intValue];
+        wr2Yds = _AwayWR2Stats[2];
+        [_awayTeam getWR:1].careerStatsRecYards += [wr2Yds intValue];
+        wr2TD = _AwayWR2Stats[3];
+        [_awayTeam getWR:1].careerStatsTD += [wr2TD intValue];
+        wr2Drp = _AwayWR2Stats[4];
+        [_awayTeam getWR:1].careerStatsDrops += [wr2Drp intValue];
+        wr2Fum = _AwayWR2Stats[5];
+        [_awayTeam getWR:1].careerStatsFumbles += [wr2Fum intValue];
+        
+        wr3Rec = _AwayWR3Stats[0];
+        [_awayTeam getWR:2].careerStatsReceptions += [wr3Rec intValue];
+        wr3Tgt = _AwayWR3Stats[1];
+        [_awayTeam getWR:2].careerStatsTargets += [wr3Tgt intValue];
+        wr3Yds = _AwayWR3Stats[2];
+        [_awayTeam getWR:2].careerStatsRecYards += [wr3Yds intValue];
+        wr3TD = _AwayWR3Stats[3];
+        [_awayTeam getWR:2].careerStatsTD += [wr3TD intValue];
+        wr3Drp = _AwayWR3Stats[4];
+        [_awayTeam getWR:2].careerStatsDrops += [wr3Drp intValue];
+        wr3Fum = _AwayWR3Stats[5];
+        [_awayTeam getWR:2].careerStatsFumbles += [wr3Fum intValue];
+        
+        kXPM = _AwayKStats[0];
+        [_awayTeam getK:0].careerStatsXPMade += [kXPM intValue];
+        kXPA = _AwayKStats[1];
+        [_awayTeam getK:0].careerStatsXPAtt += [kXPA intValue];
+        kFGM = _AwayKStats[2];
+        [_awayTeam getK:0].careerStatsFGMade += [kFGM intValue];
+        kFGA = _AwayKStats[3];
+        [_awayTeam getK:0].careerStatsFGAtt += [kFGA intValue];
         
         //game over, add wins
         if (_homeScore > _awayScore) {
@@ -1246,6 +1409,7 @@
         //defense.teamOppPoints += 3;
         [offense getK:0].statsFGMade++;
         [offense getK:0].statsFGAtt++;
+        [offense getK:0].careerStatsFGAtt++;
         if (!playingOT) {
             [self kickOff:offense];
         } else {
