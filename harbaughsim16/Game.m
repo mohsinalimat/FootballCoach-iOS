@@ -496,6 +496,10 @@
 }
 
 -(NSString*)convGameTime {
+    if (gameTime <= 0 && !playingOT) {
+        return @"0:00 Q4";
+    }
+    
     if (!playingOT) {
         int qNum = (3600 - gameTime) / 900 + 1;
         int minTime;
