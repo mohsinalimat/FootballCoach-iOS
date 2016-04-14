@@ -6,3 +6,4 @@
 * Cleaner league history view
 * Fixed bowl game scheduling
 * Smaller pool of recruits
+* Progression of news stories for teams that got a prestige boost or took a prestige hit

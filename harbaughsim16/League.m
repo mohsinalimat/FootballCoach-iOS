@@ -652,9 +652,8 @@
         // bless/curse progression updates should appear at week 6 (news stories index 6)
         //if blessed team wins > losses - post story about reaping benefits from blessing, otherwise, post story about them fumbling with it
         //if cursed team wins > losses - post story about success despite early season setbacks, otherwise, post story about how early setback has crippled team this season
-        
-        if (_currentWeek == 6) {
-            NSMutableArray *newsWeek = _newsStories[7];
+        if (_currentWeek == 5) {
+            NSMutableArray *newsWeek = _newsStories[6];
             if (_blessedTeam != nil) {
                 if (_blessedTeam.wins > _blessedTeam.losses) {
                     switch (_blessedStoryIndex) {
@@ -710,10 +709,10 @@
         
         
         //calculate poty leader and post story about how he is leading competition
-        if (_currentWeek == 10) {
+        if (_currentWeek == 9) {
             NSArray *heismanContenders = [self getHeismanLeaders];
             Player *heismanLeader = heismanContenders[0];
-            NSMutableArray *week11 = _newsStories[11];
+            NSMutableArray *week11 = _newsStories[10];
             [week11 addObject:[NSString stringWithFormat:@"%@'s %@ leads the pack\n%@ %@ %@ is the frontrunner for Player of the Year, playing a key role in the team's %ld-%ld season.", heismanLeader.team.abbreviation, [heismanLeader getInitialName], heismanLeader.team.name, heismanLeader.position, heismanLeader.name, (long)heismanLeader.team.wins, (long)heismanLeader.team.losses]];
         }
     }
@@ -916,61 +915,6 @@
     [_leagueHistory addObject:yearTop10];
 }
 
--(void)advanceSeasonForAllExceptUser {
-    _currentWeek = 0;
-
-    for (NSMutableArray *week in _newsStories) {
-        [week removeAllObjects];
-    }
-
-    // Bless a random team with lots of prestige
-    int blessNumber = (int)([HBSharedUtils randomValue]*9);
-    _blessedTeam = _teamList[50 + blessNumber];
-    if (!_blessedTeam.isUserControlled) {
-        _blessedTeam.teamPrestige += 30;
-        if (_blessedTeam.teamPrestige > 90) _blessedTeam.teamPrestige = 90;
-
-
-    }
-
-    //Curse a good team
-    int curseNumber = (int)([HBSharedUtils randomValue]*7);
-    _cursedTeam = _teamList[3 + curseNumber];
-    if (!_cursedTeam.isUserControlled && _cursedTeam.teamPrestige > 85) {
-        _cursedTeam.teamPrestige -= 20;
-    }
-
-
-    for (int t = 0; t < _teamList.count; ++t) {
-        if (![_teamList[t] isEqual:_userTeam]) {
-            [_teamList[t] advanceSeason];
-        }
-    }
-    for (int c = 0; c < _conferences.count; ++c) {
-        _conferences[c].robinWeek = 0;
-        _conferences[c].week = 0;
-    }
-    //set up schedule
-    for (int i = 0; i < _conferences.count; ++i ) {
-        [_conferences[i] setUpSchedule];
-    }
-    for (int i = 0; i < _conferences.count; ++i ) {
-        [_conferences[i] setUpOOCSchedule];
-    }
-    for (int i = 0; i < _conferences.count; ++i ) {
-        [_conferences[i] insertOOCSchedule];
-    }
-
-    _hasScheduledBowls = false;
-    heismanDecided = NO;
-    [_bowlGames removeAllObjects];
-
-    NSMutableArray *week0 = _newsStories[0];
-    [week0 addObject:[self randomCursedTeamStory:_cursedTeam]];
-    [week0 addObject:[self randomBlessedTeamStory:_blessedTeam]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
-}
-
 -(NSString*)randomBlessedTeamStory:(Team*)t {
     _blessedTeamCoachName = [self getRandName];
    NSArray *stories = @[
@@ -1006,8 +950,9 @@
     // Bless a random team with lots of prestige
     int blessNumber = (int)([HBSharedUtils randomValue]*9);
     Team *blessTeam = _teamList[50 + blessNumber];
-    if (!blessTeam.isUserControlled) {
+    if (!blessTeam.isUserControlled && ![blessTeam.name isEqualToString:@"American Samoa"]) {
         blessTeam.teamPrestige += 30;
+        _blessedTeam = blessTeam;
         if (blessTeam.teamPrestige > 90) blessTeam.teamPrestige = 90;
     }
 
@@ -1016,6 +961,7 @@
     Team *curseTeam = _teamList[3 + curseNumber];
     if (!curseTeam.isUserControlled && curseTeam.teamPrestige > 85) {
         curseTeam.teamPrestige -= 20;
+        _cursedTeam = curseTeam;
     }
 
 
@@ -1045,10 +991,17 @@
         [week removeAllObjects];
     }
 
-    NSMutableArray *week0 = _newsStories[0];
-    [week0 addObject:[self randomCursedTeamStory:curseTeam]];
-    [week0 addObject:[self randomBlessedTeamStory:blessTeam]];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+    if (_blessedTeam) {
+        NSMutableArray *week0 = _newsStories[0];
+        [week0 addObject:[self randomBlessedTeamStory:_blessedTeam]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+    }
+    
+    if (_cursedTeam) {
+        NSMutableArray *week0 = _newsStories[0];
+        [week0 addObject:[self randomCursedTeamStory:_cursedTeam]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+    }
 }
 
 -(void)updateTeamHistories {

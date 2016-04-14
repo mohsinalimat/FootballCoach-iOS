@@ -1070,21 +1070,6 @@
 }
 
 -(void)dismissVC {
-    /*UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to quit recruiting?" message:@"If you choose to back out, your team's recruiting will be done automatically and you will have no control over who assistant coaches bring to your program. Do you still want to quit, coach?" preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [[HBSharedUtils getLeague] updateLeagueHistory];
-        [[HBSharedUtils getLeague] updateTeamHistories];
-        [[HBSharedUtils getLeague].userTeam simulateOffseason];
-        [[HBSharedUtils getLeague] advanceSeasonForAllExceptUser];
-        [HBSharedUtils getLeague].recruitingStage = 0;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];*/
-    
     [self finishRecruiting];
 }
 
