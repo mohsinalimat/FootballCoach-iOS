@@ -22,7 +22,6 @@
 #import "PlayerCB.h"
 #import "PlayerS.h"
 
-#define TUTORIAL_SHOWN @"kHBTutorialShownKey"
 #import "CSNotificationView.h"
 #import "STPopup.h"
 
@@ -591,9 +590,9 @@
     players = availAll;
     
     //display tutorial alert on first launch
-    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:TUTORIAL_SHOWN];
+    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
     if (!tutorialShown) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:TUTORIAL_SHOWN];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
         [[NSUserDefaults standardUserDefaults] synchronize];
         //display intro screen
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to Recruiting Season, Coach!" message:@"At the end of each season, graduating seniors leave the program and spots open up. As coach, you are responsible for recruiting the next class of players that will lead your team to bigger and better wins. You recruit based on a budget of points, which is determined by your team's prestige. Better teams will have more points to work with, while worse teams will have to save points wherever they can.\n\nWhen you press \"Start Recruiting\" after the season, you can see who is leaving your program and give you a sense of how many players you will need to replace. Next, the Recruiting menu opens up (where you are now). You can view the Top 200 recruits from every position to see the best of the best. Each Recruit has their positional ratings as well as an Overall and Potential. The point cost of each recruit (insert Cam Newton and/or Ole Miss joke here) is determined by how good they are. Once you are done recruiting all the players you need, or that you can afford, press \"Done\" to advance to the next season." preferredStyle:UIAlertControllerStyleAlert];

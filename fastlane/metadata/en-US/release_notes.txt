@@ -1,10 +1,14 @@
-* Fixed a bug where team abbreviations would not appear for some players.
-* Fixed a game-breaking issue where RBs were set as starters for F7s.
-* New colors and logo to unify the app's theme across platforms
-* Better record tracking
-* Better team streak tracking
-* Cleaner league history view
-* Fixed bowl game scheduling
-* Smaller pool of recruits
-* Progression of news stories for teams that got a prestige boost or took a prestige hit
-* Fixed QB and WR stat tracking issues.
+* Added player potential rating to stats
+* Added some length to field goals to make them more realistic
+* New Conference Standings page in news
+* Game winners now tinted in Game Detail and other places
+* Depth chart now displayed in recruiting
+* Fixed a weird UIKit issue
+* Added a review app button in settings
+* Added tracking of conference wins and losses
+* Fixed bug where games would sometimes enter the fifth quarter when a play was being run but the clock had passed 0:00
+* Modified the formula for player improvement; now depends on how many games the player plays
+* Changed career stat tracking to run after every game to update stats
+* Fixed a bug that created stories before game results were finalized
+* Added conference records to game pages
+* Added a tutorial for the roster page

@@ -13,6 +13,8 @@
 #define HB_IN_APP_NOTIFICATIONS_TURNED_ON @"inAppNotifs"
 #define HB_CURRENT_THEME_COLOR @"themeColor"
 #define HB_NUMBER_OF_COLOR_OPTIONS 4
+#define HB_RECRUITING_TUTORIAL_SHOWN @"kHBTutorialShownKey"
+#define HB_ROSTER_TUTORIAL_SHOWN_KEY @"kHBRosterTutorialShownKey"
 
 #define HB_APP_REVIEW_URL @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1095701497&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software"
 
