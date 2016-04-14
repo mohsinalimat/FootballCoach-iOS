@@ -1,7 +1,7 @@
 # Football Coach for iOS
 An iOS Port of https://github.com/jonesguy14/footballcoach.
 
-**PROJECT STATUS**: As of April 2, 2016, this app has been submitted to the iOS App Store. Check back later for a download link!
+[**Download now!**](https://itunes.apple.com/us/app/football-coach-recruit.-strategize./id1095701497?mt=8)
 
 _The original README of FootballCoach is below._
 
