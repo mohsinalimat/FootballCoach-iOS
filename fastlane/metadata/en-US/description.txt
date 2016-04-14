@@ -1,4 +1,5 @@
 Football Coach is a college football simulation game.
+
 In Football Coach, you take the role of a newly hired coach at the school of your choice. Your goal is to win rivalry games, conference championships, and even the national championship! But with 60 teams total over 6 conferences, this task is easier said than done.
 
 Your team will play 12 games in the regular season, which consist of playing all 9 of your conference opponents once and three out of conference games. By going to the Schedule tab, you can see exactly what your team's schedule is. And by clicking on each game, you can see a scouting report of the two teams (if the game has yet to be played), or a summary of the game (if it was already played). The most important game of the regular season is your rivalry game, which you gain prestige if won or lose prestige if lost.

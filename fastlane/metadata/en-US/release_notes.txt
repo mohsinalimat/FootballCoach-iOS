@@ -1,5 +1,5 @@
 * Fixed a bug where team abbreviations would not appear for some players.
-* Fixed a game-breaking issue where RBs were set as starters for CBs.
+* Fixed a game-breaking issue where RBs were set as starters for F7s.
 * New colors and logo to unify the app's theme across platforms
 * Better record tracking
 * Better team streak tracking
@@ -7,4 +7,4 @@
 * Fixed bowl game scheduling
 * Smaller pool of recruits
 * Progression of news stories for teams that got a prestige boost or took a prestige hit
-* Some stat-tracking fixes
+* Fixed QB and WR stat tracking issues.
