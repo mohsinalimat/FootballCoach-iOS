@@ -63,6 +63,7 @@
             */
             
             [league setUserTeam:userTeam];
+            userTeam.isUserControlled = YES;
             [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
             [league save];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];

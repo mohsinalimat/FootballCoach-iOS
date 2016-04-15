@@ -13,11 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *positionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ovrLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *stat1Label;
-@property (weak, nonatomic) IBOutlet UILabel *stat2Label;
-@property (weak, nonatomic) IBOutlet UILabel *stat3Label;
-@property (weak, nonatomic) IBOutlet UILabel *stat4Label;
-
 @property (weak, nonatomic) IBOutlet UILabel *stat1ValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stat2ValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stat3ValueLabel;

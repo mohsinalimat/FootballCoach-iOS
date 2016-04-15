@@ -521,7 +521,9 @@
         NSInteger recruitingBonus = (25 * (35 - teamSize));
         recruitingBudget += recruitingBonus;
         
-        [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"You've been awarded %ld extra points because of your losses to the pro draft!",(long)recruitingBonus] onViewController:self];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"You've been awarded %ld extra points because of your losses this offseason.",(long)recruitingBonus] onViewController:self];
+        });
     }
     
     //recruiting star distribution from here: http://www.cbssports.com/collegefootball/eye-on-college-football/21641769

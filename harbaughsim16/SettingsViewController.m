@@ -157,7 +157,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 2) {
-        return 4;
+        return 5;
     } else if (section == 1) {
         return 6;
     } else {
@@ -195,6 +195,8 @@
                 [cell.textLabel setText:@"Email Developer"];
             } else if (indexPath.row == 2) {
                 [cell.textLabel setText:@"Football Coach on GitHub"];
+            } else if (indexPath.row == 3) {
+                [cell.textLabel setText:@"Football Coach on Reddit"];
             } else {
                 [cell.textLabel setText:@"Submit a Review"];
             }
@@ -300,6 +302,14 @@
             }]];
             [self presentViewController:alert animated:YES completion:nil];
 
+        } else if (indexPath.row == 3) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://reddit.com/r/FootballCoach"]];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+            
         } else {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to leave Football Coach?" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];

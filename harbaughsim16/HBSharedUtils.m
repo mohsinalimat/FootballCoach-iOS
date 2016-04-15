@@ -8,6 +8,8 @@
 
 #import "HBSharedUtils.h"
 #import "AppDelegate.h"
+#import "League.h"
+#import "Team.h"
 
 #import "CSNotificationView.h"
 #import "HexColors.h"
@@ -22,7 +24,9 @@ static UIColor *styleColor = nil;
 }
 
 +(League*)getLeague {
-    return [((AppDelegate*)[[UIApplication sharedApplication] delegate]) league];
+    League *ligue = [((AppDelegate*)[[UIApplication sharedApplication] delegate]) league];
+    ligue.userTeam.isUserControlled = YES;
+    return ligue;
 }
 
 +(int)leagueRecruitingStage {
@@ -62,7 +66,7 @@ static UIColor *styleColor = nil;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController {
     BOOL weekNotifs = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
     if (weekNotifs) {
-        [CSNotificationView showInViewController:viewController tintColor:tintColor image:nil message:message duration:0.5];
+        [CSNotificationView showInViewController:viewController tintColor:tintColor image:nil message:message duration:0.75];
     }
 }
 @end

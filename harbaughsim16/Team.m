@@ -23,7 +23,7 @@
 
 #define NFL_OVR 90
 #define NFL_CHANCE 0.50
-#define NFL_NCW_BONUS 0.2
+#define NCG_DRAFT_BONUS 0.20
 
 @implementation Team
 @synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks;
@@ -1732,85 +1732,99 @@
 
 -(void)getPlayersLeaving {
     playersLeaving = [NSMutableArray array];
-    NSInteger nflChance = NFL_CHANCE;
-    if ([natlChampWL isEqualToString:@"NCW"]) {
-        nflChance += NFL_NCW_BONUS;
-    }
-    
     if (playersLeaving.count == 0) {
         int i = 0;
+        double draftChance = NFL_CHANCE;
+        if ([natlChampWL isEqualToString:@"NCW"]) {
+            draftChance += NCG_DRAFT_BONUS;
+        }
+        
         while (i < teamQBs.count) {
-            if (teamQBs[i].year == 4 || (teamQBs[i].year == 3 && teamQBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
+            if (teamQBs[i].year == 4 || (teamQBs[i].year == 3 && teamQBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamQBs[i]];
-                ////NSLog(@"ADDED %@ QB TO PLAYERS LEAVING", abbreviation);
+                if (teamQBs[i].year == 3) {
+                    NSLog(@"JUNIOR QB LEAVING");
+                }
             }
             ++i;
         }
         
         i = 0;
         while (i < teamRBs.count) {
-            if (teamRBs[i].year == 4 || (teamRBs[i].year == 3 && teamRBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
+            if (teamRBs[i].year == 4 || (teamRBs[i].year == 3 && teamRBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamRBs[i]];
-                ////NSLog(@"ADDED %@ RB TO PLAYERS LEAVING", abbreviation);
+                if (teamRBs[i].year == 3) {
+                    NSLog(@"JUNIOR RB LEAVING");
+                }
             }
             ++i;
         }
         
         i = 0;
         while (i < teamWRs.count) {
-            if (teamWRs[i].year == 4 || (teamWRs[i].year == 3 && teamWRs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
+            if (teamWRs[i].year == 4 || (teamWRs[i].year == 3 && teamWRs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamWRs[i]];
-                ////NSLog(@"ADDED %@ WR TO PLAYERS LEAVING", abbreviation);
+                if (teamWRs[i].year == 3) {
+                    NSLog(@"JUNIOR WR LEAVING");
+                }
             }
             ++i;
         }
         
         i = 0;
         while (i < teamKs.count) {
-            if (teamKs[i].year == 4 || (teamKs[i].year == 3 && teamKs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
+            if (teamKs[i].year == 4 || (teamKs[i].year == 3 && teamKs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamKs[i]];
-                ////NSLog(@"ADDED %@ K TO PLAYERS LEAVING", abbreviation);
+                if (teamKs[i].year == 3) {
+                    NSLog(@"JUNIOR K LEAVING");
+                }
             }
             ++i;
         }
         
         i = 0;
         while (i < teamOLs.count) {
-            if (teamOLs[i].year == 4 || (teamOLs[i].year == 3 && teamOLs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
+            if (teamOLs[i].year == 4 || (teamOLs[i].year == 3 && teamOLs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamOLs[i]];
-                ////NSLog(@"ADDED %@ OL TO PLAYERS LEAVING", abbreviation);
+                if (teamOLs[i].year == 3) {
+                    NSLog(@"JUNIOR OL LEAVING");
+                }
             }
             ++i;
         }
         
         i = 0;
         while (i < teamSs.count) {
-            if (teamSs[i].year == 4 || (teamSs[i].year == 3 && teamSs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
+            if (teamSs[i].year == 4 || (teamSs[i].year == 3 && teamSs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamSs[i]];
-                ////NSLog(@"ADDED %@ S TO PLAYERS LEAVING", abbreviation);
+                if (teamSs[i].year == 3) {
+                    NSLog(@"JUNIOR S LEAVING");
+                }
             }
             ++i;
         }
         
         i = 0;
         while (i < teamCBs.count) {
-            if (teamCBs[i].year == 4 || (teamCBs[i].year == 3 && teamCBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
+            if (teamCBs[i].year == 4 || (teamCBs[i].year == 3 && teamCBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamCBs[i]];
-                ////NSLog(@"ADDED %@ CB TO PLAYERS LEAVING", abbreviation);
+                if (teamCBs[i].year == 3) {
+                    NSLog(@"JUNIOR CB LEAVING");
+                }
             }
             ++i;
         }
         
         i = 0;
         while (i < teamF7s.count) {
-            if (teamF7s[i].year == 4 || (teamF7s[i].year == 3 && teamF7s[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < nflChance)) {
+            if (teamF7s[i].year == 4 || (teamF7s[i].year == 3 && teamF7s[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamF7s[i]];
-                ////NSLog(@"ADDED %@ F7 TO PLAYERS LEAVING", abbreviation);
+                if (teamF7s[i].year == 3) {
+                    NSLog(@"JUNIOR F7 LEAVING");
+                }
             }
             ++i;
         }
-        
-        ////NSLog(@"PLAYERS LEAVING COLLECTED: %@", playersLeaving);
     }
 }
 
@@ -1821,462 +1835,6 @@
         [sb appendFormat:@"%@\n", p.getPosNameYrOvrPot_OneLine];
     }
     
-    return [sb copy];
-}
-
--(NSArray*)getQBRecruits {
-    NSMutableArray* recruits = [NSMutableArray array];
-    int stars;
-    for (int i = 0; i < numberOfRecruits; ++i) {
-        stars = (int)(5*(float)(numberOfRecruits - i/2)/numberOfRecruits);
-        recruits[i] = [PlayerQB newQBWithName:[league getRandName] year:1 stars:stars team:nil];
-    }
-    [recruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
-    }];
-    return recruits;
-
-}
-
--(NSArray*)getRBRecruits {
-    int numRBrecruits = 2*numberOfRecruits;
-    NSMutableArray* recruits = [NSMutableArray array];
-    int stars;
-    for (int i = 0; i < numRBrecruits; ++i) {
-        stars = (int)(5*(float)(numRBrecruits - i/2)/numRBrecruits);
-        recruits[i] = [PlayerRB newRBWithName:[league getRandName] year:1 stars:stars team:nil];
-    }
-    
-    [recruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
-    }];
-    return recruits;
-}
-
--(NSArray*)getWRRecruits {
-    int numWRrecruits = 2*numberOfRecruits;
-    NSMutableArray* recruits = [NSMutableArray array];
-    int stars;
-    for (int i = 0; i < numWRrecruits; ++i) {
-        stars = (int)(5*(float)(numWRrecruits - i/2)/numWRrecruits);
-        recruits[i] = [PlayerWR newWRWithName:[league getRandName] year:1 stars:stars team:nil];
-    }
-    
-    [recruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
-    }];
-    return recruits;
-}
-
--(NSArray*)getKRecruits {
-    NSMutableArray* recruits = [NSMutableArray array];
-    int stars;
-    for (int i = 0; i < numberOfRecruits; ++i) {
-        stars = (int)(5*(float)(numberOfRecruits - i/2)/numberOfRecruits);
-        recruits[i] = [PlayerK newKWithName:[league getRandName] year:1 stars:stars team:nil];
-    }
-    [recruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
-    }];
-    return recruits;
-}
-
--(NSArray*)getOLRecruits {
-    int numOLrecruits = 3*numberOfRecruits;
-    NSMutableArray* recruits = [NSMutableArray array];
-    int stars;
-    for (int i = 0; i < numOLrecruits; ++i) {
-        stars = (int)(5*(float)(numOLrecruits - i/2)/numOLrecruits);
-        recruits[i] = [PlayerOL newOLWithName:[league getRandName] year:1 stars:stars team:nil];
-    }
-    
-    [recruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
-    }];
-    return recruits;
-}
-
-
--(NSArray*)getSRecruits {
-    NSMutableArray* recruits = [NSMutableArray array];
-    int stars;
-    for (int i = 0; i < numberOfRecruits; ++i) {
-        stars = (int)(5*(float)(numberOfRecruits - i/2)/numberOfRecruits);
-        recruits[i] = [PlayerS newSWithName:[league getRandName] year:1 stars:stars team:self];
-    }
-    [recruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
-    }];
-    return recruits;
-}
-
-
--(NSArray*)getCBRecruits {
-    int numCBrecruits = 2*numberOfRecruits;
-    NSMutableArray* recruits = [NSMutableArray array];
-    int stars;
-    for (int i = 0; i < numCBrecruits; ++i) {
-        stars = (int)(5*(float)(numCBrecruits - i/2)/numCBrecruits);
-        recruits[i] = [PlayerCB newCBWithName:[league getRandName] year:1 stars:stars team:self];
-    }
-    
-    [recruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
-    }];
-    return recruits;
-}
-
--(NSArray*)getF7Recruits {
-    int numF7recruits = 3*numberOfRecruits;
-    NSMutableArray* recruits = [NSMutableArray array];
-    int stars;
-    for (int i = 0; i < numF7recruits; ++i) {
-        stars = (int)(5*(float)(numF7recruits - i/2)/numF7recruits);
-        recruits[i] = [PlayerF7 newF7WithName:[league getRandName] year:1 stars:stars team:nil];
-    }
-    
-    [recruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
-    }];
-    return recruits;
-}
-
--(NSString *)getRecruitsInfoSaveFile {
-    NSMutableString *sb = [NSMutableString string];
-    NSArray *qbs = [self getQBRecruits];
-    NSArray *rbs = [self getRBRecruits];
-    NSArray *wrs = [self getWRRecruits];
-    NSArray *ks = [self getKRecruits];
-    NSArray *ols = [self getOLRecruits];
-    NSArray *cbs = [self getCBRecruits];
-    NSArray *f7s = [self getF7Recruits];
-    NSArray *ss = [self getSRecruits];
-    
-    for (PlayerQB *qb in qbs) {
-        [sb appendString:[NSString stringWithFormat:@"QB %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",qb.name,(long)qb.year,(long)qb.ratPot,(long)qb.ratFootIQ,(long)qb.ratPassPow,(long)qb.ratPassAcc,(long)qb.ratPassEva,(long)qb.ratOvr,(long)qb.ratImprovement]];
-    }
-    for (PlayerRB *rb in rbs) {
-        [sb appendString:[NSString stringWithFormat:@"RB %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",rb.name,(long)rb.year,(long)rb.ratPot,(long)rb.ratFootIQ,(long)rb.ratRushPow,(long)rb.ratRushSpd,(long)rb.ratRushEva,(long)rb.ratOvr,(long)rb.ratImprovement]];
-    }
-    for (PlayerWR *wr in wrs) {
-        [sb appendString:[NSString stringWithFormat:@"WR %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",wr.name,(long)wr.year,(long)wr.ratPot,(long)wr.ratFootIQ,(long)wr.ratRecCat,(long)wr.ratRecSpd,(long)wr.ratRecEva,(long)wr.ratOvr,(long)wr.ratImprovement]];
-    }
-    for (PlayerK *k in ks) {
-        [sb appendString:[NSString stringWithFormat:@"K %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",k.name,(long)k.year,(long)k.ratPot,(long)k.ratFootIQ,(long)k.ratKickPow,(long)k.ratKickAcc,(long)k.ratKickFum,(long)k.ratOvr,(long)k.ratImprovement]];
-    }
-    for (PlayerOL *ol in ols) {
-        [sb appendString:[NSString stringWithFormat:@"OL %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",ol.name,(long)ol.year,(long)ol.ratPot,(long)ol.ratFootIQ,(long)ol.ratOLPow,(long)ol.ratOLBkP,(long)ol.ratOLBkR,(long)ol.ratOvr,(long)ol.ratImprovement]];
-    }
-    for (PlayerS *s in ss) {
-        [sb appendString:[NSString stringWithFormat:@"S %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",s.name,(long)s.year,(long)s.ratPot,(long)s.ratFootIQ,(long)s.ratSCov,(long)s.ratSSpd,(long)s.ratSTkl,(long)s.ratOvr,(long)s.ratImprovement]];
-    }
-    for (PlayerCB *cb in cbs) {
-        [sb appendString:[NSString stringWithFormat:@"CB %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",cb.name,(long)cb.year,(long)cb.ratPot,(long)cb.ratFootIQ,(long)cb.ratCBCov,(long)cb.ratCBSpd,(long)cb.ratCBTkl,(long)cb.ratOvr,(long)cb.ratImprovement]];
-    }
-    for (PlayerF7 *f7 in f7s) {
-        [sb appendString:[NSString stringWithFormat:@"F7 %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",f7.name,(long)f7.year,(long)f7.ratPot,(long)f7.ratFootIQ,(long)f7.ratF7Pow,(long)f7.ratF7Pas,(long)f7.ratF7Rsh,(long)f7.ratOvr,(long)f7.ratImprovement]];
-    }
-    return [sb copy];
-}
-
--(NSString *)getPlayerInfoSaveFile {
-    NSMutableString *sb = [NSMutableString string];
-    for (PlayerQB *qb in teamQBs) {
-        [sb appendString:[NSString stringWithFormat:@"QB %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",qb.name,(long)qb.year,(long)qb.ratPot,(long)qb.ratFootIQ,(long)qb.ratPassPow,(long)qb.ratPassAcc,(long)qb.ratPassEva,(long)qb.ratOvr,(long)qb.ratImprovement]];
-    }
-    for (PlayerRB *rb in teamRBs) {
-        [sb appendString:[NSString stringWithFormat:@"RB %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",rb.name,(long)rb.year,(long)rb.ratPot,(long)rb.ratFootIQ,(long)rb.ratRushPow,(long)rb.ratRushSpd,(long)rb.ratRushEva,(long)rb.ratOvr,(long)rb.ratImprovement]];
-    }
-    for (PlayerWR *wr in teamWRs) {
-        [sb appendString:[NSString stringWithFormat:@"WR %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",wr.name,(long)wr.year,(long)wr.ratPot,(long)wr.ratFootIQ,(long)wr.ratRecCat,(long)wr.ratRecSpd,(long)wr.ratRecEva,(long)wr.ratOvr,(long)wr.ratImprovement]];
-    }
-    for (PlayerK *k in teamKs) {
-         [sb appendString:[NSString stringWithFormat:@"K %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",k.name,(long)k.year,(long)k.ratPot,(long)k.ratFootIQ,(long)k.ratKickPow,(long)k.ratKickAcc,(long)k.ratKickFum,(long)k.ratOvr,(long)k.ratImprovement]];
-    }
-    for (PlayerOL *ol in teamOLs) {
-        [sb appendString:[NSString stringWithFormat:@"OL %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",ol.name,(long)ol.year,(long)ol.ratPot,(long)ol.ratFootIQ,(long)ol.ratOLPow,(long)ol.ratOLBkP,(long)ol.ratOLBkR,(long)ol.ratOvr,(long)ol.ratImprovement]];
-    }
-    for (PlayerS *s in teamSs) {
-        [sb appendString:[NSString stringWithFormat:@"S %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",s.name,(long)s.year,(long)s.ratPot,(long)s.ratFootIQ,(long)s.ratSCov,(long)s.ratSSpd,(long)s.ratSTkl,(long)s.ratOvr,(long)s.ratImprovement]];
-    }
-    for (PlayerCB *cb in teamCBs) {
-        [sb appendString:[NSString stringWithFormat:@"CB %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",cb.name,(long)cb.year,(long)cb.ratPot,(long)cb.ratFootIQ,(long)cb.ratCBCov,(long)cb.ratCBSpd,(long)cb.ratCBTkl,(long)cb.ratOvr,(long)cb.ratImprovement]];
-    }
-    for (PlayerF7 *f7 in teamF7s) {
-        [sb appendString:[NSString stringWithFormat:@"F7 %@,%ld,%ld,%ld,%ld,%ld,%ld,%ld,%ld\n",f7.name,(long)f7.year,(long)f7.ratPot,(long)f7.ratFootIQ,(long)f7.ratF7Pow,(long)f7.ratF7Pas,(long)f7.ratF7Rsh,(long)f7.ratOvr,(long)f7.ratImprovement]];
-    }
     return [sb copy];
 }
 
@@ -2352,39 +1910,6 @@
     }
     gs[2] = [self gameSummaryStringOpponent:g];
     return gs;
-}
-
--(NSArray*)getPlayerStatsExpandListStrings {
-    NSMutableArray *pList = [NSMutableArray array];
-    [pList addObject:[self getQB:0].getPosNameYrOvrPot_Str];
-    
-    for (int i = 0; i < 2; ++i) {
-        [pList addObject:[self getRB:i].getPosNameYrOvrPot_Str];
-    }
-    
-    for (int i = 0; i < 3; ++i) {
-        [pList addObject:[self getWR:i].getPosNameYrOvrPot_Str];
-    }
-    
-    for (int i = 0; i < 5; ++i) {
-        [pList addObject:[self getOL:i].getPosNameYrOvrPot_Str];
-    }
-    
-    [pList addObject:[self getK:0].getPosNameYrOvrPot_Str];
-    
-    [pList addObject:[self getS:0].getPosNameYrOvrPot_Str];
-    
-    for (int i = 0; i < 3; ++i) {
-        [pList addObject:[self getCB:i].getPosNameYrOvrPot_Str];
-    }
-    
-    for (int i = 0; i < 7; ++i) {
-        [pList addObject:[self getF7:i].getPosNameYrOvrPot_Str];
-    }
-    
-    [pList addObject:@"BENCH > BENCH"];
-    
-    return [pList copy];
 }
 
 -(void)setStarters:(NSArray<Player*>*)starters position:(int)position {

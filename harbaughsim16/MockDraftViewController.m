@@ -73,7 +73,7 @@
             adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratRecEva + p.ratRecSpd + adjAHeisScore) / 6.0) * 12.0);
         } else if ([a isKindOfClass:[PlayerOL class]]) {
             PlayerOL *p = (PlayerOL*)a;
-            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratOLBkP + p.ratOLPow + p.ratOLBkR) / 5.0) * 11.5);
+            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratOLBkP + p.ratOLPow + p.ratOLBkR) / 5.0) * 11.0);
         } else if ([a isKindOfClass:[PlayerF7 class]]) {
             PlayerF7 *p = (PlayerF7*)a;
             adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratF7Pas + p.ratF7Pow + p.ratF7Rsh) / 5.0) * 10.5);
@@ -82,7 +82,7 @@
             adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratCBCov + p.ratCBSpd + p.ratCBTkl) / 5.0) * 10.5);
         } else if ([a isKindOfClass:[PlayerS class]]) {
             PlayerS *p = (PlayerS*)a;
-            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratSCov + p.ratSSpd + p.ratSTkl) / 5.0) * 11.5);
+            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratSCov + p.ratSSpd + p.ratSTkl) / 5.0) * 10.5);
         } else {
             PlayerK *k = (PlayerK*)a;
             adjADraftGrade = (int)(((double)(k.ratOvr + k.ratFootIQ + k.ratKickPow + k.ratKickAcc + k.ratKickFum) / 11.0) * 12.0);
@@ -100,7 +100,7 @@
             adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratRecEva + p.ratRecSpd + adjBHeisScore) / 6.0) * 12.0);
         } else if ([b isKindOfClass:[PlayerOL class]]) {
             PlayerOL *p = (PlayerOL*)b;
-            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratOLBkP + p.ratOLPow + p.ratOLBkR) / 5.0) * 11.5);
+            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratOLBkP + p.ratOLPow + p.ratOLBkR) / 5.0) * 11.0);
         } else if ([b isKindOfClass:[PlayerF7 class]]) {
             PlayerF7 *p = (PlayerF7*)b;
             adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratF7Pas + p.ratF7Pow + p.ratF7Rsh) / 5.0) * 10.5);
@@ -109,7 +109,7 @@
             adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratCBCov + p.ratCBSpd + p.ratCBTkl) / 5.0) * 10.5);
         } else if ([b isKindOfClass:[PlayerS class]]) {
             PlayerS *p = (PlayerS*)b;
-            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratSCov + p.ratSSpd + p.ratSTkl) / 5.0) * 11.5);
+            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratSCov + p.ratSSpd + p.ratSTkl) / 5.0) * 10.5);
         } else  {
             PlayerK *k = (PlayerK*)b;
             adjBDraftGrade = (int)(((double)(k.ratOvr + k.ratFootIQ + k.ratKickPow + k.ratKickAcc + k.ratKickFum) / 11.0) * 12.0);
@@ -190,6 +190,7 @@
     }
     
     [attName appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", [p getInitialName]] attributes:@{NSForegroundColorAttributeName : nameColor}]];
+    [attName appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", [p getYearString]] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
     [cell.textLabel setAttributedText:attName];
     [cell.detailTextLabel setText:[p.team strRep]];
