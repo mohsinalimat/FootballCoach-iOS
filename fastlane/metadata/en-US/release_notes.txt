@@ -5,3 +5,4 @@
 * Fixed a bug that which caused the app to sign freshmen based on your team's prestige before entering the recruiting period, which made the game easier
 * Added a button to get to the app's subreddit - /r/FootballCoach
 * Fixed a bug that would not update your rival of your team rebranding
+* Overhauled the pool of recruits - there are now 200 total recruits to choose from and fewer blue-chips to sign
