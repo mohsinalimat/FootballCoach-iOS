@@ -1348,7 +1348,7 @@
 
 -(Team*)findTeam:(NSString*)name {
     for (int i = 0; i < _teamList.count; i++){
-        if ([_teamList[i].name isEqualToString:name]) {
+        if ([_teamList[i].abbreviation isEqualToString:name]) {
             return _teamList[i];
         }
     }
