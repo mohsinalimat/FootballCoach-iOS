@@ -820,8 +820,7 @@
             f7Needs = 0;
         }
     }
-    
-    ////NSLog(@"WALKONS: %d QBs, %d RBs, %d WRs, %d OLs, %d Ks, %d F7, %d CBs, %d Ss", qbNeeds, rbNeeds,wrNeeds,olNeeds,kNeeds,f7Needs,cbNeeds,sNeeds);
+
     for( int i = 0; i < qbNeeds; ++i ) {
         //make QBs
         [teamQBs addObject:[PlayerQB newQBWithName:[league getRandName] year:1 stars:1 team:self]];
@@ -859,7 +858,7 @@
     
     for( int i = 0; i < f7Needs; ++i ) {
         //make F7s
-        [teamF7s addObject:[PlayerF7 newF7WithName:[league getRandName] year:1 stars:2 team:self]];
+        [teamF7s addObject:[PlayerF7 newF7WithName:[league getRandName] year:1 stars:1 team:self]];
     }
     
     //done making players, sort them
