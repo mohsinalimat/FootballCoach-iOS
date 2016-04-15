@@ -60,6 +60,10 @@
                     [[HBSharedUtils getLeague].userTeam setName:name.text];
                     [[HBSharedUtils getLeague].userTeam setAbbreviation:abbrev.text];
                     Team *rival = [[HBSharedUtils getLeague] findTeam:[HBSharedUtils getLeague].userTeam.rivalTeam];
+                    if (![userTeam isEqual:[[HBSharedUtils getLeague] findTeam:@"GEO"]] && [rival.abbreviation isEqualToString:@"ALA"]) {
+                        [rival setRivalTeam:@"GEO"];
+                    }
+                    rival = [[HBSharedUtils getLeague] findTeam:[HBSharedUtils getLeague].userTeam.rivalTeam];
                     [rival setRivalTeam:abbrev.text];
 
                     NSMutableArray *tempLeagueYear = [NSMutableArray array];
