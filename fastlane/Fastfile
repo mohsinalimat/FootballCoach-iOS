@@ -9,6 +9,7 @@ platform :ios do
     ensure_git_status_clean
   end
 
+  desc "Re-takes all screenshots"
   lane :screenshots do
     snapshot(
       skip_open_summary: true,
