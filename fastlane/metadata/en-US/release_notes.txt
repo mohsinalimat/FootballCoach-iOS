@@ -6,3 +6,4 @@
 * Added a button to get to the app's subreddit - /r/FootballCoach
 * Fixed a bug that would not update your rival of your team rebranding
 * Overhauled the pool of recruits - there are now 200 total recruits to choose from and fewer blue-chips to sign
+* Fixed an issue on the recruiting screen where the stats of a recruit would overlap on 4-in and smaller devices, as well as some iPads
