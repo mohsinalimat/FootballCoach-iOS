@@ -239,6 +239,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (selectedConf.league.currentWeek > 8) {
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {

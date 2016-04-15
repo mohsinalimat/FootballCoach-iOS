@@ -157,14 +157,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     
-    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_ROSTER_TUTORIAL_SHOWN_KEY];
+    BOOL tutorialShown = false;//[[NSUserDefaults standardUserDefaults] boolForKey:HB_ROSTER_TUTORIAL_SHOWN_KEY];
     if (!tutorialShown) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_ROSTER_TUTORIAL_SHOWN_KEY];
         [[NSUserDefaults standardUserDefaults] synchronize];
         //display intro screen
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Depth Chart Tips" message:@"This page contains your team's roster, separated into depth charts by position and ordered by overall rating. At any time during the season, you can start or sit players by moving them up or down on the depth chart. Redshirted players will always appear at the bottom of the depth chart. \nThe positions:\n\nQB = Quarterback\n\nRB = Running Back\n\nWR = Wide Reciever\n\nOL = Offensive Line\n\nF7 = Front 7 (your defensive linemen and linebackers)\n\nCB = Cornerback\n\nS = Safety\n\nK = Kicker\n\n\nAt the end of each season, graduating seniors and highly-touted juniors will leave the program and open up spots on the roster, which you can fill during the recruiting period. Over the offseason, players will grow and their stats will improve, as they train and learn from their in-game experience. Some players may even turn into superstars through your offseason training program. Manage your roster carefully, recruit and play the right players, and your team will become a force to be reckoned with. Good luck, coach!" preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alertController animated:YES completion:nil];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Depth Chart Tips" message:@"This page contains your team's roster, separated into depth charts by position and ordered by overall rating. At any time during the season, you can start or sit players by moving them up or down on the depth chart. Redshirted players will always appear at the bottom of the depth chart. \nThe positions:\n\nQB = Quarterback\n\nRB = Running Back\n\nWR = Wide Reciever\n\nOL = Offensive Line\n\nF7 = Front 7 (your defensive linemen and linebackers)\n\nCB = Cornerback\n\nS = Safety\n\nK = Kicker\n\n\nAt the end of each season, graduating seniors and highly-touted juniors will leave the program and open up spots on the roster, which you can fill during the recruiting period. Over the offseason, players will grow and their stats will improve, as they train and learn from their in-game experience. Some players may even turn into superstars through your offseason training program. Manage your roster carefully, recruit and play the right players, and your team will become a force to be reckoned with. Good luck, coach!" preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
+            [self presentViewController:alertController animated:YES completion:nil];
+        });
     }
 }
 

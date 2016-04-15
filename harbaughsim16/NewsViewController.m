@@ -539,6 +539,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([HBSharedUtils getLeague].currentWeek > 5) {
         if (indexPath.section == 0) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];

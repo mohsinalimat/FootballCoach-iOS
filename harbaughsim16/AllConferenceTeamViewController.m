@@ -231,6 +231,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Player *plyr;
     if (indexPath.section == 0) {
         plyr = leadingQBs[indexPath.row];

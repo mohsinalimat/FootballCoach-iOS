@@ -40,7 +40,7 @@
     [navSearchBar setTintColor:[UIColor whiteColor]];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
-    [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor lightTextColor]];
+    [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor colorWithWhite:1.0 alpha:0.5]];
     [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
     
     self.navigationItem.titleView = navSearchBar;
@@ -111,6 +111,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:teams[indexPath.row]] animated:YES];
 }
 
