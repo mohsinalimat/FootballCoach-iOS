@@ -157,7 +157,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     
-    BOOL tutorialShown = false;//[[NSUserDefaults standardUserDefaults] boolForKey:HB_ROSTER_TUTORIAL_SHOWN_KEY];
+    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_ROSTER_TUTORIAL_SHOWN_KEY];
     if (!tutorialShown) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_ROSTER_TUTORIAL_SHOWN_KEY];
         [[NSUserDefaults standardUserDefaults] synchronize];
