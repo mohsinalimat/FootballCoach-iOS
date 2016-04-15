@@ -10,7 +10,7 @@ sudo gem install fastlane
 ```
 fastlane ios screenshots
 ```
-
+Re-takes all screenshots
 ### ios beta
 ```
 fastlane ios beta
