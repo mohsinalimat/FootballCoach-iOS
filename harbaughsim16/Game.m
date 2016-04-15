@@ -981,23 +981,7 @@
         // Upset!
         currentWeekNews = _homeTeam.league.newsStories[_awayTeam.league.currentWeek+1];
         [currentWeekNews addObject:[NSString stringWithFormat:@"Upset! %@ beats %@\n%@ pulls off the upset on the road against %@, winning %ld to %ld.", _homeTeam.strRep, _awayTeam.strRep, _homeTeam.name, _awayTeam.name, (long)_homeScore, (long)_awayScore]];
-    }/* else if (_homeScore > _awayScore && [_homeTeam.streaks[_awayTeam.abbreviation].getLastThreeGames isEqualToString:@"LLL"]) {
-        //home snaps losing streak
-        currentWeekNews = _homeTeam.league.newsStories[_awayTeam.league.currentWeek+1];
-        [currentWeekNews addObject:[NSString stringWithFormat:@"Losing Streak Broken! %@ beats %@\n%@ beats %@ %ld to %ld at home, snapping its skid against them.", _homeTeam.strRep, _awayTeam.strRep, _homeTeam.name, _awayTeam.name, (long)_homeScore, (long)_awayScore]];
-    } else if (_awayScore > _homeScore && [_awayTeam.streaks[_homeTeam.abbreviation].getLastThreeGames isEqualToString:@"LLL"]) {
-        //away snaps losing streak
-        currentWeekNews = _awayTeam.league.newsStories[_homeTeam.league.currentWeek+1];
-        [currentWeekNews addObject:[NSString stringWithFormat:@"Losing Streak Broken! %@ beats %@\n%@ beats %@ %ld to %ld on the road, snapping its skid against them.", _awayTeam.strRep, _homeTeam.strRep, _awayTeam.name, _homeTeam.name, (long)_awayScore, (long)_homeScore]];
-    } else if (_homeScore < _awayScore && [_homeTeam.streaks[_awayTeam.abbreviation].getLastThreeGames isEqualToString:@"WWW"]) {
-        //home loses winning streak
-        currentWeekNews = _homeTeam.league.newsStories[_awayTeam.league.currentWeek+1];
-        [currentWeekNews addObject:[NSString stringWithFormat:@"Winning Streak Over! %@ beats %@\n%@ beats %@ %ld to %ld at home, snapping %@'s streak against them.", _awayTeam.strRep, _homeTeam.strRep, _awayTeam.name, _homeTeam.name, (long)_awayScore, (long)_homeScore, _homeTeam.abbreviation]];
-    } else if (_awayScore < _homeScore && [_awayTeam.streaks[_homeTeam.abbreviation].getLastThreeGames isEqualToString:@"WWW"]) {
-        //away loses winning streak
-        currentWeekNews = _awayTeam.league.newsStories[_homeTeam.league.currentWeek+1];
-        [currentWeekNews addObject:[NSString stringWithFormat:@"Winning Streak Over! %@ beats %@\n%@ beats %@ %ld to %ld at home, snapping %@'s streak against them.", _homeTeam.strRep, _awayTeam.strRep, _homeTeam.name, _awayTeam.name, (long)_homeScore, (long)_awayScore, _awayTeam.abbreviation]];
-    }*/
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
 
@@ -1305,7 +1289,11 @@
                 [_AwayRB2Stats replaceObjectAtIndex:2 withObject:kStat1];
             }
         }
-        tdInfo = [NSString stringWithFormat:@"%@ RB %@ rushed %d yards for a TD.\n", offense.abbreviation,selRB.name,yardsGain];
+        if (yardsGain != 1) {
+            tdInfo = [NSString stringWithFormat:@"%@ RB %@ rushed %d yards for a TD.\n", offense.abbreviation,selRB.name,yardsGain];
+        } else {
+            tdInfo = [NSString stringWithFormat:@"%@ RB %@ rushed %d yard for a TD.\n", offense.abbreviation,selRB.name,yardsGain];
+        }
         selRB.statsTD++;
         //offense.teamPoints += 6;
         //defense.teamOppPoints += 6;
@@ -1904,7 +1892,7 @@
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];
         [selWRStats replaceObjectAtIndex:3 withObject:wrTarget];
     }
-    tdInfo = [NSString stringWithFormat:@"%@ QB %@ threw a %ld yard TD to %@.\n",offense.abbreviation,[offense getQB:0].name,(long)yardsGained,selWR.name];
+    tdInfo = [NSString stringWithFormat:@"%@ QB %@ threw a %ld-yard TD to %@.\n",offense.abbreviation,[offense getQB:0].name,(long)yardsGained,selWR.name];
     [offense getQB:0].statsTD++;
     selWR.statsTD++;
 }

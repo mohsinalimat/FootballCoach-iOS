@@ -24,6 +24,7 @@
 
 #import "CSNotificationView.h"
 #import "STPopup.h"
+#import "HexColors.h"
 
 @interface RecruitingViewController ()
 {
@@ -438,8 +439,8 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.rowHeight = 140;
-    self.tableView.estimatedRowHeight = 140;
+    self.tableView.rowHeight = 150;
+    self.tableView.estimatedRowHeight = 150;
     recruitingBudget = [HBSharedUtils getLeague].userTeam.recruitingMoney;
     
     NSInteger teamSize = [HBSharedUtils getLeague].userTeam.teamQBs.count + [HBSharedUtils getLeague].userTeam.teamRBs.count + [HBSharedUtils getLeague].userTeam.teamWRs.count + [HBSharedUtils getLeague].userTeam.teamKs.count + [HBSharedUtils getLeague].userTeam.teamSs.count + [HBSharedUtils getLeague].userTeam.teamCBs.count + [HBSharedUtils getLeague].userTeam.teamF7s.count;
@@ -524,66 +525,156 @@
     }
     
     //recruiting star distribution from here: http://www.cbssports.com/collegefootball/eye-on-college-football/21641769
-    // 5-star: 13/100
-    // 4-star: 35/100
-    // 3-star: 35/100
+    // 5-star: 13/100 -> modified to 8/100 to make it harder
+    // 4-star: 35/100 -> modified to 40/100 to make it harder
+    // 3-star: 35/100 -> modified to 40/100 to make it harder
     // 2-star: 14/100
     // 1-star: 3/100
     // extend that to 200 recruits
-
-    for (int i = 0; i < 13; i++) {
-        [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
-        [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
-        [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
-        [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
-        [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
-        [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
-        [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
-        [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+    int position = 0;
+    for (int i = 0; i < 16; i++) {
+        position = (int)([HBSharedUtils randomValue] * 8) - 1;
+        if (position < 0) {
+            position = 0;
+        }
+        
+        if (position > 7) {
+            position = 7;
+        }
+        
+        if (position == 0) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 1 ) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 2) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 3) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 4) {
+            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 5) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 6) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        }
     }
     
-    for (int i = 0; i < 35; i++) {
-        [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
-        [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
-        [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
-        [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
-        [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
-        [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
-        [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
-        [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+    for (int i = 0; i < 80; i++) {
+        position = (int)([HBSharedUtils randomValue] * 8) - 1;
+        if (position < 0) {
+            position = 0;
+        }
+        
+        if (position > 7) {
+            position = 7;
+        }
+        
+        if (position == 0) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 1 ) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 2) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 3) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 4) {
+            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 5) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 6) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        }
     }
     
-    for (int i = 0; i < 35; i++) {
-        [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
-        [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
-        [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
-        [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
-        [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
-        [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
-        [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
-        [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+    for (int i = 0; i < 80; i++) {
+        position = (int)([HBSharedUtils randomValue] * 8) - 1;
+        if (position < 0) {
+            position = 0;
+        }
+        
+        if (position > 7) {
+            position = 7;
+        }
+        
+        if (position == 0) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 1 ) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 2) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 3) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 4) {
+            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 5) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 6) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
     }
     
-    for (int i = 0; i < 14; i++) {
-        [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
-        [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
-        [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
-        [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
-        [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
-        [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
-        [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
-        [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+    for (int i = 0; i < 28; i++) {
+        position = (int)([HBSharedUtils randomValue] * 8) - 1;
+        if (position < 0) {
+            position = 0;
+        }
+        
+        if (position > 7) {
+            position = 7;
+        }
+        
+        if (position == 0) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 1 ) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 2) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 3) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 4) {
+            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 5) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 6) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        }
     }
     
-    for (int i = 0; i < 3; i++) {
-        [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
-        [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
-        [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
-        [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
-        [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
-        [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
-        [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
-        [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+    for (int i = 0; i < 6; i++) {
+        position = (int)([HBSharedUtils randomValue] * 8) - 1;
+        if (position < 0) {
+            position = 0;
+        }
+        
+        if (position > 7) {
+            position = 7;
+        }
+        
+        if (position == 0) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 1 ) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 2) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 3) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 4) {
+            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 5) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 6) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        }
     }
     
     [self reloadRecruits];
@@ -803,6 +894,7 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Remaining Needs",[HBSharedUtils getLeague].userTeam.abbreviation] message:summary preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController.view setNeedsLayout];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -827,65 +919,148 @@
     [cell.recruitButton setTitle:[NSString stringWithFormat:@"Recruit Player (%d pts)", player.cost] forState:UIControlStateNormal];
     [cell.recruitButton addTarget:self action:@selector(recruitPlayer:) forControlEvents:UIControlEventTouchUpInside];
     [cell.recruitButton setTag:indexPath.row];
-    [cell.stat1Label setText:@"Potential"];
-    [cell.stat1ValueLabel setText:[NSString stringWithFormat:@"%d", player.ratPot]];
-    if ([player isKindOfClass:[PlayerQB class]]) {
-        [cell.stat2Label setText:@"Throwing Power"];
-        [cell.stat2ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerQB*)player).ratPassPow]];
-        [cell.stat3Label setText:@"Throwing Acc."];
-        [cell.stat3ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerQB*)player).ratPassAcc]];
-        [cell.stat4Label setText:@"Evasion"];
-        [cell.stat4ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerQB*)player).ratPassEva]];
-    } else if ([player isKindOfClass:[PlayerRB class]]) {
-        [cell.stat2Label setText:@"Strength"];
-        [cell.stat2ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerRB*)player).ratRushPow]];
-        [cell.stat3Label setText:@"Speed"];
-        [cell.stat3ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerRB*)player).ratRushSpd]];
-        [cell.stat4Label setText:@"Evasion"];
-        [cell.stat4ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerRB*)player).ratRushEva]];
-    } else if ([player isKindOfClass:[PlayerWR class]]) {
-        [cell.stat2Label setText:@"Catching"];
-        [cell.stat2ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerWR*)player).ratRecCat]];
-        [cell.stat3Label setText:@"Speed"];
-        [cell.stat3ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerWR*)player).ratRecSpd]];
-        [cell.stat4Label setText:@"Evasion"];
-        [cell.stat4ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerWR*)player).ratRecEva]];
-    } else if ([player isKindOfClass:[PlayerOL class]]) {
-        [cell.stat2Label setText:@"Strength"];
-        [cell.stat2ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerOL*)player).ratOLPow]];
-        [cell.stat3Label setText:@"Pass Blocking"];
-        [cell.stat3ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerOL*)player).ratOLBkP]];
-        [cell.stat4Label setText:@"Run Blocking"];
-        [cell.stat4ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerOL*)player).ratOLBkR]];
-    } else if ([player isKindOfClass:[PlayerF7 class]]) {
-        [cell.stat2Label setText:@"Strength"];
-        [cell.stat2ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerF7*)player).ratF7Pow]];
-        [cell.stat3Label setText:@"Pass Pressure"];
-        [cell.stat3ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerF7*)player).ratF7Pas]];
-        [cell.stat4Label setText:@"Run Stopping"];
-        [cell.stat4ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerF7*)player).ratF7Rsh]];
-    } else if ([player isKindOfClass:[PlayerCB class]]) {
-        [cell.stat2Label setText:@"Coverage"];
-        [cell.stat2ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerCB*)player).ratCBCov]];
-        [cell.stat3Label setText:@"Speed"];
-        [cell.stat3ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerCB*)player).ratCBSpd]];
-        [cell.stat4Label setText:@"Tackling"];
-        [cell.stat4ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerCB*)player).ratCBTkl]];
-    } else if ([player isKindOfClass:[PlayerS class]]) {
-        [cell.stat2Label setText:@"Coverage"];
-        [cell.stat2ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerS*)player).ratSCov]];
-        [cell.stat3Label setText:@"Speed"];
-        [cell.stat3ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerS*)player).ratSSpd]];
-        [cell.stat4Label setText:@"Tackling"];
-        [cell.stat4ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerS*)player).ratSTkl]];
-    } else { // PlayerK class
-        [cell.stat2Label setText:@"Kick Power"];
-        [cell.stat2ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerK*)player).ratKickPow]];
-        [cell.stat3Label setText:@"Kick Accuracy"];
-        [cell.stat3ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerK*)player).ratKickAcc]];
-        [cell.stat4Label setText:@"Clumsiness"];
-        [cell.stat4ValueLabel setText:[NSString stringWithFormat:@"%d",((PlayerK*)player).ratKickFum]];
+    NSString *stat2;
+    NSString *stat3;
+    NSString *stat4;
+    NSString *stat2Val;
+    NSString *stat3Val;
+    NSString *stat4Val;
+    
+    UIColor *letterColor;
+    
+    NSMutableAttributedString *stat1Att = [[NSMutableAttributedString alloc] initWithString:@"Potential: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
+    NSString *stat1 = [player getLetterGrade:player.ratPot];
+    if ([stat1 containsString:@"A"]) {
+        letterColor = [HBSharedUtils successColor];
+    } else if ([stat1 containsString:@"B"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+    } else if ([stat1 containsString:@"C"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
+    } else if ([stat1 containsString:@"D"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+    } else if ([stat1 containsString:@"F"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+    } else {
+        letterColor = [UIColor lightGrayColor];
     }
+    
+    [stat1Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor}]];
+    [cell.stat1ValueLabel setAttributedText:stat1Att];
+    
+    
+    
+    
+    if ([player isKindOfClass:[PlayerQB class]]) {
+        stat2 = @"Throw Power";
+        stat2Val = [player getLetterGrade:((PlayerQB*)player).ratPassPow];
+        stat3 = @"Throw Accy";
+        stat3Val = [player getLetterGrade:((PlayerQB*)player).ratPassAcc];
+        stat4 = @"Evasion";
+        stat4Val = [player getLetterGrade:((PlayerQB*)player).ratPassEva];
+    } else if ([player isKindOfClass:[PlayerRB class]]) {
+        stat2 = @"Strength";
+        stat2Val = [player getLetterGrade:((PlayerRB*)player).ratRushPow];
+        stat3 = @"Speed";
+        stat3Val = [player getLetterGrade:((PlayerRB*)player).ratRushSpd];
+        stat4 = @"Evasion";
+        stat4Val = [player getLetterGrade:((PlayerRB*)player).ratRushEva];
+    } else if ([player isKindOfClass:[PlayerWR class]]) {
+        stat2 = @"Catching";
+        stat2Val = [player getLetterGrade:((PlayerWR*)player).ratRecCat];
+        stat3 = @"Speed";
+        stat3Val = [player getLetterGrade:((PlayerWR*)player).ratRecSpd];
+        stat4 = @"Evasion";
+        stat4Val = [player getLetterGrade:((PlayerWR*)player).ratRecEva];
+    } else if ([player isKindOfClass:[PlayerOL class]]) {
+        stat2 = @"Strength";
+        stat2Val = [player getLetterGrade:((PlayerOL*)player).ratOLPow];
+        stat3 = @"Pass Blocking";
+        stat3Val = [player getLetterGrade:((PlayerOL*)player).ratOLBkP];
+        stat4 = @"Run Blocking";
+        stat4Val = [player getLetterGrade:((PlayerOL*)player).ratOLBkR];
+    } else if ([player isKindOfClass:[PlayerF7 class]]) {
+        stat2 = @"Strength";
+        stat2Val = [player getLetterGrade:((PlayerF7*)player).ratF7Pow];
+        stat3 = @"Pass Pressure";
+        stat3Val = [player getLetterGrade:((PlayerF7*)player).ratF7Pas];
+        stat4 = @"Run Stopping";
+        stat4Val = [player getLetterGrade:((PlayerF7*)player).ratF7Rsh];
+    } else if ([player isKindOfClass:[PlayerCB class]]) {
+        stat2 = @"Coverage";
+        stat2Val = [player getLetterGrade:((PlayerCB*)player).ratCBCov];
+        stat3 = @"Speed";
+        stat3Val = [player getLetterGrade:((PlayerCB*)player).ratCBSpd];
+        stat4 = @"Tackling";
+        stat4Val = [player getLetterGrade:((PlayerCB*)player).ratCBTkl];
+    } else if ([player isKindOfClass:[PlayerS class]]) {
+        stat2 = @"Coverage";
+        stat2Val = [player getLetterGrade:((PlayerS*)player).ratSCov];
+        stat3 = @"Speed";
+        stat3Val = [player getLetterGrade:((PlayerS*)player).ratSSpd];
+        stat4 = @"Tackling";
+        stat4Val = [player getLetterGrade:((PlayerS*)player).ratSTkl];
+    } else { // PlayerK class
+        stat2 = @"Kick Power";
+        stat2Val = [player getLetterGrade:((PlayerK*)player).ratKickPow];
+        stat3 = @"Kick Accuracy";
+        stat3Val = [player getLetterGrade:((PlayerK*)player).ratKickAcc];
+        stat4 = @"Clumsiness";
+        stat4Val = [player getLetterGrade:((PlayerK*)player).ratKickFum];
+    }
+    
+    NSMutableAttributedString *stat2Att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@: ", stat2] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
+    if ([stat2Val containsString:@"A"]) {
+        letterColor = [HBSharedUtils successColor];
+    } else if ([stat2Val containsString:@"B"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+    } else if ([stat2Val containsString:@"C"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
+    } else if ([stat2Val containsString:@"D"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+    } else if ([stat2Val containsString:@"F"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+    } else {
+        letterColor = [UIColor lightGrayColor];
+    }
+    
+    [stat2Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat2Val attributes:@{NSForegroundColorAttributeName : letterColor}]];
+    [cell.stat2ValueLabel setAttributedText:stat2Att];
+    
+    NSMutableAttributedString *stat3Att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@: ", stat3] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
+    if ([stat3Val containsString:@"A"]) {
+        letterColor = [HBSharedUtils successColor];
+    } else if ([stat3Val containsString:@"B"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+    } else if ([stat3Val containsString:@"C"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
+    } else if ([stat3Val containsString:@"D"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+    } else if ([stat3Val containsString:@"F"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+    } else {
+        letterColor = [UIColor lightGrayColor];
+    }
+    
+    [stat3Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat3Val attributes:@{NSForegroundColorAttributeName : letterColor}]];
+    [cell.stat3ValueLabel setAttributedText:stat3Att];
+    
+    NSMutableAttributedString *stat4Att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@: ", stat4] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
+    if ([stat4Val containsString:@"A"]) {
+        letterColor = [HBSharedUtils successColor];
+    } else if ([stat4Val containsString:@"B"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+    } else if ([stat4Val containsString:@"C"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
+    } else if ([stat4Val containsString:@"D"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+    } else if ([stat4Val containsString:@"F"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+    } else {
+        letterColor = [UIColor lightGrayColor];
+    }
+    
+    [stat4Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat4Val attributes:@{NSForegroundColorAttributeName : letterColor}]];
+    [cell.stat4ValueLabel setAttributedText:stat4Att];
     
     if (player.cost > recruitingBudget || _viewingSignees) {
         [cell.recruitButton setEnabled:NO];

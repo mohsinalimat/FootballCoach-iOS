@@ -62,6 +62,7 @@
 		7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */; };
 		7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD431C9D0C7000E67080 /* GameDetailViewController.xib */; };
 		7571DD461C9D34B300E67080 /* RosterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD451C9D34B300E67080 /* RosterViewController.xib */; };
+		7586330A1CC142B900E1E458 /* MockDraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758633091CC142B900E1E458 /* MockDraftViewController.m */; };
 		75880F8C1CAC949300AF2C1C /* LeagueRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75880F8B1CAC949300AF2C1C /* LeagueRecordsViewController.m */; };
 		75880F8F1CAC949F00AF2C1C /* TeamRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75880F8E1CAC949F00AF2C1C /* TeamRecordsViewController.m */; };
 		75924A201C99CCC000B165AD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A1F1C99CCC000B165AD /* main.m */; };
@@ -210,6 +211,8 @@
 		7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerDetailViewController.xib; sourceTree = "<group>"; };
 		7571DD431C9D0C7000E67080 /* GameDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameDetailViewController.xib; sourceTree = "<group>"; };
 		7571DD451C9D34B300E67080 /* RosterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RosterViewController.xib; sourceTree = "<group>"; };
+		758633081CC142B900E1E458 /* MockDraftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockDraftViewController.h; sourceTree = "<group>"; };
+		758633091CC142B900E1E458 /* MockDraftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockDraftViewController.m; sourceTree = "<group>"; };
 		75880F8A1CAC949300AF2C1C /* LeagueRecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueRecordsViewController.h; sourceTree = "<group>"; };
 		75880F8B1CAC949300AF2C1C /* LeagueRecordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueRecordsViewController.m; sourceTree = "<group>"; };
 		75880F8D1CAC949F00AF2C1C /* TeamRecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamRecordsViewController.h; sourceTree = "<group>"; };
@@ -312,6 +315,13 @@
 		7510B8441C9C76AD00BE9CD6 /* Base Tabs */ = {
 			isa = PBXGroup;
 			children = (
+				755BBC761C9E5930001A8314 /* RecruitingViewController.h */,
+				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
+				755BBC881CA03252001A8314 /* HBRecruitCell.h */,
+				755BBC891CA03252001A8314 /* HBRecruitCell.m */,
+				755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */,
+				758633081CC142B900E1E458 /* MockDraftViewController.h */,
+				758633091CC142B900E1E458 /* MockDraftViewController.m */,
 				755BBC691C9E10D0001A8314 /* News */,
 				755BBC681C9E10CB001A8314 /* Schedule */,
 				755BBC671C9E10BD001A8314 /* Roster */,
@@ -462,9 +472,6 @@
 			children = (
 				751DF8251CA1F273003C62F2 /* TeamRosterViewController.h */,
 				751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */,
-				755BBC881CA03252001A8314 /* HBRecruitCell.h */,
-				755BBC891CA03252001A8314 /* HBRecruitCell.m */,
-				755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */,
 				7571DD361C9CFD4000E67080 /* RosterViewController.h */,
 				7571DD371C9CFD4000E67080 /* RosterViewController.m */,
 				7571DD451C9D34B300E67080 /* RosterViewController.xib */,
@@ -513,8 +520,6 @@
 				75924A241C99CCC000B165AD /* NewsViewController.h */,
 				75924A251C99CCC000B165AD /* NewsViewController.m */,
 				755BBC6C1C9E423B001A8314 /* NewsViewController.xib */,
-				755BBC761C9E5930001A8314 /* RecruitingViewController.h */,
-				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
 				754E90791CA58C0F00C450CF /* HeismanLeadersViewController.h */,
 				754E907A1CA58C0F00C450CF /* HeismanLeadersViewController.m */,
 				754E90761CA58BF800C450CF /* BowlProjectionViewController.h */,
@@ -924,6 +929,7 @@
 				755BBC8B1CA03252001A8314 /* HBRecruitCell.m in Sources */,
 				7571DD2C1C9CCD8100E67080 /* HBScheduleCell.m in Sources */,
 				754E907B1CA58C0F00C450CF /* HeismanLeadersViewController.m in Sources */,
+				7586330A1CC142B900E1E458 /* MockDraftViewController.m in Sources */,
 				7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */,
 				754E90821CA5A59D00C450CF /* TeamScheduleViewController.m in Sources */,
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,

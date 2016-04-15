@@ -114,7 +114,7 @@
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
-        if ([HBSharedUtils getLeague].currentWeek >= 14 && [[[HBSharedUtils getLeague] getHeisman][0] isEqual:plyr]) {
+        if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] getHeisman][0] isEqual:plyr]) {
             [statsCell.playerLabel setTextColor:[UIColor hx_colorWithHexRGBAString:@"#eeb211"]];
         } else {
             [statsCell.playerLabel setTextColor:[UIColor blackColor]];

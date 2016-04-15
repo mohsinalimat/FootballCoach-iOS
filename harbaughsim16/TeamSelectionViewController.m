@@ -40,12 +40,35 @@
     if (selectedIndexPath && userTeam) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to pick this team?" message:@"This choice can NOT be changed later." preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            /*UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Game Mode" message:@"Would you like to turn on hard mode? In hard mode, your conference will be more competitive, players will have a higher chance of injury, your program can incur sanctions from the league, and you will have a diminished recruiting budget." preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Yes, I'd like a challenge." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [league setUserTeam:userTeam];
+                //[league setHardMode:YES];
+                [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
+                [league save];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }]];
+            
+            [alert addAction:[UIAlertAction actionWithTitle:@"No, I'll stick with normal mode." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [league setUserTeam:userTeam];
+                [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
+                [league save];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+            */
+            
             [league setUserTeam:userTeam];
             [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
             [league save];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
             [self dismissViewControllerAnimated:YES completion:nil];
+            
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];

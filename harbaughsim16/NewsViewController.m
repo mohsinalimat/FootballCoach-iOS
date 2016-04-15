@@ -18,6 +18,7 @@
 #import "AllConferenceTeamViewController.h"
 #import "ConferenceStandingsSelectorViewController.h"
 #import "ConferenceStandingsViewController.h"
+#import "MockDraftViewController.h"
 
 #import "CSNotificationView.h"
 #import "HexColors.h"
@@ -219,6 +220,11 @@
         
         [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingViewController alloc] init]] animated:YES completion:nil];
         
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"View Mock Draft" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[MockDraftViewController alloc] init]] animated:YES completion:nil];
+        });
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];

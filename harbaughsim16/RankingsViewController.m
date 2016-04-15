@@ -177,7 +177,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    if (selectedStatType == HBStatTypePollScore) {
+        return 25;
+    } else {
+        return 30;
+    }
 }
 
 

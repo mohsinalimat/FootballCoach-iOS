@@ -30,7 +30,6 @@
     return self;
 }
 
-
 -(void)changeTeamName{
     if (![HBSharedUtils getLeague].canRebrandTeam) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"You can only rebrand your team during the offseason." preferredStyle:UIAlertControllerStyleAlert];
@@ -141,7 +140,6 @@
 }
 
 -(void)dismissVC {
-    self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
