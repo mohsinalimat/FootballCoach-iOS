@@ -1,14 +1,7 @@
-* Added player potential rating to stats
-* Added some length to field goals to make them more realistic
-* New Conference Standings page in news
-* Game winners now tinted in Game Detail and other places
-* Depth chart now displayed in recruiting
-* Fixed a weird UIKit issue
-* Added a review app button in settings
-* Added tracking of conference wins and losses
-* Fixed bug where games would sometimes enter the fifth quarter when a play was being run but the clock had passed 0:00
-* Modified the formula for player improvement; now depends on how many games the player plays
-* Changed career stat tracking to run after every game to update stats
-* Fixed a bug that created stories before game results were finalized
-* Added conference records to game pages
-* Added a tutorial for the roster page
+* Fixed an issue where labels would overlap on the recruiting screen
+* Added a Mock Draft
+* Made the top 10 in polls extend to top 25
+* Fixed some grammar errors in game summary
+* Fixed a bug that which caused the app to sign freshmen based on your team's prestige before entering the recruiting period, which made the game easier
+* Added a button to get to the app's subreddit - /r/FootballCoach
+* Fixed a bug that would not update your rival of your team rebranding
