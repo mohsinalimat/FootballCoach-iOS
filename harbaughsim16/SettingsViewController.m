@@ -74,14 +74,14 @@
                             NSString *teamString = leagueYear[i];
                             if ([teamString containsString:oldName]) {
                                 teamString = [teamString stringByReplacingOccurrencesOfString:oldName withString:name.text];
-                                NSLog(@"FOUND NAME MATCH IN LEAGUE HISTORY, REPLACING");
+                                //NSLog(@"FOUND NAME MATCH IN LEAGUE HISTORY, REPLACING");
                                 [tempLeagueYear replaceObjectAtIndex:i withObject:teamString];
                             }
                             
                             if ([teamString containsString:oldAbbrev]) {
                                 teamString = [teamString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
                                 [tempLeagueYear replaceObjectAtIndex:i withObject:teamString];
-                                NSLog(@"FOUND ABBREV MATCH IN LEAGUE HISTORY, REPLACING");
+                                //NSLog(@"FOUND ABBREV MATCH IN LEAGUE HISTORY, REPLACING");
                             }
                         }
                         
@@ -93,7 +93,7 @@
                         NSString *yearString = [HBSharedUtils getLeague].userTeam.teamHistory[j];
                         if ([yearString containsString:oldAbbrev]) {
                             yearString = [yearString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
-                            NSLog(@"FOUND ABBREV MATCH IN TEAM HISTORY, REPLACING");
+                            //NSLog(@"FOUND ABBREV MATCH IN TEAM HISTORY, REPLACING");
                             [[HBSharedUtils getLeague].userTeam.teamHistory replaceObjectAtIndex:j withObject:yearString];
                         }
                     }
@@ -102,7 +102,7 @@
                         NSString *heisString = [HBSharedUtils getLeague].heismanHistory[j];
                         if ([heisString containsString:[NSString stringWithFormat:@", %@ (", oldAbbrev]]) {
                             heisString = [heisString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@", %@ (", oldAbbrev] withString:[NSString stringWithFormat:@", %@ (", abbrev.text]];
-                            NSLog(@"FOUND ABBREV MATCH IN HEISMAN HISTORY, REPLACING");
+                            //NSLog(@"FOUND ABBREV MATCH IN HEISMAN HISTORY, REPLACING");
                             [[HBSharedUtils getLeague].heismanHistory replaceObjectAtIndex:j withObject:heisString];
                         }
                     }
@@ -325,7 +325,7 @@
         }
     } else {
         if (indexPath.row == 2) {
-            //NSLog(@"Delete save File");
+            ////NSLog(@"Delete save File");
             
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete your save file and start your career over?" message:@"This will take you back to the Team Selection screen." preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
@@ -339,7 +339,7 @@
                     }];
                     
                 } else {
-                    //NSLog(@"ERROR");
+                    ////NSLog(@"ERROR");
                 }
             }]];
             [self presentViewController:alert animated:YES completion:nil];

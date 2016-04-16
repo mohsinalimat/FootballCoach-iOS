@@ -69,7 +69,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSLog(@"SELECTED CONF: %@", [conferences[indexPath.row] confName]);
+    //NSLog(@"SELECTED CONF: %@", [conferences[indexPath.row] confName]);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"pushToConfTeam" object:conferences[indexPath.row]];
     [self dismissViewControllerAnimated:YES completion:nil];
 }

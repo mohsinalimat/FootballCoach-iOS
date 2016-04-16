@@ -50,7 +50,7 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to sim this season?" message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self simSeason];
-        //NSLog(@"SIMULATE SEASON");
+        ////NSLog(@"SIMULATE SEASON");
     }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
@@ -196,7 +196,7 @@
 }
 
 -(void)resetSimButton {
-    //NSLog(@"RECRUITING STAGE: %d", [HBSharedUtils getLeague].recruitingStage);
+    ////NSLog(@"RECRUITING STAGE: %d", [HBSharedUtils getLeague].recruitingStage);
     if ([HBSharedUtils getLeague].recruitingStage == 0) {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
         //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
@@ -209,9 +209,9 @@
 -(void)startRecruiting {
     //in process of recruiting
     //beginRecruiting();
-    //NSLog(@"Recruiting");
+    ////NSLog(@"Recruiting");
     [userTeam calculateGraduatingPlayers];
-    //NSLog(@"PLAYERS LEAVING: %@", userTeam.playersLeaving);
+    ////NSLog(@"PLAYERS LEAVING: %@", userTeam.playersLeaving);
     NSString *gradPlayersStr = [userTeam getGraduatingPlayersString];
     if (gradPlayersStr.length == 0) {
         gradPlayersStr = @"No players leaving this season.";

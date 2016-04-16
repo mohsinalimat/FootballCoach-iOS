@@ -1231,7 +1231,7 @@
             Team *home = bowlEligibleTeams[teamIndex];
             Team *away = bowlEligibleTeams[teamIndex + 1];
             Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
-            NSLog(@"%@ Projection: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
+            //NSLog(@"%@ Projection: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
             j++;
             teamIndex+=2;
             [sb addObject:bowl];

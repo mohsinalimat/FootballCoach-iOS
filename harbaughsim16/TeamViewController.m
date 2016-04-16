@@ -79,14 +79,14 @@
                             NSString *teamString = leagueYear[i];
                             if ([teamString containsString:oldName]) {
                                 teamString = [teamString stringByReplacingOccurrencesOfString:oldName withString:name.text];
-                                NSLog(@"FOUND NAME MATCH IN LEAGUE HISTORY, REPLACING");
+                                //NSLog(@"FOUND NAME MATCH IN LEAGUE HISTORY, REPLACING");
                                 [tempLeagueYear replaceObjectAtIndex:i withObject:teamString];
                             }
                             
                             if ([teamString containsString:oldAbbrev]) {
                                 teamString = [teamString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
                                 [tempLeagueYear replaceObjectAtIndex:i withObject:teamString];
-                                NSLog(@"FOUND ABBREV MATCH IN LEAGUE HISTORY, REPLACING");
+                                //NSLog(@"FOUND ABBREV MATCH IN LEAGUE HISTORY, REPLACING");
                             }
                         }
                         
@@ -98,7 +98,7 @@
                         NSString *yearString = selectedTeam.teamHistory[j];
                         if ([yearString containsString:oldAbbrev]) {
                             yearString = [yearString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
-                            NSLog(@"FOUND ABBREV MATCH IN TEAM HISTORY, REPLACING");
+                            //NSLog(@"FOUND ABBREV MATCH IN TEAM HISTORY, REPLACING");
                             [selectedTeam.teamHistory replaceObjectAtIndex:j withObject:yearString];
                         }
                     }
@@ -107,7 +107,7 @@
                         NSString *heisString = [HBSharedUtils getLeague].heismanHistory[j];
                         if ([heisString containsString:[NSString stringWithFormat:@", %@ (", oldAbbrev]]) {
                             heisString = [heisString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@", %@ (", oldAbbrev] withString:[NSString stringWithFormat:@", %@ (", abbrev.text]];
-                            NSLog(@"FOUND ABBREV MATCH IN HEISMAN HISTORY, REPLACING");
+                            //NSLog(@"FOUND ABBREV MATCH IN HEISMAN HISTORY, REPLACING");
                             [[HBSharedUtils getLeague].heismanHistory replaceObjectAtIndex:j withObject:heisString];
                         }
                     }
