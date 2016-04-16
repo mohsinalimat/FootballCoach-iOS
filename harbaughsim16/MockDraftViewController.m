@@ -48,7 +48,7 @@
     
     NSArray *teamList = [HBSharedUtils getLeague].teamList;
     for (Team *t in teamList) {
-        [t getPlayersLeaving];
+        [t calculateGraduatingPlayers];
         [players addObjectsFromArray:t.playersLeaving];
     }
     Player *heisman = [[HBSharedUtils getLeague] getHeisman][0];

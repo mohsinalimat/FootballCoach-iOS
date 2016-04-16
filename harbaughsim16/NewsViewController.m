@@ -204,7 +204,7 @@
     //in process of recruiting
     //beginRecruiting();
     //NSLog(@"Recruiting");
-    [userTeam getPlayersLeaving];
+    [userTeam calculateGraduatingPlayers];
     //NSLog(@"PLAYERS LEAVING: %@", userTeam.playersLeaving);
     NSString *gradPlayersStr = [userTeam getGraduatingPlayersString];
     if (gradPlayersStr.length == 0) {

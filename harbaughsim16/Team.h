@@ -239,7 +239,7 @@
 -(NSMutableArray*)getDefensiveTeamStrategies;
 -(NSArray*)getTeamStatsArray;
 -(void)setStarters:(NSArray<Player*>*)starters position:(int)position;
--(void)getPlayersLeaving;
+-(void)calculateGraduatingPlayers;
 -(NSArray*)singleSeasonRecords;
 -(NSArray*)careerRecords;
 @end

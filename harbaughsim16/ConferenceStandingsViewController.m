@@ -73,7 +73,7 @@
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (selectedConf.league.currentWeek > 8) {
         if (section == 0) {
-            if (ccg.hasPlayed || selectedConf.league.currentWeek == 11) {
+            if (ccg.hasPlayed || selectedConf.league.currentWeek >= 12) {
                 return [NSString stringWithFormat:@"%@ Championship Game", selectedConf.confName];
             } else {
                 return [NSString stringWithFormat:@"Projected %@ Championship Game", selectedConf.confName];
@@ -165,8 +165,13 @@
                         [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
                         [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
                     } else {
-                        [cell.teamNameLabel setTextColor:[UIColor blackColor]];
-                        [cell.scoreLabel setTextColor:[UIColor blackColor]];
+                        if ([ccg.awayTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
+                            [cell.teamNameLabel setTextColor:[HBSharedUtils styleColor]];
+                            [cell.scoreLabel setTextColor:[HBSharedUtils styleColor]];
+                        } else {
+                            [cell.teamNameLabel setTextColor:[UIColor blackColor]];
+                            [cell.scoreLabel setTextColor:[UIColor blackColor]];
+                        }
                     }
                 } else {
                     NSString *homeRank = @"";
@@ -180,8 +185,13 @@
                         [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
                         [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
                     } else {
-                        [cell.teamNameLabel setTextColor:[UIColor blackColor]];
-                        [cell.scoreLabel setTextColor:[UIColor blackColor]];
+                        if ([ccg.homeTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
+                            [cell.teamNameLabel setTextColor:[HBSharedUtils styleColor]];
+                            [cell.scoreLabel setTextColor:[HBSharedUtils styleColor]];
+                        } else {
+                            [cell.teamNameLabel setTextColor:[UIColor blackColor]];
+                            [cell.scoreLabel setTextColor:[UIColor blackColor]];
+                        }
                     }
                 }
                 

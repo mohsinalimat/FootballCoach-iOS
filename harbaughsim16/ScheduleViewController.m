@@ -218,7 +218,7 @@
     //in process of recruiting
     //beginRecruiting();
     //NSLog(@"Recruiting");
-    [userTeam getPlayersLeaving];
+    [userTeam calculateGraduatingPlayers];
     NSString *gradPlayersStr = [userTeam getGraduatingPlayersString];
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Players Leaving", userTeam.abbreviation] message:gradPlayersStr preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Start Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

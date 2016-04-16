@@ -1659,7 +1659,7 @@
     }
 }
 
--(void)getPlayersLeaving {
+-(void)calculateGraduatingPlayers {
     playersLeaving = [NSMutableArray array];
     if (playersLeaving.count == 0) {
         int i = 0;
@@ -1672,7 +1672,7 @@
             if (teamQBs[i].year == 4 || (teamQBs[i].year == 3 && teamQBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamQBs[i]];
                 if (teamQBs[i].year == 3) {
-                    NSLog(@"JUNIOR QB LEAVING");
+                    //NSLog(@"JUNIOR QB LEAVING");
                 }
             }
             ++i;
@@ -1683,7 +1683,7 @@
             if (teamRBs[i].year == 4 || (teamRBs[i].year == 3 && teamRBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamRBs[i]];
                 if (teamRBs[i].year == 3) {
-                    NSLog(@"JUNIOR RB LEAVING");
+                    //NSLog(@"JUNIOR RB LEAVING");
                 }
             }
             ++i;
@@ -1694,7 +1694,7 @@
             if (teamWRs[i].year == 4 || (teamWRs[i].year == 3 && teamWRs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamWRs[i]];
                 if (teamWRs[i].year == 3) {
-                    NSLog(@"JUNIOR WR LEAVING");
+                    //NSLog(@"JUNIOR WR LEAVING");
                 }
             }
             ++i;
@@ -1705,7 +1705,7 @@
             if (teamKs[i].year == 4 || (teamKs[i].year == 3 && teamKs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamKs[i]];
                 if (teamKs[i].year == 3) {
-                    NSLog(@"JUNIOR K LEAVING");
+                    //NSLog(@"JUNIOR K LEAVING");
                 }
             }
             ++i;
@@ -1716,7 +1716,7 @@
             if (teamOLs[i].year == 4 || (teamOLs[i].year == 3 && teamOLs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamOLs[i]];
                 if (teamOLs[i].year == 3) {
-                    NSLog(@"JUNIOR OL LEAVING");
+                    //NSLog(@"JUNIOR OL LEAVING");
                 }
             }
             ++i;
@@ -1727,7 +1727,7 @@
             if (teamSs[i].year == 4 || (teamSs[i].year == 3 && teamSs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamSs[i]];
                 if (teamSs[i].year == 3) {
-                    NSLog(@"JUNIOR S LEAVING");
+                    //NSLog(@"JUNIOR S LEAVING");
                 }
             }
             ++i;
@@ -1738,7 +1738,7 @@
             if (teamCBs[i].year == 4 || (teamCBs[i].year == 3 && teamCBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamCBs[i]];
                 if (teamCBs[i].year == 3) {
-                    NSLog(@"JUNIOR CB LEAVING");
+                    //NSLog(@"JUNIOR CB LEAVING");
                 }
             }
             ++i;
@@ -1749,7 +1749,7 @@
             if (teamF7s[i].year == 4 || (teamF7s[i].year == 3 && teamF7s[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamF7s[i]];
                 if (teamF7s[i].year == 3) {
-                    NSLog(@"JUNIOR F7 LEAVING");
+                    //NSLog(@"JUNIOR F7 LEAVING");
                 }
             }
             ++i;

@@ -141,6 +141,8 @@
         } else {
             cell.accessoryType = UITableViewCellAccessoryNone;
         }
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
     if (indexPath.section == 0) {
