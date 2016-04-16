@@ -22,13 +22,13 @@ class Football_CoachUITests: XCTestCase {
     func testExample()
     {
         XCUIApplication().tabBars.buttons["Latest News"].tap()
-        snapshot("home")
+        snapshot("1home")
         XCUIApplication().tabBars.buttons["Schedule"].tap()
-        snapshot("schedule")
+        snapshot("2schedule")
         XCUIApplication().tabBars.buttons["Depth Chart"].tap()
-        snapshot("roster")
+        snapshot("3roster")
         XCUIApplication().tabBars.buttons["My Team"].tap()
-        snapshot("myteam")
+        snapshot("4myteam")
     }
     
     
