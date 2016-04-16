@@ -157,14 +157,37 @@
                 
             } else if (userTeam.gameWLSchedule.count > numGamesPlayed) {
                 // Played a game, show summary - show notification
-                NSString *gameSummary = [userTeam weekSummaryString];
-                if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
-                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"Week %ld Update - %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
+                if (simLeague.currentWeek <= 12) {
+                    NSString *gameSummary = [userTeam weekSummaryString];
+                    if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                        [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"Week %ld: %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
+                    } else {
+                        [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"Week %ld: %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
+                    }
                 } else {
-                
-                    [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"Week %ld Update - %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
+                    if (simLeague.currentWeek == 15) {
+                        NSString *gameSummary = [userTeam weekSummaryString];
+                        if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"NCG: %@",[userTeam weekSummaryString]] onViewController:self];
+                        } else {
+                            [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"NCG: %@",[userTeam weekSummaryString]] onViewController:self];
+                        }
+                    } else if (simLeague.currentWeek == 14) {
+                        NSString *gameSummary = [userTeam weekSummaryString];
+                        if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"Bowls: %@", [userTeam weekSummaryString]] onViewController:self];
+                        } else {
+                            [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"Bowls: %@", [userTeam weekSummaryString]] onViewController:self];
+                        }
+                    } else if (simLeague.currentWeek == 13) {
+                        NSString *gameSummary = [userTeam weekSummaryString];
+                        if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"%@ CCG: %@", userTeam.conference, [userTeam weekSummaryString]] onViewController:self];
+                        } else {
+                            [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"%@ CCG: %@",userTeam.conference, [userTeam weekSummaryString]] onViewController:self];
+                        }
+                    }
                 }
-                
             }
             
             // Show notification for being invited/not invited to bowl or CCG
@@ -192,8 +215,13 @@
                 [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 13) {
                 NSString *heismanString = [simLeague getHeismanCeremonyStr];
+                NSArray *heismanParts = [heismanString componentsSeparatedByString:@"?"];
+                NSMutableString *composeHeis = [NSMutableString string];
+                for (int i = 1; i < heismanParts.count; i++) {
+                    [composeHeis appendString:heismanParts[i]];
+                }
                 
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld's Player of the Year", (long)(2016 + userTeam.teamHistory.count)] message:heismanString preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld's Player of the Year", (long)(2016 + userTeam.teamHistory.count)] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [self presentViewController:alertController animated:YES completion:nil];
                 
@@ -218,7 +246,7 @@
     //in process of recruiting
     //beginRecruiting();
     ////NSLog(@"Recruiting");
-    [userTeam calculateGraduatingPlayers];
+    [userTeam getPlayersLeaving];
     NSString *gradPlayersStr = [userTeam getGraduatingPlayersString];
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Players Leaving", userTeam.abbreviation] message:gradPlayersStr preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Start Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

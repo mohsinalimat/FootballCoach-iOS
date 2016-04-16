@@ -48,7 +48,7 @@
     
     NSArray *teamList = [HBSharedUtils getLeague].teamList;
     for (Team *t in teamList) {
-        [t calculateGraduatingPlayers];
+        [t getPlayersLeaving];
         [players addObjectsFromArray:t.playersLeaving];
     }
     Player *heisman = [[HBSharedUtils getLeague] getHeisman][0];
@@ -117,7 +117,7 @@
         
         return adjADraftGrade > adjBDraftGrade ? -1 : adjADraftGrade == adjBDraftGrade ? 0 : 1;
     }];
-    //NSLog(@"TOTAL DRAFTABLE PLAYERS: %ld", players.count);
+    NSLog(@"TOTAL DRAFTABLE PLAYERS: %ld", players.count);
     
     for (int i = 0; i < 32; i++) {
         [round1 addObject:players[i]];

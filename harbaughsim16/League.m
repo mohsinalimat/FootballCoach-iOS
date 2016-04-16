@@ -649,12 +649,14 @@
             [_conferences[i] playWeek];
         }
         
+        
         // bless/curse progression updates should appear at week 6 (news stories index 6)
         //if blessed team wins > losses - post story about reaping benefits from blessing, otherwise, post story about them fumbling with it
         //if cursed team wins > losses - post story about success despite early season setbacks, otherwise, post story about how early setback has crippled team this season
         if (_currentWeek == 5) {
             NSMutableArray *newsWeek = _newsStories[6];
             if (_blessedTeam != nil) {
+                NSLog(@"BLESSED TEAM: %@ STORY: %ld COACH: %@", _blessedTeam.abbreviation, _blessedStoryIndex, _blessedTeamCoachName);
                 if (_blessedTeam.wins > _blessedTeam.losses) {
                     switch (_blessedStoryIndex) {
                         case 1: //new coach
@@ -681,24 +683,31 @@
             }
             
             if (_cursedTeam != nil) {
+                NSLog(@"CURSED TEAM: %@ STORY: %ld COACH: %@", _cursedTeam.abbreviation, _cursedStoryIndex, _cursedTeamCoachName);
                 if (_cursedTeam.wins > _cursedTeam.losses) {
                     switch (_cursedStoryIndex) {
-                        case 1: //new coach
+                        case 1: //recruiting sanctions
                             [newsWeek addObject:[NSString stringWithFormat:@"%@ successful despite sanctions\n%@'s limited recruiting ability has not hindered them yet, as the team has fought its way to success early on this season.",_cursedTeam.abbreviation,_cursedTeam.name]];
                             break;
-                        case 3: //gatorade
+                        case 3: //suspended coach
                             [newsWeek addObject:[NSString stringWithFormat:@"%@'s coach returns from suspension to an improved team\n%@ gets back head coach %@ this week, and he comes back to a team playing well early on this season.", _cursedTeam.abbreviation, _cursedTeam.name, _cursedTeamCoachName]];
+                            break;
+                        case 5: //recruiting sanctions
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@ successful despite sanctions\n%@'s limited recruiting ability has not hindered them yet, as the team has fought its way to success early on this season.",_cursedTeam.abbreviation,_cursedTeam.name]];
                             break;
                         default:
                             break;
                     }
                 } else {
-                    switch (_blessedStoryIndex) {
-                        case 1: //new coach
+                    switch (_cursedStoryIndex) {
+                        case 1: //recruiting sanctions
                             [newsWeek addObject:[NSString stringWithFormat:@"%@'s demons haunt them\n%@'s limited recruiting ability has manifested itself in a sub-.500 season early on.",_cursedTeam.abbreviation,_cursedTeam.name]];
                             break;
-                        case 3: //gatorade
+                        case 3: //suspended coach
                             [newsWeek addObject:[NSString stringWithFormat:@"%@'s coach returns from suspension\n%@ gets back head coach %@ this week, and he has his work cut out for him as the team has stumbled early on this year.", _cursedTeam.abbreviation, _cursedTeam.name, _cursedTeamCoachName]];
+                            break;
+                        case 5: //recruiting sanctions
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s demons haunt them\n%@'s limited recruiting ability has manifested itself in a sub-.500 season early on.",_cursedTeam.abbreviation,_cursedTeam.name]];
                             break;
                         default:
                             break;
@@ -706,7 +715,6 @@
                 }
             }
         }
-        
         
         //calculate poty leader and post story about how he is leading competition
         if (_currentWeek == 9) {

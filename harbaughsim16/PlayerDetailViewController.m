@@ -122,6 +122,14 @@
     }
 }
 
+-(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (section == 2) {
+        return [NSString stringWithFormat:@"Over %ld games", (long)selectedPlayer.gamesPlayed];
+    } else {
+        return nil;
+    }
+}
+
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if(!cell) {

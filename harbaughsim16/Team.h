@@ -197,7 +197,6 @@
 -(void)resetStats;
 -(void)updatePollScore;
 -(void)updateTeamHistory;
--(NSString*)getTeamHistoryString;
 -(void)updateStrengthOfWins;
 -(void)sortPlayers;
 -(int)getOffensiveTalent;
@@ -239,7 +238,7 @@
 -(NSMutableArray*)getDefensiveTeamStrategies;
 -(NSArray*)getTeamStatsArray;
 -(void)setStarters:(NSArray<Player*>*)starters position:(int)position;
--(void)calculateGraduatingPlayers;
+-(void)getPlayersLeaving;
 -(NSArray*)singleSeasonRecords;
 -(NSArray*)careerRecords;
 @end

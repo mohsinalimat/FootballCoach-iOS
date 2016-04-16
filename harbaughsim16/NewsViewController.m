@@ -125,11 +125,36 @@
                 
             } else if (userTeam.gameWLSchedule.count > numGamesPlayed) {
                 // Played a game, show summary - show notification
-                NSString *gameSummary = [userTeam weekSummaryString];
-                if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
-                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"Week %ld Update - %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
+                if (simLeague.currentWeek <= 12) {
+                    NSString *gameSummary = [userTeam weekSummaryString];
+                    if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                        [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"Week %ld: %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
+                    } else {
+                        [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"Week %ld: %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
+                    }
                 } else {
-                    [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"Week %ld Update - %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
+                    if (simLeague.currentWeek == 15) {
+                        NSString *gameSummary = [userTeam weekSummaryString];
+                        if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"NCG - %@",[userTeam weekSummaryString]] onViewController:self];
+                        } else {
+                            [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"NCG - %@",[userTeam weekSummaryString]] onViewController:self];
+                        }
+                    } else if (simLeague.currentWeek == 14) {
+                        NSString *gameSummary = [userTeam weekSummaryString];
+                        if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"Bowls: %@", [userTeam weekSummaryString]] onViewController:self];
+                        } else {
+                            [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"Bowls: %@", [userTeam weekSummaryString]] onViewController:self];
+                        }
+                    } else if (simLeague.currentWeek == 13) {
+                        NSString *gameSummary = [userTeam weekSummaryString];
+                        if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"%@ CCG: %@", userTeam.conference, [userTeam weekSummaryString]] onViewController:self];
+                        } else {
+                            [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"%@ CCG: %@",userTeam.conference, [userTeam weekSummaryString]] onViewController:self];
+                        }
+                    }
                 }
                 
             }
@@ -210,7 +235,7 @@
     //in process of recruiting
     //beginRecruiting();
     ////NSLog(@"Recruiting");
-    [userTeam calculateGraduatingPlayers];
+    [userTeam getPlayersLeaving];
     ////NSLog(@"PLAYERS LEAVING: %@", userTeam.playersLeaving);
     NSString *gradPlayersStr = [userTeam getGraduatingPlayersString];
     if (gradPlayersStr.length == 0) {

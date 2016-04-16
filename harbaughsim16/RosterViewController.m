@@ -255,21 +255,21 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return @"QB";
+        return [NSString stringWithFormat:@"QB (%ld)", (long)userTeam.teamQBs.count];
     } else if (section == 1) {
-        return @"RB";
+        return [NSString stringWithFormat:@"RB (%ld)", (long)userTeam.teamRBs.count];
     } else if (section == 2) {
-        return @"WR";
+        return [NSString stringWithFormat:@"WR (%ld)", (long)userTeam.teamWRs.count];
     } else if (section == 3) {
-        return @"OL";
+        return [NSString stringWithFormat:@"OL (%ld)", (long)userTeam.teamOLs.count];
     } else if (section == 4) {
-        return @"F7";
+        return [NSString stringWithFormat:@"F7 (%ld)", (long)userTeam.teamF7s.count];
     } else if (section == 5) {
-        return @"CB";
+        return [NSString stringWithFormat:@"CB (%ld)", (long)userTeam.teamCBs.count];
     } else if (section == 6) {
-        return @"S";
+        return [NSString stringWithFormat:@"S (%ld)", (long)userTeam.teamSs.count];
     } else {
-        return @"K";
+        return [NSString stringWithFormat:@"K (%ld)", (long)userTeam.teamKs.count];
     }
 }
 

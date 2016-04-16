@@ -208,7 +208,7 @@
         if (teamQBs.count > 0) {
             while (i < teamQBs.count) {
                 if ([teamQBs[i] year] == 4)  {
-                    //////NSLog(@"Graduating player %@ from %@", [teamQBs[i] name], abbreviation);
+                    ////NSLog(@"Graduating player %@ from %@", [teamQBs[i] name], abbreviation);
                     [teamQBs removeObjectAtIndex:i];
                     qbNeeds++;
                 } else {
@@ -224,7 +224,7 @@
         if (teamRBs.count > 0) {
             while ( i < teamRBs.count ) {
                 if ([teamRBs[i] year] == 4)  {
-                    //////NSLog(@"Graduating player %@ from %@", [teamRBs[i] name], abbreviation);
+                    ////NSLog(@"Graduating player %@ from %@", [teamRBs[i] name], abbreviation);
                     [teamRBs removeObjectAtIndex:i];
                     rbNeeds++;
                 } else {
@@ -240,7 +240,7 @@
         if (teamWRs.count > 0) {
             while ( i < teamWRs.count ) {
                 if ([teamWRs[i] year] == 4)  {
-                    //////NSLog(@"Graduating player %@ from %@", [teamWRs[i] name], abbreviation);
+                    ////NSLog(@"Graduating player %@ from %@", [teamWRs[i] name], abbreviation);
                     [teamWRs removeObjectAtIndex:i];
                     wrNeeds++;
                 } else {
@@ -256,7 +256,7 @@
         if (teamKs.count > 0) {
             while ( i < teamKs.count ) {
                 if ([teamKs[i] year] == 4)  {
-                    //////NSLog(@"Graduating player %@ from %@", [teamKs[i] name], abbreviation);
+                    ////NSLog(@"Graduating player %@ from %@", [teamKs[i] name], abbreviation);
                     [teamKs removeObjectAtIndex:i];
                     kNeeds++;
                 } else {
@@ -272,7 +272,7 @@
         if (teamOLs.count > 0) {
             while ( i < teamOLs.count ) {
                 if ([teamOLs[i] year] == 4)  {
-                    //////NSLog(@"Graduating player %@ from %@", [teamOLs[i] name], abbreviation);
+                    ////NSLog(@"Graduating player %@ from %@", [teamOLs[i] name], abbreviation);
                     [teamOLs removeObjectAtIndex:i];
                     olNeeds++;
                 } else {
@@ -288,7 +288,7 @@
         if (teamSs.count > 0) {
             while ( i < teamSs.count) {
                 if ([teamSs[i] year] == 4)  {
-                    //////NSLog(@"Graduating player %@ from %@", [teamSs[i] name], abbreviation);
+                    ////NSLog(@"Graduating player %@ from %@", [teamSs[i] name], abbreviation);
                     [teamSs removeObjectAtIndex:i];
                     sNeeds++;
                 } else {
@@ -304,7 +304,7 @@
         if (teamCBs.count > 0) {
             while ( i < teamCBs.count ) {
                 if ([teamCBs[i] year] == 4)  {
-                    //////NSLog(@"Graduating player %@ from %@", [teamCBs[i] name], abbreviation);
+                    ////NSLog(@"Graduating player %@ from %@", [teamCBs[i] name], abbreviation);
                     [teamCBs removeObjectAtIndex:i];
                     cbNeeds++;
                 } else {
@@ -320,7 +320,7 @@
         if (teamF7s.count > 0) {
             while ( i < teamF7s.count ) {
                 if ([teamF7s[i] year] == 4)  {
-                    //////NSLog(@"Graduating player %@ from %@", [teamF7s[i] name], abbreviation);
+                    ////NSLog(@"Graduating player %@ from %@", [teamF7s[i] name], abbreviation);
                     [teamF7s removeObjectAtIndex:i];
                     f7Needs++;
                 } else {
@@ -338,7 +338,7 @@
         }
     } else {
         // Just remove the players that are in playersLeaving
-        //////NSLog(@"GRADUATING PLAYERS FROM PLAYERS LEAVING");
+        ////NSLog(@"GRADUATING PLAYERS FROM PLAYERS LEAVING");
         int i = 0;
         while (i < teamQBs.count) {
             if ([playersLeaving containsObject:teamQBs[i]]) {
@@ -867,7 +867,6 @@
 
 -(void)resetStats {
     gameSchedule = [NSMutableArray array];
-    playersLeaving = [NSMutableArray array];
     oocGame0 = nil;
     oocGame4 = nil;
     oocGame9 = nil;
@@ -919,23 +918,27 @@
 }
 
 -(void)updateTeamHistory {
+    NSMutableString *hist = [NSMutableString string];
+    
     if (rankTeamPollScore > 0 && rankTeamPollScore < 26) {
-        [teamHistory addObject:[NSString stringWithFormat:@"#%ld %@ (%ld-%ld) %@ %@ %@",(long)rankTeamPollScore, abbreviation, (long)wins, (long)losses, confChampion, semifinalWL, natlChampWL]];
+        [hist appendFormat:@"#%ld %@ (%ld-%ld)",(long)rankTeamPollScore, abbreviation, (long)wins, (long)losses];
     } else {
-        [teamHistory addObject:[NSString stringWithFormat:@"%@ (%ld-%ld) %@ %@ %@", abbreviation, (long)wins, (long)losses, confChampion, semifinalWL, natlChampWL]];
+       [hist appendFormat:@"%@ (%ld-%ld)",abbreviation, (long)wins, (long)losses];
     }
-}
+    
+    if (![confChampion isEqualToString:@""] && confChampion.length > 0) {
+        [hist appendFormat:@" %@",confChampion];
+    }
+    
+    if (![semifinalWL isEqualToString:@""]&& semifinalWL.length > 0) {
+        [hist appendFormat:@" %@",semifinalWL];
+    }
+    
+    if (![natlChampWL isEqualToString:@""] && natlChampWL.length > 0) {
+        [hist appendFormat:@" %@",natlChampWL];
+    }
 
--(NSString*)getTeamHistoryString {
-    NSString *teamHistoryString = @"";
-    for (int i = 0; i < teamHistory.count; ++i) {
-        teamHistoryString = [[teamHistoryString stringByAppendingString:teamHistory[i]] stringByAppendingString:@"\n"];
-    }
-    
-    NSString *hist = @"";
-    hist = [NSString stringWithFormat:@"Overall W-L: %ld-%ld\nConference Championships: %ld\nNational Championships: %ld\n\nYear by year summary:\n%@", (long)totalWins, (long)totalLosses, (long)totalCCs, (long)totalNCs, teamHistoryString];
-    
-    return hist;
+    [teamHistory addObject:hist];
 }
 
 -(void)updateStrengthOfWins {
@@ -1660,9 +1663,9 @@
     }
 }
 
--(void)calculateGraduatingPlayers {
+-(void)getPlayersLeaving {
+    playersLeaving = [NSMutableArray array];
     if (playersLeaving.count == 0) {
-        playersLeaving = [NSMutableArray array];
         int i = 0;
         double draftChance = NFL_CHANCE;
         if ([natlChampWL isEqualToString:@"NCW"]) {
@@ -1670,10 +1673,10 @@
         }
         
         while (i < teamQBs.count) {
-            if (teamQBs[i].year == 4 || (teamQBs[i].year == 3 && teamQBs[i].gamesPlayed > 0 && teamQBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if (teamQBs[i].year >= 4 || (teamQBs[i].year == 3 && teamQBs[i].gamesPlayed && teamQBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamQBs[i]];
                 if (teamQBs[i].year == 3) {
-                    ////NSLog(@"JUNIOR QB LEAVING");
+                    NSLog(@"JUNIOR QB LEAVING");
                 }
             }
             ++i;
@@ -1681,10 +1684,10 @@
         
         i = 0;
         while (i < teamRBs.count) {
-            if (teamRBs[i].year == 4 || (teamRBs[i].year == 3 && teamRBs[i].gamesPlayed > 0 && teamRBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if (teamRBs[i].year >= 4 || (teamRBs[i].year == 3 && teamRBs[i].gamesPlayed && teamRBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamRBs[i]];
                 if (teamRBs[i].year == 3) {
-                    ////NSLog(@"JUNIOR RB LEAVING");
+                    NSLog(@"JUNIOR RB LEAVING");
                 }
             }
             ++i;
@@ -1692,10 +1695,10 @@
         
         i = 0;
         while (i < teamWRs.count) {
-            if (teamWRs[i].year == 4 || (teamWRs[i].year == 3 && teamWRs[i].gamesPlayed > 0 && teamWRs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if (teamWRs[i].year >= 4 || (teamWRs[i].year == 3 && teamWRs[i].gamesPlayed && teamWRs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamWRs[i]];
                 if (teamWRs[i].year == 3) {
-                    ////NSLog(@"JUNIOR WR LEAVING");
+                    NSLog(@"JUNIOR WR LEAVING");
                 }
             }
             ++i;
@@ -1703,10 +1706,10 @@
         
         i = 0;
         while (i < teamKs.count) {
-            if (teamKs[i].year == 4 || (teamKs[i].year == 3 && teamKs[i].gamesPlayed > 0 && teamKs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if (teamKs[i].year >= 4 || (teamKs[i].year == 3 && teamKs[i].gamesPlayed && teamKs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamKs[i]];
                 if (teamKs[i].year == 3) {
-                    ////NSLog(@"JUNIOR K LEAVING");
+                    NSLog(@"JUNIOR K LEAVING");
                 }
             }
             ++i;
@@ -1714,10 +1717,10 @@
         
         i = 0;
         while (i < teamOLs.count) {
-            if (teamOLs[i].year == 4 || (teamOLs[i].year == 3 && teamOLs[i].gamesPlayed > 0 && teamOLs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if (teamOLs[i].year >= 4 || (teamOLs[i].year == 3 && teamOLs[i].gamesPlayed && teamOLs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamOLs[i]];
                 if (teamOLs[i].year == 3) {
-                    ////NSLog(@"JUNIOR OL LEAVING");
+                    NSLog(@"JUNIOR OL LEAVING");
                 }
             }
             ++i;
@@ -1725,10 +1728,10 @@
         
         i = 0;
         while (i < teamSs.count) {
-            if (teamSs[i].year == 4 || (teamSs[i].year == 3 && teamSs[i].gamesPlayed > 0 && teamSs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if (teamSs[i].year >= 4 || (teamSs[i].year == 3 && teamSs[i].gamesPlayed && teamSs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamSs[i]];
                 if (teamSs[i].year == 3) {
-                    ////NSLog(@"JUNIOR S LEAVING");
+                    NSLog(@"JUNIOR S LEAVING");
                 }
             }
             ++i;
@@ -1736,10 +1739,10 @@
         
         i = 0;
         while (i < teamCBs.count) {
-            if (teamCBs[i].year == 4 || (teamCBs[i].year == 3 && teamCBs[i].gamesPlayed > 0 && teamCBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if (teamCBs[i].year >= 4 || (teamCBs[i].year == 3 && teamCBs[i].gamesPlayed && teamCBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamCBs[i]];
                 if (teamCBs[i].year == 3) {
-                    ////NSLog(@"JUNIOR CB LEAVING");
+                    NSLog(@"JUNIOR CB LEAVING");
                 }
             }
             ++i;
@@ -1747,10 +1750,10 @@
         
         i = 0;
         while (i < teamF7s.count) {
-            if (teamF7s[i].year == 4 || (teamF7s[i].year == 3 && teamF7s[i].gamesPlayed > 0 && teamF7s[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if (teamF7s[i].year >= 4 || (teamF7s[i].year == 3 && teamF7s[i].gamesPlayed && teamF7s[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamF7s[i]];
                 if (teamF7s[i].year == 3) {
-                    ////NSLog(@"JUNIOR F7 LEAVING");
+                    NSLog(@"JUNIOR F7 LEAVING");
                 }
             }
             ++i;
