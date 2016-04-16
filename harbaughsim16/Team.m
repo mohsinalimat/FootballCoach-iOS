@@ -1380,7 +1380,6 @@
 }
 
 -(int)getCompositeF7Pass {
-    //////NSLog(@"F7 COMPOSITE FOR TEAM %@", abbreviation);
     int compositeF7 = 0;
     for ( int i = 0; i < 7; ++i ) {
         PlayerF7 *curF7 = teamF7s[i];
@@ -1490,75 +1489,6 @@
     return [ts0 copy];
 }
 
-
--(NSString*)getTeamStatsStringCSV {
-    NSMutableString *ts0 = [NSMutableString string];;
-    
-    [ts0 appendFormat:@"%ld,",(long)teamPollScore];
-    [ts0 appendString:@"AP Votes,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamPollScore]];
-    
-    [ts0 appendFormat:@"%ld,",(long)teamStrengthOfWins];
-    [ts0 appendString:@"SOS,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamStrengthOfWins]];
-    
-    [ts0 appendFormat:@"%ld,",(long)(teamPoints/[self numGames])];
-    [ts0 appendString:@"Points,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamPoints]];
-    
-    [ts0 appendFormat:@"%ld,",(long)(teamOppPoints/[self numGames])];
-    [ts0 appendString:@"Opp Points,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:teamOppPoints]];
-    
-    [ts0 appendFormat:@"%ld,",(long)(teamYards/[self numGames])];
-    [ts0 appendString:@"Yards,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamYards]];
-    
-    [ts0 appendFormat:@"%ld,",(long)(teamOppYards/[self numGames])];
-    [ts0 appendString:@"Opp Yards,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamOppYards]];
-    
-    [ts0 appendFormat:@"%ld,",(long)(teamPassYards/[self numGames])];
-    [ts0 appendString:@"Pass Yards,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamPassYards]];
-    
-    [ts0 appendFormat:@"%ld,",(long)(teamRushYards/[self numGames])];
-    [ts0 appendString:@"Rush Yards,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamRushYards]];
-    
-    [ts0 appendFormat:@"%ld,",(long)(teamOppPassYards/[self numGames])];
-    [ts0 appendString:@"Opp Pass YPG,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamOppPassYards]];
-    
-    [ts0 appendFormat:@"%ld,",(long)(teamOppRushYards/[self numGames])];
-    [ts0 appendString:@"Opp Rush YPG,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamOppRushYards]];
-    
-    if (teamTODiff > 0) {
-        [ts0 appendFormat:@"+%ld,",(long)teamTODiff];
-    } else if (teamTODiff == 0) {
-        [ts0 appendString:@"0,"];
-    } else {
-        [ts0 appendFormat:@"%ld,",(long)teamTODiff];
-    }
-    [ts0 appendString:@"TO Diff,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamTODiff]];
-    
-    [ts0 appendFormat:@"%ld,",(long)teamOffTalent];
-    [ts0 appendString:@"Off Talent,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamOffTalent]];
-    
-    [ts0 appendFormat:@"%ld,",(long)teamDefTalent];
-    [ts0 appendString:@"Def Talent,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamDefTalent]];
-    
-    [ts0 appendFormat:@"%ld,",(long)teamPrestige];
-    [ts0 appendString:@"Prestige,"];
-    [ts0 appendFormat:@"%@\n",[self getRankString:rankTeamPrestige]];
-    
-    return [ts0 copy];;
-}
-
 -(NSString*)getSeasonSummaryString {
     NSMutableString *summary = [NSMutableString stringWithFormat:@"Your team, %@, finished the season ranked #%d with %d wins and %d losses.",name, rankTeamPollScore, wins, losses];
     int expectedPollFinish = 100 - teamPrestige;
@@ -1612,7 +1542,6 @@
     }
 }
 
-
 -(int)numGames {
     if (wins + losses > 0 ) {
         return wins + losses;
@@ -1642,7 +1571,7 @@
     for (int i = 0; i < gameWLSchedule.count; ++i) {
         g = gameSchedule[i];
         if ( [g.gameName isEqualToString:@"In Conf" ] || [g.gameName isEqualToString:@"Rivalry Game"] ) {
-            // in conference game, see if was won
+            // in conference game, see if was lost
             if ( [g.homeTeam isEqual: self] && g.homeScore < g.awayScore ) {
                 confLosses++;
             } else if ( [g.awayTeam isEqual: self] && g.homeScore > g.awayScore ) {
@@ -2029,6 +1958,7 @@
         default:
             break;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updatedStarters" object:nil];
 
 }
 

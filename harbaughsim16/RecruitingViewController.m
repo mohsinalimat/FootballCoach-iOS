@@ -535,7 +535,7 @@
     // extend that to 200 recruits
     int position = 0;
     for (int i = 0; i < 16; i++) {
-        position = (int)([HBSharedUtils randomValue] * 8) - 1;
+        position = (int)([HBSharedUtils randomValue] * 8);
         if (position < 0) {
             position = 0;
         }

@@ -946,7 +946,7 @@
 
 -(void)advanceSeason {
     _currentWeek = 0;
-
+    _ncg = nil;
     // Bless a random team with lots of prestige
     int blessNumber = (int)([HBSharedUtils randomValue]*9);
     Team *blessTeam = _teamList[50 + blessNumber];
