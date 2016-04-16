@@ -11,3 +11,4 @@
 * Redshirted players get a stat boost after their redshirt season because of their rigorous training
 * Added tap-to-dismiss on conference selectors for standings/teams and for team strategies
 * Added highlighting of the user's team in the bowl projections and conference standings screens
+* Simplified conference standing calculations
