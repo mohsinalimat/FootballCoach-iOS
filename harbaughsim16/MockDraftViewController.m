@@ -28,6 +28,11 @@
     NSMutableArray *players;
     NSMutableArray *round1;
     NSMutableArray *round2;
+    NSMutableArray *round3;
+    NSMutableArray *round4;
+    NSMutableArray *round5;
+    NSMutableArray *round6;
+    NSMutableArray *round7;
 }
 @end
 
@@ -37,18 +42,41 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)changeRounds {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"View picks from a specific round" message:@"Which round would you like to see?" preferredStyle:UIAlertControllerStyleActionSheet];
+    for (int i = 0; i < 7; i++) {
+        NSString *week = [NSString stringWithFormat:@"Round %ld", (long)(i + 1)];
+
+        [alertController addAction:[UIAlertAction actionWithTitle:week style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }]];
+        
+    }
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(changeRounds)];
     self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     players = [NSMutableArray array];
     round1 = [NSMutableArray array];
     round2 = [NSMutableArray array];
+    round3 = [NSMutableArray array];
+    round4 = [NSMutableArray array];
+    round5 = [NSMutableArray array];
+    round6 = [NSMutableArray array];
+    round7 = [NSMutableArray array];
     
     NSArray *teamList = [HBSharedUtils getLeague].teamList;
     for (Team *t in teamList) {
-        [t getPlayersLeaving];
+        if (!t.isUserControlled) {
+            [t getPlayersLeaving];
+        }
         [players addObjectsFromArray:t.playersLeaving];
     }
     Player *heisman = [[HBSharedUtils getLeague] getHeisman][0];
@@ -118,13 +146,67 @@
         return adjADraftGrade > adjBDraftGrade ? -1 : adjADraftGrade == adjBDraftGrade ? 0 : 1;
     }];
     NSLog(@"TOTAL DRAFTABLE PLAYERS: %ld", players.count);
-    
+    int round = 1;
     for (int i = 0; i < 32; i++) {
-        [round1 addObject:players[i]];
+        Player *p = players[i];
+        if (p.year == 3) {
+            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        }
+        [round1 addObject:p];
     }
+    round++;
     
     for (int j = 32; j < 64; j++) {
-        [round2 addObject:players[j]];
+        Player *p = players[j];
+        if (p.year == 3) {
+            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        }
+        [round2 addObject:p];
+    }
+    round++;
+    
+    for (int k = 64; k < 96; k++) {
+        Player *p = players[k];
+        if (p.year == 3) {
+            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        }
+        [round3 addObject:p];
+    }
+    round++;
+    
+    for (int r = 96; r < 128; r++) {
+        Player *p = players[r];
+        if (p.year == 3) {
+            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        }
+        [round4 addObject:p];
+    }
+    round++;
+    
+    for (int c = 128; c < 160; c++) {
+        Player *p = players[c];
+        if (p.year == 3) {
+            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        }
+        [round5 addObject:p];
+    }
+    round++;
+    
+    for (int a = 160; a < 192; a++) {
+        Player *p = players[a];
+        if (p.year == 3) {
+            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        }
+        [round6 addObject:p];
+    }
+    round++;
+    
+    for (int b = 192; b < 224; b++) {
+        Player *p = players[b];
+        if (p.year == 3) {
+            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        }
+        [round7 addObject:p];
     }
 }
 
@@ -134,15 +216,11 @@
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return @"ROUND 1";
-    } else {
-        return @"ROUND 2";
-    }
+    return [NSString stringWithFormat:@"Round %ld", (long)(1 + section)];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 7;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
@@ -154,8 +232,18 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return round1.count;
-    } else {
+    } else if (section == 1) {
         return round2.count;
+    } else if (section == 2) {
+        return round3.count;
+    } else if (section == 3) {
+        return round4.count;
+    } else if (section == 4) {
+        return round5.count;
+    } else if (section == 5) {
+        return round6.count;
+    } else {
+        return round7.count;
     }
 }
 
@@ -171,8 +259,18 @@
     Player *p;
     if (indexPath.section == 0) {
         p = round1[indexPath.row];
-    } else {
+    } else if (indexPath.section == 1) {
         p = round2[indexPath.row];
+    } else if (indexPath.section == 2) {
+        p = round3[indexPath.row];
+    } else if (indexPath.section == 3) {
+        p = round4[indexPath.row];
+    } else if (indexPath.section == 4) {
+        p = round5[indexPath.row];
+    } else if (indexPath.section == 5) {
+        p = round6[indexPath.row];
+    } else {
+        p = round7[indexPath.row];
     }
     NSMutableAttributedString *attName = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld: ",(long)(1 + indexPath.row)] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
     
@@ -205,8 +303,18 @@
     Player *p;
     if (indexPath.section == 0) {
         p = round1[indexPath.row];
-    } else {
+    } else if (indexPath.section == 1) {
         p = round2[indexPath.row];
+    } else if (indexPath.section == 2) {
+        p = round3[indexPath.row];
+    } else if (indexPath.section == 3) {
+        p = round4[indexPath.row];
+    } else if (indexPath.section == 4) {
+        p = round5[indexPath.row];
+    } else if (indexPath.section == 5) {
+        p = round6[indexPath.row];
+    } else {
+        p = round7[indexPath.row];
     }
     [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:p] animated:YES];
 }

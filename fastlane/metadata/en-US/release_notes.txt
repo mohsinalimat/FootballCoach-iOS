@@ -1,5 +1,5 @@
 * Fixed an issue where labels would overlap on the recruiting screen
-* Added a Mock Draft
+* Added a 7-round Mock Draft
 * Made the top 10 in polls extend to top 25
 * Fixed some grammar errors in game summary
 * Fixed a bug that which caused the app to sign freshmen based on your team's prestige before entering the recruiting period, which made the game easier
