@@ -146,68 +146,67 @@
         return adjADraftGrade > adjBDraftGrade ? -1 : adjADraftGrade == adjBDraftGrade ? 0 : 1;
     }];
     NSLog(@"TOTAL DRAFTABLE PLAYERS: %ld", players.count);
-    int round = 1;
+    int userDraftees = 0;
+    Team *userTeam = [HBSharedUtils getLeague].userTeam;
     for (int i = 0; i < 32; i++) {
         Player *p = players[i];
-        if (p.year == 3) {
-            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
         }
         [round1 addObject:p];
     }
-    round++;
     
     for (int j = 32; j < 64; j++) {
         Player *p = players[j];
-        if (p.year == 3) {
-            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
         }
         [round2 addObject:p];
     }
-    round++;
     
     for (int k = 64; k < 96; k++) {
         Player *p = players[k];
-        if (p.year == 3) {
-            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
         }
         [round3 addObject:p];
     }
-    round++;
     
     for (int r = 96; r < 128; r++) {
         Player *p = players[r];
-        if (p.year == 3) {
-            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
         }
         [round4 addObject:p];
     }
-    round++;
     
     for (int c = 128; c < 160; c++) {
         Player *p = players[c];
-        if (p.year == 3) {
-            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
         }
         [round5 addObject:p];
     }
-    round++;
     
     for (int a = 160; a < 192; a++) {
         Player *p = players[a];
-        if (p.year == 3) {
-            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
         }
         [round6 addObject:p];
     }
-    round++;
     
     for (int b = 192; b < 224; b++) {
         Player *p = players[b];
-        if (p.year == 3) {
-            NSLog(@"JUNIOR: %@ ROUND: %ld", p, (long)round);
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
         }
         [round7 addObject:p];
     }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"%@ had %ld players drafted this year!",userTeam.abbreviation, (long)userDraftees] onViewController:self];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
@@ -292,9 +291,6 @@
     
     [cell.textLabel setAttributedText:attName];
     [cell.detailTextLabel setText:[p.team strRep]];
-    
-
-    
     return cell;
 }
 
