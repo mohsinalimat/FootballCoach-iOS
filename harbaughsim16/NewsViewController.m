@@ -40,6 +40,7 @@
     Team *userTeam;
     IBOutlet HBTeamPlayView *teamHeaderView;
     int curNewsWeek;
+    STPopupController *popupController;
 }
 @end
 
@@ -165,8 +166,13 @@
                 [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 13) {
                 NSString *heismanString = [simLeague getHeismanCeremonyStr];
+                NSArray *heismanParts = [heismanString componentsSeparatedByString:@"?"];
+                NSMutableString *composeHeis = [NSMutableString string];
+                for (int i = 1; i < heismanParts.count; i++) {
+                    [composeHeis appendString:heismanParts[i]];
+                }
                 
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld's Player of the Year", (long)(2016 + userTeam.teamHistory.count)] message:heismanString preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld's Player of the Year", (long)(2016 + userTeam.teamHistory.count)] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [self presentViewController:alertController animated:YES completion:nil];
                 
@@ -552,7 +558,8 @@
             if (indexPath.row == 0) {
                 [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
             } else if (indexPath.row == 1) {
-                STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
+                popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
+                [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
                 [popupController.navigationBar setDraggable:YES];
                 popupController.style = STPopupStyleBottomSheet;
                 [popupController presentInViewController:self];
@@ -563,13 +570,18 @@
             } else if (indexPath.row == 4) {
                 [self.navigationController pushViewController:[[AllLeagueTeamViewController alloc] init] animated:YES];
             } else {
-                STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[AllConferenceTeamConferenceSelectorViewController alloc] init]];
+                popupController = [[STPopupController alloc] initWithRootViewController:[[AllConferenceTeamConferenceSelectorViewController alloc] init]];
+                [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
                 [popupController.navigationBar setDraggable:YES];
                 popupController.style = STPopupStyleBottomSheet;
                 [popupController presentInViewController:self];
             }
         }
     }
+}
+
+-(void)backgroundViewDidTap {
+    [popupController dismiss];
 }
 
 @end

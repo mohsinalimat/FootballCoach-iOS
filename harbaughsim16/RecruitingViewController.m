@@ -28,14 +28,8 @@
 
 @interface RecruitingViewController ()
 {
-    // Variables use during recruiting
-    //private String teamName;
-    //private String teamAbbr;
-    //int recruitingBudget;
-    //private final String[] letterGrades = {"F", "F+", "D", "D+", "C", "C+", "B", "B+", "A", "A+"};
-    
+    STPopupController *popupController;
     NSMutableArray<Player*>* playersRecruited;
-    NSMutableArray<Player*>* playersGraduating;
     NSMutableArray<Player*>* teamPlayers; //all players
     
     NSMutableArray<Player*>* availQBs;
@@ -431,10 +425,15 @@
 }
 
 -(void)viewRoster {
-    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[TeamRosterViewController   alloc] initWithTeam:[HBSharedUtils getLeague].userTeam]];
+    popupController = [[STPopupController alloc] initWithRootViewController:[[TeamRosterViewController   alloc] initWithTeam:[HBSharedUtils getLeague].userTeam]];
     [popupController.navigationBar setDraggable:YES];
+    [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
     popupController.style = STPopupStyleBottomSheet;
     [popupController presentInViewController:self];
+}
+
+-(void)backgroundViewDidTap {
+    [popupController dismiss];
 }
 
 -(void)viewDidLoad {
@@ -446,7 +445,7 @@
     NSInteger teamSize = [HBSharedUtils getLeague].userTeam.teamQBs.count + [HBSharedUtils getLeague].userTeam.teamRBs.count + [HBSharedUtils getLeague].userTeam.teamWRs.count + [HBSharedUtils getLeague].userTeam.teamKs.count + [HBSharedUtils getLeague].userTeam.teamSs.count + [HBSharedUtils getLeague].userTeam.teamCBs.count + [HBSharedUtils getLeague].userTeam.teamF7s.count;
     
     playersRecruited = [NSMutableArray array];
-    playersGraduating = [NSMutableArray array];
+    //playersGraduating = [NSMutableArray array];
     teamPlayers = [NSMutableArray array];
     availQBs = [NSMutableArray array];
     availRBs = [NSMutableArray array];
@@ -458,28 +457,40 @@
     availF7s = [NSMutableArray array];
     availAll = [NSMutableArray array];
     
-    playersGraduating = [HBSharedUtils getLeague].userTeam.playersLeaving;
+    //playersGraduating = [HBSharedUtils getLeague].userTeam.playersLeaving;
     recruitingBudget = [HBSharedUtils getLeague].userTeam.teamPrestige * 25;
     
+    Team *userTeam = [HBSharedUtils getLeague].userTeam;
+    if (userTeam.teamQBs.count < 2) {
+        needQBs = 2 - userTeam.teamQBs.count;
+    }
     
-    for (Player *player in playersGraduating) {
-        if ([player isKindOfClass:[PlayerQB class]]) {
-            needQBs++;
-        } else if ([player isKindOfClass:[PlayerRB class]]) {
-            needRBs++;
-        } else if ([player isKindOfClass:[PlayerWR class]]) {
-            needWRs++;
-        } else if ([player isKindOfClass:[PlayerOL class]]) {
-            needOLs++;
-        } else if ([player isKindOfClass:[PlayerF7 class]]) {
-            needF7s++;
-        } else if ([player isKindOfClass:[PlayerCB class]]) {
-            needCBs++;
-        } else if ([player isKindOfClass:[PlayerS class]]) {
-            needsS++;
-        } else { // PlayerK class
-            needKs++;
-        }
+    if (userTeam.teamRBs.count < 4) {
+        needRBs = 4 - userTeam.teamRBs.count;
+    }
+    
+    if (userTeam.teamWRs.count < 6) {
+        needWRs = 6 - userTeam.teamWRs.count;
+    }
+    
+    if (userTeam.teamOLs.count < 10) {
+        needOLs = 10 - userTeam.teamOLs.count;
+    }
+    
+    if (userTeam.teamF7s.count < 14) {
+       needF7s = 14 - userTeam.teamF7s.count;
+    }
+    
+    if (userTeam.teamCBs.count < 6) {
+        needCBs = 6 - userTeam.teamCBs.count;
+    }
+    
+    if (userTeam.teamSs.count < 2) {
+       needsS = 2 - userTeam.teamSs.count;
+    }
+    
+    if (userTeam.teamKs.count < 2) {
+        needKs = 2 - userTeam.teamKs.count;
     }
     
     if (needQBs > 2) {

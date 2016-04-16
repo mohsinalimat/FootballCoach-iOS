@@ -35,6 +35,7 @@
 @interface MyTeamViewController ()
 {
     IBOutlet HBTeamHistoryView *teamHeaderView;
+    STPopupController *popupController;
     Team *userTeam;
     NSArray *stats;
 }
@@ -261,12 +262,14 @@
         }
     } else if (indexPath.section == 0) {
         if (indexPath.row == 0) { //offensive
-            STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:TRUE options:[[HBSharedUtils getLeague].userTeam getOffensiveTeamStrategies]]];
+            popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:TRUE options:[[HBSharedUtils getLeague].userTeam getOffensiveTeamStrategies]]];
+            [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
             [popupController presentInViewController:self];
         } else if (indexPath.row == 1) { //defensive
-            STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:FALSE options:[[HBSharedUtils getLeague].userTeam getDefensiveTeamStrategies]]];
+            popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:FALSE options:[[HBSharedUtils getLeague].userTeam getDefensiveTeamStrategies]]];
+            [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
             [popupController presentInViewController:self];
@@ -276,6 +279,10 @@
     } else {
        //do nothing
     }
+}
+
+-(void)backgroundViewDidTap {
+    [popupController dismiss];
 }
 
 @end

@@ -137,59 +137,13 @@
                 return -1;
             } else if ([b.gameWinsAgainst containsObject:a]) {
                 return 1;
-            } else {
-                return 0;
+            } else { //if no h2h then higher ranked team moves on
+                return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;;
             }
         } else {
             return 1;
         }
     }] mutableCopy];
-     
-    int winsFirst = [_confTeams[0] getConfWins];
-    Team *t = _confTeams[0];
-    int i = 0;
-    NSMutableArray *teamTB = [NSMutableArray array];
-     while ([t getConfWins] == winsFirst) {
-         [teamTB addObject:t];
-        ++i;
-        t = _confTeams[i];
-     }
-     if (teamTB.count > 2) {
-        // ugh 3 way tiebreaker
-         teamTB = [[teamTB sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-             Team *a = (Team*)obj1;
-             Team *b = (Team*)obj2;
-             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
-         
-         }] mutableCopy];
-        for (int j = 0; j < teamTB.count; ++j) {
-            [_confTeams replaceObjectAtIndex:j withObject:teamTB[j]];
-        }
-     
-     }
-     
-    int winsSecond = [_confTeams[1] getConfWins];
-     t = _confTeams[1];
-     i = 1;
-     [teamTB removeAllObjects];
-     while ([t getConfWins] == winsSecond) {
-        [teamTB addObject:t];
-        ++i;
-        t = _confTeams[i];
-     }
-     if (teamTB.count > 2) {
-     // ugh 3 way tiebreaker
-         teamTB = [[teamTB sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-             Team *a = (Team*)obj1;
-             Team *b = (Team*)obj2;
-             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
-         
-         }] mutableCopy];
-        for (int j = 0; j < teamTB.count; ++j) {
-            [_confTeams replaceObjectAtIndex:(j+1) withObject:teamTB[j]];
-        }
-     
-     }
      
     _ccg = [Game newGameWithHome:_confTeams[0]  away:_confTeams[1] name:[NSString stringWithFormat:@"%@ CCG", _confName]];
     [_confTeams[0].gameSchedule addObject:_ccg];

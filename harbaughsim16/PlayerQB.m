@@ -181,26 +181,32 @@
 
 -(void)advanceSeason {
     int oldOvr = self.ratOvr;
-    self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
-    _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
-    _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
-    _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
-    if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
-        //breakthrough
-        _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
-        _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
-        _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
+    if (self.hasRedshirt) {
+        self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+        _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+        _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+        _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+        if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
+            //breakthrough
+            _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+            _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+            _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+        }
+    } else {
+        self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
+        _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
+        _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
+        _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
+        if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
+            //breakthrough
+            _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
+            _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
+            _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
+        }
     }
 
     self.ratOvr = (_ratPassPow*3 + _ratPassAcc*4 + _ratPassEva)/8;
     self.ratImprovement = self.ratOvr - oldOvr;
-
-    //self.careerStatsPassAtt += self.statsPassAtt;
-    //self.careerStatsPassComp += self.statsPassComp;
-    //self.careerStatsTD += self.statsTD;
-    //self.careerStatsInt += self.statsInt;
-    //self.careerStatsSacked += self.statsSacked;
-    //self.careerStatsPassYards += self.statsPassYards;
 
     self.statsPassAtt = 0;
     self.statsPassComp = 0;
