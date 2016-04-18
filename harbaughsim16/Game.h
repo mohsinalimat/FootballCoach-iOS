@@ -48,6 +48,9 @@
 @property (nonatomic) int homeTOs;
 @property (nonatomic) int awayTOs;
 
+@property (strong, nonatomic) NSMutableArray<Player*> *homeStarters;
+@property (strong, nonatomic) NSMutableArray<Player*> *awayStarters;
+
 @property (strong, nonatomic) NSMutableArray* HomeQBStats;
 @property (strong, nonatomic) NSMutableArray* AwayQBStats;
 

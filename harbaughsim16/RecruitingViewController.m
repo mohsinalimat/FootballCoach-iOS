@@ -690,6 +690,54 @@
         }
     }
     
+    if (availQBs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availRBs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availWRs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availOLs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availF7s.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availCBs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availSs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availKs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
     [self reloadRecruits];
     players = availAll;
     
@@ -706,7 +754,6 @@
     
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finishRecruiting)];
-    //[self.navigationItem.rightBarButtonItem setEnabled:NO];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
     
@@ -948,7 +995,7 @@
     } else if ([stat1 containsString:@"B"]) {
         letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
     } else if ([stat1 containsString:@"C"]) {
-        letterColor = [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
+        letterColor = [HBSharedUtils champColor];
     } else if ([stat1 containsString:@"D"]) {
         letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
     } else if ([stat1 containsString:@"F"]) {
@@ -1027,7 +1074,7 @@
     } else if ([stat2Val containsString:@"B"]) {
         letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
     } else if ([stat2Val containsString:@"C"]) {
-        letterColor = [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
+        letterColor = [HBSharedUtils champColor];
     } else if ([stat2Val containsString:@"D"]) {
         letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
     } else if ([stat2Val containsString:@"F"]) {
@@ -1045,7 +1092,7 @@
     } else if ([stat3Val containsString:@"B"]) {
         letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
     } else if ([stat3Val containsString:@"C"]) {
-        letterColor = [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
+        letterColor = [HBSharedUtils champColor];
     } else if ([stat3Val containsString:@"D"]) {
         letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
     } else if ([stat3Val containsString:@"F"]) {
@@ -1063,7 +1110,7 @@
     } else if ([stat4Val containsString:@"B"]) {
         letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
     } else if ([stat4Val containsString:@"C"]) {
-        letterColor = [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
+        letterColor = [HBSharedUtils champColor];
     } else if ([stat4Val containsString:@"D"]) {
         letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
     } else if ([stat4Val containsString:@"F"]) {

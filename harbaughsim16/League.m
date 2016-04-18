@@ -655,15 +655,15 @@
         //if cursed team wins > losses - post story about success despite early season setbacks, otherwise, post story about how early setback has crippled team this season
         if (_currentWeek == 5) {
             NSMutableArray *newsWeek = _newsStories[6];
-            if (_blessedTeam != nil) {
-                NSLog(@"BLESSED TEAM: %@ STORY: %ld COACH: %@", _blessedTeam.abbreviation, _blessedStoryIndex, _blessedTeamCoachName);
+            if (_blessedTeam != nil && ![_blessedTeam isEqual:_userTeam]) {
+                NSLog(@"BLESSED TEAM: %@ STORY: %ld COACH: %@", _blessedTeam.abbreviation, (long)_blessedStoryIndex, _blessedTeamCoachName);
                 if (_blessedTeam.wins > _blessedTeam.losses) {
                     switch (_blessedStoryIndex) {
                         case 1: //new coach
-                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s new hire making an impact early\nEarly on, it looks like %@'s unorthodox approach has created success at previously down-on-its-luck %@.",_blessedTeam.abbreviation,_blessedTeamCoachName,_blessedTeam.name]];
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s (%ld-%ld) new hire making an impact early\nEarly on, it looks like %@'s unorthodox approach has created success at previously down-on-its-luck %@.",_blessedTeam.abbreviation,(long)_blessedTeam.wins, (long)_blessedTeam.losses,_blessedTeamCoachName, _blessedTeam.name]];
                             break;
                         case 3: //gatorade
-                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s new sports drink powering them to victory\nThe drink, developed last offseason, has spawned a revolution in the %@ locker room, improving the team's play and conditioning.", _blessedTeam.abbreviation, _blessedTeam.name]];
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s new sports drink powering them to victory\nThe drink, developed last offseason, has spawned a revolution in the locker room at %@ (%ld-%ld), improving the team's play and conditioning.", _blessedTeam.abbreviation, _blessedTeam.name, (long)_blessedTeam.wins, (long)_blessedTeam.losses]];
                             break;
                         default:
                             break;
@@ -671,10 +671,10 @@
                 } else {
                     switch (_blessedStoryIndex) {
                         case 1: //new coach
-                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s new hire faltering early\n%@'s unorthodox approach has failed to take hold at %@, leaving the team floundering under .500.",_blessedTeam.abbreviation,_blessedTeamCoachName,_blessedTeam.name]];
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s (%ld-%ld) new hire faltering early\n%@'s unorthodox approach has failed to take hold at %@, leaving the team floundering under .500.",_blessedTeam.abbreviation, (long)_blessedTeam.wins, (long)_blessedTeam.losses,_blessedTeamCoachName,_blessedTeam.name]];
                             break;
                         case 3: //gatorade
-                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s new sports drink flops\nThe drink, developed last offseason, was supposed to improve player hydration and conditioning, yet it has failed to make meaningful improvements early on this season.", _blessedTeam.abbreviation]];
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s new sports drink flops\nThe drink, developed last offseason, was supposed to improve player hydration and conditioning at %@ (%ld-%ld), yet it has failed to make meaningful improvements early on this season.", _blessedTeam.abbreviation,_blessedTeam.name, (long)_blessedTeam.wins, (long)_blessedTeam.losses]];
                             break;
                         default:
                             break;
@@ -682,18 +682,18 @@
                 }
             }
             
-            if (_cursedTeam != nil) {
-                NSLog(@"CURSED TEAM: %@ STORY: %ld COACH: %@", _cursedTeam.abbreviation, _cursedStoryIndex, _cursedTeamCoachName);
+            if (_cursedTeam != nil && ![_cursedTeam isEqual:_userTeam]) {
+                NSLog(@"CURSED TEAM: %@ STORY: %ld COACH: %@", _cursedTeam.abbreviation, (long)_cursedStoryIndex, _cursedTeamCoachName);
                 if (_cursedTeam.wins > _cursedTeam.losses) {
                     switch (_cursedStoryIndex) {
                         case 1: //recruiting sanctions
-                            [newsWeek addObject:[NSString stringWithFormat:@"%@ successful despite sanctions\n%@'s limited recruiting ability has not hindered them yet, as the team has fought its way to success early on this season.",_cursedTeam.abbreviation,_cursedTeam.name]];
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@ successful despite sanctions\n%@'s (%ld-%ld) limited recruiting ability has not hindered them yet, as the team has fought its way to success early on this season.",_cursedTeam.abbreviation,_cursedTeam.name, (long)_cursedTeam.wins, (long)_cursedTeam.losses]];
                             break;
                         case 3: //suspended coach
-                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s coach returns from suspension to an improved team\n%@ gets back head coach %@ this week, and he comes back to a team playing well early on this season.", _cursedTeam.abbreviation, _cursedTeam.name, _cursedTeamCoachName]];
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s coach returns from suspension to an improved team\n%@ (%ld-%ld) gets back head coach %@ this week, and he comes back to a team playing well early on this season.", _cursedTeam.abbreviation, _cursedTeam.name, (long)_cursedTeam.wins, (long)_cursedTeam.losses, _cursedTeamCoachName]];
                             break;
                         case 5: //recruiting sanctions
-                            [newsWeek addObject:[NSString stringWithFormat:@"%@ successful despite sanctions\n%@'s limited recruiting ability has not hindered them yet, as the team has fought its way to success early on this season.",_cursedTeam.abbreviation,_cursedTeam.name]];
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@ successful despite sanctions\n%@'s (%ld-%ld) limited recruiting ability has not hindered them yet, as the team has fought its way to success early on this season.",_cursedTeam.abbreviation,_cursedTeam.name, (long)_cursedTeam.wins, (long)_cursedTeam.losses]];
                             break;
                         default:
                             break;
@@ -701,13 +701,13 @@
                 } else {
                     switch (_cursedStoryIndex) {
                         case 1: //recruiting sanctions
-                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s demons haunt them\n%@'s limited recruiting ability has manifested itself in a sub-.500 season early on.",_cursedTeam.abbreviation,_cursedTeam.name]];
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s demons haunt them\n%@'s (%ld-%ld) limited recruiting ability has manifested itself in a sub-.500 season early on.",_cursedTeam.abbreviation,_cursedTeam.name, (long)_cursedTeam.wins, (long)_cursedTeam.losses]];
                             break;
                         case 3: //suspended coach
-                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s coach returns from suspension\n%@ gets back head coach %@ this week, and he has his work cut out for him as the team has stumbled early on this year.", _cursedTeam.abbreviation, _cursedTeam.name, _cursedTeamCoachName]];
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s coach returns from suspension\n%@ (%ld-%ld) gets back head coach %@ this week, and he has his work cut out for him as the team has stumbled early on this year.", _cursedTeam.abbreviation, _cursedTeam.name, (long)_cursedTeam.wins, (long)_cursedTeam.losses, _cursedTeamCoachName]];
                             break;
                         case 5: //recruiting sanctions
-                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s demons haunt them\n%@'s limited recruiting ability has manifested itself in a sub-.500 season early on.",_cursedTeam.abbreviation,_cursedTeam.name]];
+                            [newsWeek addObject:[NSString stringWithFormat:@"%@'s demons haunt them\n%@'s (%ld-%ld) limited recruiting ability has manifested itself in a sub-.500 season early on.",_cursedTeam.abbreviation,_cursedTeam.name, (long)_cursedTeam.wins, (long)_cursedTeam.losses]];
                             break;
                         default:
                             break;
@@ -1033,48 +1033,52 @@
 
 
 -(NSArray<Player*>*)getHeisman {
-    heisman = nil;
-    int heismanScore = 0;
-    int tempScore = 0;
-    heismanCandidates = [NSMutableArray array];
-    for ( int i = 0; i < _teamList.count; ++i ) {
-        //qb
-        [heismanCandidates addObject:_teamList[i].teamQBs[0]];
-        tempScore = [_teamList[i].teamQBs[0] getHeismanScore] + _teamList[i].wins*100;
-        if ( tempScore > heismanScore ) {
-            heisman = _teamList[i].teamQBs[0];
-            heismanScore = tempScore;
-        }
-
-        //rb
-        for (int rb = 0; rb < 2; ++rb) {
-            [heismanCandidates addObject:_teamList[i].teamRBs[rb]];
-            tempScore = [_teamList[i].teamRBs[rb] getHeismanScore] + _teamList[i].wins*100;
+    if (!heismanDecided && !heismanCandidates) {
+        heisman = nil;
+        int heismanScore = 0;
+        int tempScore = 0;
+        heismanCandidates = [NSMutableArray array];
+        for ( int i = 0; i < _teamList.count; ++i ) {
+            //qb
+            [heismanCandidates addObject:_teamList[i].teamQBs[0]];
+            tempScore = [_teamList[i].teamQBs[0] getHeismanScore] + _teamList[i].wins*100;
             if ( tempScore > heismanScore ) {
-                heisman = _teamList[i].teamRBs[rb];
+                heisman = _teamList[i].teamQBs[0];
                 heismanScore = tempScore;
             }
-        }
-
-        //wr
-        for (int wr = 0; wr < 3; ++wr) {
-            [heismanCandidates addObject:_teamList[i].teamWRs[wr]];
-            tempScore = [_teamList[i].teamWRs[wr] getHeismanScore] + _teamList[i].wins*100;
-            if ( tempScore > heismanScore ) {
-                heisman = _teamList[i].teamWRs[wr];
-                heismanScore = tempScore;
+            
+            //rb
+            for (int rb = 0; rb < 2; ++rb) {
+                [heismanCandidates addObject:_teamList[i].teamRBs[rb]];
+                tempScore = [_teamList[i].teamRBs[rb] getHeismanScore] + _teamList[i].wins*100;
+                if ( tempScore > heismanScore ) {
+                    heisman = _teamList[i].teamRBs[rb];
+                    heismanScore = tempScore;
+                }
+            }
+            
+            //wr
+            for (int wr = 0; wr < 3; ++wr) {
+                [heismanCandidates addObject:_teamList[i].teamWRs[wr]];
+                tempScore = [_teamList[i].teamWRs[wr] getHeismanScore] + _teamList[i].wins*100;
+                if ( tempScore > heismanScore ) {
+                    heisman = _teamList[i].teamWRs[wr];
+                    heismanScore = tempScore;
+                }
             }
         }
+        
+        heismanCandidates = [[heismanCandidates sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Player *a = (Player*)obj1;
+            Player *b = (Player*)obj2;
+            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+            
+        }] mutableCopy];
+        
+        return heismanCandidates;
+    } else {
+        return heismanCandidates;
     }
-
-    heismanCandidates = [[heismanCandidates sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
-
-    }] mutableCopy];
-
-    return heismanCandidates;
 }
 
 -(NSString*)getTop5HeismanStr {

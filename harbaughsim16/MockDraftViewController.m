@@ -145,7 +145,7 @@
         
         return adjADraftGrade > adjBDraftGrade ? -1 : adjADraftGrade == adjBDraftGrade ? 0 : 1;
     }];
-    NSLog(@"TOTAL DRAFTABLE PLAYERS: %ld", players.count);
+    NSLog(@"TOTAL DRAFTABLE PLAYERS: %ld", (unsigned long)(long)players.count);
     int userDraftees = 0;
     Team *userTeam = [HBSharedUtils getLeague].userTeam;
     for (int i = 0; i < 32; i++) {
@@ -280,7 +280,7 @@
         nameColor = [HBSharedUtils styleColor];
     } else {
         if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] getHeisman][0] isEqual:p]) {
-            nameColor = [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
+            nameColor = [HBSharedUtils champColor];
         } else {
             nameColor = [UIColor blackColor];
         }

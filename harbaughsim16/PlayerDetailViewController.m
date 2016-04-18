@@ -527,7 +527,7 @@
         } else if ([stat containsString:@"B"]) {
             letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
         } else if ([stat containsString:@"C"]) {
-            letterColor = [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
+            letterColor = [HBSharedUtils champColor];
         } else if ([stat containsString:@"D"]) {
             letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
         } else {

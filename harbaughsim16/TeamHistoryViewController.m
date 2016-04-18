@@ -105,9 +105,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+        [cell.detailTextLabel setNumberOfLines:0];
     }
     
     if (indexPath.section == 0) {
@@ -149,8 +150,14 @@
         }
     } else {
         [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
-        [cell.detailTextLabel setText:history[indexPath.row]];
+        id hist = history[indexPath.row];
+        if ([hist isKindOfClass:[NSAttributedString class]]) {
+            [cell.detailTextLabel setAttributedText:hist];
+        } else {
+            [cell.detailTextLabel setText:hist];
+        }
     }
+    [cell.detailTextLabel sizeToFit];
     
     return cell;
 }

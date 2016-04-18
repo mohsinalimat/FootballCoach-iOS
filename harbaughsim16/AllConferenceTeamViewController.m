@@ -212,7 +212,7 @@
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
         if ([[[HBSharedUtils getLeague] getHeisman][0] isEqual:plyr]) {
-            [statsCell.playerLabel setTextColor:[UIColor hx_colorWithHexRGBAString:@"#eeb211"]];
+            [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
         } else {
             [statsCell.playerLabel setTextColor:[UIColor blackColor]];
         }

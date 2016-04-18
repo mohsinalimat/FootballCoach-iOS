@@ -157,23 +157,27 @@
 
 -(void)advanceSeason {
     
-    if (wonRivalryGame && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20)) {
-        teamPrestige += 2;
-    } else if (!wonRivalryGame && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
-        teamPrestige -= 2;
-    }
-    
-    int expectedPollFinish = 100 - teamPrestige;
-    int diffExpected = expectedPollFinish - rankTeamPollScore;
     int oldPrestige = teamPrestige;
-    
-    if ((teamPrestige > 45 && ![name isEqualToString:@"American Samoa"]) || diffExpected > 0 ) {
-        teamPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);// + diffExpected/2500);
-    }
-    
-    if (rankTeamPollScore == 1 ) {
-        // NCW
-        teamPrestige += 3;
+    if (![self isEqual:league.blessedTeam] && ![self isEqual:league.cursedTeam]) {
+        // Don't add/subtract prestige if they are a blessed/cursed team from last season
+        if (wonRivalryGame && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20)) {
+            teamPrestige += 2;
+        } else if (!wonRivalryGame && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
+            teamPrestige -= 2;
+        }
+        
+        int expectedPollFinish = 100 - teamPrestige;
+        int diffExpected = expectedPollFinish - rankTeamPollScore;
+        oldPrestige = teamPrestige;
+        
+        if ((teamPrestige > 45 && ![name isEqualToString:@"American Samoa"]) || diffExpected > 0) {
+            teamPrestige = (int)pow(teamPrestige, 1 + (float) diffExpected / 1500);
+        }
+        
+        if (rankTeamPollScore == 1) {
+            // NCW
+            teamPrestige += 3;
+        }
     }
     
     if (teamPrestige > 95) teamPrestige = 95;
@@ -426,6 +430,8 @@
                 i++;
             }
         }
+        
+        [playersLeaving removeAllObjects];
         
         if ( !isUserControlled ) {
             [self recruitPlayersFreshman:@[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(f7Needs)]];
@@ -918,24 +924,39 @@
 }
 
 -(void)updateTeamHistory {
-    NSMutableString *hist = [NSMutableString string];
+    NSMutableAttributedString *hist = [[NSMutableAttributedString alloc] init];
     
     if (rankTeamPollScore > 0 && rankTeamPollScore < 26) {
-        [hist appendFormat:@"#%ld %@ (%ld-%ld)",(long)rankTeamPollScore, abbreviation, (long)wins, (long)losses];
+        [hist appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"#%ld %@ (%ld-%ld)\n",(long)rankTeamPollScore, abbreviation, (long)wins, (long)losses] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     } else {
-       [hist appendFormat:@"%@ (%ld-%ld)",abbreviation, (long)wins, (long)losses];
+        [hist appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ (%ld-%ld)\n",abbreviation, (long)wins, (long)losses] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     }
     
     if (![confChampion isEqualToString:@""] && confChampion.length > 0) {
-        [hist appendFormat:@" %@",confChampion];
+        Game *ccg = [league findConference:conference].ccg;
+        if ([confChampion isEqualToString:@"CC"]) {
+            [hist appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n",[self gameSummaryString:ccg]] attributes:@{NSForegroundColorAttributeName : [HBSharedUtils successColor]}]];
+        } else {
+            [hist appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n",[self gameSummaryString:ccg]] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+        }
     }
     
     if (![semifinalWL isEqualToString:@""]&& semifinalWL.length > 0) {
-        [hist appendFormat:@" %@",semifinalWL];
+        Game *bowl = gameSchedule[13];
+        if ([semifinalWL isEqualToString:@"BW"] || [semifinalWL isEqualToString:@"SFW"]) {
+            [hist appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ - %@\n",bowl.gameName,[self gameSummaryString:bowl]] attributes:@{NSForegroundColorAttributeName : [HBSharedUtils styleColor]}]];
+        } else if ([semifinalWL isEqualToString:@"BL"] || [semifinalWL isEqualToString:@"SFL"]){
+            [hist appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ - %@\n",bowl.gameName,[self gameSummaryString:bowl]] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+        }
     }
     
     if (![natlChampWL isEqualToString:@""] && natlChampWL.length > 0) {
-        [hist appendFormat:@" %@",natlChampWL];
+        Game *ncg = league.ncg;
+        if ([natlChampWL isEqualToString:@"NCW"]) {
+            [hist appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n",[self gameSummaryString:ncg]] attributes:@{NSForegroundColorAttributeName : [HBSharedUtils champColor]}]];
+        } else {
+            [hist appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n",[self gameSummaryString:ncg]] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+        }
     }
 
     [teamHistory addObject:hist];
@@ -1664,7 +1685,7 @@
 }
 
 -(void)getPlayersLeaving {
-    playersLeaving = [NSMutableArray array];
+    //playersLeaving = [NSMutableArray array];
     if (playersLeaving.count == 0) {
         int i = 0;
         double draftChance = NFL_CHANCE;

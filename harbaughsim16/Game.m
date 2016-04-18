@@ -70,6 +70,9 @@
     [aCoder encodeObject:_homeTeam forKey:@"homeTeam"];
     [aCoder encodeObject:_awayTeam forKey:@"awayTeam"];
     
+    [aCoder encodeObject:_homeStarters forKey:@"homeStarters"];
+    [aCoder encodeObject:_awayStarters forKey:@"awayStarters"];
+    
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
@@ -113,6 +116,18 @@
         
         _HomeKStats = [aDecoder decodeObjectForKey:@"HomeKStats"];
         _AwayKStats = [aDecoder decodeObjectForKey:@"AwayKStats"];
+        
+        if ([aDecoder containsValueForKey:@"homeStarters"]) {
+            _homeStarters = [aDecoder decodeObjectForKey:@"homeStarters"];
+        } else {
+            _homeStarters = [NSMutableArray array];
+        }
+        
+        if ([aDecoder containsValueForKey:@"awayStarters"]) {
+            _awayStarters = [aDecoder decodeObjectForKey:@"awayStarters"];
+        } else {
+            _awayStarters = [NSMutableArray array];
+        }
     }
     return self;
 }
@@ -236,6 +251,9 @@
         _HomeKStats = [NSMutableArray array];
         _AwayKStats = [NSMutableArray array];
         
+        _homeStarters = [NSMutableArray array];
+        _awayStarters = [NSMutableArray array];
+        
         
         for (int i = 0; i < 10; i++) {
             [_homeQScore addObject:@(0)];
@@ -296,27 +314,94 @@
         
         [report setObject:gameStats forKey:@"gameStats"];
         
+        if (_homeStarters.count == 0 || _homeStarters == nil) {
+            _homeStarters = [NSMutableArray arrayWithArray:@[[_homeTeam getQB:0],
+                                                             
+                                                             [_homeTeam getRB:0],
+                                                             [_homeTeam getRB:1],
+                                                             
+                                                             [_homeTeam getWR:0],
+                                                             [_homeTeam getWR:1],
+                                                             [_homeTeam getWR:2],
+                                                             
+                                                             [_homeTeam getOL:0],
+                                                             [_homeTeam getOL:1],
+                                                             [_homeTeam getOL:2],
+                                                             [_homeTeam getOL:3],
+                                                             [_homeTeam getOL:4],
+                                                             
+                                                             [_homeTeam getK:0],
+                                                             
+                                                             [_homeTeam getS:0],
+                                                             
+                                                             [_homeTeam getCB:0],
+                                                             [_homeTeam getCB:1],
+                                                             [_homeTeam getCB:2],
+                                                             
+                                                             [_homeTeam getF7:0],
+                                                             [_homeTeam getF7:1],
+                                                             [_homeTeam getF7:2],
+                                                             [_homeTeam getF7:3],
+                                                             [_homeTeam getF7:4],
+                                                             [_homeTeam getF7:5],
+                                                             [_homeTeam getF7:6]]];
+        }
+        
+        if (_awayStarters.count == 0 || _awayStarters == nil) {
+            _awayStarters = [NSMutableArray arrayWithArray:@[[_awayTeam getQB:0],
+                                                             
+                                                             [_awayTeam getRB:0],
+                                                             [_awayTeam getRB:1],
+                                                             
+                                                             [_awayTeam getWR:0],
+                                                             [_awayTeam getWR:1],
+                                                             [_awayTeam getWR:2],
+                                                             
+                                                             [_awayTeam getOL:0],
+                                                             [_awayTeam getOL:1],
+                                                             [_awayTeam getOL:2],
+                                                             [_awayTeam getOL:3],
+                                                             [_awayTeam getOL:4],
+                                                             
+                                                             [_awayTeam getK:0],
+                                                             
+                                                             [_awayTeam getS:0],
+                                                             
+                                                             [_awayTeam getCB:0],
+                                                             [_awayTeam getCB:1],
+                                                             [_awayTeam getCB:2],
+                                                             
+                                                             [_awayTeam getF7:0],
+                                                             [_awayTeam getF7:1],
+                                                             [_awayTeam getF7:2],
+                                                             [_awayTeam getF7:3],
+                                                             [_awayTeam getF7:4],
+                                                             [_awayTeam getF7:5],
+                                                             [_awayTeam getF7:6]]];
+
+        }
+        
         //QBs - dicts go home, away - yes, I'm aware that's confusing
         NSMutableDictionary *qbs = [NSMutableDictionary dictionary];
-        [qbs setObject:[_homeTeam getQB:0] forKey:@"homeQB"];
+        [qbs setObject:_homeStarters[0] forKey:@"homeQB"];
         [qbs setObject:_HomeQBStats forKey:@"homeQBStats"];
         
-        [qbs setObject:[_awayTeam getQB:0] forKey:@"awayQB"];
+        [qbs setObject:_awayStarters[0] forKey:@"awayQB"];
         [qbs setObject:_AwayQBStats forKey:@"awayQBStats"];
         [report setObject:qbs forKey:@"QBs"];
         
         //RBs
         NSMutableDictionary *rbs = [NSMutableDictionary dictionary];
-        [rbs setObject:[_homeTeam getRB:0] forKey:@"homeRB1"];
+        [rbs setObject:_homeStarters[1] forKey:@"homeRB1"];
         [rbs setObject:_HomeRB1Stats forKey:@"homeRB1Stats"];
         
-        [rbs setObject:[_homeTeam getRB:1] forKey:@"homeRB2"];
+        [rbs setObject:_homeStarters[2] forKey:@"homeRB2"];
         [rbs setObject:_HomeRB2Stats forKey:@"homeRB2Stats"];
         
-        [rbs setObject:[_awayTeam getRB:0] forKey:@"awayRB1"];
+        [rbs setObject:_awayStarters[1] forKey:@"awayRB1"];
         [rbs setObject:_AwayRB1Stats forKey:@"awayRB1Stats"];
         
-        [rbs setObject:[_awayTeam getRB:1] forKey:@"awayRB2"];
+        [rbs setObject:_awayStarters[2] forKey:@"awayRB2"];
         [rbs setObject:_AwayRB2Stats forKey:@"awayRB2Stats"];
         
         [report setObject:rbs forKey:@"RBs"];
@@ -324,22 +409,22 @@
         //WRs
         NSMutableDictionary *wrs = [NSMutableDictionary dictionary];
         
-        [wrs setObject:[_homeTeam getWR:0] forKey:@"homeWR1"];
+        [wrs setObject:_homeStarters[3] forKey:@"homeWR1"];
         [wrs setObject:_HomeWR1Stats forKey:@"homeWR1Stats"];
         
-        [wrs setObject:[_homeTeam getWR:1] forKey:@"homeWR2"];
+        [wrs setObject:_homeStarters[4] forKey:@"homeWR2"];
         [wrs setObject:_HomeWR2Stats forKey:@"homeWR2Stats"];
         
-        [wrs setObject:[_homeTeam getWR:2] forKey:@"homeWR3"];
+        [wrs setObject:_homeStarters[5] forKey:@"homeWR3"];
         [wrs setObject:_HomeWR3Stats forKey:@"homeWR3Stats"];
         
-        [wrs setObject:[_awayTeam getWR:0] forKey:@"awayWR1"];
+        [wrs setObject:_awayStarters[3] forKey:@"awayWR1"];
         [wrs setObject:_AwayWR1Stats forKey:@"awayWR1Stats"];
         
-        [wrs setObject:[_awayTeam getWR:1] forKey:@"awayWR2"];
+        [wrs setObject:_awayStarters[4] forKey:@"awayWR2"];
         [wrs setObject:_AwayWR2Stats forKey:@"awayWR2Stats"];
         
-        [wrs setObject:[_awayTeam getWR:2] forKey:@"awayWR3"];
+        [wrs setObject:_awayStarters[5] forKey:@"awayWR3"];
         [wrs setObject:_AwayWR3Stats forKey:@"awayWR3Stats"];
         
         
@@ -347,10 +432,10 @@
         
         //Ks
         NSMutableDictionary *ks = [NSMutableDictionary dictionary];
-        [ks setObject:[_homeTeam getK:0] forKey:@"homeK"];
+        [ks setObject:_homeStarters[6] forKey:@"homeK"];
         [ks setObject:_HomeKStats forKey:@"homeKStats"];
         
-        [ks setObject:[_awayTeam getK:0] forKey:@"awayK"];
+        [ks setObject:_awayStarters[6] forKey:@"awayK"];
         [ks setObject:_AwayKStats forKey:@"awayKStats"];
         [report setObject:ks forKey:@"Ks"];
         
@@ -585,6 +670,36 @@
         [_homeTeam getF7:5].gamesPlayed++;
         [_homeTeam getF7:6].gamesPlayed++;
         
+        _homeStarters = [NSMutableArray arrayWithArray:@[[_homeTeam getQB:0],
+                                                         
+                                                         [_homeTeam getRB:0],
+                                                         [_homeTeam getRB:1],
+                                                         
+                                                         [_homeTeam getWR:0],
+                                                         [_homeTeam getWR:1],
+                                                         [_homeTeam getWR:2],
+                                                         
+                                                         [_homeTeam getOL:0],
+                                                         [_homeTeam getOL:1],
+                                                         [_homeTeam getOL:2],
+                                                         [_homeTeam getOL:3],
+                                                         [_homeTeam getOL:4],
+                                                         
+                                                         [_homeTeam getK:0],
+                                                         
+                                                         [_homeTeam getS:0],
+                                                         
+                                                         [_homeTeam getCB:0],
+                                                         [_homeTeam getCB:1],
+                                                         [_homeTeam getCB:2],
+                                                         
+                                                         [_homeTeam getF7:0],
+                                                         [_homeTeam getF7:1],
+                                                         [_homeTeam getF7:2],
+                                                         [_homeTeam getF7:3],
+                                                         [_homeTeam getF7:4],
+                                                         [_homeTeam getF7:5],
+                                                         [_homeTeam getF7:6]]];
         
         //Away Team starters
         [_awayTeam getQB:0].gamesPlayed++;
@@ -618,7 +733,36 @@
         [_awayTeam getF7:5].gamesPlayed++;
         [_awayTeam getF7:6].gamesPlayed++;
         
-        
+        _awayStarters = [NSMutableArray arrayWithArray:@[[_awayTeam getQB:0],
+                                                         
+                                                         [_awayTeam getRB:0],
+                                                         [_awayTeam getRB:1],
+                                                         
+                                                         [_awayTeam getWR:0],
+                                                         [_awayTeam getWR:1],
+                                                         [_awayTeam getWR:2],
+                                                         
+                                                         [_awayTeam getOL:0],
+                                                         [_awayTeam getOL:1],
+                                                         [_awayTeam getOL:2],
+                                                         [_awayTeam getOL:3],
+                                                         [_awayTeam getOL:4],
+                                                         
+                                                         [_awayTeam getK:0],
+                                                         
+                                                         [_awayTeam getS:0],
+                                                         
+                                                         [_awayTeam getCB:0],
+                                                         [_awayTeam getCB:1],
+                                                         [_awayTeam getCB:2],
+                                                         
+                                                         [_awayTeam getF7:0],
+                                                         [_awayTeam getF7:1],
+                                                         [_awayTeam getF7:2],
+                                                         [_awayTeam getF7:3],
+                                                         [_awayTeam getF7:4],
+                                                         [_awayTeam getF7:5],
+                                                         [_awayTeam getF7:6]]];
         
         while ( gameTime > 0 ) {
             //play ball!
