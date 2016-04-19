@@ -14,7 +14,7 @@
 * Improvements to in-app notifications
 * Fixed graduating juniors so that juniors without a game played will stay
 * Added a team streaks page
-* Added bowl games to team history
+* Added bowl games and color to team history
 * Fixed a bug where game pages would pull the current starters of a team, rather than the starters for that game
 * Fixed a bug where conference championship losses weren't counted
 * Fixed a bug where POTY standings would keep updating even after a winner was declared
