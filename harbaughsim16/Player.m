@@ -175,7 +175,9 @@
 }
 
 -(int)getHeismanScore {
-    return 0;
+    int adjGames = _gamesPlayed;
+    if (adjGames > 10) adjGames = 10;
+    return _ratOvr * adjGames;
 }
 
 -(NSString*)getInitialName {
@@ -185,11 +187,11 @@
 }
 
 -(NSString*)getPosNameYrOvrPot_Str {
-    return [NSString stringWithFormat:@"%@ %@ [%@] - Ovr: %ld, Pot: %ld\n", _position, _name, [self getYearString], (long)_ratOvr, (long)_ratPot];
+    return [NSString stringWithFormat:@"%@ %@ [%@] (OVR: %ld)\n", _position, _name, [self getYearString], (long)_ratOvr];
 }
 
 -(NSString*)getPosNameYrOvrPot_OneLine {
-    return [NSString stringWithFormat:@"%@ %@ [%@] - Ovr: %ld, Pot: %ld\n", _position, [self getInitialName], [self getYearString], (long)_ratOvr, (long)_ratPot];
+    return [NSString stringWithFormat:@"%@ %@ [%@] (OVR: %ld)\n", _position, [self getInitialName], [self getYearString], (long)_ratOvr];
 }
 
 -(NSString*)getLetterGradeWithString:(NSString*)num {

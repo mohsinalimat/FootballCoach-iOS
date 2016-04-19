@@ -420,7 +420,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"roster"] style:UIBarButtonItemStylePlain target:self action:@selector(viewRoster)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"Remaining Needs" style:UIBarButtonItemStylePlain target:self action:@selector(showRemainingNeeds)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(showRecruitCategories)]]];
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"roster"] style:UIBarButtonItemStylePlain target:self action:@selector(viewRoster)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Remaining Needs" style:UIBarButtonItemStylePlain target:self action:@selector(showRemainingNeeds)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(showRecruitCategories)]]];
     self.navigationController.toolbarHidden = NO;
 }
 
@@ -445,7 +445,7 @@
     NSInteger teamSize = [HBSharedUtils getLeague].userTeam.teamQBs.count + [HBSharedUtils getLeague].userTeam.teamRBs.count + [HBSharedUtils getLeague].userTeam.teamWRs.count + [HBSharedUtils getLeague].userTeam.teamKs.count + [HBSharedUtils getLeague].userTeam.teamSs.count + [HBSharedUtils getLeague].userTeam.teamCBs.count + [HBSharedUtils getLeague].userTeam.teamF7s.count;
     
     playersRecruited = [NSMutableArray array];
-    //playersGraduating = [NSMutableArray array];
+    
     teamPlayers = [NSMutableArray array];
     availQBs = [NSMutableArray array];
     availRBs = [NSMutableArray array];
@@ -747,7 +747,7 @@
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
         [[NSUserDefaults standardUserDefaults] synchronize];
         //display intro screen
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to Recruiting Season, Coach!" message:@"At the end of each season, graduating seniors leave the program and spots open up. As coach, you are responsible for recruiting the next class of players that will lead your team to bigger and better wins. You recruit based on a budget of points, which is determined by your team's prestige. Better teams will have more points to work with, while worse teams will have to save points wherever they can.\n\nWhen you press \"Start Recruiting\" after the season, you can see who is leaving your program and give you a sense of how many players you will need to replace. Next, the Recruiting menu opens up (where you are now). You can view the Top 200 recruits from every position to see the best of the best. Each Recruit has their positional ratings as well as an Overall and Potential. The point cost of each recruit (insert Cam Newton and/or Ole Miss joke here) is determined by how good they are. Once you are done recruiting all the players you need, or that you can afford, press \"Done\" to advance to the next season." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to Recruiting Season, Coach!" message:@"At the end of each season, graduating seniors leave the program and spots open up. As coach, you are responsible for recruiting the next class of players that will lead your team to bigger and better wins. You recruit based on a budget of points, which is determined by your team's prestige. Better teams will have more points to work with, while worse teams will have to save points wherever they can.\n\nWhen you press \"Start Recruiting\" after the season, you can see who is leaving your program and give you a sense of how many players you will need to replace. Next, the Recruiting menu opens up (where you are now). You can view the Top 200 recruits from every position to see the best of the best. Each Recruit has their positional ratings as well as an Overall and Potential. The point cost of each recruit (insert Cam Newton and/or Ole Miss joke here) is determined by how good they are. Once you are done recruiting all the players you need or that you can afford press \"Done\" to advance to the next season." preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
     }
@@ -767,11 +767,166 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"View a specific position" message:@"Which position would you like to see?" preferredStyle:UIAlertControllerStyleActionSheet];
     NSString *position = @"";
     if (playersRecruited.count > 0) {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 11; i++) {
             if (i == 0) {
                 position = @"All Players";
             } else if (i == 1) {
                 position = @"Recruited Players";
+            } else if (i == 2) {
+                position = @"Players within Budget";
+            } else if (i == 3) {
+                position = @"QB";
+            } else if (i == 4) {
+                position = @"RB";
+            } else if (i == 5) {
+                position = @"WR";
+            } else if (i == 6) {
+                position = @"OL";
+            } else if (i == 7) {
+                position = @"F7";
+            } else if (i == 8) {
+                position = @"CB";
+            } else if (i == 9) {
+                position = @"S";
+            } else {
+                position = @"K";
+            }
+            [alertController addAction:[UIAlertAction actionWithTitle:position style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                if (i == 0) {
+                    players = availAll;
+                    _viewingSignees = NO;
+                } else if (i == 2) {
+                    players = [availAll mutableCopy];
+                    //sort all available by cost
+                    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                        Player *a = (Player*)obj1;
+                        Player *b = (Player*)obj2;
+                        if (a.cost > b.cost) {
+                            return -1;
+                        } else if (a.cost == b.cost) {
+                            if (!a.hasRedshirt && !b.hasRedshirt) {
+                                if (a.ratOvr > b.ratOvr) {
+                                    return -1;
+                                } else if (a.ratOvr < b.ratOvr) {
+                                    return 1;
+                                } else {
+                                    if (a.ratPot > b.ratPot) {
+                                        return -1;
+                                    } else if (a.ratPot < b.ratPot) {
+                                        return 1;
+                                    } else {
+                                        return 0;
+                                    }
+                                }
+                            } else if (a.hasRedshirt) {
+                                return 1;
+                            } else if (b.hasRedshirt) {
+                                return -1;
+                            } else {
+                                if (a.ratOvr > b.ratOvr) {
+                                    return -1;
+                                } else if (a.ratOvr < b.ratOvr) {
+                                    return 1;
+                                } else {
+                                    if (a.ratPot > b.ratPot) {
+                                        return -1;
+                                    } else if (a.ratPot < b.ratPot) {
+                                        return 1;
+                                    } else {
+                                        return 0;
+                                    }
+                                }
+                            }
+                        } else {
+                            return 1;
+                        }
+                    }];
+                    
+                    //remove the ones that cost too much
+                    for (Player *p in players) {
+                        if (p.cost >= recruitingBudget) {
+                            [players removeObject:p];
+                        }
+                    }
+                    
+                    //re-sort them by ovr
+                    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                        Player *a = (Player*)obj1;
+                        Player *b = (Player*)obj2;
+                        if (!a.hasRedshirt && !b.hasRedshirt) {
+                            if (a.ratOvr > b.ratOvr) {
+                                return -1;
+                            } else if (a.ratOvr < b.ratOvr) {
+                                return 1;
+                            } else {
+                                if (a.ratPot > b.ratPot) {
+                                    return -1;
+                                } else if (a.ratPot < b.ratPot) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                        } else if (a.hasRedshirt) {
+                            return 1;
+                        } else if (b.hasRedshirt) {
+                            return -1;
+                        } else {
+                            if (a.ratOvr > b.ratOvr) {
+                                return -1;
+                            } else if (a.ratOvr < b.ratOvr) {
+                                return 1;
+                            } else {
+                                if (a.ratPot > b.ratPot) {
+                                    return -1;
+                                } else if (a.ratPot < b.ratPot) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                        }
+                    }];
+                    _viewingSignees = NO;
+                } else if (i == 1) {
+                    players = playersRecruited;
+                    _viewingSignees = YES;
+                } else if (i == 3) {
+                    players = availQBs;
+                    _viewingSignees = NO;
+                } else if (i == 4) {
+                    players = availRBs;
+                    _viewingSignees = NO;
+                } else if (i == 5) {
+                    players = availWRs;
+                    _viewingSignees = NO;
+                } else if (i == 6) {
+                    players = availOLs;
+                    _viewingSignees = NO;
+                } else if (i == 7) {
+                    players = availF7s;
+                    _viewingSignees = NO;
+                } else if (i == 8) {
+                    players = availCBs;
+                    _viewingSignees = NO;
+                } else if (i == 9) {
+                    players = availSs;
+                    _viewingSignees = NO;
+                } else {
+                    players = availKs;
+                    _viewingSignees = NO;
+                }
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                [self.tableView reloadData];
+            }]];
+
+        }
+    } else {
+        for (int i = 0; i < 10; i++) {
+            if (i == 0) {
+                position = @"All Players";
+            } else if (i == 1) {
+                position = @"Players within Budget";
             } else if (i == 2) {
                 position = @"QB";
             } else if (i == 3) {
@@ -792,77 +947,112 @@
             [alertController addAction:[UIAlertAction actionWithTitle:position style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if (i == 0) {
                     players = availAll;
-                    _viewingSignees = NO;
                 } else if (i == 1) {
-                    players = playersRecruited;
-                    _viewingSignees = YES;
+                    players = [availAll mutableCopy];
+                    //sort all available by cost
+                    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                        Player *a = (Player*)obj1;
+                        Player *b = (Player*)obj2;
+                        if (a.cost > b.cost) {
+                            return -1;
+                        } else if (a.cost == b.cost) {
+                            if (!a.hasRedshirt && !b.hasRedshirt) {
+                                if (a.ratOvr > b.ratOvr) {
+                                    return -1;
+                                } else if (a.ratOvr < b.ratOvr) {
+                                    return 1;
+                                } else {
+                                    if (a.ratPot > b.ratPot) {
+                                        return -1;
+                                    } else if (a.ratPot < b.ratPot) {
+                                        return 1;
+                                    } else {
+                                        return 0;
+                                    }
+                                }
+                            } else if (a.hasRedshirt) {
+                                return 1;
+                            } else if (b.hasRedshirt) {
+                                return -1;
+                            } else {
+                                if (a.ratOvr > b.ratOvr) {
+                                    return -1;
+                                } else if (a.ratOvr < b.ratOvr) {
+                                    return 1;
+                                } else {
+                                    if (a.ratPot > b.ratPot) {
+                                        return -1;
+                                    } else if (a.ratPot < b.ratPot) {
+                                        return 1;
+                                    } else {
+                                        return 0;
+                                    }
+                                }
+                            }
+                        } else {
+                            return 1;
+                        }
+                    }];
+                    
+                    //remove the ones that cost too much
+                    for (Player *p in players) {
+                        if (p.cost > recruitingBudget) {
+                            [players removeObject:p];
+                        }
+                    }
+                    
+                    //re-sort them by ovr
+                    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                        Player *a = (Player*)obj1;
+                        Player *b = (Player*)obj2;
+                        if (!a.hasRedshirt && !b.hasRedshirt) {
+                            if (a.ratOvr > b.ratOvr) {
+                                return -1;
+                            } else if (a.ratOvr < b.ratOvr) {
+                                return 1;
+                            } else {
+                                if (a.ratPot > b.ratPot) {
+                                    return -1;
+                                } else if (a.ratPot < b.ratPot) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                        } else if (a.hasRedshirt) {
+                            return 1;
+                        } else if (b.hasRedshirt) {
+                            return -1;
+                        } else {
+                            if (a.ratOvr > b.ratOvr) {
+                                return -1;
+                            } else if (a.ratOvr < b.ratOvr) {
+                                return 1;
+                            } else {
+                                if (a.ratPot > b.ratPot) {
+                                    return -1;
+                                } else if (a.ratPot < b.ratPot) {
+                                    return 1;
+                                } else {
+                                    return 0;
+                                }
+                            }
+                        }
+                    }];
+                    _viewingSignees = NO;
                 } else if (i == 2) {
                     players = availQBs;
-                    _viewingSignees = NO;
                 } else if (i == 3) {
                     players = availRBs;
-                    _viewingSignees = NO;
                 } else if (i == 4) {
                     players = availWRs;
-                    _viewingSignees = NO;
                 } else if (i == 5) {
                     players = availOLs;
-                    _viewingSignees = NO;
                 } else if (i == 6) {
                     players = availF7s;
-                    _viewingSignees = NO;
                 } else if (i == 7) {
                     players = availCBs;
-                    _viewingSignees = NO;
                 } else if (i == 8) {
-                    players = availSs;
-                    _viewingSignees = NO;
-                } else {
-                    players = availKs;
-                    _viewingSignees = NO;
-                }
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-                [self.tableView reloadData];
-            }]];
-
-        }
-    } else {
-        for (int i = 0; i < 9; i++) {
-            if (i == 0) {
-                position = @"All Players";
-            } else if (i == 1) {
-                position = @"QB";
-            } else if (i == 2) {
-                position = @"RB";
-            } else if (i == 3) {
-                position = @"WR";
-            } else if (i == 4) {
-                position = @"OL";
-            } else if (i == 5) {
-                position = @"F7";
-            } else if (i == 6) {
-                position = @"CB";
-            } else if (i == 7) {
-                position = @"S";
-            } else {
-                position = @"K";
-            }
-            [alertController addAction:[UIAlertAction actionWithTitle:position style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                if (i == 0) {
-                    players = availAll;
-                } else if (i == 1) {
-                    players = availQBs;
-                } else if (i == 2) {
-                    players = availRBs;
-                } else if (i == 3) {
-                    players = availWRs;
-                } else if (i == 4) {
-                    players = availOLs;
-                } else if (i == 5) {
-                    players = availF7s;
-                } else if (i == 6) {
-                    players = availCBs;
-                } else if (i == 7) {
                     players = availSs;
                 } else {
                     players = availKs;

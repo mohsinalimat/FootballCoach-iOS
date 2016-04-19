@@ -103,11 +103,13 @@
      if (_ccg.homeScore > _ccg.awayScore ) {
          _confTeams[0].confChampion = @"CC";
          _confTeams[0].totalCCs++;
+         _confTeams[1].totalCCLosses++;
          NSMutableArray *week13 = _league.newsStories[13];
          [week13 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ took care of business in the conference championship against %@, winning at home with a score of %ld to %ld.",_ccg.homeTeam.name, _confName, _ccg.homeTeam.strRep, _ccg.awayTeam.strRep, (long)_ccg.homeScore, (long)_ccg.awayScore]];
      } else {
          _confTeams[1].confChampion = @"CC";
          _confTeams[1].totalCCs++;
+         _confTeams[0].totalCCLosses++;
          NSMutableArray *week13 = _league.newsStories[13];
          [week13 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ surprised many in the conference championship against %@, winning on the road with a score of %ld to %ld.",_ccg.awayTeam.name, _confName, _ccg.awayTeam.strRep, _ccg.homeTeam.strRep, (long)_ccg.awayScore, (long)_ccg.homeScore]];
      }
@@ -171,7 +173,7 @@
             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
         }];
         for (int j = 0; j < teamTB.count; ++j) {
-            [_confTeams insertObject:teamTB[j] atIndex:j];
+            [_confTeams replaceObjectAtIndex:j withObject:teamTB[j]];
         }
         
     }
@@ -193,7 +195,7 @@
             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
         }];
         for (int j = 0; j < teamTB.count; ++j) {
-            [_confTeams insertObject:teamTB[j] atIndex:(1 + j)];
+            [_confTeams replaceObjectAtIndex:(j + 1) withObject:teamTB[j]];
         }
         
     }

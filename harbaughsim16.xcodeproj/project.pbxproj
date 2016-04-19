@@ -109,8 +109,8 @@
 		75CACE2E1CBECCBC003AB932 /* Icon-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE241CBECCBC003AB932 /* Icon-Spotlight-40@2x.png */; };
 		75CACE2F1CBECCBC003AB932 /* Icon-Spotlight-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE251CBECCBC003AB932 /* Icon-Spotlight-40@3x.png */; };
 		75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */; };
-		75E10F1E1CA0D9CA0000DA78 /* TeamHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75E10F1C1CA0D9CA0000DA78 /* TeamHistoryViewController.xib */; };
 		75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */; };
+		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -286,9 +286,10 @@
 		75CACE251CBECCBC003AB932 /* Icon-Spotlight-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@3x.png"; sourceTree = "<group>"; };
 		75E10F1A1CA0D9CA0000DA78 /* TeamHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamHistoryViewController.h; sourceTree = "<group>"; };
 		75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamHistoryViewController.m; sourceTree = "<group>"; };
-		75E10F1C1CA0D9CA0000DA78 /* TeamHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamHistoryViewController.xib; sourceTree = "<group>"; };
 		75E10F1F1CA0E0170000DA78 /* LeagueHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueHistoryController.h; sourceTree = "<group>"; };
 		75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueHistoryController.m; sourceTree = "<group>"; };
+		75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreaksViewController.h; sourceTree = "<group>"; };
+		75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreaksViewController.m; sourceTree = "<group>"; };
 		816834A7F9C15B63FF8EA2BB /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC021E4350CD61827E4ADB7 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -408,7 +409,6 @@
 			children = (
 				75E10F1A1CA0D9CA0000DA78 /* TeamHistoryViewController.h */,
 				75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */,
-				75E10F1C1CA0D9CA0000DA78 /* TeamHistoryViewController.xib */,
 				75E10F1F1CA0E0170000DA78 /* LeagueHistoryController.h */,
 				75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */,
 			);
@@ -421,6 +421,8 @@
 				75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */,
 				75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */,
 				7571DD341C9CF8E300E67080 /* MyTeamViewController.xib */,
+				75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */,
+				75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */,
 				751DF8221CA1D66D003C62F2 /* TeamStrategyViewController.h */,
 				751DF8231CA1D66D003C62F2 /* TeamStrategyViewController.m */,
 			);
@@ -775,7 +777,6 @@
 				75924A311C99CCC000B165AD /* LaunchScreen.storyboard in Resources */,
 				755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */,
 				75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */,
-				75E10F1E1CA0D9CA0000DA78 /* TeamHistoryViewController.xib in Resources */,
 				7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */,
 				7543190F1CC02F2200D380F1 /* HBTeamRankCell.xib in Resources */,
 				75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */,
@@ -907,6 +908,7 @@
 				75924A611C99E64D00B165AD /* PlayerK.m in Sources */,
 				75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */,
 				75880F8F1CAC949F00AF2C1C /* TeamRecordsViewController.m in Sources */,
+				75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */,
 				755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */,
 				75C321C41CAD7BBB00906A38 /* AllConferenceTeamViewController.m in Sources */,
 				75097C5C1CBC1B55003E2538 /* HBRecordCell.m in Sources */,

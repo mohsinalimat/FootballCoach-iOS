@@ -46,24 +46,62 @@
 
 @implementation NewsViewController
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self setupTeamHeader];
+}
+
 -(void)simulateEntireSeason {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to sim this season?" message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self simSeason];
-        ////NSLog(@"SIMULATE SEASON");
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //[self simSeason:16]; - to offseason
+            //[self simSeason:12]; - to ccg week
+            //[self simSeason:13]; - to bowl week
+            //[self simSeason:6]; - to mid season
+            //[self playWeek:nil]; - next week
+            int curWeek = [HBSharedUtils getLeague].currentWeek;
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sim to a specific point" message:@"When in the season do you want to sim to?" preferredStyle:UIAlertControllerStyleActionSheet];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Next Week" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self playWeek:nil];
+            }]];
+            
+            if (curWeek < 6) {
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Midseason" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self simSeason:(6 - curWeek)];
+                }]];
+            }
+            
+            if (curWeek < 12) {
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Championship Week" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self simSeason:(12 - curWeek)];
+                }]];
+            }
+            
+            if (curWeek < 13) {
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Bowl Week" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self simSeason:(13 - curWeek)];
+                }]];
+            }
+            
+            if (curWeek < 16) {
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Offseason" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self simSeason:(16 - curWeek)];
+                }]];
+            }
+
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+        });
     }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self setupTeamHeader];
-}
-
--(void)simSeason {
-    
+-(void)simSeason:(NSInteger)weekTotal {
     League *simLeague = [HBSharedUtils getLeague];
     
     if (simLeague.recruitingStage == 0) {
@@ -73,35 +111,45 @@
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld Season Summary", (long)(2016 + userTeam.teamHistory.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alertController animated:YES completion:nil];
-            
-            //[self startRecruiting];
         } else {
-            [simLeague playWeek];
-            
-            if (simLeague.currentWeek < 12) {
-                [self.navigationItem.leftBarButtonItem setEnabled:YES];
-                [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
-            } else if (simLeague.currentWeek == 12) {
-                [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
-            } else if (simLeague.currentWeek == 13) {
-                [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
-            } else if (simLeague.currentWeek == 14) {
-                [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
-            } else {
-                [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
-                [self.navigationItem.leftBarButtonItem setEnabled:NO];
-            }
-            
-            [self reloadNews:[HBSharedUtils getLeague].currentWeek];
-            [self setupTeamHeader];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
-            [self simSeason];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [simLeague playWeek];
+                
+                if (simLeague.currentWeek < 12) {
+                    [self.navigationItem.leftBarButtonItem setEnabled:YES];
+                    [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
+                } else if (simLeague.currentWeek == 12) {
+                    [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
+                } else if (simLeague.currentWeek == 13) {
+                    [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
+                } else if (simLeague.currentWeek == 14) {
+                    [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
+                } else {
+                    [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
+                    [self.navigationItem.leftBarButtonItem setEnabled:NO];
+                }
+                
+                [self reloadNews:[HBSharedUtils getLeague].currentWeek];
+                [self setupTeamHeader];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
+                if (weekTotal > 1) {
+                    [self simSeason:(weekTotal - 1)];
+                }
+            });
         }
     } else {
         [self startRecruiting];
     }
+}
 
-    
+-(void)resetSimButton {
+    if ([HBSharedUtils getLeague].recruitingStage == 0) {
+        [self.navigationItem.leftBarButtonItem setEnabled:NO];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+        [self.navigationItem.leftBarButtonItem setEnabled:YES];
+    } else {
+        [self.navigationItem.leftBarButtonItem setEnabled:NO];
+    }
 }
 
 -(IBAction)playWeek:(id)sender {
@@ -220,22 +268,11 @@
     }
 }
 
--(void)resetSimButton {
-    ////NSLog(@"RECRUITING STAGE: %d", [HBSharedUtils getLeague].recruitingStage);
-    if ([HBSharedUtils getLeague].recruitingStage == 0) {
-        [self.navigationItem.leftBarButtonItem setEnabled:NO];
-        //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
-        [self.navigationItem.leftBarButtonItem setEnabled:YES];
-    } else {
-        [self.navigationItem.leftBarButtonItem setEnabled:NO];
-    }
-}
-
 -(void)startRecruiting {
     //in process of recruiting
     //beginRecruiting();
     ////NSLog(@"Recruiting");
-    [userTeam getPlayersLeaving];
+    [userTeam getGraduatingPlayers];
     ////NSLog(@"PLAYERS LEAVING: %@", userTeam.playersLeaving);
     NSString *gradPlayersStr = [userTeam getGraduatingPlayersString];
     if (gradPlayersStr.length == 0) {
@@ -248,7 +285,6 @@
         [userTeam resetStats];
         [[HBSharedUtils getLeague] advanceSeason];
         [[HBSharedUtils getLeague] save];
-        
         [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingViewController alloc] init]] animated:YES completion:nil];
         
     }]];
@@ -270,10 +306,17 @@
     [self.tableView setTableHeaderView:teamHeaderView];
     self.tableView.estimatedRowHeight = 75;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+    if ([HBSharedUtils getLeague].currentWeek < 15) {
+        [self.navigationItem.leftBarButtonItem setEnabled:YES];
+    } else {
+        [self.navigationItem.leftBarButtonItem setEnabled:NO];
+    }
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(sortNews)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNews) name:@"newNewsStory" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNews) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSeasonStart" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSaveFile" object:nil];
     self.view.backgroundColor = [HBSharedUtils styleColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
@@ -288,8 +331,6 @@
         [self.navigationController pushViewController:[[AllConferenceTeamViewController alloc] initWithConference:conf] animated:YES];
     });
 }
-
-
 
 -(void)pushToConfStandings:(NSNotification*)confNotification {
     Conference *conf = (Conference*)[confNotification object];

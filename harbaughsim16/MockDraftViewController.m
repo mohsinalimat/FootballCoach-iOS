@@ -75,7 +75,7 @@
     NSArray *teamList = [HBSharedUtils getLeague].teamList;
     for (Team *t in teamList) {
         if (!t.isUserControlled) {
-            [t getPlayersLeaving];
+            [t getGraduatingPlayers];
         }
         [players addObjectsFromArray:t.playersLeaving];
     }

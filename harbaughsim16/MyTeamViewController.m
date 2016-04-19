@@ -19,6 +19,7 @@
 #import "TeamRecordsViewController.h"
 #import "LeagueRecordsViewController.h"
 #import "ConferenceStandingsViewController.h"
+#import "TeamStreaksViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -127,9 +128,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 3;
+        return 5;
     } else if (section == 2) {
-        return 3;
+        return 2;
     } else {
         return stats.count;
     }
@@ -164,7 +165,16 @@
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
             
-            [cell.textLabel setText:@"Team Records"];
+            NSString *title = @"";
+            
+            if (indexPath.row == 2) {
+                title = @"Team History";
+            } else if (indexPath.row == 3) {
+                title = @"Team Records";
+            } else {
+                title = @"Team Streaks";
+            }
+            [cell.textLabel setText:title];
             
             return cell;
 
@@ -181,8 +191,6 @@
         
 
         if (indexPath.row == 0) {
-            title = @"Team History";
-        } else if (indexPath.row == 1) {
             title = @"League History";
         } else {
             title = @"League Records";
@@ -252,8 +260,6 @@
         }
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:userTeam] animated:YES];
-        } else if (indexPath.row == 1) {
             //league
             [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];
         } else {
@@ -273,8 +279,12 @@
             [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
             [popupController presentInViewController:self];
-        } else { //teamRecords
+        } else if (indexPath.row == 2) {
+            [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:userTeam] animated:YES];
+        } else if (indexPath.row == 3) { //teamRecords
             [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:userTeam] animated:YES];
+        } else { //team streaks
+            [self.navigationController pushViewController:[[TeamStreaksViewController alloc] initWithTeam:userTeam] animated:YES];
         }
     } else {
        //do nothing

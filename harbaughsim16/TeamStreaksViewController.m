@@ -1,37 +1,49 @@
 //
-//  StatsViewController.m
+//  TeamStreaksViewController.m
 //  harbaughsim16
 //
-//  Created by Akshay Easwaran on 3/20/16.
+//  Created by Akshay Easwaran on 4/18/16.
 //  Copyright © 2016 Akshay Easwaran. All rights reserved.
 //
 
-#import "TeamSearchViewController.h"
-#import "TeamViewController.h"
+#import "TeamStreaksViewController.h"
 #import "Team.h"
-#import "HBSharedUtils.h"
-#import "League.h"
+#import "TeamStreak.h"
+#import "TeamViewController.h"
 
-@interface TeamSearchViewController () <UISearchBarDelegate, UIScrollViewDelegate>
+@interface TeamStreaksViewController () <UISearchBarDelegate, UIScrollViewDelegate>
 {
-    NSMutableArray *teams;
+    NSMutableArray *streaks;
+    NSMutableDictionary *streakDict;
     Team *selectedTeam;
     UISearchBar *navSearchBar;
     NSString *searchString;
 }
 @end
 
-@implementation TeamSearchViewController
+@implementation TeamStreaksViewController
+
+-(instancetype)initWithTeam:(Team*)team {
+    self = [super init];
+    if (self) {
+        selectedTeam = team;
+    }
+    return self;
+}
 
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    teams = [HBSharedUtils getLeague].teamList;
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    teams=[[teams sortedArrayUsingDescriptors:@[sort]] mutableCopy];
-    
+    streakDict = [selectedTeam.streaks copy];
+    streaks = [NSMutableArray arrayWithArray:streakDict.allValues];
+    [streaks sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        TeamStreak *a = (TeamStreak*)obj1;
+        TeamStreak *b = (TeamStreak*)obj2;
+        return [a.opponent.name compare:b.opponent.name];
+    }];
+
     navSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    [navSearchBar setPlaceholder:@"Search Teams"];
+    [navSearchBar setPlaceholder:@"Search Streaks"];
     [navSearchBar setDelegate:self];
     [navSearchBar setBarStyle:UIBarStyleDefault];
     [navSearchBar setSearchBarStyle:UISearchBarStyleMinimal];
@@ -58,18 +70,21 @@
 }
 
 -(void)refreshData {
-    [teams removeAllObjects];
+    [streaks removeAllObjects];
     if (searchString.length > 0 || ![searchString isEqualToString:@""]) {
-        for (Team *t in [HBSharedUtils getLeague].teamList) {
-            if ([t.name.lowercaseString containsString:searchString.lowercaseString] || [t.abbreviation.lowercaseString containsString:searchString.lowercaseString] || [t.conference.lowercaseString containsString:searchString.lowercaseString]) {
-                if (![teams containsObject:t]) {
-                    [teams addObject:t];
+        for (TeamStreak *ts in streakDict.allValues) {
+            if ([ts.opponent.abbreviation.lowercaseString containsString:searchString.lowercaseString]
+                || [ts.opponent.name.lowercaseString containsString:searchString.lowercaseString]
+                || [ts.opponent.conference.lowercaseString containsString:searchString.lowercaseString]) {
+                if (![streaks containsObject:ts]) {
+                    [streaks addObject:ts];
                 }
             }
         }
     }
     [self.tableView reloadData];
 }
+
 
 -(void)search {
     [self searchBarSearchButtonClicked:navSearchBar];
@@ -94,25 +109,27 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return teams.count;
+    return streaks.count;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    Team *t = teams[indexPath.row];
-    [cell.textLabel setText:t.name];
-    [cell.detailTextLabel setText:t.abbreviation];
+    TeamStreak *ts = streaks[indexPath.row];
+    [cell.textLabel setText:ts.opponent.name];
+    [cell.detailTextLabel setText:[ts stringRepresentation]];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:teams[indexPath.row]] animated:YES];
+    TeamStreak *ts = streaks[indexPath.row];
+    [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:ts.opponent] animated:YES];
 }
+
 
 @end

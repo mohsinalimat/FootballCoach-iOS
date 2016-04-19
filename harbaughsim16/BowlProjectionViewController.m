@@ -87,19 +87,14 @@
                 awayRank = [NSString stringWithFormat:@"#%d ",bowl.awayTeam.rankTeamPollScore];
             }
             [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,bowl.awayTeam.name]];
-            [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d, %@",bowl.awayTeam.wins,bowl.awayTeam.losses,bowl.awayTeam.conference]];
+            [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",bowl.awayTeam.wins,bowl.awayTeam.losses,(long)[bowl.awayTeam getConfWins], (long)[bowl.awayTeam getConfLosses],bowl.awayTeam.conference]];
             [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.awayScore]];
             if (bowl.homeScore < bowl.awayScore) {
                 [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
                 [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
             } else {
-                if ([bowl.awayTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
-                    [cell.teamNameLabel setTextColor:[HBSharedUtils styleColor]];
-                    [cell.scoreLabel setTextColor:[HBSharedUtils styleColor]];
-                } else {
-                    [cell.teamNameLabel setTextColor:[UIColor blackColor]];
-                    [cell.scoreLabel setTextColor:[UIColor blackColor]];
-                }
+                [cell.teamNameLabel setTextColor:[UIColor blackColor]];
+                [cell.scoreLabel setTextColor:[UIColor blackColor]];
             }
         } else {
             NSString *homeRank = @"";
@@ -107,19 +102,14 @@
                 homeRank = [NSString stringWithFormat:@"#%d ",bowl.homeTeam.rankTeamPollScore];
             }
             [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,bowl.homeTeam.name]];
-            [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d, %@",bowl.homeTeam.wins,bowl.homeTeam.losses,bowl.homeTeam.conference]];
+            [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",bowl.homeTeam.wins,bowl.homeTeam.losses,(long)[bowl.homeTeam getConfWins], (long)[bowl.homeTeam getConfLosses],bowl.homeTeam.conference]];
             [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.homeScore]];
             if (bowl.homeScore > bowl.awayScore) {
                 [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
                 [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
             } else {
-                if ([bowl.homeTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
-                    [cell.teamNameLabel setTextColor:[HBSharedUtils styleColor]];
-                    [cell.scoreLabel setTextColor:[HBSharedUtils styleColor]];
-                } else {
-                    [cell.teamNameLabel setTextColor:[UIColor blackColor]];
-                    [cell.scoreLabel setTextColor:[UIColor blackColor]];
-                }
+                [cell.teamNameLabel setTextColor:[UIColor blackColor]];
+                [cell.scoreLabel setTextColor:[UIColor blackColor]];
             }
         }
         return cell;

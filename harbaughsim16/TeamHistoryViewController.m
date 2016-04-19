@@ -35,10 +35,16 @@
     return self;
 }
 
+-(id)initWithStyle:(UITableViewStyle)style {
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if (self) {
+        
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //userTeam = [HBSharedUtils getLeague].userTeam;
     history = [userTeam.teamHistory copy];
     self.title = [NSString stringWithFormat:@"%@ Team History", userTeam.abbreviation];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
@@ -66,6 +72,14 @@
 
 #pragma mark - Table view data source
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 44;
+    } else {
+        return 85;
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
@@ -88,7 +102,7 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 1) {
-        return @"Abbreviation Key:\nNCW - National Championship Win\nNCL - National Championship Loss\nSFW - Semifinal Win\nSFL - Semifinal Loss\nCC - Conference Champion\nBW - Bowl Win\nBL - Bowl Loss";
+        return @"Color Key:\nGreen - Conference Champion\nTeal - Bowl Winner\nGold - National Champion";
     } else {
         return nil;
     }
@@ -103,15 +117,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-        [cell.detailTextLabel setNumberOfLines:0];
-    }
-    
     if (indexPath.section == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UpperCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UpperCell"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+            [cell.detailTextLabel setNumberOfLines:0];
+        }
         if (indexPath.row == 0) {
             [cell.textLabel setText:@"Seasons"];
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld",(unsigned long)history.count]];
@@ -119,9 +132,9 @@
             [cell.textLabel setText:@"Winning Percentage"];
             if ((userTeam.totalLosses + userTeam.totalWins) > 0) {
                 int winPercent = (int)(100 * ((double)userTeam.totalWins) / ((double)(userTeam.totalWins + userTeam.totalLosses)));
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%%",winPercent]];
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, userTeam.totalWins,userTeam.totalLosses]];
             } else {
-                [cell.detailTextLabel setText:@"0%"];
+                [cell.detailTextLabel setText:@"0% (0-0)"];
             }
         } else if (indexPath.row == 2) {
             [cell.textLabel setText:@"Bowl Win Percentage"]; //XX% (W-L)
@@ -148,18 +161,42 @@
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
         }
+        return cell;
     } else {
-        [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
-        id hist = history[indexPath.row];
-        if ([hist isKindOfClass:[NSAttributedString class]]) {
-            [cell.detailTextLabel setAttributedText:hist];
-        } else {
-            [cell.detailTextLabel setText:hist];
+        UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"LowerCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"LowerCell"];
+            [cell setBackgroundColor:[UIColor whiteColor]];
+            [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.detailTextLabel setNumberOfLines:0];
         }
+        
+        [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
+        NSString *hist = userTeam.teamHistory[indexPath.row];
+        NSArray *comps = [hist componentsSeparatedByString:@"\n"];
+        
+        UIColor *teamColor = [UIColor lightGrayColor];
+        if ([hist containsString:@"NCG - W"] || [hist containsString:@"NCW"]) {
+            teamColor = [HBSharedUtils champColor];
+        } else {
+            if ([hist containsString:@"Bowl - W"] || [hist containsString:@"Semis,1v4 - W"] || [hist containsString:@"Semis,2v3 - W"] || [hist containsString:@"BW"] || [hist containsString:@"SFW"]) {
+                teamColor = [HBSharedUtils styleColor];
+            } else {
+                if ([hist containsString:@"CCG - W"] || [hist containsString:@"CC"]) {
+                    teamColor = [HBSharedUtils successColor];
+                } else {
+                    teamColor = [UIColor lightGrayColor];
+                }
+            }
+        }
+        NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:hist attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:([UIFont systemFontSize] - 2.0) weight:UIFontWeightRegular]}];
+        [attText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:[UIFont systemFontSize] weight:UIFontWeightMedium] range:[hist rangeOfString:comps[0]]];
+        [attText addAttribute:NSForegroundColorAttributeName value:teamColor range:[hist rangeOfString:comps[0]]];
+        [cell.detailTextLabel setAttributedText:attText];
+        [cell.detailTextLabel sizeToFit];
+        return cell;
     }
-    [cell.detailTextLabel sizeToFit];
-    
-    return cell;
 }
 
 

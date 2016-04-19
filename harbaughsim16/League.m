@@ -1033,7 +1033,7 @@
 
 
 -(NSArray<Player*>*)getHeisman {
-    if (!heismanDecided && !heismanCandidates) {
+    if (!heismanDecided) {
         heisman = nil;
         int heismanScore = 0;
         int tempScore = 0;

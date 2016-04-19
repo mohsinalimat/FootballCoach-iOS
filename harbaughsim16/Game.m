@@ -577,7 +577,7 @@
     
     
     if (gameYardLine + gameYardsNeed >= 100) yardsNeedAdj = @"Goal";
-    return [NSString stringWithFormat:@"\n\n%@ %ld - %ld %@, Time: %@\n%@ %@ and %@ at the %ld-yard line.\n",_homeTeam.abbreviation,(long)_homeScore,(long)_awayScore,_awayTeam.abbreviation, [self convGameTime],possStr,downString,yardsNeedAdj,(long)gameYardLine];
+    return [NSString stringWithFormat:@"\n\n%@ %ld - %ld %@, Time: %@\n%@ %@ and %@ at the %ld-yard line.\n",_awayTeam.abbreviation,(long)_awayScore,(long)_homeScore,_homeTeam.abbreviation, [self convGameTime],possStr,downString,yardsNeedAdj,(long)gameYardLine];
 }
 
 -(NSString*)convGameTime {
@@ -775,6 +775,12 @@
             
         }
         
+        if (_homeScore != _awayScore) {
+            [gameEventLog appendFormat:@"\n\nTime has expired! The game is over.\n\nFINAL SCORE: %@ %ld - %ld %@", _awayTeam.abbreviation, (long)_awayScore, (long)_homeScore, _homeTeam.abbreviation ];
+        } else {
+            [gameEventLog appendFormat:@"%@\nOVERTIME!\n\nTie game at 0:00, overtime begins!",[self getEventPrefix]];
+        }
+        
         if (gameTime <= 0 && _homeScore == _awayScore) {
             playingOT = YES;
             gamePoss = FALSE;
@@ -790,6 +796,10 @@
                 } else {
                     [self runPlay:_awayTeam defense:_homeTeam];
                 }
+            }
+            
+            if (_homeScore != _awayScore) {
+                [gameEventLog appendFormat:@"\n\nFINAL SCORE: %@ %ld - %ld %@", _awayTeam.abbreviation, (long)_awayScore, (long)_homeScore, _homeTeam.abbreviation ];
             }
         }
         
