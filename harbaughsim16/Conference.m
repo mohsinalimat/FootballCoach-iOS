@@ -170,7 +170,13 @@
         [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+            if ([a.gameWinsAgainst containsObject:b]) {
+                return -1;
+            } else if ([b.gameWinsAgainst containsObject:a]) {
+                return 1;
+            } else {
+                return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+            }
         }];
         for (int j = 0; j < teamTB.count; ++j) {
             [_confTeams replaceObjectAtIndex:j withObject:teamTB[j]];
@@ -192,7 +198,13 @@
         [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+            if ([a.gameWinsAgainst containsObject:b]) {
+                return -1;
+            } else if ([b.gameWinsAgainst containsObject:a]) {
+                return 1;
+            } else {
+                return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+            }
         }];
         for (int j = 0; j < teamTB.count; ++j) {
             [_confTeams replaceObjectAtIndex:(j + 1) withObject:teamTB[j]];
