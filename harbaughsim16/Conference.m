@@ -149,7 +149,7 @@
             } else if ([b.gameWinsAgainst containsObject:a]) {
                 return 1;
             } else {
-                return 0;
+                return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
             }
         } else {
             return 1;
@@ -170,12 +170,19 @@
         [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            if ([a.gameWinsAgainst containsObject:b]) {
+            if ([a getConfWins] > [b getConfWins]) {
                 return -1;
-            } else if ([b.gameWinsAgainst containsObject:a]) {
-                return 1;
+            } else if ([a getConfWins] == [b getConfWins]) {
+                //check for h2h tiebreaker
+                if ([a.gameWinsAgainst containsObject:b]) {
+                    return -1;
+                } else if ([b.gameWinsAgainst containsObject:a]) {
+                    return 1;
+                } else {
+                    return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+                }
             } else {
-                return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+                return 1;
             }
         }];
         for (int j = 0; j < teamTB.count; ++j) {
@@ -198,12 +205,19 @@
         [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            if ([a.gameWinsAgainst containsObject:b]) {
+            if ([a getConfWins] > [b getConfWins]) {
                 return -1;
-            } else if ([b.gameWinsAgainst containsObject:a]) {
-                return 1;
+            } else if ([a getConfWins] == [b getConfWins]) {
+                //check for h2h tiebreaker
+                if ([a.gameWinsAgainst containsObject:b]) {
+                    return -1;
+                } else if ([b.gameWinsAgainst containsObject:a]) {
+                    return 1;
+                } else {
+                    return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+                }
             } else {
-                return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+                return 1;
             }
         }];
         for (int j = 0; j < teamTB.count; ++j) {

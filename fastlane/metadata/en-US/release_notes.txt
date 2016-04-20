@@ -24,3 +24,4 @@
 * Added "Players to Watch" on game pages before games are played
 * Added a line that notes the game-ending play in the game summary
 * Added a button to sim through seasons and weeks quickly
+* Fixed conference standings calculations
