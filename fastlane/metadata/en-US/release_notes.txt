@@ -25,3 +25,6 @@
 * Added a line that notes the game-ending play in the game summary
 * Added a button to sim through seasons and weeks quickly
 * Fixed conference standings calculations
+* Fixed a bug where safeties would be awarded on the wrong down
+* Fixed a bug where user-controlled teams were part of offseason news stories
+* Fixed a bug where league champions were mis-recorded

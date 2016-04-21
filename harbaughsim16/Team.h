@@ -128,6 +128,7 @@
 
 //prestige/talent improvements
 @property (nonatomic) int diffPrestige;
+@property (nonatomic) int deltaPrestige;
 @property (nonatomic) int diffOffTalent;
 @property (nonatomic) int diffDefTalent;
 

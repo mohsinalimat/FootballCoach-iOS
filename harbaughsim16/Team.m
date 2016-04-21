@@ -26,7 +26,7 @@
 #define NCG_DRAFT_BONUS 0.20
 
 @implementation Team
-@synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks;
+@synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige;
 
 -(Player*)playerToWatch {
     NSMutableArray *topPlayers = [NSMutableArray array];
@@ -178,11 +178,9 @@
 }
 
 -(void)advanceSeason {
-    
-    int oldPrestige = teamPrestige;
     if (![self isEqual:league.blessedTeam] && ![self isEqual:league.cursedTeam]) {
         // Don't add/subtract prestige if they are a blessed/cursed team from last season
-        if (wonRivalryGame && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20)) {
+        /*if (wonRivalryGame && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20)) {
             teamPrestige += 2;
         } else if (!wonRivalryGame && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
             teamPrestige -= 2;
@@ -196,16 +194,17 @@
             teamPrestige = (int)pow(teamPrestige, 1 + (float) diffExpected / 1500);
         }
         
-        if (rankTeamPollScore == 1) {
+        if (rankTeamPollScore == 1 || [natlChampWL isEqualToString:@"NCW"]) {
             // NCW
             teamPrestige += 3;
-        }
+        }*/
+        teamPrestige += deltaPrestige;
     }
     
     if (teamPrestige > 95) teamPrestige = 95;
     if (teamPrestige < 45 && ![name isEqualToString:@"American Samoa"]) teamPrestige = 45;
     
-    diffPrestige = teamPrestige - oldPrestige;
+    diffPrestige = deltaPrestige;
     
     //team records
     PlayerQB *qb = [self getQB:0];
@@ -1556,30 +1555,36 @@
     int oldPrestige = teamPrestige;
     int newPrestige = oldPrestige;
     if (teamPrestige > 45 || diffExpected > 0 ) {
-        newPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);// + diffExpected/2500);
+        newPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);
+        deltaPrestige = (newPrestige - oldPrestige);
     }
     
-    if ([natlChampWL isEqualToString:@"NCW"]) {
-            [summary appendString:@"\n\nYou won the National Championship! Recruits want to play for winners and you have proved that you are one. You gain 3 prestige!"];
-    }
-    
-    if ((newPrestige - oldPrestige) > 0) {
-        [summary appendFormat:@"\n\nGreat job, coach! You exceeded expectations and gained %ld prestige! This will help your recruiting.", (long)(newPrestige - oldPrestige)];
-    } else if ((newPrestige - oldPrestige) < 0) {
-        [summary appendFormat:@"\n\nA bit of a down year, coach? You fell short expectations and lost %ld prestige. This will hurt your recruiting.",(long)(oldPrestige - newPrestige) ];
+    if (deltaPrestige > 0) {
+        [summary appendFormat:@"\n\nGreat job, coach! You exceeded expectations and gained %ld prestige! This will help your recruiting.", (long)deltaPrestige];
+    } else if (deltaPrestige < 0) {
+        [summary appendFormat:@"\n\nA bit of a down year, coach? You fell short expectations and lost %ld prestige. This will hurt your recruiting.",(long)deltaPrestige];
     } else {
         [summary appendString:@"\n\nWell, your team performed exactly how many expected. This won't hurt or help recruiting, but try to improve next year!"];
     }
     
+    if ([natlChampWL isEqualToString:@"NCW"]) {
+        [summary appendString:@"\n\nYou won the National Championship! Recruits want to play for winners and you have proved that you are one. You gain 3 prestige!"];
+        deltaPrestige += 3;
+    }
+    
     if (wonRivalryGame && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20) ) {
         [summary appendString:@"\n\nRecruits were impressed that you won your rivalry game. You gained 2 prestige."];
+        deltaPrestige += 2;
     } else if (!wonRivalryGame && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
         [summary appendString:@"\n\nSince you couldn't win your rivalry game, recruits aren't excited to attend your school. You lost 2 prestige."];
+        deltaPrestige -= 2;
     } else if (wonRivalryGame) {
         [summary appendString:@"\n\nYou won your rivalry game, but it was expected given the state of their program. You gain no prestige for this."];
     }else {
         [summary appendString:@"\n\nYou lost your rivalry game, but this was expected given your rebuilding program. You lost no prestige for this."];
     }
+    
+    [summary appendFormat:@"\n\n\nOverall, your program accumulated %ld prestige this season.", (long)deltaPrestige];
     
     return summary;
 }
