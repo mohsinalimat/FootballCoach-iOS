@@ -180,11 +180,7 @@
 -(void)advanceSeason {
     if (![self isEqual:league.blessedTeam] && ![self isEqual:league.cursedTeam]) {
         // Don't add/subtract prestige if they are a blessed/cursed team from last season
-        /*if (wonRivalryGame && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20)) {
-            teamPrestige += 2;
-        } else if (!wonRivalryGame && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
-            teamPrestige -= 2;
-        }
+        /*
         
         int expectedPollFinish = 100 - teamPrestige;
         int diffExpected = expectedPollFinish - rankTeamPollScore;
@@ -192,6 +188,12 @@
         
         if ((teamPrestige > 45 && ![name isEqualToString:@"American Samoa"]) || diffExpected > 0) {
             teamPrestige = (int)pow(teamPrestige, 1 + (float) diffExpected / 1500);
+        }
+         
+        if (wonRivalryGame && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20)) {
+            teamPrestige += 2;
+        } else if (!wonRivalryGame && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
+            teamPrestige -= 2;
         }
         
         if (rankTeamPollScore == 1 || [natlChampWL isEqualToString:@"NCW"]) {
@@ -1554,7 +1556,7 @@
     int diffExpected = expectedPollFinish - rankTeamPollScore;
     int oldPrestige = teamPrestige;
     int newPrestige = oldPrestige;
-    if (teamPrestige > 45 || diffExpected > 0 ) {
+    if (teamPrestige > 45 || diffExpected > 0) {
         newPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);
         deltaPrestige = (newPrestige - oldPrestige);
     }
@@ -1584,7 +1586,7 @@
         [summary appendString:@"\n\nYou lost your rivalry game, but this was expected given your rebuilding program. You lost no prestige for this."];
     }
     
-    [summary appendFormat:@"\n\n\nOverall, your program accumulated %ld prestige this season.", (long)deltaPrestige];
+    [summary appendFormat:@"\n\nOverall, your program accumulated %ld prestige this season.", (long)deltaPrestige];
     
     return summary;
 }
