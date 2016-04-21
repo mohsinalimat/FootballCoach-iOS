@@ -1962,7 +1962,7 @@
     [offense getQB:0].statsSacked++;
     gameYardsNeed += 3;
     gameYardLine -= 3;
-    gameDown++;
+    
     if ( gamePoss ) { // home possession
         NSNumber *qbSack = _HomeQBStats[5];
         qbSack = [NSNumber numberWithInteger:qbSack.integerValue + 1];
@@ -1980,6 +1980,7 @@
     }
     
     gameTime -=  (25 + (10 * [HBSharedUtils randomValue]));
+    gameDown++;
 }
 
 -(void)safety {
