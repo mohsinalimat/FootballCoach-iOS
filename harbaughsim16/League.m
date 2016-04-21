@@ -908,12 +908,18 @@
 
 -(void)updateLeagueHistory {
     //update league history
-    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    [_teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Team *a = (Team*)obj1;
         Team *b = (Team*)obj2;
-        return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
-
-    }] copy];
+        if ([a.natlChampWL isEqualToString:@"NCW"]) {
+            return -1;
+        } else if ([b.natlChampWL isEqualToString:@"NCW"]) {
+            return 1;
+        } else {
+            return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+        }
+    }];
+    
     NSMutableArray *yearTop10 = [NSMutableArray array];
     Team *tt;
     for (int i = 0; i < 10; ++i) {
@@ -958,6 +964,11 @@
     // Bless a random team with lots of prestige
     int blessNumber = (int)([HBSharedUtils randomValue]*9);
     Team *blessTeam = _teamList[50 + blessNumber];
+    while ([blessTeam isEqual:_userTeam]) {
+        blessNumber = (int)([HBSharedUtils randomValue]*9);
+        blessTeam = _teamList[50 + blessNumber];
+    }
+    
     if (!blessTeam.isUserControlled && ![blessTeam.name isEqualToString:@"American Samoa"]) {
         blessTeam.teamPrestige += 30;
         _blessedTeam = blessTeam;
@@ -967,11 +978,15 @@
     //Curse a good team
     int curseNumber = (int)([HBSharedUtils randomValue]*7);
     Team *curseTeam = _teamList[3 + curseNumber];
+    while ([curseTeam isEqual:_userTeam]) {
+        curseNumber = (int)([HBSharedUtils randomValue]*7);
+        curseTeam = _teamList[3 + curseNumber];
+    }
+    
     if (!curseTeam.isUserControlled && curseTeam.teamPrestige > 85) {
         curseTeam.teamPrestige -= 20;
         _cursedTeam = curseTeam;
     }
-
 
     for (int t = 0; t < _teamList.count; ++t) {
         [_teamList[t] advanceSeason];
