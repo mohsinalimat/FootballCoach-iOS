@@ -45,7 +45,7 @@ static UIColor *styleColor = nil;
     return [UIColor hx_colorWithHexRGBAString:@"#1a9641"];
 }
 
-+(UIColor*)champColor {
++(UIColor *)champColor {
     return [UIColor hx_colorWithHexRGBAString:@"#eeb211"];
 }
 

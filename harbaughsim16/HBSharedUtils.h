@@ -24,7 +24,7 @@
 +(UIColor *)styleColor;
 +(UIColor *)errorColor;
 +(UIColor *)successColor;
-+(UIColor*)champColor;
++(UIColor *)champColor;
 +(void)setStyleColor:(NSDictionary*)colorDict;
 +(NSArray*)colorOptions;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;

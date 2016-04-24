@@ -36,7 +36,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+            return a.rankTeamPollScore < b.rankTeamPollScore ? -1 : a.rankTeamPollScore == b.rankTeamPollScore ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -49,7 +49,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamOffTalent > b.teamOffTalent ? -1 : a.teamOffTalent == b.teamOffTalent ? 0 : 1;
+            return a.rankTeamOffTalent < b.rankTeamOffTalent ? -1 : a.rankTeamOffTalent == b.rankTeamOffTalent ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -58,7 +58,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamDefTalent > b.teamDefTalent ? -1 : a.teamDefTalent == b.teamDefTalent ? 0 : 1;
+            return a.rankTeamDefTalent < b.rankTeamDefTalent ? -1 : a.rankTeamDefTalent == b.rankTeamDefTalent ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -67,7 +67,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamPrestige > b.teamPrestige ? -1 : a.teamPrestige == b.teamPrestige ? 0 : 1;
+            return a.rankTeamPrestige < b.rankTeamPrestige ? -1 : a.rankTeamPrestige == b.rankTeamPrestige ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -76,7 +76,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamStrengthOfWins > b.teamStrengthOfWins ? -1 : a.teamStrengthOfWins == b.teamStrengthOfWins ? 0 : 1;
+            return a.rankTeamStrengthOfWins < b.rankTeamStrengthOfWins ? -1 : a.rankTeamStrengthOfWins == b.rankTeamStrengthOfWins ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -85,7 +85,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamPoints > b.teamPoints ? -1 : a.teamPoints == b.teamPoints ? 0 : 1;
+            return a.rankTeamPoints < b.rankTeamPoints ? -1 : a.rankTeamPoints == b.rankTeamPoints ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -94,7 +94,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamYards > b.teamYards ? -1 : a.teamYards == b.teamYards ? 0 : 1;
+            return a.rankTeamYards < b.rankTeamYards ? -1 : a.rankTeamYards == b.rankTeamYards ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -103,7 +103,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamPassYards > b.teamPassYards ? -1 : a.teamPassYards == b.teamPassYards ? 0 : 1;
+            return a.rankTeamPassYards < b.rankTeamPassYards ? -1 : a.rankTeamPassYards == b.rankTeamPassYards ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -112,7 +112,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamRushYards > b.teamRushYards ? -1 : a.teamRushYards == b.teamRushYards ? 0 : 1;
+            return a.rankTeamRushYards < b.rankTeamRushYards ? -1 : a.rankTeamRushYards == b.rankTeamRushYards ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -121,7 +121,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamOppPoints < b.teamOppPoints ? -1 : a.teamOppPoints == b.teamOppPoints ? 0 : 1;
+            return a.rankTeamOppPoints < b.rankTeamOppPoints ? -1 : a.rankTeamOppPoints == b.rankTeamOppPoints ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -130,7 +130,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamOppYards < b.teamOppYards ? -1 : a.teamOppYards == b.teamOppYards ? 0 : 1;
+            return a.rankTeamOppYards < b.rankTeamOppYards ? -1 : a.rankTeamOppYards == b.rankTeamOppYards ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -139,7 +139,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamOppPassYards < b.teamOppPassYards ? -1 : a.teamOppPassYards == b.teamOppPassYards ? 0 : 1;
+            return a.rankTeamOppPassYards < b.rankTeamOppPassYards ? -1 : a.rankTeamOppPassYards == b.rankTeamOppPassYards ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -148,7 +148,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamOppRushYards < b.teamOppRushYards ? -1 : a.teamOppRushYards == b.teamOppRushYards ? 0 : 1;
+            return a.rankTeamOppRushYards < b.rankTeamOppRushYards ? -1 : a.rankTeamOppRushYards == b.rankTeamOppRushYards ? 0 : 1;
             
         }];
         [self.tableView reloadData];
@@ -157,7 +157,7 @@
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamTODiff > b.teamTODiff ? -1 : a.teamTODiff == b.teamTODiff ? 0 : 1;
+            return a.rankTeamTODiff < b.rankTeamTODiff ? -1 : a.rankTeamTODiff == b.rankTeamTODiff ? 0 : 1;
         }];
         [self.tableView reloadData];
         self.title = @"Turnover Differential";

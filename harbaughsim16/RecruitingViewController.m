@@ -56,6 +56,7 @@
     NSMutableArray<Player*>* positions;
     NSMutableArray<Player*>* players;
     BOOL _viewingSignees;
+    BOOL _filteredByCost;
 }
 @end
 
@@ -410,6 +411,9 @@
         }
     }];
     _viewingSignees = NO;
+    if (_filteredByCost) {
+        [self filterByCost];
+    }
     
     [self.tableView reloadData];
     
@@ -425,7 +429,9 @@
 }
 
 -(void)viewRoster {
-    popupController = [[STPopupController alloc] initWithRootViewController:[[TeamRosterViewController   alloc] initWithTeam:[HBSharedUtils getLeague].userTeam]];
+    TeamRosterViewController *roster = [[TeamRosterViewController alloc] initWithTeam:[HBSharedUtils getLeague].userTeam];
+    roster.isPopup = YES;
+    popupController = [[STPopupController alloc] initWithRootViewController:roster];
     [popupController.navigationBar setDraggable:YES];
     [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
     popupController.style = STPopupStyleBottomSheet;
@@ -795,81 +801,47 @@
                 if (i == 0) {
                     players = availAll;
                     _viewingSignees = NO;
-                } else if (i == 2) {
-                    players = [availAll mutableCopy];
-                    //remove the players that cost too much
-                    for (Player *p in players) {
-                        if (p.cost >= recruitingBudget) {
-                            [players removeObject:p];
-                        }
-                    }
-                    
-                    //re-sort them by ovr
-                    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                        Player *a = (Player*)obj1;
-                        Player *b = (Player*)obj2;
-                        if (!a.hasRedshirt && !b.hasRedshirt) {
-                            if (a.ratOvr > b.ratOvr) {
-                                return -1;
-                            } else if (a.ratOvr < b.ratOvr) {
-                                return 1;
-                            } else {
-                                if (a.ratPot > b.ratPot) {
-                                    return -1;
-                                } else if (a.ratPot < b.ratPot) {
-                                    return 1;
-                                } else {
-                                    return 0;
-                                }
-                            }
-                        } else if (a.hasRedshirt) {
-                            return 1;
-                        } else if (b.hasRedshirt) {
-                            return -1;
-                        } else {
-                            if (a.ratOvr > b.ratOvr) {
-                                return -1;
-                            } else if (a.ratOvr < b.ratOvr) {
-                                return 1;
-                            } else {
-                                if (a.ratPot > b.ratPot) {
-                                    return -1;
-                                } else if (a.ratPot < b.ratPot) {
-                                    return 1;
-                                } else {
-                                    return 0;
-                                }
-                            }
-                        }
-                    }];
-                    _viewingSignees = NO;
+                    _filteredByCost = NO;
                 } else if (i == 1) {
                     players = playersRecruited;
                     _viewingSignees = YES;
+                    _filteredByCost = NO;
+                } else if (i == 2) {
+                    [self filterByCost];
+                    _filteredByCost = YES;
+                    _viewingSignees = NO;
                 } else if (i == 3) {
                     players = availQBs;
                     _viewingSignees = NO;
+                    _filteredByCost = NO;
                 } else if (i == 4) {
                     players = availRBs;
                     _viewingSignees = NO;
+                    _filteredByCost = NO;
                 } else if (i == 5) {
                     players = availWRs;
                     _viewingSignees = NO;
+                    _filteredByCost = NO;
                 } else if (i == 6) {
                     players = availOLs;
                     _viewingSignees = NO;
+                    _filteredByCost = NO;
                 } else if (i == 7) {
                     players = availF7s;
                     _viewingSignees = NO;
+                    _filteredByCost = NO;
                 } else if (i == 8) {
                     players = availCBs;
                     _viewingSignees = NO;
+                    _filteredByCost = NO;
                 } else if (i == 9) {
                     players = availSs;
                     _viewingSignees = NO;
+                    _filteredByCost = NO;
                 } else {
                     players = availKs;
                     _viewingSignees = NO;
+                    _filteredByCost = NO;
                 }
                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
                 [self.tableView reloadData];
@@ -902,115 +874,34 @@
             [alertController addAction:[UIAlertAction actionWithTitle:position style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if (i == 0) {
                     players = availAll;
+                    _filteredByCost = NO;
                 } else if (i == 1) {
-                    players = [availAll mutableCopy];
-                    //sort all available by cost
-                    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                        Player *a = (Player*)obj1;
-                        Player *b = (Player*)obj2;
-                        if (a.cost > b.cost) {
-                            return -1;
-                        } else if (a.cost == b.cost) {
-                            if (!a.hasRedshirt && !b.hasRedshirt) {
-                                if (a.ratOvr > b.ratOvr) {
-                                    return -1;
-                                } else if (a.ratOvr < b.ratOvr) {
-                                    return 1;
-                                } else {
-                                    if (a.ratPot > b.ratPot) {
-                                        return -1;
-                                    } else if (a.ratPot < b.ratPot) {
-                                        return 1;
-                                    } else {
-                                        return 0;
-                                    }
-                                }
-                            } else if (a.hasRedshirt) {
-                                return 1;
-                            } else if (b.hasRedshirt) {
-                                return -1;
-                            } else {
-                                if (a.ratOvr > b.ratOvr) {
-                                    return -1;
-                                } else if (a.ratOvr < b.ratOvr) {
-                                    return 1;
-                                } else {
-                                    if (a.ratPot > b.ratPot) {
-                                        return -1;
-                                    } else if (a.ratPot < b.ratPot) {
-                                        return 1;
-                                    } else {
-                                        return 0;
-                                    }
-                                }
-                            }
-                        } else {
-                            return 1;
-                        }
-                    }];
-                    
-                    //remove the ones that cost too much
-                    for (Player *p in players) {
-                        if (p.cost > recruitingBudget) {
-                            [players removeObject:p];
-                        }
-                    }
-                    
-                    //re-sort them by ovr
-                    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                        Player *a = (Player*)obj1;
-                        Player *b = (Player*)obj2;
-                        if (!a.hasRedshirt && !b.hasRedshirt) {
-                            if (a.ratOvr > b.ratOvr) {
-                                return -1;
-                            } else if (a.ratOvr < b.ratOvr) {
-                                return 1;
-                            } else {
-                                if (a.ratPot > b.ratPot) {
-                                    return -1;
-                                } else if (a.ratPot < b.ratPot) {
-                                    return 1;
-                                } else {
-                                    return 0;
-                                }
-                            }
-                        } else if (a.hasRedshirt) {
-                            return 1;
-                        } else if (b.hasRedshirt) {
-                            return -1;
-                        } else {
-                            if (a.ratOvr > b.ratOvr) {
-                                return -1;
-                            } else if (a.ratOvr < b.ratOvr) {
-                                return 1;
-                            } else {
-                                if (a.ratPot > b.ratPot) {
-                                    return -1;
-                                } else if (a.ratPot < b.ratPot) {
-                                    return 1;
-                                } else {
-                                    return 0;
-                                }
-                            }
-                        }
-                    }];
-                    _viewingSignees = NO;
+                    [self filterByCost];
+                    _filteredByCost = YES;
                 } else if (i == 2) {
                     players = availQBs;
+                    _filteredByCost = NO;
                 } else if (i == 3) {
                     players = availRBs;
+                    _filteredByCost = NO;
                 } else if (i == 4) {
                     players = availWRs;
+                    _filteredByCost = NO;
                 } else if (i == 5) {
                     players = availOLs;
+                    _filteredByCost = NO;
                 } else if (i == 6) {
                     players = availF7s;
+                    _filteredByCost = NO;
                 } else if (i == 7) {
                     players = availCBs;
+                    _filteredByCost = NO;
                 } else if (i == 8) {
                     players = availSs;
+                    _filteredByCost = NO;
                 } else {
                     players = availKs;
+                    _filteredByCost = NO;
                 }
                 [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
                 [self.tableView reloadData];
@@ -1023,6 +914,103 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
 
+}
+
+-(void)filterByCost {
+    players = [availAll mutableCopy];
+    //sort all available by cost
+    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.cost > b.cost) {
+            return -1;
+        } else if (a.cost == b.cost) {
+            if (!a.hasRedshirt && !b.hasRedshirt) {
+                if (a.ratOvr > b.ratOvr) {
+                    return -1;
+                } else if (a.ratOvr < b.ratOvr) {
+                    return 1;
+                } else {
+                    if (a.ratPot > b.ratPot) {
+                        return -1;
+                    } else if (a.ratPot < b.ratPot) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+            } else if (a.hasRedshirt) {
+                return 1;
+            } else if (b.hasRedshirt) {
+                return -1;
+            } else {
+                if (a.ratOvr > b.ratOvr) {
+                    return -1;
+                } else if (a.ratOvr < b.ratOvr) {
+                    return 1;
+                } else {
+                    if (a.ratPot > b.ratPot) {
+                        return -1;
+                    } else if (a.ratPot < b.ratPot) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        } else {
+            return 1;
+        }
+    }];
+    
+    //remove the ones that cost too much
+    NSMutableArray *playersCopy = [players mutableCopy];
+    for (Player *p in players) {
+        if (p.cost > recruitingBudget) {
+            [playersCopy removeObject:p];
+        }
+    }
+    
+    players = playersCopy;
+    
+    //re-sort them by ovr
+    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (!a.hasRedshirt && !b.hasRedshirt) {
+            if (a.ratOvr > b.ratOvr) {
+                return -1;
+            } else if (a.ratOvr < b.ratOvr) {
+                return 1;
+            } else {
+                if (a.ratPot > b.ratPot) {
+                    return -1;
+                } else if (a.ratPot < b.ratPot) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        } else if (a.hasRedshirt) {
+            return 1;
+        } else if (b.hasRedshirt) {
+            return -1;
+        } else {
+            if (a.ratOvr > b.ratOvr) {
+                return -1;
+            } else if (a.ratOvr < b.ratOvr) {
+                return 1;
+            } else {
+                if (a.ratPot > b.ratPot) {
+                    return -1;
+                } else if (a.ratPot < b.ratPot) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }];
 }
 
 -(void)showRemainingNeeds {

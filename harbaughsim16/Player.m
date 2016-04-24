@@ -32,10 +32,10 @@
             _hasRedshirt = NO;
         }
         
-        if ([aDecoder containsValueForKey:@"isDraftEligible"]) {
-            _isDraftEligible = [aDecoder decodeBoolForKey:@"isDraftEligible"];
+        if ([aDecoder containsValueForKey:@"wasRedshirted"]) {
+            _wasRedshirted = [aDecoder decodeBoolForKey:@"wasRedshirted"];
         } else {
-            _isDraftEligible = NO;
+            _wasRedshirted = NO;
         }
         
     }
@@ -54,7 +54,7 @@
     [aCoder encodeInt:_cost forKey:@"cost"];
     [aCoder encodeInt:_gamesPlayed forKey:@"gamesPlayed"];
     [aCoder encodeObject:_ratingsVector forKey:@"ratingsVector"];
-    [aCoder encodeBool:_isDraftEligible forKey:@"isDraftEligible"];
+    [aCoder encodeBool:_wasRedshirted forKey:@"wasRedshirted"];
     [aCoder encodeBool:_hasRedshirt forKey:@"hasRedshirt"];
 }
 
@@ -62,7 +62,6 @@
 {
     Player *player = (Player*)other;
     if (!self.hasRedshirt && !player.hasRedshirt) {
-        //return self.ratOvr > player.ratOvr ? -1 : self.ratOvr == player.ratOvr ? 0 : 1;
         if (self.ratOvr > player.ratOvr) {
             return -1;
         } else if (self.ratOvr < player.ratOvr) {
@@ -109,7 +108,7 @@
 }
 
 -(NSString*)getYearString {
-    if (_hasRedshirt) {
+    if (_wasRedshirted || _hasRedshirt) {
         if (_year == 0) {
             return @"RS";
         } else if (_year == 1 ) {
@@ -138,7 +137,7 @@
 }
 
 -(NSString*)getFullYearString {
-    if (_hasRedshirt) {
+    if (_wasRedshirted || _hasRedshirt) {
         if (_year == 0) {
             return @"Redshirt";
         } else if (_year == 1 ) {
@@ -170,8 +169,8 @@
     self.year++;
     if (self.hasRedshirt) {
         self.hasRedshirt = NO;
+        self.wasRedshirted = YES;
     }
-    self.isDraftEligible = (self.ratOvr >= 90 && [HBSharedUtils randomValue] < 0.5);
 }
 
 -(int)getHeismanScore {

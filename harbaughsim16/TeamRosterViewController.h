@@ -10,5 +10,6 @@
 #import "FCTableViewController.h"
 @class Team;
 @interface TeamRosterViewController : FCTableViewController
--(instancetype)initWithTeam:(Team*)team ;
+-(instancetype)initWithTeam:(Team*)team;
+@property (nonatomic) BOOL isPopup;
 @end

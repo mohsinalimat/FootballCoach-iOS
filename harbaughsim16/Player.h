@@ -10,7 +10,9 @@
 #import "Team.h"
 #import "HBSharedUtils.h"
 
-@interface Player : NSObject <NSCoding>
+@interface Player : NSObject <NSCoding> {
+    BOOL isDraftEligible; //deprecated
+}
 
 @property (strong, nonatomic) Team *team;
 @property (strong, nonatomic) NSString *name;
@@ -24,7 +26,7 @@
 @property (nonatomic) int gamesPlayed;
 @property (strong, nonatomic) NSMutableArray *ratingsVector;
 @property (nonatomic) BOOL hasRedshirt;
-@property (nonatomic) BOOL isDraftEligible;
+@property (nonatomic) BOOL wasRedshirted;
 
 +(NSArray *)letterGrades;
 -(NSString*)getYearString;

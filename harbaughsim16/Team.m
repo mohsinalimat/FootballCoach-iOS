@@ -179,27 +179,17 @@
 
 -(void)advanceSeason {
     if (![self isEqual:league.blessedTeam] && ![self isEqual:league.cursedTeam]) {
-        // Don't add/subtract prestige if they are a blessed/cursed team from last season
-        /*
-        
-        int expectedPollFinish = 100 - teamPrestige;
-        int diffExpected = expectedPollFinish - rankTeamPollScore;
-        oldPrestige = teamPrestige;
-        
-        if ((teamPrestige > 45 && ![name isEqualToString:@"American Samoa"]) || diffExpected > 0) {
-            teamPrestige = (int)pow(teamPrestige, 1 + (float) diffExpected / 1500);
-        }
-         
-        if (wonRivalryGame && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20)) {
-            teamPrestige += 2;
-        } else if (!wonRivalryGame && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
-            teamPrestige -= 2;
+        if (!self.isUserControlled) {
+            int expectedPollFinish = 100 - teamPrestige;
+            int diffExpected = expectedPollFinish - rankTeamPollScore;
+            int oldPrestige = teamPrestige;
+            int newPrestige = oldPrestige;
+            if (teamPrestige > 45 || diffExpected > 0) {
+                newPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);
+                deltaPrestige = (newPrestige - oldPrestige);
+            }
         }
         
-        if (rankTeamPollScore == 1 || [natlChampWL isEqualToString:@"NCW"]) {
-            // NCW
-            teamPrestige += 3;
-        }*/
         teamPrestige += deltaPrestige;
     }
     
@@ -962,28 +952,28 @@
     if (![confChampion isEqualToString:@""] && confChampion.length > 0) {
         Game *ccg = [league findConference:conference].ccg;
         if (gameWLSchedule.count >= 13) {
-            if ([self isEqual:ccg.homeTeam] && ccg.homeScore > ccg.awayScore) {
-                [hist appendFormat:@"\n%@ - W %@",ccg.gameName,[self gameSummaryString:ccg]];
-            } else if ([self isEqual:ccg.awayTeam] && ccg.awayScore > ccg.homeScore) {
-                [hist appendFormat:@"\n%@ - W %@",ccg.gameName,[self gameSummaryString:ccg]];
-            }
+            [hist appendFormat:@"\n%@ - W %@",ccg.gameName,[self gameSummaryString:ccg]];
         }
     }
     
     if (![semifinalWL isEqualToString:@""] && semifinalWL.length > 0) {
-        if (gameSchedule.count == 13) {
-            Game *bowl = gameSchedule[12];
-            if ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"]) {
-                [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[12],[self gameSummaryString:bowl]];
+        if ([semifinalWL isEqualToString:@"BW"] || [semifinalWL isEqualToString:@"BL"]) {
+            if (gameSchedule.count == 13) {
+                Game *bowl = gameSchedule[12];
+                if ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"]) {
+                    [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[12],[self gameSummaryString:bowl]];
+                }
             }
         }
         
-        /*if (gameSchedule.count > 13) {
-            Game *bowl = gameSchedule[13];
-            if ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"]) {
-                [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[13],[self gameSummaryString:bowl]];
+        if ([semifinalWL containsString:@"SF"]) {
+            if (gameSchedule.count > 13) {
+                Game *bowl = gameSchedule[13];
+                if ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"]) {
+                    [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[13],[self gameSummaryString:bowl]];
+                }
             }
-        }*/
+        }
     }
     
     if (![natlChampWL isEqualToString:@""] && natlChampWL.length > 0) {
@@ -1564,7 +1554,7 @@
     if (deltaPrestige > 0) {
         [summary appendFormat:@"\n\nGreat job, coach! You exceeded expectations and gained %ld prestige! This will help your recruiting.", (long)deltaPrestige];
     } else if (deltaPrestige < 0) {
-        [summary appendFormat:@"\n\nA bit of a down year, coach? You fell short expectations and lost %ld prestige. This will hurt your recruiting.",(long)deltaPrestige];
+        [summary appendString:[[NSString stringWithFormat:@"\n\nA bit of a down year, coach? You fell short expectations and lost %ld prestige. This will hurt your recruiting.",(long)deltaPrestige] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
     } else {
         [summary appendString:@"\n\nWell, your team performed exactly how many expected. This won't hurt or help recruiting, but try to improve next year!"];
     }
@@ -1586,7 +1576,13 @@
         [summary appendString:@"\n\nYou lost your rivalry game, but this was expected given your rebuilding program. You lost no prestige for this."];
     }
     
-    [summary appendFormat:@"\n\nOverall, your program accumulated %ld prestige this season.", (long)deltaPrestige];
+    if (deltaPrestige > 0) {
+        [summary appendFormat:@"\n\nOverall, your program gained %ld prestige this season.", (long)deltaPrestige];
+    } else if (deltaPrestige < 0) {
+        [summary appendString:[[NSString stringWithFormat:@"\n\nOverall, your program lost %ld prestige this season.", (long)deltaPrestige] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+    } else {
+        [summary appendString:@"\n\nOverall, your program didn't gain or lose prestige this season"];
+    }
     
     return summary;
 }

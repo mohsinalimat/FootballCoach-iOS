@@ -1,30 +1,35 @@
 * Fixed an issue where labels would overlap on the recruiting screen
-* Added a 7-round Mock Draft
-* Made the top 10 in polls extend to top 25
-* Fixed some grammar errors in game summary
+* Fixed a bug in the rankings screen that would cause numbers to be off
+* Fixed some grammar errors in game summaries
 * Fixed a bug that which caused the app to sign freshmen based on your team's prestige before entering the recruiting period, which made the game easier
-* Added a button to get to the app's subreddit - /r/FootballCoach
-* Fixed a bug that would not update your rival of your team rebranding
-* Overhauled the pool of recruits - there are now 200 total recruits to choose from and fewer blue-chips to sign
-* Fixed an issue on the recruiting screen where the stats of a recruit would overlap on 4-in and smaller devices, as well as some iPads
-* Rewrote the POTY new story
-* Redshirted players get a stat boost after their redshirt season because of their rigorous training
-* Added tap-to-dismiss on conference selectors for standings/teams and for team strategies
-* Added highlighting of the user's team in the bowl projections and conference standings screens
-* Improvements to in-app notifications
+* Fixed the wording of in-app notifications
 * Fixed graduating juniors so that juniors without a game played will stay
-* Added a team streaks page
-* Added bowl games and color to team history
 * Fixed a bug where game pages would pull the current starters of a team, rather than the starters for that game
 * Fixed a bug where conference championship losses weren't counted
 * Fixed a bug where POTY standings would keep updating even after a winner was declared
-* Added team records to news stories
 * Fixed a bug where prestige for some teams was not calculated properly
 * Fixed a bug where bowl predictions wouldn't include teams' conference records
-* Added "Players to Watch" on game pages before games are played
-* Added a line that notes the game-ending play in the game summary
-* Added a button to sim through seasons and weeks quickly
+* Fixed a bug that would not update your rival of your team rebranding
+* Fixed the pool of recruits - there are now 200 total recruits to choose from and fewer blue-chips to sign
+* Fixed an issue on the recruiting screen where the stats of a recruit would overlap on 4-in and smaller devices, as well as some iPads
+* Fixed the grammar of the POTY news story
 * Fixed conference standings calculations
 * Fixed a bug where safeties would be awarded on the wrong down
 * Fixed a bug where user-controlled teams were part of offseason news stories
+* Fixed a bug where some teams would be part of offseason stories twice in a row
 * Fixed a bug where league champions were mis-recorded
+* Fixed wording of season summaries
+* Added a button to get to the app's subreddit - /r/FootballCoach
+* Added tracking of redshirted players
+* Added highlighting of starters
+* Added "Players to Watch" on game pages before games are played
+* Added a line that notes the game-ending play in the game summary
+* Added a button to sim through seasons and weeks quickly
+* Added team records to news stories
+* Added a team streaks page
+* Added bowl games and color to team history
+* Added tap-to-dismiss on conference selectors for standings/teams and for team strategies
+* Added highlighting of the user's team in the bowl projections and conference standings screens
+* Added a 7-round Mock Draft
+* Added a stat boost for redshirted players after their redshirt season due to their rigorous training
+* Changed how player details are shown

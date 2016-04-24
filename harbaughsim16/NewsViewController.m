@@ -182,6 +182,7 @@
                     }
                 } else {
                     if (simLeague.currentWeek == 15) {
+                        [self.navigationItem.leftBarButtonItem setEnabled:NO];
                         NSString *gameSummary = [userTeam weekSummaryString];
                         if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
                             [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"NCG - %@",[userTeam weekSummaryString]] onViewController:self];

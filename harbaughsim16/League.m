@@ -747,8 +747,8 @@
     } else if (_currentWeek == 14 ) {
         [_ncg playGame];
         if (_ncg.homeScore > _ncg.awayScore ) {
-            _ncg.homeTeam.semifinalWL = @"";
-            _ncg.awayTeam.semifinalWL = @"";
+            //_ncg.homeTeam.semifinalWL = @"";
+            //_ncg.awayTeam.semifinalWL = @"";
             _ncg.homeTeam.natlChampWL = @"NCW";
             _ncg.awayTeam.natlChampWL = @"NCL";
             _ncg.homeTeam.totalNCs++;
@@ -757,8 +757,8 @@
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", _ncg.homeTeam.name, [_ncg.homeTeam strRep], [_ncg.awayTeam strRep], (long)_ncg.homeScore, (long)_ncg.awayScore, _ncg.homeTeam.name]];
 
         } else {
-            _ncg.homeTeam.semifinalWL = @"";
-            _ncg.awayTeam.semifinalWL = @"";
+            //_ncg.homeTeam.semifinalWL = @"";
+            //_ncg.awayTeam.semifinalWL = @"";
             _ncg.awayTeam.natlChampWL = @"NCW";
             _ncg.homeTeam.natlChampWL = @"NCL";
             _ncg.awayTeam.totalNCs++;
@@ -949,7 +949,7 @@
                          [NSString stringWithFormat:@"League hits %@ with sanctions!\n%@ hit with two-year probation after league investigation finds program committed minor infractions.",t.abbreviation,t.name],
                          [NSString stringWithFormat:@"Scandal at %@!\n%@ puts itself on a 3-year probation after school self-reports dozens of recruiting violations.",t.abbreviation,t.name],
                          [NSString stringWithFormat:@"The end of an era at %@\n%@ head coach %@ announces sudden retirement effectively immediately.", t.abbreviation,t.abbreviation, _cursedTeamCoachName],
-                         [NSString stringWithFormat:@"%@ head coach in hot water!\nAfter a scandal involving a sleepover at a prospect's home, %@'s head coach %@ has been suspended. No charges have yet to be filed, but it is safe to say he won't be having any more pajama parties any time soon.", t.abbreviation, t.name, _cursedTeamCoachName],
+                         [NSString stringWithFormat:@"%@ head coach in hot water!\nAfter a scandal involving a sleepover at a prospect's home, %@'s head coach %@ has been suspended. No charges have been filed, but it is safe to say he won't be having any more pajama parties any time soon.", t.abbreviation, t.name, _cursedTeamCoachName],
                          [NSString stringWithFormat:@"%@ won the College Basketball National Championship\nReporters everywhere are now wondering if %@ has lost its emphasis on football.", t.abbreviation,t.name],
                          [NSString stringWithFormat:@"%@ didn't come to play school\n%@'s reputation takes a hit after news surfaced that the university falsified grades for student-athletes in order to retain their athletic eligibility. Recruits are leery of being associated with such a program.",t.abbreviation,t.name]
                          ];
@@ -964,7 +964,7 @@
     // Bless a random team with lots of prestige
     int blessNumber = (int)([HBSharedUtils randomValue]*9);
     Team *blessTeam = _teamList[50 + blessNumber];
-    while ([blessTeam isEqual:_userTeam]) {
+    while ([blessTeam isEqual:_userTeam] || [blessTeam isEqual:_blessedTeam] || [blessTeam isEqual:_cursedTeam]) {
         blessNumber = (int)([HBSharedUtils randomValue]*9);
         blessTeam = _teamList[50 + blessNumber];
     }
@@ -978,7 +978,7 @@
     //Curse a good team
     int curseNumber = (int)([HBSharedUtils randomValue]*7);
     Team *curseTeam = _teamList[3 + curseNumber];
-    while ([curseTeam isEqual:_userTeam]) {
+    while ([curseTeam isEqual:_userTeam] || [curseTeam isEqual:_blessedTeam] || [curseTeam isEqual:_cursedTeam]) {
         curseNumber = (int)([HBSharedUtils randomValue]*7);
         curseTeam = _teamList[3 + curseNumber];
     }

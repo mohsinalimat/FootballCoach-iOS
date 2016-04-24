@@ -93,8 +93,13 @@
                 [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
                 [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
             } else {
-                [cell.teamNameLabel setTextColor:[UIColor blackColor]];
-                [cell.scoreLabel setTextColor:[UIColor blackColor]];
+                if ([bowl.awayTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
+                    [cell.teamNameLabel setTextColor:[HBSharedUtils styleColor]];
+                    [cell.scoreLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.teamNameLabel setTextColor:[UIColor blackColor]];
+                    [cell.scoreLabel setTextColor:[UIColor blackColor]];
+                }
             }
         } else {
             NSString *homeRank = @"";
@@ -108,8 +113,13 @@
                 [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
                 [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
             } else {
-                [cell.teamNameLabel setTextColor:[UIColor blackColor]];
-                [cell.scoreLabel setTextColor:[UIColor blackColor]];
+                if ([bowl.homeTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
+                    [cell.teamNameLabel setTextColor:[HBSharedUtils styleColor]];
+                    [cell.scoreLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.teamNameLabel setTextColor:[UIColor blackColor]];
+                    [cell.scoreLabel setTextColor:[UIColor blackColor]];
+                }
             }
         }
         return cell;

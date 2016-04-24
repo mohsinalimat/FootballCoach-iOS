@@ -22,10 +22,12 @@
 #import "PlayerDetailViewController.h"
 
 #import "HexColors.h"
+#import "STPopup.h"
 
 @interface RosterViewController ()
 {
     Team *userTeam;
+    STPopupController *popupController;
 }
 @end
 
@@ -300,12 +302,63 @@
     if (player.hasRedshirt) {
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
     } else {
-        [cell.nameLabel setTextColor:[UIColor blackColor]];
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+                [cell.nameLabel setTextColor:[HBSharedUtils styleColor]];
+            } else {
+                [cell.nameLabel setTextColor:[UIColor blackColor]];
+            }
+        } else if (indexPath.section == 1) {
+            if (indexPath.row < 2) {
+                [cell.nameLabel setTextColor:[HBSharedUtils styleColor]];
+            } else {
+                [cell.nameLabel setTextColor:[UIColor blackColor]];
+            }
+        } else if (indexPath.section == 2) {
+            if (indexPath.row < 3) {
+                [cell.nameLabel setTextColor:[HBSharedUtils styleColor]];
+            } else {
+                [cell.nameLabel setTextColor:[UIColor blackColor]];
+            }
+        } else if (indexPath.section == 3) {
+            if (indexPath.row < 5) {
+                [cell.nameLabel setTextColor:[HBSharedUtils styleColor]];
+            } else {
+                [cell.nameLabel setTextColor:[UIColor blackColor]];
+            }
+        } else if (indexPath.section == 4) {
+            if (indexPath.row < 7) {
+                [cell.nameLabel setTextColor:[HBSharedUtils styleColor]];
+            } else {
+                [cell.nameLabel setTextColor:[UIColor blackColor]];
+            }
+        } else if (indexPath.section == 5) {
+            if (indexPath.row < 3) {
+                [cell.nameLabel setTextColor:[HBSharedUtils styleColor]];
+            } else {
+                [cell.nameLabel setTextColor:[UIColor blackColor]];
+            }
+        } else if (indexPath.section == 6) {
+            if (indexPath.row == 0) {
+                [cell.nameLabel setTextColor:[HBSharedUtils styleColor]];
+            } else {
+                [cell.nameLabel setTextColor:[UIColor blackColor]];
+            }
+        } else {
+            if (indexPath.row == 0) {
+                [cell.nameLabel setTextColor:[HBSharedUtils styleColor]];
+            } else {
+                [cell.nameLabel setTextColor:[UIColor blackColor]];
+            }
+        }
     }
     
     return cell;
 }
 
+-(void)backgroundViewDidTap {
+    [popupController dismiss];
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -327,7 +380,14 @@
     } else {
         player = [userTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];
     }
-    [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:player] animated:YES];
+
+    //[self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:player] animated:YES];
+    
+    popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerDetailViewController alloc] initWithPlayer:player]];
+    [popupController.navigationBar setDraggable:YES];
+    [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+    popupController.style = STPopupStyleBottomSheet;
+    [popupController presentInViewController:self];
 }
 
 @end

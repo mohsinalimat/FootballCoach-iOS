@@ -371,6 +371,12 @@
             [statsCell.playerLabel setText:[plyr getInitialName]];
             [statsCell.teamLabel setText:plyr.team.abbreviation];
             
+            if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] getHeisman][0] isEqual:plyr]) {
+                [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
+            } else {
+                [statsCell.playerLabel setTextColor:[UIColor blackColor]];
+            }
+            
             [statsCell.stat1Label setText:stat1];
             [statsCell.stat1ValueLabel setText:stat1Value];
             [statsCell.stat2Label setText:stat2];

@@ -19,6 +19,7 @@
 #import "PlayerS.h"
 
 #import "HexColors.h"
+#import "STPopup.h"
 
 @interface HBPlayerDetailView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -43,6 +44,7 @@
     self = [super init];
     if(self) {
         selectedPlayer = player;
+        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, ([UIScreen mainScreen].bounds.size.height * (3.0/4.0)));
     }
     return self;
 }

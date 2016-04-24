@@ -43,6 +43,17 @@
     return self;
 }
 
+-(NSInteger)_lineCount:(NSString*)string {
+    NSInteger numberOfLines, index, stringLength = [string length];
+    for (index = 0, numberOfLines = 0; index < stringLength; numberOfLines++)
+        index = NSMaxRange([string lineRangeForRange:NSMakeRange(index, 0)]);
+    if([string hasSuffix:@"\n"] || [string hasSuffix:@"\r"])
+        numberOfLines += 1;
+    if([string hasPrefix:@"\n"] || [string hasPrefix:@"\r"])
+        numberOfLines += 1;
+    return numberOfLines;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     history = [userTeam.teamHistory copy];
@@ -76,7 +87,14 @@
     if (indexPath.section == 0) {
         return 44;
     } else {
-        return 85;
+        NSInteger lineCount = [self _lineCount:history[indexPath.row]];
+        if (lineCount >= 3) {
+            return 90;
+        } else if (lineCount == 2) {
+            return 75;
+        } else {
+            return 65;
+        }
     }
 }
 
@@ -169,7 +187,7 @@
             [cell setBackgroundColor:[UIColor whiteColor]];
             [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            [cell.detailTextLabel setNumberOfLines:0];
+            [cell.detailTextLabel setNumberOfLines:5];
         }
         
         [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
@@ -191,7 +209,7 @@
             }
         }
         NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:hist attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:([UIFont systemFontSize] - 2.0) weight:UIFontWeightRegular]}];
-        [attText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:[UIFont systemFontSize] weight:UIFontWeightMedium] range:[hist rangeOfString:comps[0]]];
+        [attText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:[UIFont systemFontSize] weight:UIFontWeightRegular] range:[hist rangeOfString:comps[0]]];
         [attText addAttribute:NSForegroundColorAttributeName value:teamColor range:[hist rangeOfString:comps[0]]];
         [cell.detailTextLabel setAttributedText:attText];
         [cell.detailTextLabel sizeToFit];
