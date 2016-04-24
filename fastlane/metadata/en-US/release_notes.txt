@@ -32,4 +32,5 @@
 * Added highlighting of the user's team in the bowl projections and conference standings screens
 * Added a 7-round Mock Draft
 * Added a stat boost for redshirted players after their redshirt season due to their rigorous training
+* Added tracking for POTY awards
 * Changed how player details are shown

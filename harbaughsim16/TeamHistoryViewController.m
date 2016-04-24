@@ -104,7 +104,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 5;
+        return 6;
     } else {
         return history.count;
     }
@@ -170,13 +170,20 @@
             } else {
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
-        } else {
+        } else if (indexPath.row == 4) {
             [cell.textLabel setText:@"National Championships"];
             if ((userTeam.totalNCLosses + userTeam.totalNCs) > 0) {
                 int winPercent = (int)(100 * ((double)userTeam.totalNCs) / ((double)(userTeam.totalNCs + userTeam.totalNCLosses)));
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent,userTeam.totalNCs,userTeam.totalNCLosses]];
             } else {
                 [cell.detailTextLabel setText:@"0% (0-0)"];
+            }
+        } else {
+            [cell.textLabel setText:@"Player of the Year Awards Won"];
+            if (userTeam.heismans > 0) {
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", userTeam.heismans]];
+            } else {
+                [cell.detailTextLabel setText:@"0"];
             }
         }
         return cell;

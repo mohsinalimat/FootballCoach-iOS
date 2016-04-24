@@ -1160,7 +1160,8 @@
                 heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" WR %@: %ld votes\n\t(%ld TDs, %ld Fum, %ld Yds)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTD,(long)pwr.statsFumbles,(long)pwr.statsRecYards]];
             }
         }
-
+        
+        heisman.team.heismans++;
         if ([heisman isKindOfClass:[PlayerQB class]]) {
             //qb heisman
             PlayerQB *heisQB = (PlayerQB*) heisman;

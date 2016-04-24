@@ -68,6 +68,7 @@
 @property (nonatomic) BOOL wonRivalryGame;
 @property (nonatomic) int recruitingMoney;
 @property (nonatomic) int numberOfRecruits;
+@property (nonatomic) int heismans;
 @property (strong, nonatomic) NSMutableArray<Player*> *playersLeaving;
 
 @property (nonatomic) int wins;
