@@ -843,8 +843,10 @@
                     _viewingSignees = NO;
                     _filteredByCost = NO;
                 }
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                
                 [self.tableView reloadData];
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                
             }]];
 
         }
@@ -871,6 +873,7 @@
             } else {
                 position = @"K";
             }
+            
             [alertController addAction:[UIAlertAction actionWithTitle:position style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if (i == 0) {
                     players = availAll;
@@ -903,8 +906,10 @@
                     players = availKs;
                     _filteredByCost = NO;
                 }
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                
                 [self.tableView reloadData];
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+               
             }]];
         }
         
