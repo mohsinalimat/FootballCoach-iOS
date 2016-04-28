@@ -80,7 +80,7 @@
         [self performSelector:@selector(displayIntro) withObject:nil afterDelay:0.0];
     }
     
-    [Fabric with:@[[Crashlytics class]]];
+    [Fabric with:@[CrashlyticsKit]];
     return YES;
 }
 

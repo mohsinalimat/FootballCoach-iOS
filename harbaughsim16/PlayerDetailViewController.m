@@ -63,6 +63,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [playerDetailView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
 -(void)reloadAll {

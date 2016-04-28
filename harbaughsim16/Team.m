@@ -195,6 +195,7 @@
     
     if (teamPrestige > 95) teamPrestige = 95;
     if (teamPrestige < 45 && ![name isEqualToString:@"American Samoa"]) teamPrestige = 45;
+    if (teamPrestige <= 0) teamPrestige = 0;
     
     diffPrestige = deltaPrestige;
     

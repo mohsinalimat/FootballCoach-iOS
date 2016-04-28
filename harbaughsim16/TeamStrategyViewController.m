@@ -44,6 +44,7 @@
     [super viewDidLoad];
     self.tableView.rowHeight = 90;
     self.tableView.estimatedRowHeight = 90;
+    [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
    
 }
 

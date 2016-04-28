@@ -46,6 +46,7 @@
     self.title = [NSString stringWithFormat:@"%@ Roster",selectedTeam.abbreviation];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBRosterCell" bundle:nil] forCellReuseIdentifier:@"HBRosterCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(scrollToPositionGroup)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
@@ -53,6 +54,7 @@
 
 -(void)reloadAll {
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView reloadData];
 }
 

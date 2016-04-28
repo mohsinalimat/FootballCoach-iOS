@@ -33,6 +33,7 @@
     self.title = @"Select a conference to view";
     conferences = [HBSharedUtils getLeague].conferences;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:50];
     [self.tableView setEstimatedRowHeight:50];
 }
