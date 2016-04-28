@@ -18,6 +18,9 @@
 
 #import "HexColors.h"
 #import "STPopup.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 
 #define kHBSimFirstLaunchKey @"firstLaunch"
 
@@ -76,7 +79,8 @@
         //display intro screen
         [self performSelector:@selector(displayIntro) withObject:nil afterDelay:0.0];
     }
-
+    
+    [Fabric with:@[[Crashlytics class]]];
     return YES;
 }
 

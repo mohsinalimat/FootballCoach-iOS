@@ -9,4 +9,6 @@ pod 'FCFileManager'
 pod 'AutoCoding'
 pod 'STPopup'
 pod 'CSNotificationView'
+pod 'Fabric'
+pod 'Crashlytics'
 end
