@@ -124,7 +124,7 @@
     [cell.textLabel setText:ts.opponent.name];
     [cell.detailTextLabel setText:[ts stringRepresentation]];
     
-    if ([cell.textLabel.text containsString:[HBSharedUtils getLeague].userTeam.rivalTeam]) {
+    if ([cell.detailTextLabel.text containsString:[HBSharedUtils getLeague].userTeam.rivalTeam]) {
         [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
         [cell.textLabel setTextColor:[UIColor blackColor]];

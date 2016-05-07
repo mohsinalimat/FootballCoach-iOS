@@ -1046,7 +1046,6 @@
     return [NSString stringWithFormat:@"%@ %@",_nameList[fn],_nameList[ln]];
 }
 
-
 -(NSArray<Player*>*)getHeisman {
     if (!heismanDecided) {
         heisman = nil;
@@ -1086,38 +1085,19 @@
         heismanCandidates = [[heismanCandidates sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Player *a = (Player*)obj1;
             Player *b = (Player*)obj2;
-            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+            if (a.isHeisman) {
+                return -1;
+            } else if (b.isHeisman) {
+                return 1;
+            } else {
+                return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+            }
             
         }] mutableCopy];
         
         return heismanCandidates;
     } else {
         return heismanCandidates;
-    }
-}
-
--(NSString*)getTop5HeismanStr {
-    if (heismanDecided) {
-        return [self getHeismanCeremonyStr];
-    } else {
-        heismanCandidates = [[self getHeisman] mutableCopy];
-        //full results string
-        NSString *heismanTop5 = @"";
-        for (int i = 0; i < 5; ++i) {
-            Player *p = heismanCandidates[i];
-            heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@"%d. %@ (%ld-%ld) - ",(i+1),p.team.abbreviation,(long)p.team.wins,(long)p.team.losses]];
-            if ([p isKindOfClass:[PlayerQB class]]) {
-                PlayerQB *pqb = (PlayerQB*)p;
-                heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" QB %@: %ld votes\n\t(%ld TDs, %ld Int, %ld Yds)\n",[pqb getInitialName],(long)[pqb getHeismanScore],(long)pqb.statsTD,(long)pqb.statsInt,(long)pqb.statsPassYards]];
-            } else if ([p isKindOfClass:[PlayerRB class]]) {
-                PlayerRB *prb = (PlayerRB*)p;
-                heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" RB %@: %ld votes\n\t(%ld TDs, %ld Fum, %ld Yds)\n",[prb getInitialName],(long)[prb getHeismanScore],(long)prb.statsTD,(long)prb.statsFumbles,(long)prb.statsRushYards]];
-            } else if ([p isKindOfClass:[PlayerWR class]]) {
-                PlayerWR *pwr = (PlayerWR*)p;
-                heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" WR %@: %ld votes\n\t(%ld TDs, %ld Fum, %ld Yds)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTD,(long)pwr.statsFumbles,(long)pwr.statsRecYards]];
-            }
-        }
-        return heismanTop5;
     }
 }
 
@@ -1137,6 +1117,17 @@
     if (!heismanDecided) {
         heismanDecided = true;
         heismanCandidates = [[self getHeisman] mutableCopy];
+        [heismanCandidates sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Player *a = (Player*)obj1;
+            Player *b = (Player*)obj2;
+            if (a.isHeisman) {
+                return -1;
+            } else if (b.isHeisman) {
+                return 1;
+            } else {
+                return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+            }
+        }];
         heisman = heismanCandidates[0];
         putNewsStory = true;
 
@@ -1162,6 +1153,7 @@
         }
         
         heisman.team.heismans++;
+        heisman.isHeisman = YES;
         if ([heisman isKindOfClass:[PlayerQB class]]) {
             //qb heisman
             PlayerQB *heisQB = (PlayerQB*) heisman;
@@ -1207,43 +1199,29 @@
     }
 }
 
--(NSString*)getLeagueHistoryStr {
-    NSMutableString *hist = [NSMutableString string];
-    for (int i = 0; i < _leagueHistory.count; ++i) {
-        [hist appendString:[NSString stringWithFormat:@"%d:\n",(2016+i)]];
-        [hist appendString:[NSString stringWithFormat:@"\tChampions: %@\n",_leagueHistory[i][0]]];
-        [hist appendString:[NSString stringWithFormat:@"\tPOTY: %@\n",_heismanHistory[i]]];
-    }
-    return hist;
-}
-
 -(NSArray*)getBowlPredictions {
     if (!_hasScheduledBowls) {
-        //for (int i = 0; i < _teamList.count; ++i) {
-          //  [_teamList[i] updatePollScore];
-        //}
-        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        [_teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
 
-        }] copy];
+        }];
 
 
         NSMutableArray* sb = [NSMutableArray array];
         Team *t1;
         Team *t2;
 
-        //[sb appendString:@"Semifinal 1v4:\n\t\t"];
         t1 = _teamList[0];
         t2 = _teamList[3];
-        //[sb appendString:[NSString stringWithFormat:@"%@ vs %@\n\n", t1.strRep, t2.strRep]];
+        
         [sb addObject:[Game newGameWithHome:t1 away:t2 name:@"Semis, 1v4"]];
 
-        //[sb appendString:@"Semifinal 2v3:\n\t\t"];
+        
         t1 = _teamList[1];
         t2 = _teamList[2];
-        //[sb appendString:[NSString stringWithFormat:@"%@ vs %@\n\n", t1.strRep, t2.strRep]];
+        
         [sb addObject:[Game newGameWithHome:t1 away:t2 name:@"Semis, 2v3"]];
 
         NSMutableArray *bowlEligibleTeams = [NSMutableArray array];
@@ -1259,7 +1237,6 @@
             Team *home = bowlEligibleTeams[teamIndex];
             Team *away = bowlEligibleTeams[teamIndex + 1];
             Game *bowl = [Game newGameWithHome:home away:away name:bowlName];
-            //NSLog(@"%@ Projection: %@ vs %@", bowl.gameName, away.abbreviation, home.abbreviation);
             j++;
             teamIndex+=2;
             [sb addObject:bowl];
@@ -1292,73 +1269,6 @@
             
             return [sb copy];
         }
-    }
-}
-
--(NSArray*)getTeamListStr {
-    NSMutableArray* teams = [NSMutableArray arrayWithCapacity:_teamList.count];
-    for (int i = 0; i < _teamList.count; ++i){
-        teams[i] = [NSString stringWithFormat:@"%@: %@, Pres: %ld",_teamList[i].conference, _teamList[i].name,(long)_teamList[i].teamPrestige];
-    }
-    return teams;
-}
-
--(NSString*)getBowlGameWatchStr {
-    //if bowls arent scheduled yet, give predictions
-    if (!_hasScheduledBowls) {
-
-        for (int i = 0; i < _teamList.count; ++i) {
-            [_teamList[i] updatePollScore];
-        }
-        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            Team *a = (Team*)obj1;
-            Team *b = (Team*)obj2;
-            return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
-
-        }] copy];
-
-
-        NSMutableString* sb = [NSMutableString stringWithString:@"Bowl Game Forecast:\n\n"];
-        Team *t1;
-        Team *t2;
-
-        [sb appendString:@"Semifinal 1v4:\n\t\t"];
-        t1 = _teamList[0];
-        t2 = _teamList[3];
-        [sb appendString:[NSString stringWithFormat:@"%@ vs %@\n\n", t1.strRep, t2.strRep]];
-
-        [sb appendString:@"Semifinal 2v3:\n\t\t"];
-        t1 = _teamList[1];
-        t2 = _teamList[2];
-        [sb appendString:[NSString stringWithFormat:@"%@ vs %@\n\n", t1.strRep, t2.strRep]];
-
-        for (int i = 0; i < [self bowlGameTitles].count; i+=2) {
-            NSString *bowlName = [self bowlGameTitles][i];
-            Team *home = _teamList[i + 4];
-            Team *away = _teamList[i + 5];
-            [sb appendString:[NSString stringWithFormat:@"%@:\n\t\t", bowlName]];
-            [sb appendString:[NSString stringWithFormat:@"%@ vs %@\n\n", away.strRep, home.strRep]];
-        }
-
-        return [sb copy];
-
-    } else {
-        // Games have already been scheduled, give actual teams
-        NSMutableString *sb = [NSMutableString string];
-        [sb appendString:@"Bowl Game Results:\n\n"];
-
-        [sb appendString:@"Semifinal 1v4:\n"];
-        [sb appendString:[self getGameSummaryBowl:_semiG14]];
-
-        [sb appendString:@"Semifinal 2v3:\n"];
-        [sb appendString:[self getGameSummaryBowl:_semiG23]];
-
-        for (Game *bowl in _bowlGames) {
-            [sb appendString:[NSString stringWithFormat:@"\n\n%@:\n", bowl.gameName]];
-            [sb appendString:[self getGameSummaryBowl:bowl]];
-        }
-
-        return [sb copy];
     }
 }
 
@@ -1413,13 +1323,13 @@
     for (int i = 0; i < _teamList.count; ++i) {
         [_teamList[i] updatePollScore];
     }
-
+    
     _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Team *a = (Team*)obj1;
         Team *b = (Team*)obj2;
         return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
-
     }] mutableCopy];
+
     for (int t = 0; t < _teamList.count; ++t) {
         _teamList[t].rankTeamPollScore = t+1;
     }
@@ -1542,201 +1452,4 @@
     }
 
 }
-
--(NSArray*)getTeamRankingsStr:(int)selection {
-    //0 = poll score
-    //1 = sos
-    //2 = points
-    //3 = opp points
-    //4 = yards
-    //5 = opp yards
-    //6 = pass yards
-    //7 = rush yards
-    //8 = opp pass yards
-    //9 = opp rush yards
-    //10 = TO diff
-    //11 = off talent
-    //12 = def talent
-    //13 = prestige
-
-    NSMutableArray *teams = _teamList;
-    NSMutableArray *rankings = [NSMutableArray array];
-    Team *t;
-    switch (selection) {
-        case 0:
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
-
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)[t teamPollScore]]];
-            }
-            break;
-        case 1:
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamStrengthOfWins > b.teamStrengthOfWins ? -1 : a.teamStrengthOfWins == b.teamStrengthOfWins ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)[t teamStrengthOfWins]]];
-            }
-            break;
-        case 2:
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamPoints/[a numGames] > b.teamPoints/b.numGames ? -1 : a.teamPoints/a.numGames == b.teamPoints/b.numGames ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%d",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamPoints/t.numGames)]];
-            }
-            break;
-        case 3:
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamOppPoints/a.numGames < b.teamOppPoints/b.numGames ? -1 : a.teamOppPoints/a.numGames == b.teamOppPoints/b.numGames ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%d",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppPoints/t.numGames)]];
-            }
-            break;
-        case 4:
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamYards/a.numGames > b.teamYards/b.numGames ? -1 : a.teamYards/a.numGames == b.teamYards/b.numGames ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%d",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamYards/t.numGames)]];
-            }
-            break;
-        case 5:
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamOppYards/a.numGames < b.teamOppYards/b.numGames ? -1 : a.teamOppYards/a.numGames == b.teamOppYards/b.numGames ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%d",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppYards/t.numGames)]];
-            }
-            break;
-        case 6: //Collections.sort( teams, new TeamCompPYPG() );
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamPassYards/a.numGames < b.teamPassYards/b.numGames ? -1 : a.teamPassYards/a.numGames == b.teamPassYards/b.numGames ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%d",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamPassYards/t.numGames)]];
-            }
-            break;
-        case 7: //Collections.sort( teams, new TeamCompRYPG() );
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamRushYards/a.numGames < b.teamRushYards/b.numGames ? -1 : a.teamRushYards/a.numGames == b.teamRushYards/b.numGames ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%d",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamRushYards/t.numGames)]];
-            }
-            break;
-        case 8: //Collections.sort( teams, new TeamCompOPYPG() );
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamOppPassYards/a.numGames < b.teamOppPassYards/b.numGames ? -1 : a.teamOppPassYards/a.numGames == b.teamOppPassYards/b.numGames ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%d",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppPassYards/t.numGames)]];
-            }
-            break;
-        case 9: //Collections.sort( teams, new TeamCompORYPG() );
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamOppRushYards/a.numGames < b.teamOppRushYards/b.numGames ? -1 : a.teamOppRushYards/a.numGames == b.teamOppRushYards/b.numGames ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%d",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(t.teamOppRushYards/t.numGames)]];
-            }
-            break;
-        case 10: //Collections.sort( teams, new TeamCompTODiff() );
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamTODiff > b.teamTODiff ? -1 : a.teamTODiff == b.teamTODiff ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                if (t.teamTODiff > 0) {
-                    [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamTODiff]];
-                } else {
-                    [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamTODiff]];
-                }
-            }
-            break;
-        case 11: //Collections.sort( teams, new TeamCompOffTalent() );
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamOffTalent > b.teamOffTalent ? -1 : a.teamOffTalent == b.teamOffTalent ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamOffTalent]];
-            }
-            break;
-        case 12: //Collections.sort( teams, new TeamCompDefTalent() );
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamDefTalent > b.teamDefTalent ? -1 : a.teamDefTalent == b.teamDefTalent ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamDefTalent]];
-            }
-            break;
-        case 13: //Collections.sort( teams, new TeamCompPrestige() );
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamPrestige > b.teamPrestige ? -1 : a.teamPrestige == b.teamPrestige ? 0 : 1;
-            }] mutableCopy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)t.teamPrestige]];
-            }
-            break;
-        default:
-            teams = [[teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Team *a = (Team*)obj1;
-                Team *b = (Team*)obj2;
-                return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
-
-            }] copy];
-            for (int i = 0; i < teams.count; ++i) {
-                t = teams[i];
-                [rankings addObject:[NSString stringWithFormat:@"%@,%@,%ld",[t getRankStrStarUser:(i+1)],[t strRepWithBowlResults],(long)[t teamPollScore]]];
-            }
-            break;
-    }
-
-    return rankings;
-}
-
 @end

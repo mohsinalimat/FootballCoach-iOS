@@ -173,9 +173,15 @@
     } else {
         player = [selectedTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];
     }
+    
     [cell.nameLabel setText:[player getInitialName]];
     [cell.yrLabel setText:[player getYearString]];
     [cell.ovrLabel setText:[NSString stringWithFormat:@"%d", player.ratOvr]];
+    if (player.isHeisman) {
+        [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
+    } else {
+        [cell.nameLabel setTextColor:[UIColor blackColor]];
+    }
     return cell;
 }
 

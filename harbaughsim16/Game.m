@@ -432,10 +432,10 @@
         
         //Ks
         NSMutableDictionary *ks = [NSMutableDictionary dictionary];
-        [ks setObject:_homeStarters[6] forKey:@"homeK"];
+        [ks setObject:_homeStarters[11] forKey:@"homeK"];
         [ks setObject:_HomeKStats forKey:@"homeKStats"];
         
-        [ks setObject:_awayStarters[6] forKey:@"awayK"];
+        [ks setObject:_awayStarters[11] forKey:@"awayK"];
         [ks setObject:_AwayKStats forKey:@"awayKStats"];
         [report setObject:ks forKey:@"Ks"];
         
@@ -1079,13 +1079,17 @@
             }
         }
         
-        if ([_gameName isEqualToString:@"Rivalry Game"]) {
+        if ([_gameName isEqualToString:@"Rivalry Game"] || [_homeTeam.rivalTeam isEqualToString:_awayTeam.abbreviation] || [_awayTeam.rivalTeam isEqualToString:_homeTeam.abbreviation]) {
             if (_homeScore > _awayScore) {
                 _homeTeam.wonRivalryGame = true;
                 _awayTeam.wonRivalryGame = false;
+                _homeTeam.rivalryWins++;
+                _awayTeam.rivalryLosses++;
             } else {
                 _awayTeam.wonRivalryGame = true;
                 _homeTeam.wonRivalryGame = false;
+                _awayTeam.rivalryWins++;
+                _homeTeam.rivalryLosses++;
             }
         }
         
@@ -1551,7 +1555,7 @@
         //defense.teamOppPoints += 3;
         [offense getK:0].statsFGMade++;
         [offense getK:0].statsFGAtt++;
-        [offense getK:0].careerStatsFGAtt++;
+        //[offense getK:0].careerStatsFGAtt++;
         if (!playingOT) {
             [self kickOff:offense];
         } else {
@@ -1601,13 +1605,13 @@
             //NORMALLY KICK THE XP OR GO FOR 2
             if (((gamePoss && (_awayScore -_homeScore) == 2) || (!gamePoss && (_homeScore -_awayScore) == 2)) && gameTime < 300) {
                 //go for 2
-                BOOL successConversion = false;
+                //BOOL //successConversion = false;
                 if ( [HBSharedUtils randomValue] <= 0.50 ) {
                     //rushing
                     int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
                     int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
                     if ( yardsGain > 5 ) {
-                        successConversion = true;
+                        //successConversion = true;
                         if ( gamePoss ) { // home possession
                             _homeScore += 2;
                         } else {
@@ -1622,7 +1626,7 @@
                     int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
                     double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
                     if ( 100*[HBSharedUtils randomValue] < completion ) {
-                        successConversion = true;
+                        //successConversion = true;
                         if ( gamePoss ) { // home possession
                             _homeScore += 2;
                         } else {
@@ -1687,13 +1691,13 @@
                 if (_numOT < 3) {
                     if (((gamePoss && (_awayScore -_homeScore) == 2) || (!gamePoss && (_homeScore -_awayScore) == 2)) && gameTime < 300) {
                         //go for 2
-                        BOOL successConversion = false;
+                        //BOOL //successConversion = false;
                         if ( [HBSharedUtils randomValue] <= 0.50 ) {
                             //rushing
                             int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
                             int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
                             if ( yardsGain > 5 ) {
-                                successConversion = true;
+                                //successConversion = true;
                                 if ( gamePoss ) { // home possession
                                     _homeScore += 2;
                                 } else {
@@ -1708,7 +1712,7 @@
                             int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
                             double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
                             if ( 100*[HBSharedUtils randomValue] < completion ) {
-                                successConversion = true;
+                                //successConversion = true;
                                 if ( gamePoss ) { // home possession
                                     _homeScore += 2;
                                 } else {
@@ -1763,13 +1767,13 @@
                         [offense getK:0].statsXPAtt++;
                     }
                 } else {        // always go for 2pt in >3OT
-                    BOOL successConversion = false;
+                    //BOOL //successConversion = false;
                     if ( [HBSharedUtils randomValue] <= 0.50 ) {
                         //rushing
                         int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
                         int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
                         if ( yardsGain > 5 ) {
-                            successConversion = true;
+                            //successConversion = true;
                             if ( gamePoss ) { // home possession
                                 _homeScore += 2;
                             } else {
@@ -1784,7 +1788,7 @@
                         int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
                         double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
                         if ( 100*[HBSharedUtils randomValue] < completion ) {
-                            successConversion = true;
+                            //successConversion = true;
                             if ( gamePoss ) { // home possession
                                 _homeScore += 2;
                             } else {
@@ -1802,13 +1806,13 @@
             if (_numOT < 3) {
                 if (((gamePoss && (_awayScore -_homeScore) == 2) || (!gamePoss && (_homeScore -_awayScore) == 2)) && gameTime < 300) {
                     //go for 2
-                    BOOL successConversion = false;
+                    //BOOL //successConversion = false;
                     if ( [HBSharedUtils randomValue] <= 0.50 ) {
                         //rushing
                         int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
                         int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
                         if ( yardsGain > 5 ) {
-                            successConversion = true;
+                            //successConversion = true;
                             if ( gamePoss ) { // home possession
                                 _homeScore += 2;
                             } else {
@@ -1823,7 +1827,7 @@
                         int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
                         double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
                         if ( 100*[HBSharedUtils randomValue] < completion ) {
-                            successConversion = true;
+                            //successConversion = true;
                             if ( gamePoss ) { // home possession
                                 _homeScore += 2;
                             } else {
@@ -1878,13 +1882,13 @@
                     [offense getK:0].statsXPAtt++;
                 }
             } else {        // always go for 2pt in >3OT
-                BOOL successConversion = false;
+                //BOOL //successConversion = false;
                 if ( [HBSharedUtils randomValue] <= 0.50 ) {
                     //rushing
                     int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
                     int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
                     if ( yardsGain > 5 ) {
-                        successConversion = true;
+                        //successConversion = true;
                         if ( gamePoss ) { // home possession
                             _homeScore += 2;
                         } else {
@@ -1899,7 +1903,7 @@
                     int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
                     double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
                     if ( 100*[HBSharedUtils randomValue] < completion ) {
-                        successConversion = true;
+                        //successConversion = true;
                         if ( gamePoss ) { // home possession
                             _homeScore += 2;
                         } else {

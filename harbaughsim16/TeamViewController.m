@@ -71,7 +71,7 @@
                     Team *rival = [[HBSharedUtils getLeague] findTeam:selectedTeam.rivalTeam];
                     [rival setRivalTeam:abbrev.text];
                     
-                    NSMutableArray *tempLeagueYear = [NSMutableArray array];
+                    NSMutableArray *tempLeagueYear;
                     for (int k = 0; k < [HBSharedUtils getLeague].leagueHistory.count; k++) {
                         NSArray *leagueYear = [HBSharedUtils getLeague].leagueHistory[k];
                         tempLeagueYear = [NSMutableArray arrayWithArray:leagueYear];

@@ -27,6 +27,7 @@
 @property (strong, nonatomic) NSMutableArray *ratingsVector;
 @property (nonatomic) BOOL hasRedshirt;
 @property (nonatomic) BOOL wasRedshirted;
+@property (nonatomic) BOOL isHeisman;
 
 +(NSArray *)letterGrades;
 -(NSString*)getYearString;

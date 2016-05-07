@@ -38,7 +38,7 @@
         [super setEditing:NO animated:NO];
         [self.tableView setEditing:NO animated:NO];
         [self.tableView reloadData];
-        [self.navigationItem.rightBarButtonItem setTitle:@"Edit"];
+        [self.navigationItem.rightBarButtonItem setTitle:@"Reorder"];
         [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
         [[HBSharedUtils getLeague] save];
     } else {
@@ -351,6 +351,12 @@
                 [cell.nameLabel setTextColor:[UIColor blackColor]];
             }
         }
+    }
+    
+    if (player.isHeisman) {
+        [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
+    } else {
+        [cell.nameLabel setTextColor:[UIColor blackColor]];
     }
     
     return cell;

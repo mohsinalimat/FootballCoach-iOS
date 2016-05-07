@@ -23,6 +23,7 @@
 #import "CSNotificationView.h"
 #import "HexColors.h"
 #import "STPopup.h"
+#import "harbaughsim16-Bridging-Header.h"
 
 @interface HBTeamPlayView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
@@ -32,7 +33,6 @@
 
 @implementation HBTeamPlayView
 @end
-
 
 @interface NewsViewController ()
 {
@@ -47,7 +47,7 @@
 @implementation NewsViewController
 
 -(void)viewWillAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     [self setupTeamHeader];
 }
 
@@ -127,6 +127,7 @@
                 } else {
                     [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
                     [self.navigationItem.leftBarButtonItem setEnabled:NO];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
                 }
                 
                 [self reloadNews:[HBSharedUtils getLeague].currentWeek];
@@ -150,6 +151,10 @@
     } else {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
     }
+}
+
+-(void)hideSimButton {
+    [self.navigationItem.leftBarButtonItem setEnabled:NO];
 }
 
 -(IBAction)playWeek:(id)sender {
@@ -301,7 +306,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Latest News";
+    self.navigationItem.title = @"Latest News";
     [self reloadNews:[HBSharedUtils getLeague].currentWeek];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setTableHeaderView:teamHeaderView];
@@ -317,6 +322,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNews) name:@"newNewsStory" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNews) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSeasonStart" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideSimButton) name:@"hideSimButton" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSaveFile" object:nil];
     self.view.backgroundColor = [HBSharedUtils styleColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newSaveFile" object:nil];
@@ -431,7 +437,7 @@
     news = [HBSharedUtils getLeague].newsStories[curWeek];
     
     if (curNewsWeek == [HBSharedUtils getLeague].currentWeek) {
-        self.title = @"Latest News";
+        self.navigationItem.title = @"Latest News";
     } else {
         NSString *week = @"";
         if (curNewsWeek > 0 && curNewsWeek <= 12) {
@@ -448,7 +454,7 @@
             week = @"Offseason";
         }
 
-        self.title = [NSString stringWithFormat:@"%@ News", week];
+        self.navigationItem.title = [NSString stringWithFormat:@"%@ News", week];
     }
     [self setupTeamHeader];
     [self.tableView reloadData];

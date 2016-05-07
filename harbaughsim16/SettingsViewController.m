@@ -66,7 +66,7 @@
                     rival = [[HBSharedUtils getLeague] findTeam:[HBSharedUtils getLeague].userTeam.rivalTeam];
                     [rival setRivalTeam:abbrev.text];
 
-                    NSMutableArray *tempLeagueYear = [NSMutableArray array];
+                    NSMutableArray *tempLeagueYear;
                     for (int k = 0; k < [HBSharedUtils getLeague].leagueHistory.count; k++) {
                         NSArray *leagueYear = [HBSharedUtils getLeague].leagueHistory[k];
                         tempLeagueYear = [NSMutableArray arrayWithArray:leagueYear];
@@ -163,7 +163,7 @@
     if (section == 2) {
         return 5;
     } else if (section == 1) {
-        return 6;
+        return 7;
     } else {
         return 3;
     }
@@ -184,10 +184,12 @@
             } else if (indexPath.row == 1) {
                 [cell.textLabel setText:@"CSNotificationView"];
             } else if (indexPath.row == 2) {
-                [cell.textLabel setText:@"FCFileManager"];
+                [cell.textLabel setText:@"Fabric"];
             } else if (indexPath.row == 3) {
-                [cell.textLabel setText:@"HexColors"];
+                [cell.textLabel setText:@"FCFileManager"];
             } else if (indexPath.row == 4) {
+                [cell.textLabel setText:@"HexColors"];
+            } else if (indexPath.row == 5) {
                 [cell.textLabel setText:@"Icons8"];
             } else {
                 [cell.textLabel setText:@"STPopup"];
@@ -259,22 +261,18 @@
     if (indexPath.section == 1) {
         NSString *url;
         if (indexPath.row == 0) {
-            //[cell.textLabel setText:@"AutoCoding"];
             url = @"https://github.com/nicklockwood/AutoCoding";
         } else if (indexPath.row == 1) {
-            //[cell.textLabel setText:@"FCFileManager"];
             url = @"https://github.com/problame/CSNotificationView";
         } else if (indexPath.row == 2) {
-            //[cell.textLabel setText:@"FCFileManager"];
-            url = @"https://github.com/fabiocaccamo/FCFileManager";
+            url = @"https://fabric.io";
         } else if (indexPath.row == 3) {
-            //[cell.textLabel setText:@"HexColors"];
-            url = @"https://github.com/mRs-/HexColors";
+            url = @"https://github.com/fabiocaccamo/FCFileManager";
         } else if (indexPath.row == 4) {
-            //[cell.textLabel setText:@"Icons8"];
+            url = @"https://github.com/mRs-/HexColors";
+        } else if (indexPath.row == 5) {
             url = @"http://icons8.com";
         } else {
-            //[cell.textLabel setText:@"Icons8"];
             url = @"https://github.com/kevin0571/STPopup";
         }
         

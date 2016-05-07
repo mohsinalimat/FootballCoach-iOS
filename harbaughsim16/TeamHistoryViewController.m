@@ -201,7 +201,7 @@
         NSString *hist = userTeam.teamHistory[indexPath.row];
         NSArray *comps = [hist componentsSeparatedByString:@"\n"];
         
-        UIColor *teamColor = [UIColor lightGrayColor];
+        UIColor *teamColor;
         if ([hist containsString:@"NCG - W"] || [hist containsString:@"NCW"]) {
             teamColor = [HBSharedUtils champColor];
         } else {

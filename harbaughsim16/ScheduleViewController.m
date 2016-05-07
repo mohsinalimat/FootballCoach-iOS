@@ -111,6 +111,7 @@
                 } else {
                     [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
                     [self.navigationItem.leftBarButtonItem setEnabled:NO];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
                 }
                 
                 [self reloadSchedule];
@@ -148,6 +149,7 @@
     [self setupTeamHeader];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSchedule) name:@"playedWeek" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSchedule) name:@"newSeasonStart" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideSimButton) name:@"hideSimButton" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSeasonStart" object:nil];
@@ -161,13 +163,17 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
+-(void)hideSimButton {
+    [self.navigationItem.leftBarButtonItem setEnabled:NO];
+}
+
 -(void)reloadAll {
     [self reloadSchedule];
     [self setupTeamHeader];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     [self setupTeamHeader];
 }
 

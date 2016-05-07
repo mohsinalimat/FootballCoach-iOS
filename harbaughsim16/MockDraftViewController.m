@@ -275,7 +275,7 @@
     
     [attName appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", p.position] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
-    UIColor *nameColor = [UIColor blackColor];
+    UIColor *nameColor;
     if ([p.team isEqual:[HBSharedUtils getLeague].userTeam]) {
         nameColor = [HBSharedUtils styleColor];
     } else {

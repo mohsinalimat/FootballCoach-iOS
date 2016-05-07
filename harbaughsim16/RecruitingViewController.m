@@ -923,55 +923,10 @@
 
 -(void)filterByCost {
     players = [availAll mutableCopy];
-    //sort all available by cost
-    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (a.cost > b.cost) {
-            return -1;
-        } else if (a.cost == b.cost) {
-            if (!a.hasRedshirt && !b.hasRedshirt) {
-                if (a.ratOvr > b.ratOvr) {
-                    return -1;
-                } else if (a.ratOvr < b.ratOvr) {
-                    return 1;
-                } else {
-                    if (a.ratPot > b.ratPot) {
-                        return -1;
-                    } else if (a.ratPot < b.ratPot) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                }
-            } else if (a.hasRedshirt) {
-                return 1;
-            } else if (b.hasRedshirt) {
-                return -1;
-            } else {
-                if (a.ratOvr > b.ratOvr) {
-                    return -1;
-                } else if (a.ratOvr < b.ratOvr) {
-                    return 1;
-                } else {
-                    if (a.ratPot > b.ratPot) {
-                        return -1;
-                    } else if (a.ratPot < b.ratPot) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                }
-            }
-        } else {
-            return 1;
-        }
-    }];
-    
     //remove the ones that cost too much
     NSMutableArray *playersCopy = [players mutableCopy];
     for (Player *p in players) {
-        if (p.cost > recruitingBudget) {
+        if (p.cost > recruitingBudget && [playersCopy containsObject:p]) {
             [playersCopy removeObject:p];
         }
     }

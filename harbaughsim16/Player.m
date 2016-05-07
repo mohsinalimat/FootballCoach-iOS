@@ -38,6 +38,12 @@
             _wasRedshirted = NO;
         }
         
+        if ([aDecoder containsValueForKey:@"isHeisman"]) {
+            _isHeisman = [aDecoder decodeBoolForKey:@"isHeisman"];
+        } else {
+            _isHeisman = NO;
+        }
+        
     }
     return self;
 }
@@ -56,6 +62,7 @@
     [aCoder encodeObject:_ratingsVector forKey:@"ratingsVector"];
     [aCoder encodeBool:_wasRedshirted forKey:@"wasRedshirted"];
     [aCoder encodeBool:_hasRedshirt forKey:@"hasRedshirt"];
+    [aCoder encodeBool:_isHeisman forKey:@"isHeisman"];
 }
 
 - (NSComparisonResult)compare:(id)other
@@ -167,6 +174,7 @@
 
 -(void)advanceSeason {
     self.year++;
+    _isHeisman = NO;
     if (self.hasRedshirt) {
         self.hasRedshirt = NO;
         self.wasRedshirted = YES;

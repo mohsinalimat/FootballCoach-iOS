@@ -73,6 +73,8 @@
 
 @property (nonatomic) int wins;
 @property (nonatomic) int losses;
+@property (nonatomic) int rivalryWins;
+@property (nonatomic) int rivalryLosses;
 @property (nonatomic) int totalWins;
 @property (nonatomic) int totalLosses;
 @property (nonatomic) int totalCCs;
