@@ -163,7 +163,7 @@
     if (section == 2) {
         return 5;
     } else if (section == 1) {
-        return 7;
+        return 8;
     } else {
         return 3;
     }
@@ -180,16 +180,18 @@
         
         if (indexPath.section == 1) {
             if (indexPath.row == 0) {
-                [cell.textLabel setText:@"AutoCoding"];
+                [cell.textLabel setText:@"ATAppUpdater"];
             } else if (indexPath.row == 1) {
-                [cell.textLabel setText:@"CSNotificationView"];
+                [cell.textLabel setText:@"AutoCoding"];
             } else if (indexPath.row == 2) {
-                [cell.textLabel setText:@"Fabric"];
+                [cell.textLabel setText:@"CSNotificationView"];
             } else if (indexPath.row == 3) {
-                [cell.textLabel setText:@"FCFileManager"];
+                [cell.textLabel setText:@"Fabric"];
             } else if (indexPath.row == 4) {
-                [cell.textLabel setText:@"HexColors"];
+                [cell.textLabel setText:@"FCFileManager"];
             } else if (indexPath.row == 5) {
+                [cell.textLabel setText:@"HexColors"];
+            } else if (indexPath.row == 6) {
                 [cell.textLabel setText:@"Icons8"];
             } else {
                 [cell.textLabel setText:@"STPopup"];
@@ -261,16 +263,18 @@
     if (indexPath.section == 1) {
         NSString *url;
         if (indexPath.row == 0) {
-            url = @"https://github.com/nicklockwood/AutoCoding";
+            url = @"https://github.com/apptality/ATAppUpdater";
         } else if (indexPath.row == 1) {
-            url = @"https://github.com/problame/CSNotificationView";
+            url = @"https://github.com/nicklockwood/AutoCoding";
         } else if (indexPath.row == 2) {
-            url = @"https://fabric.io";
+            url = @"https://github.com/problame/CSNotificationView";
         } else if (indexPath.row == 3) {
-            url = @"https://github.com/fabiocaccamo/FCFileManager";
+            url = @"https://fabric.io";
         } else if (indexPath.row == 4) {
-            url = @"https://github.com/mRs-/HexColors";
+            url = @"https://github.com/fabiocaccamo/FCFileManager";
         } else if (indexPath.row == 5) {
+            url = @"https://github.com/mRs-/HexColors";
+        } else if (indexPath.row == 6) {
             url = @"http://icons8.com";
         } else {
             url = @"https://github.com/kevin0571/STPopup";
@@ -287,7 +291,7 @@
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://akeaswaran.me"]];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://akeaswaran.me"]];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
         } else if (indexPath.row == 1) {

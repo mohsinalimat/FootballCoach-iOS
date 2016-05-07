@@ -84,6 +84,7 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-harbaughsim16/ATAppUpdater.framework"
   install_framework "Pods-harbaughsim16/AutoCoding.framework"
   install_framework "Pods-harbaughsim16/CSNotificationView.framework"
   install_framework "Pods-harbaughsim16/FCFileManager.framework"
@@ -91,6 +92,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-harbaughsim16/STPopup.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-harbaughsim16/ATAppUpdater.framework"
   install_framework "Pods-harbaughsim16/AutoCoding.framework"
   install_framework "Pods-harbaughsim16/CSNotificationView.framework"
   install_framework "Pods-harbaughsim16/FCFileManager.framework"

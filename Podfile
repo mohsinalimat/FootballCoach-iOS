@@ -11,4 +11,5 @@ pod 'STPopup'
 pod 'CSNotificationView'
 pod 'Fabric'
 pod 'Crashlytics'
+pod 'ATAppUpdater'
 end

@@ -20,7 +20,7 @@
 #import "STPopup.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-
+#import "ATAppUpdater.h"
 
 #define kHBSimFirstLaunchKey @"firstLaunch"
 
@@ -81,6 +81,7 @@
     }
     
     [Fabric with:@[CrashlyticsKit]];
+    [[ATAppUpdater sharedUpdater] showUpdateWithConfirmation];
     return YES;
 }
 

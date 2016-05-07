@@ -8,6 +8,7 @@
 * Fixed a bug where the title of the News tab became too long
 * Added highlighting of rival teams on the Team Streaks page
 * Added highlighting of POTY winners in team rosters
+* Added update notifications - if there is a new version of the game available, you will be automatically notified the next time you open it!
 * Added automatic crash reporting using Crashlytics 
 
 
