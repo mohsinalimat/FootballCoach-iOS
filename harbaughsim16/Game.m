@@ -764,10 +764,23 @@
                                                          [_awayTeam getF7:5],
                                                          [_awayTeam getF7:6]]];
         
+        for (Player *p in _homeStarters) {
+            if (p.hasRedshirt) {
+                p.hasRedshirt = NO;
+                p.wasRedshirted = YES;
+            }
+        }
+        
+        for (Player *p in _awayStarters) {
+            if (p.hasRedshirt) {
+                p.hasRedshirt = NO;
+                p.wasRedshirted = YES;
+            }
+        }
+        
         while ( gameTime > 0 ) {
             //play ball!
             if (gamePoss) {
-                //runPlay( homeTeam, awayTeam );
                 [self runPlay:_homeTeam defense:_awayTeam];
             } else {
                 [self runPlay:_awayTeam defense:_homeTeam];
