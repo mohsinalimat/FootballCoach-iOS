@@ -764,6 +764,7 @@
                                                          [_awayTeam getF7:5],
                                                          [_awayTeam getF7:6]]];
         
+        //break redshirts if starters are marked as such
         for (Player *p in _homeStarters) {
             if (p.hasRedshirt) {
                 p.hasRedshirt = NO;
