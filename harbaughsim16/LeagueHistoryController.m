@@ -152,8 +152,15 @@
     }
     // Configure the cell...
     [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
-    NSString *heisman = heismanHistory[indexPath.row];
-    NSMutableArray *leagueYear = leagueHistory[indexPath.row];
+    NSString *heisman;
+    NSMutableArray *leagueYear;
+    if (indexPath.row > heismanHistory.count || indexPath.row > leagueHistory.count) {
+        heisman = @"None";
+        leagueYear = [NSMutableArray arrayWithObject:@"None"];
+    } else {
+        heisman = heismanHistory[indexPath.row];
+        leagueYear = leagueHistory[indexPath.row];
+    }
     NSMutableAttributedString *champString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Champion: %@",leagueYear[0]]];
     if ([champString.string containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
         [champString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, champString.string.length)];

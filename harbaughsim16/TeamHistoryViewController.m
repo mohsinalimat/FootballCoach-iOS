@@ -198,7 +198,12 @@
         }
         
         [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
-        NSString *hist = userTeam.teamHistory[indexPath.row];
+        NSString *hist;
+        if (userTeam.teamHistory.count < indexPath.row) {
+            hist = [NSString stringWithFormat:@"%@ (0-0)",userTeam.abbreviation];
+        } else {
+            hist = userTeam.teamHistory[indexPath.row];
+        }
         NSArray *comps = [hist componentsSeparatedByString:@"\n"];
         
         UIColor *teamColor;

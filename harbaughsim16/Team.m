@@ -965,14 +965,14 @@
         if ([semifinalWL isEqualToString:@"BW"] || [semifinalWL isEqualToString:@"BL"] || [semifinalWL containsString:@"SF"]) {
             if (gameSchedule.count >= 13) {
                 Game *bowl = gameSchedule[12];
-                if ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"]) {
+                if (bowl && ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"])) {
                     [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[12],[self gameSummaryString:bowl]];
                 }
             }
             
             if (gameSchedule.count >= 14) {
                 Game *bowl = gameSchedule[13];
-                if ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"]) {
+                if (bowl && ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"])) {
                     [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[12],[self gameSummaryString:bowl]];
                 }
             }
@@ -1552,11 +1552,6 @@
     if (teamPrestige > 45 || diffExpected > 0) {
         newPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);
         deltaPrestige = (newPrestige - oldPrestige);
-    }
-    
-    BOOL wonRivalrySeries = FALSE;
-    if (rivalryWins > rivalryLosses) {
-        wonRivalrySeries = TRUE;
     }
     
     if (deltaPrestige > 0) {
