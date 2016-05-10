@@ -963,8 +963,15 @@
     
     if (![semifinalWL isEqualToString:@""] && semifinalWL.length > 0) {
         if ([semifinalWL isEqualToString:@"BW"] || [semifinalWL isEqualToString:@"BL"] || [semifinalWL containsString:@"SF"]) {
-            if (gameSchedule.count == 13) {
+            if (gameSchedule.count >= 13) {
                 Game *bowl = gameSchedule[12];
+                if ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"]) {
+                    [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[12],[self gameSummaryString:bowl]];
+                }
+            }
+            
+            if (gameSchedule.count >= 14) {
+                Game *bowl = gameSchedule[13];
                 if ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"]) {
                     [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[12],[self gameSummaryString:bowl]];
                 }
@@ -972,9 +979,9 @@
         }
     }
     
-    if (![natlChampWL isEqualToString:@""] && natlChampWL.length > 0 && gameWLSchedule.count >= 15) {
+    if (![natlChampWL isEqualToString:@""] && natlChampWL.length > 0) {
         Game *ncg = league.ncg;
-        [hist appendFormat:@"\n%@ - %@ %@",ncg.gameName,gameWLSchedule[14],[self gameSummaryString:ncg]];
+        [hist appendFormat:@"\n%@ - %@ %@",ncg.gameName,gameWLSchedule[gameWLSchedule.count - 1],[self gameSummaryString:ncg]];
     }
     
     if ([self isEqual:league.userTeam]) {
