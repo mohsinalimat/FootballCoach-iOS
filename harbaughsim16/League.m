@@ -398,6 +398,7 @@
 }
 
 -(void)save {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"saveInProgress" object:nil];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         if([FCFileManager existsItemAtPath:@"league.cfb"]) {
             NSError *error;
@@ -408,6 +409,7 @@
                 } else {
                     NSLog(@"Something went wrong on save: %@", error.localizedDescription);
                 }
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
             });
         } else {
             //Run UI Updates
@@ -419,6 +421,7 @@
                 } else {
                     NSLog(@"Something went wrong on create and save: %@", error.localizedDescription);
                 }
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
             });
         }
     });
@@ -1290,7 +1293,7 @@
             return _teamList[i];
         }
     }
-    return _teamList[0];
+    return nil;
 }
 
 -(Conference*)findConference:(NSString*)name {
@@ -1299,7 +1302,7 @@
             return _conferences[i];
         }
     }
-    return _conferences[0];
+    return nil;
 }
 
 -(NSString*)ncgSummaryStr {

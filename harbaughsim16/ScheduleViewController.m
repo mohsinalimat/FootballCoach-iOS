@@ -34,6 +34,13 @@
 @end
 
 @implementation ScheduleViewController
+-(void)runOnSaveInProgress {
+    [teamHeaderView.playButton setEnabled:NO];
+}
+
+-(void)runOnSaveFinished {
+    [teamHeaderView.playButton setEnabled:YES];
+}
 
 -(void)simulateEntireSeason {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to sim this season?" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -154,6 +161,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSaveFile" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runOnSaveInProgress) name:@"saveInProgress" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runOnSaveFinished) name:@"saveFinished" object:nil];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
     if ([HBSharedUtils getLeague].currentWeek < 15) {
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
@@ -200,6 +209,7 @@
         [HBSharedUtils getLeague].canRebrandTeam = YES;
         [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
     }
+    [teamHeaderView.playButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateDisabled];
 }
 
 -(void)reloadSchedule {

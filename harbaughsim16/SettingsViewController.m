@@ -56,7 +56,15 @@
                 //save
                 UITextField *name = alert.textFields[0];
                 UITextField *abbrev = alert.textFields[1];
-                if ((![name.text isEqualToString:userTeam.name] || ![abbrev.text isEqualToString:userTeam.abbreviation]) && (name.text.length > 0 && abbrev.text.length > 0) && (![name.text isEqualToString:@""] && ![abbrev.text isEqualToString:@""])) {
+                NSArray* words = [name.text.lowercaseString componentsSeparatedByCharactersInSet :[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                NSString* trimmedName = [words componentsJoinedByString:@""];
+                NSLog(@"TRIMMED: %@",trimmedName);
+                if ((![name.text isEqualToString:userTeam.name] || ![abbrev.text isEqualToString:userTeam.abbreviation])
+                    && (name.text.length > 0 && abbrev.text.length > 0)
+                    && (![name.text isEqualToString:@""]&& ![abbrev.text isEqualToString:@""])
+                    && (![trimmedName isEqualToString:@"americansamoa"])
+                    && ([[HBSharedUtils getLeague] findTeam:abbrev.text] == nil)) {
+                    
                     [[HBSharedUtils getLeague].userTeam setName:name.text];
                     [[HBSharedUtils getLeague].userTeam setAbbreviation:abbrev.text];
                     Team *rival = [[HBSharedUtils getLeague] findTeam:[HBSharedUtils getLeague].userTeam.rivalTeam];
@@ -163,7 +171,7 @@
     if (section == 2) {
         return 5;
     } else if (section == 1) {
-        return 8;
+        return 9;
     } else {
         return 3;
     }
@@ -186,12 +194,14 @@
             } else if (indexPath.row == 2) {
                 [cell.textLabel setText:@"CSNotificationView"];
             } else if (indexPath.row == 3) {
-                [cell.textLabel setText:@"Fabric"];
+                [cell.textLabel setText:@"DZNEmptyDataSet"];
             } else if (indexPath.row == 4) {
-                [cell.textLabel setText:@"FCFileManager"];
+                [cell.textLabel setText:@"Fabric"];
             } else if (indexPath.row == 5) {
-                [cell.textLabel setText:@"HexColors"];
+                [cell.textLabel setText:@"FCFileManager"];
             } else if (indexPath.row == 6) {
+                [cell.textLabel setText:@"HexColors"];
+            } else if (indexPath.row == 7) {
                 [cell.textLabel setText:@"Icons8"];
             } else {
                 [cell.textLabel setText:@"STPopup"];
@@ -269,12 +279,14 @@
         } else if (indexPath.row == 2) {
             url = @"https://github.com/problame/CSNotificationView";
         } else if (indexPath.row == 3) {
-            url = @"https://fabric.io";
+            url = @"https://github.com/dzenbot/DZNEmptyDataSet";
         } else if (indexPath.row == 4) {
-            url = @"https://github.com/fabiocaccamo/FCFileManager";
+            url = @"https://fabric.io";
         } else if (indexPath.row == 5) {
-            url = @"https://github.com/mRs-/HexColors";
+            url = @"https://github.com/fabiocaccamo/FCFileManager";
         } else if (indexPath.row == 6) {
+            url = @"https://github.com/mRs-/HexColors";
+        } else if (indexPath.row == 7) {
             url = @"http://icons8.com";
         } else {
             url = @"https://github.com/kevin0571/STPopup";

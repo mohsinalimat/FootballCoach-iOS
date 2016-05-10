@@ -301,6 +301,8 @@
     
     if (player.hasRedshirt) {
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+    } else if (player.isHeisman) {
+        [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
     } else {
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
@@ -353,12 +355,6 @@
         }
     }
     
-    if (player.isHeisman) {
-        [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
-    } else {
-        [cell.nameLabel setTextColor:[UIColor blackColor]];
-    }
-    
     return cell;
 }
 
@@ -386,8 +382,6 @@
     } else {
         player = [userTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];
     }
-
-    //[self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:player] animated:YES];
     
     popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerDetailViewController alloc] initWithPlayer:player]];
     [popupController.navigationBar setDraggable:YES];

@@ -6,6 +6,9 @@
 * Fixed a bug where FG attempts were double-counted
 * Fixed a bug where American Samoa’s prestige could go negative
 * Fixed a bug where the title of the News tab became too long
+* Fixed a bug where rapid tapping of the “Play Week” button would crash the app and potentially delete your save file
+* Added UI touches to represent empty data sets (like news, records, history, team streaks, etc.)
+* Added field validation to make sure people don’t cheat the Samoa Challenge by renaming an already-good team to American Samoa
 * Added highlighting of rival teams on the Team Streaks page
 * Added highlighting of POTY winners in team rosters
 * Added update notifications - if there is a new version of the game available, you will be automatically notified the next time you open it!

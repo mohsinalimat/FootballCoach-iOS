@@ -9,7 +9,10 @@
 #import "LeagueHistoryController.h"
 #import "Team.h"
 
-@interface LeagueHistoryController ()
+#import "HexColors.h"
+#import "UIScrollView+EmptyDataSet.h"
+
+@interface LeagueHistoryController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
     NSArray *leagueHistory;
     NSArray *heismanHistory;
@@ -17,6 +20,82 @@
 @end
 
 @implementation LeagueHistoryController
+#pragma mark - DZNEmptyDataSetSource Methods
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = nil;
+    UIFont *font = nil;
+    UIColor *textColor = nil;
+    
+    NSMutableDictionary *attributes = [NSMutableDictionary new];
+    
+    text = @"No league history yet";
+    font = [UIFont boldSystemFontOfSize:18.0];
+    textColor = [UIColor lightTextColor];
+    
+    
+    if (!text) {
+        return nil;
+    }
+    
+    if (font) [attributes setObject:font forKey:NSFontAttributeName];
+    if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = nil;
+    UIFont *font = nil;
+    UIColor *textColor = nil;
+    
+    NSMutableDictionary *attributes = [NSMutableDictionary new];
+    
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    text = @"As you play season after season, the national champion and the Player of the Year for each season will be immortalized here.";
+    font = [UIFont systemFontOfSize:17.0];
+    textColor = [UIColor lightTextColor];
+    
+    
+    if (!text) {
+        return nil;
+    }
+    
+    if (font) [attributes setObject:font forKey:NSFontAttributeName];
+    if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
+    if (paragraph) [attributes setObject:paragraph forKey:NSParagraphStyleAttributeName];
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
+    
+    return attributedString;
+}
+
+- (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [HBSharedUtils styleColor];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return 0.0;
+}
+
+- (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return 10.0;
+}
+
+#pragma mark - DZNEmptyDataSetDelegate Methods
+
+- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
+{
+    return YES;
+}
 
 -(id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:UITableViewStyleGrouped];
@@ -35,6 +114,8 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     self.title = @"League History";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
 }
 
 -(void)dealloc {
@@ -79,7 +160,6 @@
     } else {
         [champString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, champString.string.length)];
     }
-    
     
     NSMutableAttributedString *heismanString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nPOTY: %@",heisman]];
     if ([heisman containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {

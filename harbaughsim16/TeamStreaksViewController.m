@@ -11,7 +11,10 @@
 #import "TeamStreak.h"
 #import "TeamViewController.h"
 
-@interface TeamStreaksViewController () <UISearchBarDelegate, UIScrollViewDelegate>
+#import "UIScrollView+EmptyDataSet.h"
+#import "HexColors.h"
+
+@interface TeamStreaksViewController () <UISearchBarDelegate, UIScrollViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
     NSMutableArray *streaks;
     NSMutableDictionary *streakDict;
@@ -22,6 +25,77 @@
 @end
 
 @implementation TeamStreaksViewController
+
+
+#pragma mark - DZNEmptyDataSetSource Methods
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = nil;
+    UIFont *font = nil;
+    UIColor *textColor = nil;
+    
+    NSMutableDictionary *attributes = [NSMutableDictionary new];
+    
+    text = @"No streaks yet";
+    font = [UIFont boldSystemFontOfSize:18.0];
+    textColor = [UIColor lightTextColor];
+    
+    
+    if (!text) {
+        return nil;
+    }
+    
+    if (font) [attributes setObject:font forKey:NSFontAttributeName];
+    if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = nil;
+    UIFont *font = nil;
+    UIColor *textColor = nil;
+    
+    NSMutableDictionary *attributes = [NSMutableDictionary new];
+    
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    text = @"When your team starts playing games, its records against other teams will be displayed here.";
+    font = [UIFont systemFontOfSize:17.0];
+    textColor = [UIColor lightTextColor];
+    
+    
+    if (!text) {
+        return nil;
+    }
+    
+    if (font) [attributes setObject:font forKey:NSFontAttributeName];
+    if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
+    if (paragraph) [attributes setObject:paragraph forKey:NSParagraphStyleAttributeName];
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
+    
+    return attributedString;
+}
+
+- (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [HBSharedUtils styleColor];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return 0.0;
+}
+
+- (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return 10.0;
+}
 
 -(instancetype)initWithTeam:(Team*)team {
     self = [super init];
@@ -41,23 +115,30 @@
         TeamStreak *b = (TeamStreak*)obj2;
         return [a.opponent.name compare:b.opponent.name];
     }];
+    self.navigationItem.title = @"Streaks";
+    
+    if (streaks.count > 0) {
+        navSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+        [navSearchBar setPlaceholder:@"Search Streaks"];
+        [navSearchBar setDelegate:self];
+        [navSearchBar setBarStyle:UIBarStyleDefault];
+        [navSearchBar setSearchBarStyle:UISearchBarStyleMinimal];
+        [navSearchBar setKeyboardType:UIKeyboardTypeAlphabet];
+        [navSearchBar setReturnKeyType:UIReturnKeySearch];
+        [navSearchBar setTintColor:[UIColor whiteColor]];
+        [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+        
+        [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
+        [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
+        
+        self.navigationItem.titleView = navSearchBar;
+    }
 
-    navSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    [navSearchBar setPlaceholder:@"Search Streaks"];
-    [navSearchBar setDelegate:self];
-    [navSearchBar setBarStyle:UIBarStyleDefault];
-    [navSearchBar setSearchBarStyle:UISearchBarStyleMinimal];
-    [navSearchBar setKeyboardType:UIKeyboardTypeAlphabet];
-    [navSearchBar setReturnKeyType:UIReturnKeySearch];
-    [navSearchBar setTintColor:[UIColor whiteColor]];
-    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-    
-    [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
-    [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
-    
-    self.navigationItem.titleView = navSearchBar;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reloadTeams" object:nil];
+    
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
 }
 
 -(void)reloadAll {

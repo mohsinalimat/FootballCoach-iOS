@@ -4,6 +4,7 @@ PODS:
   - Crashlytics (3.7.0):
     - Fabric (~> 1.6.3)
   - CSNotificationView (0.5.4)
+  - DZNEmptyDataSet (1.8)
   - Fabric (1.6.7)
   - FCFileManager (1.0.17)
   - HexColors (4.0.0)
@@ -14,6 +15,7 @@ DEPENDENCIES:
   - AutoCoding
   - Crashlytics
   - CSNotificationView
+  - DZNEmptyDataSet
   - Fabric
   - FCFileManager
   - HexColors
@@ -24,6 +26,7 @@ SPEC CHECKSUMS:
   AutoCoding: b47e528426c84346371dd532b8e6458929e4da34
   Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
   CSNotificationView: 0792f5220163c2befaf1a9716aa3d5a7d6bd4fb1
+  DZNEmptyDataSet: d2351b2e8daefa40433ef292e246e21f6be31a7b
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   FCFileManager: 8bfc931ce2a6223676147e9baf0e8a65c691eca6
   HexColors: 5f95843ef89aff6a72e1fd3a8ebabf205cc43379

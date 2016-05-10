@@ -12,4 +12,5 @@ pod 'CSNotificationView'
 pod 'Fabric'
 pod 'Crashlytics'
 pod 'ATAppUpdater'
+pod 'DZNEmptyDataSet'
 end

@@ -130,6 +130,8 @@
         teamOppPassYards = 0;
         teamOppRushYards = 0;
         teamTODiff = 0;
+        rivalryLosses = 0;
+        rivalryWins = 0;
         
         teamOffTalent = [self getOffensiveTalent];
         teamDefTalent = [self getDefensiveTalent];
@@ -897,6 +899,8 @@
     natlChampWL = @"";
     wins = 0;
     losses = 0;
+    rivalryLosses = 0;
+    rivalryWins = 0;
     
     teamPoints = 0;
     teamOppPoints = 0;
@@ -958,7 +962,7 @@
     }
     
     if (![semifinalWL isEqualToString:@""] && semifinalWL.length > 0) {
-        if ([semifinalWL isEqualToString:@"BW"] || [semifinalWL isEqualToString:@"BL"]) {
+        if ([semifinalWL isEqualToString:@"BW"] || [semifinalWL isEqualToString:@"BL"] || [semifinalWL containsString:@"SF"]) {
             if (gameSchedule.count == 13) {
                 Game *bowl = gameSchedule[12];
                 if ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"]) {
@@ -966,18 +970,9 @@
                 }
             }
         }
-        
-        if ([semifinalWL containsString:@"SF"]) {
-            if (gameSchedule.count > 13) {
-                Game *bowl = gameSchedule[13];
-                if ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"]) {
-                    [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[13],[self gameSummaryString:bowl]];
-                }
-            }
-        }
     }
     
-    if (![natlChampWL isEqualToString:@""] && natlChampWL.length > 0) {
+    if (![natlChampWL isEqualToString:@""] && natlChampWL.length > 0 && gameWLSchedule.count >= 15) {
         Game *ncg = league.ncg;
         [hist appendFormat:@"\n%@ - %@ %@",ncg.gameName,gameWLSchedule[14],[self gameSummaryString:ncg]];
     }
@@ -1570,18 +1565,19 @@
         deltaPrestige += 3;
     }
     
-    if (wonRivalrySeries && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20) ) {
+    NSLog(@"RIVALRY SERIES FOR %@: %d - %d", abbreviation, rivalryWins, rivalryLosses);
+    if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20) ) {
         [summary appendString:@"\n\nRecruits were impressed that you defeated your rival. You gained 2 prestige."];
         deltaPrestige += 2;
-    } else if ((!wonRivalrySeries && rivalryLosses > rivalryWins) && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
-        [summary appendString:@"\n\nSince you couldn't win your rivalry game, recruits aren't excited to attend your school. You lost 2 prestige."];
+    } else if ((rivalryLosses > rivalryWins) && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
+        [summary appendString:@"\n\nSince you couldn't win your rivalry series, recruits aren't excited to attend your school. You lost 2 prestige."];
         deltaPrestige -= 2;
-    } else if (wonRivalrySeries && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 20)) {
-        [summary appendString:@"\n\nYou won your rivalry game, but it was expected given the state of their program. You gain no prestige for this."];
-    } else if (!wonRivalrySeries && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 20)) {
-        [summary appendString:@"\n\nYou lost your rivalry game, but this was expected given your rebuilding program. You lost no prestige for this."];
-    } else if (!wonRivalrySeries && rivalryWins == rivalryLosses) {
+    } else if (rivalryWins == rivalryLosses) {
         [summary appendString:@"\n\nThe season series between you and your rival was tied. You gain no prestige for this."];
+    } else if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 20)) {
+        [summary appendString:@"\n\nYou won your rivalry series, but it was expected given the state of their program. You gain no prestige for this."];
+    } else if ((rivalryWins < rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 20)) {
+        [summary appendString:@"\n\nYou lost your rivalry series, but this was expected given your rebuilding program. You lost no prestige for this."];
     }
     
     if (deltaPrestige > 0) {
@@ -1589,7 +1585,7 @@
     } else if (deltaPrestige < 0) {
         [summary appendString:[[NSString stringWithFormat:@"\n\nOverall, your program lost %ld prestige this season.", (long)deltaPrestige] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
     } else {
-        [summary appendString:@"\n\nOverall, your program didn't gain or lose prestige this season"];
+        [summary appendString:@"\n\nOverall, your program didn't gain or lose prestige this season."];
     }
     
     return summary;

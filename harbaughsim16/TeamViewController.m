@@ -65,7 +65,15 @@
                 //save
                 UITextField *name = alert.textFields[0];
                 UITextField *abbrev = alert.textFields[1];
-                if ((![name.text isEqualToString:selectedTeam.name] || ![abbrev.text isEqualToString:selectedTeam.abbreviation]) && (name.text.length > 0 && abbrev.text.length > 0) && (![name.text isEqualToString:@""] && ![abbrev.text isEqualToString:@""])) {
+                NSArray* words = [name.text.lowercaseString componentsSeparatedByCharactersInSet :[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                NSString* trimmedName = [words componentsJoinedByString:@""];
+                NSLog(@"TRIMMED: %@",trimmedName);
+                if ((![name.text isEqualToString:selectedTeam.name] || ![abbrev.text isEqualToString:selectedTeam.abbreviation])
+                    && (name.text.length > 0 && abbrev.text.length > 0)
+                    && (![name.text isEqualToString:@""]&& ![abbrev.text isEqualToString:@""])
+                    && (![trimmedName isEqualToString:@"americansamoa"])
+                    && ([[HBSharedUtils getLeague] findTeam:abbrev.text] == nil)) {
+
                     [selectedTeam setName:name.text];
                     [selectedTeam setAbbreviation:abbrev.text];
                     Team *rival = [[HBSharedUtils getLeague] findTeam:selectedTeam.rivalTeam];

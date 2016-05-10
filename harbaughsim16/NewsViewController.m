@@ -24,6 +24,7 @@
 #import "HexColors.h"
 #import "STPopup.h"
 #import "harbaughsim16-Bridging-Header.h"
+#import "UIScrollView+EmptyDataSet.h"
 
 @interface HBTeamPlayView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
@@ -34,7 +35,7 @@
 @implementation HBTeamPlayView
 @end
 
-@interface NewsViewController ()
+@interface NewsViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
     NSArray *news;
     Team *userTeam;
@@ -45,6 +46,91 @@
 @end
 
 @implementation NewsViewController
+
+#pragma mark - DZNEmptyDataSetSource Methods
+
+- (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = nil;
+    UIFont *font = nil;
+    UIColor *textColor = nil;
+    
+    NSMutableDictionary *attributes = [NSMutableDictionary new];
+    
+    text = @"No news this week";
+    font = [UIFont boldSystemFontOfSize:18.0];
+    textColor = [UIColor lightTextColor];
+    
+    
+    if (!text) {
+        return nil;
+    }
+    
+    if (font) [attributes setObject:font forKey:NSFontAttributeName];
+    if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
+    
+    return [[NSAttributedString alloc] initWithString:text attributes:attributes];
+}
+
+- (NSAttributedString *)descriptionForEmptyDataSet:(UIScrollView *)scrollView
+{
+    NSString *text = nil;
+    UIFont *font = nil;
+    UIColor *textColor = nil;
+    
+    NSMutableDictionary *attributes = [NSMutableDictionary new];
+    
+    NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
+    paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraph.alignment = NSTextAlignmentCenter;
+    
+    text = @"Every week, news of upsets and thrilling victories from around the league will be posted here.";
+    font = [UIFont systemFontOfSize:17.0];
+    textColor = [UIColor lightTextColor];
+    
+    
+    if (!text) {
+        return nil;
+    }
+    
+    if (font) [attributes setObject:font forKey:NSFontAttributeName];
+    if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
+    if (paragraph) [attributes setObject:paragraph forKey:NSParagraphStyleAttributeName];
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
+    
+    return attributedString;
+}
+
+- (UIColor *)backgroundColorForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return [HBSharedUtils styleColor];
+}
+
+- (CGFloat)verticalOffsetForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return 0.0;
+}
+
+- (CGFloat)spaceHeightForEmptyDataSet:(UIScrollView *)scrollView
+{
+    return 10.0;
+}
+
+#pragma mark - DZNEmptyDataSetDelegate Methods
+
+- (BOOL)emptyDataSetShouldDisplay:(UIScrollView *)scrollView
+{
+    return YES;
+}
+
+-(void)runOnSaveInProgress {
+    [teamHeaderView.playButton setEnabled:NO];
+}
+
+-(void)runOnSaveFinished {
+    [teamHeaderView.playButton setEnabled:YES];
+}
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -130,7 +216,9 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
                 }
                 
-                [self reloadNews:[HBSharedUtils getLeague].currentWeek];
+                if (simLeague.currentWeek <= 15) {
+                    [self reloadNews:simLeague.currentWeek];
+                }
                 [self setupTeamHeader];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
                 if (weekTotal > 1) {
@@ -329,6 +417,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToConfTeam:) name:@"pushToConfTeam" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToConfStandings:) name:@"pushToConfStandings" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runOnSaveInProgress) name:@"saveInProgress" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runOnSaveFinished) name:@"saveFinished" object:nil];
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
 }
 
 -(void)pushToConfTeam:(NSNotification*)confNotification {
@@ -380,6 +472,7 @@
         [teamHeaderView.teamRankLabel setText:@""];
         [teamHeaderView.teamRecordLabel setText:@"0-0"];
     }
+    [teamHeaderView.playButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateDisabled];
     
     
     League *simLeague = [HBSharedUtils getLeague];
