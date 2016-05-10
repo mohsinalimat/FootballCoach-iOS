@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B126401C40074476E0CBD5E /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 816834A7F9C15B63FF8EA2BB /* Pods_harbaughsim16.framework */; };
 		75097C5C1CBC1B55003E2538 /* HBRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75097C5A1CBC1B55003E2538 /* HBRecordCell.m */; };
 		75097C5D1CBC1B55003E2538 /* HBRecordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75097C5B1CBC1B55003E2538 /* HBRecordCell.xib */; };
 		7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */; };
@@ -111,6 +110,7 @@
 		75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */; };
 		75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */; };
 		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
+		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,7 +124,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		44F9430C6D467B894D8E6C88 /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.release.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
+		47B6A776B32A57CB82A6413D /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.release.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
 		75097C591CBC1B55003E2538 /* HBRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBRecordCell.h; sourceTree = "<group>"; };
 		75097C5A1CBC1B55003E2538 /* HBRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBRecordCell.m; sourceTree = "<group>"; };
 		75097C5B1CBC1B55003E2538 /* HBRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBRecordCell.xib; sourceTree = "<group>"; };
@@ -290,8 +290,8 @@
 		75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueHistoryController.m; sourceTree = "<group>"; };
 		75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreaksViewController.h; sourceTree = "<group>"; };
 		75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreaksViewController.m; sourceTree = "<group>"; };
-		816834A7F9C15B63FF8EA2BB /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FAC021E4350CD61827E4ADB7 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
+		D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
+		DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,13 +306,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B126401C40074476E0CBD5E /* Pods_harbaughsim16.framework in Frameworks */,
+				E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38C3A07A6C2A3ED611332D85 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */,
+				47B6A776B32A57CB82A6413D /* Pods-harbaughsim16.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		7510B8441C9C76AD00BE9CD6 /* Base Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -573,8 +582,8 @@
 				75924A1D1C99CCC000B165AD /* harbaughsim16 */,
 				752827101CB069CD00613B65 /* Football CoachUITests */,
 				75924A1C1C99CCC000B165AD /* Products */,
-				A166FA420F5A47450B706E0D /* Pods */,
-				9E01BE51791486545CD182A1 /* Frameworks */,
+				38C3A07A6C2A3ED611332D85 /* Pods */,
+				C0C1FC9379CC5881BF7F3C73 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -662,21 +671,12 @@
 			name = "Simulation Model";
 			sourceTree = "<group>";
 		};
-		9E01BE51791486545CD182A1 /* Frameworks */ = {
+		C0C1FC9379CC5881BF7F3C73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				816834A7F9C15B63FF8EA2BB /* Pods_harbaughsim16.framework */,
+				DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A166FA420F5A47450B706E0D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FAC021E4350CD61827E4ADB7 /* Pods-harbaughsim16.debug.xcconfig */,
-				44F9430C6D467B894D8E6C88 /* Pods-harbaughsim16.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -704,13 +704,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75924A351C99CCC000B165AD /* Build configuration list for PBXNativeTarget "harbaughsim16" */;
 			buildPhases = (
-				3C62C6932E1DFA7793EB4A43 /* Check Pods Manifest.lock */,
+				62C171F5BBEA17298B4AEA0B /* 📦 Check Pods Manifest.lock */,
 				75924A171C99CCC000B165AD /* Sources */,
 				75924A181C99CCC000B165AD /* Frameworks */,
 				75924A191C99CCC000B165AD /* Resources */,
-				420717E5DD0E35E3620D859B /* Embed Pods Frameworks */,
-				91BB9B24087F393AA71E4295 /* Copy Pods Resources */,
 				75EE01B21CD1967500A6D4C0 /* ShellScript */,
+				D697AD2F27F8EAE2FAC35E4F /* 📦 Embed Pods Frameworks */,
+				D9A25D0C4A1917BD6DA56630 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -821,34 +821,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		3C62C6932E1DFA7793EB4A43 /* Check Pods Manifest.lock */ = {
+		62C171F5BBEA17298B4AEA0B /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		420717E5DD0E35E3620D859B /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		75EE01B21CD1967500A6D4C0 /* ShellScript */ = {
@@ -864,14 +849,29 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" b78f856111e2a3bd5e7912b170e627a6117a818e 66e7db92bf1b6f2e94ad0e890361bd81d894a5f91194061aa816c2cb9dc00b1e";
 		};
-		91BB9B24087F393AA71E4295 /* Copy Pods Resources */ = {
+		D697AD2F27F8EAE2FAC35E4F /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9A25D0C4A1917BD6DA56630 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1087,7 +1087,7 @@
 		};
 		75924A361C99CCC000B165AD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FAC021E4350CD61827E4ADB7 /* Pods-harbaughsim16.debug.xcconfig */;
+			baseConfigurationReference = D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -1107,7 +1107,7 @@
 		};
 		75924A371C99CCC000B165AD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 44F9430C6D467B894D8E6C88 /* Pods-harbaughsim16.release.xcconfig */;
+			baseConfigurationReference = 47B6A776B32A57CB82A6413D /* Pods-harbaughsim16.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
