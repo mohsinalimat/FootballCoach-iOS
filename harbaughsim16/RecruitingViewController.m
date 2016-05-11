@@ -1525,7 +1525,6 @@
         //save game
         [[HBSharedUtils getLeague].userTeam recruitWalkOns:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needsS), @(needCBs), @(needF7s)]];
         [HBSharedUtils getLeague].recruitingStage = 0;
-        [[HBSharedUtils getLeague].userTeam resetStats];
         [[HBSharedUtils getLeague] save];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];

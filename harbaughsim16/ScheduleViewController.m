@@ -378,7 +378,7 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Start Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [[HBSharedUtils getLeague] updateTeamHistories];
         [[HBSharedUtils getLeague] updateLeagueHistory];
-        //[userTeam resetStats];
+        [userTeam resetStats];
         [[HBSharedUtils getLeague] advanceSeason];
         [[HBSharedUtils getLeague] save];
         

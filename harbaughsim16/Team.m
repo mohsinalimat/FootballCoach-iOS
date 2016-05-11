@@ -1367,66 +1367,66 @@
 }
 
 -(PlayerQB*)getQB:(int)depth {
-    if ( depth < teamQBs.count && depth >= 0 ) {
+    if (teamQBs.count > 0 && depth < teamQBs.count && depth >= 0 ) {
         return teamQBs[depth];
     } else {
-        return teamQBs[0];
+        return nil;
     }
 }
 
 -(PlayerRB*)getRB:(int)depth {
-    if ( depth < teamRBs.count && depth >= 0 ) {
+    if (teamRBs.count > 0 && depth < teamRBs.count && depth >= 0 ) {
         return teamRBs[depth];
     } else {
-        return teamRBs[0];
+        return nil;
     }
 }
 
 -(PlayerWR*)getWR:(int)depth {
-    if ( depth < teamWRs.count && depth >= 0 ) {
+    if (teamWRs.count > 0 && depth < teamWRs.count && depth >= 0 ) {
         return teamWRs[depth];
     } else {
-        return teamWRs[0];
+        return nil;
     }
 }
 
 -(PlayerK*)getK:(int)depth {
-    if ( depth < teamKs.count && depth >= 0 ) {
+    if (teamKs.count > 0 && depth < teamKs.count && depth >= 0 ) {
         return teamKs[depth];
     } else {
-        return teamKs[0];
+        return nil;
     }
 }
 
 -(PlayerOL*)getOL:(int)depth {
-    if ( depth < teamOLs.count && depth >= 0 ) {
+    if (teamOLs.count > 0 && depth < teamOLs.count && depth >= 0 ) {
         return teamOLs[depth];
     } else {
-        return teamOLs[0];
+        return nil;
     }
 }
 
 -(PlayerS*)getS:(int)depth {
-    if ( depth < teamSs.count && depth >= 0 ) {
+    if (teamSs.count > 0 && depth < teamSs.count && depth >= 0 ) {
         return teamSs[depth];
     } else {
-        return teamSs[0];
+        return nil;
     }
 }
 
 -(PlayerCB*)getCB:(int)depth {
-    if ( depth < teamCBs.count && depth >= 0 ) {
+    if (teamCBs.count > 0 && depth < teamCBs.count && depth >= 0 ) {
         return teamCBs[depth];
     } else {
-        return teamCBs[0];
+        return nil;
     }
 }
 
 -(PlayerF7*)getF7:(int)depth {
-    if ( depth < teamF7s.count && depth >= 0 ) {
+    if (teamF7s.count > 0 && depth < teamF7s.count && depth >= 0 ) {
         return teamF7s[depth];
     } else {
-        return teamF7s[0];
+        return nil;
     }
 }
 
