@@ -94,11 +94,12 @@
 
 -(void)simSeason:(NSInteger)weekTotal {
     League *simLeague = [HBSharedUtils getLeague];
-    
+    [self.navigationItem.leftBarButtonItem setEnabled:NO];
     if (simLeague.recruitingStage == 0) {
         // Perform action on click
         if (simLeague.currentWeek == 15) {
             simLeague.recruitingStage = 1;
+            [[HBSharedUtils getLeague] save];
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld Season Summary", (long)(2016 + userTeam.teamHistory.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alertController animated:YES completion:nil];
@@ -126,9 +127,13 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
                 if (weekTotal > 1) {
                     [self simSeason:(weekTotal - 1)];
+                } else {
+                    [self.navigationItem.leftBarButtonItem setEnabled:YES];
+                    [[HBSharedUtils getLeague] save];
                 }
             });
         }
+        
     } else {
         [self startRecruiting];
     }
@@ -273,6 +278,7 @@
         } else {
             NSInteger numGamesPlayed = userTeam.gameWLSchedule.count;
             [simLeague playWeek];
+            [[HBSharedUtils getLeague] save];
             if (simLeague.currentWeek == 15) {
                 // Show NCG summary
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld Season Summary", (long)(2016 + userTeam.teamHistory.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];

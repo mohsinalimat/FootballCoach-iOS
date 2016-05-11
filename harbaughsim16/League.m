@@ -775,7 +775,7 @@
 
     [self setTeamRanks];
     _currentWeek++;
-    [self save];
+    //[self save];
 }
 
 -(void)scheduleBowlGames {
