@@ -447,7 +447,10 @@
 }
 
 -(void)refreshNews {
-    [self reloadNews:[HBSharedUtils getLeague].currentWeek];
+    int curWeek = [HBSharedUtils getLeague].currentWeek;
+    if (curWeek <= 15) {
+        [self reloadNews:curWeek];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
