@@ -1054,7 +1054,11 @@
         heisman = nil;
         int heismanScore = 0;
         int tempScore = 0;
-        heismanCandidates = [NSMutableArray array];
+        if (heismanCandidates != nil) {
+            [heismanCandidates removeAllObjects];
+        } else {
+            heismanCandidates = [NSMutableArray array];
+        }
         for ( int i = 0; i < _teamList.count; ++i ) {
             //qb
             [heismanCandidates addObject:_teamList[i].teamQBs[0]];
