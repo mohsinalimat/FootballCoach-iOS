@@ -585,10 +585,7 @@
     
     NSString *ydLineStr;
     if (gameYardLine > 50) {
-        int adjYardLine;
-        NSLog(@"ADJ YD LINE: %ld", (long)adjYardLine);
-        adjYardLine = (100 - gameYardLine);
-        ydLineStr = [NSString stringWithFormat:@"%@ %ld", defStr, (long)adjYardLine];
+        ydLineStr = [NSString stringWithFormat:@"%@ %ld", defStr, (long)(100 - gameYardLine)];
     } else if (gameYardLine == 50) {
         ydLineStr = @"50-yard line";
     } else {
