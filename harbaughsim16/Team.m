@@ -785,6 +785,12 @@
         if (teamQBs.count >= 2) {
             qbNeeds = 0;
         }
+        
+        for (Player* p in teamQBs) {
+            if (p.hasRedshirt) {
+                qbNeeds++;
+            }
+        }
     }
     
     if (rbNeeds > 4) {
@@ -792,6 +798,12 @@
     } else {
         if (teamRBs.count >= 4) {
             rbNeeds = 0;
+        }
+        
+        for (Player* p in teamRBs) {
+            if (p.hasRedshirt) {
+                rbNeeds++;
+            }
         }
     }
     
@@ -801,6 +813,12 @@
         if (teamWRs.count >= 6) {
             wrNeeds = 0;
         }
+        
+        for (Player* p in teamWRs) {
+            if (p.hasRedshirt) {
+                wrNeeds++;
+            }
+        }
     }
     
     if (kNeeds > 2) {
@@ -808,6 +826,12 @@
     } else {
         if (teamKs.count >= 2) {
             kNeeds = 0;
+        }
+        
+        for (Player* p in teamKs) {
+            if (p.hasRedshirt) {
+                kNeeds++;
+            }
         }
     }
     
@@ -817,6 +841,12 @@
         if (teamOLs.count >= 10) {
             olNeeds = 0;
         }
+        
+        for (Player* p in teamOLs) {
+            if (p.hasRedshirt) {
+                olNeeds++;
+            }
+        }
     }
     
     if (sNeeds > 2) {
@@ -824,6 +854,12 @@
     } else {
         if (teamSs.count >= 2) {
             sNeeds = 0;
+        }
+        
+        for (Player* p in teamSs) {
+            if (p.hasRedshirt) {
+                sNeeds++;
+            }
         }
     }
     
@@ -833,6 +869,12 @@
         if (teamCBs.count >= 6) {
             cbNeeds = 0;
         }
+        
+        for (Player* p in teamCBs) {
+            if (p.hasRedshirt) {
+                cbNeeds++;
+            }
+        }
     }
     
     if (f7Needs > 14) {
@@ -840,6 +882,12 @@
     } else {
         if (teamF7s.count >= 14) {
             f7Needs = 0;
+        }
+        
+        for (Player* p in teamF7s) {
+            if (p.hasRedshirt) {
+                f7Needs++;
+            }
         }
     }
 
