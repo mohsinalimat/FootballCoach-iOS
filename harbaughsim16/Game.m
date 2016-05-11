@@ -554,8 +554,15 @@
 
 -(NSString*)getEventPrefix {
     NSString *possStr;
-    if ( gamePoss ) possStr = _homeTeam.abbreviation;
-    else possStr = _awayTeam.abbreviation;
+    NSString *defStr;
+    if ( gamePoss ) {
+        possStr = _homeTeam.abbreviation;
+        defStr = _awayTeam.abbreviation;
+    } else {
+        possStr = _awayTeam.abbreviation;
+        defStr = _homeTeam.abbreviation;
+    }
+    
     NSString *yardsNeedAdj = [NSString stringWithFormat:@"%ld",(long)gameYardsNeed];
     int gameDownAdj;
     if (gameDown > 4) {
@@ -576,8 +583,20 @@
     }
     
     
+    NSString *ydLineStr;
+    if (gameYardLine > 50) {
+        int adjYardLine;
+        NSLog(@"ADJ YD LINE: %ld", (long)adjYardLine);
+        adjYardLine = (100 - gameYardLine);
+        ydLineStr = [NSString stringWithFormat:@"%@ %ld", defStr, (long)adjYardLine];
+    } else if (gameYardLine == 50) {
+        ydLineStr = @"50-yard line";
+    } else {
+        ydLineStr = [NSString stringWithFormat:@"%@ %ld", possStr, (long)gameYardLine];
+    }
+    
     if (gameYardLine + gameYardsNeed >= 100) yardsNeedAdj = @"Goal";
-    return [NSString stringWithFormat:@"\n\n%@ %ld - %ld %@, Time: %@\n%@ %@ and %@ at the %ld-yard line.\n",_awayTeam.abbreviation,(long)_awayScore,(long)_homeScore,_homeTeam.abbreviation, [self convGameTime],possStr,downString,yardsNeedAdj,(long)gameYardLine];
+    return [NSString stringWithFormat:@"\n\n%@ %ld - %ld %@, Time: %@\n%@ %@ and %@ at the %@.\n",_awayTeam.abbreviation,(long)_awayScore,(long)_homeScore,_homeTeam.abbreviation, [self convGameTime],possStr,downString,yardsNeedAdj,ydLineStr];
 }
 
 -(NSString*)convGameTime {

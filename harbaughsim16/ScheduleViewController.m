@@ -95,6 +95,7 @@
 -(void)simSeason:(NSInteger)weekTotal {
     League *simLeague = [HBSharedUtils getLeague];
     [self.navigationItem.leftBarButtonItem setEnabled:NO];
+    [teamHeaderView.playButton setEnabled:NO];
     if (simLeague.recruitingStage == 0) {
         // Perform action on click
         if (simLeague.currentWeek == 15) {
@@ -104,7 +105,7 @@
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alertController animated:YES completion:nil];
         } else {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [simLeague playWeek];
                 
                 if (simLeague.currentWeek < 12) {
@@ -129,6 +130,7 @@
                     [self simSeason:(weekTotal - 1)];
                 } else {
                     [self.navigationItem.leftBarButtonItem setEnabled:YES];
+                    [teamHeaderView.playButton setEnabled:YES];
                     [[HBSharedUtils getLeague] save];
                 }
             });
