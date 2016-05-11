@@ -911,7 +911,7 @@
 
 -(void)updateLeagueHistory {
     //update league history
-    [_teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Team *a = (Team*)obj1;
         Team *b = (Team*)obj2;
         if ([a.natlChampWL isEqualToString:@"NCW"]) {
@@ -921,7 +921,7 @@
         } else {
             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
         }
-    }];
+    }] mutableCopy];
     
     NSMutableArray *yearTop10 = [NSMutableArray array];
     Team *tt;

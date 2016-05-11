@@ -154,7 +154,7 @@
     [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
     NSString *heisman;
     NSMutableArray *leagueYear;
-    if (indexPath.row > heismanHistory.count || indexPath.row > leagueHistory.count) {
+    if (indexPath.row >= heismanHistory.count || indexPath.row >= leagueHistory.count) {
         heisman = @"None";
         leagueYear = [NSMutableArray arrayWithObject:@"None"];
     } else {
