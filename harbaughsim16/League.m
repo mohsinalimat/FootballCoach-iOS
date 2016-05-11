@@ -739,7 +739,7 @@
             Team *b = (Team*)obj2;
             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
 
-        }] copy];
+        }] mutableCopy];
 
         [self scheduleBowlGames];
     } else if (_currentWeek == 13 ) {
@@ -789,7 +789,7 @@
         Team *b = (Team*)obj2;
         return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
 
-    }] copy];
+    }] mutableCopy];
 
     //semifinals
     _semiG14 = [Game newGameWithHome:_teamList[0] away:_teamList[3] name:@"Semis, 1v4"];

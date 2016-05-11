@@ -118,7 +118,7 @@
          Team *b = (Team*)obj2;
          return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
      
-     }] copy];
+     }] mutableCopy];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
 

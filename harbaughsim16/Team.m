@@ -1356,10 +1356,8 @@
 }
 
 -(int)getOffensiveTalent {
-    return ([self getQB:0].ratOvr*5 +
-            [self getWR:0].ratOvr + [self getWR:1].ratOvr + [self getWR:2].ratOvr +
-            [self getRB:0].ratOvr + [self getRB:1].ratOvr +
-            [self getCompositeOLPass] + [self getCompositeOLRush] ) / 12;
+    return ([self getQB:0].ratOvr*5 + [self getWR:0].ratOvr + [self getWR:1].ratOvr + [self getWR:2].ratOvr + [self getRB:0].ratOvr + [self getRB:1].ratOvr + [self getCompositeOLPass] + [self getCompositeOLRush] ) / 12;
+    
 }
 
 -(int)getDefensiveTalent {
@@ -1451,10 +1449,17 @@
 
 -(int)getCompositeOLPass {
     int compositeOL = 0;
-    for ( int i = 0; i < 5; ++i ) {
-        compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkP)/2;
+    if (teamOLs.count >= 5) {
+        for ( int i = 0; i < 5; ++i ) {
+            compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkP)/2;
+        }
+        return compositeOL / 5;
+    } else {
+        for ( int i = 0; i < teamF7s.count; ++i ) {
+            compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkP)/2;
+        }
+        return compositeOL / teamOLs.count;
     }
-    return compositeOL / 5;
 }
 
 -(int)getCompositeFootIQ {
@@ -1475,27 +1480,48 @@
 
 -(int)getCompositeOLRush {
     int compositeOL = 0;
-    for ( int i = 0; i < 5; ++i ) {
-        compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkR)/2;
+    if (teamOLs.count >= 5) {
+        for ( int i = 0; i < 5; ++i ) {
+            compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkR)/2;
+        }
+        return compositeOL / 5;
+    } else {
+        for ( int i = 0; i < teamF7s.count; ++i ) {
+            compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkR)/2;
+        }
+        return compositeOL / teamOLs.count;
     }
-    return compositeOL / 5;
 }
 
 -(int)getCompositeF7Pass {
     int compositeF7 = 0;
-    for ( int i = 0; i < 7; ++i ) {
-        PlayerF7 *curF7 = teamF7s[i];
-        compositeF7 += ((curF7.ratF7Pow + curF7.ratF7Pas)/2);
+    if (teamF7s.count >= 7) {
+        for ( int i = 0; i < 7; ++i ) {
+            compositeF7 += (teamF7s[i].ratF7Pow + teamF7s[i].ratF7Rsh)/2;
+        }
+        return compositeF7 / 7;
+    } else {
+        for ( int i = 0; i < teamF7s.count; ++i ) {
+            compositeF7 += (teamF7s[i].ratF7Pow + teamF7s[i].ratF7Rsh)/2;
+        }
+        return compositeF7 / teamF7s.count;
     }
-    return (compositeF7 / 7);
 }
 
 -(int)getCompositeF7Rush {
     int compositeF7 = 0;
-    for ( int i = 0; i < 7; ++i ) {
-        compositeF7 += (teamF7s[i].ratF7Pow + teamF7s[i].ratF7Rsh)/2;
+    if (teamF7s.count >= 7) {
+        for ( int i = 0; i < 7; ++i ) {
+            compositeF7 += (teamF7s[i].ratF7Pow + teamF7s[i].ratF7Rsh)/2;
+        }
+        return compositeF7 / 7;
+    } else {
+        for ( int i = 0; i < teamF7s.count; ++i ) {
+            compositeF7 += (teamF7s[i].ratF7Pow + teamF7s[i].ratF7Rsh)/2;
+        }
+        return compositeF7 / teamF7s.count;
     }
-    return compositeF7 / 7;
+    
 }
 
 -(NSArray*)getTeamStatsArray {
