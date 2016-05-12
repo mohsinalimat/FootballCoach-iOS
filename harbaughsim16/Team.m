@@ -1357,7 +1357,6 @@
 
 -(int)getOffensiveTalent {
     return ([self getQB:0].ratOvr*5 + [self getWR:0].ratOvr + [self getWR:1].ratOvr + [self getWR:2].ratOvr + [self getRB:0].ratOvr + [self getRB:1].ratOvr + [self getCompositeOLPass] + [self getCompositeOLRush] ) / 12;
-    
 }
 
 -(int)getDefensiveTalent {
@@ -1743,12 +1742,11 @@
 }
 
 -(NSString*)weekSummaryString {
-    int i = wins + losses - 1;
-    Game *g = gameSchedule[i];
-    NSString *gameSummary = [NSString stringWithFormat:@"%@ %@",gameWLSchedule[i],[self gameSummaryString:g]];
+    Game *g = [gameSchedule lastObject];
+    NSString *gameSummary = [NSString stringWithFormat:@"%@ %@",[gameWLSchedule lastObject],[self gameSummaryString:g]];
     NSString *rivalryGameStr = @"";
-    if ([g.gameName isEqualToString:@"Rivalry Game"]) {
-        if ( [gameWLSchedule[i] isEqualToString:@"W"] ) {
+    if ([g.gameName isEqualToString:@"Rivalry Game"] || [g.homeTeam.rivalTeam isEqualToString:g.awayTeam.abbreviation] || [g.awayTeam.rivalTeam isEqualToString:g.homeTeam.abbreviation]) {
+        if ( [[gameWLSchedule lastObject] isEqualToString:@"W"] ) {
             rivalryGameStr = @"Won against Rival! ";
         } else {
             rivalryGameStr = @"Lost against Rival! ";

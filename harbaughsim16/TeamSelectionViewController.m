@@ -71,7 +71,7 @@
             [league save];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
-            // TODO: Track the user action that is important for you.
+
             [Answers logContentViewWithName:@"New Team Created" contentType:@"Team" contentId:@"team16" customAttributes:@{@"Team Name":userTeam.name}];
 
             [self dismissViewControllerAnimated:YES completion:nil];
