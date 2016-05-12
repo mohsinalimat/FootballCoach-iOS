@@ -109,8 +109,8 @@
     [super viewDidLoad];
     leagueHistory = [HBSharedUtils getLeague].leagueHistory;
     heismanHistory = [HBSharedUtils getLeague].heismanHistory;
-    [self.tableView setRowHeight:60];
-    [self.tableView setEstimatedRowHeight:60];
+    [self.tableView setRowHeight:75];
+    [self.tableView setEstimatedRowHeight:75];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     self.title = @"League History";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
@@ -149,6 +149,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         [cell.detailTextLabel setNumberOfLines:0];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:18.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:16.0]];
     }
     // Configure the cell...
     [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];

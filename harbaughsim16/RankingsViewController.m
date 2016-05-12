@@ -191,6 +191,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        [cell.textLabel setFont:[UIFont systemFontOfSize:18.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:18.0]];
     }
     
     Team *t = teams[indexPath.row];

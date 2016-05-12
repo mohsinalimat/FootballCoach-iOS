@@ -607,6 +607,7 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewsCell"];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                [cell.textLabel setFont:[UIFont systemFontOfSize:18.0]];
             }
             
             if ([HBSharedUtils getLeague].currentWeek >= 15) {
