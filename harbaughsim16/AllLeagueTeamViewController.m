@@ -25,6 +25,7 @@
     NSMutableArray *leadingRBs;
     NSMutableArray *leadingWRs;
     NSMutableArray *leadingKs;
+    Player *heisman;
 }
 @end
 
@@ -39,6 +40,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    heisman = [[HBSharedUtils getLeague] heisman];
     
     self.title = [NSString stringWithFormat:@"%ld's All-League Team", (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)];
     
@@ -202,10 +205,12 @@
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
-        if ([[[HBSharedUtils getLeague] getHeisman][0] isEqual:plyr]) {
-            [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
-        } else {
-            [statsCell.playerLabel setTextColor:[UIColor blackColor]];
+        if (heisman != nil) {
+            if ([heisman isEqual:plyr]) {
+                [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
+            } else {
+                [statsCell.playerLabel setTextColor:[UIColor blackColor]];
+            }
         }
     }
     

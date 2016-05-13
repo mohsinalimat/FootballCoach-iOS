@@ -33,6 +33,7 @@
     NSMutableArray *round5;
     NSMutableArray *round6;
     NSMutableArray *round7;
+    Player *heisman;
 }
 @end
 
@@ -59,6 +60,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(changeRounds)];
     self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)];
@@ -79,7 +81,10 @@
         }
         [players addObjectsFromArray:t.playersLeaving];
     }
-    Player *heisman = [[HBSharedUtils getLeague] getHeisman][0];
+    heisman = [HBSharedUtils getLeague].heisman;
+    if (!heisman) {
+        heisman = [[HBSharedUtils getLeague] calculateHeismanCandidates][0];
+    }
     
     [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
@@ -155,6 +160,8 @@
         }
         [round1 addObject:p];
     }
+    
+    //do something to reward user for rd1 draftees?
     
     for (int j = 32; j < 64; j++) {
         Player *p = players[j];
@@ -279,10 +286,12 @@
     if ([p.team isEqual:[HBSharedUtils getLeague].userTeam]) {
         nameColor = [HBSharedUtils styleColor];
     } else {
-        if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] getHeisman][0] isEqual:p]) {
-            nameColor = [HBSharedUtils champColor];
-        } else {
-            nameColor = [UIColor blackColor];
+        if (heisman != nil) {
+            if ([heisman isEqual:p]) {
+                nameColor = [HBSharedUtils champColor];
+            } else {
+                nameColor = [UIColor blackColor];
+            }
         }
     }
     

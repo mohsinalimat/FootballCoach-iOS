@@ -25,6 +25,7 @@
 @interface HeismanLeadersViewController ()
 {
     NSArray *heismanLeaders;
+    Player *heisman;
 }
 @end
 
@@ -39,6 +40,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    heisman = [[HBSharedUtils getLeague] heisman];
+    
     self.title = @"POTY Leaders";
     self.tableView.rowHeight = 60;
     self.tableView.estimatedRowHeight = 60;
@@ -114,10 +118,18 @@
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
-        if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] getHeisman][0] isEqual:plyr]) {
+        /*if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] calculateHeismanCandidates][0] isEqual:plyr]) {
             [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
-        } else {
+         } else {
             [statsCell.playerLabel setTextColor:[UIColor blackColor]];
+         }*/
+        
+        if ([HBSharedUtils getLeague].currentWeek >= 13 && heisman != nil) {
+            if ([heisman isEqual:plyr]) {
+                [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
+            } else {
+                [statsCell.playerLabel setTextColor:[UIColor blackColor]];
+            }
         }
     }
     

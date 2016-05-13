@@ -15,7 +15,6 @@
 
 @interface League : NSObject <NSCoding> {
     BOOL heismanDecided;
-    Player *heisman;
     NSMutableArray<Player*> *heismanCandidates;
     NSString *heismanWinnerStrFull;
     
@@ -55,6 +54,7 @@
 @property (strong, nonatomic)  NSMutableArray<Team*> *teamList;
 @property (strong, nonatomic)  NSMutableArray<NSString*> *nameList;
 @property (strong, nonatomic)  NSMutableArray<NSMutableArray*> *newsStories;
+
 @property (strong, nonatomic) Team *blessedTeam;
 @property (strong, nonatomic) Team *cursedTeam;
 @property (strong, nonatomic) NSString *blessedTeamCoachName;
@@ -66,6 +66,7 @@
 @property (nonatomic) int currentWeek;
 
 //Bowl Games
+@property (strong, nonatomic) Player *heisman;
 @property (nonatomic)  BOOL hasScheduledBowls;
 @property (strong, nonatomic)  Game *semiG14;
 @property (strong, nonatomic)  Game *semiG23;
@@ -129,7 +130,7 @@
 -(void)updateTeamHistories;
 -(void)updateTeamTalentRatings;
 -(NSString*)getRandName;
--(NSArray<Player*>*)getHeisman;
+-(NSArray<Player*>*)calculateHeismanCandidates;
 -(NSString*)getHeismanCeremonyStr;
 -(NSString*)getGameSummaryBowl:(Game*)g;
 -(Team*)findTeam:(NSString*)name;

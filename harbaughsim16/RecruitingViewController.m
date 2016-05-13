@@ -1124,9 +1124,8 @@
         letterColor = [UIColor lightGrayColor];
     }
     
-    [stat5Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
+    [stat5Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat5 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat5ValueLabel setAttributedText:stat5Att];
-    
     
     
     if ([player isKindOfClass:[PlayerQB class]]) {

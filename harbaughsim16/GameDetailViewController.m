@@ -32,6 +32,7 @@
 {
     Game *selectedGame;
     NSDictionary *stats;
+    Player *heisman;
 }
 @end
 
@@ -48,6 +49,7 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Game";
+    heisman = [[HBSharedUtils getLeague] heisman];
     stats = [selectedGame gameReport];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBStatsCell" bundle:nil] forCellReuseIdentifier:@"HBStatsCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
@@ -371,10 +373,18 @@
             [statsCell.playerLabel setText:[plyr getInitialName]];
             [statsCell.teamLabel setText:plyr.team.abbreviation];
             
-            if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] getHeisman][0] isEqual:plyr]) {
+            /*if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] calculateHeismanCandidates][0] isEqual:plyr]) {
                 [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
             } else {
                 [statsCell.playerLabel setTextColor:[UIColor blackColor]];
+            }*/
+            
+            if ([HBSharedUtils getLeague].currentWeek >= 13 && heisman != nil) {
+                if ([heisman isEqual:plyr]) {
+                    [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
+                } else {
+                    [statsCell.playerLabel setTextColor:[UIColor blackColor]];
+                }
             }
             
             [statsCell.stat1Label setText:stat1];
@@ -555,10 +565,18 @@
                 [statsCell.teamLabel setText:selectedGame.homeTeam.abbreviation];
             }
             
-            if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] getHeisman][0] isEqual:plyr]) {
+            /*if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] calculateHeismanCandidates][0] isEqual:plyr]) {
                 [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
-            } else {
+             } else {
                 [statsCell.playerLabel setTextColor:[UIColor blackColor]];
+             }*/
+            
+            if ([HBSharedUtils getLeague].currentWeek >= 13 && heisman != nil) {
+                if ([heisman isEqual:plyr]) {
+                    [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
+                } else {
+                    [statsCell.playerLabel setTextColor:[UIColor blackColor]];
+                }
             }
             
             
