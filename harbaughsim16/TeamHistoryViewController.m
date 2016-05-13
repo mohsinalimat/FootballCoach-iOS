@@ -104,7 +104,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 6;
+        return 7;
     } else {
         return history.count;
     }
@@ -157,6 +157,14 @@
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
         } else if (indexPath.row == 2) {
+            [cell.textLabel setText:@"Conference Win Percentage"];
+            if ((userTeam.totalConfLosses + userTeam.totalConfWins) > 0) {
+                int winPercent = (int)(100 * ((double)userTeam.totalConfWins) / ((double)(userTeam.totalConfWins + userTeam.totalConfLosses)));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, userTeam.totalConfWins,userTeam.totalConfLosses]];
+            } else {
+                [cell.detailTextLabel setText:@"0% (0-0)"];
+            }
+        } else if (indexPath.row == 3) {
             [cell.textLabel setText:@"Bowl Win Percentage"]; //XX% (W-L)
             if ((userTeam.totalBowlLosses + userTeam.totalBowls) > 0) {
                 int winPercent = (int)(100 * ((double)userTeam.totalBowls) / ((double)(userTeam.totalBowls + userTeam.totalBowlLosses)));
@@ -164,7 +172,7 @@
             } else {
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             [cell.textLabel setText:@"Conference Championships"];
             if ((userTeam.totalCCLosses + userTeam.totalCCs) > 0) {
                 int winPercent = (int)(100 * ((double)userTeam.totalCCs) / ((double)(userTeam.totalCCs + userTeam.totalCCLosses)));
@@ -172,7 +180,7 @@
             } else {
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             [cell.textLabel setText:@"National Championships"];
             if ((userTeam.totalNCLosses + userTeam.totalNCs) > 0) {
                 int winPercent = (int)(100 * ((double)userTeam.totalNCs) / ((double)(userTeam.totalNCs + userTeam.totalNCLosses)));

@@ -26,7 +26,7 @@
 #define NCG_DRAFT_BONUS 0.20
 
 @implementation Team
-@synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses;
+@synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses;
 
 -(Player*)playerToWatch {
     NSMutableArray *topPlayers = [NSMutableArray array];
@@ -105,6 +105,13 @@
         //set stats
         totalWins = 0;
         totalLosses = 0;
+        
+        confLosses = 0;
+        confWins = 0;
+        
+        totalConfLosses = 0;
+        totalConfWins = 0;
+        
         totalCCs = 0;
         totalNCs = 0;
         
@@ -947,6 +954,8 @@
     natlChampWL = @"";
     wins = 0;
     losses = 0;
+    confWins = 0;
+    confLosses = 0;
     rivalryLosses = 0;
     rivalryWins = 0;
     
@@ -1690,38 +1699,46 @@
     } else return 1;
 }
 
--(int)getConfWins {
-    int confWins = 0;
+-(int)calculateConfWins {
+    int tempConfWins = 0;
     Game *g;
     for (int i = 0; i < gameWLSchedule.count; ++i) {
         g = gameSchedule[i];
         if ( [g.gameName isEqualToString:@"In Conf" ] || [g.gameName isEqualToString:@"Rivalry Game"] ) {
             // in conference game, see if was won
             if ( [g.homeTeam isEqual: self] && g.homeScore > g.awayScore ) {
-                confWins++;
+                tempConfWins++;
             } else if ( [g.awayTeam isEqual: self] && g.homeScore < g.awayScore ) {
-                confWins++;
+                tempConfWins++;
             }
         }
     }
-    return confWins;
+    if (tempConfWins == confWins) {
+        return confWins;
+    } else {
+        return tempConfWins;
+    }
 }
 
--(int)getConfLosses {
-    int confLosses = 0;
+-(int)calculateConfLosses {
+    int tempConfLosses = 0;
     Game *g;
     for (int i = 0; i < gameWLSchedule.count; ++i) {
         g = gameSchedule[i];
         if ( [g.gameName isEqualToString:@"In Conf" ] || [g.gameName isEqualToString:@"Rivalry Game"] ) {
             // in conference game, see if was lost
             if ( [g.homeTeam isEqual: self] && g.homeScore < g.awayScore ) {
-                confLosses++;
+                tempConfLosses++;
             } else if ( [g.awayTeam isEqual: self] && g.homeScore > g.awayScore ) {
-                confLosses++;
+                tempConfLosses++;
             }
         }
     }
-    return confLosses;
+    if (tempConfLosses == confLosses) {
+        return confLosses;
+    } else {
+        return tempConfLosses;
+    }
 }
 
 -(NSString*)strRep {
@@ -1933,9 +1950,9 @@
 - (NSComparisonResult)compare:(id)other
 {
     Team *otherTeam = (Team*)other;
-    if (self.getConfWins > otherTeam.getConfWins) {
+    if (self.calculateConfWins > otherTeam.calculateConfWins) {
         return -1;
-    } else if (self.getConfWins == otherTeam.getConfWins) {
+    } else if (self.calculateConfWins == otherTeam.calculateConfWins) {
         if ([self.gameWinsAgainst containsObject:otherTeam]) {
             return -1;
         } else if ([otherTeam.gameWinsAgainst containsObject:self]) {

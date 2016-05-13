@@ -58,13 +58,13 @@
         int score1 = 0, score2 = 0;
         for (int i = [NSNumber numberWithInteger:_confTeams.count].intValue - 1; i >= 0; --i) { //count backwards so higher ranked teams are predicted
             Team *t = _confTeams[i];
-            if ([t getConfWins] >= score1) {
+            if ([t calculateConfWins] >= score1) {
                 score2 = score1;
-                score1 = [t getConfWins];
+                score1 = [t calculateConfWins];
                 team2 = team1;
                 team1 = t;
-            } else if ([t getConfWins] > score2) {
-                score2 = [t getConfWins];
+            } else if ([t calculateConfWins] > score2) {
+                score2 = [t calculateConfWins];
                 team2 = t;
             }
         }
@@ -140,9 +140,9 @@
         Team *b = (Team*)obj2;
         if ([a.confChampion isEqualToString:@"CC"]) return -1;
         else if ([b.confChampion isEqualToString:@"CC"]) return 1;
-        if ([a getConfWins] > [b getConfWins]) {
+        if ([a calculateConfWins] > [b calculateConfWins]) {
             return -1;
-        } else if ([a getConfWins] == [b getConfWins]) {
+        } else if ([a calculateConfWins] == [b calculateConfWins]) {
             //check for h2h tiebreaker
             if ([a.gameWinsAgainst containsObject:b]) {
                 return -1;
@@ -156,11 +156,11 @@
         }
     }] mutableCopy];
     
-    int winsFirst = [_confTeams[0] getConfWins];
+    int winsFirst = [_confTeams[0] calculateConfWins];
     Team *t = _confTeams[0];
     int i = 0;
     NSMutableArray *teamTB = [NSMutableArray array];
-    while ([t getConfWins] == winsFirst) {
+    while ([t calculateConfWins] == winsFirst) {
         [teamTB addObject:t];
         ++i;
         t = _confTeams[i];
@@ -170,9 +170,9 @@
         [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            if ([a getConfWins] > [b getConfWins]) {
+            if ([a calculateConfWins] > [b calculateConfWins]) {
                 return -1;
-            } else if ([a getConfWins] == [b getConfWins]) {
+            } else if ([a calculateConfWins] == [b calculateConfWins]) {
                 //check for h2h tiebreaker
                 if ([a.gameWinsAgainst containsObject:b]) {
                     return -1;
@@ -191,11 +191,11 @@
         
     }
     
-    int winsSecond = [_confTeams[1] getConfWins];
+    int winsSecond = [_confTeams[1] calculateConfWins];
     t = _confTeams[1];
     i = 1;
     [teamTB removeAllObjects];
-    while ([t getConfWins] == winsSecond) {
+    while ([t calculateConfWins] == winsSecond) {
         [teamTB addObject:t];
         ++i;
         t = _confTeams[i];
@@ -205,9 +205,9 @@
         [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            if ([a getConfWins] > [b getConfWins]) {
+            if ([a calculateConfWins] > [b calculateConfWins]) {
                 return -1;
-            } else if ([a getConfWins] == [b getConfWins]) {
+            } else if ([a calculateConfWins] == [b calculateConfWins]) {
                 //check for h2h tiebreaker
                 if ([a.gameWinsAgainst containsObject:b]) {
                     return -1;

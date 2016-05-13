@@ -1109,6 +1109,23 @@
             }
         }
         
+        
+        if (([_homeTeam.conference isEqualToString:_awayTeam.conference]) || [_gameName isEqualToString:@"In Conf"] || [_gameName isEqualToString:@"Rivalry Game"] ) {
+            // in conference game, see if was won
+            if (_homeScore > _awayScore) {
+                _homeTeam.confWins++;
+                _homeTeam.totalConfWins++;
+                _awayTeam.confLosses++;
+                _awayTeam.totalConfLosses++;
+            } else if (_homeScore < _awayScore) {
+                _awayTeam.confWins++;
+                _awayTeam.totalConfWins++;
+                _homeTeam.confLosses++;
+                _homeTeam.totalConfLosses++;
+            }
+        }
+        
+        
         if ([_gameName isEqualToString:@"Rivalry Game"] || [_homeTeam.rivalTeam isEqualToString:_awayTeam.abbreviation] || [_awayTeam.rivalTeam isEqualToString:_homeTeam.abbreviation]) {
             if (_homeScore > _awayScore) {
                 _homeTeam.wonRivalryGame = true;

@@ -159,7 +159,7 @@
                         awayRank = [NSString stringWithFormat:@"#%d ",ccg.awayTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,ccg.awayTeam.name]];
-                    [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",ccg.awayTeam.wins,ccg.awayTeam.losses,(long)[ccg.awayTeam getConfWins], (long)[ccg.awayTeam getConfLosses],ccg.awayTeam.conference]];
+                    [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",ccg.awayTeam.wins,ccg.awayTeam.losses,(long)[ccg.awayTeam calculateConfWins], (long)[ccg.awayTeam calculateConfLosses],ccg.awayTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",ccg.awayScore]];
                     if (ccg.homeScore < ccg.awayScore) {
                         [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
@@ -179,7 +179,7 @@
                         homeRank = [NSString stringWithFormat:@"#%d ",ccg.homeTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,ccg.homeTeam.name]];
-                    [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",ccg.homeTeam.wins,ccg.homeTeam.losses,(long)[ccg.homeTeam getConfWins], (long)[ccg.homeTeam getConfLosses],ccg.homeTeam.conference]];
+                    [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",ccg.homeTeam.wins,ccg.homeTeam.losses,(long)[ccg.homeTeam calculateConfWins], (long)[ccg.homeTeam calculateConfLosses],ccg.homeTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",ccg.homeScore]];
                     if (ccg.homeScore > ccg.awayScore) {
                         [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
@@ -217,8 +217,8 @@
         } else {
             HBTeamRankCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HBTeamRankCell"];
             Team *t = selectedConf.confTeams[indexPath.row];
-            [cell.confWinsLabel setText:[NSString stringWithFormat:@"%ld", (long)[t getConfWins]]];
-            [cell.confLossLabel setText:[NSString stringWithFormat:@"%ld", (long)[t getConfLosses]]];
+            [cell.confWinsLabel setText:[NSString stringWithFormat:@"%ld", (long)[t calculateConfWins]]];
+            [cell.confLossLabel setText:[NSString stringWithFormat:@"%ld", (long)[t calculateConfLosses]]];
             [cell.totalWinsLabel setText:[NSString stringWithFormat:@"%ld", (long)t.wins]];
             [cell.totalLossesLabel setText:[NSString stringWithFormat:@"%ld", (long)t.losses]];
             [cell.teamNameLabel setText:t.name];
@@ -233,8 +233,8 @@
     } else {
         HBTeamRankCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HBTeamRankCell"];
         Team *t = selectedConf.confTeams[indexPath.row];
-        [cell.confWinsLabel setText:[NSString stringWithFormat:@"%ld", (long)[t getConfWins]]];
-        [cell.confLossLabel setText:[NSString stringWithFormat:@"%ld", (long)[t getConfLosses]]];
+        [cell.confWinsLabel setText:[NSString stringWithFormat:@"%ld", (long)[t calculateConfWins]]];
+        [cell.confLossLabel setText:[NSString stringWithFormat:@"%ld", (long)[t calculateConfLosses]]];
         [cell.totalWinsLabel setText:[NSString stringWithFormat:@"%ld", (long)t.wins]];
         [cell.totalLossesLabel setText:[NSString stringWithFormat:@"%ld", (long)t.losses]];
         [cell.teamNameLabel setText:t.name];

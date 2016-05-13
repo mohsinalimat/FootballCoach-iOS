@@ -75,6 +75,10 @@
 @property (nonatomic) int losses;
 @property (nonatomic) int rivalryWins;
 @property (nonatomic) int rivalryLosses;
+@property (nonatomic) int confWins;
+@property (nonatomic) int confLosses;
+@property (nonatomic) int totalConfWins;
+@property (nonatomic) int totalConfLosses;
 @property (nonatomic) int totalWins;
 @property (nonatomic) int totalLosses;
 @property (nonatomic) int totalCCs;
@@ -229,8 +233,8 @@
 -(NSString*)getRankString:(int)num;
 -(NSString*)getRankStrStarUser:(int)num;
 -(int)numGames;
--(int)getConfWins;
--(int)getConfLosses;
+-(int)calculateConfWins;
+-(int)calculateConfLosses;
 -(NSString*)strRep;
 -(NSString*)strRepWithBowlResults;
 -(NSString*)weekSummaryString;
