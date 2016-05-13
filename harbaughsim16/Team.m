@@ -33,19 +33,25 @@
     [topPlayers addObject:teamQBs[0]];
     
     //rb
-    for (int rb = 0; rb < 2; ++rb) {
+    for (int rb = 0; rb < 2; rb++) {
         [topPlayers addObject:teamRBs[rb]];
     }
     
     //wr
-    for (int wr = 0; wr < 3; ++wr) {
+    for (int wr = 0; wr < 3; wr++) {
         [topPlayers addObject:teamWRs[wr]];
     }
     
     [topPlayers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman) {
+            return -1;
+        } else if (b.isHeisman) {
+            return 1;
+        } else {
+            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        }
     }];
     return topPlayers[0];
 }
