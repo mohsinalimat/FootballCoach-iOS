@@ -911,8 +911,11 @@
                 }
                 
                 [self.tableView reloadData];
-                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-               
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    if (players.count > 0) {
+                        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+                    }
+                });
             }]];
         }
         
@@ -937,43 +940,45 @@
     players = playersCopy;
     
     //re-sort them by ovr
-    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
+    if (players.count > 0) {
+        [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Player *a = (Player*)obj1;
+            Player *b = (Player*)obj2;
+            if (!a.hasRedshirt && !b.hasRedshirt) {
+                if (a.ratOvr > b.ratOvr) {
                     return -1;
-                } else if (a.ratPot < b.ratPot) {
+                } else if (a.ratOvr < b.ratOvr) {
                     return 1;
                 } else {
-                    return 0;
+                    if (a.ratPot > b.ratPot) {
+                        return -1;
+                    } else if (a.ratPot < b.ratPot) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
                 }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
+            } else if (a.hasRedshirt) {
                 return 1;
+            } else if (b.hasRedshirt) {
+                return -1;
             } else {
-                if (a.ratPot > b.ratPot) {
+                if (a.ratOvr > b.ratOvr) {
                     return -1;
-                } else if (a.ratPot < b.ratPot) {
+                } else if (a.ratOvr < b.ratOvr) {
                     return 1;
                 } else {
-                    return 0;
+                    if (a.ratPot > b.ratPot) {
+                        return -1;
+                    } else if (a.ratPot < b.ratPot) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
                 }
             }
-        }
-    }];
+        }];
+    }
 }
 
 -(void)showRemainingNeeds {
