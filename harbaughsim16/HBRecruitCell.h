@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *stat2ValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stat3ValueLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stat4ValueLabel;
+@property (weak, nonatomic) IBOutlet UILabel *stat5ValueLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *recruitButton;
 @end

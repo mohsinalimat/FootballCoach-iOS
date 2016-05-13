@@ -444,8 +444,8 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.rowHeight = 150;
-    self.tableView.estimatedRowHeight = 150;
+    self.tableView.rowHeight = 175;
+    self.tableView.estimatedRowHeight = 175;
     recruitingBudget = [HBSharedUtils getLeague].userTeam.recruitingMoney;
     
     NSInteger teamSize = [HBSharedUtils getLeague].userTeam.teamQBs.count + [HBSharedUtils getLeague].userTeam.teamRBs.count + [HBSharedUtils getLeague].userTeam.teamWRs.count + [HBSharedUtils getLeague].userTeam.teamKs.count + [HBSharedUtils getLeague].userTeam.teamSs.count + [HBSharedUtils getLeague].userTeam.teamCBs.count + [HBSharedUtils getLeague].userTeam.teamF7s.count;
@@ -1101,6 +1101,24 @@
     [stat1Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor}]];
     [cell.stat1ValueLabel setAttributedText:stat1Att];
     
+    NSMutableAttributedString *stat5Att = [[NSMutableAttributedString alloc] initWithString:@"Football IQ: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
+    NSString *stat5 = [player getLetterGrade:player.ratFootIQ];
+    if ([stat5 containsString:@"A"]) {
+        letterColor = [HBSharedUtils successColor];
+    } else if ([stat5 containsString:@"B"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+    } else if ([stat5 containsString:@"C"]) {
+        letterColor = [HBSharedUtils champColor];
+    } else if ([stat5 containsString:@"D"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+    } else if ([stat5 containsString:@"F"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+    } else {
+        letterColor = [UIColor lightGrayColor];
+    }
+    
+    [stat5Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor}]];
+    [cell.stat5ValueLabel setAttributedText:stat5Att];
     
     
     
