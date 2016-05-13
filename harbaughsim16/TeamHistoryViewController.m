@@ -85,7 +85,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 44;
+        return UITableViewAutomaticDimension;
     } else {
         NSInteger lineCount = [self _lineCount:history[indexPath.row]];
         if (lineCount >= 3) {
@@ -142,8 +142,6 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
             [cell.detailTextLabel setNumberOfLines:0];
-            [cell.textLabel setFont:[UIFont systemFontOfSize:18.0]];
-            [cell.detailTextLabel setFont:[UIFont systemFontOfSize:16.0]];
         }
         if (indexPath.row == 0) {
             [cell.textLabel setText:@"Seasons"];
@@ -202,11 +200,10 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"LowerCell"];
             [cell setBackgroundColor:[UIColor whiteColor]];
-            [cell.textLabel setFont:[UIFont systemFontOfSize:18.0]];
-            [cell.detailTextLabel setFont:[UIFont systemFontOfSize:16.0]];
             [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell.detailTextLabel setNumberOfLines:5];
+            [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
         }
         
         [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
@@ -232,8 +229,8 @@
                 }
             }
         }
-        NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:hist attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular]}];
-        [attText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.0 weight:UIFontWeightRegular] range:[hist rangeOfString:comps[0]]];
+        NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:hist attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular]}];
+        [attText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular] range:[hist rangeOfString:comps[0]]];
         [attText addAttribute:NSForegroundColorAttributeName value:teamColor range:[hist rangeOfString:comps[0]]];
         [cell.detailTextLabel setAttributedText:attText];
         [cell.detailTextLabel sizeToFit];

@@ -38,7 +38,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
     text = @"No streaks yet";
-    font = [UIFont boldSystemFontOfSize:18.0];
+    font = [UIFont boldSystemFontOfSize:17.0];
     textColor = [UIColor lightTextColor];
     
     
@@ -65,7 +65,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"When your team starts playing games, its records against other teams will be displayed here.";
-    font = [UIFont systemFontOfSize:17.0];
+    font = [UIFont systemFontOfSize:15.0];
     textColor = [UIColor lightTextColor];
     
     

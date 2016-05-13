@@ -1098,7 +1098,7 @@
         letterColor = [UIColor lightGrayColor];
     }
     
-    [stat1Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor}]];
+    [stat1Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat1ValueLabel setAttributedText:stat1Att];
     
     NSMutableAttributedString *stat5Att = [[NSMutableAttributedString alloc] initWithString:@"Football IQ: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
@@ -1117,7 +1117,7 @@
         letterColor = [UIColor lightGrayColor];
     }
     
-    [stat5Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor}]];
+    [stat5Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat5ValueLabel setAttributedText:stat5Att];
     
     
@@ -1195,7 +1195,7 @@
         letterColor = [UIColor lightGrayColor];
     }
     
-    [stat2Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat2Val attributes:@{NSForegroundColorAttributeName : letterColor}]];
+    [stat2Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat2Val attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat2ValueLabel setAttributedText:stat2Att];
     
     NSMutableAttributedString *stat3Att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@: ", stat3] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
@@ -1213,7 +1213,7 @@
         letterColor = [UIColor lightGrayColor];
     }
     
-    [stat3Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat3Val attributes:@{NSForegroundColorAttributeName : letterColor}]];
+    [stat3Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat3Val attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat3ValueLabel setAttributedText:stat3Att];
     
     NSMutableAttributedString *stat4Att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@: ", stat4] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
@@ -1231,7 +1231,7 @@
         letterColor = [UIColor lightGrayColor];
     }
     
-    [stat4Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat4Val attributes:@{NSForegroundColorAttributeName : letterColor}]];
+    [stat4Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat4Val attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat4ValueLabel setAttributedText:stat4Att];
     
     if (player.cost > recruitingBudget || _viewingSignees) {

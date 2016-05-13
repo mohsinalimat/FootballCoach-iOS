@@ -47,7 +47,7 @@
     } else {
         text = @"No all-time records yet";
     }
-    font = [UIFont boldSystemFontOfSize:18.0];
+    font = [UIFont boldSystemFontOfSize:17.0];
     textColor = [UIColor lightTextColor];
 
     
@@ -74,7 +74,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"When players set or break records, they will be immortalized here!";
-    font = [UIFont systemFontOfSize:17.0];
+    font = [UIFont systemFontOfSize:15.0];
     textColor = [UIColor lightTextColor];
 
     
@@ -120,8 +120,8 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBRecordCell" bundle:nil] forCellReuseIdentifier:@"HBRecordCell"];
-    [self.tableView setRowHeight:87];
-    [self.tableView setEstimatedRowHeight:87];
+    [self.tableView setRowHeight:75];
+    [self.tableView setEstimatedRowHeight:75];
     //add seg control as title view
     //if seg control index == 0 - display single season records
     //if seg control index == 1 - display career records

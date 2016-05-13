@@ -31,7 +31,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
     text = @"No league history yet";
-    font = [UIFont boldSystemFontOfSize:18.0];
+    font = [UIFont boldSystemFontOfSize:17.0];
     textColor = [UIColor lightTextColor];
     
     
@@ -58,7 +58,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"As you play season after season, the national champion and the Player of the Year for each season will be immortalized here.";
-    font = [UIFont systemFontOfSize:17.0];
+    font = [UIFont systemFontOfSize:15.0];
     textColor = [UIColor lightTextColor];
     
     
@@ -149,8 +149,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         [cell.detailTextLabel setNumberOfLines:0];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:18.0]];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:16.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+        
     }
     // Configure the cell...
     [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
@@ -163,14 +163,14 @@
         heisman = heismanHistory[indexPath.row];
         leagueYear = leagueHistory[indexPath.row];
     }
-    NSMutableAttributedString *champString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Champion: %@",leagueYear[0]]];
+    NSMutableAttributedString *champString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Champion: %@",leagueYear[0]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
     if ([champString.string containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
         [champString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, champString.string.length)];
     } else {
         [champString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, champString.string.length)];
     }
     
-    NSMutableAttributedString *heismanString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nPOTY: %@",heisman]];
+    NSMutableAttributedString *heismanString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nPOTY: %@",heisman] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
     if ([heisman containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
         [heismanString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, heismanString.string.length)];
     } else {

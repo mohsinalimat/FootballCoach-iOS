@@ -58,7 +58,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
     text = @"No news this week";
-    font = [UIFont boldSystemFontOfSize:18.0];
+    font = [UIFont boldSystemFontOfSize:17.0];
     textColor = [UIColor lightTextColor];
     
     
@@ -85,7 +85,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"Every week, news of upsets and thrilling victories from around the league will be posted here.";
-    font = [UIFont systemFontOfSize:17.0];
+    font = [UIFont systemFontOfSize:15.0];
     textColor = [UIColor lightTextColor];
     
     
@@ -607,7 +607,6 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewsCell"];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                [cell.textLabel setFont:[UIFont systemFontOfSize:18.0]];
             }
             
             if ([HBSharedUtils getLeague].currentWeek >= 15) {
