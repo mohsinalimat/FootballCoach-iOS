@@ -607,6 +607,7 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewsCell"];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
             }
             
             if ([HBSharedUtils getLeague].currentWeek >= 15) {
@@ -665,11 +666,13 @@
                 [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
                 [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                [cell.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:13.0]];
             }
             
-            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row]];
+            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
             NSRange firstLine = [attString.string rangeOfString:@"\n"];
-            [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
+            [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
             
             
             [cell.textLabel setAttributedText:attString];
@@ -700,9 +703,12 @@
             [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
             [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+            [cell.detailTextLabel setFont:[UIFont systemFontOfSize:13.0]];
+            
         }
         
-        NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row]];
+        NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
         NSRange firstLine = [attString.string rangeOfString:@"\n"];
         [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:18 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
         
