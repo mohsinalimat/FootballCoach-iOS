@@ -31,7 +31,6 @@
     [aCoder encodeInt:_confPrestige forKey:@"confPrestige"];
     [aCoder encodeObject:_confTeams forKey:@"confTeams"];
     [aCoder encodeObject:_league forKey:@"league"];
-    //encoding and decoding leagues/conf may create endless loop - maybe not do that (EDIT: eh we'll see)
     
     [aCoder encodeObject:_ccg forKey:@"ccg"];
     [aCoder encodeInt:_week forKey:@"week"];

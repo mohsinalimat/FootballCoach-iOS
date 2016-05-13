@@ -178,7 +178,7 @@
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1 || indexPath.section == 2) {
+    if (indexPath.section == 1) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
@@ -186,41 +186,47 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         
-        if (indexPath.section == 1) {
-            if (indexPath.row == 0) {
-                [cell.textLabel setText:@"ATAppUpdater"];
-            } else if (indexPath.row == 1) {
-                [cell.textLabel setText:@"AutoCoding"];
-            } else if (indexPath.row == 2) {
-                [cell.textLabel setText:@"CSNotificationView"];
-            } else if (indexPath.row == 3) {
-                [cell.textLabel setText:@"DZNEmptyDataSet"];
-            } else if (indexPath.row == 4) {
-                [cell.textLabel setText:@"Fabric"];
-            } else if (indexPath.row == 5) {
-                [cell.textLabel setText:@"FCFileManager"];
-            } else if (indexPath.row == 6) {
-                [cell.textLabel setText:@"HexColors"];
-            } else if (indexPath.row == 7) {
-                [cell.textLabel setText:@"Icons8"];
-            } else {
-                [cell.textLabel setText:@"STPopup"];
-            }
+        if (indexPath.row == 0) {
+            [cell.textLabel setText:@"ATAppUpdater"];
+        } else if (indexPath.row == 1) {
+            [cell.textLabel setText:@"AutoCoding"];
+        } else if (indexPath.row == 2) {
+            [cell.textLabel setText:@"CSNotificationView"];
+        } else if (indexPath.row == 3) {
+            [cell.textLabel setText:@"DZNEmptyDataSet"];
+        } else if (indexPath.row == 4) {
+            [cell.textLabel setText:@"Fabric"];
+        } else if (indexPath.row == 5) {
+            [cell.textLabel setText:@"FCFileManager"];
+        } else if (indexPath.row == 6) {
+            [cell.textLabel setText:@"HexColors"];
+        } else if (indexPath.row == 7) {
+            [cell.textLabel setText:@"Icons8"];
         } else {
-            if (indexPath.row == 0) {
-                [cell.textLabel setText:@"Developer's Website"];
-            } else if (indexPath.row == 1) {
-                [cell.textLabel setText:@"Email Developer"];
-            } else if (indexPath.row == 2) {
-                [cell.textLabel setText:@"Football Coach on GitHub"];
-            } else if (indexPath.row == 3) {
-                [cell.textLabel setText:@"Football Coach on Reddit"];
-            } else {
-                [cell.textLabel setText:@"Submit a Review"];
-            }
+            [cell.textLabel setText:@"STPopup"];
         }
         return cell;
-    } else {
+    } else if (indexPath.section == 2) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Sec2Cell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Sec2Cell"];
+            cell.backgroundColor = [UIColor whiteColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        
+        if (indexPath.row == 0) {
+            [cell.textLabel setText:@"Developer's Website"];
+        } else if (indexPath.row == 1) {
+            [cell.textLabel setText:@"Email Developer"];
+        } else if (indexPath.row == 2) {
+            [cell.textLabel setText:@"Football Coach on GitHub"];
+        } else if (indexPath.row == 3) {
+            [cell.textLabel setText:@"Football Coach on Reddit"];
+        } else {
+            [cell.textLabel setText:@"Submit a Review"];
+        }
+        return cell;
+    }else {
         if (indexPath.row == 0) {
             HBSettingsCell *setCell = (HBSettingsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBSettingsCell"];
             BOOL notifsOn = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
