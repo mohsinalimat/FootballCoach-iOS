@@ -1766,7 +1766,7 @@
 }
 
 -(NSString*)weekSummaryString {
-    Game *g = [gameSchedule lastObject];
+    Game *g = gameSchedule[league.currentWeek - 1];
     NSString *gameSummary = [NSString stringWithFormat:@"%@ %@",[gameWLSchedule lastObject],[self gameSummaryString:g]];
     NSString *rivalryGameStr = @"";
     if ([g.gameName isEqualToString:@"Rivalry Game"] || [g.homeTeam.rivalTeam isEqualToString:g.awayTeam.abbreviation] || [g.awayTeam.rivalTeam isEqualToString:g.homeTeam.abbreviation]) {
