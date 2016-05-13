@@ -22,7 +22,8 @@ typedef NS_ENUM(NSUInteger, HBStatType) {
     HBStatTypeRYPG,
     HBStatTypeOppPYPG,
     HBStatTypeOppRYPG,
-    HBStatTypeTODiff
+    HBStatTypeTODiff,
+    HBStatTypeAllTimeWins
 };
 
 @interface RankingsViewController : FCTableViewController

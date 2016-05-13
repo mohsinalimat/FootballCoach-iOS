@@ -132,6 +132,7 @@
 @property (nonatomic) int rankTeamPrestige;
 @property (nonatomic) int rankTeamPollScore;
 @property (nonatomic) int rankTeamStrengthOfWins;
+@property (nonatomic) int rankTeamTotalWins;
 
 //prestige/talent improvements
 @property (nonatomic) int diffPrestige;

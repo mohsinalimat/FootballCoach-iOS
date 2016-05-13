@@ -1457,6 +1457,28 @@
     for (int t = 0; t < _teamList.count; ++t) {
         _teamList[t].rankTeamPrestige = t+1;
     }
+    
+    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Team *a = (Team*)obj1;
+        Team *b = (Team*)obj2;
+        if (a.totalWins > b.totalWins) {
+            return -1;
+        } else if (a.totalWins < b.totalWins) {
+            return 1;
+        } else {
+            if (a.totalLosses < b.totalLosses) {
+                return -1;
+            } else if (a.totalLosses > b.totalLosses) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }] mutableCopy];
+    
+    for (int t = 0; t < _teamList.count; ++t) {
+        _teamList[t].rankTeamTotalWins = t+1;
+    }
 
 }
 @end

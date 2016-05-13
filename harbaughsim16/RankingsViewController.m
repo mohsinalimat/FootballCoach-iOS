@@ -154,7 +154,7 @@
         }];
         [self.tableView reloadData];
         self.title = @"Rush Yards Allowed Per Game";
-    } else {
+    } else if (selectedStatType == HBStatTypeTODiff) {
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
@@ -162,6 +162,14 @@
         }];
         [self.tableView reloadData];
         self.title = @"Turnover Differential";
+    } else { //HBStatTypeAllTimeWins
+        teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.rankTeamTotalWins < b.rankTeamTotalWins ? -1 : a.rankTeamTotalWins == b.rankTeamTotalWins ? 0 : 1;
+        }];
+        [self.tableView reloadData];
+        self.title = @"All-Time Win Percentage";
     }
     
 }
@@ -178,13 +186,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (selectedStatType == HBStatTypePollScore) {
-        return 25;
-    } else {
-        return 30;
-    }
+    return 60;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
@@ -230,7 +233,7 @@
          [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld yds/gm", ((long)t.teamOppPassYards/(long)t.numGames)]];
     } else if (selectedStatType == HBStatTypeOppRYPG) {
          [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld yds/gm", ((long)t.teamOppRushYards/(long)t.numGames)]];
-    } else {
+    } else if (selectedStatType == HBStatTypeTODiff) {
         NSString *turnoverDifferential = @"0";
         if (t.teamTODiff > 0) {
             turnoverDifferential = [NSString stringWithFormat:@"+%ld",(long)t.teamTODiff];
@@ -241,11 +244,13 @@
         }
         [cell.detailTextLabel setText:turnoverDifferential];
 
+    } else { //HBStatTypeAllTimeWins
+        int winPercent = (int)(100 * ((double)t.totalWins) / ((double)(t.totalWins + t.totalLosses)));
+        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d-%d (%d%%)",t.totalWins,t.totalLosses,winPercent]];
     }
 
     return cell;
 }
-
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

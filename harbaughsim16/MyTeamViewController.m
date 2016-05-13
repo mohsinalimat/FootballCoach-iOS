@@ -87,6 +87,7 @@
 
 -(void)setupTeamHeader {
     userTeam = [HBSharedUtils getLeague].userTeam;
+    [[HBSharedUtils getLeague] setTeamRanks];
     stats = [userTeam getTeamStatsArray];
     [teamHeaderView.teamRankLabel setText:userTeam.name];
     [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistory.count + 2016,(long)userTeam.wins,(long)userTeam.losses]];
@@ -96,6 +97,7 @@
 
 -(void)reloadStats {
     userTeam = [HBSharedUtils getLeague].userTeam;
+    [[HBSharedUtils getLeague] setTeamRanks];
     stats = [userTeam getTeamStatsArray];
     [self.tableView reloadData];
 }
@@ -237,22 +239,24 @@
             } else if (indexPath.row == 3) {
                 [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeTeamPrestige] animated:YES];
             } else if (indexPath.row == 4) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeSOS] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeWins] animated:YES];
             } else if (indexPath.row == 5) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeSOS] animated:YES];
             } else if (indexPath.row == 6) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePPG] animated:YES];
             } else if (indexPath.row == 7) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeYPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG] animated:YES];
             } else if (indexPath.row == 8) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeYPG] animated:YES];
             } else if (indexPath.row == 9) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePYPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG] animated:YES];
             } else if (indexPath.row == 10) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePYPG] animated:YES];
             } else if (indexPath.row == 11) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG] animated:YES];
             } else if (indexPath.row == 12) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG] animated:YES];
+            } else if (indexPath.row == 13) {
                 [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppRYPG] animated:YES];
             } else {
                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeTODiff] animated:YES];
