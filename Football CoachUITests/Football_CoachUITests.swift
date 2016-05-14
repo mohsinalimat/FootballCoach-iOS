@@ -22,11 +22,11 @@ class Football_CoachUITests: XCTestCase {
     func testExample()
     {
         
-        let app = XCUIApplication()
-        let playWeekButton = app.tables.buttons[" Play Week"]
-        playWeekButton.tap()
-        playWeekButton.tap()
-        playWeekButton.tap()
+        //let app = XCUIApplication()
+        //let playWeekButton = app.tables.buttons[" Play Week"]
+        //playWeekButton.tap()
+        //playWeekButton.tap()
+        //playWeekButton.tap()
         
         XCUIApplication().tabBars.buttons["Latest News"].tap()
         snapshot("1home")
