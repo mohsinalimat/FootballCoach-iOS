@@ -1130,7 +1130,7 @@
 }
 
 -(NSArray*)getHeismanLeaders {
-    if (!heismanDecided) {
+    if (!heismanDecided || !_heismanFinalists) {
         NSMutableArray *tempHeis = [NSMutableArray array];
         NSArray *candidates = [self calculateHeismanCandidates];
         for (int i = 0; i < 5; i++) {
