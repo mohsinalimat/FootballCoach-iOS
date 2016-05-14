@@ -39,7 +39,6 @@
     return self;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (selectedConf.league.currentWeek < 13) {
@@ -99,6 +98,59 @@
         }
     } else {
         return 60;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    CGFloat height = 18;
+    CGFloat y = 0;
+    if (section == 0)
+    {
+        height = 36;
+        y = 5;
+    }
+    
+    myLabel.frame = CGRectMake(18, y, [UIScreen mainScreen].bounds.size.width, height);
+    myLabel.font = [UIFont systemFontOfSize:15.0];
+    [myLabel setTextColor:[UIColor lightTextColor]];
+    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    myLabel.text = myLabel.text.uppercaseString;
+    UIView *headerView = [[UIView alloc] init];
+    [headerView addSubview:myLabel];
+    
+    return headerView;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    myLabel.frame = CGRectMake(18, 5, [UIScreen mainScreen].bounds.size.width, 18);
+    myLabel.font = [UIFont systemFontOfSize:15.0];
+    [myLabel setNumberOfLines:0];
+    [myLabel setTextColor:[UIColor lightTextColor]];
+    myLabel.text = [self tableView:tableView titleForFooterInSection:section];
+    [myLabel sizeToFit];
+    UIView *footerView = [[UIView alloc] init];
+    [footerView addSubview:myLabel];
+    
+    return footerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return 36;
+    } else {
+        return 18;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 36;
+    } else {
+        return 24;
     }
 }
 
@@ -202,6 +254,10 @@
                 
                 if (!cell) {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ButtonCell"];
+                    [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
+                    [cell.textLabel setTextColor:self.view.tintColor];
+                    [cell setAccessoryType:UITableViewCellAccessoryNone];
+                    [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
                 }
                 
                 if (ccg.hasPlayed) {
@@ -209,9 +265,6 @@
                 } else {
                     [cell.textLabel setText:@"Preview Matchup"];
                 }
-                [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
-                [cell.textLabel setTextColor:self.view.tintColor];
-                [cell setAccessoryType:UITableViewCellAccessoryNone];
                 return cell;
             }
         } else {

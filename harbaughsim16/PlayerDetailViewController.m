@@ -78,11 +78,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return 20;
-    } else {
-       return [super tableView:tableView heightForHeaderInSection:section];
-    }
+    return 24;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -92,6 +88,43 @@
         return @"Career Stats";
     } else {
         return @"Ratings";
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    myLabel.frame = CGRectMake(18, 0, [UIScreen mainScreen].bounds.size.width, 18);
+    myLabel.font = [UIFont systemFontOfSize:15.0];
+    [myLabel setTextColor:[UIColor lightTextColor]];
+    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    myLabel.text = myLabel.text.uppercaseString;
+    UIView *headerView = [[UIView alloc] init];
+    [headerView addSubview:myLabel];
+    
+    return headerView;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    myLabel.frame = CGRectMake(18, 5, [UIScreen mainScreen].bounds.size.width, 18);
+    myLabel.font = [UIFont systemFontOfSize:15.0];
+    [myLabel setNumberOfLines:0];
+    [myLabel setTextColor:[UIColor lightTextColor]];
+    myLabel.text = [self tableView:tableView titleForFooterInSection:section];
+    [myLabel sizeToFit];
+    UIView *footerView = [[UIView alloc] init];
+    [footerView addSubview:myLabel];
+    
+    return footerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section != 2) {
+        return 18;
+    } else {
+        return 36;
     }
 }
 
@@ -139,6 +172,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
     }
     
     if ([selectedPlayer isKindOfClass:[PlayerQB class]]) {

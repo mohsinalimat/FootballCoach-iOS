@@ -184,6 +184,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
             cell.backgroundColor = [UIColor whiteColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
         }
         
         if (indexPath.row == 0) {
@@ -212,6 +213,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Sec2Cell"];
             cell.backgroundColor = [UIColor whiteColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
         }
         
         if (indexPath.row == 0) {
@@ -242,8 +244,10 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
                 cell.backgroundColor = [UIColor whiteColor];
                 [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
-                
+                [cell setAccessoryType:UITableViewCellAccessoryNone];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
             }
+            
             if (indexPath.row == 1) {
                 [cell.textLabel setText:@"Rebrand Team"];
                 [cell.textLabel setTextColor:[HBSharedUtils styleColor]];

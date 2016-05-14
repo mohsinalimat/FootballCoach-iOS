@@ -60,6 +60,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.backgroundColor = [UIColor whiteColor];
+        [cell.textLabel setFont:[UIFont boldSystemFontOfSize:17.0]];
     }
     
     Conference *conf = conferences[indexPath.row];

@@ -27,7 +27,6 @@ class Football_CoachUITests: XCTestCase {
         playWeekButton.tap()
         playWeekButton.tap()
         playWeekButton.tap()
-        playWeekButton.tap()
         
         XCUIApplication().tabBars.buttons["Latest News"].tap()
         snapshot("1home")

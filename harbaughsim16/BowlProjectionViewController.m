@@ -68,6 +68,36 @@
     }
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel *myLabel = [[UILabel alloc] init];
+    CGFloat height = 18;
+    CGFloat y = 0;
+    if (section == 0)
+    {
+        height = 36;
+        y = 5;
+    }
+    
+    myLabel.frame = CGRectMake(18, y, [UIScreen mainScreen].bounds.size.width, height);
+    myLabel.font = [UIFont systemFontOfSize:15.0];
+    [myLabel setTextColor:[UIColor lightTextColor]];
+    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    myLabel.text = myLabel.text.uppercaseString;
+    UIView *headerView = [[UIView alloc] init];
+    [headerView addSubview:myLabel];
+    
+    return headerView;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 36;
+    } else {
+        return 24;
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return bowlPredictions.count;
 }
@@ -129,6 +159,10 @@
         
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ButtonCell"];
+            [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
+            [cell.textLabel setTextColor:self.view.tintColor];
+            [cell setAccessoryType:UITableViewCellAccessoryNone];
+            [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
         }
         
         if (bowl.hasPlayed) {
@@ -136,9 +170,6 @@
         } else {
             [cell.textLabel setText:@"Preview Matchup"];
         }
-        [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
-        [cell.textLabel setTextColor:self.view.tintColor];
-        [cell setAccessoryType:UITableViewCellAccessoryNone];
         return cell;
     }
 }
