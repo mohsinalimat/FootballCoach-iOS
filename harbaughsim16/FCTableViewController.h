@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "HBSharedUtils.h"
 #import "League.h"
+#import "HexColors.h"
 
 @interface FCTableViewController : UITableViewController
 

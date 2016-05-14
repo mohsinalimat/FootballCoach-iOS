@@ -91,33 +91,14 @@
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    UILabel *myLabel = [[UILabel alloc] init];
-    myLabel.frame = CGRectMake(18, 0, [UIScreen mainScreen].bounds.size.width, 18);
-    myLabel.font = [UIFont systemFontOfSize:15.0];
-    [myLabel setTextColor:[UIColor lightTextColor]];
-    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    myLabel.text = myLabel.text.uppercaseString;
-    UIView *headerView = [[UIView alloc] init];
-    [headerView addSubview:myLabel];
-    
-    return headerView;
+-(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    [header.textLabel setFont:[UIFont systemFontOfSize:15.0]];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    UILabel *myLabel = [[UILabel alloc] init];
-    myLabel.frame = CGRectMake(18, 5, [UIScreen mainScreen].bounds.size.width, 18);
-    myLabel.font = [UIFont systemFontOfSize:15.0];
-    [myLabel setNumberOfLines:0];
-    [myLabel setTextColor:[UIColor lightTextColor]];
-    myLabel.text = [self tableView:tableView titleForFooterInSection:section];
-    [myLabel sizeToFit];
-    UIView *footerView = [[UIView alloc] init];
-    [footerView addSubview:myLabel];
-    
-    return footerView;
+-(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+    [footer.textLabel setFont:[UIFont systemFontOfSize:15.0]];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
