@@ -100,6 +100,7 @@
         // Perform action on click
         if (simLeague.currentWeek == 15) {
             simLeague.recruitingStage = 1;
+            [HBSharedUtils getLeague].canRebrandTeam = YES;
             [[HBSharedUtils getLeague] save];
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld Season Summary", (long)(2016 + userTeam.teamHistory.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
@@ -112,12 +113,15 @@
                     [self.navigationItem.leftBarButtonItem setEnabled:YES];
                     [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 12) {
+                    NSString *heisman = [simLeague getHeismanCeremonyStr];
+                    NSLog(@"HEISMAN: %@", heisman); //can't do anything with this result, just want to run it tbh
                     [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 13) {
                     [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 14) {
                     [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
                 } else {
+                    [HBSharedUtils getLeague].canRebrandTeam = YES;
                     [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
                     [self.navigationItem.leftBarButtonItem setEnabled:NO];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
@@ -276,6 +280,7 @@
         // Perform action on click
         if (simLeague.currentWeek == 15) {
             simLeague.recruitingStage = 1;
+            [HBSharedUtils getLeague].canRebrandTeam = YES;
             [self startRecruiting];
         } else {
             NSInteger numGamesPlayed = userTeam.gameWLSchedule.count;
@@ -365,6 +370,8 @@
             } else {
                 [HBSharedUtils getLeague].canRebrandTeam = YES;
                 [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
+                [self.navigationItem.leftBarButtonItem setEnabled:NO];
             }
             
             [self reloadSchedule];

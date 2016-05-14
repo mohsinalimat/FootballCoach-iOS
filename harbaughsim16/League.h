@@ -67,6 +67,7 @@
 
 //Bowl Games
 @property (strong, nonatomic) Player *heisman;
+@property (strong, nonatomic) NSMutableArray<Player*> *heismanFinalists;
 @property (nonatomic)  BOOL hasScheduledBowls;
 @property (strong, nonatomic)  Game *semiG14;
 @property (strong, nonatomic)  Game *semiG23;
