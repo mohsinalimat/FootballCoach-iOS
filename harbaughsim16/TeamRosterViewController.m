@@ -181,7 +181,9 @@
     [cell.nameLabel setText:[player getInitialName]];
     [cell.yrLabel setText:[player getYearString]];
     [cell.ovrLabel setText:[NSString stringWithFormat:@"%d", player.ratOvr]];
-    if (player.isHeisman) {
+    if (player.hasRedshirt) {
+        [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+    } else if (player.isHeisman) {
         [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
     } else {
         [cell.nameLabel setTextColor:[UIColor blackColor]];
