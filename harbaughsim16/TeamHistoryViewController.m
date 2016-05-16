@@ -89,11 +89,11 @@
     } else {
         NSInteger lineCount = [self _lineCount:history[indexPath.row]];
         if (lineCount >= 3) {
-            return 90;
+            return 100;
         } else if (lineCount == 2) {
-            return 75;
+            return 90;
         } else {
-            return 65;
+            return 80;
         }
     }
 }

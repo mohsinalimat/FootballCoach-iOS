@@ -31,7 +31,7 @@
     STPopupController *popupController;
     NSMutableArray<Player*>* playersRecruited;
     NSMutableArray<Player*>* teamPlayers; //all players
-    
+
     NSMutableArray<Player*>* availQBs;
     NSMutableArray<Player*>* availRBs;
     NSMutableArray<Player*>* availWRs;
@@ -41,7 +41,7 @@
     NSMutableArray<Player*>* availCBs;
     NSMutableArray<Player*>* availF7s;
     NSMutableArray<Player*>* availAll;
-    
+
     NSInteger needQBs;
     NSInteger needRBs;
     NSInteger needWRs;
@@ -50,9 +50,9 @@
     NSInteger needsS;
     NSInteger needCBs;
     NSInteger needF7s;
-    
+
     int recruitingBudget;
-    
+
     NSMutableArray<Player*>* positions;
     NSMutableArray<Player*>* players;
     BOOL _viewingSignees;
@@ -65,7 +65,7 @@
 
 -(void)reloadRecruits {
     [availAll removeAllObjects];
-    
+
     [availQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
@@ -252,7 +252,7 @@
             }
         }
     }];
-    
+
     [availCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
@@ -364,6 +364,7 @@
             }
         }
     }];
+    
     [availAll addObjectsFromArray:availQBs];
     [availAll addObjectsFromArray:availRBs];
     [availAll addObjectsFromArray:availWRs];
@@ -372,7 +373,7 @@
     [availAll addObjectsFromArray:availCBs];
     [availAll addObjectsFromArray:availSs];
     [availAll addObjectsFromArray:availKs];
-    
+
     [availAll sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
@@ -414,16 +415,16 @@
     if (_filteredByCost) {
         [self filterByCost];
     }
-    
+
     [self.tableView reloadData];
-    
-    
+
+
     self.title = [NSString stringWithFormat:@"Budget: $%d",recruitingBudget];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
     [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"roster"] style:UIBarButtonItemStylePlain target:self action:@selector(viewRoster)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Remaining Needs" style:UIBarButtonItemStylePlain target:self action:@selector(showRemainingNeeds)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(showRecruitCategories)]]];
     self.navigationController.toolbarHidden = NO;
 }
@@ -447,11 +448,11 @@
     self.tableView.rowHeight = 175;
     self.tableView.estimatedRowHeight = 175;
     recruitingBudget = [HBSharedUtils getLeague].userTeam.recruitingMoney;
-    
+
     NSInteger teamSize = [HBSharedUtils getLeague].userTeam.teamQBs.count + [HBSharedUtils getLeague].userTeam.teamRBs.count + [HBSharedUtils getLeague].userTeam.teamWRs.count + [HBSharedUtils getLeague].userTeam.teamKs.count + [HBSharedUtils getLeague].userTeam.teamSs.count + [HBSharedUtils getLeague].userTeam.teamCBs.count + [HBSharedUtils getLeague].userTeam.teamF7s.count;
-    
+
     playersRecruited = [NSMutableArray array];
-    
+
     teamPlayers = [NSMutableArray array];
     availQBs = [NSMutableArray array];
     availRBs = [NSMutableArray array];
@@ -462,87 +463,87 @@
     availCBs = [NSMutableArray array];
     availF7s = [NSMutableArray array];
     availAll = [NSMutableArray array];
-    
+
     //playersGraduating = [HBSharedUtils getLeague].userTeam.playersLeaving;
     recruitingBudget = [HBSharedUtils getLeague].userTeam.teamPrestige * 25;
-    
+
     Team *userTeam = [HBSharedUtils getLeague].userTeam;
     if (userTeam.teamQBs.count < 2) {
         needQBs = 2 - userTeam.teamQBs.count;
     }
-    
+
     if (userTeam.teamRBs.count < 4) {
         needRBs = 4 - userTeam.teamRBs.count;
     }
-    
+
     if (userTeam.teamWRs.count < 6) {
         needWRs = 6 - userTeam.teamWRs.count;
     }
-    
+
     if (userTeam.teamOLs.count < 10) {
         needOLs = 10 - userTeam.teamOLs.count;
     }
-    
+
     if (userTeam.teamF7s.count < 14) {
        needF7s = 14 - userTeam.teamF7s.count;
     }
-    
+
     if (userTeam.teamCBs.count < 6) {
         needCBs = 6 - userTeam.teamCBs.count;
     }
-    
+
     if (userTeam.teamSs.count < 2) {
        needsS = 2 - userTeam.teamSs.count;
     }
-    
+
     if (userTeam.teamKs.count < 2) {
         needKs = 2 - userTeam.teamKs.count;
     }
-    
+
     if (needQBs > 2) {
         needQBs = 2;
     }
-    
+
     if (needRBs > 4) {
         needRBs = 4;
     }
-    
+
     if (needWRs > 6) {
         needWRs = 6;
     }
-    
+
     if (needOLs > 10) {
         needOLs = 10;
     }
-    
+
     if (needKs > 2) {
         needKs = 2;
     }
-    
+
     if (needsS > 2) {
         needsS = 2;
     }
-    
+
     if (needCBs > 6) {
         needCBs = 6;
     }
-    
+
     if (needF7s > 14) {
         needF7s = 14;
     }
-    
+
     //NSLog(@"NEED TO RECRUIT: %ld QBs, %ld RBs, %ld, WRs, %ld OLs, %ld F7s, %ld CBs, %ld Ss, %ld Ks",(long)needQBs,(long)needRBs,(long)needWRs,(long)needOLs,(long)needF7s,(long)needCBs,(long)needsS,(long)needKs);
-    
+
     if (teamSize <= 33) {
         //adding bonus points if the offseason screwed you
         NSInteger recruitingBonus = (25 * (33 - teamSize));
         recruitingBudget += recruitingBonus;
-        
+
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"You've been awarded %ld extra points because of your losses this offseason.",(long)recruitingBonus] onViewController:self];
         });
     }
-    
+
     //recruiting star distribution from here: http://www.cbssports.com/collegefootball/eye-on-college-football/21641769
     // 5-star: 13/100 -> modified to 8/100 to make it harder
     // 4-star: 35/100 -> modified to 40/100 to make it harder
@@ -556,11 +557,11 @@
         if (position < 0) {
             position = 0;
         }
-        
+
         if (position > 7) {
             position = 7;
         }
-        
+
         if (position == 0) {
             [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 1 ) {
@@ -579,17 +580,17 @@
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
         }
     }
-    
+
     for (int i = 0; i < 80; i++) {
         position = (int)([HBSharedUtils randomValue] * 8) - 1;
         if (position < 0) {
             position = 0;
         }
-        
+
         if (position > 7) {
             position = 7;
         }
-        
+
         if (position == 0) {
             [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 1 ) {
@@ -608,17 +609,17 @@
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
         }
     }
-    
+
     for (int i = 0; i < 80; i++) {
         position = (int)([HBSharedUtils randomValue] * 8) - 1;
         if (position < 0) {
             position = 0;
         }
-        
+
         if (position > 7) {
             position = 7;
         }
-        
+
         if (position == 0) {
             [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 1 ) {
@@ -637,17 +638,17 @@
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
-    
+
     for (int i = 0; i < 28; i++) {
         position = (int)([HBSharedUtils randomValue] * 8) - 1;
         if (position < 0) {
             position = 0;
         }
-        
+
         if (position > 7) {
             position = 7;
         }
-        
+
         if (position == 0) {
             [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
         } else if (position == 1 ) {
@@ -666,17 +667,17 @@
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
         }
     }
-    
+
     for (int i = 0; i < 6; i++) {
         position = (int)([HBSharedUtils randomValue] * 8) - 1;
         if (position < 0) {
             position = 0;
         }
-        
+
         if (position > 7) {
             position = 7;
         }
-        
+
         if (position == 0) {
             [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 1 ) {
@@ -695,58 +696,58 @@
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
         }
     }
-    
+
     if (availQBs.count == 0) {
         for (int i = 0; i < 3; i++) {
             [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
-    
+
     if (availRBs.count == 0) {
         for (int i = 0; i < 3; i++) {
             [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
-    
+
     if (availWRs.count == 0) {
         for (int i = 0; i < 3; i++) {
             [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
-    
+
     if (availOLs.count == 0) {
         for (int i = 0; i < 3; i++) {
             [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
-    
+
     if (availF7s.count == 0) {
         for (int i = 0; i < 3; i++) {
             [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
-    
+
     if (availCBs.count == 0) {
         for (int i = 0; i < 3; i++) {
             [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
-    
+
     if (availSs.count == 0) {
         for (int i = 0; i < 3; i++) {
             [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
-    
+
     if (availKs.count == 0) {
         for (int i = 0; i < 3; i++) {
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
-    
+
     [self reloadRecruits];
     players = availAll;
-    
+
     //display tutorial alert on first launch
     BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
     if (!tutorialShown) {
@@ -757,14 +758,14 @@
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
     }
-    
-    
+
+
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finishRecruiting)];
-    
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
-    
+
     self.title = [NSString stringWithFormat:@"Budget: %d pts",recruitingBudget];
-    
+
     [self.tableView registerNib:[UINib nibWithNibName:@"HBRecruitCell" bundle:nil] forCellReuseIdentifier:@"HBRecruitCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
@@ -843,7 +844,7 @@
                     _viewingSignees = NO;
                     _filteredByCost = NO;
                 }
-                
+
                 [self.tableView reloadData];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     if (players.count > 0) {
@@ -876,7 +877,7 @@
             } else {
                 position = @"K";
             }
-            
+
             [alertController addAction:[UIAlertAction actionWithTitle:position style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if (i == 0) {
                     players = availAll;
@@ -909,7 +910,7 @@
                     players = availKs;
                     _filteredByCost = NO;
                 }
-                
+
                 [self.tableView reloadData];
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     if (players.count > 0) {
@@ -918,10 +919,10 @@
                 });
             }]];
         }
-        
+
     }
-    
-    
+
+
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
 
@@ -936,9 +937,9 @@
             [playersCopy removeObject:p];
         }
     }
-    
+
     players = playersCopy;
-    
+
     //re-sort them by ovr
     if (players.count > 0) {
         [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -983,7 +984,7 @@
 
 -(void)showRemainingNeeds {
     NSMutableString *summary = [NSMutableString string];
-    
+
     if (needQBs > 0) {
         if (needQBs > 1) {
             [summary appendFormat:@"Need %ld active QBs\n\n",(long)needQBs];
@@ -991,7 +992,7 @@
             [summary appendFormat:@"Need %ld active QB\n\n",(long)needQBs];
         }
     }
-    
+
     if (needRBs > 0) {
         if (needRBs > 1) {
             [summary appendFormat:@"Need %ld active RBs\n\n",(long)needRBs];
@@ -999,7 +1000,7 @@
             [summary appendFormat:@"Need %ld active RB\n\n",(long)needRBs];
         }
     }
-    
+
     if (needWRs > 0) {
         if (needWRs > 1) {
             [summary appendFormat:@"Need %ld active WRs\n\n",(long)needWRs];
@@ -1007,7 +1008,7 @@
             [summary appendFormat:@"Need %ld active WR\n\n",(long)needWRs];
         }
     }
-    
+
     if (needOLs > 0) {
         if (needOLs > 1) {
             [summary appendFormat:@"Need %ld active OLs\n\n",(long)needOLs];
@@ -1015,7 +1016,7 @@
             [summary appendFormat:@"Need %ld active OL\n\n",(long)needOLs];
         }
     }
-    
+
     if (needF7s > 0) {
         if (needF7s > 1) {
             [summary appendFormat:@"Need %ld active F7s\n\n",(long)needF7s];
@@ -1023,7 +1024,7 @@
             [summary appendFormat:@"Need %ld active F7\n\n",(long)needF7s];
         }
     }
-    
+
     if (needCBs > 0) {
         if (needCBs > 1) {
             [summary appendFormat:@"Need %ld active CBs\n\n",(long)needCBs];
@@ -1031,7 +1032,7 @@
             [summary appendFormat:@"Need %ld active CB\n\n",(long)needCBs];
         }
     }
-    
+
     if (needsS > 0) {
         if (needsS > 1) {
             [summary appendFormat:@"Need %ld active Ss\n\n",(long)needsS];
@@ -1039,7 +1040,7 @@
             [summary appendFormat:@"Need %ld active S\n\n",(long)needsS];
         }
     }
-    
+
     if (needKs > 0) {
         if (needKs > 1) {
             [summary appendFormat:@"Need %ld active Ks",(long)needKs];
@@ -1047,13 +1048,13 @@
             [summary appendFormat:@"Need %ld active K",(long)needKs];
         }
     }
-    
+
     if (summary.length == 0 || [summary isEqualToString:@""]) {
         [summary appendString:@"All positional needs filled"];
     }
-    
+
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Remaining Needs",[HBSharedUtils getLeague].userTeam.abbreviation] message:summary preferredStyle:UIAlertControllerStyleAlert];
-    
+
     [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
     [alertController.view setNeedsLayout];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -1086,9 +1087,9 @@
     NSString *stat2Val;
     NSString *stat3Val;
     NSString *stat4Val;
-    
+
     UIColor *letterColor;
-    
+
     NSMutableAttributedString *stat1Att = [[NSMutableAttributedString alloc] initWithString:@"Potential: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
     NSString *stat1 = [player getLetterGrade:player.ratPot];
     if ([stat1 containsString:@"A"]) {
@@ -1104,10 +1105,10 @@
     } else {
         letterColor = [UIColor lightGrayColor];
     }
-    
+
     [stat1Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat1ValueLabel setAttributedText:stat1Att];
-    
+
     NSMutableAttributedString *stat5Att = [[NSMutableAttributedString alloc] initWithString:@"Football IQ: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
     NSString *stat5 = [player getLetterGrade:player.ratFootIQ];
     if ([stat5 containsString:@"A"]) {
@@ -1123,11 +1124,11 @@
     } else {
         letterColor = [UIColor lightGrayColor];
     }
-    
+
     [stat5Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat5 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat5ValueLabel setAttributedText:stat5Att];
-    
-    
+
+
     if ([player isKindOfClass:[PlayerQB class]]) {
         stat2 = @"Throw Power";
         stat2Val = [player getLetterGrade:((PlayerQB*)player).ratPassPow];
@@ -1185,7 +1186,7 @@
         stat4 = @"Clumsiness";
         stat4Val = [player getLetterGrade:((PlayerK*)player).ratKickFum];
     }
-    
+
     NSMutableAttributedString *stat2Att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@: ", stat2] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
     if ([stat2Val containsString:@"A"]) {
         letterColor = [HBSharedUtils successColor];
@@ -1200,10 +1201,10 @@
     } else {
         letterColor = [UIColor lightGrayColor];
     }
-    
+
     [stat2Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat2Val attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat2ValueLabel setAttributedText:stat2Att];
-    
+
     NSMutableAttributedString *stat3Att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@: ", stat3] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
     if ([stat3Val containsString:@"A"]) {
         letterColor = [HBSharedUtils successColor];
@@ -1218,10 +1219,10 @@
     } else {
         letterColor = [UIColor lightGrayColor];
     }
-    
+
     [stat3Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat3Val attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat3ValueLabel setAttributedText:stat3Att];
-    
+
     NSMutableAttributedString *stat4Att = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@: ", stat4] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
     if ([stat4Val containsString:@"A"]) {
         letterColor = [HBSharedUtils successColor];
@@ -1236,10 +1237,10 @@
     } else {
         letterColor = [UIColor lightGrayColor];
     }
-    
+
     [stat4Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat4Val attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat4ValueLabel setAttributedText:stat4Att];
-    
+
     if (player.cost > recruitingBudget || _viewingSignees) {
         [cell.recruitButton setEnabled:NO];
         [cell.recruitButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
@@ -1247,13 +1248,13 @@
         [cell.recruitButton setEnabled:YES];
         [cell.recruitButton setTitleColor:[HBSharedUtils styleColor] forState:UIControlStateNormal];
     }
-    
+
     return cell;
 }
 
 -(void)recruitPlayer:(UIButton*)sender {
     Player *p = players[sender.tag];
-    
+
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Are you sure you want to sign %@ %@ to your team?", p.position,p.name] message:[NSString stringWithFormat:@"This will cost %ld points.",(long)p.cost] preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Would you like to redshirt this player?" message:[NSString stringWithFormat:@"Doing this will cost you an extra %ld points and prevent him from playing for a season, but produce increased stat bonuses.", (long)(p.cost / 4)] preferredStyle:UIAlertControllerStyleAlert];
@@ -1279,15 +1280,15 @@
         [player setTeam:[HBSharedUtils getLeague].userTeam];
         [player setHasRedshirt:YES];
         [player setYear:0];
-        
+
         if ([players containsObject:player]) {
             [players removeObject:player];
         }
-        
+
         if ([availAll containsObject:player]) {
             [availAll removeObject:player];
         }
-        
+
         if ([player isKindOfClass:[PlayerQB class]]) {
             if ([availQBs containsObject:player]) {
                 [availQBs removeObject:player];
@@ -1337,17 +1338,17 @@
             [[HBSharedUtils getLeague].userTeam.teamKs addObject:(PlayerK*)player];
             //needKs--;
         }
-        
+
         [[HBSharedUtils getLeague].userTeam sortPlayers];
-        
+
         [self reloadRecruits];
         [self.tableView reloadData];
-        
+
         [CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"Signed and redshirted %@ %@ (Ovr: %d) to %@!",player.position, player.name, player.ratOvr, [HBSharedUtils getLeague].userTeam.abbreviation] duration:0.5];
         self.title = [NSString stringWithFormat:@"Budget: %d pts",recruitingBudget];
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Coach, you don't have enough points in your budget to sign this player! Try recruiting a cheaper one instead." preferredStyle:UIAlertControllerStyleAlert];
-        
+
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
     }
@@ -1359,15 +1360,15 @@
         recruitingBudget -= playerCost;
         [playersRecruited addObject:player];
         [player setTeam:[HBSharedUtils getLeague].userTeam];
-        
+
         if ([players containsObject:player]) {
             [players removeObject:player];
         }
-        
+
         if ([availAll containsObject:player]) {
             [availAll removeObject:player];
         }
-        
+
         if ([player isKindOfClass:[PlayerQB class]]) {
             if ([availQBs containsObject:player]) {
                 [availQBs removeObject:player];
@@ -1417,17 +1418,17 @@
            [[HBSharedUtils getLeague].userTeam.teamKs addObject:(PlayerK*)player];
             needKs--;
         }
-        
+
         [[HBSharedUtils getLeague].userTeam sortPlayers];
-        
+
         [self reloadRecruits];
         [self.tableView reloadData];
-        
+
         [CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"Signed %@ %@ (Ovr: %d) to %@!",player.position, player.name, player.ratOvr, [HBSharedUtils getLeague].userTeam.abbreviation] duration:0.5];
         self.title = [NSString stringWithFormat:@"Budget: %d pts",recruitingBudget];
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Coach, you don't have enough points in your budget to sign this player! Try recruiting a cheaper one instead." preferredStyle:UIAlertControllerStyleAlert];
-        
+
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
     }
@@ -1439,7 +1440,7 @@
 
 -(void)finishRecruiting {
     NSMutableString *summary = [NSMutableString stringWithString:@"Any unfilled positions will be filled by walk-ons.\n\n"];
-    
+
     if (needQBs > 0) {
         if (needQBs > 1) {
             [summary appendFormat:@"Need %ld active QBs\n\n",(long)needQBs];
@@ -1447,7 +1448,7 @@
             [summary appendFormat:@"Need %ld active QB\n\n",(long)needQBs];
         }
     }
-    
+
     if (needRBs > 0) {
         if (needRBs > 1) {
             [summary appendFormat:@"Need %ld active RBs\n\n",(long)needRBs];
@@ -1455,7 +1456,7 @@
             [summary appendFormat:@"Need %ld active RB\n\n",(long)needRBs];
         }
     }
-    
+
     if (needWRs > 0) {
         if (needWRs > 1) {
             [summary appendFormat:@"Need %ld active WRs\n\n",(long)needWRs];
@@ -1463,7 +1464,7 @@
             [summary appendFormat:@"Need %ld active WR\n\n",(long)needWRs];
         }
     }
-    
+
     if (needOLs > 0) {
         if (needOLs > 1) {
             [summary appendFormat:@"Need %ld active OLs\n\n",(long)needOLs];
@@ -1471,7 +1472,7 @@
             [summary appendFormat:@"Need %ld active OL\n\n",(long)needOLs];
         }
     }
-    
+
     if (needF7s > 0) {
         if (needF7s > 1) {
             [summary appendFormat:@"Need %ld active F7s\n\n",(long)needF7s];
@@ -1479,7 +1480,7 @@
             [summary appendFormat:@"Need %ld active F7\n\n",(long)needF7s];
         }
     }
-    
+
     if (needCBs > 0) {
         if (needCBs > 1) {
             [summary appendFormat:@"Need %ld active CBs\n\n",(long)needCBs];
@@ -1487,7 +1488,7 @@
             [summary appendFormat:@"Need %ld active CB\n\n",(long)needCBs];
         }
     }
-    
+
     if (needsS > 0) {
         if (needsS > 1) {
             [summary appendFormat:@"Need %ld active Ss\n\n",(long)needsS];
@@ -1495,7 +1496,7 @@
             [summary appendFormat:@"Need %ld active S\n\n",(long)needsS];
         }
     }
-    
+
     if (needKs > 0) {
         if (needKs > 1) {
             [summary appendFormat:@"Need %ld active Ks",(long)needKs];
@@ -1503,7 +1504,7 @@
             [summary appendFormat:@"Need %ld active K",(long)needKs];
         }
     }
-    
+
     [playersRecruited sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
@@ -1541,8 +1542,7 @@
             }
         }
     }];
-    
-    
+
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you are done recruiting?" message:summary preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -1552,10 +1552,10 @@
         [[HBSharedUtils getLeague] save];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
-        
+
         if (playersRecruited.count > 0) {
             NSMutableString *recruitSummary = [NSMutableString string];
-            
+
             for (Player *p in playersRecruited) {
                 if (p.hasRedshirt) {
                     [recruitSummary appendFormat:@"%@ %@ (RS - Ovr: %d, Pot: %d)\n", p.position, p.name, p.ratOvr, p.ratPot];
@@ -1563,14 +1563,13 @@
                     [recruitSummary appendFormat:@"%@ %@ (Ovr: %d, Pot: %d)\n", p.position, p.name, p.ratOvr, p.ratPot];
                 }
             }
-            
+
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@'s %ld Recruiting Class",[HBSharedUtils getLeague].userTeam.abbreviation, (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] message:recruitSummary preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [self.presentingViewController presentViewController:alert animated:YES completion:nil];
             });
         }
-    
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
