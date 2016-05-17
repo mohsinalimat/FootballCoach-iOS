@@ -83,7 +83,10 @@
     }
     heisman = [HBSharedUtils getLeague].heisman;
     if (!heisman) {
-        heisman = [[HBSharedUtils getLeague] calculateHeismanCandidates][0];
+        NSArray *candidates = [[HBSharedUtils getLeague] calculateHeismanCandidates];
+        if (candidates.count > 0) {
+            heisman = candidates[0];
+        }
     }
     
     [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {

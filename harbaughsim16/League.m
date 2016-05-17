@@ -1034,6 +1034,8 @@
         [week0 addObject:[self randomCursedTeamStory:_cursedTeam]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
+    
+    [self setTeamRanks];
 }
 
 -(void)updateTeamHistories {
@@ -1373,86 +1375,88 @@
     for (int t = 0; t < _teamList.count; ++t) {
         _teamList[t].rankTeamStrengthOfWins = t+1;
     }
+    
+    if (_currentWeek > 1) {
+        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamPoints/[a numGames] > b.teamPoints/b.numGames ? -1 : a.teamPoints/a.numGames == b.teamPoints/b.numGames ? 0 : 1;
+        }] mutableCopy];
+        for (int t = 0; t < _teamList.count; ++t) {
+            _teamList[t].rankTeamPoints = t+1;
+        }
 
-    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Team *a = (Team*)obj1;
-        Team *b = (Team*)obj2;
-        return a.teamPoints/[a numGames] > b.teamPoints/b.numGames ? -1 : a.teamPoints/a.numGames == b.teamPoints/b.numGames ? 0 : 1;
-    }] mutableCopy];
-    for (int t = 0; t < _teamList.count; ++t) {
-        _teamList[t].rankTeamPoints = t+1;
-    }
+        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamOppPoints/a.numGames < b.teamOppPoints/b.numGames ? -1 : a.teamOppPoints/a.numGames == b.teamOppPoints/b.numGames ? 0 : 1;
+        }] mutableCopy];
+        for (int t = 0; t < _teamList.count; ++t) {
+            _teamList[t].rankTeamOppPoints = t+1;
+        }
 
-    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Team *a = (Team*)obj1;
-        Team *b = (Team*)obj2;
-        return a.teamOppPoints/a.numGames < b.teamOppPoints/b.numGames ? -1 : a.teamOppPoints/a.numGames == b.teamOppPoints/b.numGames ? 0 : 1;
-    }] mutableCopy];
-    for (int t = 0; t < _teamList.count; ++t) {
-        _teamList[t].rankTeamOppPoints = t+1;
-    }
+        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamYards/a.numGames > b.teamYards/b.numGames ? -1 : a.teamYards/a.numGames == b.teamYards/b.numGames ? 0 : 1;
+        }] mutableCopy];
+        for (int t = 0; t < _teamList.count; ++t) {
+            _teamList[t].rankTeamYards = t+1;
+        }
 
-    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Team *a = (Team*)obj1;
-        Team *b = (Team*)obj2;
-        return a.teamYards/a.numGames > b.teamYards/b.numGames ? -1 : a.teamYards/a.numGames == b.teamYards/b.numGames ? 0 : 1;
-    }] mutableCopy];
-    for (int t = 0; t < _teamList.count; ++t) {
-        _teamList[t].rankTeamYards = t+1;
-    }
+        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamOppYards/a.numGames < b.teamOppYards/b.numGames ? -1 : a.teamOppYards/a.numGames == b.teamOppYards/b.numGames ? 0 : 1;
+        }] mutableCopy];
+        for (int t = 0; t < _teamList.count; ++t) {
+            _teamList[t].rankTeamOppYards = t+1;
+        }
 
-    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Team *a = (Team*)obj1;
-        Team *b = (Team*)obj2;
-        return a.teamOppYards/a.numGames < b.teamOppYards/b.numGames ? -1 : a.teamOppYards/a.numGames == b.teamOppYards/b.numGames ? 0 : 1;
-    }] mutableCopy];
-    for (int t = 0; t < _teamList.count; ++t) {
-        _teamList[t].rankTeamOppYards = t+1;
-    }
+        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamPassYards/a.numGames > b.teamPassYards/b.numGames ? -1 : a.teamPassYards/a.numGames == b.teamPassYards/b.numGames ? 0 : 1;
+        }] mutableCopy];
+        for (int t = 0; t < _teamList.count; ++t) {
+            _teamList[t].rankTeamPassYards = t+1;
+        }
 
-    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Team *a = (Team*)obj1;
-        Team *b = (Team*)obj2;
-        return a.teamPassYards/a.numGames > b.teamPassYards/b.numGames ? -1 : a.teamPassYards/a.numGames == b.teamPassYards/b.numGames ? 0 : 1;
-    }] mutableCopy];
-    for (int t = 0; t < _teamList.count; ++t) {
-        _teamList[t].rankTeamPassYards = t+1;
-    }
+        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamRushYards/a.numGames > b.teamRushYards/b.numGames ? -1 : a.teamRushYards/a.numGames == b.teamRushYards/b.numGames ? 0 : 1;
+        }] mutableCopy];
+        for (int t = 0; t < _teamList.count; ++t) {
+            _teamList[t].rankTeamRushYards = t+1;
+        }
 
-    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Team *a = (Team*)obj1;
-        Team *b = (Team*)obj2;
-        return a.teamRushYards/a.numGames > b.teamRushYards/b.numGames ? -1 : a.teamRushYards/a.numGames == b.teamRushYards/b.numGames ? 0 : 1;
-    }] mutableCopy];
-    for (int t = 0; t < _teamList.count; ++t) {
-        _teamList[t].rankTeamRushYards = t+1;
-    }
+        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamOppPassYards/a.numGames < b.teamOppPassYards/b.numGames ? -1 : a.teamOppPassYards/a.numGames == b.teamOppPassYards/b.numGames ? 0 : 1;
+        }] mutableCopy];
+        for (int t = 0; t < _teamList.count; ++t) {
+            _teamList[t].rankTeamOppPassYards = t+1;
+        }
 
-    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Team *a = (Team*)obj1;
-        Team *b = (Team*)obj2;
-        return a.teamOppPassYards/a.numGames < b.teamOppPassYards/b.numGames ? -1 : a.teamOppPassYards/a.numGames == b.teamOppPassYards/b.numGames ? 0 : 1;
-    }] mutableCopy];
-    for (int t = 0; t < _teamList.count; ++t) {
-        _teamList[t].rankTeamOppPassYards = t+1;
-    }
+        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamOppRushYards/a.numGames < b.teamOppRushYards/b.numGames ? -1 : a.teamOppRushYards/a.numGames == b.teamOppRushYards/b.numGames ? 0 : 1;
+        }] mutableCopy];
+        for (int t = 0; t < _teamList.count; ++t) {
+            _teamList[t].rankTeamOppRushYards = t+1;
+        }
 
-    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Team *a = (Team*)obj1;
-        Team *b = (Team*)obj2;
-        return a.teamOppRushYards/a.numGames < b.teamOppRushYards/b.numGames ? -1 : a.teamOppRushYards/a.numGames == b.teamOppRushYards/b.numGames ? 0 : 1;
-    }] mutableCopy];
-    for (int t = 0; t < _teamList.count; ++t) {
-        _teamList[t].rankTeamOppRushYards = t+1;
-    }
-
-    _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Team *a = (Team*)obj1;
-        Team *b = (Team*)obj2;
-        return a.teamTODiff > b.teamTODiff ? -1 : a.teamTODiff == b.teamTODiff ? 0 : 1;
-    }] mutableCopy];
-    for (int t = 0; t < _teamList.count; ++t) {
-        _teamList[t].rankTeamTODiff= t+1;
+        _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamTODiff > b.teamTODiff ? -1 : a.teamTODiff == b.teamTODiff ? 0 : 1;
+        }] mutableCopy];
+        for (int t = 0; t < _teamList.count; ++t) {
+            _teamList[t].rankTeamTODiff= t+1;
+        }
     }
 
     _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
