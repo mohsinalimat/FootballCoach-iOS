@@ -982,7 +982,7 @@
         }
     }
 
-    if (gameSchedule.count >= 13) {
+    if (gameSchedule.count > 12) {
         if (![semifinalWL isEqualToString:@""] && semifinalWL.length > 0) {
             if ([semifinalWL isEqualToString:@"BW"] || [semifinalWL isEqualToString:@"BL"] || [semifinalWL containsString:@"SF"]) {
                 if (gameSchedule.count >= 13) {
