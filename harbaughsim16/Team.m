@@ -995,7 +995,7 @@
                 if (gameSchedule.count >= 14) {
                     Game *bowl = gameSchedule[13];
                     if (bowl && ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"])) {
-                        [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[12],[self gameSummaryString:bowl]];
+                        [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[13],[self gameSummaryString:bowl]];
                     }
                 }
             }
