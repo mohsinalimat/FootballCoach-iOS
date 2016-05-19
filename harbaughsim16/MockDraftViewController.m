@@ -34,10 +34,29 @@
     NSMutableArray *round6;
     NSMutableArray *round7;
     Player *heisman;
+    NSMutableString *draftSummary;
 }
 @end
 
 @implementation MockDraftViewController
+
+-(void)viewDraftSummary {
+    if (draftSummary.length == 0) {
+        [draftSummary appendString:@"No players drafted"];
+    }
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Draft Summary", [HBSharedUtils getLeague].userTeam.abbreviation] message:draftSummary preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Draft Summary" style:UIBarButtonItemStylePlain target:self action:@selector(viewDraftSummary)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+    self.navigationController.toolbarHidden = NO;
+}
 
 -(void)dismissVC {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -155,11 +174,13 @@
     }];
     NSLog(@"TOTAL DRAFTABLE PLAYERS: %ld", (unsigned long)(long)players.count);
     int userDraftees = 0;
+    draftSummary = [NSMutableString string];
     Team *userTeam = [HBSharedUtils getLeague].userTeam;
     for (int i = 0; i < 32; i++) {
         Player *p = players[i];
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
+            [draftSummary appendFormat:@"Rd 1, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(i + 1), p.position, [p getInitialName], (long)p.ratOvr];
         }
         [round1 addObject:p];
     }
@@ -170,6 +191,7 @@
         Player *p = players[j];
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
+            [draftSummary appendFormat:@"Rd 2, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(j + 1), p.position, [p getInitialName], (long)p.ratOvr];
         }
         [round2 addObject:p];
     }
@@ -178,6 +200,7 @@
         Player *p = players[k];
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
+            [draftSummary appendFormat:@"Rd 3, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(k + 1), p.position, [p getInitialName], (long)p.ratOvr];
         }
         [round3 addObject:p];
     }
@@ -186,6 +209,7 @@
         Player *p = players[r];
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
+            [draftSummary appendFormat:@"Rd 4, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(r + 1), p.position, [p getInitialName], (long)p.ratOvr];
         }
         [round4 addObject:p];
     }
@@ -194,6 +218,7 @@
         Player *p = players[c];
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
+            [draftSummary appendFormat:@"Rd 5, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(c + 1), p.position, [p getInitialName], (long)p.ratOvr];
         }
         [round5 addObject:p];
     }
@@ -202,6 +227,7 @@
         Player *p = players[a];
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
+            [draftSummary appendFormat:@"Rd 6, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(a + 1), p.position, [p getInitialName], (long)p.ratOvr];
         }
         [round6 addObject:p];
     }
@@ -210,6 +236,7 @@
         Player *p = players[b];
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
+            [draftSummary appendFormat:@"Rd 7, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(b + 1), p.position, [p getInitialName], (long)p.ratOvr];
         }
         [round7 addObject:p];
     }
@@ -217,6 +244,8 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"%@ had %ld players drafted this year!",userTeam.abbreviation, (long)userDraftees] onViewController:self];
     });
+    
+    NSLog(@"DRAFTED:\n\n%@",draftSummary);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -282,7 +311,7 @@
     } else {
         p = round7[indexPath.row];
     }
-    NSMutableAttributedString *attName = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld: ",(long)(1 + indexPath.row)] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
+    NSMutableAttributedString *attName = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld: ",(long)(33 + indexPath.row)] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
     
     [attName appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", p.position] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     

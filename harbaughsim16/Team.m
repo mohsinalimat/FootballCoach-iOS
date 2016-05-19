@@ -1547,7 +1547,7 @@
     //[ts0 appendString:@"Opp Yards,"];
     //[ts0 appendFormat:@"%@\n",[self getRankString:rankTeamOppYards]];
 
-    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamOppYards/[self numGames])], @"Opp YPG",[self getRankString:rankTeamYards]]];
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d yds/gm",(teamOppYards/[self numGames])], @"Opp YPG",[self getRankString:rankTeamOppYards]]];
 
     //[ts0 appendFormat:@"%ld,",(long)(teamPassYards/[self numGames])];
     //[ts0 appendString:@"Pass Yards,"];
