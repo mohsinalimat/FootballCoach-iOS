@@ -57,19 +57,117 @@
 }
 
 -(NSArray*)singleSeasonRecords {
+    NSMutableArray *records = [NSMutableArray array];
     if (singleSeasonCompletionsRecord != nil) {
-        return @[singleSeasonCompletionsRecord, singleSeasonPassYardsRecord, singleSeasonPassTDsRecord, singleSeasonInterceptionsRecord, singleSeasonCarriesRecord, singleSeasonRushYardsRecord, singleSeasonRushTDsRecord, singleSeasonFumblesRecord, singleSeasonCatchesRecord, singleSeasonRecYardsRecord, singleSeasonRecTDsRecord, singleSeasonXpMadeRecord, singleSeasonFgMadeRecord];
-    } else {
-        return @[];
+        [records addObject:singleSeasonCompletionsRecord];
     }
+
+    if (singleSeasonPassYardsRecord != nil) {
+        [records addObject:singleSeasonPassYardsRecord];
+    }
+
+    if (singleSeasonPassTDsRecord != nil) {
+        [records addObject:singleSeasonPassTDsRecord];
+    }
+
+    if (singleSeasonInterceptionsRecord != nil) {
+        [records addObject:singleSeasonInterceptionsRecord];
+    }
+
+    if (singleSeasonCarriesRecord != nil) {
+        [records addObject:singleSeasonCarriesRecord];
+    }
+
+    if (singleSeasonRushYardsRecord != nil) {
+        [records addObject:singleSeasonRushYardsRecord];
+    }
+
+    if (singleSeasonRushTDsRecord != nil) {
+        [records addObject:singleSeasonRushTDsRecord];
+    }
+
+    if (singleSeasonFumblesRecord != nil) {
+        [records addObject:singleSeasonFumblesRecord];
+    }
+
+    if (singleSeasonCatchesRecord != nil) {
+        [records addObject:singleSeasonCatchesRecord];
+    }
+
+    if (singleSeasonRecYardsRecord != nil) {
+        [records addObject:singleSeasonRecYardsRecord];
+    }
+
+    if (singleSeasonRecTDsRecord != nil) {
+        [records addObject:singleSeasonRecTDsRecord];
+    }
+
+    if (singleSeasonXpMadeRecord != nil) {
+        [records addObject:singleSeasonXpMadeRecord];
+    }
+
+    if (singleSeasonFgMadeRecord != nil) {
+        [records addObject:singleSeasonFgMadeRecord];
+    }
+
+    return records;
 }
 
 -(NSArray*)careerRecords {
+    NSMutableArray *records = [NSMutableArray array];
     if (careerCompletionsRecord != nil) {
-        return @[careerCompletionsRecord, careerPassYardsRecord, careerPassTDsRecord, careerInterceptionsRecord, careerCarriesRecord, careerRushYardsRecord, careerRushTDsRecord, careerFumblesRecord, careerCatchesRecord, careerRecYardsRecord, careerRecTDsRecord, careerXpMadeRecord, careerFgMadeRecord];
-    } else {
-        return @[];
+        [records addObject:careerCompletionsRecord];
     }
+
+    if (careerPassYardsRecord != nil) {
+        [records addObject:careerPassYardsRecord];
+    }
+
+    if (careerPassTDsRecord != nil) {
+        [records addObject:careerPassTDsRecord];
+    }
+
+    if (careerInterceptionsRecord != nil) {
+        [records addObject:careerInterceptionsRecord];
+    }
+
+    if (careerCarriesRecord != nil) {
+        [records addObject:careerCarriesRecord];
+    }
+
+    if (careerRushYardsRecord != nil) {
+        [records addObject:careerRushYardsRecord];
+    }
+
+    if (careerRushTDsRecord != nil) {
+        [records addObject:careerRushTDsRecord];
+    }
+
+    if (careerFumblesRecord != nil) {
+        [records addObject:careerFumblesRecord];
+    }
+
+    if (careerCatchesRecord != nil) {
+        [records addObject:careerCatchesRecord];
+    }
+
+    if (careerRecYardsRecord != nil) {
+        [records addObject:careerRecYardsRecord];
+    }
+
+    if (careerRecTDsRecord != nil) {
+        [records addObject:careerRecTDsRecord];
+    }
+
+    if (careerXpMadeRecord != nil) {
+        [records addObject:careerXpMadeRecord];
+    }
+
+    if (careerFgMadeRecord != nil) {
+        [records addObject:careerFgMadeRecord];
+    }
+
+    return records;
 }
 
 +(instancetype)newTeamWithName:(NSString *)nm abbreviation:(NSString *)abbr conference:(NSString *)conf league:(League *)league prestige:(int)prestige rivalTeam:(NSString *)rivalTeamAbbr {
