@@ -33,6 +33,7 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:UITableViewAutomaticDimension];
     teams = [HBSharedUtils getLeague].teamList;
+    //[[HBSharedUtils getLeague] setTeamRanks];
     if (selectedStatType == HBStatTypePollScore) {
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;

@@ -1474,7 +1474,7 @@
         _teamList[t].rankTeamStrengthOfWins = t+1;
     }
 
-    if (_currentWeek > 1) {
+    if (_currentWeek > 0) {
         _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
