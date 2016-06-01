@@ -66,6 +66,7 @@
             */
             
             [league setUserTeam:userTeam];
+            [league setCanRebrandTeam:YES];
             userTeam.isUserControlled = YES;
             [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
             [league save];
