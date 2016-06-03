@@ -1478,7 +1478,7 @@
         _teamList = [[_teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
-            return a.teamPoints/[a numGames] > b.teamPoints/b.numGames ? -1 : a.teamPoints/a.numGames == b.teamPoints/b.numGames ? 0 : 1;
+            return a.teamPoints/a.numGames > b.teamPoints/b.numGames ? -1 : a.teamPoints/a.numGames == b.teamPoints/b.numGames ? 0 : 1;
         }] mutableCopy];
         for (int t = 0; t < _teamList.count; ++t) {
             _teamList[t].rankTeamPoints = t+1;
