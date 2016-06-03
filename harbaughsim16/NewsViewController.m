@@ -480,7 +480,7 @@
     userTeam = [HBSharedUtils getLeague].userTeam;
     if (userTeam) {
         NSString *rank = @"";
-        if (userTeam.rankTeamPollScore < 26 && userTeam.rankTeamPollScore > 0) {
+        if ([HBSharedUtils getLeague].currentWeek > 0 && userTeam.rankTeamPollScore < 26 && userTeam.rankTeamPollScore > 0) {
             rank = [NSString stringWithFormat:@"#%ld ",(long)userTeam.rankTeamPollScore];
         }
         [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, userTeam.name]];
