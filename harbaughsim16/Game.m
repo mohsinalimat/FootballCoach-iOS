@@ -1140,7 +1140,12 @@
             }
         }
         
+        [_homeTeam checkForInjury];
+        [_awayTeam checkForInjury];
+   
+        
         [self addNewsStory];
+    
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"playedGame" object:nil];
 }

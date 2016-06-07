@@ -22,6 +22,7 @@
 #import "PlayerF7.h"
 #import "PlayerCB.h"
 #import "PlayerS.h"
+#import "Injury.h"
 
 #import "HBSharedUtils.h"
 
@@ -497,6 +498,15 @@
     return records;
 }
 
+-(BOOL)isSaveCorrupt {
+    for (Team *t in _teamList) {
+        if (t.teamQBs.count < 2 || t.teamRBs.count < 4 || t.teamWRs.count < 6 || t.teamOLs.count < 10 || t.teamF7s.count < 14 || t.teamCBs.count < 6 || t.teamSs.count < 2 || t.teamKs.count < 2) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 -(void)save {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"saveInProgress" object:nil];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
@@ -526,6 +536,69 @@
         }
     });
 }
+
+/*
+-(void)advanceInjuries {
+    NSMutableArray *injuredPlayers = [NSMutableArray array]; // could replace this with master list of injuries in Injury.h
+    for (Team *t in _teamList) {
+        for (Player *p in t.teamQBs) {
+            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
+                [injuredPlayers addObject:p];
+            }
+        }
+        
+        for (Player *p in t.teamRBs) {
+            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
+                [injuredPlayers addObject:p];
+            }
+        }
+        
+        for (Player *p in t.teamWRs) {
+            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
+                [injuredPlayers addObject:p];
+            }
+        }
+        
+        for (Player *p in t.teamOLs) {
+            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
+                [injuredPlayers addObject:p];
+            }
+        }
+        
+        for (Player *p in t.teamKs) {
+            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
+                [injuredPlayers addObject:p];
+            }
+        }
+        
+        for (Player *p in t.teamF7s) {
+            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
+                [injuredPlayers addObject:p];
+            }
+        }
+        
+        for (Player *p in t.teamCBs) {
+            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
+                [injuredPlayers addObject:p];
+            }
+        }
+        
+        for (Player *p in t.teamSs) {
+            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
+                [injuredPlayers addObject:p];
+            }
+        }
+    }
+    
+    for (Player *p in injuredPlayers) {
+        p.injury.duration--;
+        if (p.injury.duration <= 0) {
+            // Done with injury
+            p.injury = nil;
+        }
+    }
+    
+}*/
 
 +(BOOL)loadSavedData {
     if ([FCFileManager existsItemAtPath:@"league.cfb"]) {
@@ -749,6 +822,7 @@
 
 -(void)playWeek {
     _canRebrandTeam = NO;
+    
     if (_currentWeek <= 12 ) {
         for (int i = 0; i < _conferences.count; ++i) {
             [_conferences[i] playWeek];
@@ -830,7 +904,7 @@
         }
     }
 
-    if (_currentWeek == 12 ) {
+    if (_currentWeek == 12) {
         //bowl week
         for (int i = 0; i < _teamList.count; ++i) {
             [_teamList[i] updatePollScore];
@@ -847,9 +921,11 @@
     } else if (_currentWeek == 13 ) {
         _heisman = [self calculateHeismanCandidates][0];
         [_heismanHistory addObject:[NSString stringWithFormat:@"%@ %@ [%@], %@ (%ld-%ld)",_heisman.position,_heisman.getInitialName,_heisman.getYearString,_heisman.team.abbreviation,(long)_heisman.team.wins,(long)_heisman.team.losses]];
+        
         [self playBowlGames];
 
     } else if (_currentWeek == 14 ) {
+        
         [_ncg playGame];
         if (_ncg.homeScore > _ncg.awayScore ) {
             //_ncg.homeTeam.semifinalWL = @"";
@@ -1197,7 +1273,7 @@
             }
         }
 
-        heismanCandidates = [[heismanCandidates sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        [heismanCandidates sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Player *a = (Player*)obj1;
             Player *b = (Player*)obj2;
             if (a.isHeisman) {
@@ -1208,11 +1284,11 @@
                 return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
             }
 
-        }] mutableCopy];
+        }];
 
         return heismanCandidates;
     } else {
-        heismanCandidates = [[heismanCandidates sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        [heismanCandidates sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Player *a = (Player*)obj1;
             Player *b = (Player*)obj2;
             if (a.isHeisman) {
@@ -1223,7 +1299,7 @@
                 return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
             }
 
-        }] mutableCopy];
+        }];
 
         return heismanCandidates;
     }
@@ -1605,6 +1681,78 @@
     for (int t = 0; t < _teamList.count; ++t) {
         _teamList[t].rankTeamTotalWins = t+1;
     }
+}
+
+-(NSDictionary *)allLeaguePlayers {
+    NSMutableArray *leadingQBs = [NSMutableArray array];
+    NSMutableArray *leadingRBs = [NSMutableArray array];
+    NSMutableArray *leadingWRs = [NSMutableArray array];
+    NSMutableArray *leadingKs = [NSMutableArray array];
+    
+    for (Team *t in _teamList) {
+        [leadingQBs addObject:[t getQB:0]];
+        [leadingRBs addObject:[t getRB:0]];
+        [leadingRBs addObject:[t getRB:1]];
+        [leadingWRs addObject:[t getWR:0]];
+        [leadingWRs addObject:[t getWR:1]];
+        [leadingWRs addObject:[t getWR:2]];
+        [leadingKs addObject:[t getK:0]];
+    }
+    
+    [leadingQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        PlayerK *a = (PlayerK*)obj1;
+        PlayerK *b = (PlayerK*)obj2;
+        return ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) > ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? -1 : ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) == ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? 0 : 1;
+    }];
+    
+    PlayerQB *qb = leadingQBs[0];
+    qb.isAllAmerican = YES;
+    
+    PlayerRB *rb1 = leadingRBs[0];
+    rb1.isAllAmerican = YES;
+    
+    PlayerRB *rb2 = leadingRBs[1];
+    rb2.isAllAmerican = YES;
+    
+    PlayerWR *wr1 = leadingWRs[0];
+    wr1.isAllAmerican = YES;
+    
+    PlayerWR *wr2 = leadingWRs[1];
+    wr2.isAllAmerican = YES;
+    
+    PlayerWR *wr3 = leadingWRs[2];
+    wr3.isAllAmerican = YES;
+    
+    PlayerK *k = leadingKs[0];
+    k.isAllAmerican = YES;
+    
+    return @{
+             @"QB" : @[qb],
+             @"RB" : @[rb1,rb2],
+             @"WR" : @[wr1,wr2,wr3],
+             @"K"  : @[k]
+             };
 
 }
+
+
+
 @end

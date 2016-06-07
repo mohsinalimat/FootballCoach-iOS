@@ -9,6 +9,15 @@
 #import "Conference.h"
 #import "Team.h"
 #import "HBSharedUtils.h"
+#import "Player.h"
+#import "PlayerQB.h"
+#import "PlayerRB.h"
+#import "PlayerWR.h"
+#import "PlayerK.h"
+#import "PlayerOL.h"
+#import "PlayerF7.h"
+#import "PlayerCB.h"
+#import "PlayerS.h"
 
 @implementation Conference
 
@@ -99,7 +108,7 @@
 
 -(void)playConfChamp {
     [_ccg playGame];
-     if (_ccg.homeScore > _ccg.awayScore ) {
+     if (_ccg.homeScore > _ccg.awayScore) {
          _confTeams[0].confChampion = @"CC";
          _confTeams[0].totalCCs++;
          _confTeams[1].totalCCLosses++;
@@ -139,9 +148,11 @@
         Team *b = (Team*)obj2;
         if ([a.confChampion isEqualToString:@"CC"]) return -1;
         else if ([b.confChampion isEqualToString:@"CC"]) return 1;
-        if ([a calculateConfWins] > [b calculateConfWins]) {
+        else if ([a calculateConfWins] > [b calculateConfWins]) {
             return -1;
-        } else if ([a calculateConfWins] == [b calculateConfWins]) {
+        } else if ([b calculateConfWins] > [a calculateConfWins]) {
+            return 1;
+        } else {
             //check for h2h tiebreaker
             if ([a.gameWinsAgainst containsObject:b]) {
                 return -1;
@@ -150,8 +161,6 @@
             } else {
                 return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
             }
-        } else {
-            return 1;
         }
     }] mutableCopy];
     
@@ -339,6 +348,75 @@
         _robinWeek++;
     }
     
+}
+
+-(NSDictionary *)allConferencePlayers {
+    NSMutableArray *leadingQBs = [NSMutableArray array];
+    NSMutableArray *leadingRBs = [NSMutableArray array];
+    NSMutableArray *leadingWRs = [NSMutableArray array];
+    NSMutableArray *leadingKs = [NSMutableArray array];
+    
+    for (Team *t in _confTeams) {
+        [leadingQBs addObject:[t getQB:0]];
+        [leadingRBs addObject:[t getRB:0]];
+        [leadingRBs addObject:[t getRB:1]];
+        [leadingWRs addObject:[t getWR:0]];
+        [leadingWRs addObject:[t getWR:1]];
+        [leadingWRs addObject:[t getWR:2]];
+        [leadingKs addObject:[t getK:0]];
+    }
+    
+    [leadingQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        PlayerK *a = (PlayerK*)obj1;
+        PlayerK *b = (PlayerK*)obj2;
+        return ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) > ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? -1 : ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) == ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? 0 : 1;
+    }];
+    
+    PlayerQB *qb = leadingQBs[0];
+    qb.isAllConference = YES;
+    
+    PlayerRB *rb1 = leadingRBs[0];
+    rb1.isAllConference = YES;
+    
+    PlayerRB *rb2 = leadingRBs[1];
+    rb2.isAllConference = YES;
+    
+    PlayerWR *wr1 = leadingWRs[0];
+    wr1.isAllConference = YES;
+    
+    PlayerWR *wr2 = leadingWRs[1];
+    wr2.isAllConference = YES;
+    
+    PlayerWR *wr3 = leadingWRs[2];
+    wr3.isAllConference = YES;
+    
+    PlayerK *k = leadingKs[0];
+    k.isAllConference = YES;
+
+    return @{
+             @"QB" : @[qb],
+             @"RB" : @[rb1,rb2],
+             @"WR" : @[wr1,wr2,wr3],
+             @"K"  : @[k]
+             };
 }
 
 

@@ -28,4 +28,5 @@
 -(void)insertOOCSchedule;
 -(void)setUpOOCSchedule;
 -(void)setUpSchedule;
+-(NSDictionary *)allConferencePlayers;
 @end

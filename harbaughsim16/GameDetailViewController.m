@@ -349,6 +349,12 @@
             } else {
                 plyr = [selectedGame.homeTeam playerToWatch];
             }
+            
+            if (plyr == nil) {
+                [statsCell.playerLabel setText:@"No player found"];
+                return statsCell;
+            }
+            
             NSString *stat1 = @"";
             NSString *stat2 = @"";
             NSString *stat3 = @"";

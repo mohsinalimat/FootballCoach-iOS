@@ -33,6 +33,6 @@
 @property (nonatomic) int careerStatsDrops;
 @property (nonatomic) int careerStatsFumbles;
 
-+(instancetype)newWRWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq catch:(int)cat speed:(int)spd eva:(int)eva;
++(instancetype)newWRWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq catch:(int)cat speed:(int)spd eva:(int)eva dur:(int)dur;
 +(instancetype)newWRWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t;
 @end

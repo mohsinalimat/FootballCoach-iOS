@@ -28,12 +28,13 @@
     [aCoder encodeInt:_ratF7Pas forKey:@"ratF7Pas"];
 }
 
--(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow rush:(int)rsh pass:(int)pass {
+-(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow rush:(int)rsh pass:(int)pass dur:(int)dur {
     self = [super init];
     if (self) {
         self.team = t;
         self.name = nm;
         self.year = yr;
+        self.ratDur = dur;
         self.ratOvr = (pow*3 + rsh + pass)/5;
         self.ratPot = pot;
         self.ratFootIQ = iq;
@@ -46,17 +47,6 @@
             self.cost = 50;
         }
         
-        self.ratingsVector = [NSMutableArray array];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%ld (%ld)",(long)self.ratOvr,(long)self.ratImprovement]];
-        [self.ratingsVector addObject:@(self.ratPot)];
-        [self.ratingsVector addObject:@(self.ratFootIQ)];
-        [self.ratingsVector addObject:@(self.ratF7Pow)];
-        [self.ratingsVector addObject:@(self.ratF7Rsh)];
-        [self.ratingsVector addObject:@(self.ratF7Pas)];
-        
-
-        
         self.position = @"F7";
     }
     return self;
@@ -68,6 +58,7 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
+        self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
         _ratF7Pow = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
@@ -80,39 +71,17 @@
             self.cost = 50;
         }
         
-        self.ratingsVector = [NSMutableArray array];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%ld (%ld)",(long)self.ratOvr,(long)self.ratImprovement]];
-        [self.ratingsVector addObject:@(self.ratPot)];
-        [self.ratingsVector addObject:@(self.ratFootIQ)];
-        [self.ratingsVector addObject:@(self.ratF7Pow)];
-        [self.ratingsVector addObject:@(self.ratF7Rsh)];
-        [self.ratingsVector addObject:@(self.ratF7Pas)];
-        
-        
         self.position = @"F7";
     }
     return self;
 }
 
-+(instancetype)newF7WithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow rush:(int)rsh pass:(int)pass {
-    return [[PlayerF7 alloc] initWithName:nm team:t year:yr potential:pot footballIQ:iq power:pow rush:rsh pass:pass];
++(instancetype)newF7WithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow rush:(int)rsh pass:(int)pass dur:(int)dur {
+    return [[PlayerF7 alloc] initWithName:nm team:t year:yr potential:pot footballIQ:iq power:pow rush:rsh pass:pass dur:dur];
 }
 
 +(instancetype)newF7WithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t {
     return [[PlayerF7 alloc] initWithName:nm year:yr stars:stars team:t];
-}
-
--(NSMutableArray*)getRatingsVector {
-    self.ratingsVector = [NSMutableArray array];
-    [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
-    [self.ratingsVector addObject:[NSString stringWithFormat:@"%ld (%ld)",(long)self.ratOvr,(long)self.ratImprovement]];
-    [self.ratingsVector addObject:@(self.ratPot)];
-    [self.ratingsVector addObject:@(self.ratFootIQ)];
-    [self.ratingsVector addObject:@(self.ratF7Pow)];
-    [self.ratingsVector addObject:@(self.ratF7Rsh)];
-    [self.ratingsVector addObject:@(self.ratF7Pas)];
-    return self.ratingsVector;
 }
 
 -(void)advanceSeason {

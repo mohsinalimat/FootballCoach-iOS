@@ -240,7 +240,7 @@
             teamColor = [HBSharedUtils champColor];
         } else {
             if ([hist containsString:@"Bowl - W"] || [hist containsString:@"Semis,1v4 - W"] || [hist containsString:@"Semis,2v3 - W"] || [hist containsString:@"BW"] || [hist containsString:@"SFW"]) {
-                teamColor = [HBSharedUtils styleColor];
+                teamColor = [UIColor orangeColor];
             } else {
                 if ([hist containsString:@"CCG - W"] || [hist containsString:@"CC"]) {
                     teamColor = [HBSharedUtils successColor];

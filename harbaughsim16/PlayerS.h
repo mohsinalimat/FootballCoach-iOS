@@ -14,6 +14,6 @@
 @property (nonatomic) int ratSSpd;
 //CBTkl affects how good he is at tackling
 @property (nonatomic) int ratSTkl;
-+(instancetype)newSWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling;
++(instancetype)newSWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling dur:(int)dur;
 +(instancetype)newSWithName:(NSString*)name year:(int)year stars:(int)stars team:(Team*)t;
 @end

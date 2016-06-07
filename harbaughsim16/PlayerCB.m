@@ -28,12 +28,13 @@
     [aCoder encodeInt:_ratCBTkl forKey:@"ratCBTkl"];
 }
 
--(instancetype)initWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling {
+-(instancetype)initWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling dur:(int)dur {
     self = [super init];
     if (self) {
         self.team = team;
         self.name = name;
         self.year = year;
+        self.ratDur = dur;
         self.ratOvr = (coverage * 2 + speed + tackling) / 4;
         self.ratPot = potential;
         self.ratFootIQ = iq;
@@ -42,21 +43,12 @@
         self.ratCBTkl = tackling;
         self.position = @"CB";
         self.cost = pow(self.ratOvr / 6, 2) + ([HBSharedUtils randomValue] * 100) - 50;
-        
-        self.ratingsVector = [NSMutableArray array];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)", name, [self getYearString]]];
-        //[self.ratingsVector addObject:[NSString stringWithFormat:@"%ld (%ld)",(long)self.ratOvr,(long)self.ratImprovement]];
-        [self.ratingsVector addObject:@(self.ratPot)];
-        [self.ratingsVector addObject:@(self.ratFootIQ)];
-        [self.ratingsVector addObject:@(self.ratCBCov)];
-        [self.ratingsVector addObject:@(self.ratCBSpd)];
-        [self.ratingsVector addObject:@(self.ratCBTkl)];
     }
     return self;
 }
 
-+(instancetype)newCBWithName:(NSString *)name team:(Team *)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling {
-    return [[PlayerCB alloc] initWithName:name team:team year:year potential:potential iq:iq coverage:coverage speed:speed tackling:tackling];
++(instancetype)newCBWithName:(NSString *)name team:(Team *)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling dur:(int)dur {
+    return [[PlayerCB alloc] initWithName:name team:team year:year potential:potential iq:iq coverage:coverage speed:speed tackling:tackling dur:dur];
 }
 
 +(instancetype)newCBWithName:(NSString *)name year:(int)year stars:(int)stars team:(Team*)t {
@@ -69,6 +61,7 @@
         self.team = t;
         self.name = name;
         self.year = year;
+        self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int)([HBSharedUtils randomValue]*50 + 50);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratCBCov = (int) (60 + year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
@@ -77,29 +70,8 @@
         self.ratOvr = (self.ratCBCov*2 + self.ratCBSpd + self.ratCBTkl)/4;
         self.position = @"CB";
         self.cost = pow(self.ratOvr / 6, 2) + ([HBSharedUtils randomValue] * 100) - 50;
-        
-        self.ratingsVector = [NSMutableArray array];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)", name, [self getYearString]]];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%ld (%ld)",(long)self.ratOvr,(long)self.ratImprovement]];
-        [self.ratingsVector addObject:@(self.ratPot)];
-        [self.ratingsVector addObject:@(self.ratFootIQ)];
-        [self.ratingsVector addObject:@(self.ratCBCov)];
-        [self.ratingsVector addObject:@(self.ratCBSpd)];
-        [self.ratingsVector addObject:@(self.ratCBTkl)];
     }
     return self;
-}
-
--(NSMutableArray*)getRatingsVector {
-    self.ratingsVector = [NSMutableArray array];
-    [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)", self.name, [self getYearString]]];
-    [self.ratingsVector addObject:[NSString stringWithFormat:@"%ld (%ld)",(long)self.ratOvr,(long)self.ratImprovement]];
-    [self.ratingsVector addObject:@(self.ratPot)];
-    [self.ratingsVector addObject:@(self.ratFootIQ)];
-    [self.ratingsVector addObject:@(self.ratCBCov)];
-    [self.ratingsVector addObject:@(self.ratCBSpd)];
-    [self.ratingsVector addObject:@(self.ratCBTkl)];
-    return self.ratingsVector;
 }
 
 -(void)advanceSeason {

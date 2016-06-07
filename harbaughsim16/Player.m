@@ -23,7 +23,7 @@
         _ratFootIQ = [aDecoder decodeIntForKey:@"ratFootIQ"];
         _cost = [aDecoder decodeIntForKey:@"cost"];
         _gamesPlayed = [aDecoder decodeIntForKey:@"gamesPlayed"];
-        _ratingsVector = [aDecoder decodeObjectForKey:@"ratingsVector"];
+        _injury = [aDecoder decodeObjectForKey:@"injury"];
         _team = [aDecoder decodeObjectForKey:@"team"];
         
         if ([aDecoder containsValueForKey:@"hasRedshirt"]) {
@@ -44,6 +44,24 @@
             _isHeisman = NO;
         }
         
+        if ([aDecoder containsValueForKey:@"isAllAmerican"]) {
+            _isAllAmerican = [aDecoder decodeBoolForKey:@"isAllAmerican"];
+        } else {
+            _isAllAmerican = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"isAllConference"]) {
+            _isAllConference = [aDecoder decodeBoolForKey:@"isAllConference"];
+        } else {
+            _isAllConference = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"ratDur"]) {
+            _ratDur = [aDecoder decodeIntForKey:@"ratDur"];
+        } else {
+            _ratDur = (int) (50 + 50 * [HBSharedUtils randomValue]);
+        }
+        
     }
     return self;
 }
@@ -55,14 +73,17 @@
     [aCoder encodeInt:_ratOvr forKey:@"ratOvr"];
     [aCoder encodeInt:_year forKey:@"year"];
     [aCoder encodeInt:_ratPot forKey:@"ratPot"];
+    [aCoder encodeInt:_ratDur forKey:@"ratDur"];
     [aCoder encodeInt:_ratFootIQ forKey:@"ratFootIQ"];
     [aCoder encodeInt:_ratImprovement forKey:@"ratImprovement"];
     [aCoder encodeInt:_cost forKey:@"cost"];
     [aCoder encodeInt:_gamesPlayed forKey:@"gamesPlayed"];
-    [aCoder encodeObject:_ratingsVector forKey:@"ratingsVector"];
+    [aCoder encodeObject:_injury forKey:@"injury"];
     [aCoder encodeBool:_wasRedshirted forKey:@"wasRedshirted"];
     [aCoder encodeBool:_hasRedshirt forKey:@"hasRedshirt"];
     [aCoder encodeBool:_isHeisman forKey:@"isHeisman"];
+    [aCoder encodeBool:_isAllAmerican forKey:@"isAllAmerican"];
+    [aCoder encodeBool:_isAllConference forKey:@"isAllConference"];
 }
 
 - (NSComparisonResult)compare:(id)other
@@ -172,9 +193,16 @@
     return @"ERROR";
 }
 
+-(BOOL)isInjured {
+    return (self.injury != nil);
+}
+
 -(void)advanceSeason {
     self.year++;
-    _isHeisman = NO;
+    self.isHeisman = NO;
+    self.isAllAmerican = NO;
+    self.isAllConference = NO;
+    self.injury = nil;
     if (self.hasRedshirt) {
         self.hasRedshirt = NO;
         self.wasRedshirted = YES;
@@ -238,7 +266,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    return @{@"potential" : [self getLetterGrade:_ratPot]};
+    return @{@"potential" : [self getLetterGrade:_ratPot], @"durability" : [self getLetterGrade:_ratDur]};
 }
 
 -(void)checkRecords {

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Team.h"
+#import "Injury.h"
 #import "HBSharedUtils.h"
 
 @interface Player : NSObject <NSCoding> {
@@ -22,13 +23,18 @@
 @property (nonatomic) int ratPot;
 @property (nonatomic) int ratFootIQ;
 @property (nonatomic) int ratImprovement;
+@property (nonatomic) int ratDur;
 @property (nonatomic) int cost;
 @property (nonatomic) int gamesPlayed;
-@property (strong, nonatomic) NSMutableArray *ratingsVector;
 @property (nonatomic) BOOL hasRedshirt;
 @property (nonatomic) BOOL wasRedshirted;
 @property (nonatomic) BOOL isHeisman;
+@property (nonatomic) BOOL isAllAmerican;
+@property (nonatomic) BOOL isAllConference;
+@property (strong, nonatomic) Injury *injury;
 
+
+-(BOOL)isInjured;
 +(NSArray *)letterGrades;
 -(NSString*)getYearString;
 -(NSString*)getFullYearString;

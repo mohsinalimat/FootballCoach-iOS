@@ -23,10 +23,7 @@
 @interface AllConferenceTeamViewController ()
 {
     Conference *selectedConf;
-    NSMutableArray *leadingQBs;
-    NSMutableArray *leadingRBs;
-    NSMutableArray *leadingWRs;
-    NSMutableArray *leadingKs;
+    NSDictionary *players;
     Player *heisman;
 }
 @end
@@ -53,47 +50,8 @@
     heisman = [[HBSharedUtils getLeague] heisman];
     
     self.title = [NSString stringWithFormat:@"%ld's All-%@ Team", (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count), selectedConf.confName];
-    
-    leadingQBs = [NSMutableArray array];
-    leadingRBs = [NSMutableArray array];
-    leadingWRs = [NSMutableArray array];
-    leadingKs = [NSMutableArray array];
-    
-    //League *curLeague = [HBSharedUtils getLeague];
-    for (Team *t in selectedConf.confTeams) {
-        [leadingQBs addObject:[t getQB:0]];
-        [leadingRBs addObject:[t getRB:0]];
-        [leadingRBs addObject:[t getRB:1]];
-        [leadingWRs addObject:[t getWR:0]];
-        [leadingWRs addObject:[t getWR:1]];
-        [leadingWRs addObject:[t getWR:2]];
-        [leadingKs addObject:[t getK:0]];
-    }
-    
-    [leadingQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
-    }];
-    
-    [leadingRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
-    }];
-    
-    [leadingWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
-    }];
-    
-    [leadingKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        PlayerK *a = (PlayerK*)obj1;
-        PlayerK *b = (PlayerK*)obj2;
-        return ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) > ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? -1 : ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) == ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? 0 : 1;
-    }];
-    
+    players = [selectedConf allConferencePlayers];
+        
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:60];
@@ -148,13 +106,13 @@
     HBPlayerCell *statsCell = (HBPlayerCell*)[tableView dequeueReusableCellWithIdentifier:@"HBPlayerCell"];
     Player *plyr;
     if (indexPath.section == 0) {
-        plyr = leadingQBs[indexPath.row];
+        plyr = players[@"QB"][indexPath.row];
     } else if (indexPath.section == 1) {
-        plyr = leadingRBs[indexPath.row];
+        plyr = players[@"RB"][indexPath.row];
     } else if (indexPath.section == 2) {
-        plyr = leadingWRs[indexPath.row];
+        plyr = players[@"WR"][indexPath.row];
     } else {
-        plyr = leadingKs[indexPath.row];
+        plyr = players[@"K"][indexPath.row];
     }
     NSString *stat1 = @"";
     NSString *stat2 = @"";
@@ -240,13 +198,13 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Player *plyr;
     if (indexPath.section == 0) {
-        plyr = leadingQBs[indexPath.row];
+        plyr = players[@"QB"][indexPath.row];
     } else if (indexPath.section == 1) {
-        plyr = leadingRBs[indexPath.row];
+        plyr = players[@"RB"][indexPath.row];
     } else if (indexPath.section == 2) {
-        plyr = leadingWRs[indexPath.row];
+        plyr = players[@"WR"][indexPath.row];
     } else {
-        plyr = leadingKs[indexPath.row];
+        plyr = players[@"K"][indexPath.row];
     }
     [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:plyr] animated:YES];
 }

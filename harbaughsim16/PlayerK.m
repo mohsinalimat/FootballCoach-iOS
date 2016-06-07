@@ -71,12 +71,13 @@
     [aCoder encodeInt:_careerStatsXPAtt forKey:@"careerStatsXPAtt"];
 }
 
--(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum {
+-(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum dur:(int)dur {
     self = [super init];
     if (self) {
         self.team = t;
         self.name = nm;
         self.year = yr;
+        self.ratDur = dur;
         self.ratOvr = (pow + acc)/2;
         self.ratPot = pot;
         self.ratFootIQ = iq;
@@ -85,15 +86,6 @@
         _ratKickFum = fum;
         
         self.cost = (int)(powf((float)self.ratOvr/3.5,2.0)) + (int)([HBSharedUtils randomValue]*100) - 50;
-        
-        self.ratingsVector = [NSMutableArray array];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%ld (%ld)",(long)self.ratOvr,(long)self.ratImprovement]];
-        [self.ratingsVector addObject:@(self.ratPot)];
-        [self.ratingsVector addObject:@(self.ratFootIQ)];
-        [self.ratingsVector addObject:@(self.ratKickPow)];
-        [self.ratingsVector addObject:@(self.ratKickAcc)];
-        [self.ratingsVector addObject:@(self.ratKickFum)];
         
         _statsXPAtt = 0;
         _statsXPMade = 0;
@@ -116,6 +108,7 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
+        self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
         _ratKickPow = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
@@ -124,15 +117,6 @@
         self.ratOvr = (_ratKickPow + _ratKickAcc)/2;
         
         self.cost = (int)((pow((float)self.ratOvr/3.5,2) + (int)([HBSharedUtils randomValue]*100) - 50) / 3);
-        
-        self.ratingsVector = [NSMutableArray array];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
-        [self.ratingsVector addObject:[NSString stringWithFormat:@"%ld (%ld)",(long)self.ratOvr,(long)self.ratImprovement]];
-        [self.ratingsVector addObject:@(self.ratPot)];
-        [self.ratingsVector addObject:@(self.ratFootIQ)];
-        [self.ratingsVector addObject:@(self.ratKickPow)];
-        [self.ratingsVector addObject:@(self.ratKickAcc)];
-        [self.ratingsVector addObject:@(self.ratKickFum)];
         
         _statsXPAtt = 0;
         _statsXPMade = 0;
@@ -149,36 +133,12 @@
     return self;
 }
 
-+(instancetype)newKWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum {
-    return [[PlayerK alloc] initWithName:nm team:t year:yr potential:pot footballIQ:iq power:pow accuracy:acc fum:fum];
++(instancetype)newKWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum dur:(int)dur {
+    return [[PlayerK alloc] initWithName:nm team:t year:yr potential:pot footballIQ:iq power:pow accuracy:acc fum:fum dur:dur];
 }
 
 +(instancetype)newKWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t {
     return [[PlayerK alloc] initWithName:nm year:yr stars:stars team:t];
-}
-
--(NSMutableArray*)getStatsVector {
-    NSMutableArray* v = [NSMutableArray array];
-    [v addObject:@(self.statsXPMade)];
-    [v addObject:@(self.statsXPAtt)];
-    [v addObject:@((float)((int)((float)self.statsXPMade/self.statsXPAtt*1000))/10)];
-    [v addObject:@(self.statsFGMade)];
-    [v addObject:@(self.statsFGAtt)];
-    [v addObject:@((float)((int)((float)self.statsFGMade/self.statsFGAtt*100))/100)];
-    return v;
-}
-
-
--(NSMutableArray*)getRatingsVector {
-    self.ratingsVector = [NSMutableArray array];
-    [self.ratingsVector addObject:[NSString stringWithFormat:@"%@ (%@)",self.name,[self getYearString]]];
-    [self.ratingsVector addObject:[NSString stringWithFormat:@"%ld (%ld)",(long)self.ratOvr,(long)self.ratImprovement]];
-    [self.ratingsVector addObject:@(self.ratPot)];
-    [self.ratingsVector addObject:@(self.ratFootIQ)];
-    [self.ratingsVector addObject:@(self.ratKickPow)];
-    [self.ratingsVector addObject:@(self.ratKickAcc)];
-    [self.ratingsVector addObject:@(self.ratKickFum)];
-    return self.ratingsVector;
 }
 
 -(void)advanceSeason {

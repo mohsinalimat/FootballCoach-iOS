@@ -201,7 +201,12 @@
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alertController animated:YES completion:nil];
         } else {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            float simTime = 0.5;
+            if (IS_IPHONE_5 || IS_IPHONE_4_OR_LESS) {
+                simTime = 1.0;
+            }
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(simTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [simLeague playWeek];
                 
                 if (simLeague.currentWeek < 12) {

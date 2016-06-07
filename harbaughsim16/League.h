@@ -64,7 +64,8 @@
 
 //Current week, 1-14
 @property (nonatomic) int currentWeek;
-
+//@property (nonatomic) BOOL isHardMode; SOON^TM
+ 
 //Bowl Games
 @property (strong, nonatomic) Player *heisman;
 @property (strong, nonatomic) NSMutableArray<Player*> *heismanFinalists;
@@ -117,6 +118,7 @@
 
 
 +(BOOL)loadSavedData;
+-(BOOL)isSaveCorrupt;
 -(NSArray*)bowlGameTitles;
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV;
 +(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName names:(NSString*)namesCSV;
@@ -142,7 +144,7 @@
 -(void)save;
 -(NSArray*)getBowlPredictions;
 -(NSArray*)getHeismanLeaders;
-
+-(NSDictionary *)allLeaguePlayers;
 -(NSArray*)singleSeasonRecords;
 -(NSArray*)careerRecords;
 @end

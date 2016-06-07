@@ -185,6 +185,10 @@
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
     } else if (player.isHeisman) {
         [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
+    } else if (player.isAllAmerican) {
+        [cell.nameLabel setTextColor:[UIColor orangeColor]];
+    } else if (player.isAllConference) {
+        [cell.nameLabel setTextColor:[HBSharedUtils successColor]];
     } else {
         [cell.nameLabel setTextColor:[UIColor blackColor]];
     }

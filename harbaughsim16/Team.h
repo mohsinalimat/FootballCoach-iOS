@@ -89,6 +89,8 @@
 @property (nonatomic) int totalBowlLosses;
 
 //Game Log variables
+@property (strong, nonatomic) NSMutableArray<Player*> *injuredPlayers;
+@property (strong, nonatomic) NSMutableArray<Player*> *recoveredPlayers;
 @property (strong, nonatomic) NSMutableArray *gameSchedule;
 @property (strong, nonatomic) Game *oocGame0;
 @property (strong, nonatomic) Game *oocGame4;
@@ -229,13 +231,16 @@
 -(int)getCompositeF7Pass;
 -(int)getCompositeF7Rush;
 -(int)getCompositeFootIQ;
+
 -(NSMutableArray*)getGameSummaryStrings:(int)gameNumber;
 -(NSString*)getSeasonSummaryString;
 -(NSString*)getRankString:(int)num;
 -(NSString*)getRankStrStarUser:(int)num;
+
 -(int)numGames;
 -(int)calculateConfWins;
 -(int)calculateConfLosses;
+
 -(NSString*)strRep;
 -(NSString*)strRepWithBowlResults;
 -(NSString*)weekSummaryString;
@@ -243,12 +248,21 @@
 -(NSString*)gameSummaryStringScore:(Game*)g;
 -(NSString*)gameSummaryStringOpponent:(Game*)g;
 -(NSString*)getGraduatingPlayersString;
+
 -(NSMutableArray*)getOffensiveTeamStrategies;
 -(NSMutableArray*)getDefensiveTeamStrategies;
+
 -(NSArray*)getTeamStatsArray;
+
 -(void)setStarters:(NSArray<Player*>*)starters position:(int)position;
+
 -(void)getGraduatingPlayers;
+
 -(NSArray*)singleSeasonRecords;
 -(NSArray*)careerRecords;
+
 -(Player*)playerToWatch;
+
+-(NSString*)injuryReport;
+-(void)checkForInjury;
 @end
