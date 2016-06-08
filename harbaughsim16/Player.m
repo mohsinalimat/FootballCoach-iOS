@@ -26,6 +26,12 @@
         _injury = [aDecoder decodeObjectForKey:@"injury"];
         _team = [aDecoder decodeObjectForKey:@"team"];
         
+        if ([aDecoder containsValueForKey:@"draftPosition"]) {
+            _draftPosition = [aDecoder decodeObjectForKey:@"draftPosition"];
+        } else {
+            _draftPosition = nil;
+        }
+        
         if ([aDecoder containsValueForKey:@"hasRedshirt"]) {
             _hasRedshirt = [aDecoder decodeBoolForKey:@"hasRedshirt"];
         } else {
@@ -84,6 +90,7 @@
     [aCoder encodeBool:_isHeisman forKey:@"isHeisman"];
     [aCoder encodeBool:_isAllAmerican forKey:@"isAllAmerican"];
     [aCoder encodeBool:_isAllConference forKey:@"isAllConference"];
+    [aCoder encodeObject:_draftPosition forKey:@"draftPosition"];
 }
 
 - (NSComparisonResult)compare:(id)other

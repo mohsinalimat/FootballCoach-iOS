@@ -566,8 +566,6 @@
 			children = (
 				75924A4A1C99D03300B165AD /* Player.h */,
 				75924A4B1C99D03300B165AD /* Player.m */,
-				75EC9A6F1D0663B900F24BE6 /* Injury.h */,
-				75EC9A701D0663B900F24BE6 /* Injury.m */,
 				75924A561C99E62F00B165AD /* PlayerQB.h */,
 				75924A571C99E62F00B165AD /* PlayerQB.m */,
 				75924A591C99E63800B165AD /* PlayerRB.h */,
@@ -675,11 +673,13 @@
 				75924A4E1C99D05E00B165AD /* Conference.m */,
 				75924A471C99CF7C00B165AD /* Game.h */,
 				75924A481C99CF7C00B165AD /* Game.m */,
-				755BBC6B1C9E11BD001A8314 /* Players */,
+				75EC9A6F1D0663B900F24BE6 /* Injury.h */,
+				75EC9A701D0663B900F24BE6 /* Injury.m */,
 				75300A5E1CB2DC96001EBBCB /* TeamStreak.h */,
 				75300A5F1CB2DC96001EBBCB /* TeamStreak.m */,
 				7563A8DF1CB7F6F20023E43B /* Record.h */,
 				7563A8E01CB7F6F20023E43B /* Record.m */,
+				755BBC6B1C9E11BD001A8314 /* Players */,
 			);
 			name = "Simulation Model";
 			sourceTree = "<group>";

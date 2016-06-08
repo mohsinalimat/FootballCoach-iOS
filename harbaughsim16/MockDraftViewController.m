@@ -25,7 +25,7 @@
 
 @interface MockDraftViewController ()
 {
-    NSMutableArray *players;
+    NSArray *draftRounds;
     NSMutableArray *round1;
     NSMutableArray *round2;
     NSMutableArray *round3;
@@ -34,13 +34,90 @@
     NSMutableArray *round6;
     NSMutableArray *round7;
     Player *heisman;
-    NSMutableString *draftSummary;
 }
 @end
 
 @implementation MockDraftViewController
 
 -(void)viewDraftSummary {
+    NSMutableString *draftSummary = [NSMutableString string];
+    NSMutableArray *userDraftees = [NSMutableArray array];
+    Team *userTeam = [HBSharedUtils getLeague].userTeam;
+    for (Player *p in userTeam.teamQBs) {
+        if (p.draftPosition != nil) {
+            [userDraftees addObject:p];
+        }
+    }
+    
+    for (Player *p in userTeam.teamRBs) {
+        if (p.draftPosition != nil) {
+            [userDraftees addObject:p];
+        }
+    }
+    
+    for (Player *p in userTeam.teamWRs) {
+        if (p.draftPosition != nil) {
+            [userDraftees addObject:p];
+        }
+    }
+    
+    for (Player *p in userTeam.teamOLs) {
+        if (p.draftPosition != nil) {
+            [userDraftees addObject:p];
+        }
+    }
+    
+    for (Player *p in userTeam.teamF7s) {
+        if (p.draftPosition != nil) {
+            [userDraftees addObject:p];
+        }
+    }
+    
+    for (Player *p in userTeam.teamCBs) {
+        if (p.draftPosition != nil) {
+            [userDraftees addObject:p];
+        }
+    }
+    
+    for (Player *p in userTeam.teamSs) {
+        if (p.draftPosition != nil) {
+            [userDraftees addObject:p];
+        }
+    }
+    
+    for (Player *p in userTeam.teamKs) {
+        if (p.draftPosition != nil) {
+            [userDraftees addObject:p];
+        }
+    }
+    
+    [userDraftees sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player *)obj1;
+        Player *b = (Player *)obj2;
+        NSInteger aDraftRound = [a.draftPosition[@"round"] integerValue];
+        NSInteger bDraftRound = [b.draftPosition[@"round"] integerValue];
+        NSInteger aDraftPick = [a.draftPosition[@"pick"] integerValue];
+        NSInteger bDraftPick = [b.draftPosition[@"pick"] integerValue];
+        
+        if (aDraftRound < bDraftRound) {
+            return -1;
+        } else if (bDraftRound < aDraftRound) {
+            return 1;
+        } else {
+            if (aDraftPick < bDraftPick) {
+                return -1;
+            } else if (bDraftPick < aDraftPick) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }];
+    
+    for (Player *p in userDraftees) {
+        [draftSummary appendFormat:@"Rd %@, Pk %@: %@ %@ (OVR: %li)", p.draftPosition[@"round"], p.draftPosition[@"pick"], p.position, [p getInitialName], (long)p.ratOvr];
+    }
+    
     if (draftSummary.length == 0) {
         [draftSummary appendString:@"No players drafted"];
     }
@@ -79,28 +156,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(changeRounds)];
-    self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)];
-    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-    players = [NSMutableArray array];
-    round1 = [NSMutableArray array];
-    round2 = [NSMutableArray array];
-    round3 = [NSMutableArray array];
-    round4 = [NSMutableArray array];
-    round5 = [NSMutableArray array];
-    round6 = [NSMutableArray array];
-    round7 = [NSMutableArray array];
     
-    NSArray *teamList = [HBSharedUtils getLeague].teamList;
-    for (Team *t in teamList) {
-        if (!t.isUserControlled) {
-            [t getGraduatingPlayers];
-        }
-        [players addObjectsFromArray:t.playersLeaving];
-    }
-    heisman = [HBSharedUtils getLeague].heisman;
+    draftRounds = [[HBSharedUtils getLeague] proDraft];
+    round1 = draftRounds[0];
+    round2 = draftRounds[1];
+    round3 = draftRounds[2];
+    round4 = draftRounds[3];
+    round5 = draftRounds[4];
+    round6 = draftRounds[5];
+    round7 = draftRounds[6];
+    
     if (!heisman) {
         NSArray *candidates = [[HBSharedUtils getLeague] calculateHeismanCandidates];
         if (candidates.count > 0) {
@@ -108,144 +173,10 @@
         }
     }
     
-    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        int adjADraftGrade = 0;
-        int adjBDraftGrade = 0;
-        int adjAHeisScore = 100 * ((double)[a getHeismanScore]/(double)[heisman getHeismanScore]);
-        int adjBHeisScore = 100 * ((double)[b getHeismanScore]/(double)[heisman getHeismanScore]);
-        
-        if ([a isKindOfClass:[PlayerQB class]]) {
-            PlayerQB *p = (PlayerQB*)a;
-            
-            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratPassAcc + p.ratPassEva + p.ratPassPow + adjAHeisScore) / 6.0) * 12.0);
-        } else if ([a isKindOfClass:[PlayerRB class]]) {
-            PlayerRB *p = (PlayerRB*)a;
-            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRushEva + p.ratRushPow + p.ratRushSpd + adjAHeisScore) / 6.0) * 12.0);
-        } else if ([a isKindOfClass:[PlayerWR class]]) {
-            PlayerWR *p = (PlayerWR*)a;
-            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratRecEva + p.ratRecSpd + adjAHeisScore) / 6.0) * 12.0);
-        } else if ([a isKindOfClass:[PlayerOL class]]) {
-            PlayerOL *p = (PlayerOL*)a;
-            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratOLBkP + p.ratOLPow + p.ratOLBkR) / 5.0) * 11.0);
-        } else if ([a isKindOfClass:[PlayerF7 class]]) {
-            PlayerF7 *p = (PlayerF7*)a;
-            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratF7Pas + p.ratF7Pow + p.ratF7Rsh) / 5.0) * 10.5);
-        } else if ([a isKindOfClass:[PlayerCB class]]) {
-            PlayerCB *p = (PlayerCB*)a;
-            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratCBCov + p.ratCBSpd + p.ratCBTkl) / 5.0) * 10.5);
-        } else if ([a isKindOfClass:[PlayerS class]]) {
-            PlayerS *p = (PlayerS*)a;
-            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratSCov + p.ratSSpd + p.ratSTkl) / 5.0) * 10.5);
-        } else {
-            PlayerK *k = (PlayerK*)a;
-            adjADraftGrade = (int)(((double)(k.ratOvr + k.ratFootIQ + k.ratKickPow + k.ratKickAcc + k.ratKickFum) / 11.0) * 12.0);
-        }
-        
-        
-        if ([b isKindOfClass:[PlayerQB class]]) {
-            PlayerQB *p = (PlayerQB*)b;
-            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratPassAcc + p.ratPassEva + p.ratPassPow + adjBHeisScore) / 6.0) * 12.0);
-        } else if ([b isKindOfClass:[PlayerRB class]]) {
-            PlayerRB *p = (PlayerRB*)b;
-            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRushEva + p.ratRushPow + p.ratRushSpd  + adjBHeisScore) / 6.0) * 12.0);
-        } else if ([b isKindOfClass:[PlayerWR class]]) {
-            PlayerWR *p = (PlayerWR*)b;
-            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratRecEva + p.ratRecSpd + adjBHeisScore) / 6.0) * 12.0);
-        } else if ([b isKindOfClass:[PlayerOL class]]) {
-            PlayerOL *p = (PlayerOL*)b;
-            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratOLBkP + p.ratOLPow + p.ratOLBkR) / 5.0) * 11.0);
-        } else if ([b isKindOfClass:[PlayerF7 class]]) {
-            PlayerF7 *p = (PlayerF7*)b;
-            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratF7Pas + p.ratF7Pow + p.ratF7Rsh) / 5.0) * 10.5);
-        } else if ([b isKindOfClass:[PlayerCB class]]) {
-            PlayerCB *p = (PlayerCB*)b;
-            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratCBCov + p.ratCBSpd + p.ratCBTkl) / 5.0) * 10.5);
-        } else if ([b isKindOfClass:[PlayerS class]]) {
-            PlayerS *p = (PlayerS*)b;
-            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratSCov + p.ratSSpd + p.ratSTkl) / 5.0) * 10.5);
-        } else  {
-            PlayerK *k = (PlayerK*)b;
-            adjBDraftGrade = (int)(((double)(k.ratOvr + k.ratFootIQ + k.ratKickPow + k.ratKickAcc + k.ratKickFum) / 11.0) * 12.0);
-        }
-        
-        return adjADraftGrade > adjBDraftGrade ? -1 : adjADraftGrade == adjBDraftGrade ? 0 : 1;
-    }];
-    NSLog(@"TOTAL DRAFTABLE PLAYERS: %ld", (unsigned long)(long)players.count);
-    int userDraftees = 0;
-    draftSummary = [NSMutableString string];
-    Team *userTeam = [HBSharedUtils getLeague].userTeam;
-    for (int i = 0; i < 32; i++) {
-        Player *p = players[i];
-        if ([p.team isEqual:userTeam]) {
-            userDraftees++;
-            [draftSummary appendFormat:@"Rd 1, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(i + 1), p.position, [p getInitialName], (long)p.ratOvr];
-        }
-        [round1 addObject:p];
-    }
-    
-    //do something to reward user for rd1 draftees?
-    
-    for (int j = 32; j < 64; j++) {
-        Player *p = players[j];
-        if ([p.team isEqual:userTeam]) {
-            userDraftees++;
-            [draftSummary appendFormat:@"Rd 2, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(j + 1), p.position, [p getInitialName], (long)p.ratOvr];
-        }
-        [round2 addObject:p];
-    }
-    
-    for (int k = 64; k < 96; k++) {
-        Player *p = players[k];
-        if ([p.team isEqual:userTeam]) {
-            userDraftees++;
-            [draftSummary appendFormat:@"Rd 3, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(k + 1), p.position, [p getInitialName], (long)p.ratOvr];
-        }
-        [round3 addObject:p];
-    }
-    
-    for (int r = 96; r < 128; r++) {
-        Player *p = players[r];
-        if ([p.team isEqual:userTeam]) {
-            userDraftees++;
-            [draftSummary appendFormat:@"Rd 4, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(r + 1), p.position, [p getInitialName], (long)p.ratOvr];
-        }
-        [round4 addObject:p];
-    }
-    
-    for (int c = 128; c < 160; c++) {
-        Player *p = players[c];
-        if ([p.team isEqual:userTeam]) {
-            userDraftees++;
-            [draftSummary appendFormat:@"Rd 5, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(c + 1), p.position, [p getInitialName], (long)p.ratOvr];
-        }
-        [round5 addObject:p];
-    }
-    
-    for (int a = 160; a < 192; a++) {
-        Player *p = players[a];
-        if ([p.team isEqual:userTeam]) {
-            userDraftees++;
-            [draftSummary appendFormat:@"Rd 6, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(a + 1), p.position, [p getInitialName], (long)p.ratOvr];
-        }
-        [round6 addObject:p];
-    }
-    
-    for (int b = 192; b < 224; b++) {
-        Player *p = players[b];
-        if ([p.team isEqual:userTeam]) {
-            userDraftees++;
-            [draftSummary appendFormat:@"Rd 7, Pk %ld: %@ %@ (Ovr: %ld)\n", (long)(b + 1), p.position, [p getInitialName], (long)p.ratOvr];
-        }
-        [round7 addObject:p];
-    }
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"%@ had %ld players drafted this year!",userTeam.abbreviation, (long)userDraftees] onViewController:self];
-    });
-    
-    NSLog(@"DRAFTED:\n\n%@",draftSummary);
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(changeRounds)];
+    self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)];
+    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
 - (void)didReceiveMemoryWarning {

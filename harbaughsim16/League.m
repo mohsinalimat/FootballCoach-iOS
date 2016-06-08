@@ -32,6 +32,7 @@
 @implementation League
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeBool:_isHardMode forKey:@"isHardMode"];
     [encoder encodeBool:heismanDecided forKey:@"heismanDecided"];
     [encoder encodeBool:_canRebrandTeam forKey:@"canRebrandTeam"];
     [encoder encodeObject:_heisman forKey:@"heisman"];
@@ -120,6 +121,7 @@
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
+        
         heismanDecided = [decoder decodeBoolForKey:@"heismanDecided"];
         _heisman = [decoder decodeObjectForKey:@"heisman"];
         _heismanFinalists = [decoder decodeObjectForKey:@"heismanFinalists"];
@@ -140,6 +142,12 @@
         _userTeam = [decoder decodeObjectForKey:@"userTeam"];
         _recruitingStage = [decoder decodeIntForKey:@"recruitingStage"];
         _canRebrandTeam = [decoder decodeBoolForKey:@"canRebrandTeam"];
+        
+        if (![decoder containsValueForKey:@"isHardMode"]) {
+            _isHardMode = [decoder decodeBoolForKey:@"isHardMode"];
+        } else {
+            _isHardMode = NO;
+        }
 
         if (![decoder containsValueForKey:@"blessedTeam"]) {
             _blessedTeam = [decoder decodeObjectForKey:@"blessedTeam"];
@@ -581,6 +589,7 @@
 -(instancetype)initFromCSV:(NSString*)namesCSV {
     self = [super init];
     if (self){
+        _isHardMode = NO;
         _recruitingStage = 0;
         heismanDecided = NO;
         _hasScheduledBowls = NO;
@@ -1072,6 +1081,11 @@
                          [NSString stringWithFormat:@"%@ didn't come to play school\n%@'s reputation takes a hit after news surfaced that the university falsified grades for student-athletes in order to retain their athletic eligibility. Recruits are leery of being associated with such a program.",t.abbreviation,t.name]
                          ];
     _cursedStoryIndex = ([HBSharedUtils randomValue] * stories.count);
+    if (_isHardMode && [_cursedTeam isEqual:_userTeam]) {
+        while (_cursedStoryIndex == 2) {
+            _cursedStoryIndex = ([HBSharedUtils randomValue] * stories.count);
+        }
+    }
     return stories[_cursedStoryIndex];
 }
 
@@ -1097,14 +1111,26 @@
     //Curse a good team
     int curseNumber = (int)([HBSharedUtils randomValue]*7);
     Team *curseTeam = _teamList[3 + curseNumber];
-    while ([curseTeam isEqual:_userTeam] || [curseTeam isEqual:_blessedTeam] || [curseTeam isEqual:_cursedTeam]) {
-        curseNumber = (int)([HBSharedUtils randomValue]*7);
-        curseTeam = _teamList[3 + curseNumber];
-    }
-
-    if (!curseTeam.isUserControlled && curseTeam.teamPrestige > 85) {
-        curseTeam.teamPrestige -= 20;
-        _cursedTeam = curseTeam;
+    if (!_isHardMode) {
+        while ([curseTeam isEqual:_userTeam] || [curseTeam isEqual:_blessedTeam] || [curseTeam isEqual:_cursedTeam]) {
+            curseNumber = (int)([HBSharedUtils randomValue]*7);
+            curseTeam = _teamList[3 + curseNumber];
+        }
+        
+        if (!curseTeam.isUserControlled && curseTeam.teamPrestige > 85) {
+            curseTeam.teamPrestige -= 20;
+            _cursedTeam = curseTeam;
+        }
+    } else {
+        while ([curseTeam isEqual:_blessedTeam] || [curseTeam isEqual:_cursedTeam]) {
+            curseNumber = (int)([HBSharedUtils randomValue]*7);
+            curseTeam = _teamList[3 + curseNumber];
+        }
+        
+        if (curseTeam.teamPrestige > 85) {
+            curseTeam.teamPrestige -= 20;
+            _cursedTeam = curseTeam;
+        }
     }
 
     for (int t = 0; t < _teamList.count; ++t) {
@@ -1690,6 +1716,164 @@
 
 }
 
+-(NSArray *)proDraft {
+    NSMutableArray *players = [NSMutableArray array];
+    NSMutableArray *round1 = [NSMutableArray array];
+    NSMutableArray *round2 = [NSMutableArray array];
+    NSMutableArray *round3 = [NSMutableArray array];
+    NSMutableArray *round4 = [NSMutableArray array];
+    NSMutableArray *round5 = [NSMutableArray array];
+    NSMutableArray *round6 = [NSMutableArray array];
+    NSMutableArray *round7 = [NSMutableArray array];
+    
+    NSArray *teamList = [HBSharedUtils getLeague].teamList;
+    for (Team *t in teamList) {
+        if (!t.isUserControlled) {
+            [t getGraduatingPlayers];
+        }
+        [players addObjectsFromArray:t.playersLeaving];
+    }
+    if (!_heisman) {
+        NSArray *candidates = [self calculateHeismanCandidates];
+        if (candidates.count > 0) {
+            _heisman = candidates[0];
+        }
+    }
+    
+    [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        int adjADraftGrade = 0;
+        int adjBDraftGrade = 0;
+        int adjAHeisScore = 100 * ((double)[a getHeismanScore]/(double)[_heisman getHeismanScore]);
+        int adjBHeisScore = 100 * ((double)[b getHeismanScore]/(double)[_heisman getHeismanScore]);
+        
+        if ([a isKindOfClass:[PlayerQB class]]) {
+            PlayerQB *p = (PlayerQB*)a;
+            
+            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratPassAcc + p.ratPassEva + p.ratPassPow + adjAHeisScore) / 6.0) * 12.0);
+        } else if ([a isKindOfClass:[PlayerRB class]]) {
+            PlayerRB *p = (PlayerRB*)a;
+            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRushEva + p.ratRushPow + p.ratRushSpd + adjAHeisScore) / 6.0) * 12.0);
+        } else if ([a isKindOfClass:[PlayerWR class]]) {
+            PlayerWR *p = (PlayerWR*)a;
+            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratRecEva + p.ratRecSpd + adjAHeisScore) / 6.0) * 12.0);
+        } else if ([a isKindOfClass:[PlayerOL class]]) {
+            PlayerOL *p = (PlayerOL*)a;
+            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratOLBkP + p.ratOLPow + p.ratOLBkR) / 5.0) * 11.0);
+        } else if ([a isKindOfClass:[PlayerF7 class]]) {
+            PlayerF7 *p = (PlayerF7*)a;
+            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratF7Pas + p.ratF7Pow + p.ratF7Rsh) / 5.0) * 10.5);
+        } else if ([a isKindOfClass:[PlayerCB class]]) {
+            PlayerCB *p = (PlayerCB*)a;
+            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratCBCov + p.ratCBSpd + p.ratCBTkl) / 5.0) * 10.5);
+        } else if ([a isKindOfClass:[PlayerS class]]) {
+            PlayerS *p = (PlayerS*)a;
+            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratSCov + p.ratSSpd + p.ratSTkl) / 5.0) * 10.5);
+        } else {
+            PlayerK *k = (PlayerK*)a;
+            adjADraftGrade = (int)(((double)(k.ratOvr + k.ratFootIQ + k.ratKickPow + k.ratKickAcc + k.ratKickFum) / 11.0) * 12.0);
+        }
+        
+        
+        if ([b isKindOfClass:[PlayerQB class]]) {
+            PlayerQB *p = (PlayerQB*)b;
+            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratPassAcc + p.ratPassEva + p.ratPassPow + adjBHeisScore) / 6.0) * 12.0);
+        } else if ([b isKindOfClass:[PlayerRB class]]) {
+            PlayerRB *p = (PlayerRB*)b;
+            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRushEva + p.ratRushPow + p.ratRushSpd  + adjBHeisScore) / 6.0) * 12.0);
+        } else if ([b isKindOfClass:[PlayerWR class]]) {
+            PlayerWR *p = (PlayerWR*)b;
+            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratRecEva + p.ratRecSpd + adjBHeisScore) / 6.0) * 12.0);
+        } else if ([b isKindOfClass:[PlayerOL class]]) {
+            PlayerOL *p = (PlayerOL*)b;
+            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratOLBkP + p.ratOLPow + p.ratOLBkR) / 5.0) * 11.0);
+        } else if ([b isKindOfClass:[PlayerF7 class]]) {
+            PlayerF7 *p = (PlayerF7*)b;
+            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratF7Pas + p.ratF7Pow + p.ratF7Rsh) / 5.0) * 10.5);
+        } else if ([b isKindOfClass:[PlayerCB class]]) {
+            PlayerCB *p = (PlayerCB*)b;
+            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratCBCov + p.ratCBSpd + p.ratCBTkl) / 5.0) * 10.5);
+        } else if ([b isKindOfClass:[PlayerS class]]) {
+            PlayerS *p = (PlayerS*)b;
+            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratSCov + p.ratSSpd + p.ratSTkl) / 5.0) * 10.5);
+        } else  {
+            PlayerK *k = (PlayerK*)b;
+            adjBDraftGrade = (int)(((double)(k.ratOvr + k.ratFootIQ + k.ratKickPow + k.ratKickAcc + k.ratKickFum) / 11.0) * 12.0);
+        }
+        
+        return adjADraftGrade > adjBDraftGrade ? -1 : adjADraftGrade == adjBDraftGrade ? 0 : 1;
+    }];
+    NSLog(@"TOTAL DRAFTABLE PLAYERS: %ld", (unsigned long)(long)players.count);
+    int userDraftees = 0;
+    Team *userTeam = [HBSharedUtils getLeague].userTeam;
+    for (int i = 0; i < 32; i++) {
+        Player *p = players[i];
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
+        }
+        p.draftPosition = @{@"round" : @"1", @"pick" : [NSString stringWithFormat:@"%li", (long)i]};
+        [round1 addObject:p];
+    }
+    
+    //add to user awards
+    
+    for (int j = 32; j < 64; j++) {
+        Player *p = players[j];
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
+        }
+        p.draftPosition = @{@"round" : @"2", @"pick" : [NSString stringWithFormat:@"%li", (long)j]};
+        [round2 addObject:p];
+    }
+    
+    for (int k = 64; k < 96; k++) {
+        Player *p = players[k];
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
+        }
+        p.draftPosition = @{@"round" : @"3", @"pick" : [NSString stringWithFormat:@"%li", (long)k]};
+        [round3 addObject:p];
+    }
+    
+    for (int r = 96; r < 128; r++) {
+        Player *p = players[r];
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
+        }
+        p.draftPosition = @{@"round" : @"4", @"pick" : [NSString stringWithFormat:@"%li", (long)r]};
+        [round4 addObject:p];
+    }
+    
+    for (int c = 128; c < 160; c++) {
+        Player *p = players[c];
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
+        }
+        p.draftPosition = @{@"round" : @"5", @"pick" : [NSString stringWithFormat:@"%li", (long)c]};
+        [round5 addObject:p];
+    }
+    
+    for (int a = 160; a < 192; a++) {
+        Player *p = players[a];
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
+        }
+        p.draftPosition = @{@"round" : @"6", @"pick" : [NSString stringWithFormat:@"%li", (long)a]};
+        [round6 addObject:p];
+    }
+    
+    for (int b = 192; b < 224; b++) {
+        Player *p = players[b];
+        if ([p.team isEqual:userTeam]) {
+            userDraftees++;
+        }
+        p.draftPosition = @{@"round" : @"7", @"pick" : [NSString stringWithFormat:@"%li", (long)b]};
+        [round7 addObject:p];
+    }
+    
+    return @[round1, round2, round3, round4, round5, round6, round7];
+}
 
 
 @end

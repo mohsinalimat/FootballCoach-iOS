@@ -32,6 +32,7 @@
 @property (nonatomic) BOOL isAllAmerican;
 @property (nonatomic) BOOL isAllConference;
 @property (strong, nonatomic) Injury *injury;
+@property (strong, nonatomic) NSDictionary *draftPosition; // { "round" : "1", @"pick" : "32" }
 
 
 -(BOOL)isInjured;

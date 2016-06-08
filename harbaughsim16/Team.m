@@ -24,6 +24,7 @@
 #define NFL_OVR 90
 #define NFL_CHANCE 0.50
 #define NCG_DRAFT_BONUS 0.20
+#define HARD_MODE_DRAFT_BONUS 0.20
 
 @implementation Team
 @synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers;
@@ -312,6 +313,20 @@
             if (teamPrestige > 45 || diffExpected > 0) {
                 newPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);
                 deltaPrestige = (newPrestige - oldPrestige);
+            }
+        }
+        
+        if ([league findTeam:rivalTeam].isUserControlled && league.isHardMode) {
+            // My rival is the user team, lock my prestige if it is Hard Mode
+            Team *rival = [league findTeam:rivalTeam];
+            if (teamPrestige < rival.teamPrestige - 10) {
+                teamPrestige = rival.teamPrestige - 10;
+            }
+        } else if (isUserControlled && league.isHardMode) {
+            // I am the user team, lock my rivals prestige
+            Team *rival = [league findTeam:rivalTeam];
+            if (rival.teamPrestige < teamPrestige - 10) {
+                rival.teamPrestige = teamPrestige - 10;
             }
         }
 
@@ -1857,6 +1872,10 @@
         playersLeaving = [NSMutableArray array];
         int i = 0;
         double draftChance = NFL_CHANCE;
+        if (league.isHardMode) {
+            draftChance += HARD_MODE_DRAFT_BONUS;
+        }
+        
         if ([natlChampWL isEqualToString:@"NCW"]) {
             draftChance += NCG_DRAFT_BONUS;
         }

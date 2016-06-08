@@ -116,7 +116,6 @@
 @property (strong, nonatomic) Record *careerXpMadeRecord;
 @property (strong, nonatomic) Record *careerFgMadeRecord;
 
-
 +(BOOL)loadSavedData;
 -(BOOL)isSaveCorrupt;
 -(NSArray*)bowlGameTitles;
@@ -132,19 +131,26 @@
 -(void)advanceSeason;
 -(void)updateTeamHistories;
 -(void)updateTeamTalentRatings;
+
 -(NSString*)getRandName;
 -(NSArray<Player*>*)calculateHeismanCandidates;
 -(NSString*)getHeismanCeremonyStr;
 -(NSString*)getGameSummaryBowl:(Game*)g;
+
 -(Team*)findTeam:(NSString*)name;
 -(Conference*)findConference:(NSString*)name;
+
 -(NSString*)ncgSummaryStr;
 -(NSString*)seasonSummaryStr;
+
 -(void)setTeamRanks;
 -(void)save;
+
 -(NSArray*)getBowlPredictions;
 -(NSArray*)getHeismanLeaders;
 -(NSDictionary *)allLeaguePlayers;
 -(NSArray*)singleSeasonRecords;
 -(NSArray*)careerRecords;
+
+-(NSArray *)proDraft;
 @end

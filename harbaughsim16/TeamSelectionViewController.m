@@ -43,12 +43,15 @@
     if (selectedIndexPath && userTeam) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to pick this team?" message:@"This choice can NOT be changed later." preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            /*UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Game Mode" message:@"Would you like to turn on hard mode? In hard mode, your conference will be more competitive, players will have a higher chance of injury, your program can incur sanctions from the league, and you will have a diminished recruiting budget." preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Game Mode" message:@"Would you like to turn on hard mode? In hard mode, your rival will be more competitive, good players will have a higher chance of leaving for the pros, and your program can incur sanctions from the league." preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes, I'd like a challenge." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [league setUserTeam:userTeam];
-                //[league setHardMode:YES];
+                league.isHardMode = YES;
                 [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
                 [league save];
+                
+                [Answers logContentViewWithName:@"New Hard Mode Save Created" contentType:@"Team" contentId:@"hardmode-team16" customAttributes:@{@"Team Name":userTeam.name}];
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
                 [self dismissViewControllerAnimated:YES completion:nil];
@@ -58,22 +61,25 @@
                 [league setUserTeam:userTeam];
                 [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
                 [league save];
+                
+                [Answers logContentViewWithName:@"New Normal Mode Save Created" contentType:@"Team" contentId:@"team16" customAttributes:@{@"Team Name":userTeam.name}];
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
                 [self dismissViewControllerAnimated:YES completion:nil];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
-            */
             
-            [league setUserTeam:userTeam];
+            
+            /*[league setUserTeam:userTeam];
             [league setCanRebrandTeam:YES];
             userTeam.isUserControlled = YES;
             [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
             [league save];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];*/
 
-            [Answers logContentViewWithName:@"New Team Created" contentType:@"Team" contentId:@"team16" customAttributes:@{@"Team Name":userTeam.name}];
+            
 
             [self dismissViewControllerAnimated:YES completion:nil];
             

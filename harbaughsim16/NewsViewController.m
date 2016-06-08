@@ -273,6 +273,7 @@
             [self startRecruiting];
         } else {
             NSInteger numGamesPlayed = userTeam.gameWLSchedule.count;
+            NSInteger numInjuries = userTeam.injuredPlayers.count;
             [simLeague playWeek];
             [[HBSharedUtils getLeague] save];
             if (simLeague.currentWeek == 15) {
@@ -339,6 +340,15 @@
                 } else if (simLeague.currentWeek == 13) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"%@ was not invited to a bowl game.",userTeam.name] onViewController:self];
+                    });
+                }
+                
+                if (userTeam.league.currentWeek != 15 && numInjuries < userTeam.injuredPlayers.count && userTeam.league.isHardMode) {
+                    NSString *injuryReport = [userTeam injuryReport];
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Injury Report", userTeam.abbreviation] message:injuryReport preferredStyle:UIAlertControllerStyleAlert];
+                    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self presentViewController:alertController animated:YES completion:nil];
                     });
                 }
             }
