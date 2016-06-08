@@ -192,6 +192,12 @@
     } else {
         [cell.nameLabel setTextColor:[UIColor blackColor]];
     }
+    
+    if ([player isInjured]) {
+        [cell.medImageView setHidden:NO];
+    } else {
+        [cell.medImageView setHidden:YES];
+    }
     return cell;
 }
 

@@ -20,6 +20,7 @@
 #import "PlayerCB.h"
 #import "PlayerS.h"
 #import "PlayerDetailViewController.h"
+#import "InjuryReportViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -143,6 +144,17 @@
             [userTeam setStarters:[userTeam.teamKs copy] position:7];
         }
     }
+}
+
+-(void)viewInjuryReport {
+    [self presentViewController:[[InjuryReportViewController alloc] initWithTeam:userTeam] animated:YES completion:nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Injury Report" style:UIBarButtonItemStylePlain target:self action:@selector(viewInjuryReport)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+    self.navigationController.toolbarHidden = NO;
 }
 
 - (void)viewDidLoad {
@@ -300,6 +312,12 @@
     [cell.nameLabel setText:[player getInitialName]];
     [cell.yrLabel setText:[player getYearString]];
     [cell.ovrLabel setText:[NSString stringWithFormat:@"%d", player.ratOvr]];
+    
+    if ([player isInjured]) {
+        [cell.medImageView setHidden:NO];
+    } else {
+        [cell.medImageView setHidden:YES];
+    }
     
     if (player.hasRedshirt) {
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];

@@ -12,4 +12,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yrLabel;
 @property (weak, nonatomic) IBOutlet UILabel *ovrLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *medImageView;
 @end

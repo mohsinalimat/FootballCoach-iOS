@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yrLabel;
 @property (weak, nonatomic) IBOutlet UILabel *posLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *medImageView;
 @end
 @implementation HBPlayerDetailView
 @end
@@ -59,6 +60,13 @@
     stats = [selectedPlayer detailedStats:[HBSharedUtils getLeague].currentWeek];
     careerStats = [selectedPlayer detailedCareerStats];
     ratings = [selectedPlayer detailedRatings];
+    
+    if ([selectedPlayer isInjured]) {
+        [playerDetailView.medImageView setHidden:NO];
+    } else {
+        [playerDetailView.medImageView setHidden:YES];
+    }
+    
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [playerDetailView setBackgroundColor:[HBSharedUtils styleColor]];

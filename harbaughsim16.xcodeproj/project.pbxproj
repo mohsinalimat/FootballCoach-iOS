@@ -110,6 +110,8 @@
 		75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */; };
 		75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */; };
 		75EC9A711D0663B900F24BE6 /* Injury.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A701D0663B900F24BE6 /* Injury.m */; };
+		75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A731D07D6D100F24BE6 /* InjuryReportViewController.m */; };
+		75EC9A761D07D9DC00F24BE6 /* medical@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EC9A751D07D9DC00F24BE6 /* medical@3x.png */; };
 		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
 		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
@@ -291,6 +293,9 @@
 		75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueHistoryController.m; sourceTree = "<group>"; };
 		75EC9A6F1D0663B900F24BE6 /* Injury.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Injury.h; sourceTree = "<group>"; };
 		75EC9A701D0663B900F24BE6 /* Injury.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Injury.m; sourceTree = "<group>"; };
+		75EC9A721D07D6D100F24BE6 /* InjuryReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InjuryReportViewController.h; sourceTree = "<group>"; };
+		75EC9A731D07D6D100F24BE6 /* InjuryReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InjuryReportViewController.m; sourceTree = "<group>"; };
+		75EC9A751D07D9DC00F24BE6 /* medical@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "medical@3x.png"; sourceTree = "<group>"; };
 		75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreaksViewController.h; sourceTree = "<group>"; };
 		75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreaksViewController.m; sourceTree = "<group>"; };
 		D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
@@ -484,6 +489,8 @@
 		755BBC671C9E10BD001A8314 /* Roster */ = {
 			isa = PBXGroup;
 			children = (
+				75EC9A721D07D6D100F24BE6 /* InjuryReportViewController.h */,
+				75EC9A731D07D6D100F24BE6 /* InjuryReportViewController.m */,
 				751DF8251CA1F273003C62F2 /* TeamRosterViewController.h */,
 				751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */,
 				7571DD361C9CFD4000E67080 /* RosterViewController.h */,
@@ -633,6 +640,7 @@
 				75CACE1F1CBECCBC003AB932 /* Icon-60@3x.png */,
 				75CACE211CBECCBC003AB932 /* Icon-Small@2x.png */,
 				75CACE221CBECCBC003AB932 /* Icon-Small@3x.png */,
+				75EC9A751D07D9DC00F24BE6 /* medical@3x.png */,
 				75CACE241CBECCBC003AB932 /* Icon-Spotlight-40@2x.png */,
 				75CACE251CBECCBC003AB932 /* Icon-Spotlight-40@3x.png */,
 				75A41B4B1CA311CF00025E53 /* close@3x.png */,
@@ -784,6 +792,7 @@
 				755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */,
 				75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */,
 				7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */,
+				75EC9A761D07D9DC00F24BE6 /* medical@3x.png in Resources */,
 				7543190F1CC02F2200D380F1 /* HBTeamRankCell.xib in Resources */,
 				75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */,
 				7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */,
@@ -903,6 +912,7 @@
 				755BBC811C9F734E001A8314 /* TeamViewController.m in Sources */,
 				75924A4C1C99D03300B165AD /* Player.m in Sources */,
 				7563A8E11CB7F6F20023E43B /* Record.m in Sources */,
+				75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */,
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
 				755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */,
 				75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */,
