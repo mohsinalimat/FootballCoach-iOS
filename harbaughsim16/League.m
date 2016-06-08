@@ -893,6 +893,11 @@
             NSMutableArray *week15 = _newsStories[15];
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", _ncg.awayTeam.name, [_ncg.awayTeam strRep], [_ncg.homeTeam strRep], (long)_ncg.awayScore, (long)_ncg.homeScore, _ncg.awayTeam.name]];
         }
+        
+        [self refreshAllLeaguePlayers:nil];
+        for (Conference *c in _conferences) {
+            [c refreshAllConferencePlayers:nil];
+        }
         _canRebrandTeam = YES;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
@@ -1646,7 +1651,7 @@
     }
 }
 
--(NSDictionary *)allLeaguePlayers {
+-(void)refreshAllLeaguePlayers:(void (^)(NSDictionary* dict))completionBlock {
     NSMutableArray *leadingQBs = [NSMutableArray array];
     NSMutableArray *leadingRBs = [NSMutableArray array];
     NSMutableArray *leadingWRs = [NSMutableArray array];
@@ -1707,13 +1712,12 @@
     PlayerK *k = leadingKs[0];
     k.isAllAmerican = YES;
     
-    return @{
+    completionBlock( @{
              @"QB" : @[qb],
              @"RB" : @[rb1,rb2],
              @"WR" : @[wr1,wr2,wr3],
              @"K"  : @[k]
-             };
-
+             });
 }
 
 -(NSArray *)proDraft {

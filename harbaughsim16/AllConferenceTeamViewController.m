@@ -50,7 +50,9 @@
     heisman = [[HBSharedUtils getLeague] heisman];
     
     self.title = [NSString stringWithFormat:@"%ld's All-%@ Team", (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count), selectedConf.confName];
-    players = [selectedConf allConferencePlayers];
+    [selectedConf refreshAllConferencePlayers:^(NSDictionary *dict) {
+        players = dict;
+    }];
         
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];

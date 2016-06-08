@@ -350,7 +350,7 @@
     
 }
 
--(NSDictionary *)allConferencePlayers {
+-(void)refreshAllConferencePlayers:(void (^)(NSDictionary* dict))completionBlock {
     NSMutableArray *leadingQBs = [NSMutableArray array];
     NSMutableArray *leadingRBs = [NSMutableArray array];
     NSMutableArray *leadingWRs = [NSMutableArray array];
@@ -411,12 +411,12 @@
     PlayerK *k = leadingKs[0];
     k.isAllConference = YES;
 
-    return @{
+    completionBlock( @{
              @"QB" : @[qb],
              @"RB" : @[rb1,rb2],
              @"WR" : @[wr1,wr2,wr3],
              @"K"  : @[k]
-             };
+             });
 }
 
 

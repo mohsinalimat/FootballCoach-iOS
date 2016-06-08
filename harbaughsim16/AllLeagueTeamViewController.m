@@ -42,7 +42,9 @@
     
     self.title = [NSString stringWithFormat:@"%ld's All-League Team", (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)];
     
-    players = [[HBSharedUtils getLeague] allLeaguePlayers];
+    [[HBSharedUtils getLeague] refreshAllLeaguePlayers:^(NSDictionary *dict) {
+        players = dict;
+    }];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:60];

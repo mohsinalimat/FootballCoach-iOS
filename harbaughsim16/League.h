@@ -148,7 +148,7 @@
 
 -(NSArray*)getBowlPredictions;
 -(NSArray*)getHeismanLeaders;
--(NSDictionary *)allLeaguePlayers;
+-(void)refreshAllLeaguePlayers:(void (^)(NSDictionary* dict))completionBlock;
 -(NSArray*)singleSeasonRecords;
 -(NSArray*)careerRecords;
 
