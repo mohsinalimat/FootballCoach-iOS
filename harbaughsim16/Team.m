@@ -2069,6 +2069,10 @@
 
 -(NSArray*)getGameSummaryStrings:(int)gameNumber {
     NSMutableArray *gs = [NSMutableArray array];
+    if (gameNumber > gameSchedule.count) {
+        return @[@"? vs ?", @"T 0-0", @"#0 ??? (0-0)"];
+    }
+    
     Game *g = gameSchedule[gameNumber];
     gs[0] = g.gameName;
     if (gameNumber < gameWLSchedule.count) {
