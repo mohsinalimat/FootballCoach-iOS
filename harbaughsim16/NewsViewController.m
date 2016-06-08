@@ -548,6 +548,10 @@
 }
 
 -(void)reloadNews:(int)curWeek {
+    if (curWeek > 15) {
+        curWeek = 15;
+    }
+    
     curNewsWeek = curWeek;
     news = [HBSharedUtils getLeague].newsStories[curWeek];
     
@@ -568,7 +572,7 @@
         } else  {
             week = @"Offseason";
         }
-
+        
         self.navigationItem.title = [NSString stringWithFormat:@"%@ News", week];
     }
     [self setupTeamHeader];
