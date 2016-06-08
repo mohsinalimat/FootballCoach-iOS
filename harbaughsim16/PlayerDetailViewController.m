@@ -183,6 +183,10 @@
                 //eva
                 [cell.detailTextLabel setText:ratings[@"passEvasion"]];
                 [cell.textLabel setText:@"Evasion"];
+            } else if (indexPath.row == 4) {
+                //footiq
+                [cell.detailTextLabel setText:ratings[@"durability"]];
+                [cell.textLabel setText:@"Durability"];
             } else {
                 //footiq
                 [cell.detailTextLabel setText:ratings[@"footballIQ"]];
@@ -265,6 +269,10 @@
                 //eva
                 [cell.detailTextLabel setText:ratings[@"rushEvasion"]];
                 [cell.textLabel setText:@"Evasion"];
+            } else if (indexPath.row == 4) {
+                //footiq
+                [cell.detailTextLabel setText:ratings[@"durability"]];
+                [cell.textLabel setText:@"Durability"];
             } else {
                 //footiq
                 [cell.detailTextLabel setText:ratings[@"footballIQ"]];
@@ -333,6 +341,10 @@
                 //eva
                 [cell.detailTextLabel setText:ratings[@"recEvasion"]];
                 [cell.textLabel setText:@"Evasion"];
+            } else if (indexPath.row == 4) {
+                //footiq
+                [cell.detailTextLabel setText:ratings[@"durability"]];
+                [cell.textLabel setText:@"Durability"];
             } else {
                 //footiq
                 [cell.detailTextLabel setText:ratings[@"footballIQ"]];
@@ -401,6 +413,10 @@
             //blkR
             [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
             [cell.textLabel setText:@"Run Blocking"];
+        } else if (indexPath.row == 4) {
+            //footiq
+            [cell.detailTextLabel setText:ratings[@"durability"]];
+            [cell.textLabel setText:@"Durability"];
         } else {
             //footiq
             [cell.detailTextLabel setText:ratings[@"footballIQ"]];
@@ -424,6 +440,10 @@
             //rsh
             [cell.detailTextLabel setText:ratings[@"f7Run"]];
             [cell.textLabel setText:@"Run Stopping"];
+        } else if (indexPath.row == 4) {
+            //footiq
+            [cell.detailTextLabel setText:ratings[@"durability"]];
+            [cell.textLabel setText:@"Durability"];
         } else {
             //footiq
             [cell.detailTextLabel setText:ratings[@"footballIQ"]];
@@ -447,6 +467,10 @@
             //tkl
             [cell.detailTextLabel setText:ratings[@"cbTackling"]];
             [cell.textLabel setText:@"Tackling Ability"];
+        } else if (indexPath.row == 4) {
+            //footiq
+            [cell.detailTextLabel setText:ratings[@"durability"]];
+            [cell.textLabel setText:@"Durability"];
         } else {
             //footiq
             [cell.detailTextLabel setText:ratings[@"footballIQ"]];
@@ -470,6 +494,10 @@
             //tkl
             [cell.detailTextLabel setText:ratings[@"sTackling"]];
             [cell.textLabel setText:@"Tackling Ability"];
+        } else if (indexPath.row == 4) {
+            //footiq
+            [cell.detailTextLabel setText:ratings[@"durability"]];
+            [cell.textLabel setText:@"Durability"];
         } else {
             //footiq
             [cell.detailTextLabel setText:ratings[@"footballIQ"]];
@@ -493,6 +521,10 @@
                 //fum
                 [cell.detailTextLabel setText:ratings[@"kickClumsiness"]];
                 [cell.textLabel setText:@"Clumsiness"];
+            } else if (indexPath.row == 4) {
+                //footiq
+                [cell.detailTextLabel setText:ratings[@"durability"]];
+                [cell.textLabel setText:@"Durability"];
             } else {
                 //footiq
                 [cell.detailTextLabel setText:ratings[@"footballIQ"]];

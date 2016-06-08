@@ -31,10 +31,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = [NSString stringWithFormat:@"%@ Injury Report", selectedTeam.abbreviation];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:60];
     [self.tableView setEstimatedRowHeight:60];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
 }
 
 -(void)dismissVC {
@@ -78,7 +81,7 @@
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     paragraph.alignment = NSTextAlignmentCenter;
     
-    text = @"All of your players are cleared to play this week!";
+    text = [NSString stringWithFormat:@"All %@ players are cleared to play this week!",selectedTeam.name];
     font = [UIFont systemFontOfSize:15.0];
     textColor = [UIColor lightTextColor];
     

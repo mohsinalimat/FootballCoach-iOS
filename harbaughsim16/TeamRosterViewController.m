@@ -19,6 +19,7 @@
 #import "PlayerCB.h"
 #import "PlayerS.h"
 #import "PlayerDetailViewController.h"
+#import "InjuryReportViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -39,6 +40,21 @@
         self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, ([UIScreen mainScreen].bounds.size.height / 2.0));
     }
     return self;
+}
+
+-(void)viewInjuryReport {
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[InjuryReportViewController alloc] initWithTeam:selectedTeam]] animated:YES completion:nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Injury Report" style:UIBarButtonItemStylePlain target:self action:@selector(viewInjuryReport)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
+    self.navigationController.toolbarHidden = NO;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    self.navigationController.toolbarHidden = YES;
 }
 
 - (void)viewDidLoad {

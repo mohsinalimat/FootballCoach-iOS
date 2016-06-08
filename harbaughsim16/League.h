@@ -64,7 +64,7 @@
 
 //Current week, 1-14
 @property (nonatomic) int currentWeek;
-//@property (nonatomic) BOOL isHardMode; SOON^TM
+@property (nonatomic) BOOL isHardMode; SOON^TM
  
 //Bowl Games
 @property (strong, nonatomic) Player *heisman;

@@ -13,45 +13,47 @@
 @implementation Injury
 
 + (instancetype)newInjury {
-    return [[Injury alloc] init];
-}
-
-- (id)init {
-    if (self = [super init]) {
-        int t = (int)([HBSharedUtils randomValue] * 100.0);
-        if (t < 8) {
-            _type = FCInjuryTypeConcussion;
-        } else if (t < 12) {
-            _type = FCInjuryTypeHead;
-        } else if (t < 29) {
-            _type = FCInjuryTypeUpperBody;
-        } else if (t < 41) {
-            _type = FCInjuryTypeTorso;
-        } else if (t < 91) {
-            _type = FCInjuryTypeLowerBody;
+    Injury *i = [[Injury alloc] init];
+    int t = (int)([HBSharedUtils randomValue] * 100.0);
+    if (t < 8) {
+        i.type = FCInjuryTypeConcussion;
+    } else if (t < 12) {
+        i.type = FCInjuryTypeHead;
+    } else if (t < 29) {
+        i.type = FCInjuryTypeUpperBody;
+    } else if (t < 41) {
+        i.type = FCInjuryTypeTorso;
+    } else if (t < 91) {
+        i.type = FCInjuryTypeLowerBody;
+    } else {
+        i.type = FCInjuryTypeIllness;
+    }
+    
+    if (i.type == FCInjuryTypeIllness) {
+        i.severity = FCInjurySeverityLow;
+        i.duration = 1;
+    } else {
+        int s = (int)([HBSharedUtils randomValue] * 100.0);
+        if (s < 49) {
+            i.severity = FCInjurySeverityLow;
+            i.duration = 1;
+        } else if (s < 80) {
+            i.severity = FCInjurySeveritySevere;
+            i.duration = ((int)([HBSharedUtils randomValue] * 3)) + 1;
+            while (i.duration < 1) {
+                i.duration = ((int)([HBSharedUtils randomValue] * 3)) + 1;
+            }
         } else {
-            _type = FCInjuryTypeIllness;
-        }
-        
-        if (_type == FCInjuryTypeIllness) {
-            _severity = FCInjurySeverityLow;
-            _duration = 1;
-        } else {
-            int s = (int)([HBSharedUtils randomValue] * 100.0);
-            if (s < 49) {
-                _severity = FCInjurySeverityLow;
-                _duration = 1;
-            } else if (s < 80) {
-                _severity = FCInjurySeveritySevere;
-                _duration = ((int)([HBSharedUtils randomValue] * 2)) + 1;
-            } else {
-                _severity = FCInjurySeveritySevere;
-                _duration = ((int)([HBSharedUtils randomValue] * 12)) + 3;
+            i.severity = FCInjurySeveritySevere;
+            i.duration = ((int)([HBSharedUtils randomValue] * 15)) + 3;
+            while (i.duration < 3) {
+                i.duration = ((int)([HBSharedUtils randomValue] * 15)) + 3;
             }
         }
-        
     }
-    return self;
+    
+    NSLog(@"NEW INJURY:\n\nDURATION: %ld, SEV: %ld,TYPE: %ld\n\n",(long)i.duration,(long)i.severity,(long)i.type);
+    return i;
 }
 
 - (NSString *)injuryDescription {
@@ -158,6 +160,10 @@
         _duration = _duration - 2;
     } else {
         _duration--;
+    }
+    
+    if (_duration < 0) {
+        _duration = 0;
     }
 }
 

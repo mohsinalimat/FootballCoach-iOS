@@ -75,7 +75,7 @@
         player = [userTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];
     }
     
-    if (player.hasRedshirt) {
+    if (player.hasRedshirt || [player isInjured]) {
         return NO;
     } else {
         return YES;
@@ -147,7 +147,7 @@
 }
 
 -(void)viewInjuryReport {
-    [self presentViewController:[[InjuryReportViewController alloc] initWithTeam:userTeam] animated:YES completion:nil];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[InjuryReportViewController alloc] initWithTeam:userTeam]] animated:YES completion:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -162,11 +162,13 @@
     self.title = @"Depth Chart";
     [self.tableView registerNib:[UINib nibWithNibName:@"HBRosterCell" bundle:nil] forCellReuseIdentifier:@"HBRosterCell"];
     userTeam = [HBSharedUtils getLeague].userTeam;
+    [userTeam sortPlayers];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Reorder" style:UIBarButtonItemStylePlain target:self action:@selector(manageEditing)];
     [self.navigationItem setRightBarButtonItem:addButton];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(scrollToPositionGroup)];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"injuriesPosted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
@@ -182,6 +184,8 @@
             [self presentViewController:alertController animated:YES completion:nil];
         });
     }
+    [self.tableView setRowHeight:50];
+    [self.tableView setEstimatedRowHeight:50];
 }
 
 -(void)reloadAll {
@@ -195,6 +199,7 @@
 
 -(void)reloadRoster {
     userTeam = [HBSharedUtils getLeague].userTeam;
+    [userTeam sortPlayers];
     [self.tableView reloadData];
 }
 

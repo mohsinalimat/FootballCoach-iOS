@@ -1069,7 +1069,7 @@
     [teamQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
+        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
             } else if (a.ratOvr < b.ratOvr) {
@@ -1087,10 +1087,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
-        } else if (!a.isInjured) {
-            return -1;
-        } else if (!b.isInjured) {
-            return  1;
+        } else if (a.isInjured) {
+            return 1;
+        } else if (b.isInjured) {
+            return  -1;
         } else {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
@@ -1110,7 +1110,7 @@
     [teamRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
+        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
             } else if (a.ratOvr < b.ratOvr) {
@@ -1128,10 +1128,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
-        } else if (!a.isInjured) {
-            return -1;
-        } else if (!b.isInjured) {
-            return  1;
+        } else if (a.isInjured) {
+            return 1;
+        } else if (b.isInjured) {
+            return  -1;
         } else {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
@@ -1151,7 +1151,7 @@
     [teamWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
+        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
             } else if (a.ratOvr < b.ratOvr) {
@@ -1169,10 +1169,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
-        } else if (!a.isInjured) {
-            return -1;
-        } else if (!b.isInjured) {
-            return  1;
+        } else if (a.isInjured) {
+            return 1;
+        } else if (b.isInjured) {
+            return  -1;
         } else {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
@@ -1192,7 +1192,7 @@
     [teamKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
+        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
             } else if (a.ratOvr < b.ratOvr) {
@@ -1210,10 +1210,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
-        } else if (!a.isInjured) {
-            return -1;
-        } else if (!b.isInjured) {
-            return  1;
+        } else if (a.isInjured) {
+            return 1;
+        } else if (b.isInjured) {
+            return  -1;
         } else {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
@@ -1233,7 +1233,7 @@
     [teamOLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
+        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
             } else if (a.ratOvr < b.ratOvr) {
@@ -1251,10 +1251,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
-        } else if (!a.isInjured) {
-            return -1;
-        } else if (!b.isInjured) {
-            return  1;
+        } else if (a.isInjured) {
+            return 1;
+        } else if (b.isInjured) {
+            return  -1;
         } else {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
@@ -1275,7 +1275,7 @@
     [teamCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
+        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
             } else if (a.ratOvr < b.ratOvr) {
@@ -1293,10 +1293,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
-        } else if (!a.isInjured) {
-            return -1;
-        } else if (!b.isInjured) {
-            return  1;
+        } else if (a.isInjured) {
+            return 1;
+        } else if (b.isInjured) {
+            return  -1;
         } else {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
@@ -1316,7 +1316,7 @@
     [teamSs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
+        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
             } else if (a.ratOvr < b.ratOvr) {
@@ -1334,10 +1334,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
-        } else if (!a.isInjured) {
-            return -1;
-        } else if (!b.isInjured) {
-            return  1;
+        } else if (a.isInjured) {
+            return 1;
+        } else if (b.isInjured) {
+            return  -1;
         } else {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
@@ -1357,7 +1357,7 @@
     [teamF7s sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt) {
+        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
             } else if (a.ratOvr < b.ratOvr) {
@@ -1375,10 +1375,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
-        } else if (!a.isInjured) {
-            return -1;
-        } else if (!b.isInjured) {
-            return  1;
+        } else if (a.isInjured) {
+            return 1;
+        } else if (b.isInjured) {
+            return  -1;
         } else {
             if (a.ratOvr > b.ratOvr) {
                 return -1;
@@ -1964,26 +1964,29 @@
 
 -(void)checkForInjury {
     recoveredPlayers = [NSMutableArray array];
-    //if (league.isHardMode) {
-    [self checkInjuryPosition:teamQBs starters:1];
-    [self checkInjuryPosition:teamRBs starters:2];
-    [self checkInjuryPosition:teamWRs starters:3];
-    [self checkInjuryPosition:teamOLs starters:5];
-    [self checkInjuryPosition:teamKs starters:1];
-    [self checkInjuryPosition:teamSs starters:1];
-    [self checkInjuryPosition:teamCBs starters:3];
-    [self checkInjuryPosition:teamF7s starters:7];
-    //}
+    if (league.isHardMode) {
+        [self checkInjuryPosition:teamQBs starters:1];
+        [self checkInjuryPosition:teamRBs starters:2];
+        [self checkInjuryPosition:teamWRs starters:3];
+        [self checkInjuryPosition:teamOLs starters:5];
+        [self checkInjuryPosition:teamKs starters:1];
+        [self checkInjuryPosition:teamSs starters:1];
+        [self checkInjuryPosition:teamCBs starters:3];
+        [self checkInjuryPosition:teamF7s starters:7];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"injuriesPosted" object:nil];
+    }
 }
 
 -(void)checkInjuryPosition:(NSMutableArray*)positionGroup starters:(int)numStarters {
-    int numInjured;
+    int numInjured = 0;
     
     for (Player *p in positionGroup) {
         if ([p isInjured]) {
             [p.injury advanceWeek];
             numInjured++;
-            if (p.injury == nil) {
+            if (p.injury == nil || p.injury.duration == 0) {
+                p.injury = nil;
+                
                 if (![recoveredPlayers containsObject:p]) {
                     [recoveredPlayers addObject:p];
                 }

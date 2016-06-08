@@ -26,10 +26,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1MK-hE-zWS">
-                    <rect key="frame" x="19" y="52" width="291" height="23"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="291" id="8VB-fF-AKL"/>
-                    </constraints>
+                    <rect key="frame" x="19" y="52" width="34" height="23"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -49,8 +46,8 @@
                     <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="medical" translatesAutoresizingMaskIntoConstraints="NO" id="N25-GX-ErY">
-                    <rect key="frame" x="318" y="51" width="25" height="25"/>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="medical" translatesAutoresizingMaskIntoConstraints="NO" id="N25-GX-ErY">
+                    <rect key="frame" x="61" y="51" width="25" height="25"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.59215686270000001" blue="0.24882352939999999" alpha="1" colorSpace="calibratedRGB"/>

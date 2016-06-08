@@ -537,69 +537,6 @@
     });
 }
 
-/*
--(void)advanceInjuries {
-    NSMutableArray *injuredPlayers = [NSMutableArray array]; // could replace this with master list of injuries in Injury.h
-    for (Team *t in _teamList) {
-        for (Player *p in t.teamQBs) {
-            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
-                [injuredPlayers addObject:p];
-            }
-        }
-        
-        for (Player *p in t.teamRBs) {
-            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
-                [injuredPlayers addObject:p];
-            }
-        }
-        
-        for (Player *p in t.teamWRs) {
-            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
-                [injuredPlayers addObject:p];
-            }
-        }
-        
-        for (Player *p in t.teamOLs) {
-            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
-                [injuredPlayers addObject:p];
-            }
-        }
-        
-        for (Player *p in t.teamKs) {
-            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
-                [injuredPlayers addObject:p];
-            }
-        }
-        
-        for (Player *p in t.teamF7s) {
-            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
-                [injuredPlayers addObject:p];
-            }
-        }
-        
-        for (Player *p in t.teamCBs) {
-            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
-                [injuredPlayers addObject:p];
-            }
-        }
-        
-        for (Player *p in t.teamSs) {
-            if ([p isInjured] && ![injuredPlayers containsObject:p]) {
-                [injuredPlayers addObject:p];
-            }
-        }
-    }
-    
-    for (Player *p in injuredPlayers) {
-        p.injury.duration--;
-        if (p.injury.duration <= 0) {
-            // Done with injury
-            p.injury = nil;
-        }
-    }
-    
-}*/
-
 +(BOOL)loadSavedData {
     if ([FCFileManager existsItemAtPath:@"league.cfb"]) {
         League *ligue = (League*)[NSKeyedUnarchiver unarchiveObjectWithData:[FCFileManager readFileAtPathAsData:@"league.cfb"]];

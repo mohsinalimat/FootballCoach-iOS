@@ -15,10 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fr" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ape-RA-E95">
-                        <rect key="frame" x="119" y="8" width="46" height="33.5"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="46" id="sN8-eW-ZNN"/>
-                        </constraints>
+                        <rect key="frame" x="119" y="8" width="15" height="33.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -38,8 +35,8 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="medical" translatesAutoresizingMaskIntoConstraints="NO" id="YFR-Mm-bAR">
-                        <rect key="frame" x="173" y="15" width="20" height="20"/>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="medical" translatesAutoresizingMaskIntoConstraints="NO" id="YFR-Mm-bAR">
+                        <rect key="frame" x="142" y="15" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="FcD-Ao-k0s"/>
                             <constraint firstAttribute="height" constant="20" id="b0f-vj-02F"/>
