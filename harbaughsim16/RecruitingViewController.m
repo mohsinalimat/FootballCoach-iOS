@@ -445,8 +445,8 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.rowHeight = 175;
-    self.tableView.estimatedRowHeight = 175;
+    self.tableView.rowHeight = 190;
+    self.tableView.estimatedRowHeight = 190;
     recruitingBudget = [HBSharedUtils getLeague].userTeam.recruitingMoney;
 
     NSInteger teamSize = [HBSharedUtils getLeague].userTeam.teamQBs.count + [HBSharedUtils getLeague].userTeam.teamRBs.count + [HBSharedUtils getLeague].userTeam.teamWRs.count + [HBSharedUtils getLeague].userTeam.teamKs.count + [HBSharedUtils getLeague].userTeam.teamSs.count + [HBSharedUtils getLeague].userTeam.teamCBs.count + [HBSharedUtils getLeague].userTeam.teamF7s.count;
@@ -1127,12 +1127,31 @@
 
     [stat5Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat5 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat5ValueLabel setAttributedText:stat5Att];
+    
+    NSMutableAttributedString *stat6Att = [[NSMutableAttributedString alloc] initWithString:@"Durability: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}];
+    NSString *stat6 = [player getLetterGrade:player.ratDur];
+    if ([stat6 containsString:@"A"]) {
+        letterColor = [HBSharedUtils successColor];
+    } else if ([stat6 containsString:@"B"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+    } else if ([stat6 containsString:@"C"]) {
+        letterColor = [HBSharedUtils champColor];
+    } else if ([stat6 containsString:@"D"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+    } else if ([stat6 containsString:@"F"]) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+    } else {
+        letterColor = [UIColor lightGrayColor];
+    }
+    
+    [stat6Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat6 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
+    [cell.stat6ValueLabel setAttributedText:stat6Att];
 
 
     if ([player isKindOfClass:[PlayerQB class]]) {
         stat2 = @"Throw Power";
         stat2Val = [player getLetterGrade:((PlayerQB*)player).ratPassPow];
-        stat3 = @"Throw Accy";
+        stat3 = @"Throw Accuracy";
         stat3Val = [player getLetterGrade:((PlayerQB*)player).ratPassAcc];
         stat4 = @"Evasion";
         stat4Val = [player getLetterGrade:((PlayerQB*)player).ratPassEva];

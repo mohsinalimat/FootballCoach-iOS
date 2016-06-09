@@ -27,7 +27,7 @@
 #define HARD_MODE_DRAFT_BONUS 0.20
 
 @implementation Team
-@synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers;
+@synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers;
 
 -(Player*)playerToWatch {
     NSMutableArray *topPlayers = [NSMutableArray array];
@@ -192,7 +192,8 @@
         league = ligue;
         isUserControlled = false;
         teamHistory = [NSMutableArray array];
-
+        hallOfFamers = [NSMutableArray array];
+        
         teamQBs = [NSMutableArray array];
         teamRBs = [NSMutableArray array];
         teamWRs = [NSMutableArray array];
@@ -361,12 +362,14 @@
 
 -(void)advanceSeasonPlayers {
     int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, f7Needs=0;
+    int curYear = (int)league.leagueHistory.count + 2016;
     if (playersLeaving.count == 0) {
         int i = 0;
         if (teamQBs.count > 0) {
             while (i < teamQBs.count) {
                 if ([teamQBs[i] year] == 4)  {
                     ////NSLog(@"Graduating player %@ from %@", [teamQBs[i] name], abbreviation);
+                    teamQBs[i].endYear = curYear;
                     [teamQBs removeObjectAtIndex:i];
                     qbNeeds++;
                 } else {
@@ -383,6 +386,7 @@
             while ( i < teamRBs.count ) {
                 if ([teamRBs[i] year] == 4)  {
                     ////NSLog(@"Graduating player %@ from %@", [teamRBs[i] name], abbreviation);
+                    teamRBs[i].endYear = curYear;
                     [teamRBs removeObjectAtIndex:i];
                     rbNeeds++;
                 } else {
@@ -399,6 +403,7 @@
             while ( i < teamWRs.count ) {
                 if ([teamWRs[i] year] == 4)  {
                     ////NSLog(@"Graduating player %@ from %@", [teamWRs[i] name], abbreviation);
+                    teamWRs[i].endYear = curYear;
                     [teamWRs removeObjectAtIndex:i];
                     wrNeeds++;
                 } else {
@@ -415,6 +420,7 @@
             while ( i < teamKs.count ) {
                 if ([teamKs[i] year] == 4)  {
                     ////NSLog(@"Graduating player %@ from %@", [teamKs[i] name], abbreviation);
+                    teamKs[i].endYear = curYear;
                     [teamKs removeObjectAtIndex:i];
                     kNeeds++;
                 } else {
@@ -431,6 +437,7 @@
             while ( i < teamOLs.count ) {
                 if ([teamOLs[i] year] == 4)  {
                     ////NSLog(@"Graduating player %@ from %@", [teamOLs[i] name], abbreviation);
+                    teamOLs[i].endYear = curYear;
                     [teamOLs removeObjectAtIndex:i];
                     olNeeds++;
                 } else {
@@ -447,6 +454,7 @@
             while ( i < teamSs.count) {
                 if ([teamSs[i] year] == 4)  {
                     ////NSLog(@"Graduating player %@ from %@", [teamSs[i] name], abbreviation);
+                    teamSs[i].endYear = curYear;
                     [teamSs removeObjectAtIndex:i];
                     sNeeds++;
                 } else {
@@ -463,6 +471,7 @@
             while ( i < teamCBs.count ) {
                 if ([teamCBs[i] year] == 4)  {
                     ////NSLog(@"Graduating player %@ from %@", [teamCBs[i] name], abbreviation);
+                    teamCBs[i].endYear = curYear;
                     [teamCBs removeObjectAtIndex:i];
                     cbNeeds++;
                 } else {
@@ -479,6 +488,7 @@
             while ( i < teamF7s.count ) {
                 if ([teamF7s[i] year] == 4)  {
                     ////NSLog(@"Graduating player %@ from %@", [teamF7s[i] name], abbreviation);
+                    teamF7s[i].endYear = curYear;
                     [teamF7s removeObjectAtIndex:i];
                     f7Needs++;
                 } else {
@@ -498,6 +508,11 @@
         // Just remove the players that are in playersLeaving
         ////NSLog(@"GRADUATING PLAYERS FROM PLAYERS LEAVING");
         int i = 0;
+        
+        for (Player *p in playersLeaving) {
+            p.endYear = curYear;
+        }
+        
         while (i < teamQBs.count) {
             if ([playersLeaving containsObject:teamQBs[i]]) {
                 [teamQBs removeObjectAtIndex:i];
@@ -2229,6 +2244,119 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updatedStarters" object:nil];
 
+}
+
+-(void)updateRingOfHonor {
+    [self getGraduatingPlayers];
+    for (Player *p in teamQBs) {
+        if (((isUserControlled && [playersLeaving containsObject:p]) || (!isUserControlled && p.year == 4))
+            && (p.careerAllConferences > 2 || p.careerHeismans > 0 || p.careerAllAmericans > 1)) {
+            if (![hallOfFamers containsObject:p]) {
+                p.injury = nil; //sanity check to make sure our immortals are actually immortal
+                [hallOfFamers addObject:p];
+            }
+        }
+    }
+    
+    for (Player *p in teamRBs) {
+        if (((isUserControlled && [playersLeaving containsObject:p]) || (!isUserControlled && p.year == 4))
+            && (p.careerAllConferences > 2 || p.careerHeismans > 0 || p.careerAllAmericans > 1)) {
+            if (![hallOfFamers containsObject:p]) {
+                p.injury = nil; //sanity check to make sure our immortals are actually immortal
+                [hallOfFamers addObject:p];
+            }
+        }
+    }
+    
+    for (Player *p in teamWRs) {
+        if (((isUserControlled && [playersLeaving containsObject:p]) || (!isUserControlled && p.year == 4))
+            && (p.careerAllConferences > 2 || p.careerHeismans > 0 || p.careerAllAmericans > 1)) {
+            if (![hallOfFamers containsObject:p]) {
+                p.injury = nil; //sanity check to make sure our immortals are actually immortal
+                [hallOfFamers addObject:p];
+            }
+        }
+    }
+    
+    if (hallOfFamers.count > 0) {
+        //sort normally
+        [hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Player *a = (Player*)obj1;
+            Player *b = (Player*)obj2;
+            if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
+                if (a.ratOvr > b.ratOvr) {
+                    return -1;
+                } else if (a.ratOvr < b.ratOvr) {
+                    return 1;
+                } else {
+                    if (a.ratPot > b.ratPot) {
+                        return -1;
+                    } else if (a.ratPot < b.ratPot) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+            } else if (a.hasRedshirt) {
+                return 1;
+            } else if (b.hasRedshirt) {
+                return -1;
+            } else if (a.isInjured) {
+                return 1;
+            } else if (b.isInjured) {
+                return  -1;
+            } else {
+                if (a.ratOvr > b.ratOvr) {
+                    return -1;
+                } else if (a.ratOvr < b.ratOvr) {
+                    return 1;
+                } else {
+                    if (a.ratPot > b.ratPot) {
+                        return -1;
+                    } else if (a.ratPot < b.ratPot) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        }];
+        
+        //sort by most hallowed (hallowScore = normalized OVR + 2 * all-conf + 4 * all-Amer + 6 * Heisman; tie-break w/ pure OVR, then gamesPlayed, then potential)
+        int maxOvr = hallOfFamers[0].ratOvr;
+        [hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Player *a = (Player*)obj1;
+            Player *b = (Player*)obj2;
+            int aHallowScore = (100 * ((double)a.ratOvr / (double) maxOvr)) + (2 * a.careerAllConferences) + (4 * a.careerAllAmericans) + (6 * a.careerHeismans);
+            int bHallowScore = (100 * ((double)b.ratOvr / (double) maxOvr)) + (2 * b.careerAllConferences) + (4 * b.careerAllAmericans) + (6 * b.careerHeismans);
+            if (aHallowScore > bHallowScore) {
+                return -1;
+            } else if (bHallowScore > aHallowScore) {
+                return 1;
+            } else {
+                if (a.ratOvr > b.ratOvr) {
+                    return -1;
+                } else if (a.ratOvr < b.ratOvr) {
+                    return 1;
+                } else {
+                    if (a.gamesPlayed > b.gamesPlayed) {
+                        return -1;
+                    } else if (a.gamesPlayed < b.gamesPlayed) {
+                        return 1;
+                    } else {
+                        if (a.ratPot > b.ratPot) {
+                            return -1;
+                        } else if (a.ratPot < b.ratPot) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                }
+
+            }
+        }];
+    }
 }
 
 @end

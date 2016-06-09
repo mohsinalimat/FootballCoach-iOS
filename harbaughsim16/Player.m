@@ -68,6 +68,31 @@
             _ratDur = (int) (50 + 50 * [HBSharedUtils randomValue]);
         }
         
+        if ([aDecoder containsValueForKey:@"careerHeismans"]) {
+            _careerHeismans = [aDecoder decodeIntForKey:@"careerHeismans"];
+        } else {
+            _careerHeismans = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerAllAmericans"]) {
+            _careerAllAmericans = [aDecoder decodeIntForKey:@"careerAllAmericans"];
+        } else {
+            _careerAllAmericans = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"startYear"]) {
+            _startYear = [aDecoder decodeIntForKey:@"startYear"];
+        } else {
+            NSInteger curYear = _team.league.leagueHistory.count + 2016;
+            _startYear = (int)(curYear - _year - 1);
+        }
+        
+        if ([aDecoder containsValueForKey:@"endYear"]) {
+            _endYear = [aDecoder decodeIntForKey:@"endYear"];
+        } else {
+            _endYear = 0;
+        }
+        
     }
     return self;
 }
@@ -91,6 +116,12 @@
     [aCoder encodeBool:_isAllAmerican forKey:@"isAllAmerican"];
     [aCoder encodeBool:_isAllConference forKey:@"isAllConference"];
     [aCoder encodeObject:_draftPosition forKey:@"draftPosition"];
+    [aCoder encodeInt:_careerHeismans forKey:@"careerHeismans"];
+    [aCoder encodeInt:_careerAllConferences forKey:@"careerAllConferences"];
+    [aCoder encodeInt:_careerAllAmericans forKey:@"careerAllAmericans"];
+    [aCoder encodeInt:_startYear forKey:@"startYear"];
+    [aCoder encodeInt:_endYear forKey:@"endYear"];
+    
 }
 
 - (NSComparisonResult)compare:(id)other
@@ -279,7 +310,12 @@
 }
 
 -(NSDictionary*)detailedCareerStats {
-    return [NSDictionary dictionary];
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    
+    [stats setObject:[NSString stringWithFormat:@"%d",_careerAllConferences] forKey:@"allConferences"];
+    [stats setObject:[NSString stringWithFormat:@"%d",_careerAllAmericans] forKey:@"allAmericans"];
+    [stats setObject:[NSString stringWithFormat:@"%d",_careerHeismans] forKey:@"heismans"];
+    return stats;
 }
 
 -(NSDictionary*)detailedRatings {
@@ -288,5 +324,35 @@
 
 -(void)checkRecords {
     
+}
+
+-(NSString *)simpleAwardReport {
+    NSMutableString *awards = [NSMutableString string];
+    int parts = 0;
+    if (_careerHeismans > 0) {
+        [awards appendFormat:@"%lix POTY",(long)_careerHeismans];
+        parts++;
+    }
+    
+    if (_careerAllAmericans > 0) {
+        [awards appendFormat:@"?%lix All-League",(long)_careerAllAmericans];
+        parts++;
+    }
+    
+    if (_careerAllConferences > 0) {
+        [awards appendFormat:@"?%lix All-Conference",(long)_careerAllConferences];
+        parts++;
+    }
+    
+    if (parts > 1) {
+        [awards replaceOccurrencesOfString:@"?" withString:@", " options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
+    } else {
+        [awards replaceOccurrencesOfString:@"?" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
+    }
+    
+    
+    
+    awards = [NSMutableString stringWithString:[[awards stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    return awards;
 }
 @end

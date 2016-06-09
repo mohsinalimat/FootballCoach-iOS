@@ -77,6 +77,7 @@
         self.team = t;
         self.name = nm;
         self.year = yr;
+        self.startYear = (int)t.league.leagueHistory.count + 2016;
         self.ratDur = dur;
         self.ratOvr = (pow + acc)/2;
         self.ratPot = pot;
@@ -108,6 +109,7 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
+        self.startYear = (int)t.league.leagueHistory.count + 2016;
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);

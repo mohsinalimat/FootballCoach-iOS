@@ -33,9 +33,14 @@
 @property (nonatomic) BOOL isAllConference;
 @property (strong, nonatomic) Injury *injury;
 @property (strong, nonatomic) NSDictionary *draftPosition; // { "round" : "1", @"pick" : "32" }
-
+@property (nonatomic) int careerHeismans;
+@property (nonatomic) int careerAllAmericans;
+@property (nonatomic) int careerAllConferences;
+@property (nonatomic) int startYear;
+@property (nonatomic) int endYear;
 
 -(BOOL)isInjured;
+-(NSString *)simpleAwardReport;
 +(NSArray *)letterGrades;
 -(NSString*)getYearString;
 -(NSString*)getFullYearString;

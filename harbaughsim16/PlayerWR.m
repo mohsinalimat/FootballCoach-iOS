@@ -95,6 +95,7 @@
         self.name = nm;
         self.ratDur = dur;
         self.year = yr;
+        self.startYear = (int)t.league.leagueHistory.count + 2016;
         self.ratOvr = (cat*2 + spd + eva)/4;
         self.ratPot = pot;
         self.ratFootIQ = iq;
@@ -131,6 +132,7 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
+        self.startYear = (int)t.league.leagueHistory.count + 2016;
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
@@ -236,7 +238,7 @@
 }
 
 -(NSDictionary*)detailedCareerStats {
-    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    NSMutableDictionary *stats = [NSMutableDictionary dictionaryWithDictionary:[super detailedCareerStats]];
     [stats setObject:[NSString stringWithFormat:@"%d TDs",_careerStatsTD] forKey:@"touchdowns"];
     [stats setObject:[NSString stringWithFormat:@"%d Fum",_careerStatsFumbles] forKey:@"fumbles"];
     

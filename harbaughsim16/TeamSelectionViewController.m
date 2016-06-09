@@ -50,6 +50,7 @@
                 [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
                 [league save];
                 
+                NSLog(@"HARD MODE ENGAGED");
                 [Answers logContentViewWithName:@"New Hard Mode Save Created" contentType:@"Team" contentId:@"hardmode-team16" customAttributes:@{@"Team Name":userTeam.name}];
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
@@ -59,6 +60,7 @@
             
             [alert addAction:[UIAlertAction actionWithTitle:@"No, I'll stick with normal mode." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 [league setUserTeam:userTeam];
+                league.isHardMode = NO;
                 [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
                 [league save];
                 
@@ -79,9 +81,6 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];*/
 
-            
-
-            [self dismissViewControllerAnimated:YES completion:nil];
             
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];

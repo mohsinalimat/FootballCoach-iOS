@@ -115,7 +115,7 @@
     }];
     
     for (Player *p in userDraftees) {
-        [draftSummary appendFormat:@"Rd %@, Pk %@: %@ %@ (OVR: %li)", p.draftPosition[@"round"], p.draftPosition[@"pick"], p.position, [p getInitialName], (long)p.ratOvr];
+        [draftSummary appendFormat:@"Rd %@, Pk %@: %@ %@ (OVR: %li)\n", p.draftPosition[@"round"], p.draftPosition[@"pick"], p.position, [p getInitialName], (long)p.ratOvr];
     }
     
     if (draftSummary.length == 0) {
@@ -133,6 +133,11 @@
     
     [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Draft Summary" style:UIBarButtonItemStylePlain target:self action:@selector(viewDraftSummary)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
     self.navigationController.toolbarHidden = NO;
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.navigationController.toolbarHidden = YES;
 }
 
 -(void)dismissVC {
@@ -157,7 +162,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    draftRounds = [[HBSharedUtils getLeague] proDraft];
+    [[HBSharedUtils getLeague] completeProDraft:^(NSArray *rounds) {
+        draftRounds = rounds;
+    }];
     round1 = draftRounds[0];
     round2 = draftRounds[1];
     round3 = draftRounds[2];

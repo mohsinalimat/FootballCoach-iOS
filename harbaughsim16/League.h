@@ -54,6 +54,7 @@
 @property (strong, nonatomic)  NSMutableArray<Team*> *teamList;
 @property (strong, nonatomic)  NSMutableArray<NSString*> *nameList;
 @property (strong, nonatomic)  NSMutableArray<NSMutableArray*> *newsStories;
+@property (strong, nonatomic)  NSMutableArray<Player *> *hallOfFamers;
 
 @property (strong, nonatomic) Team *blessedTeam;
 @property (strong, nonatomic) Team *cursedTeam;
@@ -152,5 +153,6 @@
 -(NSArray*)singleSeasonRecords;
 -(NSArray*)careerRecords;
 
--(NSArray *)proDraft;
+-(void)completeProDraft:(void (^)(NSArray* rounds))completionBlock;
+-(void)updateHallOfFame;
 @end

@@ -112,6 +112,8 @@
 		75EC9A711D0663B900F24BE6 /* Injury.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A701D0663B900F24BE6 /* Injury.m */; };
 		75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A731D07D6D100F24BE6 /* InjuryReportViewController.m */; };
 		75EC9A761D07D9DC00F24BE6 /* medical@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EC9A751D07D9DC00F24BE6 /* medical@3x.png */; };
+		75EC9A791D08E12D00F24BE6 /* RingOfHonorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A781D08E12D00F24BE6 /* RingOfHonorViewController.m */; };
+		75EC9A7C1D08E5B300F24BE6 /* HallOfFameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */; };
 		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
 		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
@@ -296,6 +298,10 @@
 		75EC9A721D07D6D100F24BE6 /* InjuryReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InjuryReportViewController.h; sourceTree = "<group>"; };
 		75EC9A731D07D6D100F24BE6 /* InjuryReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InjuryReportViewController.m; sourceTree = "<group>"; };
 		75EC9A751D07D9DC00F24BE6 /* medical@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "medical@3x.png"; sourceTree = "<group>"; };
+		75EC9A771D08E12D00F24BE6 /* RingOfHonorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RingOfHonorViewController.h; sourceTree = "<group>"; };
+		75EC9A781D08E12D00F24BE6 /* RingOfHonorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RingOfHonorViewController.m; sourceTree = "<group>"; };
+		75EC9A7A1D08E5B300F24BE6 /* HallOfFameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HallOfFameViewController.h; sourceTree = "<group>"; };
+		75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HallOfFameViewController.m; sourceTree = "<group>"; };
 		75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreaksViewController.h; sourceTree = "<group>"; };
 		75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreaksViewController.m; sourceTree = "<group>"; };
 		D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
@@ -491,6 +497,10 @@
 			children = (
 				75EC9A721D07D6D100F24BE6 /* InjuryReportViewController.h */,
 				75EC9A731D07D6D100F24BE6 /* InjuryReportViewController.m */,
+				75EC9A771D08E12D00F24BE6 /* RingOfHonorViewController.h */,
+				75EC9A781D08E12D00F24BE6 /* RingOfHonorViewController.m */,
+				75EC9A7A1D08E5B300F24BE6 /* HallOfFameViewController.h */,
+				75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */,
 				751DF8251CA1F273003C62F2 /* TeamRosterViewController.h */,
 				751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */,
 				7571DD361C9CFD4000E67080 /* RosterViewController.h */,
@@ -665,20 +675,20 @@
 			children = (
 				75924A531C99D24500B165AD /* League.h */,
 				75924A541C99D24500B165AD /* League.m */,
+				75924A4D1C99D05E00B165AD /* Conference.h */,
+				75924A4E1C99D05E00B165AD /* Conference.m */,
 				75924A3B1C99CD8D00B165AD /* Team.h */,
 				75924A3C1C99CD8D00B165AD /* Team.m */,
 				75924A501C99D1C600B165AD /* TeamStrategy.h */,
 				75924A511C99D1C600B165AD /* TeamStrategy.m */,
-				75924A4D1C99D05E00B165AD /* Conference.h */,
-				75924A4E1C99D05E00B165AD /* Conference.m */,
-				75924A471C99CF7C00B165AD /* Game.h */,
-				75924A481C99CF7C00B165AD /* Game.m */,
-				75EC9A6F1D0663B900F24BE6 /* Injury.h */,
-				75EC9A701D0663B900F24BE6 /* Injury.m */,
 				75300A5E1CB2DC96001EBBCB /* TeamStreak.h */,
 				75300A5F1CB2DC96001EBBCB /* TeamStreak.m */,
 				7563A8DF1CB7F6F20023E43B /* Record.h */,
 				7563A8E01CB7F6F20023E43B /* Record.m */,
+				75924A471C99CF7C00B165AD /* Game.h */,
+				75924A481C99CF7C00B165AD /* Game.m */,
+				75EC9A6F1D0663B900F24BE6 /* Injury.h */,
+				75EC9A701D0663B900F24BE6 /* Injury.m */,
 				755BBC6B1C9E11BD001A8314 /* Players */,
 			);
 			name = "Simulation Model";
@@ -925,6 +935,7 @@
 				7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */,
 				75880F8C1CAC949300AF2C1C /* LeagueRecordsViewController.m in Sources */,
 				75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */,
+				75EC9A791D08E12D00F24BE6 /* RingOfHonorViewController.m in Sources */,
 				7571DD411C9D032F00E67080 /* PlayerDetailViewController.m in Sources */,
 				7543190E1CC02F2200D380F1 /* HBTeamRankCell.m in Sources */,
 				751DF8201CA17F81003C62F2 /* HBSettingsCell.m in Sources */,
@@ -945,6 +956,7 @@
 				75924A4F1C99D05E00B165AD /* Conference.m in Sources */,
 				751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */,
 				75924A491C99CF7C00B165AD /* Game.m in Sources */,
+				75EC9A7C1D08E5B300F24BE6 /* HallOfFameViewController.m in Sources */,
 				7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */,
 				754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */,
 				75924A261C99CCC000B165AD /* NewsViewController.m in Sources */,

@@ -20,6 +20,8 @@
 #import "LeagueRecordsViewController.h"
 #import "ConferenceStandingsViewController.h"
 #import "TeamStreaksViewController.h"
+#import "RingOfHonorViewController.h"
+#import "HallOfFameViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -149,9 +151,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 5;
+        return 6;
     } else if (section == 2) {
-        return 2;
+        return 3;
     } else {
         return stats.count;
     }
@@ -195,6 +197,8 @@
             if (indexPath.row == 2) {
                 title = @"Team History";
             } else if (indexPath.row == 3) {
+                title = @"Ring of Honor";
+            } else if (indexPath.row == 4) {
                 title = @"Team Records";
             } else {
                 title = @"Team Streaks";
@@ -219,6 +223,8 @@
 
         if (indexPath.row == 0) {
             title = @"League History";
+        } else if (indexPath.row == 1) {
+            title = @"Hall of Fame";
         } else {
             title = @"League Records";
         }
@@ -293,6 +299,8 @@
         if (indexPath.row == 0) {
             //league
             [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];
+        } else if (indexPath.row == 1) { //hallOfFame
+            [self.navigationController pushViewController:[[HallOfFameViewController alloc] init] animated:YES];
         } else {
             //league records
             [self.navigationController pushViewController:[[LeagueRecordsViewController alloc] init] animated:YES];
@@ -312,7 +320,9 @@
             [popupController presentInViewController:self];
         } else if (indexPath.row == 2) {
             [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:userTeam] animated:YES];
-        } else if (indexPath.row == 3) { //teamRecords
+        } else if (indexPath.row == 3) { //hallOfFame
+            [self.navigationController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:userTeam] animated:YES];
+        } else if (indexPath.row == 4) { //teamRecords
             [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:userTeam] animated:YES];
         } else { //team streaks
             [self.navigationController pushViewController:[[TeamStreaksViewController alloc] initWithTeam:userTeam] animated:YES];

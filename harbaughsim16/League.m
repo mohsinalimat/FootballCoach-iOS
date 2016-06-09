@@ -40,6 +40,7 @@
     [encoder encodeObject:heismanCandidates forKey:@"heismanCandidates"];
     [encoder encodeObject:heismanWinnerStrFull forKey:@"heismanWinnerStrFull"];
     [encoder encodeObject:_leagueHistory forKey:@"leagueHistory"];
+    [encoder encodeObject:_hallOfFamers forKey:@"hallOfFamers"];
     [encoder encodeObject:_heismanHistory forKey:@"heismanHistory"];
     [encoder encodeObject:_conferences forKey:@"conferences"];
     [encoder encodeObject:_teamList forKey:@"teamList"];
@@ -143,46 +144,52 @@
         _recruitingStage = [decoder decodeIntForKey:@"recruitingStage"];
         _canRebrandTeam = [decoder decodeBoolForKey:@"canRebrandTeam"];
         
-        if (![decoder containsValueForKey:@"isHardMode"]) {
-            _isHardMode = [decoder decodeBoolForKey:@"isHardMode"];
+        if (![decoder containsValueForKey:@"hallOfFamers"]) {
+            _hallOfFamers = [NSMutableArray array];
         } else {
+            _hallOfFamers = [decoder decodeObjectForKey:@"hallOfFamers"];
+        }
+        
+        if (![decoder containsValueForKey:@"isHardMode"]) {
             _isHardMode = NO;
+        } else {
+            _isHardMode = [decoder decodeBoolForKey:@"isHardMode"];
         }
 
         if (![decoder containsValueForKey:@"blessedTeam"]) {
-            _blessedTeam = [decoder decodeObjectForKey:@"blessedTeam"];
-        } else {
             _blessedTeam = nil;
+        } else {
+            _blessedTeam = [decoder decodeObjectForKey:@"blessedTeam"];
         }
 
         if (![decoder containsValueForKey:@"cursedTeam"]) {
-            _cursedTeam = [decoder decodeObjectForKey:@"cursedTeam"];
-        } else {
             _cursedTeam = nil;
+        } else {
+            _cursedTeam = [decoder decodeObjectForKey:@"cursedTeam"];
         }
 
         if (![decoder containsValueForKey:@"blessedTeamCoachName"]) {
-            _blessedTeamCoachName = [decoder decodeObjectForKey:@"blessedTeamCoachName"];
-        } else {
             _blessedTeamCoachName = nil;
+        } else {
+            _blessedTeamCoachName = [decoder decodeObjectForKey:@"blessedTeamCoachName"];
         }
 
         if (![decoder containsValueForKey:@"cursedTeamCoachName"]) {
-            _cursedTeamCoachName = [decoder decodeObjectForKey:@"cursedTeamCoachName"];
-        } else {
             _cursedTeamCoachName = nil;
+        } else {
+            _cursedTeamCoachName = [decoder decodeObjectForKey:@"cursedTeamCoachName"];
         }
 
         if (![decoder containsValueForKey:@"blessedStoryIndex"]) {
-            _blessedStoryIndex = [decoder decodeIntForKey:@"blessedStoryIndex"];
-        } else {
             _blessedStoryIndex = 0;
+        } else {
+            _blessedStoryIndex = [decoder decodeIntForKey:@"blessedStoryIndex"];
         }
 
         if (![decoder containsValueForKey:@"cursedStoryIndex"]) {
-            _cursedStoryIndex = [decoder decodeIntForKey:@"cursedStoryIndex"];
-        } else {
             _cursedStoryIndex = 0;
+        } else {
+            _cursedStoryIndex = [decoder decodeIntForKey:@"cursedStoryIndex"];
         }
 
         //single season
@@ -593,6 +600,7 @@
         _recruitingStage = 0;
         heismanDecided = NO;
         _hasScheduledBowls = NO;
+        _hallOfFamers = [NSMutableArray array];
         _leagueHistory = [NSMutableArray array];
         _heismanHistory = [NSMutableArray array];
         _heismanFinalists = [NSMutableArray array];
@@ -898,6 +906,7 @@
         for (Conference *c in _conferences) {
             [c refreshAllConferencePlayers:nil];
         }
+        [self completeProDraft:nil];
         _canRebrandTeam = YES;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
@@ -1137,8 +1146,10 @@
             _cursedTeam = curseTeam;
         }
     }
-
+    
+    [self updateHallOfFame];
     for (int t = 0; t < _teamList.count; ++t) {
+        [_teamList[t] updateRingOfHonor];
         [_teamList[t] advanceSeason];
     }
     for (int c = 0; c < _conferences.count; ++c) {
@@ -1331,6 +1342,7 @@
     }
 
     _heisman.team.heismans++;
+    _heisman.careerHeismans++;
     _heisman.isHeisman = YES;
     if ([_heisman isKindOfClass:[PlayerQB class]]) {
         //qb heisman
@@ -1688,39 +1700,58 @@
     [leadingKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         PlayerK *a = (PlayerK*)obj1;
         PlayerK *b = (PlayerK*)obj2;
-        return ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) > ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? -1 : ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) == ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? 0 : 1;
+        if (a.statsFGAtt > 0 && a.statsXPAtt > 0 && b.statsXPAtt > 0 && b.statsFGAtt) {
+            return ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) > ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? -1 : ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) == ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? 0 : 1;
+        } else {
+            if (a.statsFGAtt < 0 || a.statsXPAtt < 0) {
+                return 1;
+            } else if (b.statsFGAtt < 0 || b.statsXPAtt < 0) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
     }];
     
     PlayerQB *qb = leadingQBs[0];
+    qb.careerAllAmericans++;
     qb.isAllAmerican = YES;
     
     PlayerRB *rb1 = leadingRBs[0];
+    rb1.careerAllAmericans++;
     rb1.isAllAmerican = YES;
     
     PlayerRB *rb2 = leadingRBs[1];
+    rb2.careerAllAmericans++;
     rb2.isAllAmerican = YES;
     
     PlayerWR *wr1 = leadingWRs[0];
+    wr1.careerAllAmericans++;
     wr1.isAllAmerican = YES;
     
     PlayerWR *wr2 = leadingWRs[1];
+    wr2.careerAllAmericans++;
     wr2.isAllAmerican = YES;
     
     PlayerWR *wr3 = leadingWRs[2];
+    wr3.careerAllAmericans++;
     wr3.isAllAmerican = YES;
     
     PlayerK *k = leadingKs[0];
+    k.careerAllAmericans++;
     k.isAllAmerican = YES;
     
-    completionBlock( @{
-             @"QB" : @[qb],
-             @"RB" : @[rb1,rb2],
-             @"WR" : @[wr1,wr2,wr3],
-             @"K"  : @[k]
-             });
+    if (completionBlock) {
+        completionBlock( @{
+                           @"QB" : @[qb],
+                           @"RB" : @[rb1,rb2],
+                           @"WR" : @[wr1,wr2,wr3],
+                           @"K"  : @[k]
+                           });
+    }
 }
 
--(NSArray *)proDraft {
+-(void)completeProDraft:(void (^)(NSArray *))completionBlock {
     NSMutableArray *players = [NSMutableArray array];
     NSMutableArray *round1 = [NSMutableArray array];
     NSMutableArray *round2 = [NSMutableArray array];
@@ -1816,7 +1847,7 @@
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
         }
-        p.draftPosition = @{@"round" : @"1", @"pick" : [NSString stringWithFormat:@"%li", (long)i]};
+        p.draftPosition = @{@"round" : @"1", @"pick" : [NSString stringWithFormat:@"%li", (long)(i+1)]};
         [round1 addObject:p];
     }
     
@@ -1827,7 +1858,7 @@
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
         }
-        p.draftPosition = @{@"round" : @"2", @"pick" : [NSString stringWithFormat:@"%li", (long)j]};
+        p.draftPosition = @{@"round" : @"2", @"pick" : [NSString stringWithFormat:@"%li", (long)(j+1)]};
         [round2 addObject:p];
     }
     
@@ -1836,7 +1867,7 @@
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
         }
-        p.draftPosition = @{@"round" : @"3", @"pick" : [NSString stringWithFormat:@"%li", (long)k]};
+        p.draftPosition = @{@"round" : @"3", @"pick" : [NSString stringWithFormat:@"%li", (long)(k+1)]};
         [round3 addObject:p];
     }
     
@@ -1845,7 +1876,7 @@
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
         }
-        p.draftPosition = @{@"round" : @"4", @"pick" : [NSString stringWithFormat:@"%li", (long)r]};
+        p.draftPosition = @{@"round" : @"4", @"pick" : [NSString stringWithFormat:@"%li", (long)(r+1)]};
         [round4 addObject:p];
     }
     
@@ -1854,7 +1885,7 @@
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
         }
-        p.draftPosition = @{@"round" : @"5", @"pick" : [NSString stringWithFormat:@"%li", (long)c]};
+        p.draftPosition = @{@"round" : @"5", @"pick" : [NSString stringWithFormat:@"%li", (long)(c+1)]};
         [round5 addObject:p];
     }
     
@@ -1863,7 +1894,7 @@
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
         }
-        p.draftPosition = @{@"round" : @"6", @"pick" : [NSString stringWithFormat:@"%li", (long)a]};
+        p.draftPosition = @{@"round" : @"6", @"pick" : [NSString stringWithFormat:@"%li", (long)(a+1)]};
         [round6 addObject:p];
     }
     
@@ -1876,7 +1907,122 @@
         [round7 addObject:p];
     }
     
-    return @[round1, round2, round3, round4, round5, round6, round7];
+    if (completionBlock)
+        completionBlock(@[round1, round2, round3, round4, round5, round6, round7]);
+   
+}
+
+-(void)updateHallOfFame {
+    for (Team *t in _teamList) {
+        for (Player *p in t.teamQBs) {
+            if (((t.isUserControlled && [t.playersLeaving containsObject:p]) || (!t.isUserControlled && p.year == 4))
+                && (p.careerAllConferences > 3 || p.careerHeismans > 0 || p.careerAllAmericans > 2)) {
+                if (![_hallOfFamers containsObject:p]) {
+                    p.injury = nil; //sanity check to make sure our immortals are actually immortal
+                    [_hallOfFamers addObject:p];
+                }
+            }
+        }
+        
+        for (Player *p in t.teamRBs) {
+            if (((t.isUserControlled && [t.playersLeaving containsObject:p]) || (!t.isUserControlled && p.year == 4))
+                && (p.careerAllConferences > 3 || p.careerHeismans > 0 || p.careerAllAmericans > 2)) {
+                if (![_hallOfFamers containsObject:p]) {
+                    p.injury = nil; //sanity check to make sure our immortals are actually immortal
+                    [_hallOfFamers addObject:p];
+                }
+            }
+        }
+        
+        for (Player *p in t.teamWRs) {
+            if (((t.isUserControlled && [t.playersLeaving containsObject:p]) || (!t.isUserControlled && p.year == 4))
+                && (p.careerAllConferences > 3 || p.careerHeismans > 0 || p.careerAllAmericans > 2)) {
+                if (![_hallOfFamers containsObject:p]) {
+                    p.injury = nil; //sanity check to make sure our immortals are actually immortal
+                    [_hallOfFamers addObject:p];
+                }
+            }
+        }
+        
+        if (_hallOfFamers.count > 0) {
+            //sort normally
+            [_hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                Player *a = (Player*)obj1;
+                Player *b = (Player*)obj2;
+                if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
+                    if (a.ratOvr > b.ratOvr) {
+                        return -1;
+                    } else if (a.ratOvr < b.ratOvr) {
+                        return 1;
+                    } else {
+                        if (a.ratPot > b.ratPot) {
+                            return -1;
+                        } else if (a.ratPot < b.ratPot) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                } else if (a.hasRedshirt) {
+                    return 1;
+                } else if (b.hasRedshirt) {
+                    return -1;
+                } else if (a.isInjured) {
+                    return 1;
+                } else if (b.isInjured) {
+                    return  -1;
+                } else {
+                    if (a.ratOvr > b.ratOvr) {
+                        return -1;
+                    } else if (a.ratOvr < b.ratOvr) {
+                        return 1;
+                    } else {
+                        if (a.ratPot > b.ratPot) {
+                            return -1;
+                        } else if (a.ratPot < b.ratPot) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                }
+            }];
+            
+            //sort by most hallowed (hallowScore = normalized OVR + 2 * all-conf + 4 * all-Amer + 6 * Heisman; tie-break w/ pure OVR, then gamesPlayed, then potential)
+            int maxOvr = _hallOfFamers[0].ratOvr;
+            [_hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                Player *a = (Player*)obj1;
+                Player *b = (Player*)obj2;
+                int aHallowScore = (100 * ((double)a.ratOvr / (double) maxOvr)) + (2 * a.careerAllConferences) + (4 * a.careerAllAmericans) + (6 * a.careerHeismans);
+                int bHallowScore = (100 * ((double)b.ratOvr / (double) maxOvr)) + (2 * b.careerAllConferences) + (4 * b.careerAllAmericans) + (6 * b.careerHeismans);
+                if (aHallowScore > bHallowScore) {
+                    return -1;
+                } else if (bHallowScore > aHallowScore) {
+                    return 1;
+                } else {
+                    if (a.ratOvr > b.ratOvr) {
+                        return -1;
+                    } else if (a.ratOvr < b.ratOvr) {
+                        return 1;
+                    } else {
+                        if (a.gamesPlayed > b.gamesPlayed) {
+                            return -1;
+                        } else if (a.gamesPlayed < b.gamesPlayed) {
+                            return 1;
+                        } else {
+                            if (a.ratPot > b.ratPot) {
+                                return -1;
+                            } else if (a.ratPot < b.ratPot) {
+                                return 1;
+                            } else {
+                                return 0;
+                            }
+                        }
+                    }
+                }
+            }];
+        }
+    }
 }
 
 

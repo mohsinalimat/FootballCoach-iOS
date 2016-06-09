@@ -65,6 +65,7 @@
         self.team = t;
         self.name = nm;
         self.year = yr;
+        self.startYear = (int)t.league.leagueHistory.count + 2016;
         self.ratOvr = (pow*3 + acc*4 + eva)/8;
         self.ratDur = dur;
         self.ratPot = pot;
@@ -100,6 +101,7 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
+        self.startYear = (int)t.league.leagueHistory.count + 2016;
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratDur = (int) (50 + 50 * [HBSharedUtils randomValue]);
@@ -212,7 +214,7 @@
 }
 
 -(NSDictionary*)detailedCareerStats {
-    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    NSMutableDictionary *stats = [NSMutableDictionary dictionaryWithDictionary:[super detailedCareerStats]];
 
     [stats setObject:[NSString stringWithFormat:@"%d",_careerStatsPassComp] forKey:@"completions"];
     [stats setObject:[NSString stringWithFormat:@"%d",_careerStatsPassAtt] forKey:@"attempts"];

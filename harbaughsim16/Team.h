@@ -70,6 +70,7 @@
 @property (nonatomic) int numberOfRecruits;
 @property (nonatomic) int heismans;
 @property (strong, nonatomic) NSMutableArray<Player*> *playersLeaving;
+@property (strong, nonatomic) NSMutableArray<Player*> *hallOfFamers;
 
 @property (nonatomic) int wins;
 @property (nonatomic) int losses;
@@ -265,4 +266,6 @@
 
 -(NSString*)injuryReport;
 -(void)checkForInjury;
+
+-(void)updateRingOfHonor;
 @end

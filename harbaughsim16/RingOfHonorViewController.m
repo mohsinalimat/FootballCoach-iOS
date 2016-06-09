@@ -1,30 +1,37 @@
 //
-//  HallOfFameViewController.m
+//  RingOfHonorViewController.m
 //  harbaughsim16
 //
 //  Created by Akshay Easwaran on 6/8/16.
 //  Copyright © 2016 Akshay Easwaran. All rights reserved.
 //
 
-#import "HallOfFameViewController.h"
+#import "RingOfHonorViewController.h"
 #import "PlayerDetailViewController.h"
 #import "Player.h"
 #import "Team.h"
 #import "Injury.h"
-#import "League.h"
 
 #import "UIScrollView+EmptyDataSet.h"
 
-@interface HallOfFameViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface RingOfHonorViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
-    League *curLeague;
+    Team *selectedTeam;
 }
 @end
 
-@implementation HallOfFameViewController
+@implementation RingOfHonorViewController
+
+-(instancetype)initWithTeam:(Team *)t {
+    if (self = [super initWithStyle:UITableViewStylePlain]) {
+        selectedTeam = t;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"Hall of Fame";
+    self.navigationItem.title = [NSString stringWithFormat:@"%@ Ring of Honor", selectedTeam.abbreviation];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:85];
     [self.tableView setEstimatedRowHeight:85];
@@ -42,7 +49,7 @@
     
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
-    text = @"No Hall of Famers";
+    text = @"No Honorees";
     font = [UIFont boldSystemFontOfSize:17.0];
     textColor = [UIColor lightTextColor];
     
@@ -69,7 +76,7 @@
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     paragraph.alignment = NSTextAlignmentCenter;
     
-    text = @"No former players have been enshrined yet!";
+    text = [NSString stringWithFormat:@"No former %@ players have been enshrined yet!",selectedTeam.name];
     font = [UIFont systemFontOfSize:15.0];
     textColor = [UIColor lightTextColor];
     
@@ -114,7 +121,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return curLeague.hallOfFamers.count;
+    return selectedTeam.hallOfFamers.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -131,8 +138,8 @@
         [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
     }
     
-    Player *p = curLeague.hallOfFamers[indexPath.row];
-    [cell.textLabel setText:[NSString stringWithFormat:@"%@ %@ %@ (OVR: %li)",p.team.abbreviation,p.position,p.name,(long)p.ratOvr]];
+    Player *p = selectedTeam.hallOfFamers[indexPath.row];
+    [cell.textLabel setText:[NSString stringWithFormat:@"%@ %@ (OVR: %li)",p.position,p.name,(long)p.ratOvr]];
     if (p.draftPosition) {
         [cell.detailTextLabel setText:[NSString stringWithFormat:@"Played from %li - %li\nDrafted in %li: Rd %@, Pk %@\n%@",(long)p.startYear,(long)p.endYear, (long)p.endYear,p.draftPosition[@"round"],p.draftPosition[@"pick"],[p simpleAwardReport]]];
     } else {
@@ -144,7 +151,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Player *p = curLeague.hallOfFamers[indexPath.row];
+    Player *p = selectedTeam.hallOfFamers[indexPath.row];
     [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:p] animated:YES];
 }
 
