@@ -655,37 +655,6 @@
         gameYardLine = 25;
         
         //Home Team Starters
-        [_homeTeam getQB:0].gamesPlayed++;
-        
-        [_homeTeam getRB:0].gamesPlayed++;
-        [_homeTeam getRB:1].gamesPlayed++;
-        
-        [_homeTeam getWR:0].gamesPlayed++;
-        [_homeTeam getWR:1].gamesPlayed++;
-        [_homeTeam getWR:2].gamesPlayed++;
-        
-        [_homeTeam getOL:0].gamesPlayed++;
-        [_homeTeam getOL:1].gamesPlayed++;
-        [_homeTeam getOL:2].gamesPlayed++;
-        [_homeTeam getOL:3].gamesPlayed++;
-        [_homeTeam getOL:4].gamesPlayed++;
-        
-        [_homeTeam getK:0].gamesPlayed++;
-        
-        [_homeTeam getS:0].gamesPlayed++;
-
-        [_homeTeam getCB:0].gamesPlayed++;
-        [_homeTeam getCB:1].gamesPlayed++;
-        [_homeTeam getCB:2].gamesPlayed++;
-        
-        [_homeTeam getF7:0].gamesPlayed++;
-        [_homeTeam getF7:1].gamesPlayed++;
-        [_homeTeam getF7:2].gamesPlayed++;
-        [_homeTeam getF7:3].gamesPlayed++;
-        [_homeTeam getF7:4].gamesPlayed++;
-        [_homeTeam getF7:5].gamesPlayed++;
-        [_homeTeam getF7:6].gamesPlayed++;
-        
         _homeStarters = [NSMutableArray arrayWithArray:@[[_homeTeam getQB:0],
                                                          
                                                          [_homeTeam getRB:0],
@@ -718,37 +687,6 @@
                                                          [_homeTeam getF7:6]]];
         
         //Away Team starters
-        [_awayTeam getQB:0].gamesPlayed++;
-        
-        [_awayTeam getRB:0].gamesPlayed++;
-        [_awayTeam getRB:1].gamesPlayed++;
-        
-        [_awayTeam getWR:0].gamesPlayed++;
-        [_awayTeam getWR:1].gamesPlayed++;
-        [_awayTeam getWR:2].gamesPlayed++;
-        
-        [_awayTeam getOL:0].gamesPlayed++;
-        [_awayTeam getOL:1].gamesPlayed++;
-        [_awayTeam getOL:2].gamesPlayed++;
-        [_awayTeam getOL:3].gamesPlayed++;
-        [_awayTeam getOL:4].gamesPlayed++;
-        
-        [_awayTeam getK:0].gamesPlayed++;
-        
-        [_awayTeam getS:0].gamesPlayed++;
-        
-        [_awayTeam getCB:0].gamesPlayed++;
-        [_awayTeam getCB:1].gamesPlayed++;
-        [_awayTeam getCB:2].gamesPlayed++;
-        
-        [_awayTeam getF7:0].gamesPlayed++;
-        [_awayTeam getF7:1].gamesPlayed++;
-        [_awayTeam getF7:2].gamesPlayed++;
-        [_awayTeam getF7:3].gamesPlayed++;
-        [_awayTeam getF7:4].gamesPlayed++;
-        [_awayTeam getF7:5].gamesPlayed++;
-        [_awayTeam getF7:6].gamesPlayed++;
-        
         _awayStarters = [NSMutableArray arrayWithArray:@[[_awayTeam getQB:0],
                                                          
                                                          [_awayTeam getRB:0],
@@ -780,12 +718,15 @@
                                                          [_awayTeam getF7:5],
                                                          [_awayTeam getF7:6]]];
         
-        //break redshirts if starters are marked as such
+        //break redshirts if starters are marked as such and add gamesPlayed/gamesPlayedSeason
         for (Player *p in _homeStarters) {
             if (p.hasRedshirt) {
                 p.hasRedshirt = NO;
                 p.wasRedshirted = YES;
             }
+            
+            p.gamesPlayedSeason++;
+            p.gamesPlayed++;
         }
         
         for (Player *p in _awayStarters) {
@@ -793,6 +734,9 @@
                 p.hasRedshirt = NO;
                 p.wasRedshirted = YES;
             }
+            
+            p.gamesPlayedSeason++;
+            p.gamesPlayed++;
         }
         
         while ( gameTime > 0 ) {
