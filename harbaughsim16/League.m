@@ -1945,6 +1945,10 @@
         }
         
         if (_hallOfFamers.count > 0) {
+            for (Player *p in _hallOfFamers) {
+                p.year = 5;
+            }
+            
             //sort normally
             [_hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 Player *a = (Player*)obj1;

@@ -120,8 +120,12 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 0) {
-        return 36;
+    if (selectedConf.league.currentWeek > 8) {
+        if (section == 0) {
+            return 36;
+        } else {
+            return 108;
+        }
     } else {
         return 108;
     }

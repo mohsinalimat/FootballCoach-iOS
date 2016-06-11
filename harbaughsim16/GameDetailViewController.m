@@ -405,12 +405,6 @@
             [statsCell.playerLabel setText:[plyr getInitialName]];
             [statsCell.teamLabel setText:plyr.team.abbreviation];
             
-            /*if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] calculateHeismanCandidates][0] isEqual:plyr]) {
-                [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
-            } else {
-                [statsCell.playerLabel setTextColor:[UIColor blackColor]];
-            }*/
-            
             if ([HBSharedUtils getLeague].currentWeek >= 13 && heisman != nil) {
                 if ([heisman isEqual:plyr]) {
                     [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
@@ -499,11 +493,11 @@
             if (indexPath.section == 2) {
                 NSDictionary *qbStats = combinedStats[@"QBs"];
                 if (indexPath.row == 0) {
-                    plyr = qbStats[@"homeQB"];
-                    plyrStats = qbStats[@"homeQBStats"];
-                } else {
                     plyr = qbStats[@"awayQB"];
                     plyrStats = qbStats[@"awayQBStats"];
+                } else {
+                    plyr = qbStats[@"homeQB"];
+                    plyrStats = qbStats[@"homeQBStats"];
                 }
                 stat1 = @"C/A"; //comp/att, yds, td, int
                 stat2 = @"Yds";
@@ -517,17 +511,17 @@
             } else if (indexPath.section == 3) {
                 NSDictionary *rbStats = combinedStats[@"RBs"]; //carries, yds, td, fum
                 if (indexPath.row == 0) {
-                    plyr = rbStats[@"homeRB1"];
-                    plyrStats = rbStats[@"homeRB1Stats"];
-                } else if (indexPath.row == 1) {
-                    plyr = rbStats[@"homeRB2"];
-                    plyrStats = rbStats[@"homeRB2Stats"];
-                } else if (indexPath.row == 2) {
                     plyr = rbStats[@"awayRB1"];
                     plyrStats = rbStats[@"awayRB1Stats"];
-                } else {
+                } else if (indexPath.row == 1) {
                     plyr = rbStats[@"awayRB2"];
                     plyrStats = rbStats[@"awayRB2Stats"];
+                } else if (indexPath.row == 2) {
+                    plyr = rbStats[@"homeRB1"];
+                    plyrStats = rbStats[@"homeRB1Stats"];
+                } else {
+                    plyr = rbStats[@"homeRB2"];
+                    plyrStats = rbStats[@"homeRB2Stats"];
                 }
                 
                 stat1 = @"Car";
@@ -541,23 +535,23 @@
             } else if (indexPath.section == 4) {
                 NSDictionary *wrStats = combinedStats[@"WRs"]; //catchs, yds, td, fum
                 if (indexPath.row == 0) {
-                    plyr = wrStats[@"homeWR1"];
-                    plyrStats = wrStats[@"homeWR1Stats"];
-                } else if (indexPath.row == 1) {
-                    plyr = wrStats[@"homeWR2"];
-                    plyrStats = wrStats[@"homeWR2Stats"];
-                } else if (indexPath.row == 2) {
-                    plyr = wrStats[@"homeWR3"];
-                    plyrStats = wrStats[@"homeWR3Stats"];
-                } else if (indexPath.row == 3) {
                     plyr = wrStats[@"awayWR1"];
                     plyrStats = wrStats[@"awayWR1Stats"];
-                } else if (indexPath.row == 4) {
+                } else if (indexPath.row == 1) {
                     plyr = wrStats[@"awayWR2"];
                     plyrStats = wrStats[@"awayWR2Stats"];
-                } else {
+                } else if (indexPath.row == 2) {
                     plyr = wrStats[@"awayWR3"];
                     plyrStats = wrStats[@"awayWR3Stats"];
+                } else if (indexPath.row == 3) {
+                    plyr = wrStats[@"homeWR1"];
+                    plyrStats = wrStats[@"homeWR1Stats"];
+                } else if (indexPath.row == 4) {
+                    plyr = wrStats[@"homeWR2"];
+                    plyrStats = wrStats[@"homeWR2Stats"];
+                } else {
+                    plyr = wrStats[@"homeWR3"];
+                    plyrStats = wrStats[@"homeWR3Stats"];
                 }
                 
                 
@@ -572,11 +566,11 @@
             } else {
                 NSDictionary *kStats = combinedStats[@"Ks"]; //xp made, xp att, fg made, fg att
                 if (indexPath.row == 0) {
-                    plyr = kStats[@"homeK"];
-                    plyrStats = kStats[@"homeKStats"];
-                } else {
                     plyr = kStats[@"awayK"];
                     plyrStats = kStats[@"awayKStats"];
+                } else {
+                    plyr = kStats[@"homeK"];
+                    plyrStats = kStats[@"homeKStats"];
                 }
                 stat1 = @"XPM";
                 stat2 = @"XPA";
@@ -594,16 +588,10 @@
             [statsCell.playerLabel setText:[plyr getInitialName]];
             
             if (([self tableView:tableView numberOfRowsInSection:indexPath.section]/ 2) <= indexPath.row) {
-                [statsCell.teamLabel setText:selectedGame.awayTeam.abbreviation];
-            } else {
                 [statsCell.teamLabel setText:selectedGame.homeTeam.abbreviation];
+            } else {
+                [statsCell.teamLabel setText:selectedGame.awayTeam.abbreviation];
             }
-            
-            /*if ([HBSharedUtils getLeague].currentWeek >= 13 && [[[HBSharedUtils getLeague] calculateHeismanCandidates][0] isEqual:plyr]) {
-                [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
-             } else {
-                [statsCell.playerLabel setTextColor:[UIColor blackColor]];
-             }*/
             
             if ([HBSharedUtils getLeague].currentWeek >= 13 && heisman != nil) {
                 if ([heisman isEqual:plyr]) {
@@ -665,39 +653,39 @@
             NSDictionary *kStats = combinedStats[@"Ks"];
             if (indexPath.section == 2) {
                 if (indexPath.row == 0) {
-                    plyr = qbStats[@"homeQB"];
-                } else {
                     plyr = qbStats[@"awayQB"];
+                } else {
+                    plyr = qbStats[@"homeQB"];
                 }
             } else if (indexPath.section == 3) {
                 if (indexPath.row == 0) {
-                    plyr = rbStats[@"homeRB1"];
-                } else if (indexPath.row == 1) {
-                    plyr = rbStats[@"homeRB2"];
-                } else if (indexPath.row == 2) {
                     plyr = rbStats[@"awayRB1"];
-                } else {
+                } else if (indexPath.row == 1) {
                     plyr = rbStats[@"awayRB2"];
+                } else if (indexPath.row == 2) {
+                    plyr = rbStats[@"homeRB1"];
+                } else {
+                    plyr = rbStats[@"homeRB2"];
                 }
             } else if (indexPath.section == 4) {
                 if (indexPath.row == 0) {
-                    plyr = wrStats[@"homeWR1"];
-                } else if (indexPath.row == 1) {
-                    plyr = wrStats[@"homeWR2"];
-                } else if (indexPath.row == 2) {
-                    plyr = wrStats[@"homeWR3"];
-                } else if (indexPath.row == 3) {
                     plyr = wrStats[@"awayWR1"];
-                } else if (indexPath.row == 4) {
+                } else if (indexPath.row == 1) {
                     plyr = wrStats[@"awayWR2"];
-                } else {
+                } else if (indexPath.row == 2) {
                     plyr = wrStats[@"awayWR3"];
+                } else if (indexPath.row == 3) {
+                    plyr = wrStats[@"homeWR1"];
+                } else if (indexPath.row == 4) {
+                    plyr = wrStats[@"homeWR2"];
+                } else {
+                    plyr = wrStats[@"homeWR3"];
                 }
             } else if (indexPath.section == 5) {
                 if (indexPath.row == 0) {
-                    plyr = kStats[@"homeK"];
-                } else {
                     plyr = kStats[@"awayK"];
+                } else {
+                    plyr = kStats[@"homeK"];
                 }
             } else {
                 if (indexPath.section == 0) {

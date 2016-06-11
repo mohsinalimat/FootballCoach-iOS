@@ -25,6 +25,7 @@
 @property (nonatomic) int ratImprovement;
 @property (nonatomic) int ratDur;
 @property (nonatomic) int cost;
+@property (nonatomic) int gamesPlayedSeason;
 @property (nonatomic) int gamesPlayed;
 @property (nonatomic) BOOL hasRedshirt;
 @property (nonatomic) BOOL wasRedshirted;

@@ -91,15 +91,15 @@
             _ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
         }
     } else {
-        self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
-        _ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
-        _ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
-        _ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 35))/10;
+        self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
+        _ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
+        _ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
+        _ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
         if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
             //breakthrough
-            _ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
-            _ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
-            _ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayed - 40))/10;
+            _ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
+            _ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
+            _ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
         }
     }
     self.ratOvr = (self.ratSCov * 2 + self.ratSSpd + self.ratSTkl) / 4;

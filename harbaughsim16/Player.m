@@ -14,83 +14,98 @@
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-        _name = [aDecoder decodeObjectForKey:@"name"];
-        _position = [aDecoder decodeObjectForKey:@"position"];
-        _ratOvr = [aDecoder decodeIntForKey:@"ratOvr"];
-        _ratPot = [aDecoder decodeIntForKey:@"ratPot"];
-        _ratImprovement = [aDecoder decodeIntForKey:@"ratImprovement"];
-        _year = [aDecoder decodeIntForKey:@"year"];
-        _ratFootIQ = [aDecoder decodeIntForKey:@"ratFootIQ"];
-        _cost = [aDecoder decodeIntForKey:@"cost"];
-        _gamesPlayed = [aDecoder decodeIntForKey:@"gamesPlayed"];
-        _injury = [aDecoder decodeObjectForKey:@"injury"];
-        _team = [aDecoder decodeObjectForKey:@"team"];
+        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.position = [aDecoder decodeObjectForKey:@"position"];
+        self.ratOvr = [aDecoder decodeIntForKey:@"ratOvr"];
+        self.ratPot = [aDecoder decodeIntForKey:@"ratPot"];
+        self.ratImprovement = [aDecoder decodeIntForKey:@"ratImprovement"];
+        self.year = [aDecoder decodeIntForKey:@"year"];
+        self.ratFootIQ = [aDecoder decodeIntForKey:@"ratFootIQ"];
+        self.cost = [aDecoder decodeIntForKey:@"cost"];
+        self.gamesPlayed = [aDecoder decodeIntForKey:@"gamesPlayed"];
+        self.injury = [aDecoder decodeObjectForKey:@"injury"];
+        self.team = [aDecoder decodeObjectForKey:@"team"];
         
         if ([aDecoder containsValueForKey:@"draftPosition"]) {
-            _draftPosition = [aDecoder decodeObjectForKey:@"draftPosition"];
+            self.draftPosition = [aDecoder decodeObjectForKey:@"draftPosition"];
         } else {
-            _draftPosition = nil;
+            self.draftPosition = nil;
         }
         
         if ([aDecoder containsValueForKey:@"hasRedshirt"]) {
-            _hasRedshirt = [aDecoder decodeBoolForKey:@"hasRedshirt"];
+            self.hasRedshirt = [aDecoder decodeBoolForKey:@"hasRedshirt"];
         } else {
-            _hasRedshirt = NO;
+            self.hasRedshirt = NO;
         }
         
         if ([aDecoder containsValueForKey:@"wasRedshirted"]) {
-            _wasRedshirted = [aDecoder decodeBoolForKey:@"wasRedshirted"];
+            self.wasRedshirted = [aDecoder decodeBoolForKey:@"wasRedshirted"];
         } else {
-            _wasRedshirted = NO;
+            self.wasRedshirted = NO;
         }
         
         if ([aDecoder containsValueForKey:@"isHeisman"]) {
-            _isHeisman = [aDecoder decodeBoolForKey:@"isHeisman"];
+            self.isHeisman = [aDecoder decodeBoolForKey:@"isHeisman"];
         } else {
-            _isHeisman = NO;
+            self.isHeisman = NO;
         }
         
         if ([aDecoder containsValueForKey:@"isAllAmerican"]) {
-            _isAllAmerican = [aDecoder decodeBoolForKey:@"isAllAmerican"];
+            self.isAllAmerican = [aDecoder decodeBoolForKey:@"isAllAmerican"];
         } else {
-            _isAllAmerican = NO;
+            self.isAllAmerican = NO;
         }
         
         if ([aDecoder containsValueForKey:@"isAllConference"]) {
-            _isAllConference = [aDecoder decodeBoolForKey:@"isAllConference"];
+            self.isAllConference = [aDecoder decodeBoolForKey:@"isAllConference"];
         } else {
-            _isAllConference = NO;
+            self.isAllConference = NO;
         }
         
         if ([aDecoder containsValueForKey:@"ratDur"]) {
-            _ratDur = [aDecoder decodeIntForKey:@"ratDur"];
+            self.ratDur = [aDecoder decodeIntForKey:@"ratDur"];
         } else {
-            _ratDur = (int) (50 + 50 * [HBSharedUtils randomValue]);
+            self.ratDur = (int) (50 + 50 * [HBSharedUtils randomValue]);
         }
         
         if ([aDecoder containsValueForKey:@"careerHeismans"]) {
-            _careerHeismans = [aDecoder decodeIntForKey:@"careerHeismans"];
+            self.careerHeismans = [aDecoder decodeIntForKey:@"careerHeismans"];
         } else {
-            _careerHeismans = 0;
+            self.careerHeismans = 0;
         }
         
         if ([aDecoder containsValueForKey:@"careerAllAmericans"]) {
-            _careerAllAmericans = [aDecoder decodeIntForKey:@"careerAllAmericans"];
+            self.careerAllAmericans = [aDecoder decodeIntForKey:@"careerAllAmericans"];
         } else {
-            _careerAllAmericans = 0;
+            self.careerAllAmericans = 0;
         }
         
         if ([aDecoder containsValueForKey:@"startYear"]) {
-            _startYear = [aDecoder decodeIntForKey:@"startYear"];
+            self.startYear = [aDecoder decodeIntForKey:@"startYear"];
         } else {
-            NSInteger curYear = _team.league.leagueHistory.count + 2016;
-            _startYear = (int)(curYear - _year - 1);
+            NSInteger curYear = self.team.league.leagueHistory.count + 2016;
+            self.startYear = (int)(curYear - self.year - 1);
         }
         
         if ([aDecoder containsValueForKey:@"endYear"]) {
-            _endYear = [aDecoder decodeIntForKey:@"endYear"];
+            self.endYear = [aDecoder decodeIntForKey:@"endYear"];
         } else {
-            _endYear = 0;
+            self.endYear = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"gamesPlayedSeason"]) {
+            self.gamesPlayedSeason = [aDecoder decodeIntForKey:@"gamesPlayedSeason"];
+        } else {
+            if (self.gamesPlayed > 0) {
+                if (self.team.league.leagueHistory.count > 0) {
+                    NSInteger activeYears = self.team.league.leagueHistory.count;
+                    self.gamesPlayedSeason = self.gamesPlayed % activeYears;
+                } else {
+                    self.gamesPlayedSeason = 0;
+                }
+            } else {
+                self.gamesPlayedSeason = 0;
+            }
         }
         
     }
@@ -98,29 +113,30 @@
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:_team forKey:@"team"];
-    [aCoder encodeObject:_name forKey:@"name"];
-    [aCoder encodeObject:_position forKey:@"position"];
-    [aCoder encodeInt:_ratOvr forKey:@"ratOvr"];
-    [aCoder encodeInt:_year forKey:@"year"];
-    [aCoder encodeInt:_ratPot forKey:@"ratPot"];
-    [aCoder encodeInt:_ratDur forKey:@"ratDur"];
-    [aCoder encodeInt:_ratFootIQ forKey:@"ratFootIQ"];
-    [aCoder encodeInt:_ratImprovement forKey:@"ratImprovement"];
-    [aCoder encodeInt:_cost forKey:@"cost"];
-    [aCoder encodeInt:_gamesPlayed forKey:@"gamesPlayed"];
-    [aCoder encodeObject:_injury forKey:@"injury"];
-    [aCoder encodeBool:_wasRedshirted forKey:@"wasRedshirted"];
-    [aCoder encodeBool:_hasRedshirt forKey:@"hasRedshirt"];
-    [aCoder encodeBool:_isHeisman forKey:@"isHeisman"];
-    [aCoder encodeBool:_isAllAmerican forKey:@"isAllAmerican"];
-    [aCoder encodeBool:_isAllConference forKey:@"isAllConference"];
-    [aCoder encodeObject:_draftPosition forKey:@"draftPosition"];
-    [aCoder encodeInt:_careerHeismans forKey:@"careerHeismans"];
-    [aCoder encodeInt:_careerAllConferences forKey:@"careerAllConferences"];
-    [aCoder encodeInt:_careerAllAmericans forKey:@"careerAllAmericans"];
-    [aCoder encodeInt:_startYear forKey:@"startYear"];
-    [aCoder encodeInt:_endYear forKey:@"endYear"];
+    [aCoder encodeObject:self.team forKey:@"team"];
+    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.position forKey:@"position"];
+    [aCoder encodeInt:self.ratOvr forKey:@"ratOvr"];
+    [aCoder encodeInt:self.year forKey:@"year"];
+    [aCoder encodeInt:self.ratPot forKey:@"ratPot"];
+    [aCoder encodeInt:self.ratDur forKey:@"ratDur"];
+    [aCoder encodeInt:self.ratFootIQ forKey:@"ratFootIQ"];
+    [aCoder encodeInt:self.ratImprovement forKey:@"ratImprovement"];
+    [aCoder encodeInt:self.cost forKey:@"cost"];
+    [aCoder encodeInt:self.gamesPlayed forKey:@"gamesPlayed"];
+    [aCoder encodeInt:self.gamesPlayedSeason forKey:@"gamesPlayedSeason"];
+    [aCoder encodeObject:self.injury forKey:@"injury"];
+    [aCoder encodeBool:self.wasRedshirted forKey:@"wasRedshirted"];
+    [aCoder encodeBool:self.hasRedshirt forKey:@"hasRedshirt"];
+    [aCoder encodeBool:self.isHeisman forKey:@"isHeisman"];
+    [aCoder encodeBool:self.isAllAmerican forKey:@"isAllAmerican"];
+    [aCoder encodeBool:self.isAllConference forKey:@"isAllConference"];
+    [aCoder encodeObject:self.draftPosition forKey:@"draftPosition"];
+    [aCoder encodeInt:self.careerHeismans forKey:@"careerHeismans"];
+    [aCoder encodeInt:self.careerAllConferences forKey:@"careerAllConferences"];
+    [aCoder encodeInt:self.careerAllAmericans forKey:@"careerAllAmericans"];
+    [aCoder encodeInt:self.startYear forKey:@"startYear"];
+    [aCoder encodeInt:self.endYear forKey:@"endYear"];
     
 }
 
@@ -174,70 +190,92 @@
 }
 
 -(NSString*)getYearString {
-    if (_wasRedshirted || _hasRedshirt) {
-        if (_year == 0) {
+    if (self.wasRedshirted || self.hasRedshirt) {
+        if (self.year == 0) {
             return @"RS";
-        } else if (_year == 1) {
+        } else if (self.year == 1) {
             return @"RS Fr";
-        } else if (_year == 2) {
+        } else if (self.year == 2) {
             return @"RS So";
-        } else if (_year == 3) {
+        } else if (self.year == 3) {
             return @"RS Jr";
-        } else if (_year == 4) {
+        } else if (self.year == 4) {
             return @"RS Sr";
+        } else {
+            if (self.draftPosition) {
+                return [NSString stringWithFormat:@"Rd%@-Pk%@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
+            } else if (self.draftPosition == nil && self.year > 4) {
+                return [NSString stringWithFormat:@"GRAD%ld", (long)self.endYear];
+            } else {
+                return @"ERROR";
+            }
         }
     } else {
-        if (_year == 0) {
+        if (self.year == 0) {
             return @"HS";
-        } else if (_year == 1) {
+        } else if (self.year == 1) {
             return @"Fr";
-        } else if (_year == 2) {
+        } else if (self.year == 2) {
             return @"So";
-        } else if (_year == 3) {
+        } else if (self.year == 3) {
             return @"Jr";
-        } else if (_year == 4) {
+        } else if (self.year == 4) {
             return @"Sr";
+        } else {
+            if (self.draftPosition) {
+                return [NSString stringWithFormat:@"Rd%@-Pk%@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
+            } else if (self.draftPosition == nil && self.year > 4) {
+                return [NSString stringWithFormat:@"GRAD%ld", (long)self.endYear];
+            } else {
+                return @"ERROR";
+            }
         }
     }
     
-    if (_draftPosition) {
-        return [NSString stringWithFormat:@"Rd %@, Pk %@", _draftPosition[@"round"],_draftPosition[@"pick"]];
-    } else {
-        return @"ERROR";
-    }
+    
 }
 
 -(NSString*)getFullYearString {
-    if (_wasRedshirted || _hasRedshirt) {
-        if (_year == 0) {
+    if (self.wasRedshirted || self.hasRedshirt) {
+        if (self.year == 0) {
             return @"Redshirt";
-        } else if (_year == 1) {
+        } else if (self.year == 1) {
             return @"Freshman (RS)";
-        } else if (_year == 2) {
+        } else if (self.year == 2) {
             return @"Sophomore (RS)";
-        } else if (_year == 3) {
+        } else if (self.year == 3) {
             return @"Junior (RS)";
-        } else if (_year == 4) {
+        } else if (self.year == 4) {
             return @"Senior (RS)";
+        } else {
+            if (self.draftPosition) {
+                return [NSString stringWithFormat:@"Round %@, Pick %@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
+            } else if (self.draftPosition == nil && self.year > 4) {
+                return [NSString stringWithFormat:@"Graduted in %ld", (long)self.endYear];
+            } else {
+                return @"ERROR";
+            }
         }
     } else {
-        if (_year == 0) {
+        if (self.year == 0) {
             return @"High School";
-        } else if (_year == 1) {
+        } else if (self.year == 1) {
             return @"Freshman";
-        } else if (_year == 2) {
+        } else if (self.year == 2) {
             return @"Sophomore";
-        } else if (_year == 3) {
+        } else if (self.year == 3) {
             return @"Junior";
-        } else if (_year == 4) {
+        } else if (self.year == 4) {
             return @"Senior";
+        } else {
+            if (self.draftPosition) {
+                return [NSString stringWithFormat:@"Round %@, Pick %@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
+            } else if (self.draftPosition == nil && self.year > 4) {
+                return [NSString stringWithFormat:@"Graduted in %ld", (long)self.endYear];
+            } else {
+                return @"ERROR";
+            }
         }
-    }
-    
-    if (_draftPosition) {
-        return [NSString stringWithFormat:@"Round %@, Pick %@", _draftPosition[@"round"],_draftPosition[@"pick"]];
-    } else {
-        return @"ERROR";
     }
 }
 
@@ -247,6 +285,7 @@
 
 -(void)advanceSeason {
     self.year++;
+    self.gamesPlayedSeason = 0;
     self.isHeisman = NO;
     self.isAllAmerican = NO;
     self.isAllConference = NO;
@@ -258,23 +297,23 @@
 }
 
 -(int)getHeismanScore {
-    int adjGames = _gamesPlayed;
+    int adjGames = self.gamesPlayed;
     if (adjGames > 10) adjGames = 10;
-    return _ratOvr * adjGames;
+    return self.ratOvr * adjGames;
 }
 
 -(NSString*)getInitialName {
-    NSArray *names = [_name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSArray *names = [self.name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *firstName = names[0];
     return [NSString stringWithFormat:@"%@. %@", [firstName substringWithRange:NSMakeRange(0, 1)], names[1]];
 }
 
 -(NSString*)getPosNameYrOvrPot_Str {
-    return [NSString stringWithFormat:@"%@ %@ [%@] (OVR: %ld)\n", _position, _name, [self getYearString], (long)_ratOvr];
+    return [NSString stringWithFormat:@"%@ %@ [%@] (OVR: %ld)\n", self.position, self.name, [self getYearString], (long)self.ratOvr];
 }
 
 -(NSString*)getPosNameYrOvrPot_OneLine {
-    return [NSString stringWithFormat:@"%@ %@ [%@] (OVR: %ld)\n", _position, [self getInitialName], [self getYearString], (long)_ratOvr];
+    return [NSString stringWithFormat:@"%@ %@ [%@] (OVR: %ld)\n", self.position, [self getInitialName], [self getYearString], (long)self.ratOvr];
 }
 
 -(NSString*)getLetterGradeWithString:(NSString*)num {
@@ -312,14 +351,14 @@
 -(NSDictionary*)detailedCareerStats {
     NSMutableDictionary *stats = [NSMutableDictionary dictionary];
     
-    [stats setObject:[NSString stringWithFormat:@"%d",_careerAllConferences] forKey:@"allConferences"];
-    [stats setObject:[NSString stringWithFormat:@"%d",_careerAllAmericans] forKey:@"allAmericans"];
-    [stats setObject:[NSString stringWithFormat:@"%d",_careerHeismans] forKey:@"heismans"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.careerAllConferences] forKey:@"allConferences"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.careerAllAmericans] forKey:@"allAmericans"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.careerHeismans] forKey:@"heismans"];
     return stats;
 }
 
 -(NSDictionary*)detailedRatings {
-    return @{@"potential" : [self getLetterGrade:_ratPot], @"durability" : [self getLetterGrade:_ratDur]};
+    return @{@"potential" : [self getLetterGrade:self.ratPot], @"durability" : [self getLetterGrade:self.ratDur]};
 }
 
 -(void)checkRecords {
@@ -329,18 +368,18 @@
 -(NSString *)simpleAwardReport {
     NSMutableString *awards = [NSMutableString string];
     int parts = 0;
-    if (_careerHeismans > 0) {
-        [awards appendFormat:@"%lix POTY",(long)_careerHeismans];
+    if (self.careerHeismans > 0) {
+        [awards appendFormat:@"%lix POTY",(long)self.careerHeismans];
         parts++;
     }
     
-    if (_careerAllAmericans > 0) {
-        [awards appendFormat:@"?%lix All-League",(long)_careerAllAmericans];
+    if (self.careerAllAmericans > 0) {
+        [awards appendFormat:@"?%lix All-League",(long)self.careerAllAmericans];
         parts++;
     }
     
-    if (_careerAllConferences > 0) {
-        [awards appendFormat:@"?%lix All-Conference",(long)_careerAllConferences];
+    if (self.careerAllConferences > 0) {
+        [awards appendFormat:@"?%lix All-Conference",(long)self.careerAllConferences];
         parts++;
     }
     
