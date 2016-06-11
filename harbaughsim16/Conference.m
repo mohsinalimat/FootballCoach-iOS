@@ -357,6 +357,8 @@
     PlayerK *k = leadingKs[0];
     k.careerAllConferences++;
     k.isAllConference = YES;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"awardsPosted" object:nil];
 
     if (completionBlock) {
         completionBlock( @{

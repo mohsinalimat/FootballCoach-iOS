@@ -1741,6 +1741,8 @@
     k.careerAllAmericans++;
     k.isAllAmerican = YES;
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"awardsPosted" object:nil];
+    
     if (completionBlock) {
         completionBlock( @{
                            @"QB" : @[qb],
