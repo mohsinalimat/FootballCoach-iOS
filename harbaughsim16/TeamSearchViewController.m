@@ -107,6 +107,12 @@
         [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
     }
     Team *t = teams[indexPath.row];
+    if (t.isUserControlled) {
+        [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+    } else {
+        [cell.textLabel setTextColor:[UIColor blackColor]];
+    }
+    
     [cell.textLabel setText:t.name];
     [cell.detailTextLabel setText:t.abbreviation];
     return cell;
