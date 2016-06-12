@@ -18,6 +18,7 @@
 @interface HallOfFameViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
     League *curLeague;
+    Team *userTeam;
 }
 @end
 
@@ -26,6 +27,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"Hall of Fame";
     curLeague = [HBSharedUtils getLeague];
+    userTeam = curLeague.userTeam;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:85];
     [self.tableView setEstimatedRowHeight:85];
@@ -140,6 +142,12 @@
         [cell.detailTextLabel setText:[NSString stringWithFormat:@"Played from %li - %li\nUndrafted in %li\n%@",(long)p.startYear,(long)p.endYear, (long)p.endYear,[p simpleAwardReport]]];
     }
     [cell.detailTextLabel sizeToFit];
+    
+    if ([p.team isEqual:userTeam]) {
+        [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+    } else {
+        [cell.textLabel setTextColor:[UIColor blackColor]];
+    }
     return cell;
 }
 
