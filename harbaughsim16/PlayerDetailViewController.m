@@ -171,7 +171,7 @@
     } else if (section == 2) {
         return careerStats.allKeys.count;
     } else {
-        return ratings.count;
+        return (ratings.count + 3);
     }
 }
 
@@ -203,45 +203,153 @@
         [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
     }
     
-    if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
-        if ([selectedPlayer isKindOfClass:[PlayerQB class]]) {
-            if (indexPath.section == 0) {   //ratings
-                if (indexPath.row == 0) {
-                    //pot
-                    [cell.detailTextLabel setText:ratings[@"potential"]];
-                    [cell.textLabel setText:@"Potential"];
-                } else if (indexPath.row == 1) {
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"home_state"]];
+            [cell.textLabel setText:@"Home State"];
+        } else if (indexPath.row == 1) {
+            [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"height"]];
+            [cell.textLabel setText:@"Height"];
+        } else if (indexPath.row == 2) {
+            [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"weight"]];
+            [cell.textLabel setText:@"Weight"];
+        } else if (indexPath.row == 3) {
+            [cell.detailTextLabel setText:ratings[@"potential"]];
+            [cell.textLabel setText:@"Potential"];
+        } else if (indexPath.row == 4) {
+            [cell.detailTextLabel setText:ratings[@"footballIQ"]];
+            [cell.textLabel setText:@"Football IQ"];
+        } else if (indexPath.row == 5) {
+            [cell.detailTextLabel setText:ratings[@"durability"]];
+            [cell.textLabel setText:@"Durability"];
+        } else {
+            if ([selectedPlayer isKindOfClass:[PlayerQB class]]) {
+                if (indexPath.row == 6) {
                     //pow
                     [cell.detailTextLabel setText:ratings[@"passPower"]];
                     [cell.textLabel setText:@"Throwing Power"];
-                } else if (indexPath.row == 2) {
+                } else if (indexPath.row == 7) {
                     //acc
                     [cell.detailTextLabel setText:ratings[@"passAccuracy"]];
                     [cell.textLabel setText:@"Throwing Accuracy"];
-                } else if (indexPath.row == 3) {
+                } else {
                     //eva
                     [cell.detailTextLabel setText:ratings[@"passEvasion"]];
                     [cell.textLabel setText:@"Evasion"];
-                } else if (indexPath.row == 4) {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"durability"]];
-                    [cell.textLabel setText:@"Durability"];
-                } else {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                    [cell.textLabel setText:@"Football IQ"];
                 }
-            } else {    //stats - comp, att, yds, CompPerc, Yd/att, ypg, TD, INT
-                if (indexPath.row == 0) {
-                    [cell.detailTextLabel setText:careerStats[@"heismans"]];
-                    [cell.textLabel setText:@"Heismans"];
-                } else if (indexPath.row == 1) {
-                    [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
-                    [cell.textLabel setText:@"All-League Nominations"];
-                } else if (indexPath.row == 2) {
-                    [cell.detailTextLabel setText:careerStats[@"allConferences"]];
-                    [cell.textLabel setText:@"All-Conference Nominations"];
-                } else if (indexPath.row == 3) {
+            } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
+                if (indexPath.row == 6) {
+                    //pow
+                    [cell.detailTextLabel setText:ratings[@"rushPower"]];
+                    [cell.textLabel setText:@"Strength"];
+                } else if (indexPath.row == 7) {
+                    //spd
+                    [cell.detailTextLabel setText:ratings[@"rushSpeed"]];
+                    [cell.textLabel setText:@"Speed"];
+                } else {
+                    //eva
+                    [cell.detailTextLabel setText:ratings[@"rushEvasion"]];
+                    [cell.textLabel setText:@"Evasion"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerWR class]]) {
+                if (indexPath.row == 6) {
+                    //cat
+                    [cell.detailTextLabel setText:ratings[@"recCatch"]];
+                    [cell.textLabel setText:@"Catching"];
+                } else if (indexPath.row == 7) {
+                    //spd
+                    [cell.detailTextLabel setText:ratings[@"recSpeed"]];
+                    [cell.textLabel setText:@"Speed"];
+                } else {
+                    //eva
+                    [cell.detailTextLabel setText:ratings[@"recEvasion"]];
+                    [cell.textLabel setText:@"Evasion"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
+                if (indexPath.row == 6) {
+                    //pow
+                    [cell.detailTextLabel setText:ratings[@"olPower"]];
+                    [cell.textLabel setText:@"Strength"];
+                } else if (indexPath.row == 7) {
+                    //blkP
+                    [cell.detailTextLabel setText:ratings[@"olPassBlock"]];
+                    [cell.textLabel setText:@"Pass Blocking"];
+                } else {
+                    //blkR
+                    [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
+                    [cell.textLabel setText:@"Run Blocking"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
+                if (indexPath.row == 6) {
+                    //pow
+                    [cell.detailTextLabel setText:ratings[@"f7Pow"]];
+                    [cell.textLabel setText:@"Strength"];
+                } else if (indexPath.row == 7) {
+                    //pass
+                    [cell.detailTextLabel setText:ratings[@"f7Pass"]];
+                    [cell.textLabel setText:@"Pass Pressure"];
+                } else {
+                    //rsh
+                    [cell.detailTextLabel setText:ratings[@"f7Run"]];
+                    [cell.textLabel setText:@"Run Stopping"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {
+                if (indexPath.row == 6) {
+                    //cov
+                    [cell.detailTextLabel setText:ratings[@"cbCoverage"]];
+                    [cell.textLabel setText:@"Coverage Ability"];
+                } else if (indexPath.row == 7) {
+                    //spd
+                    [cell.detailTextLabel setText:ratings[@"cbSpeed"]];
+                    [cell.textLabel setText:@"Speed"];
+                } else {
+                    //tkl
+                    [cell.detailTextLabel setText:ratings[@"cbTackling"]];
+                    [cell.textLabel setText:@"Tackling Ability"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerS class]]) {
+                if (indexPath.row == 6) {
+                    //cov
+                    [cell.detailTextLabel setText:ratings[@"sCoverage"]];
+                    [cell.textLabel setText:@"Coverage Ability"];
+                } else if (indexPath.row == 7) {
+                    //spd
+                    [cell.detailTextLabel setText:ratings[@"sSpeed"]];
+                    [cell.textLabel setText:@"Speed"];
+                } else {
+                    //tkl
+                    [cell.detailTextLabel setText:ratings[@"sTackling"]];
+                    [cell.textLabel setText:@"Tackling Ability"];
+                }
+            } else { //Ks
+                if (indexPath.row == 6) {
+                    //pow
+                    [cell.detailTextLabel setText:ratings[@"kickPower"]];
+                    [cell.textLabel setText:@"Kick Power"];
+                } else if (indexPath.row == 7) {
+                    //acc
+                    [cell.detailTextLabel setText:ratings[@"kickAccuracy"]];
+                    [cell.textLabel setText:@"Kick Accuracy"];
+                } else {
+                    //fum
+                    [cell.detailTextLabel setText:ratings[@"kickClumsiness"]];
+                    [cell.textLabel setText:@"Clumsiness"];
+                }
+            }
+        }
+    } else if (indexPath.section == 1) {
+        if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+            if (indexPath.row == 0) {
+                [cell.detailTextLabel setText:careerStats[@"heismans"]];
+                [cell.textLabel setText:@"Heismans"];
+            } else if (indexPath.row == 1) {
+                [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
+                [cell.textLabel setText:@"All-League Nominations"];
+            } else if (indexPath.row == 2) {
+                [cell.detailTextLabel setText:careerStats[@"allConferences"]];
+                [cell.textLabel setText:@"All-Conference Nominations"];
+            } else if ([selectedPlayer isKindOfClass:[PlayerQB class]]) {
+                if (indexPath.row == 3) {
                     [cell.detailTextLabel setText:careerStats[@"completions"]];
                     [cell.textLabel setText:@"Completions"];
                 } else if (indexPath.row == 4) {
@@ -266,45 +374,8 @@
                     [cell.detailTextLabel setText:careerStats[@"interceptions"]];
                     [cell.textLabel setText:@"Interceptions"];
                 }
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
-            if (indexPath.section == 0) {   //ratings
-                if (indexPath.row == 0) {
-                    //pot
-                    [cell.detailTextLabel setText:ratings[@"potential"]];
-                    [cell.textLabel setText:@"Potential"];
-                } else if (indexPath.row == 1) {
-                    //pow
-                    [cell.detailTextLabel setText:ratings[@"rushPower"]];
-                    [cell.textLabel setText:@"Strength"];
-                } else if (indexPath.row == 2) {
-                    //spd
-                    [cell.detailTextLabel setText:ratings[@"rushSpeed"]];
-                    [cell.textLabel setText:@"Speed"];
-                } else if (indexPath.row == 3) {
-                    //eva
-                    [cell.detailTextLabel setText:ratings[@"rushEvasion"]];
-                    [cell.textLabel setText:@"Evasion"];
-                } else if (indexPath.row == 4) {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"durability"]];
-                    [cell.textLabel setText:@"Durability"];
-                } else {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                    [cell.textLabel setText:@"Football IQ"];
-                }
-            } else {    //stats - carries, yards, yd/car, ypg, TD, Fum
-                if (indexPath.row == 0) {
-                    [cell.detailTextLabel setText:careerStats[@"heismans"]];
-                    [cell.textLabel setText:@"Heismans"];
-                } else if (indexPath.row == 1) {
-                    [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
-                    [cell.textLabel setText:@"All-League Nominations"];
-                } else if (indexPath.row == 2) {
-                    [cell.detailTextLabel setText:careerStats[@"allConferences"]];
-                    [cell.textLabel setText:@"All-Conference Nominations"];
-                } else if (indexPath.row == 3) {
+            } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
+                if (indexPath.row == 3) {
                     [cell.detailTextLabel setText:careerStats[@"carries"]];
                     [cell.textLabel setText:@"Carries"];
                 } else if (indexPath.row == 4) {
@@ -323,45 +394,8 @@
                     [cell.detailTextLabel setText:careerStats[@"fumbles"]];
                     [cell.textLabel setText:@"Fumbles"];
                 }
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerWR class]]) {
-            if (indexPath.section == 0) {   //ratings
-                if (indexPath.row == 0) {
-                    //pot
-                    [cell.detailTextLabel setText:ratings[@"potential"]];
-                    [cell.textLabel setText:@"Potential"];
-                } else if (indexPath.row == 1) {
-                    //cat
-                    [cell.detailTextLabel setText:ratings[@"recCatch"]];
-                    [cell.textLabel setText:@"Catching"];
-                } else if (indexPath.row == 2) {
-                    //spd
-                    [cell.detailTextLabel setText:ratings[@"recSpeed"]];
-                    [cell.textLabel setText:@"Speed"];
-                } else if (indexPath.row == 3) {
-                    //eva
-                    [cell.detailTextLabel setText:ratings[@"recEvasion"]];
-                    [cell.textLabel setText:@"Evasion"];
-                } else if (indexPath.row == 4) {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"durability"]];
-                    [cell.textLabel setText:@"Durability"];
-                } else {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                    [cell.textLabel setText:@"Football IQ"];
-                }
-            } else {    //stats - catches, yards, yd/cat, ypg, TD, Fum
-                if (indexPath.row == 0) {
-                    [cell.detailTextLabel setText:careerStats[@"heismans"]];
-                    [cell.textLabel setText:@"Heismans"];
-                } else if (indexPath.row == 1) {
-                    [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
-                    [cell.textLabel setText:@"All-League Nominations"];
-                } else if (indexPath.row == 2) {
-                    [cell.detailTextLabel setText:careerStats[@"allConferences"]];
-                    [cell.textLabel setText:@"All-Conference Nominations"];
-                } else if (indexPath.row == 3) {
+            } else if ([selectedPlayer isKindOfClass:[PlayerWR class]]) {
+                if (indexPath.row == 3) {
                     [cell.detailTextLabel setText:careerStats[@"catches"]];
                     [cell.textLabel setText:@"Catches"];
                 } else if (indexPath.row == 4) {
@@ -380,156 +414,76 @@
                     [cell.detailTextLabel setText:careerStats[@"fumbles"]];
                     [cell.textLabel setText:@"Fumbles"];
                 }
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
-            //ratings
-            if (indexPath.row == 0) {
-                //pot
-                [cell.detailTextLabel setText:ratings[@"potential"]];
-                [cell.textLabel setText:@"Potential"];
-            } else if (indexPath.row == 1) {
-                //pow
-                [cell.detailTextLabel setText:ratings[@"olPower"]];
-                [cell.textLabel setText:@"Strength"];
-            } else if (indexPath.row == 2) {
-                //blkP
-                [cell.detailTextLabel setText:ratings[@"olPassBlock"]];
-                [cell.textLabel setText:@"Pass Blocking"];
-            } else if (indexPath.row == 3) {
-                //blkR
-                [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
-                [cell.textLabel setText:@"Run Blocking"];
-            } else if (indexPath.row == 4) {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"durability"]];
-                [cell.textLabel setText:@"Durability"];
-            } else {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                [cell.textLabel setText:@"Football IQ"];
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
-            //ratings
-            if (indexPath.row == 0) {
-                //pot
-                [cell.detailTextLabel setText:ratings[@"potential"]];
-                [cell.textLabel setText:@"Potential"];
-            } else if (indexPath.row == 1) {
-                //pow
-                [cell.detailTextLabel setText:ratings[@"f7Pow"]];
-                [cell.textLabel setText:@"Strength"];
-            } else if (indexPath.row == 2) {
-                //pass
-                [cell.detailTextLabel setText:ratings[@"f7Pass"]];
-                [cell.textLabel setText:@"Pass Pressure"];
-            } else if (indexPath.row == 3) {
-                //rsh
-                [cell.detailTextLabel setText:ratings[@"f7Run"]];
-                [cell.textLabel setText:@"Run Stopping"];
-            } else if (indexPath.row == 4) {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"durability"]];
-                [cell.textLabel setText:@"Durability"];
-            } else {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                [cell.textLabel setText:@"Football IQ"];
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {
-            //ratings
-            if (indexPath.row == 0) {
-                //pot
-                [cell.detailTextLabel setText:ratings[@"potential"]];
-                [cell.textLabel setText:@"Potential"];
-            } else if (indexPath.row == 1) {
-                //cov
-                [cell.detailTextLabel setText:ratings[@"cbCoverage"]];
-                [cell.textLabel setText:@"Coverage Ability"];
-            } else if (indexPath.row == 2) {
-                //spd
-                [cell.detailTextLabel setText:ratings[@"cbSpeed"]];
-                [cell.textLabel setText:@"Speed"];
-            } else if (indexPath.row == 3) {
-                //tkl
-                [cell.detailTextLabel setText:ratings[@"cbTackling"]];
-                [cell.textLabel setText:@"Tackling Ability"];
-            } else if (indexPath.row == 4) {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"durability"]];
-                [cell.textLabel setText:@"Durability"];
-            } else {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                [cell.textLabel setText:@"Football IQ"];
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerS class]]) {
-            //ratings
-            if (indexPath.row == 0) {
-                //pot
-                [cell.detailTextLabel setText:ratings[@"potential"]];
-                [cell.textLabel setText:@"Potential"];
-            } else if (indexPath.row == 1) {
-                //cov
-                [cell.detailTextLabel setText:ratings[@"sCoverage"]];
-                [cell.textLabel setText:@"Coverage Ability"];
-            } else if (indexPath.row == 2) {
-                //spd
-                [cell.detailTextLabel setText:ratings[@"sSpeed"]];
-                [cell.textLabel setText:@"Speed"];
-            } else if (indexPath.row == 3) {
-                //tkl
-                [cell.detailTextLabel setText:ratings[@"sTackling"]];
-                [cell.textLabel setText:@"Tackling Ability"];
-            } else if (indexPath.row == 4) {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"durability"]];
-                [cell.textLabel setText:@"Durability"];
-            } else {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                [cell.textLabel setText:@"Football IQ"];
-            }
-        } else { // PlayerK class
-            if (indexPath.section == 0) {   //ratings
-                if (indexPath.row == 0) {
-                    //pot
-                    [cell.detailTextLabel setText:ratings[@"potential"]];
-                    [cell.textLabel setText:@"Potential"];
-                } else if (indexPath.row == 1) {
+            } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
+                if (indexPath.row == 3) {
                     //pow
-                    [cell.detailTextLabel setText:ratings[@"kickPower"]];
-                    [cell.textLabel setText:@"Kick Power"];
-                } else if (indexPath.row == 2) {
-                    //acc
-                    [cell.detailTextLabel setText:ratings[@"kickAccuracy"]];
-                    [cell.textLabel setText:@"Kick Accuracy"];
-                } else if (indexPath.row == 3) {
-                    //fum
-                    [cell.detailTextLabel setText:ratings[@"kickClumsiness"]];
-                    [cell.textLabel setText:@"Clumsiness"];
+                    [cell.detailTextLabel setText:ratings[@"olPower"]];
+                    [cell.textLabel setText:@"Strength"];
                 } else if (indexPath.row == 4) {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"durability"]];
-                    [cell.textLabel setText:@"Durability"];
+                    //blkP
+                    [cell.detailTextLabel setText:ratings[@"olPassBlock"]];
+                    [cell.textLabel setText:@"Pass Blocking"];
                 } else {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                    [cell.textLabel setText:@"Football IQ"];
+                    //blkR
+                    [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
+                    [cell.textLabel setText:@"Run Blocking"];
                 }
-            } else {    //stats - xp made, xp att, xp perc, fg made, fg att, fg perc
-                if (indexPath.row == 0) {
+            } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
+                if (indexPath.row == 3) {
+                    //pow
+                    [cell.detailTextLabel setText:ratings[@"f7Pow"]];
+                    [cell.textLabel setText:@"Strength"];
+                } else if (indexPath.row == 4) {
+                    //pass
+                    [cell.detailTextLabel setText:ratings[@"f7Pass"]];
+                    [cell.textLabel setText:@"Pass Pressure"];
+                } else {
+                    //rsh
+                    [cell.detailTextLabel setText:ratings[@"f7Run"]];
+                    [cell.textLabel setText:@"Run Stopping"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {
+                if (indexPath.row == 3) {
+                    //cov
+                    [cell.detailTextLabel setText:ratings[@"cbCoverage"]];
+                    [cell.textLabel setText:@"Coverage Ability"];
+                } else if (indexPath.row == 4) {
+                    //spd
+                    [cell.detailTextLabel setText:ratings[@"cbSpeed"]];
+                    [cell.textLabel setText:@"Speed"];
+                } else {
+                    //tkl
+                    [cell.detailTextLabel setText:ratings[@"cbTackling"]];
+                    [cell.textLabel setText:@"Tackling Ability"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerS class]]) {
+                if (indexPath.row == 3) {
+                    //cov
+                    [cell.detailTextLabel setText:ratings[@"sCoverage"]];
+                    [cell.textLabel setText:@"Coverage Ability"];
+                } else if (indexPath.row == 4) {
+                    //spd
+                    [cell.detailTextLabel setText:ratings[@"sSpeed"]];
+                    [cell.textLabel setText:@"Speed"];
+                } else {
+                    //tkl
+                    [cell.detailTextLabel setText:ratings[@"sTackling"]];
+                    [cell.textLabel setText:@"Tackling Ability"];
+                }
+            } else { //Ks
+                if (indexPath.row == 3) {
                     [cell.detailTextLabel setText:careerStats[@"xpMade"]];
                     [cell.textLabel setText:@"XP Made"];
-                } else if (indexPath.row == 1) {
+                } else if (indexPath.row == 4) {
                     [cell.detailTextLabel setText:careerStats[@"xpAtt"]];
                     [cell.textLabel setText:@"XP Attempted"];
-                } else if (indexPath.row == 2) {
+                } else if (indexPath.row == 5) {
                     [cell.detailTextLabel setText:careerStats[@"xpPercentage"]];
                     [cell.textLabel setText:@"XP Percentage"];
-                } else if (indexPath.row == 3) {
+                } else if (indexPath.row == 6) {
                     [cell.detailTextLabel setText:careerStats[@"fgMade"]];
                     [cell.textLabel setText:@"FG Made"];
-                } else if (indexPath.row == 4) {
+                } else if (indexPath.row == 7) {
                     [cell.detailTextLabel setText:careerStats[@"fgAtt"]];
                     [cell.textLabel setText:@"FG Attempted"];
                 } else {
@@ -537,506 +491,329 @@
                     [cell.textLabel setText:@"FG Percentage"];
                 }
             }
-        }
-    } else {
-        if ([selectedPlayer isKindOfClass:[PlayerQB class]]) {
-            if (indexPath.section == 0) {   //ratings
+        } else {
+            if ([selectedPlayer isKindOfClass:[PlayerQB class]]) {
                 if (indexPath.row == 0) {
-                    //pot
-                    [cell.detailTextLabel setText:ratings[@"potential"]];
-                    [cell.textLabel setText:@"Potential"];
+                    [cell.detailTextLabel setText:stats[@"completions"]];
+                    [cell.textLabel setText:@"Completions"];
                 } else if (indexPath.row == 1) {
-                    //pow
-                    [cell.detailTextLabel setText:ratings[@"passPower"]];
-                    [cell.textLabel setText:@"Throwing Power"];
+                    [cell.detailTextLabel setText:stats[@"attempts"]];
+                    [cell.textLabel setText:@"Pass Attempts"];
                 } else if (indexPath.row == 2) {
-                    //acc
-                    [cell.detailTextLabel setText:ratings[@"passAccuracy"]];
-                    [cell.textLabel setText:@"Throwing Accuracy"];
+                    [cell.detailTextLabel setText:stats[@"passYards"]];
+                    [cell.textLabel setText:@"Pass Yards"];
                 } else if (indexPath.row == 3) {
-                    //eva
-                    [cell.detailTextLabel setText:ratings[@"passEvasion"]];
-                    [cell.textLabel setText:@"Evasion"];
+                    [cell.detailTextLabel setText:stats[@"completionPercentage"]];
+                    [cell.textLabel setText:@"Completion Percentage"];
                 } else if (indexPath.row == 4) {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"durability"]];
-                    [cell.textLabel setText:@"Durability"];
-                } else {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                    [cell.textLabel setText:@"Football IQ"];
-                }
-            } else {    //stats - comp, att, yds, CompPerc, Yd/att, ypg, TD, INT
-                if (indexPath.row == 0) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"completions"]];
-                        [cell.textLabel setText:@"Completions"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"heismans"]];
-                        [cell.textLabel setText:@"Heismans"];
-                    }
-                    
-                } else if (indexPath.row == 1) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"attempts"]];
-                        [cell.textLabel setText:@"Pass Attempts"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
-                        [cell.textLabel setText:@"All-League Nominations"];
-                    }
-                    
-                } else if (indexPath.row == 2) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"passYards"]];
-                        [cell.textLabel setText:@"Pass Yards"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"allConferences"]];
-                        [cell.textLabel setText:@"All-Conference Nominations"];
-                    }
-                    
-                } else if (indexPath.row == 3) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"completionPercentage"]];
-                        [cell.textLabel setText:@"Completion Percentage"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"completions"]];
-                        [cell.textLabel setText:@"Completions"];
-                    }
-                    
-                } else if (indexPath.row == 4) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"yardsPerAttempt"]];
-                        [cell.textLabel setText:@"Yards Per Attempt"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"attempts"]];
-                        [cell.textLabel setText:@"Pass Attempts"];
-                    }
+                    [cell.detailTextLabel setText:stats[@"yardsPerAttempt"]];
+                    [cell.textLabel setText:@"Yards Per Attempt"];
                 } else if (indexPath.row == 5) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
-                        [cell.textLabel setText:@"Yards Per Game"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"passYards"]];
-                        [cell.textLabel setText:@"Pass Yards"];
-                    }
-                    
+                    [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                    [cell.textLabel setText:@"Yards Per Game"];
                 } else if (indexPath.row == 6) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"touchdowns"]];
-                        [cell.textLabel setText:@"Touchdowns"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"completionPercentage"]];
-                        [cell.textLabel setText:@"Completion Percentage"];
-                    }
-                    
-                } else if (indexPath.row == 7) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"interceptions"]];
-                        [cell.textLabel setText:@"Interceptions"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"yardsPerAttempt"]];
-                        [cell.textLabel setText:@"Yards Per Attempt"];
-                    }
-                    
-                } else if (indexPath.row == 8) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"touchdowns"]];
-                        [cell.textLabel setText:@"Touchdowns"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
-                        [cell.textLabel setText:@"Yards Per Game"];
-                    }
-                    
-                } else if (indexPath.row == 9) {
-                    [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+                    [cell.detailTextLabel setText:stats[@"touchdowns"]];
                     [cell.textLabel setText:@"Touchdowns"];
                 } else {
-                    [cell.detailTextLabel setText:careerStats[@"interceptions"]];
+                    [cell.detailTextLabel setText:stats[@"interceptions"]];
                     [cell.textLabel setText:@"Interceptions"];
                 }
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
-            if (indexPath.section == 0) {   //ratings
+            } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
                 if (indexPath.row == 0) {
-                    //pot
-                    [cell.detailTextLabel setText:ratings[@"potential"]];
-                    [cell.textLabel setText:@"Potential"];
+                    [cell.detailTextLabel setText:stats[@"carries"]];
+                    [cell.textLabel setText:@"Carries"];
                 } else if (indexPath.row == 1) {
+                    [cell.detailTextLabel setText:stats[@"rushYards"]];
+                    [cell.textLabel setText:@"Rush Yards"];
+                } else if (indexPath.row == 2) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerCarry"]];
+                    [cell.textLabel setText:@"Yards Per Carry"];
+                } else if (indexPath.row == 3) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                    [cell.textLabel setText:@"Yards Per Game"];
+                } else if (indexPath.row == 4) {
+                    [cell.detailTextLabel setText:stats[@"touchdowns"]];
+                    [cell.textLabel setText:@"Touchdowns"];
+                } else {
+                    [cell.detailTextLabel setText:stats[@"fumbles"]];
+                    [cell.textLabel setText:@"Fumbles"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerWR class]]) {
+                if (indexPath.row == 0) {
+                    [cell.detailTextLabel setText:stats[@"catches"]];
+                    [cell.textLabel setText:@"Catches"];
+                } else if (indexPath.row == 1) {
+                    [cell.detailTextLabel setText:stats[@"recYards"]];
+                    [cell.textLabel setText:@"Receiving Yards"];
+                } else if (indexPath.row == 2) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerCatch"]];
+                    [cell.textLabel setText:@"Yards Per Catch"];
+                } else if (indexPath.row == 3) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                    [cell.textLabel setText:@"Yards Per Game"];
+                } else if (indexPath.row == 4) {
+                    [cell.detailTextLabel setText:stats[@"touchdowns"]];
+                    [cell.textLabel setText:@"Touchdowns"];
+                } else {
+                    [cell.detailTextLabel setText:stats[@"fumbles"]];
+                    [cell.textLabel setText:@"Fumbles"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
+                if (indexPath.row == 0) {
                     //pow
-                    [cell.detailTextLabel setText:ratings[@"rushPower"]];
+                    [cell.detailTextLabel setText:ratings[@"olPower"]];
                     [cell.textLabel setText:@"Strength"];
-                } else if (indexPath.row == 2) {
-                    //spd
-                    [cell.detailTextLabel setText:ratings[@"rushSpeed"]];
-                    [cell.textLabel setText:@"Speed"];
-                } else if (indexPath.row == 3) {
-                    //eva
-                    [cell.detailTextLabel setText:ratings[@"rushEvasion"]];
-                    [cell.textLabel setText:@"Evasion"];
-                } else if (indexPath.row == 4) {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"durability"]];
-                    [cell.textLabel setText:@"Durability"];
-                } else {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                    [cell.textLabel setText:@"Football IQ"];
-                }
-            } else {    //stats - carries, yards, yd/car, ypg, TD, Fum
-                if (indexPath.row == 0) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"carries"]];
-                        [cell.textLabel setText:@"Carries"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"heismans"]];
-                        [cell.textLabel setText:@"Heismans"];
-                    }
                 } else if (indexPath.row == 1) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"rushYards"]];
-                        [cell.textLabel setText:@"Rush Yards"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
-                        [cell.textLabel setText:@"All-League Nominations"];
-                    }
-                    
-                } else if (indexPath.row == 2) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"yardsPerCarry"]];
-                        [cell.textLabel setText:@"Yards Per Carry"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"allConferences"]];
-                        [cell.textLabel setText:@"All-Conference Nominations"];
-                    }
-                } else if (indexPath.row == 3) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
-                        [cell.textLabel setText:@"Yards Per Game"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"carries"]];
-                        [cell.textLabel setText:@"Carries"];
-                    }
-                } else if (indexPath.row == 4) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"touchdowns"]];
-                        [cell.textLabel setText:@"Touchdowns"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"rushYards"]];
-                        [cell.textLabel setText:@"Rush Yards"];
-                    }
-                    
-                } else if (indexPath.row == 5) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"fumbles"]];
-                        [cell.textLabel setText:@"Fumbles"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"yardsPerCarry"]];
-                        [cell.textLabel setText:@"Yards Per Carry"];
-                    }
-                } else if (indexPath.row == 6) {
-                    [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
-                    [cell.textLabel setText:@"Yards Per Game"];
-                } else if (indexPath.row == 7) {
-                    [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
-                    [cell.textLabel setText:@"Touchdowns"];
+                    //blkP
+                    [cell.detailTextLabel setText:ratings[@"olPassBlock"]];
+                    [cell.textLabel setText:@"Pass Blocking"];
                 } else {
-                    [cell.detailTextLabel setText:careerStats[@"fumbles"]];
-                    [cell.textLabel setText:@"Fumbles"];
+                    //blkR
+                    [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
+                    [cell.textLabel setText:@"Run Blocking"];
                 }
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerWR class]]) {
-            if (indexPath.section == 0) {   //ratings
+            } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
                 if (indexPath.row == 0) {
-                    //pot
-                    [cell.detailTextLabel setText:ratings[@"potential"]];
-                    [cell.textLabel setText:@"Potential"];
-                } else if (indexPath.row == 1) {
-                    //cat
-                    [cell.detailTextLabel setText:ratings[@"recCatch"]];
-                    [cell.textLabel setText:@"Catching"];
-                } else if (indexPath.row == 2) {
-                    //spd
-                    [cell.detailTextLabel setText:ratings[@"recSpeed"]];
-                    [cell.textLabel setText:@"Speed"];
-                } else if (indexPath.row == 3) {
-                    //eva
-                    [cell.detailTextLabel setText:ratings[@"recEvasion"]];
-                    [cell.textLabel setText:@"Evasion"];
-                } else if (indexPath.row == 4) {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"durability"]];
-                    [cell.textLabel setText:@"Durability"];
-                } else {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                    [cell.textLabel setText:@"Football IQ"];
-                }
-            } else {    //stats - catches, yards, yd/cat, ypg, TD, Fum
-                if (indexPath.row == 0) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"catches"]];
-                        [cell.textLabel setText:@"Catches"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"heismans"]];
-                        [cell.textLabel setText:@"Heismans"];
-                    }
-                } else if (indexPath.row == 1) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"recYards"]];
-                        [cell.textLabel setText:@"Receiving Yards"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
-                        [cell.textLabel setText:@"All-League Nominations"];
-                    }
-                    
-                } else if (indexPath.row == 2) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"yardsPerCatch"]];
-                        [cell.textLabel setText:@"Yards Per Catch"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"allConferences"]];
-                        [cell.textLabel setText:@"All-Conference Nominations"];
-                    }
-                } else if (indexPath.row == 3) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
-                        [cell.textLabel setText:@"Yards Per Game"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"catches"]];
-                        [cell.textLabel setText:@"Catches"];
-                    }
-                } else if (indexPath.row == 4) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"touchdowns"]];
-                        [cell.textLabel setText:@"Touchdowns"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"recYards"]];
-                        [cell.textLabel setText:@"Receiving Yards"];
-                    }
-                    
-                } else if (indexPath.row == 5) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"fumbles"]];
-                        [cell.textLabel setText:@"Fumbles"];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"yardsPerCatch"]];
-                        [cell.textLabel setText:@"Yards Per Catch"];
-                    }
-                } else if (indexPath.row == 6) {
-                    [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
-                    [cell.textLabel setText:@"Yards Per Game"];
-                } else if (indexPath.row == 7) {
-                    [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
-                    [cell.textLabel setText:@"Touchdowns"];
-                } else {
-                    [cell.detailTextLabel setText:careerStats[@"fumbles"]];
-                    [cell.textLabel setText:@"Fumbles"];
-                }
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
-            //ratings
-            if (indexPath.row == 0) {
-                //pot
-                [cell.detailTextLabel setText:ratings[@"potential"]];
-                [cell.textLabel setText:@"Potential"];
-            } else if (indexPath.row == 1) {
-                //pow
-                [cell.detailTextLabel setText:ratings[@"olPower"]];
-                [cell.textLabel setText:@"Strength"];
-            } else if (indexPath.row == 2) {
-                //blkP
-                [cell.detailTextLabel setText:ratings[@"olPassBlock"]];
-                [cell.textLabel setText:@"Pass Blocking"];
-            } else if (indexPath.row == 3) {
-                //blkR
-                [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
-                [cell.textLabel setText:@"Run Blocking"];
-            } else if (indexPath.row == 4) {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"durability"]];
-                [cell.textLabel setText:@"Durability"];
-            } else {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                [cell.textLabel setText:@"Football IQ"];
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
-            //ratings
-            if (indexPath.row == 0) {
-                //pot
-                [cell.detailTextLabel setText:ratings[@"potential"]];
-                [cell.textLabel setText:@"Potential"];
-            } else if (indexPath.row == 1) {
-                //pow
-                [cell.detailTextLabel setText:ratings[@"f7Pow"]];
-                [cell.textLabel setText:@"Strength"];
-            } else if (indexPath.row == 2) {
-                //pass
-                [cell.detailTextLabel setText:ratings[@"f7Pass"]];
-                [cell.textLabel setText:@"Pass Pressure"];
-            } else if (indexPath.row == 3) {
-                //rsh
-                [cell.detailTextLabel setText:ratings[@"f7Run"]];
-                [cell.textLabel setText:@"Run Stopping"];
-            } else if (indexPath.row == 4) {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"durability"]];
-                [cell.textLabel setText:@"Durability"];
-            } else {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                [cell.textLabel setText:@"Football IQ"];
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {
-            //ratings
-            if (indexPath.row == 0) {
-                //pot
-                [cell.detailTextLabel setText:ratings[@"potential"]];
-                [cell.textLabel setText:@"Potential"];
-            } else if (indexPath.row == 1) {
-                //cov
-                [cell.detailTextLabel setText:ratings[@"cbCoverage"]];
-                [cell.textLabel setText:@"Coverage Ability"];
-            } else if (indexPath.row == 2) {
-                //spd
-                [cell.detailTextLabel setText:ratings[@"cbSpeed"]];
-                [cell.textLabel setText:@"Speed"];
-            } else if (indexPath.row == 3) {
-                //tkl
-                [cell.detailTextLabel setText:ratings[@"cbTackling"]];
-                [cell.textLabel setText:@"Tackling Ability"];
-            } else if (indexPath.row == 4) {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"durability"]];
-                [cell.textLabel setText:@"Durability"];
-            } else {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                [cell.textLabel setText:@"Football IQ"];
-            }
-        } else if ([selectedPlayer isKindOfClass:[PlayerS class]]) {
-            //ratings
-            if (indexPath.row == 0) {
-                //pot
-                [cell.detailTextLabel setText:ratings[@"potential"]];
-                [cell.textLabel setText:@"Potential"];
-            } else if (indexPath.row == 1) {
-                //cov
-                [cell.detailTextLabel setText:ratings[@"sCoverage"]];
-                [cell.textLabel setText:@"Coverage Ability"];
-            } else if (indexPath.row == 2) {
-                //spd
-                [cell.detailTextLabel setText:ratings[@"sSpeed"]];
-                [cell.textLabel setText:@"Speed"];
-            } else if (indexPath.row == 3) {
-                //tkl
-                [cell.detailTextLabel setText:ratings[@"sTackling"]];
-                [cell.textLabel setText:@"Tackling Ability"];
-            } else if (indexPath.row == 4) {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"durability"]];
-                [cell.textLabel setText:@"Durability"];
-            } else {
-                //footiq
-                [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                [cell.textLabel setText:@"Football IQ"];
-            }
-        } else { // PlayerK class
-            if (indexPath.section == 0) {   //ratings
-                if (indexPath.row == 0) {
-                    //pot
-                    [cell.detailTextLabel setText:ratings[@"potential"]];
-                    [cell.textLabel setText:@"Potential"];
-                } else if (indexPath.row == 1) {
                     //pow
-                    [cell.detailTextLabel setText:ratings[@"kickPower"]];
-                    [cell.textLabel setText:@"Kick Power"];
-                } else if (indexPath.row == 2) {
-                    //acc
-                    [cell.detailTextLabel setText:ratings[@"kickAccuracy"]];
-                    [cell.textLabel setText:@"Kick Accuracy"];
-                } else if (indexPath.row == 3) {
-                    //fum
-                    [cell.detailTextLabel setText:ratings[@"kickClumsiness"]];
-                    [cell.textLabel setText:@"Clumsiness"];
-                } else if (indexPath.row == 4) {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"durability"]];
-                    [cell.textLabel setText:@"Durability"];
+                    [cell.detailTextLabel setText:ratings[@"f7Pow"]];
+                    [cell.textLabel setText:@"Strength"];
+                } else if (indexPath.row == 1) {
+                    //pass
+                    [cell.detailTextLabel setText:ratings[@"f7Pass"]];
+                    [cell.textLabel setText:@"Pass Pressure"];
                 } else {
-                    //footiq
-                    [cell.detailTextLabel setText:ratings[@"footballIQ"]];
-                    [cell.textLabel setText:@"Football IQ"];
+                    //rsh
+                    [cell.detailTextLabel setText:ratings[@"f7Run"]];
+                    [cell.textLabel setText:@"Run Stopping"];
                 }
-            } else {    //stats - xp made, xp att, xp perc, fg made, fg att, fg perc
+            } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {
                 if (indexPath.row == 0) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"xpMade"]];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"xpMade"]];
-                    }
+                    //cov
+                    [cell.detailTextLabel setText:ratings[@"cbCoverage"]];
+                    [cell.textLabel setText:@"Coverage Ability"];
+                } else if (indexPath.row == 1) {
+                    //spd
+                    [cell.detailTextLabel setText:ratings[@"cbSpeed"]];
+                    [cell.textLabel setText:@"Speed"];
+                } else {
+                    //tkl
+                    [cell.detailTextLabel setText:ratings[@"cbTackling"]];
+                    [cell.textLabel setText:@"Tackling Ability"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerS class]]) {
+                if (indexPath.row == 0) {
+                    //cov
+                    [cell.detailTextLabel setText:ratings[@"sCoverage"]];
+                    [cell.textLabel setText:@"Coverage Ability"];
+                } else if (indexPath.row == 1) {
+                    //spd
+                    [cell.detailTextLabel setText:ratings[@"sSpeed"]];
+                    [cell.textLabel setText:@"Speed"];
+                } else {
+                    //tkl
+                    [cell.detailTextLabel setText:ratings[@"sTackling"]];
+                    [cell.textLabel setText:@"Tackling Ability"];
+                }
+            } else { //Ks
+                if (indexPath.row == 0) {
+                    [cell.detailTextLabel setText:stats[@"xpMade"]];
                     [cell.textLabel setText:@"XP Made"];
                 } else if (indexPath.row == 1) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"xpAtt"]];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"xpAtt"]];
-                    }
+                    [cell.detailTextLabel setText:stats[@"xpAtt"]];
                     [cell.textLabel setText:@"XP Attempted"];
                 } else if (indexPath.row == 2) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"xpPercentage"]];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"xpPercentage"]];
-                    }
+                    [cell.detailTextLabel setText:stats[@"xpPercentage"]];
                     [cell.textLabel setText:@"XP Percentage"];
                 } else if (indexPath.row == 3) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"fgMade"]];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"fgMade"]];
-                    }
+                    [cell.detailTextLabel setText:stats[@"fgMade"]];
                     [cell.textLabel setText:@"FG Made"];
                 } else if (indexPath.row == 4) {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"fgAtt"]];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"fgAtt"]];
-                    }
+                    [cell.detailTextLabel setText:stats[@"fgAtt"]];
                     [cell.textLabel setText:@"FG Attempted"];
                 } else {
-                    if (indexPath.section == 1) {
-                        [cell.detailTextLabel setText:stats[@"fgPercentage"]];
-                    } else {
-                        [cell.detailTextLabel setText:careerStats[@"fgPercentage"]];
-                    }
+                    [cell.detailTextLabel setText:stats[@"fgPercentage"]];
                     [cell.textLabel setText:@"FG Percentage"];
                 }
             }
         }
+    } else {
+        if (indexPath.row == 0) {
+            [cell.detailTextLabel setText:careerStats[@"heismans"]];
+            [cell.textLabel setText:@"Heismans"];
+        } else if (indexPath.row == 1) {
+            [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
+            [cell.textLabel setText:@"All-League Nominations"];
+        } else if (indexPath.row == 2) {
+            [cell.detailTextLabel setText:careerStats[@"allConferences"]];
+            [cell.textLabel setText:@"All-Conference Nominations"];
+        } else if ([selectedPlayer isKindOfClass:[PlayerQB class]]) {
+            if (indexPath.row == 3) {
+                [cell.detailTextLabel setText:careerStats[@"completions"]];
+                [cell.textLabel setText:@"Completions"];
+            } else if (indexPath.row == 4) {
+                [cell.detailTextLabel setText:careerStats[@"attempts"]];
+                [cell.textLabel setText:@"Pass Attempts"];
+            } else if (indexPath.row == 5) {
+                [cell.detailTextLabel setText:careerStats[@"passYards"]];
+                [cell.textLabel setText:@"Pass Yards"];
+            } else if (indexPath.row == 6) {
+                [cell.detailTextLabel setText:careerStats[@"completionPercentage"]];
+                [cell.textLabel setText:@"Completion Percentage"];
+            } else if (indexPath.row == 7) {
+                [cell.detailTextLabel setText:careerStats[@"yardsPerAttempt"]];
+                [cell.textLabel setText:@"Yards Per Attempt"];
+            } else if (indexPath.row == 8) {
+                [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+                [cell.textLabel setText:@"Yards Per Game"];
+            } else if (indexPath.row == 9) {
+                [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+                [cell.textLabel setText:@"Touchdowns"];
+            } else {
+                [cell.detailTextLabel setText:careerStats[@"interceptions"]];
+                [cell.textLabel setText:@"Interceptions"];
+            }
+        } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
+            if (indexPath.row == 3) {
+                [cell.detailTextLabel setText:careerStats[@"carries"]];
+                [cell.textLabel setText:@"Carries"];
+            } else if (indexPath.row == 4) {
+                [cell.detailTextLabel setText:careerStats[@"rushYards"]];
+                [cell.textLabel setText:@"Rush Yards"];
+            } else if (indexPath.row == 5) {
+                [cell.detailTextLabel setText:careerStats[@"yardsPerCarry"]];
+                [cell.textLabel setText:@"Yards Per Carry"];
+            } else if (indexPath.row == 6) {
+                [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+                [cell.textLabel setText:@"Yards Per Game"];
+            } else if (indexPath.row == 7) {
+                [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+                [cell.textLabel setText:@"Touchdowns"];
+            } else {
+                [cell.detailTextLabel setText:careerStats[@"fumbles"]];
+                [cell.textLabel setText:@"Fumbles"];
+            }
+        } else if ([selectedPlayer isKindOfClass:[PlayerWR class]]) {
+            if (indexPath.row == 3) {
+                [cell.detailTextLabel setText:careerStats[@"catches"]];
+                [cell.textLabel setText:@"Catches"];
+            } else if (indexPath.row == 4) {
+                [cell.detailTextLabel setText:careerStats[@"recYards"]];
+                [cell.textLabel setText:@"Receiving Yards"];
+            } else if (indexPath.row == 5) {
+                [cell.detailTextLabel setText:careerStats[@"yardsPerCatch"]];
+                [cell.textLabel setText:@"Yards Per Catch"];
+            } else if (indexPath.row == 6) {
+                [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+                [cell.textLabel setText:@"Yards Per Game"];
+            } else if (indexPath.row == 7) {
+                [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+                [cell.textLabel setText:@"Touchdowns"];
+            } else {
+                [cell.detailTextLabel setText:careerStats[@"fumbles"]];
+                [cell.textLabel setText:@"Fumbles"];
+            }
+        } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
+            if (indexPath.row == 3) {
+                //pow
+                [cell.detailTextLabel setText:ratings[@"olPower"]];
+                [cell.textLabel setText:@"Strength"];
+            } else if (indexPath.row == 4) {
+                //blkP
+                [cell.detailTextLabel setText:ratings[@"olPassBlock"]];
+                [cell.textLabel setText:@"Pass Blocking"];
+            } else {
+                //blkR
+                [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
+                [cell.textLabel setText:@"Run Blocking"];
+            }
+        } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
+            if (indexPath.row == 3) {
+                //pow
+                [cell.detailTextLabel setText:ratings[@"f7Pow"]];
+                [cell.textLabel setText:@"Strength"];
+            } else if (indexPath.row == 4) {
+                //pass
+                [cell.detailTextLabel setText:ratings[@"f7Pass"]];
+                [cell.textLabel setText:@"Pass Pressure"];
+            } else {
+                //rsh
+                [cell.detailTextLabel setText:ratings[@"f7Run"]];
+                [cell.textLabel setText:@"Run Stopping"];
+            }
+        } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {
+            if (indexPath.row == 3) {
+                //cov
+                [cell.detailTextLabel setText:ratings[@"cbCoverage"]];
+                [cell.textLabel setText:@"Coverage Ability"];
+            } else if (indexPath.row == 4) {
+                //spd
+                [cell.detailTextLabel setText:ratings[@"cbSpeed"]];
+                [cell.textLabel setText:@"Speed"];
+            } else {
+                //tkl
+                [cell.detailTextLabel setText:ratings[@"cbTackling"]];
+                [cell.textLabel setText:@"Tackling Ability"];
+            }
+        } else if ([selectedPlayer isKindOfClass:[PlayerS class]]) {
+            if (indexPath.row == 3) {
+                //cov
+                [cell.detailTextLabel setText:ratings[@"sCoverage"]];
+                [cell.textLabel setText:@"Coverage Ability"];
+            } else if (indexPath.row == 4) {
+                //spd
+                [cell.detailTextLabel setText:ratings[@"sSpeed"]];
+                [cell.textLabel setText:@"Speed"];
+            } else {
+                //tkl
+                [cell.detailTextLabel setText:ratings[@"sTackling"]];
+                [cell.textLabel setText:@"Tackling Ability"];
+            }
+        } else { //Ks
+            if (indexPath.row == 3) {
+                [cell.detailTextLabel setText:careerStats[@"xpMade"]];
+                [cell.textLabel setText:@"XP Made"];
+            } else if (indexPath.row == 4) {
+                [cell.detailTextLabel setText:careerStats[@"xpAtt"]];
+                [cell.textLabel setText:@"XP Attempted"];
+            } else if (indexPath.row == 5) {
+                [cell.detailTextLabel setText:careerStats[@"xpPercentage"]];
+                [cell.textLabel setText:@"XP Percentage"];
+            } else if (indexPath.row == 6) {
+                [cell.detailTextLabel setText:careerStats[@"fgMade"]];
+                [cell.textLabel setText:@"FG Made"];
+            } else if (indexPath.row == 7) {
+                [cell.detailTextLabel setText:careerStats[@"fgAtt"]];
+                [cell.textLabel setText:@"FG Attempted"];
+            } else {
+                [cell.detailTextLabel setText:careerStats[@"fgPercentage"]];
+                [cell.textLabel setText:@"FG Percentage"];
+            }
+        }
     }
     
-    
-    NSString *stat = cell.detailTextLabel.text;
-    
-    if (indexPath.section == 0) {
-        UIColor *letterColor;   //colors for ratings to tell what's what
-        if ([stat containsString:@"A"]) {
-            letterColor = [HBSharedUtils successColor];
-        } else if ([stat containsString:@"B"]) {
-            letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
-        } else if ([stat containsString:@"C"]) {
-            letterColor = [HBSharedUtils champColor];
-        } else if ([stat containsString:@"D"]) {
-            letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+    if (indexPath.section == 0 && indexPath.row > 2) {
+        NSString *stat = cell.detailTextLabel.text;
+        
+        if (indexPath.section == 0) {
+            UIColor *letterColor;   //colors for ratings to tell what's what
+            if ([stat containsString:@"A"]) {
+                letterColor = [HBSharedUtils successColor];
+            } else if ([stat containsString:@"B"]) {
+                letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+            } else if ([stat containsString:@"C"]) {
+                letterColor = [HBSharedUtils champColor];
+            } else if ([stat containsString:@"D"]) {
+                letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+            } else {
+                letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+            }
+            [cell.detailTextLabel setTextColor:letterColor];
         } else {
-            letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+            [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         }
-        [cell.detailTextLabel setTextColor:letterColor];
     } else {
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
     }
-    
     return cell;
 }
 

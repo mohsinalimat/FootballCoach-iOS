@@ -11,6 +11,20 @@
 
 @implementation Player
 
+
+-(id)init {
+    if (self = [super init]) {
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 200;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 8);
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
+    }
+    return self;
+}
+
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
@@ -35,8 +49,8 @@
         if ([aDecoder containsValueForKey:@"personalDetails"]) {
             self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
         } else {
-            NSInteger weight = ((int)[HBSharedUtils randomValue] * 125) + 200;
-            NSInteger inches = ((int)[HBSharedUtils randomValue] * 8);
+            NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 200;
+            NSInteger inches = (int)([HBSharedUtils randomValue] * 8);
             self.personalDetails = @{
                                      @"home_state" : [HBSharedUtils randomState],
                                      @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
