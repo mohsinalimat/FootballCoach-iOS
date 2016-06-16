@@ -63,6 +63,104 @@
 
 @implementation RecruitingViewController
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return _viewingSignees;
+}
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+        Player *p = players[indexPath.row];
+        int redshirtCost = p.cost / 4;
+        int totalCost = p.cost;
+        if (p.hasRedshirt) {
+            totalCost += redshirtCost;
+        }
+        
+        recruitingBudget += totalCost;
+        p.year = -1;
+        p.team = nil;
+        
+        if ([players containsObject:p]) {
+            [players removeObject:p];
+        }
+        
+        if ([playersRecruited containsObject:p]) {
+            [playersRecruited removeObject:p];
+        }
+        
+        if (![availAll containsObject:p]) {
+            [availAll addObject:p];
+        }
+        
+        if ([p isKindOfClass:[PlayerQB class]]) {
+            if (![availQBs containsObject:p]) {
+                [availQBs addObject:p];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamQBs removeObject:(PlayerQB*)p];
+            if (!p.hasRedshirt)
+                needQBs++;
+        } else if ([p isKindOfClass:[PlayerRB class]]) {
+            if (![availRBs containsObject:p]) {
+                [availRBs addObject:p];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamRBs removeObject:(PlayerRB*)p];
+            if (!p.hasRedshirt)
+                needRBs++;
+        } else if ([p isKindOfClass:[PlayerWR class]]) {
+            if (![availWRs containsObject:p]) {
+                [availWRs addObject:p];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamWRs removeObject:(PlayerWR*)p];
+            if (!p.hasRedshirt)
+                needWRs++;
+        } else if ([p isKindOfClass:[PlayerOL class]]) {
+            if (![availOLs containsObject:p]) {
+                [availOLs addObject:p];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamOLs removeObject:(PlayerOL*)p];
+            if (!p.hasRedshirt)
+                needOLs++;
+        } else if ([p isKindOfClass:[PlayerF7 class]]) {
+            if (![availF7s containsObject:p]) {
+                [availF7s addObject:p];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamF7s removeObject:(PlayerF7*)p];
+            if (!p.hasRedshirt)
+                needF7s++;
+        } else if ([p isKindOfClass:[PlayerCB class]]) {
+            if (![availCBs containsObject:p]) {
+                [availCBs addObject:p];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamCBs removeObject:(PlayerCB*)p];
+            if (!p.hasRedshirt)
+                needCBs++;
+        } else if ([p isKindOfClass:[PlayerS class]]) {
+            if (![availSs containsObject:p]) {
+                [availSs addObject:p];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamSs removeObject:(PlayerS*)p];
+            if (!p.hasRedshirt)
+                needsS++;
+        } else { // PlayerK class
+            if (![availKs containsObject:p]) {
+                [availKs addObject:p];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamKs removeObject:(PlayerK*)p];
+            if (!p.hasRedshirt)
+                needKs++;
+        }
+        
+        p.hasRedshirt = NO;
+        [[HBSharedUtils getLeague].userTeam sortPlayers];
+        [self reloadRecruits];
+        [self.tableView reloadData];
+        self.title = [NSString stringWithFormat:@"Budget: %d pts",recruitingBudget];
+    }
+}
+
 -(void)reloadRecruits {
     [availAll removeAllObjects];
 
@@ -424,7 +522,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
     [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"roster"] style:UIBarButtonItemStylePlain target:self action:@selector(viewRoster)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Remaining Needs" style:UIBarButtonItemStylePlain target:self action:@selector(showRemainingNeeds)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(showRecruitCategories)]]];
     self.navigationController.toolbarHidden = NO;
 }
