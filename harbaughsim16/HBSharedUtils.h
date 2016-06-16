@@ -26,6 +26,7 @@
 +(UIColor *)successColor;
 +(UIColor *)champColor;
 +(void)setStyleColor:(NSDictionary*)colorDict;
-+(NSArray*)colorOptions;
++(NSArray *)colorOptions;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;
++(NSString *)randomState;
 @end

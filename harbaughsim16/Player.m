@@ -32,6 +32,18 @@
             self.draftPosition = nil;
         }
         
+        if ([aDecoder containsValueForKey:@"personalDetails"]) {
+            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+        } else {
+            NSInteger weight = ((int)[HBSharedUtils randomValue] * 125) + 200;
+            NSInteger inches = ((int)[HBSharedUtils randomValue] * 8);
+            self.personalDetails = @{
+                                     @"home_state" : [HBSharedUtils randomState],
+                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                     };
+        }
+        
         if ([aDecoder containsValueForKey:@"hasRedshirt"]) {
             self.hasRedshirt = [aDecoder decodeBoolForKey:@"hasRedshirt"];
         } else {
@@ -137,7 +149,7 @@
     [aCoder encodeInt:self.careerAllAmericans forKey:@"careerAllAmericans"];
     [aCoder encodeInt:self.startYear forKey:@"startYear"];
     [aCoder encodeInt:self.endYear forKey:@"endYear"];
-    
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
 }
 
 - (NSComparisonResult)compare:(id)other

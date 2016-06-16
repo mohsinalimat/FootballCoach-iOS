@@ -148,20 +148,20 @@
         _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
         if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
             //breakthrough
-            _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
-            _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
-            _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+            _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 20))/10;
+            _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot - 20))/10;
+            _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot - 20))/10;
         }
     } else {
-        self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
-        _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
-        _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
-        _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
+        self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
+        _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
+        _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
+        _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
         if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
             //breakthrough
-            _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
-            _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
-            _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
+            _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
+            _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
+            _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
         }
     }
 
