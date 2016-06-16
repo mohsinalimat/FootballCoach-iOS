@@ -94,7 +94,7 @@
         if (section == 1) {
             return @"Career Stats";
         } else {
-            return @"Ratings";
+            return @"Information";
         }
     } else {
         if (section == 1) {
@@ -102,7 +102,7 @@
         } else if (section == 2) {
             return @"Career Stats";
         } else {
-            return @"Ratings";
+            return @"Information";
         }
     }
 }
