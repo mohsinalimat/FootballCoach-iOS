@@ -31,6 +31,12 @@
         _week = [aDecoder decodeIntForKey:@"week"];
         _robinWeek = [aDecoder decodeIntForKey:@"robinWeek"];
         _league = [aDecoder decodeObjectForKey:@"league"];
+        
+        if (![aDecoder containsValueForKey:@"allConferencePlayers"]) {
+            _allConferencePlayers = @{};
+        } else {
+            _allConferencePlayers = [aDecoder decodeObjectForKey:@"allConferencePlayers"];
+        }
     }
     return self;
 }
@@ -40,10 +46,11 @@
     [aCoder encodeInt:_confPrestige forKey:@"confPrestige"];
     [aCoder encodeObject:_confTeams forKey:@"confTeams"];
     [aCoder encodeObject:_league forKey:@"league"];
-    
+    [aCoder encodeObject:_allConferencePlayers forKey:@"allConferencePlayers"];
     [aCoder encodeObject:_ccg forKey:@"ccg"];
     [aCoder encodeInt:_week forKey:@"week"];
     [aCoder encodeInt:_robinWeek forKey:@"robinWeek"];
+
 }
 
 +(instancetype)newConferenceWithName:(NSString*)name league:(League*)league {
@@ -52,6 +59,7 @@
         conf.confName = name;
         conf.confPrestige = 75;
         conf.confTeams = [NSMutableArray array];
+        conf.allConferencePlayers = [NSDictionary dictionary];
         conf.league = league;
         conf.week = 0;
         conf.robinWeek = 0;
@@ -280,7 +288,7 @@
     
 }
 
--(void)refreshAllConferencePlayers:(void (^)(NSDictionary* dict))completionBlock {
+-(void)refreshAllConferencePlayers {
     NSMutableArray *leadingQBs = [NSMutableArray array];
     NSMutableArray *leadingRBs = [NSMutableArray array];
     NSMutableArray *leadingWRs = [NSMutableArray array];
@@ -360,14 +368,13 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"awardsPosted" object:nil];
 
-    if (completionBlock) {
-        completionBlock( @{
+    _allConferencePlayers = @{
                            @"QB" : @[qb],
                            @"RB" : @[rb1,rb2],
                            @"WR" : @[wr1,wr2,wr3],
                            @"K"  : @[k]
-                           });
-    }
+                           };
+    
 }
 
 

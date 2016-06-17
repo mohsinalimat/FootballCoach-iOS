@@ -54,6 +54,7 @@
     int teamRecordYearXPMade;
     int teamRecordYearFGMade;
     NSMutableDictionary<NSString*, NSMutableArray*> *teamStreaks;
+    NSMutableArray *teamHistory;
 }
 
 @property (strong, nonatomic) League *league;
@@ -62,7 +63,7 @@
 @property (strong, nonatomic) NSString *abbreviation;
 @property (strong, nonatomic) NSString *conference;
 @property (strong, nonatomic) NSString *rivalTeam;
-@property (strong, nonatomic) NSMutableArray *teamHistory;
+@property (strong, nonatomic) NSMutableDictionary *teamHistoryDictionary;
 @property (strong, nonatomic) NSMutableDictionary<NSString*, TeamStreak*> *streaks;
 @property (nonatomic) BOOL isUserControlled;
 @property (nonatomic) BOOL wonRivalryGame;

@@ -100,6 +100,12 @@
             self.careerHeismans = 0;
         }
         
+        if ([aDecoder containsValueForKey:@"careerAllConferences"]) {
+            self.careerAllConferences = [aDecoder decodeIntForKey:@"careerAllConferences"];
+        } else {
+            self.careerAllConferences = 0;
+        }
+        
         if ([aDecoder containsValueForKey:@"careerAllAmericans"]) {
             self.careerAllAmericans = [aDecoder decodeIntForKey:@"careerAllAmericans"];
         } else {
@@ -109,7 +115,7 @@
         if ([aDecoder containsValueForKey:@"startYear"]) {
             self.startYear = [aDecoder decodeIntForKey:@"startYear"];
         } else {
-            NSInteger curYear = self.team.league.leagueHistory.count + 2016;
+            NSInteger curYear = self.team.league.leagueHistoryDictionary.count + 2016;
             self.startYear = (int)(curYear - self.year - 1);
         }
         
@@ -123,8 +129,8 @@
             self.gamesPlayedSeason = [aDecoder decodeIntForKey:@"gamesPlayedSeason"];
         } else {
             if (self.gamesPlayed > 0) {
-                if (self.team.league.leagueHistory.count > 0) {
-                    NSInteger activeYears = self.team.league.leagueHistory.count;
+                if (self.team.league.leagueHistoryDictionary.count > 0) {
+                    NSInteger activeYears = self.team.league.leagueHistoryDictionary.count;
                     self.gamesPlayedSeason = self.gamesPlayed % activeYears;
                 } else {
                     self.gamesPlayedSeason = 0;

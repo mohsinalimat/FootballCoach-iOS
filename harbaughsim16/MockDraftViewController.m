@@ -162,9 +162,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [[HBSharedUtils getLeague] completeProDraft:^(NSArray *rounds) {
-        draftRounds = rounds;
-    }];
+    draftRounds = [[HBSharedUtils getLeague] allDraftedPlayers];
     round1 = draftRounds[0];
     round2 = draftRounds[1];
     round3 = draftRounds[2];
@@ -182,7 +180,7 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(changeRounds)];
-    self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)];
+    self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
 

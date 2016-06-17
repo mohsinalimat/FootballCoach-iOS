@@ -65,7 +65,7 @@
         self.team = t;
         self.name = nm;
         self.year = yr;
-        self.startYear = (int)t.league.leagueHistory.count + 2016;
+        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2016;
         self.ratOvr = (pow*3 + acc*4 + eva)/8;
         self.ratDur = dur;
         self.ratPot = pot;
@@ -101,7 +101,7 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
-        self.startYear = (int)t.league.leagueHistory.count + 2016;
+        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2016;
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratDur = (int) (50 + 50 * [HBSharedUtils randomValue]);
@@ -258,70 +258,70 @@
 -(void)checkRecords {
     //completions
     if (self.statsPassComp > self.team.singleSeasonCompletionsRecord.statistic) {
-        self.team.singleSeasonCompletionsRecord = [Record newRecord:@"Completions" player:self stat:self.statsPassComp year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.singleSeasonCompletionsRecord = [Record newRecord:@"Completions" player:self stat:self.statsPassComp year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.careerStatsPassComp > self.team.careerCompletionsRecord.statistic) {
-        self.team.careerCompletionsRecord = [Record newRecord:@"Completions" player:self stat:self.careerStatsPassComp year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.careerCompletionsRecord = [Record newRecord:@"Completions" player:self stat:self.careerStatsPassComp year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.statsPassComp > self.team.league.singleSeasonCompletionsRecord.statistic) {
-        self.team.league.singleSeasonCompletionsRecord = [Record newRecord:@"Completions" player:self stat:self.statsPassComp year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.league.singleSeasonCompletionsRecord = [Record newRecord:@"Completions" player:self stat:self.statsPassComp year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.careerStatsPassComp > self.team.league.careerCompletionsRecord.statistic) {
-        self.team.league.careerCompletionsRecord = [Record newRecord:@"Completions" player:self stat:self.careerStatsPassComp year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.league.careerCompletionsRecord = [Record newRecord:@"Completions" player:self stat:self.careerStatsPassComp year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     //TD
     if (self.statsTD > self.team.singleSeasonPassTDsRecord.statistic) {
-        self.team.singleSeasonPassTDsRecord = [Record newRecord:@"Pass TDs" player:self stat:self.statsTD year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.singleSeasonPassTDsRecord = [Record newRecord:@"Pass TDs" player:self stat:self.statsTD year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.careerStatsTD > self.team.careerPassTDsRecord.statistic) {
-        self.team.careerPassTDsRecord = [Record newRecord:@"Pass TDs" player:self stat:self.careerStatsTD year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.careerPassTDsRecord = [Record newRecord:@"Pass TDs" player:self stat:self.careerStatsTD year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.statsTD > self.team.league.singleSeasonPassTDsRecord.statistic) {
-        self.team.league.singleSeasonPassTDsRecord = [Record newRecord:@"Pass TDs" player:self stat:self.statsTD year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.league.singleSeasonPassTDsRecord = [Record newRecord:@"Pass TDs" player:self stat:self.statsTD year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.careerStatsTD > self.team.league.careerPassTDsRecord.statistic) {
-        self.team.league.careerPassTDsRecord = [Record newRecord:@"Pass TDs" player:self stat:self.careerStatsTD year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.league.careerPassTDsRecord = [Record newRecord:@"Pass TDs" player:self stat:self.careerStatsTD year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     //Pass Yards
     if (self.statsPassYards > self.team.singleSeasonPassYardsRecord.statistic) {
-        self.team.singleSeasonPassYardsRecord = [Record newRecord:@"Pass Yards" player:self stat:self.statsPassYards year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.singleSeasonPassYardsRecord = [Record newRecord:@"Pass Yards" player:self stat:self.statsPassYards year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.careerStatsPassYards > self.team.careerPassYardsRecord.statistic) {
-        self.team.careerPassYardsRecord = [Record newRecord:@"Pass Yards" player:self stat:self.careerStatsPassYards year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.careerPassYardsRecord = [Record newRecord:@"Pass Yards" player:self stat:self.careerStatsPassYards year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.statsPassYards > self.team.league.singleSeasonPassYardsRecord.statistic) {
-        self.team.league.singleSeasonPassYardsRecord = [Record newRecord:@"Pass Yards" player:self stat:self.statsPassYards year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.league.singleSeasonPassYardsRecord = [Record newRecord:@"Pass Yards" player:self stat:self.statsPassYards year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.careerStatsPassYards > self.team.league.careerPassYardsRecord.statistic) {
-        self.team.league.careerPassYardsRecord = [Record newRecord:@"Pass Yards" player:self stat:self.careerStatsPassYards year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.league.careerPassYardsRecord = [Record newRecord:@"Pass Yards" player:self stat:self.careerStatsPassYards year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     //interceptions
     if (self.statsInt > self.team.singleSeasonInterceptionsRecord.statistic) {
-        self.team.singleSeasonInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.statsInt year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.singleSeasonInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.statsInt year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.careerStatsInt > self.team.careerInterceptionsRecord.statistic) {
-        self.team.careerInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.careerStatsInt year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.careerInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.careerStatsInt year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.statsInt > self.team.league.singleSeasonInterceptionsRecord.statistic) {
-        self.team.league.singleSeasonInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.statsInt year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.league.singleSeasonInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.statsInt year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 
     if (self.careerStatsInt > self.team.league.careerInterceptionsRecord.statistic) {
-        self.team.league.careerInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.careerStatsInt year:(int)(2016 + self.team.league.leagueHistory.count - 1)];
+        self.team.league.careerInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.careerStatsInt year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 }
 

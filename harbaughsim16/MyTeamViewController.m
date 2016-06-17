@@ -89,7 +89,7 @@
 
 -(void)setupTeamHeader {
     userTeam = [HBSharedUtils getLeague].userTeam;
-    [[HBSharedUtils getLeague] setTeamRanks];
+    //[[HBSharedUtils getLeague] setTeamRanks];
     stats = [userTeam getTeamStatsArray];
     NSString *rank = @"";
     if ([HBSharedUtils getLeague].currentWeek > 0 && userTeam.rankTeamPollScore < 26 && userTeam.rankTeamPollScore > 0) {
@@ -97,7 +97,7 @@
     }
     [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, userTeam.name]];
     
-    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistory.count + 2016,(long)userTeam.wins,(long)userTeam.losses]];
+    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistoryDictionary.count + 2016,(long)userTeam.wins,(long)userTeam.losses]];
     [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Prestige: %d",userTeam.teamPrestige]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
 }

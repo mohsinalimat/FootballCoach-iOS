@@ -21,7 +21,7 @@
 @interface TeamHistoryViewController ()
 {
     Team *userTeam;
-    NSArray *history;
+    NSDictionary *history;
     IBOutlet HBTeamCompiledHistoryView *teamHeaderView;
 }
 @end
@@ -56,7 +56,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    history = [userTeam.teamHistory copy];
+    history = [userTeam.teamHistoryDictionary copy];
     self.title = [NSString stringWithFormat:@"%@ Team History", userTeam.abbreviation];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
@@ -87,7 +87,7 @@
     if (indexPath.section == 0) {
         return UITableViewAutomaticDimension;
     } else {
-        NSInteger lineCount = [self _lineCount:history[indexPath.row]];
+        NSInteger lineCount = [self _lineCount:history[[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]]];
         if (lineCount >= 3) {
             return 100;
         } else if (lineCount == 2) {
@@ -228,10 +228,10 @@
         
         [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
         NSString *hist;
-        if (userTeam.teamHistory.count < indexPath.row) {
+        if (userTeam.teamHistoryDictionary.count < indexPath.row) {
             hist = [NSString stringWithFormat:@"%@ (0-0)",userTeam.abbreviation];
         } else {
-            hist = userTeam.teamHistory[indexPath.row];
+            hist = userTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
         }
         NSArray *comps = [hist componentsSeparatedByString:@"\n"];
         

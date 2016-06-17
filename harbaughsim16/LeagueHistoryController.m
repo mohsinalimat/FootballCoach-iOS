@@ -14,8 +14,8 @@
 
 @interface LeagueHistoryController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
-    NSArray *leagueHistory;
-    NSArray *heismanHistory;
+    NSDictionary *leagueHistory;
+    NSDictionary *heismanHistory;
 }
 @end
 
@@ -107,8 +107,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    leagueHistory = [HBSharedUtils getLeague].leagueHistory;
-    heismanHistory = [HBSharedUtils getLeague].heismanHistory;
+    leagueHistory = [HBSharedUtils getLeague].leagueHistoryDictionary;
+    heismanHistory = [HBSharedUtils getLeague].heismanHistoryDictionary;
     [self.tableView setRowHeight:75];
     [self.tableView setEstimatedRowHeight:75];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
@@ -160,8 +160,8 @@
         heisman = @"None";
         leagueYear = [NSMutableArray arrayWithObject:@"None"];
     } else {
-        heisman = heismanHistory[indexPath.row];
-        leagueYear = leagueHistory[indexPath.row];
+        heisman = heismanHistory[[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
+        leagueYear = leagueHistory[[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]];
     }
     NSMutableAttributedString *champString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Champion: %@",leagueYear[0]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
     if ([champString.string containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
@@ -186,8 +186,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //NSMutableArray *leagueYear = leagueHistory[indexPath.row];
-    //[self.navigationController pushViewController:[[LeagueYearViewController alloc] initWithYear:[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)] top10:leagueYear] animated:YES];
 }
 
 

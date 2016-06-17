@@ -12,6 +12,7 @@
 
 @interface Conference : NSObject <NSCoding>
 @property (strong, nonatomic) NSString *confName;
+@property (strong, nonatomic) NSDictionary *allConferencePlayers;
 @property (nonatomic) int confPrestige;
 @property (strong, nonatomic) NSMutableArray<Team*> *confTeams;
 @property (strong, nonatomic) League *league;
@@ -28,5 +29,5 @@
 -(void)insertOOCSchedule;
 -(void)setUpOOCSchedule;
 -(void)setUpSchedule;
--(void)refreshAllConferencePlayers:(void (^)(NSDictionary* dict))completionBlock;
+-(void)refreshAllConferencePlayers;
 @end

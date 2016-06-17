@@ -75,8 +75,8 @@
                     [rival setRivalTeam:abbrev.text];
 
                     NSMutableArray *tempLeagueYear;
-                    for (int k = 0; k < [HBSharedUtils getLeague].leagueHistory.count; k++) {
-                        NSArray *leagueYear = [HBSharedUtils getLeague].leagueHistory[k];
+                    for (int k = 0; k < [HBSharedUtils getLeague].leagueHistoryDictionary.count; k++) {
+                        NSArray *leagueYear = [HBSharedUtils getLeague].leagueHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)(2016+k)]];
                         tempLeagueYear = [NSMutableArray arrayWithArray:leagueYear];
                         for (int i =0; i < leagueYear.count; i++) {
                             NSString *teamString = leagueYear[i];
@@ -93,25 +93,25 @@
                             }
                         }
                         
-                        [[HBSharedUtils getLeague].leagueHistory replaceObjectAtIndex:k withObject:[tempLeagueYear copy]];
+                        [[HBSharedUtils getLeague].leagueHistoryDictionary setObject:[tempLeagueYear copy] forKey:[NSString stringWithFormat:@"%ld",(long)(2016+k)]];
                         [tempLeagueYear removeAllObjects];
                     }
                     
-                    for (int j = 0; j < [HBSharedUtils getLeague].userTeam.teamHistory.count; j++) {
-                        NSString *yearString = [HBSharedUtils getLeague].userTeam.teamHistory[j];
+                    for (int j = 0; j < [HBSharedUtils getLeague].userTeam.teamHistoryDictionary.count; j++) {
+                        NSString *yearString = [HBSharedUtils getLeague].userTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)(2016+j)]];
                         if ([yearString containsString:oldAbbrev]) {
                             yearString = [yearString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
                             //NSLog(@"FOUND ABBREV MATCH IN TEAM HISTORY, REPLACING");
-                            [[HBSharedUtils getLeague].userTeam.teamHistory replaceObjectAtIndex:j withObject:yearString];
+                            [[HBSharedUtils getLeague].userTeam.teamHistoryDictionary setObject:yearString forKey:[NSString stringWithFormat:@"%ld",(long)(2016+j)]];
                         }
                     }
                     
-                    for (int j = 0; j < [HBSharedUtils getLeague].heismanHistory.count; j++) {
-                        NSString *heisString = [HBSharedUtils getLeague].heismanHistory[j];
+                    for (int j = 0; j < [HBSharedUtils getLeague].heismanHistoryDictionary.count; j++) {
+                        NSString *heisString = [HBSharedUtils getLeague].heismanHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)(2016+j)]];
                         if ([heisString containsString:[NSString stringWithFormat:@", %@ (", oldAbbrev]]) {
                             heisString = [heisString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@", %@ (", oldAbbrev] withString:[NSString stringWithFormat:@", %@ (", abbrev.text]];
                             //NSLog(@"FOUND ABBREV MATCH IN HEISMAN HISTORY, REPLACING");
-                            [[HBSharedUtils getLeague].heismanHistory replaceObjectAtIndex:j withObject:heisString];
+                            [[HBSharedUtils getLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)(2016+j)]];
                         }
                     }
                     

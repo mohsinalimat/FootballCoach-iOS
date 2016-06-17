@@ -63,104 +63,6 @@
 
 @implementation RecruitingViewController
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return YES if you want the specified item to be editable.
-    return _viewingSignees;
-}
-
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //add code here for when you hit delete
-        Player *p = players[indexPath.row];
-        int redshirtCost = p.cost / 4;
-        int totalCost = p.cost;
-        if (p.hasRedshirt) {
-            totalCost += redshirtCost;
-        }
-        
-        recruitingBudget += totalCost;
-        p.year = -1;
-        p.team = nil;
-        
-        if ([players containsObject:p]) {
-            [players removeObject:p];
-        }
-        
-        if ([playersRecruited containsObject:p]) {
-            [playersRecruited removeObject:p];
-        }
-        
-        if (![availAll containsObject:p]) {
-            [availAll addObject:p];
-        }
-        
-        if ([p isKindOfClass:[PlayerQB class]]) {
-            if (![availQBs containsObject:p]) {
-                [availQBs addObject:p];
-            }
-            [[HBSharedUtils getLeague].userTeam.teamQBs removeObject:(PlayerQB*)p];
-            if (!p.hasRedshirt)
-                needQBs++;
-        } else if ([p isKindOfClass:[PlayerRB class]]) {
-            if (![availRBs containsObject:p]) {
-                [availRBs addObject:p];
-            }
-            [[HBSharedUtils getLeague].userTeam.teamRBs removeObject:(PlayerRB*)p];
-            if (!p.hasRedshirt)
-                needRBs++;
-        } else if ([p isKindOfClass:[PlayerWR class]]) {
-            if (![availWRs containsObject:p]) {
-                [availWRs addObject:p];
-            }
-            [[HBSharedUtils getLeague].userTeam.teamWRs removeObject:(PlayerWR*)p];
-            if (!p.hasRedshirt)
-                needWRs++;
-        } else if ([p isKindOfClass:[PlayerOL class]]) {
-            if (![availOLs containsObject:p]) {
-                [availOLs addObject:p];
-            }
-            [[HBSharedUtils getLeague].userTeam.teamOLs removeObject:(PlayerOL*)p];
-            if (!p.hasRedshirt)
-                needOLs++;
-        } else if ([p isKindOfClass:[PlayerF7 class]]) {
-            if (![availF7s containsObject:p]) {
-                [availF7s addObject:p];
-            }
-            [[HBSharedUtils getLeague].userTeam.teamF7s removeObject:(PlayerF7*)p];
-            if (!p.hasRedshirt)
-                needF7s++;
-        } else if ([p isKindOfClass:[PlayerCB class]]) {
-            if (![availCBs containsObject:p]) {
-                [availCBs addObject:p];
-            }
-            [[HBSharedUtils getLeague].userTeam.teamCBs removeObject:(PlayerCB*)p];
-            if (!p.hasRedshirt)
-                needCBs++;
-        } else if ([p isKindOfClass:[PlayerS class]]) {
-            if (![availSs containsObject:p]) {
-                [availSs addObject:p];
-            }
-            [[HBSharedUtils getLeague].userTeam.teamSs removeObject:(PlayerS*)p];
-            if (!p.hasRedshirt)
-                needsS++;
-        } else { // PlayerK class
-            if (![availKs containsObject:p]) {
-                [availKs addObject:p];
-            }
-            [[HBSharedUtils getLeague].userTeam.teamKs removeObject:(PlayerK*)p];
-            if (!p.hasRedshirt)
-                needKs++;
-        }
-        
-        p.hasRedshirt = NO;
-        [[HBSharedUtils getLeague].userTeam sortPlayers];
-        [self reloadRecruits];
-        [self.tableView reloadData];
-        self.title = [NSString stringWithFormat:@"Budget: %d pts",recruitingBudget];
-    }
-}
-
 -(void)reloadRecruits {
     [availAll removeAllObjects];
 
@@ -509,7 +411,7 @@
             }
         }
     }];
-    _viewingSignees = NO;
+    
     if (_filteredByCost) {
         [self filterByCost];
     }
@@ -977,6 +879,7 @@
             }
 
             [alertController addAction:[UIAlertAction actionWithTitle:position style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                 _viewingSignees = NO;
                 if (i == 0) {
                     players = availAll;
                     _filteredByCost = NO;
@@ -1357,16 +1260,124 @@
 
     [stat4Att appendAttributedString:[[NSAttributedString alloc] initWithString:stat4Val attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium]}]];
     [cell.stat4ValueLabel setAttributedText:stat4Att];
-
-    if (player.cost > recruitingBudget || _viewingSignees) {
+    if (_viewingSignees) {
+        [cell.recruitButton setEnabled:YES];
+        [cell.recruitButton setTitleColor:[HBSharedUtils errorColor] forState:UIControlStateNormal];
+        [cell.recruitButton setTitle:@"Remove Recruit" forState:UIControlStateNormal];
+        [cell.recruitButton removeTarget:self action:@selector(recruitPlayer:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.recruitButton addTarget:self action:@selector(removeRecruit:) forControlEvents:UIControlEventTouchUpInside];
+    } else if (player.cost > recruitingBudget) {
         [cell.recruitButton setEnabled:NO];
         [cell.recruitButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [cell.recruitButton setTitle:[NSString stringWithFormat:@"Recruit Player (%d pts)", player.cost] forState:UIControlStateNormal];
+        [cell.recruitButton removeTarget:self action:@selector(removeRecruit:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.recruitButton addTarget:self action:@selector(recruitPlayer:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [cell.recruitButton setEnabled:YES];
         [cell.recruitButton setTitleColor:[HBSharedUtils styleColor] forState:UIControlStateNormal];
+        [cell.recruitButton setTitle:[NSString stringWithFormat:@"Recruit Player (%d pts)", player.cost] forState:UIControlStateNormal];
+        [cell.recruitButton removeTarget:self action:@selector(removeRecruit:) forControlEvents:UIControlEventTouchUpInside];
+        [cell.recruitButton addTarget:self action:@selector(recruitPlayer:) forControlEvents:UIControlEventTouchUpInside];
     }
 
     return cell;
+}
+
+-(void)removeRecruit:(UIButton*)sender {
+    if (_viewingSignees) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to remove this recruit?" message:@"He will be returned to the player pool where you will be able to sign him again, but for a higher cost." preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            Player *p = players[sender.tag];
+            int redshirtCost = p.cost / 4;
+            int totalCost = p.cost;
+            if (p.hasRedshirt) {
+                totalCost += redshirtCost;
+            }
+            
+            recruitingBudget += totalCost;
+            p.year = -1;
+            p.team = nil;
+            p.cost += 50;
+            
+            if ([players containsObject:p]) {
+                [players removeObject:p];
+            }
+            
+            if ([playersRecruited containsObject:p]) {
+                [playersRecruited removeObject:p];
+            }
+            
+            if (![availAll containsObject:p]) {
+                [availAll addObject:p];
+            }
+            
+            if ([p isKindOfClass:[PlayerQB class]]) {
+                if (![availQBs containsObject:p]) {
+                    [availQBs addObject:p];
+                }
+                [[HBSharedUtils getLeague].userTeam.teamQBs removeObject:(PlayerQB*)p];
+                if (!p.hasRedshirt)
+                    needQBs++;
+            } else if ([p isKindOfClass:[PlayerRB class]]) {
+                if (![availRBs containsObject:p]) {
+                    [availRBs addObject:p];
+                }
+                [[HBSharedUtils getLeague].userTeam.teamRBs removeObject:(PlayerRB*)p];
+                if (!p.hasRedshirt)
+                    needRBs++;
+            } else if ([p isKindOfClass:[PlayerWR class]]) {
+                if (![availWRs containsObject:p]) {
+                    [availWRs addObject:p];
+                }
+                [[HBSharedUtils getLeague].userTeam.teamWRs removeObject:(PlayerWR*)p];
+                if (!p.hasRedshirt)
+                    needWRs++;
+            } else if ([p isKindOfClass:[PlayerOL class]]) {
+                if (![availOLs containsObject:p]) {
+                    [availOLs addObject:p];
+                }
+                [[HBSharedUtils getLeague].userTeam.teamOLs removeObject:(PlayerOL*)p];
+                if (!p.hasRedshirt)
+                    needOLs++;
+            } else if ([p isKindOfClass:[PlayerF7 class]]) {
+                if (![availF7s containsObject:p]) {
+                    [availF7s addObject:p];
+                }
+                [[HBSharedUtils getLeague].userTeam.teamF7s removeObject:(PlayerF7*)p];
+                if (!p.hasRedshirt)
+                    needF7s++;
+            } else if ([p isKindOfClass:[PlayerCB class]]) {
+                if (![availCBs containsObject:p]) {
+                    [availCBs addObject:p];
+                }
+                [[HBSharedUtils getLeague].userTeam.teamCBs removeObject:(PlayerCB*)p];
+                if (!p.hasRedshirt)
+                    needCBs++;
+            } else if ([p isKindOfClass:[PlayerS class]]) {
+                if (![availSs containsObject:p]) {
+                    [availSs addObject:p];
+                }
+                [[HBSharedUtils getLeague].userTeam.teamSs removeObject:(PlayerS*)p];
+                if (!p.hasRedshirt)
+                    needsS++;
+            } else { // PlayerK class
+                if (![availKs containsObject:p]) {
+                    [availKs addObject:p];
+                }
+                [[HBSharedUtils getLeague].userTeam.teamKs removeObject:(PlayerK*)p];
+                if (!p.hasRedshirt)
+                    needKs++;
+            }
+            
+            p.hasRedshirt = NO;
+            [[HBSharedUtils getLeague].userTeam sortPlayers];
+            [self reloadRecruits];
+            [self.tableView reloadData];
+            self.title = [NSString stringWithFormat:@"Budget: %d pts",recruitingBudget];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 -(void)recruitPlayer:(UIButton*)sender {
@@ -1682,7 +1693,7 @@
             }
 
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@'s %ld Recruiting Class",[HBSharedUtils getLeague].userTeam.abbreviation, (long)(2016 + [HBSharedUtils getLeague].leagueHistory.count)] message:recruitSummary preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@'s %ld Recruiting Class",[HBSharedUtils getLeague].userTeam.abbreviation, (long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] message:recruitSummary preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [self.presentingViewController presentViewController:alert animated:YES completion:nil];
             });

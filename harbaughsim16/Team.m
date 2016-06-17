@@ -27,7 +27,22 @@
 #define HARD_MODE_DRAFT_BONUS 0.20
 
 @implementation Team
-@synthesize league, name, abbreviation,conference,rivalTeam,teamHistory,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers;
+@synthesize league, name, abbreviation,conference,rivalTeam,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamF7s,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers,teamHistoryDictionary;
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        if ((teamHistoryDictionary == nil || teamHistoryDictionary.count == 0) && (league.leagueHistoryDictionary.count > 0)) {
+            teamHistoryDictionary = [NSMutableDictionary dictionary];
+            if (teamHistory.count > 0) {
+                for (int i = 0; i < teamHistory.count; i++) {
+                    [teamHistoryDictionary setObject:teamHistory[i] forKey:[NSString stringWithFormat:@"%ld",(long)(2016 + i)]];
+                }
+            }
+        }
+    }
+    return self;
+}
 
 -(Player*)playerToWatch {
     NSMutableArray *topPlayers = [NSMutableArray array];
@@ -193,6 +208,7 @@
         isUserControlled = false;
         teamHistory = [NSMutableArray array];
         hallOfFamers = [NSMutableArray array];
+        teamHistoryDictionary = [NSMutableDictionary dictionary];
         
         teamQBs = [NSMutableArray array];
         teamRBs = [NSMutableArray array];
@@ -362,7 +378,7 @@
 
 -(void)advanceSeasonPlayers {
     int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, f7Needs=0;
-    int curYear = (int)league.leagueHistory.count + 2016;
+    int curYear = (int)league.leagueHistoryDictionary.count + 2016;
     if (playersLeaving.count == 0) {
         int i = 0;
         if (teamQBs.count > 0) {
@@ -1076,7 +1092,7 @@
         }
     }
 
-    [teamHistory addObject:hist];
+    [teamHistoryDictionary setObject:hist forKey:[NSString stringWithFormat:@"%ld",(long)(2016 + league.leagueHistoryDictionary.count)]];
 }
 
 -(void)updateStrengthOfWins {
