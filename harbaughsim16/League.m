@@ -1099,7 +1099,7 @@
         tt = _teamList[i];
         [yearTop10  addObject:[NSString stringWithFormat:@"%@ (%ld-%ld)",tt.abbreviation, (long)tt.wins, (long)tt.losses]];
     }
-    [_leagueHistoryDictionary setObject:yearTop10 forKey:[NSString stringWithFormat:@"%ld",(2016 + leagueHistory.count)]];
+    [_leagueHistoryDictionary setObject:yearTop10 forKey:[NSString stringWithFormat:@"%ld",(2016 + _leagueHistoryDictionary.count)]];
 }
 
 -(NSString*)randomBlessedTeamStory:(Team*)t {

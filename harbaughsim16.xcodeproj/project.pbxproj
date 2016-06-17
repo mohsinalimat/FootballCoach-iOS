@@ -727,13 +727,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75924A351C99CCC000B165AD /* Build configuration list for PBXNativeTarget "harbaughsim16" */;
 			buildPhases = (
-				62C171F5BBEA17298B4AEA0B /* 📦 Check Pods Manifest.lock */,
+				62C171F5BBEA17298B4AEA0B /* [CP] Check Pods Manifest.lock */,
 				75924A171C99CCC000B165AD /* Sources */,
 				75924A181C99CCC000B165AD /* Frameworks */,
 				75924A191C99CCC000B165AD /* Resources */,
 				75EE01B21CD1967500A6D4C0 /* ShellScript */,
-				D697AD2F27F8EAE2FAC35E4F /* 📦 Embed Pods Frameworks */,
-				D9A25D0C4A1917BD6DA56630 /* 📦 Copy Pods Resources */,
+				D697AD2F27F8EAE2FAC35E4F /* [CP] Embed Pods Frameworks */,
+				D9A25D0C4A1917BD6DA56630 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -845,14 +845,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		62C171F5BBEA17298B4AEA0B /* 📦 Check Pods Manifest.lock */ = {
+		62C171F5BBEA17298B4AEA0B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -873,14 +873,14 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" b78f856111e2a3bd5e7912b170e627a6117a818e 66e7db92bf1b6f2e94ad0e890361bd81d894a5f91194061aa816c2cb9dc00b1e";
 		};
-		D697AD2F27F8EAE2FAC35E4F /* 📦 Embed Pods Frameworks */ = {
+		D697AD2F27F8EAE2FAC35E4F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -888,14 +888,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D9A25D0C4A1917BD6DA56630 /* 📦 Copy Pods Resources */ = {
+		D9A25D0C4A1917BD6DA56630 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
