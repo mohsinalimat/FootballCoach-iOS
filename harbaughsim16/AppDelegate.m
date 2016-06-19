@@ -70,18 +70,14 @@
     
     BOOL noFirstLaunch = [[NSUserDefaults standardUserDefaults] boolForKey:kHBSimFirstLaunchKey];
     BOOL loadSavedData = [League loadSavedData];
-    if (!loadSavedData) {
+    if (!noFirstLaunch || !loadSavedData) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kHBSimFirstLaunchKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
         [[NSUserDefaults standardUserDefaults] synchronize];
         //display intro screen
-        if (!noFirstLaunch) {
-            //display walkthrough
-        } else {
-            [self performSelector:@selector(displayIntro) withObject:nil afterDelay:0.0];
-        }
+        [self performSelector:@selector(displayIntro) withObject:nil afterDelay:0.0];
     } else {
         //check if data file is corrupt, alert user
         if ([[HBSharedUtils getLeague] isSaveCorrupt]) {

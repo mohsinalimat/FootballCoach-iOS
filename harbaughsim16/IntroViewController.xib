@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -14,18 +14,6 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oWy-6d-c1z">
-                    <rect key="frame" x="33" y="353" width="348" height="49"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="49" id="lwn-wD-ufk"/>
-                    </constraints>
-                    <state key="normal" title="New Career">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="newDynasty" destination="-1" eventType="touchUpInside" id="JPO-PE-MHk"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football Coach" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsJ-UO-vIc">
                     <rect key="frame" x="20" y="276" width="374" height="47"/>
                     <constraints>
@@ -35,11 +23,31 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FCAFootball.png" translatesAutoresizingMaskIntoConstraints="NO" id="lwV-55-wVp">
+                    <rect key="frame" x="98" y="82" width="219" height="219"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="219" id="2a8-TF-e0L"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oWy-6d-c1z">
+                    <rect key="frame" x="33" y="373" width="348" height="49"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="lwn-wD-ufk"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                    <state key="normal" title="New Career">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="newDynasty" destination="-1" eventType="touchUpInside" id="JPO-PE-MHk"/>
+                    </connections>
+                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHo-ef-G5P">
-                    <rect key="frame" x="33" y="410" width="348" height="49"/>
+                    <rect key="frame" x="33" y="430" width="348" height="49"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="49" id="CZE-FM-qkH"/>
                     </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                     <state key="normal" title="How to Play">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -47,12 +55,6 @@
                         <action selector="pushTutorial:" destination="-1" eventType="touchUpInside" id="z1m-ne-eBZ"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FCAFootball.png" translatesAutoresizingMaskIntoConstraints="NO" id="lwV-55-wVp">
-                    <rect key="frame" x="98" y="82" width="219" height="219"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="219" id="2a8-TF-e0L"/>
-                    </constraints>
-                </imageView>
             </subviews>
             <color key="backgroundColor" red="0.23921568630000001" green="0.70196078429999997" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -61,12 +63,12 @@
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CQb-tn-4yP"/>
                 <constraint firstItem="lwV-55-wVp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="98" id="DfX-bn-hlR"/>
                 <constraint firstItem="oWy-6d-c1z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="33" id="Ggn-we-C6p"/>
-                <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="lwV-55-wVp" secondAttribute="bottom" constant="52" id="IPu-sx-hHs"/>
+                <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="lwV-55-wVp" secondAttribute="bottom" constant="72" id="IPu-sx-hHs"/>
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="oWy-6d-c1z" secondAttribute="centerX" id="XSe-bf-qFo"/>
                 <constraint firstItem="lwV-55-wVp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="82" id="e2m-7F-Xcx"/>
                 <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="lwV-55-wVp" secondAttribute="centerX" id="vYh-2Q-s3W"/>
                 <constraint firstItem="YHo-ef-G5P" firstAttribute="trailing" secondItem="oWy-6d-c1z" secondAttribute="trailing" id="va6-Tk-d2K"/>
-                <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="QsJ-UO-vIc" secondAttribute="bottom" constant="30" id="x97-VY-r9K"/>
+                <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="QsJ-UO-vIc" secondAttribute="bottom" constant="50" id="x97-VY-r9K"/>
                 <constraint firstItem="YHo-ef-G5P" firstAttribute="top" secondItem="oWy-6d-c1z" secondAttribute="bottom" constant="8" symbolic="YES" id="zjN-7E-JR7"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>

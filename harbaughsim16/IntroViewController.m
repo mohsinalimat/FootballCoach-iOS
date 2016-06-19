@@ -27,14 +27,12 @@ NSString *leaguePlayerNames = @"Tim, James, John, Robert, Michael, William, Davi
 }
 
 -(IBAction)pushTutorial:(id)sender {
-    SFSafariViewController *safVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/jonesguy14/footballcoach"]];
+    SFSafariViewController *safVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS/blob/master/README.md"]];
     [safVC setDelegate:self];
     [self presentViewController:safVC animated:YES completion:nil];
 }
 
 -(IBAction)newDynasty {
-    //push team selection on to stack
-    [self.navigationController setNavigationBarHidden:NO];
     [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:[League newLeagueFromCSV:leaguePlayerNames]] animated:YES];
 }
 

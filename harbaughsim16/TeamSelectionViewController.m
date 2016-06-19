@@ -12,8 +12,7 @@
 #import "HBSharedUtils.h"
 #import "AppDelegate.h"
 
-#import <Crashlytics/Crashlytics.h> // If using Answers with Crashlytics
-
+#import <Crashlytics/Crashlytics.h>
 
 @interface TeamSelectionViewController ()
 {
@@ -30,6 +29,16 @@
 @end
 
 @implementation TeamSelectionViewController
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[self navigationController] setNavigationBarHidden:YES animated:YES];
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+}
 
 -(instancetype)initWithLeague:(League*)selectedLeague {
     self = [super init];
@@ -71,17 +80,6 @@
                 [self dismissViewControllerAnimated:YES completion:nil];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
-            
-            
-            /*[league setUserTeam:userTeam];
-            [league setCanRebrandTeam:YES];
-            userTeam.isUserControlled = YES;
-            [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
-            [league save];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];*/
-
-            
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
@@ -114,6 +112,13 @@
     [self.tableView reloadData];
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
+    header.contentView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F7F7F7"];
+    [header.textLabel setFont:[UIFont boldSystemFontOfSize:17.0]];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 6;
 }
@@ -144,6 +149,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.accessoryType = UITableViewCellAccessoryNone;
+        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15.0]];
     }
     
     Team *team;
