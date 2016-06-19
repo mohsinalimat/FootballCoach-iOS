@@ -1,25 +1,21 @@
 # Football Coach for iOS
-An iOS Port of https://github.com/jonesguy14/footballcoach.
-
-[**Download now!**](https://itunes.apple.com/us/app/football-coach-recruit.-strategize./id1095701497?mt=8)
-
-_The original README (with updates for iOS) of FootballCoach is below._
-
-#Football Coach
 ![Football Coach](http://i.imgur.com/NBtg2lC.png)
 
-#**[Available now and for free on the Play Store!](https://play.google.com/store/apps/details?id=achijones.footballcoach)**
+**[Check out the Android version!](https://github.com/jonesguy14/footballcoach)**
+
+**[Available now and for free on the Google Play Store!](https://play.google.com/store/apps/details?id=achijones.footballcoach)**
+
+**[And on the App Store!](https://itunes.apple.com/us/app/football-coach-recruit.-strategize./id1095701497?mt=8)**
 
 To be clear, **Football Coach is a college football simulator/management game.** Though you yourself won't be controlling the QB via a joystick each play, you will be recruiting players, scouting other teams, setting strategies to help your team win, and simulating through the season week by week.
 
-###[Here are some screenshots!](http://imgur.com/a/dj5JH)
-
+**[Here are some screenshots!](http://imgur.com/a/xySv9)**
 
 ###Basics:
 In Football Coach, you take the role of a newly-hired coach at your college of choice. As coach, it will be your responsibility to manage your team's strategy, simulate through seasons, recruit new players, and above all, win championships.
 
 ###Playing a Season:
-Your team will play 12 games in the regular season, which consist of playing all 9 of your conference opponents once and three out-of-conference games. By navigating to the "GAMES" tab, you can see exactly what your team's schedule is. And by clicking on each game, you can see a scouting report of the two teams (if the game has yet to be played), or a summary of the game (if it was already played). The most important game of the regular season is your rivalry game, which you gain prestige if won or lose prestige if lost.
+Your team will play 12 games in the regular season, which consist of playing all 9 of your conference opponents once and three out-of-conference games. By navigating to the "Schedule" tab, you can see exactly what your team's schedule is. And by clicking on each game, you can see a scouting report of the two teams (if the game has yet to be played), or a summary of the game (if it was already played). The most important game of the regular season is your rivalry game, which you gain prestige if won or lose prestige if lost.
 
 At the end of the regular season, the Conference Championship is played between the two teams with the best in-conference record. If two teams have the same record, a head-to-head tiebreaker is used. If three or more teams have the same record, the one with the highest poll ranking is chosen. After the Conference Championships, Bowl Games are played. Only the top 16 teams get chosen for a bowl, with the most important being the National Semifinals between the #1 and #4 team, and the #2 and #3 team. The winner of these two games advance to the National Championship where an undisputed champion is crowned.
 
