@@ -1295,7 +1295,7 @@
             }
             
             recruitingBudget += totalCost;
-            p.year = -1;
+            p.year = 0;
             p.team = nil;
             p.cost += 50;
             
@@ -1487,6 +1487,7 @@
     if (recruitingBudget >= playerCost) {
         recruitingBudget -= playerCost;
         [playersRecruited addObject:player];
+        [player setYear:1];
         [player setTeam:[HBSharedUtils getLeague].userTeam];
 
         if ([players containsObject:player]) {
