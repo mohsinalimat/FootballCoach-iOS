@@ -88,8 +88,8 @@
         return UITableViewAutomaticDimension;
     } else {
         NSInteger lineCount = [self _lineCount:history[[NSString stringWithFormat:@"%ld", (long)(2016 + indexPath.row)]]];
-        if (lineCount >= 3) {
-            return 100;
+        if (lineCount > 2) {
+            return 100 + (10 * (lineCount - 2));
         } else if (lineCount == 2) {
             return 90;
         } else {
@@ -222,7 +222,7 @@
             [cell setBackgroundColor:[UIColor whiteColor]];
             [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            [cell.detailTextLabel setNumberOfLines:5];
+            [cell.detailTextLabel setNumberOfLines:7];
             [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
         }
         

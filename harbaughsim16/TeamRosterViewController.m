@@ -172,11 +172,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HBRosterCell *cell = (HBRosterCell*)[tableView dequeueReusableCellWithIdentifier:@"HBRosterCell" forIndexPath:indexPath];
-    if (_isPopup) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    } else {
-        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-    }
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     
     Player *player;
     if (indexPath.section == 0) {
@@ -225,34 +221,35 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    Player *player;
+    if (indexPath.section == 0) {
+        player = [selectedTeam getQB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 1) {
+        player = [selectedTeam getRB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 2) {
+        player = [selectedTeam getWR:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 3) {
+        player = [selectedTeam getOL:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 4) {
+        player = [selectedTeam getF7:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 5) {
+        player = [selectedTeam getCB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 6) {
+        player = [selectedTeam getS:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else {
+        player = [selectedTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];
+    }
+    
     if (!_isPopup) {
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        Player *player;
-        if (indexPath.section == 0) {
-            player = [selectedTeam getQB:[NSNumber numberWithInteger:indexPath.row].intValue];
-        } else if (indexPath.section == 1) {
-            player = [selectedTeam getRB:[NSNumber numberWithInteger:indexPath.row].intValue];
-        } else if (indexPath.section == 2) {
-            player = [selectedTeam getWR:[NSNumber numberWithInteger:indexPath.row].intValue];
-        } else if (indexPath.section == 3) {
-            player = [selectedTeam getOL:[NSNumber numberWithInteger:indexPath.row].intValue];
-        } else if (indexPath.section == 4) {
-            player = [selectedTeam getF7:[NSNumber numberWithInteger:indexPath.row].intValue];
-        } else if (indexPath.section == 5) {
-            player = [selectedTeam getCB:[NSNumber numberWithInteger:indexPath.row].intValue];
-        } else if (indexPath.section == 6) {
-            player = [selectedTeam getS:[NSNumber numberWithInteger:indexPath.row].intValue];
-        } else {
-            player = [selectedTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];
-        }
-        
-        //[self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:player] animated:YES];
-        
         popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerDetailViewController alloc] initWithPlayer:player]];
         [popupController.navigationBar setDraggable:YES];
         [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
         popupController.style = STPopupStyleBottomSheet;
         [popupController presentInViewController:self];
+    } else {
+        [self.popupController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:player] animated:YES];
     }
 }
 
