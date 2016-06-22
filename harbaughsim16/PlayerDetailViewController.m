@@ -167,7 +167,11 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 1) {
-        return stats.allKeys.count;
+        if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+           return careerStats.allKeys.count;
+        } else {
+            return stats.allKeys.count;
+        }
     } else if (section == 2) {
         return careerStats.allKeys.count;
     } else {
@@ -341,7 +345,7 @@
         if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
             if (indexPath.row == 0) {
                 [cell.detailTextLabel setText:careerStats[@"heismans"]];
-                [cell.textLabel setText:@"Heismans"];
+                [cell.textLabel setText:@"Player of the Year Awards"];
             } else if (indexPath.row == 1) {
                 [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
                 [cell.textLabel setText:@"All-League Nominations"];
@@ -639,7 +643,7 @@
     } else {
         if (indexPath.row == 0) {
             [cell.detailTextLabel setText:careerStats[@"heismans"]];
-            [cell.textLabel setText:@"Heismans"];
+            [cell.textLabel setText:@"Player of the Year Awards"];
         } else if (indexPath.row == 1) {
             [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
             [cell.textLabel setText:@"All-League Nominations"];

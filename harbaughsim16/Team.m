@@ -379,152 +379,13 @@
 -(void)advanceSeasonPlayers {
     int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, f7Needs=0;
     int curYear = (int)league.leagueHistoryDictionary.count + 2016;
-    if (playersLeaving.count == 0) {
-        int i = 0;
-        if (teamQBs.count > 0) {
-            while (i < teamQBs.count) {
-                if ([teamQBs[i] year] == 4)  {
-                    ////NSLog(@"Graduating player %@ from %@", [teamQBs[i] name], abbreviation);
-                    teamQBs[i].endYear = curYear;
-                    [teamQBs removeObjectAtIndex:i];
-                    qbNeeds++;
-                } else {
-                    [teamQBs[i] advanceSeason];
-                    i++;
-                }
-            }
-        } else {
-            qbNeeds = 2;
-        }
-
-        i = 0;
-        if (teamRBs.count > 0) {
-            while ( i < teamRBs.count ) {
-                if ([teamRBs[i] year] == 4)  {
-                    ////NSLog(@"Graduating player %@ from %@", [teamRBs[i] name], abbreviation);
-                    teamRBs[i].endYear = curYear;
-                    [teamRBs removeObjectAtIndex:i];
-                    rbNeeds++;
-                } else {
-                    [teamRBs[i] advanceSeason];
-                    i++;
-                }
-            }
-        } else {
-            rbNeeds = 4;
-        }
-
-        i = 0;
-        if (teamWRs.count > 0) {
-            while ( i < teamWRs.count ) {
-                if ([teamWRs[i] year] == 4)  {
-                    ////NSLog(@"Graduating player %@ from %@", [teamWRs[i] name], abbreviation);
-                    teamWRs[i].endYear = curYear;
-                    [teamWRs removeObjectAtIndex:i];
-                    wrNeeds++;
-                } else {
-                    [teamWRs[i] advanceSeason];
-                    i++;
-                }
-            }
-        } else {
-            wrNeeds = 5;
-        }
-
-        i = 0;
-        if (teamKs.count > 0) {
-            while ( i < teamKs.count ) {
-                if ([teamKs[i] year] == 4)  {
-                    ////NSLog(@"Graduating player %@ from %@", [teamKs[i] name], abbreviation);
-                    teamKs[i].endYear = curYear;
-                    [teamKs removeObjectAtIndex:i];
-                    kNeeds++;
-                } else {
-                    [teamKs[i] advanceSeason];
-                    i++;
-                }
-            }
-        } else {
-            kNeeds = 2;
-        }
-
-        i = 0;
-        if (teamOLs.count > 0) {
-            while ( i < teamOLs.count ) {
-                if ([teamOLs[i] year] == 4)  {
-                    ////NSLog(@"Graduating player %@ from %@", [teamOLs[i] name], abbreviation);
-                    teamOLs[i].endYear = curYear;
-                    [teamOLs removeObjectAtIndex:i];
-                    olNeeds++;
-                } else {
-                    [teamOLs[i] advanceSeason];
-                    i++;
-                }
-            }
-        } else {
-            olNeeds = 7;
-        }
-
-        i = 0;
-        if (teamSs.count > 0) {
-            while ( i < teamSs.count) {
-                if ([teamSs[i] year] == 4)  {
-                    ////NSLog(@"Graduating player %@ from %@", [teamSs[i] name], abbreviation);
-                    teamSs[i].endYear = curYear;
-                    [teamSs removeObjectAtIndex:i];
-                    sNeeds++;
-                } else {
-                    [teamSs[i] advanceSeason];
-                    i++;
-                }
-            }
-        } else {
-            sNeeds = 2;
-        }
-
-        i = 0;
-        if (teamCBs.count > 0) {
-            while ( i < teamCBs.count ) {
-                if ([teamCBs[i] year] == 4)  {
-                    ////NSLog(@"Graduating player %@ from %@", [teamCBs[i] name], abbreviation);
-                    teamCBs[i].endYear = curYear;
-                    [teamCBs removeObjectAtIndex:i];
-                    cbNeeds++;
-                } else {
-                    [teamCBs[i] advanceSeason];
-                    i++;
-                }
-            }
-        } else {
-            cbNeeds = 5;
-        }
-
-        i = 0;
-        if (teamF7s.count > 0) {
-            while ( i < teamF7s.count ) {
-                if ([teamF7s[i] year] == 4)  {
-                    ////NSLog(@"Graduating player %@ from %@", [teamF7s[i] name], abbreviation);
-                    teamF7s[i].endYear = curYear;
-                    [teamF7s removeObjectAtIndex:i];
-                    f7Needs++;
-                } else {
-                    [teamF7s[i] advanceSeason];
-                    i++;
-                }
-            }
-        } else {
-            f7Needs = 10;
-        }
-
-        if ( !isUserControlled ) {
-            [self recruitPlayersFreshman:@[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(f7Needs)]];
-            [self resetStats];
-        }
-    } else {
-        // Just remove the players that are in playersLeaving
-        ////NSLog(@"GRADUATING PLAYERS FROM PLAYERS LEAVING");
-        int i = 0;
-        
+    int i = 0;
+    
+    if (playersLeaving == nil || playersLeaving.count == 0) {
+        [self getGraduatingPlayers];
+    }
+    
+    if (playersLeaving.count > 0) {
         for (Player *p in playersLeaving) {
             p.endYear = curYear;
         }
@@ -538,7 +399,7 @@
                 i++;
             }
         }
-
+        
         i = 0;
         while (i < teamRBs.count) {
             if ([playersLeaving containsObject:teamRBs[i]]) {
@@ -549,7 +410,7 @@
                 i++;
             }
         }
-
+        
         i = 0;
         while (i < teamWRs.count) {
             if ([playersLeaving containsObject:teamWRs[i]]) {
@@ -560,7 +421,7 @@
                 i++;
             }
         }
-
+        
         i = 0;
         while (i < teamKs.count) {
             if ([playersLeaving containsObject:teamKs[i]]) {
@@ -571,7 +432,7 @@
                 i++;
             }
         }
-
+        
         i = 0;
         while (i < teamOLs.count) {
             if ([playersLeaving containsObject:teamOLs[i]]) {
@@ -582,7 +443,7 @@
                 i++;
             }
         }
-
+        
         i = 0;
         while (i < teamSs.count) {
             if ([playersLeaving containsObject:teamSs[i]]) {
@@ -593,7 +454,7 @@
                 i++;
             }
         }
-
+        
         i = 0;
         while (i < teamCBs.count) {
             if ([playersLeaving containsObject:teamCBs[i]]) {
@@ -604,7 +465,7 @@
                 i++;
             }
         }
-
+        
         i = 0;
         while (i < teamF7s.count) {
             if ([playersLeaving containsObject:teamF7s[i]]) {
@@ -615,14 +476,14 @@
                 i++;
             }
         }
-
-        [playersLeaving removeAllObjects];
-        [injuredPlayers removeAllObjects];
-        
-        if ( !isUserControlled ) {
-            [self recruitPlayersFreshman:@[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(f7Needs)]];
-            [self resetStats];
-        }
+    }
+ 
+    [playersLeaving removeAllObjects];
+    [injuredPlayers removeAllObjects];
+    
+    if ( !isUserControlled ) {
+        [self recruitPlayersFreshman:@[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(f7Needs)]];
+        [self resetStats];
     }
 }
 
@@ -640,7 +501,7 @@
 
 
     int stars = teamPrestige/20 + 1;
-    int chance = 20 - (teamPrestige - 20*( teamPrestige/20 )); //between 0 and 20
+    int chance = 20 - (teamPrestige - 20 * (teamPrestige / 20)); //between 0 and 20
 
     for( int i = 0; i < qbNeeds; ++i ) {
         //make QBs
@@ -1070,14 +931,14 @@
     if (gameSchedule.count > 12 && gameWLSchedule.count > 12) {
         if (![semifinalWL isEqualToString:@""] && semifinalWL.length > 0) {
             if ([semifinalWL isEqualToString:@"BW"] || [semifinalWL isEqualToString:@"BL"] || [semifinalWL containsString:@"SF"]) {
-                if (gameSchedule.count >= 13) {
+                if (gameSchedule.count > 12 && gameWLSchedule.count > 12) {
                     Game *bowl = gameSchedule[12];
                     if (bowl && ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"])) {
                         [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[12],[self gameSummaryString:bowl]];
                     }
                 }
 
-                if (gameSchedule.count >= 14) {
+                if (gameSchedule.count > 13 && gameWLSchedule.count > 13) {
                     Game *bowl = gameSchedule[13];
                     if (bowl && ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"])) {
                         [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[13],[self gameSummaryString:bowl]];

@@ -247,7 +247,7 @@
         [cell.detailTextLabel setText:turnoverDifferential];
 
     } else { //HBStatTypeAllTimeWins
-        int winPercent = (int)(100 * ((double)t.totalWins) / ((double)(t.totalWins + t.totalLosses)));
+        int winPercent = (int)ceil(100 * ((double)t.totalWins) / (double)(t.totalWins + t.totalLosses));
         [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d-%d (%d%%)",t.totalWins,t.totalLosses,winPercent]];
     }
 

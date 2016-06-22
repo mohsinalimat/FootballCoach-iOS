@@ -164,7 +164,7 @@
     self.title = @"Depth Chart";
     [self.tableView registerNib:[UINib nibWithNibName:@"HBRosterCell" bundle:nil] forCellReuseIdentifier:@"HBRosterCell"];
     userTeam = [HBSharedUtils getLeague].userTeam;
-    [userTeam sortPlayers];
+    //[userTeam sortPlayers];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Reorder" style:UIBarButtonItemStylePlain target:self action:@selector(manageEditing)];
@@ -202,7 +202,7 @@
 
 -(void)reloadRoster {
     userTeam = [HBSharedUtils getLeague].userTeam;
-    [userTeam sortPlayers];
+    //[userTeam sortPlayers];
     [self.tableView reloadData];
 }
 

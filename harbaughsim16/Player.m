@@ -11,20 +11,6 @@
 
 @implementation Player
 
-
--(id)init {
-    if (self = [super init]) {
-        NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 200;
-        NSInteger inches = (int)([HBSharedUtils randomValue] * 8);
-        self.personalDetails = @{
-                                 @"home_state" : [HBSharedUtils randomState],
-                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                 };
-    }
-    return self;
-}
-
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
@@ -44,18 +30,6 @@
             self.draftPosition = [aDecoder decodeObjectForKey:@"draftPosition"];
         } else {
             self.draftPosition = nil;
-        }
-        
-        if ([aDecoder containsValueForKey:@"personalDetails"]) {
-            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
-        } else {
-            NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 200;
-            NSInteger inches = (int)([HBSharedUtils randomValue] * 8);
-            self.personalDetails = @{
-                                     @"home_state" : [HBSharedUtils randomState],
-                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                     };
         }
         
         if ([aDecoder containsValueForKey:@"hasRedshirt"]) {
@@ -112,13 +86,6 @@
             self.careerAllAmericans = 0;
         }
         
-        if ([aDecoder containsValueForKey:@"startYear"]) {
-            self.startYear = [aDecoder decodeIntForKey:@"startYear"];
-        } else {
-            NSInteger curYear = self.team.league.leagueHistoryDictionary.count + 2016;
-            self.startYear = (int)(curYear - self.year - 1);
-        }
-        
         if ([aDecoder containsValueForKey:@"endYear"]) {
             self.endYear = [aDecoder decodeIntForKey:@"endYear"];
         } else {
@@ -138,6 +105,13 @@
             } else {
                 self.gamesPlayedSeason = 0;
             }
+        }
+        
+        if ([aDecoder containsValueForKey:@"startYear"]) {
+            self.startYear = [aDecoder decodeIntForKey:@"startYear"];
+        } else {
+            NSInteger curYear = self.team.league.leagueHistoryDictionary.count + 2016;
+            self.startYear = (int)(curYear - self.year - 1);
         }
         
     }
@@ -169,7 +143,6 @@
     [aCoder encodeInt:self.careerAllAmericans forKey:@"careerAllAmericans"];
     [aCoder encodeInt:self.startYear forKey:@"startYear"];
     [aCoder encodeInt:self.endYear forKey:@"endYear"];
-    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
 }
 
 - (NSComparisonResult)compare:(id)other

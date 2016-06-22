@@ -160,6 +160,12 @@
             _allDraftedPlayers = [decoder decodeObjectForKey:@"allDraftedPlayers"];
         }
         
+        if (![decoder containsValueForKey:@"allLeaguePlayers"]) {
+            _allLeaguePlayers = [NSMutableDictionary dictionary];
+        } else {
+            _allLeaguePlayers = [decoder decodeObjectForKey:@"allLeaguePlayers"];
+        }
+        
         if (![decoder containsValueForKey:@"isHardMode"]) {
             _isHardMode = NO;
         } else {
@@ -1796,9 +1802,7 @@
     
     NSArray *teamList = [HBSharedUtils getLeague].teamList;
     for (Team *t in teamList) {
-        if (!t.isUserControlled) {
-            [t getGraduatingPlayers];
-        }
+        [t getGraduatingPlayers];
         [players addObjectsFromArray:t.playersLeaving];
     }
     if (!_heisman) {

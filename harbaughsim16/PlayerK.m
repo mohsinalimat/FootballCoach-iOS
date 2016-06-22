@@ -13,6 +13,18 @@
 
 @implementation PlayerK
 
+-(id)init {
+    if (self = [super init]) {
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 190;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 2);
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
+    }
+    return self;
+}
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -49,6 +61,27 @@
         } else {
             _careerStatsFGMade = 0;
         }
+        
+        if ([aDecoder containsValueForKey:@"personalDetails"]) {
+            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+            if (self.personalDetails == nil) {
+                NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 190;
+                NSInteger inches = (int)([HBSharedUtils randomValue] * 2);
+                self.personalDetails = @{
+                                         @"home_state" : [HBSharedUtils randomState],
+                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                         };
+            }
+        } else {
+            NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 190;
+            NSInteger inches = (int)([HBSharedUtils randomValue] * 2);
+            self.personalDetails = @{
+                                     @"home_state" : [HBSharedUtils randomState],
+                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                     };
+        }
     }
     return self;
 }
@@ -69,6 +102,8 @@
     [aCoder encodeInt:_careerStatsFGAtt forKey:@"careerStatsFGAtt"];
     [aCoder encodeInt:_careerStatsXPMade forKey:@"careerStatsXPMade"];
     [aCoder encodeInt:_careerStatsXPAtt forKey:@"careerStatsXPAtt"];
+    
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
 }
 
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum dur:(int)dur {

@@ -444,29 +444,29 @@
         int appg, hppg, aoppg, hoppg, aypg, hypg, aoypg, hoypg, apypg, hpypg, aopypg, hopypg, aorypg, horypg, arypg, hrypg;
         
         if ([HBSharedUtils getLeague].currentWeek > 0) {
-            appg = (int)((double)_awayTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek)));
-            hppg = (int)((double)_homeTeam.teamPoints / ((double)([HBSharedUtils getLeague].currentWeek)));
+            appg = (int)ceil((double)_awayTeam.teamPoints / (double)([HBSharedUtils getLeague].currentWeek));
+            hppg = (int)ceil((double)_homeTeam.teamPoints / (double)([HBSharedUtils getLeague].currentWeek));
             
-            aoppg = (int)((double)_awayTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek)));
-            hoppg = (int)((double)_homeTeam.teamOppPoints / ((double)([HBSharedUtils getLeague].currentWeek)));
+            aoppg = (int)ceil((double)_awayTeam.teamOppPoints / (double)([HBSharedUtils getLeague].currentWeek));
+            hoppg = (int)ceil((double)_homeTeam.teamOppPoints / (double)([HBSharedUtils getLeague].currentWeek));
             
-            aypg = (int)((double)_awayTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek)));
-            hypg = (int)((double)_homeTeam.teamYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            aypg = (int)ceil((double)_awayTeam.teamYards / (double)([HBSharedUtils getLeague].currentWeek));
+            hypg = (int)ceil((double)_homeTeam.teamYards / (double)([HBSharedUtils getLeague].currentWeek));
             
-            aoypg = (int)((double)_awayTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek)));
-            hoypg = (int)((double)_homeTeam.teamOppYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            aoypg = (int)ceil((double)_awayTeam.teamOppYards / (double)([HBSharedUtils getLeague].currentWeek));
+            hoypg = (int)ceil((double)_homeTeam.teamOppYards / (double)([HBSharedUtils getLeague].currentWeek));
             
-            apypg = (int)((double)_awayTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek)));
-            hpypg = (int)((double)_homeTeam.teamPassYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            apypg = (int)ceil((double)_awayTeam.teamPassYards / (double)([HBSharedUtils getLeague].currentWeek));
+            hpypg = (int)ceil((double)_homeTeam.teamPassYards / (double)([HBSharedUtils getLeague].currentWeek));
             
-            arypg = (int)((double)_awayTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek)));
-            hrypg = (int)((double)_homeTeam.teamRushYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            arypg = (int)ceil((double)_awayTeam.teamRushYards / (double)([HBSharedUtils getLeague].currentWeek));
+            hrypg = (int)ceil((double)_homeTeam.teamRushYards / (double)([HBSharedUtils getLeague].currentWeek));
             
-            aopypg = (int)((double)_awayTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek)));
-            hopypg = (int)((double)_homeTeam.teamOppPassYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            aopypg = (int)ceil((double)_awayTeam.teamOppPassYards / (double)([HBSharedUtils getLeague].currentWeek));
+            hopypg = (int)ceil((double)_homeTeam.teamOppPassYards / (double)([HBSharedUtils getLeague].currentWeek));
             
-            aorypg = (int)((double)_awayTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek)));
-            horypg = (int)((double)_homeTeam.teamOppRushYards / ((double)([HBSharedUtils getLeague].currentWeek)));
+            aorypg = (int)ceil((double)_awayTeam.teamOppRushYards / (double)([HBSharedUtils getLeague].currentWeek));
+            horypg = (int)ceil((double)_homeTeam.teamOppRushYards / (double)([HBSharedUtils getLeague].currentWeek));
         } else {
             appg = 0;
             hppg = 0;

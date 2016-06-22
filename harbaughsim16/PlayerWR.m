@@ -13,6 +13,19 @@
 
 @implementation PlayerWR
 
+-(id)init {
+    if (self = [super init]) {
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 45) + 195;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 1;
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
+    }
+    return self;
+}
+
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -62,6 +75,27 @@
         } else {
             _careerStatsDrops = 0;
         }
+        
+        if ([aDecoder containsValueForKey:@"personalDetails"]) {
+            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+            if (self.personalDetails == nil) {
+                NSInteger weight = (int)([HBSharedUtils randomValue] * 45) + 195;
+                NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 1;
+                self.personalDetails = @{
+                                         @"home_state" : [HBSharedUtils randomState],
+                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                         };
+            }
+        } else {
+            NSInteger weight = (int)([HBSharedUtils randomValue] * 45) + 195;
+            NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 1;
+            self.personalDetails = @{
+                                     @"home_state" : [HBSharedUtils randomState],
+                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                     };
+        }
     }
     return self;
 }
@@ -86,6 +120,8 @@
     [aCoder encodeInt:_careerStatsTargets forKey:@"careerStatsTargets"];
     [aCoder encodeInt:_careerStatsFumbles forKey:@"careerStatsFumbles"];
     [aCoder encodeInt:_careerStatsDrops forKey:@"careerStatsDrops"];
+    
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
 }
 
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq catch:(int)cat speed:(int)spd eva:(int)eva dur:(int)dur {
@@ -223,13 +259,13 @@
     
     int ypc = 0;
     if (_statsReceptions > 0) {
-        ypc = (int)((double)_statsRecYards/(double)_statsReceptions);
+        ypc = (int)ceil((double)_statsRecYards/(double)_statsReceptions);
     }
     [stats setObject:[NSString stringWithFormat:@"%d yds/catch",ypc] forKey:@"yardsPerCatch"];
     
     int ypg = 0;
     if (games > 0) {
-        ypg = (int)((double)_statsRecYards/(double)games);
+        ypg = (int)ceil((double)_statsRecYards/(double)games);
     }
     [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"yardsPerGame"];
     

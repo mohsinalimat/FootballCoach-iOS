@@ -13,6 +13,19 @@
 
 @implementation PlayerQB
 
+-(id)init {
+    if (self = [super init]) {
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
+    }
+    return self;
+}
+
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -33,12 +46,34 @@
         _careerStatsInt = [aDecoder decodeIntForKey:@"careerStatsInt"];
         _careerStatsPassYards = [aDecoder decodeIntForKey:@"careerStatsPassYards"];
         _careerStatsSacked = [aDecoder decodeIntForKey:@"careerStatsSacked"];
+        
+        if ([aDecoder containsValueForKey:@"personalDetails"]) {
+            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+            if (self.personalDetails == nil) {
+                NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
+                NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;
+                self.personalDetails = @{
+                                         @"home_state" : [HBSharedUtils randomState],
+                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                         };
+            }
+        } else {
+            NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
+            NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;
+            self.personalDetails = @{
+                                     @"home_state" : [HBSharedUtils randomState],
+                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                     };
+        }
     }
     return self;
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
 
     [aCoder encodeInt:_ratPassPow forKey:@"ratPassPow"];
     [aCoder encodeInt:_ratPassAcc forKey:@"ratPassAcc"];
@@ -190,19 +225,19 @@
 
     int compPercent = 0;
     if (_statsPassAtt > 0) {
-        compPercent = (int)(100.0*((double)_statsPassComp/(double)_statsPassAtt));
+        compPercent = (int)ceil(100.0*((double)_statsPassComp/(double)_statsPassAtt));
     }
     [stats setObject:[NSString stringWithFormat:@"%d%%",compPercent] forKey:@"completionPercentage"];
 
     int ypa = 0;
     if (_statsPassAtt > 0) {
-        ypa = (int)((double)_statsPassYards/(double)_statsPassAtt);
+        ypa = (int)ceil((double)_statsPassYards/(double)_statsPassAtt);
     }
     [stats setObject:[NSString stringWithFormat:@"%d yards/att",ypa] forKey:@"yardsPerAttempt"];
 
     int ypg = 0;
     if (games > 0) {
-        ypg = (int)((double)_statsPassYards/(double)games);
+        ypg = (int)ceil((double)_statsPassYards/(double)games);
     }
     [stats setObject:[NSString stringWithFormat:@"%d yards/gm",ypg] forKey:@"yardsPerGame"];
 
@@ -222,19 +257,19 @@
 
     int compPercent = 0;
     if (_careerStatsPassAtt > 0) {
-        compPercent = (int)(100.0*((double)_careerStatsPassComp/(double)_careerStatsPassAtt));
+        compPercent = (int)ceil(100.0*((double)_careerStatsPassComp/(double)_careerStatsPassAtt));
     }
     [stats setObject:[NSString stringWithFormat:@"%d%%",compPercent] forKey:@"completionPercentage"];
 
     int ypa = 0;
     if (_careerStatsPassAtt > 0) {
-        ypa = (int)((double)_careerStatsPassYards/(double)_careerStatsPassAtt);
+        ypa = (int)ceil((double)_careerStatsPassYards/(double)_careerStatsPassAtt);
     }
     [stats setObject:[NSString stringWithFormat:@"%d yards/att",ypa] forKey:@"yardsPerAttempt"];
 
     int ypg = 0;
     if (self.gamesPlayed > 0) {
-        ypg = (int)((double)_careerStatsPassYards/(double)self.gamesPlayed);
+        ypg = (int)ceil((double)_careerStatsPassYards/(double)self.gamesPlayed);
     }
     [stats setObject:[NSString stringWithFormat:@"%d yards/gm",ypg] forKey:@"yardsPerGame"];
 

@@ -392,11 +392,8 @@
 }
 
 -(void)startRecruiting {
-    //in process of recruiting
-    //beginRecruiting();
-    ////NSLog(@"Recruiting");
-    [userTeam getGraduatingPlayers];
-    ////NSLog(@"PLAYERS LEAVING: %@", userTeam.playersLeaving);
+    //[userTeam getGraduatingPlayers];
+    //[[HBSharedUtils getLeague] completeProDraft];
     NSString *gradPlayersStr = [userTeam getGraduatingPlayersString];
     if (gradPlayersStr.length == 0) {
         gradPlayersStr = @"No players leaving this season.";
