@@ -16,6 +16,7 @@
 #import "TeamViewController.h"
 #import "HBScoreCell.h"
 #import "TeamStreak.h"
+#import "InjuryReportViewController.h"
 
 #import "PlayerQB.h"
 #import "PlayerRB.h"
@@ -44,6 +45,11 @@
         selectedGame = game;
     }
     return self;
+}
+
+
+-(BOOL)isHardMode {
+    return (selectedGame.homeTeam.league.isHardMode && selectedGame.awayTeam.league.isHardMode);
 }
 
 -(void)viewDidLoad {
@@ -135,13 +141,29 @@
             return @"Game Stats";
         }
     } else if (section == 2) {
-        if (!selectedGame.hasPlayed) {
-            return @"Scouting Report";
+        if (![self isHardMode]) {
+            if (!selectedGame.hasPlayed) {
+                return @"Scouting Report";
+            } else {
+                return @"Quarterbacks";
+            }
         } else {
-            return @"Quarterbacks";
+            if (!selectedGame.hasPlayed) {
+                return @"Injury Report";
+            } else {
+                return @"Quarterbacks";
+            }
         }
     } else if (section == 3) {
-        return @"Running Backs";
+        if (![self isHardMode]) {
+            if (!selectedGame.hasPlayed) {
+                return @"Scouting Report";
+            } else {
+                return @"Quarterbacks";
+            }
+        } else {
+            return @"Running Backs";
+        }
     } else if (section == 4) {
         return @"Wide Receivers";
     } else if (section == 5) {
@@ -248,7 +270,11 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (!selectedGame.hasPlayed) {
-        return 3;
+        if ([self isHardMode]) {
+            return 4;
+        } else {
+            return 3;
+        }
     } else {
         return 6;
     }
@@ -256,12 +282,22 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (!selectedGame.hasPlayed) {
-        if (section == 0) {
-            return 2;
-        } else if (section == 2) {
-            return stats.allKeys.count;
+        if ([self isHardMode]) {
+            if (section == 0) {
+                return 2;
+            } else if (section == 3) {
+                return stats.allKeys.count;
+            } else {
+                return 2;
+            }
         } else {
-            return 2;
+            if (section == 0) {
+                return 2;
+            } else if (section == 2) {
+                return stats.allKeys.count;
+            } else {
+                return 2;
+            }
         }
     } else {
         if (section == 0) {
@@ -302,7 +338,7 @@
                 [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.homeScore]];
             }
             return cell;
-        } else if (indexPath.section == 2) {
+        } else if ((indexPath.section == 3 && [self isHardMode]) || (indexPath.section == 2 && ![self isHardMode])) {
             HBStatsCell *statsCell = (HBStatsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBStatsCell"];
             NSArray *stat; //= stats.allValues[indexPath.row];
             NSString *title;// = stats.allKeys[indexPath.row];
@@ -341,7 +377,7 @@
             [statsCell.homeValueLabel setText:stat[1]];
             [statsCell.awayValueLabel setText:stat[0]];
             return statsCell;
-        } else {
+        } else if (indexPath.section == 1) {
             HBPlayerCell *statsCell = (HBPlayerCell*)[tableView dequeueReusableCellWithIdentifier:@"HBPlayerCell"];
             Player *plyr;
             if (indexPath.row == 0) {
@@ -423,6 +459,25 @@
             [statsCell.stat4ValueLabel setText:stat4Value];
             
             return statsCell;
+        } else {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InjuryCell"];
+            if (!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"InjuryCell"];
+                [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            
+            if (indexPath.row == 0) {
+                [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.awayTeam.abbreviation]];
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld players out",(long)selectedGame.awayTeam.injuredPlayers.count]];
+            } else {
+                [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.homeTeam.abbreviation]];
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld players out",(long)selectedGame.homeTeam.injuredPlayers.count]];
+            }
+            
+            return cell;
         }
     } else {
         if (indexPath.section == 0) {
@@ -704,24 +759,50 @@
             }
         }
     } else {
-        if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-                [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
-            } else if (indexPath.row == 1) {
-                [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
-            } else {
-                [self viewGameSummary];
+        if ([self isHardMode]) {
+            if (indexPath.section == 0) {
+                if (indexPath.row == 0) {
+                    [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                } else if (indexPath.row == 1) {
+                    [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                } else {
+                    [self viewGameSummary];
+                }
+            } else if (indexPath.section == 1) {
+                Player *plyr;
+                if (indexPath.row == 0) {
+                    plyr = [selectedGame.awayTeam playerToWatch];
+                } else {
+                    plyr = [selectedGame.homeTeam playerToWatch];
+                }
+                [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:plyr] animated:YES];
+            } else if (indexPath.section == 2) {
+                if (indexPath.row == 0) {
+                    [self.navigationController pushViewController:[[InjuryReportViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                } else {
+                    [self.navigationController pushViewController:[[InjuryReportViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                }
             }
-        } else if (indexPath.section == 1) {
-            Player *plyr;
-            if (indexPath.row == 0) {
-                plyr = [selectedGame.awayTeam playerToWatch];
-            } else {
-                plyr = [selectedGame.homeTeam playerToWatch];
+        } else {
+            if (indexPath.section == 0) {
+                if (indexPath.row == 0) {
+                    [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                } else if (indexPath.row == 1) {
+                    [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                } else {
+                    [self viewGameSummary];
+                }
+            } else if (indexPath.section == 1) {
+                Player *plyr;
+                if (indexPath.row == 0) {
+                    plyr = [selectedGame.awayTeam playerToWatch];
+                } else {
+                    plyr = [selectedGame.homeTeam playerToWatch];
+                }
+                [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:plyr] animated:YES];
             }
-            [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:plyr] animated:YES];
         }
     }
-    
 }
+
 @end

@@ -43,7 +43,13 @@
 }
 
 -(void)viewInjuryReport {
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[InjuryReportViewController alloc] initWithTeam:selectedTeam]] animated:YES completion:nil];
+    InjuryReportViewController *injuryVC = [[InjuryReportViewController alloc] initWithTeam:selectedTeam];
+    injuryVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:injuryVC] animated:YES completion:nil];
+}
+
+-(void)dismissVC {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {

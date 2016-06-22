@@ -273,7 +273,6 @@
             [self startRecruiting];
         } else {
             NSInteger numGamesPlayed = userTeam.gameWLSchedule.count;
-            NSInteger numInjuries = userTeam.injuredPlayers.count;
             [simLeague playWeek];
             [[HBSharedUtils getLeague] save];
             if (simLeague.currentWeek == 15) {
@@ -343,7 +342,14 @@
                     });
                 }
                 
-                if (userTeam.league.currentWeek != 15 && numInjuries < userTeam.injuredPlayers.count && userTeam.league.isHardMode) {
+            }
+            
+            if (simLeague.currentWeek < 12) {
+                [HBSharedUtils getLeague].canRebrandTeam = NO;
+                [self.navigationItem.leftBarButtonItem setEnabled:YES];
+                [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
+                
+                if ([[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON] && userTeam.league.currentWeek != 15 && userTeam.injuredPlayers.count > 0 && userTeam.league.isHardMode) {
                     NSString *injuryReport = [userTeam injuryReport];
                     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Injury Report", userTeam.abbreviation] message:injuryReport preferredStyle:UIAlertControllerStyleAlert];
                     [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
@@ -351,12 +357,7 @@
                         [self.tabBarController presentViewController:alertController animated:YES completion:nil];
                     });
                 }
-            }
-            
-            if (simLeague.currentWeek < 12) {
-                [HBSharedUtils getLeague].canRebrandTeam = NO;
-                [self.navigationItem.leftBarButtonItem setEnabled:YES];
-                [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
+                
             } else if (simLeague.currentWeek == 12) {
                 [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 13) {
