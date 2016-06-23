@@ -679,12 +679,12 @@
         _singleSeasonXpMadeRecord = nil;
         _singleSeasonFgMadeRecord = nil;
 
-        [_conferences addObject:[Conference newConferenceWithName:@"SOUTH" league:self]];
-        [_conferences addObject:[Conference newConferenceWithName:@"LAKES" league:self]];
-        [_conferences addObject:[Conference newConferenceWithName:@"NORTH" league:self]];
-        [_conferences addObject:[Conference newConferenceWithName:@"COWBY" league:self]];
-        [_conferences addObject:[Conference newConferenceWithName:@"PACIF" league:self]];
-        [_conferences addObject:[Conference newConferenceWithName:@"MOUNT" league:self]];
+        [_conferences addObject:[Conference newConferenceWithName:@"SOUTH" fullName:@"Southern" league:self]];
+        [_conferences addObject:[Conference newConferenceWithName:@"LAKES" fullName:@"Lakes" league:self]];
+        [_conferences addObject:[Conference newConferenceWithName:@"NORTH" fullName:@"North" league:self]];
+        [_conferences addObject:[Conference newConferenceWithName:@"COWBY" fullName:@"Cowboy" league:self]];
+        [_conferences addObject:[Conference newConferenceWithName:@"PACIF" fullName:@"Pacific" league:self]];
+        [_conferences addObject:[Conference newConferenceWithName:@"MOUNT" fullName:@"Mountain" league:self]];
 
         _newsStories = [NSMutableArray array];
         for (int i = 0; i < 16; i++) {

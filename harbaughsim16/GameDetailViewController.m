@@ -156,13 +156,13 @@
         }
     } else if (section == 3) {
         if (![self isHardMode]) {
+            return @"Running Backs";
+        } else {
             if (!selectedGame.hasPlayed) {
                 return @"Scouting Report";
             } else {
-                return @"Quarterbacks";
+                return @"Running Backs";
             }
-        } else {
-            return @"Running Backs";
         }
     } else if (section == 4) {
         return @"Wide Receivers";
@@ -177,66 +177,14 @@
             return @"National Semifinal - #2 vs #3";
         } else if ([selectedGame.gameName isEqualToString:@"In Conf"]) {
             return [NSString stringWithFormat:@"%@ Conference Play",selectedGame.homeTeam.conference];
-        } else if ([selectedGame.gameName isEqualToString:@"SOU vs PAC"]) {
-            return @"South vs Pacific";
-        } else if ([selectedGame.gameName isEqualToString:@"PAC vs SOU"]) {
-            return @"Pacific vs South";
-        } else if ([selectedGame.gameName isEqualToString:@"SOU vs LAK"]) {
-            return @"South vs Lakes";
-        } else if ([selectedGame.gameName isEqualToString:@"LAK vs SOU"]) {
-            return @"Lakes vs South";
-        } else if ([selectedGame.gameName isEqualToString:@"SOU vs MOU"]) {
-            return @"South vs Mountain";
-        } else if ([selectedGame.gameName isEqualToString:@"MOU vs SOU"]) {
-            return @"Mountain vs South";
-        } else if ([selectedGame.gameName isEqualToString:@"SOU vs NOR"]) {
-            return @"South vs North";
-        } else if ([selectedGame.gameName isEqualToString:@"NOR vs SOU"]) {
-            return @"North vs South";
-        } else if ([selectedGame.gameName isEqualToString:@"SOU vs COW"]) {
-            return @"South vs Cowboy";
-        } else if ([selectedGame.gameName isEqualToString:@"COW vs SOU"]) {
-            return @"Cowboy vs South";
-        } else if ([selectedGame.gameName isEqualToString:@"NOR vs PAC"]) {
-            return @"North vs Pacific";
-        } else if ([selectedGame.gameName isEqualToString:@"PAC vs NOR"]) {
-            return @"Pacific vs North";
-        } else if ([selectedGame.gameName isEqualToString:@"PAC vs LAK"]) {
-            return @"Pacific vs Lakes";
-        } else if ([selectedGame.gameName isEqualToString:@"LAK vs PAC"]) {
-            return @"Lakes vs Pacific";
-        } else if ([selectedGame.gameName isEqualToString:@"PAC vs MOU"]) {
-            return @"Pacific vs Mountain";
-        } else if ([selectedGame.gameName isEqualToString:@"MOU vs PAC"]) {
-            return @"Mountain vs Pacific";
-        } else if ([selectedGame.gameName isEqualToString:@"PAC vs COW"]) {
-            return @"Pacific vs Cowboy";
-        } else if ([selectedGame.gameName isEqualToString:@"COW vs PAC"]) {
-            return @"Cowboy vs Pacific";
-        } else if ([selectedGame.gameName isEqualToString:@"COW vs NOR"]) {
-            return @"Cowboy vs North";
-        } else if ([selectedGame.gameName isEqualToString:@"NOR vs COW"]) {
-            return @"North vs Cowboy";
-        } else if ([selectedGame.gameName isEqualToString:@"COW vs LAK"]) {
-            return @"Cowboy vs Lakes";
-        } else if ([selectedGame.gameName isEqualToString:@"LAK vs COW"]) {
-            return @"Lakes vs Cowboy";
-        } else if ([selectedGame.gameName isEqualToString:@"COW vs MOU"]) {
-            return @"Cowboy vs Mountain";
-        } else if ([selectedGame.gameName isEqualToString:@"MOU vs COW"]) {
-            return @"Mountain vs Cowboy";
-        } else if ([selectedGame.gameName isEqualToString:@"LAK vs NOR"]) {
-            return @"Lakes vs North";
-        } else if ([selectedGame.gameName isEqualToString:@"NOR vs LAK"]) {
-            return @"North vs Lakes";
-        } else if ([selectedGame.gameName isEqualToString:@"LAK vs MOU"]) {
-            return @"Lakes vs Mountain";
-        } else if ([selectedGame.gameName isEqualToString:@"MOU vs LAK"]) {
-            return @"Mountain vs Lakes";
-        } else if ([selectedGame.gameName isEqualToString:@"MOU vs NOR"]) {
-            return @"Mountain vs North";
-        } else if ([selectedGame.gameName isEqualToString:@"NOR vs MOU"]) {
-            return @"North vs Mountain";
+        } else if ([selectedGame.gameName containsString:@" vs "]) {
+            Conference *home = [[HBSharedUtils getLeague] findConference:selectedGame.homeTeam.conference];
+            Conference *away = [[HBSharedUtils getLeague] findConference:selectedGame.awayTeam.conference];
+            if (away != nil && home != nil) {
+                return [NSString stringWithFormat:@"%@ vs %@", away.confFullName, home.confFullName];
+            } else {
+                return selectedGame.gameName;
+            }
         } else {
             return selectedGame.gameName;
         }

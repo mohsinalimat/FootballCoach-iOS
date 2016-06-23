@@ -10,6 +10,7 @@
 #import "HBSettingsCell.h"
 #import "MyTeamViewController.h"
 #import "Team.h"
+#import "RebrandConferenceSelectorViewController.h"
 
 #import "HexColors.h"
 #import "FCFileManager.h"
@@ -17,7 +18,9 @@
 @import MessageUI;
 
 @interface SettingsViewController () <MFMailComposeViewControllerDelegate>
-
+{
+    STPopupController *popupController;
+}
 @end
 
 @implementation SettingsViewController
@@ -142,6 +145,11 @@
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBSettingsCell" bundle:nil] forCellReuseIdentifier:@"HBSettingsCell"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConfError) name:@"updatedConferenceError" object:nil];
+}
+
+-(void)handleConfError {
+    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:@"Unable to rebrand the selected conference.\nA conference with that name already exists." onViewController:self];
 }
 
 -(void)reloadAll {
@@ -169,6 +177,22 @@
     [footer.textLabel setFont:[UIFont systemFontOfSize:15.0]];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 2) {
+        return 50;
+    } else {
+        return 20;
+    }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 0;
+    } else {
+        return 36;
+    }
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return 50;
@@ -183,7 +207,7 @@
     } else if (section == 1) {
         return 9;
     } else {
-        return 3;
+        return 4;
     }
 }
 
@@ -256,14 +280,32 @@
                 [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
                 [cell setAccessoryType:UITableViewCellAccessoryNone];
                 [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+               
             }
             
             if (indexPath.row == 1) {
                 [cell.textLabel setText:@"Rebrand Team"];
-                [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+                if ([HBSharedUtils getLeague].canRebrandTeam) {
+                    [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                } else {
+                    [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    
+                }
+            } else if (indexPath.row == 2) {
+                [cell.textLabel setText:@"Rebrand Conferences"];
+                if ([HBSharedUtils getLeague].canRebrandTeam) {
+                    [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                } else {
+                    [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
             } else {
                 [cell.textLabel setText:@"Delete Save File"];
                 [cell.textLabel setTextColor:[HBSharedUtils errorColor]];
+                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
             }
             return cell;
         }
@@ -358,9 +400,7 @@
 
         }
     } else {
-        if (indexPath.row == 2) {
-            ////NSLog(@"Delete save File");
-            
+        if (indexPath.row == 3) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete your save file and start your career over?" message:@"This will take you back to the Team Selection screen." preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
@@ -378,15 +418,25 @@
             }]];
             [self presentViewController:alert animated:YES completion:nil];
             
-        } else {
-            
-            if (indexPath.row == 1) {
+        } else if (indexPath.row == 1) {
+            if ([HBSharedUtils getLeague].canRebrandTeam) {
                 [self changeTeamName];
+            }
+        } else if (indexPath.row == 2) {
+            if ([HBSharedUtils getLeague].canRebrandTeam) {
+                popupController = [[STPopupController alloc] initWithRootViewController:[[RebrandConferenceSelectorViewController alloc] init]];
+                [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+                [popupController.navigationBar setDraggable:YES];
+                popupController.style = STPopupStyleBottomSheet;
+                [popupController presentInViewController:self];
             }
         }
     }
 }
 
+-(void)backgroundViewDidTap {
+    [popupController dismiss];
+}
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     switch (result) {

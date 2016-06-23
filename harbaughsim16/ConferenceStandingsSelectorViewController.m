@@ -56,14 +56,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.backgroundColor = [UIColor whiteColor];
         [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
     }
     
     Conference *conf = conferences[indexPath.row];
-    [cell.textLabel setText:conf.confName];
+    [cell.textLabel setText:[conf confFullName]];
+    [cell.detailTextLabel setText:conf.confName];
     
     return cell;
 }

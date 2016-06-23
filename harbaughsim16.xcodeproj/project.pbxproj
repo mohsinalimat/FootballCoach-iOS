@@ -61,6 +61,7 @@
 		7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */; };
 		7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD431C9D0C7000E67080 /* GameDetailViewController.xib */; };
 		7571DD461C9D34B300E67080 /* RosterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD451C9D34B300E67080 /* RosterViewController.xib */; };
+		75772C2E1D1C079E002DE956 /* RebrandConferenceSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75772C2D1D1C079E002DE956 /* RebrandConferenceSelectorViewController.m */; };
 		7586330A1CC142B900E1E458 /* MockDraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758633091CC142B900E1E458 /* MockDraftViewController.m */; };
 		75880F8C1CAC949300AF2C1C /* LeagueRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75880F8B1CAC949300AF2C1C /* LeagueRecordsViewController.m */; };
 		75880F8F1CAC949F00AF2C1C /* TeamRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75880F8E1CAC949F00AF2C1C /* TeamRecordsViewController.m */; };
@@ -216,6 +217,8 @@
 		7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayerDetailViewController.xib; sourceTree = "<group>"; };
 		7571DD431C9D0C7000E67080 /* GameDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameDetailViewController.xib; sourceTree = "<group>"; };
 		7571DD451C9D34B300E67080 /* RosterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RosterViewController.xib; sourceTree = "<group>"; };
+		75772C2C1D1C079E002DE956 /* RebrandConferenceSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RebrandConferenceSelectorViewController.h; sourceTree = "<group>"; };
+		75772C2D1D1C079E002DE956 /* RebrandConferenceSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RebrandConferenceSelectorViewController.m; sourceTree = "<group>"; };
 		758633081CC142B900E1E458 /* MockDraftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MockDraftViewController.h; sourceTree = "<group>"; };
 		758633091CC142B900E1E458 /* MockDraftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MockDraftViewController.m; sourceTree = "<group>"; };
 		75880F8A1CAC949300AF2C1C /* LeagueRecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueRecordsViewController.h; sourceTree = "<group>"; };
@@ -457,6 +460,8 @@
 			children = (
 				7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */,
 				7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */,
+				75772C2C1D1C079E002DE956 /* RebrandConferenceSelectorViewController.h */,
+				75772C2D1D1C079E002DE956 /* RebrandConferenceSelectorViewController.m */,
 				751DF81D1CA17F81003C62F2 /* HBSettingsCell.h */,
 				751DF81E1CA17F81003C62F2 /* HBSettingsCell.m */,
 				751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */,
@@ -929,6 +934,7 @@
 				75924A581C99E62F00B165AD /* PlayerQB.m in Sources */,
 				75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */,
 				751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */,
+				75772C2E1D1C079E002DE956 /* RebrandConferenceSelectorViewController.m in Sources */,
 				754319021CC02D2200D380F1 /* ConferenceStandingsSelectorViewController.m in Sources */,
 				755BBC7B1C9F5F1A001A8314 /* TeamSearchViewController.m in Sources */,
 				75C321C71CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m in Sources */,

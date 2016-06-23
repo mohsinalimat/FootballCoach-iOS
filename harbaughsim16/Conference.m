@@ -37,12 +37,35 @@
         } else {
             _allConferencePlayers = [aDecoder decodeObjectForKey:@"allConferencePlayers"];
         }
+        
+        if (![aDecoder containsValueForKey:@"confFullName"]) {
+            if ([_confName isEqualToString:@"SOUTH"]) {
+                _confFullName = @"Southern";
+            } else if ([_confName isEqualToString:@"COWBY"]) {
+                _confFullName = @"Cowboy";
+            } else if ([_confName isEqualToString:@"NORTH"]) {
+                _confFullName = @"Northern";
+            } else if ([_confName isEqualToString:@"PACIF"]) {
+                _confFullName = @"Pacific";
+            } else if ([_confName isEqualToString:@"MOUNT"]) {
+                _confFullName = @"Mountain";
+            } else if ([_confName isEqualToString:@"LAKES"]) {
+                _confFullName = @"Lakes";
+            } else {
+                _confFullName = @"Unknown";
+            }
+        } else {
+            _confFullName = [aDecoder decodeObjectForKey:@"confFullName"];
+        }
+        
+        
     }
     return self;
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:_confName forKey:@"confName"];
+    [aCoder encodeObject:_confFullName forKey:@"confFullName"];
     [aCoder encodeInt:_confPrestige forKey:@"confPrestige"];
     [aCoder encodeObject:_confTeams forKey:@"confTeams"];
     [aCoder encodeObject:_league forKey:@"league"];
@@ -53,10 +76,11 @@
 
 }
 
-+(instancetype)newConferenceWithName:(NSString*)name league:(League*)league {
++(instancetype)newConferenceWithName:(NSString*)name fullName:(NSString*)fullName league:(League*)league {
     Conference *conf = [[Conference alloc] init];
     if (conf) {
         conf.confName = name;
+        conf.confFullName = fullName;
         conf.confPrestige = 75;
         conf.confTeams = [NSMutableArray array];
         conf.allConferencePlayers = [NSDictionary dictionary];
@@ -206,19 +230,14 @@
 -(void)setUpOOCSchedule {
     
     //schedule OOC games
-    int confNum = -1;
-    if ([@"SOUTH" isEqualToString:_confName]) {
-        confNum = 0;
-    } else if ([@"LAKES" isEqualToString:_confName]) {
-        confNum = 1;
-    } else if ([@"NORTH" isEqualToString:_confName]) {
-        confNum = 2;
-    }
+    NSInteger confNum = [_league.conferences indexOfObject:self];
+    if (confNum > 2)
+        confNum = -1;
     
     if ( confNum != -1 ) {
         for ( int offsetOOC = 3; offsetOOC < 6; ++offsetOOC ) {
             NSMutableArray<Team*> *availTeams = [NSMutableArray array];
-            int selConf = confNum + offsetOOC;
+            int selConf = (int)confNum + offsetOOC;
             if (selConf == 6) selConf = 3;
             if (selConf == 7) selConf = 4;
             if (selConf == 8) selConf = 5;
@@ -256,6 +275,10 @@
         }
     }
 
+}
+
+-(NSString *)confShortName {
+    return [_confName substringWithRange:NSMakeRange(0, 3)];
 }
 
 -(void)setUpSchedule {

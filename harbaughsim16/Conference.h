@@ -12,6 +12,7 @@
 
 @interface Conference : NSObject <NSCoding>
 @property (strong, nonatomic) NSString *confName;
+@property (strong, nonatomic) NSString *confFullName;
 @property (strong, nonatomic) NSDictionary *allConferencePlayers;
 @property (nonatomic) int confPrestige;
 @property (strong, nonatomic) NSMutableArray<Team*> *confTeams;
@@ -20,7 +21,8 @@
 @property (nonatomic) int week;
 @property (nonatomic) int robinWeek;
 
-+(instancetype)newConferenceWithName:(NSString*)name league:(League*)league;
++(instancetype)newConferenceWithName:(NSString*)name fullName:(NSString*)fullName league:(League*)league;
+-(NSString *)confShortName;
 -(Game*)ccgPrediction;
 -(void)sortConfTeams;
 -(void)playConfChamp;
