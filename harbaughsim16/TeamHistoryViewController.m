@@ -120,7 +120,7 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 1) {
-        return @"Color Key:\nGreen - Conference Champion\nTeal - Bowl Winner\nGold - National Champion";
+        return @"Color Key:\nGreen - Conference Champion\nOrange - Bowl Winner\nGold - National Champion";
     } else {
         return nil;
     }
