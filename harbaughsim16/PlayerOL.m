@@ -10,19 +10,6 @@
 
 @implementation PlayerOL
 
--(id)init {
-    if (self = [super init]) {
-        NSInteger weight = (int)([HBSharedUtils randomValue] * 100) + 290;
-        NSInteger inches = (int)([HBSharedUtils randomValue] * 2) + 6;
-        self.personalDetails = @{
-                                 @"home_state" : [HBSharedUtils randomState],
-                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                 };
-    }
-    return self;
-}
-
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -80,6 +67,15 @@
         _ratOLBkP = pass;
         
         self.cost = (int)(powf((float)self.ratOvr/6,2.0)) + (int)([HBSharedUtils randomValue]*100) - 50;
+        
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 100) + 290;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 2) + 6;
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
+        
         self.position = @"OL";
     }
     return self;
@@ -101,6 +97,14 @@
         self.ratOvr = (_ratOLPow*3 + _ratOLBkR + _ratOLBkP)/5;
         
         self.cost = (int)pow((float)self.ratOvr/6,2) + (int)([HBSharedUtils randomValue]*100) - 50;
+        
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 100) + 290;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 2) + 6;
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
 
         self.position = @"OL";
     }

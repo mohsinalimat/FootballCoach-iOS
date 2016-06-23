@@ -13,19 +13,6 @@
 
 @implementation PlayerRB
 
--(id)init {
-    if (self = [super init]) {
-        NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
-        NSInteger inches = (int)([HBSharedUtils randomValue] * 4);
-        self.personalDetails = @{
-                                 @"home_state" : [HBSharedUtils randomState],
-                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                 };
-    }
-    return self;
-}
-
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -103,6 +90,14 @@
         _ratRushSpd = spd;
         _ratRushEva = eva;
         
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 4);
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
+        
         self.cost = (int)(powf((float)self.ratOvr/4,2.0)) + (int)([HBSharedUtils randomValue]*100) - 50;
         
         _statsRushAtt = 0;
@@ -136,6 +131,14 @@
         self.ratOvr = (_ratRushPow + _ratRushSpd + _ratRushEva)/3;
         
         self.cost = (int)pow((float)self.ratOvr/4,2) + (int)([HBSharedUtils randomValue]*100) - 50;
+        
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 4);
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
         
         _statsRushAtt = 0;
         _statsRushYards = 0;

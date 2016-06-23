@@ -13,19 +13,6 @@
 
 @implementation PlayerQB
 
--(id)init {
-    if (self = [super init]) {
-        NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
-        NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;
-        self.personalDetails = @{
-                                 @"home_state" : [HBSharedUtils randomState],
-                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                 };
-    }
-    return self;
-}
-
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -110,6 +97,14 @@
         _ratPassEva = eva;
 
         self.cost = (int)(powf((float)self.ratOvr/3.5,2.0)) + (int)([HBSharedUtils randomValue]*100) - 50;
+        
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
 
         _careerStatsPassAtt = 0;
         _careerStatsPassComp = 0;
@@ -146,6 +141,14 @@
         self.ratOvr = (_ratPassPow*3 + _ratPassAcc*4 + _ratPassEva)/8;
 
         self.cost = (int)pow((float)self.ratOvr/3.5,2) + (int)([HBSharedUtils randomValue]*100) - 50;
+        
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
 
         _statsPassAtt = 0;
         _statsPassComp = 0;

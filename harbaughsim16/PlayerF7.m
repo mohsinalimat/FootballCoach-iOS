@@ -10,19 +10,6 @@
 
 @implementation PlayerF7
 
--(id)init {
-    if (self = [super init]) {
-        NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 225;
-        NSInteger inches = (int)([HBSharedUtils randomValue] * 3) + 2;
-        self.personalDetails = @{
-                                 @"home_state" : [HBSharedUtils randomState],
-                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                 };
-    }
-    return self;
-}
-
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
@@ -79,6 +66,16 @@
         _ratF7Pas = pass;
         
         self.cost = (int)(powf((float)self.ratOvr/6,2.0)) + (int)([HBSharedUtils randomValue]*100) - 50;
+        
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 225;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 3) + 2;
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
+
+        
         if (self.cost < 50) {
             self.cost = 50;
         }
@@ -104,6 +101,16 @@
         self.ratOvr = (_ratF7Pow*3 + _ratF7Rsh + _ratF7Pas)/5;
         
         self.cost = (int)pow((float)self.ratOvr/6,2) + (int)([HBSharedUtils randomValue]*100) - 50;
+        
+        NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 225;
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 3) + 2;
+        self.personalDetails = @{
+                                 @"home_state" : [HBSharedUtils randomState],
+                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                 };
+
+        
         if (self.cost < 50) {
             self.cost = 50;
         }
