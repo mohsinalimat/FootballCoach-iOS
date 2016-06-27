@@ -1,7 +1,7 @@
 PODS:
   - ATAppUpdater (1.7)
   - AutoCoding (2.2.1)
-  - Crashlytics (3.7.1):
+  - Crashlytics (3.7.2):
     - Fabric (~> 1.6.3)
   - CSNotificationView (0.5.4)
   - DZNEmptyDataSet (1.8)
@@ -24,7 +24,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   ATAppUpdater: 4dea317a34210ad4f26c316d2d97afc4ff5077f3
   AutoCoding: b47e528426c84346371dd532b8e6458929e4da34
-  Crashlytics: 3cdd4c9655be68032a0cf0379e0fb5ef6af22cad
+  Crashlytics: 130ab943f8c78cda7a814b434f270b2e2c8a3cba
   CSNotificationView: 0792f5220163c2befaf1a9716aa3d5a7d6bd4fb1
   DZNEmptyDataSet: d2351b2e8daefa40433ef292e246e21f6be31a7b
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
