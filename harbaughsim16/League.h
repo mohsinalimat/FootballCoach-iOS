@@ -160,4 +160,9 @@
 
 -(void)completeProDraft;
 -(void)updateHallOfFame;
+
+-(BOOL)isTeamNameValid:(NSString*)name;
+-(BOOL)isTeamAbbrValid:(NSString*)abbr;
+-(BOOL)isConfNameValid:(NSString*)name;
+-(BOOL)isConfAbbrValid:(NSString*)abbr;
 @end

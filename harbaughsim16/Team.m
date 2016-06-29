@@ -1916,7 +1916,10 @@
     if (numInjured < numStarters) {
         for (int i = 0; i < numStarters; i++) {
             Player *p = positionGroup[i];
-            if (![p isInjured] && [HBSharedUtils randomValue] < pow(1 - (double)p.ratDur/100, 2) && numInjured < numStarters) {
+            double injChance = pow(1 - (double)p.ratDur/100, 3);
+            if ([p.position isEqualToString:@"QB"] || [p.position isEqualToString:@"K"])
+                injChance = pow(1 - (double)p.ratDur/100, 4);
+            if (![p isInjured] && ([HBSharedUtils randomValue] < injChance || [HBSharedUtils randomValue] < 0.005) && numInjured < numStarters) {
                 p.injury = [Injury newInjury];
                 if (![injuredPlayers containsObject:p]) {
                     [injuredPlayers addObject:p];

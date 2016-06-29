@@ -90,15 +90,9 @@
     }];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        BOOL _existing = false;
-        for (Conference *conf in conferences) {
-            if ([conf.confName.lowercaseString isEqualToString:alertController.textFields[1].text.lowercaseString] || [alertController.textFields[0].text.lowercaseString isEqualToString:conf.confFullName.lowercaseString]) {
-                _existing = YES;
-                break;
-            }
-        }
+        BOOL _notBad = ([[HBSharedUtils getLeague] isConfAbbrValid:alertController.textFields[1].text] && [[HBSharedUtils getLeague] isConfNameValid:alertController.textFields[0].text]);
         
-        if (_existing) {
+        if (!_notBad) {
             NSLog(@"BAD");
             [self dismissViewControllerAnimated:YES completion:nil];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -125,6 +119,7 @@
     [self presentViewController:alertController animated:YES completion:nil];
     
 }
+
 
 - (void)textFieldDidChange:(UITextField*)sender
 {

@@ -446,8 +446,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToConfStandings:) name:@"pushToConfStandings" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runOnSaveInProgress) name:@"saveInProgress" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runOnSaveFinished) name:@"saveFinished" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alertToSanction) name:@"userTeamSanctioned" object:nil];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
+}
+
+-(void)alertToSanction {
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"Sanctioned!" message:@"Your team has been sanctioned by the league for this season. As a result, you have lost 30 prestige." preferredStyle:UIAlertControllerStyleAlert];
+    [controller addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self presentViewController:controller animated:YES completion:nil];
+    });
 }
 
 -(void)pushToConfTeam:(NSNotification*)confNotification {

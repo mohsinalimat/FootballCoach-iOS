@@ -175,7 +175,7 @@
         [_confTeams[i] updatePollScore];
     }
     
-    _confTeams = [[_confTeams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    /*_confTeams = [[_confTeams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Team *a = (Team*)obj1;
         Team *b = (Team*)obj2;
         if ([a.confChampion isEqualToString:@"CC"]) return -1;
@@ -194,7 +194,73 @@
                 return a.wins > b.wins ? -1 : a.wins == b.wins ? (a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1) : 1;
             }
         }
-    }] mutableCopy];
+    }] mutableCopy];*/
+    
+    [_confTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Team *a = (Team*)obj1;
+        Team *b = (Team*)obj2;
+        if ([a.confChampion isEqualToString:@"CC"]) return -1;
+        else if ([b.confChampion isEqualToString:@"CC"]) return 1;
+        else if ([a calculateConfWins] > [b calculateConfWins]) {
+            return -1;
+        } else if ([b calculateConfWins] > [a calculateConfWins]) {
+            return 1;
+        } else {
+            //check for h2h tiebreaker
+            if ([a.gameWinsAgainst containsObject:b]) {
+                return -1;
+            } else if ([b.gameWinsAgainst containsObject:a]) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }];
+    
+    int winsFirst = [_confTeams[0] calculateConfWins];
+    Team *t = _confTeams[0];
+    int i = 0;
+    NSMutableArray<Team*> *teamTB = [NSMutableArray array];
+    while ([t calculateConfWins] == winsFirst) {
+        [teamTB addObject:t];
+        ++i;
+        t = _confTeams[i];
+    }
+    if (teamTB.count > 2) {
+        // ugh 3 way tiebreaker
+        //Collections.sort(teamTB, new TeamCompPoll());
+        [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+        }];
+        for (int j = 0; j < teamTB.count; ++j) {
+            [_confTeams replaceObjectAtIndex:j withObject:teamTB[j]];
+        }
+        
+    }
+    
+    int winsSecond = [_confTeams[1] calculateConfWins];
+    t = _confTeams[1];
+    i = 0;
+    [teamTB removeAllObjects];
+    while ([t calculateConfWins] == winsSecond) {
+        [teamTB addObject:t];
+        ++i;
+        t = _confTeams[i];
+    }
+    if (teamTB.count > 2) {
+        // ugh 3 way tiebreaker
+        [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+        }];
+        for (int j = 0; j < teamTB.count; ++j) {
+            [_confTeams replaceObjectAtIndex:(j+1) withObject:teamTB[j]];
+        }
+        
+    }
 }
 
 -(Game*)ccgPrediction {
@@ -330,25 +396,33 @@
     [leadingQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman) return -1;
+        else if (b.isHeisman) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
     [leadingRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman) return -1;
+        else if (b.isHeisman) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
     [leadingWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman) return -1;
+        else if (b.isHeisman) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
     [leadingKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         PlayerK *a = (PlayerK*)obj1;
         PlayerK *b = (PlayerK*)obj2;
-        if (a.statsFGAtt > 0 && a.statsXPAtt > 0 && b.statsXPAtt > 0 && b.statsFGAtt) {
+        if (a.isHeisman) return -1;
+        else if (b.isHeisman) return 1;
+        else if (a.statsFGAtt > 0 && a.statsXPAtt > 0 && b.statsXPAtt > 0 && b.statsFGAtt) {
             return ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) > ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? -1 : ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) == ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? 0 : 1;
         } else {
             if (a.statsFGAtt < 0 || a.statsXPAtt < 0) {
@@ -399,6 +473,5 @@
                            };
     
 }
-
 
 @end

@@ -1223,6 +1223,9 @@
     if (_cursedTeam) {
         NSMutableArray *week0 = _newsStories[0];
         [week0 addObject:[self randomCursedTeamStory:_cursedTeam]];
+        if (_isHardMode && [_cursedTeam isEqual:_userTeam]) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"userTeamSanctioned" object:nil];
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
 
@@ -1735,25 +1738,33 @@
     [leadingQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman) return -1;
+        else if (b.isHeisman) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
     [leadingRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman) return -1;
+        else if (b.isHeisman) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
     [leadingWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman) return -1;
+        else if (b.isHeisman) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
     [leadingKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         PlayerK *a = (PlayerK*)obj1;
         PlayerK *b = (PlayerK*)obj2;
-        if (a.statsFGAtt > 0 && a.statsXPAtt > 0 && b.statsXPAtt > 0 && b.statsFGAtt) {
+        if (a.isHeisman) return -1;
+        else if (b.isHeisman) return 1;
+        else if (a.statsFGAtt > 0 && a.statsXPAtt > 0 && b.statsXPAtt > 0 && b.statsFGAtt) {
             return ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) > ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? -1 : ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) == ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? 0 : 1;
         } else {
             if (a.statsFGAtt < 0 || a.statsXPAtt < 0) {
@@ -2078,6 +2089,116 @@
             }];
         }
     }
+}
+
+-(BOOL)isTeamNameValid:(NSString*)name {
+    if (name.length == 0) {
+        return NO;
+    }
+    
+    //Create character set
+    NSCharacterSet *validChars = [NSCharacterSet lowercaseLetterCharacterSet];
+    
+    //Invert the set
+    validChars = [validChars invertedSet];
+    
+    //Check against that
+    NSRange  range = [name.lowercaseString rangeOfCharacterFromSet:validChars];
+    if (NSNotFound != range.location) {
+        return false;
+    }
+    
+    for (int i = 0; i < _teamList.count; i++) {
+        // compare using all lower case so no dumb duplicates
+        if ([_teamList[i].name.lowercaseString isEqualToString:name.lowercaseString] &&
+            !_teamList[i].isUserControlled) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+-(BOOL)isTeamAbbrValid:(NSString*)abbr {
+    if (abbr.length == 0 || abbr.length > 3) {
+        return NO;
+    }
+    
+    //Create character set
+    NSCharacterSet *validChars = [NSCharacterSet lowercaseLetterCharacterSet];
+    
+    //Invert the set
+    validChars = [validChars invertedSet];
+    
+    //Check against that
+    NSRange  range = [abbr.lowercaseString rangeOfCharacterFromSet:validChars];
+    if (NSNotFound != range.location) {
+        return false;
+    }
+    
+    for (int i = 0; i < _teamList.count; i++) {
+        // compare using all lower case so no dumb duplicates
+        if ([_teamList[i].abbreviation.lowercaseString isEqualToString:abbr.lowercaseString] &&
+            !_teamList[i].isUserControlled) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+-(BOOL)isConfNameValid:(NSString*)name {
+    if (name.length == 0) {
+        return NO;
+    }
+    
+    //Create character set
+    NSCharacterSet *validChars = [NSCharacterSet lowercaseLetterCharacterSet];
+    
+    //Invert the set
+    validChars = [validChars invertedSet];
+    
+    //Check against that
+    NSRange  range = [name.lowercaseString rangeOfCharacterFromSet:validChars];
+    if (NSNotFound != range.location) {
+        return false;
+    }
+    
+    for (int i = 0; i < _conferences.count; i++) {
+        // compare using all lower case so no dumb duplicates
+        if ([_conferences[i].confFullName.lowercaseString isEqualToString:name.lowercaseString]) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+-(BOOL)isConfAbbrValid:(NSString*)abbr {
+    if (abbr.length == 0 || abbr.length > 3) {
+        return NO;
+    }
+    
+    //Create character set
+    NSCharacterSet *validChars = [NSCharacterSet lowercaseLetterCharacterSet];
+    
+    //Invert the set
+    validChars = [validChars invertedSet];
+    
+    //Check against that
+    NSRange  range = [abbr.lowercaseString rangeOfCharacterFromSet:validChars];
+    if (NSNotFound != range.location) {
+        return false;
+    }
+    
+    for (int i = 0; i < _conferences.count; i++) {
+        // compare using all lower case so no dumb duplicates
+        if ([_conferences[i].confName.lowercaseString isEqualToString:abbr.lowercaseString]) {
+            return false;
+        }
+    }
+    
+    return true;
 }
 
 
