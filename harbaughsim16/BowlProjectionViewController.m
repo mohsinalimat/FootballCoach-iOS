@@ -85,31 +85,6 @@
     return 24;
 }
 
-/*
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    UILabel *myLabel = [[UILabel alloc] init];
-    CGFloat height = 18;
-    CGFloat y = 0;
-    if (section == 0)
-    {
-        height = 36;
-        y = 5;
-    }
-    
-    myLabel.frame = CGRectMake(18, y, [UIScreen mainScreen].bounds.size.width, height);
-    myLabel.font = [UIFont systemFontOfSize:15.0];
-    [myLabel setTextColor:[UIColor lightTextColor]];
-    myLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    myLabel.text = myLabel.text.uppercaseString;
-    UIView *headerView = [[UIView alloc] init];
-    [headerView addSubview:myLabel];
-    
-    return headerView;
-}
-
-*/
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return bowlPredictions.count;
 }
