@@ -129,9 +129,9 @@
     }
     UIAlertController *alertController = (UIAlertController *)resp;
     if ([sender.placeholder.lowercaseString isEqualToString:@"conference abbreviation"]) {
-        [((UIAlertAction *)alertController.actions[0]) setEnabled:(!([sender.text isEqualToString:@""] || sender.text.length < 3))];
+        [((UIAlertAction *)alertController.actions[0]) setEnabled:(!([sender.text isEqualToString:@""] || sender.text.length >= 3))];
     } else {
-        [((UIAlertAction *)alertController.actions[0]) setEnabled:(!([sender.text isEqualToString:@""] || sender.text.length == 3))];
+        [((UIAlertAction *)alertController.actions[0]) setEnabled:(!([sender.text isEqualToString:@""] || sender.text.length != 0))];
     }
     
     
