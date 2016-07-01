@@ -26,7 +26,9 @@
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self sortByHallow];
+    if (curLeague.hallOfFamers.count > 0) {
+        [self sortByHallow];
+    }
 }
 
 - (void)viewDidLoad {
@@ -39,7 +41,9 @@
     [self.tableView setEstimatedRowHeight:85];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(sortROH)]];
+    if (curLeague.hallOfFamers.count > 0) {
+        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(sortROH)]];
+    }
 }
 
 -(void)sortROH {
