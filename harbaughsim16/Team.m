@@ -1987,25 +1987,27 @@
 
 -(NSArray*)getGameSummaryStrings:(int)gameNumber {
     NSMutableArray *gs = [NSMutableArray array];
-    if (gameNumber > gameSchedule.count) {
+    if (gameNumber >= gameSchedule.count) {
         return @[@"? vs ?", @"T 0-0", @"#0 ??? (0-0)"];
     }
     
-    Game *g = gameSchedule[gameNumber];
-    gs[0] = g.gameName;
-    if (gameNumber < gameWLSchedule.count) {
-        gs[1] = [NSString stringWithFormat:@"%@ %@", gameWLSchedule[gameNumber], [self gameSummaryStringScore:g]];
-        if (g.numOT > 0){
-            if (g.numOT > 1) {
-                gs[1] = [gs[1] stringByAppendingFormat:@" (%dOT)",g.numOT];
-            } else {
-                gs[1] = [gs[1] stringByAppendingString:@" (OT)"];
+    if (gameNumber < gameSchedule.count) {
+        Game *g = gameSchedule[gameNumber];
+        gs[0] = g.gameName;
+        if (gameNumber < gameWLSchedule.count) {
+            gs[1] = [NSString stringWithFormat:@"%@ %@", gameWLSchedule[gameNumber], [self gameSummaryStringScore:g]];
+            if (g.numOT > 0){
+                if (g.numOT > 1) {
+                    gs[1] = [gs[1] stringByAppendingFormat:@" (%dOT)",g.numOT];
+                } else {
+                    gs[1] = [gs[1] stringByAppendingString:@" (OT)"];
+                }
             }
+        } else {
+            gs[1] = @"---";
         }
-    } else {
-        gs[1] = @"---";
+        gs[2] = [self gameSummaryStringOpponent:g];
     }
-    gs[2] = [self gameSummaryStringOpponent:g];
     return gs;
 }
 
