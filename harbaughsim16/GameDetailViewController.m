@@ -419,10 +419,18 @@
             
             if (indexPath.row == 0) {
                 [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.awayTeam.abbreviation]];
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld players out",(long)selectedGame.awayTeam.injuredPlayers.count]];
+                NSString *number = @"player";
+                if (selectedGame.awayTeam.injuredPlayers.count > 1) {
+                    number = @"players";
+                }
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld %@ out",(long)selectedGame.awayTeam.injuredPlayers.count,number]];
             } else {
+                NSString *number = @"player";
+                if (selectedGame.homeTeam.injuredPlayers.count > 1) {
+                    number = @"players";
+                }
                 [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.homeTeam.abbreviation]];
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld players out",(long)selectedGame.homeTeam.injuredPlayers.count]];
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld %@ out",(long)selectedGame.homeTeam.injuredPlayers.count,number]];
             }
             
             return cell;
