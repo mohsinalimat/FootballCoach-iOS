@@ -422,7 +422,17 @@
         PlayerK *b = (PlayerK*)obj2;
         if (a.isHeisman) return -1;
         else if (b.isHeisman) return 1;
-        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        else if (a.statsFGAtt > 0 && a.statsXPAtt > 0 && b.statsXPAtt > 0 && b.statsFGAtt) {
+            return ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) > ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? -1 : ((a.statsFGMade + a.statsXPMade)/(a.statsFGAtt + a.statsXPAtt)) == ((b.statsFGMade + b.statsXPMade)/(b.statsFGAtt + b.statsXPAtt)) ? 0 : 1;
+        } else {
+            if (a.statsFGAtt < 0 || a.statsXPAtt < 0) {
+                return 1;
+            } else if (b.statsFGAtt < 0 || b.statsXPAtt < 0) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
     }];
     
     PlayerQB *qb = leadingQBs[0];

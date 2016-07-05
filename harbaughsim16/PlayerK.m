@@ -217,10 +217,6 @@
     [super advanceSeason];
 }
 
--(int)getHeismanScore {
-    return (int)((_statsFGMade*5 + _statsXPMade)*((double)_statsFGMade/_statsFGAtt)) + self.ratOvr;
-}
-
 -(NSDictionary*)detailedStats:(int)games {
     NSMutableDictionary *stats = [NSMutableDictionary dictionary];
     [stats setObject:[NSString stringWithFormat:@"%d",_statsXPMade] forKey:@"xpMade"];
