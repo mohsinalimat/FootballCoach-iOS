@@ -962,7 +962,7 @@
 
 -(void)updateStrengthOfWins {
     int strWins = 0;
-    for ( int i = 0; i < 12; ++i ) {
+    for ( int i = 0; i < gameSchedule.count; ++i ) {
         Game *g = gameSchedule[i];
         if (g.homeTeam == self) {
             strWins += pow(60 - g.awayTeam.rankTeamPollScore,2);
