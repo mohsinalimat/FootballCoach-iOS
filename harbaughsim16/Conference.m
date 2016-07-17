@@ -219,16 +219,19 @@
     
     int winsFirst = [_confTeams[0] calculateConfWins];
     Team *t = _confTeams[0];
-    int i = 0;
+    NSInteger i = 0;
     NSMutableArray<Team*> *teamTB = [NSMutableArray array];
     while ([t calculateConfWins] == winsFirst) {
         [teamTB addObject:t];
         ++i;
-        t = _confTeams[i];
+        if (i < _confTeams.count) {
+            t = _confTeams[i];
+        } else {
+            break;
+        }
     }
     if (teamTB.count > 2) {
         // ugh 3 way tiebreaker
-        //Collections.sort(teamTB, new TeamCompPoll());
         [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
@@ -247,7 +250,11 @@
     while ([t calculateConfWins] == winsSecond) {
         [teamTB addObject:t];
         ++i;
-        t = _confTeams[i];
+        if (i < _confTeams.count) {
+            t = _confTeams[i];
+        } else {
+            break;
+        }
     }
     if (teamTB.count > 2) {
         // ugh 3 way tiebreaker
