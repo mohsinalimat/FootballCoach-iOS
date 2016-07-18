@@ -245,7 +245,7 @@
     
     int winsSecond = [_confTeams[1] calculateConfWins];
     t = _confTeams[1];
-    i = 0;
+    i = 1;
     [teamTB removeAllObjects];
     while ([t calculateConfWins] == winsSecond) {
         [teamTB addObject:t];
