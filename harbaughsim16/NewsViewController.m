@@ -203,7 +203,7 @@
         } else {
             float simTime = 0.5;
             if (IS_IPHONE_5 || IS_IPHONE_4_OR_LESS) {
-                simTime = 1.0;
+                simTime = 1.5;
             }
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(simTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
