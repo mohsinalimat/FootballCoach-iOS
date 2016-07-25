@@ -174,28 +174,7 @@
     for ( int i = 0; i < _confTeams.count; ++i ) {
         [_confTeams[i] updatePollScore];
     }
-    
-    /*_confTeams = [[_confTeams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Team *a = (Team*)obj1;
-        Team *b = (Team*)obj2;
-        if ([a.confChampion isEqualToString:@"CC"]) return -1;
-        else if ([b.confChampion isEqualToString:@"CC"]) return 1;
-        else if ([a calculateConfWins] > [b calculateConfWins]) {
-            return -1;
-        } else if ([b calculateConfWins] > [a calculateConfWins]) {
-            return 1;
-        } else {
-            //check for h2h tiebreaker
-            if ([a.gameWinsAgainst containsObject:b]) {
-                return -1;
-            } else if ([b.gameWinsAgainst containsObject:a]) {
-                return 1;
-            } else {
-                return a.wins > b.wins ? -1 : a.wins == b.wins ? (a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1) : 1;
-            }
-        }
-    }] mutableCopy];*/
-    
+
     [_confTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Team *a = (Team*)obj1;
         Team *b = (Team*)obj2;

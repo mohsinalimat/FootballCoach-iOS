@@ -25,6 +25,7 @@
 #import "Injury.h"
 
 #import "HBSharedUtils.h"
+#import "NSArray+Uniqueness.h"
 
 #import "FCFileManager.h"
 #import "AutoCoding.h"
@@ -552,6 +553,12 @@
 -(BOOL)isSaveCorrupt {
     for (Team *t in _teamList) {
         if (t.teamQBs.count < 2 || t.teamRBs.count < 4 || t.teamWRs.count < 6 || t.teamOLs.count < 10 || t.teamF7s.count < 14 || t.teamCBs.count < 6 || t.teamSs.count < 2 || t.teamKs.count < 2) {
+            return YES;
+        }
+    }
+    
+    for (Conference *c in _conferences) {
+        if (![c.confTeams allObjectsAreUnique]) {
             return YES;
         }
     }

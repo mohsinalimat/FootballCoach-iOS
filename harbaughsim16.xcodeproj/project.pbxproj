@@ -65,6 +65,7 @@
 		7586330A1CC142B900E1E458 /* MockDraftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 758633091CC142B900E1E458 /* MockDraftViewController.m */; };
 		75880F8C1CAC949300AF2C1C /* LeagueRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75880F8B1CAC949300AF2C1C /* LeagueRecordsViewController.m */; };
 		75880F8F1CAC949F00AF2C1C /* TeamRecordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75880F8E1CAC949F00AF2C1C /* TeamRecordsViewController.m */; };
+		7591FE411D465B940037ECFB /* NSArray+Uniqueness.m in Sources */ = {isa = PBXBuildFile; fileRef = 7591FE401D465B940037ECFB /* NSArray+Uniqueness.m */; };
 		75924A201C99CCC000B165AD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A1F1C99CCC000B165AD /* main.m */; };
 		75924A231C99CCC000B165AD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A221C99CCC000B165AD /* AppDelegate.m */; };
 		75924A261C99CCC000B165AD /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A251C99CCC000B165AD /* NewsViewController.m */; };
@@ -226,6 +227,8 @@
 		75880F8B1CAC949300AF2C1C /* LeagueRecordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueRecordsViewController.m; sourceTree = "<group>"; };
 		75880F8D1CAC949F00AF2C1C /* TeamRecordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamRecordsViewController.h; sourceTree = "<group>"; };
 		75880F8E1CAC949F00AF2C1C /* TeamRecordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamRecordsViewController.m; sourceTree = "<group>"; };
+		7591FE3F1D465B940037ECFB /* NSArray+Uniqueness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Uniqueness.h"; sourceTree = "<group>"; };
+		7591FE401D465B940037ECFB /* NSArray+Uniqueness.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Uniqueness.m"; sourceTree = "<group>"; };
 		75924A1B1C99CCC000B165AD /* harbaughsim16.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = harbaughsim16.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75924A1F1C99CCC000B165AD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75924A211C99CCC000B165AD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -680,6 +683,8 @@
 			children = (
 				75924A531C99D24500B165AD /* League.h */,
 				75924A541C99D24500B165AD /* League.m */,
+				7591FE3F1D465B940037ECFB /* NSArray+Uniqueness.h */,
+				7591FE401D465B940037ECFB /* NSArray+Uniqueness.m */,
 				75924A4D1C99D05E00B165AD /* Conference.h */,
 				75924A4E1C99D05E00B165AD /* Conference.m */,
 				75924A3B1C99CD8D00B165AD /* Team.h */,
@@ -966,6 +971,7 @@
 				7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */,
 				754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */,
 				75924A261C99CCC000B165AD /* NewsViewController.m in Sources */,
+				7591FE411D465B940037ECFB /* NSArray+Uniqueness.m in Sources */,
 				7571DD381C9CFD4000E67080 /* RosterViewController.m in Sources */,
 				754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */,
 				75924A551C99D24500B165AD /* League.m in Sources */,
