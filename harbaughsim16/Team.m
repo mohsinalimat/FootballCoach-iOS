@@ -1449,12 +1449,12 @@
     int compositeF7 = 0;
     if (teamF7s.count >= 7) {
         for ( int i = 0; i < 7; ++i ) {
-            compositeF7 += (teamF7s[i].ratF7Pow + teamF7s[i].ratF7Rsh)/2;
+            compositeF7 += (teamF7s[i].ratF7Pow + teamF7s[i].ratF7Pas)/2;
         }
         return compositeF7 / 7;
     } else {
         for ( int i = 0; i < teamF7s.count; ++i ) {
-            compositeF7 += (teamF7s[i].ratF7Pow + teamF7s[i].ratF7Rsh)/2;
+            compositeF7 += (teamF7s[i].ratF7Pow + teamF7s[i].ratF7Pas)/2;
         }
         return compositeF7 / teamF7s.count;
     }
