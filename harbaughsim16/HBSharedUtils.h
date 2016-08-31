@@ -16,6 +16,7 @@
 #define HB_RECRUITING_TUTORIAL_SHOWN @"kHBTutorialShownKey"
 #define HB_ROSTER_TUTORIAL_SHOWN_KEY @"kHBRosterTutorialShownKey"
 #define kHBSimFirstLaunchKey @"firstLaunch"
+#define HB_OFFSEASON_TUTORIAL_SHOWN_KEY @"kHBOffseasonTutorialShownKey"
 
 #define HB_APP_REVIEW_URL @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1095701497&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software"
 

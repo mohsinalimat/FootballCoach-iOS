@@ -163,13 +163,17 @@
     [super viewDidLoad];
     
     draftRounds = [[HBSharedUtils getLeague] allDraftedPlayers];
-    round1 = (draftRounds != nil && [draftRounds[0] count] > 0) ? draftRounds[0] : [NSMutableArray array];
-    round2 = (draftRounds != nil && [draftRounds[1] count] > 0) ? draftRounds[1] : [NSMutableArray array];
-    round3 = (draftRounds != nil && [draftRounds[2] count] > 0) ? draftRounds[2] : [NSMutableArray array];
-    round4 = (draftRounds != nil && [draftRounds[3] count] > 0) ? draftRounds[3] : [NSMutableArray array];
-    round5 = (draftRounds != nil && [draftRounds[4] count] > 0) ? draftRounds[4] : [NSMutableArray array];
-    round6 = (draftRounds != nil && [draftRounds[5] count] > 0) ? draftRounds[5] : [NSMutableArray array];
-    round7 = (draftRounds != nil && [draftRounds[6] count] > 0) ? draftRounds[6] : [NSMutableArray array];
+    if (draftRounds != nil && draftRounds.count == 7) {
+        round1 = (draftRounds != nil && [draftRounds[0] count] > 0) ? draftRounds[0] : [NSMutableArray array];
+        round2 = (draftRounds != nil && [draftRounds[1] count] > 0) ? draftRounds[1] : [NSMutableArray array];
+        round3 = (draftRounds != nil && [draftRounds[2] count] > 0) ? draftRounds[2] : [NSMutableArray array];
+        round4 = (draftRounds != nil && [draftRounds[3] count] > 0) ? draftRounds[3] : [NSMutableArray array];
+        round5 = (draftRounds != nil && [draftRounds[4] count] > 0) ? draftRounds[4] : [NSMutableArray array];
+        round6 = (draftRounds != nil && [draftRounds[5] count] > 0) ? draftRounds[5] : [NSMutableArray array];
+        round7 = (draftRounds != nil && [draftRounds[6] count] > 0) ? draftRounds[6] : [NSMutableArray array];
+    } else {
+        draftRounds = [NSArray arrayWithObjects:[NSMutableArray array],[NSMutableArray array],[NSMutableArray array],[NSMutableArray array],[NSMutableArray array],[NSMutableArray array],[NSMutableArray array], nil];
+    }
     
     if (!heisman) {
         NSArray *candidates = [[HBSharedUtils getLeague] calculateHeismanCandidates];

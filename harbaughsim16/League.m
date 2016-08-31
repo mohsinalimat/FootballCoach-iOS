@@ -1230,9 +1230,6 @@
     if (_cursedTeam) {
         NSMutableArray *week0 = _newsStories[0];
         [week0 addObject:[self randomCursedTeamStory:_cursedTeam]];
-        if (_isHardMode && [_cursedTeam isEqual:_userTeam]) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"userTeamSanctioned" object:nil];
-        }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
 
