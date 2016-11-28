@@ -24,7 +24,6 @@
 #import "CSNotificationView.h"
 #import "HexColors.h"
 #import "STPopup.h"
-#import "harbaughsim16-Bridging-Header.h"
 #import "UIScrollView+EmptyDataSet.h"
 
 @interface HBTeamPlayView : UIView

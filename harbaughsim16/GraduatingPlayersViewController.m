@@ -9,7 +9,6 @@
 #import "GraduatingPlayersViewController.h"
 
 #import "PlayerDetailViewController.h"
-#import "HBRosterCell.h"
 #import "Team.h"
 #import "Player.h"
 
@@ -17,7 +16,7 @@
 
 @interface GraduatingPlayersViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
-    NSArray *grads;
+    NSMutableArray *grads;
 }
 @end
 
@@ -28,9 +27,14 @@
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     grads = [[[HBSharedUtils getLeague] userTeam] playersLeaving];
+    [grads sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        return (a.ratOvr > b.ratOvr ? -1 : a.ratOvr == b.ratOvr ? ([a.name compare:b.name]) : 1);
+    }];
+    
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     self.title = @"Players Leaving";
-    [self.tableView registerNib:[UINib nibWithNibName:@"HBRosterCell" bundle:nil] forCellReuseIdentifier:@"HBRosterCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -125,28 +129,38 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HBRosterCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HBRosterCell"];
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
+        cell.backgroundColor = [UIColor whiteColor];
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+        [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+        
+    }
     Player *player = grads[indexPath.row];
-    [cell.nameLabel setText:[player getInitialName]];
-    [cell.yrLabel setText:[player getYearString]];
-    [cell.ovrLabel setText:[NSString stringWithFormat:@"%d", player.ratOvr]];
+    UIColor *nameColor;
+    
     if (player.hasRedshirt) {
-        [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+        nameColor = [UIColor lightGrayColor];
     } else if (player.isHeisman) {
-        [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
+        nameColor = [HBSharedUtils champColor];
     } else if (player.isAllAmerican) {
-        [cell.nameLabel setTextColor:[UIColor orangeColor]];
+        nameColor = [UIColor orangeColor];
     } else if (player.isAllConference) {
-        [cell.nameLabel setTextColor:[HBSharedUtils successColor]];
+        nameColor = [HBSharedUtils successColor];
     } else {
-        [cell.nameLabel setTextColor:[UIColor blackColor]];
+        nameColor = [UIColor blackColor];
     }
     
-    if ([player isInjured]) {
-        [cell.medImageView setHidden:NO];
-    } else {
-        [cell.medImageView setHidden:YES];
-    }
+    NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",player.position,player.name] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightRegular]}];
+    [attText addAttribute:NSForegroundColorAttributeName value:nameColor range:[attText.string rangeOfString:player.name]];
+    [attText addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:[attText.string rangeOfString:player.position]];
+    [cell.textLabel setAttributedText:attText];
+    [cell.detailTextLabel setText:[NSString stringWithFormat:@"Ovr: %lu", (long)(player.ratOvr)]];
     return cell;
 
 }
