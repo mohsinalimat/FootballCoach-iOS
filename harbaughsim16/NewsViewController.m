@@ -396,7 +396,7 @@
 
 -(void)startRecruiting {
 
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu %@ Offseason", ([HBSharedUtils getLeague].leagueHistoryDictionary.count + 2016), userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld %@ Offseason", (long)([HBSharedUtils getLeague].leagueHistoryDictionary.count + 2016), userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Players Leaving" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController pushViewController:[[GraduatingPlayersViewController alloc] init] animated:YES];
     }]];
