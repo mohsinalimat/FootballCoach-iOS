@@ -2165,7 +2165,7 @@
 }
 
 -(BOOL)isConfAbbrValid:(NSString*)abbr {
-    if (abbr.length == 0 || abbr.length > 4) {
+    if (abbr.length == 0 || abbr.length > 5) {
         return NO;
     }
     
