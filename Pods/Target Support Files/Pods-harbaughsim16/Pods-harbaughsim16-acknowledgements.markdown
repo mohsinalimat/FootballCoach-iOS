@@ -30,7 +30,7 @@ SOFTWARE.
 
 AutoCoding
 
-Version 2.2.1, November 13th, 2014
+Version 2.2.2, June 21st, 2016
 
 Copyright (C) 2011 Charcoal Design
 
@@ -96,7 +96,7 @@ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Fabio Cacccamo - fabio.caccamo@gmail.com
+Copyright (c) 2015 Fabio Caccamo - fabio.caccamo@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -119,7 +119,7 @@ THE SOFTWARE.
 
 ## Fabric
 
-Fabric: Copyright 2015 Twitter, Inc. All Rights Reserved. Use of this software is subject to the terms and conditions of the Fabric Software and Services Agreement located at https://fabric.io/terms. OSS: http://get.fabric.io/terms/opensource.txt
+Fabric: Copyright 2016 Twitter, Inc. All Rights Reserved. Use of this software is subject to the terms and conditions of the Fabric Software and Services Agreement located at https://fabric.io/terms. OSS: http://get.fabric.io/terms/opensource.txt
 
 ## HexColors
 

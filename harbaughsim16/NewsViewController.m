@@ -19,6 +19,7 @@
 #import "ConferenceStandingsSelectorViewController.h"
 #import "ConferenceStandingsViewController.h"
 #import "MockDraftViewController.h"
+#import "GraduatingPlayersViewController.h"
 
 #import "CSNotificationView.h"
 #import "HexColors.h"
@@ -394,13 +395,12 @@
 }
 
 -(void)startRecruiting {
-    //[userTeam getGraduatingPlayers];
-    //[[HBSharedUtils getLeague] completeProDraft];
-    NSString *gradPlayersStr = [userTeam getGraduatingPlayersString];
-    if (gradPlayersStr.length == 0) {
-        gradPlayersStr = @"No players leaving this season.";
-    }
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Players Leaving", userTeam.abbreviation] message:gradPlayersStr preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu %@ Offseason", ([HBSharedUtils getLeague].leagueHistoryDictionary.count + 2016), userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"View Players Leaving" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.navigationController pushViewController:[[GraduatingPlayersViewController alloc] init] animated:YES];
+    }]];
+    
     [alertController addAction:[UIAlertAction actionWithTitle:@"Start Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_OFFSEASON_TUTORIAL_SHOWN_KEY];
         if (!tutorialShown) {
