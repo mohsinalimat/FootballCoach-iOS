@@ -2091,13 +2091,11 @@
     }
     
     //Create character set
-    NSCharacterSet *validChars = [NSCharacterSet lowercaseLetterCharacterSet];
-    
-    //Invert the set
-    validChars = [validChars invertedSet];
+    NSMutableCharacterSet *validChars = [NSMutableCharacterSet lowercaseLetterCharacterSet];
+    [validChars addCharactersInString:@"&."];
     
     //Check against that
-    NSRange  range = [name.lowercaseString rangeOfCharacterFromSet:validChars];
+    NSRange  range = [name.lowercaseString rangeOfCharacterFromSet:[validChars invertedSet]];
     if (NSNotFound != range.location) {
         return false;
     }
@@ -2114,7 +2112,7 @@
 }
 
 -(BOOL)isTeamAbbrValid:(NSString*)abbr {
-    if (abbr.length == 0 || abbr.length > 3) {
+    if (abbr.length == 0 || abbr.length > 4) {
         return NO;
     }
     
@@ -2147,13 +2145,11 @@
     }
     
     //Create character set
-    NSCharacterSet *validChars = [NSCharacterSet lowercaseLetterCharacterSet];
-    
-    //Invert the set
-    validChars = [validChars invertedSet];
+    NSMutableCharacterSet *validChars = [NSMutableCharacterSet alphanumericCharacterSet];
+    [validChars addCharactersInString:@" "];
     
     //Check against that
-    NSRange  range = [name.lowercaseString rangeOfCharacterFromSet:validChars];
+    NSRange  range = [name.lowercaseString rangeOfCharacterFromSet:[validChars invertedSet]];
     if (NSNotFound != range.location) {
         return false;
     }
@@ -2169,12 +2165,12 @@
 }
 
 -(BOOL)isConfAbbrValid:(NSString*)abbr {
-    if (abbr.length == 0 || abbr.length > 3) {
+    if (abbr.length == 0 || abbr.length > 4) {
         return NO;
     }
     
     //Create character set
-    NSCharacterSet *validChars = [NSCharacterSet lowercaseLetterCharacterSet];
+    NSCharacterSet *validChars = [NSCharacterSet alphanumericCharacterSet];
     
     //Invert the set
     validChars = [validChars invertedSet];
