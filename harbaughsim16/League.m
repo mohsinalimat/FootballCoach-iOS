@@ -1541,7 +1541,7 @@
 }
 
 -(Conference*)findConference:(NSString*)name {
-    for (int i = 0; i < _teamList.count; i++){
+    for (int i = 0; i < _conferences.count; i++){
         if ([_conferences[i].confName isEqualToString:name]) {
             return _conferences[i];
         }

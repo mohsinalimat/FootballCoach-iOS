@@ -119,8 +119,8 @@
                 } else {
                     //generate
                     //nslog(@"SAVED START YEAR IS 2016, CHECK IF IT SHOULD BE");
-                    NSInteger curYear = self.team.league.leagueHistoryDictionary.count + 2016;
-                    int checker = (int)(curYear - self.year + 1);
+                    NSInteger curYear = self.team.league.leagueHistoryDictionary.count;
+                    int checker = (int)(curYear - self.year + 1) + 2016;
                     //nslog(@"SAVED START YEAR SHOULD BE %ld",(long)checker);
                     if (checker != tstStart) {
                         //nslog(@"SAVED IS NOT EQUAL TO ACTUAL");
@@ -137,8 +137,8 @@
                     self.startYear = (self.endYear - self.year + 1);
                 } else {
                     //generate
-                    NSInteger curYear = self.team.league.leagueHistoryDictionary.count + 2016;
-                    self.startYear = (int)(curYear - self.year + 1);
+                    NSInteger curYear = self.team.league.leagueHistoryDictionary.count;
+                    self.startYear = (int)(curYear - self.year + 1) + 2016;
                 }
             }
         } else {
@@ -147,8 +147,8 @@
                 self.startYear = (self.endYear - self.year + 1);
             } else {
                 //generate
-                NSInteger curYear = self.team.league.leagueHistoryDictionary.count + 2016;
-                self.startYear = (int)(curYear - self.year + 1);
+                NSInteger curYear = self.team.league.leagueHistoryDictionary.count;
+                self.startYear = (int)(curYear - self.year + 1) + 2016;
             }
         }
         
