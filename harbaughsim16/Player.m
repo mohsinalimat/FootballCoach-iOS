@@ -108,38 +108,13 @@
         }
         
         if ([aDecoder containsValueForKey:@"startYear"]) {
-            int tstStart = [aDecoder decodeIntForKey:@"startYear"];
-            if (tstStart > 2016) {
-                //nslog(@"SAVED START YEAR IS GREATER THAN 2016, DO NOTHING");
-                self.startYear = tstStart;
-            } else if (tstStart == 2016) {
-                if (_draftPosition != nil || self.endYear > 0) {
-                    //retiree - subtract years from end year
-                    self.startYear = (self.endYear - self.year + 1);
-                } else {
-                    //generate
-                    //nslog(@"SAVED START YEAR IS 2016, CHECK IF IT SHOULD BE");
-                    NSInteger curYear = self.team.league.leagueHistoryDictionary.count;
-                    int checker = (int)(curYear - self.year + 1) + 2016;
-                    //nslog(@"SAVED START YEAR SHOULD BE %ld",(long)checker);
-                    if (checker != tstStart) {
-                        //nslog(@"SAVED IS NOT EQUAL TO ACTUAL");
-                        self.startYear = checker;
-                        //[[NSNotificationCenter defaultCenter] postNotificationName:@"emergencySave" object:nil];
-                    } else {
-                        //nslog(@"SAVED IS CORRECT, USE IT");
-                        self.startYear = tstStart;
-                    }
-                }
+            int tstStartYr = [aDecoder decodeIntForKey:@"startYear"];
+            if (tstStartYr < 0) {
+                self.startYear = self.endYear - (abs(tstStartYr));
+            } else if (self.endYear != 0 && abs(tstStartYr - self.endYear) > 4) {
+                self.startYear = self.endYear - 4;
             } else {
-                if (_draftPosition != nil || self.endYear > 0) {
-                    //retiree - subtract years from end year
-                    self.startYear = (self.endYear - self.year + 1);
-                } else {
-                    //generate
-                    NSInteger curYear = self.team.league.leagueHistoryDictionary.count;
-                    self.startYear = (int)(curYear - self.year + 1) + 2016;
-                }
+                self.startYear = [aDecoder decodeIntForKey:@"startYear"];
             }
         } else {
             if (_draftPosition != nil || self.endYear > 0) {
@@ -148,10 +123,9 @@
             } else {
                 //generate
                 NSInteger curYear = self.team.league.leagueHistoryDictionary.count;
-                self.startYear = (int)(curYear - self.year + 1) + 2016;
+                self.startYear = (int)(curYear - self.year + 1) + 2017;
             }
         }
-        
     }
     return self;
 }

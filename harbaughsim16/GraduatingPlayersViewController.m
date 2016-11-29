@@ -34,7 +34,11 @@
     }];
     
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-    self.title = @"Players Leaving";
+    if (grads.count > 0) {
+        self.title = [NSString stringWithFormat:@"%lu Players Leaving", (long)grads.count];
+    } else {
+        self.title = @"No Players Leaving";
+    }
 }
 
 - (void)didReceiveMemoryWarning {
