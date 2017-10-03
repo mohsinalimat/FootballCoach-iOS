@@ -9,40 +9,43 @@
 /* Begin PBXBuildFile section */
 		03809B3572E2BCE64AFF35A74DC569AB /* CSLayerStealingBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 552083FE29319A4DF2DAA6BEF40EA105 /* CSLayerStealingBlurView.m */; };
 		0863AC3FB7A624838D1E0394DEC757B1 /* ATAppUpdater-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A7F702EC58ADB0E7223ABD9F362D63F5 /* ATAppUpdater-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		08B45B65DC1186A120A37206A59EA10F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC91C3AC1F066C9722DF993B4C7F3B39 /* Foundation.framework */; };
 		0AAB673BDE309361401D662533338529 /* HexColors.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DFC2A01F0694C8DAC34FA262CEED46A /* HexColors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B7503C8C20AC9C628EC1F63FC7AF908 /* STPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A7362CFA8745F1165853DC5B75D51D /* STPopupController.m */; };
+		0D3532E1989C28B628F84FF7FEAC680F /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4FA52FEF18940CFF2A8869DFDE68F84C /* checkmark@2x.png */; };
 		0DE265223139D79B55A13FDE05F648C8 /* CSNativeBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF0FB4312BDFDC8698379EB90AEB5FE /* CSNativeBlurView.m */; };
 		11377E9914B06935611F9451DDA190B0 /* CSNotificationView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FF38262EBBA5FEE62D3A5EEC04C49C /* CSNotificationView-dummy.m */; };
 		11FFB25B46D7924D3B4118ABD0B93F0C /* FCFileManager-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 54A8FC246B94BFFCE72E0F22F34ECB31 /* FCFileManager-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		160D90B2A0BCCE40CB7715E157488295 /* AutoCoding-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9149E60CFF71E53A6EAA21C173B848F3 /* AutoCoding-dummy.m */; };
 		162B99423862B2F97156A56C9B87F270 /* STPopupNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E05D718C2D31D9ED7BD8F989A38B66 /* STPopupNavigationBar.m */; };
+		19D03DA426F73FA9211C23F7F797B8B4 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3069501E88FE3892AF65590D9EEE854D /* ImageIO.framework */; };
 		1CC1F7EFF7D5BC55E328F4A7F77585D4 /* STPopup-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F509551291BC4A30D4248769210C3780 /* STPopup-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1D9BC534C5EC7D45CB82D66E1DA19C03 /* CSNotificationView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F6C0FCE021487DC5B87E9F4C3AF56B5 /* CSNotificationView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1DA30EB6C4CDE434A91C55474468C759 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A80265C5BF36CD2F81E4A8EFBF85AF93 /* Foundation.framework */; };
 		20E1866B0D6AC0E971B3D1BCD91BEC06 /* STPopupNavigationBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 68104EB814E6B1CA7C7581FDAE8A5977 /* STPopupNavigationBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2150376E4F3ED7CAB06D630D4A6EF855 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC91C3AC1F066C9722DF993B4C7F3B39 /* Foundation.framework */; };
-		21685978373609ABBDB21E9F8E013308 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC91C3AC1F066C9722DF993B4C7F3B39 /* Foundation.framework */; };
-		2662FC1448D9B8BFD39A566DDBD3CE5B /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B771C2FE5BA84934F1B442416B4EC141 /* ImageIO.framework */; };
+		29B21D11897891B4D8F225665AD68FA7 /* exclamationMark.png in Resources */ = {isa = PBXBuildFile; fileRef = AEAC5EE62FE4E207534E2E434F1599CF /* exclamationMark.png */; };
 		29E7A065DA6D7FCD5A64968F6372F527 /* FCFileManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 34965CE74D5F0DDC970DA180CFD14916 /* FCFileManager-dummy.m */; };
-		30997A0DDF76DE68C1505B7E8DA1324E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA127042ECF7CC7C0253CA4B859463A /* UIKit.framework */; };
+		2B6CFA92CAB2B0B22DF9BB4BEBFC56BB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D8BF5C65A58E4FFCCAFFD86AAF7835B /* SystemConfiguration.framework */; };
+		30098188375E02CBA66ADA0B7203DE28 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A80265C5BF36CD2F81E4A8EFBF85AF93 /* Foundation.framework */; };
+		30DE70C7473BEEEFD98B098843E05061 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A80265C5BF36CD2F81E4A8EFBF85AF93 /* Foundation.framework */; };
 		3181BD053DA503314C8E09BBCB7AD2A8 /* FCFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AE2B9B98ECA8455B92FCBD96C075442 /* FCFileManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3248EFC13679C862BBB3DEB694FC258B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA127042ECF7CC7C0253CA4B859463A /* UIKit.framework */; };
+		33CAF8B72D086FE635F4EBA97E2D43F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A80265C5BF36CD2F81E4A8EFBF85AF93 /* Foundation.framework */; };
 		344EB9EEF6469AA1FEDBA094216A9871 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA7F4C74A2EDB7A46BC9A976E24713B /* HexColors.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		37291C2EBB9A94FA3B4D7679DA3DDBF9 /* AutoCoding.h in Headers */ = {isa = PBXBuildFile; fileRef = F9E89ECD28ABD133AB855B7E4602C0A3 /* AutoCoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3773CB4AA5724292720B7CC6FC96F59C /* exclamationMark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4554B52C07F71BA21D1CA4B2E47E7398 /* exclamationMark@2x.png */; };
 		3775FB43DC4ED6590C4CB12D08623595 /* ATAppUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215818A7EA9EE825B447DFA855BDD77 /* ATAppUpdater.m */; };
 		38BDD13FA57FFFCEDAF28E76A3614009 /* UIViewController+STPopup.h in Headers */ = {isa = PBXBuildFile; fileRef = A4B626925080B571F080D5F1B6E24298 /* UIViewController+STPopup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3B49B73F75D80777FCCB0272DE655877 /* ATAppUpdater-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DDC1B613BDC8209A2EDC43BAF16BC319 /* ATAppUpdater-dummy.m */; };
+		4313A0E86A8CB357E79CD8D643510E3F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A80265C5BF36CD2F81E4A8EFBF85AF93 /* Foundation.framework */; };
 		4321A63BCE4D63E7049B1C28E8B90DBC /* STPopupLeftBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AF330DE6664E561D0F1C54E184E075A /* STPopupLeftBarItem.m */; };
 		4568C6CC7F78399CA1312B20E26EA8FE /* UIScrollView+EmptyDataSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C8078BC9EFDA42088132A55A2DAFE74 /* UIScrollView+EmptyDataSet.m */; };
+		47391BB102A81E89CE5B8BE78AC8AED9 /* checkmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = BC6EAA51BD90892061D39949B60FB11A /* checkmark@3x.png */; };
 		4A4B0E4AF71401A31253A0CA7DA365FE /* CSNativeBlurView.h in Headers */ = {isa = PBXBuildFile; fileRef = E394003CD24F034B61699DDE53ECFFD1 /* CSNativeBlurView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4C144355E41C99902528AAD3CF069680 /* DZNEmptyDataSet-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A2ED286E956F8FF069D61E2A136DE256 /* DZNEmptyDataSet-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4EA97F13B755F906D565AB86EA2E650B /* STPopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 628E1A41EA7BE244C48B85FE5D1D8224 /* STPopup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50F8872D865BF73C0875128B5011D98F /* UIResponder+STPopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B24B28932B02DFF0853B332A24A7729 /* UIResponder+STPopup.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		517F204C25AA70A715B7CDE39048759F /* STPopupControllerTransitioningSlideVertical.h in Headers */ = {isa = PBXBuildFile; fileRef = 49A938AE21B7140A48073F615B8E48A0 /* STPopupControllerTransitioningSlideVertical.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5258FB748F4AED31077E4CAAC51136F5 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 87BD0FD3C71E85477D613BC1EA489C9E /* checkmark.png */; };
-		560C63EF96DE8A76E2C557AD44321550 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBA127042ECF7CC7C0253CA4B859463A /* UIKit.framework */; };
-		646813A70CA2238E492745510EF47B3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC91C3AC1F066C9722DF993B4C7F3B39 /* Foundation.framework */; };
-		71B5B3D4BC8F98C41BEA9037772D2097 /* exclamationMark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DA6877DCBF968B73F2F24CF8887D711E /* exclamationMark@3x.png */; };
+		693836AD307487187B82521631439F76 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FC0383B79DB22461CD4404318F1EB5 /* UIKit.framework */; };
+		7310DF6B7570FD40FDF31EF9C0E22E8A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A80265C5BF36CD2F81E4A8EFBF85AF93 /* Foundation.framework */; };
 		75D0A461B8CF202F41C55CA1E732124C /* DZNEmptyDataSet-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E83902D22E35DFE1DFE1EBC8CD4D897 /* DZNEmptyDataSet-dummy.m */; };
 		7768912896C6FC2BD3D8F42E896755B5 /* STPopupController.h in Headers */ = {isa = PBXBuildFile; fileRef = 571E3F4328D94779AC0439F108DDDB55 /* STPopupController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7C816A8EB7C6876F1D8018648AC67881 /* Pods-harbaughsim16-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8336B8ACEAD504F1753865EFF698BF9B /* Pods-harbaughsim16-dummy.m */; };
@@ -50,31 +53,28 @@
 		831926F98E2A6A2A7417DE307F0C4C68 /* STPopupLeftBarItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B383A9862FCFE00250B77FDCC1A0298 /* STPopupLeftBarItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8511E9645F5C2B18746B4B4B29284451 /* UIScrollView+EmptyDataSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 183114BB877DFD99803EEE1F1917DB18 /* UIScrollView+EmptyDataSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89DD24BBC80CF7D7CA8A4F17FF36B42D /* CSNotificationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B833659CE343B5BC9A51E8C81FAA149 /* CSNotificationView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8E263D05E2C96B9D9A61ED52ADF7E0D6 /* exclamationMark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28FD87146B47492281FEB2C15C3F4CD0 /* exclamationMark@2x.png */; };
+		8E31EF89BD192C6AACDE9E0655861D3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FC0383B79DB22461CD4404318F1EB5 /* UIKit.framework */; };
 		9177DA20418F49A45EE327BAC0640A9B /* CSNotificationView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D04C70810072AC1602117AB10DD4818 /* CSNotificationView.bundle */; };
-		9187F8F81F32E02855F0BC6F9D2BD92B /* checkmark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = B72431476E817D216338AFA11A995318 /* checkmark@3x.png */; };
 		924360C6A371DB8C4053DA078E3FF4BE /* UIResponder+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1023EC914A3F56C0F5165E40DA00F6 /* UIResponder+STPopup.m */; };
 		93B5EDD22B6A9667CFE00FE4BA743D50 /* Pods-harbaughsim16-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C5331B216DEAC9C2C452305D54D33852 /* Pods-harbaughsim16-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		95145C7BA6EB83A8BF5BE50B4FF9AB42 /* STPopupControllerTransitioningFade.h in Headers */ = {isa = PBXBuildFile; fileRef = A1984BC44A6555187557FD159A89F739 /* STPopupControllerTransitioningFade.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		974A8CD390F32E0DD1F88E5F5900593E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC91C3AC1F066C9722DF993B4C7F3B39 /* Foundation.framework */; };
+		9C116AC722D00E0D2E7AB312DA03A68C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6FC0383B79DB22461CD4404318F1EB5 /* UIKit.framework */; };
+		A0135EE1B70530E33BF8734333575A82 /* exclamationMark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E4C44019EFAC7B2BFB2EC81BEB9F8A6F /* exclamationMark@3x.png */; };
 		AB53151FE7DB3A8F2ED5A24BC5A56608 /* CSNotificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 37E583AFBC05421A618DD44CD076BED7 /* CSNotificationView.m */; };
 		AE8FFA1323AD4ED3577754A723B8D465 /* HexColors-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AD82455D92EC5DCF4C8DF4219CD0ED9F /* HexColors-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B492A0875F6B973D223F9529F8DAAF8C /* STPopupControllerTransitioningFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 95B3AA20308AF149C83A0C85E27C6B12 /* STPopupControllerTransitioningFade.m */; };
-		B6F7A941ADE7E67C81737957E43D2611 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC91C3AC1F066C9722DF993B4C7F3B39 /* Foundation.framework */; };
 		B909966D2D69804EA54972DA9B2BD58B /* CSLayerStealingBlurView.h in Headers */ = {isa = PBXBuildFile; fileRef = 56507FE703353B59559F7E14193D9DD4 /* CSLayerStealingBlurView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B96DACA3CCC61F6E799D9FC10CC55F66 /* HexColors-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2684228462952B266BE354C349E0B354 /* HexColors-dummy.m */; };
 		BE6D97D395128B24BD73FECAAAA723BE /* ATAppUpdater.h in Headers */ = {isa = PBXBuildFile; fileRef = 79F479A82FCF291FBD26BA9BF6D849E8 /* ATAppUpdater.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C062F7F82A403E453E156F30EC91DF04 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C1A948F80D8EC7549E9BF99B59D996F /* SystemConfiguration.framework */; };
 		C2442146714C8652F9DA013B611B0FBF /* AutoCoding-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = CCF1D1DC077566FEFF808FED2046B7FA /* AutoCoding-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C4C0322E89C4ADE77F9C5E8FBC95C873 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A80265C5BF36CD2F81E4A8EFBF85AF93 /* Foundation.framework */; };
+		C577B322B52228B272D52FF32B7BE30C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A80265C5BF36CD2F81E4A8EFBF85AF93 /* Foundation.framework */; };
 		CA2B2011AF6017DF95B2FF4CC759126E /* FCFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 60806793C3B3A67904336EB9A6113137 /* FCFileManager.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D669E99F982767DFF1E6A1B1050FC379 /* CSNotificationView_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 68173D6C42FE64C282C0B7936F304102 /* CSNotificationView_Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DE50FC0CC49D91C87172302A7713539A /* AutoCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F690C37B2912B04718EDED77A7A0F72 /* AutoCoding.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		EAC8F6878D594BED0EF648A949CFFAEE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC91C3AC1F066C9722DF993B4C7F3B39 /* Foundation.framework */; };
 		EB6F380D94EE142994A80AC314295B93 /* UIViewController+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CC68963E2A3B966BB2637F209FE35 /* UIViewController+STPopup.m */; };
-		EEBE6C1D006C4375C93D6A96E09C2436 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC91C3AC1F066C9722DF993B4C7F3B39 /* Foundation.framework */; };
-		F6BF8F3681F944763E0E8E559998118F /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DD576104B76CFF5AAF9AA94261815304 /* checkmark@2x.png */; };
-		F6CDD80D6BD5D71AD62EDD2EB23327D7 /* exclamationMark.png in Resources */ = {isa = PBXBuildFile; fileRef = 74BA6DA88E999C50B552EECAA16FC39D /* exclamationMark.png */; };
 		FA1508C3AD7D5556DE611ABF4B0F424C /* STPopupControllerTransitioningSlideVertical.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4286E9CC8BA2CA7E77378B09D867CC /* STPopupControllerTransitioningSlideVertical.m */; };
+		FE29E6C318D946B5EC67FDA1E20FCA99 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7E2B02F930CB87A32A711C4A6E9057 /* checkmark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,39 +138,42 @@
 
 /* Begin PBXFileReference section */
 		00E05D718C2D31D9ED7BD8F989A38B66 /* STPopupNavigationBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupNavigationBar.m; path = STPopup/STPopupNavigationBar.m; sourceTree = "<group>"; };
-		019648B5EB04777733B43293F2031722 /* ATAppUpdater.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = ATAppUpdater.modulemap; sourceTree = "<group>"; };
+		019648B5EB04777733B43293F2031722 /* ATAppUpdater.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = ATAppUpdater.modulemap; sourceTree = "<group>"; };
 		01A4BEFF36384A2A9AA1D90DDE5F0EA4 /* Pods-harbaughsim16-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-harbaughsim16-acknowledgements.markdown"; sourceTree = "<group>"; };
 		0215818A7EA9EE825B447DFA855BDD77 /* ATAppUpdater.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATAppUpdater.m; path = ATAppUpdater/ATAppUpdater.m; sourceTree = "<group>"; };
-		038A7141C2CE46BBF25FFE446DA38510 /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ATAppUpdater.framework; path = ATAppUpdater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		038A7141C2CE46BBF25FFE446DA38510 /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ATAppUpdater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B84FC50B22636741CC9A2AEEC8DEB0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0ED77E2A7F87E536699608E732B5DB25 /* Pods-harbaughsim16.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-harbaughsim16.modulemap"; sourceTree = "<group>"; };
+		0ED77E2A7F87E536699608E732B5DB25 /* Pods-harbaughsim16.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-harbaughsim16.modulemap"; sourceTree = "<group>"; };
 		0F690C37B2912B04718EDED77A7A0F72 /* AutoCoding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AutoCoding.m; path = AutoCoding/AutoCoding.m; sourceTree = "<group>"; };
 		1349E241F29C262B216E29CD52592C6C /* CLSAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSAttributes.h; path = iOS/Crashlytics.framework/Headers/CLSAttributes.h; sourceTree = "<group>"; };
 		166709DDE267546D391FDE9C92CB5E48 /* AutoCoding.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AutoCoding.xcconfig; sourceTree = "<group>"; };
 		183114BB877DFD99803EEE1F1917DB18 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+EmptyDataSet.h"; path = "Source/UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
-		1D04C70810072AC1602117AB10DD4818 /* CSNotificationView.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = CSNotificationView.bundle; path = CSNotificationView.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D04C70810072AC1602117AB10DD4818 /* CSNotificationView.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CSNotificationView.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D8BF5C65A58E4FFCCAFFD86AAF7835B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		1DFC2A01F0694C8DAC34FA262CEED46A /* HexColors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HexColors.h; path = Classes/HexColors.h; sourceTree = "<group>"; };
-		1FD229483CA43C4038E7792E5A128843 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HexColors.framework; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FD229483CA43C4038E7792E5A128843 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		218E1F86E7E6717917FCADF1998B8CF7 /* CSNotificationView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CSNotificationView-prefix.pch"; sourceTree = "<group>"; };
 		2684228462952B266BE354C349E0B354 /* HexColors-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "HexColors-dummy.m"; sourceTree = "<group>"; };
-		28FD87146B47492281FEB2C15C3F4CD0 /* exclamationMark@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "exclamationMark@2x.png"; path = "CSNotificationView/Resources/exclamationMark@2x.png"; sourceTree = "<group>"; };
 		2C4286E9CC8BA2CA7E77378B09D867CC /* STPopupControllerTransitioningSlideVertical.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupControllerTransitioningSlideVertical.m; path = STPopup/STPopupControllerTransitioningSlideVertical.m; sourceTree = "<group>"; };
+		2C7E2B02F930CB87A32A711C4A6E9057 /* checkmark.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = checkmark.png; path = CSNotificationView/Resources/checkmark.png; sourceTree = "<group>"; };
 		3056F5314D3343E9C17EED5F7365275B /* Fabric.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Fabric.h; path = iOS/Fabric.framework/Headers/Fabric.h; sourceTree = "<group>"; };
+		3069501E88FE3892AF65590D9EEE854D /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
 		319D4827F0E9AE3CB1C32AA89BCEEF51 /* STPopup-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "STPopup-dummy.m"; sourceTree = "<group>"; };
 		330B14C2484031B534523D7871B45D85 /* HexColors-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-prefix.pch"; sourceTree = "<group>"; };
 		34965CE74D5F0DDC970DA180CFD14916 /* FCFileManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FCFileManager-dummy.m"; sourceTree = "<group>"; };
 		3605C1EA8850F5E4E595AB4C8A4EEEBD /* ATAppUpdater.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ATAppUpdater.xcconfig; sourceTree = "<group>"; };
-		37BD0B76BA5DA99EFAA2748BA50E9FD8 /* FCFileManager.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = FCFileManager.modulemap; sourceTree = "<group>"; };
+		37BD0B76BA5DA99EFAA2748BA50E9FD8 /* FCFileManager.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = FCFileManager.modulemap; sourceTree = "<group>"; };
 		37E583AFBC05421A618DD44CD076BED7 /* CSNotificationView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CSNotificationView.m; path = CSNotificationView/CSNotificationView.m; sourceTree = "<group>"; };
 		37FA64A21426251E74825BE375C0B76B /* STPopup-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STPopup-prefix.pch"; sourceTree = "<group>"; };
 		3C88F76E4981BA8F50F256FDD36E535D /* DZNEmptyDataSet-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DZNEmptyDataSet-prefix.pch"; sourceTree = "<group>"; };
-		3F597060E564E04080329621BB4EE3DB /* AutoCoding.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = AutoCoding.modulemap; sourceTree = "<group>"; };
+		3F597060E564E04080329621BB4EE3DB /* AutoCoding.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = AutoCoding.modulemap; sourceTree = "<group>"; };
 		411C6A1163EF37020A3BAA4178BF97D2 /* AutoCoding-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AutoCoding-prefix.pch"; sourceTree = "<group>"; };
-		486DE765A105E796B7AF13D2A14B2015 /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_harbaughsim16.framework; path = "Pods-harbaughsim16.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4554B52C07F71BA21D1CA4B2E47E7398 /* exclamationMark@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "exclamationMark@2x.png"; path = "CSNotificationView/Resources/exclamationMark@2x.png"; sourceTree = "<group>"; };
+		486DE765A105E796B7AF13D2A14B2015 /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A938AE21B7140A48073F615B8E48A0 /* STPopupControllerTransitioningSlideVertical.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupControllerTransitioningSlideVertical.h; path = STPopup/STPopupControllerTransitioningSlideVertical.h; sourceTree = "<group>"; };
 		49AEEF632E0097B9ABA54623DC8A4594 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B383A9862FCFE00250B77FDCC1A0298 /* STPopupLeftBarItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupLeftBarItem.h; path = STPopup/STPopupLeftBarItem.h; sourceTree = "<group>"; };
-		4C1A948F80D8EC7549E9BF99B59D996F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		4FA52FEF18940CFF2A8869DFDE68F84C /* checkmark@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "checkmark@2x.png"; path = "CSNotificationView/Resources/checkmark@2x.png"; sourceTree = "<group>"; };
 		54A8FC246B94BFFCE72E0F22F34ECB31 /* FCFileManager-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FCFileManager-umbrella.h"; sourceTree = "<group>"; };
 		552083FE29319A4DF2DAA6BEF40EA105 /* CSLayerStealingBlurView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CSLayerStealingBlurView.m; path = CSNotificationView/CSLayerStealingBlurView.m; sourceTree = "<group>"; };
 		5532A82396D8F509D09B99B15D8EF4DB /* FCFileManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FCFileManager-prefix.pch"; sourceTree = "<group>"; };
@@ -178,22 +181,21 @@
 		571E3F4328D94779AC0439F108DDDB55 /* STPopupController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupController.h; path = STPopup/STPopupController.h; sourceTree = "<group>"; };
 		588CDE83945669F35A9C72605E382556 /* CLSStackFrame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSStackFrame.h; path = iOS/Crashlytics.framework/Headers/CLSStackFrame.h; sourceTree = "<group>"; };
 		59C2763CBA890E7EB6286CB7CFEF047E /* STPopup.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = STPopup.xcconfig; sourceTree = "<group>"; };
-		5DA519809471FF2021EDC4A35119E424 /* CSNotificationView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = CSNotificationView.modulemap; sourceTree = "<group>"; };
+		5DA519809471FF2021EDC4A35119E424 /* CSNotificationView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = CSNotificationView.modulemap; sourceTree = "<group>"; };
 		60806793C3B3A67904336EB9A6113137 /* FCFileManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FCFileManager.m; path = FCFileManager/FCFileManager.m; sourceTree = "<group>"; };
 		619793CB48D15B1BE19127C35D772CFD /* Answers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Answers.h; path = iOS/Crashlytics.framework/Headers/Answers.h; sourceTree = "<group>"; };
 		628E1A41EA7BE244C48B85FE5D1D8224 /* STPopup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopup.h; path = STPopup/STPopup.h; sourceTree = "<group>"; };
 		63C743A65667FACB627C1A100658251F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		642278DD9057554A3FA97176418947E8 /* HexColors.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = HexColors.modulemap; sourceTree = "<group>"; };
+		642278DD9057554A3FA97176418947E8 /* HexColors.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = HexColors.modulemap; sourceTree = "<group>"; };
 		6660F9AF3436014104C5E04CDE3AECF4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68104EB814E6B1CA7C7581FDAE8A5977 /* STPopupNavigationBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupNavigationBar.h; path = STPopup/STPopupNavigationBar.h; sourceTree = "<group>"; };
 		68173D6C42FE64C282C0B7936F304102 /* CSNotificationView_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CSNotificationView_Private.h; path = CSNotificationView/CSNotificationView_Private.h; sourceTree = "<group>"; };
 		6A0C5C0B1A3BE44C03CA423CFBDBEDFB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6ABFCC29BFBF9CAB01624EEB9D0BDC2E /* CSNotificationView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CSNotificationView.framework; path = CSNotificationView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6ABFCC29BFBF9CAB01624EEB9D0BDC2E /* CSNotificationView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CSNotificationView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AE2B9B98ECA8455B92FCBD96C075442 /* FCFileManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FCFileManager.h; path = FCFileManager/FCFileManager.h; sourceTree = "<group>"; };
 		6C51C792077ADBE14A03C890628F1F47 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
-		6EBD12FEFCAA45C040999C7C79DEB0D9 /* DZNEmptyDataSet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = DZNEmptyDataSet.modulemap; sourceTree = "<group>"; };
+		6EBD12FEFCAA45C040999C7C79DEB0D9 /* DZNEmptyDataSet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = DZNEmptyDataSet.modulemap; sourceTree = "<group>"; };
 		6F6C0FCE021487DC5B87E9F4C3AF56B5 /* CSNotificationView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CSNotificationView-umbrella.h"; sourceTree = "<group>"; };
-		74BA6DA88E999C50B552EECAA16FC39D /* exclamationMark.png */ = {isa = PBXFileReference; includeInIndex = 1; name = exclamationMark.png; path = CSNotificationView/Resources/exclamationMark.png; sourceTree = "<group>"; };
 		75734F50CE77175EB4480B4865ECD662 /* Pods-harbaughsim16-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-harbaughsim16-acknowledgements.plist"; sourceTree = "<group>"; };
 		79F479A82FCF291FBD26BA9BF6D849E8 /* ATAppUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATAppUpdater.h; path = ATAppUpdater/ATAppUpdater.h; sourceTree = "<group>"; };
 		7C8078BC9EFDA42088132A55A2DAFE74 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+EmptyDataSet.m"; path = "Source/UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
@@ -201,12 +203,11 @@
 		8336B8ACEAD504F1753865EFF698BF9B /* Pods-harbaughsim16-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-harbaughsim16-dummy.m"; sourceTree = "<group>"; };
 		8587C1D7632B42A3C3122C450C15343B /* Pods-harbaughsim16-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-harbaughsim16-resources.sh"; sourceTree = "<group>"; };
 		85DB0D76486E22C1305327DA0293B6C5 /* DZNEmptyDataSet.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = DZNEmptyDataSet.xcconfig; sourceTree = "<group>"; };
-		87BD0FD3C71E85477D613BC1EA489C9E /* checkmark.png */ = {isa = PBXFileReference; includeInIndex = 1; name = checkmark.png; path = CSNotificationView/Resources/checkmark.png; sourceTree = "<group>"; };
 		8AF330DE6664E561D0F1C54E184E075A /* STPopupLeftBarItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupLeftBarItem.m; path = STPopup/STPopupLeftBarItem.m; sourceTree = "<group>"; };
 		8E83902D22E35DFE1DFE1EBC8CD4D897 /* DZNEmptyDataSet-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DZNEmptyDataSet-dummy.m"; sourceTree = "<group>"; };
 		9149E60CFF71E53A6EAA21C173B848F3 /* AutoCoding-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AutoCoding-dummy.m"; sourceTree = "<group>"; };
 		92A7362CFA8745F1165853DC5B75D51D /* STPopupController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupController.m; path = STPopup/STPopupController.m; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9505338BDD420834AFF7CC174A79791E /* ResourceBundle-CSNotificationView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-CSNotificationView-Info.plist"; sourceTree = "<group>"; };
 		95B3AA20308AF149C83A0C85E27C6B12 /* STPopupControllerTransitioningFade.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupControllerTransitioningFade.m; path = STPopup/STPopupControllerTransitioningFade.m; sourceTree = "<group>"; };
 		975782972E4132D783006A77D7B0A9A7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -214,44 +215,43 @@
 		9B833659CE343B5BC9A51E8C81FAA149 /* CSNotificationView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CSNotificationView.h; path = CSNotificationView/CSNotificationView.h; sourceTree = "<group>"; };
 		9CF0FB4312BDFDC8698379EB90AEB5FE /* CSNativeBlurView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CSNativeBlurView.m; path = CSNotificationView/CSNativeBlurView.m; sourceTree = "<group>"; };
 		9EE2ABBC64E2DC19631534853326986C /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = iOS/Fabric.framework; sourceTree = "<group>"; };
-		A163F4044CA72B781369F4AB695E1341 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FCFileManager.framework; path = FCFileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A163F4044CA72B781369F4AB695E1341 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FCFileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A17CC68963E2A3B966BB2637F209FE35 /* UIViewController+STPopup.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+STPopup.m"; path = "STPopup/UIViewController+STPopup.m"; sourceTree = "<group>"; };
 		A1984BC44A6555187557FD159A89F739 /* STPopupControllerTransitioningFade.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupControllerTransitioningFade.h; path = STPopup/STPopupControllerTransitioningFade.h; sourceTree = "<group>"; };
 		A2ED286E956F8FF069D61E2A136DE256 /* DZNEmptyDataSet-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DZNEmptyDataSet-umbrella.h"; sourceTree = "<group>"; };
 		A4B626925080B571F080D5F1B6E24298 /* UIViewController+STPopup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+STPopup.h"; path = "STPopup/UIViewController+STPopup.h"; sourceTree = "<group>"; };
 		A519FE001295FE2646603B309A82FBDE /* ATAppUpdater-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ATAppUpdater-prefix.pch"; sourceTree = "<group>"; };
 		A7F702EC58ADB0E7223ABD9F362D63F5 /* ATAppUpdater-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ATAppUpdater-umbrella.h"; sourceTree = "<group>"; };
+		A80265C5BF36CD2F81E4A8EFBF85AF93 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		AD82455D92EC5DCF4C8DF4219CD0ED9F /* HexColors-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-umbrella.h"; sourceTree = "<group>"; };
 		AE3ECB6FB859F121B615FA83227B169F /* Pods-harbaughsim16-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-harbaughsim16-frameworks.sh"; sourceTree = "<group>"; };
+		AEAC5EE62FE4E207534E2E434F1599CF /* exclamationMark.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = exclamationMark.png; path = CSNotificationView/Resources/exclamationMark.png; sourceTree = "<group>"; };
 		B43434A5BD65A2A95D94F1ABDED16207 /* CLSReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSReport.h; path = iOS/Crashlytics.framework/Headers/CLSReport.h; sourceTree = "<group>"; };
-		B72431476E817D216338AFA11A995318 /* checkmark@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "checkmark@3x.png"; path = "CSNotificationView/Resources/checkmark@3x.png"; sourceTree = "<group>"; };
-		B771C2FE5BA84934F1B442416B4EC141 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
-		BBCEA7E8476168F41503413356337F85 /* STPopup.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = STPopup.modulemap; sourceTree = "<group>"; };
-		BC91C3AC1F066C9722DF993B4C7F3B39 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		BBCEA7E8476168F41503413356337F85 /* STPopup.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = STPopup.modulemap; sourceTree = "<group>"; };
+		BC6EAA51BD90892061D39949B60FB11A /* checkmark@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "checkmark@3x.png"; path = "CSNotificationView/Resources/checkmark@3x.png"; sourceTree = "<group>"; };
 		BF71F9DB9A2F050F4854AF074BD645DF /* CLSLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSLogging.h; path = iOS/Crashlytics.framework/Headers/CLSLogging.h; sourceTree = "<group>"; };
 		C21C7526FEBDACD6D729591645AD713E /* FABAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FABAttributes.h; path = iOS/Fabric.framework/Headers/FABAttributes.h; sourceTree = "<group>"; };
-		C433F1267BF668C039409DDCFE402D30 /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AutoCoding.framework; path = AutoCoding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C433F1267BF668C039409DDCFE402D30 /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AutoCoding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5331B216DEAC9C2C452305D54D33852 /* Pods-harbaughsim16-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-harbaughsim16-umbrella.h"; sourceTree = "<group>"; };
-		CB570740F5011F52F5304F38439CA2B7 /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = STPopup.framework; path = STPopup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB570740F5011F52F5304F38439CA2B7 /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STPopup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCF1D1DC077566FEFF808FED2046B7FA /* AutoCoding-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AutoCoding-umbrella.h"; sourceTree = "<group>"; };
 		D0AA9E7AD9221D22434A6181A2FD2628 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
 		D0E0A855436E9E12076E0EB8F331FDDA /* ANSCompatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANSCompatibility.h; path = iOS/Crashlytics.framework/Headers/ANSCompatibility.h; sourceTree = "<group>"; };
 		D6B48E8284776466428B06F81D235A60 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9FF38262EBBA5FEE62D3A5EEC04C49C /* CSNotificationView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CSNotificationView-dummy.m"; sourceTree = "<group>"; };
-		DA6877DCBF968B73F2F24CF8887D711E /* exclamationMark@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "exclamationMark@3x.png"; path = "CSNotificationView/Resources/exclamationMark@3x.png"; sourceTree = "<group>"; };
-		DAA87260671BDE0E1C5C689CAB703551 /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DZNEmptyDataSet.framework; path = DZNEmptyDataSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAA87260671BDE0E1C5C689CAB703551 /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DZNEmptyDataSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC38A20492FA49D3D210591CE6FF98D4 /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
-		DD576104B76CFF5AAF9AA94261815304 /* checkmark@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; name = "checkmark@2x.png"; path = "CSNotificationView/Resources/checkmark@2x.png"; sourceTree = "<group>"; };
 		DDC1B613BDC8209A2EDC43BAF16BC319 /* ATAppUpdater-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ATAppUpdater-dummy.m"; sourceTree = "<group>"; };
 		E0F2C4FCA75899F85B3133D12500405E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E38674C5F12BDEC4EE639A2AA7D24598 /* CSNotificationView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CSNotificationView.xcconfig; sourceTree = "<group>"; };
 		E394003CD24F034B61699DDE53ECFFD1 /* CSNativeBlurView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CSNativeBlurView.h; path = CSNotificationView/CSNativeBlurView.h; sourceTree = "<group>"; };
+		E4C44019EFAC7B2BFB2EC81BEB9F8A6F /* exclamationMark@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "exclamationMark@3x.png"; path = "CSNotificationView/Resources/exclamationMark@3x.png"; sourceTree = "<group>"; };
 		EDA7F4C74A2EDB7A46BC9A976E24713B /* HexColors.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HexColors.m; path = Classes/HexColors.m; sourceTree = "<group>"; };
 		F43E7C3AA554B8B9CF0566B7180DA05C /* HexColors.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HexColors.xcconfig; sourceTree = "<group>"; };
 		F509551291BC4A30D4248769210C3780 /* STPopup-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STPopup-umbrella.h"; sourceTree = "<group>"; };
+		F6FC0383B79DB22461CD4404318F1EB5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		F9E89ECD28ABD133AB855B7E4602C0A3 /* AutoCoding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AutoCoding.h; path = AutoCoding/AutoCoding.h; sourceTree = "<group>"; };
 		FA751C0C440D69520EE95316F5598D6C /* FCFileManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FCFileManager.xcconfig; sourceTree = "<group>"; };
-		FBA127042ECF7CC7C0253CA4B859463A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		FC1023EC914A3F56C0F5165E40DA00F6 /* UIResponder+STPopup.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIResponder+STPopup.m"; path = "STPopup/UIResponder+STPopup.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -260,7 +260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08B45B65DC1186A120A37206A59EA10F /* Foundation.framework in Frameworks */,
+				33CAF8B72D086FE635F4EBA97E2D43F2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,9 +268,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				646813A70CA2238E492745510EF47B3D /* Foundation.framework in Frameworks */,
-				2662FC1448D9B8BFD39A566DDBD3CE5B /* ImageIO.framework in Frameworks */,
-				3248EFC13679C862BBB3DEB694FC258B /* UIKit.framework in Frameworks */,
+				1DA30EB6C4CDE434A91C55474468C759 /* Foundation.framework in Frameworks */,
+				19D03DA426F73FA9211C23F7F797B8B4 /* ImageIO.framework in Frameworks */,
+				693836AD307487187B82521631439F76 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,9 +278,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EAC8F6878D594BED0EF648A949CFFAEE /* Foundation.framework in Frameworks */,
-				C062F7F82A403E453E156F30EC91DF04 /* SystemConfiguration.framework in Frameworks */,
-				560C63EF96DE8A76E2C557AD44321550 /* UIKit.framework in Frameworks */,
+				30098188375E02CBA66ADA0B7203DE28 /* Foundation.framework in Frameworks */,
+				2B6CFA92CAB2B0B22DF9BB4BEBFC56BB /* SystemConfiguration.framework in Frameworks */,
+				9C116AC722D00E0D2E7AB312DA03A68C /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +288,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2150376E4F3ED7CAB06D630D4A6EF855 /* Foundation.framework in Frameworks */,
+				30DE70C7473BEEEFD98B098843E05061 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,8 +296,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				21685978373609ABBDB21E9F8E013308 /* Foundation.framework in Frameworks */,
-				30997A0DDF76DE68C1505B7E8DA1324E /* UIKit.framework in Frameworks */,
+				C577B322B52228B272D52FF32B7BE30C /* Foundation.framework in Frameworks */,
+				8E31EF89BD192C6AACDE9E0655861D3D /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,7 +305,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				974A8CD390F32E0DD1F88E5F5900593E /* Foundation.framework in Frameworks */,
+				4313A0E86A8CB357E79CD8D643510E3F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,7 +313,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEBE6C1D006C4375C93D6A96E09C2436 /* Foundation.framework in Frameworks */,
+				7310DF6B7570FD40FDF31EF9C0E22E8A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,7 +328,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6F7A941ADE7E67C81737957E43D2611 /* Foundation.framework in Frameworks */,
+				C4C0322E89C4ADE77F9C5E8FBC95C873 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,14 +395,13 @@
 				807F6866A81DB727B83AA01349B19637 /* Crashlytics.h */,
 				58C0CB9CF17BC0DD9638C8F2B826CE0D /* Frameworks */,
 			);
-			name = Crashlytics;
 			path = Crashlytics;
 			sourceTree = "<group>";
 		};
 		14B8B9B15ECBE87983FF987239AB2D7B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				96B4E4A04583C97A8716E9BAE9406021 /* iOS */,
+				260C6B7356CD014983D12CCC6E08E7F7 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -414,7 +413,6 @@
 				7C8078BC9EFDA42088132A55A2DAFE74 /* UIScrollView+EmptyDataSet.m */,
 				47E30D503B96E377E952E65785A0D1F0 /* Support Files */,
 			);
-			name = DZNEmptyDataSet;
 			path = DZNEmptyDataSet;
 			sourceTree = "<group>";
 		};
@@ -430,6 +428,17 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/HexColors";
+			sourceTree = "<group>";
+		};
+		260C6B7356CD014983D12CCC6E08E7F7 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				A80265C5BF36CD2F81E4A8EFBF85AF93 /* Foundation.framework */,
+				3069501E88FE3892AF65590D9EEE854D /* ImageIO.framework */,
+				1D8BF5C65A58E4FFCCAFFD86AAF7835B /* SystemConfiguration.framework */,
+				F6FC0383B79DB22461CD4404318F1EB5 /* UIKit.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		2C74A2D4446EAD22374B526B76287772 /* STPopup */ = {
@@ -452,7 +461,6 @@
 				A17CC68963E2A3B966BB2637F209FE35 /* UIViewController+STPopup.m */,
 				A71E878D7753ACF2A4692FB9B6F021CF /* Support Files */,
 			);
-			name = STPopup;
 			path = STPopup;
 			sourceTree = "<group>";
 		};
@@ -485,7 +493,6 @@
 				60806793C3B3A67904336EB9A6113137 /* FCFileManager.m */,
 				03B70890A0C2BD344AFA915884271AA2 /* Support Files */,
 			);
-			name = FCFileManager;
 			path = FCFileManager;
 			sourceTree = "<group>";
 		};
@@ -518,6 +525,19 @@
 			path = "../Target Support Files/ATAppUpdater";
 			sourceTree = "<group>";
 		};
+		6A8B88EE0D6DC4E9A50D723AF99D8511 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2C7E2B02F930CB87A32A711C4A6E9057 /* checkmark.png */,
+				4FA52FEF18940CFF2A8869DFDE68F84C /* checkmark@2x.png */,
+				BC6EAA51BD90892061D39949B60FB11A /* checkmark@3x.png */,
+				AEAC5EE62FE4E207534E2E434F1599CF /* exclamationMark.png */,
+				4554B52C07F71BA21D1CA4B2E47E7398 /* exclamationMark@2x.png */,
+				E4C44019EFAC7B2BFB2EC81BEB9F8A6F /* exclamationMark@3x.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		7847D3A713077F6ED817A500181615DE /* ATAppUpdater */ = {
 			isa = PBXGroup;
 			children = (
@@ -525,7 +545,6 @@
 				0215818A7EA9EE825B447DFA855BDD77 /* ATAppUpdater.m */,
 				60CB91E41308E0A7E8F21E3B8B0904F8 /* Support Files */,
 			);
-			name = ATAppUpdater;
 			path = ATAppUpdater;
 			sourceTree = "<group>";
 		};
@@ -538,30 +557,6 @@
 				089251B3B95107664A3BC5DB637B4EA2 /* Products */,
 				DF96B045900B6CB7FAEBB96ED187EF3A /* Targets Support Files */,
 			);
-			sourceTree = "<group>";
-		};
-		96B4E4A04583C97A8716E9BAE9406021 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				BC91C3AC1F066C9722DF993B4C7F3B39 /* Foundation.framework */,
-				B771C2FE5BA84934F1B442416B4EC141 /* ImageIO.framework */,
-				4C1A948F80D8EC7549E9BF99B59D996F /* SystemConfiguration.framework */,
-				FBA127042ECF7CC7C0253CA4B859463A /* UIKit.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		9FCEAD820E5C8B2851FB85ADEBABD11F /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				87BD0FD3C71E85477D613BC1EA489C9E /* checkmark.png */,
-				DD576104B76CFF5AAF9AA94261815304 /* checkmark@2x.png */,
-				B72431476E817D216338AFA11A995318 /* checkmark@3x.png */,
-				74BA6DA88E999C50B552EECAA16FC39D /* exclamationMark.png */,
-				28FD87146B47492281FEB2C15C3F4CD0 /* exclamationMark@2x.png */,
-				DA6877DCBF968B73F2F24CF8887D711E /* exclamationMark@3x.png */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		A71E878D7753ACF2A4692FB9B6F021CF /* Support Files */ = {
@@ -601,7 +596,6 @@
 				3056F5314D3343E9C17EED5F7365275B /* Fabric.h */,
 				DE2D0EF1EDE4D9C5DAB84BF8652D92EF /* Frameworks */,
 			);
-			name = Fabric;
 			path = Fabric;
 			sourceTree = "<group>";
 		};
@@ -642,7 +636,6 @@
 				0F690C37B2912B04718EDED77A7A0F72 /* AutoCoding.m */,
 				CCCF5A043CEC3DEC0B3119F7EDA9C0AE /* Support Files */,
 			);
-			name = AutoCoding;
 			path = AutoCoding;
 			sourceTree = "<group>";
 		};
@@ -656,10 +649,9 @@
 				9B833659CE343B5BC9A51E8C81FAA149 /* CSNotificationView.h */,
 				37E583AFBC05421A618DD44CD076BED7 /* CSNotificationView.m */,
 				68173D6C42FE64C282C0B7936F304102 /* CSNotificationView_Private.h */,
-				9FCEAD820E5C8B2851FB85ADEBABD11F /* Resources */,
+				6A8B88EE0D6DC4E9A50D723AF99D8511 /* Resources */,
 				5D46C41EA565477ADBE02E0D10C10C87 /* Support Files */,
 			);
-			name = CSNotificationView;
 			path = CSNotificationView;
 			sourceTree = "<group>";
 		};
@@ -670,7 +662,6 @@
 				EDA7F4C74A2EDB7A46BC9A976E24713B /* HexColors.m */,
 				1D9E514049A8FE8D2AD189D857DD0D2E /* Support Files */,
 			);
-			name = HexColors;
 			path = HexColors;
 			sourceTree = "<group>";
 		};
@@ -842,7 +833,7 @@
 			buildPhases = (
 				B1080A2A9C109BBA06850C0753EBC62E /* Sources */,
 				C66D3169F59202D019137C082FB258E9 /* Frameworks */,
-				74DFC48996B983D162771AE32EADDD64 /* Resources */,
+				716E75B24ADA582FE4DC94F8C7958386 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -929,8 +920,8 @@
 		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0700;
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0900;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -958,16 +949,16 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		74DFC48996B983D162771AE32EADDD64 /* Resources */ = {
+		716E75B24ADA582FE4DC94F8C7958386 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5258FB748F4AED31077E4CAAC51136F5 /* checkmark.png in Resources */,
-				F6BF8F3681F944763E0E8E559998118F /* checkmark@2x.png in Resources */,
-				9187F8F81F32E02855F0BC6F9D2BD92B /* checkmark@3x.png in Resources */,
-				F6CDD80D6BD5D71AD62EDD2EB23327D7 /* exclamationMark.png in Resources */,
-				8E263D05E2C96B9D9A61ED52ADF7E0D6 /* exclamationMark@2x.png in Resources */,
-				71B5B3D4BC8F98C41BEA9037772D2097 /* exclamationMark@3x.png in Resources */,
+				FE29E6C318D946B5EC67FDA1E20FCA99 /* checkmark.png in Resources */,
+				0D3532E1989C28B628F84FF7FEAC680F /* checkmark@2x.png in Resources */,
+				47391BB102A81E89CE5B8BE78AC8AED9 /* checkmark@3x.png in Resources */,
+				29B21D11897891B4D8F225665AD68FA7 /* exclamationMark.png in Resources */,
+				3773CB4AA5724292720B7CC6FC96F59C /* exclamationMark@2x.png in Resources */,
+				A0135EE1B70530E33BF8734333575A82 /* exclamationMark@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1139,138 +1130,11 @@
 			};
 			name = Release;
 		};
-		14DDCAA7E71FF602E7197897BFB7C7E5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA751C0C440D69520EE95316F5598D6C /* FCFileManager.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/FCFileManager/FCFileManager-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FCFileManager/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FCFileManager/FCFileManager.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = FCFileManager;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		239D5477117CB340CFA1F51A7EA1D496 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 166709DDE267546D391FDE9C92CB5E48 /* AutoCoding.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/AutoCoding/AutoCoding-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/AutoCoding/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/AutoCoding/AutoCoding.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = AutoCoding;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		327C89FBA9C453F6227F56EFD24803E5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59C2763CBA890E7EB6286CB7CFEF047E /* STPopup.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/STPopup/STPopup-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/STPopup/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/STPopup/STPopup.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = STPopup;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		4721624461FB2324388413C83407FCD9 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59C2763CBA890E7EB6286CB7CFEF047E /* STPopup.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/STPopup/STPopup-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/STPopup/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/STPopup/STPopup.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = STPopup;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		4E8AFC253F33C5073A5D4AC4201D5BE6 /* Release */ = {
+		12B66A19FA5687FF5D7D6C7ED3E42A02 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F43E7C3AA554B8B9CF0566B7180DA05C /* HexColors.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1299,10 +1163,11 @@
 			};
 			name = Release;
 		};
-		54B9B9796C5F3FBADD84762EB1CB8183 /* Debug */ = {
+		15AC439491B5636CB7BE5A45C7F26F75 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0AA9E7AD9221D22434A6181A2FD2628 /* Pods-harbaughsim16.debug.xcconfig */;
+			baseConfigurationReference = FA751C0C440D69520EE95316F5598D6C /* FCFileManager.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1314,49 +1179,190 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-harbaughsim16/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/FCFileManager/FCFileManager-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FCFileManager/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.modulemap";
+				MODULEMAP_FILE = "Target Support Files/FCFileManager/FCFileManager.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_harbaughsim16;
+				PRODUCT_NAME = FCFileManager;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		59B042A655B7C20CBAB90E385BF4E4C7 /* Debug */ = {
+		2ACE015E442F3E739106C51E5FE0031B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 166709DDE267546D391FDE9C92CB5E48 /* AutoCoding.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AutoCoding/AutoCoding-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AutoCoding/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/AutoCoding/AutoCoding.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = AutoCoding;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		336890A3E0DDDFE2A6605832F9BB1BC0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3605C1EA8850F5E4E595AB4C8A4EEEBD /* ATAppUpdater.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/ATAppUpdater/ATAppUpdater-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ATAppUpdater/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ATAppUpdater/ATAppUpdater.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = ATAppUpdater;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3478CD36C689025F625B4BB169484398 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E38674C5F12BDEC4EE639A2AA7D24598 /* CSNotificationView.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/CSNotificationView/CSNotificationView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CSNotificationView/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/CSNotificationView/CSNotificationView.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = CSNotificationView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		41F863A1CCEDD4F14875A09E55BDEF72 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 166709DDE267546D391FDE9C92CB5E48 /* AutoCoding.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/AutoCoding/AutoCoding-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/AutoCoding/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/AutoCoding/AutoCoding.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = AutoCoding;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4E487F173E6C9664F4E9E26B9635D23C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
@@ -1378,10 +1384,11 @@
 			};
 			name = Debug;
 		};
-		670B78A57D6886E0F3AD24B9EDA99116 /* Release */ = {
+		533E9C920A3BED26609A99761A13C302 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E38674C5F12BDEC4EE639A2AA7D24598 /* CSNotificationView.xcconfig */;
+			baseConfigurationReference = 85DB0D76486E22C1305327DA0293B6C5 /* DZNEmptyDataSet.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1393,14 +1400,14 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/CSNotificationView/CSNotificationView-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/CSNotificationView/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/DZNEmptyDataSet/DZNEmptyDataSet-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/DZNEmptyDataSet/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/CSNotificationView/CSNotificationView.modulemap";
+				MODULEMAP_FILE = "Target Support Files/DZNEmptyDataSet/DZNEmptyDataSet.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = CSNotificationView;
+				PRODUCT_NAME = DZNEmptyDataSet;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1410,10 +1417,44 @@
 			};
 			name = Release;
 		};
-		6CC2259E5E6897F4981F16BA3969B100 /* Release */ = {
+		5C9909C9D2A0E2D307BE56A7323CF4A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3605C1EA8850F5E4E595AB4C8A4EEEBD /* ATAppUpdater.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/ATAppUpdater/ATAppUpdater-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ATAppUpdater/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/ATAppUpdater/ATAppUpdater.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = ATAppUpdater;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		64A0C7727167BDCCFFB3D6C7D830BD50 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DC38A20492FA49D3D210591CE6FF98D4 /* Pods-harbaughsim16.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1445,10 +1486,215 @@
 			};
 			name = Release;
 		};
-		7407810B2EB013CCE0D2B3E3200C2687 /* Debug */ = {
+		8FEC64FE785EB45A37E13B7626E8DBA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0AA9E7AD9221D22434A6181A2FD2628 /* Pods-harbaughsim16.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-harbaughsim16/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_harbaughsim16;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A0AA55484FBE49F5AA8620AF7CFC1E75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E38674C5F12BDEC4EE639A2AA7D24598 /* CSNotificationView.xcconfig */;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CSNotificationView";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/CSNotificationView/ResourceBundle-CSNotificationView-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PRODUCT_NAME = CSNotificationView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		ADABA8BA20AB2FF8DACE24F71F7DF32E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 59C2763CBA890E7EB6286CB7CFEF047E /* STPopup.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/STPopup/STPopup-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/STPopup/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/STPopup/STPopup.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = STPopup;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		BC7383E3A5DE2D3135570ACA29ABA43A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA751C0C440D69520EE95316F5598D6C /* FCFileManager.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/FCFileManager/FCFileManager-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/FCFileManager/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/FCFileManager/FCFileManager.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = FCFileManager;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		BDD0139D6EB93FA375F887ABD62DAB2E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BFC8FE58DD946643C612BC977013ACC3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E38674C5F12BDEC4EE639A2AA7D24598 /* CSNotificationView.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/CSNotificationView/CSNotificationView-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/CSNotificationView/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/CSNotificationView/CSNotificationView.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = CSNotificationView;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		EA2F801E1081C247660D6341A8F39509 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F43E7C3AA554B8B9CF0566B7180DA05C /* HexColors.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1477,10 +1723,11 @@
 			};
 			name = Debug;
 		};
-		76568C082CE7D196DF3C8CEC8FEFD72E /* Debug */ = {
+		F43F4691ABA20240EBFA9CF34AF3260B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FA751C0C440D69520EE95316F5598D6C /* FCFileManager.xcconfig */;
+			baseConfigurationReference = 59C2763CBA890E7EB6286CB7CFEF047E /* STPopup.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1492,14 +1739,14 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/FCFileManager/FCFileManager-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/FCFileManager/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/STPopup/STPopup-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/STPopup/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/FCFileManager/FCFileManager.modulemap";
+				MODULEMAP_FILE = "Target Support Files/STPopup/STPopup.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = FCFileManager;
+				PRODUCT_NAME = STPopup;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
@@ -1509,131 +1756,11 @@
 			};
 			name = Debug;
 		};
-		861030C58D3C25DE30F860BF6235C1DD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3605C1EA8850F5E4E595AB4C8A4EEEBD /* ATAppUpdater.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/ATAppUpdater/ATAppUpdater-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ATAppUpdater/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ATAppUpdater/ATAppUpdater.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = ATAppUpdater;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		A0AA55484FBE49F5AA8620AF7CFC1E75 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E38674C5F12BDEC4EE639A2AA7D24598 /* CSNotificationView.xcconfig */;
-			buildSettings = {
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CSNotificationView";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/CSNotificationView/ResourceBundle-CSNotificationView-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = CSNotificationView;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		B21E1B21C1FD0272657F0A2F13D02DC6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 166709DDE267546D391FDE9C92CB5E48 /* AutoCoding.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/AutoCoding/AutoCoding-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/AutoCoding/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/AutoCoding/AutoCoding.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = AutoCoding;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		B7324857C38B065FEB1EEE3105C2367A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		CAE705AA7F1E54FF7383C747F3AE5C8C /* Debug */ = {
+		F862CD7AF32DFBC7E5E14920CEE1F532 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 85DB0D76486E22C1305327DA0293B6C5 /* DZNEmptyDataSet.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -1661,102 +1788,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
-		};
-		D21BC9BDC90CB078365C79AB30983C22 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3605C1EA8850F5E4E595AB4C8A4EEEBD /* ATAppUpdater.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/ATAppUpdater/ATAppUpdater-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ATAppUpdater/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ATAppUpdater/ATAppUpdater.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = ATAppUpdater;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		E1C23CF9A323B6B1C944784CC0044902 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E38674C5F12BDEC4EE639A2AA7D24598 /* CSNotificationView.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/CSNotificationView/CSNotificationView-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/CSNotificationView/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/CSNotificationView/CSNotificationView.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = CSNotificationView;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		FD955D09C8234320BDE1F0C7F1E6675F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 85DB0D76486E22C1305327DA0293B6C5 /* DZNEmptyDataSet.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/DZNEmptyDataSet/DZNEmptyDataSet-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/DZNEmptyDataSet/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/DZNEmptyDataSet/DZNEmptyDataSet.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = DZNEmptyDataSet;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1764,8 +1795,8 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				59B042A655B7C20CBAB90E385BF4E4C7 /* Debug */,
-				B7324857C38B065FEB1EEE3105C2367A /* Release */,
+				4E487F173E6C9664F4E9E26B9635D23C /* Debug */,
+				BDD0139D6EB93FA375F887ABD62DAB2E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1773,8 +1804,8 @@
 		2E641E7B8F777A1E1B4E6B643DF90C7F /* Build configuration list for PBXNativeTarget "Pods-harbaughsim16" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				54B9B9796C5F3FBADD84762EB1CB8183 /* Debug */,
-				6CC2259E5E6897F4981F16BA3969B100 /* Release */,
+				8FEC64FE785EB45A37E13B7626E8DBA6 /* Debug */,
+				64A0C7727167BDCCFFB3D6C7D830BD50 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1782,8 +1813,8 @@
 		6D4EFCCB7B17044F4337738D60FE8F8F /* Build configuration list for PBXNativeTarget "HexColors" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7407810B2EB013CCE0D2B3E3200C2687 /* Debug */,
-				4E8AFC253F33C5073A5D4AC4201D5BE6 /* Release */,
+				EA2F801E1081C247660D6341A8F39509 /* Debug */,
+				12B66A19FA5687FF5D7D6C7ED3E42A02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1791,8 +1822,8 @@
 		8582B65890D9EA1A9F5DE515FCD4E4B9 /* Build configuration list for PBXNativeTarget "AutoCoding" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B21E1B21C1FD0272657F0A2F13D02DC6 /* Debug */,
-				239D5477117CB340CFA1F51A7EA1D496 /* Release */,
+				2ACE015E442F3E739106C51E5FE0031B /* Debug */,
+				41F863A1CCEDD4F14875A09E55BDEF72 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1800,8 +1831,8 @@
 		90CB4CD82CE7BE2EEA8B5EF82270BE84 /* Build configuration list for PBXNativeTarget "ATAppUpdater" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D21BC9BDC90CB078365C79AB30983C22 /* Debug */,
-				861030C58D3C25DE30F860BF6235C1DD /* Release */,
+				336890A3E0DDDFE2A6605832F9BB1BC0 /* Debug */,
+				5C9909C9D2A0E2D307BE56A7323CF4A4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1818,8 +1849,8 @@
 		AADD0562C08D70A04F05A9B503C8A138 /* Build configuration list for PBXNativeTarget "CSNotificationView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E1C23CF9A323B6B1C944784CC0044902 /* Debug */,
-				670B78A57D6886E0F3AD24B9EDA99116 /* Release */,
+				3478CD36C689025F625B4BB169484398 /* Debug */,
+				BFC8FE58DD946643C612BC977013ACC3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1827,8 +1858,8 @@
 		AC2CBCE24382919CB3DBFC8BB3CC6503 /* Build configuration list for PBXNativeTarget "DZNEmptyDataSet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CAE705AA7F1E54FF7383C747F3AE5C8C /* Debug */,
-				FD955D09C8234320BDE1F0C7F1E6675F /* Release */,
+				F862CD7AF32DFBC7E5E14920CEE1F532 /* Debug */,
+				533E9C920A3BED26609A99761A13C302 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1836,8 +1867,8 @@
 		EE545A3CDD611B9A1562D6F46A662D81 /* Build configuration list for PBXNativeTarget "FCFileManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				76568C082CE7D196DF3C8CEC8FEFD72E /* Debug */,
-				14DDCAA7E71FF602E7197897BFB7C7E5 /* Release */,
+				15AC439491B5636CB7BE5A45C7F26F75 /* Debug */,
+				BC7383E3A5DE2D3135570ACA29ABA43A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1845,8 +1876,8 @@
 		F86B1620A40EC0FA8A2D23206C555461 /* Build configuration list for PBXNativeTarget "STPopup" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				327C89FBA9C453F6227F56EFD24803E5 /* Debug */,
-				4721624461FB2324388413C83407FCD9 /* Release */,
+				F43F4691ABA20240EBFA9CF34AF3260B /* Debug */,
+				ADABA8BA20AB2FF8DACE24F71F7DF32E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

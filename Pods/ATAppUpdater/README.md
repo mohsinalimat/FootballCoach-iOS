@@ -1,7 +1,5 @@
-# ATAppUpdater 1.7
+# ATAppUpdater 2.0
 Checks if there is a newer version of your app in the AppStore and alerts the user to update.
-
-[![Build Status](https://travis-ci.org/apptality/ATAppUpdater.svg?branch=master)](https://travis-ci.org/apptality/ATAppUpdater) 
 
 ## Features
 
@@ -12,6 +10,7 @@ Checks if there is a newer version of your app in the AppStore and alerts the us
 - Opens app in AppStore from alert
 - Choose not to update now or force user to update
 - Localization supported
+- Delegate methods
 
 ## Examples
 
@@ -24,7 +23,7 @@ Checks if there is a newer version of your app in the AppStore and alerts the us
    return YES;
 }
 ````
-![ATAppUpdater1](http://demo.apptality.co.za/ATAppUpdater/images/1.6/ATAppUpdater1.png)
+![ATAppUpdater1](https://www.emotality.com/development/GitHub/ATAppUpdater-1.png)
 ````objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -32,7 +31,7 @@ Checks if there is a newer version of your app in the AppStore and alerts the us
    return YES;
 }
 ````
-![ATAppUpdater2](http://demo.apptality.co.za/ATAppUpdater/images/1.6/ATAppUpdater2.png)
+![ATAppUpdater2](https://www.emotality.com/development/GitHub/ATAppUpdater-2.png)
 
 ---
 **Custom titles + localization:**
@@ -44,11 +43,20 @@ Checks if there is a newer version of your app in the AppStore and alerts the us
    [updater setAlertMessage:NSLocalizedString(@"Weergawe %@ is beskikbaar op die AppStore.", @"Alert Message")];
    [updater setAlertUpdateButtonTitle:@"Opgradeer"];
    [updater setAlertCancelButtonTitle:@"Nie nou nie"];
+   [updater setDelegate:self]; // Optional
    [updater showUpdateWithConfirmation];
    return YES;
 }
 ````
-![ATAppUpdater3](http://demo.apptality.co.za/ATAppUpdater/images/1.6/ATAppUpdater3.png)
+![ATAppUpdater3](https://www.emotality.com/development/GitHub/ATAppUpdater-3.png)
+
+---
+**Delegate methods:**
+````objc
+- (void)appUpdaterDidShowUpdateDialog;
+- (void)appUpdaterUserDidLaunchAppStore;
+- (void)appUpdaterUserDidCancel;
+````
 
 ## Installation
 
@@ -57,12 +65,14 @@ Checks if there is a newer version of your app in the AppStore and alerts the us
 - Copy `ATAppUpdater` folder into your project
 - Link `SystemConfiguration.framework`
 - `#import "ATAppUpdater.h"` in the required class
+- Add the `<ATAppUpdaterDelegate>` protocol if needed
 
 **CocoaPods:**
 
 - Add to podfile: `pod 'ATAppUpdater'`
 - `#import "ATAppUpdater.h"` in the required class
+- Add the `<ATAppUpdaterDelegate>` protocol if needed
 
 ## License
 
-ATAppUpdater is released under the MIT license. See [LICENSE](https://github.com/apptality/ATAppUpdater/blob/master/LICENSE.md) for details.
+ATAppUpdater is released under the MIT license. See [LICENSE](https://github.com/emotality/ATAppUpdater/blob/master/LICENSE.md) for details.

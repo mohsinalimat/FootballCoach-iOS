@@ -16,8 +16,6 @@
 		751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */; };
 		751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF8231CA1D66D003C62F2 /* TeamStrategyViewController.m */; };
 		751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */; };
-		752827121CB069CD00613B65 /* Football_CoachUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752827111CB069CD00613B65 /* Football_CoachUITests.swift */; };
-		7528271A1CB069D500613B65 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752827191CB069D500613B65 /* SnapshotHelper.swift */; };
 		75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 75300A5F1CB2DC96001EBBCB /* TeamStreak.m */; };
 		754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754318FE1CC02CF400D380F1 /* ConferenceStandingsViewController.m */; };
 		754319021CC02D2200D380F1 /* ConferenceStandingsSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754319011CC02D2200D380F1 /* ConferenceStandingsSelectorViewController.m */; };
@@ -103,13 +101,10 @@
 		75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C01CAD748F00906A38 /* AllLeagueTeamViewController.m */; };
 		75C321C41CAD7BBB00906A38 /* AllConferenceTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C31CAD7BBB00906A38 /* AllConferenceTeamViewController.m */; };
 		75C321C71CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C61CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m */; };
+		75C5C3321F83447A00D7CAAD /* UpcomingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */; };
+		75C5C3351F83457100D7CAAD /* PlayerStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3331F83457000D7CAAD /* PlayerStatsViewController.m */; };
+		75C5C3381F83489D00D7CAAD /* HBTeamPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */; };
 		75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE1C1CBECCBC003AB932 /* FCAFootball.png */; };
-		75CACE281CBECCBC003AB932 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE1E1CBECCBC003AB932 /* Icon-60@2x.png */; };
-		75CACE291CBECCBC003AB932 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE1F1CBECCBC003AB932 /* Icon-60@3x.png */; };
-		75CACE2B1CBECCBC003AB932 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE211CBECCBC003AB932 /* Icon-Small@2x.png */; };
-		75CACE2C1CBECCBC003AB932 /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE221CBECCBC003AB932 /* Icon-Small@3x.png */; };
-		75CACE2E1CBECCBC003AB932 /* Icon-Spotlight-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE241CBECCBC003AB932 /* Icon-Spotlight-40@2x.png */; };
-		75CACE2F1CBECCBC003AB932 /* Icon-Spotlight-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE251CBECCBC003AB932 /* Icon-Spotlight-40@3x.png */; };
 		75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */; };
 		75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */; };
 		75EC9A711D0663B900F24BE6 /* Injury.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A701D0663B900F24BE6 /* Injury.m */; };
@@ -120,16 +115,6 @@
 		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
 		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		752827141CB069CD00613B65 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 75924A131C99CCC000B165AD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 75924A1A1C99CCC000B165AD;
-			remoteInfo = harbaughsim16;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		47B6A776B32A57CB82A6413D /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.release.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
@@ -150,10 +135,6 @@
 		751DF8251CA1F273003C62F2 /* TeamRosterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamRosterViewController.h; sourceTree = "<group>"; };
 		751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamRosterViewController.m; sourceTree = "<group>"; };
 		75245BDC1D2069CE00F0A8AB /* TeamHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeamHistoryViewController.h; sourceTree = "<group>"; };
-		7528270F1CB069CD00613B65 /* Football CoachUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Football CoachUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		752827111CB069CD00613B65 /* Football_CoachUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Football_CoachUITests.swift; sourceTree = "<group>"; };
-		752827131CB069CD00613B65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		752827191CB069D500613B65 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		75300A5E1CB2DC96001EBBCB /* TeamStreak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreak.h; sourceTree = "<group>"; };
 		75300A5F1CB2DC96001EBBCB /* TeamStreak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreak.m; sourceTree = "<group>"; };
 		754318FD1CC02CF400D380F1 /* ConferenceStandingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConferenceStandingsViewController.h; sourceTree = "<group>"; };
@@ -291,13 +272,23 @@
 		75C321C31CAD7BBB00906A38 /* AllConferenceTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllConferenceTeamViewController.m; sourceTree = "<group>"; };
 		75C321C51CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllConferenceTeamConferenceSelectorViewController.h; sourceTree = "<group>"; };
 		75C321C61CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllConferenceTeamConferenceSelectorViewController.m; sourceTree = "<group>"; };
+		75C5C3261F83429300D7CAAD /* FCAIcon1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCAIcon1024.png; sourceTree = "<group>"; };
+		75C5C3271F83429300D7CAAD /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		75C5C3281F83429300D7CAAD /* Icon-Spotlight-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@3x.png"; sourceTree = "<group>"; };
+		75C5C3291F83429400D7CAAD /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
+		75C5C32A1F83429400D7CAAD /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@3x.png"; sourceTree = "<group>"; };
+		75C5C32B1F83429400D7CAAD /* Icon-Spotlight-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@2x.png"; sourceTree = "<group>"; };
+		75C5C32C1F83429400D7CAAD /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
+		75C5C32D1F83433800D7CAAD /* Icon-20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-20@2x.png"; sourceTree = "<group>"; };
+		75C5C32E1F83433800D7CAAD /* Icon-20@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-20@3x.png"; sourceTree = "<group>"; };
+		75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpcomingViewController.m; sourceTree = "<group>"; };
+		75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingViewController.xib; sourceTree = "<group>"; };
+		75C5C3311F83447A00D7CAAD /* UpcomingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpcomingViewController.h; sourceTree = "<group>"; };
+		75C5C3331F83457000D7CAAD /* PlayerStatsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerStatsViewController.m; sourceTree = "<group>"; };
+		75C5C3341F83457100D7CAAD /* PlayerStatsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerStatsViewController.h; sourceTree = "<group>"; };
+		75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBTeamPlayView.h; sourceTree = "<group>"; };
+		75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBTeamPlayView.m; sourceTree = "<group>"; };
 		75CACE1C1CBECCBC003AB932 /* FCAFootball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCAFootball.png; sourceTree = "<group>"; };
-		75CACE1E1CBECCBC003AB932 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@2x.png"; sourceTree = "<group>"; };
-		75CACE1F1CBECCBC003AB932 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
-		75CACE211CBECCBC003AB932 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		75CACE221CBECCBC003AB932 /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@3x.png"; sourceTree = "<group>"; };
-		75CACE241CBECCBC003AB932 /* Icon-Spotlight-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@2x.png"; sourceTree = "<group>"; };
-		75CACE251CBECCBC003AB932 /* Icon-Spotlight-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Spotlight-40@3x.png"; sourceTree = "<group>"; };
 		75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamHistoryViewController.m; sourceTree = "<group>"; };
 		75E10F1F1CA0E0170000DA78 /* LeagueHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueHistoryController.h; sourceTree = "<group>"; };
 		75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueHistoryController.m; sourceTree = "<group>"; };
@@ -317,13 +308,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7528270C1CB069CD00613B65 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		75924A181C99CCC000B165AD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -360,16 +344,6 @@
 				755BBC661C9E10AF001A8314 /* Teams */,
 			);
 			name = "Base Tabs";
-			sourceTree = "<group>";
-		};
-		752827101CB069CD00613B65 /* Football CoachUITests */ = {
-			isa = PBXGroup;
-			children = (
-				752827191CB069D500613B65 /* SnapshotHelper.swift */,
-				752827111CB069CD00613B65 /* Football_CoachUITests.swift */,
-				752827131CB069CD00613B65 /* Info.plist */,
-			);
-			path = "Football CoachUITests";
 			sourceTree = "<group>";
 		};
 		754319031CC02EAC00D380F1 /* Conference Standings */ = {
@@ -557,6 +531,11 @@
 		755BBC691C9E10D0001A8314 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				75C5C3311F83447A00D7CAAD /* UpcomingViewController.h */,
+				75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */,
+				75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */,
+				75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */,
+				75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */,
 				754319031CC02EAC00D380F1 /* Conference Standings */,
 				75924A241C99CCC000B165AD /* NewsViewController.h */,
 				75924A251C99CCC000B165AD /* NewsViewController.m */,
@@ -567,6 +546,8 @@
 				754E907A1CA58C0F00C450CF /* HeismanLeadersViewController.m */,
 				754E90761CA58BF800C450CF /* BowlProjectionViewController.h */,
 				754E90771CA58BF800C450CF /* BowlProjectionViewController.m */,
+				75C5C3341F83457100D7CAAD /* PlayerStatsViewController.h */,
+				75C5C3331F83457000D7CAAD /* PlayerStatsViewController.m */,
 			);
 			name = News;
 			sourceTree = "<group>";
@@ -611,7 +592,6 @@
 			isa = PBXGroup;
 			children = (
 				75924A1D1C99CCC000B165AD /* harbaughsim16 */,
-				752827101CB069CD00613B65 /* Football CoachUITests */,
 				75924A1C1C99CCC000B165AD /* Products */,
 				38C3A07A6C2A3ED611332D85 /* Pods */,
 				C0C1FC9379CC5881BF7F3C73 /* Frameworks */,
@@ -622,7 +602,6 @@
 			isa = PBXGroup;
 			children = (
 				75924A1B1C99CCC000B165AD /* harbaughsim16.app */,
-				7528270F1CB069CD00613B65 /* Football CoachUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -654,14 +633,17 @@
 		75A86C9F1C9C7CAA0034140C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				75C5C3261F83429300D7CAAD /* FCAIcon1024.png */,
+				75C5C32D1F83433800D7CAAD /* Icon-20@2x.png */,
+				75C5C32E1F83433800D7CAAD /* Icon-20@3x.png */,
+				75C5C3291F83429400D7CAAD /* Icon-60@2x.png */,
+				75C5C32C1F83429400D7CAAD /* Icon-60@3x.png */,
+				75C5C3271F83429300D7CAAD /* Icon-Small@2x.png */,
+				75C5C32A1F83429400D7CAAD /* Icon-Small@3x.png */,
+				75C5C32B1F83429400D7CAAD /* Icon-Spotlight-40@2x.png */,
+				75C5C3281F83429300D7CAAD /* Icon-Spotlight-40@3x.png */,
 				75CACE1C1CBECCBC003AB932 /* FCAFootball.png */,
-				75CACE1E1CBECCBC003AB932 /* Icon-60@2x.png */,
-				75CACE1F1CBECCBC003AB932 /* Icon-60@3x.png */,
-				75CACE211CBECCBC003AB932 /* Icon-Small@2x.png */,
-				75CACE221CBECCBC003AB932 /* Icon-Small@3x.png */,
 				75EC9A751D07D9DC00F24BE6 /* medical@3x.png */,
-				75CACE241CBECCBC003AB932 /* Icon-Spotlight-40@2x.png */,
-				75CACE251CBECCBC003AB932 /* Icon-Spotlight-40@3x.png */,
 				75A41B4B1CA311CF00025E53 /* close@3x.png */,
 				7571DD321C9CD3A200E67080 /* play-week@3x.png */,
 				7571DD211C9CC62400E67080 /* news-sort@3x.png */,
@@ -718,24 +700,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7528270E1CB069CD00613B65 /* Football CoachUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 752827161CB069CD00613B65 /* Build configuration list for PBXNativeTarget "Football CoachUITests" */;
-			buildPhases = (
-				7528270B1CB069CD00613B65 /* Sources */,
-				7528270C1CB069CD00613B65 /* Frameworks */,
-				7528270D1CB069CD00613B65 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				752827151CB069CD00613B65 /* PBXTargetDependency */,
-			);
-			name = "Football CoachUITests";
-			productName = "Football CoachUITests";
-			productReference = 7528270F1CB069CD00613B65 /* Football CoachUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		75924A1A1C99CCC000B165AD /* harbaughsim16 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75924A351C99CCC000B165AD /* Build configuration list for PBXNativeTarget "harbaughsim16" */;
@@ -764,14 +728,9 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Akshay Easwaran";
 				TargetAttributes = {
-					7528270E1CB069CD00613B65 = {
-						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
-						TestTargetID = 75924A1A1C99CCC000B165AD;
-					};
 					75924A1A1C99CCC000B165AD = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 67BW26529D;
@@ -793,26 +752,16 @@
 			projectRoot = "";
 			targets = (
 				75924A1A1C99CCC000B165AD /* harbaughsim16 */,
-				7528270E1CB069CD00613B65 /* Football CoachUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7528270D1CB069CD00613B65 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		75924A191C99CCC000B165AD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75CACE2E1CBECCBC003AB932 /* Icon-Spotlight-40@2x.png in Resources */,
 				75A86C911C9C7AA80034140C /* schedule@3x.png in Resources */,
-				75CACE281CBECCBC003AB932 /* Icon-60@2x.png in Resources */,
 				75924A311C99CCC000B165AD /* LaunchScreen.storyboard in Resources */,
 				755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */,
 				75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */,
@@ -827,7 +776,6 @@
 				755BBC4E1C9DEDF0001A8314 /* HBPlayerCell.xib in Resources */,
 				7571DD461C9D34B300E67080 /* RosterViewController.xib in Resources */,
 				75A86C901C9C7AA80034140C /* roster@3x.png in Resources */,
-				75CACE291CBECCBC003AB932 /* Icon-60@3x.png in Resources */,
 				7571DD2D1C9CCD8100E67080 /* HBScheduleCell.xib in Resources */,
 				755BBC8C1CA03252001A8314 /* HBRecruitCell.xib in Resources */,
 				75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */,
@@ -837,7 +785,6 @@
 				7571DD3D1C9CFF6500E67080 /* HBRosterCell.xib in Resources */,
 				75A86C981C9C7C0C0034140C /* news-selected@3x.png in Resources */,
 				755BBC821C9F734E001A8314 /* TeamViewController.xib in Resources */,
-				75CACE2B1CBECCBC003AB932 /* Icon-Small@2x.png in Resources */,
 				7571DD241C9CC62E00E67080 /* stats@3x.png in Resources */,
 				75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */,
 				75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */,
@@ -847,12 +794,10 @@
 				7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */,
 				7571DD261C9CC64200E67080 /* settings@3x.png in Resources */,
 				7571DD351C9CF8E300E67080 /* MyTeamViewController.xib in Resources */,
-				75CACE2F1CBECCBC003AB932 /* Icon-Spotlight-40@3x.png in Resources */,
 				75097C5D1CBC1B55003E2538 /* HBRecordCell.xib in Resources */,
 				7571DD331C9CD3A200E67080 /* play-week@3x.png in Resources */,
 				754E90831CA5A59D00C450CF /* TeamScheduleViewController.xib in Resources */,
 				755BBC7D1C9F6964001A8314 /* TeamSearchViewController.xib in Resources */,
-				75CACE2C1CBECCBC003AB932 /* Icon-Small@3x.png in Resources */,
 				75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -921,15 +866,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7528270B1CB069CD00613B65 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				752827121CB069CD00613B65 /* Football_CoachUITests.swift in Sources */,
-				7528271A1CB069D500613B65 /* SnapshotHelper.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		75924A171C99CCC000B165AD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -938,6 +874,7 @@
 				75924A4C1C99D03300B165AD /* Player.m in Sources */,
 				7563A8E11CB7F6F20023E43B /* Record.m in Sources */,
 				75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */,
+				75C5C3321F83447A00D7CAAD /* UpcomingViewController.m in Sources */,
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
 				755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */,
 				75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */,
@@ -954,6 +891,7 @@
 				75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */,
 				75EC9A791D08E12D00F24BE6 /* RingOfHonorViewController.m in Sources */,
 				7571DD411C9D032F00E67080 /* PlayerDetailViewController.m in Sources */,
+				75C5C3381F83489D00D7CAAD /* HBTeamPlayView.m in Sources */,
 				7543190E1CC02F2200D380F1 /* HBTeamRankCell.m in Sources */,
 				751DF8201CA17F81003C62F2 /* HBSettingsCell.m in Sources */,
 				75EC9A711D0663B900F24BE6 /* Injury.m in Sources */,
@@ -974,6 +912,7 @@
 				751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */,
 				75924A491C99CF7C00B165AD /* Game.m in Sources */,
 				75EC9A7C1D08E5B300F24BE6 /* HallOfFameViewController.m in Sources */,
+				75C5C3351F83457100D7CAAD /* PlayerStatsViewController.m in Sources */,
 				7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */,
 				754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */,
 				75924A261C99CCC000B165AD /* NewsViewController.m in Sources */,
@@ -1004,14 +943,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		752827151CB069CD00613B65 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 75924A1A1C99CCC000B165AD /* harbaughsim16 */;
-			targetProxy = 752827141CB069CD00613B65 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		75924A2F1C99CCC000B165AD /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1024,35 +955,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		752827171CB069CD00613B65 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				INFOPLIST_FILE = "Football CoachUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "me.akeaswaran.Football-CoachUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = harbaughsim16;
-			};
-			name = Debug;
-		};
-		752827181CB069CD00613B65 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				INFOPLIST_FILE = "Football CoachUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "me.akeaswaran.Football-CoachUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = harbaughsim16;
-			};
-			name = Release;
-		};
 		75924A331C99CCC000B165AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1061,14 +963,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1106,14 +1014,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1184,15 +1098,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		752827161CB069CD00613B65 /* Build configuration list for PBXNativeTarget "Football CoachUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				752827171CB069CD00613B65 /* Debug */,
-				752827181CB069CD00613B65 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		75924A161C99CCC000B165AD /* Build configuration list for PBXProject "harbaughsim16" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

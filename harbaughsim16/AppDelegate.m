@@ -104,7 +104,7 @@
     [[UITabBar appearance] setTintColor:[HBSharedUtils styleColor]];
     [[UINavigationBar appearance] setBarTintColor:[HBSharedUtils styleColor]];
     self.window.tintColor = [HBSharedUtils styleColor];
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
+    //[[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
     
     [[UIToolbar appearance] setBarTintColor:[HBSharedUtils styleColor]];

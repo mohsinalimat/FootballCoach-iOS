@@ -93,12 +93,12 @@
 //Game Log variables
 @property (strong, nonatomic) NSMutableArray<Player*> *injuredPlayers;
 @property (strong, nonatomic) NSMutableArray<Player*> *recoveredPlayers;
-@property (strong, nonatomic) NSMutableArray *gameSchedule;
+@property (strong, nonatomic) NSMutableArray<Game*> *gameSchedule;
 @property (strong, nonatomic) Game *oocGame0;
 @property (strong, nonatomic) Game *oocGame4;
 @property (strong, nonatomic) Game *oocGame9;
-@property (strong, nonatomic) NSMutableArray *gameWLSchedule;
-@property (strong, nonatomic) NSMutableArray *gameWinsAgainst;
+@property (strong, nonatomic) NSMutableArray<NSString*> *gameWLSchedule;
+@property (strong, nonatomic) NSMutableArray<Team*> *gameWinsAgainst;
 @property (strong, nonatomic) NSString *confChampion;
 @property (strong, nonatomic) NSString *semifinalWL;
 @property (strong, nonatomic) NSString *natlChampWL;

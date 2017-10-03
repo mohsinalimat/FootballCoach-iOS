@@ -254,8 +254,8 @@
         totalCCLosses = 0;
         totalNCLosses = 0;
 
-        teamStatOffNum = 1;
-        teamStatDefNum = 1;
+        teamStatOffNum = [self getCPUOffense];
+        teamStatDefNum = [self getCPUDefense];
 
         name = nm;
         abbreviation = abbr;
@@ -378,6 +378,13 @@
     [k checkRecords];
 
     [self advanceSeasonPlayers];
+    
+    if (!isUserControlled) {
+        teamStatOffNum = [self getCPUOffense];
+        teamStatDefNum = [self getCPUDefense];
+        offensiveStrategy = [self getOffensiveTeamStrategies][teamStatOffNum];
+        defensiveStrategy = [self getDefensiveTeamStrategies][teamStatDefNum];
+    }
 }
 
 -(void)advanceSeasonPlayers {
@@ -888,24 +895,32 @@
     diffDefTalent = [self getDefensiveTalent] - teamDefTalent;
     teamDefTalent = [self getDefensiveTalent];
     teamPollScore = teamPrestige + [self getOffensiveTalent] + [self getDefensiveTalent];
+    teamStatOffNum = [self getCPUOffense];
+    teamStatDefNum = [self getCPUDefense];
+    offensiveStrategy = [self getOffensiveTeamStrategies][teamStatOffNum];
+    defensiveStrategy = [self getDefensiveTeamStrategies][teamStatDefNum];
 }
 
 -(void)updatePollScore {
     [self updateStrengthOfWins];
     int preseasonBias = 8 - (wins + losses);
     if (preseasonBias < 0) preseasonBias = 0;
-    teamPollScore = (wins*200 + 3*(teamPoints-teamOppPoints) + (teamYards-teamOppYards)/40 + 3*(preseasonBias)*(teamPrestige + [self getOffensiveTalent] + [self getDefensiveTalent]) + teamStrengthOfWins)/10;
+    teamPollScore = (wins*200 + 3*(teamPoints-teamOppPoints) + (teamYards-teamOppYards)/40 + (teamStrengthOfWins / 2) + 3*(preseasonBias)*(teamPrestige + [self getOffensiveTalent] + [self getDefensiveTalent]) + teamStrengthOfWins)/11 + (teamPrestige / 5);
     if ([@"CC" isEqualToString:confChampion] ) {
         //bonus for winning conference
-        teamPollScore += 50;
+        teamPollScore += 25;
     }
     if ( [@"NCW" isEqualToString:natlChampWL] ) {
         //bonus for winning champ game
         teamPollScore += 100;
     }
-    if (losses == 0 ) {
+    if ( [@"NCL" isEqualToString:natlChampWL] ) {
+        //bonus for winning champ game
+        teamPollScore += 15;
+    }
+    if (losses == 0) {
         teamPollScore += 30;
-    } else if ( losses == 1 ) {
+    } else if (losses == 1 ) {
         teamPollScore += 15;
     } else {
         teamPollScore += 0;
@@ -1965,6 +1980,30 @@
              [TeamStrategy newStrategyWithName:@"No Fly Zone" description:@"Focus on stopping the pass. Will give up less yards on catches and will be more likely to intercept passes, but will allow more rushing yards." rYB:-1 rAB:0 pYB:1 pAB:1]
 
              ];
+}
+
+-(int)getCPUOffense {
+    int OP, OR, OS = 0;
+    OP = [self getPassProf];
+    OR = [self getRushProf];
+    if(OP > (OR + 2)) {
+        OS = 0;
+    } else if(OR > (OP + 2)) {
+        OS = 2;
+    } else OS = 1;
+    return OS;
+}
+
+-(int)getCPUDefense {
+    int DP, DR, DS = 0;
+    DP = [self getPassDef];
+    DR = [self getRushDef];
+    if(DR > (DP + 2)) {
+        DS = 0;
+    } else if(DP > (DR + 2)) {
+        DS = 2;
+    } else DS = 1;
+    return DS;
 }
 
 -(NSString*)getRankStrStarUser:(int)num {
