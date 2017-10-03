@@ -59,4 +59,5 @@
 -(NSDictionary*)detailedCareerStats;
 -(NSDictionary*)detailedRatings;
 -(void)checkRecords;
++(int)getPosNumber:(NSString*)pos;
 @end

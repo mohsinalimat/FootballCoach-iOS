@@ -157,6 +157,30 @@
     [aCoder encodeInt:self.endYear forKey:@"endYear"];
 }
 
++(int)getPosNumber:(NSString*)pos {
+    if ([pos isEqualToString:@"QB"]) {
+        return 0;
+    } else if ([pos isEqualToString:@"RB"]) {
+        return 1;
+    } else if ([pos isEqualToString:@"WR"]) {
+        return 2;
+    } else if ([pos isEqualToString:@"OL"]) {
+        return 3;
+    } else if ([pos isEqualToString:@"K"]) {
+        return 4;
+    } else if ([pos isEqualToString:@"S"]) {
+        return 5;
+    } else if ([pos isEqualToString:@"CB"]) {
+        return 6;
+    } else if ([pos isEqualToString:@"DL"]) {
+        return 7;
+    } else if ([pos isEqualToString:@"LB"]) {
+        return 8;
+    } else {
+        return 9;
+    }
+}
+
 - (NSComparisonResult)compare:(id)other
 {
     Player *player = (Player*)other;

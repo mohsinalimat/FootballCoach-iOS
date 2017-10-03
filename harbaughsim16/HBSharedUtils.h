@@ -53,4 +53,29 @@
 +(NSArray *)colorOptions;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(NSString *)randomState;
+
++(NSComparisonResult)comparePlayers:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)comparePositions:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareDivTeams:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareMVPScore:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)comparePollScore:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareSoW:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)comparePlayoffTeams:(id)obj1 toObj2:(id)obj2;
+
++(NSComparisonResult)compareTeamPPG:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareOppPPG:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareTeamYPG:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareOppYPG:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareTeamPYPG:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareOppPYPG:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareTeamRYPG:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareOppRYPG:(id)obj1 toObj2:(id)obj2;
+
++(NSComparisonResult)compareTeamTODiff:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareTeamOffTalent:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareTeamDefTalent:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareTeamPrestige:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareTeamLeastWins:(id)obj1 toObj2:(id)obj2;
+
+
 @end

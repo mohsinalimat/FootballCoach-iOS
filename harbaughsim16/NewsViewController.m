@@ -20,20 +20,12 @@
 #import "ConferenceStandingsViewController.h"
 #import "MockDraftViewController.h"
 #import "GraduatingPlayersViewController.h"
+#import "HBTeamPlayView.h"
 
 #import "CSNotificationView.h"
 #import "HexColors.h"
 #import "STPopup.h"
 #import "UIScrollView+EmptyDataSet.h"
-
-@interface HBTeamPlayView : UIView
-@property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
-@property (weak, nonatomic) IBOutlet UILabel *teamRecordLabel;
-@property (weak, nonatomic) IBOutlet UIButton *playButton;
-@end
-
-@implementation HBTeamPlayView
-@end
 
 @interface NewsViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
