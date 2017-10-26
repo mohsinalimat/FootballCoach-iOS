@@ -110,11 +110,13 @@
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     [header.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [header.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
     [footer.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [footer.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

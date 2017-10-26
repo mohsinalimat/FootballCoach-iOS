@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "League.h"
+#import "HBTeamPlayView.h"
 
 #define HB_IN_APP_NOTIFICATIONS_TURNED_ON @"inAppNotifs"
 #define HB_CURRENT_THEME_COLOR @"themeColor"
@@ -77,5 +78,7 @@
 +(NSComparisonResult)compareTeamPrestige:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareTeamLeastWins:(id)obj1 toObj2:(id)obj2;
 
++(void)simulateEntireSeason:(int)weekTotal viewController:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback;
++(void)playWeek:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "UpcomingViewController.h"
 #import "NewsViewController.h"
 #import "ScheduleViewController.h"
 #import "RosterViewController.h"
@@ -37,7 +38,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
     tabBarController = [[UITabBarController alloc] init];
-    UINavigationController *newsNav = [[UINavigationController alloc] initWithRootViewController:[[NewsViewController alloc] init]];
+    UINavigationController *newsNav = [[UINavigationController alloc] initWithRootViewController:[[UpcomingViewController alloc] initWithNibName:@"UpcomingViewController" bundle:nil]];
     newsNav.title = @"Latest News";
     newsNav.tabBarItem.image = [UIImage imageNamed:@"news"];
     newsNav.tabBarItem.selectedImage = [UIImage imageNamed:@"news-selected"];

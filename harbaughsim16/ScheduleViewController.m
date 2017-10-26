@@ -25,6 +25,83 @@
 @end
 
 @implementation ScheduleViewController
+-(void)simulateEntireSeason {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to sim this season?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //[self simSeason:16]; - to offseason
+            //[self simSeason:12]; - to ccg week
+            //[self simSeason:13]; - to bowl week
+            //[self simSeason:6]; - to mid season
+            //[self playWeek:nil]; - next week
+            int curWeek = [HBSharedUtils getLeague].currentWeek;
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sim to a specific point" message:@"When in the season do you want to sim to?" preferredStyle:UIAlertControllerStyleActionSheet];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Next Week" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [HBSharedUtils playWeek:self headerView:nil callback:^{
+                    [self.tableView reloadData];
+                    //[self setupTeamHeader];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
+                }];
+            }]];
+            
+            if (curWeek < 6) {
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Midseason" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self simSeason:(6 - curWeek)];
+                }]];
+            }
+            
+            if (curWeek < 12) {
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Championship Week" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self simSeason:(12 - curWeek)];
+                }]];
+            }
+            
+            if (curWeek < 13) {
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Bowl Week" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self simSeason:(13 - curWeek)];
+                }]];
+            }
+            
+            if (curWeek < 16) {
+                [alertController addAction:[UIAlertAction actionWithTitle:@"Offseason" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self simSeason:(16 - curWeek)];
+                }]];
+            }
+            
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+        });
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)simSeason:(NSInteger)weekTotal {
+    [HBSharedUtils simulateEntireSeason:(int)weekTotal viewController:self headerView:nil callback:^{
+        if ([HBSharedUtils getLeague].currentWeek <= 15) {
+            [self.tableView reloadData];
+        }
+        //[self setupTeamHeader];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
+    }];
+}
+
+-(void)resetSimButton {
+    if ([HBSharedUtils getLeague].recruitingStage == 0) {
+        [self.navigationItem.leftBarButtonItem setEnabled:NO];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+        [self.navigationItem.leftBarButtonItem setEnabled:YES];
+    } else {
+        [self.navigationItem.leftBarButtonItem setEnabled:NO];
+    }
+}
+
+-(void)hideSimButton {
+    [self.navigationItem.leftBarButtonItem setEnabled:NO];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,20 +125,6 @@
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
     }
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-}
-
--(void)resetSimButton {
-    if ([HBSharedUtils getLeague].recruitingStage == 0) {
-        [self.navigationItem.leftBarButtonItem setEnabled:NO];
-        //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
-        [self.navigationItem.leftBarButtonItem setEnabled:YES];
-    } else {
-        [self.navigationItem.leftBarButtonItem setEnabled:NO];
-    }
-}
-
--(void)hideSimButton {
-    [self.navigationItem.leftBarButtonItem setEnabled:NO];
 }
 
 -(void)reloadAll {

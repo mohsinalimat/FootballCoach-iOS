@@ -167,7 +167,7 @@
                     [self simSeason:(16 - curWeek)];
                 }]];
             }
-
+            
             
             [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
             
@@ -180,67 +180,17 @@
 }
 
 -(void)simSeason:(NSInteger)weekTotal {
-    League *simLeague = [HBSharedUtils getLeague];
-    [self.navigationItem.leftBarButtonItem setEnabled:NO];
-    [teamHeaderView.playButton setEnabled:NO];
-    if (simLeague.recruitingStage == 0) {
-        // Perform action on click
-        if (simLeague.currentWeek == 15) {
-            simLeague.recruitingStage = 1;
-            [HBSharedUtils getLeague].canRebrandTeam = YES;
-            [[HBSharedUtils getLeague] save];
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld Season Summary", (long)(2016 + userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-            [self.tabBarController presentViewController:alertController animated:YES completion:nil];
-        } else {
-            float simTime = 0.5;
-            if (IS_IPHONE_5 || IS_IPHONE_4_OR_LESS) {
-                simTime = 1.5;
-            }
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(simTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [simLeague playWeek];
-                
-                if (simLeague.currentWeek < 12) {
-                    [self.navigationItem.leftBarButtonItem setEnabled:YES];
-                    [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
-                } else if (simLeague.currentWeek == 12) {
-                    NSString *heisman = [simLeague getHeismanCeremonyStr];
-                    NSLog(@"HEISMAN: %@", heisman); //can't do anything with this result, just want to run it tbh
-                    [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
-                } else if (simLeague.currentWeek == 13) {
-                    [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
-                } else if (simLeague.currentWeek == 14) {
-                    [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
-                } else {
-                    [HBSharedUtils getLeague].canRebrandTeam = YES;
-                    [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
-                    [self.navigationItem.leftBarButtonItem setEnabled:NO];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
-                }
-                
-                if (simLeague.currentWeek <= 15) {
-                    [self reloadNews:simLeague.currentWeek];
-                }
-                [self setupTeamHeader];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
-                if (weekTotal > 1) {
-                    [self simSeason:(weekTotal - 1)];
-                } else {
-                    [self.navigationItem.leftBarButtonItem setEnabled:YES];
-                    [teamHeaderView.playButton setEnabled:YES];
-                    [[HBSharedUtils getLeague] save];
-                }
-            });
+    [HBSharedUtils simulateEntireSeason:(int)weekTotal viewController:self headerView:teamHeaderView callback:^{
+        if ([HBSharedUtils getLeague].currentWeek <= 15) {
+            [self.tableView reloadData];
         }
-        
-    } else {
-        [self startRecruiting];
-    }
+        [self setupTeamHeader];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
+    }];
 }
 
 -(void)resetSimButton {
-    if ([HBSharedUtils getLeague].recruitingStage == 0) {
+    if ([HBSharedUtils getLeague].currentWeek < 19) {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
@@ -254,135 +204,11 @@
 }
 
 -(IBAction)playWeek:(id)sender {
-
-    League *simLeague = [HBSharedUtils getLeague];
-    
-    if (simLeague.recruitingStage == 0) {
-        // Perform action on click
-        if (simLeague.currentWeek == 15) {
-            simLeague.recruitingStage = 1;
-            [HBSharedUtils getLeague].canRebrandTeam = YES;
-            [self startRecruiting];
-        } else {
-            NSInteger numGamesPlayed = userTeam.gameWLSchedule.count;
-            [simLeague playWeek];
-            [[HBSharedUtils getLeague] save];
-            if (simLeague.currentWeek == 15) {
-                // Show NCG summary
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld Season Summary", (long)(2016 + userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-                [self.tabBarController presentViewController:alertController animated:YES completion:nil];
-                
-                
-            } else if (userTeam.gameWLSchedule.count > numGamesPlayed) {
-                // Played a game, show summary - show notification
-                if (simLeague.currentWeek <= 12) {
-                    NSString *gameSummary = [userTeam weekSummaryString];
-                    if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
-                        [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"Week %ld: %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
-                    } else {
-                        [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"Week %ld: %@", (long)simLeague.currentWeek, [userTeam weekSummaryString]] onViewController:self];
-                    }
-                } else {
-                    if (simLeague.currentWeek == 15) {
-                        [self.navigationItem.leftBarButtonItem setEnabled:NO];
-                        NSString *gameSummary = [userTeam weekSummaryString];
-                        if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
-                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"NCG - %@",[userTeam weekSummaryString]] onViewController:self];
-                        } else {
-                            [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"NCG - %@",[userTeam weekSummaryString]] onViewController:self];
-                        }
-                    } else if (simLeague.currentWeek == 14) {
-                        NSString *gameSummary = [userTeam weekSummaryString];
-                        if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
-                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"Bowls: %@", [userTeam weekSummaryString]] onViewController:self];
-                        } else {
-                            [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"Bowls: %@", [userTeam weekSummaryString]] onViewController:self];
-                        }
-                    } else if (simLeague.currentWeek == 13) {
-                        NSString *gameSummary = [userTeam weekSummaryString];
-                        if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
-                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"%@ CCG: %@", userTeam.conference, [userTeam weekSummaryString]] onViewController:self];
-                        } else {
-                            [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"%@ CCG: %@",userTeam.conference, [userTeam weekSummaryString]] onViewController:self];
-                        }
-                    }
-                }
-                
-            }
-            
-            if (simLeague.currentWeek >= 12) {
-                if (userTeam.gameSchedule.count > 0) {
-                    Game *nextGame = [userTeam.gameSchedule lastObject];
-                    if (!nextGame.hasPlayed) {
-                        NSString *weekGameName = nextGame.gameName;
-                        if ([weekGameName isEqualToString:@"NCG"]) {
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"%@ was invited to the National Championship Game!",userTeam.name] onViewController:self];
-                            });
-                        } else {
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [HBSharedUtils showNotificationWithTintColor:[UIColor hx_colorWithHexRGBAString:@"#009740"] message:[NSString stringWithFormat:@"%@ was invited to the %@!",userTeam.name, weekGameName] onViewController:self];
-                            });
-                        }
-                    } else if (simLeague.currentWeek == 12) {
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"%@ was not invited to the %@ CCG.",userTeam.name,userTeam.conference] onViewController:self];
-                        });
-                    } else if (simLeague.currentWeek == 13) {
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:[NSString stringWithFormat:@"%@ was not invited to a bowl game.",userTeam.name] onViewController:self];
-                        });
-                    }
-                }
-            }
-            
-            if (simLeague.currentWeek < 12) {
-                [HBSharedUtils getLeague].canRebrandTeam = NO;
-                [self.navigationItem.leftBarButtonItem setEnabled:YES];
-                [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
-                
-                if ([[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON] && userTeam.league.currentWeek != 15 && userTeam.injuredPlayers.count > 0 && userTeam.league.isHardMode) {
-                    NSString *injuryReport = [userTeam injuryReport];
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Injury Report", userTeam.abbreviation] message:injuryReport preferredStyle:UIAlertControllerStyleAlert];
-                    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self.tabBarController presentViewController:alertController animated:YES completion:nil];
-                    });
-                }
-                
-            } else if (simLeague.currentWeek == 12) {
-                [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
-            } else if (simLeague.currentWeek == 13) {
-                NSString *heismanString = [simLeague getHeismanCeremonyStr];
-                NSArray *heismanParts = [heismanString componentsSeparatedByString:@"?"];
-                NSMutableString *composeHeis = [NSMutableString string];
-                for (int i = 1; i < heismanParts.count; i++) {
-                    [composeHeis appendString:heismanParts[i]];
-                }
-                
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld's Player of the Year", (long)(2016 + userTeam.teamHistoryDictionary.count)] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
-                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-                [self.tabBarController presentViewController:alertController animated:YES completion:nil];
-                
-                [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
-            } else if (simLeague.currentWeek == 14) {
-                [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
-            } else {
-                [HBSharedUtils getLeague].canRebrandTeam = YES;
-                [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
-                [self.navigationItem.leftBarButtonItem setEnabled:NO];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
-            }
-            
-            [self reloadNews:[HBSharedUtils getLeague].currentWeek];
-            [self setupTeamHeader];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
-        }
-    } else {
-        simLeague.recruitingStage = 1;
-        [self startRecruiting];
-    }
+    [HBSharedUtils playWeek:self headerView:teamHeaderView callback:^{
+        [self.tableView reloadData];
+        [self setupTeamHeader];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
+    }];
 }
 
 -(void)startRecruiting {

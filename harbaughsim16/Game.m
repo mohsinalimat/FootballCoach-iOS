@@ -1273,8 +1273,7 @@
     }
     
     //check for int
-    double intChance = (pressureOnQB + [defense getS:0].ratOvr - ([offense getQB:0].ratPassAcc+[offense getQB:0].ratFootIQ+100)/3)/18
-    + offense.offensiveStrategy.passAgBonus + defense.defensiveStrategy.passAgBonus;
+    double intChance = (pressureOnQB + [defense getS:0].ratOvr - ([offense getQB:0].ratPassAcc+[offense getQB:0].ratFootIQ+100)/3)/18 - offense.offensiveStrategy.passAgBonus + defense.defensiveStrategy.passAgBonus;
     if (intChance < 0.015) intChance = 0.015;
     if ( 100* [HBSharedUtils randomValue] < intChance ) {
         //Interception
@@ -1297,7 +1296,7 @@
             return;
         } else {
             //no drop
-            yardsGain = (int) (( [self normalize:[offense getQB:0].ratPassPow] + [self normalize:selWR.ratRecSpd] - [self normalize:selCB.ratCBSpd] )* [HBSharedUtils randomValue]/3.7 + offense.offensiveStrategy.passYdBonus/2 - defense.defensiveStrategy.passYdBonus);
+            yardsGain = (int) (( [self normalize:[offense getQB:0].ratPassPow] + [self normalize:selWR.ratRecSpd] - [self normalize:selCB.ratCBSpd] )* [HBSharedUtils randomValue]/3.7 + offense.offensiveStrategy.passYdBonus - defense.defensiveStrategy.passYdBonus);
             //see if receiver can get yards after catch
             double escapeChance = ([self normalize:(selWR.ratRecEva)*3 - selCB.ratCBTkl - [defense getS:0].ratOvr]* [HBSharedUtils randomValue] + offense.offensiveStrategy.passYdBonus - defense.defensiveStrategy.passAgBonus);
             if ( escapeChance > 92 ||[HBSharedUtils randomValue] > 0.95 ) {

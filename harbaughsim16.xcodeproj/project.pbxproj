@@ -113,6 +113,7 @@
 		75EC9A791D08E12D00F24BE6 /* RingOfHonorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A781D08E12D00F24BE6 /* RingOfHonorViewController.m */; };
 		75EC9A7C1D08E5B300F24BE6 /* HallOfFameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */; };
 		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
+		75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */; };
 		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
 
@@ -788,6 +789,7 @@
 				7571DD241C9CC62E00E67080 /* stats@3x.png in Resources */,
 				75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */,
 				75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */,
+				75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */,
 				755BBC6D1C9E423B001A8314 /* NewsViewController.xib in Resources */,
 				75A86C921C9C7AA80034140C /* team@3x.png in Resources */,
 				755BBC871C9F7DA4001A8314 /* HBScoreCell.xib in Resources */,

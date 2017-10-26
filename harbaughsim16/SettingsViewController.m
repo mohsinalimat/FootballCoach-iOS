@@ -15,6 +15,7 @@
 #import "HexColors.h"
 #import "FCFileManager.h"
 #import "STPopup.h"
+#import <StoreKit/StoreKit.h>
 @import MessageUI;
 
 @interface SettingsViewController () <MFMailComposeViewControllerDelegate>
@@ -170,11 +171,13 @@
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     [header.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [header.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
     [footer.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [footer.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -186,11 +189,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return 0;
-    } else {
-        return 36;
-    }
+     return 36;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -391,13 +390,16 @@
             [self presentViewController:alert animated:YES completion:nil];
             
         } else {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to leave Football Coach?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:HB_APP_REVIEW_URL]];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
-
+            if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.3")) {
+                [SKStoreReviewController requestReview];
+            } else {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to leave Football Coach?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:HB_APP_REVIEW_URL]];
+                }]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
         }
     } else {
         if (indexPath.row == 3) {
