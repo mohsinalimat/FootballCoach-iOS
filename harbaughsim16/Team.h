@@ -18,8 +18,10 @@
 @class PlayerRB;
 @class PlayerWR;
 @class PlayerOL;
+@class PlayerTE;
 @class PlayerK;
-@class PlayerF7;
+@class PlayerDL;
+@class PlayerLB;
 @class PlayerCB;
 @class PlayerS;
 @class TeamStreak;
@@ -149,11 +151,13 @@
 @property (strong, nonatomic) NSMutableArray<PlayerQB*> *teamQBs;
 @property (strong, nonatomic) NSMutableArray<PlayerRB*> *teamRBs;
 @property (strong, nonatomic) NSMutableArray<PlayerWR*> *teamWRs;
+@property (strong, nonatomic) NSMutableArray<PlayerTE*> *teamTEs;
 @property (strong, nonatomic) NSMutableArray<PlayerK*> *teamKs;
 @property (strong, nonatomic) NSMutableArray<PlayerOL*> *teamOLs;
 
 //defense
-@property (strong, nonatomic) NSMutableArray<PlayerF7*> *teamF7s;
+@property (strong, nonatomic) NSMutableArray<PlayerLB*> *teamLBs;
+@property (strong, nonatomic) NSMutableArray<PlayerDL*> *teamDLs;
 @property (strong, nonatomic) NSMutableArray<PlayerS*> *teamSs;
 @property (strong, nonatomic) NSMutableArray<PlayerCB*> *teamCBs;
 
@@ -222,7 +226,10 @@
 -(PlayerOL*)getOL:(int)depth;
 -(PlayerS*)getS:(int)depth;
 -(PlayerCB*)getCB:(int)depth;
--(PlayerF7*)getF7:(int)depth;
+//-(PlayerF7*)getF7:(int)depth;
+-(PlayerTE*)getTE:(int)depth;
+-(PlayerDL*)getDL:(int)depth;
+-(PlayerLB*)getLB:(int)depth;
 
 -(int)getPassProf;
 -(int)getRushProf;

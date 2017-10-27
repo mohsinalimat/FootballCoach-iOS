@@ -116,6 +116,7 @@
 		75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */; };
 		75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
 		75FE584B1FA37D8C00DE2534 /* PlayerLB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58481FA37D8C00DE2534 /* PlayerLB.m */; };
+		75FE584E1FA3838600DE2534 /* PlayerTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE584D1FA3838600DE2534 /* PlayerTE.m */; };
 		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
 
@@ -310,6 +311,8 @@
 		75FE58471FA37D8B00DE2534 /* PlayerDL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerDL.h; sourceTree = "<group>"; };
 		75FE58481FA37D8C00DE2534 /* PlayerLB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerLB.m; sourceTree = "<group>"; };
 		75FE58491FA37D8C00DE2534 /* PlayerLB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLB.h; sourceTree = "<group>"; };
+		75FE584C1FA3838600DE2534 /* PlayerTE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerTE.h; sourceTree = "<group>"; };
+		75FE584D1FA3838600DE2534 /* PlayerTE.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerTE.m; sourceTree = "<group>"; };
 		D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
 		DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -581,6 +584,8 @@
 				75924A5A1C99E63800B165AD /* PlayerRB.m */,
 				75924A5C1C99E64400B165AD /* PlayerWR.h */,
 				75924A5D1C99E64400B165AD /* PlayerWR.m */,
+				75FE584C1FA3838600DE2534 /* PlayerTE.h */,
+				75FE584D1FA3838600DE2534 /* PlayerTE.m */,
 				75924A5F1C99E64D00B165AD /* PlayerK.h */,
 				75924A601C99E64D00B165AD /* PlayerK.m */,
 				75924A621C99E65600B165AD /* PlayerOL.h */,
@@ -950,6 +955,7 @@
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,
 				7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */,
 				75924A521C99D1C600B165AD /* TeamStrategy.m in Sources */,
+				75FE584E1FA3838600DE2534 /* PlayerTE.m in Sources */,
 				7571DD3C1C9CFF6500E67080 /* HBRosterCell.m in Sources */,
 				754E90781CA58BF800C450CF /* BowlProjectionViewController.m in Sources */,
 			);

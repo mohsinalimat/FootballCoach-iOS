@@ -18,7 +18,8 @@
 #import "PlayerWR.h"
 #import "PlayerK.h"
 #import "PlayerOL.h"
-#import "PlayerF7.h"
+#import "PlayerDL.h"
+#import "PlayerLB.h"
 #import "PlayerCB.h"
 #import "PlayerS.h"
 
@@ -39,7 +40,8 @@
     NSMutableArray<Player*>* availKs;
     NSMutableArray<Player*>* availSs;
     NSMutableArray<Player*>* availCBs;
-    NSMutableArray<Player*>* availF7s;
+    NSMutableArray<Player*>* availLBs;
+    NSMutableArray<Player*>* availDLs;
     NSMutableArray<Player*>* availAll;
 
     NSInteger needQBs;
@@ -49,7 +51,8 @@
     NSInteger needKs;
     NSInteger needsS;
     NSInteger needCBs;
-    NSInteger needF7s;
+    NSInteger needLBs;
+    NSInteger needDLs;
 
     int recruitingBudget;
 
@@ -215,7 +218,45 @@
             }
         }
     }];
-    [availF7s sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    [availDLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (!a.hasRedshirt && !b.hasRedshirt) {
+            if (a.ratOvr > b.ratOvr) {
+                return -1;
+            } else if (a.ratOvr < b.ratOvr) {
+                return 1;
+            } else {
+                if (a.ratPot > b.ratPot) {
+                    return -1;
+                } else if (a.ratPot < b.ratPot) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        } else if (a.hasRedshirt) {
+            return 1;
+        } else if (b.hasRedshirt) {
+            return -1;
+        } else {
+            if (a.ratOvr > b.ratOvr) {
+                return -1;
+            } else if (a.ratOvr < b.ratOvr) {
+                return 1;
+            } else {
+                if (a.ratPot > b.ratPot) {
+                    return -1;
+                } else if (a.ratPot < b.ratPot) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }];
+    
+    [availLBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
         if (!a.hasRedshirt && !b.hasRedshirt) {
@@ -369,7 +410,8 @@
     [availAll addObjectsFromArray:availRBs];
     [availAll addObjectsFromArray:availWRs];
     [availAll addObjectsFromArray:availOLs];
-    [availAll addObjectsFromArray:availF7s];
+    [availAll addObjectsFromArray:availDLs];
+     [availAll addObjectsFromArray:availLBs];
     [availAll addObjectsFromArray:availCBs];
     [availAll addObjectsFromArray:availSs];
     [availAll addObjectsFromArray:availKs];
@@ -449,7 +491,7 @@
     self.tableView.estimatedRowHeight = 190;
     recruitingBudget = [HBSharedUtils getLeague].userTeam.recruitingMoney;
 
-    NSInteger teamSize = [HBSharedUtils getLeague].userTeam.teamQBs.count + [HBSharedUtils getLeague].userTeam.teamRBs.count + [HBSharedUtils getLeague].userTeam.teamWRs.count + [HBSharedUtils getLeague].userTeam.teamKs.count + [HBSharedUtils getLeague].userTeam.teamSs.count + [HBSharedUtils getLeague].userTeam.teamCBs.count + [HBSharedUtils getLeague].userTeam.teamF7s.count;
+    NSInteger teamSize = [HBSharedUtils getLeague].userTeam.teamQBs.count + [HBSharedUtils getLeague].userTeam.teamRBs.count + [HBSharedUtils getLeague].userTeam.teamWRs.count + [HBSharedUtils getLeague].userTeam.teamKs.count + [HBSharedUtils getLeague].userTeam.teamSs.count + [HBSharedUtils getLeague].userTeam.teamCBs.count + [HBSharedUtils getLeague].userTeam.teamDLs.count + [HBSharedUtils getLeague].userTeam.teamLBs.count;
 
     playersRecruited = [NSMutableArray array];
 
@@ -461,7 +503,8 @@
     availKs = [NSMutableArray array];
     availSs = [NSMutableArray array];
     availCBs = [NSMutableArray array];
-    availF7s = [NSMutableArray array];
+    availDLs = [NSMutableArray array];
+    availLBs = [NSMutableArray array];
     availAll = [NSMutableArray array];
 
     //playersGraduating = [HBSharedUtils getLeague].userTeam.playersLeaving;
@@ -484,8 +527,12 @@
         needOLs = 10 - userTeam.teamOLs.count;
     }
 
-    if (userTeam.teamF7s.count < 14) {
-       needF7s = 14 - userTeam.teamF7s.count;
+    if (userTeam.teamDLs.count < 8) {
+        needDLs = 8 - userTeam.teamDLs.count;
+    }
+    
+    if (userTeam.teamLBs.count < 6) {
+       needLBs = 6 - userTeam.teamLBs.count;
     }
 
     if (userTeam.teamCBs.count < 6) {
@@ -528,8 +575,12 @@
         needCBs = 6;
     }
 
-    if (needF7s > 14) {
-        needF7s = 14;
+    if (needDLs > 8) {
+        needDLs = 8;
+    }
+    
+    if (needLBs > 6) {
+        needLBs = 6;
     }
 
     //NSLog(@"NEED TO RECRUIT: %ld QBs, %ld RBs, %ld, WRs, %ld OLs, %ld F7s, %ld CBs, %ld Ss, %ld Ks",(long)needQBs,(long)needRBs,(long)needWRs,(long)needOLs,(long)needF7s,(long)needCBs,(long)needsS,(long)needKs);
@@ -553,13 +604,13 @@
     // extend that to 200 recruits
     int position = 0;
     for (int i = 0; i < 16; i++) {
-        position = (int)([HBSharedUtils randomValue] * 8);
+        position = (int)([HBSharedUtils randomValue] * 9);
         if (position < 0) {
             position = 0;
         }
 
-        if (position > 7) {
-            position = 7;
+        if (position > 8) {
+            position = 8;
         }
 
         if (position == 0) {
@@ -571,10 +622,12 @@
         } else if (position == 3) {
             [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 4) {
-            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 5) {
-            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 6) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 7) {
             [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
         } else {
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
@@ -582,13 +635,13 @@
     }
 
     for (int i = 0; i < 80; i++) {
-        position = (int)([HBSharedUtils randomValue] * 8) - 1;
+        position = (int)([HBSharedUtils randomValue] * 9) - 1;
         if (position < 0) {
             position = 0;
         }
 
-        if (position > 7) {
-            position = 7;
+        if (position > 8) {
+            position = 8;
         }
 
         if (position == 0) {
@@ -600,10 +653,12 @@
         } else if (position == 3) {
             [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 4) {
-            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 5) {
-            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 6) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 7) {
             [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
         } else {
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
@@ -611,13 +666,13 @@
     }
 
     for (int i = 0; i < 80; i++) {
-        position = (int)([HBSharedUtils randomValue] * 8) - 1;
+        position = (int)([HBSharedUtils randomValue] * 9) - 1;
         if (position < 0) {
             position = 0;
         }
 
-        if (position > 7) {
-            position = 7;
+        if (position > 8) {
+            position = 8;
         }
 
         if (position == 0) {
@@ -629,10 +684,12 @@
         } else if (position == 3) {
             [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 4) {
-            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 5) {
-            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 6) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 7) {
             [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         } else {
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
@@ -640,13 +697,13 @@
     }
 
     for (int i = 0; i < 28; i++) {
-        position = (int)([HBSharedUtils randomValue] * 8) - 1;
+        position = (int)([HBSharedUtils randomValue] * 9) - 1;
         if (position < 0) {
             position = 0;
         }
 
-        if (position > 7) {
-            position = 7;
+        if (position > 8) {
+            position = 8;
         }
 
         if (position == 0) {
@@ -658,24 +715,26 @@
         } else if (position == 3) {
             [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
         } else if (position == 4) {
-            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 5) {
-            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 6) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 7) {
             [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
         } else {
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
         }
     }
 
-    for (int i = 0; i < 6; i++) {
-        position = (int)([HBSharedUtils randomValue] * 8) - 1;
+    for (int i = 0; i < 7; i++) {
+        position = (int)([HBSharedUtils randomValue] * 9) - 1;
         if (position < 0) {
             position = 0;
         }
 
-        if (position > 7) {
-            position = 7;
+        if (position > 8) {
+            position = 8;
         }
 
         if (position == 0) {
@@ -687,10 +746,12 @@
         } else if (position == 3) {
             [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 4) {
-            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 5) {
-            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 6) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 7) {
             [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
         } else {
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
@@ -721,9 +782,15 @@
         }
     }
 
-    if (availF7s.count == 0) {
+    if (availDLs.count == 0) {
         for (int i = 0; i < 3; i++) {
-            [availF7s addObject:[PlayerF7 newF7WithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availLBs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
 
@@ -774,7 +841,7 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"View a specific position" message:@"Which position would you like to see?" preferredStyle:UIAlertControllerStyleActionSheet];
     NSString *position = @"";
     if (playersRecruited.count > 0) {
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 12; i++) {
             if (i == 0) {
                 position = @"All Players";
             } else if (i == 1) {
@@ -790,7 +857,9 @@
             } else if (i == 6) {
                 position = @"OL";
             } else if (i == 7) {
-                position = @"F7";
+                position = @"DL";
+            } else if (i == 7) {
+                position = @"LB";
             } else if (i == 8) {
                 position = @"CB";
             } else if (i == 9) {
@@ -828,14 +897,18 @@
                     _viewingSignees = NO;
                     _filteredByCost = NO;
                 } else if (i == 7) {
-                    players = availF7s;
+                    players = availDLs;
                     _viewingSignees = NO;
                     _filteredByCost = NO;
                 } else if (i == 8) {
-                    players = availCBs;
+                    players = availLBs;
                     _viewingSignees = NO;
                     _filteredByCost = NO;
                 } else if (i == 9) {
+                    players = availCBs;
+                    _viewingSignees = NO;
+                    _filteredByCost = NO;
+                } else if (i == 10) {
                     players = availSs;
                     _viewingSignees = NO;
                     _filteredByCost = NO;
@@ -855,7 +928,7 @@
 
         }
     } else {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 11; i++) {
             if (i == 0) {
                 position = @"All Players";
             } else if (i == 1) {
@@ -869,10 +942,12 @@
             } else if (i == 5) {
                 position = @"OL";
             } else if (i == 6) {
-                position = @"F7";
+                position = @"DL";
             } else if (i == 7) {
-                position = @"CB";
+                position = @"LB";
             } else if (i == 8) {
+                position = @"CB";
+            } else if (i == 9) {
                 position = @"S";
             } else {
                 position = @"K";
@@ -899,12 +974,15 @@
                     players = availOLs;
                     _filteredByCost = NO;
                 } else if (i == 6) {
-                    players = availF7s;
+                    players = availDLs;
                     _filteredByCost = NO;
                 } else if (i == 7) {
-                    players = availCBs;
+                    players = availLBs;
                     _filteredByCost = NO;
                 } else if (i == 8) {
+                    players = availCBs;
+                    _filteredByCost = NO;
+                } else if (i == 9) {
                     players = availSs;
                     _filteredByCost = NO;
                 } else {
@@ -1177,13 +1255,20 @@
         stat3Val = [player getLetterGrade:((PlayerOL*)player).ratOLBkP];
         stat4 = @"Run Blocking";
         stat4Val = [player getLetterGrade:((PlayerOL*)player).ratOLBkR];
-    } else if ([player isKindOfClass:[PlayerF7 class]]) {
-        stat2 = @"Strength";
-        stat2Val = [player getLetterGrade:((PlayerF7*)player).ratF7Pow];
+    } else if ([player isKindOfClass:[PlayerLB class]]) {
+        stat2 = @"Tackling";
+        stat2Val = [player getLetterGrade:((PlayerLB*)player).ratLBTkl];
         stat3 = @"Pass Pressure";
-        stat3Val = [player getLetterGrade:((PlayerF7*)player).ratF7Pas];
+        stat3Val = [player getLetterGrade:((PlayerLB*)player).ratLBPas];
         stat4 = @"Run Stopping";
-        stat4Val = [player getLetterGrade:((PlayerF7*)player).ratF7Rsh];
+        stat4Val = [player getLetterGrade:((PlayerLB*)player).ratLBRsh];
+    } else if ([player isKindOfClass:[PlayerDL class]]) {
+        stat2 = @"Strength";
+        stat2Val = [player getLetterGrade:((PlayerDL*)player).ratDLPow];
+        stat3 = @"Pass Pressure";
+        stat3Val = [player getLetterGrade:((PlayerDL*)player).ratDLPas];
+        stat4 = @"Run Stopping";
+        stat4Val = [player getLetterGrade:((PlayerDL*)player).ratDLRsh];
     } else if ([player isKindOfClass:[PlayerCB class]]) {
         stat2 = @"Coverage";
         stat2Val = [player getLetterGrade:((PlayerCB*)player).ratCBCov];
@@ -1339,13 +1424,20 @@
                 [[HBSharedUtils getLeague].userTeam.teamOLs removeObject:(PlayerOL*)p];
                 if (!p.hasRedshirt)
                     needOLs++;
-            } else if ([p isKindOfClass:[PlayerF7 class]]) {
-                if (![availF7s containsObject:p]) {
-                    [availF7s addObject:p];
+            } else if ([p isKindOfClass:[PlayerDL class]]) {
+                if (![availDLs containsObject:p]) {
+                    [availDLs addObject:p];
                 }
-                [[HBSharedUtils getLeague].userTeam.teamF7s removeObject:(PlayerF7*)p];
+                [[HBSharedUtils getLeague].userTeam.teamDLs removeObject:(PlayerDL*)p];
                 if (!p.hasRedshirt)
-                    needF7s++;
+                    needDLs++;
+            } else if ([p isKindOfClass:[PlayerLB class]]) {
+                if (![availLBs containsObject:p]) {
+                    [availLBs addObject:p];
+                }
+                [[HBSharedUtils getLeague].userTeam.teamLBs removeObject:(PlayerLB*)p];
+                if (!p.hasRedshirt)
+                    needLBs++;
             } else if ([p isKindOfClass:[PlayerCB class]]) {
                 if (![availCBs containsObject:p]) {
                     [availCBs addObject:p];
@@ -1441,11 +1533,17 @@
             }
             [[HBSharedUtils getLeague].userTeam.teamOLs addObject:(PlayerOL*)player];
             //needOLs--;
-        } else if ([player isKindOfClass:[PlayerF7 class]]) {
-            if ([availF7s containsObject:player]) {
-                [availF7s removeObject:player];
+        } else if ([player isKindOfClass:[PlayerDL class]]) {
+            if ([availDLs containsObject:player]) {
+                [availDLs removeObject:player];
             }
-            [[HBSharedUtils getLeague].userTeam.teamF7s addObject:(PlayerF7*)player];
+            [[HBSharedUtils getLeague].userTeam.teamDLs addObject:(PlayerDL*)player];
+            //needF7s--;
+        } else if ([player isKindOfClass:[PlayerLB class]]) {
+            if ([availLBs containsObject:player]) {
+                [availLBs removeObject:player];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamLBs addObject:(PlayerLB*)player];
             //needF7s--;
         } else if ([player isKindOfClass:[PlayerCB class]]) {
             if ([availCBs containsObject:player]) {
@@ -1522,12 +1620,18 @@
             }
             [[HBSharedUtils getLeague].userTeam.teamOLs addObject:(PlayerOL*)player];
             needOLs--;
-        } else if ([player isKindOfClass:[PlayerF7 class]]) {
-            if ([availF7s containsObject:player]) {
-                [availF7s removeObject:player];
+        } else if ([player isKindOfClass:[PlayerDL class]]) {
+            if ([availDLs containsObject:player]) {
+                [availDLs removeObject:player];
             }
-            [[HBSharedUtils getLeague].userTeam.teamF7s addObject:(PlayerF7*)player];
-            needF7s--;
+            [[HBSharedUtils getLeague].userTeam.teamDLs addObject:(PlayerDL*)player];
+            needDLs--;
+        } else if ([player isKindOfClass:[PlayerLB class]]) {
+            if ([availLBs containsObject:player]) {
+                [availLBs removeObject:player];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamLBs addObject:(PlayerLB*)player];
+            needLBs--;
         } else if ([player isKindOfClass:[PlayerCB class]]) {
             if ([availCBs containsObject:player]) {
                 [availCBs removeObject:player];
@@ -1602,11 +1706,19 @@
         }
     }
 
-    if (needF7s > 0) {
-        if (needF7s > 1) {
-            [summary appendFormat:@"Need %ld active F7s\n\n",(long)needF7s];
+    if (needLBs > 0) {
+        if (needLBs > 1) {
+            [summary appendFormat:@"Need %ld active LBs\n\n",(long)needLBs];
         } else {
-            [summary appendFormat:@"Need %ld active F7\n\n",(long)needF7s];
+            [summary appendFormat:@"Need %ld active LB\n\n",(long)needLBs];
+        }
+    }
+    
+    if (needDLs > 0) {
+        if (needDLs > 1) {
+            [summary appendFormat:@"Need %ld active LBs\n\n",(long)needDLs];
+        } else {
+            [summary appendFormat:@"Need %ld active LB\n\n",(long)needDLs];
         }
     }
 
@@ -1676,7 +1788,7 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self dismissViewControllerAnimated:YES completion:nil];
         //save game
-        [[HBSharedUtils getLeague].userTeam recruitWalkOns:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needsS), @(needCBs), @(needF7s)]];
+        [[HBSharedUtils getLeague].userTeam recruitWalkOns:@[@(needQBs), @(needRBs), @(needWRs), @(needKs), @(needOLs), @(needsS), @(needCBs), @(needDLs), @(needLBs)]];
         [HBSharedUtils getLeague].recruitingStage = 0;
         [[HBSharedUtils getLeague] save];
         if ([HBSharedUtils getLeague].isHardMode && [[HBSharedUtils getLeague].cursedTeam isEqual:[HBSharedUtils getLeague].userTeam]) {

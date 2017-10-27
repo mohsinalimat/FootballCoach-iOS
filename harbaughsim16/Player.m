@@ -166,18 +166,20 @@
         return 2;
     } else if ([pos isEqualToString:@"OL"]) {
         return 3;
-    } else if ([pos isEqualToString:@"K"]) {
+    } else if ([pos isEqualToString:@"TE"]) {
         return 4;
-    } else if ([pos isEqualToString:@"S"]) {
+    } else if ([pos isEqualToString:@"K"]) {
         return 5;
-    } else if ([pos isEqualToString:@"CB"]) {
+    } else if ([pos isEqualToString:@"S"]) {
         return 6;
-    } else if ([pos isEqualToString:@"DL"]) {
+    } else if ([pos isEqualToString:@"CB"]) {
         return 7;
-    } else if ([pos isEqualToString:@"LB"]) {
+    } else if ([pos isEqualToString:@"DL"]) {
         return 8;
-    } else {
+    } else if ([pos isEqualToString:@"LB"]) {
         return 9;
+    } else {
+        return 10;
     }
 }
 
