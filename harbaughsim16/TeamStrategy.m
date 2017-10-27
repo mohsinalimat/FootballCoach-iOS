@@ -57,6 +57,17 @@
             _passProtection = 0;
         }
         
+        if ([aDecoder valueForKey:@"runUsage"]) {
+            _runUsage = [aDecoder decodeIntForKey:@"runUsage"];
+        } else {
+            _runUsage = 1;
+        }
+        
+        if ([aDecoder valueForKey:@"passUsage"]) {
+            _passUsage = [aDecoder decodeIntForKey:@"passUsage"];
+        } else {
+            _passUsage = 1;
+        }
     }
     return self;
 }
@@ -79,12 +90,12 @@
     [aCoder encodeObject:_stratName forKey:@"stratName"];
 }
 
-+(instancetype)newStrategyWithName:(NSString*)name description:(NSString*)description rPref:(int)rPref pPref:(int)pPref runPot:(int)runPot passPot:(int)passPot runProt:(int)runProt passProt:(int)passProt {
-    return [[TeamStrategy alloc] initWithName:name description:description rPref:rPref pPref:pPref runPot:runPot passPot:passPot runProt:runProt passProt:passProt];
++(instancetype)newStrategyWithName:(NSString*)name description:(NSString*)description rPref:(int)rPref runProt:(int)runProt runPot:(int)runPot rUsg:(int)rUsg pPref:(int)pPref passProt:(int)passProt passPot:(int)passPot pUsg:(int)pUsg {
+    return [[TeamStrategy alloc] initWithName:name description:description rPref:rPref pPref:pPref runPot:runPot passPot:passPot runProt:runProt passProt:passProt rUsg:rUsg pUsg:pUsg];
 }
 
 +(instancetype)newStrategy {
-    return [[TeamStrategy alloc] initWithName:@"Balanced" description:@"Will play a normal O/D with no bonus either way, but no penalties either." rPref:1 pPref:1 runPot:0 passPot:0 runProt:0 passProt:0];
+    return [[TeamStrategy alloc] initWithName:@"Balanced" description:@"Will play a normal O/D with no bonus either way, but no penalties either." rPref:1 pPref:1 runPot:0 passPot:0 runProt:0 passProt:0 rUsg:1 pUsg:1];
 }
 
 +(instancetype)newStrategyWithName:(NSString *)name description:(NSString *)description rYB:(int)rYB rAB:(int)rAB pYB:(int)pYB pAB:(int)pAB {
@@ -104,19 +115,21 @@
     return self;
 }
 
--(instancetype)initWithName:(NSString *)name description:(NSString *)description rPref:(int)rPref pPref:(int)pPref runPot:(int)runPot passPot:(int)passPot runProt:(int)runProt passProt:(int)passProt {
+-(instancetype)initWithName:(NSString *)name description:(NSString *)description rPref:(int)rPref pPref:(int)pPref runPot:(int)runPot passPot:(int)passPot runProt:(int)runProt passProt:(int)passProt rUsg:(int)rUsg pUsg:(int)pUsg {
     self = [super init];
     if (self) {
         self.stratName = name;
         self.stratDescription = description;
         
         self.runPref = rPref;
+        self.runUsage = rUsg;
         self.rushYdBonus = runPot;
         self.rushAgBonus = runProt;
         self.runPotential = runPot;
         self.runProtection = runProt;
         
         self.passPref = pPref;
+        self.passUsage = pUsg;
         self.passYdBonus = passPot;
         self.passAgBonus = passProt;
         self.passPotential = passPot;

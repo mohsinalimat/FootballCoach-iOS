@@ -19,6 +19,12 @@
         _ratPassPow = [aDecoder decodeIntForKey:@"ratPassPow"];
         _ratPassAcc = [aDecoder decodeIntForKey:@"ratPassAcc"];
         _ratPassEva = [aDecoder decodeIntForKey:@"ratPassEva"];
+        
+        if ([aDecoder valueForKey:@"ratSpeed"]) {
+            _ratSpeed = [aDecoder decodeIntForKey:@"ratSpeed"];
+        } else {
+            _ratSpeed = (int) (47 + self.year*5 + [HBSharedUtils randomValue] * 5 - 25  *[HBSharedUtils randomValue]);
+        }
 
         _statsPassAtt = [aDecoder decodeIntForKey:@"statsPassAtt"];
         _statsPassComp = [aDecoder decodeIntForKey:@"statsPassComp"];
@@ -97,7 +103,7 @@
         _ratPassEva = eva;
 
         self.cost = (int)(powf((float)self.ratOvr/3.5,2.0)) + (int)([HBSharedUtils randomValue]*100) - 50;
-        
+        self.ratSpeed = (int) (47 + self.year*5 + [HBSharedUtils randomValue]*5 - 25 * [HBSharedUtils randomValue]);
         NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;
         self.personalDetails = @{
@@ -141,6 +147,7 @@
         self.ratOvr = (_ratPassPow*3 + _ratPassAcc*4 + _ratPassEva)/8;
 
         self.cost = (int)pow((float)self.ratOvr/3.5,2) + (int)([HBSharedUtils randomValue]*100) - 50;
+        self.ratSpeed = (int) (47 + self.year*5 + [HBSharedUtils randomValue]*5 - 25*[HBSharedUtils randomValue]);
         
         NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;
@@ -184,11 +191,14 @@
         _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
         _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
         _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+        _ratSpeed += (int) ([HBSharedUtils randomValue] * (self.ratPot + self.gamesPlayed - 20)) / 10;
         if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
             //breakthrough
             _ratPassPow += (int)([HBSharedUtils randomValue]*(self.ratPot - 20))/10;
             _ratPassAcc += (int)([HBSharedUtils randomValue]*(self.ratPot - 20))/10;
             _ratPassEva += (int)([HBSharedUtils randomValue]*(self.ratPot - 20))/10;
+            _ratSpeed += (int) ([HBSharedUtils randomValue] * (self.ratPot + self.gamesPlayed - 25)) / 10;
+            
         }
     } else {
         self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;

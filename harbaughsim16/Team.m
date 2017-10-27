@@ -1966,72 +1966,54 @@
 
 -(NSArray*)getOffensiveTeamStrategies {
     return @[
-             [TeamStrategy newStrategyWithName:@"Aggressive" description:@"Play a more aggressive offense. Will pass with lower completion percentage and higher chance of interception. However, catches will go for more yards." rYB:-1 rAB:2 pYB:3 pAB:1],
-             [TeamStrategy newStrategyWithName:@"Balanced" description:@"Will play a normal offense with no bonus either way, but no penalties either." rYB:0 rAB:0 pYB:0 pAB:0],
-             [TeamStrategy newStrategyWithName:@"Conservative" description:@"Play a more conservative offense, running a bit more and passing slightly less. Passes are more accurate but shorter. Rushes are more likely to gain yards but less likely to break free for big plays." rYB:1 rAB:-2 pYB:-3 pAB:-1]
+             [TeamStrategy newStrategy], // default - Balanced
+             [TeamStrategy newStrategyWithName:@"Smashmouth" description:@"Play a conservative, run-heavy offense." rPref:2 runProt:2 runPot:-2 rUsg:1 pPref:1 passProt:2 passPot:1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"West Coast" description:@"Play a dink-and-dunk passing game. Short accurate passes will set up the run game." rPref:2 runProt:0 runPot:1 rUsg:0 pPref:3 passProt:2 passPot:-2 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Spread" description:@"Play a pass-heavy offense that focuses on big plays but runs the risk of turnovers." rPref:1 runProt:-2 runPot:2 rUsg:0 pPref:2 passProt:-2 passPot:2 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Read Option" description:@"Play an offense that relies heavily on option reads based on coverage and F7 positioning." rPref:6 runProt:-1 runPot:1 rUsg:1 pPref:5 passProt:-1 passPot:0 pUsg:0]
 
              ];
-//    ts[0] = new TeamStrategy("Pro-Style",
-//                             "Play a normal balanced offense.", 1, 0, 0, 1, 1, 0, 0, 1);
-//
-//    ts[1] = new TeamStrategy("Smash Mouth",
-//                             "Play a conservative run-heavy offense, setting up the passes as necessary.", 2, 2, -2, 1, 1, 2, 1, 0);
-//
-//    ts[2] = new TeamStrategy("West Coast",
-//                             "Passing game dictates the run game with short accurate passes.", 2, 0, 1, 0, 3, 2, -2, 1);
-//
-//    ts[3] = new TeamStrategy("Spread",
-//                             "Pass-heavy offense using many receivers with big play potential with risk.", 1, -2, 2, 0, 2, -2, 2, 1);
-//
-//    ts[4] = new TeamStrategy("Read Option",
-//                             "QB Option heavy offense, where QB options based on coverage and LB position.", 6, -1, 1, 1, 5, -1, 0, 0);
-
 }
 
 -(NSArray*)getDefensiveTeamStrategies {
     return @[
-             [TeamStrategy newStrategyWithName:@"Stack the Box" description:@"Focus on stopping the run. Will give up more big passing plays but will allow less rushing yards and far less big plays from rushing." rYB:1 rAB:0 pYB:-1 pAB:-1],
-             [TeamStrategy newStrategyWithName:@"No Preference" description:@"Will play a normal defense with no bonus either way, but no penalties either." rYB:0 rAB:0 pYB:0 pAB:0],
-             [TeamStrategy newStrategyWithName:@"No Fly Zone" description:@"Focus on stopping the pass. Will give up less yards on catches and will be more likely to intercept passes, but will allow more rushing yards." rYB:-1 rAB:0 pYB:1 pAB:1]
-
+             [TeamStrategy newStrategyWithName:@"4-3 Man" description:@"Play a standard 4-3 man-to-man balanced defense." rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"4-6 Bear" description:@"Focus on stopping the run. Will give up more big passing plays but will allow less runing yards and far less big plays from running." rPref:2 runProt:0 runPot:2 rUsg:1 pPref:1 passProt:-1 passPot:-1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"Cover 2" description:@"Play a zone defense with safety help in the back against the pass, while your F7 stays home to cover the run." rPref:2 runProt:0 runPot:-1 rUsg:1 pPref:3 passProt:2 passPot:0 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense to stop big plays, but soft coverage underneath will allow short gains." rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1]
              ];
-    
-//    ts[0] = new TeamStrategy("4-3 Man",
-//                             "Play a standard 4-3 man-to-man balanced defense.", 1, 0, 0, 1, 1, 0 ,0, 1);
-//
-//    ts[1] = new TeamStrategy("4-6 Bear",
-//                             "Focus on stopping the run. Will give up more big passing plays but will allow less runing yards and far less big plays from runing.",  2, 0, 2, 1, 1, -1 ,-1, 0);
-//
-//    ts[2] = new TeamStrategy("Cover 2",
-//                             "Play a zone defense with safety help in the back against the pass, while LBs cover the run game. ",  2, 0, -1, 1, 3, 2 ,0, 1);
-//
-//    ts[3] = new TeamStrategy("Cover 3",
-//                             "Play a zone defense to stop the big plays, but allows soft zone coverage underneath.", 3, 0, -2, 1, 7, 2 ,2, 1);
-
 }
 
 -(int)getCPUOffense {
-    int OP, OR, OS = 0;
+    int OP, OR;
     OP = [self getPassProf];
     OR = [self getRushProf];
-    if(OP > (OR + 2)) {
-        OS = 0;
-    } else if(OR > (OP + 2)) {
-        OS = 2;
-    } else OS = 1;
-    return OS;
+    if(OP > (OR + 5)) {
+        return 3;
+    } else if(OP > (OR + 3)) {
+        return 2;
+    } else if(OR > (OP + 5) && [self getQB:0].ratSpeed > 75) {
+        return 4;
+    } else if(OR > (OR + 5)) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 -(int)getCPUDefense {
-    int DP, DR, DS = 0;
+    int DP, DR;
     DP = [self getPassDef];
     DR = [self getRushDef];
-    if(DR > (DP + 2)) {
-        DS = 0;
-    } else if(DP > (DR + 2)) {
-        DS = 2;
-    } else DS = 1;
-    return DS;
+    if(DR > (DP + 5)) {
+        return 3;
+    } else if(DR > (DP + 3)) {
+        return 2;
+    } else if(DP > (DR + 3)) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 -(NSString*)getRankStrStarUser:(int)num {

@@ -19,6 +19,8 @@
 // new metrics
 @property (nonatomic) int runPref;
 @property (nonatomic) int passPref;
+@property (nonatomic) int runUsage;
+@property (nonatomic) int passUsage;
 @property (nonatomic) int runPotential; // rush yd bonus
 @property (nonatomic) int runProtection; // rush ag bonus
 @property (nonatomic) int passPotential; // pass yd bonus
@@ -28,7 +30,7 @@
 @property (strong, nonatomic) NSString * stratDescription;
 
 +(instancetype)newStrategyWithName:(NSString*)name description:(NSString*)description rYB:(int)rYB rAB:(int)rAB pYB:(int)pYB pAB:(int)pAB;
-+(instancetype)newStrategyWithName:(NSString*)name description:(NSString*)description rPref:(int)rPref pPref:(int)pPref runPot:(int)runPot passPot:(int)passPot runProt:(int)runProt passProt:(int)passProt;
++(instancetype)newStrategyWithName:(NSString*)name description:(NSString*)description rPref:(int)rPref runProt:(int)runProt runPot:(int)runPot rUsg:(int)rUsg pPref:(int)pPref passProt:(int)passProt passPot:(int)passPot pUsg:(int)pUsg;
 +(instancetype)newStrategy;
 
 @end
