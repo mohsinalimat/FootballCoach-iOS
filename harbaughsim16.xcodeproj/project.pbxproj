@@ -114,6 +114,8 @@
 		75EC9A7C1D08E5B300F24BE6 /* HallOfFameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */; };
 		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
 		75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */; };
+		75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
+		75FE584B1FA37D8C00DE2534 /* PlayerLB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58481FA37D8C00DE2534 /* PlayerLB.m */; };
 		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
 
@@ -304,6 +306,10 @@
 		75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HallOfFameViewController.m; sourceTree = "<group>"; };
 		75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreaksViewController.h; sourceTree = "<group>"; };
 		75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreaksViewController.m; sourceTree = "<group>"; };
+		75FE58461FA37D8A00DE2534 /* PlayerDL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDL.m; sourceTree = "<group>"; };
+		75FE58471FA37D8B00DE2534 /* PlayerDL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerDL.h; sourceTree = "<group>"; };
+		75FE58481FA37D8C00DE2534 /* PlayerLB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerLB.m; sourceTree = "<group>"; };
+		75FE58491FA37D8C00DE2534 /* PlayerLB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLB.h; sourceTree = "<group>"; };
 		D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
 		DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -581,6 +587,10 @@
 				75924A631C99E65600B165AD /* PlayerOL.m */,
 				75924A651C99E65E00B165AD /* PlayerS.h */,
 				75924A661C99E65E00B165AD /* PlayerS.m */,
+				75FE58471FA37D8B00DE2534 /* PlayerDL.h */,
+				75FE58461FA37D8A00DE2534 /* PlayerDL.m */,
+				75FE58491FA37D8C00DE2534 /* PlayerLB.h */,
+				75FE58481FA37D8C00DE2534 /* PlayerLB.m */,
 				75924A681C99E66700B165AD /* PlayerCB.h */,
 				75924A691C99E66700B165AD /* PlayerCB.m */,
 				75924A6B1C99E66E00B165AD /* PlayerF7.h */,
@@ -877,6 +887,7 @@
 				7563A8E11CB7F6F20023E43B /* Record.m in Sources */,
 				75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */,
 				75C5C3321F83447A00D7CAAD /* UpcomingViewController.m in Sources */,
+				75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */,
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
 				755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */,
 				75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */,
@@ -885,6 +896,7 @@
 				751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */,
 				75772C2E1D1C079E002DE956 /* RebrandConferenceSelectorViewController.m in Sources */,
 				754319021CC02D2200D380F1 /* ConferenceStandingsSelectorViewController.m in Sources */,
+				75FE584B1FA37D8C00DE2534 /* PlayerLB.m in Sources */,
 				755BBC7B1C9F5F1A001A8314 /* TeamSearchViewController.m in Sources */,
 				75C321C71CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m in Sources */,
 				7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */,
