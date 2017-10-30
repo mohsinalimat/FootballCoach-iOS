@@ -151,7 +151,7 @@
 
 -(BOOL)isSaveCorrupt {
     for (Team *t in teamList) {
-        if (t.teamQBs.count < 2 || t.teamRBs.count < 4 || t.teamWRs.count < 6 || t.teamOLs.count < 10 || t.teamDLs.count < 8 || t.teamLBs.count < 6 || t.teamCBs.count < 6 || t.teamSs.count < 2 || t.teamKs.count < 2) {
+        if (t.teamQBs.count < 2 || t.teamRBs.count < 4 || t.teamWRs.count < 6 || t.teamTEs.count < 2 || t.teamOLs.count < 10 || t.teamDLs.count < 8 || t.teamLBs.count < 6 || t.teamCBs.count < 6 || t.teamSs.count < 2 || t.teamKs.count < 2) {
             return YES;
         }
     }
