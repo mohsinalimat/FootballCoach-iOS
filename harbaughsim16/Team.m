@@ -1971,21 +1971,6 @@
              [TeamStrategy newStrategyWithName:@"Conservative" description:@"Play a more conservative offense, running a bit more and passing slightly less. Passes are more accurate but shorter. Rushes are more likely to gain yards but less likely to break free for big plays." rYB:1 rAB:-2 pYB:-3 pAB:-1]
 
              ];
-//    ts[0] = new TeamStrategy("Pro-Style",
-//                             "Play a normal balanced offense.", 1, 0, 0, 1, 1, 0, 0, 1);
-//
-//    ts[1] = new TeamStrategy("Smash Mouth",
-//                             "Play a conservative run-heavy offense, setting up the passes as necessary.", 2, 2, -2, 1, 1, 2, 1, 0);
-//
-//    ts[2] = new TeamStrategy("West Coast",
-//                             "Passing game dictates the run game with short accurate passes.", 2, 0, 1, 0, 3, 2, -2, 1);
-//
-//    ts[3] = new TeamStrategy("Spread",
-//                             "Pass-heavy offense using many receivers with big play potential with risk.", 1, -2, 2, 0, 2, -2, 2, 1);
-//
-//    ts[4] = new TeamStrategy("Read Option",
-//                             "QB Option heavy offense, where QB options based on coverage and LB position.", 6, -1, 1, 1, 5, -1, 0, 0);
-
 }
 
 -(NSArray*)getDefensiveTeamStrategies {
@@ -1995,18 +1980,6 @@
              [TeamStrategy newStrategyWithName:@"No Fly Zone" description:@"Focus on stopping the pass. Will give up less yards on catches and will be more likely to intercept passes, but will allow more rushing yards." rYB:-1 rAB:0 pYB:1 pAB:1]
 
              ];
-    
-//    ts[0] = new TeamStrategy("4-3 Man",
-//                             "Play a standard 4-3 man-to-man balanced defense.", 1, 0, 0, 1, 1, 0 ,0, 1);
-//
-//    ts[1] = new TeamStrategy("4-6 Bear",
-//                             "Focus on stopping the run. Will give up more big passing plays but will allow less runing yards and far less big plays from runing.",  2, 0, 2, 1, 1, -1 ,-1, 0);
-//
-//    ts[2] = new TeamStrategy("Cover 2",
-//                             "Play a zone defense with safety help in the back against the pass, while LBs cover the run game. ",  2, 0, -1, 1, 3, 2 ,0, 1);
-//
-//    ts[3] = new TeamStrategy("Cover 3",
-//                             "Play a zone defense to stop the big plays, but allows soft zone coverage underneath.", 3, 0, -2, 1, 7, 2 ,2, 1);
 
 }
 
