@@ -32,6 +32,7 @@
         Player *b = (Player*)obj2;
         return (a.ratOvr > b.ratOvr ? -1 : a.ratOvr == b.ratOvr ? ([a.name compare:b.name]) : 1);
     }];
+    self.tableView.tableFooterView = [UIView new];
     
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     if (grads.count > 0) {

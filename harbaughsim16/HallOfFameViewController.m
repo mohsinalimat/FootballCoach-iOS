@@ -41,6 +41,7 @@
     [self.tableView setEstimatedRowHeight:85];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
+    self.tableView.tableFooterView = [UIView new];
     if (curLeague.hallOfFamers.count > 0) {
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(sortROH)]];
     }

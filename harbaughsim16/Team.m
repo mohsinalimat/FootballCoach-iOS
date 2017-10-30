@@ -1222,6 +1222,47 @@
             }
         }
     }];
+    [teamTEs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
+            if (a.ratOvr > b.ratOvr) {
+                return -1;
+            } else if (a.ratOvr < b.ratOvr) {
+                return 1;
+            } else {
+                if (a.ratPot > b.ratPot) {
+                    return -1;
+                } else if (a.ratPot < b.ratPot) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        } else if (a.hasRedshirt) {
+            return 1;
+        } else if (b.hasRedshirt) {
+            return -1;
+        } else if (a.isInjured) {
+            return 1;
+        } else if (b.isInjured) {
+            return  -1;
+        } else {
+            if (a.ratOvr > b.ratOvr) {
+                return -1;
+            } else if (a.ratOvr < b.ratOvr) {
+                return 1;
+            } else {
+                if (a.ratPot > b.ratPot) {
+                    return -1;
+                } else if (a.ratPot < b.ratPot) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }];
     [teamKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
@@ -1304,6 +1345,7 @@
             }
         }
     }];
+    
 
     [teamCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
@@ -1659,7 +1701,7 @@
     //[ts0 appendString:@"AP Votes"];
     //[ts0 appendFormat:@"%@",[self getRankString:rankTeamPollScore]];
 
-    [ts0 addObject:@[[NSString stringWithFormat:@"%d",teamPollScore], @"AP Votes",[self getRankString:rankTeamPollScore]]];
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d",teamPollScore], @"Poll Votes",[self getRankString:rankTeamPollScore]]];
 
     //[ts0 appendFormat:@"%ld,",(long)teamOffTalent];
     //[ts0 appendString:@"Off Talent,"];
@@ -2156,7 +2198,7 @@
              [TeamStrategy newStrategyWithName:@"Smashmouth" description:@"Play a conservative, run-heavy offense." rPref:2 runProt:2 runPot:-2 rUsg:1 pPref:1 passProt:2 passPot:1 pUsg:0],
              [TeamStrategy newStrategyWithName:@"West Coast" description:@"Play a dink-and-dunk passing game. Short accurate passes will set up the run game." rPref:2 runProt:0 runPot:1 rUsg:0 pPref:3 passProt:2 passPot:-2 pUsg:1],
              [TeamStrategy newStrategyWithName:@"Spread" description:@"Play a pass-heavy offense that focuses on big plays but runs the risk of turnovers." rPref:1 runProt:-2 runPot:2 rUsg:0 pPref:2 passProt:-2 passPot:2 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Read Option" description:@"Play an offense that relies heavily on option reads based on coverage and F7 positioning." rPref:6 runProt:-1 runPot:1 rUsg:1 pPref:5 passProt:-1 passPot:0 pUsg:0]
+             [TeamStrategy newStrategyWithName:@"Read Option" description:@"Play an offense that relies heavily on option reads based on coverage and LB positioning." rPref:6 runProt:-1 runPot:1 rUsg:1 pPref:5 passProt:-1 passPot:0 pUsg:0]
 
              ];
 }
@@ -2164,8 +2206,8 @@
 -(NSArray*)getDefensiveTeamStrategies {
     return @[
              [TeamStrategy newStrategyWithName:@"4-3 Man" description:@"Play a standard 4-3 man-to-man balanced defense." rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"4-6 Bear" description:@"Focus on stopping the run. Will give up more big passing plays but will allow less runing yards and far less big plays from running." rPref:2 runProt:0 runPot:2 rUsg:1 pPref:1 passProt:-1 passPot:-1 pUsg:0],
-             [TeamStrategy newStrategyWithName:@"Cover 2" description:@"Play a zone defense with safety help in the back against the pass, while your F7 stays home to cover the run." rPref:2 runProt:0 runPot:-1 rUsg:1 pPref:3 passProt:2 passPot:0 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"4-6 Bear" description:@"Play a defense focused on stopping the run. Will allow few yards and big plays on the ground, but will give up big passing plays." rPref:2 runProt:0 runPot:2 rUsg:1 pPref:1 passProt:-1 passPot:-1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"Cover 2" description:@"Play a zone defense with safety help in the back against the pass, while your LBs stay home to cover the run." rPref:2 runProt:0 runPot:-1 rUsg:1 pPref:3 passProt:2 passPot:0 pUsg:1],
              [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense to stop big plays, but soft coverage underneath will allow short gains." rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1]
              ];
 }

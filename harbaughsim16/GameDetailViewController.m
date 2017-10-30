@@ -588,7 +588,7 @@
                 stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
                 stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
                 stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[5] intValue]];
-            } else if (indexPath.section == 4) {
+            } else if (indexPath.section == 5) {
                 NSDictionary *teStats = combinedStats[@"TEs"]; //catchs, yds, td, fum
                 if (indexPath.row == 0) {
                     plyr = teStats[@"awayTE"];

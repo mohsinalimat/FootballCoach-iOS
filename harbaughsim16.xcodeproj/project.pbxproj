@@ -32,7 +32,6 @@
 		755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC471C9DD0DF001A8314 /* HBStatsCell.xib */; };
 		755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC4B1C9DEDF0001A8314 /* HBPlayerCell.m */; };
 		755BBC4E1C9DEDF0001A8314 /* HBPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC4C1C9DEDF0001A8314 /* HBPlayerCell.xib */; };
-		755BBC6D1C9E423B001A8314 /* NewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC6C1C9E423B001A8314 /* NewsViewController.xib */; };
 		755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC771C9E5930001A8314 /* RecruitingViewController.m */; };
 		755BBC7B1C9F5F1A001A8314 /* TeamSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC7A1C9F5F1A001A8314 /* TeamSearchViewController.m */; };
 		755BBC7D1C9F6964001A8314 /* TeamSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC7C1C9F6964001A8314 /* TeamSearchViewController.xib */; };
@@ -68,7 +67,6 @@
 		7591FE411D465B940037ECFB /* NSArray+Uniqueness.m in Sources */ = {isa = PBXBuildFile; fileRef = 7591FE401D465B940037ECFB /* NSArray+Uniqueness.m */; };
 		75924A201C99CCC000B165AD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A1F1C99CCC000B165AD /* main.m */; };
 		75924A231C99CCC000B165AD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A221C99CCC000B165AD /* AppDelegate.m */; };
-		75924A261C99CCC000B165AD /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A251C99CCC000B165AD /* NewsViewController.m */; };
 		75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75924A2D1C99CCC000B165AD /* Assets.xcassets */; };
 		75924A311C99CCC000B165AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75924A2F1C99CCC000B165AD /* LaunchScreen.storyboard */; };
 		75924A3D1C99CD8D00B165AD /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A3C1C99CD8D00B165AD /* Team.m */; };
@@ -167,7 +165,6 @@
 		755BBC4A1C9DEDF0001A8314 /* HBPlayerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBPlayerCell.h; sourceTree = "<group>"; };
 		755BBC4B1C9DEDF0001A8314 /* HBPlayerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPlayerCell.m; sourceTree = "<group>"; };
 		755BBC4C1C9DEDF0001A8314 /* HBPlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBPlayerCell.xib; sourceTree = "<group>"; };
-		755BBC6C1C9E423B001A8314 /* NewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsViewController.xib; sourceTree = "<group>"; };
 		755BBC761C9E5930001A8314 /* RecruitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitingViewController.h; sourceTree = "<group>"; };
 		755BBC771C9E5930001A8314 /* RecruitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecruitingViewController.m; sourceTree = "<group>"; };
 		755BBC791C9F5F1A001A8314 /* TeamSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamSearchViewController.h; sourceTree = "<group>"; };
@@ -222,8 +219,6 @@
 		75924A1F1C99CCC000B165AD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75924A211C99CCC000B165AD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		75924A221C99CCC000B165AD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		75924A241C99CCC000B165AD /* NewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
-		75924A251C99CCC000B165AD /* NewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
 		75924A2D1C99CCC000B165AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75924A301C99CCC000B165AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		75924A321C99CCC000B165AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -345,13 +340,9 @@
 		7510B8441C9C76AD00BE9CD6 /* Base Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				755BBC761C9E5930001A8314 /* RecruitingViewController.h */,
-				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
 				755BBC881CA03252001A8314 /* HBRecruitCell.h */,
 				755BBC891CA03252001A8314 /* HBRecruitCell.m */,
 				755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */,
-				758633081CC142B900E1E458 /* MockDraftViewController.h */,
-				758633091CC142B900E1E458 /* MockDraftViewController.m */,
 				755BBC691C9E10D0001A8314 /* News */,
 				755BBC681C9E10CB001A8314 /* Schedule */,
 				755BBC671C9E10BD001A8314 /* Roster */,
@@ -545,15 +536,16 @@
 		755BBC691C9E10D0001A8314 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				758633081CC142B900E1E458 /* MockDraftViewController.h */,
+				758633091CC142B900E1E458 /* MockDraftViewController.m */,
 				75C5C3311F83447A00D7CAAD /* UpcomingViewController.h */,
 				75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */,
 				75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */,
+				755BBC761C9E5930001A8314 /* RecruitingViewController.h */,
+				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
 				75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */,
 				75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */,
 				754319031CC02EAC00D380F1 /* Conference Standings */,
-				75924A241C99CCC000B165AD /* NewsViewController.h */,
-				75924A251C99CCC000B165AD /* NewsViewController.m */,
-				755BBC6C1C9E423B001A8314 /* NewsViewController.xib */,
 				75BBDBB41DEC910A00124AA4 /* GraduatingPlayersViewController.h */,
 				75BBDBB51DEC910A00124AA4 /* GraduatingPlayersViewController.m */,
 				754E90791CA58C0F00C450CF /* HeismanLeadersViewController.h */,
@@ -812,7 +804,6 @@
 				75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */,
 				75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */,
 				75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */,
-				755BBC6D1C9E423B001A8314 /* NewsViewController.xib in Resources */,
 				75A86C921C9C7AA80034140C /* team@3x.png in Resources */,
 				755BBC871C9F7DA4001A8314 /* HBScoreCell.xib in Resources */,
 				7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */,
@@ -942,7 +933,6 @@
 				75C5C3351F83457100D7CAAD /* PlayerStatsViewController.m in Sources */,
 				7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */,
 				754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */,
-				75924A261C99CCC000B165AD /* NewsViewController.m in Sources */,
 				7591FE411D465B940037ECFB /* NSArray+Uniqueness.m in Sources */,
 				7571DD381C9CFD4000E67080 /* RosterViewController.m in Sources */,
 				754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */,

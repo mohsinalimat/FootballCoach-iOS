@@ -377,8 +377,9 @@
         stat2 = @"Yds";
         stat3 = @"TDs";
         stat4 = @"INTs";
+        int compPct = (((PlayerQB*)plyr).statsPassAtt > 0) ? (100 * ((PlayerQB*)plyr).statsPassComp/((PlayerQB*)plyr).statsPassAtt) : 0;
         
-        stat1Value = [NSString stringWithFormat:@"%d%%",(100 * ((PlayerQB*)plyr).statsPassComp/((PlayerQB*)plyr).statsPassAtt)];
+        stat1Value = [NSString stringWithFormat:@"%d%%",compPct];
         stat2Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsPassYards];
         stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsTD];
         stat4Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsInt];

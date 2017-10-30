@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "UpcomingViewController.h"
-#import "NewsViewController.h"
 #import "ScheduleViewController.h"
 #import "RosterViewController.h"
 #import "MyTeamViewController.h"

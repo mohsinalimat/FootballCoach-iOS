@@ -15,7 +15,7 @@
 
 @interface League : NSObject <NSCoding> {
     BOOL heismanDecided;
-    NSMutableArray<Player*> *heismanCandidates;
+    
     NSString *heismanWinnerStrFull;
     
     //deprecated record tracking ivars
@@ -53,8 +53,7 @@
 @property (strong, nonatomic)  NSMutableDictionary *heismanHistoryDictionary;
 @property (strong, nonatomic)  NSDictionary *allLeaguePlayers;
 @property (strong, nonatomic)  NSArray *allDraftedPlayers;
-//@property (strong, nonatomic)  NSMutableArray<NSArray*> *leagueHistory; deprecated
-//@property (strong, nonatomic)  NSMutableArray<NSString*> *heismanHistory;
+@property (strong, nonatomic) NSMutableArray<Player*> *heismanCandidates;
 @property (strong, nonatomic)  NSMutableArray<Conference*> *conferences;
 @property (strong, nonatomic)  NSMutableArray<Team*> *teamList;
 @property (strong, nonatomic)  NSMutableArray<NSString*> *nameList;
