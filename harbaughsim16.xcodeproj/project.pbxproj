@@ -340,9 +340,6 @@
 		7510B8441C9C76AD00BE9CD6 /* Base Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				755BBC881CA03252001A8314 /* HBRecruitCell.h */,
-				755BBC891CA03252001A8314 /* HBRecruitCell.m */,
-				755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */,
 				755BBC691C9E10D0001A8314 /* News */,
 				755BBC681C9E10CB001A8314 /* Schedule */,
 				755BBC671C9E10BD001A8314 /* Roster */,
@@ -536,6 +533,9 @@
 		755BBC691C9E10D0001A8314 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				755BBC881CA03252001A8314 /* HBRecruitCell.h */,
+				755BBC891CA03252001A8314 /* HBRecruitCell.m */,
+				755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */,
 				758633081CC142B900E1E458 /* MockDraftViewController.h */,
 				758633091CC142B900E1E458 /* MockDraftViewController.m */,
 				75C5C3311F83447A00D7CAAD /* UpcomingViewController.h */,

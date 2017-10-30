@@ -172,8 +172,7 @@
     availLBs = [NSMutableArray array];
     availAll = [NSMutableArray array];
 
-    //playersGraduating = [HBSharedUtils getLeague].userTeam.playersLeaving;
-    recruitingBudget = [HBSharedUtils getLeague].userTeam.teamPrestige * 25;
+    recruitingBudget = [HBSharedUtils getLeague].userTeam.teamPrestige * 20;
 
     Team *userTeam = [HBSharedUtils getLeague].userTeam;
     if (userTeam.teamQBs.count < 2) {
@@ -256,11 +255,10 @@
         needLBs = 6;
     }
 
-    //NSLog(@"NEED TO RECRUIT: %ld QBs, %ld RBs, %ld, WRs, %ld OLs, %ld F7s, %ld CBs, %ld Ss, %ld Ks",(long)needQBs,(long)needRBs,(long)needWRs,(long)needOLs,(long)needF7s,(long)needCBs,(long)needsS,(long)needKs);
 
     if (teamSize <= 35) {
         //adding bonus points if the offseason screwed you
-        NSInteger recruitingBonus = (25 * (33 - teamSize));
+        NSInteger recruitingBonus = (20 * (33 - teamSize));
         recruitingBudget += recruitingBonus;
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
