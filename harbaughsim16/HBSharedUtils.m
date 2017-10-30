@@ -248,7 +248,7 @@ static UIColor *styleColor = nil;
 }
 
 + (void)startOffseason:(UIViewController*)viewController callback:(void (^)(void))callback {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld %@ Offseason", (long)([HBSharedUtils getLeague].leagueHistoryDictionary.count + 2016), [HBSharedUtils getLeague].userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld %@ Offseason", (long)([HBSharedUtils getLeague].leagueHistoryDictionary.count + 2017), [HBSharedUtils getLeague].userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Players Leaving" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [viewController.navigationController pushViewController:[[GraduatingPlayersViewController alloc] init] animated:YES];
     }]];
@@ -306,7 +306,7 @@ static UIColor *styleColor = nil;
             [[HBSharedUtils getLeague] save];
             if (simLeague.currentWeek == 15) {
                 // Show NCG summary
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld Season Summary", (long)(2016 + simLeague.userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld Season Summary", (long)(2017 + simLeague.userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
                 
@@ -398,7 +398,7 @@ static UIColor *styleColor = nil;
                     [composeHeis appendString:heismanParts[i]];
                 }
                 
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld's Player of the Year", (long)(2016 + simLeague.userTeam.teamHistoryDictionary.count)] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld's Player of the Year", (long)(2017 + simLeague.userTeam.teamHistoryDictionary.count)] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
                 
@@ -407,6 +407,7 @@ static UIColor *styleColor = nil;
                 [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
             } else {
                 [HBSharedUtils getLeague].canRebrandTeam = YES;
+                [teamHeaderView.playButton setEnabled:YES];
                 [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
                 [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
@@ -430,7 +431,8 @@ static UIColor *styleColor = nil;
             simLeague.recruitingStage = 1;
             [HBSharedUtils getLeague].canRebrandTeam = YES;
             [[HBSharedUtils getLeague] save];
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld Season Summary", (long)(2016 + simLeague.userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld Season Summary", (long)(2017 + simLeague.userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
         } else {
@@ -456,19 +458,20 @@ static UIColor *styleColor = nil;
                 } else {
                     [HBSharedUtils getLeague].canRebrandTeam = YES;
                     simLeague.recruitingStage = 1;
+                    [((HBTeamPlayView*)teamHeaderView).playButton setEnabled:YES];
                     [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
                     [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
                 }
                 
                 callback();
-                if (weekTotal > 1) {
+                if (weekTotal > 1 && simLeague.currentWeek < 15) {
                     NSLog(@"WEEK TOTAL: %d",weekTotal);
                     [[self class] simulateEntireSeason:(weekTotal - 1) viewController:viewController headerView:teamHeaderView callback:callback];
                 } else {
                     NSLog(@"NO WEEKS LEFT");
-                    if (simLeague.currentWeek == 20) {
-                        [((HBTeamPlayView*)teamHeaderView).playButton setEnabled:YES];
+                    if (simLeague.currentWeek > 14) {
+                       [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
                     } else {
                         [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
                         [((HBTeamPlayView*)teamHeaderView).playButton setEnabled:YES];
@@ -479,7 +482,6 @@ static UIColor *styleColor = nil;
             });
         }
     } else {
-        simLeague.recruitingStage = 1;
         [HBSharedUtils startOffseason:viewController callback:nil];
     }
 }

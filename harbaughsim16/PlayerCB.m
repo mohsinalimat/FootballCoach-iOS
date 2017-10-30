@@ -10,46 +10,7 @@
 
 @implementation PlayerCB
 
--(id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        _ratCBCov = [aDecoder decodeIntForKey:@"ratCBCov"];
-        _ratCBSpd = [aDecoder decodeIntForKey:@"ratCBSpd"];
-        _ratCBTkl = [aDecoder decodeIntForKey:@"ratCBTkl"];
-        
-        if ([aDecoder containsValueForKey:@"personalDetails"]) {
-            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
-            if (self.personalDetails == nil) {
-                NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 170;
-                NSInteger inches = (int)([HBSharedUtils randomValue] * 3);
-                self.personalDetails = @{
-                                         @"home_state" : [HBSharedUtils randomState],
-                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                         };
-            }
-        } else {
-            NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 170;
-            NSInteger inches = (int)([HBSharedUtils randomValue] * 3);
-            self.personalDetails = @{
-                                     @"home_state" : [HBSharedUtils randomState],
-                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                     };
-        }
-        
-    }
-    return self;
-}
 
--(void)encodeWithCoder:(NSCoder *)aCoder {
-    [super encodeWithCoder:aCoder];
-    
-    [aCoder encodeInt:_ratCBCov forKey:@"ratCBCov"];
-    [aCoder encodeInt:_ratCBSpd forKey:@"ratCBSpd"];
-    [aCoder encodeInt:_ratCBTkl forKey:@"ratCBTkl"];
-    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
-}
 
 -(instancetype)initWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling dur:(int)dur {
     self = [super init];
@@ -57,7 +18,7 @@
         self.team = team;
         self.name = name;
         self.year = year;
-        self.startYear = (int)team.league.leagueHistoryDictionary.count + 2016;
+        self.startYear = (int)team.league.leagueHistoryDictionary.count + 2017;
         self.ratDur = dur;
         self.ratOvr = (coverage * 2 + speed + tackling) / 4;
         self.ratPot = potential;
@@ -93,7 +54,7 @@
         self.team = t;
         self.name = name;
         self.year = year;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2016;
+        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2017;
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int)([HBSharedUtils randomValue]*50 + 50);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);

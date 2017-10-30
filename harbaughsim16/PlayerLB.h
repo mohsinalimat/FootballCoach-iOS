@@ -8,7 +8,7 @@
 
 #import "Player.h"
 
-@interface PlayerLB : Player <NSCopying>
+@interface PlayerLB : Player <NSCoding>
 @property (nonatomic) int ratLBTkl;
 @property (nonatomic) int ratLBRsh;
 @property (nonatomic) int ratLBPas;

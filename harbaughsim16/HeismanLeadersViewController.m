@@ -16,7 +16,8 @@
 #import "PlayerWR.h"
 #import "PlayerK.h"
 #import "PlayerOL.h"
-#import "PlayerF7.h"
+#import "PlayerLB.h"
+#import "PlayerDL.h"
 #import "PlayerCB.h"
 #import "PlayerS.h"
 

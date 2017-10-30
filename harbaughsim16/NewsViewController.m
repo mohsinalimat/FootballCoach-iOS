@@ -192,7 +192,7 @@
 -(void)resetSimButton {
     if ([HBSharedUtils getLeague].currentWeek < 19) {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2017 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
     } else {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
@@ -213,7 +213,7 @@
 
 -(void)startRecruiting {
 
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld %@ Offseason", (long)([HBSharedUtils getLeague].leagueHistoryDictionary.count + 2016), userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%ld %@ Offseason", (long)([HBSharedUtils getLeague].leagueHistoryDictionary.count + 2017), userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Players Leaving" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController pushViewController:[[GraduatingPlayersViewController alloc] init] animated:YES];
     }]];
@@ -264,7 +264,7 @@
     [self.tableView setTableHeaderView:teamHeaderView];
     self.tableView.estimatedRowHeight = 75;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2017 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
     if ([HBSharedUtils getLeague].currentWeek < 15) {
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
     } else {
@@ -343,7 +343,7 @@
             rank = [NSString stringWithFormat:@"#%ld ",(long)userTeam.rankTeamPollScore];
         }
         [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, userTeam.name]];
-        [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)(2016 + userTeam.teamHistoryDictionary.count),(long)userTeam.wins,(long)userTeam.losses]];
+        [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)(2017 + userTeam.teamHistoryDictionary.count),(long)userTeam.wins,(long)userTeam.losses]];
     } else {
         [teamHeaderView.teamRankLabel setText:@""];
         [teamHeaderView.teamRecordLabel setText:@"0-0"];

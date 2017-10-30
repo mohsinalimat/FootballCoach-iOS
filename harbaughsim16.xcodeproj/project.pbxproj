@@ -12,6 +12,8 @@
 		7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */; };
 		7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */; };
 		7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */; };
+		751D052D1FA6A01D002CB414 /* triline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 751D052B1FA6A01D002CB414 /* triline@3x.png */; };
+		751D052E1FA6A01D002CB414 /* triline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 751D052C1FA6A01D002CB414 /* triline@2x.png */; };
 		751DF8201CA17F81003C62F2 /* HBSettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF81E1CA17F81003C62F2 /* HBSettingsCell.m */; };
 		751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */; };
 		751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF8231CA1D66D003C62F2 /* TeamStrategyViewController.m */; };
@@ -131,6 +133,8 @@
 		7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailViewController.m; sourceTree = "<group>"; };
 		7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SettingsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		751D052B1FA6A01D002CB414 /* triline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triline@3x.png"; sourceTree = "<group>"; };
+		751D052C1FA6A01D002CB414 /* triline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triline@2x.png"; sourceTree = "<group>"; };
 		751DF81D1CA17F81003C62F2 /* HBSettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBSettingsCell.h; sourceTree = "<group>"; };
 		751DF81E1CA17F81003C62F2 /* HBSettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBSettingsCell.m; sourceTree = "<group>"; };
 		751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBSettingsCell.xib; sourceTree = "<group>"; };
@@ -311,8 +315,8 @@
 		75FE58471FA37D8B00DE2534 /* PlayerDL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerDL.h; sourceTree = "<group>"; };
 		75FE58481FA37D8C00DE2534 /* PlayerLB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerLB.m; sourceTree = "<group>"; };
 		75FE58491FA37D8C00DE2534 /* PlayerLB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLB.h; sourceTree = "<group>"; };
-		75FE584C1FA3838600DE2534 /* PlayerTE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerTE.h; sourceTree = "<group>"; };
-		75FE584D1FA3838600DE2534 /* PlayerTE.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerTE.m; sourceTree = "<group>"; };
+		75FE584C1FA3838600DE2534 /* PlayerTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerTE.h; sourceTree = "<group>"; };
+		75FE584D1FA3838600DE2534 /* PlayerTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTE.m; sourceTree = "<group>"; };
 		D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
 		DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -649,6 +653,8 @@
 		75A86C9F1C9C7CAA0034140C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				751D052C1FA6A01D002CB414 /* triline@2x.png */,
+				751D052B1FA6A01D002CB414 /* triline@3x.png */,
 				75C5C3261F83429300D7CAAD /* FCAIcon1024.png */,
 				75C5C32D1F83433800D7CAAD /* Icon-20@2x.png */,
 				75C5C32E1F83433800D7CAAD /* Icon-20@3x.png */,
@@ -798,6 +804,7 @@
 				751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */,
 				75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */,
 				75A86C991C9C7C0C0034140C /* recruit-selected@3x.png in Resources */,
+				751D052E1FA6A01D002CB414 /* triline@2x.png in Resources */,
 				7571DD3D1C9CFF6500E67080 /* HBRosterCell.xib in Resources */,
 				75A86C981C9C7C0C0034140C /* news-selected@3x.png in Resources */,
 				755BBC821C9F734E001A8314 /* TeamViewController.xib in Resources */,
@@ -812,6 +819,7 @@
 				7571DD261C9CC64200E67080 /* settings@3x.png in Resources */,
 				7571DD351C9CF8E300E67080 /* MyTeamViewController.xib in Resources */,
 				75097C5D1CBC1B55003E2538 /* HBRecordCell.xib in Resources */,
+				751D052D1FA6A01D002CB414 /* triline@3x.png in Resources */,
 				7571DD331C9CD3A200E67080 /* play-week@3x.png in Resources */,
 				754E90831CA5A59D00C450CF /* TeamScheduleViewController.xib in Resources */,
 				755BBC7D1C9F6964001A8314 /* TeamSearchViewController.xib in Resources */,

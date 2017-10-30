@@ -131,9 +131,9 @@
 }
 
 -(void)resetSimButton {
-    if ([HBSharedUtils getLeague].currentWeek < 19) {
+    if ([HBSharedUtils getLeague].currentWeek < 16) {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2017 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
     } else {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
@@ -154,8 +154,8 @@
 
 -(void)viewResultsOptions {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"News Options" message:@"What would you like to view?" preferredStyle:UIAlertControllerStyleActionSheet];
-    if ([HBSharedUtils getLeague].currentWeek == 20) {
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Final Power Rankings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    if ([HBSharedUtils getLeague].currentWeek == 15) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Final Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
              [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
         }]];
         
@@ -163,7 +163,7 @@
              [self.navigationController pushViewController:[[BowlProjectionViewController alloc] init] animated:YES];
         }]];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"MVP Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"POTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
         }]];
         
@@ -178,16 +178,16 @@
         [alertController addAction:[UIAlertAction actionWithTitle:@"All-Pro Team" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[AllLeagueTeamViewController alloc] init] animated:YES];
         }]];
-    } else if ([HBSharedUtils getLeague].currentWeek == 19) {
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Current Power Rankings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    } else if ([HBSharedUtils getLeague].currentWeek == 14) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Current Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
              [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
         }]];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Playoff Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Bowl Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
              [self.navigationController pushViewController:[[BowlProjectionViewController alloc] init] animated:YES];
         }]];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"MVP Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"POTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
         }]];
         
@@ -202,7 +202,7 @@
         [alertController addAction:[UIAlertAction actionWithTitle:@"All-American Team" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[AllLeagueTeamViewController alloc] init] animated:YES];
         }]];
-    } else if ([HBSharedUtils getLeague].currentWeek > 16) {
+    } else if ([HBSharedUtils getLeague].currentWeek == 13) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Current Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
              [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
         }]];
@@ -211,7 +211,7 @@
             [self.navigationController pushViewController:[[BowlProjectionViewController alloc] init] animated:YES];
         }]];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"MVP Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"POTY Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
         }]];
         
@@ -223,7 +223,7 @@
             [popupController presentInViewController:self];
         }]];
         
-    } else if ([HBSharedUtils getLeague].currentWeek > 7) {
+    } else if ([HBSharedUtils getLeague].currentWeek > 6) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Current Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
              [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
         }]];
@@ -232,7 +232,7 @@
             [self.navigationController pushViewController:[[BowlProjectionViewController alloc] init] animated:YES];
         }]];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"MVP Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"POTY Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
         }]];
         
@@ -293,7 +293,7 @@
             rank = [NSString stringWithFormat:@"#%ld ",(long)userTeam.rankTeamPollScore];
         }
         [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, userTeam.name]];
-        [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)(2016 + userTeam.teamHistoryDictionary.count),(long)userTeam.wins,(long)userTeam.losses]];
+        [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)(2017 + userTeam.teamHistoryDictionary.count),(long)userTeam.wins,(long)userTeam.losses]];
     } else {
         [teamHeaderView.teamRankLabel setText:@""];
         [teamHeaderView.teamRecordLabel setText:@"0-0"];
@@ -422,8 +422,8 @@
   
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
     self.tableView.tableHeaderView = teamHeaderView;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
-    if ([HBSharedUtils getLeague].currentWeek < 19) {
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2017 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+    if ([HBSharedUtils getLeague].currentWeek < 15) {
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
     } else {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
@@ -443,7 +443,7 @@
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     
-    if ([HBSharedUtils getLeague].currentWeek != 20) {
+    if ([HBSharedUtils getLeague].currentWeek != 16) {
         if ([HBSharedUtils getLeague].userTeam.injuredPlayers.count > 0) {
             [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)[HBSharedUtils getLeague].userTeam.injuredPlayers.count];
         } else {
@@ -556,7 +556,11 @@
                 HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 if (indexPath.row == 0) {
-                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@",bowl.awayTeam.name]];
+                    NSString *awayRank = @"";
+                    if (bowl.awayTeam.rankTeamPollScore < 26 && bowl.awayTeam.rankTeamPollScore > 0) {
+                        awayRank = [NSString stringWithFormat:@"#%d ",bowl.awayTeam.rankTeamPollScore];
+                    }
+                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,bowl.awayTeam.name]];
                     [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",bowl.awayTeam.wins,bowl.awayTeam.losses,(long)[bowl.awayTeam calculateConfWins], (long)[bowl.awayTeam calculateConfLosses],bowl.awayTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.awayScore]];
                     if (bowl.homeScore < bowl.awayScore) {
@@ -572,7 +576,11 @@
                         }
                     }
                 } else {
-                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@",bowl.homeTeam.name]];
+                    NSString *homeRank = @"";
+                    if (bowl.homeTeam.rankTeamPollScore < 26 && bowl.homeTeam.rankTeamPollScore > 0) {
+                        homeRank = [NSString stringWithFormat:@"#%d ",bowl.homeTeam.rankTeamPollScore];
+                    }
+                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank, bowl.homeTeam.name]];
                     [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",bowl.homeTeam.wins,bowl.homeTeam.losses,(long)[bowl.homeTeam calculateConfWins], (long)[bowl.homeTeam calculateConfLosses],bowl.homeTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.homeScore]];
                     if (bowl.homeScore > bowl.awayScore) {
@@ -615,7 +623,11 @@
                 HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 if (indexPath.row == 0) {
-                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@",bowl.awayTeam.name]];
+                    NSString *awayRank = @"";
+                    if (bowl.awayTeam.rankTeamPollScore < 26 && bowl.awayTeam.rankTeamPollScore > 0) {
+                        awayRank = [NSString stringWithFormat:@"#%d ",bowl.awayTeam.rankTeamPollScore];
+                    }
+                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank, bowl.awayTeam.name]];
                     [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",bowl.awayTeam.wins,bowl.awayTeam.losses,(long)[bowl.awayTeam calculateConfWins], (long)[bowl.awayTeam calculateConfLosses],bowl.awayTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.awayScore]];
                     if ([bowl.awayTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
@@ -626,7 +638,11 @@
                         [cell.scoreLabel setTextColor:[UIColor blackColor]];
                     }
                 } else {
-                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@",bowl.homeTeam.name]];
+                    NSString *homeRank = @"";
+                    if (bowl.homeTeam.rankTeamPollScore < 26 && bowl.homeTeam.rankTeamPollScore > 0) {
+                        homeRank = [NSString stringWithFormat:@"#%d ",bowl.homeTeam.rankTeamPollScore];
+                    }
+                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,bowl.homeTeam.name]];
                     [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",bowl.homeTeam.wins,bowl.homeTeam.losses,(long)[bowl.homeTeam calculateConfWins], (long)[bowl.homeTeam calculateConfLosses],bowl.homeTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.homeScore]];
                     if ([bowl.homeTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
@@ -700,7 +716,11 @@
                 HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 if (indexPath.row == 0) {
-                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@",bowl.awayTeam.name]];
+                    NSString *awayRank = @"";
+                    if (bowl.awayTeam.rankTeamPollScore < 26 && bowl.awayTeam.rankTeamPollScore > 0) {
+                        awayRank = [NSString stringWithFormat:@"#%d ",bowl.awayTeam.rankTeamPollScore];
+                    }
+                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,bowl.awayTeam.name]];
                     [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",bowl.awayTeam.wins,bowl.awayTeam.losses,(long)[bowl.awayTeam calculateConfWins], (long)[bowl.awayTeam calculateConfLosses],bowl.awayTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.awayScore]];
                     if (bowl.homeScore < bowl.awayScore) {
@@ -716,7 +736,11 @@
                         }
                     }
                 } else {
-                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@",bowl.homeTeam.name]];
+                    NSString *homeRank = @"";
+                    if (bowl.homeTeam.rankTeamPollScore < 26 && bowl.homeTeam.rankTeamPollScore > 0) {
+                        homeRank = [NSString stringWithFormat:@"#%d ",bowl.homeTeam.rankTeamPollScore];
+                    }
+                    [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,bowl.homeTeam.name]];
                     [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",bowl.homeTeam.wins,bowl.homeTeam.losses,(long)[bowl.homeTeam calculateConfWins], (long)[bowl.homeTeam calculateConfLosses],bowl.homeTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.homeScore]];
                     if (bowl.homeScore > bowl.awayScore) {
@@ -794,7 +818,11 @@
             HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             if (indexPath.row == 0) {
-                [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@",bowl.awayTeam.name]];
+                NSString *awayRank = @"";
+                if (bowl.awayTeam.rankTeamPollScore < 26 && bowl.awayTeam.rankTeamPollScore > 0) {
+                    awayRank = [NSString stringWithFormat:@"#%d ",bowl.awayTeam.rankTeamPollScore];
+                }
+                [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,bowl.awayTeam.name]];
                 [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",bowl.awayTeam.wins,bowl.awayTeam.losses,(long)[bowl.awayTeam calculateConfWins], (long)[bowl.awayTeam calculateConfLosses],bowl.awayTeam.conference]];
                 [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.awayScore]];
                 if ([bowl.awayTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
@@ -805,7 +833,11 @@
                     [cell.scoreLabel setTextColor:[UIColor blackColor]];
                 }
             } else {
-                [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@",bowl.homeTeam.name]];
+                NSString *homeRank = @"";
+                if (bowl.homeTeam.rankTeamPollScore < 26 && bowl.homeTeam.rankTeamPollScore > 0) {
+                    homeRank = [NSString stringWithFormat:@"#%d ",bowl.homeTeam.rankTeamPollScore];
+                }
+                [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,bowl.homeTeam.name]];
                 [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",bowl.homeTeam.wins,bowl.homeTeam.losses,(long)[bowl.homeTeam calculateConfWins], (long)[bowl.homeTeam calculateConfLosses],bowl.homeTeam.conference]];
                 [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",bowl.homeScore]];
                 if ([bowl.homeTeam isEqual:[HBSharedUtils getLeague].userTeam]) {

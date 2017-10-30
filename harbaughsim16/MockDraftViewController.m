@@ -17,7 +17,8 @@
 #import "PlayerWR.h"
 #import "PlayerK.h"
 #import "PlayerOL.h"
-#import "PlayerF7.h"
+#import "PlayerLB.h"
+#import "PlayerDL.h"
 #import "PlayerCB.h"
 #import "PlayerS.h"
 
@@ -67,7 +68,13 @@
         }
     }
     
-    for (Player *p in userTeam.teamF7s) {
+    for (Player *p in userTeam.teamDLs) {
+        if (p.draftPosition != nil) {
+            [userDraftees addObject:p];
+        }
+    }
+    
+    for (Player *p in userTeam.teamLBs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];
         }
@@ -184,7 +191,7 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(changeRounds)];
-    self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)];
+    self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)(2017 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
 

@@ -15,7 +15,9 @@
 #import "PlayerWR.h"
 #import "PlayerK.h"
 #import "PlayerOL.h"
-#import "PlayerF7.h"
+#import "PlayerTE.h"
+#import "PlayerLB.h"
+#import "PlayerDL.h"
 #import "PlayerCB.h"
 #import "PlayerS.h"
 #import "PlayerDetailViewController.h"
@@ -94,12 +96,16 @@
         } else if (i == 2) {
             position = @"WR";
         } else if (i == 3) {
-            position = @"OL";
+            position = @"TE";
         } else if (i == 4) {
-            position = @"F7";
+            position = @"OL";
         } else if (i == 5) {
-            position = @"CB";
+            position = @"DL";
         } else if (i == 6) {
+            position = @"LB";
+        } else if (i == 7) {
+            position = @"CB";
+        } else if (i == 8) {
             position = @"S";
         } else {
             position = @"K";
@@ -133,7 +139,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 8;
+    return 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -144,12 +150,16 @@
     } else if (section == 2) {
         return selectedTeam.teamWRs.count;
     } else if (section == 3) {
-        return selectedTeam.teamOLs.count;
+        return selectedTeam.teamTEs.count;
     } else if (section == 4) {
-        return selectedTeam.teamF7s.count;
+        return selectedTeam.teamOLs.count;
     } else if (section == 5) {
-        return selectedTeam.teamCBs.count;
+        return selectedTeam.teamDLs.count;
     } else if (section == 6) {
+        return selectedTeam.teamLBs.count;
+    } else if (section == 7) {
+        return selectedTeam.teamCBs.count;
+    } else if (section == 8) {
         return selectedTeam.teamSs.count;
     } else {
         return selectedTeam.teamKs.count;
@@ -164,12 +174,16 @@
     } else if (section == 2) {
         return @"WR";
     } else if (section == 3) {
-        return @"OL";
+        return @"TE";
     } else if (section == 4) {
-        return @"F7";
+        return @"OL";
     } else if (section == 5) {
-        return @"CB";
+        return @"DL";
     } else if (section == 6) {
+        return @"LB";
+    } else if (section == 7) {
+        return @"CB";
+    } else if (section == 8) {
         return @"S";
     } else {
         return @"K";
@@ -188,12 +202,16 @@
     } else if (indexPath.section == 2) {
         player = [selectedTeam getWR:[NSNumber numberWithInteger:indexPath.row].intValue];
     } else if (indexPath.section == 3) {
-        player = [selectedTeam getOL:[NSNumber numberWithInteger:indexPath.row].intValue];
+        player = [selectedTeam getTE:[NSNumber numberWithInteger:indexPath.row].intValue];
     } else if (indexPath.section == 4) {
-        player = [selectedTeam getF7:[NSNumber numberWithInteger:indexPath.row].intValue];
+        player = [selectedTeam getOL:[NSNumber numberWithInteger:indexPath.row].intValue];
     } else if (indexPath.section == 5) {
-        player = [selectedTeam getCB:[NSNumber numberWithInteger:indexPath.row].intValue];
+        player = [selectedTeam getDL:[NSNumber numberWithInteger:indexPath.row].intValue];
     } else if (indexPath.section == 6) {
+        player = [selectedTeam getLB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 7) {
+        player = [selectedTeam getCB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 8) {
         player = [selectedTeam getS:[NSNumber numberWithInteger:indexPath.row].intValue];
     } else {
         player = [selectedTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];
@@ -237,12 +255,16 @@
     } else if (indexPath.section == 2) {
         player = [selectedTeam getWR:[NSNumber numberWithInteger:indexPath.row].intValue];
     } else if (indexPath.section == 3) {
-        player = [selectedTeam getOL:[NSNumber numberWithInteger:indexPath.row].intValue];
+        player = [selectedTeam getTE:[NSNumber numberWithInteger:indexPath.row].intValue];
     } else if (indexPath.section == 4) {
-        player = [selectedTeam getF7:[NSNumber numberWithInteger:indexPath.row].intValue];
+        player = [selectedTeam getOL:[NSNumber numberWithInteger:indexPath.row].intValue];
     } else if (indexPath.section == 5) {
-        player = [selectedTeam getCB:[NSNumber numberWithInteger:indexPath.row].intValue];
+        player = [selectedTeam getDL:[NSNumber numberWithInteger:indexPath.row].intValue];
     } else if (indexPath.section == 6) {
+        player = [selectedTeam getLB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 7) {
+        player = [selectedTeam getCB:[NSNumber numberWithInteger:indexPath.row].intValue];
+    } else if (indexPath.section == 8) {
         player = [selectedTeam getS:[NSNumber numberWithInteger:indexPath.row].intValue];
     } else {
         player = [selectedTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];

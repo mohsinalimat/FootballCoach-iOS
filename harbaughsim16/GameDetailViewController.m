@@ -21,11 +21,9 @@
 #import "PlayerQB.h"
 #import "PlayerRB.h"
 #import "PlayerWR.h"
+#import "PlayerTE.h"
 #import "PlayerK.h"
 #import "PlayerOL.h"
-#import "PlayerF7.h"
-#import "PlayerCB.h"
-#import "PlayerS.h"
 
 #import "HexColors.h"
 
@@ -169,6 +167,8 @@
     } else if (section == 4) {
         return @"Wide Receivers";
     } else if (section == 5) {
+        return @"Tight Ends";
+    } else if (section == 6) {
         return @"Kickers";
     } else {
         if ([selectedGame.gameName isEqualToString:@"NCG"]) {
@@ -226,7 +226,7 @@
             return 3;
         }
     } else {
-        return 6;
+        return 7;
     }
 }
 
@@ -260,6 +260,8 @@
             return 4;
         } else if (section == 4) {
             return 6;
+        } else if (section == 5) {
+            return 2;
         } else {
             return 2;
         }
@@ -376,7 +378,7 @@
                 stat3Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsTD];
                 stat4Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsFumbles];
                 //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
-            } else {
+            } else if ([plyr isKindOfClass:[PlayerWR class]]) {
                 stat1 = @"Rec";
                 stat2 = @"Yds";
                 stat3 = @"TD";
@@ -385,6 +387,16 @@
                 stat2Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsRecYards];
                 stat3Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsTD];
                 stat4Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsFumbles];
+                //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+            } else if ([plyr isKindOfClass:[PlayerTE class]]) {
+                stat1 = @"Rec";
+                stat2 = @"Yds";
+                stat3 = @"TD";
+                stat4 = @"Fum";
+                stat1Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsReceptions];
+                stat2Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsRecYards];
+                stat3Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsTD];
+                stat4Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsFumbles];
                 //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
             }
             
@@ -576,6 +588,25 @@
                 stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
                 stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
                 stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[5] intValue]];
+            } else if (indexPath.section == 4) {
+                NSDictionary *teStats = combinedStats[@"TEs"]; //catchs, yds, td, fum
+                if (indexPath.row == 0) {
+                    plyr = teStats[@"awayTE"];
+                    plyrStats = teStats[@"awayTEStats"];
+                } else {
+                    plyr = teStats[@"homeTE"];
+                    plyrStats = teStats[@"homeTEStats"];
+                }
+                
+                
+                stat1 = @"Rec";
+                stat2 = @"Yds";
+                stat3 = @"TD";
+                stat4 = @"Fum";
+                stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[0] intValue]];
+                stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
+                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
+                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[5] intValue]];
             } else {
                 NSDictionary *kStats = combinedStats[@"Ks"]; //xp made, xp att, fg made, fg att
                 if (indexPath.row == 0) {
@@ -663,6 +694,7 @@
             NSDictionary *qbStats = combinedStats[@"QBs"];
             NSDictionary *rbStats = combinedStats[@"RBs"];
             NSDictionary *wrStats = combinedStats[@"WRs"];
+            NSDictionary *teStats = combinedStats[@"TEs"];
             NSDictionary *kStats = combinedStats[@"Ks"];
             if (indexPath.section == 2) {
                 if (indexPath.row == 0) {
@@ -695,6 +727,12 @@
                     plyr = wrStats[@"homeWR3"];
                 }
             } else if (indexPath.section == 5) {
+                if (indexPath.row == 0) {
+                    plyr = teStats[@"awayTE"];
+                } else {
+                    plyr = teStats[@"homeTE"];
+                }
+            } else if (indexPath.section == 6) {
                 if (indexPath.row == 0) {
                     plyr = kStats[@"awayK"];
                 } else {

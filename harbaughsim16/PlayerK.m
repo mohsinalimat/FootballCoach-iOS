@@ -13,85 +13,6 @@
 
 @implementation PlayerK
 
--(id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        _ratKickPow = [aDecoder decodeIntForKey:@"ratKickPow"];
-        _ratKickAcc = [aDecoder decodeIntForKey:@"ratKickAcc"];
-        _ratKickFum = [aDecoder decodeIntForKey:@"ratKickFum"];
-        
-        _statsXPAtt = [aDecoder decodeIntForKey:@"statsXPAtt"];
-        _statsXPMade = [aDecoder decodeIntForKey:@"statsXPMade"];
-        _statsFGAtt = [aDecoder decodeIntForKey:@"statsFGAtt"];
-        _statsFGMade = [aDecoder decodeIntForKey:@"statsFGMade"];
-        
-        if ([aDecoder containsValueForKey:@"careerStatsXPAtt"]) {
-            _careerStatsXPAtt = [aDecoder decodeIntForKey:@"careerStatsXPAtt"];
-        } else {
-            _careerStatsXPAtt = 0;
-        }
-        
-        if ([aDecoder containsValueForKey:@"careerStatsXPMade"]) {
-            _careerStatsXPMade = [aDecoder decodeIntForKey:@"careerStatsXPMade"];
-        } else {
-            _careerStatsXPMade = 0;
-        }
-        
-        if ([aDecoder containsValueForKey:@"careerStatsFGAtt"]) {
-            _careerStatsFGAtt = [aDecoder decodeIntForKey:@"careerStatsFGAtt"];
-        } else {
-            _careerStatsFGAtt = 0;
-        }
-        
-        if ([aDecoder containsValueForKey:@"careerStatsFGMade"]) {
-            _careerStatsFGMade = [aDecoder decodeIntForKey:@"careerStatsFGMade"];
-        } else {
-            _careerStatsFGMade = 0;
-        }
-        
-        if ([aDecoder containsValueForKey:@"personalDetails"]) {
-            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
-            if (self.personalDetails == nil) {
-                NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 190;
-                NSInteger inches = (int)([HBSharedUtils randomValue] * 2);
-                self.personalDetails = @{
-                                         @"home_state" : [HBSharedUtils randomState],
-                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                         };
-            }
-        } else {
-            NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 190;
-            NSInteger inches = (int)([HBSharedUtils randomValue] * 2);
-            self.personalDetails = @{
-                                     @"home_state" : [HBSharedUtils randomState],
-                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                     };
-        }
-    }
-    return self;
-}
-
--(void)encodeWithCoder:(NSCoder *)aCoder {
-    [super encodeWithCoder:aCoder];
-    
-    [aCoder encodeInt:_ratKickPow forKey:@"ratKickPow"];
-    [aCoder encodeInt:_ratKickAcc forKey:@"ratKickAcc"];
-    [aCoder encodeInt:_ratKickFum forKey:@"ratKickFum"];
-    
-    [aCoder encodeInt:_statsFGMade forKey:@"statsFGMade"];
-    [aCoder encodeInt:_statsFGAtt forKey:@"statsFGAtt"];
-    [aCoder encodeInt:_statsXPMade forKey:@"statsXPMade"];
-    [aCoder encodeInt:_statsXPAtt forKey:@"statsXPAtt"];
-    
-    [aCoder encodeInt:_careerStatsFGMade forKey:@"careerStatsFGMade"];
-    [aCoder encodeInt:_careerStatsFGAtt forKey:@"careerStatsFGAtt"];
-    [aCoder encodeInt:_careerStatsXPMade forKey:@"careerStatsXPMade"];
-    [aCoder encodeInt:_careerStatsXPAtt forKey:@"careerStatsXPAtt"];
-    
-    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
-}
 
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum dur:(int)dur {
     self = [super init];
@@ -99,7 +20,7 @@
         self.team = t;
         self.name = nm;
         self.year = yr;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2016;
+        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2017;
         self.ratDur = dur;
         self.ratOvr = (pow + acc)/2;
         self.ratPot = pot;
@@ -139,7 +60,7 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2016;
+        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2017;
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
@@ -279,36 +200,36 @@
 -(void)checkRecords {
     //XpMade
     if (self.statsXPMade > self.team.singleSeasonXpMadeRecord.statistic) {
-        self.team.singleSeasonXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.statsXPMade year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.statsXPMade year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsXPMade > self.team.careerXpMadeRecord.statistic) {
-        self.team.careerXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.careerStatsXPMade year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.careerStatsXPMade year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsXPMade > self.team.league.singleSeasonXpMadeRecord.statistic) {
-        self.team.league.singleSeasonXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.statsXPMade year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.statsXPMade year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsXPMade > self.team.league.careerXpMadeRecord.statistic) {
-        self.team.league.careerXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.careerStatsXPMade year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.careerStatsXPMade year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     //FGMade
     if (self.statsFGMade > self.team.singleSeasonFgMadeRecord.statistic) {
-        self.team.singleSeasonFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.statsFGMade year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.statsFGMade year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsFGMade > self.team.careerFgMadeRecord.statistic) {
-        self.team.careerFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.careerStatsFGMade year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.careerStatsFGMade year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsFGMade > self.team.league.singleSeasonFgMadeRecord.statistic) {
-        self.team.league.singleSeasonFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.statsFGMade year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.statsFGMade year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsFGMade > self.team.league.careerFgMadeRecord.statistic) {
-        self.team.league.careerFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.careerStatsFGMade year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.careerStatsFGMade year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
 }

@@ -15,66 +15,13 @@
 #import "PlayerWR.h"
 #import "PlayerK.h"
 #import "PlayerOL.h"
-#import "PlayerF7.h"
+#import "PlayerDL.h"
+#import "PlayerLB.h"
 #import "PlayerCB.h"
 #import "PlayerS.h"
 
 @implementation Conference
-
--(id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super init];
-    if (self) {
-        _confName = [aDecoder decodeObjectForKey:@"confName"];
-        _confPrestige = [aDecoder decodeIntForKey:@"confPrestige"];
-        _confTeams = [aDecoder decodeObjectForKey:@"confTeams"];
-        _ccg = [aDecoder decodeObjectForKey:@"ccg"];
-        _week = [aDecoder decodeIntForKey:@"week"];
-        _robinWeek = [aDecoder decodeIntForKey:@"robinWeek"];
-        _league = [aDecoder decodeObjectForKey:@"league"];
-        
-        if (![aDecoder containsValueForKey:@"allConferencePlayers"]) {
-            _allConferencePlayers = @{};
-        } else {
-            _allConferencePlayers = [aDecoder decodeObjectForKey:@"allConferencePlayers"];
-        }
-        
-        if (![aDecoder containsValueForKey:@"confFullName"]) {
-            if ([_confName isEqualToString:@"SOUTH"]) {
-                _confFullName = @"Southern";
-            } else if ([_confName isEqualToString:@"COWBY"]) {
-                _confFullName = @"Cowboy";
-            } else if ([_confName isEqualToString:@"NORTH"]) {
-                _confFullName = @"Northern";
-            } else if ([_confName isEqualToString:@"PACIF"]) {
-                _confFullName = @"Pacific";
-            } else if ([_confName isEqualToString:@"MOUNT"]) {
-                _confFullName = @"Mountain";
-            } else if ([_confName isEqualToString:@"LAKES"]) {
-                _confFullName = @"Lakes";
-            } else {
-                _confFullName = @"Unknown";
-            }
-        } else {
-            _confFullName = [aDecoder decodeObjectForKey:@"confFullName"];
-        }
-        
-        
-    }
-    return self;
-}
-
--(void)encodeWithCoder:(NSCoder *)aCoder {
-    [aCoder encodeObject:_confName forKey:@"confName"];
-    [aCoder encodeObject:_confFullName forKey:@"confFullName"];
-    [aCoder encodeInt:_confPrestige forKey:@"confPrestige"];
-    [aCoder encodeObject:_confTeams forKey:@"confTeams"];
-    [aCoder encodeObject:_league forKey:@"league"];
-    [aCoder encodeObject:_allConferencePlayers forKey:@"allConferencePlayers"];
-    [aCoder encodeObject:_ccg forKey:@"ccg"];
-    [aCoder encodeInt:_week forKey:@"week"];
-    [aCoder encodeInt:_robinWeek forKey:@"robinWeek"];
-
-}
+@synthesize ccg,confName,confTeams,confFullName,confPrestige,allConferencePlayers,league,week,robinWeek;
 
 +(instancetype)newConferenceWithName:(NSString*)name fullName:(NSString*)fullName league:(League*)league {
     Conference *conf = [[Conference alloc] init];
@@ -92,12 +39,12 @@
 }
 
 -(NSString*)getCCGString {
-    if (_ccg == nil) {
+    if (self.ccg == nil) {
         // Give prediction, find top 2 teams
         Team *team1 = nil, *team2 = nil;
         int score1 = 0, score2 = 0;
-        for (int i = [NSNumber numberWithInteger:_confTeams.count].intValue - 1; i >= 0; --i) { //count backwards so higher ranked teams are predicted
-            Team *t = _confTeams[i];
+        for (int i = [NSNumber numberWithInteger:self.confTeams.count].intValue - 1; i >= 0; --i) { //count backwards so higher ranked teams are predicted
+            Team *t = self.confTeams[i];
             if ([t calculateConfWins] >= score1) {
                 score2 = score1;
                 score1 = [t calculateConfWins];
@@ -108,28 +55,28 @@
                 team2 = t;
             }
         }
-        return [NSString stringWithFormat:@"%@ Conference Championship:\n\t\t%@ vs %@", _confName,
+        return [NSString stringWithFormat:@"%@ Conference Championship:\n\t\t%@ vs %@", self.confName,
         [team1 strRep], [team2 strRep]];
     } else {
-        if (!_ccg.hasPlayed) {
-            return [NSString stringWithFormat:@"%@ Conference Championship:\n\t\t%@ vs %@", _confName, [_ccg.homeTeam strRep], [_ccg.awayTeam strRep]];
+        if (!self.ccg.hasPlayed) {
+            return [NSString stringWithFormat:@"%@ Conference Championship:\n\t\t%@ vs %@", self.confName, [self.ccg.homeTeam strRep], [self.ccg.awayTeam strRep]];
         } else {
             NSString *sb = @"";
             Team *winner, *loser;
-            sb = [_confName stringByAppendingString:@" Conference Championship:\n"];
-            if (_ccg.homeScore > _ccg.awayScore) {
-                winner = _ccg.homeTeam;
-                loser = _ccg.awayTeam;
+            sb = [self.confName stringByAppendingString:@" Conference Championship:\n"];
+            if (self.ccg.homeScore > self.ccg.awayScore) {
+                winner = self.ccg.homeTeam;
+                loser = self.ccg.awayTeam;
                 sb = [sb stringByAppendingString:[[winner strRep] stringByAppendingString:@" W "]];
-                sb = [sb stringByAppendingString:[NSString stringWithFormat:@"%ld - %ld,",(long)_ccg.homeScore, (long)_ccg.awayScore]];
+                sb = [sb stringByAppendingString:[NSString stringWithFormat:@"%ld - %ld,",(long)self.ccg.homeScore, (long)self.ccg.awayScore]];
                 sb = [sb stringByAppendingString:[NSString stringWithFormat:@"vs %@", [loser strRep]]];
                 //sb.append("vs " + [loser strRep]);
                 return sb;
             } else {
-                winner = _ccg.awayTeam;
-                loser = _ccg.homeTeam;
+                winner = self.ccg.awayTeam;
+                loser = self.ccg.homeTeam;
                 sb = [sb stringByAppendingString:[[winner strRep] stringByAppendingString:@" W "]];
-                sb = [sb stringByAppendingString:[NSString stringWithFormat:@"%ld - %ld,",(long)_ccg.homeScore, (long)_ccg.awayScore]];
+                sb = [sb stringByAppendingString:[NSString stringWithFormat:@"%ld - %ld,",(long)self.ccg.homeScore, (long)self.ccg.awayScore]];
                 sb = [sb stringByAppendingString:[NSString stringWithFormat:@"@ %@", [loser strRep]]];
                 return sb;
             }
@@ -139,21 +86,21 @@
 }
 
 -(void)playConfChamp {
-    [_ccg playGame];
-     if (_ccg.homeScore > _ccg.awayScore) {
-         _confTeams[0].confChampion = @"CC";
-         _confTeams[0].totalCCs++;
-         _confTeams[1].totalCCLosses++;
-         NSMutableArray *week13 = _league.newsStories[13];
-         [week13 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ took care of business in the conference championship against %@, winning at home with a score of %ld to %ld.",_ccg.homeTeam.name, _confName, _ccg.homeTeam.strRep, _ccg.awayTeam.strRep, (long)_ccg.homeScore, (long)_ccg.awayScore]];
+    [self.ccg playGame];
+     if (self.ccg.homeScore > self.ccg.awayScore) {
+         self.confTeams[0].confChampion = @"CC";
+         self.confTeams[0].totalCCs++;
+         self.confTeams[1].totalCCLosses++;
+         NSMutableArray *week13 = self.league.newsStories[13];
+         [week13 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ took care of business in the conference championship against %@, winning at home with a score of %ld to %ld.",self.ccg.homeTeam.name, self.confName, self.ccg.homeTeam.strRep, self.ccg.awayTeam.strRep, (long)self.ccg.homeScore, (long)self.ccg.awayScore]];
      } else {
-         _confTeams[1].confChampion = @"CC";
-         _confTeams[1].totalCCs++;
-         _confTeams[0].totalCCLosses++;
-         NSMutableArray *week13 = _league.newsStories[13];
-         [week13 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ surprised many in the conference championship against %@, winning on the road with a score of %ld to %ld.",_ccg.awayTeam.name, _confName, _ccg.awayTeam.strRep, _ccg.homeTeam.strRep, (long)_ccg.awayScore, (long)_ccg.homeScore]];
+         self.confTeams[1].confChampion = @"CC";
+         self.confTeams[1].totalCCs++;
+         self.confTeams[0].totalCCLosses++;
+         NSMutableArray *week13 = self.league.newsStories[13];
+         [week13 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ surprised many in the conference championship against %@, winning on the road with a score of %ld to %ld.",self.ccg.awayTeam.name, self.confName, self.ccg.awayTeam.strRep, self.ccg.homeTeam.strRep, (long)self.ccg.awayScore, (long)self.ccg.homeScore]];
      }
-     _confTeams = [[_confTeams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+     self.confTeams = [[self.confTeams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
          Team *a = (Team*)obj1;
          Team *b = (Team*)obj2;
          return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
@@ -165,17 +112,17 @@
 -(void)scheduleConfChamp {
     [self sortConfTeams];
      
-    _ccg = [Game newGameWithHome:_confTeams[0]  away:_confTeams[1] name:[NSString stringWithFormat:@"%@ CCG", _confName]];
-    [_confTeams[0].gameSchedule addObject:_ccg];
-    [_confTeams[1].gameSchedule addObject:_ccg];
+    self.ccg = [Game newGameWithHome:self.confTeams[0]  away:self.confTeams[1] name:[NSString stringWithFormat:@"%@ CCG", self.confName]];
+    [self.confTeams[0].gameSchedule addObject:self.ccg];
+    [self.confTeams[1].gameSchedule addObject:self.ccg];
 }
 
 -(void)sortConfTeams {
-    for ( int i = 0; i < _confTeams.count; ++i ) {
-        [_confTeams[i] updatePollScore];
+    for ( int i = 0; i < self.confTeams.count; ++i ) {
+        [self.confTeams[i] updatePollScore];
     }
 
-    [_confTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    [self.confTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Team *a = (Team*)obj1;
         Team *b = (Team*)obj2;
         if ([a.confChampion isEqualToString:@"CC"]) return -1;
@@ -196,15 +143,15 @@
         }
     }];
     
-    int winsFirst = [_confTeams[0] calculateConfWins];
-    Team *t = _confTeams[0];
+    int winsFirst = [self.confTeams[0] calculateConfWins];
+    Team *t = self.confTeams[0];
     NSInteger i = 0;
     NSMutableArray<Team*> *teamTB = [NSMutableArray array];
     while ([t calculateConfWins] == winsFirst) {
         [teamTB addObject:t];
         ++i;
-        if (i < _confTeams.count) {
-            t = _confTeams[i];
+        if (i < self.confTeams.count) {
+            t = self.confTeams[i];
         } else {
             break;
         }
@@ -217,20 +164,20 @@
             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
         }];
         for (int j = 0; j < teamTB.count; ++j) {
-            [_confTeams replaceObjectAtIndex:j withObject:teamTB[j]];
+            [self.confTeams replaceObjectAtIndex:j withObject:teamTB[j]];
         }
         
     }
     
-    int winsSecond = [_confTeams[1] calculateConfWins];
-    t = _confTeams[1];
+    int winsSecond = [self.confTeams[1] calculateConfWins];
+    t = self.confTeams[1];
     i = 1;
     [teamTB removeAllObjects];
     while ([t calculateConfWins] == winsSecond) {
         [teamTB addObject:t];
         ++i;
-        if (i < _confTeams.count) {
-            t = _confTeams[i];
+        if (i < self.confTeams.count) {
+            t = self.confTeams[i];
         } else {
             break;
         }
@@ -243,46 +190,46 @@
             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
         }];
         for (int j = 0; j < teamTB.count; ++j) {
-            [_confTeams replaceObjectAtIndex:(j+1) withObject:teamTB[j]];
+            [self.confTeams replaceObjectAtIndex:(j+1) withObject:teamTB[j]];
         }
         
     }
 }
 
 -(Game*)ccgPrediction {
-    if (!_ccg) { // ccg hasn't been scheduled so we can project it
+    if (!self.ccg) { // ccg hasn't been scheduled so we can project it
         [self sortConfTeams];
         
-        return [Game newGameWithHome:_confTeams[0]  away:_confTeams[1] name:[NSString stringWithFormat:@"%@ CCG", _confName]];
+        return [Game newGameWithHome:self.confTeams[0]  away:self.confTeams[1] name:[NSString stringWithFormat:@"%@ CCG", self.confName]];
     } else { //ccg has been scheduled/played so send that forward
-        return _ccg;
+        return self.ccg;
     }
 }
 
 -(void)playWeek {
-    if ( _week == 12 ) {
+    if ( self.week == 12 ) {
         [self playConfChamp];
     } else {
-        for ( int i = 0; i < _confTeams.count; ++i ) {
-            [[_confTeams[i] gameSchedule][_week] playGame];
+        for ( int i = 0; i < self.confTeams.count; ++i ) {
+            [[self.confTeams[i] gameSchedule][self.week] playGame];
         }
-        if (_week == 11 ) [self scheduleConfChamp];
-        _week++;
+        if (self.week == 11 ) [self scheduleConfChamp];
+        self.week++;
     }
 }
 
 -(void)insertOOCSchedule {
-    for (int i = 0; i < _confTeams.count; ++i) {
-        [[_confTeams[i] gameSchedule] insertObject:[_confTeams[i] oocGame0] atIndex:0];
-        [[_confTeams[i] gameSchedule] insertObject:[_confTeams[i] oocGame4] atIndex:4];
-        [[_confTeams[i] gameSchedule] insertObject:[_confTeams[i] oocGame9] atIndex:9];
+    for (int i = 0; i < self.confTeams.count; ++i) {
+        [[self.confTeams[i] gameSchedule] insertObject:[self.confTeams[i] oocGame0] atIndex:0];
+        [[self.confTeams[i] gameSchedule] insertObject:[self.confTeams[i] oocGame4] atIndex:4];
+        [[self.confTeams[i] gameSchedule] insertObject:[self.confTeams[i] oocGame9] atIndex:9];
     }
 }
 
 -(void)setUpOOCSchedule {
     
     //schedule OOC games
-    NSInteger confNum = [_league.conferences indexOfObject:self];
+    NSInteger confNum = [self.league.conferences indexOfObject:self];
     if (confNum > 2)
         confNum = -1;
     
@@ -295,12 +242,12 @@
             if (selConf == 8) selConf = 5;
             
             for (int i = 0; i < 10; ++i) {
-                [availTeams addObject:_league.conferences[selConf].confTeams[i]];
+                [availTeams addObject:self.league.conferences[selConf].confTeams[i]];
             }
             
             for (int i = 0; i < 10; ++i) {
                 int selTeam = (int)([HBSharedUtils randomValue] * availTeams.count);
-                Team *a = _confTeams[i];
+                Team *a = self.confTeams[i];
                 Team *b = availTeams[selTeam];
                 
                 Game *gm;
@@ -330,20 +277,20 @@
 }
 
 -(NSString *)confShortName {
-    return [_confName substringWithRange:NSMakeRange(0, 3)];
+    return [self.confName substringWithRange:NSMakeRange(0, 3)];
 }
 
 -(void)setUpSchedule {
     
-    _robinWeek = 0;
+    self.robinWeek = 0;
     for (int r = 0; r < 9; ++r) {
         for (int g = 0; g < 5; ++g) {
-            Team *a = _confTeams[(_robinWeek + g) % 9];
+            Team *a = self.confTeams[(self.robinWeek + g) % 9];
             Team *b;
             if ( g == 0 ) {
-                b = _confTeams[9];
+                b = self.confTeams[9];
             } else {
-                b = _confTeams[(9 - g + _robinWeek) % 9];
+                b = self.confTeams[(9 - g + self.robinWeek) % 9];
             }
             
             Game *gm;
@@ -358,7 +305,7 @@
             [a.gameSchedule addObject:gm];
             [b.gameSchedule addObject:gm];
         }
-        _robinWeek++;
+        self.robinWeek++;
     }
     
 }
@@ -369,7 +316,7 @@
     NSMutableArray *leadingWRs = [NSMutableArray array];
     NSMutableArray *leadingKs = [NSMutableArray array];
     
-    for (Team *t in _confTeams) {
+    for (Team *t in self.confTeams) {
         [leadingQBs addObject:[t getQB:0]];
         [leadingRBs addObject:[t getRB:0]];
         [leadingRBs addObject:[t getRB:1]];
@@ -441,7 +388,7 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"awardsPosted" object:nil];
 
-    _allConferencePlayers = @{
+    self.allConferencePlayers = @{
                            @"QB" : @[qb],
                            @"RB" : @[rb1,rb2],
                            @"WR" : @[wr1,wr2,wr3],

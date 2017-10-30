@@ -30,8 +30,6 @@ SOFTWARE.
 
 AutoCoding
 
-Version 2.2.2, June 21st, 2016
-
 Copyright (C) 2011 Charcoal Design
 
 This software is provided 'as-is', without any express or implied

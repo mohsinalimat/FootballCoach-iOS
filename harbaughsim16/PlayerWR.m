@@ -13,104 +13,6 @@
 
 @implementation PlayerWR
 
--(id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        _ratRecCat = [aDecoder decodeIntForKey:@"ratRecCat"];
-        _ratRecSpd = [aDecoder decodeIntForKey:@"ratRecSpd"];
-        _ratRecEva = [aDecoder decodeIntForKey:@"ratRecEva"];
-        _statsTargets = [aDecoder decodeIntForKey:@"statsTargets"];
-        _statsReceptions = [aDecoder decodeIntForKey:@"statsReceptions"];
-        _statsDrops = [aDecoder decodeIntForKey:@"statsDrops"];
-        _statsTD = [aDecoder decodeIntForKey:@"statsTD"];
-        _statsFumbles = [aDecoder decodeIntForKey:@"statsFumbles"];
-        _statsRecYards = [aDecoder decodeIntForKey:@"statsRecYards"];
-        
-        
-        if ([aDecoder containsValueForKey:@"careerStatsRecYards"]) {
-            _careerStatsRecYards = [aDecoder decodeIntForKey:@"careerStatsRecYards"];
-        } else {
-            _careerStatsRecYards = 0;
-        }
-        
-        if ([aDecoder containsValueForKey:@"careerStatsReceptions"]) {
-            _careerStatsReceptions = [aDecoder decodeIntForKey:@"careerStatsReceptions"];
-        } else {
-            _careerStatsReceptions = 0;
-        }
-        
-        if ([aDecoder containsValueForKey:@"careerStatsTD"]) {
-            _careerStatsTD = [aDecoder decodeIntForKey:@"careerStatsTD"];
-        } else {
-            _careerStatsTD = 0;
-        }
-        
-        if ([aDecoder containsValueForKey:@"careerStatsTargets"]) {
-            _careerStatsTargets = [aDecoder decodeIntForKey:@"careerStatsTargets"];
-        } else {
-            _careerStatsTargets = 0;
-        }
-        
-        if ([aDecoder containsValueForKey:@"careerStatsFumbles"]) {
-            _careerStatsFumbles = [aDecoder decodeIntForKey:@"careerStatsFumbles"];
-        } else {
-            _careerStatsFumbles = 0;
-        }
-        
-        if ([aDecoder containsValueForKey:@"careerStatsDrops"]) {
-            _careerStatsDrops = [aDecoder decodeIntForKey:@"careerStatsDrops"];
-        } else {
-            _careerStatsDrops = 0;
-        }
-        
-        if ([aDecoder containsValueForKey:@"personalDetails"]) {
-            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
-            if (self.personalDetails == nil) {
-                NSInteger weight = (int)([HBSharedUtils randomValue] * 45) + 195;
-                NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 1;
-                self.personalDetails = @{
-                                         @"home_state" : [HBSharedUtils randomState],
-                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                         };
-            }
-        } else {
-            NSInteger weight = (int)([HBSharedUtils randomValue] * 45) + 195;
-            NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 1;
-            self.personalDetails = @{
-                                     @"home_state" : [HBSharedUtils randomState],
-                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                     };
-        }
-    }
-    return self;
-}
-
--(void)encodeWithCoder:(NSCoder *)aCoder {
-    [super encodeWithCoder:aCoder];
-    
-    [aCoder encodeInt:_ratRecCat forKey:@"ratRecCat"];
-    [aCoder encodeInt:_ratRecSpd forKey:@"ratRecSpd"];
-    [aCoder encodeInt:_ratRecEva forKey:@"ratRecEva"];
-    
-    [aCoder encodeInt:_statsRecYards forKey:@"statsRecYards"];
-    [aCoder encodeInt:_statsFumbles forKey:@"statsFumbles"];
-    [aCoder encodeInt:_statsTD forKey:@"statsTD"];
-    [aCoder encodeInt:_statsReceptions forKey:@"statsReceptions"];
-    [aCoder encodeInt:_statsDrops forKey:@"statsDrops"];
-    [aCoder encodeInt:_statsTargets forKey:@"statsTargets"];
-    
-    [aCoder encodeInt:_careerStatsRecYards forKey:@"careerStatsRecYards"];
-    [aCoder encodeInt:_careerStatsReceptions forKey:@"careerStatsReceptions"];
-    [aCoder encodeInt:_careerStatsTD forKey:@"careerStatsTD"];
-    [aCoder encodeInt:_careerStatsTargets forKey:@"careerStatsTargets"];
-    [aCoder encodeInt:_careerStatsFumbles forKey:@"careerStatsFumbles"];
-    [aCoder encodeInt:_careerStatsDrops forKey:@"careerStatsDrops"];
-    
-    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
-}
-
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq catch:(int)cat speed:(int)spd eva:(int)eva dur:(int)dur {
     self = [super init];
     if (self) {
@@ -118,7 +20,7 @@
         self.name = nm;
         self.ratDur = dur;
         self.year = yr;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2016;
+        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2017;
         self.ratOvr = (cat*2 + spd + eva)/4;
         self.ratPot = pot;
         self.ratFootIQ = iq;
@@ -163,7 +65,7 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2016;
+        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2017;
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
@@ -312,70 +214,70 @@
 -(void)checkRecords {
     //Catches
     if (self.statsReceptions > self.team.singleSeasonCatchesRecord.statistic) {
-        self.team.singleSeasonCatchesRecord = [Record newRecord:@"Catches" player:self stat:self.statsReceptions year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonCatchesRecord = [Record newRecord:@"Catches" player:self stat:self.statsReceptions year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsReceptions > self.team.careerCatchesRecord.statistic) {
-        self.team.careerCatchesRecord = [Record newRecord:@"Catches" player:self stat:self.careerStatsReceptions year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerCatchesRecord = [Record newRecord:@"Catches" player:self stat:self.careerStatsReceptions year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsReceptions > self.team.league.singleSeasonCatchesRecord.statistic) {
-        self.team.league.singleSeasonCatchesRecord = [Record newRecord:@"Catches" player:self stat:self.statsReceptions year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonCatchesRecord = [Record newRecord:@"Catches" player:self stat:self.statsReceptions year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsReceptions > self.team.league.careerCatchesRecord.statistic) {
-        self.team.league.careerCatchesRecord = [Record newRecord:@"Catches" player:self stat:self.careerStatsReceptions year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerCatchesRecord = [Record newRecord:@"Catches" player:self stat:self.careerStatsReceptions year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     //TD
     if (self.statsTD > self.team.singleSeasonRecTDsRecord.statistic) {
-        self.team.singleSeasonRecTDsRecord = [Record newRecord:@"Rec TDs" player:self stat:self.statsTD year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonRecTDsRecord = [Record newRecord:@"Rec TDs" player:self stat:self.statsTD year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsTD > self.team.careerRecTDsRecord.statistic) {
-        self.team.careerRecTDsRecord = [Record newRecord:@"Rec TDs" player:self stat:self.careerStatsTD year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerRecTDsRecord = [Record newRecord:@"Rec TDs" player:self stat:self.careerStatsTD year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsTD > self.team.league.singleSeasonRecTDsRecord.statistic) {
-        self.team.league.singleSeasonRecTDsRecord = [Record newRecord:@"Rec TDs" player:self stat:self.statsTD year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonRecTDsRecord = [Record newRecord:@"Rec TDs" player:self stat:self.statsTD year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsTD > self.team.league.careerRecTDsRecord.statistic) {
-        self.team.league.careerRecTDsRecord = [Record newRecord:@"Rec TDs" player:self stat:self.careerStatsTD year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerRecTDsRecord = [Record newRecord:@"Rec TDs" player:self stat:self.careerStatsTD year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     //Rec Yards
     if (self.statsRecYards > self.team.singleSeasonRecYardsRecord.statistic) {
-        self.team.singleSeasonRecYardsRecord = [Record newRecord:@"Rec Yards" player:self stat:self.statsRecYards year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonRecYardsRecord = [Record newRecord:@"Rec Yards" player:self stat:self.statsRecYards year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsRecYards > self.team.careerRecYardsRecord.statistic) {
-        self.team.careerRecYardsRecord = [Record newRecord:@"Rec Yards" player:self stat:self.careerStatsRecYards year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerRecYardsRecord = [Record newRecord:@"Rec Yards" player:self stat:self.careerStatsRecYards year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsRecYards > self.team.league.singleSeasonRecYardsRecord.statistic) {
-        self.team.league.singleSeasonRecYardsRecord = [Record newRecord:@"Rec Yards" player:self stat:self.statsRecYards year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonRecYardsRecord = [Record newRecord:@"Rec Yards" player:self stat:self.statsRecYards year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsRecYards > self.team.league.careerRecYardsRecord.statistic) {
-        self.team.league.careerRecYardsRecord = [Record newRecord:@"Rec Yards" player:self stat:self.careerStatsRecYards year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerRecYardsRecord = [Record newRecord:@"Rec Yards" player:self stat:self.careerStatsRecYards year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     //Fumbles
     if (self.statsFumbles > self.team.singleSeasonFumblesRecord.statistic) {
-        self.team.singleSeasonFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.statsFumbles year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.statsFumbles year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsFumbles > self.team.careerFumblesRecord.statistic) {
-        self.team.careerFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.careerStatsFumbles year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.careerStatsFumbles year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsFumbles > self.team.league.singleSeasonFumblesRecord.statistic) {
-        self.team.league.singleSeasonFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.statsFumbles year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.statsFumbles year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsFumbles > self.team.league.careerFumblesRecord.statistic) {
-        self.team.league.careerFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.careerStatsFumbles year:(int)(2016 + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.careerStatsFumbles year:(int)(2017 + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 }
 
