@@ -138,20 +138,20 @@
 
 /* Begin PBXFileReference section */
 		00E05D718C2D31D9ED7BD8F989A38B66 /* STPopupNavigationBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupNavigationBar.m; path = STPopup/STPopupNavigationBar.m; sourceTree = "<group>"; };
-		019648B5EB04777733B43293F2031722 /* ATAppUpdater.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = ATAppUpdater.modulemap; sourceTree = "<group>"; };
+		019648B5EB04777733B43293F2031722 /* ATAppUpdater.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = ATAppUpdater.modulemap; sourceTree = "<group>"; };
 		01A4BEFF36384A2A9AA1D90DDE5F0EA4 /* Pods-harbaughsim16-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-harbaughsim16-acknowledgements.markdown"; sourceTree = "<group>"; };
 		0215818A7EA9EE825B447DFA855BDD77 /* ATAppUpdater.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATAppUpdater.m; path = ATAppUpdater/ATAppUpdater.m; sourceTree = "<group>"; };
-		038A7141C2CE46BBF25FFE446DA38510 /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ATAppUpdater.framework; path = ATAppUpdater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		038A7141C2CE46BBF25FFE446DA38510 /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ATAppUpdater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		03B84FC50B22636741CC9A2AEEC8DEB0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0ED77E2A7F87E536699608E732B5DB25 /* Pods-harbaughsim16.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-harbaughsim16.modulemap"; sourceTree = "<group>"; };
+		0ED77E2A7F87E536699608E732B5DB25 /* Pods-harbaughsim16.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-harbaughsim16.modulemap"; sourceTree = "<group>"; };
 		0F690C37B2912B04718EDED77A7A0F72 /* AutoCoding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AutoCoding.m; path = AutoCoding/AutoCoding.m; sourceTree = "<group>"; };
 		1349E241F29C262B216E29CD52592C6C /* CLSAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSAttributes.h; path = iOS/Crashlytics.framework/Headers/CLSAttributes.h; sourceTree = "<group>"; };
 		166709DDE267546D391FDE9C92CB5E48 /* AutoCoding.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = AutoCoding.xcconfig; sourceTree = "<group>"; };
 		183114BB877DFD99803EEE1F1917DB18 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+EmptyDataSet.h"; path = "Source/UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
-		1D04C70810072AC1602117AB10DD4818 /* CSNotificationView.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = CSNotificationView.bundle; path = CSNotificationView.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D04C70810072AC1602117AB10DD4818 /* CSNotificationView.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CSNotificationView.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D8BF5C65A58E4FFCCAFFD86AAF7835B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		1DFC2A01F0694C8DAC34FA262CEED46A /* HexColors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HexColors.h; path = Classes/HexColors.h; sourceTree = "<group>"; };
-		1FD229483CA43C4038E7792E5A128843 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HexColors.framework; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FD229483CA43C4038E7792E5A128843 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		218E1F86E7E6717917FCADF1998B8CF7 /* CSNotificationView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CSNotificationView-prefix.pch"; sourceTree = "<group>"; };
 		2684228462952B266BE354C349E0B354 /* HexColors-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "HexColors-dummy.m"; sourceTree = "<group>"; };
 		2C4286E9CC8BA2CA7E77378B09D867CC /* STPopupControllerTransitioningSlideVertical.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupControllerTransitioningSlideVertical.m; path = STPopup/STPopupControllerTransitioningSlideVertical.m; sourceTree = "<group>"; };
@@ -162,14 +162,14 @@
 		330B14C2484031B534523D7871B45D85 /* HexColors-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-prefix.pch"; sourceTree = "<group>"; };
 		34965CE74D5F0DDC970DA180CFD14916 /* FCFileManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FCFileManager-dummy.m"; sourceTree = "<group>"; };
 		3605C1EA8850F5E4E595AB4C8A4EEEBD /* ATAppUpdater.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ATAppUpdater.xcconfig; sourceTree = "<group>"; };
-		37BD0B76BA5DA99EFAA2748BA50E9FD8 /* FCFileManager.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = FCFileManager.modulemap; sourceTree = "<group>"; };
+		37BD0B76BA5DA99EFAA2748BA50E9FD8 /* FCFileManager.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = FCFileManager.modulemap; sourceTree = "<group>"; };
 		37E583AFBC05421A618DD44CD076BED7 /* CSNotificationView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CSNotificationView.m; path = CSNotificationView/CSNotificationView.m; sourceTree = "<group>"; };
 		37FA64A21426251E74825BE375C0B76B /* STPopup-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STPopup-prefix.pch"; sourceTree = "<group>"; };
 		3C88F76E4981BA8F50F256FDD36E535D /* DZNEmptyDataSet-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DZNEmptyDataSet-prefix.pch"; sourceTree = "<group>"; };
-		3F597060E564E04080329621BB4EE3DB /* AutoCoding.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = AutoCoding.modulemap; sourceTree = "<group>"; };
+		3F597060E564E04080329621BB4EE3DB /* AutoCoding.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = AutoCoding.modulemap; sourceTree = "<group>"; };
 		411C6A1163EF37020A3BAA4178BF97D2 /* AutoCoding-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AutoCoding-prefix.pch"; sourceTree = "<group>"; };
 		4554B52C07F71BA21D1CA4B2E47E7398 /* exclamationMark@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "exclamationMark@2x.png"; path = "CSNotificationView/Resources/exclamationMark@2x.png"; sourceTree = "<group>"; };
-		486DE765A105E796B7AF13D2A14B2015 /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_harbaughsim16.framework; path = "Pods-harbaughsim16.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		486DE765A105E796B7AF13D2A14B2015 /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A938AE21B7140A48073F615B8E48A0 /* STPopupControllerTransitioningSlideVertical.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupControllerTransitioningSlideVertical.h; path = STPopup/STPopupControllerTransitioningSlideVertical.h; sourceTree = "<group>"; };
 		49AEEF632E0097B9ABA54623DC8A4594 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4B383A9862FCFE00250B77FDCC1A0298 /* STPopupLeftBarItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupLeftBarItem.h; path = STPopup/STPopupLeftBarItem.h; sourceTree = "<group>"; };
@@ -181,20 +181,20 @@
 		571E3F4328D94779AC0439F108DDDB55 /* STPopupController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupController.h; path = STPopup/STPopupController.h; sourceTree = "<group>"; };
 		588CDE83945669F35A9C72605E382556 /* CLSStackFrame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSStackFrame.h; path = iOS/Crashlytics.framework/Headers/CLSStackFrame.h; sourceTree = "<group>"; };
 		59C2763CBA890E7EB6286CB7CFEF047E /* STPopup.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = STPopup.xcconfig; sourceTree = "<group>"; };
-		5DA519809471FF2021EDC4A35119E424 /* CSNotificationView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = CSNotificationView.modulemap; sourceTree = "<group>"; };
+		5DA519809471FF2021EDC4A35119E424 /* CSNotificationView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = CSNotificationView.modulemap; sourceTree = "<group>"; };
 		60806793C3B3A67904336EB9A6113137 /* FCFileManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FCFileManager.m; path = FCFileManager/FCFileManager.m; sourceTree = "<group>"; };
 		619793CB48D15B1BE19127C35D772CFD /* Answers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Answers.h; path = iOS/Crashlytics.framework/Headers/Answers.h; sourceTree = "<group>"; };
 		628E1A41EA7BE244C48B85FE5D1D8224 /* STPopup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopup.h; path = STPopup/STPopup.h; sourceTree = "<group>"; };
 		63C743A65667FACB627C1A100658251F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		642278DD9057554A3FA97176418947E8 /* HexColors.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = HexColors.modulemap; sourceTree = "<group>"; };
+		642278DD9057554A3FA97176418947E8 /* HexColors.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = HexColors.modulemap; sourceTree = "<group>"; };
 		6660F9AF3436014104C5E04CDE3AECF4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68104EB814E6B1CA7C7581FDAE8A5977 /* STPopupNavigationBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupNavigationBar.h; path = STPopup/STPopupNavigationBar.h; sourceTree = "<group>"; };
 		68173D6C42FE64C282C0B7936F304102 /* CSNotificationView_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CSNotificationView_Private.h; path = CSNotificationView/CSNotificationView_Private.h; sourceTree = "<group>"; };
 		6A0C5C0B1A3BE44C03CA423CFBDBEDFB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6ABFCC29BFBF9CAB01624EEB9D0BDC2E /* CSNotificationView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CSNotificationView.framework; path = CSNotificationView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6ABFCC29BFBF9CAB01624EEB9D0BDC2E /* CSNotificationView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CSNotificationView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AE2B9B98ECA8455B92FCBD96C075442 /* FCFileManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FCFileManager.h; path = FCFileManager/FCFileManager.h; sourceTree = "<group>"; };
 		6C51C792077ADBE14A03C890628F1F47 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
-		6EBD12FEFCAA45C040999C7C79DEB0D9 /* DZNEmptyDataSet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = DZNEmptyDataSet.modulemap; sourceTree = "<group>"; };
+		6EBD12FEFCAA45C040999C7C79DEB0D9 /* DZNEmptyDataSet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = DZNEmptyDataSet.modulemap; sourceTree = "<group>"; };
 		6F6C0FCE021487DC5B87E9F4C3AF56B5 /* CSNotificationView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CSNotificationView-umbrella.h"; sourceTree = "<group>"; };
 		75734F50CE77175EB4480B4865ECD662 /* Pods-harbaughsim16-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-harbaughsim16-acknowledgements.plist"; sourceTree = "<group>"; };
 		79F479A82FCF291FBD26BA9BF6D849E8 /* ATAppUpdater.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ATAppUpdater.h; path = ATAppUpdater/ATAppUpdater.h; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 		8E83902D22E35DFE1DFE1EBC8CD4D897 /* DZNEmptyDataSet-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DZNEmptyDataSet-dummy.m"; sourceTree = "<group>"; };
 		9149E60CFF71E53A6EAA21C173B848F3 /* AutoCoding-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AutoCoding-dummy.m"; sourceTree = "<group>"; };
 		92A7362CFA8745F1165853DC5B75D51D /* STPopupController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupController.m; path = STPopup/STPopupController.m; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9505338BDD420834AFF7CC174A79791E /* ResourceBundle-CSNotificationView-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-CSNotificationView-Info.plist"; sourceTree = "<group>"; };
 		95B3AA20308AF149C83A0C85E27C6B12 /* STPopupControllerTransitioningFade.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupControllerTransitioningFade.m; path = STPopup/STPopupControllerTransitioningFade.m; sourceTree = "<group>"; };
 		975782972E4132D783006A77D7B0A9A7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -215,7 +215,7 @@
 		9B833659CE343B5BC9A51E8C81FAA149 /* CSNotificationView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CSNotificationView.h; path = CSNotificationView/CSNotificationView.h; sourceTree = "<group>"; };
 		9CF0FB4312BDFDC8698379EB90AEB5FE /* CSNativeBlurView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CSNativeBlurView.m; path = CSNotificationView/CSNativeBlurView.m; sourceTree = "<group>"; };
 		9EE2ABBC64E2DC19631534853326986C /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = iOS/Fabric.framework; sourceTree = "<group>"; };
-		A163F4044CA72B781369F4AB695E1341 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FCFileManager.framework; path = FCFileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A163F4044CA72B781369F4AB695E1341 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FCFileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A17CC68963E2A3B966BB2637F209FE35 /* UIViewController+STPopup.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+STPopup.m"; path = "STPopup/UIViewController+STPopup.m"; sourceTree = "<group>"; };
 		A1984BC44A6555187557FD159A89F739 /* STPopupControllerTransitioningFade.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupControllerTransitioningFade.h; path = STPopup/STPopupControllerTransitioningFade.h; sourceTree = "<group>"; };
 		A2ED286E956F8FF069D61E2A136DE256 /* DZNEmptyDataSet-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DZNEmptyDataSet-umbrella.h"; sourceTree = "<group>"; };
@@ -227,19 +227,19 @@
 		AE3ECB6FB859F121B615FA83227B169F /* Pods-harbaughsim16-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-harbaughsim16-frameworks.sh"; sourceTree = "<group>"; };
 		AEAC5EE62FE4E207534E2E434F1599CF /* exclamationMark.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = exclamationMark.png; path = CSNotificationView/Resources/exclamationMark.png; sourceTree = "<group>"; };
 		B43434A5BD65A2A95D94F1ABDED16207 /* CLSReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSReport.h; path = iOS/Crashlytics.framework/Headers/CLSReport.h; sourceTree = "<group>"; };
-		BBCEA7E8476168F41503413356337F85 /* STPopup.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = STPopup.modulemap; sourceTree = "<group>"; };
+		BBCEA7E8476168F41503413356337F85 /* STPopup.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = STPopup.modulemap; sourceTree = "<group>"; };
 		BC6EAA51BD90892061D39949B60FB11A /* checkmark@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "checkmark@3x.png"; path = "CSNotificationView/Resources/checkmark@3x.png"; sourceTree = "<group>"; };
 		BF71F9DB9A2F050F4854AF074BD645DF /* CLSLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSLogging.h; path = iOS/Crashlytics.framework/Headers/CLSLogging.h; sourceTree = "<group>"; };
 		C21C7526FEBDACD6D729591645AD713E /* FABAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FABAttributes.h; path = iOS/Fabric.framework/Headers/FABAttributes.h; sourceTree = "<group>"; };
-		C433F1267BF668C039409DDCFE402D30 /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AutoCoding.framework; path = AutoCoding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C433F1267BF668C039409DDCFE402D30 /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AutoCoding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5331B216DEAC9C2C452305D54D33852 /* Pods-harbaughsim16-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-harbaughsim16-umbrella.h"; sourceTree = "<group>"; };
-		CB570740F5011F52F5304F38439CA2B7 /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = STPopup.framework; path = STPopup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB570740F5011F52F5304F38439CA2B7 /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STPopup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCF1D1DC077566FEFF808FED2046B7FA /* AutoCoding-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AutoCoding-umbrella.h"; sourceTree = "<group>"; };
 		D0AA9E7AD9221D22434A6181A2FD2628 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
 		D0E0A855436E9E12076E0EB8F331FDDA /* ANSCompatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANSCompatibility.h; path = iOS/Crashlytics.framework/Headers/ANSCompatibility.h; sourceTree = "<group>"; };
 		D6B48E8284776466428B06F81D235A60 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D9FF38262EBBA5FEE62D3A5EEC04C49C /* CSNotificationView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CSNotificationView-dummy.m"; sourceTree = "<group>"; };
-		DAA87260671BDE0E1C5C689CAB703551 /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DZNEmptyDataSet.framework; path = DZNEmptyDataSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAA87260671BDE0E1C5C689CAB703551 /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DZNEmptyDataSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC38A20492FA49D3D210591CE6FF98D4 /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
 		DDC1B613BDC8209A2EDC43BAF16BC319 /* ATAppUpdater-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ATAppUpdater-dummy.m"; sourceTree = "<group>"; };
 		E0F2C4FCA75899F85B3133D12500405E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -395,7 +395,6 @@
 				807F6866A81DB727B83AA01349B19637 /* Crashlytics.h */,
 				58C0CB9CF17BC0DD9638C8F2B826CE0D /* Frameworks */,
 			);
-			name = Crashlytics;
 			path = Crashlytics;
 			sourceTree = "<group>";
 		};
@@ -414,7 +413,6 @@
 				7C8078BC9EFDA42088132A55A2DAFE74 /* UIScrollView+EmptyDataSet.m */,
 				47E30D503B96E377E952E65785A0D1F0 /* Support Files */,
 			);
-			name = DZNEmptyDataSet;
 			path = DZNEmptyDataSet;
 			sourceTree = "<group>";
 		};
@@ -463,7 +461,6 @@
 				A17CC68963E2A3B966BB2637F209FE35 /* UIViewController+STPopup.m */,
 				A71E878D7753ACF2A4692FB9B6F021CF /* Support Files */,
 			);
-			name = STPopup;
 			path = STPopup;
 			sourceTree = "<group>";
 		};
@@ -496,7 +493,6 @@
 				60806793C3B3A67904336EB9A6113137 /* FCFileManager.m */,
 				03B70890A0C2BD344AFA915884271AA2 /* Support Files */,
 			);
-			name = FCFileManager;
 			path = FCFileManager;
 			sourceTree = "<group>";
 		};
@@ -549,7 +545,6 @@
 				0215818A7EA9EE825B447DFA855BDD77 /* ATAppUpdater.m */,
 				60CB91E41308E0A7E8F21E3B8B0904F8 /* Support Files */,
 			);
-			name = ATAppUpdater;
 			path = ATAppUpdater;
 			sourceTree = "<group>";
 		};
@@ -601,7 +596,6 @@
 				3056F5314D3343E9C17EED5F7365275B /* Fabric.h */,
 				DE2D0EF1EDE4D9C5DAB84BF8652D92EF /* Frameworks */,
 			);
-			name = Fabric;
 			path = Fabric;
 			sourceTree = "<group>";
 		};
@@ -642,7 +636,6 @@
 				0F690C37B2912B04718EDED77A7A0F72 /* AutoCoding.m */,
 				CCCF5A043CEC3DEC0B3119F7EDA9C0AE /* Support Files */,
 			);
-			name = AutoCoding;
 			path = AutoCoding;
 			sourceTree = "<group>";
 		};
@@ -659,7 +652,6 @@
 				6A8B88EE0D6DC4E9A50D723AF99D8511 /* Resources */,
 				5D46C41EA565477ADBE02E0D10C10C87 /* Support Files */,
 			);
-			name = CSNotificationView;
 			path = CSNotificationView;
 			sourceTree = "<group>";
 		};
@@ -670,7 +662,6 @@
 				EDA7F4C74A2EDB7A46BC9A976E24713B /* HexColors.m */,
 				1D9E514049A8FE8D2AD189D857DD0D2E /* Support Files */,
 			);
-			name = HexColors;
 			path = HexColors;
 			sourceTree = "<group>";
 		};
@@ -930,7 +921,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0900;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1347,7 +1338,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1355,15 +1348,21 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_DEBUG=1",
@@ -1616,7 +1615,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1624,14 +1625,20 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGNING_REQUIRED = NO;
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"POD_CONFIGURATION_RELEASE=1",
 					"$(inherited)",
