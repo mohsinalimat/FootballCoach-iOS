@@ -2123,8 +2123,8 @@
     if (league.isHardMode) {
         [self checkInjuryPosition:teamQBs starters:1];
         [self checkInjuryPosition:teamRBs starters:2];
-        [self checkInjuryPosition:teamWRs starters:3];
-        [self checkInjuryPosition:teamTEs starters:2];
+        [self checkInjuryPosition:teamWRs starters:2];
+        [self checkInjuryPosition:teamTEs starters:1];
         [self checkInjuryPosition:teamOLs starters:5];
         [self checkInjuryPosition:teamKs starters:1];
         [self checkInjuryPosition:teamSs starters:1];

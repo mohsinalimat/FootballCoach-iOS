@@ -1236,7 +1236,6 @@
     //choose WR to throw to, better WRs more often
     double WR1pref = pow([offense getWR:0].ratOvr , 1 ) * [HBSharedUtils randomValue];
     double WR2pref = pow([offense getWR:1].ratOvr , 1 ) * [HBSharedUtils randomValue];
-    double WR3pref = pow([offense getWR:2].ratOvr , 1 ) * [HBSharedUtils randomValue];
     
     double DL1pref = pow([defense getDL:0].ratDLPas, 1) * [HBSharedUtils randomValue];
     double DL2pref = pow([defense getDL:1].ratDLPas, 1) * [HBSharedUtils randomValue];
@@ -1263,24 +1262,18 @@
     }
     
     NSMutableArray *selWRStats;
-    if ( WR1pref > WR2pref && WR1pref > WR3pref ) {
+    if (WR1pref > WR2pref) {
         selWR = [offense getWR:0];
         selCB = [defense getCB:0];
         if (gamePoss) {
             selWRStats = HomeWR1Stats;
         } else selWRStats = AwayWR1Stats;
-    } else if ( WR2pref > WR1pref && WR2pref > WR3pref ) {
+    } else {
         selWR = [offense getWR:1];
         selCB = [defense getCB:1];
         if (gamePoss) {
             selWRStats = HomeWR2Stats;
         } else selWRStats = AwayWR2Stats;
-    } else {
-        selWR = [offense getWR:2];
-        selCB = [defense getCB:2];
-        if (gamePoss) {
-            selWRStats = HomeWR3Stats;
-        } else selWRStats = AwayWR3Stats;
     }
     
     //Choose the DL involved in play
@@ -1313,7 +1306,8 @@
         selTEStats = AwayTEStats;
     }
     //Choose the Catch Target
-    if (TEpref > WR1pref && TEpref > WR2pref & TEpref > WR3pref) {
+    if (TEpref > WR1pref && TEpref > WR2pref) {
+        selCB = [defense getCB:2];
         [self passingPlayTE:offense defense:defense selQB:selQB selTE:selTE selTEStats:selTEStats selCB:selCB selS:selS selDL:selDL selLB:selLB selLB2:selLB2];
     } else {
         [self passingPlayWR:offense defense:defense selQB:selQB selWR:selWR selWRStats:selWRStats selCB:selCB selS:selS];
