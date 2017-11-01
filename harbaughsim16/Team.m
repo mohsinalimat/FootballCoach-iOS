@@ -1603,19 +1603,22 @@
 }
 
 -(int)getPassProf {
-    int avgWRs = ( [self getWR:0].ratOvr + [self getWR:1].ratOvr + [self getWR:2].ratOvr)/3;
-    return ([self getCompositeOLPass] + [self getQB:0].ratOvr*2 + avgWRs)/4;
+    int avgWRs = ([self getWR:0].ratOvr + [self getWR:1].ratOvr + [self getTE:0].ratOvr) / 4;
+    return ([self getCompositeOLPass] + [self getQB:0].ratOvr * 2 + avgWRs) / 4;
 }
 
 -(int)getRushProf {
-    int avgRBs = ( [self getRB:0].ratOvr + [self getRB:1].ratOvr )/2;
-    int qb = [self getQB:0].ratSpeed;
-    return (3*[self getCompositeOLRush] + 3*avgRBs + qb )/7;
+    int avgRBs = ([self getRB:0].ratOvr + [self getRB:1].ratOvr) / 2;
+    int QB = [self getQB:0].ratSpeed;
+    return (3 * [self getCompositeOLRush] + 3 * avgRBs + QB) / 7;
 }
 
 -(int)getPassDef {
-    int avgCBs = ( [self getCB:0].ratOvr + [self getCB:1].ratOvr + [self getCB:2].ratOvr)/3;
-    return (avgCBs*3 + [self getS:0].ratOvr + [self getCompositeF7Pass]*2)/6;
+    int avgCBs = ([self getCB:0].ratOvr + [self getCB:1].ratOvr + [self getCB:2].ratOvr) / 3;
+    int avgLBs = ([self getLB:0].ratLBPas + [self getLB:1].ratLBPas + [self getLB:2].ratLBPas) / 3;
+    int S = ([self getS:0].ratSCov);
+    int def = (3 * avgCBs + avgLBs + S) / 5;
+    return (def * 3 + [self getS:0].ratOvr + [self getCompositeF7Pass] * 2) / 6;
 }
 
 -(int)getRushDef {
@@ -1637,25 +1640,6 @@
     }
 }
 
--(int)getCompositeFootIQ {
-    int comp = 0;
-    comp += [self getQB:0].ratFootIQ * 5;
-    comp += [self getRB:0].ratFootIQ + [self getRB:1].ratFootIQ;
-    comp += [self getWR:0].ratFootIQ + [self getWR:1].ratFootIQ + [self getWR:2].ratFootIQ;
-    for (int i = 0; i < 5; ++i) {
-        comp += [self getOL:i].ratFootIQ/5;
-    }
-    comp += [self getS:0].ratFootIQ * 5;
-    comp += [self getCB:0].ratFootIQ + [self getCB:1].ratFootIQ + [self getCB:2].ratFootIQ;
-    for (int i = 0; i < 4; ++i) {
-        comp += [self getDL:i].ratFootIQ/7;
-    }
-    for (int i = 0; i < 3; ++i) {
-        comp += [self getLB:i].ratFootIQ/7;
-    }
-    return comp / 20;
-}
-
 -(int)getCompositeOLRush {
     int compositeOL = 0;
     if (teamOLs.count >= 5) {
@@ -1671,12 +1655,36 @@
     }
 }
 
--(int)getCompositeF7Pass {
-    int compositeDL = 0;
-    for ( int i = 0; i < 4; ++i ) {
-        compositeDL += (teamDLs[i].ratDLPow + teamDLs[i].ratDLPas)/2;
+-(int)getCompositeFootIQ {
+    int comp = 0;
+    comp += [self getQB:0].ratFootIQ * 5;
+    comp += [self getRB:0].ratFootIQ + [self getRB:1].ratFootIQ;
+    comp += [self getWR:0].ratFootIQ + [self getWR:1].ratFootIQ + [self getWR:2].ratFootIQ;
+    for (int i = 0; i < 5; ++i) {
+        comp += [self getOL:i].ratFootIQ/5;
     }
-    return compositeDL / 4;
+    comp += [self getS:0].ratFootIQ * 5;
+    comp += [self getCB:0].ratFootIQ + [self getCB:1].ratFootIQ + [self getCB:2].ratFootIQ;
+    for (int i = 0; i < 4; ++i) {
+        comp += [self getDL:i].ratFootIQ/4;
+    }
+    for (int i = 0; i < 3; ++i) {
+        comp += [self getLB:i].ratFootIQ;
+    }
+    return comp / 22;
+}
+
+
+-(int)getCompositeF7Pass {
+    int compositeF7 = 0;
+    for ( int i = 0; i < 4; ++i ) {
+        compositeF7 += (teamDLs[i].ratDLPow + teamDLs[i].ratDLPas)/2;
+    }
+    
+    for (int i = 0; i < 3; i++) {
+        compositeF7 += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBPas)/2;
+    }
+    return compositeF7 / 7;
 }
 
 -(int)getCompositeF7Rush {
@@ -1687,11 +1695,9 @@
         compositeDL += (teamDLs[i].ratDLPow + teamDLs[i].ratDLRsh)/2;
     }
     for ( int i = 0; i < 3; ++i ) {
-        compositeLB += teamLBs[i].ratLBRsh;
+        compositeLB += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBRsh)/2;
     }
-//    for ( int i = 0; i < 1; ++i ) {
-//        compositeS += teamSs.get(i).ratRunStop;
-//    }
+
     return (2*compositeDL + compositeLB)/11;
 }
 

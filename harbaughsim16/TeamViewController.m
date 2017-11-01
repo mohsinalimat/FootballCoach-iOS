@@ -143,6 +143,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Team";
+
     stats = [selectedTeam getTeamStatsArray];
     NSString *rank = @"";
     if (selectedTeam.rankTeamPollScore < 26 && selectedTeam.rankTeamPollScore > 0) {

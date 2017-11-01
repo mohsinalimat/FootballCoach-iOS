@@ -1320,7 +1320,7 @@
     BOOL gotFumble = false;
     
     //get how much pressure there is on qb, check if sack
-    int pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass] - [self getHFAdv] + + (defense.defensiveStrategy.runProtection*2 - offense.offensiveStrategy.runProtection);
+    int pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass] - [self getHFAdv] + (defense.defensiveStrategy.runProtection*2 - offense.offensiveStrategy.runProtection);
     if ([HBSharedUtils randomValue]*100 < pressureOnQB/8 ) {
         //sacked!
         [self qbSack:offense];
@@ -1353,9 +1353,9 @@
             //no drop
             yardsGain = (int) (( [self normalize:[offense getQB:0].ratPassPow] + [self normalize:selTE.ratRecSpd] - [self normalize:selCB.ratCBSpd] )* [HBSharedUtils randomValue]/3.7 + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential);
             //see if receiver can get yards after catch
-            double escapeChance = ([self normalize:(selTE.ratRecEva)*3 - selCB.ratCBTkl - selS.ratOvr]* [HBSharedUtils randomValue] + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential);
+            double escapeChance = ([self normalize:selTE.ratRecEva] * 3 - selCB.ratCBTkl - selS.ratSTkl) * [HBSharedUtils randomValue] + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential;
             if ( escapeChance > 92 ||[HBSharedUtils randomValue] > 0.95 ) {
-                yardsGain += 3 + selTE.ratRecSpd* [HBSharedUtils randomValue]/3;
+                yardsGain += 3 + (selTE.ratRecSpd * [HBSharedUtils randomValue]/4);
             }
             if ( escapeChance > 75 &&[HBSharedUtils randomValue] < (0.1 + (offense.offensiveStrategy.passPotential)-defense.defensiveStrategy.passPotential)/200) {
                 //wr escapes for TD
@@ -1467,7 +1467,7 @@
     }
     
     //throw ball, check for completion
-    double completion = ( [self getHFAdv] + [self normalize:[offense getQB:0].ratPassAcc] + [self normalize:selWR.ratRecCat] - [self normalize:selCB.ratCBCov])/2 + 18.25 - pressureOnQB/16.8 + offense.offensiveStrategy.passProtection - defense.defensiveStrategy.passProtection;
+    double completion = ([self getHFAdv] + (int) ([HBSharedUtils randomValue]) + [self normalize:[offense getQB:0].ratPassAcc] + [self normalize:selWR.ratRecCat] - [self normalize:selCB.ratCBCov]) / 2 + 18.25 - pressureOnQB / 16.8 + offense.offensiveStrategy.passProtection - defense.defensiveStrategy.passProtection;
     if ( 100* [HBSharedUtils randomValue] < completion ) {
         if ( 100* [HBSharedUtils randomValue] < (100 - selWR.ratRecCat)/3 ) {
             //drop
@@ -1481,13 +1481,13 @@
             return;
         } else {
             //no drop
-            yardsGain = (int) (( [self normalize:[offense getQB:0].ratPassPow] + [self normalize:selWR.ratRecSpd] - [self normalize:selCB.ratCBSpd] )* [HBSharedUtils randomValue]/3.7 + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential);
+            yardsGain = (int) (([self normalize:[offense getQB:0].ratPassPow] + [self normalize:selWR.ratRecSpd] - [self normalize:selCB.ratCBSpd]) * [HBSharedUtils randomValue] / 4.8 + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential);
             //see if receiver can get yards after catch
             double escapeChance = ([self normalize:(selWR.ratRecEva)*3 - selCB.ratCBTkl - selS.ratOvr]* [HBSharedUtils randomValue] + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential);
             if ( escapeChance > 92 ||[HBSharedUtils randomValue] > 0.95 ) {
-                yardsGain += 3 + selWR.ratRecSpd* [HBSharedUtils randomValue]/3;
+                yardsGain += 3 + (selWR.ratRecSpd * [HBSharedUtils randomValue]/4);
             }
-            if ( escapeChance > 75 &&[HBSharedUtils randomValue] < (0.1 + (offense.offensiveStrategy.passPotential)-defense.defensiveStrategy.passPotential)/200) {
+            if ( escapeChance > 80 && [HBSharedUtils randomValue] < (0.1 + (offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential) / 200)) {
                 //wr escapes for TD
                 yardsGain += 100;
             }
@@ -1662,9 +1662,10 @@
 
 -(void)_rushingPlayQB:(Team*)offense defense:(Team*)defense selQB:(PlayerQB*)selQB selDL:(PlayerDL*)selDL selTE:(PlayerTE*)selTE selLB:(PlayerLB*)selLB selS:(PlayerS*)selS selCB:(PlayerCB*)selCB {
     BOOL gotTD = false;
-    int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush] + offense.offensiveStrategy.runProtection - defense.defensiveStrategy.runProtection;
-    int blockAdvOutside = selTE.ratTERunBlk * 2 - selLB.ratLBRsh - selS.ratSSpd + (offense.offensiveStrategy.runUsage - defense.defensiveStrategy.runUsage);
-    int yardsGain = (int) ((selQB.ratSpeed + blockAdv + [self getHFAdv]) *[HBSharedUtils randomValue] / 10 + (double)offense.offensiveStrategy.runPotential / 2.0 - (double) defense.defensiveStrategy.runPotential/2.0);
+    
+    int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush] + (offense.offensiveStrategy.runProtection - defense.defensiveStrategy.runProtection);  //STRATEGIES
+    int blockAdvOutside = selTE.ratTERunBlk * 2 - selLB.ratLBRsh - selS.ratOvr + (offense.offensiveStrategy.runUsage - defense.defensiveStrategy.runUsage);
+    int yardsGain = (int) ((selQB.ratSpeed + blockAdv + blockAdvOutside + [self getHFAdv])) * [HBSharedUtils randomValue] / 10 + (double) offense.offensiveStrategy.runProtection / 2 - (double) defense.defensiveStrategy.runPotential / 2;  //STRATEGIES
     
     if (yardsGain < 2) {
         yardsGain += selQB.ratPassEva / 20 - 3 - (double) defense.defensiveStrategy.runPotential / 2;  //STRATEGIES
@@ -1758,15 +1759,17 @@
 
 -(void)_rushingPlayRB:(Team*)offense defense:(Team*)defense selRB:(PlayerRB*)selRB selDL:(PlayerDL*)selDL selTE:(PlayerTE*)selTE selLB:(PlayerLB*)selLB selS:(PlayerS*)selS RB1pref:(double)RB1pref RB2pref:(double)RB2pref {
     BOOL gotTD = false;
-    int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush] + offense.offensiveStrategy.runProtection - defense.defensiveStrategy.runProtection;
-    int blockAdvOutside = selTE.ratTERunBlk * 2 - selLB.ratLBRsh - selS.ratSSpd + (offense.offensiveStrategy.runUsage - defense.defensiveStrategy.runUsage);
-    int yardsGain = (int) ((selRB.ratRushSpd + blockAdv + blockAdvOutside + [self getHFAdv]) *[HBSharedUtils randomValue] / 10 + (double)offense.offensiveStrategy.runPotential / 2.0 - (double) defense.defensiveStrategy.runPotential/2.0);
+    int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush] + (offense.offensiveStrategy.runProtection - defense.defensiveStrategy.runProtection);  //STRATEGIES
+    int blockAdvOutside = selTE.ratTERunBlk * 2 - selLB.ratLBRsh - selS.ratOvr + (offense.offensiveStrategy.runUsage - defense.defensiveStrategy.runUsage);
+    
+    int yardsGain = (int) ((selRB.ratRushSpd + blockAdv + blockAdvOutside + [self getHFAdv]) * [HBSharedUtils randomValue] / 10 + (double) offense.offensiveStrategy.runPotential / 2 - (double) defense.defensiveStrategy.runPotential / 2);  //STRATEGIES
+    
     if (yardsGain < 2) {
-        yardsGain += selRB.ratRushPow/20 - 3 - defense.defensiveStrategy.runPotential/2;
+        yardsGain += selRB.ratRushPow / 20 - 3 - (double) defense.defensiveStrategy.runPotential / 2;  //STRATEGIES
     } else {
         //break free from tackles
-        if ([HBSharedUtils randomValue] < ( 0.28 + ( offense.offensiveStrategy.runPotential - defense.defensiveStrategy.runPotential/2 )/50 )) {
-            yardsGain += selRB.ratRushEva/5 *[HBSharedUtils randomValue];
+        if ([HBSharedUtils randomValue] < (0.28 + (offense.offensiveStrategy.runPotential - (double) defense.defensiveStrategy.runPotential / 2) / 50)) {  //STRATEGIES
+            yardsGain += (selRB.ratRushEva - blockAdvOutside) / 5 * [HBSharedUtils randomValue];
         }
     }
     
