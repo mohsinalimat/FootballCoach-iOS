@@ -324,7 +324,7 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 2)
-        return [NSString stringWithFormat:@"Version %@ (%@)\nCopyright (c) 2016 Akshay Easwaran.",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
+        return [NSString stringWithFormat:@"Version %@ (%@)\nCopyright © 2017 Akshay Easwaran.",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
     else
         return nil;
 }

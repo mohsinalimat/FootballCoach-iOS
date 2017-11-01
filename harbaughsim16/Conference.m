@@ -18,6 +18,7 @@
 #import "PlayerDL.h"
 #import "PlayerLB.h"
 #import "PlayerCB.h"
+#import "PlayerTE.h"
 #import "PlayerS.h"
 
 @implementation Conference
@@ -314,6 +315,7 @@
     NSMutableArray *leadingQBs = [NSMutableArray array];
     NSMutableArray *leadingRBs = [NSMutableArray array];
     NSMutableArray *leadingWRs = [NSMutableArray array];
+    NSMutableArray *leadingTEs = [NSMutableArray array];
     NSMutableArray *leadingKs = [NSMutableArray array];
     
     for (Team *t in self.confTeams) {
@@ -323,6 +325,7 @@
         [leadingWRs addObject:[t getWR:0]];
         [leadingWRs addObject:[t getWR:1]];
         [leadingWRs addObject:[t getWR:2]];
+        [leadingTEs addObject:[t getTE:0]];
         [leadingKs addObject:[t getK:0]];
     }
     
@@ -343,6 +346,14 @@
     }];
     
     [leadingWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman) return -1;
+        else if (b.isHeisman) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingTEs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
         if (a.isHeisman) return -1;
@@ -382,6 +393,10 @@
     wr3.careerAllConferences++;
     wr3.isAllConference = YES;
     
+    PlayerTE *te = leadingTEs[0];
+    te.careerAllConferences++;
+    te.isAllConference = YES;
+    
     PlayerK *k = leadingKs[0];
     k.careerAllConferences++;
     k.isAllConference = YES;
@@ -392,6 +407,7 @@
                            @"QB" : @[qb],
                            @"RB" : @[rb1,rb2],
                            @"WR" : @[wr1,wr2,wr3],
+                           @"TE" : @[te],
                            @"K"  : @[k]
                            };
     
