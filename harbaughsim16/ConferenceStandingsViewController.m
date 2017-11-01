@@ -186,7 +186,7 @@
                 HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
                 if (indexPath.row == 0) {
                     NSString *awayRank = @"";
-                    if (ccg.awayTeam.rankTeamPollScore < 26 && ccg.awayTeam.rankTeamPollScore > 0) {
+                    if ([HBSharedUtils getLeague].currentWeek > 0 && ccg.awayTeam.rankTeamPollScore < 26 && ccg.awayTeam.rankTeamPollScore > 0) {
                         awayRank = [NSString stringWithFormat:@"#%d ",ccg.awayTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,ccg.awayTeam.name]];
@@ -206,7 +206,7 @@
                     }
                 } else {
                     NSString *homeRank = @"";
-                    if (ccg.homeTeam.rankTeamPollScore < 26 && ccg.homeTeam.rankTeamPollScore > 0) {
+                    if ([HBSharedUtils getLeague].currentWeek > 0 && ccg.homeTeam.rankTeamPollScore < 26 && ccg.homeTeam.rankTeamPollScore > 0) {
                         homeRank = [NSString stringWithFormat:@"#%d ",ccg.homeTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,ccg.homeTeam.name]];
