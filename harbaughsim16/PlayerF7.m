@@ -11,6 +11,43 @@
 @implementation PlayerF7
 @synthesize ratF7Pas,ratF7Pow,ratF7Rsh;
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+            self.ratF7Pow = [aDecoder decodeIntForKey:@"ratF7Pow"];
+            self.ratF7Rsh = [aDecoder decodeIntForKey:@"ratF7Rsh"];
+            self.ratF7Pas = [aDecoder decodeIntForKey:@"ratF7Pas"];
+        
+            if ([aDecoder containsValueForKey:@"personalDetails"]) {
+                    self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+                    if (self.personalDetails == nil) {
+                            NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 225;
+                            NSInteger inches = (int)([HBSharedUtils randomValue] * 3) + 2;
+                            self.personalDetails = @{@"home_state" : [HBSharedUtils randomState],
+                                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                     };
+                        }
+                } else {
+                        NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 225;
+                        NSInteger inches = (int)([HBSharedUtils randomValue] * 3) + 2;
+                        self.personalDetails = @{@"home_state" : [HBSharedUtils randomState],
+                                @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                                         };
+}
+        }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeInt:self.ratF7Pow forKey:@"ratF7Pow"];
+    [aCoder encodeInt:self.ratF7Rsh forKey:@"ratF7Rsh"];
+    [aCoder encodeInt:self.ratF7Pas forKey:@"ratF7Pas"];
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
+}
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow rush:(int)rsh pass:(int)pass dur:(int)dur {
     self = [super init];
     if (self) {

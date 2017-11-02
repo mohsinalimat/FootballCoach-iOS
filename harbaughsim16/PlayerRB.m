@@ -14,6 +14,68 @@
 @implementation PlayerRB
 @synthesize ratRushEva,ratRushPow,ratRushSpd,statsRushYards,statsRushAtt,statsFumbles,statsTD,careerStatsRushYards,careerStatsFumbles,careerStatsTD,careerStatsRushAtt;
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+            self.ratRushPow = [aDecoder decodeIntForKey:@"ratRushPow"];
+            self.ratRushSpd = [aDecoder decodeIntForKey:@"ratRushSpd"];
+            self.ratRushEva = [aDecoder decodeIntForKey:@"ratRushEva"];
+    
+            self.statsRushAtt = [aDecoder decodeIntForKey:@"statsRushAtt"];
+            self.statsTD = [aDecoder decodeIntForKey:@"statsTD"];
+            self.statsFumbles = [aDecoder decodeIntForKey:@"statsFumbles"];
+            self.statsRushYards = [aDecoder decodeIntForKey:@"statsRushYards"];
+    
+    
+            self.careerStatsRushAtt = [aDecoder decodeIntForKey:@"careerStatsRushAtt"];
+            self.careerStatsTD = [aDecoder decodeIntForKey:@"careerStatsTD"];
+            self.careerStatsFumbles = [aDecoder decodeIntForKey:@"careerStatsFumbles"];
+            self.careerStatsRushYards = [aDecoder decodeIntForKey:@"careerStatsRushYards"];
+    
+            if ([aDecoder containsValueForKey:@"personalDetails"]) {
+                    self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+                    if (self.personalDetails == nil) {
+                            NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
+                            NSInteger inches = (int)([HBSharedUtils randomValue] * 4);
+                            self.personalDetails = @{
+                                                                                               @"home_state" : [HBSharedUtils randomState],
+                                                                                                                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                                                                                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                                                                                                         };
+                        }
+                } else {
+                        NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
+                        NSInteger inches = (int)([HBSharedUtils randomValue] * 4);
+                        self.personalDetails = @{
+                                                                                       @"home_state" : [HBSharedUtils randomState],
+                                                                                                                             @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                                                                                             @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                                                                                             };
+                    }
+        }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+
+    [aCoder encodeInt:self.ratRushPow forKey:@"ratRushPow"];
+    [aCoder encodeInt:self.ratRushSpd forKey:@"ratRushSpd"];
+    [aCoder encodeInt:self.ratRushEva forKey:@"ratRushEva"];
+
+    [aCoder encodeInt:self.statsRushYards forKey:@"statsRushYards"];
+    [aCoder encodeInt:self.statsFumbles forKey:@"statsFumbles"];
+    [aCoder encodeInt:self.statsTD forKey:@"statsTD"];
+    [aCoder encodeInt:self.statsRushAtt forKey:@"statsRushAtt"];
+
+    [aCoder encodeInt:self.careerStatsRushYards forKey:@"careerStatsRushYards"];
+    [aCoder encodeInt:self.careerStatsFumbles forKey:@"careerStatsFumbles"];
+    [aCoder encodeInt:self.careerStatsTD forKey:@"careerStatsTD"];
+    [aCoder encodeInt:self.careerStatsRushAtt forKey:@"careerStatsRushAtt"];
+
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
+}
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow speed:(int)spd eva:(int)eva dur:(int)dur {
     self = [super init];
     if (self) {

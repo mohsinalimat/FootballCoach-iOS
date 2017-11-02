@@ -14,6 +14,74 @@
 @implementation PlayerQB
 @synthesize ratPassAcc,ratPassEva,ratPassPow,ratSpeed,statsPassAtt,statsTD,statsInt,statsRushTD,statsSacked,statsFumbles,statsRushAtt,careerStatsPassAtt,careerStatsRushAtt,careerStatsTD,careerStatsInt,careerStatsRushTD,careerStatsSacked,careerStatsFumbles,careerStatsPassComp,careerStatsPassYards,careerStatsRushYards,statsPassComp,statsPassYards,statsRushYards;
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+          self.ratPassPow = [aDecoder decodeIntForKey:@"ratPassPow"];
+          self.ratPassAcc = [aDecoder decodeIntForKey:@"ratPassAcc"];
+          self.ratPassEva = [aDecoder decodeIntForKey:@"ratPassEva"];
+    
+          self.statsPassAtt = [aDecoder decodeIntForKey:@"statsPassAtt"];
+          self.statsPassComp = [aDecoder decodeIntForKey:@"statsPassComp"];
+          self.statsTD = [aDecoder decodeIntForKey:@"statsTD"];
+          self.statsInt = [aDecoder decodeIntForKey:@"statsInt"];
+          self.statsPassYards = [aDecoder decodeIntForKey:@"statsPassYards"];
+          self.statsSacked = [aDecoder decodeIntForKey:@"statsSacked"];
+    
+          self.careerStatsPassAtt = [aDecoder decodeIntForKey:@"careerStatsPassAtt"];
+          self.careerStatsPassComp = [aDecoder decodeIntForKey:@"careerStatsPassComp"];
+          self.careerStatsTD = [aDecoder decodeIntForKey:@"careerStatsTD"];
+          self.careerStatsInt = [aDecoder decodeIntForKey:@"careerStatsInt"];
+          self.careerStatsPassYards = [aDecoder decodeIntForKey:@"careerStatsPassYards"];
+          self.careerStatsSacked = [aDecoder decodeIntForKey:@"careerStatsSacked"];
+    
+            if ([aDecoder containsValueForKey:@"personalDetails"]) {
+                    self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+                    if (self.personalDetails == nil) {
+                            NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
+                            NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;
+                            self.personalDetails = @{
+                                                                                               @"home_state" : [HBSharedUtils randomState],
+                                                                                                                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                                                                                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                                                                                                         };
+                        }
+                } else {
+                        NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
+                        NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;
+                        self.personalDetails = @{
+                                                                                       @"home_state" : [HBSharedUtils randomState],
+                                                                                                                             @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                                                                                             @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                                                                                             };
+                    }
+        }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
+
+    [aCoder encodeInt:self.ratPassPow forKey:@"ratPassPow"];
+    [aCoder encodeInt:self.ratPassAcc forKey:@"ratPassAcc"];
+    [aCoder encodeInt:self.ratPassEva forKey:@"ratPassEva"];
+
+    [aCoder encodeInt:self.statsPassComp forKey:@"statsPassComp"];
+    [aCoder encodeInt:self.statsSacked forKey:@"statsSacked"];
+    [aCoder encodeInt:self.statsPassYards forKey:@"statsPassYards"];
+    [aCoder encodeInt:self.statsInt forKey:@"statsInt"];
+    [aCoder encodeInt:self.statsTD forKey:@"statsTD"];
+    [aCoder encodeInt:self.statsPassAtt forKey:@"statsPassAtt"];
+
+    [aCoder encodeInt:self.careerStatsPassComp forKey:@"careerStatsPassComp"];
+    [aCoder encodeInt:self.careerStatsSacked forKey:@"careerStatsSacked"];
+    [aCoder encodeInt:self.careerStatsPassYards forKey:@"careerStatsPassYards"];
+    [aCoder encodeInt:self.careerStatsInt forKey:@"careerStatsInt"];
+    [aCoder encodeInt:self.careerStatsTD forKey:@"careerStatsTD"];
+    [aCoder encodeInt:self.careerStatsPassAtt forKey:@"careerStatsPassAtt"];
+}
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc eva:(int)eva dur:(int)dur {
     self = [super init];
     if (self) {

@@ -14,6 +14,89 @@
 @implementation PlayerK
 @synthesize ratKickAcc,ratKickFum,ratKickPow,statsFGAtt,statsXPAtt,statsFGMade,statsXPMade,careerStatsFGAtt,careerStatsXPAtt,careerStatsFGMade,careerStatsXPMade;
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+            self.ratKickPow = [aDecoder decodeIntForKey:@"ratKickPow"];
+            self.ratKickAcc = [aDecoder decodeIntForKey:@"ratKickAcc"];
+            self.ratKickFum = [aDecoder decodeIntForKey:@"ratKickFum"];
+        
+            self.statsXPAtt = [aDecoder decodeIntForKey:@"statsXPAtt"];
+            self.statsXPMade = [aDecoder decodeIntForKey:@"statsXPMade"];
+            self.statsFGAtt = [aDecoder decodeIntForKey:@"statsFGAtt"];
+            self.statsFGMade = [aDecoder decodeIntForKey:@"statsFGMade"];
+        
+            if ([aDecoder containsValueForKey:@"careerStatsXPAtt"]) {
+                self.careerStatsXPAtt = [aDecoder decodeIntForKey:@"careerStatsXPAtt"];
+            } else {
+                self.careerStatsXPAtt = 0;
+            }
+        
+            if ([aDecoder containsValueForKey:@"careerStatsXPMade"]) {
+                self.careerStatsXPMade = [aDecoder decodeIntForKey:@"careerStatsXPMade"];
+            } else {
+                self.careerStatsXPMade = 0;
+            }
+        
+            if ([aDecoder containsValueForKey:@"careerStatsFGAtt"]) {
+                self.careerStatsFGAtt = [aDecoder decodeIntForKey:@"careerStatsFGAtt"];
+            } else {
+                self.careerStatsFGAtt = 0;
+            }
+        
+            if ([aDecoder containsValueForKey:@"careerStatsFGMade"]) {
+                self.careerStatsFGMade = [aDecoder decodeIntForKey:@"careerStatsFGMade"];
+            } else {
+                self.careerStatsFGMade = 0;
+            }
+        
+            if ([aDecoder containsValueForKey:@"personalDetails"]) {
+                    self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+                    if (self.personalDetails == nil) {
+                            NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 190;
+                            NSInteger inches = (int)([HBSharedUtils randomValue] * 2);
+                            self.personalDetails = @{
+                                                       @"home_state" : [HBSharedUtils randomState],
+                                                       @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                       @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                       
+                                                       };
+                        }
+                } else {
+                        NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 190;
+                        NSInteger inches = (int)([HBSharedUtils randomValue] * 2);
+                        self.personalDetails = @{
+                                                 @"home_state" : [HBSharedUtils randomState],
+                                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                 
+                                                 };
+                    }
+        }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    
+    [aCoder encodeInt:self.ratKickPow forKey:@"ratKickPow"];
+    [aCoder encodeInt:self.ratKickAcc forKey:@"ratKickAcc"];
+    [aCoder encodeInt:self.ratKickFum forKey:@"ratKickFum"];
+    
+    [aCoder encodeInt:self.statsFGMade forKey:@"statsFGMade"];
+    [aCoder encodeInt:self.statsFGAtt forKey:@"statsFGAtt"];
+    [aCoder encodeInt:self.statsXPMade forKey:@"statsXPMade"];
+    [aCoder encodeInt:self.statsXPAtt forKey:@"statsXPAtt"];
+    
+    [aCoder encodeInt:self.careerStatsFGMade forKey:@"careerStatsFGMade"];
+    [aCoder encodeInt:self.careerStatsFGAtt forKey:@"careerStatsFGAtt"];
+    [aCoder encodeInt:self.careerStatsXPMade forKey:@"careerStatsXPMade"];
+    [aCoder encodeInt:self.careerStatsXPAtt forKey:@"careerStatsXPAtt"];
+    
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
+}
+
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc fum:(int)fum dur:(int)dur {
     self = [super init];
     if (self) {

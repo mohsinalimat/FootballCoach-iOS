@@ -11,6 +11,47 @@
 @implementation PlayerCB
 @synthesize ratCBCov,ratCBSpd,ratCBTkl;
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+            self.ratCBCov = [aDecoder decodeIntForKey:@"ratCBCov"];
+            self.ratCBSpd = [aDecoder decodeIntForKey:@"ratCBSpd"];
+            self.ratCBTkl = [aDecoder decodeIntForKey:@"ratCBTkl"];
+    
+            if ([aDecoder containsValueForKey:@"personalDetails"]) {
+                    self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+                    if (self.personalDetails == nil) {
+                            NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 170;
+                            NSInteger inches = (int)([HBSharedUtils randomValue] * 3);
+                            self.personalDetails = @{
+                                       @"home_state" : [HBSharedUtils randomState],
+                                                                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                                                 @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                                                 };
+                        }
+                } else {
+                        NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 170;
+                        NSInteger inches = (int)([HBSharedUtils randomValue] * 3);
+                        self.personalDetails = @{
+                                       @"home_state" : [HBSharedUtils randomState],
+                                                                             @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                                             @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                };
+                    }
+    
+        }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+
+    [aCoder encodeInt:self.ratCBCov forKey:@"ratCBCov"];
+    [aCoder encodeInt:self.ratCBSpd forKey:@"ratCBSpd"];
+    [aCoder encodeInt:self.ratCBTkl forKey:@"ratCBTkl"];
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
+}
+
 -(instancetype)initWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq coverage:(int)coverage speed:(int)speed tackling:(int)tackling dur:(int)dur {
     self = [super init];
     if (self) {

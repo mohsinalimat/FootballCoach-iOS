@@ -14,6 +14,104 @@
 @implementation PlayerWR
 @synthesize  ratRecCat,ratRecEva,ratRecSpd,statsFumbles,statsTD,statsDrops,statsTargets,careerStatsTD,careerStatsTargets,careerStatsFumbles,careerStatsDrops,careerStatsRecYards,statsRecYards,statsReceptions,careerStatsReceptions;
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+            self.ratRecCat = [aDecoder decodeIntForKey:@"ratRecCat"];
+            self.ratRecSpd = [aDecoder decodeIntForKey:@"ratRecSpd"];
+            self.ratRecEva = [aDecoder decodeIntForKey:@"ratRecEva"];
+            self.statsTargets = [aDecoder decodeIntForKey:@"statsTargets"];
+            self.statsReceptions = [aDecoder decodeIntForKey:@"statsReceptions"];
+            self.statsDrops = [aDecoder decodeIntForKey:@"statsDrops"];
+            self.statsTD = [aDecoder decodeIntForKey:@"statsTD"];
+            self.statsFumbles = [aDecoder decodeIntForKey:@"statsFumbles"];
+            self.statsRecYards = [aDecoder decodeIntForKey:@"statsRecYards"];
+    
+    
+            if ([aDecoder containsValueForKey:@"careerStatsRecYards"]) {
+                    self.careerStatsRecYards = [aDecoder decodeIntForKey:@"careerStatsRecYards"];
+                } else {
+                        self.careerStatsRecYards = 0;
+                    }
+    
+            if ([aDecoder containsValueForKey:@"careerStatsReceptions"]) {
+                    self.careerStatsReceptions = [aDecoder decodeIntForKey:@"careerStatsReceptions"];
+                } else {
+                        self.careerStatsReceptions = 0;
+                    }
+    
+            if ([aDecoder containsValueForKey:@"careerStatsTD"]) {
+                    self.careerStatsTD = [aDecoder decodeIntForKey:@"careerStatsTD"];
+                } else {
+                        self.careerStatsTD = 0;
+                    }
+    
+            if ([aDecoder containsValueForKey:@"careerStatsTargets"]) {
+                    self.careerStatsTargets = [aDecoder decodeIntForKey:@"careerStatsTargets"];
+                } else {
+                        self.careerStatsTargets = 0;
+                    }
+    
+            if ([aDecoder containsValueForKey:@"careerStatsFumbles"]) {
+                    self.careerStatsFumbles = [aDecoder decodeIntForKey:@"careerStatsFumbles"];
+                } else {
+                        self.careerStatsFumbles = 0;
+                    }
+    
+            if ([aDecoder containsValueForKey:@"careerStatsDrops"]) {
+                    self.careerStatsDrops = [aDecoder decodeIntForKey:@"careerStatsDrops"];
+                } else {
+                        self.careerStatsDrops = 0;
+                    }
+    
+            if ([aDecoder containsValueForKey:@"personalDetails"]) {
+                    self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+                    if (self.personalDetails == nil) {
+                            NSInteger weight = (int)([HBSharedUtils randomValue] * 45) + 195;
+                            NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 1;
+                            self.personalDetails = @{
+                                                                                               @"home_state" : [HBSharedUtils randomState],
+                                                                                                                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                                                                                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                                                                                                         };
+                        }
+                } else {
+                        NSInteger weight = (int)([HBSharedUtils randomValue] * 45) + 195;
+                        NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 1;
+                        self.personalDetails = @{
+                                                                                       @"home_state" : [HBSharedUtils randomState],
+                                                                                                                             @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                                                                                             @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                                                                                             };
+                    }
+        }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+
+    [aCoder encodeInt:self.ratRecCat forKey:@"ratRecCat"];
+    [aCoder encodeInt:self.ratRecSpd forKey:@"ratRecSpd"];
+    [aCoder encodeInt:self.ratRecEva forKey:@"ratRecEva"];
+
+    [aCoder encodeInt:self.statsRecYards forKey:@"statsRecYards"];
+    [aCoder encodeInt:self.statsFumbles forKey:@"statsFumbles"];
+    [aCoder encodeInt:self.statsTD forKey:@"statsTD"];
+    [aCoder encodeInt:self.statsReceptions forKey:@"statsReceptions"];
+    [aCoder encodeInt:self.statsDrops forKey:@"statsDrops"];
+    [aCoder encodeInt:self.statsTargets forKey:@"statsTargets"];
+
+    [aCoder encodeInt:self.careerStatsRecYards forKey:@"careerStatsRecYards"];
+    [aCoder encodeInt:self.careerStatsReceptions forKey:@"careerStatsReceptions"];
+    [aCoder encodeInt:self.careerStatsTD forKey:@"careerStatsTD"];
+    [aCoder encodeInt:self.careerStatsTargets forKey:@"careerStatsTargets"];
+    [aCoder encodeInt:self.careerStatsFumbles forKey:@"careerStatsFumbles"];
+    [aCoder encodeInt:self.careerStatsDrops forKey:@"careerStatsDrops"];
+
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
+}
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq catch:(int)cat speed:(int)spd eva:(int)eva dur:(int)dur {
     self = [super init];
     if (self) {
