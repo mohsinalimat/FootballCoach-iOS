@@ -98,69 +98,69 @@
                 // add TEStats and TE (as starter) and 4 more QB stats to games
                 for (Team *t in oldLigue.teamList) {
                     for (Game *g in t.gameSchedule) {
-                        if (g != nil) {
-                            if (g.HomeQBStats == nil) {
-                                g.HomeQBStats = [NSMutableArray array];
-                                for (int i = 0; i < 10; i++) {
-                                    [g.HomeQBStats addObject:@(0)];
-                                }
-                            } else {
-                                for (int i = 0; i < 4; i++) {
-                                    [g.HomeQBStats addObject:@(0)];
-                                }
+                        if (!g.hasPlayed) {
+                            g.HomeQBStats = [NSMutableArray array];
+                            for (int i = 0; i < 10; i++) {
+                                [g.HomeQBStats addObject:@(0)];
+                            }
+                            g.HomeTEStats = [NSMutableArray array];
+                            for (int i = 0; i < 6; i++) {
+                                [g.HomeTEStats addObject:@(0)];
+                            }
+                            g.AwayQBStats = [NSMutableArray array];
+                            for (int i = 0; i < 10; i++) {
+                                [g.AwayQBStats addObject:@(0)];
+                            }
+                            g.AwayTEStats = [NSMutableArray array];
+                            for (int i = 0; i < 6; i++) {
+                                [g.AwayTEStats addObject:@(0)];
+                            }
+                        } else {
+                            for (int i = 0; i < 4; i++) {
+                                [g.HomeQBStats addObject:@(0)];
                             }
                             
-                            if (g.HomeTEStats == nil) {
-                                g.HomeTEStats = [NSMutableArray array];
-                                for (int i = 0; i < 6; i++) {
-                                    [g.HomeTEStats addObject:@(0)];
-                                }
+                            g.HomeTEStats = [NSMutableArray array];
+                            for (int i = 0; i < 6; i++) {
+                                [g.HomeTEStats addObject:@(0)];
                             }
                             
-                            if (g.AwayQBStats == nil) {
-                                g.AwayQBStats = [NSMutableArray array];
-                                for (int i = 0; i < 10; i++) {
-                                    [g.AwayQBStats addObject:@(0)];
-                                }
-                            } else {
-                                for (int i = 0; i < 4; i++) {
-                                    [g.AwayQBStats addObject:@(0)];
-                                }
+                            for (int i = 0; i < 4; i++) {
+                                [g.AwayQBStats addObject:@(0)];
                             }
                             
-                            if (g.AwayTEStats == nil) {
-                                g.AwayTEStats = [NSMutableArray array];
-                                for (int i = 0; i < 6; i++) {
-                                    [g.AwayTEStats addObject:@(0)];
-                                }
+                            g.AwayTEStats = [NSMutableArray array];
+                            for (int i = 0; i < 6; i++) {
+                                [g.AwayTEStats addObject:@(0)];
                             }
-                            
-                            __block NSInteger foundIndex = NSNotFound;
-                            [g.homeStarters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                if ([obj isKindOfClass:[PlayerTE class]]) {
-                                    foundIndex = idx;
-                                    *stop = YES;
-                                }
-                            }];
-                            
-                            if (foundIndex == NSNotFound) {
-                                if (g.homeTeam.teamTEs != nil && g.homeTeam.teamTEs.count > 0 && g.homeStarters != nil && g.homeStarters.count > 0) {
-                                    [g.homeStarters insertObject:[g.homeTeam getTE:0] atIndex: 6];
-                                }
+                        }
+                        
+                        
+                        __block NSInteger foundIndex = NSNotFound;
+                        [g.homeStarters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                            if ([obj isKindOfClass:[PlayerTE class]]) {
+                                foundIndex = idx;
+                                *stop = YES;
                             }
-                            
-                            foundIndex = NSNotFound;
-                            [g.awayStarters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                                if ([obj isKindOfClass:[PlayerTE class]]) {
-                                    foundIndex = idx;
-                                    *stop = YES;
-                                }
-                            }];
-                            
-                            if (foundIndex == NSNotFound) {
-                                if (g.awayTeam.teamTEs != nil && g.awayTeam.teamTEs.count > 0 && g.awayStarters.count > 0) {
-                                    [g.awayStarters insertObject:[g.awayTeam getTE:0] atIndex: 6];
-                                }
+                        }];
+                        
+                        if (foundIndex == NSNotFound) {
+                            if (g.homeTeam.teamTEs != nil && g.homeTeam.teamTEs.count > 0 && g.homeStarters != nil && g.homeStarters.count > 0) {
+                                [g.homeStarters insertObject:[g.homeTeam getTE:0] atIndex: 6];
+                            }
+                        }
+                        
+                        foundIndex = NSNotFound;
+                        [g.awayStarters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                            if ([obj isKindOfClass:[PlayerTE class]]) {
+                                foundIndex = idx;
+                                *stop = YES;
+                            }
+                        }];
+                        
+                        if (foundIndex == NSNotFound) {
+                            if (g.awayTeam.teamTEs != nil && g.awayTeam.teamTEs.count > 0 && g.awayStarters.count > 0) {
+                                [g.awayStarters insertObject:[g.awayTeam getTE:0] atIndex: 6];
                             }
                         }
                     }
