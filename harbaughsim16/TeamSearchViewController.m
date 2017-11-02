@@ -46,6 +46,8 @@
     self.navigationItem.titleView = navSearchBar;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reloadTeams" object:nil];
+    
+    self.tableView.tableFooterView = [UIView new];
 }
 
 -(void)reloadAll {

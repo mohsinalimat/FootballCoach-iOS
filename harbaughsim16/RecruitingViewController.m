@@ -153,6 +153,7 @@
     [super viewDidLoad];
     self.tableView.rowHeight = 190;
     self.tableView.estimatedRowHeight = 190;
+    self.tableView.tableFooterView = [UIView new];
     recruitingBudget = [HBSharedUtils getLeague].userTeam.recruitingMoney;
 
     NSInteger teamSize = [HBSharedUtils getLeague].userTeam.teamQBs.count + [HBSharedUtils getLeague].userTeam.teamRBs.count + [HBSharedUtils getLeague].userTeam.teamWRs.count + [HBSharedUtils getLeague].userTeam.teamKs.count + [HBSharedUtils getLeague].userTeam.teamSs.count + [HBSharedUtils getLeague].userTeam.teamCBs.count + [HBSharedUtils getLeague].userTeam.teamDLs.count + [HBSharedUtils getLeague].userTeam.teamLBs.count + [HBSharedUtils getLeague].userTeam.teamTEs.count;

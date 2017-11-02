@@ -57,6 +57,7 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:60];
     [self.tableView setEstimatedRowHeight:60];
+    self.tableView.tableFooterView = [UIView new];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

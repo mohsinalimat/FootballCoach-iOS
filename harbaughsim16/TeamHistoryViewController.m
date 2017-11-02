@@ -99,7 +99,11 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    if (history.count > 0) {
+        return 2;
+    } else {
+        return 1;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -122,7 +126,11 @@
     if (section == 1) {
         return @"Color Key:\nGreen - Conference Champion\nOrange - Bowl Winner\nGold - National Champion";
     } else {
-        return nil;
+        if (history.count > 0) {
+            return nil;
+        } else {
+            return @"No history recorded yet. Play some seasons to add to your resume!";
+        }
     }
 }
 
@@ -140,7 +148,11 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 0) {
-        return 36;
+        if (history.count > 0) {
+            return 36;
+        } else {
+            return 60;
+        }
     } else {
         return 90;
     }

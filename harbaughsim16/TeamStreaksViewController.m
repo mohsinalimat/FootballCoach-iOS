@@ -116,6 +116,7 @@
         return [a.opponent.name compare:b.opponent.name];
     }];
     self.navigationItem.title = @"Streaks";
+    self.tableView.tableFooterView = [UIView new];
     
     if (streaks.count > 0) {
         navSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];

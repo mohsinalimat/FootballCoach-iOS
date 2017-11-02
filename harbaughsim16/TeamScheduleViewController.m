@@ -33,8 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //userTeam = [HBSharedUtils getLeague].userTeam;
-    //schedule = [[HBSharedUtils getLeague].userTeam.gameSchedule copy];
+    self.tableView.tableFooterView = [UIView new];
     self.title = [NSString stringWithFormat:@"%@ Schedule",userTeam.abbreviation];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 60;
