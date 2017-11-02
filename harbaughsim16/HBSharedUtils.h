@@ -25,6 +25,8 @@
 #define HB_APP_VERSION_PRE_OVERHAUL @"1.1.4"
 #define HB_APP_VERSION_POST_OVERHAUL @"1.2"
 
+#define HB_SAVE_FILE_NEEDS_UPDATE YES
+
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)

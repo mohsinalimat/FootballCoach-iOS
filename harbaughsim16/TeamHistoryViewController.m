@@ -87,7 +87,7 @@
     if (indexPath.section == 0) {
         return UITableViewAutomaticDimension;
     } else {
-        NSInteger lineCount = [self _lineCount:history[[NSString stringWithFormat:@"%ld", (long)(2017 + indexPath.row)]]];
+        NSInteger lineCount = [self _lineCount:history[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + indexPath.row)]]];
         if (lineCount > 2) {
             return 100 + (10 * (lineCount - 2));
         } else if (lineCount == 2) {
@@ -240,12 +240,12 @@
             [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
         }
         
-        [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(2017 + indexPath.row)]];
+        [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + indexPath.row)]];
         NSString *hist;
         if (userTeam.teamHistoryDictionary.count < indexPath.row) {
             hist = [NSString stringWithFormat:@"%@ (0-0)",userTeam.abbreviation];
         } else {
-            hist = userTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)(2017 + indexPath.row)]];
+            hist = userTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + indexPath.row)]];
         }
         NSArray *comps = [hist componentsSeparatedByString:@"\n"];
         

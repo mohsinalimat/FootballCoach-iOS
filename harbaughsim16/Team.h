@@ -158,6 +158,7 @@
 //defense
 @property (strong, nonatomic) NSMutableArray<PlayerLB*> *teamLBs;
 @property (strong, nonatomic) NSMutableArray<PlayerDL*> *teamDLs;
+@property (strong, nonatomic) NSMutableArray<PlayerDL*> *teamF7s;
 @property (strong, nonatomic) NSMutableArray<PlayerS*> *teamSs;
 @property (strong, nonatomic) NSMutableArray<PlayerCB*> *teamCBs;
 
@@ -276,4 +277,7 @@
 -(void)checkForInjury;
 
 -(void)updateRingOfHonor;
+
+-(int)getCPUOffense;
+-(int)getCPUDefense;
 @end

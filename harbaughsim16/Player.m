@@ -10,6 +10,7 @@
 #import "HBSharedUtils.h"
 
 @implementation Player
+@synthesize position,draftPosition,ratDur,personalDetails,endYear,name,team,year,isHeisman,startYear,gamesPlayedSeason,cost,gamesPlayed,hasRedshirt,isAllAmerican,isAllConference,careerAllAmericans,careerAllConferences,ratOvr,ratPot,ratFootIQ,ratImprovement,wasRedshirted,injury,careerHeismans;
 
 +(int)getPosNumber:(NSString*)pos {
     if ([pos isEqualToString:@"QB"]) {

@@ -67,6 +67,8 @@
 @property (nonatomic) NSInteger blessedStoryIndex;
 @property (nonatomic) NSInteger cursedStoryIndex;
 
+@property (nonatomic) NSInteger baseYear;
+
 //Current week, 1-14
 @property (nonatomic) int currentWeek;
 @property (nonatomic) BOOL isHardMode;
@@ -120,6 +122,8 @@
 
 @property (strong, nonatomic) Record *careerXpMadeRecord;
 @property (strong, nonatomic) Record *careerFgMadeRecord;
+
+@property (strong, nonatomic) NSString *leagueVersion;
 
 +(BOOL)loadSavedData;
 -(BOOL)isSaveCorrupt;

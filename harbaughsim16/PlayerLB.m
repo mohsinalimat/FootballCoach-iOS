@@ -18,7 +18,7 @@
         self.team = team;
         self.name = name;
         self.year = year;
-        self.startYear = (int)team.league.leagueHistoryDictionary.count + 2017;
+        self.startYear = (int)team.league.leagueHistoryDictionary.count + (int)team.league.baseYear;
         self.ratDur = dur;
         self.ratOvr = (self.ratLBTkl*3 + self.ratLBRsh + self.ratLBPas)/5;
         self.ratPot = potential;
@@ -54,7 +54,7 @@
         self.team = t;
         self.name = name;
         self.year = year;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2017;
+        self.startYear = (int)t.league.leagueHistoryDictionary.count + (int)t.league.baseYear;
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int)([HBSharedUtils randomValue]*50 + 50);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);

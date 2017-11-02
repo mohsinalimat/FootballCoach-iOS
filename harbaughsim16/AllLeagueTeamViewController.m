@@ -41,7 +41,7 @@
     
     heisman = [[HBSharedUtils getLeague] heisman];
     
-    self.title = [NSString stringWithFormat:@"%ld's All-League Team", (long)(2017 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)];
+    self.title = [NSString stringWithFormat:@"%ld's All-League Team", (long)([HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count)];
     players = [[HBSharedUtils getLeague] allLeaguePlayers];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
