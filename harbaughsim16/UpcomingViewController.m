@@ -320,51 +320,25 @@
         [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
     }
     
-    if ([HBSharedUtils getLeague].userTeam.gameWLSchedule.count > 0 && ![HBSharedUtils getLeague].userTeam.gameSchedule.lastObject.hasPlayed && [HBSharedUtils getLeague].userTeam.gameSchedule.count >= [HBSharedUtils getLeague].currentWeek) {
-        if ([HBSharedUtils getLeague].currentWeek > 12) {
+    if (simLeague.userTeam.gameWLSchedule.count > 0 && !simLeague.userTeam.gameSchedule.lastObject.hasPlayed && simLeague.userTeam.gameSchedule.count >= simLeague.currentWeek) {
+        if (simLeague.currentWeek > 12) {
             //NSLog(@"checking for bye");
             nextGame = [userTeam.gameSchedule lastObject];
-            lastGame = userTeam.gameSchedule[[HBSharedUtils getLeague].currentWeek - 1];
+            lastGame = userTeam.gameSchedule[simLeague.currentWeek - 1];
         } else {
-            lastGame = userTeam.gameSchedule[[HBSharedUtils getLeague].currentWeek - 1];
-            nextGame = userTeam.gameSchedule[[HBSharedUtils getLeague].currentWeek];
+            lastGame = userTeam.gameSchedule[simLeague.currentWeek - 1];
+            nextGame = userTeam.gameSchedule[simLeague.currentWeek];
             //NSLog(@"Last game and next game normal");
         }
     } else if (userTeam.gameSchedule.lastObject.hasPlayed) {
-        lastGame = ([HBSharedUtils getLeague].currentWeek > 12 ? userTeam.gameSchedule.lastObject : userTeam.gameSchedule[[HBSharedUtils getLeague].currentWeek - 1]);
+        lastGame = (simLeague.currentWeek > 12 ? userTeam.gameSchedule.lastObject : userTeam.gameSchedule[simLeague.currentWeek - 1]);
         nextGame = nil;
         //NSLog(@"Last game only");
     } else {
         lastGame = nil;
-        nextGame = userTeam.gameSchedule[[HBSharedUtils getLeague].currentWeek];
+        nextGame = userTeam.gameSchedule[simLeague.currentWeek];
         //NSLog(@"Next game only");
     }
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
-        [self.navigationController.tabBarController.tabBar.items[1] setBadgeColor:[HBSharedUtils champColor]];
-    }
-    
-    if (!nextGame) {
-        [self.navigationController.tabBarController.tabBar.items[1] setBadgeValue:nil];
-    }
-//    } else if (!nextGame.hasPlayed) {
-//        NSString *weekGameName = nextGame.gameName;
-//        if ([weekGameName isEqualToString:@"Champs Bowl"]) {
-//            [self.navigationController.tabBarController.tabBar.items[1] setBadgeValue:@"ChBwl"];
-//        } else if ([weekGameName containsString:@"Div Rd"]) {
-//            [self.navigationController.tabBarController.tabBar.items[1] setBadgeValue:@"Div"];
-//        } else if ([weekGameName containsString:@"WC Rd"]) {
-//            [self.navigationController.tabBarController.tabBar.items[1] setBadgeValue:@"WC"];
-//        } else if ([weekGameName containsString:@"CCG"]) {
-//            [self.navigationController.tabBarController.tabBar.items[1] setBadgeValue:@"CCG"];
-//        }
-//    } else if ([HBSharedUtils getLeague].currentWeek == 16) {
-////        if (![[HBSharedUtils getLeague].playoffsAM containsObject:[HBSharedUtils getLeague].userTeam] && ![[HBSharedUtils getLeague].playoffsNA containsObject:[HBSharedUtils getLeague].userTeam]) {
-////            [self.navigationController.tabBarController.tabBar.items[1] setBadgeValue:nil];
-////        } else {
-//            [self.navigationController.tabBarController.tabBar.items[1] setBadgeValue:@"Div"];
-//        //}
-//    }
     
     NSMutableArray *qbs = [NSMutableArray array];
     NSMutableArray *ks = [NSMutableArray array];
