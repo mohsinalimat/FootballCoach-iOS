@@ -38,7 +38,7 @@
             // we know which were added in this new version, so check if those exist and load them with data if needed
         // if there are no new properties to update, just update the version
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        if ([oldLigue.leagueVersion isEqualToString:HB_CURRENT_APP_VERSION]) {
+        if (![oldLigue.leagueVersion isEqualToString:HB_CURRENT_APP_VERSION]) {
             if ([HB_CURRENT_APP_VERSION isEqualToString:HB_APP_VERSION_POST_OVERHAUL]) {
                 __block float prgs = 0.0;
                 oldLigue.baseYear = 2016;
@@ -69,6 +69,8 @@
                         PlayerDL *dl = [PlayerDL newDLWithF7:f7];
                         [t.teamDLs addObject:dl];
                     }
+                    
+                    [t sortPlayers];
                     
                     // for QBs -> add speed attr and rush stats
                     for (PlayerQB *qb in t.teamQBs) {
@@ -280,7 +282,7 @@
         oldLigue.leagueVersion = HB_CURRENT_APP_VERSION;
         [oldLigue save];
         dispatch_async(dispatch_get_main_queue(), ^{
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 completionBlock(TRUE, @"Update complete!", oldLigue);
             });
             [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
