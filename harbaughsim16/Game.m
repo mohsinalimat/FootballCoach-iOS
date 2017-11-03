@@ -75,6 +75,9 @@
 
     [aCoder encodeObject:self.homeStarters forKey:@"homeStarters"];
     [aCoder encodeObject:self.awayStarters forKey:@"awayStarters"];
+    
+    [aCoder encodeObject:self.HomeTEStats forKey:@"HomeTEStats"];
+    [aCoder encodeObject:self.AwayTEStats forKey:@"AwayTEStats"];
 
 }
 
@@ -454,18 +457,11 @@
         [wrs setObject:homeStarters[4] forKey:@"homeWR2"];
         [wrs setObject:HomeWR2Stats forKey:@"homeWR2Stats"];
         
-        [wrs setObject:homeStarters[5] forKey:@"homeWR3"];
-        [wrs setObject:HomeWR3Stats forKey:@"homeWR3Stats"];
-        
         [wrs setObject:awayStarters[3] forKey:@"awayWR1"];
         [wrs setObject:AwayWR1Stats forKey:@"awayWR1Stats"];
         
         [wrs setObject:awayStarters[4] forKey:@"awayWR2"];
         [wrs setObject:AwayWR2Stats forKey:@"awayWR2Stats"];
-        
-        [wrs setObject:awayStarters[5] forKey:@"awayWR3"];
-        [wrs setObject:AwayWR3Stats forKey:@"awayWR3Stats"];
-        
         
         [report setObject:wrs forKey:@"WRs"];
         

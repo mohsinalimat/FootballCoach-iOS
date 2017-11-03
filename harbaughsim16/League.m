@@ -125,6 +125,9 @@
     [encoder encodeInt:leagueRecordYearCompletions forKey:@"leagueRecordYearCompletions"];
     [encoder encodeInt:leagueRecordYearPassYards forKey:@"leagueRecordYearPassYards"];
     
+    [encoder encodeInteger:self.baseYear forKey:@"baseYear"];
+    [encoder encodeObject:self.leagueVersion forKey:@"leagueVersion"];
+    
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -210,6 +213,18 @@
             self.cursedStoryIndex = 0;
         } else {
             self.cursedStoryIndex = [decoder decodeIntForKey:@"cursedStoryIndex"];
+        }
+        
+        if (![decoder containsValueForKey:@"baseYear"]) {
+            self.baseYear = 2016;
+        } else {
+            self.baseYear = [decoder decodeIntForKey:@"baseYear"];
+        }
+        
+        if (![decoder containsValueForKey:@"leagueVersion"]) {
+            self.leagueVersion = HB_APP_VERSION_PRE_OVERHAUL;
+        } else {
+            self.leagueVersion = [decoder decodeObjectForKey:@"leagueVersion"];
         }
         
         if (![decoder containsValueForKey:@"leagueHistoryDictionary"]) {

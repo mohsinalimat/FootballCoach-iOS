@@ -259,7 +259,7 @@
         } else if (section == 3) {
             return 4;
         } else if (section == 4) {
-            return 6;
+            return 4;
         } else if (section == 5) {
             return 2;
         } else {
@@ -566,17 +566,11 @@
                     plyr = wrStats[@"awayWR2"];
                     plyrStats = wrStats[@"awayWR2Stats"];
                 } else if (indexPath.row == 2) {
-                    plyr = wrStats[@"awayWR3"];
-                    plyrStats = wrStats[@"awayWR3Stats"];
-                } else if (indexPath.row == 3) {
                     plyr = wrStats[@"homeWR1"];
                     plyrStats = wrStats[@"homeWR1Stats"];
-                } else if (indexPath.row == 4) {
+                } else {
                     plyr = wrStats[@"homeWR2"];
                     plyrStats = wrStats[@"homeWR2Stats"];
-                } else {
-                    plyr = wrStats[@"homeWR3"];
-                    plyrStats = wrStats[@"homeWR3Stats"];
                 }
                 
                 
@@ -718,13 +712,9 @@
                 } else if (indexPath.row == 1) {
                     plyr = wrStats[@"awayWR2"];
                 } else if (indexPath.row == 2) {
-                    plyr = wrStats[@"awayWR3"];
-                } else if (indexPath.row == 3) {
                     plyr = wrStats[@"homeWR1"];
-                } else if (indexPath.row == 4) {
-                    plyr = wrStats[@"homeWR2"];
                 } else {
-                    plyr = wrStats[@"homeWR3"];
+                    plyr = wrStats[@"homeWR2"];
                 }
             } else if (indexPath.section == 5) {
                 if (indexPath.row == 0) {

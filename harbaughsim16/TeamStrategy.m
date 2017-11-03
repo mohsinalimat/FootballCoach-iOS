@@ -22,41 +22,41 @@
         self.passYdBonus = [aDecoder decodeIntForKey:@"passYdBonus"];
         self.passAgBonus = [aDecoder decodeIntForKey:@"passAgBonus"];
 
-//        if ([aDecoder valueForKey:@"runPref"]) {
-//            self.runPref = [aDecoder decodeIntForKey:@"runPref"];
-//        } else {
-//            self.runPref = 1;
-//        }
-//
-//        if ([aDecoder valueForKey:@"passPref"]) {
-//                self.passPref = [aDecoder decodeIntForKey:@"passPref"];
-//            } else {
-//                    self.passPref = 1;
-//                }
-//
-//        if ([aDecoder valueForKey:@"runPotential"]) {
-//                self.runPotential = [aDecoder decodeIntForKey:@"runPotential"];
-//            } else {
-//                    self.runPotential = 0;
-//                }
+        if ([aDecoder containsValueForKey:@"runPref"]) {
+            self.runPref = [aDecoder decodeIntForKey:@"runPref"];
+        } else {
+            self.runPref = 1;
+        }
 
-//        if ([aDecoder valueForKey:@"runProtection"]) {
-//                self.runProtection = [aDecoder decodeIntForKey:@"runProtection"];
-//            } else {
-//                    self.runProtection = 0;
-//                }
-//
-//        if ([aDecoder valueForKey:@"passPotential"]) {
-//                self.passPotential = [aDecoder decodeIntForKey:@"passPotential"];
-//            } else {
-//                    self.passPotential = 0;
-//                }
-//
-//        if ([aDecoder valueForKey:@"passProtection"]) {
-//                self.passProtection = [aDecoder decodeIntForKey:@"passProtection"];
-//            } else {
-//                    self.passProtection = 0;
-//                }
+        if ([aDecoder containsValueForKey:@"passPref"]) {
+            self.passPref = [aDecoder decodeIntForKey:@"passPref"];
+        } else {
+            self.passPref = 1;
+        }
+
+        if ([aDecoder containsValueForKey:@"runPotential"]) {
+            self.runPotential = [aDecoder decodeIntForKey:@"runPotential"];
+        } else {
+            self.runPotential = 0;
+        }
+
+        if ([aDecoder containsValueForKey:@"runProtection"]) {
+            self.runProtection = [aDecoder decodeIntForKey:@"runProtection"];
+        } else {
+            self.runProtection = 0;
+        }
+
+        if ([aDecoder containsValueForKey:@"passPotential"]) {
+            self.passPotential = [aDecoder decodeIntForKey:@"passPotential"];
+        } else {
+            self.passPotential = 0;
+        }
+
+        if ([aDecoder containsValueForKey:@"passProtection"]) {
+            self.passProtection = [aDecoder decodeIntForKey:@"passProtection"];
+        } else {
+            self.passProtection = 0;
+        }
 
     }
     return self;
