@@ -14,6 +14,7 @@
 Recruit. Strategize. Win.
 
 Take control of your own college football program and bring it to glory!
+
 ---
 
 In Football Coach, you play the newly-hired head coach at your college of choice. As head coach, it will be your responsibility to manage your team's strategy, simulate through seasons, recruit new players, and above all, win championships.
@@ -55,9 +56,9 @@ On defense, coaches can choose from the following philosophies:
 * Cover 3
 
 **Recruiting**: As coach, you are responsible for recruiting the next class of players that will lead your team to bigger and better wins. You recruit based on a budget, which is determined by your team's prestige. Better teams will have more money to work with, while worse teams will have to save money where they can.
---
 
 Establish your own college football dynasty - play Football Coach today!
+
 --
 
 **Special thanks to**:
