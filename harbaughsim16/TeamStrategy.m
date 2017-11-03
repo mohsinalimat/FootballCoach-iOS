@@ -57,7 +57,6 @@
         } else {
             self.passProtection = 0;
         }
-
     }
     return self;
 }
@@ -128,4 +127,5 @@
     }
     return self;
 }
+
 @end

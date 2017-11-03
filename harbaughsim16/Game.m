@@ -420,7 +420,6 @@
                                                              [awayTeam getLB:0],
                                                              [awayTeam getLB:1],
                                                              [awayTeam getLB:2]]];
-
         }
         
         //QBs - dicts go home, away - yes, I'm aware that's confusing
@@ -528,7 +527,7 @@
             horypg = 0;
             arypg = 0;
             hrypg = 0;
-
+            
         }
         
         
@@ -672,7 +671,7 @@
             }
             return [NSString stringWithFormat:@"%ld:%@ Q%ld",(long)minTime,secStr,(long)qNum];
         }
-
+        
     } else {
         if (!bottomOT) {
             if (numOT > 1) {
@@ -1199,13 +1198,11 @@
         }
         //NSLog(@"END RIVALRY GAME CALC");
         
-        //NSLog(@"START INJURY");
         [homeTeam checkForInjury];
         [awayTeam checkForInjury];
-        //NSLog(@"END INJURY");
         
         [self addNewsStory];
-    
+        
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"playedGame" object:nil];
     //NSLog(@"TEARDOWN AND END PLAY GAME");
@@ -1448,6 +1445,7 @@
     
     //check for int
     double intChance = (pressureOnQB + selS.ratOvr - ([offense getQB:0].ratPassAcc+[offense getQB:0].ratFootIQ+100)/3)/18 - offense.offensiveStrategy.passProtection + defense.defensiveStrategy.passProtection;
+
     if (intChance < 0.015) intChance = 0.015;
     if ( 100* [HBSharedUtils randomValue] < intChance ) {
         //Interception
@@ -1601,6 +1599,7 @@
         } else {
             //no drop
             yardsGain = (int) (([self normalize:[offense getQB:0].ratPassPow] + [self normalize:selWR.ratRecSpd] - [self normalize:selCB.ratCBSpd]) * [HBSharedUtils randomValue] / 4.8 + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential);
+
             //see if receiver can get yards after catch
             double escapeChance = ([self normalize:(selWR.ratRecEva)*3 - selCB.ratCBTkl - selS.ratOvr]* [HBSharedUtils randomValue] + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential);
             if ( escapeChance > 92 ||[HBSharedUtils randomValue] > 0.95 ) {
@@ -1690,7 +1689,7 @@
     }
     
     gameTime -= 15 + 15* [HBSharedUtils randomValue];
-
+    
 }
 
 -(void)rushingPlay:(Team *)offense defense:(Team *)defense {
@@ -2005,7 +2004,6 @@
         // made the fg
         if ( gamePoss ) { // home possession
             homeScore += 3;
-
             NSNumber *kStat1 = HomeKStats[3];
             kStat1 = [NSNumber numberWithInteger:kStat1.integerValue + 1];
             [HomeKStats replaceObjectAtIndex:3 withObject:kStat1];
@@ -2023,7 +2021,7 @@
             kStat2 = [NSNumber numberWithInteger:kStat2.integerValue + 1];
             [AwayKStats replaceObjectAtIndex:2 withObject:kStat2];
         }
-         [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ made the %d yard FG.",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (117-gameYardLine)]];
+        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ K %@ made the %d yard FG.",[self getEventPrefix], offense.abbreviation, [offense getK:0].name, (117-gameYardLine)]];
         [self addPointsQuarter:3];
         //offense.teamPoints += 3;
         //defense.teamOppPoints += 3;
@@ -2062,7 +2060,7 @@
     }
     
     gameTime -= 20;
- 
+    
 }
 
 -(void)kickXP:(Team *)offense defense:(Team *)defense {
@@ -2070,7 +2068,7 @@
         if (gameTime <= 0 && abs(homeScore - awayScore) > 2) {
             if (awayScore > homeScore && [awayTeam.abbreviation isEqualToString:offense.abbreviation]) {
                 //AWAY WINS ON WALKOFF!
-                 [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ wins on a walk-off touchdown!",[self getEventPrefix],tdInfo,awayTeam.abbreviation]];
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ wins on a walk-off touchdown!",[self getEventPrefix],tdInfo,awayTeam.abbreviation]];
             } else if (homeScore > awayScore && [homeTeam.abbreviation isEqualToString:offense.abbreviation]) {
                 //HOME WINS ON WALKOFF!
                 [gameEventLog appendString:[NSString stringWithFormat:@"%@%@%@ wins on a walk-off touchdown!",[self getEventPrefix],tdInfo,homeTeam.abbreviation]];
@@ -2592,25 +2590,21 @@
     
     if ( gamePoss ) { // home possession
         
-         
         NSNumber *qbStat = HomeQBStats[0];
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
         [HomeQBStats replaceObjectAtIndex:0 withObject:qbStat];
 
-
-
         NSNumber *wrTarget = selWRStats[1];
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];
         [selWRStats replaceObjectAtIndex:1 withObject:wrTarget];
-        
-        
+       
     } else {
         
         NSNumber *qbStat = AwayQBStats[0];
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
         [AwayQBStats replaceObjectAtIndex:0 withObject:qbStat];
         
-
+        
         
         NSNumber *wrTarget = selWRStats[1];
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];

@@ -11,13 +11,11 @@
 
 @interface TeamStrategy : NSObject <NSCoding>
 
-// old metrics
 @property (nonatomic) int rushYdBonus;
 @property (nonatomic) int rushAgBonus;
 @property (nonatomic) int passYdBonus;
 @property (nonatomic) int passAgBonus;
 
-// new metrics
 @property (nonatomic) int runPref;
 @property (nonatomic) int passPref;
 @property (nonatomic) int runUsage;
