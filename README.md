@@ -11,20 +11,20 @@ To be clear, **Football Coach is a college football simulator/management game.**
 
 **[Here are some screenshots!](http://imgur.com/a/xySv9)**
 
-###Basics:
+### Basics:
 In Football Coach, you take the role of a newly-hired coach at your college of choice. As coach, it will be your responsibility to manage your team's strategy, simulate through seasons, recruit new players, and above all, win championships.
 
-###Playing a Season:
+### Playing a Season:
 Your team will play 12 games in the regular season, which consist of playing all 9 of your conference opponents once and three out-of-conference games. By navigating to the "Schedule" tab, you can see exactly what your team's schedule is. And by clicking on each game, you can see a scouting report of the two teams (if the game has yet to be played), or a summary of the game (if it was already played). The most important game of the regular season is your rivalry game, which you gain prestige if won or lose prestige if lost.
 
 At the end of the regular season, the Conference Championship is played between the two teams with the best in-conference record. If two teams have the same record, a head-to-head tiebreaker is used. If three or more teams have the same record, the one with the highest poll ranking is chosen. After the Conference Championships, Bowl Games are played. Only the top 16 teams get chosen for a bowl, with the most important being the National Semifinals between the #1 and #4 team, and the #2 and #3 team. The winner of these two games advance to the National Championship where an undisputed champion is crowned.
 
 After the season, your team will have gained or lost prestige based on their results versus their expectations, and you move onto recruiting.
 
-###Rankings:
+### Rankings:
 As your team plays through the season, it will be evaluated by pollsters who determine how good (or bad) your team is compared to others. This "poll ranking" is determined by wins, margin of victory, strength of schedule, and more, and has a big impact on how your season will play out, as it determines who gets into a bowl game and the semifinals. Many statistics are kept track of during the season, such as Yards Per Game, Opposing Points Per Game, Pass Yards Per Game, Turnover Differential and more. You can view all these statistics, as well as your team's ranking in each one, by navigating to the "My Team" tab.
 
-###Roster:
+### Roster:
 When you first inherit a team, you will have a total of 46 players (22 starters) on your roster. Each player has a name, their year in school (from Freshman to Senior), an Overall rating, Potential rating, and three position specific ratings. The Overall rating is just a composite rating of the three position specific ones, while Potential determines how much each play improves during the offseason. You can view all of these players in the "Depth Chart" tab.
 
 QB (1 starter):
@@ -75,7 +75,7 @@ F7 (7 starters):
   - Run Stop: how good the F7 is at tackling opposing RBs without allowing many yards.
   - Pass Pressure: how much pressure they put on the opposing QB, higher pressure means the QB will have a harder time throwing accurate passes.
 
-###Team Strategy:
+### Team Strategy:
 
 As a coach, you can pick what strategy your team employs on offense and defense as they play through their season. By default both strategies are set to "No Preference", meaning there are no bonuses or penalties either way. But you can change your strategy to any of the following:
 
@@ -98,13 +98,13 @@ As a coach, you can pick what strategy your team employs on offense and defense 
   - Will give up less yards on catches and be more likely to intercept passes.
   - However, rushing plays will go for more yards.
 
-###Recruiting:
+### Recruiting:
 
 At the end of each season, graduating seniors leave the program and spots open up. As coach, you are responsible for recruiting the next class of players that will lead your team to bigger and better wins. You recruit based on a budget, which is determined by your team's prestige. Better teams will have more money to work with, while worse teams will have to save money wherever they can.
 
 When you press "Start Recruiting" after the season, you can see who is leaving your program and give you a sense of how many players you will need to replace. Next, the Recruiting menu opens up. Each recruit has their positional ratings as well as an Overall and Potential. You can view recruits from every position or select "All Recruits" to see the full list, sorted by the overall rating of the recruits. The cost of each recruit (insert Cam Newton joke here) is determined by how good they are. Once you are done recruiting all the players you need, or have points for, you can press "Done" to advance to the next season. **Beware**: if you fail to fill your needs at a position during the recruiting period, walk-ons will be added to your roster to make sure you field a full team the next season. Be sure to flesh out your roster during recruiting to have the best team possible.
 
-###Donations:
+### Donations:
 
 From the Android developer, [@jonesguy14](https://github.com/jonesguy14):
 >Football Coach is not monetized and I have no plans to do so. I love college football and seeing people use my app is all the encouragement I need. But if you love the app and you would like to let me know, you can donate via PayPal:
