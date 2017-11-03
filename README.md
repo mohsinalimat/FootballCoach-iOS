@@ -26,7 +26,7 @@ After the season, your team will gain or lose prestige based on their results ve
 
 **Rankings**: As your team plays through the season, pollsters will determine how good (or bad) your team is compared to others. This "poll ranking" is determined by wins, margin of victory, strength of schedule, and more, and determines who gets into a bowl game and the semifinals. 
 
-Roster: When you start your career, you'll inherit a roster of 48 players (22 starters), broken down by position like so:
+**Roster**: When you start your career, you'll inherit a roster of 48 players (22 starters), broken down by position like so:
 
 * 2 Quarterbacks (1 starter)
 * 4 Running Backs (2 starters)
