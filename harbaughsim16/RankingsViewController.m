@@ -11,7 +11,7 @@
 #import "TeamViewController.h"
 #import "League.h"
 
-@interface RankingsViewController ()
+@interface RankingsViewController () <UIViewControllerPreviewingDelegate>
 {
     NSArray *teams;
     HBStatType selectedStatType;
@@ -19,6 +19,24 @@
 @end
 
 @implementation RankingsViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        TeamViewController *teamDetail = [[TeamViewController alloc] initWithTeam:teams[indexPath.row]];
+        teamDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return teamDetail;
+    } else {
+        return nil;
+    }
+}
 
 -(instancetype)initWithStatType:(HBStatType)statType {
     self = [super initWithStyle:UITableViewStyleGrouped];
@@ -30,6 +48,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+    
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:UITableViewAutomaticDimension];
     teams = [HBSharedUtils getLeague].teamList;

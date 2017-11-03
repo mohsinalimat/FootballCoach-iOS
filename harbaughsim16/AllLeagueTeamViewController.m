@@ -20,7 +20,7 @@
 
 #import "HexColors.h"
 
-@interface AllLeagueTeamViewController ()
+@interface AllLeagueTeamViewController () <UIViewControllerPreviewingDelegate>
 {
     NSDictionary *players;
     Player *heisman;
@@ -28,6 +28,36 @@
 @end
 
 @implementation AllLeagueTeamViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        Player *plyr;
+        if (indexPath.section == 0) {
+            plyr = players[@"QB"][indexPath.row];
+        } else if (indexPath.section == 1) {
+            plyr = players[@"RB"][indexPath.row];
+        } else if (indexPath.section == 2) {
+            plyr = players[@"WR"][indexPath.row];
+        } else if (indexPath.section == 3) {
+            plyr = players[@"TE"][indexPath.row];
+        } else {
+            plyr = players[@"K"][indexPath.row];
+        }
+        PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return playerDetail;
+    } else {
+        return nil;
+    }
+}
 
 -(id)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
@@ -48,6 +78,10 @@
     [self.tableView setRowHeight:60];
     [self.tableView setEstimatedRowHeight:60];
     self.tableView.tableFooterView = [UIView new];
+    
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

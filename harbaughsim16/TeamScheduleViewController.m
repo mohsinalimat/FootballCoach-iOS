@@ -14,7 +14,7 @@
 
 #import "HexColors.h"
 
-@interface TeamScheduleViewController ()
+@interface TeamScheduleViewController () <UIViewControllerPreviewingDelegate>
 {
     Team *userTeam;
     NSArray *schedule;
@@ -22,6 +22,26 @@
 @end
 
 @implementation TeamScheduleViewController
+
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        HBScheduleCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        
+        GameDetailViewController *gameDetail = [[GameDetailViewController alloc] initWithGame:userTeam.gameSchedule[indexPath.row]];
+        gameDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return gameDetail;
+    } else {
+        return nil;
+    }
+}
 
 -(instancetype)initWithTeam:(Team*)team {
     if (self = [super init]) {
@@ -38,7 +58,10 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 60;
     [self.tableView registerNib:[UINib nibWithNibName:@"HBScheduleCell" bundle:nil] forCellReuseIdentifier:@"HBScheduleCell"];
-
+    
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
     
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }

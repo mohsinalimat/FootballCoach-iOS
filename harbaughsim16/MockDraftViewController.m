@@ -24,7 +24,7 @@
 
 #import "HexColors.h"
 
-@interface MockDraftViewController ()
+@interface MockDraftViewController () <UIViewControllerPreviewingDelegate>
 {
     NSArray *draftRounds;
     NSMutableArray *round1;
@@ -39,6 +39,41 @@
 @end
 
 @implementation MockDraftViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        Player *p;
+        if (indexPath.section == 0) {
+            p = round1[indexPath.row];
+        } else if (indexPath.section == 1) {
+            p = round2[indexPath.row];
+        } else if (indexPath.section == 2) {
+            p = round3[indexPath.row];
+        } else if (indexPath.section == 3) {
+            p = round4[indexPath.row];
+        } else if (indexPath.section == 4) {
+            p = round5[indexPath.row];
+        } else if (indexPath.section == 5) {
+            p = round6[indexPath.row];
+        } else {
+            p = round7[indexPath.row];
+        }
+        
+        PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return playerDetail;
+    } else {
+        return nil;
+    }
+}
 
 -(void)viewDraftSummary {
     NSMutableString *draftSummary = [NSMutableString string];
@@ -193,6 +228,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(changeRounds)];
     self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)([HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count)];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    
+    
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

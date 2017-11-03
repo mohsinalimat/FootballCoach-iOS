@@ -14,9 +14,9 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "HexColors.h"
 
-@interface TeamStreaksViewController () <UISearchBarDelegate, UIScrollViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface TeamStreaksViewController () <UISearchBarDelegate, UIScrollViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIViewControllerPreviewingDelegate>
 {
-    NSMutableArray *streaks;
+    NSMutableArray<TeamStreak*> *streaks;
     NSMutableDictionary *streakDict;
     Team *selectedTeam;
     UISearchBar *navSearchBar;
@@ -26,6 +26,23 @@
 
 @implementation TeamStreaksViewController
 
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        TeamViewController *teamDetail = [[TeamViewController alloc] initWithTeam:streaks[indexPath.row].opponent];
+        teamDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return teamDetail;
+    } else {
+        return nil;
+    }
+}
 
 #pragma mark - DZNEmptyDataSetSource Methods
 
@@ -140,6 +157,12 @@
     
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
+    
+    
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+    
 }
 
 -(void)reloadAll {

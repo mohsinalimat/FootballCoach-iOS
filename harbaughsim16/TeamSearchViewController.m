@@ -12,7 +12,7 @@
 #import "HBSharedUtils.h"
 #import "League.h"
 
-@interface TeamSearchViewController () <UISearchBarDelegate, UIScrollViewDelegate>
+@interface TeamSearchViewController () <UISearchBarDelegate, UIScrollViewDelegate, UIViewControllerPreviewingDelegate>
 {
     NSMutableArray *teams;
     Team *selectedTeam;
@@ -22,6 +22,24 @@
 @end
 
 @implementation TeamSearchViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        TeamViewController *teamDetail = [[TeamViewController alloc] initWithTeam:teams[indexPath.row]];
+        teamDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return teamDetail;
+    } else {
+        return nil;
+    }
+}
 
 -(void)viewDidLoad {
     [super viewDidLoad];
@@ -48,6 +66,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reloadTeams" object:nil];
     
     self.tableView.tableFooterView = [UIView new];
+    
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
 }
 
 -(void)reloadAll {

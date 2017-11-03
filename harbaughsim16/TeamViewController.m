@@ -23,7 +23,7 @@
 @implementation HBTeamInfoView
 @end
 
-@interface TeamViewController ()
+@interface TeamViewController () <UIViewControllerPreviewingDelegate>
 {
     Team *selectedTeam;
     NSArray *stats;
@@ -32,6 +32,37 @@
 @end
 
 @implementation TeamViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        UIViewController *peekVC;
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+                peekVC = [[TeamRosterViewController alloc] initWithTeam:selectedTeam];
+            } else if (indexPath.row == 1) {
+                peekVC = [[TeamScheduleViewController alloc] initWithTeam:selectedTeam];
+            } else if (indexPath.row == 2) {
+                peekVC = [[TeamHistoryViewController alloc] initWithTeam:selectedTeam];
+            } else if (indexPath.row == 3) {
+                peekVC = [[RingOfHonorViewController alloc] initWithTeam:selectedTeam];
+            } else {
+                peekVC = [[TeamRecordsViewController alloc] initWithTeam:selectedTeam];
+            }
+        }
+        peekVC.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return peekVC;
+    } else {
+        return nil;
+    }
+}
 
 -(instancetype)initWithTeam:(Team*)team {
     self = [super init];
@@ -162,6 +193,10 @@
     
     if ([HBSharedUtils getLeague].canRebrandTeam) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(changeTeamName)];
+    }
+    
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
 }
 
