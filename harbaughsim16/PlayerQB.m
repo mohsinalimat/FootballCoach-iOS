@@ -60,12 +60,12 @@
         if ([aDecoder containsValueForKey:@"ratSpeed"]) { // this means all of these new things exist
             self.ratSpeed = [aDecoder decodeIntForKey:@"ratSpeed"];
             self.statsRushAtt = [aDecoder decodeIntForKey:@"statsRushAtt"];
-            self.statsTD = [aDecoder decodeIntForKey:@"statsTD"];
+            self.statsRushTD = [aDecoder decodeIntForKey:@"statsRushTD"];
             self.statsFumbles = [aDecoder decodeIntForKey:@"statsFumbles"];
             self.statsRushYards = [aDecoder decodeIntForKey:@"statsRushYards"];
             
             self.careerStatsRushAtt = [aDecoder decodeIntForKey:@"careerStatsRushAtt"];
-            self.careerStatsTD = [aDecoder decodeIntForKey:@"careerStatsTD"];
+            self.careerStatsRushTD = [aDecoder decodeIntForKey:@"careerStatsRushTD"];
             self.careerStatsFumbles = [aDecoder decodeIntForKey:@"careerStatsFumbles"];
             self.careerStatsRushYards = [aDecoder decodeIntForKey:@"careerStatsRushYards"];
         }
@@ -99,12 +99,12 @@
     
     [aCoder encodeInt:self.statsRushYards forKey:@"statsRushYards"];
     [aCoder encodeInt:self.statsFumbles forKey:@"statsFumbles"];
-    [aCoder encodeInt:self.statsTD forKey:@"statsTD"];
+    [aCoder encodeInt:self.statsRushTD forKey:@"statsRushTD"];
     [aCoder encodeInt:self.statsRushAtt forKey:@"statsRushAtt"];
     
     [aCoder encodeInt:self.careerStatsRushYards forKey:@"careerStatsRushYards"];
     [aCoder encodeInt:self.careerStatsFumbles forKey:@"careerStatsFumbles"];
-    [aCoder encodeInt:self.careerStatsTD forKey:@"careerStatsTD"];
+    [aCoder encodeInt:self.careerStatsRushTD forKey:@"careerStatsRushTD"];
     [aCoder encodeInt:self.careerStatsRushAtt forKey:@"careerStatsRushAtt"];
 }
 
