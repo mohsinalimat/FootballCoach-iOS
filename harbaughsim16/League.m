@@ -35,6 +35,409 @@
 @implementation League
 @synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear;
 
+- (void) encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
+    [encoder encodeBool:heismanDecided forKey:@"heismanDecided"];
+    [encoder encodeBool:self.canRebrandTeam forKey:@"canRebrandTeam"];
+    [encoder encodeObject:self.heisman forKey:@"heisman"];
+    [encoder encodeObject:self.heismanFinalists forKey:@"heismanFinalists"];
+    [encoder encodeObject:heismanCandidates forKey:@"heismanCandidates"];
+    [encoder encodeObject:heismanWinnerStrFull forKey:@"heismanWinnerStrFull"];
+    [encoder encodeObject:leagueHistory forKey:@"leagueHistory"];
+    [encoder encodeObject:self.leagueHistoryDictionary forKey:@"leagueHistoryDictionary"];
+    [encoder encodeObject:self.allDraftedPlayers forKey:@"allDraftedPlayers"];
+    [encoder encodeObject:self.allLeaguePlayers forKey:@"allLeaguePlayers"];
+    [encoder encodeObject:self.hallOfFamers forKey:@"hallOfFamers"];
+    [encoder encodeObject:heismanHistory forKey:@"heismanHistory"];
+    [encoder encodeObject:self.heismanHistoryDictionary forKey:@"heismanHistoryDictionary"];
+    [encoder encodeObject:self.conferences forKey:@"conferences"];
+    [encoder encodeObject:self.teamList forKey:@"teamList"];
+    [encoder encodeObject:self.nameList forKey:@"nameList"];
+    [encoder encodeObject:self.newsStories forKey:@"newsStories"];
+    [encoder encodeInt:self.currentWeek forKey:@"currentWeek"];
+    [encoder encodeBool:self.hasScheduledBowls forKey:@"hasScheduledBowls"];
+    [encoder encodeObject:self.semiG14 forKey:@"semiG14"];
+    [encoder encodeObject:self.semiG23 forKey:@"semiG23"];
+    [encoder encodeObject:self.ncg forKey:@"ncg"];
+    [encoder encodeObject:self.bowlGames forKey:@"bowlGames"];
+    [encoder encodeObject:self.userTeam forKey:@"userTeam"];
+    [encoder encodeInt:self.recruitingStage forKey:@"recruitingStage"];
+    [encoder encodeObject:self.blessedTeam forKey:@"blessedTeam"];
+    [encoder encodeObject:self.cursedTeam forKey:@"cursedTeam"];
+    [encoder encodeObject:self.blessedTeamCoachName forKey:@"blessedTeamCoachName"];
+    [encoder encodeObject:self.cursedTeamCoachName forKey:@"cursedTeamCoachName"];
+    [encoder encodeInteger:self.blessedStoryIndex forKey:@"blessedStoryIndex"];
+    [encoder encodeInteger:self.cursedStoryIndex forKey:@"cursedStoryIndex"];
+    
+    [encoder encodeObject:self.singleSeasonCompletionsRecord forKey:@"singleSeasonCompletionsRecord"];
+    [encoder encodeObject:self.singleSeasonPassYardsRecord forKey:@"singleSeasonPassYardsRecord"];
+    [encoder encodeObject:self.singleSeasonPassTDsRecord forKey:@"singleSeasonPassTDsRecord"];
+    [encoder encodeObject:self.singleSeasonInterceptionsRecord forKey:@"singleSeasonInterceptionsRecord"];
+    [encoder encodeObject:self.singleSeasonFumblesRecord forKey:@"singleSeasonFumblesRecord"];
+    [encoder encodeObject:self.singleSeasonRushYardsRecord forKey:@"singleSeasonRushYardsRecord"];
+    [encoder encodeObject:self.singleSeasonRushTDsRecord forKey:@"singleSeasonRushTDsRecord"];
+    [encoder encodeObject:self.singleSeasonCarriesRecord forKey:@"singleSeasonCarriesRecord"];
+    [encoder encodeObject:self.singleSeasonRecYardsRecord forKey:@"singleSeasonRecYardsRecord"];
+    [encoder encodeObject:self.singleSeasonRecTDsRecord forKey:@"singleSeasonRecTDsRecord"];
+    [encoder encodeObject:self.singleSeasonCatchesRecord forKey:@"singleSeasonCatchesRecord"];
+    [encoder encodeObject:self.singleSeasonFgMadeRecord forKey:@"singleSeasonFgMadeRecord"];
+    [encoder encodeObject:self.singleSeasonXpMadeRecord forKey:@"singleSeasonXpMadeRecord"];
+    
+    [encoder encodeObject:self.careerCompletionsRecord forKey:@"careerCompletionsRecord"];
+    [encoder encodeObject:self.careerPassYardsRecord forKey:@"careerPassYardsRecord"];
+    [encoder encodeObject:self.careerPassTDsRecord forKey:@"careerPassTDsRecord"];
+    [encoder encodeObject:self.careerInterceptionsRecord forKey:@"careerInterceptionsRecord"];
+    [encoder encodeObject:self.careerFumblesRecord forKey:@"careerFumblesRecord"];
+    [encoder encodeObject:self.careerRushYardsRecord forKey:@"careerRushYardsRecord"];
+    [encoder encodeObject:self.careerRushTDsRecord forKey:@"careerRushTDsRecord"];
+    [encoder encodeObject:self.careerCarriesRecord forKey:@"careerCarriesRecord"];
+    [encoder encodeObject:self.careerRecYardsRecord forKey:@"careerRecYardsRecord"];
+    [encoder encodeObject:self.careerRecTDsRecord forKey:@"careerRecTDsRecord"];
+    [encoder encodeObject:self.careerCatchesRecord forKey:@"careerCatchesRecord"];
+    [encoder encodeObject:self.careerFgMadeRecord forKey:@"careerFgMadeRecord"];
+    [encoder encodeObject:self.careerXpMadeRecord forKey:@"careerXpMadeRecord"];
+    
+    //deprecated
+    [encoder encodeInt:leagueRecordFum forKey:@"leagueRecordFum"];
+    [encoder encodeInt:leagueRecordInt forKey:@"leagueRecordInt"];
+    [encoder encodeInt:leagueRecordFGMade forKey:@"leagueRecordFGMade"];
+    [encoder encodeInt:leagueRecordRushAtt forKey:@"leagueRecordRushAtt"];
+    [encoder encodeInt:leagueRecordXPMade forKey:@"leagueRecordXPMade"];
+    [encoder encodeInt:leagueRecordPassTDs forKey:@"leagueRecordPassTDs"];
+    [encoder encodeInt:leagueRecordRushTDs forKey:@"leagueRecordRushTDs"];
+    [encoder encodeInt:leagueRecordRecTDs forKey:@"leagueRecordRecTDs"];
+    [encoder encodeInt:leagueRecordReceptions forKey:@"leagueRecordReceptions"];
+    [encoder encodeInt:leagueRecordCompletions forKey:@"leagueRecordCompletions"];
+    [encoder encodeInt:leagueRecordRushYards forKey:@"leagueRecordRushYards"];
+    [encoder encodeInt:leagueRecordRecYards forKey:@"leagueRecordRecYards"];
+    [encoder encodeInt:leagueRecordPassYards forKey:@"leagueRecordPassYards"];
+    
+    [encoder encodeInt:leagueRecordYearFum forKey:@"leagueRecordYearFum"];
+    [encoder encodeInt:leagueRecordYearInt forKey:@"leagueRecordYearInt"];
+    [encoder encodeInt:leagueRecordYearFGMade forKey:@"leagueRecordYearFGMade"];
+    [encoder encodeInt:leagueRecordYearXPMade forKey:@"leagueRecordYearXPMade"];
+    [encoder encodeInt:leagueRecordYearRecTDs forKey:@"leagueRecordYearRecTDs"];
+    [encoder encodeInt:leagueRecordYearReceptions forKey:@"leagueRecordYearReceptions"];
+    [encoder encodeInt:leagueRecordYearRushAtt forKey:@"leagueRecordYearRushAtt"];
+    [encoder encodeInt:leagueRecordYearRushYards forKey:@"leagueRecordYearRushYards"];
+    [encoder encodeInt:leagueRecordYearRushTDs forKey:@"leagueRecordYearRushTDs"];
+    [encoder encodeInt:leagueRecordYearPassTDs forKey:@"leagueRecordYearPassTDs"];
+    [encoder encodeInt:leagueRecordYearCompletions forKey:@"leagueRecordYearCompletions"];
+    [encoder encodeInt:leagueRecordYearPassYards forKey:@"leagueRecordYearPassYards"];
+    
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
+        
+        heismanDecided = [decoder decodeBoolForKey:@"heismanDecided"];
+        self.heisman = [decoder decodeObjectForKey:@"heisman"];
+        self.heismanFinalists = [decoder decodeObjectForKey:@"heismanFinalists"];
+        heismanCandidates = [decoder decodeObjectForKey:@"heismanCandidates"];
+        heismanWinnerStrFull = [decoder decodeObjectForKey:@"heismanWinnerStrFull"];
+        leagueHistory = [decoder decodeObjectForKey:@"leagueHistory"];
+        heismanHistory = [decoder decodeObjectForKey:@"heismanHistory"];
+        self.conferences = [decoder decodeObjectForKey:@"conferences"];
+        self.teamList = [decoder decodeObjectForKey:@"teamList"];
+        self.nameList = [decoder decodeObjectForKey:@"nameList"];
+        self.newsStories = [decoder decodeObjectForKey:@"newsStories"];
+        self.currentWeek = [decoder decodeIntForKey:@"currentWeek"];
+        self.hasScheduledBowls = [decoder decodeBoolForKey:@"hasScheduledBowls"];
+        self.semiG14 = [decoder decodeObjectForKey:@"semiG14"];
+        self.semiG23 = [decoder decodeObjectForKey:@"semiG23"];
+        self.ncg = [decoder decodeObjectForKey:@"ncg"];
+        self.bowlGames = [decoder decodeObjectForKey:@"bowlGames"];
+        self.userTeam = [decoder decodeObjectForKey:@"userTeam"];
+        self.recruitingStage = [decoder decodeIntForKey:@"recruitingStage"];
+        self.canRebrandTeam = [decoder decodeBoolForKey:@"canRebrandTeam"];
+        
+        if (![decoder containsValueForKey:@"hallOfFamers"]) {
+            self.hallOfFamers = [NSMutableArray array];
+        } else {
+            self.hallOfFamers = [decoder decodeObjectForKey:@"hallOfFamers"];
+        }
+        
+        if (![decoder containsValueForKey:@"allDraftedPlayers"]) {
+            self.allDraftedPlayers = [NSMutableArray array];
+        } else {
+            self.allDraftedPlayers = [decoder decodeObjectForKey:@"allDraftedPlayers"];
+        }
+        
+        if (![decoder containsValueForKey:@"allLeaguePlayers"]) {
+            self.allLeaguePlayers = [NSMutableDictionary dictionary];
+        } else {
+            self.allLeaguePlayers = [decoder decodeObjectForKey:@"allLeaguePlayers"];
+        }
+        
+        if (![decoder containsValueForKey:@"isHardMode"]) {
+            self.isHardMode = NO;
+        } else {
+            self.isHardMode = [decoder decodeBoolForKey:@"isHardMode"];
+        }
+        
+        if (![decoder containsValueForKey:@"blessedTeam"]) {
+            self.blessedTeam = nil;
+        } else {
+            self.blessedTeam = [decoder decodeObjectForKey:@"blessedTeam"];
+        }
+        
+        if (![decoder containsValueForKey:@"cursedTeam"]) {
+            self.cursedTeam = nil;
+        } else {
+            self.cursedTeam = [decoder decodeObjectForKey:@"cursedTeam"];
+        }
+        
+        if (![decoder containsValueForKey:@"blessedTeamCoachName"]) {
+            self.blessedTeamCoachName = nil;
+        } else {
+            self.blessedTeamCoachName = [decoder decodeObjectForKey:@"blessedTeamCoachName"];
+        }
+        
+        if (![decoder containsValueForKey:@"cursedTeamCoachName"]) {
+            self.cursedTeamCoachName = nil;
+        } else {
+            self.cursedTeamCoachName = [decoder decodeObjectForKey:@"cursedTeamCoachName"];
+        }
+        
+        if (![decoder containsValueForKey:@"blessedStoryIndex"]) {
+            self.blessedStoryIndex = 0;
+        } else {
+            self.blessedStoryIndex = [decoder decodeIntForKey:@"blessedStoryIndex"];
+        }
+        
+        if (![decoder containsValueForKey:@"cursedStoryIndex"]) {
+            self.cursedStoryIndex = 0;
+        } else {
+            self.cursedStoryIndex = [decoder decodeIntForKey:@"cursedStoryIndex"];
+        }
+        
+        if (![decoder containsValueForKey:@"leagueHistoryDictionary"]) {
+            NSInteger yearsActive = leagueHistory.count;
+            self.leagueHistoryDictionary = [NSMutableDictionary dictionary];
+            for (int i = 0; i < yearsActive; i++) {
+                [self.leagueHistoryDictionary setObject:leagueHistory[i] forKey:[NSString stringWithFormat:@"%ld",(long)(2016 + i)]];
+            }
+        } else {
+            self.leagueHistoryDictionary = [decoder decodeObjectForKey:@"leagueHistoryDictionary"];
+        }
+        
+        if (![decoder containsValueForKey:@"heismanHistoryDictionary"]) {
+            NSInteger yearsActive = heismanHistory.count;
+            self.heismanHistoryDictionary = [NSMutableDictionary dictionary];
+            for (int i = 0; i < yearsActive; i++) {
+                [self.heismanHistoryDictionary setObject:heismanHistory[i] forKey:[NSString stringWithFormat:@"%ld",(long)(2016 + i)]];
+            }
+        } else {
+            self.heismanHistoryDictionary = [decoder decodeObjectForKey:@"heismanHistoryDictionary"];
+        }
+        
+        //single season
+        //pass records
+        if (![decoder containsValueForKey:@"singleSeasonCompletionsRecord"]) {
+            self.singleSeasonCompletionsRecord = nil;
+        } else {
+            self.singleSeasonCompletionsRecord = [decoder decodeObjectForKey:@"singleSeasonCompletionsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonPassYardsRecord"]) {
+            self.singleSeasonPassYardsRecord = nil;
+        } else {
+            
+            self.singleSeasonPassYardsRecord = [decoder decodeObjectForKey:@"singleSeasonPassYardsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonPassTDsRecord"]) {
+            self.singleSeasonPassTDsRecord = nil;
+        } else {
+            self.singleSeasonPassTDsRecord = [decoder decodeObjectForKey:@"singleSeasonPassTDsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonInterceptionsRecord"]) {
+            self.singleSeasonInterceptionsRecord = nil;
+        } else {
+            self.singleSeasonInterceptionsRecord = [decoder decodeObjectForKey:@"singleSeasonInterceptionsRecord"];
+        }
+        
+        // rush records
+        if (![decoder containsValueForKey:@"singleSeasonFumblesRecord"]) {
+            self.singleSeasonFumblesRecord = nil;
+        } else {
+            self.singleSeasonFumblesRecord = [decoder decodeObjectForKey:@"singleSeasonFumblesRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonRushYardsRecord"]) {
+            self.singleSeasonRushYardsRecord = nil;
+        } else {
+            
+            self.singleSeasonRushYardsRecord = [decoder decodeObjectForKey:@"singleSeasonRushYardsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonRushTDsRecord"]) {
+            self.singleSeasonRushTDsRecord = nil;
+        } else {
+            self.singleSeasonRushTDsRecord = [decoder decodeObjectForKey:@"singleSeasonRushTDsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonCarriesRecord"]) {
+            self.singleSeasonCarriesRecord = nil;
+        } else {
+            self.singleSeasonCarriesRecord = [decoder decodeObjectForKey:@"singleSeasonCarriesRecord"];
+        }
+        
+        
+        //rec records
+        if (![decoder containsValueForKey:@"singleSeasonRecYardsRecord"]) {
+            self.singleSeasonRecYardsRecord = nil;
+        } else {
+            
+            self.singleSeasonRecYardsRecord = [decoder decodeObjectForKey:@"singleSeasonRecYardsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonRecTDsRecord"]) {
+            self.singleSeasonRecTDsRecord = nil;
+        } else {
+            self.singleSeasonRecTDsRecord = [decoder decodeObjectForKey:@"singleSeasonRecTDsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonCatchesRecord"]) {
+            self.singleSeasonCatchesRecord = nil;
+        } else {
+            self.singleSeasonCatchesRecord = [decoder decodeObjectForKey:@"singleSeasonCatchesRecord"];
+        }
+        
+        //kick records
+        if (![decoder containsValueForKey:@"singleSeasonXpMadeRecord"]) {
+            self.singleSeasonXpMadeRecord = nil;
+        } else {
+            self.singleSeasonXpMadeRecord = [decoder decodeObjectForKey:@"singleSeasonXpMadeRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonFgMadeRecord"]) {
+            self.singleSeasonFgMadeRecord = nil;
+        } else {
+            self.singleSeasonFgMadeRecord = [decoder decodeObjectForKey:@"singleSeasonFgMadeRecord"];
+        }
+        
+        //career
+        //pass records
+        if (![decoder containsValueForKey:@"careerCompletionsRecord"]) {
+            self.careerCompletionsRecord = nil;
+        } else {
+            self.careerCompletionsRecord = [decoder decodeObjectForKey:@"careerCompletionsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerPassYardsRecord"]) {
+            self.careerPassYardsRecord = nil;
+        } else {
+            
+            self.careerPassYardsRecord = [decoder decodeObjectForKey:@"careerPassYardsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerPassTDsRecord"]) {
+            self.careerPassTDsRecord = nil;
+        } else {
+            self.careerPassTDsRecord = [decoder decodeObjectForKey:@"careerPassTDsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerInterceptionsRecord"]) {
+            self.careerInterceptionsRecord = nil;
+        } else {
+            self.careerInterceptionsRecord = [decoder decodeObjectForKey:@"careerInterceptionsRecord"];
+        }
+        
+        // rush records
+        if (![decoder containsValueForKey:@"careerFumblesRecord"]) {
+            self.careerFumblesRecord = nil;
+        } else {
+            self.careerFumblesRecord = [decoder decodeObjectForKey:@"careerFumblesRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerRushYardsRecord"]) {
+            self.careerRushYardsRecord = nil;
+        } else {
+            
+            self.careerRushYardsRecord = [decoder decodeObjectForKey:@"careerRushYardsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerRushTDsRecord"]) {
+            self.careerRushTDsRecord = nil;
+        } else {
+            self.careerRushTDsRecord = [decoder decodeObjectForKey:@"careerRushTDsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerCarriesRecord"]) {
+            self.careerCarriesRecord = nil;
+        } else {
+            self.careerCarriesRecord = [decoder decodeObjectForKey:@"careerCarriesRecord"];
+        }
+        
+        
+        //rec records
+        if (![decoder containsValueForKey:@"careerRecYardsRecord"]) {
+            self.careerRecYardsRecord = nil;
+        } else {
+            
+            self.careerRecYardsRecord = [decoder decodeObjectForKey:@"careerRecYardsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerRecTDsRecord"]) {
+            self.careerRecTDsRecord = nil;
+        } else {
+            self.careerRecTDsRecord = [decoder decodeObjectForKey:@"careerRecTDsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerCatchesRecord"]) {
+            self.careerCatchesRecord = nil;
+        } else {
+            self.careerCatchesRecord = [decoder decodeObjectForKey:@"careerCatchesRecord"];
+        }
+        
+        //kick records
+        if (![decoder containsValueForKey:@"careerXpMadeRecord"]) {
+            self.careerXpMadeRecord = nil;
+        } else {
+            self.careerXpMadeRecord = [decoder decodeObjectForKey:@"careerXpMadeRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerFgMadeRecord"]) {
+            self.careerFgMadeRecord = nil;
+        } else {
+            self.careerFgMadeRecord = [decoder decodeObjectForKey:@"careerFgMadeRecord"];
+        }
+        
+        //deprecated
+        leagueRecordYearPassYards = 0;
+        leagueRecordYearCompletions = 0;
+        leagueRecordYearPassTDs = 0;
+        leagueRecordYearRushTDs = 0;
+        leagueRecordYearRushYards = 0;
+        leagueRecordYearRushAtt = 0;
+        leagueRecordYearFum = 0;
+        leagueRecordYearInt = 0;
+        leagueRecordYearRecTDs = 0;
+        leagueRecordYearRecYards = 0;
+        leagueRecordYearReceptions = 0;
+        leagueRecordYearXPMade = 0;
+        leagueRecordYearFGMade = 0;
+        leagueRecordPassYards = 0;
+        leagueRecordCompletions = 0;
+        leagueRecordPassTDs = 0;
+        leagueRecordRushTDs = 0;
+        leagueRecordRushAtt = 0;
+        leagueRecordRushYards = 0;
+        leagueRecordRecYards = 0;
+        leagueRecordRecTDs = 0;
+        leagueRecordReceptions = 0;
+        leagueRecordFum = 0;
+        leagueRecordInt = 0;
+        leagueRecordXPMade = 0;
+        leagueRecordFGMade = 0;
+        
+        
+    }
+    return self;
+}
 -(NSArray*)singleSeasonRecords {
     NSMutableArray *records = [NSMutableArray array];
     if (singleSeasonCompletionsRecord != nil) {

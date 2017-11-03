@@ -121,16 +121,28 @@
         self.AwayKStats = [aDecoder decodeObjectForKey:@"AwayKStats"];
 
         if ([aDecoder containsValueForKey:@"homeStarters"]) {
-                self.homeStarters = [aDecoder decodeObjectForKey:@"homeStarters"];
-            } else {
-                    self.homeStarters = [NSMutableArray array];
-                }
+            self.homeStarters = [aDecoder decodeObjectForKey:@"homeStarters"];
+        } else {
+            self.homeStarters = [NSMutableArray array];
+        }
 
         if ([aDecoder containsValueForKey:@"awayStarters"]) {
-                self.awayStarters = [aDecoder decodeObjectForKey:@"awayStarters"];
-            } else {
-                    self.awayStarters = [NSMutableArray array];
-                }
+            self.awayStarters = [aDecoder decodeObjectForKey:@"awayStarters"];
+        } else {
+            self.awayStarters = [NSMutableArray array];
+        }
+        
+        if ([aDecoder containsValueForKey:@"HomeTEStats"]) {
+            self.HomeTEStats = [aDecoder decodeObjectForKey:@"HomeTEStats"];
+        } else {
+            self.HomeTEStats = [NSMutableArray arrayWithObjects:@0,@0,@0,@0,@0,@0, nil];
+        }
+        
+        if ([aDecoder containsValueForKey:@"AwayTEStats"]) {
+            self.AwayTEStats = [aDecoder decodeObjectForKey:@"AwayTEStats"];
+        } else {
+            self.AwayTEStats = [NSMutableArray arrayWithObjects:@0,@0,@0,@0,@0,@0, nil];
+        }
     }
     return self;
 }
@@ -704,7 +716,7 @@
                                                          [homeTeam getWR:1],
                                                          [homeTeam getWR:2],
                                                         
-                                                        [homeTeam getTE:0],
+                                                         [homeTeam getTE:0],
                                                          
                                                          [homeTeam getOL:0],
                                                          [homeTeam getOL:1],
