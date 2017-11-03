@@ -54,13 +54,13 @@
                     t.teamTEs = [NSMutableArray array];
                     for( int i = 0; i < 2; ++i ) {
                         //make TEs
-                        [t.teamTEs addObject:[PlayerTE newTEWithName:[oldLigue getRandName] year:1 stars:3 team:t]];
+                        [t.teamTEs addObject:[PlayerTE newTEWithName:[oldLigue getRandName] year:((int)(3 * [HBSharedUtils randomValue]) + 1) stars:3 team:t]];
                     }
                     
                     t.teamLBs = [NSMutableArray array];
                     for( int i = 0; i < 6; ++i ) {
                         //make LBs
-                        [t.teamLBs addObject:[PlayerLB newLBWithName:[oldLigue getRandName] year:1 stars:3 team:t]];
+                        [t.teamLBs addObject:[PlayerLB newLBWithName:[oldLigue getRandName] year:((int)(3 * [HBSharedUtils randomValue]) + 1) stars:3 team:t]];
                     }
                     
                     // convert F7s to DLs

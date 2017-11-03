@@ -175,10 +175,10 @@
             NSString *title = @"";
             NSString *strat = @"";
             if (indexPath.row == 0) {
-                title = @"Offensive Strategy";
+                title = @"Offensive Playbook";
                 strat = userTeam.offensiveStrategy.stratName;
             } else {
-                title = @"Defensive Strategy";
+                title = @"Defensive Playbook";
                 strat = userTeam.defensiveStrategy.stratName;
             }
             

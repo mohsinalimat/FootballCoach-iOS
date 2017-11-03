@@ -27,10 +27,10 @@
     if (self) {
         isOffense = offensive;
         if (isOffense) {
-            self.title = @"Offensive Strategies";
+            self.title = @"Offensive Playbooks";
             selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils getLeague].userTeam.teamStatOffNum inSection:0];
         } else {
-            self.title = @"Defensive Strategies";
+            self.title = @"Defensive Playbooks";
             selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils getLeague].userTeam.teamStatDefNum inSection:0];
         }
         self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 10 + (options.count * 90));

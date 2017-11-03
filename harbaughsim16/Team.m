@@ -1677,12 +1677,24 @@
 
 -(int)getCompositeF7Pass {
     int compositeF7 = 0;
-    for ( int i = 0; i < 4; ++i ) {
-        compositeF7 += (teamDLs[i].ratDLPow + teamDLs[i].ratDLPas)/2;
+    if (teamDLs.count >= 4) {
+        for ( int i = 0; i < 4; ++i ) {
+            compositeF7 += (teamDLs[i].ratDLPow + teamDLs[i].ratDLPas)/2;
+        }
+    } else {
+        for ( int i = 0; i < teamDLs.count; ++i ) {
+            compositeF7 += (teamDLs[i].ratDLPow + teamDLs[i].ratDLPas)/2;
+        }
     }
     
-    for (int i = 0; i < 3; i++) {
-        compositeF7 += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBPas)/2;
+    if (teamLBs.count >= 3) {
+        for ( int i = 0; i < 3; ++i ) {
+            compositeF7 += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBPas)/2;
+        }
+    } else {
+        for ( int i = 0; i < teamLBs.count; ++i ) {
+            compositeF7 += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBPas)/2;
+        }
     }
     return compositeF7 / 7;
 }
@@ -1690,12 +1702,25 @@
 -(int)getCompositeF7Rush {
     int compositeDL = 0;
     int compositeLB = 0;
-    //int compositeS = 0;
-    for ( int i = 0; i < 4; ++i ) {
-        compositeDL += (teamDLs[i].ratDLPow + teamDLs[i].ratDLRsh)/2;
+
+    if (teamDLs.count >= 4) {
+        for ( int i = 0; i < 4; ++i ) {
+            compositeDL += (teamDLs[i].ratDLPow + teamDLs[i].ratDLRsh)/2;
+        }
+    } else {
+        for ( int i = 0; i < teamDLs.count; ++i ) {
+            compositeDL += (teamDLs[i].ratDLPow + teamDLs[i].ratDLRsh)/2;
+        }
     }
-    for ( int i = 0; i < 3; ++i ) {
-        compositeLB += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBRsh)/2;
+    
+    if (teamLBs.count >= 3) {
+        for ( int i = 0; i < 3; ++i ) {
+            compositeLB += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBRsh)/2;
+        }
+    } else {
+        for ( int i = 0; i < teamLBs.count; ++i ) {
+            compositeLB += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBRsh)/2;
+        }
     }
 
     return (2*compositeDL + compositeLB)/11;
@@ -2134,7 +2159,7 @@
         [self checkInjuryPosition:teamOLs starters:5];
         [self checkInjuryPosition:teamKs starters:1];
         [self checkInjuryPosition:teamSs starters:1];
-        [self checkInjuryPosition:teamCBs starters:3];
+        [self checkInjuryPosition:teamCBs starters:2];
         [self checkInjuryPosition:teamDLs starters:4];
         [self checkInjuryPosition:teamLBs starters:3];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"injuriesPosted" object:nil];

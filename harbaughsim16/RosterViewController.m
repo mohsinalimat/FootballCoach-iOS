@@ -417,7 +417,7 @@
                 [cell.nameLabel setTextColor:[UIColor blackColor]];
             }
         } else if (indexPath.section == 7) {
-            if (indexPath.row < 3) {
+            if (indexPath.row < 2) {
                 [cell.nameLabel setTextColor:[HBSharedUtils styleColor]];
             } else {
                 [cell.nameLabel setTextColor:[UIColor blackColor]];
