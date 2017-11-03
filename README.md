@@ -62,8 +62,12 @@ Establish your own college football dynasty - play Football Coach today!
 --
 
 **Special thanks to**:
+
 Achi Jones - maker of the original Android app
+
 /u/minotauri - Reddit user who built suggested new features
+
+
 
 Visit Football Coach on Reddit at https://reddit.com/r/FootballCoach!
 
