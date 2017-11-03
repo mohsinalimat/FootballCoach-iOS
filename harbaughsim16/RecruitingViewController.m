@@ -1076,13 +1076,13 @@
     } else if (player.cost > recruitingBudget) {
         [cell.recruitButton setEnabled:NO];
         [cell.recruitButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        [cell.recruitButton setTitle:[NSString stringWithFormat:@"Recruit Player (%d pts)", player.cost] forState:UIControlStateNormal];
+        [cell.recruitButton setTitle:[NSString stringWithFormat:@"Recruit (%d pts)", player.cost] forState:UIControlStateNormal];
         [cell.recruitButton removeTarget:self action:@selector(removeRecruit:) forControlEvents:UIControlEventTouchUpInside];
         [cell.recruitButton addTarget:self action:@selector(recruitPlayer:) forControlEvents:UIControlEventTouchUpInside];
     } else {
         [cell.recruitButton setEnabled:YES];
         [cell.recruitButton setTitleColor:[HBSharedUtils styleColor] forState:UIControlStateNormal];
-        [cell.recruitButton setTitle:[NSString stringWithFormat:@"Recruit Player (%d pts)", player.cost] forState:UIControlStateNormal];
+        [cell.recruitButton setTitle:[NSString stringWithFormat:@"Recruit (%d pts)", player.cost] forState:UIControlStateNormal];
         [cell.recruitButton removeTarget:self action:@selector(removeRecruit:) forControlEvents:UIControlEventTouchUpInside];
         [cell.recruitButton addTarget:self action:@selector(recruitPlayer:) forControlEvents:UIControlEventTouchUpInside];
     }

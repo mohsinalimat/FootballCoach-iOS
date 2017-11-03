@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,7 +21,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OVR: 100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufP-GG-djG">
-                        <rect key="frame" x="238" y="8" width="74" height="26"/>
+                        <rect key="frame" x="230" y="11" width="74" height="26"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="74" id="xQy-Na-UMM"/>
                         </constraints>
@@ -30,7 +30,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJu-p2-G6d">
-                        <rect key="frame" x="8" y="8" width="21" height="26"/>
+                        <rect key="frame" x="16" y="11" width="21" height="26"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="26" id="98x-o4-pRH"/>
                         </constraints>
@@ -39,7 +39,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FIRST AND LAST NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QO1-QA-LEj">
-                        <rect key="frame" x="34" y="8" width="185.5" height="26"/>
+                        <rect key="frame" x="42" y="11" width="185.5" height="26"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -208,9 +208,9 @@
                         </subviews>
                     </stackView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3vX-cu-HQl">
-                        <rect key="frame" x="77" y="147" width="166" height="34.5"/>
+                        <rect key="frame" x="85" y="150" width="150" height="29"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
-                        <state key="normal" title="Recruit Player ($cost)">
+                        <state key="normal" title="Recruit ($cost)">
                             <color key="titleColor" red="0.23921568630000001" green="0.70196078429999997" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
                     </button>
@@ -245,7 +245,7 @@
                 <outlet property="stat5ValueLabel" destination="Hgt-Lo-7co" id="Eib-So-6tn"/>
                 <outlet property="stat6ValueLabel" destination="FcZ-bG-l5j" id="7F6-W6-3kr"/>
             </connections>
-            <point key="canvasLocation" x="360" y="318"/>
+            <point key="canvasLocation" x="87" y="230"/>
         </tableViewCell>
     </objects>
 </document>

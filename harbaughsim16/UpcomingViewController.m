@@ -179,7 +179,7 @@
             [popupController presentInViewController:self];
         }]];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"All-Pro Team" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"All-League Team" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[AllLeagueTeamViewController alloc] init] animated:YES];
         }]];
     } else if ([HBSharedUtils getLeague].currentWeek == 14) {
