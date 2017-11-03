@@ -664,25 +664,54 @@
             if (indexPath.row == 0) {
                 cell.textLabel.text = @"Passing";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ QB %@", passLeader.team.abbreviation, [passLeader getInitialName]]];
+                if (passLeader.isHeisman) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                }
             } else if (indexPath.row == 1) {
                 cell.textLabel.text = @"Rushing";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ RB %@", rushLeader.team.abbreviation, [rushLeader getInitialName]]];
+                if (rushLeader.isHeisman) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                }
             } else if (indexPath.row == 2) {
                 cell.textLabel.text = @"Receiving";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ WR %@", recLeader.team.abbreviation, [recLeader getInitialName]]];
+                if (recLeader.isHeisman) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                }
             } else if (indexPath.row == 3) {
                 cell.textLabel.text = @"Defense";
                 cell.detailTextLabel.text = defLeader.name;
+                if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                }
             } else {
                 cell.textLabel.text = @"Kicking";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ K %@", kickLeader.team.abbreviation, [kickLeader getInitialName]]];
+                if (kickLeader.isHeisman) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                }
             }
             
-            if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
-                [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
-            } else {
-                [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-            }
+           
             
             return cell;
         }
@@ -767,24 +796,51 @@
             if (indexPath.row == 0) {
                 cell.textLabel.text = @"Passing";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ QB %@", passLeader.team.abbreviation, [passLeader getInitialName]]];
+                if (passLeader.isHeisman) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                }
             } else if (indexPath.row == 1) {
                 cell.textLabel.text = @"Rushing";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ RB %@", rushLeader.team.abbreviation, [rushLeader getInitialName]]];
+                if (rushLeader.isHeisman) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                }
             } else if (indexPath.row == 2) {
                 cell.textLabel.text = @"Receiving";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ WR %@", recLeader.team.abbreviation, [recLeader getInitialName]]];
+                if (recLeader.isHeisman) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                }
             } else if (indexPath.row == 3) {
                 cell.textLabel.text = @"Defense";
                 cell.detailTextLabel.text = defLeader.name;
+                if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                }
             } else {
                 cell.textLabel.text = @"Kicking";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ K %@", kickLeader.team.abbreviation, [kickLeader getInitialName]]];
-            }
-            
-            if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
-                [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
-            } else {
-                [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                if (kickLeader.isHeisman) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
+                } else {
+                    [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+                }
             }
             
             return cell;

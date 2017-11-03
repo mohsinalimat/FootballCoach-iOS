@@ -423,7 +423,7 @@
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
-        if ([HBSharedUtils getLeague].currentWeek >= 19 && heisman != nil) {
+        if ([HBSharedUtils getLeague].currentWeek > 14 && heisman != nil) {
             if ([heisman isEqual:plyr]) {
                 [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
             } else {
