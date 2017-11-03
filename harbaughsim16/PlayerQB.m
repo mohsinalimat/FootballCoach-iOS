@@ -124,7 +124,7 @@
         self.ratPassEva = eva;
 
         self.cost = (int)(powf((float)self.ratOvr/3.5,2.0)) + (int)([HBSharedUtils randomValue]*100) - 50;
-        self.ratSpeed = (int) (47 + self.year*5 + [HBSharedUtils randomValue]*5 - 25 * [HBSharedUtils randomValue]);
+        self.ratSpeed = (int) (67 + (self.year*5 * [HBSharedUtils randomValue]));
         NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;
         self.personalDetails = @{
@@ -178,7 +178,7 @@
         self.ratOvr = (self.ratPassPow*3 + self.ratPassAcc*4 + self.ratPassEva)/8;
 
         self.cost = (int)pow((float)self.ratOvr/3.5,2) + (int)([HBSharedUtils randomValue]*100) - 50;
-        self.ratSpeed = (int) (47 + self.year*5 + [HBSharedUtils randomValue]*5 - 25*[HBSharedUtils randomValue]);
+        self.ratSpeed = (int)(67 + (self.year*5 * [HBSharedUtils randomValue]));
         
         NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 5) + 2;

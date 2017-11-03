@@ -35,7 +35,7 @@
 #import "STPopup.h"
 #import "UIScrollView+EmptyDataSet.h"
 
-@interface UpcomingViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface UpcomingViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIViewControllerPreviewingDelegate>
 {
     PlayerQB *passLeader;
     PlayerRB *rushLeader;
@@ -51,6 +51,77 @@
 @end
 
 @implementation UpcomingViewController
+
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+-(UIViewController*)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    UIViewController *peekVC;
+    if (indexPath != nil) {
+        if ([HBSharedUtils getLeague].userTeam.gameWLSchedule.count > 0 && ![HBSharedUtils getLeague].userTeam.gameSchedule.lastObject.hasPlayed && [HBSharedUtils getLeague].userTeam.gameSchedule.count >= [HBSharedUtils getLeague].currentWeek) {
+            if (indexPath.section == 0) {
+                Game *bowl = lastGame;
+                if (indexPath.row == 0 || indexPath.row == 1) {
+                    peekVC = nil;
+                } else {
+                    peekVC =  [[GameDetailViewController alloc] initWithGame:bowl];
+                }
+            } else {
+                if (indexPath.row == 0) {
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionQB];
+                } else if (indexPath.row == 1) {
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionRB];
+                } else if (indexPath.row == 2) {
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionWR];
+                } else if (indexPath.row == 3) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
+                } else {
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK];
+                }
+            }
+        } else if ([HBSharedUtils getLeague].userTeam.gameSchedule.lastObject.hasPlayed) {
+            if (indexPath.section == 0) {
+                Game *bowl = lastGame;
+                if (indexPath.row == 0 || indexPath.row == 1) {
+                    peekVC = nil;
+                } else {
+                    peekVC =  [[GameDetailViewController alloc] initWithGame:bowl];
+                }
+            } else {
+                if (indexPath.row == 0) {
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionQB];
+                } else if (indexPath.row == 1) {
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionRB];
+                } else if (indexPath.row == 2) {
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionWR];
+                } else if (indexPath.row == 3) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
+                } else {
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK];
+                }
+            }
+        } else {
+            Game *bowl = nextGame;
+            if (indexPath.row == 0 || indexPath.row == 1) {
+                peekVC = nil;
+            } else {
+                peekVC =  [[GameDetailViewController alloc] initWithGame:bowl];
+            }
+        }
+        if (peekVC != nil) {
+            peekVC.preferredContentSize = CGSizeMake(0.0, 600);
+            previewingContext.sourceRect = cell.frame;
+            return peekVC;
+        } else {
+            return nil;
+        }
+    } else {
+        return nil;
+    }
+}
 
 -(void)backgroundViewDidTap {
     [popupController dismiss];
@@ -392,6 +463,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"HBScoreCell" bundle:nil] forCellReuseIdentifier:@"HBScoreCell"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"triline"] style:UIBarButtonItemStylePlain target:self action:@selector(viewResultsOptions)];

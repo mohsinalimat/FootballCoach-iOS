@@ -74,7 +74,7 @@
                     
                     // for QBs -> add speed attr and rush stats
                     for (PlayerQB *qb in t.teamQBs) {
-                        qb.ratSpeed = (int) (47 + qb.year*5 + [HBSharedUtils randomValue]*5 - 25*[HBSharedUtils randomValue]);
+                        qb.ratSpeed = (int) (67 + (qb.year*5 * [HBSharedUtils randomValue]));
                         
                         qb.statsRushAtt = 0;
                         qb.statsRushYards = 0;

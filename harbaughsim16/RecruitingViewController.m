@@ -109,7 +109,7 @@
     [availAll addObjectsFromArray:availTEs];
     [availAll addObjectsFromArray:availOLs];
     [availAll addObjectsFromArray:availDLs];
-     [availAll addObjectsFromArray:availLBs];
+    [availAll addObjectsFromArray:availLBs];
     [availAll addObjectsFromArray:availCBs];
     [availAll addObjectsFromArray:availSs];
     [availAll addObjectsFromArray:availKs];
@@ -1132,13 +1132,6 @@
                 [[HBSharedUtils getLeague].userTeam.teamRBs removeObject:(PlayerRB*)p];
                 if (!p.hasRedshirt)
                     needRBs++;
-            } else if ([p isKindOfClass:[PlayerWR class]]) {
-                if (![availWRs containsObject:p]) {
-                    [availWRs addObject:p];
-                }
-                [[HBSharedUtils getLeague].userTeam.teamWRs removeObject:(PlayerWR*)p];
-                if (!p.hasRedshirt)
-                    needWRs++;
             } else if ([p isKindOfClass:[PlayerTE class]]) {
                 if (![availTEs containsObject:p]) {
                     [availTEs addObject:p];
@@ -1146,6 +1139,13 @@
                 [[HBSharedUtils getLeague].userTeam.teamTEs removeObject:(PlayerTE*)p];
                 if (!p.hasRedshirt)
                     needTEs++;
+            } else if ([p isKindOfClass:[PlayerWR class]]) {
+                if (![availWRs containsObject:p]) {
+                    [availWRs addObject:p];
+                }
+                [[HBSharedUtils getLeague].userTeam.teamWRs removeObject:(PlayerWR*)p];
+                if (!p.hasRedshirt)
+                    needWRs++;
             } else if ([p isKindOfClass:[PlayerOL class]]) {
                 if (![availOLs containsObject:p]) {
                     [availOLs addObject:p];
@@ -1250,17 +1250,17 @@
             }
             [[HBSharedUtils getLeague].userTeam.teamRBs addObject:(PlayerRB*)player];
             //needRBs--;
-        } else if ([player isKindOfClass:[PlayerWR class]]) {
-            if ([availWRs containsObject:player]) {
-                [availWRs removeObject:player];
-            }
-            [[HBSharedUtils getLeague].userTeam.teamWRs addObject:(PlayerWR*)player];
-            //needWRs--;
         } else if ([player isKindOfClass:[PlayerTE class]]) {
             if ([availTEs containsObject:player]) {
                 [availTEs removeObject:player];
             }
             [[HBSharedUtils getLeague].userTeam.teamTEs addObject:(PlayerTE*)player];
+            //needWRs--;
+        } else if ([player isKindOfClass:[PlayerWR class]]) {
+            if ([availWRs containsObject:player]) {
+                [availWRs removeObject:player];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamWRs addObject:(PlayerWR*)player];
             //needWRs--;
         } else if ([player isKindOfClass:[PlayerOL class]]) {
             if ([availOLs containsObject:player]) {
@@ -1343,18 +1343,18 @@
             }
             [[HBSharedUtils getLeague].userTeam.teamRBs addObject:(PlayerRB*)player];
             needRBs--;
-        } else if ([player isKindOfClass:[PlayerWR class]]) {
-            if ([availWRs containsObject:player]) {
-                [availWRs removeObject:player];
-            }
-            [[HBSharedUtils getLeague].userTeam.teamWRs addObject:(PlayerWR*)player];
-            needWRs--;
         } else if ([player isKindOfClass:[PlayerTE class]]) {
             if ([availTEs containsObject:player]) {
                 [availTEs removeObject:player];
             }
             [[HBSharedUtils getLeague].userTeam.teamTEs addObject:(PlayerTE*)player];
             needTEs--;
+        } else if ([player isKindOfClass:[PlayerWR class]]) {
+            if ([availWRs containsObject:player]) {
+                [availWRs removeObject:player];
+            }
+            [[HBSharedUtils getLeague].userTeam.teamWRs addObject:(PlayerWR*)player];
+            needWRs--;
         } else if ([player isKindOfClass:[PlayerOL class]]) {
             if ([availOLs containsObject:player]) {
                 [availOLs removeObject:player];

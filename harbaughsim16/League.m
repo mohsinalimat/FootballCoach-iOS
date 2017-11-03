@@ -1297,7 +1297,7 @@
                 if (![heismanCandidates containsObject:qb]) {
                     [heismanCandidates addObject:qb];
                 }
-                tempScore = [qb getHeismanScore] + teamList[i].wins*100;
+                tempScore = [qb getHeismanScore] + teamList[i].wins*150;
                 if ( tempScore > heismanScore ) {
                     heisman = qb;
                     heismanScore = tempScore;
@@ -1307,11 +1307,11 @@
             //rb
             if (teamList[i].teamRBs.count > 1) {
                 for (int rb = 0; rb < 2; ++rb) {
-                    Player *rback =teamList[i].teamRBs[rb];
+                    Player *rback = teamList[i].teamRBs[rb];
                     if (![heismanCandidates containsObject:rback]) {
                         [heismanCandidates addObject:rback];
                     }
-                    tempScore = [rback getHeismanScore] + teamList[i].wins*100;
+                    tempScore = [rback getHeismanScore] + teamList[i].wins*150;
                     if ( tempScore > heismanScore ) {
                         heisman = rback;
                         heismanScore = tempScore;
@@ -1326,7 +1326,7 @@
                     if (![heismanCandidates containsObject:wrec]) {
                         [heismanCandidates addObject:wrec];
                     }
-                    tempScore = [wrec getHeismanScore] + teamList[i].wins*100;
+                    tempScore = [wrec getHeismanScore] + teamList[i].wins*150;
                     if ( tempScore > heismanScore ) {
                         heisman = wrec;
                         heismanScore = tempScore;

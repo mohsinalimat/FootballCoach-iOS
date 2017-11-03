@@ -18,7 +18,7 @@
 #import "Team.h"
 #import "PlayerDetailViewController.h"
 
-@interface PlayerStatsViewController ()
+@interface PlayerStatsViewController () <UIViewControllerPreviewingDelegate>
 {
     NSMutableArray *players;
     HBStatPosition position;
@@ -35,14 +35,38 @@
     }
     return self;
 }
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        HBPlayerCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:players[indexPath.row]];
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return playerDetail;
+    } else {
+        return nil;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     heisman = [[HBSharedUtils getLeague] heisman];
+    
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
     
     self.tableView.rowHeight = 60;
     self.tableView.estimatedRowHeight = 60;
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    
     players = [NSMutableArray array];
     
     if (position == HBStatPositionQB) {
