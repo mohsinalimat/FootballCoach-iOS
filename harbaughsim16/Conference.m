@@ -24,6 +24,61 @@
 @implementation Conference
 @synthesize ccg,confName,confTeams,confFullName,confPrestige,allConferencePlayers,league,week,robinWeek;
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+            self.confName = [aDecoder decodeObjectForKey:@"confName"];
+            self.confPrestige = [aDecoder decodeIntForKey:@"confPrestige"];
+            self.confTeams = [aDecoder decodeObjectForKey:@"confTeams"];
+            self.ccg = [aDecoder decodeObjectForKey:@"ccg"];
+            self.week = [aDecoder decodeIntForKey:@"week"];
+            self.robinWeek = [aDecoder decodeIntForKey:@"robinWeek"];
+            self.league = [aDecoder decodeObjectForKey:@"league"];
+    
+            if (![aDecoder containsValueForKey:@"allConferencePlayers"]) {
+                    self.allConferencePlayers = @{};
+                } else {
+                        self.allConferencePlayers = [aDecoder decodeObjectForKey:@"allConferencePlayers"];
+                    }
+    
+            if (![aDecoder containsValueForKey:@"confFullName"]) {
+                    if ([self.confName isEqualToString:@"SOUTH"]) {
+                            self.confFullName = @"Southern";
+                        } else if ([self.confName isEqualToString:@"COWBY"]) {
+                                self.confFullName = @"Cowboy";
+                            } else if ([self.confName isEqualToString:@"NORTH"]) {
+                                    self.confFullName = @"Northern";
+                                } else if ([self.confName isEqualToString:@"PACIF"]) {
+                                        self.confFullName = @"Pacific";
+                                    } else if ([self.confName isEqualToString:@"MOUNT"]) {
+                                            self.confFullName = @"Mountain";
+                                        } else if ([self.confName isEqualToString:@"LAKES"]) {
+                                                self.confFullName = @"Lakes";
+                                            } else {
+                                                    self.confFullName = @"Unknown";
+                                                }
+                } else {
+                        self.confFullName = [aDecoder decodeObjectForKey:@"confFullName"];
+                    }
+    
+    
+        }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.confName forKey:@"confName"];
+    [aCoder encodeObject:self.confFullName forKey:@"confFullName"];
+    [aCoder encodeInt:self.confPrestige forKey:@"confPrestige"];
+    [aCoder encodeObject:self.confTeams forKey:@"confTeams"];
+    [aCoder encodeObject:self.league forKey:@"league"];
+    [aCoder encodeObject:self.allConferencePlayers forKey:@"allConferencePlayers"];
+    [aCoder encodeObject:self.ccg forKey:@"ccg"];
+    [aCoder encodeInt:self.week forKey:@"week"];
+    [aCoder encodeInt:self.robinWeek forKey:@"robinWeek"];
+
+}
+
 +(instancetype)newConferenceWithName:(NSString*)name fullName:(NSString*)fullName league:(League*)league {
     Conference *conf = [[Conference alloc] init];
     if (conf) {
