@@ -12,6 +12,43 @@
 @implementation PlayerDL
 @synthesize ratDLPas,ratDLPow,ratDLRsh;
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.ratDLPow = [aDecoder decodeIntForKey:@"ratDLPow"];
+        self.ratDLRsh = [aDecoder decodeIntForKey:@"ratDLRsh"];
+        self.ratDLPas = [aDecoder decodeIntForKey:@"ratDLPas"];
+        
+        if ([aDecoder containsValueForKey:@"personalDetails"]) {
+            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+            if (self.personalDetails == nil) {
+                NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 225;
+                NSInteger inches = (int)([HBSharedUtils randomValue] * 3) + 2;
+                self.personalDetails = @{@"home_state" : [HBSharedUtils randomState],
+                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                         };
+            }
+        } else {
+            NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 225;
+            NSInteger inches = (int)([HBSharedUtils randomValue] * 3) + 2;
+            self.personalDetails = @{@"home_state" : [HBSharedUtils randomState],
+                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                     };
+        }
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeInt:self.ratDLPow forKey:@"ratDLPow"];
+    [aCoder encodeInt:self.ratDLRsh forKey:@"ratDLRsh"];
+    [aCoder encodeInt:self.ratDLPas forKey:@"ratDLPas"];
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
+}
+
 +(instancetype)newDLWithF7:(PlayerF7 *)f7 {
     return [[PlayerDL alloc] initWithF7:f7];
 }

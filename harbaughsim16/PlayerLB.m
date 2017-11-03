@@ -12,6 +12,43 @@
 @implementation PlayerLB
 @synthesize ratLBPas,ratLBRsh,ratLBTkl;
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        self.ratLBTkl = [aDecoder decodeIntForKey:@"ratLBTkl"];
+        self.ratLBRsh = [aDecoder decodeIntForKey:@"ratLBRsh"];
+        self.ratLBPas = [aDecoder decodeIntForKey:@"ratLBPas"];
+        
+        if ([aDecoder containsValueForKey:@"personalDetails"]) {
+            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+            if (self.personalDetails == nil) {
+                NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 225;
+                NSInteger inches = (int)([HBSharedUtils randomValue] * 3) + 2;
+                self.personalDetails = @{@"home_state" : [HBSharedUtils randomState],
+                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                         };
+            }
+        } else {
+            NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 225;
+            NSInteger inches = (int)([HBSharedUtils randomValue] * 3) + 2;
+            self.personalDetails = @{@"home_state" : [HBSharedUtils randomState],
+                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                     };
+        }
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeInt:self.ratLBTkl forKey:@"ratLBTkl"];
+    [aCoder encodeInt:self.ratLBRsh forKey:@"ratLBRsh"];
+    [aCoder encodeInt:self.ratLBPas forKey:@"ratLBPas"];
+    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
+}
+
 -(instancetype)initWithName:(NSString*)name team:(Team*)team year:(int)year potential:(int)potential iq:(int)iq tkl:(int)tkl pass:(int)pass rush:(int)rush dur:(int)dur {
     self = [super init];
     if (self) {
