@@ -259,7 +259,7 @@
 
     if (teamSize <= 35) {
         //adding bonus points if the offseason screwed you
-        NSInteger recruitingBonus = (20 * (33 - teamSize));
+        NSInteger recruitingBonus = (20 * (35 - teamSize));
         recruitingBudget += recruitingBonus;
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

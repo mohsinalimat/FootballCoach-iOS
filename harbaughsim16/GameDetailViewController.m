@@ -171,7 +171,7 @@
             } else if (indexPath.row == 1) {
                 peekVC = [[TeamViewController alloc] initWithTeam:selectedGame.homeTeam];
             } else {
-                peekVC = [self gameSummaryViewController];
+                peekVC = nil;
             }
         }
         if (peekVC != nil) {
@@ -225,33 +225,26 @@
     [self.tableView reloadData];
 }
 
--(UIViewController *)gameSummaryViewController {
-    static dispatch_once_t onceToken;
-    static UIViewController *viewController;
-    dispatch_once(&onceToken, ^{
-        viewController = [[UIViewController alloc] init];
-        [viewController.view setBackgroundColor:[UIColor whiteColor]];
-        viewController.title = @"Summary";
-        
-        NSString *summary = [selectedGame gameSummary];
-        
-        CGSize size = [summary boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil].size;
-        UITextView *postTextLabel = [[UITextView alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width - 30, size.height)];
-        [postTextLabel setSelectable:NO];
-        [postTextLabel setEditable:NO];
-        
-        [postTextLabel setText:summary];
-        [postTextLabel sizeToFit];
-        [postTextLabel.textContainer setSize:postTextLabel.frame.size];
-        
-        
-        [viewController setView:postTextLabel];
-    });
-    return viewController;
-}
 
 -(void)viewGameSummary {
-    [self.navigationController pushViewController:[self gameSummaryViewController] animated:YES];
+    UIViewController *viewController = [[UIViewController alloc] init];
+    [viewController.view setBackgroundColor:[UIColor whiteColor]];
+    viewController.title = @"Summary";
+    
+    NSString *summary = [selectedGame gameSummary];
+    
+    CGSize size = [summary boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil].size;
+    UITextView *postTextLabel = [[UITextView alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width - 30, size.height)];
+    [postTextLabel setSelectable:NO];
+    [postTextLabel setEditable:NO];
+    
+    [postTextLabel setText:summary];
+    [postTextLabel sizeToFit];
+    [postTextLabel.textContainer setSize:postTextLabel.frame.size];
+    
+    
+    [viewController setView:postTextLabel];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

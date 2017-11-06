@@ -977,12 +977,29 @@
         [self completeProDraft];
         canRebrandTeam = YES;
     }
+    [self generateCFPNews];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 
+    
+    
     [self setTeamRanks];
     currentWeek++;
-    //[self save];
 }
+
+-(void)generateCFPNews {
+    [self setTeamRanks];
+    NSArray<Team*> *teams = [teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePollScore:obj1 toObj2:obj2];
+    }];
+    
+    if (currentWeek == 8) {
+        [newsStories[9] addObject:[NSString stringWithFormat:@"Committee Announces First Playoff Rankings\nThe Playoff Committee has released its first rankings for this season's playoff. At the top of the list is %@, with %@, %@, and %@ rounding out the top 4.", teams[0].name, teams[1].name, teams[2].name, teams[3].name]];
+    } else if (currentWeek > 8 && currentWeek < 12) {
+        [newsStories[currentWeek + 1] addObject:[NSString stringWithFormat:@"Committee Releases Playoff Rankings after Week %lu\nThe Playoff Committee has updated its rankings after last week's games. At the top of the list is %@, with %@, %@, and %@ rounding out the top 4.", (long)currentWeek,teams[0].name, teams[1].name, teams[2].name, teams[3].name]];
+    }
+}
+
 
 -(void)scheduleBowlGames {
     //bowl week
@@ -1001,17 +1018,20 @@
     semiG14 = [Game newGameWithHome:teamList[0] away:teamList[3] name:@"Semis, 1v4"];
     [[teamList[0] gameSchedule] addObject:semiG14];
     [[teamList[3] gameSchedule] addObject:semiG14];
-
+    
     semiG23 = [Game newGameWithHome:teamList[1] away:teamList[2] name:@"Semis, 2v3"];
     [[teamList[1] gameSchedule] addObject:semiG23];
     [[teamList[2] gameSchedule] addObject:semiG23];
+    
+    // announce semifinal scheduling
+    [newsStories[currentWeek + 1] addObject:[NSString stringWithFormat:@"Playoff Teams Announced!\n%@ will travel to %@ and %@ will host %@ to determine which two teams will play for the national championship!", [teamList[3] strRep], [teamList[0] strRep], [teamList[1] strRep], [teamList[2] strRep]]];
 
     //other bowls
     NSMutableArray *bowlEligibleTeams = [NSMutableArray array];
     for (int i = 4; i < ([self bowlGameTitles].count * 2); i++) {
         [bowlEligibleTeams addObject:teamList[i]];
     }
-
+    
     [bowlGames removeAllObjects];
     int j = 0;
     int teamIndex = 0;
@@ -1025,8 +1045,10 @@
         [away.gameSchedule addObject:bowl];
         j++;
         teamIndex+=2;
+        
+        // announce bowl scheduling
+        [newsStories[currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ Selection Announced!\n%@ will host %@ in the %@ next week!",bowlName, [home strRep], [away strRep], bowlName]];
     }
-
 
     hasScheduledBowls = true;
 
@@ -1146,7 +1168,7 @@
                          [NSString stringWithFormat:@"%@ hires new AD!\n%@ has hired alumnus %@ as athletic director, who has pledged to invest more in the school's football program.", t.abbreviation, t.name, blessedTeamCoachName],
                          [NSString stringWithFormat:@"New drink fuels %@!\nA new recovery drink developed by the science department at %@ has been a hit at offseason practice. The players are singing its praises and coming out of this offseason better than ever.", t.abbreviation, t.name],
                          [NSString stringWithFormat:@"%@ gets a fresh coat of paint!\nAfter starting a successful athletic apparel company, one of %@'s alumni proclaims that the team will never have to play another game with the same uniform combination.",t.abbreviation,t.name],
-                         [NSString stringWithFormat:@"%@ improving in the classroom!\n%@ has seen a dramatic increase in their academic standards over the past couple of years. Recruits have taken notice and are showing more interest in attending a school with high academic integrity.",t.abbreviation,t.name]
+                         [NSString stringWithFormat:@"%@ improving in the classroom!\n%@ has seen a dramatic increase in their academic performance over the past couple of years. Recruits have taken notice and are showing more interest in attending a school with high academic integrity.",t.abbreviation,t.name]
                          ];
     blessedStoryIndex = ([HBSharedUtils randomValue] * stories.count);
     return stories[blessedStoryIndex];
