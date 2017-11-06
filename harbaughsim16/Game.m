@@ -1780,15 +1780,14 @@
 -(void)_rushingPlayQB:(Team*)offense defense:(Team*)defense selQB:(PlayerQB*)selQB selDL:(PlayerDL*)selDL selTE:(PlayerTE*)selTE selLB:(PlayerLB*)selLB selS:(PlayerS*)selS selCB:(PlayerCB*)selCB {
     BOOL gotTD = false;
     
-    int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush] + (offense.offensiveStrategy.runProtection - defense.defensiveStrategy.runProtection);  //STRATEGIES
-    int blockAdvOutside = selTE.ratTERunBlk * 2 - selLB.ratLBRsh - selS.ratOvr + (offense.offensiveStrategy.runUsage - defense.defensiveStrategy.runUsage);
-    int yardsGain = (int) ((selQB.ratSpeed + blockAdv + blockAdvOutside + [self getHFAdv])) * [HBSharedUtils randomValue] / 10 + (double) offense.offensiveStrategy.runProtection / 2 - (double) defense.defensiveStrategy.runPotential / 2;  //STRATEGIES
-    
+    int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush] + (offense.offensiveStrategy.runProtection - defense.defensiveStrategy.runProtection);
+    int blockAdvOutside = selTE.ratTERunBlk * 2 - selLB.ratLBRsh - selS.ratSTkl + (offense.offensiveStrategy.runUsage - defense.defensiveStrategy.runUsage);
+    int yardsGain = (int) ((selQB.ratSpeed + blockAdv + blockAdvOutside + [self getHFAdv]) * [HBSharedUtils randomValue] / 10 + offense.offensiveStrategy.runPotential/2 - defense.defensiveStrategy.runPotential/2);
     if (yardsGain < 2) {
-        yardsGain += selQB.ratPassEva / 20 - 3 - (double) defense.defensiveStrategy.runPotential / 2;  //STRATEGIES
+        yardsGain += selQB.ratPassEva/20 - 3 - defense.defensiveStrategy.runPotential/2;
     } else {
         //break free from tackles
-        if ([HBSharedUtils randomValue] < (0.20 + (offense.offensiveStrategy.runPotential - (double) defense.defensiveStrategy.runPotential / 2) / 50)) {  //STRATEGIES
+        if ([HBSharedUtils randomValue] < ( 0.20 + ( offense.offensiveStrategy.runPotential - defense.defensiveStrategy.runPotential/2 )/50 )) {
             yardsGain += (selQB.ratPassEva - blockAdvOutside) / 5 * [HBSharedUtils randomValue];
         }
     }
@@ -1876,17 +1875,15 @@
 
 -(void)_rushingPlayRB:(Team*)offense defense:(Team*)defense selRB:(PlayerRB*)selRB selDL:(PlayerDL*)selDL selTE:(PlayerTE*)selTE selLB:(PlayerLB*)selLB selS:(PlayerS*)selS RB1pref:(double)RB1pref RB2pref:(double)RB2pref {
     BOOL gotTD = false;
-    int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush] + (offense.offensiveStrategy.runProtection - defense.defensiveStrategy.runProtection);  //STRATEGIES
-    int blockAdvOutside = selTE.ratTERunBlk * 2 - selLB.ratLBRsh - selS.ratOvr + (offense.offensiveStrategy.runUsage - defense.defensiveStrategy.runUsage);
-    
-    int yardsGain = (int) ((selRB.ratRushSpd + blockAdv + blockAdvOutside + [self getHFAdv]) * [HBSharedUtils randomValue] / 10 + (double) offense.offensiveStrategy.runPotential / 2 - (double) defense.defensiveStrategy.runPotential / 2);  //STRATEGIES
-    
+    int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush] + (offense.offensiveStrategy.runProtection - defense.defensiveStrategy.runProtection);
+    int blockAdvOutside = selTE.ratTERunBlk * 2 - selLB.ratLBRsh - selS.ratSTkl + (offense.offensiveStrategy.runUsage - defense.defensiveStrategy.runUsage);
+    int yardsGain = (int) ((selRB.ratRushSpd + blockAdv + blockAdvOutside + [self getHFAdv]) * [HBSharedUtils randomValue] / 10 + offense.offensiveStrategy.runPotential/2 - defense.defensiveStrategy.runPotential/2);
     if (yardsGain < 2) {
-        yardsGain += selRB.ratRushPow / 20 - 3 - (double) defense.defensiveStrategy.runPotential / 2;  //STRATEGIES
+        yardsGain += selRB.ratRushPow/20 - 3 - defense.defensiveStrategy.runPotential/2;
     } else {
         //break free from tackles
-        if ([HBSharedUtils randomValue] < (0.28 + (offense.offensiveStrategy.runPotential - (double) defense.defensiveStrategy.runPotential / 2) / 50)) {  //STRATEGIES
-            yardsGain += (selRB.ratRushEva - blockAdvOutside) / 5 * [HBSharedUtils randomValue];
+        if ([HBSharedUtils randomValue] < ( 0.28 + ( offense.offensiveStrategy.runPotential - defense.defensiveStrategy.runPotential/2 )/50 )) {
+            yardsGain += (selRB.ratRushEva - blockAdvOutside)/5 *[HBSharedUtils randomValue];
         }
     }
     
@@ -2612,6 +2609,10 @@
 }
 
 -(void)rushAttemptQB:(Team *)offense defense:(Team *)defense rusher:(PlayerQB *)selQB yardsGained:(int)yardsGained {
+    selQB.statsRushAtt++;
+    selQB.statsRushYards += yardsGained;
+    offense.teamRushYards += yardsGained;
+    
     if ( gamePoss ) { // home possession
         NSNumber *qbStat = HomeQBStats[6];
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];

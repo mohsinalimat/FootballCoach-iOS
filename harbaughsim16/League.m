@@ -1493,7 +1493,10 @@
     // Add news story
     if (putNewsStory) {
         NSMutableArray *week13 = newsStories[13];
-        [week13 addObject:[heismanWinnerStr stringByReplacingOccurrencesOfString:@"?" withString:@""]];
+        NSString *newsString = [heismanWinnerStr stringByReplacingOccurrencesOfString:@"?" withString:@""];
+        if (![week13 containsObject:newsString]) {
+            [week13 addObject:newsString];
+        }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
 

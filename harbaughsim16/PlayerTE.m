@@ -14,6 +14,23 @@
 @implementation PlayerTE
 @synthesize ratTERunBlk;
 
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        if ([aDecoder containsValueForKey:@"ratTERunBlk"]) {
+            self.ratTERunBlk = [aDecoder decodeIntForKey:@"ratTERunBlk"];
+        } else {
+            self.ratTERunBlk = (int) (60 + self.year * 5 + 3 * 5 - 25 * [HBSharedUtils randomValue]);
+        }
+    }
+    return self;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    [aCoder encodeInt:self.ratTERunBlk forKey:@"ratTERunBlk"];
+}
+
 -(instancetype)initWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq runBlk:(int)runBlk catch:(int)cat speed:(int)spd eva:(int)eva dur:(int)dur {
     self = [super init];
     if (self) {

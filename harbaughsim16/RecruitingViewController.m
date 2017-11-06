@@ -173,7 +173,7 @@
     availLBs = [NSMutableArray array];
     availAll = [NSMutableArray array];
 
-    recruitingBudget = [HBSharedUtils getLeague].userTeam.teamPrestige * 20;
+    recruitingBudget = ([HBSharedUtils getLeague].isHardMode) ? [HBSharedUtils getLeague].userTeam.teamPrestige * 20 : [HBSharedUtils getLeague].userTeam.teamPrestige * 25;
 
     Team *userTeam = [HBSharedUtils getLeague].userTeam;
     if (userTeam.teamQBs.count < 2) {

@@ -72,7 +72,7 @@
                 } else {
                     peekVC =  [[GameDetailViewController alloc] initWithGame:bowl];
                 }
-            } else {
+            } else if (indexPath.section == 1) {
                 if (indexPath.row == 0) {
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionQB];
                 } else if (indexPath.row == 1) {
@@ -93,7 +93,7 @@
                 } else {
                     peekVC =  [[GameDetailViewController alloc] initWithGame:bowl];
                 }
-            } else {
+            } else if (indexPath.section == 1) {
                 if (indexPath.row == 0) {
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionQB];
                 } else if (indexPath.row == 1) {
@@ -204,6 +204,7 @@
             [self.tableView reloadData];
         }
         [self setupTeamHeader];
+        [self refreshNews];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"playedWeek" object:nil];
     }];
 }
@@ -1250,21 +1251,6 @@
         if (indexPath.section == 0) {
             if (indexPath.row == 2) {
                 [self.navigationController pushViewController:[[GameDetailViewController alloc] initWithGame:nextGame] animated:YES];
-            }
-        } else if (indexPath.section == 1) {
-            //return @"League Leaders";
-            if (indexPath.row == 0) { //QB
-                [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionQB] animated:YES];
-            } else if (indexPath.row == 1) { //RB
-                [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionRB] animated:YES];
-            } else if (indexPath.row == 2) { //WR
-                [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionWR] animated:YES];
-            } else if (indexPath.row == 3) { //DEF
-                RankingsViewController *def = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
-                def.title = @"Defense";
-                [self.navigationController pushViewController:def animated:YES];
-            } else { //K
-                [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK] animated:YES];
             }
         }
     }
