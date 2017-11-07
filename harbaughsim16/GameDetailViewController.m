@@ -586,19 +586,27 @@
             }
             
             if (indexPath.row == 0) {
-                [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.awayTeam.abbreviation]];
-                NSString *number = @"player";
-                if (selectedGame.awayTeam.injuredPlayers.count > 1) {
-                    number = @"players";
+                NSString *number;
+                if (selectedGame.awayTeam.injuredPlayers.count == 0) {
+                    number = @"No players out";
+                } else if (selectedGame.awayTeam.injuredPlayers.count == 1) {
+                    number = @"1 player out";
+                } else {
+                    number = [NSString stringWithFormat:@"%ld players out",(long)selectedGame.awayTeam.injuredPlayers.count];
                 }
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld %@ out",(long)selectedGame.awayTeam.injuredPlayers.count,number]];
+                [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.awayTeam.abbreviation]];
+                [cell.detailTextLabel setText:number];
             } else {
-                NSString *number = @"player";
-                if (selectedGame.homeTeam.injuredPlayers.count > 1) {
-                    number = @"players";
+                NSString *number;
+                if (selectedGame.homeTeam.injuredPlayers.count == 0) {
+                    number = @"No players out";
+                } else if (selectedGame.homeTeam.injuredPlayers.count == 1) {
+                    number = @"1 player out";
+                } else {
+                    number = [NSString stringWithFormat:@"%ld players out",(long)selectedGame.awayTeam.injuredPlayers.count];
                 }
                 [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.homeTeam.abbreviation]];
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld %@ out",(long)selectedGame.homeTeam.injuredPlayers.count,number]];
+                [cell.detailTextLabel setText:number];
             }
             
             return cell;
