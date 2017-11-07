@@ -106,6 +106,8 @@
 		75C5C3351F83457100D7CAAD /* PlayerStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3331F83457000D7CAAD /* PlayerStatsViewController.m */; };
 		75C5C3381F83489D00D7CAAD /* HBTeamPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */; };
 		75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE1C1CBECCBC003AB932 /* FCAFootball.png */; };
+		75CC974A1FB1D60000D08F06 /* CFC_Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CC97491FB1D60000D08F06 /* CFC_Screenshots.swift */; };
+		75CC97521FB1D62000D08F06 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CC97511FB1D62000D08F06 /* SnapshotHelper.swift */; };
 		75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */; };
 		75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */; };
 		75EC9A711D0663B900F24BE6 /* Injury.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A701D0663B900F24BE6 /* Injury.m */; };
@@ -120,6 +122,16 @@
 		75FE584E1FA3838600DE2534 /* PlayerTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE584D1FA3838600DE2534 /* PlayerTE.m */; };
 		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		75CC974C1FB1D60000D08F06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75924A131C99CCC000B165AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75924A1A1C99CCC000B165AD;
+			remoteInfo = harbaughsim16;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		47B6A776B32A57CB82A6413D /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.release.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
@@ -295,6 +307,10 @@
 		75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBTeamPlayView.h; sourceTree = "<group>"; };
 		75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBTeamPlayView.m; sourceTree = "<group>"; };
 		75CACE1C1CBECCBC003AB932 /* FCAFootball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCAFootball.png; sourceTree = "<group>"; };
+		75CC97471FB1D60000D08F06 /* CFC-Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CFC-Screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		75CC97491FB1D60000D08F06 /* CFC_Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFC_Screenshots.swift; sourceTree = "<group>"; };
+		75CC974B1FB1D60000D08F06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75CC97511FB1D62000D08F06 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamHistoryViewController.m; sourceTree = "<group>"; };
 		75E10F1F1CA0E0170000DA78 /* LeagueHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueHistoryController.h; sourceTree = "<group>"; };
 		75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueHistoryController.m; sourceTree = "<group>"; };
@@ -325,6 +341,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75CC97441FB1D60000D08F06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				75924A1D1C99CCC000B165AD /* harbaughsim16 */,
+				75CC97481FB1D60000D08F06 /* CFC-Screenshots */,
 				75924A1C1C99CCC000B165AD /* Products */,
 				38C3A07A6C2A3ED611332D85 /* Pods */,
 				C0C1FC9379CC5881BF7F3C73 /* Frameworks */,
@@ -617,6 +641,7 @@
 			isa = PBXGroup;
 			children = (
 				75924A1B1C99CCC000B165AD /* harbaughsim16.app */,
+				75CC97471FB1D60000D08F06 /* CFC-Screenshots.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -708,6 +733,16 @@
 			name = "Simulation Model";
 			sourceTree = "<group>";
 		};
+		75CC97481FB1D60000D08F06 /* CFC-Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				75CC97511FB1D62000D08F06 /* SnapshotHelper.swift */,
+				75CC97491FB1D60000D08F06 /* CFC_Screenshots.swift */,
+				75CC974B1FB1D60000D08F06 /* Info.plist */,
+			);
+			path = "CFC-Screenshots";
+			sourceTree = "<group>";
+		};
 		C0C1FC9379CC5881BF7F3C73 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -740,13 +775,31 @@
 			productReference = 75924A1B1C99CCC000B165AD /* harbaughsim16.app */;
 			productType = "com.apple.product-type.application";
 		};
+		75CC97461FB1D60000D08F06 /* CFC-Screenshots */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75CC974E1FB1D60000D08F06 /* Build configuration list for PBXNativeTarget "CFC-Screenshots" */;
+			buildPhases = (
+				75CC97431FB1D60000D08F06 /* Sources */,
+				75CC97441FB1D60000D08F06 /* Frameworks */,
+				75CC97451FB1D60000D08F06 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75CC974D1FB1D60000D08F06 /* PBXTargetDependency */,
+			);
+			name = "CFC-Screenshots";
+			productName = "CFC-Screenshots";
+			productReference = 75CC97471FB1D60000D08F06 /* CFC-Screenshots.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		75924A131C99CCC000B165AD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Akshay Easwaran";
 				TargetAttributes = {
@@ -754,6 +807,12 @@
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 67BW26529D;
 						LastSwiftMigration = 0800;
+					};
+					75CC97461FB1D60000D08F06 = {
+						CreatedOnToolsVersion = 9.1;
+						DevelopmentTeam = 67BW26529D;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 75924A1A1C99CCC000B165AD;
 					};
 				};
 			};
@@ -771,6 +830,7 @@
 			projectRoot = "";
 			targets = (
 				75924A1A1C99CCC000B165AD /* harbaughsim16 */,
+				75CC97461FB1D60000D08F06 /* CFC-Screenshots */,
 			);
 		};
 /* End PBXProject section */
@@ -820,6 +880,13 @@
 				754E90831CA5A59D00C450CF /* TeamScheduleViewController.xib in Resources */,
 				755BBC7D1C9F6964001A8314 /* TeamSearchViewController.xib in Resources */,
 				75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75CC97451FB1D60000D08F06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -965,7 +1032,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		75CC97431FB1D60000D08F06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75CC974A1FB1D60000D08F06 /* CFC_Screenshots.swift in Sources */,
+				75CC97521FB1D62000D08F06 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		75CC974D1FB1D60000D08F06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75924A1A1C99CCC000B165AD /* harbaughsim16 */;
+			targetProxy = 75CC974C1FB1D60000D08F06 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		75924A2F1C99CCC000B165AD /* LaunchScreen.storyboard */ = {
@@ -1119,6 +1203,54 @@
 			};
 			name = Release;
 		};
+		75CC974F1FB1D60000D08F06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67BW26529D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "CFC-Screenshots/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.akeaswaran.CFC-Screenshots";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = harbaughsim16;
+			};
+			name = Debug;
+		};
+		75CC97501FB1D60000D08F06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67BW26529D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "CFC-Screenshots/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.akeaswaran.CFC-Screenshots";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = harbaughsim16;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1136,6 +1268,15 @@
 			buildConfigurations = (
 				75924A361C99CCC000B165AD /* Debug */,
 				75924A371C99CCC000B165AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75CC974E1FB1D60000D08F06 /* Build configuration list for PBXNativeTarget "CFC-Screenshots" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75CC974F1FB1D60000D08F06 /* Debug */,
+				75CC97501FB1D60000D08F06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

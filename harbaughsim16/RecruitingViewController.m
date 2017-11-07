@@ -82,6 +82,9 @@
     [availWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
+    [availTEs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
     [availOLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
