@@ -1423,6 +1423,7 @@
     }
     //Choose the Catch Target
     if (TEpref > WR1pref && TEpref > WR2pref) {
+        selCB = [defense getCB:2];
         [self passingPlayTE:offense defense:defense selQB:selQB selTE:selTE selTEStats:selTEStats selCB:selCB selS:selS selDL:selDL selLB:selLB selLB2:selLB2];
     } else {
         [self passingPlayWR:offense defense:defense selQB:selQB selWR:selWR selWRStats:selWRStats selCB:selCB selS:selS];

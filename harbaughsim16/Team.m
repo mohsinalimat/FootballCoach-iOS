@@ -2159,7 +2159,7 @@
         [self checkInjuryPosition:teamOLs starters:5];
         [self checkInjuryPosition:teamKs starters:1];
         [self checkInjuryPosition:teamSs starters:1];
-        [self checkInjuryPosition:teamCBs starters:2];
+        [self checkInjuryPosition:teamCBs starters:3];
         [self checkInjuryPosition:teamDLs starters:4];
         [self checkInjuryPosition:teamLBs starters:3];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"injuriesPosted" object:nil];
