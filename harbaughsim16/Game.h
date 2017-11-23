@@ -14,12 +14,13 @@
 @class PlayerWR;
 @class PlayerOL;
 @class PlayerK;
-@class PlayerF7;
+@class PlayerDL;
+@class PlayerLB;
 @class PlayerCB;
 @class PlayerS;
 
 @interface Game : NSObject <NSCoding> {
-    NSMutableString *gameEventLog;
+    
     NSString *tdInfo;
     
     //private variables used when simming games
@@ -66,8 +67,13 @@
 @property (strong, nonatomic) NSMutableArray* AwayWR2Stats;
 @property (strong, nonatomic) NSMutableArray* AwayWR3Stats;
 
+@property (strong, nonatomic) NSMutableArray* HomeTEStats;
+@property (strong, nonatomic) NSMutableArray* AwayTEStats;
+
 @property (strong, nonatomic) NSMutableArray* HomeKStats;
 @property (strong, nonatomic) NSMutableArray* AwayKStats;
+
+@property (strong, nonatomic) NSMutableString *gameEventLog;
 
 -(void)playGame;
 -(instancetype)initWithHome:(Team*)home away:(Team*)away;

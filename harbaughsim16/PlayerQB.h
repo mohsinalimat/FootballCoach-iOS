@@ -14,6 +14,9 @@
 @property (nonatomic) int ratPassAcc;
 //PassEva (evasiveness) affects how easily he can dodge sacks
 @property (nonatomic) int ratPassEva;
+//PassEva (evasiveness) affects how easily he can dodge sacks
+@property (nonatomic) int ratSpeed;
+
 
 //Stats
 @property (nonatomic) int statsPassAtt;
@@ -22,6 +25,18 @@
 @property (nonatomic) int statsInt;
 @property (nonatomic) int statsPassYards;
 @property (nonatomic) int statsSacked;
+
+//Stats
+@property (nonatomic) int statsRushAtt;
+@property (nonatomic) int statsRushYards;
+@property (nonatomic) int statsRushTD;
+@property (nonatomic) int statsFumbles;
+
+//Career Stats
+@property (nonatomic) int careerStatsRushAtt;
+@property (nonatomic) int careerStatsRushYards;
+@property (nonatomic) int careerStatsRushTD;
+@property (nonatomic) int careerStatsFumbles;
 
 //career stats
 @property (nonatomic) int careerStatsPassAtt;

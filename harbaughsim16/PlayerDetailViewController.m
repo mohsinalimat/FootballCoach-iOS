@@ -13,8 +13,10 @@
 #import "PlayerRB.h"
 #import "PlayerWR.h"
 #import "PlayerK.h"
+#import "PlayerTE.h"
 #import "PlayerOL.h"
-#import "PlayerF7.h"
+#import "PlayerLB.h"
+#import "PlayerDL.h"
 #import "PlayerCB.h"
 #import "PlayerS.h"
 
@@ -154,9 +156,17 @@
         } else {
             return 3;
         }
+    } else if ([selectedPlayer isKindOfClass:[PlayerTE class]]) {
+        if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+            return 2;
+        } else {
+            return 3;
+        }
     } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
         return 1;
-    } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
+    } else if ([selectedPlayer isKindOfClass:[PlayerDL class]]) {
+        return 1;
+    } else if ([selectedPlayer isKindOfClass:[PlayerLB class]]) {
         return 1;
     } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {
         return 1;
@@ -238,10 +248,14 @@
                     //acc
                     [cell.detailTextLabel setText:ratings[@"passAccuracy"]];
                     [cell.textLabel setText:@"Throwing Accuracy"];
-                } else {
+                } else if (indexPath.row == 8) {
                     //eva
                     [cell.detailTextLabel setText:ratings[@"passEvasion"]];
                     [cell.textLabel setText:@"Evasion"];
+                } else {
+                    //eva
+                    [cell.detailTextLabel setText:ratings[@"rushSpeed"]];
+                    [cell.textLabel setText:@"Speed"];
                 }
             } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
                 if (indexPath.row == 6) {
@@ -266,10 +280,14 @@
                     //spd
                     [cell.detailTextLabel setText:ratings[@"recSpeed"]];
                     [cell.textLabel setText:@"Speed"];
-                } else {
-                    //eva
+                } else if (indexPath.row == 8) {
+                    //blkP
                     [cell.detailTextLabel setText:ratings[@"recEvasion"]];
                     [cell.textLabel setText:@"Evasion"];
+                } else {
+                    //blkR
+                    [cell.detailTextLabel setText:ratings[@"teRunBlk"]];
+                    [cell.textLabel setText:@"Run Blocking"];
                 }
             } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
                 if (indexPath.row == 6) {
@@ -280,23 +298,41 @@
                     //blkP
                     [cell.detailTextLabel setText:ratings[@"olPassBlock"]];
                     [cell.textLabel setText:@"Pass Blocking"];
+                } else if (indexPath.row == 8) {
+                    //blkP
+                    [cell.detailTextLabel setText:ratings[@"olPassBlock"]];
+                    [cell.textLabel setText:@"Pass Blocking"];
                 } else {
                     //blkR
                     [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
                     [cell.textLabel setText:@"Run Blocking"];
                 }
-            } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
+            } else if ([selectedPlayer isKindOfClass:[PlayerDL class]]) {
                 if (indexPath.row == 6) {
                     //pow
-                    [cell.detailTextLabel setText:ratings[@"f7Pow"]];
+                    [cell.detailTextLabel setText:ratings[@"dlPow"]];
                     [cell.textLabel setText:@"Strength"];
                 } else if (indexPath.row == 7) {
                     //pass
-                    [cell.detailTextLabel setText:ratings[@"f7Pass"]];
+                    [cell.detailTextLabel setText:ratings[@"dlPass"]];
                     [cell.textLabel setText:@"Pass Pressure"];
                 } else {
                     //rsh
-                    [cell.detailTextLabel setText:ratings[@"f7Run"]];
+                    [cell.detailTextLabel setText:ratings[@"dlRun"]];
+                    [cell.textLabel setText:@"Run Stopping"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerLB class]]) {
+                if (indexPath.row == 6) {
+                    //pow
+                    [cell.detailTextLabel setText:ratings[@"lbTkl"]];
+                    [cell.textLabel setText:@"Tackling"];
+                } else if (indexPath.row == 7) {
+                    //pass
+                    [cell.detailTextLabel setText:ratings[@"lbPass"]];
+                    [cell.textLabel setText:@"Pass Pressure"];
+                } else {
+                    //rsh
+                    [cell.detailTextLabel setText:ratings[@"lbRun"]];
                     [cell.textLabel setText:@"Run Stopping"];
                 }
             } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {
@@ -372,13 +408,31 @@
                     [cell.textLabel setText:@"Yards Per Attempt"];
                 } else if (indexPath.row == 8) {
                     [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
-                    [cell.textLabel setText:@"Yards Per Game"];
+                    [cell.textLabel setText:@"Pass Yards Per Game"];
                 } else if (indexPath.row == 9) {
                     [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
-                    [cell.textLabel setText:@"Touchdowns"];
-                } else {
+                    [cell.textLabel setText:@"Pass TDs"];
+                } else if (indexPath.row == 10) {
                     [cell.detailTextLabel setText:careerStats[@"interceptions"]];
                     [cell.textLabel setText:@"Interceptions"];
+                } else if (indexPath.row == 11) {
+                    [cell.detailTextLabel setText:careerStats[@"carries"]];
+                    [cell.textLabel setText:@"Carries"];
+                } else if (indexPath.row == 12) {
+                    [cell.detailTextLabel setText:careerStats[@"rushYards"]];
+                    [cell.textLabel setText:@"Rush Yards"];
+                } else if (indexPath.row == 13) {
+                    [cell.detailTextLabel setText:careerStats[@"yardsPerCarry"]];
+                    [cell.textLabel setText:@"Rush Yards Per Carry"];
+                } else if (indexPath.row == 14) {
+                    [cell.detailTextLabel setText:careerStats[@"rushYardsPerGame"]];
+                    [cell.textLabel setText:@"Rush Yards Per Game"];
+                } else if (indexPath.row == 15) {
+                    [cell.detailTextLabel setText:careerStats[@"rushTouchdowns"]];
+                    [cell.textLabel setText:@"Rush TDs"];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"fumbles"]];
+                    [cell.textLabel setText:@"Fumbles"];
                 }
             } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
                 if (indexPath.row == 3) {
@@ -420,6 +474,26 @@
                     [cell.detailTextLabel setText:careerStats[@"fumbles"]];
                     [cell.textLabel setText:@"Fumbles"];
                 }
+            } else if ([selectedPlayer isKindOfClass:[PlayerTE class]]) {
+                if (indexPath.row == 3) {
+                    [cell.detailTextLabel setText:careerStats[@"catches"]];
+                    [cell.textLabel setText:@"Catches"];
+                } else if (indexPath.row == 4) {
+                    [cell.detailTextLabel setText:careerStats[@"recYards"]];
+                    [cell.textLabel setText:@"Receiving Yards"];
+                } else if (indexPath.row == 5) {
+                    [cell.detailTextLabel setText:careerStats[@"yardsPerCatch"]];
+                    [cell.textLabel setText:@"Yards Per Catch"];
+                } else if (indexPath.row == 6) {
+                    [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+                    [cell.textLabel setText:@"Yards Per Game"];
+                } else if (indexPath.row == 7) {
+                    [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+                    [cell.textLabel setText:@"Touchdowns"];
+                } else {
+                    [cell.detailTextLabel setText:careerStats[@"fumbles"]];
+                    [cell.textLabel setText:@"Fumbles"];
+                }
             } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
                 if (indexPath.row == 3) {
                     //pow
@@ -434,18 +508,32 @@
                     [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
                     [cell.textLabel setText:@"Run Blocking"];
                 }
-            } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
+            } else if ([selectedPlayer isKindOfClass:[PlayerDL class]]) {
                 if (indexPath.row == 3) {
                     //pow
-                    [cell.detailTextLabel setText:ratings[@"f7Pow"]];
+                    [cell.detailTextLabel setText:ratings[@"dlPow"]];
                     [cell.textLabel setText:@"Strength"];
                 } else if (indexPath.row == 4) {
                     //pass
-                    [cell.detailTextLabel setText:ratings[@"f7Pass"]];
+                    [cell.detailTextLabel setText:ratings[@"dlPass"]];
                     [cell.textLabel setText:@"Pass Pressure"];
                 } else {
                     //rsh
-                    [cell.detailTextLabel setText:ratings[@"f7Run"]];
+                    [cell.detailTextLabel setText:ratings[@"dlRun"]];
+                    [cell.textLabel setText:@"Run Stopping"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerLB class]]) {
+                if (indexPath.row == 3) {
+                    //pow
+                    [cell.detailTextLabel setText:ratings[@"lbTkl"]];
+                    [cell.textLabel setText:@"Tackling"];
+                } else if (indexPath.row == 4) {
+                    //pass
+                    [cell.detailTextLabel setText:ratings[@"lbPass"]];
+                    [cell.textLabel setText:@"Pass Pressure"];
+                } else {
+                    //rsh
+                    [cell.detailTextLabel setText:ratings[@"lbRun"]];
                     [cell.textLabel setText:@"Run Stopping"];
                 }
             } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {
@@ -513,16 +601,34 @@
                     [cell.textLabel setText:@"Completion Percentage"];
                 } else if (indexPath.row == 4) {
                     [cell.detailTextLabel setText:stats[@"yardsPerAttempt"]];
-                    [cell.textLabel setText:@"Yards Per Attempt"];
+                    [cell.textLabel setText:@"Pass Yards Per Attempt"];
                 } else if (indexPath.row == 5) {
                     [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
-                    [cell.textLabel setText:@"Yards Per Game"];
+                    [cell.textLabel setText:@"Pass Yards Per Game"];
                 } else if (indexPath.row == 6) {
                     [cell.detailTextLabel setText:stats[@"touchdowns"]];
-                    [cell.textLabel setText:@"Touchdowns"];
-                } else {
+                    [cell.textLabel setText:@"Pass TDs"];
+                } else if (indexPath.row == 7) {
                     [cell.detailTextLabel setText:stats[@"interceptions"]];
                     [cell.textLabel setText:@"Interceptions"];
+                } else if (indexPath.row == 8) {
+                    [cell.detailTextLabel setText:stats[@"carries"]];
+                    [cell.textLabel setText:@"Carries"];
+                } else if (indexPath.row == 9) {
+                    [cell.detailTextLabel setText:stats[@"rushYards"]];
+                    [cell.textLabel setText:@"Rush Yards"];
+                } else if (indexPath.row == 10) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerCarry"]];
+                    [cell.textLabel setText:@"Rush Yards Per Carry"];
+                } else if (indexPath.row == 11) {
+                    [cell.detailTextLabel setText:stats[@"rushYardsPerGame"]];
+                    [cell.textLabel setText:@"Rush Yards Per Game"];
+                } else if (indexPath.row == 12) {
+                    [cell.detailTextLabel setText:stats[@"rushTouchdowns"]];
+                    [cell.textLabel setText:@"Rush TDs"];
+                } else {
+                    [cell.detailTextLabel setText:stats[@"fumbles"]];
+                    [cell.textLabel setText:@"Fumbles"];
                 }
             } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
                 if (indexPath.row == 0) {
@@ -564,6 +670,26 @@
                     [cell.detailTextLabel setText:stats[@"fumbles"]];
                     [cell.textLabel setText:@"Fumbles"];
                 }
+            } else if ([selectedPlayer isKindOfClass:[PlayerTE class]]) {
+                if (indexPath.row == 0) {
+                    [cell.detailTextLabel setText:stats[@"catches"]];
+                    [cell.textLabel setText:@"Catches"];
+                } else if (indexPath.row == 1) {
+                    [cell.detailTextLabel setText:stats[@"recYards"]];
+                    [cell.textLabel setText:@"Receiving Yards"];
+                } else if (indexPath.row == 2) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerCatch"]];
+                    [cell.textLabel setText:@"Yards Per Catch"];
+                } else if (indexPath.row == 3) {
+                    [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                    [cell.textLabel setText:@"Yards Per Game"];
+                } else if (indexPath.row == 4) {
+                    [cell.detailTextLabel setText:stats[@"touchdowns"]];
+                    [cell.textLabel setText:@"Touchdowns"];
+                } else {
+                    [cell.detailTextLabel setText:stats[@"fumbles"]];
+                    [cell.textLabel setText:@"Fumbles"];
+                }
             } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
                 if (indexPath.row == 0) {
                     //pow
@@ -578,18 +704,32 @@
                     [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
                     [cell.textLabel setText:@"Run Blocking"];
                 }
-            } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
+            } else if ([selectedPlayer isKindOfClass:[PlayerDL class]]) {
                 if (indexPath.row == 0) {
                     //pow
-                    [cell.detailTextLabel setText:ratings[@"f7Pow"]];
+                    [cell.detailTextLabel setText:ratings[@"dlPow"]];
                     [cell.textLabel setText:@"Strength"];
                 } else if (indexPath.row == 1) {
                     //pass
-                    [cell.detailTextLabel setText:ratings[@"f7Pass"]];
+                    [cell.detailTextLabel setText:ratings[@"dlPass"]];
                     [cell.textLabel setText:@"Pass Pressure"];
                 } else {
                     //rsh
-                    [cell.detailTextLabel setText:ratings[@"f7Run"]];
+                    [cell.detailTextLabel setText:ratings[@"dlRun"]];
+                    [cell.textLabel setText:@"Run Stopping"];
+                }
+            } else if ([selectedPlayer isKindOfClass:[PlayerLB class]]) {
+                if (indexPath.row == 0) {
+                    //pow
+                    [cell.detailTextLabel setText:ratings[@"lbTkl"]];
+                    [cell.textLabel setText:@"Tackling"];
+                } else if (indexPath.row == 1) {
+                    //pass
+                    [cell.detailTextLabel setText:ratings[@"lbPass"]];
+                    [cell.textLabel setText:@"Pass Pressure"];
+                } else {
+                    //rsh
+                    [cell.detailTextLabel setText:ratings[@"lbRun"]];
                     [cell.textLabel setText:@"Run Stopping"];
                 }
             } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {
@@ -674,9 +814,27 @@
             } else if (indexPath.row == 9) {
                 [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
                 [cell.textLabel setText:@"Touchdowns"];
-            } else {
+            } else if (indexPath.row == 10) {
                 [cell.detailTextLabel setText:careerStats[@"interceptions"]];
                 [cell.textLabel setText:@"Interceptions"];
+            } else if (indexPath.row == 11) {
+                [cell.detailTextLabel setText:careerStats[@"carries"]];
+                [cell.textLabel setText:@"Carries"];
+            } else if (indexPath.row == 12) {
+                [cell.detailTextLabel setText:careerStats[@"rushYards"]];
+                [cell.textLabel setText:@"Rush Yards"];
+            } else if (indexPath.row == 13) {
+                [cell.detailTextLabel setText:careerStats[@"yardsPerCarry"]];
+                [cell.textLabel setText:@"Rush Yards Per Carry"];
+            } else if (indexPath.row == 14) {
+                [cell.detailTextLabel setText:careerStats[@"rushYardsPerGame"]];
+                [cell.textLabel setText:@"Rush Yards Per Game"];
+            } else if (indexPath.row == 15) {
+                [cell.detailTextLabel setText:careerStats[@"rushTouchdowns"]];
+                [cell.textLabel setText:@"Rush TDs"];
+            } else {
+                [cell.detailTextLabel setText:careerStats[@"fumbles"]];
+                [cell.textLabel setText:@"Fumbles"];
             }
         } else if ([selectedPlayer isKindOfClass:[PlayerRB class]]) {
             if (indexPath.row == 3) {
@@ -718,6 +876,26 @@
                 [cell.detailTextLabel setText:careerStats[@"fumbles"]];
                 [cell.textLabel setText:@"Fumbles"];
             }
+        } else if ([selectedPlayer isKindOfClass:[PlayerTE class]]) {
+            if (indexPath.row == 3) {
+                [cell.detailTextLabel setText:careerStats[@"catches"]];
+                [cell.textLabel setText:@"Catches"];
+            } else if (indexPath.row == 4) {
+                [cell.detailTextLabel setText:careerStats[@"recYards"]];
+                [cell.textLabel setText:@"Receiving Yards"];
+            } else if (indexPath.row == 5) {
+                [cell.detailTextLabel setText:careerStats[@"yardsPerCatch"]];
+                [cell.textLabel setText:@"Yards Per Catch"];
+            } else if (indexPath.row == 6) {
+                [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+                [cell.textLabel setText:@"Yards Per Game"];
+            } else if (indexPath.row == 7) {
+                [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+                [cell.textLabel setText:@"Touchdowns"];
+            } else {
+                [cell.detailTextLabel setText:careerStats[@"fumbles"]];
+                [cell.textLabel setText:@"Fumbles"];
+            }
         } else if ([selectedPlayer isKindOfClass:[PlayerOL class]]) {
             if (indexPath.row == 3) {
                 //pow
@@ -732,18 +910,32 @@
                 [cell.detailTextLabel setText:ratings[@"olRunBlock"]];
                 [cell.textLabel setText:@"Run Blocking"];
             }
-        } else if ([selectedPlayer isKindOfClass:[PlayerF7 class]]) {
+        } else if ([selectedPlayer isKindOfClass:[PlayerDL class]]) {
             if (indexPath.row == 3) {
                 //pow
-                [cell.detailTextLabel setText:ratings[@"f7Pow"]];
+                [cell.detailTextLabel setText:ratings[@"dlPow"]];
                 [cell.textLabel setText:@"Strength"];
             } else if (indexPath.row == 4) {
                 //pass
-                [cell.detailTextLabel setText:ratings[@"f7Pass"]];
+                [cell.detailTextLabel setText:ratings[@"dlPass"]];
                 [cell.textLabel setText:@"Pass Pressure"];
             } else {
                 //rsh
-                [cell.detailTextLabel setText:ratings[@"f7Run"]];
+                [cell.detailTextLabel setText:ratings[@"dlRun"]];
+                [cell.textLabel setText:@"Run Stopping"];
+            }
+        } else if ([selectedPlayer isKindOfClass:[PlayerLB class]]) {
+            if (indexPath.row == 3) {
+                //pow
+                [cell.detailTextLabel setText:ratings[@"lbTkl"]];
+                [cell.textLabel setText:@"Tackling"];
+            } else if (indexPath.row == 4) {
+                //pass
+                [cell.detailTextLabel setText:ratings[@"lbPass"]];
+                [cell.textLabel setText:@"Pass Pressure"];
+            } else {
+                //rsh
+                [cell.detailTextLabel setText:ratings[@"lbRun"]];
                 [cell.textLabel setText:@"Run Stopping"];
             }
         } else if ([selectedPlayer isKindOfClass:[PlayerCB class]]) {

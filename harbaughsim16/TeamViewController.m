@@ -23,7 +23,7 @@
 @implementation HBTeamInfoView
 @end
 
-@interface TeamViewController ()
+@interface TeamViewController () <UIViewControllerPreviewingDelegate>
 {
     Team *selectedTeam;
     NSArray *stats;
@@ -32,6 +32,37 @@
 @end
 
 @implementation TeamViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        UIViewController *peekVC;
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+                peekVC = [[TeamRosterViewController alloc] initWithTeam:selectedTeam];
+            } else if (indexPath.row == 1) {
+                peekVC = [[TeamScheduleViewController alloc] initWithTeam:selectedTeam];
+            } else if (indexPath.row == 2) {
+                peekVC = [[TeamHistoryViewController alloc] initWithTeam:selectedTeam];
+            } else if (indexPath.row == 3) {
+                peekVC = [[RingOfHonorViewController alloc] initWithTeam:selectedTeam];
+            } else {
+                peekVC = [[TeamRecordsViewController alloc] initWithTeam:selectedTeam];
+            }
+        }
+        peekVC.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return peekVC;
+    } else {
+        return nil;
+    }
+}
 
 -(instancetype)initWithTeam:(Team*)team {
     self = [super init];
@@ -143,14 +174,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Team";
+
     stats = [selectedTeam getTeamStatsArray];
     NSString *rank = @"";
-    if (selectedTeam.rankTeamPollScore < 26 && selectedTeam.rankTeamPollScore > 0) {
+    if ([HBSharedUtils getLeague].currentWeek > 0 && selectedTeam.rankTeamPollScore < 26 && selectedTeam.rankTeamPollScore > 0) {
         rank = [NSString stringWithFormat:@"#%d ",selectedTeam.rankTeamPollScore];
     }
     [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, selectedTeam.name]];
 
-    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistoryDictionary.count + 2016,(long)selectedTeam.wins,(long)selectedTeam.losses]];
+    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistoryDictionary.count + [HBSharedUtils getLeague].baseYear,(long)selectedTeam.wins,(long)selectedTeam.losses]];
     [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Prestige: %d",selectedTeam.teamPrestige]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setTableHeaderView:teamHeaderView];
@@ -162,6 +194,10 @@
     if ([HBSharedUtils getLeague].canRebrandTeam) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(changeTeamName)];
     }
+    
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
 }
 
 -(void)reloadAll {
@@ -171,7 +207,7 @@
     }
     [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, selectedTeam.name]];
     
-    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistoryDictionary.count + 2016,(long)selectedTeam.wins,(long)selectedTeam.losses]];
+    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistoryDictionary.count + [HBSharedUtils getLeague].baseYear,(long)selectedTeam.wins,(long)selectedTeam.losses]];
     [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Prestige: %d",selectedTeam.teamPrestige]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setTableHeaderView:teamHeaderView];

@@ -37,10 +37,11 @@
     curLeague = [HBSharedUtils getLeague];
     userTeam = curLeague.userTeam;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-    [self.tableView setRowHeight:85];
-    [self.tableView setEstimatedRowHeight:85];
+    [self.tableView setRowHeight:110];
+    [self.tableView setEstimatedRowHeight:110];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
+    self.tableView.tableFooterView = [UIView new];
     if (curLeague.hallOfFamers.count > 0) {
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(sortROH)]];
     }

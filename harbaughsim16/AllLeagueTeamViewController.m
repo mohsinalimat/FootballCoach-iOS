@@ -13,13 +13,14 @@
 #import "PlayerQB.h"
 #import "PlayerRB.h"
 #import "PlayerWR.h"
+#import "PlayerTE.h"
 #import "PlayerK.h"
 #import "HBPlayerCell.h"
 #import "PlayerDetailViewController.h"
 
 #import "HexColors.h"
 
-@interface AllLeagueTeamViewController ()
+@interface AllLeagueTeamViewController () <UIViewControllerPreviewingDelegate>
 {
     NSDictionary *players;
     Player *heisman;
@@ -27,6 +28,36 @@
 @end
 
 @implementation AllLeagueTeamViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        Player *plyr;
+        if (indexPath.section == 0) {
+            plyr = players[@"QB"][indexPath.row];
+        } else if (indexPath.section == 1) {
+            plyr = players[@"RB"][indexPath.row];
+        } else if (indexPath.section == 2) {
+            plyr = players[@"WR"][indexPath.row];
+        } else if (indexPath.section == 3) {
+            plyr = players[@"TE"][indexPath.row];
+        } else {
+            plyr = players[@"K"][indexPath.row];
+        }
+        PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return playerDetail;
+    } else {
+        return nil;
+    }
+}
 
 -(id)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
@@ -40,12 +71,17 @@
     
     heisman = [[HBSharedUtils getLeague] heisman];
     
-    self.title = [NSString stringWithFormat:@"%ld's All-League Team", (long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)];
+    self.title = [NSString stringWithFormat:@"%ld's All-League Team", (long)([HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count)];
     players = [[HBSharedUtils getLeague] allLeaguePlayers];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:60];
     [self.tableView setEstimatedRowHeight:60];
+    self.tableView.tableFooterView = [UIView new];
+    
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -59,6 +95,8 @@
         return @"RB";
     } else if (section == 2) {
         return @"WR";
+    } else if (section == 3) {
+        return @"TE";
     } else {
         return @"K";
     }
@@ -87,6 +125,8 @@
         return 2;
     } else if (section == 2) {
         return 3;
+    } else if (section == 3) {
+        return 1;
     } else {
         return 1;
     }
@@ -101,6 +141,8 @@
         plyr = players[@"RB"][indexPath.row];
     } else if (indexPath.section == 2) {
         plyr = players[@"WR"][indexPath.row];
+    } else if (indexPath.section == 3) {
+        plyr = players[@"TE"][indexPath.row];
     } else {
         plyr = players[@"K"][indexPath.row];
     }
@@ -136,6 +178,16 @@
         stat4Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsFumbles];
         //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
     } else if ([plyr isKindOfClass:[PlayerWR class]]) {
+        stat1 = @"Rec";
+        stat2 = @"Yds";
+        stat3 = @"TD";
+        stat4 = @"Fum";
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsReceptions];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsRecYards];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsTD];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsFumbles];
+        //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+    } else if ([plyr isKindOfClass:[PlayerTE class]]) {
         stat1 = @"Rec";
         stat2 = @"Yds";
         stat3 = @"TD";
@@ -193,6 +245,8 @@
         plyr = players[@"RB"][indexPath.row];
     } else if (indexPath.section == 2) {
         plyr = players[@"WR"][indexPath.row];
+    } else if (indexPath.section == 3) {
+        plyr = players[@"TE"][indexPath.row];
     } else {
         plyr = players[@"K"][indexPath.row];
     }

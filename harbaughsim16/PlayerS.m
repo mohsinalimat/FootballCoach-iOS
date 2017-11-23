@@ -9,44 +9,45 @@
 #import "PlayerS.h"
 
 @implementation PlayerS
+@synthesize ratSCov,ratSSpd,ratSTkl;
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _ratSCov = [aDecoder decodeIntForKey:@"ratSCov"];
-        _ratSSpd = [aDecoder decodeIntForKey:@"ratSSpd"];
-        _ratSTkl = [aDecoder decodeIntForKey:@"ratSTkl"];
-        
-        if ([aDecoder containsValueForKey:@"personalDetails"]) {
-            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
-            if (self.personalDetails == nil) {
-                NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 200;
-                NSInteger inches = (int)([HBSharedUtils randomValue] * 5);
-                self.personalDetails = @{
-                                         @"home_state" : [HBSharedUtils randomState],
-                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                         };
-            }
-        } else {
-            NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 200;
-            NSInteger inches = (int)([HBSharedUtils randomValue] * 5);
-            self.personalDetails = @{
-                                     @"home_state" : [HBSharedUtils randomState],
-                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                     };
+            self.ratSCov = [aDecoder decodeIntForKey:@"ratSCov"];
+            self.ratSSpd = [aDecoder decodeIntForKey:@"ratSSpd"];
+            self.ratSTkl = [aDecoder decodeIntForKey:@"ratSTkl"];
+    
+            if ([aDecoder containsValueForKey:@"personalDetails"]) {
+                    self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+                    if (self.personalDetails == nil) {
+                            NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 200;
+                            NSInteger inches = (int)([HBSharedUtils randomValue] * 5);
+                            self.personalDetails = @{
+                                   @"home_state" : [HBSharedUtils randomState],
+                                                                             @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                                             @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                                             };
+                        }
+                } else {
+                        NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 200;
+                        NSInteger inches = (int)([HBSharedUtils randomValue] * 5);
+                        self.personalDetails = @{
+                                   @"home_state" : [HBSharedUtils randomState],
+                                                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                                                         };
+                    }
         }
-    }
     return self;
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-    
-    [aCoder encodeInt:_ratSCov forKey:@"ratSCov"];
-    [aCoder encodeInt:_ratSSpd forKey:@"ratSSpd"];
-    [aCoder encodeInt:_ratSTkl forKey:@"ratSTkl"];
+
+    [aCoder encodeInt:self.ratSCov forKey:@"ratSCov"];
+    [aCoder encodeInt:self.ratSSpd forKey:@"ratSSpd"];
+    [aCoder encodeInt:self.ratSTkl forKey:@"ratSTkl"];
     [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
 }
 
@@ -56,7 +57,7 @@
         self.team = team;
         self.name = name;
         self.year = year;
-        self.startYear = (int)team.league.leagueHistoryDictionary.count + 2016;
+        self.startYear = (int)team.league.leagueHistoryDictionary.count + (int)team.league.baseYear;
         self.ratDur = dur;
         self.ratOvr = (coverage * 2 + speed + tackling) / 4;
         self.ratPot = potential;
@@ -92,7 +93,7 @@
         self.team = t;
         self.name = name;
         self.year = year;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + 2016;
+        self.startYear = (int)t.league.leagueHistoryDictionary.count + (int)t.league.baseYear;
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int)([HBSharedUtils randomValue]*50 + 50);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
@@ -119,25 +120,25 @@
     int oldOvr = self.ratOvr;
     if (self.hasRedshirt) {
         self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
-        _ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
-        _ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
-        _ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+        self.ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+        self.ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
+        self.ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot - 25))/10;
         if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
             //breakthrough
-            _ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
-            _ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
-            _ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+            self.ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+            self.ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
+            self.ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot - 30))/10;
         }
     } else {
         self.ratFootIQ += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
-        _ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
-        _ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
-        _ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
+        self.ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
+        self.ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
+        self.ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 35))/10;
         if ([HBSharedUtils randomValue]*100 < self.ratPot ) {
             //breakthrough
-            _ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
-            _ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
-            _ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
+            self.ratSCov += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
+            self.ratSTkl += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
+            self.ratSSpd += (int)([HBSharedUtils randomValue]*(self.ratPot + self.gamesPlayedSeason - 40))/10;
         }
     }
     self.ratOvr = (self.ratSCov * 2 + self.ratSSpd + self.ratSTkl) / 4;
@@ -148,18 +149,18 @@
 -(NSDictionary*)detailedStats:(int)games {
     NSMutableDictionary *stats = [NSMutableDictionary dictionary];
     [stats setObject:[NSString stringWithFormat:@"%d",self.ratPot] forKey:@"sPotential"];
-    [stats setObject:[self getLetterGrade:_ratSCov] forKey:@"sCoverage"];
-    [stats setObject:[self getLetterGrade:_ratSSpd] forKey:@"sSpeed"];
-    [stats setObject:[self getLetterGrade:_ratSTkl] forKey:@"sTackling"];
+    [stats setObject:[self getLetterGrade:self.ratSCov] forKey:@"sCoverage"];
+    [stats setObject:[self getLetterGrade:self.ratSSpd] forKey:@"sSpeed"];
+    [stats setObject:[self getLetterGrade:self.ratSTkl] forKey:@"sTackling"];
     
     return [stats copy];
 }
 
 -(NSDictionary*)detailedRatings {
     NSMutableDictionary *stats = [NSMutableDictionary dictionaryWithDictionary:[super detailedRatings]];
-    [stats setObject:[self getLetterGrade:_ratSCov] forKey:@"sCoverage"];
-    [stats setObject:[self getLetterGrade:_ratSSpd] forKey:@"sSpeed"];
-    [stats setObject:[self getLetterGrade:_ratSTkl] forKey:@"sTackling"];
+    [stats setObject:[self getLetterGrade:self.ratSCov] forKey:@"sCoverage"];
+    [stats setObject:[self getLetterGrade:self.ratSSpd] forKey:@"sSpeed"];
+    [stats setObject:[self getLetterGrade:self.ratSTkl] forKey:@"sTackling"];
     [stats setObject:[self getLetterGrade:self.ratFootIQ] forKey:@"footballIQ"];
     return [stats copy];
 }

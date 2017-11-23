@@ -14,9 +14,9 @@
 #import "UIScrollView+EmptyDataSet.h"
 #import "HexColors.h"
 
-@interface TeamStreaksViewController () <UISearchBarDelegate, UIScrollViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface TeamStreaksViewController () <UISearchBarDelegate, UIScrollViewDelegate, DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIViewControllerPreviewingDelegate>
 {
-    NSMutableArray *streaks;
+    NSMutableArray<TeamStreak*> *streaks;
     NSMutableDictionary *streakDict;
     Team *selectedTeam;
     UISearchBar *navSearchBar;
@@ -26,6 +26,23 @@
 
 @implementation TeamStreaksViewController
 
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        TeamViewController *teamDetail = [[TeamViewController alloc] initWithTeam:streaks[indexPath.row].opponent];
+        teamDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return teamDetail;
+    } else {
+        return nil;
+    }
+}
 
 #pragma mark - DZNEmptyDataSetSource Methods
 
@@ -116,6 +133,7 @@
         return [a.opponent.name compare:b.opponent.name];
     }];
     self.navigationItem.title = @"Streaks";
+    self.tableView.tableFooterView = [UIView new];
     
     if (streaks.count > 0) {
         navSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
@@ -139,6 +157,12 @@
     
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
+    
+    
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+    
 }
 
 -(void)reloadAll {
@@ -205,13 +229,13 @@
     
     TeamStreak *ts = streaks[indexPath.row];
     [cell.textLabel setText:ts.opponent.name];
+    NSMutableAttributedString *teamString = [[NSMutableAttributedString alloc] initWithString:ts.opponent.name attributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
     [cell.detailTextLabel setText:[ts stringRepresentation]];
     
-    if ([cell.detailTextLabel.text containsString:[HBSharedUtils getLeague].userTeam.rivalTeam]) {
-        [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
-    } else {
-        [cell.textLabel setTextColor:[UIColor blackColor]];
+    if ([ts.opponent.abbreviation isEqualToString:[HBSharedUtils getLeague].userTeam.rivalTeam]) {
+        [teamString appendAttributedString:[[NSAttributedString alloc] initWithString:@" RIVAL" attributes:@{NSForegroundColorAttributeName : [HBSharedUtils styleColor], NSFontAttributeName : [UIFont systemFontOfSize:12.0]}]];
     }
+    [cell.textLabel setAttributedText:teamString];
     return cell;
 }
 

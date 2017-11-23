@@ -26,12 +26,14 @@
     [super viewDidLoad];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
+    self.tableView.tableFooterView = [UIView new];
     grads = [[[HBSharedUtils getLeague] userTeam] playersLeaving];
     [grads sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
         return (a.ratOvr > b.ratOvr ? -1 : a.ratOvr == b.ratOvr ? ([a.name compare:b.name]) : 1);
     }];
+    self.tableView.tableFooterView = [UIView new];
     
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     if (grads.count > 0) {

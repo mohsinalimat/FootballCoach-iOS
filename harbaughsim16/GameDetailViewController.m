@@ -21,15 +21,13 @@
 #import "PlayerQB.h"
 #import "PlayerRB.h"
 #import "PlayerWR.h"
+#import "PlayerTE.h"
 #import "PlayerK.h"
 #import "PlayerOL.h"
-#import "PlayerF7.h"
-#import "PlayerCB.h"
-#import "PlayerS.h"
 
 #import "HexColors.h"
 
-@interface GameDetailViewController ()
+@interface GameDetailViewController () <UIViewControllerPreviewingDelegate>
 {
     Game *selectedGame;
     NSDictionary *stats;
@@ -38,6 +36,155 @@
 @end
 
 @implementation GameDetailViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        NSInteger section = indexPath.section;
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        UIViewController *peekVC;
+        if (section == 1) {
+            if (!selectedGame.hasPlayed) {
+                Player *plyr;
+                if (indexPath.row == 0) {
+                    plyr = [selectedGame.awayTeam playerToWatch];
+                } else {
+                    plyr = [selectedGame.homeTeam playerToWatch];
+                }
+                if (plyr != nil) {
+                    PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+                    peekVC = playerDetail;
+                } else {
+                    return nil;
+                }
+            }
+        } else if (section == 2) {
+            if (![self isHardMode]) {
+                if (selectedGame.hasPlayed) {
+                    Player *plyr;
+                    NSDictionary *qbStats = stats[@"QBs"];
+                    if (indexPath.row == 0) {
+                        plyr = qbStats[@"awayQB"];
+                    } else {
+                        plyr = qbStats[@"homeQB"];
+                    }
+                    
+                    PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+                    peekVC = playerDetail;
+                }
+            } else {
+                if (!selectedGame.hasPlayed) {
+                    if (indexPath.row == 0) {
+                        peekVC = [[InjuryReportViewController alloc] initWithTeam:selectedGame.awayTeam];
+                    } else {
+                        peekVC = [[InjuryReportViewController alloc] initWithTeam:selectedGame.homeTeam];
+                    }
+                } else {
+                    Player *plyr;
+                    NSDictionary *qbStats = stats[@"QBs"];
+                    if (indexPath.row == 0) {
+                        plyr = qbStats[@"awayQB"];
+                    } else {
+                        plyr = qbStats[@"homeQB"];
+                    }
+                    
+                    PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+                    peekVC = playerDetail;
+                }
+            }
+        } else if (section == 3) {
+            if (![self isHardMode]) {
+                Player *plyr;
+                NSDictionary *rbStats = stats[@"RBs"]; //carries, yds, td, fum
+                if (indexPath.row == 0) {
+                    plyr = rbStats[@"awayRB1"];
+                } else if (indexPath.row == 1) {
+                    plyr = rbStats[@"awayRB2"];
+                } else if (indexPath.row == 2) {
+                    plyr = rbStats[@"homeRB1"];
+                } else {
+                    plyr = rbStats[@"homeRB2"];
+                }
+                PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+                peekVC = playerDetail;
+            } else {
+                if (selectedGame.hasPlayed) {
+                    Player *plyr;
+                    NSDictionary *rbStats = stats[@"RBs"]; //carries, yds, td, fum
+                    if (indexPath.row == 0) {
+                        plyr = rbStats[@"awayRB1"];
+                    } else if (indexPath.row == 1) {
+                        plyr = rbStats[@"awayRB2"];
+                    } else if (indexPath.row == 2) {
+                        plyr = rbStats[@"homeRB1"];
+                    } else {
+                        plyr = rbStats[@"homeRB2"];
+                    }
+                    PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+                    peekVC = playerDetail;
+                }
+            }
+        } else if (section == 4) {
+            Player *plyr;
+            NSDictionary *wrStats = stats[@"WRs"]; //catchs, yds, td, fum
+            if (indexPath.row == 0) {
+                plyr = wrStats[@"awayWR1"];
+            } else if (indexPath.row == 1) {
+                plyr = wrStats[@"awayWR2"];
+            } else if (indexPath.row == 2) {
+                plyr = wrStats[@"homeWR1"];
+            } else {
+                plyr = wrStats[@"homeWR2"];
+            }
+            PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+            peekVC = playerDetail;
+        } else if (section == 5) {
+            Player *plyr;
+            NSDictionary *qbStats = stats[@"TEs"];
+            if (indexPath.row == 0) {
+                plyr = qbStats[@"awayTE"];
+            } else {
+                plyr = qbStats[@"homeTE"];
+            }
+            
+            PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+            peekVC = playerDetail;
+        } else if (section == 6) {
+            Player *plyr;
+            NSDictionary *qbStats = stats[@"Ks"];
+            if (indexPath.row == 0) {
+                plyr = qbStats[@"awayK"];
+            } else {
+                plyr = qbStats[@"homeK"];
+            }
+            
+            PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+            peekVC = playerDetail;
+        } else {
+            if (indexPath.row == 0) {
+                peekVC = [[TeamViewController alloc] initWithTeam:selectedGame.awayTeam];
+            } else if (indexPath.row == 1) {
+                peekVC = [[TeamViewController alloc] initWithTeam:selectedGame.homeTeam];
+            } else {
+                peekVC = nil;
+            }
+        }
+        if (peekVC != nil) {
+            peekVC.preferredContentSize = CGSizeMake(0.0, 600);
+            previewingContext.sourceRect = cell.frame;
+            return peekVC;
+        } else {
+            return nil;
+        }
+    } else {
+        return nil;
+    }
+}
 
 -(instancetype)initWithGame:(Game *)game {
     self = [super init];
@@ -63,6 +210,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+    
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
 }
 
 -(void)dealloc {
@@ -74,18 +225,19 @@
     [self.tableView reloadData];
 }
 
+
 -(void)viewGameSummary {
     UIViewController *viewController = [[UIViewController alloc] init];
     [viewController.view setBackgroundColor:[UIColor whiteColor]];
     viewController.title = @"Summary";
-
+    
     NSString *summary = [selectedGame gameSummary];
     
     CGSize size = [summary boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil].size;
     UITextView *postTextLabel = [[UITextView alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width - 30, size.height)];
     [postTextLabel setSelectable:NO];
     [postTextLabel setEditable:NO];
-
+    
     [postTextLabel setText:summary];
     [postTextLabel sizeToFit];
     [postTextLabel.textContainer setSize:postTextLabel.frame.size];
@@ -169,6 +321,8 @@
     } else if (section == 4) {
         return @"Wide Receivers";
     } else if (section == 5) {
+        return @"Tight Ends";
+    } else if (section == 6) {
         return @"Kickers";
     } else {
         if ([selectedGame.gameName isEqualToString:@"NCG"]) {
@@ -226,7 +380,7 @@
             return 3;
         }
     } else {
-        return 6;
+        return 7;
     }
 }
 
@@ -259,7 +413,9 @@
         } else if (section == 3) {
             return 4;
         } else if (section == 4) {
-            return 6;
+            return 4;
+        } else if (section == 5) {
+            return 2;
         } else {
             return 2;
         }
@@ -376,7 +532,7 @@
                 stat3Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsTD];
                 stat4Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsFumbles];
                 //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
-            } else {
+            } else if ([plyr isKindOfClass:[PlayerWR class]]) {
                 stat1 = @"Rec";
                 stat2 = @"Yds";
                 stat3 = @"TD";
@@ -385,6 +541,16 @@
                 stat2Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsRecYards];
                 stat3Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsTD];
                 stat4Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsFumbles];
+                //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+            } else if ([plyr isKindOfClass:[PlayerTE class]]) {
+                stat1 = @"Rec";
+                stat2 = @"Yds";
+                stat3 = @"TD";
+                stat4 = @"Fum";
+                stat1Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsReceptions];
+                stat2Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsRecYards];
+                stat3Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsTD];
+                stat4Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsFumbles];
                 //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
             }
             
@@ -420,19 +586,27 @@
             }
             
             if (indexPath.row == 0) {
-                [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.awayTeam.abbreviation]];
-                NSString *number = @"player";
-                if (selectedGame.awayTeam.injuredPlayers.count > 1) {
-                    number = @"players";
+                NSString *number;
+                if (selectedGame.awayTeam.injuredPlayers.count == 0) {
+                    number = @"No players out";
+                } else if (selectedGame.awayTeam.injuredPlayers.count == 1) {
+                    number = @"1 player out";
+                } else {
+                    number = [NSString stringWithFormat:@"%ld players out",(long)selectedGame.awayTeam.injuredPlayers.count];
                 }
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld %@ out",(long)selectedGame.awayTeam.injuredPlayers.count,number]];
+                [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.awayTeam.abbreviation]];
+                [cell.detailTextLabel setText:number];
             } else {
-                NSString *number = @"player";
-                if (selectedGame.homeTeam.injuredPlayers.count > 1) {
-                    number = @"players";
+                NSString *number;
+                if (selectedGame.homeTeam.injuredPlayers.count == 0) {
+                    number = @"No players out";
+                } else if (selectedGame.homeTeam.injuredPlayers.count == 1) {
+                    number = @"1 player out";
+                } else {
+                    number = [NSString stringWithFormat:@"%ld players out",(long)selectedGame.awayTeam.injuredPlayers.count];
                 }
                 [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.homeTeam.abbreviation]];
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld %@ out",(long)selectedGame.homeTeam.injuredPlayers.count,number]];
+                [cell.detailTextLabel setText:number];
             }
             
             return cell;
@@ -443,7 +617,7 @@
                 HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
                 if (indexPath.row == 0) {
                     NSString *awayRank = @"";
-                    if (selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
+                    if ([HBSharedUtils getLeague].currentWeek > 0 && selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
                         awayRank = [NSString stringWithFormat:@"#%d ",selectedGame.awayTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.name]];
@@ -458,7 +632,7 @@
                     }
                 } else {
                     NSString *homeRank = @"";
-                    if (selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
+                    if ([HBSharedUtils getLeague].currentWeek > 0 && selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
                         homeRank = [NSString stringWithFormat:@"#%d ",selectedGame.homeTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.name]];
@@ -554,17 +728,30 @@
                     plyr = wrStats[@"awayWR2"];
                     plyrStats = wrStats[@"awayWR2Stats"];
                 } else if (indexPath.row == 2) {
-                    plyr = wrStats[@"awayWR3"];
-                    plyrStats = wrStats[@"awayWR3Stats"];
-                } else if (indexPath.row == 3) {
                     plyr = wrStats[@"homeWR1"];
                     plyrStats = wrStats[@"homeWR1Stats"];
-                } else if (indexPath.row == 4) {
+                } else {
                     plyr = wrStats[@"homeWR2"];
                     plyrStats = wrStats[@"homeWR2Stats"];
+                }
+                
+                
+                stat1 = @"Rec";
+                stat2 = @"Yds";
+                stat3 = @"TD";
+                stat4 = @"Fum";
+                stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[0] intValue]];
+                stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
+                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
+                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[5] intValue]];
+            } else if (indexPath.section == 5) {
+                NSDictionary *teStats = combinedStats[@"TEs"]; //catchs, yds, td, fum
+                if (indexPath.row == 0) {
+                    plyr = teStats[@"awayTE"];
+                    plyrStats = teStats[@"awayTEStats"];
                 } else {
-                    plyr = wrStats[@"homeWR3"];
-                    plyrStats = wrStats[@"homeWR3Stats"];
+                    plyr = teStats[@"homeTE"];
+                    plyrStats = teStats[@"homeTEStats"];
                 }
                 
                 
@@ -663,6 +850,7 @@
             NSDictionary *qbStats = combinedStats[@"QBs"];
             NSDictionary *rbStats = combinedStats[@"RBs"];
             NSDictionary *wrStats = combinedStats[@"WRs"];
+            NSDictionary *teStats = combinedStats[@"TEs"];
             NSDictionary *kStats = combinedStats[@"Ks"];
             if (indexPath.section == 2) {
                 if (indexPath.row == 0) {
@@ -686,15 +874,17 @@
                 } else if (indexPath.row == 1) {
                     plyr = wrStats[@"awayWR2"];
                 } else if (indexPath.row == 2) {
-                    plyr = wrStats[@"awayWR3"];
-                } else if (indexPath.row == 3) {
                     plyr = wrStats[@"homeWR1"];
-                } else if (indexPath.row == 4) {
-                    plyr = wrStats[@"homeWR2"];
                 } else {
-                    plyr = wrStats[@"homeWR3"];
+                    plyr = wrStats[@"homeWR2"];
                 }
             } else if (indexPath.section == 5) {
+                if (indexPath.row == 0) {
+                    plyr = teStats[@"awayTE"];
+                } else {
+                    plyr = teStats[@"homeTE"];
+                }
+            } else if (indexPath.section == 6) {
                 if (indexPath.row == 0) {
                     plyr = kStats[@"awayK"];
                 } else {

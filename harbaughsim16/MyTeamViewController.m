@@ -35,7 +35,7 @@
 @implementation HBTeamHistoryView
 @end
 
-@interface MyTeamViewController ()
+@interface MyTeamViewController () <UIViewControllerPreviewingDelegate>
 {
     IBOutlet HBTeamHistoryView *teamHeaderView;
     STPopupController *popupController;
@@ -46,6 +46,84 @@
 
 @implementation MyTeamViewController
 
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        UIViewController *peekVC;
+        
+        if (indexPath.section == 1) {
+            if ([HBSharedUtils getLeague].currentWeek > 0) {
+                if (indexPath.row == 0) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypePollScore];
+                } else if (indexPath.row == 1) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOffTalent];
+                } else if (indexPath.row == 2) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeDefTalent];
+                } else if (indexPath.row == 3) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeTeamPrestige];
+                } else if (indexPath.row == 4) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeWins];
+                } else if (indexPath.row == 5) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeSOS];
+                } else if (indexPath.row == 6) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypePPG];
+                } else if (indexPath.row == 7) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG];
+                } else if (indexPath.row == 8) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeYPG];
+                } else if (indexPath.row == 9) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
+                } else if (indexPath.row == 10) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypePYPG];
+                } else if (indexPath.row == 11) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG];
+                } else if (indexPath.row == 12) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG];
+                } else if (indexPath.row == 13) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppRYPG];
+                } else {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeTODiff];
+                }
+            }
+        } else if (indexPath.section == 2) {
+            if (indexPath.row == 0) {
+                //league
+                peekVC = [[LeagueHistoryController alloc] init];
+            } else if (indexPath.row == 1) { //hallOfFame
+                peekVC = [[HallOfFameViewController alloc] init];
+            } else {
+                //league records
+                peekVC = [[LeagueRecordsViewController alloc] init];
+            }
+        } else if (indexPath.section == 0) {
+            if (indexPath.row == 2) {
+                peekVC = [[TeamHistoryViewController alloc] initWithTeam:userTeam];
+            } else if (indexPath.row == 3) { //hallOfFame
+                peekVC = [[RingOfHonorViewController alloc] initWithTeam:userTeam];
+            } else if (indexPath.row == 4) { //teamRecords
+                peekVC = [[TeamRecordsViewController alloc] initWithTeam:userTeam];
+            } else { //team streaks
+                peekVC = [[TeamStreaksViewController alloc] initWithTeam:userTeam];
+            }
+        }
+        
+        if (peekVC != nil) {
+            peekVC.preferredContentSize = CGSizeMake(0.0, 600);
+            previewingContext.sourceRect = cell.frame;
+            return peekVC;
+        } else {
+            return nil;
+        }
+    } else {
+        return nil;
+    }
+}
 
 -(void)presentIntro {
     UINavigationController *introNav = [[UINavigationController alloc] initWithRootViewController:[[IntroViewController alloc] init]];
@@ -70,6 +148,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"updatedStarters" object:nil];
     
+    
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
 }
 
 
@@ -97,7 +179,7 @@
     }
     [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, userTeam.name]];
     
-    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistoryDictionary.count + 2016,(long)userTeam.wins,(long)userTeam.losses]];
+    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistoryDictionary.count + [HBSharedUtils getLeague].baseYear,(long)userTeam.wins,(long)userTeam.losses]];
     [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Prestige: %d",userTeam.teamPrestige]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
 }
@@ -175,10 +257,10 @@
             NSString *title = @"";
             NSString *strat = @"";
             if (indexPath.row == 0) {
-                title = @"Offensive Strategy";
+                title = @"Offensive Playbook";
                 strat = userTeam.offensiveStrategy.stratName;
             } else {
-                title = @"Defensive Strategy";
+                title = @"Defensive Playbook";
                 strat = userTeam.defensiveStrategy.stratName;
             }
             

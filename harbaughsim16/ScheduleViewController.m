@@ -17,7 +17,7 @@
 #import "HexColors.h"
 #import "CSNotificationView.h"
 
-@interface ScheduleViewController ()
+@interface ScheduleViewController () <UIViewControllerPreviewingDelegate>
 {
     NSArray *schedule;
     Team *userTeam;
@@ -25,6 +25,26 @@
 @end
 
 @implementation ScheduleViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        HBScheduleCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        
+        GameDetailViewController *gameDetail = [[GameDetailViewController alloc] initWithGame:userTeam.gameSchedule[indexPath.row]];
+        gameDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return gameDetail;
+    } else {
+        return nil;
+    }
+}
+
 -(void)simulateEntireSeason {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to sim this season?" message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -92,7 +112,7 @@
 -(void)resetSimButton {
     if ([HBSharedUtils getLeague].recruitingStage == 0) {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)([HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
     } else {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
@@ -110,6 +130,7 @@
     self.title = @"Schedule";
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 60;
+    self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBScheduleCell" bundle:nil] forCellReuseIdentifier:@"HBScheduleCell"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSchedule) name:@"playedWeek" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSchedule) name:@"newSeasonStart" object:nil];
@@ -118,12 +139,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSaveFile" object:nil];
-    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)(2016 + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+    
     if ([HBSharedUtils getLeague].currentWeek < 15) {
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
     } else {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
     }
+    
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+    
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
@@ -133,7 +159,7 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
+    
 }
 
 -(void)reloadSchedule {

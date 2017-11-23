@@ -35,7 +35,7 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:60];
     [self.tableView setEstimatedRowHeight:60];
-    
+    self.tableView.tableFooterView = [UIView new];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
 }

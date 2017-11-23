@@ -12,6 +12,8 @@
 		7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8461C9C76BE00BE9CD6 /* TeamSelectionViewController.m */; };
 		7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */; };
 		7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */; };
+		751D052D1FA6A01D002CB414 /* triline@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 751D052B1FA6A01D002CB414 /* triline@3x.png */; };
+		751D052E1FA6A01D002CB414 /* triline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 751D052C1FA6A01D002CB414 /* triline@2x.png */; };
 		751DF8201CA17F81003C62F2 /* HBSettingsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF81E1CA17F81003C62F2 /* HBSettingsCell.m */; };
 		751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */; };
 		751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF8231CA1D66D003C62F2 /* TeamStrategyViewController.m */; };
@@ -30,7 +32,6 @@
 		755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC471C9DD0DF001A8314 /* HBStatsCell.xib */; };
 		755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC4B1C9DEDF0001A8314 /* HBPlayerCell.m */; };
 		755BBC4E1C9DEDF0001A8314 /* HBPlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC4C1C9DEDF0001A8314 /* HBPlayerCell.xib */; };
-		755BBC6D1C9E423B001A8314 /* NewsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC6C1C9E423B001A8314 /* NewsViewController.xib */; };
 		755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC771C9E5930001A8314 /* RecruitingViewController.m */; };
 		755BBC7B1C9F5F1A001A8314 /* TeamSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC7A1C9F5F1A001A8314 /* TeamSearchViewController.m */; };
 		755BBC7D1C9F6964001A8314 /* TeamSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC7C1C9F6964001A8314 /* TeamSearchViewController.xib */; };
@@ -41,6 +42,7 @@
 		755BBC8B1CA03252001A8314 /* HBRecruitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC891CA03252001A8314 /* HBRecruitCell.m */; };
 		755BBC8C1CA03252001A8314 /* HBRecruitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */; };
 		7563A8E11CB7F6F20023E43B /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 7563A8E01CB7F6F20023E43B /* Record.m */; };
+		756973971FAAB50400A66C42 /* LeagueUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 756973961FAAB50400A66C42 /* LeagueUpdater.m */; };
 		7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */; };
 		7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */; };
 		7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */; };
@@ -66,7 +68,6 @@
 		7591FE411D465B940037ECFB /* NSArray+Uniqueness.m in Sources */ = {isa = PBXBuildFile; fileRef = 7591FE401D465B940037ECFB /* NSArray+Uniqueness.m */; };
 		75924A201C99CCC000B165AD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A1F1C99CCC000B165AD /* main.m */; };
 		75924A231C99CCC000B165AD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A221C99CCC000B165AD /* AppDelegate.m */; };
-		75924A261C99CCC000B165AD /* NewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A251C99CCC000B165AD /* NewsViewController.m */; };
 		75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75924A2D1C99CCC000B165AD /* Assets.xcassets */; };
 		75924A311C99CCC000B165AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75924A2F1C99CCC000B165AD /* LaunchScreen.storyboard */; };
 		75924A3D1C99CD8D00B165AD /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A3C1C99CD8D00B165AD /* Team.m */; };
@@ -105,6 +106,8 @@
 		75C5C3351F83457100D7CAAD /* PlayerStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3331F83457000D7CAAD /* PlayerStatsViewController.m */; };
 		75C5C3381F83489D00D7CAAD /* HBTeamPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */; };
 		75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE1C1CBECCBC003AB932 /* FCAFootball.png */; };
+		75CC974A1FB1D60000D08F06 /* CFC_Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CC97491FB1D60000D08F06 /* CFC_Screenshots.swift */; };
+		75CC97521FB1D62000D08F06 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CC97511FB1D62000D08F06 /* SnapshotHelper.swift */; };
 		75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */; };
 		75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */; };
 		75EC9A711D0663B900F24BE6 /* Injury.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A701D0663B900F24BE6 /* Injury.m */; };
@@ -114,8 +117,21 @@
 		75EC9A7C1D08E5B300F24BE6 /* HallOfFameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */; };
 		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
 		75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */; };
+		75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
+		75FE584B1FA37D8C00DE2534 /* PlayerLB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58481FA37D8C00DE2534 /* PlayerLB.m */; };
+		75FE584E1FA3838600DE2534 /* PlayerTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE584D1FA3838600DE2534 /* PlayerTE.m */; };
 		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		75CC974C1FB1D60000D08F06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75924A131C99CCC000B165AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75924A1A1C99CCC000B165AD;
+			remoteInfo = harbaughsim16;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		47B6A776B32A57CB82A6413D /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.release.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
@@ -128,6 +144,8 @@
 		7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDetailViewController.m; sourceTree = "<group>"; };
 		7510B84E1C9C76E600BE9CD6 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		7510B84F1C9C76E600BE9CD6 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SettingsViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		751D052B1FA6A01D002CB414 /* triline@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triline@3x.png"; sourceTree = "<group>"; };
+		751D052C1FA6A01D002CB414 /* triline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "triline@2x.png"; sourceTree = "<group>"; };
 		751DF81D1CA17F81003C62F2 /* HBSettingsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBSettingsCell.h; sourceTree = "<group>"; };
 		751DF81E1CA17F81003C62F2 /* HBSettingsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBSettingsCell.m; sourceTree = "<group>"; };
 		751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBSettingsCell.xib; sourceTree = "<group>"; };
@@ -160,7 +178,6 @@
 		755BBC4A1C9DEDF0001A8314 /* HBPlayerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBPlayerCell.h; sourceTree = "<group>"; };
 		755BBC4B1C9DEDF0001A8314 /* HBPlayerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBPlayerCell.m; sourceTree = "<group>"; };
 		755BBC4C1C9DEDF0001A8314 /* HBPlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBPlayerCell.xib; sourceTree = "<group>"; };
-		755BBC6C1C9E423B001A8314 /* NewsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsViewController.xib; sourceTree = "<group>"; };
 		755BBC761C9E5930001A8314 /* RecruitingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecruitingViewController.h; sourceTree = "<group>"; };
 		755BBC771C9E5930001A8314 /* RecruitingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecruitingViewController.m; sourceTree = "<group>"; };
 		755BBC791C9F5F1A001A8314 /* TeamSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamSearchViewController.h; sourceTree = "<group>"; };
@@ -177,6 +194,8 @@
 		755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBRecruitCell.xib; sourceTree = "<group>"; };
 		7563A8DF1CB7F6F20023E43B /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
 		7563A8E01CB7F6F20023E43B /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
+		756973951FAAB50400A66C42 /* LeagueUpdater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeagueUpdater.h; sourceTree = "<group>"; };
+		756973961FAAB50400A66C42 /* LeagueUpdater.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeagueUpdater.m; sourceTree = "<group>"; };
 		7571DD191C9CB1DC00E67080 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
 		7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroViewController.m; sourceTree = "<group>"; };
 		7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroViewController.xib; sourceTree = "<group>"; };
@@ -215,8 +234,6 @@
 		75924A1F1C99CCC000B165AD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		75924A211C99CCC000B165AD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		75924A221C99CCC000B165AD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		75924A241C99CCC000B165AD /* NewsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsViewController.h; sourceTree = "<group>"; };
-		75924A251C99CCC000B165AD /* NewsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsViewController.m; sourceTree = "<group>"; };
 		75924A2D1C99CCC000B165AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75924A301C99CCC000B165AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		75924A321C99CCC000B165AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -290,6 +307,10 @@
 		75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBTeamPlayView.h; sourceTree = "<group>"; };
 		75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBTeamPlayView.m; sourceTree = "<group>"; };
 		75CACE1C1CBECCBC003AB932 /* FCAFootball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCAFootball.png; sourceTree = "<group>"; };
+		75CC97471FB1D60000D08F06 /* CFC-Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CFC-Screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		75CC97491FB1D60000D08F06 /* CFC_Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFC_Screenshots.swift; sourceTree = "<group>"; };
+		75CC974B1FB1D60000D08F06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75CC97511FB1D62000D08F06 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
 		75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamHistoryViewController.m; sourceTree = "<group>"; };
 		75E10F1F1CA0E0170000DA78 /* LeagueHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueHistoryController.h; sourceTree = "<group>"; };
 		75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueHistoryController.m; sourceTree = "<group>"; };
@@ -304,6 +325,12 @@
 		75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HallOfFameViewController.m; sourceTree = "<group>"; };
 		75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreaksViewController.h; sourceTree = "<group>"; };
 		75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreaksViewController.m; sourceTree = "<group>"; };
+		75FE58461FA37D8A00DE2534 /* PlayerDL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDL.m; sourceTree = "<group>"; };
+		75FE58471FA37D8B00DE2534 /* PlayerDL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerDL.h; sourceTree = "<group>"; };
+		75FE58481FA37D8C00DE2534 /* PlayerLB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerLB.m; sourceTree = "<group>"; };
+		75FE58491FA37D8C00DE2534 /* PlayerLB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLB.h; sourceTree = "<group>"; };
+		75FE584C1FA3838600DE2534 /* PlayerTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerTE.h; sourceTree = "<group>"; };
+		75FE584D1FA3838600DE2534 /* PlayerTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTE.m; sourceTree = "<group>"; };
 		D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
 		DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -314,6 +341,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75CC97441FB1D60000D08F06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,13 +366,6 @@
 		7510B8441C9C76AD00BE9CD6 /* Base Tabs */ = {
 			isa = PBXGroup;
 			children = (
-				755BBC761C9E5930001A8314 /* RecruitingViewController.h */,
-				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
-				755BBC881CA03252001A8314 /* HBRecruitCell.h */,
-				755BBC891CA03252001A8314 /* HBRecruitCell.m */,
-				755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */,
-				758633081CC142B900E1E458 /* MockDraftViewController.h */,
-				758633091CC142B900E1E458 /* MockDraftViewController.m */,
 				755BBC691C9E10D0001A8314 /* News */,
 				755BBC681C9E10CB001A8314 /* Schedule */,
 				755BBC671C9E10BD001A8314 /* Roster */,
@@ -532,15 +559,19 @@
 		755BBC691C9E10D0001A8314 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				755BBC881CA03252001A8314 /* HBRecruitCell.h */,
+				755BBC891CA03252001A8314 /* HBRecruitCell.m */,
+				755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */,
+				758633081CC142B900E1E458 /* MockDraftViewController.h */,
+				758633091CC142B900E1E458 /* MockDraftViewController.m */,
 				75C5C3311F83447A00D7CAAD /* UpcomingViewController.h */,
 				75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */,
 				75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */,
+				755BBC761C9E5930001A8314 /* RecruitingViewController.h */,
+				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
 				75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */,
 				75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */,
 				754319031CC02EAC00D380F1 /* Conference Standings */,
-				75924A241C99CCC000B165AD /* NewsViewController.h */,
-				75924A251C99CCC000B165AD /* NewsViewController.m */,
-				755BBC6C1C9E423B001A8314 /* NewsViewController.xib */,
 				75BBDBB41DEC910A00124AA4 /* GraduatingPlayersViewController.h */,
 				75BBDBB51DEC910A00124AA4 /* GraduatingPlayersViewController.m */,
 				754E90791CA58C0F00C450CF /* HeismanLeadersViewController.h */,
@@ -575,12 +606,18 @@
 				75924A5A1C99E63800B165AD /* PlayerRB.m */,
 				75924A5C1C99E64400B165AD /* PlayerWR.h */,
 				75924A5D1C99E64400B165AD /* PlayerWR.m */,
+				75FE584C1FA3838600DE2534 /* PlayerTE.h */,
+				75FE584D1FA3838600DE2534 /* PlayerTE.m */,
 				75924A5F1C99E64D00B165AD /* PlayerK.h */,
 				75924A601C99E64D00B165AD /* PlayerK.m */,
 				75924A621C99E65600B165AD /* PlayerOL.h */,
 				75924A631C99E65600B165AD /* PlayerOL.m */,
 				75924A651C99E65E00B165AD /* PlayerS.h */,
 				75924A661C99E65E00B165AD /* PlayerS.m */,
+				75FE58471FA37D8B00DE2534 /* PlayerDL.h */,
+				75FE58461FA37D8A00DE2534 /* PlayerDL.m */,
+				75FE58491FA37D8C00DE2534 /* PlayerLB.h */,
+				75FE58481FA37D8C00DE2534 /* PlayerLB.m */,
 				75924A681C99E66700B165AD /* PlayerCB.h */,
 				75924A691C99E66700B165AD /* PlayerCB.m */,
 				75924A6B1C99E66E00B165AD /* PlayerF7.h */,
@@ -593,6 +630,7 @@
 			isa = PBXGroup;
 			children = (
 				75924A1D1C99CCC000B165AD /* harbaughsim16 */,
+				75CC97481FB1D60000D08F06 /* CFC-Screenshots */,
 				75924A1C1C99CCC000B165AD /* Products */,
 				38C3A07A6C2A3ED611332D85 /* Pods */,
 				C0C1FC9379CC5881BF7F3C73 /* Frameworks */,
@@ -603,6 +641,7 @@
 			isa = PBXGroup;
 			children = (
 				75924A1B1C99CCC000B165AD /* harbaughsim16.app */,
+				75CC97471FB1D60000D08F06 /* CFC-Screenshots.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -634,6 +673,8 @@
 		75A86C9F1C9C7CAA0034140C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				751D052C1FA6A01D002CB414 /* triline@2x.png */,
+				751D052B1FA6A01D002CB414 /* triline@3x.png */,
 				75C5C3261F83429300D7CAAD /* FCAIcon1024.png */,
 				75C5C32D1F83433800D7CAAD /* Icon-20@2x.png */,
 				75C5C32E1F83433800D7CAAD /* Icon-20@3x.png */,
@@ -667,6 +708,8 @@
 		75BABF461C9A5E5E00A68CD6 /* Simulation Model */ = {
 			isa = PBXGroup;
 			children = (
+				756973951FAAB50400A66C42 /* LeagueUpdater.h */,
+				756973961FAAB50400A66C42 /* LeagueUpdater.m */,
 				75924A531C99D24500B165AD /* League.h */,
 				75924A541C99D24500B165AD /* League.m */,
 				7591FE3F1D465B940037ECFB /* NSArray+Uniqueness.h */,
@@ -688,6 +731,16 @@
 				755BBC6B1C9E11BD001A8314 /* Players */,
 			);
 			name = "Simulation Model";
+			sourceTree = "<group>";
+		};
+		75CC97481FB1D60000D08F06 /* CFC-Screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				75CC97511FB1D62000D08F06 /* SnapshotHelper.swift */,
+				75CC97491FB1D60000D08F06 /* CFC_Screenshots.swift */,
+				75CC974B1FB1D60000D08F06 /* Info.plist */,
+			);
+			path = "CFC-Screenshots";
 			sourceTree = "<group>";
 		};
 		C0C1FC9379CC5881BF7F3C73 /* Frameworks */ = {
@@ -722,13 +775,31 @@
 			productReference = 75924A1B1C99CCC000B165AD /* harbaughsim16.app */;
 			productType = "com.apple.product-type.application";
 		};
+		75CC97461FB1D60000D08F06 /* CFC-Screenshots */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75CC974E1FB1D60000D08F06 /* Build configuration list for PBXNativeTarget "CFC-Screenshots" */;
+			buildPhases = (
+				75CC97431FB1D60000D08F06 /* Sources */,
+				75CC97441FB1D60000D08F06 /* Frameworks */,
+				75CC97451FB1D60000D08F06 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75CC974D1FB1D60000D08F06 /* PBXTargetDependency */,
+			);
+			name = "CFC-Screenshots";
+			productName = "CFC-Screenshots";
+			productReference = 75CC97471FB1D60000D08F06 /* CFC-Screenshots.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		75924A131C99CCC000B165AD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0910;
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Akshay Easwaran";
 				TargetAttributes = {
@@ -736,6 +807,12 @@
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 67BW26529D;
 						LastSwiftMigration = 0800;
+					};
+					75CC97461FB1D60000D08F06 = {
+						CreatedOnToolsVersion = 9.1;
+						DevelopmentTeam = 67BW26529D;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 75924A1A1C99CCC000B165AD;
 					};
 				};
 			};
@@ -753,6 +830,7 @@
 			projectRoot = "";
 			targets = (
 				75924A1A1C99CCC000B165AD /* harbaughsim16 */,
+				75CC97461FB1D60000D08F06 /* CFC-Screenshots */,
 			);
 		};
 /* End PBXProject section */
@@ -783,6 +861,7 @@
 				751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */,
 				75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */,
 				75A86C991C9C7C0C0034140C /* recruit-selected@3x.png in Resources */,
+				751D052E1FA6A01D002CB414 /* triline@2x.png in Resources */,
 				7571DD3D1C9CFF6500E67080 /* HBRosterCell.xib in Resources */,
 				75A86C981C9C7C0C0034140C /* news-selected@3x.png in Resources */,
 				755BBC821C9F734E001A8314 /* TeamViewController.xib in Resources */,
@@ -790,17 +869,24 @@
 				75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */,
 				75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */,
 				75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */,
-				755BBC6D1C9E423B001A8314 /* NewsViewController.xib in Resources */,
 				75A86C921C9C7AA80034140C /* team@3x.png in Resources */,
 				755BBC871C9F7DA4001A8314 /* HBScoreCell.xib in Resources */,
 				7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */,
 				7571DD261C9CC64200E67080 /* settings@3x.png in Resources */,
 				7571DD351C9CF8E300E67080 /* MyTeamViewController.xib in Resources */,
 				75097C5D1CBC1B55003E2538 /* HBRecordCell.xib in Resources */,
+				751D052D1FA6A01D002CB414 /* triline@3x.png in Resources */,
 				7571DD331C9CD3A200E67080 /* play-week@3x.png in Resources */,
 				754E90831CA5A59D00C450CF /* TeamScheduleViewController.xib in Resources */,
 				755BBC7D1C9F6964001A8314 /* TeamSearchViewController.xib in Resources */,
 				75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75CC97451FB1D60000D08F06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,6 +963,7 @@
 				7563A8E11CB7F6F20023E43B /* Record.m in Sources */,
 				75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */,
 				75C5C3321F83447A00D7CAAD /* UpcomingViewController.m in Sources */,
+				75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */,
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
 				755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */,
 				75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */,
@@ -885,6 +972,7 @@
 				751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */,
 				75772C2E1D1C079E002DE956 /* RebrandConferenceSelectorViewController.m in Sources */,
 				754319021CC02D2200D380F1 /* ConferenceStandingsSelectorViewController.m in Sources */,
+				75FE584B1FA37D8C00DE2534 /* PlayerLB.m in Sources */,
 				755BBC7B1C9F5F1A001A8314 /* TeamSearchViewController.m in Sources */,
 				75C321C71CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m in Sources */,
 				7510B8471C9C76BE00BE9CD6 /* TeamSelectionViewController.m in Sources */,
@@ -917,12 +1005,12 @@
 				75C5C3351F83457100D7CAAD /* PlayerStatsViewController.m in Sources */,
 				7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */,
 				754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */,
-				75924A261C99CCC000B165AD /* NewsViewController.m in Sources */,
 				7591FE411D465B940037ECFB /* NSArray+Uniqueness.m in Sources */,
 				7571DD381C9CFD4000E67080 /* RosterViewController.m in Sources */,
 				754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */,
 				75924A551C99D24500B165AD /* League.m in Sources */,
 				75924A6A1C99E66700B165AD /* PlayerCB.m in Sources */,
+				756973971FAAB50400A66C42 /* LeagueUpdater.m in Sources */,
 				75924A3D1C99CD8D00B165AD /* Team.m in Sources */,
 				75924A201C99CCC000B165AD /* main.m in Sources */,
 				75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */,
@@ -938,12 +1026,30 @@
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,
 				7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */,
 				75924A521C99D1C600B165AD /* TeamStrategy.m in Sources */,
+				75FE584E1FA3838600DE2534 /* PlayerTE.m in Sources */,
 				7571DD3C1C9CFF6500E67080 /* HBRosterCell.m in Sources */,
 				754E90781CA58BF800C450CF /* BowlProjectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		75CC97431FB1D60000D08F06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75CC974A1FB1D60000D08F06 /* CFC_Screenshots.swift in Sources */,
+				75CC97521FB1D62000D08F06 /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		75CC974D1FB1D60000D08F06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75924A1A1C99CCC000B165AD /* harbaughsim16 */;
+			targetProxy = 75CC974C1FB1D60000D08F06 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		75924A2F1C99CCC000B165AD /* LaunchScreen.storyboard */ = {
@@ -1097,6 +1203,54 @@
 			};
 			name = Release;
 		};
+		75CC974F1FB1D60000D08F06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67BW26529D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "CFC-Screenshots/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.akeaswaran.CFC-Screenshots";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = harbaughsim16;
+			};
+			name = Debug;
+		};
+		75CC97501FB1D60000D08F06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67BW26529D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "CFC-Screenshots/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.akeaswaran.CFC-Screenshots";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = harbaughsim16;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1114,6 +1268,15 @@
 			buildConfigurations = (
 				75924A361C99CCC000B165AD /* Debug */,
 				75924A371C99CCC000B165AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75CC974E1FB1D60000D08F06 /* Build configuration list for PBXNativeTarget "CFC-Screenshots" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75CC974F1FB1D60000D08F06 /* Debug */,
+				75CC97501FB1D60000D08F06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
