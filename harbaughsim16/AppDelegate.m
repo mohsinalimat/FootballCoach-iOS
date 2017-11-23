@@ -111,6 +111,7 @@
         UIAlertController *convertProgressAlert = [UIAlertController alertControllerWithTitle:@"Save File Update in Progress" message:@"Updating save file..." preferredStyle:UIAlertControllerStyleAlert];
         UIProgressView *convertProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
         [convertProgressView setProgress:0.0 animated:YES];
+        convertProgressView.tintColor = [HBSharedUtils styleColor];
         convertProgressView.frame = CGRectMake(10, 70, 250, 0);
         [convertProgressAlert.view addSubview:convertProgressView];
         

@@ -545,7 +545,7 @@
         sections = 2;
     }
     
-    if ([HBSharedUtils getLeague].newsStories != nil || news.count > 0) {
+    if ([HBSharedUtils getLeague].newsStories != nil && news.count > 0) {
         sections += 1;
     }
     return sections;
