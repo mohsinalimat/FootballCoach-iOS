@@ -19,6 +19,7 @@
 
 #import "HexColors.h"
 #import "STPopup.h"
+#import "RMessage.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "ATAppUpdater.h"
@@ -175,6 +176,8 @@
     [STPopupNavigationBar appearance].barTintColor = [HBSharedUtils styleColor];
     [STPopupNavigationBar appearance].tintColor = [UIColor whiteColor];
     [STPopupNavigationBar appearance].barStyle = UIBarStyleDefault;
+    
+    [RMessage addDesignsFromFileWithName:@"alt-designs" inBundle:[NSBundle mainBundle]];
     
 }
 

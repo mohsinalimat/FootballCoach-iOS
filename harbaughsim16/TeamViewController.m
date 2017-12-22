@@ -113,7 +113,7 @@
                     
                     NSMutableArray *tempLeagueYear;
                     for (int k = 0; k < [HBSharedUtils getLeague].leagueHistoryDictionary.count; k++) {
-                        NSArray *leagueYear = [HBSharedUtils getLeague].leagueHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)(2016+k)]];
+                        NSArray *leagueYear = [HBSharedUtils getLeague].leagueHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear+k)]];
                         tempLeagueYear = [NSMutableArray arrayWithArray:leagueYear];
                         for (int i =0; i < leagueYear.count; i++) {
                             NSString *teamString = leagueYear[i];
@@ -130,34 +130,34 @@
                             }
                         }
                         
-                        [[HBSharedUtils getLeague].leagueHistoryDictionary setObject:[tempLeagueYear copy] forKey:[NSString stringWithFormat:@"%ld", (long)(2016+k)]];
+                        [[HBSharedUtils getLeague].leagueHistoryDictionary setObject:[tempLeagueYear copy] forKey:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + k)]];
                         [tempLeagueYear removeAllObjects];
                     }
                     
                     for (int j = 0; j < selectedTeam.teamHistoryDictionary.count; j++) {
-                        NSString *yearString = selectedTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)(2016+j)]];
+                        NSString *yearString = selectedTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + j)]];
                         if ([yearString containsString:oldAbbrev]) {
                             yearString = [yearString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
                             //NSLog(@"FOUND ABBREV MATCH IN TEAM HISTORY, REPLACING");
-                            [selectedTeam.teamHistoryDictionary setObject:yearString forKey:[NSString stringWithFormat:@"%ld",(long)(2016+j)]];
+                            [selectedTeam.teamHistoryDictionary setObject:yearString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
                         }
                     }
                     
                     for (int j = 0; j < [HBSharedUtils getLeague].heismanHistoryDictionary.count; j++) {
-                        NSString *heisString = [HBSharedUtils getLeague].heismanHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)(2016+j)]];
+                        NSString *heisString = [HBSharedUtils getLeague].heismanHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
                         if ([heisString containsString:[NSString stringWithFormat:@", %@ (", oldAbbrev]]) {
                             heisString = [heisString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@", %@ (", oldAbbrev] withString:[NSString stringWithFormat:@", %@ (", abbrev.text]];
                             //NSLog(@"FOUND ABBREV MATCH IN HEISMAN HISTORY, REPLACING");
-                            [[HBSharedUtils getLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)(2016+j)]];
+                            [[HBSharedUtils getLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
                         }
                     }
                     
                     [[HBSharedUtils getLeague] save];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTeams" object:nil];
                     [self.tableView reloadData];
-                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"Successfully rebranded this team to %@ (%@)!", name.text, abbrev.text] onViewController:self];
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Rebrand successful!" message:[NSString stringWithFormat:@"Successfully rebranded this team to %@ (%@)!", name.text, abbrev.text] onViewController:self];
                 } else {
-                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:@"Unable to rebrand this team.\nInvalid inputs provided." onViewController:self];
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand this team - Invalid inputs provided." onViewController:self];
                 }
             }]];
             

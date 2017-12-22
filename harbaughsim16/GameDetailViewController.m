@@ -326,11 +326,11 @@
         return @"Kickers";
     } else {
         if ([selectedGame.gameName isEqualToString:@"NCG"]) {
-            return @"National Championship Game";
+            return [NSString stringWithFormat:@"%ld National Championship Game", [HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count + 1];
         } else if ([selectedGame.gameName isEqualToString:@"Semis, 1v4"]) {
-            return @"National Semifinal - #1 vs #4";
+            return [NSString stringWithFormat:@"%ld National Semifinal - #1 vs #4", [HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count];
         } else if ([selectedGame.gameName isEqualToString:@"Semis, 2v3"]) {
-            return @"National Semifinal - #2 vs #3";
+            return [NSString stringWithFormat:@"%ld National Semifinal - #2 vs #3", [HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count];
         } else if ([selectedGame.gameName isEqualToString:@"In Conf"]) {
             return [NSString stringWithFormat:@"%@ Conference Play",selectedGame.homeTeam.conference];
         } else if ([selectedGame.gameName containsString:@" vs "]) {

@@ -17,6 +17,7 @@
 #import "STPopup.h"
 #import <StoreKit/StoreKit.h>
 @import MessageUI;
+@import SafariServices;
 
 @interface SettingsViewController () <MFMailComposeViewControllerDelegate>
 {
@@ -80,7 +81,7 @@
 
                     NSMutableArray *tempLeagueYear;
                     for (int k = 0; k < [HBSharedUtils getLeague].leagueHistoryDictionary.count; k++) {
-                        NSArray *leagueYear = [HBSharedUtils getLeague].leagueHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)(2016+k)]];
+                        NSArray *leagueYear = [HBSharedUtils getLeague].leagueHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + k)]];
                         tempLeagueYear = [NSMutableArray arrayWithArray:leagueYear];
                         for (int i =0; i < leagueYear.count; i++) {
                             NSString *teamString = leagueYear[i];
@@ -97,34 +98,35 @@
                             }
                         }
                         
-                        [[HBSharedUtils getLeague].leagueHistoryDictionary setObject:[tempLeagueYear copy] forKey:[NSString stringWithFormat:@"%ld",(long)(2016+k)]];
+                        [[HBSharedUtils getLeague].leagueHistoryDictionary setObject:[tempLeagueYear copy] forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + k)]];
                         [tempLeagueYear removeAllObjects];
                     }
                     
                     for (int j = 0; j < [HBSharedUtils getLeague].userTeam.teamHistoryDictionary.count; j++) {
-                        NSString *yearString = [HBSharedUtils getLeague].userTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)(2016+j)]];
+                        NSString *yearString = [HBSharedUtils getLeague].userTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
                         if ([yearString containsString:oldAbbrev]) {
                             yearString = [yearString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
                             //NSLog(@"FOUND ABBREV MATCH IN TEAM HISTORY, REPLACING");
-                            [[HBSharedUtils getLeague].userTeam.teamHistoryDictionary setObject:yearString forKey:[NSString stringWithFormat:@"%ld",(long)(2016+j)]];
+                            [[HBSharedUtils getLeague].userTeam.teamHistoryDictionary setObject:yearString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
                         }
                     }
                     
                     for (int j = 0; j < [HBSharedUtils getLeague].heismanHistoryDictionary.count; j++) {
-                        NSString *heisString = [HBSharedUtils getLeague].heismanHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)(2016+j)]];
+                        NSString *heisString = [HBSharedUtils getLeague].heismanHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
                         if ([heisString containsString:[NSString stringWithFormat:@", %@ (", oldAbbrev]]) {
                             heisString = [heisString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@", %@ (", oldAbbrev] withString:[NSString stringWithFormat:@", %@ (", abbrev.text]];
                             //NSLog(@"FOUND ABBREV MATCH IN HEISMAN HISTORY, REPLACING");
-                            [[HBSharedUtils getLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)(2016+j)]];
+                            [[HBSharedUtils getLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
                         }
                     }
                     
                     [[HBSharedUtils getLeague] save];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
                     [self.tableView reloadData];
-                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"Successfully rebranded your team to %@ (%@)!", name.text, abbrev.text] onViewController:self];
+
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Rebrand successful!" message:[NSString stringWithFormat:@"Successfully rebranded your team to %@ (%@)!", name.text, abbrev.text] onViewController:self];
                 } else {
-                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:@"Unable to rebrand your team.\nInvalid inputs provided." onViewController:self];
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand your team - Invalid inputs provided." onViewController:self];
                 }
             }]];
             
@@ -150,7 +152,7 @@
 }
 
 -(void)handleConfError {
-    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] message:@"Unable to rebrand the selected conference.\nA conference with that name already exists." onViewController:self];
+    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand the selected conference - A conference with that name already exists." onViewController:self];
 }
 
 -(void)reloadAll {
@@ -225,15 +227,15 @@
         } else if (indexPath.row == 1) {
             [cell.textLabel setText:@"AutoCoding"];
         } else if (indexPath.row == 2) {
-            [cell.textLabel setText:@"CSNotificationView"];
-        } else if (indexPath.row == 3) {
             [cell.textLabel setText:@"DZNEmptyDataSet"];
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 3) {
             [cell.textLabel setText:@"Fabric"];
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 4) {
             [cell.textLabel setText:@"FCFileManager"];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 5) {
             [cell.textLabel setText:@"HexColors"];
+        } else if (indexPath.row == 6) {
+            [cell.textLabel setText:@"Icons8"];
         } else if (indexPath.row == 7) {
             [cell.textLabel setText:@"Icons8"];
         } else {
@@ -324,7 +326,7 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 2)
-        return [NSString stringWithFormat:@"Version %@ (%@)\nCopyright © 2017 Akshay Easwaran.",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
+        return [NSString stringWithFormat:@"Version %@ (%@)\nCopyright © 2018 Akshay Easwaran.",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
     else
         return nil;
 }
@@ -338,62 +340,58 @@
         } else if (indexPath.row == 1) {
             url = @"https://github.com/nicklockwood/AutoCoding";
         } else if (indexPath.row == 2) {
-            url = @"https://github.com/problame/CSNotificationView";
-        } else if (indexPath.row == 3) {
             url = @"https://github.com/dzenbot/DZNEmptyDataSet";
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 3) {
             url = @"https://fabric.io";
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 4) {
             url = @"https://github.com/fabiocaccamo/FCFileManager";
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 5) {
             url = @"https://github.com/mRs-/HexColors";
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 6) {
             url = @"http://icons8.com";
+        } else if (indexPath.row == 7) {
+            url = @"https://github.com/donileo/RMessage";
         } else {
             url = @"https://github.com/kevin0571/STPopup";
         }
         
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-        }]];
-        [self presentViewController:alert animated:YES completion:nil];
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url] entersReaderIfAvailable:YES];
+        safariVC.preferredBarTintColor = [UIColor blackColor];
+        safariVC.preferredControlTintColor = [UIColor hx_colorWithHexRGBAString:@"#0090B3"];
+        
+        [self presentViewController:safariVC animated:YES completion:nil];
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://akeaswaran.me"]];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
+            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://akeaswaran.me"] entersReaderIfAvailable:YES];
+            safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
+            safariVC.preferredControlTintColor = [UIColor whiteColor];
+            
+            [self presentViewController:safariVC animated:YES completion:nil];
         } else if (indexPath.row == 1) {
             MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
             [composer setMailComposeDelegate:self];
             [composer setToRecipients:@[@"akeaswaran@me.com"]];
-            [composer setSubject:[NSString stringWithFormat:@"Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
+            [composer setSubject:[NSString stringWithFormat:@"College Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
             [self presentViewController:composer animated:YES completion:nil];
         } else if (indexPath.row == 2) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS"]];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
+            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS"] entersReaderIfAvailable:YES];
+            safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
+            safariVC.preferredControlTintColor = [UIColor whiteColor];
+            
+            [self presentViewController:safariVC animated:YES completion:nil];
 
         } else if (indexPath.row == 3) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to open this link in Safari?" message:nil preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://reddit.com/r/FootballCoach"]];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
+            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://reddit.com/r/FootballCoach"] entersReaderIfAvailable:YES];
+            safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
+            safariVC.preferredControlTintColor = [UIColor whiteColor];
+            
+            [self presentViewController:safariVC animated:YES completion:nil];
             
         } else {
             if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.3")) {
                 [SKStoreReviewController requestReview];
             } else {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to leave Football Coach?" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to leave College Football Coach?" message:nil preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
                 [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:HB_APP_REVIEW_URL]];

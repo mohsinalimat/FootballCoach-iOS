@@ -30,7 +30,6 @@
 #import "GameDetailViewController.h"
 #import "PlayerStatsViewController.h"
 
-#import "CSNotificationView.h"
 #import "HexColors.h"
 #import "STPopup.h"
 #import "UIScrollView+EmptyDataSet.h"
@@ -405,13 +404,11 @@
     
     if (simLeague.userTeam.gameWLSchedule.count > 0 && !simLeague.userTeam.gameSchedule.lastObject.hasPlayed && simLeague.userTeam.gameSchedule.count >= simLeague.currentWeek) {
         if (simLeague.currentWeek > 12) {
-            //NSLog(@"checking for bye");
             nextGame = [userTeam.gameSchedule lastObject];
             lastGame = userTeam.gameSchedule[simLeague.currentWeek - 1];
         } else {
             lastGame = userTeam.gameSchedule[simLeague.currentWeek - 1];
             nextGame = userTeam.gameSchedule[simLeague.currentWeek];
-            //NSLog(@"Last game and next game normal");
         }
     } else if (userTeam.gameSchedule.lastObject.hasPlayed) {
         lastGame = (simLeague.currentWeek > 12 ? userTeam.gameSchedule.lastObject : userTeam.gameSchedule[simLeague.currentWeek - 1]);
@@ -422,6 +419,7 @@
         nextGame = userTeam.gameSchedule[simLeague.currentWeek];
         //NSLog(@"Next game only");
     }
+
     
     NSMutableArray *qbs = [NSMutableArray array];
     NSMutableArray *ks = [NSMutableArray array];
@@ -882,7 +880,7 @@
             } else if (indexPath.row == 3) {
                 cell.textLabel.text = @"Defense";
                 cell.detailTextLabel.text = defLeader.name;
-                if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                if ([cell.detailTextLabel.text containsString:userTeam.name]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
                 } else {
                     [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
@@ -1048,7 +1046,7 @@
             } else if (indexPath.row == 3) {
                 cell.textLabel.text = @"Defense";
                 cell.detailTextLabel.text = defLeader.name;
-                if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
+                if ([cell.detailTextLabel.text containsString:userTeam.name]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
                 } else {
                     [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];

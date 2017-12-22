@@ -1,0 +1,57 @@
+{
+    "alternate-error": {
+        "buttonBackgroundImageName": "",
+        "buttonTitleTextColor": "#FF0040",
+        "subTitleFontSize": 14,
+        "subTitleTextColor": "#FFFFFF",
+        "iconImage": "NotificationBackgroundErrorIcon.png",
+        "titleTextColor": "#FFFFFF",
+        "titleFontSize": 14,
+        "backgroundColor": "#d7191c",
+        "opacity": 0.95
+    },
+    "loss": {
+        "buttonBackgroundImageName": "",
+        "buttonTitleTextColor": "#FF0040",
+        "subTitleFontSize": 14,
+        "subTitleTextColor": "#FFFFFF",
+        "iconImage": "loser",
+        "titleTextColor": "#FFFFFF",
+        "titleFontSize": 14,
+        "backgroundColor": "#d7191c",
+        "opacity": 0.95
+    },
+    "alternate-success": {
+        "buttonBackgroundImageName": "",
+        "buttonTitleTextColor": "#FF0040",
+        "subTitleFontSize": 14,
+        "subTitleTextColor": "#FFFFFF",
+        "iconImage": "NotificationBackgroundSuccessIcon.png",
+        "titleTextColor": "#FFFFFF",
+        "titleFontSize": 14,
+        "backgroundColor": "#3DB39E",
+        "opacity": 0.95
+    },
+    "win": {
+        "buttonBackgroundImageName": "",
+        "buttonTitleTextColor": "#FF0040",
+        "subTitleFontSize": 14,
+        "subTitleTextColor": "#FFFFFF",
+        "iconImage": "winner",
+        "titleTextColor": "#FFFFFF",
+        "titleFontSize": 14,
+        "backgroundColor": "#1a9641",
+        "opacity": 0.95
+    },
+    "champs" : {
+        "buttonBackgroundImageName": "",
+        "buttonTitleTextColor": "#FF0040",
+        "subTitleFontSize": 14,
+        "subTitleTextColor": "#FFFFFF",
+        "iconImage": "trophy",
+        "titleTextColor": "#FFFFFF",
+        "titleFontSize": 14,
+        "backgroundColor": "#eeb211",
+        "opacity": 0.95
+    }
+}

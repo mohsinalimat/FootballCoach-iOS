@@ -59,6 +59,7 @@
 +(void)setStyleColor:(NSDictionary*)colorDict;
 +(NSArray *)colorOptions;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;
++(void)showNotificationWithTintColor:(UIColor*)tintColor title:(NSString *)title message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(NSString *)randomState;
 
 +(NSComparisonResult)comparePlayers:(id)obj1 toObj2:(id)obj2;

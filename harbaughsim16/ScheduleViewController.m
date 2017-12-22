@@ -15,7 +15,6 @@
 #import "GraduatingPlayersViewController.h"
 
 #import "HexColors.h"
-#import "CSNotificationView.h"
 
 @interface ScheduleViewController () <UIViewControllerPreviewingDelegate>
 {

@@ -115,6 +115,13 @@
 		75EC9A761D07D9DC00F24BE6 /* medical@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EC9A751D07D9DC00F24BE6 /* medical@3x.png */; };
 		75EC9A791D08E12D00F24BE6 /* RingOfHonorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A781D08E12D00F24BE6 /* RingOfHonorViewController.m */; };
 		75EC9A7C1D08E5B300F24BE6 /* HallOfFameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */; };
+		75F0E25F1FECD7C100719086 /* alt-designs.json in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E25E1FECD7C100719086 /* alt-designs.json */; };
+		75F0E2661FECDAEA00719086 /* trophy@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E2601FECDAE900719086 /* trophy@3x.png */; };
+		75F0E2671FECDAEA00719086 /* loser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E2611FECDAE900719086 /* loser@2x.png */; };
+		75F0E2681FECDAEA00719086 /* trophy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E2621FECDAE900719086 /* trophy@2x.png */; };
+		75F0E2691FECDAEA00719086 /* loser@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E2631FECDAE900719086 /* loser@3x.png */; };
+		75F0E26A1FECDAEA00719086 /* winner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E2641FECDAEA00719086 /* winner@2x.png */; };
+		75F0E26B1FECDAEA00719086 /* winner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E2651FECDAEA00719086 /* winner@3x.png */; };
 		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
 		75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */; };
 		75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
@@ -323,6 +330,13 @@
 		75EC9A781D08E12D00F24BE6 /* RingOfHonorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RingOfHonorViewController.m; sourceTree = "<group>"; };
 		75EC9A7A1D08E5B300F24BE6 /* HallOfFameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HallOfFameViewController.h; sourceTree = "<group>"; };
 		75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HallOfFameViewController.m; sourceTree = "<group>"; };
+		75F0E25E1FECD7C100719086 /* alt-designs.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "alt-designs.json"; sourceTree = "<group>"; };
+		75F0E2601FECDAE900719086 /* trophy@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trophy@3x.png"; sourceTree = "<group>"; };
+		75F0E2611FECDAE900719086 /* loser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loser@2x.png"; sourceTree = "<group>"; };
+		75F0E2621FECDAE900719086 /* trophy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trophy@2x.png"; sourceTree = "<group>"; };
+		75F0E2631FECDAE900719086 /* loser@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loser@3x.png"; sourceTree = "<group>"; };
+		75F0E2641FECDAEA00719086 /* winner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "winner@2x.png"; sourceTree = "<group>"; };
+		75F0E2651FECDAEA00719086 /* winner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "winner@3x.png"; sourceTree = "<group>"; };
 		75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreaksViewController.h; sourceTree = "<group>"; };
 		75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreaksViewController.m; sourceTree = "<group>"; };
 		75FE58461FA37D8A00DE2534 /* PlayerDL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDL.m; sourceTree = "<group>"; };
@@ -591,6 +605,7 @@
 				75A86C871C9C790D0034140C /* FCTableViewController.m */,
 				7571DD1E1C9CBDA900E67080 /* HBSharedUtils.h */,
 				7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */,
+				75F0E25E1FECD7C100719086 /* alt-designs.json */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -673,6 +688,12 @@
 		75A86C9F1C9C7CAA0034140C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				75F0E2611FECDAE900719086 /* loser@2x.png */,
+				75F0E2631FECDAE900719086 /* loser@3x.png */,
+				75F0E2621FECDAE900719086 /* trophy@2x.png */,
+				75F0E2601FECDAE900719086 /* trophy@3x.png */,
+				75F0E2641FECDAEA00719086 /* winner@2x.png */,
+				75F0E2651FECDAEA00719086 /* winner@3x.png */,
 				751D052C1FA6A01D002CB414 /* triline@2x.png */,
 				751D052B1FA6A01D002CB414 /* triline@3x.png */,
 				75C5C3261F83429300D7CAAD /* FCAIcon1024.png */,
@@ -846,10 +867,13 @@
 				75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */,
 				7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */,
 				75EC9A761D07D9DC00F24BE6 /* medical@3x.png in Resources */,
+				75F0E25F1FECD7C100719086 /* alt-designs.json in Resources */,
 				7543190F1CC02F2200D380F1 /* HBTeamRankCell.xib in Resources */,
 				75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */,
 				7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */,
 				7571DD221C9CC62400E67080 /* news-sort@3x.png in Resources */,
+				75F0E26B1FECDAEA00719086 /* winner@3x.png in Resources */,
+				75F0E2661FECDAEA00719086 /* trophy@3x.png in Resources */,
 				75A41B4C1CA311CF00025E53 /* close@3x.png in Resources */,
 				7571DD281C9CC9A000E67080 /* ScheduleViewController.xib in Resources */,
 				755BBC4E1C9DEDF0001A8314 /* HBPlayerCell.xib in Resources */,
@@ -863,16 +887,20 @@
 				75A86C991C9C7C0C0034140C /* recruit-selected@3x.png in Resources */,
 				751D052E1FA6A01D002CB414 /* triline@2x.png in Resources */,
 				7571DD3D1C9CFF6500E67080 /* HBRosterCell.xib in Resources */,
+				75F0E26A1FECDAEA00719086 /* winner@2x.png in Resources */,
 				75A86C981C9C7C0C0034140C /* news-selected@3x.png in Resources */,
 				755BBC821C9F734E001A8314 /* TeamViewController.xib in Resources */,
+				75F0E2691FECDAEA00719086 /* loser@3x.png in Resources */,
 				7571DD241C9CC62E00E67080 /* stats@3x.png in Resources */,
 				75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */,
+				75F0E2671FECDAEA00719086 /* loser@2x.png in Resources */,
 				75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */,
 				75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */,
 				75A86C921C9C7AA80034140C /* team@3x.png in Resources */,
 				755BBC871C9F7DA4001A8314 /* HBScoreCell.xib in Resources */,
 				7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */,
 				7571DD261C9CC64200E67080 /* settings@3x.png in Resources */,
+				75F0E2681FECDAEA00719086 /* trophy@2x.png in Resources */,
 				7571DD351C9CF8E300E67080 /* MyTeamViewController.xib in Resources */,
 				75097C5D1CBC1B55003E2538 /* HBRecordCell.xib in Resources */,
 				751D052D1FA6A01D002CB414 /* triline@3x.png in Resources */,

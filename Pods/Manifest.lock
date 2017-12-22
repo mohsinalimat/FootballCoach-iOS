@@ -3,35 +3,39 @@ PODS:
   - AutoCoding (2.2.3)
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
-  - CSNotificationView (0.5.4)
   - DZNEmptyDataSet (1.8.1)
   - Fabric (1.7.2)
   - FCFileManager (1.0.19)
   - HexColors (4.0.0)
+  - PPTopMostController (0.0.1)
+  - RMessage (2.1.5):
+    - HexColors (~> 4.0)
+    - PPTopMostController
   - STPopup (1.8.3)
 
 DEPENDENCIES:
   - ATAppUpdater
   - AutoCoding
   - Crashlytics
-  - CSNotificationView
   - DZNEmptyDataSet
   - Fabric
   - FCFileManager
   - HexColors (= 4.0.0)
+  - RMessage
   - STPopup
 
 SPEC CHECKSUMS:
   ATAppUpdater: a9f7027060959d47e58733d3b48f6b9a28cb8de1
   AutoCoding: 90ca3cbc0d77a37cfff75167d705b44148c5fc51
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
-  CSNotificationView: '0792f5220163c2befaf1a9716aa3d5a7d6bd4fb1'
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   FCFileManager: df8ae7498afedf9ca56dd0cd12335f04dbe96af3
   HexColors: 5f95843ef89aff6a72e1fd3a8ebabf205cc43379
+  PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
+  RMessage: 31d44bd26a8f353f987d2e7194f3e9ffb203cbf2
   STPopup: da1167250a01584af7bcccb898653185f223ec46
 
-PODFILE CHECKSUM: 11181204846296705f54990eb11b6667d3886c79
+PODFILE CHECKSUM: 973dcd7ff1fc4af8d3486139408925380ef037ab
 
 COCOAPODS: 1.1.1

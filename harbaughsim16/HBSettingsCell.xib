@@ -1,8 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -14,21 +19,21 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMz-zQ-K7u">
-                        <rect key="frame" x="253" y="10" width="51" height="31"/>
-                    </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Qs-k0-A34">
-                        <rect key="frame" x="18" y="16" width="30" height="18"/>
+                        <rect key="frame" x="16" y="15" width="30" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VMz-zQ-K7u">
+                        <rect key="frame" x="255" y="9" width="51" height="31"/>
+                    </switch>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="5Qs-k0-A34" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="10" id="WkH-O6-NoM"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="VMz-zQ-K7u" secondAttribute="trailing" constant="10" id="mjW-3i-A6c"/>
+                    <constraint firstItem="5Qs-k0-A34" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="WkH-O6-NoM"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="VMz-zQ-K7u" secondAttribute="trailing" id="mjW-3i-A6c"/>
                     <constraint firstItem="5Qs-k0-A34" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nBg-Hj-RTf"/>
-                    <constraint firstItem="VMz-zQ-K7u" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="wtB-mi-UbW"/>
+                    <constraint firstItem="VMz-zQ-K7u" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="wtB-mi-UbW"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

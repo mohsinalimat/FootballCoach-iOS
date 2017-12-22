@@ -24,7 +24,6 @@
 #import "PlayerCB.h"
 #import "PlayerS.h"
 
-#import "CSNotificationView.h"
 #import "STPopup.h"
 #import "HexColors.h"
 
@@ -266,7 +265,7 @@
         recruitingBudget += recruitingBonus;
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:[NSString stringWithFormat:@"You've been awarded %ld extra points because of your losses this offseason.",(long)recruitingBonus] onViewController:self];
+            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Recruiting Bonus!" message:[NSString stringWithFormat:@"You've been awarded %ld extra points because of your losses this offseason.",(long)recruitingBonus] onViewController:self];
         });
     }
 
@@ -1308,7 +1307,7 @@
         [self reloadRecruits];
         [self.tableView reloadData];
 
-        [CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"Signed and redshirted %@ %@ (Ovr: %d) to %@!",player.position, player.name, player.ratOvr, [HBSharedUtils getLeague].userTeam.abbreviation] duration:0.5];
+        [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"New Recruit!" message:[NSString stringWithFormat:@"Signed and redshirted %@ %@ (Ovr: %d) to %@!",player.position, player.name, player.ratOvr, [HBSharedUtils getLeague].userTeam.abbreviation] onViewController:self];
         self.title = [NSString stringWithFormat:@"Budget: %d pts",recruitingBudget];
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Coach, you don't have enough points in your budget to sign this player! Try recruiting a cheaper one instead." preferredStyle:UIAlertControllerStyleAlert];
@@ -1401,7 +1400,7 @@
         [self reloadRecruits];
         [self.tableView reloadData];
 
-        [CSNotificationView showInViewController:self tintColor:[HBSharedUtils styleColor] image:nil message:[NSString stringWithFormat:@"Signed %@ %@ (Ovr: %d) to %@!",player.position, player.name, player.ratOvr, [HBSharedUtils getLeague].userTeam.abbreviation] duration:0.5];
+        [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"New Recruit!" message:[NSString stringWithFormat:@"Signed %@ %@ (Ovr: %d) to %@!",player.position, player.name, player.ratOvr, [HBSharedUtils getLeague].userTeam.abbreviation] onViewController:self];
         self.title = [NSString stringWithFormat:@"Budget: %d pts",recruitingBudget];
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Coach, you don't have enough points in your budget to sign this player! Try recruiting a cheaper one instead." preferredStyle:UIAlertControllerStyleAlert];
