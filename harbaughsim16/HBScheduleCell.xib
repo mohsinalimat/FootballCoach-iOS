@@ -1,9 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15F18c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,43 +20,43 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SOU vs PAC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ihl-ue-ruD">
-                        <rect key="frame" x="14" y="19" width="92" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="92" id="P3E-6v-Mfi"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W 75-45" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mpT-HO-x2L">
-                        <rect key="frame" x="114" y="19" width="92" height="21"/>
+                        <rect key="frame" x="116" y="22" width="88" height="15"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ #60 KYW" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6f-oY-dRv">
-                        <rect key="frame" x="214" y="20" width="92" height="21"/>
+                        <rect key="frame" x="212" y="22" width="92" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" red="0.66666668653488159" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SOU vs PAC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ihl-ue-ruD">
+                        <rect key="frame" x="16" y="22" width="92" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="92" id="P3E-6v-Mfi"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.66666668653488159" green="0.66666668653488159" blue="0.66666668653488159" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="i6f-oY-dRv" secondAttribute="trailing" constant="6" id="1ZB-YX-SB7"/>
-                    <constraint firstItem="Ihl-ue-ruD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="6" id="Auf-qx-yBc"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="i6f-oY-dRv" secondAttribute="trailing" id="1ZB-YX-SB7"/>
+                    <constraint firstItem="Ihl-ue-ruD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Auf-qx-yBc"/>
                     <constraint firstItem="i6f-oY-dRv" firstAttribute="leading" secondItem="mpT-HO-x2L" secondAttribute="trailing" constant="8" symbolic="YES" id="BJr-YT-A7Z"/>
                     <constraint firstItem="i6f-oY-dRv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Jzf-4a-ADe"/>
                     <constraint firstItem="mpT-HO-x2L" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="efH-57-E98"/>
                     <constraint firstItem="mpT-HO-x2L" firstAttribute="baseline" secondItem="Ihl-ue-ruD" secondAttribute="baseline" id="fQY-iu-65L"/>
                     <constraint firstItem="mpT-HO-x2L" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="mYl-K5-RSr"/>
                     <constraint firstItem="mpT-HO-x2L" firstAttribute="leading" secondItem="Ihl-ue-ruD" secondAttribute="trailing" constant="8" symbolic="YES" id="px0-zh-3cP"/>
-                    <constraint firstItem="i6f-oY-dRv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="12" id="rFz-v4-whK"/>
+                    <constraint firstItem="i6f-oY-dRv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="11" id="rFz-v4-whK"/>
                     <constraint firstItem="Ihl-ue-ruD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="11" id="tio-MZ-EUQ"/>
                     <constraint firstItem="Ihl-ue-ruD" firstAttribute="firstBaseline" secondItem="mpT-HO-x2L" secondAttribute="firstBaseline" id="ya8-1s-L6M"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <connections>
                 <outlet property="gameNameLabel" destination="Ihl-ue-ruD" id="Gu2-df-WxZ"/>
                 <outlet property="gameScoreLabel" destination="mpT-HO-x2L" id="vkX-Wm-b09"/>

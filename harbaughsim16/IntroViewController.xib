@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IntroViewController">
             <connections>
+                <outlet property="copyrightLabel" destination="pPR-iF-Y2t" id="5gh-oZ-hbX"/>
                 <outlet property="view" destination="iN0-l3-epB" id="fhX-io-qRe"/>
             </connections>
         </placeholder>
@@ -19,25 +21,35 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football Coach" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsJ-UO-vIc">
-                    <rect key="frame" x="20" y="276" width="335" height="47"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="College Football Coach" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsJ-UO-vIc">
+                    <rect key="frame" x="16" y="253" width="343" height="89"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="47" id="36o-Gq-T5t"/>
+                        <constraint firstAttribute="height" constant="89" id="JL8-jO-jkF"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FCAFootball.png" translatesAutoresizingMaskIntoConstraints="NO" id="lwV-55-wVp">
-                    <rect key="frame" x="98" y="82" width="180" height="219"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2017 Akshay Easwaran" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPR-iF-Y2t">
+                    <rect key="frame" x="16" y="626" width="343" height="21"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="219" id="2a8-TF-e0L"/>
+                        <constraint firstAttribute="height" constant="21" id="jCh-oB-jEQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FCAFootball.png" translatesAutoresizingMaskIntoConstraints="NO" id="lwV-55-wVp">
+                    <rect key="frame" x="97" y="57" width="180" height="180"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="180" id="hwr-3R-TPb"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YHo-ef-G5P">
-                    <rect key="frame" x="33" y="430" width="309" height="49"/>
+                    <rect key="frame" x="16" y="428" width="343" height="49"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="49" id="CZE-FM-qkH"/>
+                        <constraint firstAttribute="height" constant="49" id="jH3-Uy-6yg"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                     <state key="normal" title="How to Play">
@@ -47,19 +59,11 @@
                         <action selector="pushTutorial:" destination="-1" eventType="touchUpInside" id="z1m-ne-eBZ"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2017 Akshay Easwaran" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pPR-iF-Y2t">
-                    <rect key="frame" x="20" y="626" width="335" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="jQp-sN-7Rb"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oWy-6d-c1z">
-                    <rect key="frame" x="33" y="373" width="309" height="49"/>
+                    <rect key="frame" x="16" y="371" width="343" height="49"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.10000000000000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="49" id="lwn-wD-ufk"/>
+                        <constraint firstAttribute="height" constant="49" id="nKR-zs-EeW"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
                     <state key="normal" title="New Career">
@@ -72,21 +76,21 @@
             </subviews>
             <color key="backgroundColor" red="0.23921568630000001" green="0.70196078429999997" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="QsJ-UO-vIc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="1Mg-0K-V1b"/>
-                <constraint firstItem="YHo-ef-G5P" firstAttribute="leading" secondItem="oWy-6d-c1z" secondAttribute="leading" id="37l-sb-ovo"/>
-                <constraint firstItem="pPR-iF-Y2t" firstAttribute="leading" secondItem="QsJ-UO-vIc" secondAttribute="leading" id="A1k-uo-R5B"/>
-                <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CQb-tn-4yP"/>
-                <constraint firstItem="lwV-55-wVp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="98" id="DfX-bn-hlR"/>
-                <constraint firstItem="oWy-6d-c1z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="33" id="Ggn-we-C6p"/>
-                <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="lwV-55-wVp" secondAttribute="bottom" constant="72" id="IPu-sx-hHs"/>
-                <constraint firstItem="pPR-iF-Y2t" firstAttribute="trailing" secondItem="QsJ-UO-vIc" secondAttribute="trailing" id="IRq-c8-pYH"/>
-                <constraint firstAttribute="bottom" secondItem="pPR-iF-Y2t" secondAttribute="bottom" constant="20" symbolic="YES" id="VSC-AL-aMU"/>
-                <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="oWy-6d-c1z" secondAttribute="centerX" id="XSe-bf-qFo"/>
-                <constraint firstItem="lwV-55-wVp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="82" id="e2m-7F-Xcx"/>
-                <constraint firstItem="QsJ-UO-vIc" firstAttribute="centerX" secondItem="lwV-55-wVp" secondAttribute="centerX" id="vYh-2Q-s3W"/>
-                <constraint firstItem="YHo-ef-G5P" firstAttribute="trailing" secondItem="oWy-6d-c1z" secondAttribute="trailing" id="va6-Tk-d2K"/>
-                <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="QsJ-UO-vIc" secondAttribute="bottom" constant="50" id="x97-VY-r9K"/>
-                <constraint firstItem="YHo-ef-G5P" firstAttribute="top" secondItem="oWy-6d-c1z" secondAttribute="bottom" constant="8" symbolic="YES" id="zjN-7E-JR7"/>
+                <constraint firstItem="QsJ-UO-vIc" firstAttribute="leading" secondItem="oWy-6d-c1z" secondAttribute="leading" id="3nj-fx-Mff"/>
+                <constraint firstItem="lwV-55-wVp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="97" id="5Ya-wW-oX1"/>
+                <constraint firstItem="lwV-55-wVp" firstAttribute="centerX" secondItem="QsJ-UO-vIc" secondAttribute="centerX" id="BYf-qT-c7j"/>
+                <constraint firstAttribute="bottom" secondItem="pPR-iF-Y2t" secondAttribute="bottom" constant="20" symbolic="YES" id="D2i-EZ-pSh"/>
+                <constraint firstItem="QsJ-UO-vIc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="LHs-ZG-twj"/>
+                <constraint firstItem="YHo-ef-G5P" firstAttribute="trailing" secondItem="pPR-iF-Y2t" secondAttribute="trailing" id="b3W-dK-8Wn"/>
+                <constraint firstItem="oWy-6d-c1z" firstAttribute="trailing" secondItem="YHo-ef-G5P" secondAttribute="trailing" id="czb-Ws-bFN"/>
+                <constraint firstItem="oWy-6d-c1z" firstAttribute="top" secondItem="QsJ-UO-vIc" secondAttribute="bottom" constant="29" id="dFg-Df-JN8"/>
+                <constraint firstItem="YHo-ef-G5P" firstAttribute="top" secondItem="oWy-6d-c1z" secondAttribute="bottom" constant="8" symbolic="YES" id="eCu-37-Ler"/>
+                <constraint firstItem="lwV-55-wVp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="57" id="fy0-RI-4A3"/>
+                <constraint firstItem="QsJ-UO-vIc" firstAttribute="trailing" secondItem="oWy-6d-c1z" secondAttribute="trailing" id="mnT-oP-ocl"/>
+                <constraint firstItem="QsJ-UO-vIc" firstAttribute="top" secondItem="lwV-55-wVp" secondAttribute="bottom" constant="16" id="rnz-aa-mJf"/>
+                <constraint firstItem="oWy-6d-c1z" firstAttribute="leading" secondItem="YHo-ef-G5P" secondAttribute="leading" id="s1w-dS-sP2"/>
+                <constraint firstItem="YHo-ef-G5P" firstAttribute="leading" secondItem="pPR-iF-Y2t" secondAttribute="leading" id="xTq-Qb-kS1"/>
+                <constraint firstItem="QsJ-UO-vIc" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="yJV-yG-vsC"/>
             </constraints>
             <point key="canvasLocation" x="-45.5" y="20.5"/>
         </view>

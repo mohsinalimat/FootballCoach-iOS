@@ -105,6 +105,8 @@
 		75C5C3321F83447A00D7CAAD /* UpcomingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */; };
 		75C5C3351F83457100D7CAAD /* PlayerStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3331F83457000D7CAAD /* PlayerStatsViewController.m */; };
 		75C5C3381F83489D00D7CAAD /* HBTeamPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */; };
+		75CA698C1FEE2BF2008A58D1 /* last-names.csv in Resources */ = {isa = PBXBuildFile; fileRef = 75CA698A1FEE2BF2008A58D1 /* last-names.csv */; };
+		75CA698D1FEE2BF2008A58D1 /* first-names.csv in Resources */ = {isa = PBXBuildFile; fileRef = 75CA698B1FEE2BF2008A58D1 /* first-names.csv */; };
 		75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE1C1CBECCBC003AB932 /* FCAFootball.png */; };
 		75CC974A1FB1D60000D08F06 /* CFC_Screenshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CC97491FB1D60000D08F06 /* CFC_Screenshots.swift */; };
 		75CC97521FB1D62000D08F06 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75CC97511FB1D62000D08F06 /* SnapshotHelper.swift */; };
@@ -313,6 +315,8 @@
 		75C5C3341F83457100D7CAAD /* PlayerStatsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerStatsViewController.h; sourceTree = "<group>"; };
 		75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBTeamPlayView.h; sourceTree = "<group>"; };
 		75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBTeamPlayView.m; sourceTree = "<group>"; };
+		75CA698A1FEE2BF2008A58D1 /* last-names.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "last-names.csv"; sourceTree = "<group>"; };
+		75CA698B1FEE2BF2008A58D1 /* first-names.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "first-names.csv"; sourceTree = "<group>"; };
 		75CACE1C1CBECCBC003AB932 /* FCAFootball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCAFootball.png; sourceTree = "<group>"; };
 		75CC97471FB1D60000D08F06 /* CFC-Screenshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CFC-Screenshots.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75CC97491FB1D60000D08F06 /* CFC_Screenshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CFC_Screenshots.swift; sourceTree = "<group>"; };
@@ -500,6 +504,8 @@
 				7571DD191C9CB1DC00E67080 /* IntroViewController.h */,
 				7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */,
 				7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */,
+				75CA698B1FEE2BF2008A58D1 /* first-names.csv */,
+				75CA698A1FEE2BF2008A58D1 /* last-names.csv */,
 			);
 			name = Intro;
 			sourceTree = "<group>";
@@ -874,6 +880,7 @@
 				7571DD221C9CC62400E67080 /* news-sort@3x.png in Resources */,
 				75F0E26B1FECDAEA00719086 /* winner@3x.png in Resources */,
 				75F0E2661FECDAEA00719086 /* trophy@3x.png in Resources */,
+				75CA698C1FEE2BF2008A58D1 /* last-names.csv in Resources */,
 				75A41B4C1CA311CF00025E53 /* close@3x.png in Resources */,
 				7571DD281C9CC9A000E67080 /* ScheduleViewController.xib in Resources */,
 				755BBC4E1C9DEDF0001A8314 /* HBPlayerCell.xib in Resources */,
@@ -884,6 +891,7 @@
 				75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */,
 				751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */,
 				75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */,
+				75CA698D1FEE2BF2008A58D1 /* first-names.csv in Resources */,
 				75A86C991C9C7C0C0034140C /* recruit-selected@3x.png in Resources */,
 				751D052E1FA6A01D002CB414 /* triline@2x.png in Resources */,
 				7571DD3D1C9CFF6500E67080 /* HBRosterCell.xib in Resources */,

@@ -22,6 +22,7 @@
 @interface SettingsViewController () <MFMailComposeViewControllerDelegate>
 {
     STPopupController *popupController;
+    NSString *currentYear;
 }
 @end
 
@@ -149,6 +150,9 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"HBSettingsCell" bundle:nil] forCellReuseIdentifier:@"HBSettingsCell"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConfError) name:@"updatedConferenceError" object:nil];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy"];
+    currentYear = [formatter stringFromDate:[NSDate date]];
 }
 
 -(void)handleConfError {
@@ -326,7 +330,7 @@
 
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 2)
-        return [NSString stringWithFormat:@"Version %@ (%@)\nCopyright © 2018 Akshay Easwaran.",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
+        return [NSString stringWithFormat:@"Version %@ (%@)\nCopyright © %@ Akshay Easwaran.",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], currentYear];
     else
         return nil;
 }

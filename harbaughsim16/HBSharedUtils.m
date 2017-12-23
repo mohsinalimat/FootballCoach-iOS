@@ -29,6 +29,14 @@ static UIColor *styleColor = nil;
     return ((double)arc4random() / ARC4RANDOM_MAX);
 }
 
++(NSString*)firstNamesCSV {
+    return @"first-names.csv";
+}
+
++(NSString*)lastNamesCSV {
+    return @"last-names.csv";
+}
+
 +(League*)getLeague {
     League *ligue = [((AppDelegate*)[[UIApplication sharedApplication] delegate]) league];
     ligue.userTeam.isUserControlled = YES;

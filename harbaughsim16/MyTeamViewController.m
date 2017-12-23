@@ -171,7 +171,7 @@
 
 -(void)setupTeamHeader {
     userTeam = [HBSharedUtils getLeague].userTeam;
-    //[[HBSharedUtils getLeague] setTeamRanks];
+    [[HBSharedUtils getLeague] setTeamRanks];
     stats = [userTeam getTeamStatsArray];
     NSString *rank = @"";
     if ([HBSharedUtils getLeague].currentWeek > 0 && userTeam.rankTeamPollScore < 26 && userTeam.rankTeamPollScore > 0) {

@@ -23,7 +23,7 @@
 
 #define HB_CURRENT_APP_VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 #define HB_APP_VERSION_PRE_OVERHAUL @"1.1.4"
-#define HB_APP_VERSION_POST_OVERHAUL @"1.2"
+#define HB_APP_VERSION_POST_OVERHAUL @"2.0"
 
 #define HB_SAVE_FILE_NEEDS_UPDATE YES
 
@@ -58,6 +58,10 @@
 +(UIColor *)champColor;
 +(void)setStyleColor:(NSDictionary*)colorDict;
 +(NSArray *)colorOptions;
++(NSString*)firstNamesCSV;
++(NSString*)lastNamesCSV;
+
+
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor title:(NSString *)title message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(NSString *)randomState;

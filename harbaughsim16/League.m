@@ -33,7 +33,7 @@
 #import "AutoCoding.h"
 
 @implementation League
-@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear;
+@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList;
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
@@ -53,6 +53,7 @@
     [encoder encodeObject:self.conferences forKey:@"conferences"];
     [encoder encodeObject:self.teamList forKey:@"teamList"];
     [encoder encodeObject:self.nameList forKey:@"nameList"];
+    [encoder encodeObject:self.lastNameList forKey:@"lastNameList"];
     [encoder encodeObject:self.newsStories forKey:@"newsStories"];
     [encoder encodeInt:self.currentWeek forKey:@"currentWeek"];
     [encoder encodeBool:self.hasScheduledBowls forKey:@"hasScheduledBowls"];
@@ -421,6 +422,24 @@
             self.careerFgMadeRecord = [decoder decodeObjectForKey:@"careerFgMadeRecord"];
         }
         
+        if (![decoder containsValueForKey:@"lastNameList"]) {
+            NSArray *lastNamePathFrags = [[HBSharedUtils lastNamesCSV] componentsSeparatedByString:@"."];
+            NSString *lastNamePath = lastNamePathFrags[0];
+            NSString *lastNameFullPath = [[NSBundle mainBundle] pathForResource:lastNamePath ofType:@"csv"];
+            NSError *error;
+            NSString *lastNameCSV = [NSString stringWithContentsOfFile:lastNameFullPath encoding:NSUTF8StringEncoding error:&error];
+            if (error) {
+                NSLog(@"Last name list retrieve error: %@", error);
+            }
+            self.lastNameList = [NSMutableArray array];
+            NSArray *lastNamesSplit = [lastNameCSV componentsSeparatedByString:@","];
+            for (NSString *n in lastNamesSplit) {
+                [lastNameList addObject:[n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]];
+            }
+        } else {
+            self.lastNameList = [decoder decodeObjectForKey:@"lastNameList"];
+        }
+        
         //deprecated
         leagueRecordYearPassYards = 0;
         leagueRecordYearCompletions = 0;
@@ -627,7 +646,7 @@
     }
 }
 
--(instancetype)initWithSaveFile:(NSString*)saveFileName names:(NSString*)nameCSV {
+-(instancetype)initWithSaveFile:(NSString*)saveFileName {
     self = [super init];
     if (self) {
         recruitingStage = 0;
@@ -640,8 +659,8 @@
     return self;
 }
 
--(instancetype)loadFromSaveFileWithNames:(NSString*)namesCSV {
-    return [[League alloc] initWithSaveFile:@"league.cfb" names:namesCSV];
+-(instancetype)loadFromSaveFileWithNames {
+    return [[League alloc] initWithSaveFile:@"league.cfb"];
 }
 
 -(NSArray*)bowlGameTitles {
@@ -649,14 +668,18 @@
 }
 
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV {
-    return [[League alloc] initFromCSV:namesCSV];
+    return [[League alloc] initFromCSV:namesCSV lastNamesCSV:namesCSV];
 }
 
-+(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName names:(NSString*)namesCSV {
-    return [[League alloc] initWithSaveFile:saveFileName names:namesCSV];
++(instancetype)newLeagueFromCSV:(NSString*)namesCSV lastNamesCSV:(NSString*)lastNameCSV {
+    return [[League alloc] initFromCSV:namesCSV lastNamesCSV:lastNameCSV];
 }
 
--(instancetype)initFromCSV:(NSString*)namesCSV {
++(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName {
+    return [[League alloc] initWithSaveFile:saveFileName];
+}
+
+-(instancetype)initFromCSV:(NSString*)namesCSV lastNamesCSV:(NSString*)lastNameCSV {
     self = [super init];
     if (self){
         isHardMode = NO;
@@ -679,7 +702,7 @@
         cursedStoryIndex = 0;
         
         leagueVersion = HB_CURRENT_APP_VERSION;
-        baseYear = 2017;
+        baseYear = 2018;
 
         careerCompletionsRecord = nil;
         careerPassYardsRecord = nil;
@@ -728,6 +751,12 @@
         NSArray *namesSplit = [namesCSV componentsSeparatedByString:@","];
         for (NSString *n in namesSplit) {
             [nameList addObject:[n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]];
+        }
+        
+        lastNameList = [NSMutableArray array];
+        NSArray *lastNamesSplit = [lastNameCSV componentsSeparatedByString:@","];
+        for (NSString *n in lastNamesSplit) {
+            [lastNameList addObject:[n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]];
         }
 
         Conference *south = conferences[0];
