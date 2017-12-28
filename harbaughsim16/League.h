@@ -166,8 +166,8 @@
 -(void)completeProDraft;
 -(void)updateHallOfFame;
 
--(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam;
--(BOOL)isTeamAbbrValid:(NSString*)abbr allowUserTeam:(BOOL)allowUserTeam;
+-(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite ;
+-(BOOL)isTeamAbbrValid:(NSString*)abbr allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite ;
 -(BOOL)isConfNameValid:(NSString*)name;
 -(BOOL)isConfAbbrValid:(NSString*)abbr;
 -(BOOL)isStateValid:(NSString*)stt;

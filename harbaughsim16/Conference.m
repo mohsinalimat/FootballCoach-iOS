@@ -471,14 +471,14 @@
 -(NSString *)conferenceMetadataJSON {
     NSMutableString *jsonString = [NSMutableString string];
     [jsonString appendString:@"{"];
-    [jsonString appendFormat:@"\"confName\" : \"%@\", \"confFullName\" : \"%@\", \"confTeams\" : {",confName, confFullName];
+    [jsonString appendFormat:@"\"confName\" : \"%@\", \"confFullName\" : \"%@\", \"confTeams\" : [",confName, confFullName];
     for (Team *t in confTeams) {
-        [jsonString appendFormat:@"\"%@\" : %@,", [NSNumber numberWithInteger:[t importIdentifier]].stringValue,[t teamMetadataJSON]];
+        [jsonString appendFormat:@"%@,",[t teamMetadataJSON]];
     }
     
     NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@","];
     jsonString = [NSMutableString stringWithString:[jsonString stringByTrimmingCharactersInSet:charSet]];
-    [jsonString appendString:@"}"];
+    [jsonString appendString:@"]"];
     [jsonString appendString:@"}"];
     return jsonString;
 }
@@ -505,13 +505,12 @@
             confFullName = jsonDict[@"confFullName"];
         }
         
-        NSDictionary *jsonConfTeams = jsonDict[@"confTeams"];
-        for (Team *t in confTeams) {
-            NSString *importId = [NSNumber numberWithInteger:[t importIdentifier]].stringValue;
-            if ([jsonConfTeams.allKeys containsObject:importId]) {
-                [t applyJSONMetadataChanges:jsonConfTeams[importId]];
-            }
+        NSArray *jsonConfTeams = jsonDict[@"confTeams"];
+        
+        for (int i = 0; i < confTeams.count; i++) {
+             [confTeams[i] applyJSONMetadataChanges:jsonConfTeams[i]];
         }
+        [self sortConfTeams];
         
     } else {
         NSLog(@"ERROR parsing conf metadata: %@", error);

@@ -530,7 +530,17 @@
 }
 
 -(void)recruitPlayers:(NSArray*)needs {
-
+    teamQBs = [NSMutableArray array];
+    teamRBs = [NSMutableArray array];
+    teamWRs = [NSMutableArray array];
+    teamKs = [NSMutableArray array];
+    teamOLs = [NSMutableArray array];
+    teamLBs = [NSMutableArray array];
+    teamTEs = [NSMutableArray array];
+    teamDLs = [NSMutableArray array];
+    teamSs = [NSMutableArray array];
+    teamCBs = [NSMutableArray array];
+    
     int qbNeeds, rbNeeds, wrNeeds, kNeeds, olNeeds, sNeeds, cbNeeds, dlNeeds, lbNeeds, teNeeds;
     qbNeeds = [needs[0] intValue];
     rbNeeds = [needs[1] intValue];
@@ -2603,9 +2613,19 @@
 -(NSString *)teamMetadataJSON {
     NSMutableString *jsonString = [NSMutableString string];
     [jsonString appendString:@"{"];
-    [jsonString appendFormat:@"\"name\" : \"%@\", \"abbreviation\" : \"%@\",  \"state\" : \"%@\", \"rival\" : \"%@\"",name, abbreviation, state, rivalTeam];
+    [jsonString appendFormat:@"\"name\" : \"%@\", \"abbreviation\" : \"%@\", \"prestige\" : \"%d\",  \"state\" : \"%@\", \"rival\" : \"%@\"",name, abbreviation, teamPrestige, state, rivalTeam];
     [jsonString appendString:@"}"];
     return jsonString;
+}
+
+-(NSNumberFormatter *)numberFormatter {
+    static dispatch_once_t onceToken;
+    static NSNumberFormatter *numFormatter;
+    dispatch_once(&onceToken, ^{
+        numFormatter = [[NSNumberFormatter alloc] init];
+        numFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+    });
+    return numFormatter;
 }
 
 -(void)applyJSONMetadataChanges:(id)json {
@@ -2622,11 +2642,28 @@
     }
     
     if (!error) {
-        if ([league isTeamNameValid:jsonDict[@"name"] allowUserTeam:YES]) {
+        if ([league isTeamNameValid:jsonDict[@"name"] allowUserTeam:YES allowOverwrite:YES]) {
             name = jsonDict[@"name"];
         }
         
-        if ([league isTeamAbbrValid:jsonDict[@"abbreviation"] allowUserTeam:YES]) {
+        NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+        if ([jsonDict[@"prestige"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+        {
+            NSLog(@"Changing prestige for %@ from base value of %d", abbreviation, teamPrestige);
+            NSNumber *prestige = [[self numberFormatter] numberFromString:jsonDict[@"prestige"]];
+            if (prestige.intValue > 95) {
+                teamPrestige = 95;
+            } else if (prestige.intValue < 25) {
+                teamPrestige = 25;
+            } else {
+                teamPrestige = prestige.intValue;
+            }
+            NSLog(@"New prestige for %@: %d", abbreviation,teamPrestige);
+            NSLog(@"recycling players...");
+            [self recruitPlayers: @[@2, @4, @6, @2, @10, @2, @6, @8, @6, @2]];
+        }
+        
+        if ([league isTeamAbbrValid:jsonDict[@"abbreviation"] allowUserTeam:YES allowOverwrite:YES]) {
             abbreviation = jsonDict[@"abbreviation"];
         }
         
@@ -2634,7 +2671,7 @@
             state = jsonDict[@"state"];
         }
         
-        if ([league isTeamAbbrValid:jsonDict[@"rival"] allowUserTeam:YES]) {
+        if ([league isTeamAbbrValid:jsonDict[@"rival"] allowUserTeam:YES allowOverwrite:NO]) {
             rivalTeam = jsonDict[@"rival"];
         }
     } else {

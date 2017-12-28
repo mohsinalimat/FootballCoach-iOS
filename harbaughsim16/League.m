@@ -2209,7 +2209,7 @@
     }
 }
 
--(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam  {
+-(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite  {
     if (name.length == 0) {
         return NO;
     }
@@ -2225,15 +2225,17 @@
         return false;
     }
     
-    for (int i = 0; i < teamList.count; i++) {
-        // compare using all lower case so no dumb duplicates
-        if (allowUserTeam) {
-            if ([teamList[i].name.lowercaseString isEqualToString:name.lowercaseString]) {
-                return false;
-            }
-        } else {
-            if ([teamList[i].name.lowercaseString isEqualToString:name.lowercaseString] && !teamList[i].isUserControlled) {
-                return false;
+    if (!allowOverwrite) {
+        for (int i = 0; i < teamList.count; i++) {
+            // compare using all lower case so no dumb duplicates
+            if (allowUserTeam) {
+                if ([teamList[i].name.lowercaseString isEqualToString:name.lowercaseString]) {
+                    return false;
+                }
+            } else {
+                if ([teamList[i].name.lowercaseString isEqualToString:name.lowercaseString] && !teamList[i].isUserControlled) {
+                    return false;
+                }
             }
         }
     }
@@ -2241,7 +2243,7 @@
     return true;
 }
 
--(BOOL)isTeamAbbrValid:(NSString*)abbr allowUserTeam:(BOOL)allowUserTeam {
+-(BOOL)isTeamAbbrValid:(NSString*)abbr allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite {
     if (abbr.length == 0 || abbr.length > 4) {
         return NO;
     }
@@ -2259,15 +2261,17 @@
         return false;
     }
     
-    for (int i = 0; i < teamList.count; i++) {
-        // compare using all lower case so no dumb duplicates
-        if (allowUserTeam) {
-            if ([teamList[i].abbreviation.lowercaseString isEqualToString:abbr.lowercaseString]) {
-                return false;
-            }
-        } else {
-            if ([teamList[i].abbreviation.lowercaseString isEqualToString:abbr.lowercaseString] && !teamList[i].isUserControlled) {
-                return false;
+    if (!allowOverwrite) {
+        for (int i = 0; i < teamList.count; i++) {
+            // compare using all lower case so no dumb duplicates
+            if (allowUserTeam) {
+                if ([teamList[i].abbreviation.lowercaseString isEqualToString:abbr.lowercaseString]) {
+                    return false;
+                }
+            } else {
+                if ([teamList[i].abbreviation.lowercaseString isEqualToString:abbr.lowercaseString] && !teamList[i].isUserControlled) {
+                    return false;
+                }
             }
         }
     }
