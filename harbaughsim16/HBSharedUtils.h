@@ -60,7 +60,7 @@
 +(NSArray *)colorOptions;
 +(NSString*)firstNamesCSV;
 +(NSString*)lastNamesCSV;
-
++ (NSArray *)states;
 
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor title:(NSString *)title message:(NSString*)message onViewController:(UIViewController*)viewController;

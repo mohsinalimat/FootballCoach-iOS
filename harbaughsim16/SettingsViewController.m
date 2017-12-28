@@ -16,6 +16,7 @@
 #import "FCFileManager.h"
 #import "STPopup.h"
 #import <StoreKit/StoreKit.h>
+#import "MBProgressHUD.h"
 @import MessageUI;
 @import SafariServices;
 
@@ -212,7 +213,7 @@
     } else if (section == 1) {
         return 9;
     } else {
-        return 4;
+        return 6;
     }
 }
 
@@ -241,7 +242,9 @@
         } else if (indexPath.row == 6) {
             [cell.textLabel setText:@"Icons8"];
         } else if (indexPath.row == 7) {
-            [cell.textLabel setText:@"Icons8"];
+            [cell.textLabel setText:@"MBProgressHUD"];
+        } else if (indexPath.row == 8) {
+            [cell.textLabel setText:@"RMessage"];
         } else {
             [cell.textLabel setText:@"STPopup"];
         }
@@ -307,6 +310,24 @@
                     [cell.textLabel setTextColor:[UIColor lightGrayColor]];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
+            } else if (indexPath.row == 3) {
+                [cell.textLabel setText:@"Export League Metadata"];
+                if ([HBSharedUtils getLeague].canRebrandTeam) {
+                    [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                } else {
+                    [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
+            } else if (indexPath.row == 4) {
+                [cell.textLabel setText:@"Import League Metadata"];
+                if ([HBSharedUtils getLeague].canRebrandTeam) {
+                    [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                } else {
+                    [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                }
             } else {
                 [cell.textLabel setText:@"Delete Save File"];
                 [cell.textLabel setTextColor:[HBSharedUtils errorColor]];
@@ -354,6 +375,8 @@
         } else if (indexPath.row == 6) {
             url = @"http://icons8.com";
         } else if (indexPath.row == 7) {
+            url = @"https://github.com/jdg/MBProgressHUD/";
+        } else if (indexPath.row == 8) {
             url = @"https://github.com/donileo/RMessage";
         } else {
             url = @"https://github.com/kevin0571/STPopup";
@@ -404,7 +427,7 @@
             }
         }
     } else {
-        if (indexPath.row == 3) {
+        if (indexPath.row == 5) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete your save file and start your career over?" message:@"This will take you back to the Team Selection screen." preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
@@ -434,7 +457,95 @@
                 popupController.style = STPopupStyleBottomSheet;
                 [popupController presentInViewController:self];
             }
+        } else if (indexPath.row == 3) { // export
+            if ([HBSharedUtils getLeague].canRebrandTeam) {
+                NSString *metadataFile = [[HBSharedUtils getLeague] leagueMetadataJSON];
+                UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[metadataFile] applicationActivities:nil];
+                activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,UIActivityTypeAirDrop,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr,UIActivityTypeOpenInIBooks,UIActivityTypePostToWeibo,UIActivityTypeAddToReadingList,UIActivityTypePostToFacebook,UIActivityTypePostToTencentWeibo];
+                [self presentViewController:activityVC animated:YES completion:nil];
+            }
+        } else if (indexPath.row == 4) { // import
+            if ([HBSharedUtils getLeague].canRebrandTeam) {
+                UIAlertController *urlAlert = [UIAlertController alertControllerWithTitle:@"Import League Metadata" message:@"Please enter the valid URL of a league metadata file." preferredStyle:UIAlertControllerStyleAlert];
+                [urlAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                    [textField setPlaceholder:@"URL to File"];
+                    [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+                }];
+                
+                [urlAlert addAction:[UIAlertAction actionWithTitle:@"Import" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                    [hud setMode:MBProgressHUDModeIndeterminate];
+                    [hud.label setText:@"Loading Metadata File..."];
+                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+                    NSURL* fileURL = [NSURL URLWithString:urlAlert.textFields[0].text];
+                    if (fileURL == nil || ![fileURL.absoluteString containsString:@".json"]) {
+                        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Invalid Metadata File" message:[NSString stringWithFormat:@"The metadata file from %@ is in an invalid format. Please provide a valid metadata file to import.",urlAlert.textFields[0].text] preferredStyle:UIAlertControllerStyleAlert];
+                        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [hud hideAnimated:YES];
+                            [self presentViewController:alertController animated:YES completion:nil];
+                        });
+                    } else {
+                        //[Answers logContentViewWithName:@"Third-Party Roster Imported" contentType:@"Roster" contentId:@"roster16" customAttributes:nil];
+                        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+                        dispatch_async(queue, ^{
+                            //[HBSharedUtils generateLeagueWithRosterFileURL:urlAlert.textFields[0].text fromViewController:self hud:hud];
+                            NSURL *url = fileURL;
+                            NSStringEncoding encoding;
+                            NSError *error;
+                            NSString *metadataFile = [NSString stringWithContentsOfURL:url usedEncoding:&encoding error:&error];
+                            
+                            if (error || metadataFile.length == 0 || [metadataFile containsString:@"<body"] || [metadataFile containsString:@"<html"] || [metadataFile containsString:@"<head"]) {
+                                if (error) {
+                                    NSLog(@"ERROR IMPORTING: %@", error.localizedDescription);
+                                }
+                                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Invalid Metadata File" message:[NSString stringWithFormat:@"The metadata file from %@ is in an invalid format. Please provide a valid metadata file to import.",fileURL] preferredStyle:UIAlertControllerStyleAlert];
+                                [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    // Update the UI
+                                    [hud hideAnimated:YES];
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                        [self presentViewController:alertController animated:YES completion:nil];
+                                    });
+                                });
+                            } else {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [hud hideAnimated:YES];
+                                    [[HBSharedUtils getLeague] applyJSONMetadataChanges:metadataFile];
+                                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] message:@"Applied updates successfully!" onViewController:self];
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
+                                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                                });
+                            }
+                        });
+                    }
+                }]];
+                
+                [urlAlert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+                
+                [self presentViewController:urlAlert animated:YES completion:nil];
+            }
         }
+    }
+}
+
+- (void)textFieldDidChange:(UITextField*)sender
+{
+    UIResponder *resp = sender;
+    while (![resp isKindOfClass:[UIAlertController class]]) {
+        resp = resp.nextResponder;
+    }
+    UIAlertController *alertController = (UIAlertController *)resp;
+    NSURL* url = [NSURL URLWithString:sender.text];
+    [((UIAlertAction *)alertController.actions[0]) setEnabled:(!([sender.text isEqualToString:@""] || sender.text.length == 0 || !url))];
+    
+    
+    if (![((UIAlertAction *)alertController.actions[0]) isEnabled]) {
+        [alertController setMessage:@"Please enter the valid URL of a metadata file."];
+    } else {
+        [alertController setMessage:@"Tap \"Import\" to apply the changes from your metadata file to your league!"];
     }
 }
 

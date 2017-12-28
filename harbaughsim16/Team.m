@@ -29,7 +29,7 @@
 #define HARD_MODE_DRAFT_BONUS 0.20
 
 @implementation Team
-@synthesize league, name, abbreviation,conference,rivalTeam,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamLBs, teamDLs,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers,teamHistoryDictionary, teamHistory,teamTEs,teamF7s;
+@synthesize league, name, abbreviation,conference,rivalTeam,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamLBs, teamDLs,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers,teamHistoryDictionary, teamHistory,teamTEs,teamF7s, state;
 
 -(void)setWithCoder:(NSCoder *)aDecoder {
     [super setWithCoder:aDecoder];
@@ -43,6 +43,10 @@
                 [teamHistoryDictionary setObject:teamHistory[i] forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + i)]];
             }
         }
+    }
+    
+    if (state == nil) {
+        // set the home state here
     }
 }
 
@@ -82,7 +86,6 @@
     } else {
         return nil;
     }
-    
 }
 
 -(NSArray*)singleSeasonRecords {
@@ -199,11 +202,11 @@
     return records;
 }
 
-+(instancetype)newTeamWithName:(NSString *)nm abbreviation:(NSString *)abbr conference:(NSString *)conf league:(League *)league prestige:(int)prestige rivalTeam:(NSString *)rivalTeamAbbr {
-    return [[Team alloc] initWithName:nm abbreviation:abbr conference:conf league:league prestige:prestige rivalTeam:rivalTeamAbbr];
++(instancetype)newTeamWithName:(NSString *)nm abbreviation:(NSString *)abbr conference:(NSString *)conf league:(League *)league prestige:(int)prestige rivalTeam:(NSString *)rivalTeamAbbr state:(NSString*)stt {
+    return [[Team alloc] initWithName:nm abbreviation:abbr conference:conf league:league prestige:prestige rivalTeam:rivalTeamAbbr state:stt];
 }
 
--(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr {
+-(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr state:(NSString*)stt {
     self = [super init];
     if (self) {
         league = ligue;
@@ -265,6 +268,8 @@
         abbreviation = abbr;
         conference = conf;
         rivalTeam = rivalTeamAbbr;
+        state = stt;
+        
         wonRivalryGame = false;
         teamPoints = 0;
         teamOppPoints = 0;
@@ -2593,6 +2598,58 @@
             }
         }];
     }
+}
+
+-(NSString *)teamMetadataJSON {
+    NSMutableString *jsonString = [NSMutableString string];
+    [jsonString appendString:@"{"];
+    [jsonString appendFormat:@"\"name\" : \"%@\", \"abbreviation\" : \"%@\",  \"state\" : \"%@\", \"rival\" : \"%@\"",name, abbreviation, state, rivalTeam];
+    [jsonString appendString:@"}"];
+    return jsonString;
+}
+
+-(void)applyJSONMetadataChanges:(id)json {
+    NSError *error;
+    NSDictionary *jsonDict;
+    if ([json isKindOfClass:[NSString class]]) {
+        NSData *jsonData = [json dataUsingEncoding:NSUTF8StringEncoding];
+        jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+    } else if ([json isKindOfClass:[NSDictionary class]]) {
+        jsonDict = (NSDictionary *)json;
+    } else {
+        NSLog(@"JSON is of invalid type");
+        return;
+    }
+    
+    if (!error) {
+        if ([league isTeamNameValid:jsonDict[@"name"] allowUserTeam:YES]) {
+            name = jsonDict[@"name"];
+        }
+        
+        if ([league isTeamAbbrValid:jsonDict[@"abbreviation"] allowUserTeam:YES]) {
+            abbreviation = jsonDict[@"abbreviation"];
+        }
+        
+        if ([league isStateValid:jsonDict[@"state"]]) {
+            state = jsonDict[@"state"];
+        }
+        
+        if ([league isTeamAbbrValid:jsonDict[@"rival"] allowUserTeam:YES]) {
+            rivalTeam = jsonDict[@"rival"];
+        }
+    } else {
+        NSLog(@"ERROR parsing team metadata: %@", error);
+    }
+}
+
+-(NSInteger)importIdentifier {
+    int h = 0;
+    
+    for (int i = 0; i < (int)name.length; i++) {
+        h = (31 * h) + [name characterAtIndex:i];
+    }
+    
+    return h;
 }
 
 @end

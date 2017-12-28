@@ -13,6 +13,7 @@ pod 'Fabric'
 pod 'Crashlytics'
 pod 'ATAppUpdater'
 pod 'DZNEmptyDataSet'
+pod 'MBProgressHUD'
 end
 
 post_install do |installer|

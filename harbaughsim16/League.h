@@ -166,8 +166,12 @@
 -(void)completeProDraft;
 -(void)updateHallOfFame;
 
--(BOOL)isTeamNameValid:(NSString*)name;
--(BOOL)isTeamAbbrValid:(NSString*)abbr;
+-(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam;
+-(BOOL)isTeamAbbrValid:(NSString*)abbr allowUserTeam:(BOOL)allowUserTeam;
 -(BOOL)isConfNameValid:(NSString*)name;
 -(BOOL)isConfAbbrValid:(NSString*)abbr;
+-(BOOL)isStateValid:(NSString*)stt;
+
+-(NSString *)leagueMetadataJSON;
+-(void)applyJSONMetadataChanges:(NSString *)json;
 @end

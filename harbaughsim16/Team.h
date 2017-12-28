@@ -62,6 +62,8 @@
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *abbreviation;
+@property (strong, nonatomic) NSString *state;
+
 @property (strong, nonatomic) NSString *conference;
 @property (strong, nonatomic) NSString *rivalTeam;
 @property (strong, nonatomic) NSMutableDictionary *teamHistoryDictionary;
@@ -203,8 +205,8 @@
 @property (strong, nonatomic) Record *careerFgMadeRecord;
 
 
--(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
-+ (instancetype)newTeamWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
+-(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr state:(NSString*)stt;
++(instancetype)newTeamWithName:(NSString *)nm abbreviation:(NSString *)abbr conference:(NSString *)conf league:(League *)league prestige:(int)prestige rivalTeam:(NSString *)rivalTeamAbbr state:(NSString*)stt;
 
 -(void)updateTalentRatings;
 -(void)advanceSeason;
@@ -280,4 +282,8 @@
 
 -(int)getCPUOffense;
 -(int)getCPUDefense;
+
+-(NSString *)teamMetadataJSON;
+-(NSInteger)importIdentifier;
+-(void)applyJSONMetadataChanges:(id)json;
 @end
