@@ -15,119 +15,125 @@
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-            self.name = [aDecoder decodeObjectForKey:@"name"];
-            self.position = [aDecoder decodeObjectForKey:@"position"];
-            self.ratOvr = [aDecoder decodeIntForKey:@"ratOvr"];
-            self.ratPot = [aDecoder decodeIntForKey:@"ratPot"];
-            self.ratImprovement = [aDecoder decodeIntForKey:@"ratImprovement"];
-            self.year = [aDecoder decodeIntForKey:@"year"];
-            self.ratFootIQ = [aDecoder decodeIntForKey:@"ratFootIQ"];
-            self.cost = [aDecoder decodeIntForKey:@"cost"];
-            self.gamesPlayed = [aDecoder decodeIntForKey:@"gamesPlayed"];
-            self.injury = [aDecoder decodeObjectForKey:@"injury"];
-            self.team = [aDecoder decodeObjectForKey:@"team"];
-    
-            if ([aDecoder containsValueForKey:@"draftPosition"]) {
-                    self.draftPosition = [aDecoder decodeObjectForKey:@"draftPosition"];
-                } else {
-                        self.draftPosition = nil;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"hasRedshirt"]) {
-                    self.hasRedshirt = [aDecoder decodeBoolForKey:@"hasRedshirt"];
-                } else {
-                        self.hasRedshirt = NO;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"wasRedshirted"]) {
-                    self.wasRedshirted = [aDecoder decodeBoolForKey:@"wasRedshirted"];
-                } else {
-                        self.wasRedshirted = NO;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"isHeisman"]) {
-                    self.isHeisman = [aDecoder decodeBoolForKey:@"isHeisman"];
-                } else {
-                        self.isHeisman = NO;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"isAllAmerican"]) {
-                    self.isAllAmerican = [aDecoder decodeBoolForKey:@"isAllAmerican"];
-                } else {
-                        self.isAllAmerican = NO;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"isAllConference"]) {
-                    self.isAllConference = [aDecoder decodeBoolForKey:@"isAllConference"];
-                } else {
-                        self.isAllConference = NO;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"ratDur"]) {
-                    self.ratDur = [aDecoder decodeIntForKey:@"ratDur"];
-                } else {
-                        self.ratDur = (int) (50 + 50 * [HBSharedUtils randomValue]);
-                    }
-    
-            if ([aDecoder containsValueForKey:@"careerHeismans"]) {
-                    self.careerHeismans = [aDecoder decodeIntForKey:@"careerHeismans"];
-                } else {
-                        self.careerHeismans = 0;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"careerAllConferences"]) {
-                    self.careerAllConferences = [aDecoder decodeIntForKey:@"careerAllConferences"];
-                } else {
-                        self.careerAllConferences = 0;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"careerAllAmericans"]) {
-                    self.careerAllAmericans = [aDecoder decodeIntForKey:@"careerAllAmericans"];
-                } else {
-                        self.careerAllAmericans = 0;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"endYear"]) {
-                    self.endYear = [aDecoder decodeIntForKey:@"endYear"];
-                } else {
-                        self.endYear = 0;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"gamesPlayedSeason"]) {
-                    self.gamesPlayedSeason = [aDecoder decodeIntForKey:@"gamesPlayedSeason"];
-                } else {
-                        if (self.gamesPlayed > 0) {
-                                if (self.team.league.leagueHistoryDictionary.count > 0) {
-                                        NSInteger activeYears = self.team.league.leagueHistoryDictionary.count;
-                                        self.gamesPlayedSeason = self.gamesPlayed % activeYears;
-                                    } else {
-                                            self.gamesPlayedSeason = 0;
-                                        }
-                            } else {
-                                    self.gamesPlayedSeason = 0;
-                                }
-                    }
-    
-            if ([aDecoder containsValueForKey:@"startYear"]) {
-                    int tstStartYr = [aDecoder decodeIntForKey:@"startYear"];
-                    if (tstStartYr < 0) {
-                            self.startYear = self.endYear - (abs(tstStartYr));
-                        } else if (self.endYear != 0 && abs(tstStartYr - self.endYear) > 4) {
-                                self.startYear = self.endYear - 4;
-                            } else {
-                                    self.startYear = [aDecoder decodeIntForKey:@"startYear"];
-                                }
-                } else {
-                        if (self.draftPosition != nil || self.endYear > 0) {
-                                //retiree - subtract years from end year
-                                self.startYear = (self.endYear - self.year + 1);
-                            } else {
-                                    //generate
-                                    NSInteger curYear = self.team.league.leagueHistoryDictionary.count;
-                                    self.startYear = (int)(curYear - self.year + 1) + 2017;
-                                }
-                    }
+        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.position = [aDecoder decodeObjectForKey:@"position"];
+        self.ratOvr = [aDecoder decodeIntForKey:@"ratOvr"];
+        self.ratPot = [aDecoder decodeIntForKey:@"ratPot"];
+        self.ratImprovement = [aDecoder decodeIntForKey:@"ratImprovement"];
+        self.year = [aDecoder decodeIntForKey:@"year"];
+        self.ratFootIQ = [aDecoder decodeIntForKey:@"ratFootIQ"];
+        self.cost = [aDecoder decodeIntForKey:@"cost"];
+        self.gamesPlayed = [aDecoder decodeIntForKey:@"gamesPlayed"];
+        self.injury = [aDecoder decodeObjectForKey:@"injury"];
+        self.team = [aDecoder decodeObjectForKey:@"team"];
+        
+        if ([aDecoder containsValueForKey:@"draftPosition"]) {
+            self.draftPosition = [aDecoder decodeObjectForKey:@"draftPosition"];
+        } else {
+            self.draftPosition = nil;
         }
+        
+        if ([aDecoder containsValueForKey:@"hasRedshirt"]) {
+            self.hasRedshirt = [aDecoder decodeBoolForKey:@"hasRedshirt"];
+        } else {
+            self.hasRedshirt = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"wasRedshirted"]) {
+            self.wasRedshirted = [aDecoder decodeBoolForKey:@"wasRedshirted"];
+        } else {
+            self.wasRedshirted = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"isHeisman"]) {
+            self.isHeisman = [aDecoder decodeBoolForKey:@"isHeisman"];
+        } else {
+            self.isHeisman = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"isAllAmerican"]) {
+            self.isAllAmerican = [aDecoder decodeBoolForKey:@"isAllAmerican"];
+        } else {
+            self.isAllAmerican = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"isAllConference"]) {
+            self.isAllConference = [aDecoder decodeBoolForKey:@"isAllConference"];
+        } else {
+            self.isAllConference = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"ratDur"]) {
+            self.ratDur = [aDecoder decodeIntForKey:@"ratDur"];
+        } else {
+            self.ratDur = (int) (50 + 50 * [HBSharedUtils randomValue]);
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerHeismans"]) {
+            self.careerHeismans = [aDecoder decodeIntForKey:@"careerHeismans"];
+        } else {
+            self.careerHeismans = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerAllConferences"]) {
+            self.careerAllConferences = [aDecoder decodeIntForKey:@"careerAllConferences"];
+        } else {
+            self.careerAllConferences = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerAllAmericans"]) {
+            self.careerAllAmericans = [aDecoder decodeIntForKey:@"careerAllAmericans"];
+        } else {
+            self.careerAllAmericans = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"endYear"]) {
+            self.endYear = [aDecoder decodeIntForKey:@"endYear"];
+        } else {
+            self.endYear = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"stars"]) {
+            self.stars = [aDecoder decodeIntForKey:@"stars"];
+        } else {
+            self.stars = (int) ([HBSharedUtils randomValue] * 5);
+        }
+        
+        if ([aDecoder containsValueForKey:@"gamesPlayedSeason"]) {
+            self.gamesPlayedSeason = [aDecoder decodeIntForKey:@"gamesPlayedSeason"];
+        } else {
+            if (self.gamesPlayed > 0) {
+                if (self.team.league.leagueHistoryDictionary.count > 0) {
+                    NSInteger activeYears = self.team.league.leagueHistoryDictionary.count;
+                    self.gamesPlayedSeason = self.gamesPlayed % activeYears;
+                } else {
+                    self.gamesPlayedSeason = 0;
+                }
+            } else {
+                self.gamesPlayedSeason = 0;
+            }
+        }
+        
+        if ([aDecoder containsValueForKey:@"startYear"]) {
+            int tstStartYr = [aDecoder decodeIntForKey:@"startYear"];
+            if (tstStartYr < 0) {
+                self.startYear = self.endYear - (abs(tstStartYr));
+            } else if (self.endYear != 0 && abs(tstStartYr - self.endYear) > 4) {
+                self.startYear = self.endYear - 4;
+            } else {
+                self.startYear = [aDecoder decodeIntForKey:@"startYear"];
+            }
+        } else {
+            if (self.draftPosition != nil || self.endYear > 0) {
+                //retiree - subtract years from end year
+                self.startYear = (self.endYear - self.year + 1);
+            } else {
+                //generate
+                NSInteger curYear = self.team.league.leagueHistoryDictionary.count;
+                self.startYear = (int)(curYear - self.year + 1) + 2017;
+            }
+        }
+    }
     return self;
 }
 
@@ -156,6 +162,7 @@
     [aCoder encodeInt:self.careerAllAmericans forKey:@"careerAllAmericans"];
     [aCoder encodeInt:self.startYear forKey:@"startYear"];
     [aCoder encodeInt:self.endYear forKey:@"endYear"];
+    [aCoder encodeInt:self.stars forKey:@"stars"];
 }
 
 +(int)getPosNumber:(NSString*)pos {
@@ -228,7 +235,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         letterGrades = @[@"F", @"F+", @"D", @"D+", @"C", @"C+", @"B", @"B+", @"A", @"A+"];
-
+        
     });
     return letterGrades;
 }

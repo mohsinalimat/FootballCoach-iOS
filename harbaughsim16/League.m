@@ -1324,8 +1324,8 @@
 
 -(NSString*)getRandName {
     int fn = (int)([HBSharedUtils randomValue] * nameList.count);
-    int ln = (int)([HBSharedUtils randomValue] * nameList.count);
-    return [NSString stringWithFormat:@"%@ %@",nameList[fn],nameList[ln]];
+    int ln = (int)([HBSharedUtils randomValue] * lastNameList.count);
+    return [NSString stringWithFormat:@"%@ %@",nameList[fn],lastNameList[ln]];
 }
 
 -(NSArray<Player*>*)calculateHeismanCandidates {

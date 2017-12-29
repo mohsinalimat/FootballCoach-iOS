@@ -16,6 +16,7 @@
 }
 
 @property (strong, nonatomic) Team *team;
+@property (nonatomic) int stars;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *position;
 @property (strong, nonatomic) NSDictionary *personalDetails; // { "height" : "6\'2\"", "weight" : "235 lbs", "home_state" : "Hawaii" };

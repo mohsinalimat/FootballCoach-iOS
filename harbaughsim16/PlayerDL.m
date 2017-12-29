@@ -122,6 +122,7 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
+        self.stars = stars;
         self.startYear = (int)t.league.leagueHistoryDictionary.count  + (int)t.league.baseYear;
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
