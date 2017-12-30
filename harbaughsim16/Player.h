@@ -61,4 +61,6 @@
 -(NSDictionary*)detailedRatings;
 -(void)checkRecords;
 +(int)getPosNumber:(NSString*)pos;
+
+-(int)calculateInterestInTeam:(Team *)t;
 @end

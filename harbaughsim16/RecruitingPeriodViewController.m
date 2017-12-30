@@ -30,19 +30,55 @@
 @import ScrollableSegmentedControl;
 
 @interface RecruitingPeriodViewController ()
-
+{
+    ScrollableSegmentedControl *positionSelectionControl;
+    NSMutableArray *recruits;
+}
 @end
 
 @implementation RecruitingPeriodViewController
 
+-(void)selectPosition:(ScrollableSegmentedControl *)sender {
+    NSLog(@"POSITION %lu SELECTED", sender.selectedSegmentIndex);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    positionSelectionControl = [[ScrollableSegmentedControl alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height, [UIScreen mainScreen].bounds.size.width, 44)];
+    positionSelectionControl.segmentStyle = ScrollableSegmentedControlSegmentStyleTextOnly;
+    positionSelectionControl.underlineSelected = YES;
+    positionSelectionControl.selectedSegmentContentColor = [HBSharedUtils styleColor];
+    positionSelectionControl.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"FFFFFF" alpha:0.85];
+    [positionSelectionControl insertSegmentWithTitle:@"ALL" at:0];
+    [positionSelectionControl insertSegmentWithTitle:@"QB" at:1];
+    [positionSelectionControl insertSegmentWithTitle:@"RB" at:2];
+    [positionSelectionControl insertSegmentWithTitle:@"WR" at:3];
+    [positionSelectionControl insertSegmentWithTitle:@"TE" at:4];
+    [positionSelectionControl insertSegmentWithTitle:@"OL" at:5];
+    [positionSelectionControl insertSegmentWithTitle:@"DL" at:6];
+    [positionSelectionControl insertSegmentWithTitle:@"LB" at:7];
+    [positionSelectionControl insertSegmentWithTitle:@"CB" at:8];
+    [positionSelectionControl insertSegmentWithTitle:@"S" at:9];
+    [positionSelectionControl insertSegmentWithTitle:@"K" at:10];
+    [positionSelectionControl addTarget:self action:@selector(selectPosition:) forControlEvents:UIControlEventValueChanged];
+    [positionSelectionControl setSelectedSegmentIndex:0];
+    [self.navigationController.view addSubview:positionSelectionControl];
+    [self.tableView setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
+
     self.tableView.estimatedRowHeight = 140;
     self.tableView.rowHeight = 140;
     [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
-    self.navigationItem.title = @"Early Signing Day";
+    self.navigationItem.title = @"Recruiting";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Advance" style:UIBarButtonItemStylePlain target:self action:@selector(advancePeriods)];
+    
+    // calculate recruiting points, but never show number - just show as usage as "% effort extended"
+    
+    recruits = [NSMutableArray array];
+    // generate recruits the same way as before
+    // generate offers for other teams
+    [self.tableView reloadData];
 }
 
 -(void)dismissVC {
@@ -50,6 +86,17 @@
 }
 
 -(void)advancePeriods {
+    // Basically advancing to results
+    // need to run recruiting for other teams:
+    //      1. from offers for recruit, calculate interest and sign with highest-interest team
+    //      2. if highest-interest team is user team, then:
+    //          * color name
+    //          * change status to committed
+    //      3. if highest-interest team is NOT user team. then:
+    //          * if interest was mild or medium, then:
+    //              * offer to flip (for large amount of recruiting points)
+    //          * else:
+    //              * fade name
     
 }
 
@@ -131,7 +178,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return 10; //recruits.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -178,5 +225,19 @@
     return cell;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    // navigate to page where you can view recruit details and have options to recruit him:
+    //          1. extend offer - sends LOI to recruit; can only give out maxTeamSize - currentTeamSize of these
+    //          2. extend official visit/OV - spend small amount of recruiting points (smaller amount than in-home) to court player on campus; increases interest by 10pts.
+    //          3. visit recruit at home - spend large amount of recruiting points to court player at home; increases interest by 20pts.
+    //          4. also provide option to cancel each of these -- basically we are building a recruiting process for each recruit that we think will be best to sign him
+    // if committed to user team, show options:
+    //          1. redshirt player
+    // if committed, but NOT to user team, show options:
+    //          1. if interest in that team was mild or medium, then:
+    //              * offer and flip (for large amount of recruiting points) -- increases interest in user team by 20 pts.
+    // also display recruiting process for this recruit: OV -> offer -> commit or offer -> commit or OV -> home visit -> offer -> commit
+}
 
 @end

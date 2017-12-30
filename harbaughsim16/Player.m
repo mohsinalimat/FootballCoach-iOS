@@ -445,4 +445,13 @@
     awards = [NSMutableString stringWithString:[[awards stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     return awards;
 }
+
+-(int)calculateInterestInTeam:(Team *)t {
+    // calculate based on:
+    //      team location (25%) - if state match, then 25; if neighboring, then 20; if diff region, then 15; if cross-country, then 5,
+    //      open positional slots (25%) -- if guaranteed first starter, all 25; if starter, 20; if not starting, 10; if bottom of depth chart, 5,
+    //      prestige (35%) -- map prestige values between 0 and 35
+    //      playbook match (15%) -- use stats to determine best playbook for player. If team playbook matches best playbook: 15 points; if team playbook is player's second best: 8 points; else: no points
+    
+}
 @end
