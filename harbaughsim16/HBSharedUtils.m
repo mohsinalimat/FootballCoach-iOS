@@ -528,4 +528,62 @@ static UIColor *styleColor = nil;
 }
 
 
++(CFCRegion)regionForState:(NSString *)state {
+    NSArray *northeast = @[@"Connecticut", @"Delaware", @"Maine", @"Massachusetts", @"New Hampshire", @"New Jersey", @"New York", @"Pennsylvania", @"Rhode Island", @"Vermont"];
+    NSArray *south = @[@"Alabama", @"Arkansas", @"Florida", @"Georgia", @"Kentucky", @"Louisiana", @"Maryland", @"Mississippi", @"North Carolina", @"Oklahoma", @"South Carolina", @"Tennessee", @"Texas", @"Virginia", @"West Virginia", @"Washington DC"];
+    NSArray *west = @[@"Alaska", @"Arizona", @"California", @"Colorado", @"Hawaii", @"Idaho", @"Montana", @"Nevada", @"New Mexico", @"Oregon", @"Utah", @"Washington", @"Wyoming", @"American Samoa"];
+    NSArray *midwest = @[];
+    if ([northeast containsObject:state]) {
+        return CFCRegionNortheast;
+    } else if ([south containsObject:state]) {
+        return CFCRegionSouth;
+    } else if ([west containsObject:state]) {
+        return CFCRegionWest;
+    } else if ([midwest containsObject:state]) {
+        return CFCRegionMidwest;
+    } else {
+        return CFCRegionUnknown;
+    }
+}
+
++(NSArray *)_orderedNeighboringRegions:(CFCRegion)region {
+    switch (region) {
+        case CFCRegionNortheast:
+            return @[@(CFCRegionNortheast), @(CFCRegionSouth), @(CFCRegionMidwest),@(CFCRegionWest)];
+            break;
+        case CFCRegionSouth:
+            return @[@(CFCRegionSouth), @(CFCRegionNortheast), @(CFCRegionMidwest),@(CFCRegionWest)];
+            break;
+        case CFCRegionMidwest:
+            return @[@(CFCRegionMidwest), @(CFCRegionWest), @(CFCRegionSouth),@(CFCRegionNortheast)];
+            break;
+        case CFCRegionWest:
+            return @[@(CFCRegionWest), @(CFCRegionMidwest), @(CFCRegionSouth),@(CFCRegionNortheast)];
+            break;
+        default:
+            return @[];
+            break;
+    }
+}
+
++(CFCRegionDistance)distanceFromRegion:(CFCRegion)region1 toRegion:(CFCRegion)region2 {
+    if (region1 == region2) {
+        return CFCRegionDistanceMatch;
+    } else {
+        NSArray *orderedRegions = [[self class] _orderedNeighboringRegions:region1];
+        NSInteger rgnIndex = [orderedRegions indexOfObject:@(region2)];
+        if (rgnIndex == -1) {
+            return CFCRegionDistanceCrossCountry;
+        } else if (rgnIndex == 0) {
+            return CFCRegionDistanceMatch;
+        } else if (rgnIndex == 1) {
+            return CFCRegionDistanceNeighbor;
+        } else if (rgnIndex == 2) {
+            return CFCRegionDistanceFar;
+        } else {
+            return CFCRegionDistanceCrossCountry;
+        }
+    }
+}
+
 @end

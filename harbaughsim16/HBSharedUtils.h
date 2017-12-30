@@ -49,6 +49,21 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+typedef enum {
+    CFCRegionDistanceMatch,
+    CFCRegionDistanceNeighbor,
+    CFCRegionDistanceFar,
+    CFCRegionDistanceCrossCountry
+} CFCRegionDistance;
+
+typedef enum {
+    CFCRegionNortheast,
+    CFCRegionSouth,
+    CFCRegionMidwest,
+    CFCRegionWest,
+    CFCRegionUnknown
+} CFCRegion;
+
 @interface HBSharedUtils : NSObject
 +(double)randomValue;
 +(League*)getLeague;
@@ -92,4 +107,6 @@
 +(void)simulateEntireSeason:(int)weekTotal viewController:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback;
 +(void)playWeek:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback;
 
++(CFCRegion)regionForState:(NSString *)state;
++(CFCRegionDistance)distanceFromRegion:(CFCRegion)region1 toRegion:(CFCRegion)region2;
 @end
