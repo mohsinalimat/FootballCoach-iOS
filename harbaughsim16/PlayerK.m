@@ -117,7 +117,7 @@
         NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 190;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 2);
         self.personalDetails = @{
-                                 @"homeself.state" : [HBSharedUtils randomState],
+                                 @"home_state" : [HBSharedUtils randomState],
                                  @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
                                  @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
                                  };
@@ -158,10 +158,11 @@
         NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 190;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 2);
         self.personalDetails = @{
-                                 @"homeself.state" : [HBSharedUtils randomState],
+                                 @"home_state" : [HBSharedUtils randomState],
                                  @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
                                  @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
                                  };
+        self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", [HBSharedUtils randomFloatBetween:4.70 and:4.90]];
         
         self.statsXPAtt = 0;
         self.statsXPMade = 0;

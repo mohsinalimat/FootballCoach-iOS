@@ -134,6 +134,17 @@
         
         self.cost = (int)pow((float)self.ratOvr/6,2) + (int)([HBSharedUtils randomValue]*100) - 50;
         
+        CGFloat inMin = 0.0;
+        CGFloat inMax = 100.0;
+        
+        CGFloat outMin = 5.4;
+        CGFloat outMax = 4.6;
+        
+        CGFloat input = (CGFloat) self.ratDLPow;
+        CGFloat fortyTime = (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+        self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", fortyTime];
+        
+        
         NSInteger weight = (int)([HBSharedUtils randomValue] * 125) + 225;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 3) + 2;
         self.personalDetails = @{

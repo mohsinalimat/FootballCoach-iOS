@@ -110,6 +110,7 @@
                                  @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
                                  @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
                                  };
+        self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", [HBSharedUtils randomFloatBetween:4.47 and:5.1]];
     }
     return self;
 }

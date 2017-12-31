@@ -113,6 +113,17 @@
                                  @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
                                  @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
                                  };
+        
+        CGFloat inMin = 0.0;
+        CGFloat inMax = 100.0;
+        
+        CGFloat outMin = 4.75;
+        CGFloat outMax = 4.33;
+        
+        CGFloat input = (CGFloat) self.ratCBSpd;
+        CGFloat fortyTime = (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+        self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", fortyTime];
+        
     }
     return self;
 }

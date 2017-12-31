@@ -440,8 +440,6 @@
         [awards replaceOccurrencesOfString:@"?" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
     }
     
-    
-    
     awards = [NSMutableString stringWithString:[[awards stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     return awards;
 }
@@ -477,19 +475,22 @@
     int positionalScore = 0;
     NSArray *playersAtPosition = [t getPlayersAtPosition: self.position];
     NSMutableDictionary *positionalOveralls = [NSMutableDictionary dictionary];
+    [positionalOveralls setObject:@(self.ratOvr) forKey:self.name];
     [playersAtPosition enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         Player *p = (Player *)obj;
         [positionalOveralls setObject:@(p.ratOvr) forKey:p.name];
     }];
     
-    NSArray *sortedOveralls = [positionalOveralls keysSortedByValueUsingSelector:@selector(compare:)];
+    NSArray *sortedOveralls = [positionalOveralls keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
+    }];
     NSInteger plyrNameIndex = [sortedOveralls indexOfObject:self.name];
     switch (plyrNameIndex) {
         case 0:
             positionalScore = 25;
             break;
         default:
-            positionalScore = 25 * (1.0 - ((CGFloat) plyrNameIndex / (CGFloat) sortedOveralls.count));
+            positionalScore = 25 - ((int)(25.0 * ((float)plyrNameIndex / (float)sortedOveralls.count)));
             break;
     }
     
@@ -541,6 +542,7 @@
         }
     }
     
+    //NSLog(@"Location Score: %d Positional Score: %d Prestige Score: %d Playbook Score: %d", locationScore,positionalScore, prestigeScore, playbookScore);
     return locationScore + positionalScore + prestigeScore + playbookScore;
 }
 

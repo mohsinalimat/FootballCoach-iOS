@@ -20,6 +20,8 @@
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *position;
 @property (strong, nonatomic) NSDictionary *personalDetails; // { "height" : "6\'2\"", "weight" : "235 lbs", "home_state" : "Hawaii" };
+@property (strong, nonatomic) NSString *fortyYardDashTime;
+@property (strong, nonatomic) NSDictionary<NSString *, NSNumber *> *offers;
 @property (nonatomic) int ratOvr;
 @property (nonatomic) int year;
 @property (nonatomic) int ratPot;

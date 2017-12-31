@@ -28,18 +28,148 @@
 #import "STPopup.h"
 #import "HexColors.h"
 @import ScrollableSegmentedControl;
+#import "MBProgressHUD.h"
 
 @interface RecruitingPeriodViewController ()
 {
     ScrollableSegmentedControl *positionSelectionControl;
-    NSMutableArray *recruits;
+    NSMutableArray *totalRecruits;
+    NSMutableArray *currentRecruits;
+    NSMutableArray *progressedRecruits;
+    
+    NSMutableArray<Player*>* availQBs;
+    NSMutableArray<Player*>* availRBs;
+    NSMutableArray<Player*>* availWRs;
+    NSMutableArray<Player*>* availTEs;
+    NSMutableArray<Player*>* availOLs;
+    NSMutableArray<Player*>* availKs;
+    NSMutableArray<Player*>* availSs;
+    NSMutableArray<Player*>* availCBs;
+    NSMutableArray<Player*>* availLBs;
+    NSMutableArray<Player*>* availDLs;
+    
+    NSInteger needQBs;
+    NSInteger needRBs;
+    NSInteger needWRs;
+    NSInteger needTEs;
+    NSInteger needOLs;
+    NSInteger needKs;
+    NSInteger needsS;
+    NSInteger needCBs;
+    NSInteger needLBs;
+    NSInteger needDLs;
+    
+    int recruitingPoints;
 }
 @end
 
 @implementation RecruitingPeriodViewController
 
+-(void)reloadRecruits {
+    [totalRecruits removeAllObjects];
+    
+    [availQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    
+    [availRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    [availWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    [availTEs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    [availOLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    [availDLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    
+    [availLBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    
+    [availCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    [availSs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    [availKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    
+    [totalRecruits addObjectsFromArray:availQBs];
+    [totalRecruits addObjectsFromArray:availRBs];
+    [totalRecruits addObjectsFromArray:availWRs];
+    [totalRecruits addObjectsFromArray:availTEs];
+    [totalRecruits addObjectsFromArray:availOLs];
+    [totalRecruits addObjectsFromArray:availDLs];
+    [totalRecruits addObjectsFromArray:availLBs];
+    [totalRecruits addObjectsFromArray:availCBs];
+    [totalRecruits addObjectsFromArray:availSs];
+    [totalRecruits addObjectsFromArray:availKs];
+    
+    [totalRecruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    
+//    if (_filteredByCost) {
+//        [self filterByCost];
+//    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+//
+//
+//    self.title = [NSString stringWithFormat:@"Budget: $%d",recruitingBudget];
+}
+
+
 -(void)selectPosition:(ScrollableSegmentedControl *)sender {
     NSLog(@"POSITION %lu SELECTED", sender.selectedSegmentIndex);
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+            currentRecruits = totalRecruits;
+            break;
+        case 1:
+            currentRecruits = availQBs;
+            break;
+        case 2:
+            currentRecruits = availRBs;
+            break;
+        case 3:
+            currentRecruits = availWRs;
+            break;
+        case 4:
+            currentRecruits = availTEs;
+            break;
+        case 5:
+            currentRecruits = availOLs;
+            break;
+        case 6:
+            currentRecruits = availDLs;
+            break;
+        case 7:
+            currentRecruits = availLBs;
+            break;
+        case 8:
+            currentRecruits = availCBs;
+            break;
+        case 9:
+            currentRecruits = availSs;
+            break;
+        case 10:
+            currentRecruits = availKs;
+            break;
+        default:
+            break;
+    }
+    [self.tableView reloadData];
 }
 
 - (void)viewDidLoad {
@@ -62,23 +192,338 @@
     [positionSelectionControl insertSegmentWithTitle:@"S" at:9];
     [positionSelectionControl insertSegmentWithTitle:@"K" at:10];
     [positionSelectionControl addTarget:self action:@selector(selectPosition:) forControlEvents:UIControlEventValueChanged];
-    [positionSelectionControl setSelectedSegmentIndex:0];
+    
     [self.navigationController.view addSubview:positionSelectionControl];
     [self.tableView setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
 
     self.tableView.estimatedRowHeight = 140;
     self.tableView.rowHeight = 140;
     [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
-    self.navigationItem.title = @"Recruiting";
+    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Advance" style:UIBarButtonItemStylePlain target:self action:@selector(advancePeriods)];
     
     // calculate recruiting points, but never show number - just show as usage as "% effort extended"
+    recruitingPoints = ([HBSharedUtils getLeague].isHardMode) ? [HBSharedUtils getLeague].userTeam.teamPrestige * 20 : [HBSharedUtils getLeague].userTeam.teamPrestige * 25;
+
+    NSInteger recruitingBonus = (20 * (48 - [[HBSharedUtils getLeague].userTeam getTeamSize]));
+    if (recruitingBonus > 0) {
+        recruitingPoints += recruitingBonus;
+    }
     
-    recruits = [NSMutableArray array];
+    self.navigationItem.title = [NSString stringWithFormat:@"Budget: %d pts", recruitingPoints];
+    
+    // note bonus
+    currentRecruits = [NSMutableArray array];
+    progressedRecruits = [NSMutableArray array];
+    
+    totalRecruits = [NSMutableArray array];
+    availQBs = [NSMutableArray array];
+    availRBs = [NSMutableArray array];
+    availWRs = [NSMutableArray array];
+    availTEs = [NSMutableArray array];
+    availOLs = [NSMutableArray array];
+    availKs = [NSMutableArray array];
+    availSs = [NSMutableArray array];
+    availCBs = [NSMutableArray array];
+    availDLs = [NSMutableArray array];
+    availLBs = [NSMutableArray array];
+
     // generate recruits the same way as before
-    // generate offers for other teams
-    [self.tableView reloadData];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    [hud setMode:MBProgressHUDModeIndeterminate];
+    [hud.label setText:@"Generating recruits..."];
+    int position = 0;
+    for (int i = 0; i < 24; i++) {
+        position = (int)([HBSharedUtils randomValue] * 10);
+        if (position < 0) {
+            position = 0;
+        }
+        
+        if (position > 9) {
+            position = 9;
+        }
+        
+        if (position == 0) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 1 ) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 2) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 3) {
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 4) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 5) {
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 6) {
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 7) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else if (position == 8) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        } else {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+        }
+    }
+    
+    for (int i = 0; i < 120; i++) {
+        position = (int)([HBSharedUtils randomValue] * 10) - 1;
+        if (position < 0) {
+            position = 0;
+        }
+        
+        if (position > 9) {
+            position = 9;
+        }
+        
+        if (position == 0) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 1 ) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 2) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 3) {
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 4) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 5) {
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 6) {
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 7) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else if (position == 8) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        } else {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+        }
+    }
+    
+    for (int i = 0; i < 120; i++) {
+        position = (int)([HBSharedUtils randomValue] * 10) - 1;
+        if (position < 0) {
+            position = 0;
+        }
+        
+        if (position > 9) {
+            position = 9;
+        }
+        
+        if (position == 0) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 1 ) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 2) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 3) {
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 4) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 5) {
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 6) {
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 7) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else if (position == 8) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        } else {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    for (int i = 0; i < 42; i++) {
+        position = (int)([HBSharedUtils randomValue] * 10) - 1;
+        if (position < 0) {
+            position = 0;
+        }
+        
+        if (position > 9) {
+            position = 9;
+        }
+        
+        if (position == 0) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 1 ) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 2) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 3) {
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 4) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 5) {
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 6) {
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 7) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else if (position == 8) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        } else {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+        }
+    }
+    
+    for (int i = 0; i < 9; i++) {
+        position = (int)([HBSharedUtils randomValue] * 10) - 1;
+        if (position < 0) {
+            position = 0;
+        }
+        
+        if (position > 9) {
+            position = 9;
+        }
+        
+        if (position == 0) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 1 ) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 2) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 3) {
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 4) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 5) {
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 6) {
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 7) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else if (position == 8) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        } else {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+        }
+    }
+    
+    if (availQBs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availRBs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availWRs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availTEs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availOLs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availDLs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availLBs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availCBs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availSs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    if (availKs.count == 0) {
+        for (int i = 0; i < 3; i++) {
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+        }
+    }
+    
+    [totalRecruits addObjectsFromArray:availQBs];
+    [totalRecruits addObjectsFromArray:availRBs];
+    [totalRecruits addObjectsFromArray:availWRs];
+    [totalRecruits addObjectsFromArray:availTEs];
+    [totalRecruits addObjectsFromArray:availOLs];
+    [totalRecruits addObjectsFromArray:availDLs];
+    [totalRecruits addObjectsFromArray:availLBs];
+    [totalRecruits addObjectsFromArray:availCBs];
+    [totalRecruits addObjectsFromArray:availSs];
+    [totalRecruits addObjectsFromArray:availKs];
+    
+    [totalRecruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    
+    [hud.label setText:@"Generating offers from other teams..."];
+    __block NSArray *teamList = [HBSharedUtils getLeague].teamList;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSMutableDictionary *teamNeeds = [NSMutableDictionary dictionary];
+        for (Team *t in teamList) {
+            if (!t.isUserControlled) {
+                [teamNeeds setObject:@(48 - [t getTeamSize]) forKey:t.abbreviation];
+            }
+        }
+        
+        
+        // generate offers from other teams
+        for (Player *p in totalRecruits) {
+            NSMutableDictionary *prelimOffers = [NSMutableDictionary dictionary];
+            for (Team *t in teamList) {
+                if (!t.isUserControlled) {
+                    int interest = [p calculateInterestInTeam:t];
+                    [prelimOffers setObject:@(interest) forKey:t.abbreviation];
+                }
+            }
+            
+            NSArray *sortedOffers = [prelimOffers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj2 compare:obj1];
+            }];
+            
+            NSMutableDictionary *highestOffers  = [NSMutableDictionary dictionary];
+            int offers = 0;
+            int i = 0;
+            while (offers < 3) {
+                NSString *abbrev = sortedOffers[i];
+                NSNumber *teamOffers = teamNeeds[abbrev];
+                if (teamOffers > 0) {
+                    [highestOffers setObject:prelimOffers[abbrev] forKey:abbrev];
+                    [teamNeeds setObject:[NSNumber numberWithInt:teamOffers.intValue - 1] forKey:sortedOffers[i]];
+                    offers++;
+                } else {
+                    NSLog(@"%@ has hit offer cap, can not send more offers", abbrev);
+                }
+                i++;
+            }
+            
+            p.offers = highestOffers;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [hud hideAnimated:YES];
+            [positionSelectionControl setSelectedSegmentIndex:0];
+            [self.tableView reloadData];
+        });
+    });
 }
 
 -(void)dismissVC {
@@ -100,36 +545,46 @@
     
 }
 
--(UIColor *)convertInterestToColor:(int)interestVal {
-    UIColor *letterColor = [UIColor lightGrayColor];
-    if (interestVal > 89) { // LOCK
-        letterColor = [HBSharedUtils successColor];
-    } else if (interestVal > 74 && interestVal <= 89) { // HIGH
-        letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
-    } else if (interestVal > 64 && interestVal <= 74) { // MEDIUM
-        letterColor = [HBSharedUtils champColor];
-    } else if (interestVal > 49 && interestVal <= 64) { // MILD
-        letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
-    } else { // LOW
-        letterColor = [UIColor lightGrayColor];
+-(NSString *)generateOfferString:(NSDictionary *)offers {
+    NSMutableString *offerString = [NSMutableString string];
+    NSArray *sortedOffers = [offers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
+    }];
+    for (NSString *offer in sortedOffers) {
+        [offerString appendFormat:@"%@, ",offer];
     }
-    return letterColor;
+    offerString = [NSMutableString stringWithString:[[offerString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]]];
+    
+    return offerString;
 }
 
--(NSString *)convertInterestToString:(int)interestVal {
+-(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers {
+    NSMutableDictionary *totalOffers = [NSMutableDictionary dictionaryWithDictionary:offers];
+    [totalOffers setObject:@(interestVal) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
+    NSArray *sortedOffers = [totalOffers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
+    }];
+    
+    NSInteger offIdx = [sortedOffers indexOfObject:[HBSharedUtils getLeague].userTeam.abbreviation];
+    
+    UIColor *letterColor = [UIColor lightGrayColor];
     NSString *interestString = @"LOW";
-    if (interestVal > 75) { // LOCK
+    if (offIdx == 0) {
+        letterColor = [HBSharedUtils successColor];
         interestString = @"LOCK";
-    } else if (interestVal > 64 && interestVal <= 75) { // HIGH
+    } else if (offIdx == 1) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
         interestString = @"HIGH";
-    } else if (interestVal > 49 && interestVal <= 64) { // MEDIUM
+    } else if (offIdx == 2) {
+        letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
         interestString = @"MEDIUM";
-    } else if (interestVal > 33 && interestVal <= 49) { // MILD
-        interestString = @"MILD";
-    } else { // LOW
+    } else {
+        letterColor = [UIColor lightGrayColor];
         interestString = @"LOW";
     }
-    return interestString;
+
+    return @{@"color" : letterColor, @"interest" : interestString};
+    
 }
 
 -(NSString *)convertStarsToUIImageName:(int)stars {
@@ -144,7 +599,7 @@
             return @"4stars";
             break;
         case 5:
-            return @"2stars";
+            return @"5stars";
             break;
         default:
             return @"1star";
@@ -178,27 +633,34 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10; //recruits.count;
+    return currentRecruits.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
+    Player *p = currentRecruits[indexPath.row];
+    int interest = [p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam];
+    int stars = p.stars;
+    //NSLog(@"%@'s OVR: %d stars: %d interest: %d offers: %@", p.name, p.ratOvr, stars, interest, p.offers);
+    NSString *name = p.name;
+    NSString *position = p.position;
+    NSString *state = p.personalDetails[@"home_state"];
+    NSString *height = p.personalDetails[@"height"];
+    NSString *weight = p.personalDetails[@"weight"];
+    NSString *fortyTime = p.fortyYardDashTime;
+    NSString *overall;
+    if (positionSelectionControl.selectedSegmentIndex == 0) {
+        overall = [NSString stringWithFormat:@"#%lu overall", (indexPath.row + 1)];
+    } else {
+        overall = [NSString stringWithFormat:@"#%lu %@", (indexPath.row + 1), position];
+    }
     
-    // test data
-    int interest = (int)([HBSharedUtils randomValue] * 100);
-    int stars = (int)([HBSharedUtils randomValue] * 4) + 1;
-    NSString *name = [[HBSharedUtils getLeague] getRandName];
-    NSString *position = @"WR";
-    NSString *state = [HBSharedUtils randomState];
-    NSString *height = @"6\'2\"";
-    NSString *weight = @"235 lbs";
-    NSString *fortyTime = @"4.50s";
-    NSString *overall = [NSString stringWithFormat:@"#%lu %@", (indexPath.row + 1), position];
+    NSDictionary *interestMetadata = [self generateInterestMetadata:interest otherOffers:p.offers];
     
     
     // Valid cell data formatting code
     NSMutableAttributedString *interestString = [[NSMutableAttributedString alloc] initWithString:@"Interest: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [interestString appendAttributedString:[[NSAttributedString alloc] initWithString:[self convertInterestToString:interest] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [self convertInterestToColor:interest]}]];
+    [interestString appendAttributedString:[[NSAttributedString alloc] initWithString:interestMetadata[@"interest"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : interestMetadata[@"color"]}]];
     [cell.interestLabel setAttributedText:interestString];
     [cell.starImageView setImage:[UIImage imageNamed:[self convertStarsToUIImageName:stars]]];
     
@@ -221,7 +683,10 @@
     [cell.fortyYdDashLabel setAttributedText:dashString];
     
     [cell.rankLabel setText:overall];
-    
+
+    NSMutableAttributedString *offerString = [[NSMutableAttributedString alloc] initWithString:@"Other Offers: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[self generateOfferString:p.offers] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    [cell.otherOffersLabel setAttributedText:offerString];
     return cell;
 }
 

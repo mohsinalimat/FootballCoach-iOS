@@ -98,6 +98,8 @@
 @property (strong, nonatomic) NSMutableArray<Player*> *injuredPlayers;
 @property (strong, nonatomic) NSMutableArray<Player*> *recoveredPlayers;
 @property (strong, nonatomic) NSMutableArray<Game*> *gameSchedule;
+@property (strong, nonatomic) NSMutableArray<Player *> *offeredPlayers;
+
 @property (strong, nonatomic) Game *oocGame0;
 @property (strong, nonatomic) Game *oocGame4;
 @property (strong, nonatomic) Game *oocGame9;
@@ -288,4 +290,5 @@
 -(void)applyJSONMetadataChanges:(id)json;
 
 -(NSArray *)getPlayersAtPosition:(NSString*)pos;
+-(NSInteger)getTeamSize;
 @end

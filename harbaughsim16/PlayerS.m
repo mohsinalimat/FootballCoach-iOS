@@ -105,6 +105,16 @@
         self.position = @"S";
         self.cost = pow(self.ratOvr / 6, 2) + ([HBSharedUtils randomValue] * 100) - 50;
         
+        CGFloat inMin = 0.0;
+        CGFloat inMax = 100.0;
+        
+        CGFloat outMin = 4.80;
+        CGFloat outMax = 4.34;
+        
+        CGFloat input = (CGFloat) self.ratSSpd;
+        CGFloat fortyTime = (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+        self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", fortyTime];
+        
         NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 200;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 5);
         self.personalDetails = @{
@@ -112,6 +122,7 @@
                                  @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
                                  @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
                                  };
+        
     }
     return self;
 }

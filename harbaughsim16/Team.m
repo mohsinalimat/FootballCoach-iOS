@@ -2702,4 +2702,8 @@
     else return 0;
 }
 
+-(NSInteger)getTeamSize {
+    return teamQBs.count + teamRBs.count + teamWRs.count + teamTEs.count + teamOLs.count + teamDLs.count + teamLBs.count + teamCBs.count + teamSs.count + teamKs.count;
+}
+
 @end
