@@ -63,6 +63,8 @@
     int recruitingPoints;
     int usedRecruitingPoints;
     AEProgressTitleToolbar *recruitProgressBar;
+    
+    int recruitingStage;
 }
 @end
 
@@ -215,6 +217,8 @@
     
     //self.navigationItem.title = [NSString stringWithFormat:@"Budget: %d pts", recruitingPoints];
     self.navigationItem.title = [NSString stringWithFormat:@"%lu Early Signing Day", ([[HBSharedUtils getLeague] getCurrentYear] + 1)];
+    self.navigationItem.title = [NSString stringWithFormat:@"Winter %lu", ([[HBSharedUtils getLeague] getCurrentYear] + 1)];
+    recruitingStage = 0;
 
     positionSelectionControl = [[ScrollableSegmentedControl alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height, [UIScreen mainScreen].bounds.size.width, 44)];
     positionSelectionControl.segmentStyle = ScrollableSegmentedControlSegmentStyleTextOnly;
@@ -378,7 +382,7 @@
     }
     
     for (int i = 0; i < 42; i++) {
-        position = (int)([HBSharedUtils randomValue] * 10) - 1;
+        position = (int)([HBSharedUtils randomValue] * 10);
         if (position < 0) {
             position = 0;
         }
@@ -411,7 +415,7 @@
     }
     
     for (int i = 0; i < 9; i++) {
-        position = (int)([HBSharedUtils randomValue] * 10) - 1;
+        position = (int)([HBSharedUtils randomValue] * 10);
         if (position < 0) {
             position = 0;
         }
@@ -513,7 +517,6 @@
     [totalRecruits addObjectsFromArray:availCBs];
     [totalRecruits addObjectsFromArray:availSs];
     [totalRecruits addObjectsFromArray:availKs];
-    
     [totalRecruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
@@ -527,7 +530,6 @@
                 [teamNeeds setObject:@(48 - [t getTeamSize]) forKey:t.abbreviation];
             }
         }
-        
         
         // generate offers from other teams
         for (Player *p in totalRecruits) {
@@ -580,7 +582,9 @@
         return [obj2 compare:obj1];
     }];
     for (NSString *offer in sortedOffers) {
-        [offerString appendFormat:@"%@, ",offer];
+        if (![offer isEqualToString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+            [offerString appendFormat:@"%@, ",offer];
+        }
     }
     offerString = [NSMutableString stringWithString:[[offerString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]]];
     
@@ -665,7 +669,6 @@
     }
     recruitProgressBar = [[AEProgressTitleToolbar alloc] initWithFrame:toolbarFrame];
     [recruitProgressBar.titleLabel setTextColor:[UIColor lightTextColor]];
-//    NSInteger offersToGive = (48 - [[HBSharedUtils getLeague].userTeam getTeamSize]);
     [recruitProgressBar.titleLabel setText:@"0% of total recruiting effort used"];
 
     [self.navigationController.view addSubview:recruitProgressBar];
@@ -839,6 +842,8 @@
             [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Extend offer (100pts)" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [recruitEvents addObject:@(CFCRecruitEventExtendOffer)];
                 [progressedRecruits setObject:recruitEvents forKey:[p uniqueIdentifier]];
+                [p.offers setObject:@([p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam]) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
+                
                 usedRecruitingPoints += 100;
                 NSLog(@"%f%% of recruiting points used", ((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0);
                 [recruitProgressBar.progressView setProgress:((float) usedRecruitingPoints / (float) recruitingPoints) animated:YES];
@@ -852,7 +857,7 @@
         }]];
     }
     
-    [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:recruitOptionsController animated:YES completion:nil];
 }
 

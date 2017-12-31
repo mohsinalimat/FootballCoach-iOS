@@ -24,7 +24,7 @@
 // 40 times based on https://www.reddit.com/r/nfl/comments/48irjp/nfl_combine_full_data/
 @property (strong, nonatomic) NSString *fortyYardDashTime;
 
-@property (strong, nonatomic) NSDictionary<NSString *, NSNumber *> *offers;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSNumber *> *offers;
 @property (nonatomic) int ratOvr;
 @property (nonatomic) int year;
 @property (nonatomic) int ratPot;
