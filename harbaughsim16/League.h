@@ -128,7 +128,9 @@
 
 +(BOOL)loadSavedData;
 -(BOOL)isSaveCorrupt;
+@property (strong, nonatomic) NSArray<NSString *> *bowlTitles;
 -(NSArray*)bowlGameTitles;
+
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV;
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV lastNamesCSV:(NSString*)lastNameCSV;
 +(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName;

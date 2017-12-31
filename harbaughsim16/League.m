@@ -33,7 +33,7 @@
 #import "AutoCoding.h"
 
 @implementation League
-@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList;
+@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles;
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
@@ -69,6 +69,7 @@
     [encoder encodeObject:self.cursedTeamCoachName forKey:@"cursedTeamCoachName"];
     [encoder encodeInteger:self.blessedStoryIndex forKey:@"blessedStoryIndex"];
     [encoder encodeInteger:self.cursedStoryIndex forKey:@"cursedStoryIndex"];
+    [encoder encodeInteger:self.bowlTitles forKey:@"bowlTitles"];
     
     [encoder encodeObject:self.singleSeasonCompletionsRecord forKey:@"singleSeasonCompletionsRecord"];
     [encoder encodeObject:self.singleSeasonPassYardsRecord forKey:@"singleSeasonPassYardsRecord"];
@@ -246,6 +247,12 @@
             }
         } else {
             self.heismanHistoryDictionary = [decoder decodeObjectForKey:@"heismanHistoryDictionary"];
+        }
+        
+        if (![decoder containsValueForKey:@"bowlTitles"]) {
+            self.bowlTitles = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+        } else {
+            self.bowlTitles = [decoder decodeObjectForKey:@"bowlTitles"];
         }
         
         //single season
@@ -664,7 +671,11 @@
 }
 
 -(NSArray*)bowlGameTitles {
-    return @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+    if (bowlTitles == nil) {
+        return @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+    } else {
+        return bowlTitles;
+    }
 }
 
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV {
@@ -2344,11 +2355,19 @@
 -(NSString *)leagueMetadataJSON {
     NSMutableString *jsonString = [NSMutableString string];
     [jsonString appendString:@"\{"];
+    [jsonString appendString:@"\"bowlGames\" : \["];
+    for (NSString *bowl in bowlTitles) {
+        [jsonString appendFormat:@"\"%@\",", bowl];
+    }
+    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@","];
+    jsonString = [NSMutableString stringWithString:[jsonString stringByTrimmingCharactersInSet:charSet]];
+    [jsonString appendString:@"],"];
+    
     [jsonString appendString:@"\"conferences\" : \["];
     for (Conference *c in conferences) {
         [jsonString appendFormat:@"%@,", [c conferenceMetadataJSON]];
     }
-    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@","];
+
     jsonString = [NSMutableString stringWithString:[jsonString stringByTrimmingCharactersInSet:charSet]];
     [jsonString appendString:@"]"];
     [jsonString appendString:@"}"];
@@ -2365,6 +2384,17 @@
         for (int i = 0; i < conferences.count; i++) {
             [conferences[i] applyJSONMetadataChanges:jsonConfs[i]];
         }
+        
+        NSMutableArray *bowlNames = [NSMutableArray arrayWithArray:jsonDict[@"bowlGames"]];
+        if (bowlNames.count < 10) {
+            NSInteger need = 10 - bowlNames.count;
+            NSArray *baseBowlNames = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+            for (int i = 0; i < need; i++) {
+                [bowlNames addObject:baseBowlNames[i]];
+            }
+        }
+        bowlTitles = [bowlNames copy];
+        NSLog(@"BOWLS: %@", bowlTitles);
     } else {
         NSLog(@"ERROR parsing league metadata: %@", error);
     }
