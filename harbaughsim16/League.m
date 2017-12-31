@@ -2370,4 +2370,8 @@
     }
 }
 
+-(NSInteger)getCurrentYear {
+    return baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count;
+}
+
 @end

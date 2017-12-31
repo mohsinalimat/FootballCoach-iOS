@@ -136,7 +136,7 @@ static UIColor *styleColor = nil;
     if (![a isInjured] && [b isInjured]) {
         return -1;
     } else if ([a isInjured] && ![b isInjured]) {
-        return  1;
+        return 1;
     } else {
         return a.ratOvr > b.ratOvr ? -1 : (a.ratOvr == b.ratOvr ? 0 : 1);
     }

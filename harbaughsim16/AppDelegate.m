@@ -165,6 +165,7 @@
 
 -(void)setupAppearance {
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    //[[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     [[UITabBar appearance] setTintColor:[HBSharedUtils styleColor]];
     [[UINavigationBar appearance] setBarTintColor:[HBSharedUtils styleColor]];
     self.window.tintColor = [HBSharedUtils styleColor];
@@ -178,7 +179,7 @@
     [STPopupNavigationBar appearance].barStyle = UIBarStyleDefault;
     
     [RMessage addDesignsFromFileWithName:@"alt-designs" inBundle:[NSBundle mainBundle]];
-    
+
 }
 
 @end

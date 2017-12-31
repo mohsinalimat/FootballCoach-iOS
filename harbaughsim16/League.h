@@ -174,4 +174,6 @@
 
 -(NSString *)leagueMetadataJSON;
 -(void)applyJSONMetadataChanges:(NSString *)json;
+
+-(NSInteger)getCurrentYear;
 @end

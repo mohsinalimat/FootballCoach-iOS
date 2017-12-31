@@ -546,5 +546,15 @@
     return locationScore + positionalScore + prestigeScore + playbookScore;
 }
 
+-(NSString *)uniqueIdentifier {
+    int h = 0;
+    
+    for (int i = 0; i < (int)name.length; i++) {
+        h = (31 * h) + [name characterAtIndex:i];
+    }
+    
+    return [NSString stringWithFormat:@"%d",h];
+}
+
 
 @end

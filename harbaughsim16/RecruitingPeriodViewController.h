@@ -8,6 +8,14 @@
 
 #import "FCTableViewController.h"
 
+typedef enum {
+    CFCRecruitEventPositionCoachMeeting,
+    CFCRecruitEventOfficialVisit,
+    CFCRecruitEventInHomeVisit,
+    CFCRecruitEventExtendOffer,
+    CFCRecruitEventCommitted
+} CFCRecruitEvent;
+
 @interface RecruitingPeriodViewController : FCTableViewController
 
 @end
