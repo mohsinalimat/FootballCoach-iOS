@@ -286,4 +286,6 @@
 -(NSString *)teamMetadataJSON;
 -(NSInteger)importIdentifier;
 -(void)applyJSONMetadataChanges:(id)json;
+
+-(NSArray *)getPlayersAtPosition:(NSString*)pos;
 @end

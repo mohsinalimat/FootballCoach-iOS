@@ -2689,4 +2689,17 @@
     return h;
 }
 
+-(NSArray *)getPlayersAtPosition:(NSString*)pos {
+    if ([pos isEqualToString:@"QB"]) return teamQBs;
+    else if ([pos isEqualToString:@"RB"]) return teamRBs;
+    else if ([pos isEqualToString:@"WR"]) return teamWRs;
+    else if ([pos isEqualToString:@"OL"]) return teamOLs;
+    else if ([pos isEqualToString:@"K"]) return teamKs;
+    else if ([pos isEqualToString:@"S"]) return teamSs;
+    else if ([pos isEqualToString:@"CB"]) return teamCBs;
+    else if ([pos isEqualToString:@"DL"]) return teamDLs;
+    else if ([pos isEqualToString:@"LB"]) return teamLBs;
+    else return 0;
+}
+
 @end

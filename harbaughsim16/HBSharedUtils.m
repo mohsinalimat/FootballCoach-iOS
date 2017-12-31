@@ -528,11 +528,11 @@ static UIColor *styleColor = nil;
 }
 
 
-+(CFCRegion)regionForState:(NSString *)state {
++ (CFCRegion)regionForState:(NSString *)state {
     NSArray *northeast = @[@"Connecticut", @"Delaware", @"Maine", @"Massachusetts", @"New Hampshire", @"New Jersey", @"New York", @"Pennsylvania", @"Rhode Island", @"Vermont"];
     NSArray *south = @[@"Alabama", @"Arkansas", @"Florida", @"Georgia", @"Kentucky", @"Louisiana", @"Maryland", @"Mississippi", @"North Carolina", @"Oklahoma", @"South Carolina", @"Tennessee", @"Texas", @"Virginia", @"West Virginia", @"Washington DC"];
     NSArray *west = @[@"Alaska", @"Arizona", @"California", @"Colorado", @"Hawaii", @"Idaho", @"Montana", @"Nevada", @"New Mexico", @"Oregon", @"Utah", @"Washington", @"Wyoming", @"American Samoa"];
-    NSArray *midwest = @[];
+    NSArray *midwest = @[@"Illinois", @"Indiana", @"Iowa", @"Kansas", @"Michigan", @"Minnesota", @"Missouri", @"Nebraska", @"North Dakota", @"Ohio", @"South Dakota", @"Wisconsin"];
     if ([northeast containsObject:state]) {
         return CFCRegionNortheast;
     } else if ([south containsObject:state]) {
@@ -546,7 +546,7 @@ static UIColor *styleColor = nil;
     }
 }
 
-+(NSArray *)_orderedNeighboringRegions:(CFCRegion)region {
++ (NSArray *)_orderedNeighboringRegions:(CFCRegion)region {
     switch (region) {
         case CFCRegionNortheast:
             return @[@(CFCRegionNortheast), @(CFCRegionSouth), @(CFCRegionMidwest),@(CFCRegionWest)];
@@ -566,15 +566,13 @@ static UIColor *styleColor = nil;
     }
 }
 
-+(CFCRegionDistance)distanceFromRegion:(CFCRegion)region1 toRegion:(CFCRegion)region2 {
++ (CFCRegionDistance)distanceFromRegion:(CFCRegion)region1 toRegion:(CFCRegion)region2 {
     if (region1 == region2) {
         return CFCRegionDistanceMatch;
     } else {
         NSArray *orderedRegions = [[self class] _orderedNeighboringRegions:region1];
         NSInteger rgnIndex = [orderedRegions indexOfObject:@(region2)];
-        if (rgnIndex == -1) {
-            return CFCRegionDistanceCrossCountry;
-        } else if (rgnIndex == 0) {
+        if (rgnIndex == 0) {
             return CFCRegionDistanceMatch;
         } else if (rgnIndex == 1) {
             return CFCRegionDistanceNeighbor;
