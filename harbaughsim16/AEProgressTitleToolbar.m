@@ -23,7 +23,7 @@
         [self.titleLabel setFont:[UIFont systemFontOfSize:13.0]];
         [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
         
-        UIView *backingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 44)];
+        UIView *backingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         [backingView setBackgroundColor:[UIColor clearColor]];
         [backingView addSubview:self.titleLabel];
         [backingView addSubview:self.progressView];

@@ -258,7 +258,17 @@
     [hud setMode:MBProgressHUDModeIndeterminate];
     [hud.label setText:@"Generating recruits..."];
     int position = 0;
-    for (int i = 0; i < 24; i++) {
+    
+    CGFloat inMin = 0.0;
+    CGFloat inMax = 90;
+    
+    CGFloat outMin = 0;
+    CGFloat outMax = 24;
+    
+    CGFloat input = MIN(90.0, (CGFloat) [HBSharedUtils getLeague].userTeam.teamPrestige);
+    int avail5Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
+    
+    for (int i = 0; i < avail5Stars; i++) {
         position = (int)([HBSharedUtils randomValue] * 10);
         if (position < 0) {
             position = 0;
@@ -291,7 +301,12 @@
         }
     }
     
-    for (int i = 0; i < 120; i++) {
+    outMin = 0;
+    outMax = 120;
+
+    int avail4Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
+    
+    for (int i = 0; i < avail4Stars; i++) {
         position = (int)([HBSharedUtils randomValue] * 10) - 1;
         if (position < 0) {
             position = 0;
@@ -324,7 +339,12 @@
         }
     }
     
-    for (int i = 0; i < 120; i++) {
+    outMin = 0;
+    outMax = 120;
+    
+    int avail3Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
+    
+    for (int i = 0; i < avail3Stars; i++) {
         position = (int)([HBSharedUtils randomValue] * 10) - 1;
         if (position < 0) {
             position = 0;
