@@ -26,6 +26,15 @@ static UIColor *styleColor = nil;
 
 @implementation HBSharedUtils
 
+
++ (NSString *)recruitingTutorialText {
+    return @"At the end of each season, graduating seniors leave the program and spots open up. As coach, you are responsible for recruiting the next class of players that will lead your team to bigger and better wins. You have a maximum amount of effort you can exert while recruiting, which is dependent on your prestige and openings. Better teams will be able to exert more force in recruiting, while weaker teams may have to force their efforts more.\n\nWhen you press \"Start Recruiting\" after the season, you can see who is leaving your program and give you a sense of how many players you will need to replace. Next, the Recruiting menu opens up (where you are now).\n\nHere, you can interact with potential signees and convince them to sign with your program over the others that have extended them offers. The quality of recruits available to you will differ depending on your prestige, denoted in recruits' ranking by avl. (available) or overall. Better programs will be able to recruit blue-chip recruits, while weaker programs will be forced to settle for 2- or 3-stars.\n\nThere are two stages: Winter and Signing Day. During both periods, you have four possible interactions with an uncommitted recruit: offering them a meeting with their positional coach, inviting them on an official visit to campus, offering to visit them at home, and extending them an official offer. The first three interaction with a player will turn their name orange in the list, while extending them an offer will mark them as dark green. When you advance between stages, other teams will make efforts to recruit players. Depending on their interest in your program, recruits will choose to accept your offer or choose another school's. If a recruit accepts your offer, their name will appear in light green. If a recruit commits to a different school, their name will be faded out. If you recruited them and they STILL committed to a different school, their name and the school they committed to will be listed in red. However, you can put in a lot of effort to flip that recruit's commitment, but you may miss out on other recruits in the process.\n\nAt the end of recruiting season, you'll be able to view the recruits that signed with your program. Any remaining positional needs will be filled by walk-on players.\n\nNow, go out there and bolster your team - good luck, coach!";
+}
+
++ (NSString *)depthChartTutorialText {
+    return @"This page contains your team's roster, separated into depth charts by position and ordered by overall rating. At any time during the season, you can start or sit players by moving them up or down on the depth chart. Redshirted players will always appear at the bottom of the depth chart. \nThe positions:\n\nQB = Quarterback\n\nRB = Running Back\n\nWR = Wide Reciever\n\nTE = Tight End\n\nOL = Offensive Line\n\nDL = Defensive Line\n\nLB = Linebacker\n\nCB = Cornerback\n\nS = Safety\n\nK = Kicker\n\n\nAt the end of each season, graduating seniors and highly-touted juniors will leave the program and open up spots on the roster, which you can fill during the recruiting period. Over the offseason, players will grow and their stats will improve, as they train and learn from their in-game experience. Some players may even turn into superstars through your offseason training program. Manage your roster carefully, recruit and play the right players, and your team will become a force to be reckoned with. Good luck, coach!";
+}
+
 +(double)randomValue {
     return ((double)arc4random() / ARC4RANDOM_MAX);
 }
@@ -50,6 +59,14 @@ static UIColor *styleColor = nil;
 
 +(UIColor *)styleColor { //FC Android color: #3EB49F or #3DB39E //FC iOS color: #009740 //USA Red: #BB133E // USA Blue: #002147
     return [UIColor hx_colorWithHexRGBAString:@"#3DB39E"];
+}
+
++(UIColor *)offeredColor {
+    return [UIColor hx_colorWithHexRGBAString:@"#009740"];
+}
+
++(UIColor *)progressColor {
+    return [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
 }
 
 +(UIColor *)errorColor {

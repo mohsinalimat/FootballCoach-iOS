@@ -70,12 +70,16 @@ typedef enum {
 +(UIColor *)styleColor;
 +(UIColor *)errorColor;
 +(UIColor *)successColor;
++(UIColor *)progressColor;
++(UIColor *)offeredColor;
 +(UIColor *)champColor;
 +(void)setStyleColor:(NSDictionary*)colorDict;
 +(NSArray *)colorOptions;
 +(NSString*)firstNamesCSV;
 +(NSString*)lastNamesCSV;
 + (NSArray *)states;
++ (NSString *)recruitingTutorialText;
++ (NSString *)depthChartTutorialText;
 
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor title:(NSString *)title message:(NSString*)message onViewController:(UIViewController*)viewController;

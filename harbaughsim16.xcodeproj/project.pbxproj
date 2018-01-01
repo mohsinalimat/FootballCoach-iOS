@@ -105,7 +105,8 @@
 		75C5C3321F83447A00D7CAAD /* UpcomingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */; };
 		75C5C3351F83457100D7CAAD /* PlayerStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3331F83457000D7CAAD /* PlayerStatsViewController.m */; };
 		75C5C3381F83489D00D7CAAD /* HBTeamPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */; };
-		75C7C48B1FF8B176003840D4 /* AEProgressTitleToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C7C48A1FF8B176003840D4 /* AEProgressTitleToolbar.m */; };
+		75C7C48B1FF8B176003840D4 /* AEProgressTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C7C48A1FF8B176003840D4 /* AEProgressTitleView.m */; };
+		75C7C4951FF9EE23003840D4 /* AEScrollingToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C7C4941FF9EE23003840D4 /* AEScrollingToolbarView.m */; };
 		75CA698C1FEE2BF2008A58D1 /* last-names.csv in Resources */ = {isa = PBXBuildFile; fileRef = 75CA698A1FEE2BF2008A58D1 /* last-names.csv */; };
 		75CA698D1FEE2BF2008A58D1 /* first-names.csv in Resources */ = {isa = PBXBuildFile; fileRef = 75CA698B1FEE2BF2008A58D1 /* first-names.csv */; };
 		75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE1C1CBECCBC003AB932 /* FCAFootball.png */; };
@@ -324,8 +325,10 @@
 		75C5C3341F83457100D7CAAD /* PlayerStatsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerStatsViewController.h; sourceTree = "<group>"; };
 		75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBTeamPlayView.h; sourceTree = "<group>"; };
 		75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBTeamPlayView.m; sourceTree = "<group>"; };
-		75C7C4891FF8B176003840D4 /* AEProgressTitleToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AEProgressTitleToolbar.h; sourceTree = "<group>"; };
-		75C7C48A1FF8B176003840D4 /* AEProgressTitleToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AEProgressTitleToolbar.m; sourceTree = "<group>"; };
+		75C7C4891FF8B176003840D4 /* AEProgressTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AEProgressTitleView.h; sourceTree = "<group>"; };
+		75C7C48A1FF8B176003840D4 /* AEProgressTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AEProgressTitleView.m; sourceTree = "<group>"; };
+		75C7C4931FF9EE23003840D4 /* AEScrollingToolbarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AEScrollingToolbarView.h; sourceTree = "<group>"; };
+		75C7C4941FF9EE23003840D4 /* AEScrollingToolbarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AEScrollingToolbarView.m; sourceTree = "<group>"; };
 		75CA698A1FEE2BF2008A58D1 /* last-names.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "last-names.csv"; sourceTree = "<group>"; };
 		75CA698B1FEE2BF2008A58D1 /* first-names.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "first-names.csv"; sourceTree = "<group>"; };
 		75CACE1C1CBECCBC003AB932 /* FCAFootball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCAFootball.png; sourceTree = "<group>"; };
@@ -612,8 +615,10 @@
 				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
 				75CEE9481FF593B6005A86C1 /* RecruitingPeriodViewController.h */,
 				75CEE9491FF593B6005A86C1 /* RecruitingPeriodViewController.m */,
-				75C7C4891FF8B176003840D4 /* AEProgressTitleToolbar.h */,
-				75C7C48A1FF8B176003840D4 /* AEProgressTitleToolbar.m */,
+				75C7C4891FF8B176003840D4 /* AEProgressTitleView.h */,
+				75C7C48A1FF8B176003840D4 /* AEProgressTitleView.m */,
+				75C7C4931FF9EE23003840D4 /* AEScrollingToolbarView.h */,
+				75C7C4941FF9EE23003840D4 /* AEScrollingToolbarView.m */,
 				75CEE94B1FF593F5005A86C1 /* CFCRecruitCell.h */,
 				75CEE94C1FF593F5005A86C1 /* CFCRecruitCell.m */,
 				75CEE94D1FF593F5005A86C1 /* CFCRecruitCell.xib */,
@@ -1034,6 +1039,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				755BBC811C9F734E001A8314 /* TeamViewController.m in Sources */,
+				75C7C4951FF9EE23003840D4 /* AEScrollingToolbarView.m in Sources */,
 				75924A4C1C99D03300B165AD /* Player.m in Sources */,
 				7563A8E11CB7F6F20023E43B /* Record.m in Sources */,
 				75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */,
@@ -1082,7 +1088,7 @@
 				7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */,
 				754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */,
 				7591FE411D465B940037ECFB /* NSArray+Uniqueness.m in Sources */,
-				75C7C48B1FF8B176003840D4 /* AEProgressTitleToolbar.m in Sources */,
+				75C7C48B1FF8B176003840D4 /* AEProgressTitleView.m in Sources */,
 				7571DD381C9CFD4000E67080 /* RosterViewController.m in Sources */,
 				75CEE94E1FF593F5005A86C1 /* CFCRecruitCell.m in Sources */,
 				754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */,

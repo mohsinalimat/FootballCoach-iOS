@@ -6,9 +6,9 @@
 //  Copyright © 2017 Akshay Easwaran. All rights reserved.
 //
 
-#import "AEProgressTitleToolbar.h"
+#import "AEProgressTitleView.h"
 
-@implementation AEProgressTitleToolbar
+@implementation AEProgressTitleView
 
 -(id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -16,10 +16,12 @@
         self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(10, 10, self.frame.size.width - 20, 30)];
         [self.progressView setProgressViewStyle:UIProgressViewStyleDefault];
         [self.progressView sizeToFit];
+        [self.progressView setUserInteractionEnabled:NO];
         self.progressView.trackTintColor = [UIColor lightTextColor];
         
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, self.frame.size.width - 20, 15)];
         [self.titleLabel setTextColor:[UIColor darkTextColor]];
+        [self.titleLabel setUserInteractionEnabled:NO];
         [self.titleLabel setFont:[UIFont systemFontOfSize:13.0]];
         [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
         
@@ -29,6 +31,7 @@
         [backingView addSubview:self.progressView];
         
         [self addSubview:backingView];
+        
     }
     return self;
 }

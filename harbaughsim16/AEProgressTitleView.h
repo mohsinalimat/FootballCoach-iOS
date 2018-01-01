@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AEProgressTitleToolbar : UIToolbar
+@interface AEProgressTitleView : UIView
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UIProgressView *progressView;
 -(void)updateViewWithProgress:(float)progress title:(NSString *)title;

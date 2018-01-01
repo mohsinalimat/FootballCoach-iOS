@@ -24,7 +24,8 @@
 #import "PlayerS.h"
 
 #import "CFCRecruitCell.h"
-#import "AEProgressTitleToolbar.h"
+#import "AEScrollingToolbarView.h"
+#import "AEProgressTitleView.h"
 #import "NSArray+Uniqueness.h"
 
 #import "STPopup.h"
@@ -73,10 +74,11 @@
     
     int recruitingPoints;
     int usedRecruitingPoints;
-    AEProgressTitleToolbar *recruitProgressBar;
+    AEProgressTitleView *recruitProgressBar;
     
     int recruitingStage;
     BOOL allPlayersAvailable;
+
 }
 @end
 
@@ -137,13 +139,6 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
-}
-
--(void)activateFilters {
-    //create uialertcontroller
-    //  - filter by region (NE, S, MW, W)
-    //  - drill down to your state
-    //  - filter by interest (only LOCK, HIGH, MED, LOW)
 }
 
 -(void)advanceRecruits {
@@ -243,7 +238,7 @@
                     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleDone target:self action:@selector(finishRecruitingSeason)];
                     
                     [UIView animateWithDuration:0.5 animations:^{
-                        [recruitProgressBar removeFromSuperview];
+                        [positionSelectionControl removeFromSuperview];
                         [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
                     } completion:^(BOOL finished) {
                         NSLog(@"ANIMATE COMPLETE");
@@ -254,6 +249,128 @@
         });
     }
     [self.tableView reloadData];
+}
+
+-(void)calculateTeamNeeds {
+    Team *t = [HBSharedUtils getLeague].userTeam;
+    
+    needQBs = MAX(0, 2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB"]);
+    needRBs = MAX(0, 4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB"]);
+    needWRs = MAX(0, 6 - t.teamWRs.count + [self _calculateNeededPlayersAtPosition:@"WR"]);
+    needTEs = MAX(0, 2 - t.teamTEs.count + [self _calculateNeededPlayersAtPosition:@"TE"]);
+    needOLs = MAX(0, 10 - t.teamOLs.count + [self _calculateNeededPlayersAtPosition:@"OL"]);
+    needDLs = MAX(0, 8 - t.teamDLs.count + [self _calculateNeededPlayersAtPosition:@"DL"]);
+    needLBs = MAX(0, 6 - t.teamLBs.count + [self _calculateNeededPlayersAtPosition:@"LB"]);
+    needCBs = MAX(0, 6 - t.teamCBs.count + [self _calculateNeededPlayersAtPosition:@"CB"]);
+    needsS = MAX(0, 2 - t.teamSs.count + [self _calculateNeededPlayersAtPosition:@"S"]);
+    needKs = MAX(0, 2 - t.teamKs.count + [self _calculateNeededPlayersAtPosition:@"K"]);
+}
+
+-(void)showRemainingNeeds {
+    NSMutableString *summary = [NSMutableString string];
+    
+    if (needQBs > 0) {
+        if (needQBs > 1) {
+            [summary appendFormat:@"Need %ld active QBs\n\n",(long)needQBs];
+        } else {
+            [summary appendFormat:@"Need %ld active QB\n\n",(long)needQBs];
+        }
+    }
+    
+    if (needRBs > 0) {
+        if (needRBs > 1) {
+            [summary appendFormat:@"Need %ld active RBs\n\n",(long)needRBs];
+        } else {
+            [summary appendFormat:@"Need %ld active RB\n\n",(long)needRBs];
+        }
+    }
+    
+    if (needWRs > 0) {
+        if (needWRs > 1) {
+            [summary appendFormat:@"Need %ld active WRs\n\n",(long)needWRs];
+        } else {
+            [summary appendFormat:@"Need %ld active WR\n\n",(long)needWRs];
+        }
+    }
+    
+    if (needTEs > 0) {
+        if (needTEs > 1) {
+            [summary appendFormat:@"Need %ld active TEs\n\n",(long)needTEs];
+        } else {
+            [summary appendFormat:@"Need %ld active TE\n\n",(long)needTEs];
+        }
+    }
+    
+    if (needOLs > 0) {
+        if (needOLs > 1) {
+            [summary appendFormat:@"Need %ld active OLs\n\n",(long)needOLs];
+        } else {
+            [summary appendFormat:@"Need %ld active OL\n\n",(long)needOLs];
+        }
+    }
+    
+    if (needLBs > 0) {
+        if (needLBs > 1) {
+            [summary appendFormat:@"Need %ld active LBs\n\n",(long)needLBs];
+        } else {
+            [summary appendFormat:@"Need %ld active LB\n\n",(long)needLBs];
+        }
+    }
+    
+    if (needDLs > 0) {
+        if (needDLs > 1) {
+            [summary appendFormat:@"Need %ld active DLs\n\n",(long)needDLs];
+        } else {
+            [summary appendFormat:@"Need %ld active DL\n\n",(long)needDLs];
+        }
+    }
+    
+    if (needCBs > 0) {
+        if (needCBs > 1) {
+            [summary appendFormat:@"Need %ld active CBs\n\n",(long)needCBs];
+        } else {
+            [summary appendFormat:@"Need %ld active CB\n\n",(long)needCBs];
+        }
+    }
+    
+    if (needsS > 0) {
+        if (needsS > 1) {
+            [summary appendFormat:@"Need %ld active Ss\n\n",(long)needsS];
+        } else {
+            [summary appendFormat:@"Need %ld active S\n\n",(long)needsS];
+        }
+    }
+    
+    if (needKs > 0) {
+        if (needKs > 1) {
+            [summary appendFormat:@"Need %ld active Ks",(long)needKs];
+        } else {
+            [summary appendFormat:@"Need %ld active K",(long)needKs];
+        }
+    }
+    
+    if (summary.length == 0 || [summary isEqualToString:@""]) {
+        [summary appendString:@"All positional needs filled"];
+    }
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Remaining Needs",[HBSharedUtils getLeague].userTeam.abbreviation] message:summary preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController.view setNeedsLayout];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+
+-(NSInteger)_calculateNeededPlayersAtPosition:(NSString *)pos {
+    Team *t = [HBSharedUtils getLeague].userTeam;
+    NSMutableArray *mapped = [NSMutableArray array];
+    [t.playersLeaving enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Player *p = (Player *)obj;
+        if ([p.position isEqualToString:pos]) {
+            [mapped addObject:p];
+        }
+    }];
+    return mapped.count;
 }
 
 -(void)finishRecruitingSeason {
@@ -357,6 +474,7 @@
     
 
     self.navigationItem.title = [NSString stringWithFormat:@"Winter %lu", ([[HBSharedUtils getLeague] getCurrentYear] + 1)];
+    [self calculateTeamNeeds];
     recruitingStage = 0;
 
     positionSelectionControl = [[ScrollableSegmentedControl alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height + [[UIApplication sharedApplication] statusBarFrame].size.height, [UIScreen mainScreen].bounds.size.width, 44)];
@@ -712,6 +830,17 @@
             [self.tableView reloadData];
         });
     });
+    
+    //display tutorial alert on first launch
+    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
+    if (!tutorialShown) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        //display intro screen
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to Recruiting Season, Coach!" message:[HBSharedUtils recruitingTutorialText] preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
 }
 
 -(void)dismissVC {
@@ -818,15 +947,31 @@
     [super viewWillAppear:animated];
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
 
-    CGRect toolbarFrame = CGRectMake(0, self.view.frame.size.height - 44, self.view.frame.size.width, 44);
+    CGRect toolbarFrame = CGRectMake(0, self.view.frame.size.height - 54, self.view.frame.size.width, 54);
     if (IS_IPHONE_X) {
         toolbarFrame.origin.y -= 20;
     }
-    recruitProgressBar = [[AEProgressTitleToolbar alloc] initWithFrame:toolbarFrame];
+    AEScrollingToolbarView *toolbarView = [[AEScrollingToolbarView alloc] initWithFrame:toolbarFrame];
+    [toolbarView setBackgroundColor:[HBSharedUtils styleColor]];
+    
+    UIButton *needsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.frame.size.width, toolbarView.scrollView.frame.size.height)];
+    [needsButton setTitle:@"Show Team Needs" forState:UIControlStateNormal];
+    [needsButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    [needsButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateSelected];
+    [needsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [needsButton addTarget:self action:@selector(showRemainingNeeds) forControlEvents:UIControlEventTouchUpInside];
+    [toolbarView addPage:needsButton];
+    
+    recruitProgressBar = [[AEProgressTitleView alloc] initWithFrame:CGRectMake(0, 0, toolbarView.frame.size.width, toolbarView.frame.size.height)];
+    [recruitProgressBar.progressView setTrackTintColor:[UIColor lightTextColor]];
+    [recruitProgressBar.progressView setProgressTintColor:[UIColor whiteColor]];
     [recruitProgressBar.titleLabel setTextColor:[UIColor lightTextColor]];
     [recruitProgressBar.titleLabel setText:@"0% of total recruiting effort used"];
-
-    [self.navigationController.view addSubview:recruitProgressBar];
+    [toolbarView addPage:recruitProgressBar];
+    
+    [toolbarView moveToPage:1];
+    
+    [self.navigationController.view addSubview:toolbarView];
 }
 
 #pragma mark - Table view data source
@@ -906,7 +1051,14 @@
     if (p.recruitStatus == CFCRecruitStatusCommitted && p.team == [HBSharedUtils getLeague].userTeam) {
         nameColor = [HBSharedUtils styleColor];
     } else if (p.recruitStatus == CFCRecruitStatusCommitted && p.team != [HBSharedUtils getLeague].userTeam) {
-        nameColor = [UIColor lightGrayColor];
+        nameColor = [HBSharedUtils errorColor];
+    } else if ([progressedRecruits.allKeys containsObject:[p uniqueIdentifier]]) {
+        NSArray *events = progressedRecruits[[p uniqueIdentifier]];
+        if ([events containsObject:@(CFCRecruitEventExtendOffer)]) {
+            nameColor = [HBSharedUtils offeredColor];
+        } else {
+            nameColor = [HBSharedUtils progressColor];
+        }
     } else {
         nameColor = [UIColor blackColor];
     }
