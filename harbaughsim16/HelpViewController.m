@@ -35,6 +35,9 @@
     [sectionSelect addAction:[UIAlertAction actionWithTitle:@"Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }]];
+    [sectionSelect addAction:[UIAlertAction actionWithTitle:@"Metadata Editing" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }]];
     
     [sectionSelect addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:sectionSelect animated:YES completion:nil];
@@ -51,7 +54,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -67,7 +70,7 @@
     } else if (section == 2) {
         title = @"Recruiting";
     } else {
-        title = @"";
+        title = @"Metadata Editing";
     }
     return title;
 }
@@ -98,8 +101,8 @@
         [cell.textLabel setText:[HBSharedUtils depthChartTutorialText]];
     } else if (indexPath.section == 2) { // recruiting
         [cell.textLabel setText:[HBSharedUtils recruitingTutorialText]];
-    } else {
-        [cell.textLabel setText:@""];
+    } else { //metadata editing
+        [cell.textLabel setText:[HBSharedUtils metadataEditingText]];
     }
     [cell.textLabel sizeToFit];
     return cell;

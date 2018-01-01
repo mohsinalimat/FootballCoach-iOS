@@ -81,6 +81,7 @@ typedef enum {
 + (NSString *)generalTutorialText;
 + (NSString *)recruitingTutorialText;
 + (NSString *)depthChartTutorialText;
++ (NSString *)metadataEditingText;
 
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor title:(NSString *)title message:(NSString*)message onViewController:(UIViewController*)viewController;
