@@ -314,22 +314,9 @@ static UIColor *styleColor = nil;
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Start Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_OFFSEASON_TUTORIAL_SHOWN_KEY];
-        if (!tutorialShown) {
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_OFFSEASON_TUTORIAL_SHOWN_KEY];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            //display intro screen
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                UIAlertController *tutorialAlert = [UIAlertController alertControllerWithTitle:@"Offseason Warning" message:@"Once you start the offseason, it is recommended that you do not quit or leave the game until you complete the draft and move on to the next season. Doing so may result in the corruption of your save file. Are you sure you wish to continue?" preferredStyle:UIAlertControllerStyleAlert];
-                [tutorialAlert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                    [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
-                }]];
-                [tutorialAlert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
-                [viewController presentViewController:tutorialAlert animated:YES completion:nil];
-            });
-        } else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
-        }
+        });
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Mock Draft" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

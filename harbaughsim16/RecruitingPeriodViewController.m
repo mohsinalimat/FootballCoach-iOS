@@ -168,7 +168,7 @@
         }
         
         __block League *currentLeague = [HBSharedUtils getLeague];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             for (Player *p in totalRecruits) {
                 if (p.team == nil || p.recruitStatus != CFCRecruitStatusCommitted) {
                     // choose a random offer and increase its interest by a random set of events
@@ -226,7 +226,6 @@
             NSLog(@"THROWING IT BACK TO MAIN THREAD FOR UI UPDATES");
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [hud hideAnimated:YES];
                 recruitingStage++;
                 if (recruitingStage == 1) {
                     NSLog(@"STARTING SIGNING DAY, STAGE %d", recruitingStage);
@@ -244,7 +243,10 @@
                         NSLog(@"ANIMATE COMPLETE");
                     }];
                 }
-                [self.tableView reloadData];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [hud hideAnimated:YES];
+                    [self.tableView reloadData];
+                });
             });
         });
     }
