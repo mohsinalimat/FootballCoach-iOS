@@ -85,7 +85,7 @@
                     [convertProgressAlert dismissViewControllerAnimated:YES completion:nil];
                 });
                 
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     League *ligue = [League newLeagueFromCSV:firstNameCSV lastNamesCSV:lastNameCSV];
                     ligue.canRebrandTeam = YES;
                     [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:ligue] animated:YES];

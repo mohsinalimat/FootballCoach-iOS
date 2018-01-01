@@ -239,6 +239,12 @@
 //        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
 //    }]];
     
+    if ([HBSharedUtils getLeague].currentWeek < 1 && [HBSharedUtils getLeague].baseYear != [[HBSharedUtils getLeague] getCurrentYear] && [[HBSharedUtils getLeague].leagueVersion isEqualToString:HB_CURRENT_APP_VERSION]) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Recruiting Composite Rankings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRecruitingScore] animated:YES];
+        }]];
+    }
+    
     if ([HBSharedUtils getLeague].currentWeek == 15) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Final Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
              [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
