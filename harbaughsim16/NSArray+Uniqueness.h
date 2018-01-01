@@ -10,4 +10,5 @@
 
 @interface NSArray (Uniqueness)
 -(BOOL)allObjectsAreUnique;
+- (NSArray *)getElementsRandomly:(NSUInteger)count;
 @end

@@ -98,7 +98,7 @@
 @property (strong, nonatomic) NSMutableArray<Player*> *injuredPlayers;
 @property (strong, nonatomic) NSMutableArray<Player*> *recoveredPlayers;
 @property (strong, nonatomic) NSMutableArray<Game*> *gameSchedule;
-@property (strong, nonatomic) NSMutableArray<Player *> *offeredPlayers;
+@property (strong, nonatomic) NSMutableArray<Player *> *recruitingClass;
 
 @property (strong, nonatomic) Game *oocGame0;
 @property (strong, nonatomic) Game *oocGame4;
@@ -124,6 +124,7 @@
 @property (nonatomic) int teamPrestige;
 @property (nonatomic) int teamPollScore;
 @property (nonatomic) int teamStrengthOfWins;
+@property (nonatomic) int teamRecruitingClassScore;
 
 @property (nonatomic) int teamStatOffNum;
 @property (nonatomic) int teamStatDefNum;
@@ -143,6 +144,7 @@
 @property (nonatomic) int rankTeamPollScore;
 @property (nonatomic) int rankTeamStrengthOfWins;
 @property (nonatomic) int rankTeamTotalWins;
+@property (nonatomic) int rankTeamRecruitingClassScore;
 
 //prestige/talent improvements
 @property (nonatomic) int diffPrestige;
@@ -224,6 +226,7 @@
 -(int)getOffensiveTalent;
 -(int)getDefensiveTalent;
 
+-(void)addPlayer:(Player*)p;
 -(PlayerQB*)getQB:(int)depth;
 -(PlayerRB*)getRB:(int)depth;
 -(PlayerWR*)getWR:(int)depth;
@@ -231,7 +234,6 @@
 -(PlayerOL*)getOL:(int)depth;
 -(PlayerS*)getS:(int)depth;
 -(PlayerCB*)getCB:(int)depth;
-//-(PlayerF7*)getF7:(int)depth;
 -(PlayerTE*)getTE:(int)depth;
 -(PlayerDL*)getDL:(int)depth;
 -(PlayerLB*)getLB:(int)depth;
@@ -291,4 +293,6 @@
 
 -(NSArray *)getPlayersAtPosition:(NSString*)pos;
 -(NSInteger)getTeamSize;
+
+-(void)calculateRecruitingClassRanking;
 @end

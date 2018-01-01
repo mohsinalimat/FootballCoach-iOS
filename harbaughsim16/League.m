@@ -69,7 +69,7 @@
     [encoder encodeObject:self.cursedTeamCoachName forKey:@"cursedTeamCoachName"];
     [encoder encodeInteger:self.blessedStoryIndex forKey:@"blessedStoryIndex"];
     [encoder encodeInteger:self.cursedStoryIndex forKey:@"cursedStoryIndex"];
-    [encoder encodeInteger:self.bowlTitles forKey:@"bowlTitles"];
+    [encoder encodeObject:self.bowlTitles forKey:@"bowlTitles"];
     
     [encoder encodeObject:self.singleSeasonCompletionsRecord forKey:@"singleSeasonCompletionsRecord"];
     [encoder encodeObject:self.singleSeasonPassYardsRecord forKey:@"singleSeasonPassYardsRecord"];
@@ -1664,6 +1664,17 @@
 }
 
 -(void)setTeamRanks {
+    
+    teamList = [[teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Team *a = (Team*)obj1;
+        Team *b = (Team*)obj2;
+        return a.teamRecruitingClassScore > b.teamRecruitingClassScore ? -1 : a.teamRecruitingClassScore == b.teamRecruitingClassScore ? [a.name compare:b.name] : 1;
+    }] mutableCopy];
+    
+    for (int t = 0; t < teamList.count; ++t) {
+        teamList[t].rankTeamRecruitingClassScore = t+1;
+    }
+    
     //get team ranks for PPG, YPG, etc
     for (int i = 0; i < teamList.count; ++i) {
         [teamList[i] updatePollScore];

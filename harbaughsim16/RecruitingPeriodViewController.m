@@ -25,11 +25,22 @@
 
 #import "CFCRecruitCell.h"
 #import "AEProgressTitleToolbar.h"
+#import "NSArray+Uniqueness.h"
 
 #import "STPopup.h"
 #import "HexColors.h"
 @import ScrollableSegmentedControl;
 #import "MBProgressHUD.h"
+
+#define MEETING_INTEREST_BONUS 5
+#define OFFICIAL_VISIT_INTEREST_BONUS 10
+#define INHOME_VISIT_INTEREST_BONUS 15
+
+#define MEETING_COST 25
+#define OFFICIAL_VISIT_COST 50
+#define INHOME_VISIT_COST 75
+#define EXTEND_OFFER_COST 100
+#define FLIP_COST 250
 
 @interface RecruitingPeriodViewController ()
 {
@@ -65,6 +76,7 @@
     AEProgressTitleToolbar *recruitProgressBar;
     
     int recruitingStage;
+    BOOL allPlayersAvailable;
 }
 @end
 
@@ -147,7 +159,132 @@
     //              * offer to flip (for large amount of effort)
     //          * else:
     //              * fade name
+    
+    __block NSDictionary<NSNumber *, NSNumber *> *eventsValues = @{@(CFCRecruitEventPositionCoachMeeting) : @(MEETING_INTEREST_BONUS), @(CFCRecruitEventOfficialVisit): @(OFFICIAL_VISIT_INTEREST_BONUS), @(CFCRecruitEventInHomeVisit) : @(INHOME_VISIT_INTEREST_BONUS)};
+    if (recruitingStage == 0 || recruitingStage == 1) { // process winter and move to early/late signing day
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        [hud setMode:MBProgressHUDModeIndeterminate];
+        
+        if (recruitingStage == 0) {
+            [hud.label setText:[NSString stringWithFormat:@"Advancing to Signing Day..."]];
+        } else {
+            [hud.label setText:[NSString stringWithFormat:@"Advancing to Fall Camp..."]];
+        }
+        
+        __block League *currentLeague = [HBSharedUtils getLeague];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            for (Player *p in totalRecruits) {
+                if (p.team == nil || p.recruitStatus != CFCRecruitStatusCommitted) {
+                    // choose a random offer and increase its interest by a random set of events
+                    NSString *randomOffer;
+                    NSLog(@"STARTING TO FIND RANDOM OFFER");
+                    while (randomOffer == nil || [randomOffer isEqualToString:currentLeague.userTeam.abbreviation]) {
+                        randomOffer = [p.offers.allKeys getElementsRandomly:1][0];
+                        NSLog(@"CYCLED RAND OFFER");
+                    }
+                    NSLog(@"VALID RANDOM OFFER FOUND: %@", randomOffer);
+                    
+                    NSLog(@"ADDING EVENTS FOR OFFER: %@", randomOffer);
+                    NSArray *randomEventsSet = [eventsValues.allKeys getElementsRandomly:(int)([HBSharedUtils randomValue] * 3)];
+                    NSLog(@"PICKED EVENTS");
+                    int offerInterest = p.offers[randomOffer].intValue;
+                    for (NSNumber *eventType in randomEventsSet) {
+                        offerInterest += eventsValues[eventType].intValue;
+                    }
+                    NSLog(@"UPDATED INTEREST STATS, SAVING OFFER: %@", randomOffer);
+                    [p.offers setObject:@(offerInterest) forKey:randomOffer];
+                    NSLog(@"SAVED OFFER: %@", randomOffer);
+                    
+                    // if the offer puts interest for a team at 100+:
+                    NSLog(@"SORTING OFFERS TO FIND TOP ONES");
+                    NSArray *sortedOffers = [p.offers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                        return [obj2 compare:obj1];
+                    }];
+                    
+                    NSLog(@"RETREIVING TOP OFFER FROM: %@", sortedOffers);
+                    NSString *highestOffer = sortedOffers[0];
+                    NSLog(@"PROCESSING TOP OFFER: %@", highestOffer);
+                    if (recruitingStage == 0) {
+                        if (p.offers[highestOffer].intValue > 99) {
+                            // sign him to that team
+                            NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
+                            Team *t = [currentLeague findTeam:highestOffer];
+                            if (![t.recruitingClass containsObject:p]) {
+                                [p setRecruitStatus:CFCRecruitStatusCommitted];
+                                [p setTeam:t];
+                                [t.recruitingClass addObject:p];
+                            }
+                        }
+                    } else {
+                        Team *t = [currentLeague findTeam:highestOffer];
+                        NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
+                        if (![t.recruitingClass containsObject:p]) {
+                            [p setRecruitStatus:CFCRecruitStatusCommitted];
+                            [p setTeam:t];
+                            [t.recruitingClass addObject:p];
+                        }
+                    }
+                }
+            }
+            
+            NSLog(@"THROWING IT BACK TO MAIN THREAD FOR UI UPDATES");
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [hud hideAnimated:YES];
+                recruitingStage++;
+                if (recruitingStage == 1) {
+                    NSLog(@"STARTING SIGNING DAY, STAGE %d", recruitingStage);
+                    self.navigationItem.title = [NSString stringWithFormat:@"Signing Day %lu", [[HBSharedUtils getLeague] getCurrentYear] + 1];
+                    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
+                } else {
+                    NSLog(@"SHOWING RECRUITING CLASS, STAGE %d", recruitingStage);
+                    self.navigationItem.title = [NSString stringWithFormat:@"%lu Recruiting Class",  [[HBSharedUtils getLeague] getCurrentYear] + 1];
+                    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleDone target:self action:@selector(finishRecruitingSeason)];
+                    
+                    [UIView animateWithDuration:0.5 animations:^{
+                        [recruitProgressBar removeFromSuperview];
+                        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+                    } completion:^(BOOL finished) {
+                        NSLog(@"ANIMATE COMPLETE");
+                    }];
+                }
+                [self.tableView reloadData];
+            });
+        });
+    }
     [self.tableView reloadData];
+}
+
+-(void)finishRecruitingSeason {
+    [[HBSharedUtils getLeague] updateTeamHistories];
+    [[HBSharedUtils getLeague] updateLeagueHistory];
+    [[HBSharedUtils getLeague].userTeam resetStats];
+    [[HBSharedUtils getLeague] advanceSeason];
+    for (Team *t in [HBSharedUtils getLeague].teamList) {
+        for (Player *p in t.recruitingClass) {
+            [t addPlayer:p];
+        }
+        // if necessary, add walk-ons
+        if (t.isUserControlled) {
+            [t recruitWalkOns:@[@(2 - t.teamQBs.count), @(4 - t.teamRBs.count), @(6 - t.teamWRs.count), @(2 - t.teamKs.count), @(10 - t.teamOLs.count), @(2 - t.teamSs.count), @(6 - t.teamCBs.count), @(10 - t.teamDLs.count), @(6 - t.teamLBs.count), @(2 - t.teamTEs.count)]];
+        } else {
+            [t recruitPlayersFreshman:@[@(2 - t.teamQBs.count), @(4 - t.teamRBs.count), @(6 - t.teamWRs.count), @(2 - t.teamKs.count), @(10 - t.teamOLs.count), @(2 - t.teamSs.count), @(6 - t.teamCBs.count), @(10 - t.teamDLs.count), @(6 - t.teamLBs.count), @(2 - t.teamTEs.count)]];
+        }
+        
+        [t calculateRecruitingClassRanking];
+    }
+    [[HBSharedUtils getLeague] setTeamRanks];
+    [HBSharedUtils getLeague].recruitingStage = 0;
+    [[HBSharedUtils getLeague] save];
+    
+    if ([HBSharedUtils getLeague].isHardMode && [[HBSharedUtils getLeague].cursedTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"userTeamSanctioned" object:nil];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)selectPosition:(ScrollableSegmentedControl *)sender {
@@ -200,23 +337,25 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(activateFilters)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
     
     // calculate recruiting points, but never show number - just show as usage as "% effort extended"
-    recruitingPoints = ([HBSharedUtils getLeague].isHardMode) ? [HBSharedUtils getLeague].userTeam.teamPrestige * 20 : [HBSharedUtils getLeague].userTeam.teamPrestige * 25;
-    usedRecruitingPoints = 0;
+    NSInteger offersToGive = (48 - [[HBSharedUtils getLeague].userTeam getTeamSize] + [[HBSharedUtils getLeague].userTeam.playersLeaving count]);
     
-    NSInteger offersToGive = (48 - [[HBSharedUtils getLeague].userTeam getTeamSize]);
-
-    NSInteger recruitingBonus = (20 * offersToGive);
-    if (recruitingBonus > 0) {
-        recruitingPoints += recruitingBonus;
-    }
+    CGFloat inMin = 0.0;
+    CGFloat inMax = 90;
+    
+    CGFloat outMin = 0;
+    CGFloat outMax = 5;
+    
+    CGFloat input = MIN(90.0, (CGFloat) [HBSharedUtils getLeague].userTeam.teamPrestige);
+    int prestigeMulitplier = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
+    recruitingPoints = ([HBSharedUtils getLeague].isHardMode) ? (int)ceilf((float)offersToGive * 50.0 * prestigeMulitplier) : (int)ceilf((float)offersToGive * 60.0 * prestigeMulitplier);
+    usedRecruitingPoints = 0;
     
     NSLog(@"Recruiting points total: %d", recruitingPoints);
     
-    //self.navigationItem.title = [NSString stringWithFormat:@"Budget: %d pts", recruitingPoints];
-    self.navigationItem.title = [NSString stringWithFormat:@"%lu Early Signing Day", ([[HBSharedUtils getLeague] getCurrentYear] + 1)];
+
     self.navigationItem.title = [NSString stringWithFormat:@"Winter %lu", ([[HBSharedUtils getLeague] getCurrentYear] + 1)];
     recruitingStage = 0;
 
@@ -263,14 +402,16 @@
     [hud.label setText:@"Generating recruits..."];
     int position = 0;
     
-    CGFloat inMin = 0.0;
-    CGFloat inMax = 90;
+    inMin = 0.0;
+    inMax = 90;
     
-    CGFloat outMin = 0;
-    CGFloat outMax = 24;
+    outMin = 0;
+    outMax = 24;
     
-    CGFloat input = MIN(90.0, (CGFloat) [HBSharedUtils getLeague].userTeam.teamPrestige);
+    input = MIN(90.0, (CGFloat) [HBSharedUtils getLeague].userTeam.teamPrestige);
     int avail5Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
+    
+    allPlayersAvailable = (avail5Stars == 24);
     
     for (int i = 0; i < avail5Stars; i++) {
         position = (int)([HBSharedUtils randomValue] * 10);
@@ -526,6 +667,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSMutableDictionary *teamNeeds = [NSMutableDictionary dictionary];
         for (Team *t in teamList) {
+            t.recruitingClass = [NSMutableArray array];
             if (!t.isUserControlled) {
                 [teamNeeds setObject:@(48 - [t getTeamSize]) forKey:t.abbreviation];
             }
@@ -573,18 +715,30 @@
 }
 
 -(void)dismissVC {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you are done recruiting?" message:@"You will be sent to the start of next season." preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        // finish the recruiting season 
+        [self finishRecruitingSeason];
+
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+    
 }
 
 -(NSString *)generateOfferString:(NSDictionary *)offers {
     NSMutableString *offerString = [NSMutableString string];
-    NSArray *sortedOffers = [offers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [obj2 compare:obj1];
-    }];
-    for (NSString *offer in sortedOffers) {
-        if (![offer isEqualToString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
-            [offerString appendFormat:@"%@, ",offer];
+    if (offers.allKeys.count > 0) {
+        NSArray *sortedOffers = [offers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj2 compare:obj1];
+        }];
+        for (NSString *offer in sortedOffers) {
+            if (![offer isEqualToString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+                [offerString appendFormat:@"%@, ",offer];
+            }
         }
+    } else {
+        [offerString appendString:@"None"];
     }
     offerString = [NSMutableString stringWithString:[[offerString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]]];
     
@@ -592,6 +746,7 @@
 }
 
 -(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers {
+    
     NSMutableDictionary *totalOffers = [NSMutableDictionary dictionaryWithDictionary:offers];
     [totalOffers setObject:@(interestVal) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
     NSArray *sortedOffers = [totalOffers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -681,22 +836,37 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return currentRecruits.count;
+    if (recruitingStage == 2) {
+        return [HBSharedUtils getLeague].userTeam.recruitingClass.count;
+    } else {
+        return currentRecruits.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
-    Player *p = currentRecruits[indexPath.row];
-    int interest = [p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam];
-    NSMutableArray *recruitEvents = ([progressedRecruits.allKeys containsObject:[p uniqueIdentifier]]) ? progressedRecruits[[p uniqueIdentifier]] : [NSMutableArray array];
-    if ([recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
-        interest += 5;
+    Player *p;
+    if (recruitingStage == 2) {
+        p = [HBSharedUtils getLeague].userTeam.recruitingClass[indexPath.row];
+    } else {
+        p = currentRecruits[indexPath.row];
     }
-    if ([recruitEvents containsObject:@(CFCRecruitEventOfficialVisit)]) {
-        interest += 10;
-    }
-    if ([recruitEvents containsObject:@(CFCRecruitEventInHomeVisit)]) {
-        interest += 15;
+
+    int interest = 0;
+    if ([p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+        interest = [p.offers[[HBSharedUtils getLeague].userTeam.abbreviation] intValue];
+    } else {
+        interest = [p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam];
+        NSMutableArray *recruitEvents = ([progressedRecruits.allKeys containsObject:[p uniqueIdentifier]]) ? progressedRecruits[[p uniqueIdentifier]] : [NSMutableArray array];
+        if ([recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
+            interest += MEETING_INTEREST_BONUS;
+        }
+        if ([recruitEvents containsObject:@(CFCRecruitEventOfficialVisit)]) {
+            interest += OFFICIAL_VISIT_INTEREST_BONUS;
+        }
+        if ([recruitEvents containsObject:@(CFCRecruitEventInHomeVisit)]) {
+            interest += INHOME_VISIT_INTEREST_BONUS;
+        }
     }
     
     int stars = p.stars;
@@ -708,10 +878,19 @@
     NSString *weight = p.personalDetails[@"weight"];
     NSString *fortyTime = p.fortyYardDashTime;
     NSString *overall;
-    if (positionSelectionControl.selectedSegmentIndex == 0) {
-        overall = [NSString stringWithFormat:@"#%lu overall", (indexPath.row + 1)];
+    
+    if (allPlayersAvailable) {
+        if (positionSelectionControl.selectedSegmentIndex == 0) {
+            overall = [NSString stringWithFormat:@"#%lu overall", (indexPath.row + 1)];
+        } else {
+            overall = [NSString stringWithFormat:@"#%lu %@", (indexPath.row + 1), position];
+        }
     } else {
-        overall = [NSString stringWithFormat:@"#%lu %@", (indexPath.row + 1), position];
+        if (positionSelectionControl.selectedSegmentIndex == 0) {
+            overall = [NSString stringWithFormat:@"#%lu avl", (indexPath.row + 1)];
+        } else {
+            overall = [NSString stringWithFormat:@"#%lu %@ avl", (indexPath.row + 1), position];
+        }
     }
     
     NSDictionary *interestMetadata = [self generateInterestMetadata:interest otherOffers:p.offers];
@@ -723,8 +902,17 @@
     [cell.interestLabel setAttributedText:interestString];
     [cell.starImageView setImage:[UIImage imageNamed:[self convertStarsToUIImageName:stars]]];
     
+    UIColor *nameColor = [UIColor blackColor];
+    if (p.recruitStatus == CFCRecruitStatusCommitted && p.team == [HBSharedUtils getLeague].userTeam) {
+        nameColor = [HBSharedUtils styleColor];
+    } else if (p.recruitStatus == CFCRecruitStatusCommitted && p.team != [HBSharedUtils getLeague].userTeam) {
+        nameColor = [UIColor lightGrayColor];
+    } else {
+        nameColor = [UIColor blackColor];
+    }
+    
     NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ", position] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
-    [nameString appendAttributedString:[[NSAttributedString alloc] initWithString:name attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}]];
+    [nameString appendAttributedString:[[NSAttributedString alloc] initWithString:name attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:17.0], NSForegroundColorAttributeName : nameColor}]];
     [cell.nameLabel setAttributedText:nameString];
     
     [cell.stateLabel setText:state];
@@ -744,121 +932,231 @@
     [cell.rankLabel setText:overall];
 
     NSMutableAttributedString *offerString = [[NSMutableAttributedString alloc] initWithString:@"Other Offers: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[self generateOfferString:p.offers] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    if (p.recruitStatus == CFCRecruitStatusCommitted) {
+        if (p.team == [HBSharedUtils getLeague].userTeam) {
+            [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils getLeague].userTeam.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [HBSharedUtils styleColor]}]];
+        } else if ([progressedRecruits.allKeys containsObject:[p uniqueIdentifier]]) {
+            [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:p.team.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [HBSharedUtils errorColor]}]];
+        } else {
+            [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:p.team.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+        }
+    } else {
+        [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[self generateOfferString:p.offers] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    }
+
     [cell.otherOffersLabel setAttributedText:offerString];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    // navigate to page where you can view recruit details and have options to recruit him:
-    //          1. extend offer - sends LOI to recruit; can only give out maxTeamSize - currentTeamSize of these
-    //          2. extend official visit/OV - spend small amount of recruiting points (smaller amount than in-home) to court player on campus; increases interest by 10pts.
-    //          3. visit recruit at home - spend large amount of recruiting points to court player at home; increases interest by 20pts.
-    //          4. also provide option to cancel each of these -- basically we are building a recruiting process for each recruit that we think will be best to sign him
-    // if committed to user team, show options:
-    //          1. redshirt player
-    // if committed, but NOT to user team, show options:
-    //          1. if interest in that team was mild or medium, then:
-    //              * offer and flip (for large amount of recruiting points) -- increases interest in user team by 20 pts.
-    // also display recruiting process for this recruit: OV -> offer -> commit or offer -> commit or OV -> home visit -> offer -> commit
-    Player *p = currentRecruits[indexPath.row];
-    NSMutableString *recruitHistory = [NSMutableString string];
-    
-    NSMutableArray *recruitEvents = ([progressedRecruits.allKeys containsObject:[p uniqueIdentifier]]) ? progressedRecruits[[p uniqueIdentifier]] : [NSMutableArray array];
-    
-    if ([recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
-        [recruitHistory appendFormat:@"Met with %@ Coach\n",p.position];
-    }
-    if ([recruitEvents containsObject:@(CFCRecruitEventOfficialVisit)]) {
-        [recruitHistory appendFormat:@"Came to Official Visit\n"];
-    }
-    if ([recruitEvents containsObject:@(CFCRecruitEventInHomeVisit)]) {
-        [recruitHistory appendFormat:@"Went to In-home Visit\n"];
-    }
-    if ([recruitEvents containsObject:@(CFCRecruitEventExtendOffer)]) {
-        [recruitHistory appendFormat:@"Extended Offer\n"];
-    }
-    
-    if (recruitHistory.length == 0) {
-        [recruitHistory appendString:@"Previous actions:\nNone"];
-    } else {
-        recruitHistory = [NSMutableString stringWithFormat:@"Previous actions:\n%@",[recruitHistory stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-    }
-    
-    NSMutableString *recruitOffers = [NSMutableString string];
-    [recruitOffers appendString:@"Other Offers (Interest):\n"];
-    NSDictionary *offers = p.offers;
-    NSArray *orderedOffers = [offers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [obj2 compare:obj1];
-    }];
-    
-    
-    for (int i = 0; i < orderedOffers.count; i++) {
-        NSNumber *interest = offers[orderedOffers[i]];
-        [recruitOffers appendFormat:@"%d) %@ (%@)\n", i+1, orderedOffers[i], [self _calculateInterestString:interest.intValue]];
-    }
-    
-    UIAlertController *recruitOptionsController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Recruiting %@ %@", p.position, [p getInitialName]] message:[NSString stringWithFormat:@"How would you like to recruit this player?\n\nInterest in %@: %@\n\n%@\n%@",[HBSharedUtils getLeague].userTeam.abbreviation, [self _calculateInterestString:[p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam]], recruitOffers,recruitHistory] preferredStyle:UIAlertControllerStyleAlert];
-    
-    if (![recruitEvents containsObject:@(CFCRecruitEventCommitted)]) {
-        if (![recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
-            [recruitOptionsController addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"Meeting with %@ Coach (25pts)", p.position] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [recruitEvents addObject:@(CFCRecruitEventPositionCoachMeeting)];
-                [progressedRecruits setObject:recruitEvents forKey:[p uniqueIdentifier]];
-                usedRecruitingPoints += 25;
-                NSLog(@"%f%% of recruiting points used", ((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0);
-                [recruitProgressBar.progressView setProgress:((float) usedRecruitingPoints / (float) recruitingPoints) animated:YES];
-                [recruitProgressBar.titleLabel setText:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-                [self advanceRecruits];
-            }]];
+    if (recruitingStage != 2) {
+        [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        // navigate to page where you can view recruit details and have options to recruit him:
+        //          1. extend offer - sends LOI to recruit; can only give out maxTeamSize - currentTeamSize of these
+        //          2. extend official visit/OV - spend small amount of recruiting points (smaller amount than in-home) to court player on campus; increases interest by 10pts.
+        //          3. visit recruit at home - spend large amount of recruiting points to court player at home; increases interest by 20pts.
+        //          4. also provide option to cancel each of these -- basically we are building a recruiting process for each recruit that we think will be best to sign him
+        // if committed to user team, show options:
+        //          1. redshirt player
+        // if committed, but NOT to user team, show options:
+        //          1. if interest in that team was mild or medium, then:
+        //              * offer and flip (for large amount of recruiting points) -- increases interest in user team by 20 pts.
+        // also display recruiting process for this recruit: OV -> offer -> commit or offer -> commit or OV -> home visit -> offer -> commit
+        Player *p = currentRecruits[indexPath.row];
+        NSMutableString *recruitHistory = [NSMutableString string];
+        
+        NSMutableArray *recruitEvents = ([progressedRecruits.allKeys containsObject:[p uniqueIdentifier]]) ? progressedRecruits[[p uniqueIdentifier]] : [NSMutableArray array];
+        
+        int interest = 0;
+        if ([p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+            interest = [p.offers[[HBSharedUtils getLeague].userTeam.abbreviation] intValue];
+        } else {
+            interest = [p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam];
+            NSMutableArray *recruitEvents = ([progressedRecruits.allKeys containsObject:[p uniqueIdentifier]]) ? progressedRecruits[[p uniqueIdentifier]] : [NSMutableArray array];
+            if ([recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
+                interest += MEETING_INTEREST_BONUS;
+            }
+            if ([recruitEvents containsObject:@(CFCRecruitEventOfficialVisit)]) {
+                interest += OFFICIAL_VISIT_INTEREST_BONUS;
+            }
+            if ([recruitEvents containsObject:@(CFCRecruitEventInHomeVisit)]) {
+                interest += INHOME_VISIT_INTEREST_BONUS;
+            }
         }
         
-        if (![recruitEvents containsObject:@(CFCRecruitEventOfficialVisit)]) {
-            [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Official Visit (50pts)" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [recruitEvents addObject:@(CFCRecruitEventOfficialVisit)];
-                [progressedRecruits setObject:recruitEvents forKey:[p uniqueIdentifier]];
-                usedRecruitingPoints += 50;
-                NSLog(@"%f%% of recruiting points used", ((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0);
-                [recruitProgressBar.progressView setProgress:((float) usedRecruitingPoints / (float) recruitingPoints) animated:YES];
-                [recruitProgressBar.titleLabel setText:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-                [self advanceRecruits];
-            }]];
+        if ([recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
+            [recruitHistory appendFormat:@"Met with %@ Coach\n",p.position];
+        }
+        if ([recruitEvents containsObject:@(CFCRecruitEventOfficialVisit)]) {
+            [recruitHistory appendFormat:@"Came to Official Visit\n"];
+        }
+        if ([recruitEvents containsObject:@(CFCRecruitEventInHomeVisit)]) {
+            [recruitHistory appendFormat:@"Went to In-home Visit\n"];
+        }
+        if ([recruitEvents containsObject:@(CFCRecruitEventExtendOffer)]) {
+            [recruitHistory appendFormat:@"Extended Offer\n"];
         }
         
-        if (![recruitEvents containsObject:@(CFCRecruitEventInHomeVisit)]) {
-            [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"In-home visit (75pts)" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [recruitEvents addObject:@(CFCRecruitEventInHomeVisit)];
-                [progressedRecruits setObject:recruitEvents forKey:[p uniqueIdentifier]];
-                usedRecruitingPoints += 75;
-                NSLog(@"%f%% of recruiting points used", ((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0);
-                [recruitProgressBar.progressView setProgress:((float) usedRecruitingPoints / (float) recruitingPoints) animated:YES];
-                [recruitProgressBar.titleLabel setText:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-                [self advanceRecruits];
-            }]];
+        if (recruitHistory.length == 0) {
+            [recruitHistory appendString:@"Previous actions:\nNone"];
+        } else {
+            recruitHistory = [NSMutableString stringWithFormat:@"Previous actions:\n%@",[recruitHistory stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
         }
         
-        if (![recruitEvents containsObject:@(CFCRecruitEventExtendOffer)]) {
-            [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Extend offer (100pts)" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [recruitEvents addObject:@(CFCRecruitEventExtendOffer)];
-                [progressedRecruits setObject:recruitEvents forKey:[p uniqueIdentifier]];
-                [p.offers setObject:@([p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam]) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
-                
-                usedRecruitingPoints += 100;
-                NSLog(@"%f%% of recruiting points used", ((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0);
-                [recruitProgressBar.progressView setProgress:((float) usedRecruitingPoints / (float) recruitingPoints) animated:YES];
-                [recruitProgressBar.titleLabel setText:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-                [self advanceRecruits];
+        NSMutableString *recruitOffers = [NSMutableString string];
+        if (p.recruitStatus == CFCRecruitStatusCommitted) {
+            [recruitOffers appendFormat:@"Signed with %@\n", p.team.abbreviation];
+        } else {
+            [recruitOffers appendString:@"Other Offers (Interest):\n"];
+            NSDictionary *offers = p.offers;
+            NSMutableArray *orderedOffers = [NSMutableArray arrayWithArray:[offers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj2 compare:obj1];
             }]];
-        }
-    } else {
-        [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Flip (250pts)" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-        }]];
+            if ([orderedOffers containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+                [orderedOffers removeObject:[HBSharedUtils getLeague].userTeam.abbreviation];
+            }
+            
+            for (int i = 0; i < orderedOffers.count; i++) {
+                NSNumber *interest = offers[orderedOffers[i]];
+                [recruitOffers appendFormat:@"%d) %@ (%@)\n", i+1, orderedOffers[i], [self _calculateInterestString:interest.intValue]];
+            }
+        }
+        
+        UIAlertController *recruitOptionsController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Recruiting %@ %@", p.position, [p getInitialName]] message:[NSString stringWithFormat:@"How would you like to recruit this player?\n\nInterest in %@: %@\n\n%@\n%@",[HBSharedUtils getLeague].userTeam.abbreviation, [self generateInterestMetadata:interest otherOffers:p.offers][@"interest"], recruitOffers,recruitHistory] preferredStyle:UIAlertControllerStyleAlert];
+        
+        if (p.recruitStatus != CFCRecruitStatusCommitted) {
+            if (abs(recruitingPoints - usedRecruitingPoints) >= MEETING_COST) {
+                if (![recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
+                    [recruitOptionsController addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"Meeting with %@ Coach", p.position] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [recruitEvents addObject:@(CFCRecruitEventPositionCoachMeeting)];
+                        [progressedRecruits setObject:recruitEvents forKey:[p uniqueIdentifier]];
+                        usedRecruitingPoints += MEETING_COST;
+                        
+                        if ([p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+                            NSNumber *offer = p.offers[[HBSharedUtils getLeague].userTeam.abbreviation];
+                            int interest = [offer intValue];
+                            interest += MEETING_INTEREST_BONUS;
+                            [p.offers setObject:@(interest) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
+                        }
+                        
+                        NSLog(@"%f%% of recruiting points used", ((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0);
+                        [recruitProgressBar.progressView setProgress:((float) usedRecruitingPoints / (float) recruitingPoints) animated:YES];
+                        [recruitProgressBar.titleLabel setText:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+                        [self.tableView reloadData];
+                    }]];
+                }
+            }
+                
+            if (abs(recruitingPoints - usedRecruitingPoints) >= OFFICIAL_VISIT_COST) {
+                if (![recruitEvents containsObject:@(CFCRecruitEventOfficialVisit)]) {
+                    [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Official Visit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [recruitEvents addObject:@(CFCRecruitEventOfficialVisit)];
+                        [progressedRecruits setObject:recruitEvents forKey:[p uniqueIdentifier]];
+                        usedRecruitingPoints += OFFICIAL_VISIT_COST;
+                        
+                        if ([p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+                            NSNumber *offer = p.offers[[HBSharedUtils getLeague].userTeam.abbreviation];
+                            int interest = [offer intValue];
+                            interest += OFFICIAL_VISIT_INTEREST_BONUS;
+                            [p.offers setObject:@(interest) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
+                        }
+                        
+                        NSLog(@"%f%% of recruiting points used", ((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0);
+                        [recruitProgressBar.progressView setProgress:((float) usedRecruitingPoints / (float) recruitingPoints) animated:YES];
+                        [recruitProgressBar.titleLabel setText:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+                        [self.tableView reloadData];
+                    }]];
+                }
+            }
+                
+            if (abs(recruitingPoints - usedRecruitingPoints) >= INHOME_VISIT_COST) {
+                if (![recruitEvents containsObject:@(CFCRecruitEventInHomeVisit)]) {
+                    [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"In-home visit" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [recruitEvents addObject:@(CFCRecruitEventInHomeVisit)];
+                        [progressedRecruits setObject:recruitEvents forKey:[p uniqueIdentifier]];
+                        usedRecruitingPoints += INHOME_VISIT_COST;
+                        
+                        if ([p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+                            NSNumber *offer = p.offers[[HBSharedUtils getLeague].userTeam.abbreviation];
+                            int interest = [offer intValue];
+                            interest += INHOME_VISIT_INTEREST_BONUS;
+                            [p.offers setObject:@(interest) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
+                        }
+                        
+                        NSLog(@"%f%% of recruiting points used", ((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0);
+                        [recruitProgressBar.progressView setProgress:((float) usedRecruitingPoints / (float) recruitingPoints) animated:YES];
+                        [recruitProgressBar.titleLabel setText:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+                        [self.tableView reloadData];
+                    }]];
+                }
+            }
+                
+            if (abs(recruitingPoints - usedRecruitingPoints) >= EXTEND_OFFER_COST) {
+                if (![recruitEvents containsObject:@(CFCRecruitEventExtendOffer)]) {
+                    [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Extend offer" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [recruitEvents addObject:@(CFCRecruitEventExtendOffer)];
+                        [progressedRecruits setObject:recruitEvents forKey:[p uniqueIdentifier]];
+                        int interest = [p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam];
+                        
+                        if (![p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+                            if ([recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
+                                interest += MEETING_INTEREST_BONUS;
+                            }
+                            if ([recruitEvents containsObject:@(CFCRecruitEventOfficialVisit)]) {
+                                interest += OFFICIAL_VISIT_INTEREST_BONUS;
+                            }
+                            if ([recruitEvents containsObject:@(CFCRecruitEventInHomeVisit)]) {
+                                interest += INHOME_VISIT_INTEREST_BONUS;
+                            }
+                            [p.offers setObject:@(interest) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
+                        }
+                        
+                        usedRecruitingPoints += EXTEND_OFFER_COST;
+                        NSLog(@"%f%% of recruiting points used", ((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0);
+                        [recruitProgressBar.progressView setProgress:((float) usedRecruitingPoints / (float) recruitingPoints) animated:YES];
+                        [recruitProgressBar.titleLabel setText:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+                        [self.tableView reloadData];
+                    }]];
+                }
+            }
+            
+        } else {
+            if (p.team != [HBSharedUtils getLeague].userTeam) {
+                if (abs(recruitingPoints - usedRecruitingPoints) >= FLIP_COST) {
+                    [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Try to flip" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        // flipping is a 50/50 proposition
+                        if ([HBSharedUtils randomValue] < 0.5) {
+                            // flip successful, move the recruit over to our team
+                            Team *prevTeam = p.team;
+                            [p.team.recruitingClass removeObject:p];
+                            p.team = [HBSharedUtils getLeague].userTeam;
+                            [[HBSharedUtils getLeague].userTeam.recruitingClass addObject:p];
+                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils successColor] title:@"Flip successful!" message:[NSString stringWithFormat:@"%@ %@ signed with your team over %@ on signing day!", p.position, p.name, prevTeam.abbreviation] onViewController:self];
+                        } else {
+                            // flip unsuccessful
+                            [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Flip failed!" message:[NSString stringWithFormat:@"%@ %@ chose to stay with %@.",p.position, p.name, p.team.abbreviation] onViewController:self];
+                            
+                        }
+                        
+                        usedRecruitingPoints += FLIP_COST;
+                        NSLog(@"%f%% of recruiting points used", ((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0);
+                        [recruitProgressBar.progressView setProgress:((float) usedRecruitingPoints / (float) recruitingPoints) animated:YES];
+                        [recruitProgressBar.titleLabel setText:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+                        [self.tableView reloadData];
+                    }]];
+                }
+            } else {
+                [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Redshirt" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    p.hasRedshirt = YES;
+                    [self.tableView reloadData];
+                }]];
+            }
+        }
+        
+        [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:recruitOptionsController animated:YES completion:nil];
     }
-    
-    [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
-    [self presentViewController:recruitOptionsController animated:YES completion:nil];
 }
 
 @end

@@ -186,7 +186,7 @@
         }];
         [self.tableView reloadData];
         self.title = @"Turnover Differential";
-    } else { //HBStatTypeAllTimeWins
+    } else if (selectedStatType == HBStatTypeAllTimeWins) { //HBStatTypeAllTimeWins
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
@@ -194,6 +194,14 @@
         }];
         [self.tableView reloadData];
         self.title = @"All-Time Win Percentage";
+    } else { //HBStatTypeRecruitingScore
+        teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.rankTeamRecruitingClassScore < b.rankTeamRecruitingClassScore ? -1 : a.rankTeamRecruitingClassScore == b.rankTeamRecruitingClassScore ? 0 : 1;
+        }];
+        [self.tableView reloadData];
+        self.title = @"Recruiting Composite Rankings";
     }
     
 }
@@ -269,9 +277,11 @@
         }
         [cell.detailTextLabel setText:turnoverDifferential];
 
-    } else { //HBStatTypeAllTimeWins
+    } else if (selectedStatType == HBStatTypeAllTimeWins)  { //HBStatTypeAllTimeWins
         int winPercent = (int)ceil(100 * ((double)t.totalWins) / (double)(t.totalWins + t.totalLosses));
         [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d-%d (%d%%)",t.totalWins,t.totalLosses,winPercent]];
+    } else {
+        [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d pts", t.teamRecruitingClassScore]];
     }
 
     return cell;

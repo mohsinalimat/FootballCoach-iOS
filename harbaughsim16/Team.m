@@ -524,7 +524,7 @@
     [injuredPlayers removeAllObjects];
     
     if ( !isUserControlled ) {
-        [self recruitPlayersFreshman:@[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(dlNeeds), @(lbNeeds), @(teNeeds)]];
+        //[self recruitPlayersFreshman:@[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(dlNeeds), @(lbNeeds), @(teNeeds)]];
         [self resetStats];
     }
 }
@@ -2704,6 +2704,83 @@
 
 -(NSInteger)getTeamSize {
     return teamQBs.count + teamRBs.count + teamWRs.count + teamTEs.count + teamOLs.count + teamDLs.count + teamLBs.count + teamCBs.count + teamSs.count + teamKs.count;
+}
+
+-(void)addPlayer:(Player *)p {
+    if ([p isKindOfClass:[PlayerQB class]]) {
+        [teamQBs addObject:(PlayerQB*)p];
+    } else if ([p isKindOfClass:[PlayerRB class]]) {
+        [teamRBs addObject:(PlayerRB*)p];
+    } else if ([p isKindOfClass:[PlayerTE class]]) {
+        [teamTEs addObject:(PlayerTE*)p];
+    } else if ([p isKindOfClass:[PlayerWR class]]) {
+        [teamWRs addObject:(PlayerWR*)p];
+    } else if ([p isKindOfClass:[PlayerOL class]]) {
+        [teamOLs addObject:(PlayerOL*)p];
+    } else if ([p isKindOfClass:[PlayerK class]]) {
+        [teamKs addObject:(PlayerK*)p];
+    } else if ([p isKindOfClass:[PlayerS class]]) {
+        [teamSs addObject:(PlayerS*)p];
+    } else if ([p isKindOfClass:[PlayerCB class]]) {
+        [teamCBs addObject:(PlayerCB*)p];
+    } else if ([p isKindOfClass:[PlayerDL class]]) {
+        [teamDLs addObject:(PlayerDL*)p];
+    } else if ([p isKindOfClass:[PlayerLB class]]) {
+        [teamLBs addObject:(PlayerLB*)p];
+    } else {
+    }
+}
+
+- (NSNumber *)_meanOf:(NSArray *)array
+{
+    double runningTotal = 0.0;
+    
+    for(NSNumber *number in array)
+    {
+        runningTotal += [number doubleValue];
+    }
+    
+    return [NSNumber numberWithDouble:(runningTotal / [array count])];
+}
+
+- (NSNumber *)_standardDeviationOf:(NSArray *)array
+{
+    if(![array count]) return nil;
+    
+    double mean = [[self _meanOf:array] doubleValue];
+    double sumOfSquaredDifferences = 0.0;
+    
+    for(NSNumber *number in array)
+    {
+        double valueOfNumber = [number doubleValue];
+        double difference = valueOfNumber - mean;
+        sumOfSquaredDifferences += difference * difference;
+    }
+    
+    return [NSNumber numberWithDouble:sqrt(sumOfSquaredDifferences / [array count])];
+}
+
+// based on https://247sports.com/Season/2017-Football/CompositeTeamRankings
+-(void)calculateRecruitingClassRanking {
+    NSMutableArray *mapped = [NSMutableArray arrayWithCapacity:self.recruitingClass.count];
+    [self.recruitingClass sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    
+    [self.recruitingClass enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Player *p = (Player *)obj;
+        [mapped addObject:@(p.ratOvr)];
+    }];
+    
+    float sum = 0;
+    float stdDev = [[self _standardDeviationOf:mapped] floatValue];
+    for (int n = 0; n < mapped.count; n++) {
+        float Rn = [mapped[n] floatValue] * 100.0;
+        float exponent = (-1 * pow((n - 1), 2)) / (2 * pow(stdDev, 2));
+        float composite = Rn * pow(M_E, exponent);
+        sum += composite;
+    }
+    self.teamRecruitingClassScore = (int)(ceilf(sum));
 }
 
 @end

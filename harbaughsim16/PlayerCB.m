@@ -106,6 +106,12 @@
         self.position = @"CB";
         self.cost = pow(self.ratOvr / 6, 2) + ([HBSharedUtils randomValue] * 100) - 50;
         
+        if (t == nil) {
+            self.recruitStatus = CFCRecruitStatusUncommitted;
+        } else {
+            self.recruitStatus = CFCRecruitStatusCommitted;
+        }
+        
         NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 170;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 3);
         self.personalDetails = @{

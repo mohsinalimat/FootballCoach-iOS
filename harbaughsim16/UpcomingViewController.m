@@ -235,9 +235,9 @@
 -(void)viewResultsOptions {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"News Options" message:@"What would you like to view?" preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Test" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
-    }]];
+//    [alertController addAction:[UIAlertAction actionWithTitle:@"Test" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
+//    }]];
     
     if ([HBSharedUtils getLeague].currentWeek == 15) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Final Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

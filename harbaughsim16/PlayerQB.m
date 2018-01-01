@@ -181,6 +181,12 @@
         self.cost = (int)pow((float)self.ratOvr/3.5,2) + (int)([HBSharedUtils randomValue]*100) - 50;
         self.ratSpeed = (int)(67 + (self.year*5 * [HBSharedUtils randomValue]));
         
+        if (t == nil) {
+            self.recruitStatus = CFCRecruitStatusUncommitted;
+        } else {
+            self.recruitStatus = CFCRecruitStatusCommitted;
+        }
+        
         CGFloat inMin = 0.0;
         CGFloat inMax = 100.0;
         
