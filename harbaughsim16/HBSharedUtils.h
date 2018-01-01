@@ -78,6 +78,7 @@ typedef enum {
 +(NSString*)firstNamesCSV;
 +(NSString*)lastNamesCSV;
 + (NSArray *)states;
++ (NSString *)generalTutorialText;
 + (NSString *)recruitingTutorialText;
 + (NSString *)depthChartTutorialText;
 

@@ -11,6 +11,7 @@
 #import "League.h"
 #import "Team.h"
 #import "AppDelegate.h"
+#import "HelpViewController.h"
 
 #import "MBProgressHUD.h"
 
@@ -32,9 +33,10 @@
 }
 
 -(IBAction)pushTutorial:(id)sender {
-    SFSafariViewController *safVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS/blob/master/README.md"]];
-    [safVC setDelegate:self];
-    [self presentViewController:safVC animated:YES completion:nil];
+//    SFSafariViewController *safVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS/blob/master/README.md"]];
+//    [safVC setDelegate:self];
+//    [self presentViewController:safVC animated:YES completion:nil];
+    [self.navigationController pushViewController:[[HelpViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
 }
 
 -(IBAction)newDynasty {

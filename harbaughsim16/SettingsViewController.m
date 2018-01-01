@@ -11,6 +11,7 @@
 #import "MyTeamViewController.h"
 #import "Team.h"
 #import "RebrandConferenceSelectorViewController.h"
+#import "HelpViewController.h"
 
 #import "HexColors.h"
 #import "FCFileManager.h"
@@ -209,7 +210,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 2) {
-        return 5;
+        return 6;
     } else if (section == 1) {
         return 9;
     } else {
@@ -259,12 +260,14 @@
         }
         
         if (indexPath.row == 0) {
-            [cell.textLabel setText:@"Developer's Website"];
+            [cell.textLabel setText:@"Game Guide"];
         } else if (indexPath.row == 1) {
-            [cell.textLabel setText:@"Email Developer"];
+            [cell.textLabel setText:@"Developer's Website"];
         } else if (indexPath.row == 2) {
-            [cell.textLabel setText:@"Football Coach on GitHub"];
+            [cell.textLabel setText:@"Email Developer"];
         } else if (indexPath.row == 3) {
+            [cell.textLabel setText:@"Football Coach on GitHub"];
+        } else if (indexPath.row == 4) {
             [cell.textLabel setText:@"Football Coach on Reddit"];
         } else {
             [cell.textLabel setText:@"Submit a Review"];
@@ -375,25 +378,27 @@
         [self presentViewController:safariVC animated:YES completion:nil];
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
+            [self.navigationController pushViewController:[[HelpViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
+        } else if (indexPath.row == 1) {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://akeaswaran.me"] entersReaderIfAvailable:YES];
             safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
             safariVC.preferredControlTintColor = [UIColor whiteColor];
             
             [self presentViewController:safariVC animated:YES completion:nil];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
             [composer setMailComposeDelegate:self];
             [composer setToRecipients:@[@"akeaswaran@me.com"]];
             [composer setSubject:[NSString stringWithFormat:@"College Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
             [self presentViewController:composer animated:YES completion:nil];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS"] entersReaderIfAvailable:YES];
             safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
             safariVC.preferredControlTintColor = [UIColor whiteColor];
             
             [self presentViewController:safariVC animated:YES completion:nil];
-
-        } else if (indexPath.row == 3) {
+            
+        } else if (indexPath.row == 4) {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://reddit.com/r/FootballCoach"] entersReaderIfAvailable:YES];
             safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
             safariVC.preferredControlTintColor = [UIColor whiteColor];
