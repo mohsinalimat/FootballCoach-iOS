@@ -95,6 +95,7 @@ typedef enum {
 +(NSComparisonResult)comparePollScore:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareSoW:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePlayoffTeams:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareStars:(id)obj1 toObj2:(id)obj2;
 
 +(NSComparisonResult)compareTeamPPG:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareOppPPG:(id)obj1 toObj2:(id)obj2;

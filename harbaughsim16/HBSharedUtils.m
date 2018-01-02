@@ -225,6 +225,12 @@ static UIColor *styleColor = nil;
     return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
 }
 
++(NSComparisonResult)compareStars:(id)obj1 toObj2:(id)obj2 {
+    Player *a = (Player*)obj1;
+    Player *b = (Player*)obj2;
+    return a.stars > b.stars ? -1 : a.stars == b.stars ? [HBSharedUtils comparePlayers:obj1 toObj2:obj2] : 1;
+}
+
 +(NSComparisonResult)comparePollScore:(id)obj1 toObj2:(id)obj2 {
     Team *a = (Team*)obj1;
     Team *b = (Team*)obj2;
