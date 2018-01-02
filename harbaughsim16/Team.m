@@ -389,7 +389,7 @@
     [k checkRecords];
 
     [self advanceSeasonPlayers];
-    [self resetStats];
+    
     
     if (!isUserControlled) {
         teamStatOffNum = [self getCPUOffense];
@@ -526,10 +526,10 @@
     [playersLeaving removeAllObjects];
     [injuredPlayers removeAllObjects];
     
-//    if ( !isUserControlled ) {
-//        [self recruitPlayersFreshman:@[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(dlNeeds), @(lbNeeds), @(teNeeds)]];
-//        [self resetStats];
-//    }
+    if ( !isUserControlled ) {
+        //[self recruitPlayersFreshman:@[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(dlNeeds), @(lbNeeds), @(teNeeds)]];
+        [self resetStats];
+    }
 }
 
 -(void)recruitPlayers:(NSArray*)needs {
