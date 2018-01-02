@@ -162,7 +162,7 @@ static UIColor *styleColor = nil;
     } else if ([a isInjured] && ![b isInjured]) {
         return 1;
     } else {
-        return a.ratOvr > b.ratOvr ? -1 : (a.ratOvr == b.ratOvr ? 0 : 1);
+        return a.ratOvr > b.ratOvr ? -1 : (a.ratOvr == b.ratOvr ? [HBSharedUtils comparePositions:obj1 toObj2:obj2] : 1);
     }
 }
 

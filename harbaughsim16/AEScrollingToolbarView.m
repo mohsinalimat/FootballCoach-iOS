@@ -7,11 +7,16 @@
 //
 
 #import "AEScrollingToolbarView.h"
+#import "HBSharedUtils.h"
 
 @implementation AEScrollingToolbarView
 
 -(id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 54)];
+    if (IS_IPHONE_X) {
+        frame.size.height += 20;
+    }
+    
+    self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height)];
     if (self) {
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height - 14)];
         [self.scrollView setDelegate:self];
@@ -23,9 +28,12 @@
         self.pages = [NSMutableArray array];
         
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width, self.scrollView.frame.size.height);
-        
+        CGFloat pageCenterPoint = self.scrollView.frame.size.height + 2;
+        if (IS_IPHONE_X) {
+            pageCenterPoint -= 10;
+        }
         self.pageControl = [[UIPageControl alloc] init];
-        self.pageControl.center = CGPointMake(self.center.x, self.scrollView.frame.size.height + 2);
+        self.pageControl.center = CGPointMake(self.center.x, pageCenterPoint);
         self.pageControl.numberOfPages = self.pages.count;
         self.pageControl.tintColor = self.tintColor;
         [self addSubview:self.pageControl];

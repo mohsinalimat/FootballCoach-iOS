@@ -956,19 +956,21 @@
     AEScrollingToolbarView *toolbarView = [[AEScrollingToolbarView alloc] initWithFrame:toolbarFrame];
     [toolbarView setBackgroundColor:[HBSharedUtils styleColor]];
     
-    UIButton *needsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.frame.size.width, toolbarView.scrollView.frame.size.height)];
+    UIButton *needsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.scrollView.frame.size.width, toolbarView.scrollView.frame.size.height)];
     [needsButton setTitle:@"Show Team Needs" forState:UIControlStateNormal];
     [needsButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
     [needsButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateSelected];
     [needsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [needsButton addTarget:self action:@selector(showRemainingNeeds) forControlEvents:UIControlEventTouchUpInside];
-    [toolbarView addPage:needsButton];
+    
     
     recruitProgressBar = [[AEProgressTitleView alloc] initWithFrame:CGRectMake(0, 0, toolbarView.frame.size.width, toolbarView.frame.size.height)];
     [recruitProgressBar.progressView setTrackTintColor:[UIColor lightTextColor]];
     [recruitProgressBar.progressView setProgressTintColor:[UIColor whiteColor]];
     [recruitProgressBar.titleLabel setTextColor:[UIColor lightTextColor]];
     [recruitProgressBar.titleLabel setText:@"0% of total recruiting effort used"];
+    
+    [toolbarView addPage:needsButton];
     [toolbarView addPage:recruitProgressBar];
     
     [toolbarView moveToPage:1];
