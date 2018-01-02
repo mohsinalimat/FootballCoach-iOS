@@ -1479,8 +1479,31 @@
                         [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Try to flip" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                             [recruitEvents addObject:@(CFCRecruitEventFlipped)];
                             [progressedRecruits setObject:recruitEvents forKey:[p uniqueIdentifier]];
-                            // flipping is a 50/50 proposition
-                            if ([HBSharedUtils randomValue] < 0.5) {
+                            
+                            // flipping depends on school's distance from player - closer == higher chance of flip
+                            CGFloat flipChance = 0.0;
+                            CFCRegion playerRegion = [HBSharedUtils regionForState:p.personalDetails[@"home_state"]];
+                            CFCRegion teamRegion = [HBSharedUtils regionForState:[HBSharedUtils getLeague].userTeam.state];
+                            
+                            CFCRegionDistance distance = [HBSharedUtils distanceFromRegion:playerRegion toRegion:teamRegion];
+                            switch (distance) {
+                                case CFCRegionDistanceMatch:
+                                    flipChance = 0.5;
+                                    break;
+                                case CFCRegionDistanceNeighbor:
+                                    flipChance = 0.375;
+                                    break;
+                                case CFCRegionDistanceFar:
+                                    flipChance = 0.25;
+                                    break;
+                                case CFCRegionDistanceCrossCountry:
+                                    flipChance = 0.125;
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            if ([HBSharedUtils randomValue] < flipChance) {
                                 // flip successful, move the recruit over to our team
                                 Team *prevTeam = p.team;
                                 [p.team.recruitingClass removeObject:p];
