@@ -15,7 +15,6 @@ pod 'ATAppUpdater'
 pod 'DZNEmptyDataSet'
 pod 'MBProgressHUD'
 pod 'ScrollableSegmentedControl', '~> 1.3.0'
-pod 'Charts'
 end
 
 post_install do |installer|

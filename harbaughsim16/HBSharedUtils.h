@@ -49,6 +49,16 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+#define MEETING_INTEREST_BONUS 5
+#define OFFICIAL_VISIT_INTEREST_BONUS 10
+#define INHOME_VISIT_INTEREST_BONUS 15
+
+#define MEETING_COST 12
+#define OFFICIAL_VISIT_COST 25
+#define INHOME_VISIT_COST 50
+#define EXTEND_OFFER_COST 75
+#define FLIP_COST 150
+
 typedef enum {
     CFCRegionDistanceMatch,
     CFCRegionDistanceNeighbor,
@@ -63,6 +73,22 @@ typedef enum {
     CFCRegionWest,
     CFCRegionUnknown
 } CFCRegion;
+
+typedef enum {
+    CFCRecruitEventPositionCoachMeeting,
+    CFCRecruitEventOfficialVisit,
+    CFCRecruitEventInHomeVisit,
+    CFCRecruitEventExtendOffer,
+    CFCRecruitEventCommitted,
+    CFCRecruitEventFlipped
+} CFCRecruitEvent;
+
+typedef enum {
+    CFCRecruitingStageWinter,
+    CFCRecruitingStageEarlySigningDay,
+    CFCRecruitingStageSigningDay,
+    CFCRecruitingStageFallCamp
+} CFCRecruitingStage;
 
 @interface HBSharedUtils : NSObject
 +(double)randomValue;
@@ -111,6 +137,11 @@ typedef enum {
 +(NSComparisonResult)compareTeamDefTalent:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareTeamPrestige:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareTeamLeastWins:(id)obj1 toObj2:(id)obj2;
+
++(NSString *)generateOfferString:(NSDictionary *)offers;
++(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers;
++(NSString *)_calculateInterestString:(int)interestVal;
++(NSString *)convertStarsToUIImageName:(int)stars;
 
 +(void)simulateEntireSeason:(int)weekTotal viewController:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback;
 +(void)playWeek:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback;
