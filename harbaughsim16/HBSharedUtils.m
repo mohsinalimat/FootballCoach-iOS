@@ -213,6 +213,12 @@ static UIColor *styleColor = nil;
     }
 }
 
++(NSComparisonResult)compareRecruitingComposite:(id)obj1 toObj2:(id)obj2 {
+    Team *a = (Team*)obj1;
+    Team *b = (Team*)obj2;
+    return a.teamRecruitingClassScore > b.teamRecruitingClassScore ? -1 : a.teamRecruitingClassScore == b.teamRecruitingClassScore ? 0 : 1;
+}
+
 +(NSComparisonResult)compareMVPScore:(id)obj1 toObj2:(id)obj2 {
     Player *a = (Player*)obj1;
     Player *b = (Player*)obj2;

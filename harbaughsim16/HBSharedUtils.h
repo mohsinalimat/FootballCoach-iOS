@@ -87,6 +87,7 @@ typedef enum {
 +(void)showNotificationWithTintColor:(UIColor*)tintColor title:(NSString *)title message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(NSString *)randomState;
 
++(NSComparisonResult)compareRecruitingComposite:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePlayers:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePositions:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareDivTeams:(id)obj1 toObj2:(id)obj2;

@@ -16,6 +16,13 @@ typedef enum {
     CFCRecruitEventCommitted
 } CFCRecruitEvent;
 
+typedef enum {
+    CFCRecruitingStageWinter,
+    CFCRecruitingStageEarlySigningDay,
+    CFCRecruitingStageSigningDay,
+    CFCRecruitingStageFallCamp
+} CFCRecruitingStage;
+
 @interface RecruitingPeriodViewController : FCTableViewController
 
 @end
