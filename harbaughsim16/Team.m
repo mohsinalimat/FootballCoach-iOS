@@ -2323,7 +2323,7 @@
         return 3;
     } else if(OP > (OR + 3)) {
         return 2;
-    } else if(OR > (OP + 5) && [self getQB:0].ratSpeed > 75) {
+    } else if(OR > (OP + 5) && [self getQB:0].ratSpeed > 75 && [self getQB:0].ratSpeed >= [self getRB:0].ratRushSpd) {
         return 4;
     } else if(OR > (OR + 5)) {
         return 1;

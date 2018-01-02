@@ -235,10 +235,6 @@
 -(void)viewResultsOptions {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"News Options" message:@"What would you like to view?" preferredStyle:UIAlertControllerStyleActionSheet];
     
-//    [alertController addAction:[UIAlertAction actionWithTitle:@"Test" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
-//    }]];
-    
     if ([HBSharedUtils getLeague].currentWeek < 1 && [HBSharedUtils getLeague].baseYear != [[HBSharedUtils getLeague] getCurrentYear] && [[HBSharedUtils getLeague].leagueVersion isEqualToString:HB_CURRENT_APP_VERSION]) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Recruiting Composite Rankings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRecruitingScore] animated:YES];
@@ -412,7 +408,7 @@
         [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
     } else {
         [HBSharedUtils getLeague].canRebrandTeam = YES;
-        [teamHeaderView.playButton setTitle:@" Start Recruiting" forState:UIControlStateNormal];
+        [teamHeaderView.playButton setTitle:@" Start Offseason" forState:UIControlStateNormal];
     }
     
     if (simLeague.userTeam.gameWLSchedule.count > 0 && !simLeague.userTeam.gameSchedule.lastObject.hasPlayed && simLeague.userTeam.gameSchedule.count >= simLeague.currentWeek) {

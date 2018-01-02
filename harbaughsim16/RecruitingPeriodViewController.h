@@ -13,7 +13,8 @@ typedef enum {
     CFCRecruitEventOfficialVisit,
     CFCRecruitEventInHomeVisit,
     CFCRecruitEventExtendOffer,
-    CFCRecruitEventCommitted
+    CFCRecruitEventCommitted,
+    CFCRecruitEventFlipped
 } CFCRecruitEvent;
 
 typedef enum {

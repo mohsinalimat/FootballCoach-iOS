@@ -130,7 +130,7 @@
             } else {
                 //generate
                 NSInteger curYear = self.team.league.leagueHistoryDictionary.count;
-                self.startYear = (int)(curYear - self.year + 1) + 2017;
+                self.startYear = (int)(curYear - self.year + 1 + team.league.baseYear);
             }
         }
     }
