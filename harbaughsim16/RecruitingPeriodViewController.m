@@ -75,6 +75,7 @@
     int recruitingPoints;
     int usedRecruitingPoints;
     AEProgressTitleView *recruitProgressBar;
+    AEScrollingToolbarView *toolbarView;
     
     int recruitingStage;
     BOOL allPlayersAvailable;
@@ -235,17 +236,19 @@
                     NSLog(@"SHOWING RECRUITING CLASS, STAGE %d", recruitingStage);
                     self.navigationItem.title = [NSString stringWithFormat:@"%lu Recruiting Class",  [[HBSharedUtils getLeague] getCurrentYear] + 1];
                     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleDone target:self action:@selector(finishRecruitingSeason)];
-                    
-                    [UIView animateWithDuration:0.5 animations:^{
-                        [positionSelectionControl removeFromSuperview];
-                        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-                    } completion:^(BOOL finished) {
-                        NSLog(@"ANIMATE COMPLETE");
-                    }];
                 }
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [hud hideAnimated:YES];
                     [self.tableView reloadData];
+                    if (recruitingStage == 2) {
+                        [UIView animateWithDuration:0.5 animations:^{
+                            [positionSelectionControl removeFromSuperview];
+                            [toolbarView removeFromSuperview];
+                        } completion:^(BOOL finished) {
+                            NSLog(@"ANIMATE COMPLETE");
+                        }];
+                        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+                    }
                 });
             });
         });
@@ -386,12 +389,13 @@
         }
         // if necessary, add walk-ons
         if (t.isUserControlled) {
-            [t recruitWalkOns:@[@(2 - t.teamQBs.count), @(4 - t.teamRBs.count), @(6 - t.teamWRs.count), @(2 - t.teamKs.count), @(10 - t.teamOLs.count), @(2 - t.teamSs.count), @(6 - t.teamCBs.count), @(10 - t.teamDLs.count), @(6 - t.teamLBs.count), @(2 - t.teamTEs.count)]];
+            [t recruitWalkOns:@[@(2 - t.teamQBs.count), @(4 - t.teamRBs.count), @(6 - t.teamWRs.count), @(2 - t.teamKs.count), @(10 - t.teamOLs.count), @(2 - t.teamSs.count), @(6 - t.teamCBs.count), @(8 - t.teamDLs.count), @(6 - t.teamLBs.count), @(2 - t.teamTEs.count)]];
         } else {
-            [t recruitPlayersFreshman:@[@(2 - t.teamQBs.count), @(4 - t.teamRBs.count), @(6 - t.teamWRs.count), @(2 - t.teamKs.count), @(10 - t.teamOLs.count), @(2 - t.teamSs.count), @(6 - t.teamCBs.count), @(10 - t.teamDLs.count), @(6 - t.teamLBs.count), @(2 - t.teamTEs.count)]];
+            [t recruitPlayersFreshman:@[@(2 - t.teamQBs.count), @(4 - t.teamRBs.count), @(6 - t.teamWRs.count), @(2 - t.teamKs.count), @(10 - t.teamOLs.count), @(2 - t.teamSs.count), @(6 - t.teamCBs.count), @(8 - t.teamDLs.count), @(6 - t.teamLBs.count), @(2 - t.teamTEs.count)]];
         }
         
         [t calculateRecruitingClassRanking];
+        t.recruitingClass = [NSMutableArray array];
     }
     [[HBSharedUtils getLeague] setTeamRanks];
     [HBSharedUtils getLeague].recruitingStage = 0;
@@ -498,7 +502,6 @@
     [positionSelectionControl addTarget:self action:@selector(selectPosition:) forControlEvents:UIControlEventValueChanged];
     
     [self.navigationController.view addSubview:positionSelectionControl];
-    [self.tableView setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
     
     // note bonus
     currentRecruits = [NSMutableArray array];
@@ -782,7 +785,7 @@
         return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     
-    [hud.label setText:@"Generating offers from other teams..."];
+    [hud.label setText:@"Organizing offers from other teams..."];
     __block NSArray *teamList = [HBSharedUtils getLeague].teamList;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSMutableDictionary *teamNeeds = [NSMutableDictionary dictionary];
@@ -953,7 +956,8 @@
     if (IS_IPHONE_X) {
         toolbarFrame.origin.y -= 20;
     }
-    AEScrollingToolbarView *toolbarView = [[AEScrollingToolbarView alloc] initWithFrame:toolbarFrame];
+    
+    toolbarView = [[AEScrollingToolbarView alloc] initWithFrame:toolbarFrame];
     [toolbarView setBackgroundColor:[HBSharedUtils styleColor]];
     
     UIButton *needsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.scrollView.frame.size.width, toolbarView.scrollView.frame.size.height)];
@@ -976,6 +980,7 @@
     [toolbarView moveToPage:1];
     
     [self.navigationController.view addSubview:toolbarView];
+    [self.tableView setContentInset:UIEdgeInsetsMake(44, 0, toolbarView.frame.size.height, 0)];
 }
 
 #pragma mark - Table view data source
