@@ -50,6 +50,9 @@
                         });
                     });
                     
+                    // Set to a random state for now just to populate the field
+                    t.state = [HBSharedUtils randomState];
+                    
                     // add TEs, LBs as 3* freshmen
                     t.teamTEs = [NSMutableArray array];
                     for( int i = 0; i < 2; ++i ) {

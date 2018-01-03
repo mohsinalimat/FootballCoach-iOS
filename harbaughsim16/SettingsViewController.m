@@ -38,12 +38,8 @@
     return self;
 }
 
--(void)changeTeamName{
-    if (![HBSharedUtils getLeague].canRebrandTeam) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"You can only rebrand your team during the offseason." preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alertController animated:YES completion:nil];
-    } else {
+-(void)changeTeamName {
+    if ([HBSharedUtils getLeague].canRebrandTeam) {
         Team *userTeam = [HBSharedUtils getLeague].userTeam;
         NSString *oldName = userTeam.name;
         NSString *oldAbbrev = userTeam.abbreviation;
@@ -58,23 +54,30 @@
             textField.text = userTeam.abbreviation;
         }];
         
+        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"State";
+            textField.text = userTeam.state;
+        }];
+        
         [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to rebrand your team?" message:@"You can rebrand again at any time during the offseason." preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 //save
                 UITextField *name = alert.textFields[0];
                 UITextField *abbrev = alert.textFields[1];
+                UITextField *state = alert.textFields[2];
                 NSArray* words = [name.text.lowercaseString componentsSeparatedByCharactersInSet :[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                 NSString* trimmedName = [words componentsJoinedByString:@""];
                 NSLog(@"TRIMMED: %@",trimmedName);
-                if ((![name.text isEqualToString:userTeam.name] || ![abbrev.text isEqualToString:userTeam.abbreviation])
-                    && (name.text.length > 0 && abbrev.text.length > 0)
-                    && (![name.text isEqualToString:@""]&& ![abbrev.text isEqualToString:@""])
-                    && (![trimmedName isEqualToString:@"americansamoa"])
-                    && ([[HBSharedUtils getLeague] findTeam:abbrev.text] == nil)) {
+                if (
+                    [[HBSharedUtils getLeague] isTeamNameValid:name.text allowUserTeam:NO allowOverwrite:NO]
+                    && [[HBSharedUtils getLeague] isTeamAbbrValid:abbrev.text allowUserTeam:NO allowOverwrite:NO]
+                    && [[HBSharedUtils getLeague] isStateValid:state.text]) {
                     
                     [[HBSharedUtils getLeague].userTeam setName:name.text];
                     [[HBSharedUtils getLeague].userTeam setAbbreviation:abbrev.text];
+                    [[HBSharedUtils getLeague].userTeam setState:state.text];
+                    
                     Team *rival = [[HBSharedUtils getLeague] findTeam:[HBSharedUtils getLeague].userTeam.rivalTeam];
                     if (![userTeam isEqual:[[HBSharedUtils getLeague] findTeam:@"GEO"]] && [rival.abbreviation isEqualToString:@"ALA"]) {
                         [rival setRivalTeam:@"GEO"];
@@ -90,14 +93,12 @@
                             NSString *teamString = leagueYear[i];
                             if ([teamString containsString:oldName]) {
                                 teamString = [teamString stringByReplacingOccurrencesOfString:oldName withString:name.text];
-                                //NSLog(@"FOUND NAME MATCH IN LEAGUE HISTORY, REPLACING");
                                 [tempLeagueYear replaceObjectAtIndex:i withObject:teamString];
                             }
                             
                             if ([teamString containsString:oldAbbrev]) {
                                 teamString = [teamString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
                                 [tempLeagueYear replaceObjectAtIndex:i withObject:teamString];
-                                //NSLog(@"FOUND ABBREV MATCH IN LEAGUE HISTORY, REPLACING");
                             }
                         }
                         
@@ -109,7 +110,7 @@
                         NSString *yearString = [HBSharedUtils getLeague].userTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
                         if ([yearString containsString:oldAbbrev]) {
                             yearString = [yearString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
-                            //NSLog(@"FOUND ABBREV MATCH IN TEAM HISTORY, REPLACING");
+ 
                             [[HBSharedUtils getLeague].userTeam.teamHistoryDictionary setObject:yearString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
                         }
                     }
@@ -118,7 +119,7 @@
                         NSString *heisString = [HBSharedUtils getLeague].heismanHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
                         if ([heisString containsString:[NSString stringWithFormat:@", %@ (", oldAbbrev]]) {
                             heisString = [heisString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@", %@ (", oldAbbrev] withString:[NSString stringWithFormat:@", %@ (", abbrev.text]];
-                            //NSLog(@"FOUND ABBREV MATCH IN HEISMAN HISTORY, REPLACING");
+     
                             [[HBSharedUtils getLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
                         }
                     }
@@ -128,6 +129,12 @@
                     [self.tableView reloadData];
 
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Rebrand successful!" message:[NSString stringWithFormat:@"Successfully rebranded your team to %@ (%@)!", name.text, abbrev.text] onViewController:self];
+                } else if (![[HBSharedUtils getLeague] isTeamAbbrValid:name.text allowUserTeam:NO allowOverwrite:NO]) {
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand your team - Invalid team name provided." onViewController:self];
+                } else if (![[HBSharedUtils getLeague] isTeamAbbrValid:abbrev.text allowUserTeam:NO allowOverwrite:NO]) {
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand your team - Invalid abbreviation provided." onViewController:self];
+                } else if (![[HBSharedUtils getLeague] isStateValid:state.text]) {
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand your team - Invalid state provided." onViewController:self];
                 } else {
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand your team - Invalid inputs provided." onViewController:self];
                 }
