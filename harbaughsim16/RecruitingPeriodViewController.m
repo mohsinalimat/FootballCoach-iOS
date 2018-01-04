@@ -942,7 +942,21 @@
         for (Team *t in teamList) {
             t.recruitingClass = [NSMutableArray array];
             if (!t.isUserControlled) {
-                [teamNeeds setObject:@(48 - [t getTeamSize]) forKey:t.abbreviation];
+                // need to prevent some teams from just stockpiling recruits - that's bad
+                // let's create a data structure that takes into account positional needs for each team.
+                //[teamNeeds setObject:@(48 - [t getTeamSize]) forKey:t.abbreviation];
+                [teamNeeds setObject:[NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                     @"QB" : @(2 - t.teamQBs.count),
+                                                                                     @"RB" : @(4 - t.teamRBs.count),
+                                                                                     @"WR" : @(6 - t.teamWRs.count),
+                                                                                     @"K" : @(2 - t.teamKs.count),
+                                                                                     @"OL" : @(10 - t.teamOLs.count),
+                                                                                     @"S" : @(2 - t.teamSs.count),
+                                                                                     @"CB" : @(6 - t.teamCBs.count),
+                                                                                     @"DL" : @(8 - t.teamDLs.count),
+                                                                                     @"LB" : @(6 - t.teamLBs.count),
+                                                                                     @"TE" : @(2 - t.teamTEs.count)
+                                                                                     }] forKey:t.abbreviation];
             }
         }
         
@@ -965,14 +979,23 @@
             int i = 0;
             while (offers < 3) {
                 NSString *abbrev = sortedOffers[i];
-                NSNumber *teamOffers = teamNeeds[abbrev];
-                if (teamOffers > 0) {
+                NSMutableDictionary *teamPositionalNeeds = teamNeeds[abbrev];
+                NSNumber *slotsAvailable = teamPositionalNeeds[p.position];
+                if (slotsAvailable.intValue > 0) {
                     [highestOffers setObject:prelimOffers[abbrev] forKey:abbrev];
-                    [teamNeeds setObject:[NSNumber numberWithInt:teamOffers.intValue - 1] forKey:sortedOffers[i]];
-                    offers++;
+                    [teamPositionalNeeds setObject:[NSNumber numberWithInt:slotsAvailable.intValue - 1] forKey:p.position];
+                    [teamNeeds setObject:teamPositionalNeeds forKey:abbrev];
                 } else {
                     NSLog(@"%@ has hit offer cap, can not send more offers", abbrev);
                 }
+//                NSNumber *teamOffersAtPosition = teamNeeds[abbrev][p.position];
+//                if (teamOffersAtPosition > 0) {
+//                    [highestOffers setObject:prelimOffers[abbrev] forKey:abbrev];
+//                    [teamNeeds setObject:[NSNumber numberWithInt:teamOffersAtPosition.intValue - 1] forKey:sortedOffers[i]];
+//                    offers++;
+//                } else {
+//                    NSLog(@"%@ has hit offer cap, can not send more offers", abbrev);
+//                }
                 i++;
             }
             

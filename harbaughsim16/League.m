@@ -863,7 +863,7 @@
             [conferences[i] setUpSchedule];
         }
         for (int i = 0; i < conferences.count; ++i ) {
-            [conferences[i] setUpOOCSchedule ];
+            [conferences[i] setUpOOCSchedule];
         }
         for (int i = 0; i < conferences.count; ++i ) {
             [conferences[i] insertOOCSchedule];
@@ -2283,7 +2283,7 @@
         return false;
     }
     
-    if (!allowOverwrite) {
+    if (allowOverwrite == FALSE) {
         for (int i = 0; i < teamList.count; i++) {
             // compare using all lower case so no dumb duplicates
             if (allowUserTeam) {
@@ -2296,6 +2296,8 @@
                 }
             }
         }
+    } else {
+        NSLog(@"IGNORING EXISTING DATA");
     }
     
     return true;
@@ -2393,9 +2395,22 @@
     if (!error) {
         NSArray *jsonConfs = jsonDict[@"conferences"];
         for (int i = 0; i < conferences.count; i++) {
+            // Apply the changes from the JSON file
             [conferences[i] applyJSONMetadataChanges:jsonConfs[i]];
+            
+            // Reset team data just in case there were rivalry changes
+            for (Team *t in conferences[i].confTeams) {
+                [t resetStats];
+            }
         }
         
+        // Rebuild the schedule just in case there were rivalry changes
+        for (Conference *c in conferences) {
+            [c setUpSchedule];
+            [c setUpOOCSchedule];
+            [c insertOOCSchedule];
+        }
+
         NSMutableArray *bowlNames = [NSMutableArray arrayWithArray:jsonDict[@"bowlGames"]];
         if (bowlNames.count < 10) {
             NSInteger need = 10 - bowlNames.count;

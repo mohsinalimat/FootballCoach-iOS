@@ -2728,8 +2728,11 @@
             state = jsonDict[@"state"];
         }
         
-        if ([league isTeamAbbrValid:jsonDict[@"rival"] allowUserTeam:YES allowOverwrite:NO]) {
+        if ([league isTeamAbbrValid:jsonDict[@"rival"] allowUserTeam:YES allowOverwrite:YES]) {
+            NSLog(@"CHANGING RIVAL FOR %@ TO %@", abbreviation, json[@"rival"]);
             rivalTeam = jsonDict[@"rival"];
+        } else {
+            NSLog(@"RIVAL FOR %@ REMAINING %@", abbreviation, rivalTeam);
         }
     } else {
         NSLog(@"ERROR parsing team metadata: %@", error);
