@@ -1024,7 +1024,7 @@
 }
 
 -(void)dismissVC {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you are done recruiting?" message:@"You will be sent to the start of next season." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you are done recruiting?" message:@"You will be sent to the start of next season, and any remaining openings on your team will be filled by walk-ons." preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         // finish the recruiting season 
         [self finishRecruitingSeason];
