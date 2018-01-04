@@ -966,16 +966,16 @@
                 // let's create a data structure that takes into account positional needs for each team.
                 //[teamNeeds setObject:@(48 - [t getTeamSize]) forKey:t.abbreviation];
                 [teamNeeds setObject:[NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                     @"QB" : @(2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB" team:t]),
-                                                                                     @"RB" : @(4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB" team:t]),
-                                                                                     @"WR" : @(6 - t.teamWRs.count + [self _calculateNeededPlayersAtPosition:@"WR" team:t]),
-                                                                                     @"K" : @(2 - t.teamKs.count + [self _calculateNeededPlayersAtPosition:@"K" team:t]),
-                                                                                     @"OL" : @(10 - t.teamOLs.count + [self _calculateNeededPlayersAtPosition:@"OL" team:t]),
-                                                                                     @"S" : @(2 - t.teamSs.count + [self _calculateNeededPlayersAtPosition:@"S" team:t]),
-                                                                                     @"CB" : @(6 - t.teamCBs.count + [self _calculateNeededPlayersAtPosition:@"CB" team:t]),
-                                                                                     @"DL" : @(8 - t.teamDLs.count + [self _calculateNeededPlayersAtPosition:@"DL" team:t]),
-                                                                                     @"LB" : @(6 - t.teamLBs.count + [self _calculateNeededPlayersAtPosition:@"LB" team:t]),
-                                                                                     @"TE" : @(2 - t.teamTEs.count + [self _calculateNeededPlayersAtPosition:@"TE" team:t])
+                                                                                     @"QB" : @(MAX(0, 2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB" team:t])),
+                                                                                     @"RB" : @(MAX(0, 4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB" team:t])),
+                                                                                     @"WR" : @(MAX(0, 6 - t.teamWRs.count + [self _calculateNeededPlayersAtPosition:@"WR" team:t])),
+                                                                                     @"K" : @(MAX(0, 2 - t.teamKs.count + [self _calculateNeededPlayersAtPosition:@"K" team:t])),
+                                                                                     @"OL" : @(MAX(0, 10 - t.teamOLs.count + [self _calculateNeededPlayersAtPosition:@"OL" team:t])),
+                                                                                     @"S" : @(MAX(0, 2 - t.teamSs.count + [self _calculateNeededPlayersAtPosition:@"S" team:t])),
+                                                                                     @"CB" : @(MAX(0, 6 - t.teamCBs.count + [self _calculateNeededPlayersAtPosition:@"CB" team:t])),
+                                                                                     @"DL" : @(MAX(0, 8 - t.teamDLs.count + [self _calculateNeededPlayersAtPosition:@"DL" team:t])),
+                                                                                     @"LB" : @(MAX(0, 6 - t.teamLBs.count + [self _calculateNeededPlayersAtPosition:@"LB" team:t])),
+                                                                                     @"TE" : @(MAX(0, 2 - t.teamTEs.count + [self _calculateNeededPlayersAtPosition:@"TE" team:t]))
                                                                                      }] forKey:t.abbreviation];
             }
         }
