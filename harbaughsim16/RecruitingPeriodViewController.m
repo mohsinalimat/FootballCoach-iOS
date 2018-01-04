@@ -204,41 +204,55 @@
             for (Player *p in totalRecruits) {
                 if (p.team == nil || p.recruitStatus != CFCRecruitStatusCommitted) {
                     // choose a random offer and increase its interest by a random set of events
-                    if (recruitingStage != CFCRecruitingStageSigningDay) {
-                        NSString *randomOffer;
-                        NSLog(@"STARTING TO FIND RANDOM OFFER");
-                        while (randomOffer == nil || [randomOffer isEqualToString:currentLeague.userTeam.abbreviation]) {
-                            randomOffer = [p.offers.allKeys getElementsRandomly:1][0];
-                            NSLog(@"CYCLED RAND OFFER");
+                    if (p.offers.allKeys.count > 0) {
+                        if (recruitingStage != CFCRecruitingStageSigningDay) {
+                            NSString *randomOffer;
+                            NSLog(@"STARTING TO FIND RANDOM OFFER FROM: %@", p.offers.allKeys);
+                            while (randomOffer == nil || [randomOffer isEqualToString:currentLeague.userTeam.abbreviation]) {
+                                randomOffer = [p.offers.allKeys getElementsRandomly:1][0];
+                                NSLog(@"CYCLED RAND OFFER");
+                            }
+                            NSLog(@"VALID RANDOM OFFER FOUND: %@", randomOffer);
+                            
+                            NSLog(@"ADDING EVENTS FOR OFFER: %@", randomOffer);
+                            NSArray *randomEventsSet = [eventsValues.allKeys getElementsRandomly:(int)([HBSharedUtils randomValue] * 3)];
+                            NSLog(@"PICKED EVENTS");
+                            int offerInterest = p.offers[randomOffer].intValue;
+                            for (NSNumber *eventType in randomEventsSet) {
+                                offerInterest += eventsValues[eventType].intValue;
+                            }
+                            NSLog(@"UPDATED INTEREST STATS, SAVING OFFER: %@", randomOffer);
+                            [p.offers setObject:@(offerInterest) forKey:randomOffer];
+                            NSLog(@"SAVED OFFER: %@", randomOffer);
                         }
-                        NSLog(@"VALID RANDOM OFFER FOUND: %@", randomOffer);
                         
-                        NSLog(@"ADDING EVENTS FOR OFFER: %@", randomOffer);
-                        NSArray *randomEventsSet = [eventsValues.allKeys getElementsRandomly:(int)([HBSharedUtils randomValue] * 3)];
-                        NSLog(@"PICKED EVENTS");
-                        int offerInterest = p.offers[randomOffer].intValue;
-                        for (NSNumber *eventType in randomEventsSet) {
-                            offerInterest += eventsValues[eventType].intValue;
-                        }
-                        NSLog(@"UPDATED INTEREST STATS, SAVING OFFER: %@", randomOffer);
-                        [p.offers setObject:@(offerInterest) forKey:randomOffer];
-                        NSLog(@"SAVED OFFER: %@", randomOffer);
-                    }
-                    
-                    // if the offer puts interest for a team at 100+:
-                    NSLog(@"SORTING OFFERS TO FIND TOP ONES");
-                    NSArray *sortedOffers = [p.offers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                        return [obj2 compare:obj1];
-                    }];
-                    
-                    NSLog(@"RETREIVING TOP OFFER FROM: %@", sortedOffers);
-                    NSString *highestOffer = sortedOffers[0];
-                    NSLog(@"PROCESSING TOP OFFER: %@", highestOffer);
-                    if (recruitingStage != CFCRecruitingStageSigningDay) {
-                        if (p.offers[highestOffer].intValue > 99) {
-                            // sign him to that team
-                            NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
+                        // if the offer puts interest for a team at 100+:
+                        NSLog(@"SORTING OFFERS TO FIND TOP ONES");
+                        NSArray *sortedOffers = [p.offers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                            return [obj2 compare:obj1];
+                        }];
+                        
+                        NSLog(@"RETREIVING TOP OFFER FROM: %@", sortedOffers);
+                        NSString *highestOffer = sortedOffers[0];
+                        NSLog(@"PROCESSING TOP OFFER: %@", highestOffer);
+                        if (recruitingStage != CFCRecruitingStageSigningDay) {
+                            if (p.offers[highestOffer].intValue > 99) {
+                                // sign him to that team
+                                NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
+                                Team *t = [currentLeague findTeam:highestOffer];
+                                if (![t.recruitingClass containsObject:p]) {
+                                    [p setRecruitStatus:CFCRecruitStatusCommitted];
+                                    [p setTeam:t];
+                                    [t.recruitingClass addObject:p];
+                                    
+                                    if (t == currentLeague.userTeam) {
+                                        [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
+                                    }
+                                }
+                            }
+                        } else {
                             Team *t = [currentLeague findTeam:highestOffer];
+                            NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
                             if (![t.recruitingClass containsObject:p]) {
                                 [p setRecruitStatus:CFCRecruitStatusCommitted];
                                 [p setTeam:t];
@@ -250,17 +264,7 @@
                             }
                         }
                     } else {
-                        Team *t = [currentLeague findTeam:highestOffer];
-                        NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
-                        if (![t.recruitingClass containsObject:p]) {
-                            [p setRecruitStatus:CFCRecruitStatusCommitted];
-                            [p setTeam:t];
-                            [t.recruitingClass addObject:p];
-                            
-                            if (t == currentLeague.userTeam) {
-                                [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
-                            }
-                        }
+                        NSLog(@"YOU AIN'T GOT NO OFFERS, LT. DAN!");
                     }
                 }
             }
@@ -423,9 +427,11 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-
 -(NSInteger)_calculateNeededPlayersAtPosition:(NSString *)pos {
-    Team *t = [HBSharedUtils getLeague].userTeam;
+    return [self _calculateNeededPlayersAtPosition:pos team:[HBSharedUtils getLeague].userTeam];
+}
+
+-(NSInteger)_calculateNeededPlayersAtPosition:(NSString *)pos team:(Team*)t {
     NSMutableArray *mapped = [NSMutableArray array];
     [t.playersLeaving enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         Player *p = (Player *)obj;
@@ -654,27 +660,43 @@
     availDLs = [NSMutableArray array];
     availLBs = [NSMutableArray array];
 
+    [self generateRecruits];
+    
+    //display tutorial alert on first launch
+    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
+    if (!tutorialShown) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        //display intro screen
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to Recruiting Season, Coach!" message:[HBSharedUtils recruitingTutorialText] preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
+
+-(void)generateRecruits {
     // generate recruits the same way as before
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     [hud setMode:MBProgressHUDModeIndeterminate];
     [hud.label setText:@"Generating recruits..."];
     int position = 0;
     
-    inMin = 0.0;
-    inMax = 90;
+    CGFloat inMin = 0.0;
+    CGFloat inMax = 90;
     
-    outMin = 0;
-    outMax = 24;
+    CGFloat outMin = 0;
+    CGFloat outMax = 16;
     
-    input = MIN(90.0, (CGFloat) [HBSharedUtils getLeague].userTeam.teamPrestige);
+    CGFloat input = MIN(90.0, (CGFloat) [HBSharedUtils getLeague].userTeam.teamPrestige);
     int avail5Stars;
     if ([HBSharedUtils getLeague].isHardMode) {
         avail5Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
     } else {
-        avail5Stars = 24;
+        avail5Stars = 16;
     }
     
-    allPlayersAvailable = (avail5Stars == 24);
+    allPlayersAvailable = (avail5Stars == 16);
     
     for (int i = 0; i < avail5Stars; i++) {
         position = (int)([HBSharedUtils randomValue] * 10);
@@ -710,13 +732,13 @@
     }
     
     outMin = 0;
-    outMax = 120;
-
+    outMax = 80;
+    
     int avail4Stars;
     if ([HBSharedUtils getLeague].isHardMode) {
         avail4Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
     } else {
-        avail4Stars = 120;
+        avail4Stars = 80;
     }
     
     for (int i = 0; i < avail4Stars; i++) {
@@ -753,13 +775,13 @@
     }
     
     outMin = 0;
-    outMax = 120;
+    outMax = 80;
     
     int avail3Stars;
     if ([HBSharedUtils getLeague].isHardMode) {
         avail3Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
     } else {
-        avail3Stars = 120;
+        avail3Stars = 80;
     }
     
     for (int i = 0; i < avail3Stars; i++) {
@@ -795,7 +817,7 @@
         }
     }
     
-    for (int i = 0; i < 42; i++) {
+    for (int i = 0; i < 32; i++) {
         position = (int)([HBSharedUtils randomValue] * 10);
         if (position < 0) {
             position = 0;
@@ -828,7 +850,7 @@
         }
     }
     
-    for (int i = 0; i < 9; i++) {
+    for (int i = 0; i < 6; i++) {
         position = (int)([HBSharedUtils randomValue] * 10);
         if (position < 0) {
             position = 0;
@@ -932,7 +954,7 @@
     [totalRecruits addObjectsFromArray:availSs];
     [totalRecruits addObjectsFromArray:availKs];
     [totalRecruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
     }];
     
     [hud.label setText:@"Organizing offers from other teams..."];
@@ -946,16 +968,16 @@
                 // let's create a data structure that takes into account positional needs for each team.
                 //[teamNeeds setObject:@(48 - [t getTeamSize]) forKey:t.abbreviation];
                 [teamNeeds setObject:[NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                     @"QB" : @(2 - t.teamQBs.count),
-                                                                                     @"RB" : @(4 - t.teamRBs.count),
-                                                                                     @"WR" : @(6 - t.teamWRs.count),
-                                                                                     @"K" : @(2 - t.teamKs.count),
-                                                                                     @"OL" : @(10 - t.teamOLs.count),
-                                                                                     @"S" : @(2 - t.teamSs.count),
-                                                                                     @"CB" : @(6 - t.teamCBs.count),
-                                                                                     @"DL" : @(8 - t.teamDLs.count),
-                                                                                     @"LB" : @(6 - t.teamLBs.count),
-                                                                                     @"TE" : @(2 - t.teamTEs.count)
+                                                                                     @"QB" : @(2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB" team:t]),
+                                                                                     @"RB" : @(4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB" team:t]),
+                                                                                     @"WR" : @(6 - t.teamWRs.count + [self _calculateNeededPlayersAtPosition:@"WR" team:t]),
+                                                                                     @"K" : @(2 - t.teamKs.count + [self _calculateNeededPlayersAtPosition:@"K" team:t]),
+                                                                                     @"OL" : @(10 - t.teamOLs.count + [self _calculateNeededPlayersAtPosition:@"OL" team:t]),
+                                                                                     @"S" : @(2 - t.teamSs.count + [self _calculateNeededPlayersAtPosition:@"S" team:t]),
+                                                                                     @"CB" : @(6 - t.teamCBs.count + [self _calculateNeededPlayersAtPosition:@"CB" team:t]),
+                                                                                     @"DL" : @(8 - t.teamDLs.count + [self _calculateNeededPlayersAtPosition:@"DL" team:t]),
+                                                                                     @"LB" : @(6 - t.teamLBs.count + [self _calculateNeededPlayersAtPosition:@"LB" team:t]),
+                                                                                     @"TE" : @(2 - t.teamTEs.count + [self _calculateNeededPlayersAtPosition:@"TE" team:t])
                                                                                      }] forKey:t.abbreviation];
             }
         }
@@ -977,7 +999,7 @@
             NSMutableDictionary *highestOffers  = [NSMutableDictionary dictionary];
             int offers = 0;
             int i = 0;
-            while (offers < 3) {
+            while (offers < 3 && i < sortedOffers.count) {
                 NSString *abbrev = sortedOffers[i];
                 NSMutableDictionary *teamPositionalNeeds = teamNeeds[abbrev];
                 NSNumber *slotsAvailable = teamPositionalNeeds[p.position];
@@ -985,17 +1007,10 @@
                     [highestOffers setObject:prelimOffers[abbrev] forKey:abbrev];
                     [teamPositionalNeeds setObject:[NSNumber numberWithInt:slotsAvailable.intValue - 1] forKey:p.position];
                     [teamNeeds setObject:teamPositionalNeeds forKey:abbrev];
+                    offers++;
                 } else {
                     NSLog(@"%@ has hit offer cap, can not send more offers", abbrev);
                 }
-//                NSNumber *teamOffersAtPosition = teamNeeds[abbrev][p.position];
-//                if (teamOffersAtPosition > 0) {
-//                    [highestOffers setObject:prelimOffers[abbrev] forKey:abbrev];
-//                    [teamNeeds setObject:[NSNumber numberWithInt:teamOffersAtPosition.intValue - 1] forKey:sortedOffers[i]];
-//                    offers++;
-//                } else {
-//                    NSLog(@"%@ has hit offer cap, can not send more offers", abbrev);
-//                }
                 i++;
             }
             
@@ -1008,17 +1023,6 @@
             [self.tableView reloadData];
         });
     });
-    
-    //display tutorial alert on first launch
-    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
-    if (!tutorialShown) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        //display intro screen
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to Recruiting Season, Coach!" message:[HBSharedUtils recruitingTutorialText] preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
 }
 
 -(void)dismissVC {
