@@ -639,6 +639,53 @@
     
     [self.navigationController.view addSubview:positionSelectionControl];
     
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+    
+    CGRect toolbarFrame = CGRectMake(0, self.view.frame.size.height - 54, self.view.frame.size.width, 54);
+    if (IS_IPHONE_X) {
+        toolbarFrame.origin.y -= 20;
+    }
+    
+    toolbarView = [[AEScrollingToolbarView alloc] initWithFrame:toolbarFrame];
+    [toolbarView setBackgroundColor:[HBSharedUtils styleColor]];
+    
+    UIButton *needsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.scrollView.frame.size.width, toolbarView.scrollView.frame.size.height)];
+    [needsButton setTitle:@"View Team Needs" forState:UIControlStateNormal];
+    [needsButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    [needsButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateSelected];
+    [needsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [needsButton addTarget:self action:@selector(showRemainingNeeds) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *rosterButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.scrollView.frame.size.width, toolbarView.scrollView.frame.size.height)];
+    [rosterButton setTitle:@"View Roster" forState:UIControlStateNormal];
+    [rosterButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    [rosterButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateSelected];
+    [rosterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [rosterButton addTarget:self action:@selector(viewRoster) forControlEvents:UIControlEventTouchUpInside];
+    
+    recruitProgressBar = [[AEProgressTitleView alloc] initWithFrame:CGRectMake(0, 0, toolbarView.frame.size.width, toolbarView.frame.size.height)];
+    [recruitProgressBar.progressView setTrackTintColor:[UIColor lightTextColor]];
+    [recruitProgressBar.progressView setProgressTintColor:[UIColor whiteColor]];
+    [recruitProgressBar.titleLabel setTextColor:[UIColor lightTextColor]];
+    [recruitProgressBar.titleLabel setText:@"0% of total recruiting effort used"];
+    
+    //    UIButton *sortButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.scrollView.frame.size.width, toolbarView.scrollView.frame.size.height)];
+    //    [sortButton setTitle:@"Sort By Interest" forState:UIControlStateNormal];
+    //    [sortButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    //    [sortButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateSelected];
+    //    [sortButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //    [sortButton addTarget:self action:@selector(activateSortByInterest) forControlEvents:UIControlEventTouchUpInside];
+    
+    [toolbarView addPage:needsButton];
+    [toolbarView addPage:recruitProgressBar];
+    [toolbarView addPage:rosterButton];
+    //[toolbarView addPage:sortButton];
+    
+    [toolbarView moveToPage:1];
+    
+    [self.navigationController.view addSubview:toolbarView];
+    [self.tableView setContentInset:UIEdgeInsetsMake(44, 0, toolbarView.frame.size.height, 0)];
+    
     // note bonus
     currentRecruits = [NSMutableArray array];
     recruitActivities = [NSMutableDictionary dictionary];
@@ -670,6 +717,8 @@
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
     }
+    
+    
 }
 
 
@@ -1040,55 +1089,6 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.tableView.allowsMultipleSelectionDuringEditing = NO;
-
-    CGRect toolbarFrame = CGRectMake(0, self.view.frame.size.height - 54, self.view.frame.size.width, 54);
-    if (IS_IPHONE_X) {
-        toolbarFrame.origin.y -= 20;
-    }
-    
-    toolbarView = [[AEScrollingToolbarView alloc] initWithFrame:toolbarFrame];
-    [toolbarView setBackgroundColor:[HBSharedUtils styleColor]];
-    
-    UIButton *needsButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.scrollView.frame.size.width, toolbarView.scrollView.frame.size.height)];
-    [needsButton setTitle:@"View Team Needs" forState:UIControlStateNormal];
-    [needsButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
-    [needsButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateSelected];
-    [needsButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [needsButton addTarget:self action:@selector(showRemainingNeeds) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *rosterButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.scrollView.frame.size.width, toolbarView.scrollView.frame.size.height)];
-    [rosterButton setTitle:@"View Roster" forState:UIControlStateNormal];
-    [rosterButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
-    [rosterButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateSelected];
-    [rosterButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [rosterButton addTarget:self action:@selector(viewRoster) forControlEvents:UIControlEventTouchUpInside];
-    
-    recruitProgressBar = [[AEProgressTitleView alloc] initWithFrame:CGRectMake(0, 0, toolbarView.frame.size.width, toolbarView.frame.size.height)];
-    [recruitProgressBar.progressView setTrackTintColor:[UIColor lightTextColor]];
-    [recruitProgressBar.progressView setProgressTintColor:[UIColor whiteColor]];
-    [recruitProgressBar.titleLabel setTextColor:[UIColor lightTextColor]];
-    [recruitProgressBar.titleLabel setText:@"0% of total recruiting effort used"];
-    
-//    UIButton *sortButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.scrollView.frame.size.width, toolbarView.scrollView.frame.size.height)];
-//    [sortButton setTitle:@"Sort By Interest" forState:UIControlStateNormal];
-//    [sortButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
-//    [sortButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateSelected];
-//    [sortButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [sortButton addTarget:self action:@selector(activateSortByInterest) forControlEvents:UIControlEventTouchUpInside];
-    
-    [toolbarView addPage:needsButton];
-    [toolbarView addPage:recruitProgressBar];
-    [toolbarView addPage:rosterButton];
-    //[toolbarView addPage:sortButton];
-    
-    [toolbarView moveToPage:1];
-    
-    [self.navigationController.view addSubview:toolbarView];
-    [self.tableView setContentInset:UIEdgeInsetsMake(44, 0, toolbarView.frame.size.height, 0)];
-}
 
 #pragma mark - Table view data source
 
