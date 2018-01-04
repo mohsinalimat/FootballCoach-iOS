@@ -614,7 +614,6 @@
     
     NSLog(@"Recruiting points total: %d", recruitingPoints);
     
-
     self.navigationItem.title = [NSString stringWithFormat:@"Winter %lu", ((long)([[HBSharedUtils getLeague] getCurrentYear] + 1))];
     [self calculateTeamNeeds];
     recruitingStage = 0;
@@ -717,8 +716,6 @@
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
     }
-    
-    
 }
 
 
