@@ -1444,8 +1444,7 @@
     }
     
     //check for int
-    double intChance = (pressureOnQB + selS.ratOvr - (selQB.ratPassAcc+selQB.ratFootIQ+100)/3)/18 - offense.offensiveStrategy.passProtection + defense.defensiveStrategy.passProtection;
-
+   double intChance = (pressureOnQB + selS.ratOvr - (selQB.ratPassAcc + selQB.ratFootIQ + 100) / 3) / 18 - offense.offensiveStrategy.passProtection + defense.defensiveStrategy.passProtection;
     if (intChance < 0.015) intChance = 0.015;
     if ( 100* [HBSharedUtils randomValue] < intChance ) {
         //Interception
@@ -1567,7 +1566,7 @@
     BOOL gotFumble = false;
     
     //get how much pressure there is on qb, check if sack
-    int pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass] - [self getHFAdv] + + (defense.defensiveStrategy.runProtection*2 - offense.offensiveStrategy.runProtection);
+    int pressureOnQB = [defense getCompositeF7Pass] * 2 - [offense getCompositeOLPass] - [self getHFAdv] + (defense.defensiveStrategy.runProtection * 2 - offense.offensiveStrategy.runProtection);
     if ([HBSharedUtils randomValue]*100 < pressureOnQB/8 ) {
         //sacked!
         [self qbSack:offense];
@@ -1575,7 +1574,7 @@
     }
     
     //check for int
-    double intChance = (pressureOnQB + selS.ratOvr - ([offense getQB:0].ratPassAcc+[offense getQB:0].ratFootIQ+100)/3)/18 - offense.offensiveStrategy.passProtection + defense.defensiveStrategy.passProtection;
+    double intChance = (pressureOnQB + selS.ratOvr - (selQB.ratPassAcc + selQB.ratFootIQ + 100) / 3) / 18 - offense.offensiveStrategy.passProtection + defense.defensiveStrategy.passProtection;
     if (intChance < 0.015) intChance = 0.015;
     if ( 100* [HBSharedUtils randomValue] < intChance ) {
         //Interception
