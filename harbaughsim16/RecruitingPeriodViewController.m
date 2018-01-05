@@ -10,6 +10,7 @@
 #import "League.h"
 #import "Team.h"
 #import "TeamRosterViewController.h"
+#import "RecruitWatchlistViewController.h"
 
 #import "Player.h"
 #import "PlayerQB.h"
@@ -707,17 +708,17 @@
         [recruitProgressBar.titleLabel setTextColor:[UIColor lightTextColor]];
         [recruitProgressBar.titleLabel setText:@"0% of total recruiting effort used"];
         
-        //    UIButton *sortButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.scrollView.frame.size.width, toolbarView.scrollView.frame.size.height)];
-        //    [sortButton setTitle:@"Sort By Interest" forState:UIControlStateNormal];
-        //    [sortButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
-        //    [sortButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateSelected];
-        //    [sortButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        //    [sortButton addTarget:self action:@selector(activateSortByInterest) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *watchListButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, toolbarView.scrollView.frame.size.width, toolbarView.scrollView.frame.size.height)];
+        [watchListButton setTitle:@"View Watchlist" forState:UIControlStateNormal];
+        [watchListButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+        [watchListButton setTitleColor:[UIColor lightTextColor] forState:UIControlStateSelected];
+        [watchListButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [watchListButton addTarget:self action:@selector(viewWatchlist) forControlEvents:UIControlEventTouchUpInside];
         
         [toolbarView addPage:needsButton];
         [toolbarView addPage:recruitProgressBar];
+        [toolbarView addPage:watchListButton];
         [toolbarView addPage:rosterButton];
-        //[toolbarView addPage:sortButton];
         
         [toolbarView moveToPage:1];
         
@@ -726,6 +727,14 @@
     }
 }
 
+-(void)viewWatchlist {
+    RecruitWatchlistViewController *recruitWatchlist = [[RecruitWatchlistViewController alloc] initWithRecruits:progressedRecruits activities:recruitActivities];
+    popupController = [[STPopupController alloc] initWithRootViewController:recruitWatchlist];
+    [popupController.navigationBar setDraggable:YES];
+    [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+    popupController.style = STPopupStyleBottomSheet;
+    [popupController presentInViewController:self];
+}
 
 -(void)generateRecruits {
     // generate recruits the same way as before

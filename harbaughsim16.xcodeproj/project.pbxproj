@@ -28,6 +28,9 @@
 		754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E907D1CA59A0900C450CF /* RankingsViewController.m */; };
 		754E90821CA5A59D00C450CF /* TeamScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E90801CA5A59D00C450CF /* TeamScheduleViewController.m */; };
 		754E90831CA5A59D00C450CF /* TeamScheduleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 754E90811CA5A59D00C450CF /* TeamScheduleViewController.xib */; };
+		7551AC1C1FFFD8880033680E /* RecruitWatchlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7551AC1B1FFFD8880033680E /* RecruitWatchlistViewController.m */; };
+		7551AC201FFFD9CA0033680E /* CFCWatchlistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */; };
+		7551AC211FFFD9CA0033680E /* CFCWatchlistCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */; };
 		755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC461C9DD0DF001A8314 /* HBStatsCell.m */; };
 		755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC471C9DD0DF001A8314 /* HBStatsCell.xib */; };
 		755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC4B1C9DEDF0001A8314 /* HBPlayerCell.m */; };
@@ -202,6 +205,11 @@
 		754E907F1CA5A59D00C450CF /* TeamScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScheduleViewController.h; sourceTree = "<group>"; };
 		754E90801CA5A59D00C450CF /* TeamScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScheduleViewController.m; sourceTree = "<group>"; };
 		754E90811CA5A59D00C450CF /* TeamScheduleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamScheduleViewController.xib; sourceTree = "<group>"; };
+		7551AC1A1FFFD8880033680E /* RecruitWatchlistViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecruitWatchlistViewController.h; sourceTree = "<group>"; };
+		7551AC1B1FFFD8880033680E /* RecruitWatchlistViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecruitWatchlistViewController.m; sourceTree = "<group>"; };
+		7551AC1D1FFFD9CA0033680E /* CFCWatchlistCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFCWatchlistCell.h; sourceTree = "<group>"; };
+		7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CFCWatchlistCell.m; sourceTree = "<group>"; };
+		7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CFCWatchlistCell.xib; sourceTree = "<group>"; };
 		755BBC451C9DD0DF001A8314 /* HBStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBStatsCell.h; sourceTree = "<group>"; };
 		755BBC461C9DD0DF001A8314 /* HBStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBStatsCell.m; sourceTree = "<group>"; };
 		755BBC471C9DD0DF001A8314 /* HBStatsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBStatsCell.xib; sourceTree = "<group>"; };
@@ -647,6 +655,8 @@
 				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
 				75CEE9481FF593B6005A86C1 /* RecruitingPeriodViewController.h */,
 				75CEE9491FF593B6005A86C1 /* RecruitingPeriodViewController.m */,
+				7551AC1A1FFFD8880033680E /* RecruitWatchlistViewController.h */,
+				7551AC1B1FFFD8880033680E /* RecruitWatchlistViewController.m */,
 				75C7C4891FF8B176003840D4 /* AEProgressTitleView.h */,
 				75C7C48A1FF8B176003840D4 /* AEProgressTitleView.m */,
 				75C7C4931FF9EE23003840D4 /* AEScrollingToolbarView.h */,
@@ -654,6 +664,9 @@
 				75CEE94B1FF593F5005A86C1 /* CFCRecruitCell.h */,
 				75CEE94C1FF593F5005A86C1 /* CFCRecruitCell.m */,
 				75CEE94D1FF593F5005A86C1 /* CFCRecruitCell.xib */,
+				7551AC1D1FFFD9CA0033680E /* CFCWatchlistCell.h */,
+				7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */,
+				7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */,
 				75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */,
 				75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */,
 				754319031CC02EAC00D380F1 /* Conference Standings */,
@@ -988,6 +1001,7 @@
 				755BBC821C9F734E001A8314 /* TeamViewController.xib in Resources */,
 				75F0E2691FECDAEA00719086 /* loser@3x.png in Resources */,
 				7571DD241C9CC62E00E67080 /* stats@3x.png in Resources */,
+				7551AC211FFFD9CA0033680E /* CFCWatchlistCell.xib in Resources */,
 				75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */,
 				75F0E2671FECDAEA00719086 /* loser@2x.png in Resources */,
 				75CEE9631FF5FF5E005A86C1 /* 2star-recruit@3x.png in Resources */,
@@ -1090,6 +1104,7 @@
 				7563A8E11CB7F6F20023E43B /* Record.m in Sources */,
 				75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */,
 				75C5C3321F83447A00D7CAAD /* UpcomingViewController.m in Sources */,
+				7551AC1C1FFFD8880033680E /* RecruitWatchlistViewController.m in Sources */,
 				75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */,
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
 				755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */,
@@ -1145,6 +1160,7 @@
 				756973971FAAB50400A66C42 /* LeagueUpdater.m in Sources */,
 				75924A3D1C99CD8D00B165AD /* Team.m in Sources */,
 				75924A201C99CCC000B165AD /* main.m in Sources */,
+				7551AC201FFFD9CA0033680E /* CFCWatchlistCell.m in Sources */,
 				75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */,
 				75924A641C99E65600B165AD /* PlayerOL.m in Sources */,
 				75924A5B1C99E63800B165AD /* PlayerRB.m in Sources */,
