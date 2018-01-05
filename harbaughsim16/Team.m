@@ -239,6 +239,7 @@
         confChampion = @"";
         semifinalWL = @"";
         natlChampWL = @"";
+        recruitingClass = [NSMutableArray array];
 
         teamPrestige = prestige;
         [self recruitPlayers: @[@2, @4, @6, @2, @10, @2, @6, @8, @6, @2]];
@@ -319,8 +320,6 @@
         singleSeasonCatchesRecord = nil;
         singleSeasonXpMadeRecord = nil;
         singleSeasonFgMadeRecord = nil;
-        
-        recruitingClass = [NSMutableArray array];
     }
     return self;
 }

@@ -52,6 +52,8 @@
                     
                     // Set to a random state for now just to populate the field
                     t.state = [HBSharedUtils randomState];
+                    t.recruitingClass = [NSMutableArray array];
+                    
                     
                     // add TEs, LBs as 3* freshmen
                     t.teamTEs = [NSMutableArray array];
