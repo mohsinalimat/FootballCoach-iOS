@@ -116,21 +116,24 @@
         convertProgressView.frame = CGRectMake(10, 70, 250, 0);
         [convertProgressAlert.view addSubview:convertProgressView];
         
-        [LeagueUpdater convertLeagueFromOldVersion:_league updatingBlock:^(float progress, NSString * _Nullable updateStatus) {
+        __block League *oldLigue = _league;
+        
+        [LeagueUpdater convertLeagueFromOldVersion:oldLigue updatingBlock:^(float progress, NSString * _Nullable updateStatus) {
             convertProgressAlert.message = updateStatus;
             [convertProgressView setProgress:progress animated:YES];
         } completionBlock:^(BOOL success, NSString * _Nullable finalStatus, League * _Nonnull ligue) {
             convertProgressView.progress = 1.0;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.00 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [convertProgressView removeFromSuperview];
-                convertProgressAlert.message = [NSString stringWithFormat:@"%@\nPlease be aware that each school in your save file has been assigned a random home state. This will only have an effect in recruiting. If you want to change this, please edit teams before starting recruiting in the next offseason.",finalStatus];
+                convertProgressAlert.title = finalStatus;
+                convertProgressAlert.message = @"Please be aware that each school in your save file has been assigned a random home state. This will only have an effect in recruiting. If you want to change this, please edit teams before starting recruiting in the next offseason.";
                 [convertProgressAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
                 _league = ligue;
                 [_league save];
             });
         }];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [tabBarController presentViewController:convertProgressAlert animated:YES completion:nil];
         });
     }]];
