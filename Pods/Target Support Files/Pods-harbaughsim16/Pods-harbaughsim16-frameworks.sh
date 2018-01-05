@@ -86,6 +86,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ATAppUpdater/ATAppUpdater.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AutoCoding/AutoCoding.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Charts/Charts.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DZNEmptyDataSet/DZNEmptyDataSet.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FCFileManager/FCFileManager.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HexColors/HexColors.framework"
@@ -98,6 +99,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ATAppUpdater/ATAppUpdater.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AutoCoding/AutoCoding.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Charts/Charts.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DZNEmptyDataSet/DZNEmptyDataSet.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FCFileManager/FCFileManager.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HexColors/HexColors.framework"

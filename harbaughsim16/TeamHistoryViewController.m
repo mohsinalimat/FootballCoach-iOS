@@ -9,20 +9,14 @@
 #import "TeamHistoryViewController.h"
 #import "Team.h"
 
-@interface HBTeamCompiledHistoryView : UIView
-@property (weak, nonatomic) IBOutlet UILabel *teamNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *teamRecordLabel;
-@property (weak, nonatomic) IBOutlet UILabel *teamSeasonsLabel;
-@end
+#import "PrestigeHistoryViewController.h"
 
-@implementation HBTeamCompiledHistoryView
-@end
+@import Charts;
 
 @interface TeamHistoryViewController ()
 {
-    Team *userTeam;
+    Team *selectedTeam;
     NSDictionary *history;
-    IBOutlet HBTeamCompiledHistoryView *teamHeaderView;
 }
 @end
 
@@ -30,7 +24,7 @@
 
 -(instancetype)initWithTeam:(Team*)team {
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
-        userTeam = team;
+        selectedTeam = team;
     }
     return self;
 }
@@ -56,24 +50,68 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    history = [userTeam.teamHistoryDictionary copy];
-    self.title = [NSString stringWithFormat:@"%@ Team History", userTeam.abbreviation];
+    history = [selectedTeam.teamHistoryDictionary copy];
+    self.title = [NSString stringWithFormat:@"%@ Team History", selectedTeam.abbreviation];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-    [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
-    [teamHeaderView.teamNameLabel setText:userTeam.name];
-    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%d-%d",userTeam.totalWins, userTeam.totalLosses]];
-    if ([userTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
-        if (history.count> 1 || history.count == 0) {
-            [teamHeaderView.teamSeasonsLabel setText:[NSString stringWithFormat:@"Coaching for %ld seasons",(unsigned long)history.count]];
+
+    [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+    
+    if (history.allKeys.count > 5) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"graph"] style:UIBarButtonItemStylePlain target:self action:@selector(viewPrestigeHistory)];
+
+    }
+}
+
+-(void)viewPrestigeHistory {
+    NSMutableArray *prestigeValues = [NSMutableArray array];
+    for (int i = 0; i < history.count; i++) {
+        NSInteger year = [HBSharedUtils getLeague].baseYear + i;
+        float prestigeVal = 0.0;
+        NSString *hist;
+        if (selectedTeam.teamHistoryDictionary.count < i) {
+            hist = [NSString stringWithFormat:@"%@ (0-0)",selectedTeam.abbreviation];
         } else {
-            [teamHeaderView.teamSeasonsLabel setText:@"Coaching for 1 season"];
+            hist = selectedTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + i)]];
         }
-    } else {
-        [teamHeaderView.teamSeasonsLabel setText:@""];
+        NSArray *comps = [hist componentsSeparatedByString:@"\n"];
+        //return ; // The value of the point on the Y-Axis for the index.
+        NSString *prestigeString = nil;
+        int i = 0;
+        while (i < comps.count && (prestigeString == nil || ![prestigeString containsString:@"Prestige: "])) {
+            prestigeString = comps[i];
+            i++;
+        }
+        
+        if (prestigeString == nil) {
+            prestigeVal = 0.0;
+        } else {
+            NSString *cleanPrestige = [prestigeString stringByReplacingOccurrencesOfString:@"Prestige: " withString:@""];
+            NSNumber *prestigeNum = [[self numberFormatter] numberFromString:cleanPrestige];
+            prestigeVal = prestigeNum.floatValue;
+        }
+        ChartDataEntry *entry = [[ChartDataEntry alloc] initWithX:year y:prestigeVal];
+        [prestigeValues addObject:entry];
     }
     
-    [self.tableView setTableHeaderView:teamHeaderView];
-    [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
+    LineChartDataSet *prestigeHistLine = [[LineChartDataSet alloc] initWithValues:prestigeValues label:@"Prestige over Time"];
+    [prestigeHistLine setCircleColor:[UIColor clearColor]];
+    [prestigeHistLine setCircleHoleColor:[UIColor whiteColor]];
+    prestigeHistLine.colors = @[[UIColor whiteColor]];
+    prestigeHistLine.valueTextColor = [UIColor lightTextColor];
+    
+    PrestigeHistoryViewController *prestigeHistoryVC = [[PrestigeHistoryViewController alloc] initWithDataSets:@[prestigeHistLine]];
+    prestigeHistoryVC.title = [NSString stringWithFormat:@"%@ Prestige History", selectedTeam.abbreviation];
+    [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
+}
+
+- (NSNumberFormatter *)numberFormatter {
+    static dispatch_once_t onceToken;
+    static NSNumberFormatter *formatter;
+    dispatch_once(&onceToken, ^{
+        formatter = [[NSNumberFormatter alloc] init];
+    });
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    return formatter;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -168,6 +206,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
+        NSInteger index = indexPath.row;
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UpperCell"];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"UpperCell"];
@@ -177,58 +216,60 @@
             [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
             [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
         }
-        if (indexPath.row == 0) {
+        
+        if (index == 0) {
             [cell.textLabel setText:@"Seasons"];
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld",(unsigned long)history.count]];
-        } else if (indexPath.row == 1) {
+        } else if (index == 1) {
             [cell.textLabel setText:@"Winning Percentage"];
-            if ((userTeam.totalLosses + userTeam.totalWins) > 0) {
-                int winPercent = (int)ceil(100 * ((double)userTeam.totalWins) / (double)(userTeam.totalWins + userTeam.totalLosses));
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, userTeam.totalWins,userTeam.totalLosses]];
+            if ((selectedTeam.totalLosses + selectedTeam.totalWins) > 0) {
+                int winPercent = (int)ceil(100 * ((double)selectedTeam.totalWins) / (double)(selectedTeam.totalWins + selectedTeam.totalLosses));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedTeam.totalWins,selectedTeam.totalLosses]];
             } else {
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
-        } else if (indexPath.row == 2) {
+        } else if (index == 2) {
             [cell.textLabel setText:@"Conference Win Percentage"];
-            if ((userTeam.totalConfLosses + userTeam.totalConfWins) > 0) {
-                int winPercent = (int)ceil(100 * ((double)userTeam.totalConfWins) / (double)(userTeam.totalConfWins + userTeam.totalConfLosses));
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, userTeam.totalConfWins,userTeam.totalConfLosses]];
+            if ((selectedTeam.totalConfLosses + selectedTeam.totalConfWins) > 0) {
+                int winPercent = (int)ceil(100 * ((double)selectedTeam.totalConfWins) / (double)(selectedTeam.totalConfWins + selectedTeam.totalConfLosses));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedTeam.totalConfWins,selectedTeam.totalConfLosses]];
             } else {
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
-        } else if (indexPath.row == 3) {
+        } else if (index == 3) {
             [cell.textLabel setText:@"Bowl Win Percentage"]; //XX% (W-L)
-            if ((userTeam.totalBowlLosses + userTeam.totalBowls) > 0) {
-                int winPercent = (int)ceil(100 * ((double)userTeam.totalBowls) / (double)(userTeam.totalBowls + userTeam.totalBowlLosses));
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent,userTeam.totalBowls,userTeam.totalBowlLosses]];
+            if ((selectedTeam.totalBowlLosses + selectedTeam.totalBowls) > 0) {
+                int winPercent = (int)ceil(100 * ((double)selectedTeam.totalBowls) / (double)(selectedTeam.totalBowls + selectedTeam.totalBowlLosses));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent,selectedTeam.totalBowls,selectedTeam.totalBowlLosses]];
             } else {
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
-        } else if (indexPath.row == 4) {
+        } else if (index == 4) {
             [cell.textLabel setText:@"Conference Championships"];
-            if ((userTeam.totalCCLosses + userTeam.totalCCs) > 0) {
-                int winPercent = (int)ceil(100 * ((double)userTeam.totalCCs) / (double)(userTeam.totalCCs + userTeam.totalCCLosses));
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent,userTeam.totalCCs,userTeam.totalCCLosses]];
+            if ((selectedTeam.totalCCLosses + selectedTeam.totalCCs) > 0) {
+                int winPercent = (int)ceil(100 * ((double)selectedTeam.totalCCs) / (double)(selectedTeam.totalCCs + selectedTeam.totalCCLosses));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent,selectedTeam.totalCCs,selectedTeam.totalCCLosses]];
             } else {
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
-        } else if (indexPath.row == 5) {
+        } else if (index == 5) {
             [cell.textLabel setText:@"National Championships"];
-            if ((userTeam.totalNCLosses + userTeam.totalNCs) > 0) {
-                int winPercent = (int)ceil(100 * ((double)userTeam.totalNCs) / (double)(userTeam.totalNCs + userTeam.totalNCLosses));
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent,userTeam.totalNCs,userTeam.totalNCLosses]];
+            if ((selectedTeam.totalNCLosses + selectedTeam.totalNCs) > 0) {
+                int winPercent = (int)ceil(100 * ((double)selectedTeam.totalNCs) / (double)(selectedTeam.totalNCs + selectedTeam.totalNCLosses));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent,selectedTeam.totalNCs,selectedTeam.totalNCLosses]];
             } else {
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
         } else {
             [cell.textLabel setText:@"Player of the Year Awards Won"];
-            if (userTeam.heismans > 0) {
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", userTeam.heismans]];
+            if (selectedTeam.heismans > 0) {
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedTeam.heismans]];
             } else {
                 [cell.detailTextLabel setText:@"0"];
             }
         }
         return cell;
+            
     } else {
         UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"LowerCell"];
         if (!cell) {
@@ -242,10 +283,10 @@
         
         [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + indexPath.row)]];
         NSString *hist;
-        if (userTeam.teamHistoryDictionary.count < indexPath.row) {
-            hist = [NSString stringWithFormat:@"%@ (0-0)",userTeam.abbreviation];
+        if (selectedTeam.teamHistoryDictionary.count < indexPath.row) {
+            hist = [NSString stringWithFormat:@"%@ (0-0)",selectedTeam.abbreviation];
         } else {
-            hist = userTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + indexPath.row)]];
+            hist = selectedTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + indexPath.row)]];
         }
         NSArray *comps = [hist componentsSeparatedByString:@"\n"];
         

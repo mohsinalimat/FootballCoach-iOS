@@ -41,6 +41,16 @@
 		755BBC871C9F7DA4001A8314 /* HBScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC851C9F7DA4001A8314 /* HBScoreCell.xib */; };
 		755BBC8B1CA03252001A8314 /* HBRecruitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC891CA03252001A8314 /* HBRecruitCell.m */; };
 		755BBC8C1CA03252001A8314 /* HBRecruitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */; };
+		7562A8841FFF3C55004C0985 /* PrestigeHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7562A8821FFF3C55004C0985 /* PrestigeHistoryViewController.m */; };
+		7562A8851FFF3C55004C0985 /* PrestigeHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7562A8831FFF3C55004C0985 /* PrestigeHistoryViewController.xib */; };
+		7562A8881FFF3E26004C0985 /* graph@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7562A8861FFF3E26004C0985 /* graph@2x.png */; };
+		7562A8891FFF3E26004C0985 /* graph@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7562A8871FFF3E26004C0985 /* graph@3x.png */; };
+		7562A88E1FFF4040004C0985 /* hide@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7562A88A1FFF403F004C0985 /* hide@3x.png */; };
+		7562A88F1FFF4040004C0985 /* show@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7562A88B1FFF403F004C0985 /* show@3x.png */; };
+		7562A8901FFF4040004C0985 /* hide@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7562A88C1FFF403F004C0985 /* hide@2x.png */; };
+		7562A8911FFF4040004C0985 /* show@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7562A88D1FFF403F004C0985 /* show@2x.png */; };
+		7562A8931FFF4370004C0985 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7562A8921FFF4370004C0985 /* BalloonMarker.swift */; };
+		7562A8951FFF4394004C0985 /* PrestigeYearMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7562A8941FFF4394004C0985 /* PrestigeYearMarkerView.swift */; };
 		7563A8E11CB7F6F20023E43B /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 7563A8E01CB7F6F20023E43B /* Record.m */; };
 		756973971FAAB50400A66C42 /* LeagueUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 756973961FAAB50400A66C42 /* LeagueUpdater.m */; };
 		7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */; };
@@ -212,6 +222,18 @@
 		755BBC881CA03252001A8314 /* HBRecruitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBRecruitCell.h; sourceTree = "<group>"; };
 		755BBC891CA03252001A8314 /* HBRecruitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBRecruitCell.m; sourceTree = "<group>"; };
 		755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBRecruitCell.xib; sourceTree = "<group>"; };
+		7562A8811FFF3C55004C0985 /* PrestigeHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrestigeHistoryViewController.h; sourceTree = "<group>"; };
+		7562A8821FFF3C55004C0985 /* PrestigeHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrestigeHistoryViewController.m; sourceTree = "<group>"; };
+		7562A8831FFF3C55004C0985 /* PrestigeHistoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrestigeHistoryViewController.xib; sourceTree = "<group>"; };
+		7562A8861FFF3E26004C0985 /* graph@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "graph@2x.png"; sourceTree = "<group>"; };
+		7562A8871FFF3E26004C0985 /* graph@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "graph@3x.png"; sourceTree = "<group>"; };
+		7562A88A1FFF403F004C0985 /* hide@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hide@3x.png"; sourceTree = "<group>"; };
+		7562A88B1FFF403F004C0985 /* show@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show@3x.png"; sourceTree = "<group>"; };
+		7562A88C1FFF403F004C0985 /* hide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hide@2x.png"; sourceTree = "<group>"; };
+		7562A88D1FFF403F004C0985 /* show@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "show@2x.png"; sourceTree = "<group>"; };
+		7562A8921FFF4370004C0985 /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
+		7562A8941FFF4394004C0985 /* PrestigeYearMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrestigeYearMarkerView.swift; sourceTree = "<group>"; };
+		7562A8961FFF44E8004C0985 /* harbaughsim16-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "harbaughsim16-Bridging-Header.h"; sourceTree = "<group>"; };
 		7563A8DF1CB7F6F20023E43B /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
 		7563A8E01CB7F6F20023E43B /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
 		756973951FAAB50400A66C42 /* LeagueUpdater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeagueUpdater.h; sourceTree = "<group>"; };
@@ -489,6 +511,11 @@
 				75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */,
 				75E10F1F1CA0E0170000DA78 /* LeagueHistoryController.h */,
 				75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */,
+				7562A8811FFF3C55004C0985 /* PrestigeHistoryViewController.h */,
+				7562A8821FFF3C55004C0985 /* PrestigeHistoryViewController.m */,
+				7562A8921FFF4370004C0985 /* BalloonMarker.swift */,
+				7562A8941FFF4394004C0985 /* PrestigeYearMarkerView.swift */,
+				7562A8831FFF3C55004C0985 /* PrestigeHistoryViewController.xib */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -725,6 +752,7 @@
 			isa = PBXGroup;
 			children = (
 				75924A1F1C99CCC000B165AD /* main.m */,
+				7562A8961FFF44E8004C0985 /* harbaughsim16-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -732,6 +760,12 @@
 		75A86C9F1C9C7CAA0034140C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7562A88C1FFF403F004C0985 /* hide@2x.png */,
+				7562A88A1FFF403F004C0985 /* hide@3x.png */,
+				7562A88D1FFF403F004C0985 /* show@2x.png */,
+				7562A88B1FFF403F004C0985 /* show@3x.png */,
+				7562A8861FFF3E26004C0985 /* graph@2x.png */,
+				7562A8871FFF3E26004C0985 /* graph@3x.png */,
 				75CEE95F1FF5FF5E005A86C1 /* 1star-recruit@3x.png */,
 				75CEE95E1FF5FF5E005A86C1 /* 2star-recruit@3x.png */,
 				75CEE9601FF5FF5E005A86C1 /* 3star-recruit@3x.png */,
@@ -876,7 +910,7 @@
 					75924A1A1C99CCC000B165AD = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = 67BW26529D;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0920;
 					};
 					75CC97461FB1D60000D08F06 = {
 						CreatedOnToolsVersion = 9.1;
@@ -914,12 +948,15 @@
 				75924A311C99CCC000B165AD /* LaunchScreen.storyboard in Resources */,
 				755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */,
 				75CEE94F1FF593F5005A86C1 /* CFCRecruitCell.xib in Resources */,
+				7562A8901FFF4040004C0985 /* hide@2x.png in Resources */,
+				7562A8911FFF4040004C0985 /* show@2x.png in Resources */,
 				75CEE9641FF5FF5E005A86C1 /* 1star-recruit@3x.png in Resources */,
 				75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */,
 				7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */,
 				75EC9A761D07D9DC00F24BE6 /* medical@3x.png in Resources */,
 				75F0E25F1FECD7C100719086 /* alt-designs.json in Resources */,
 				7543190F1CC02F2200D380F1 /* HBTeamRankCell.xib in Resources */,
+				7562A8851FFF3C55004C0985 /* PrestigeHistoryViewController.xib in Resources */,
 				75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */,
 				7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */,
 				7571DD221C9CC62400E67080 /* news-sort@3x.png in Resources */,
@@ -927,10 +964,12 @@
 				75F0E2661FECDAEA00719086 /* trophy@3x.png in Resources */,
 				75CA698C1FEE2BF2008A58D1 /* last-names.csv in Resources */,
 				75A41B4C1CA311CF00025E53 /* close@3x.png in Resources */,
+				7562A88F1FFF4040004C0985 /* show@3x.png in Resources */,
 				7571DD281C9CC9A000E67080 /* ScheduleViewController.xib in Resources */,
 				755BBC4E1C9DEDF0001A8314 /* HBPlayerCell.xib in Resources */,
 				7571DD461C9D34B300E67080 /* RosterViewController.xib in Resources */,
 				75A86C901C9C7AA80034140C /* roster@3x.png in Resources */,
+				7562A8891FFF3E26004C0985 /* graph@3x.png in Resources */,
 				7571DD2D1C9CCD8100E67080 /* HBScheduleCell.xib in Resources */,
 				755BBC8C1CA03252001A8314 /* HBRecruitCell.xib in Resources */,
 				75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */,
@@ -944,6 +983,7 @@
 				75CEE9621FF5FF5E005A86C1 /* 5star-recruit@3x.png in Resources */,
 				75F0E26A1FECDAEA00719086 /* winner@2x.png in Resources */,
 				75CEE9651FF5FF5E005A86C1 /* 3star-recruit@3x.png in Resources */,
+				7562A88E1FFF4040004C0985 /* hide@3x.png in Resources */,
 				75A86C981C9C7C0C0034140C /* news-selected@3x.png in Resources */,
 				755BBC821C9F734E001A8314 /* TeamViewController.xib in Resources */,
 				75F0E2691FECDAEA00719086 /* loser@3x.png in Resources */,
@@ -959,6 +999,7 @@
 				7571DD261C9CC64200E67080 /* settings@3x.png in Resources */,
 				75F0E2681FECDAEA00719086 /* trophy@2x.png in Resources */,
 				7571DD351C9CF8E300E67080 /* MyTeamViewController.xib in Resources */,
+				7562A8881FFF3E26004C0985 /* graph@2x.png in Resources */,
 				75097C5D1CBC1B55003E2538 /* HBRecordCell.xib in Resources */,
 				751D052D1FA6A01D002CB414 /* triline@3x.png in Resources */,
 				7571DD331C9CD3A200E67080 /* play-week@3x.png in Resources */,
@@ -1081,10 +1122,12 @@
 				75CEE94A1FF593B6005A86C1 /* RecruitingPeriodViewController.m in Sources */,
 				75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */,
 				75880F8F1CAC949F00AF2C1C /* TeamRecordsViewController.m in Sources */,
+				7562A8841FFF3C55004C0985 /* PrestigeHistoryViewController.m in Sources */,
 				75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */,
 				755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */,
 				75C321C41CAD7BBB00906A38 /* AllConferenceTeamViewController.m in Sources */,
 				75097C5C1CBC1B55003E2538 /* HBRecordCell.m in Sources */,
+				7562A8951FFF4394004C0985 /* PrestigeYearMarkerView.swift in Sources */,
 				75924A4F1C99D05E00B165AD /* Conference.m in Sources */,
 				751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */,
 				75924A491C99CF7C00B165AD /* Game.m in Sources */,
@@ -1111,6 +1154,7 @@
 				7571DD2C1C9CCD8100E67080 /* HBScheduleCell.m in Sources */,
 				754E907B1CA58C0F00C450CF /* HeismanLeadersViewController.m in Sources */,
 				7586330A1CC142B900E1E458 /* MockDraftViewController.m in Sources */,
+				7562A8931FFF4370004C0985 /* BalloonMarker.swift in Sources */,
 				7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */,
 				754E90821CA5A59D00C450CF /* TeamScheduleViewController.m in Sources */,
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,
@@ -1268,7 +1312,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "harbaughsim16/harbaughsim16-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1289,13 +1334,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.harbaughsim16;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "harbaughsim16/harbaughsim16-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
 		75CC974F1FB1D60000D08F06 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1321,6 +1368,7 @@
 		75CC97501FB1D60000D08F06 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

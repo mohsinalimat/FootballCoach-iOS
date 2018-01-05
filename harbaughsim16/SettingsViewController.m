@@ -219,7 +219,7 @@
     if (section == 2) {
         return 6;
     } else if (section == 1) {
-        return 9;
+        return 12;
     } else {
         return 5;
     }
@@ -227,9 +227,9 @@
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LinkCell"];
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LinkCell"];
             cell.backgroundColor = [UIColor whiteColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
@@ -240,19 +240,23 @@
         } else if (indexPath.row == 1) {
             [cell.textLabel setText:@"AutoCoding"];
         } else if (indexPath.row == 2) {
-            [cell.textLabel setText:@"DZNEmptyDataSet"];
+            [cell.textLabel setText:@"ios-charts"];
         } else if (indexPath.row == 3) {
-            [cell.textLabel setText:@"Fabric"];
+            [cell.textLabel setText:@"DZNEmptyDataSet"];
         } else if (indexPath.row == 4) {
-            [cell.textLabel setText:@"FCFileManager"];
+            [cell.textLabel setText:@"Fabric"];
         } else if (indexPath.row == 5) {
-            [cell.textLabel setText:@"HexColors"];
+            [cell.textLabel setText:@"FCFileManager"];
         } else if (indexPath.row == 6) {
-            [cell.textLabel setText:@"Icons8"];
+            [cell.textLabel setText:@"HexColors"];
         } else if (indexPath.row == 7) {
-            [cell.textLabel setText:@"MBProgressHUD"];
+            [cell.textLabel setText:@"Icons8"];
         } else if (indexPath.row == 8) {
+            [cell.textLabel setText:@"MBProgressHUD"];
+        } else if (indexPath.row == 9) {
             [cell.textLabel setText:@"RMessage"];
+        } else if (indexPath.row == 10) {
+            [cell.textLabel setText:@"ScrollableSegmentedControl"];
         } else {
             [cell.textLabel setText:@"STPopup"];
         }
@@ -291,9 +295,9 @@
             
             return setCell;
         } else {
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OptionsCell"];
             if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"OptionsCell"];
                 cell.backgroundColor = [UIColor whiteColor];
                 [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
                 [cell setAccessoryType:UITableViewCellAccessoryNone];
@@ -361,55 +365,57 @@
         } else if (indexPath.row == 1) {
             url = @"https://github.com/nicklockwood/AutoCoding";
         } else if (indexPath.row == 2) {
-            url = @"https://github.com/dzenbot/DZNEmptyDataSet";
+            url = @"https://github.com/danielgindi/Charts";
         } else if (indexPath.row == 3) {
-            url = @"https://fabric.io";
+            url = @"https://github.com/dzenbot/DZNEmptyDataSet";
         } else if (indexPath.row == 4) {
-            url = @"https://github.com/fabiocaccamo/FCFileManager";
+            url = @"https://fabric.io";
         } else if (indexPath.row == 5) {
-            url = @"https://github.com/mRs-/HexColors";
+            url = @"https://github.com/fabiocaccamo/FCFileManager";
         } else if (indexPath.row == 6) {
-            url = @"http://icons8.com";
+            url = @"https://github.com/mRs-/HexColors";
         } else if (indexPath.row == 7) {
-            url = @"https://github.com/jdg/MBProgressHUD/";
+            url = @"http://icons8.com";
         } else if (indexPath.row == 8) {
+            url = @"https://github.com/jdg/MBProgressHUD/";
+        } else if (indexPath.row == 9) {
             url = @"https://github.com/donileo/RMessage";
+        } else if (indexPath.row == 10) {
+            url = @"https://github.com/GocePetrovski/ScrollableSegmentedControl";
         } else {
             url = @"https://github.com/kevin0571/STPopup";
         }
         
-        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url] entersReaderIfAvailable:YES];
-        safariVC.preferredBarTintColor = [UIColor blackColor];
-        safariVC.preferredControlTintColor = [UIColor hx_colorWithHexRGBAString:@"#0090B3"];
-        
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
+        safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
+        safariVC.preferredControlTintColor = [UIColor whiteColor];
         [self presentViewController:safariVC animated:YES completion:nil];
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             [self.navigationController pushViewController:[[HelpViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
         } else if (indexPath.row == 1) {
-            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://akeaswaran.me"] entersReaderIfAvailable:YES];
+            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://akeaswaran.me"]];
             safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
             safariVC.preferredControlTintColor = [UIColor whiteColor];
-            
             [self presentViewController:safariVC animated:YES completion:nil];
         } else if (indexPath.row == 2) {
             MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
+            composer.navigationBar.tintColor = [UIColor whiteColor];
+            composer.view.tintColor = [HBSharedUtils styleColor];
             [composer setMailComposeDelegate:self];
             [composer setToRecipients:@[@"akeaswaran@me.com"]];
             [composer setSubject:[NSString stringWithFormat:@"College Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
             [self presentViewController:composer animated:YES completion:nil];
         } else if (indexPath.row == 3) {
-            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS"] entersReaderIfAvailable:YES];
+            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS"]];
             safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
             safariVC.preferredControlTintColor = [UIColor whiteColor];
-            
             [self presentViewController:safariVC animated:YES completion:nil];
             
         } else if (indexPath.row == 4) {
-            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://reddit.com/r/FootballCoach"] entersReaderIfAvailable:YES];
+            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://reddit.com/r/FootballCoach"]];
             safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
             safariVC.preferredControlTintColor = [UIColor whiteColor];
-            
             [self presentViewController:safariVC animated:YES completion:nil];
             
         } else {

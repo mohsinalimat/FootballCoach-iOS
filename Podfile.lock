@@ -1,6 +1,9 @@
 PODS:
   - ATAppUpdater (2.0)
   - AutoCoding (2.2.3)
+  - Charts (3.0.4):
+    - Charts/Core (= 3.0.4)
+  - Charts/Core (3.0.4)
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
   - DZNEmptyDataSet (1.8.1)
@@ -18,6 +21,7 @@ PODS:
 DEPENDENCIES:
   - ATAppUpdater
   - AutoCoding
+  - Charts
   - Crashlytics
   - DZNEmptyDataSet
   - Fabric
@@ -31,6 +35,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   ATAppUpdater: a9f7027060959d47e58733d3b48f6b9a28cb8de1
   AutoCoding: 90ca3cbc0d77a37cfff75167d705b44148c5fc51
+  Charts: '0705898046257443f0afbbc3179f4b67507b6e48'
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
@@ -42,6 +47,6 @@ SPEC CHECKSUMS:
   ScrollableSegmentedControl: a90ae91537fd670a46b177301d035223e3bd149e
   STPopup: da1167250a01584af7bcccb898653185f223ec46
 
-PODFILE CHECKSUM: 5c62958e889fff6cf28cbb4eea6618fe5bba4bb6
+PODFILE CHECKSUM: 5cdb0cf5077d05749531d2e91bafa59d3f7cfdf0
 
 COCOAPODS: 1.1.1

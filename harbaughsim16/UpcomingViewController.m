@@ -26,6 +26,8 @@
 #import "AllLeagueTeamViewController.h"
 #import "ConferenceStandingsSelectorViewController.h"
 #import "ConferenceStandingsViewController.h"
+#import "AllConferenceTeamConferenceSelectorViewController.h"
+#import "AllConferenceTeamViewController.h"
 #import "HBTeamPlayView.h"
 #import "GameDetailViewController.h"
 #import "PlayerStatsViewController.h"
@@ -265,6 +267,13 @@
         [alertController addAction:[UIAlertAction actionWithTitle:@"All-League Team" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[AllLeagueTeamViewController alloc] init] animated:YES];
         }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"All-Conference Teams" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            popupController = [[STPopupController alloc] initWithRootViewController:[[AllConferenceTeamConferenceSelectorViewController alloc] init]];
+            [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+            [popupController.navigationBar setDraggable:YES];
+            popupController.style = STPopupStyleBottomSheet;
+            [popupController presentInViewController:self];
+        }]];
     } else if ([HBSharedUtils getLeague].currentWeek == 14) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Current Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
              [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
@@ -286,8 +295,16 @@
             [popupController presentInViewController:self];
         }]];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"All-American Team" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"All-League Team" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[AllLeagueTeamViewController alloc] init] animated:YES];
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"All-Conference Teams" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            popupController = [[STPopupController alloc] initWithRootViewController:[[AllConferenceTeamConferenceSelectorViewController alloc] init]];
+            [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+            [popupController.navigationBar setDraggable:YES];
+            popupController.style = STPopupStyleBottomSheet;
+            [popupController presentInViewController:self];
         }]];
     } else if ([HBSharedUtils getLeague].currentWeek == 13) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Current Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -349,11 +366,19 @@
 
 }
 
--(void)pushToConfStandings:(NSNotification*)confNotification {
-    Conference *div = (Conference*)[confNotification object];
+-(void)pushToConfTeam:(NSNotification*)confNotification {
+    Conference *conf = (Conference*)[confNotification object];
     //delay
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self.navigationController pushViewController:[[ConferenceStandingsViewController alloc] initWithConference:div] animated:YES];
+        [self.navigationController pushViewController:[[AllConferenceTeamViewController alloc] initWithConference:conf] animated:YES];
+    });
+}
+
+-(void)pushToConfStandings:(NSNotification*)confNotification {
+    Conference *conf = (Conference*)[confNotification object];
+    //delay
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self.navigationController pushViewController:[[ConferenceStandingsViewController alloc] initWithConference:conf] animated:YES];
     });
 }
 
@@ -487,9 +512,9 @@
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
     
-    
     news = [NSMutableArray array];
     [self reloadNews:[HBSharedUtils getLeague].currentWeek];
+    self.view.backgroundColor = [HBSharedUtils styleColor];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBScoreCell" bundle:nil] forCellReuseIdentifier:@"HBScoreCell"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"triline"] style:UIBarButtonItemStylePlain target:self action:@selector(viewResultsOptions)];
     
@@ -509,9 +534,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideSimButton) name:@"hideSimButton" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSaveFile" object:nil];
-    self.view.backgroundColor = [HBSharedUtils styleColor];
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToConfTeam:) name:@"pushToConfTeam" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToConfStandings:) name:@"pushToConfStandings" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runOnSaveInProgress) name:@"saveInProgress" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runOnSaveFinished) name:@"saveFinished" object:nil];
