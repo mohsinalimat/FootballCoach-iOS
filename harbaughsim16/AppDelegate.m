@@ -121,13 +121,10 @@
             [convertProgressView setProgress:progress animated:YES];
         } completionBlock:^(BOOL success, NSString * _Nullable finalStatus, League * _Nonnull ligue) {
             convertProgressView.progress = 1.0;
-            convertProgressAlert.message = [NSString stringWithFormat:@"%@\nPlease be aware that each school in your save file has been assigned a random home state. This will only have an effect in recruiting. If you want to change this, please edit teams before starting recruiting in the next offseason.",finalStatus];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.00 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [convertProgressView removeFromSuperview];
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [convertProgressAlert dismissViewControllerAnimated:YES completion:nil];
-                });
+                convertProgressAlert.message = [NSString stringWithFormat:@"%@\nPlease be aware that each school in your save file has been assigned a random home state. This will only have an effect in recruiting. If you want to change this, please edit teams before starting recruiting in the next offseason.",finalStatus];
+                [convertProgressAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
                 _league = ligue;
                 [_league save];
             });
