@@ -88,7 +88,7 @@
         }
         
         //check if data file is corrupt, alert user
-        if ([[HBSharedUtils getLeague] isSaveCorrupt]) {
+        if ([[HBSharedUtils currentLeague] isSaveCorrupt]) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Corrupt Save File" message:@"Your save file may be corrupt. Please delete it and restart to ensure you do not experience any crashes." preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [tabBarController presentViewController:alertController animated:YES completion:nil];

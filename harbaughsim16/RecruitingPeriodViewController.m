@@ -201,7 +201,7 @@
             [hud.label setText:[NSString stringWithFormat:@"Advancing to Fall Camps..."]];
         }
         
-        __block League *currentLeague = [HBSharedUtils getLeague];
+        __block League *currentLeague = [HBSharedUtils currentLeague];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             for (Player *p in totalRecruits) {
                 if (p.team == nil || p.recruitStatus != CFCRecruitStatusCommitted) {
@@ -272,33 +272,33 @@
             NSLog(@"THROWING IT BACK TO MAIN THREAD FOR UI UPDATES");
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                if ([HBSharedUtils getLeague].isHardMode) {
+                if ([HBSharedUtils currentLeague].isHardMode) {
                     if (recruitingStage == CFCRecruitingStageWinter) {
                         recruitingStage = CFCRecruitingStageEarlySigningDay;
                         NSLog(@"STARTING SIGNING DAY, STAGE %d", recruitingStage);
-                        self.navigationItem.title = [NSString stringWithFormat:@"Early Signing Day %lu", (long)([[HBSharedUtils getLeague] getCurrentYear] + 1)];
+                        self.navigationItem.title = [NSString stringWithFormat:@"Early Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
                     } else if (recruitingStage == CFCRecruitingStageEarlySigningDay) {
                         recruitingStage = CFCRecruitingStageSigningDay;
                         NSLog(@"STARTING SIGNING DAY, STAGE %d", recruitingStage);
-                        self.navigationItem.title = [NSString stringWithFormat:@"Signing Day %lu", (long)([[HBSharedUtils getLeague] getCurrentYear] + 1)];
+                        self.navigationItem.title = [NSString stringWithFormat:@"Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
                     } else {
                         recruitingStage = CFCRecruitingStageFallCamp;
                         NSLog(@"SHOWING RECRUITING CLASS, STAGE %d", recruitingStage);
-                        self.navigationItem.title = [NSString stringWithFormat:@"%lu Recruiting Class",  (long)([[HBSharedUtils getLeague] getCurrentYear] + 1)];
+                        self.navigationItem.title = [NSString stringWithFormat:@"%lu Recruiting Class",  (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleDone target:self action:@selector(finishRecruitingSeason)];
                     }
                 } else {
                     if (recruitingStage == CFCRecruitingStageWinter) {
                         recruitingStage = CFCRecruitingStageSigningDay;
                         NSLog(@"STARTING SIGNING DAY, STAGE %d", recruitingStage);
-                        self.navigationItem.title = [NSString stringWithFormat:@"Signing Day %lu", (long)([[HBSharedUtils getLeague] getCurrentYear] + 1)];
+                        self.navigationItem.title = [NSString stringWithFormat:@"Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
                     } else {
                         recruitingStage = CFCRecruitingStageFallCamp;
                         NSLog(@"SHOWING RECRUITING CLASS, STAGE %d", recruitingStage);
-                        self.navigationItem.title = [NSString stringWithFormat:@"%lu Recruiting Class",  (long)([[HBSharedUtils getLeague] getCurrentYear] + 1)];
+                        self.navigationItem.title = [NSString stringWithFormat:@"%lu Recruiting Class",  (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleDone target:self action:@selector(finishRecruitingSeason)];
                     }
                 }
@@ -319,7 +319,7 @@
 }
 
 -(void)calculateTeamNeeds {
-    Team *t = [HBSharedUtils getLeague].userTeam;
+    Team *t = [HBSharedUtils currentLeague].userTeam;
     
     needQBs = MAX(0, 2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB"]);
     needRBs = MAX(0, 4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB"]);
@@ -420,7 +420,7 @@
         [summary appendString:@"All positional needs filled"];
     }
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Remaining Needs",[HBSharedUtils getLeague].userTeam.abbreviation] message:summary preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Remaining Needs",[HBSharedUtils currentLeague].userTeam.abbreviation] message:summary preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
     [alertController.view setNeedsLayout];
@@ -428,7 +428,7 @@
 }
 
 -(NSInteger)_calculateNeededPlayersAtPosition:(NSString *)pos {
-    return [self _calculateNeededPlayersAtPosition:pos team:[HBSharedUtils getLeague].userTeam];
+    return [self _calculateNeededPlayersAtPosition:pos team:[HBSharedUtils currentLeague].userTeam];
 }
 
 -(NSInteger)_calculateNeededPlayersAtPosition:(NSString *)pos team:(Team*)t {
@@ -443,7 +443,7 @@
 }
 
 -(void)viewRoster {
-    TeamRosterViewController *roster = [[TeamRosterViewController alloc] initWithTeam:[HBSharedUtils getLeague].userTeam];
+    TeamRosterViewController *roster = [[TeamRosterViewController alloc] initWithTeam:[HBSharedUtils currentLeague].userTeam];
     roster.isPopup = YES;
     popupController = [[STPopupController alloc] initWithRootViewController:roster];
     [popupController.navigationBar setDraggable:YES];
@@ -453,12 +453,12 @@
 }
 
 -(void)finishRecruitingSeason {
-    [[HBSharedUtils getLeague] updateTeamHistories];
-    [[HBSharedUtils getLeague] updateLeagueHistory];
-    [[HBSharedUtils getLeague].userTeam resetStats];
-    [[HBSharedUtils getLeague] advanceSeason];
+    [[HBSharedUtils currentLeague] updateTeamHistories];
+    [[HBSharedUtils currentLeague] updateLeagueHistory];
+    [[HBSharedUtils currentLeague].userTeam resetStats];
+    [[HBSharedUtils currentLeague] advanceSeason];
     
-    for (Team *t in [HBSharedUtils getLeague].teamList) {
+    for (Team *t in [HBSharedUtils currentLeague].teamList) {
         for (Player *p in t.recruitingClass) {
             [t addPlayer:p];
         }
@@ -471,34 +471,34 @@
         
         [t calculateRecruitingClassRanking];
     }
-    [[HBSharedUtils getLeague] setTeamRanks];
+    [[HBSharedUtils currentLeague] setTeamRanks];
     
     // post a news story about recruiting
-    [[HBSharedUtils getLeague].teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    [[HBSharedUtils currentLeague].teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [HBSharedUtils compareRecruitingComposite:obj1 toObj2:obj2];
     }];
-    NSMutableString *recruitingRanks = [NSMutableString stringWithFormat:@"%@ leads the pack, has best recruiting class of %lu\n%@ has the nation's best recruiting class this year, pulling in %lu recruits and posting a composite score of %d. Rounding out the top 5 are: ", [HBSharedUtils getLeague].teamList[0].abbreviation, (long)[[HBSharedUtils getLeague] getCurrentYear], [HBSharedUtils getLeague].teamList[0].name, (long)[HBSharedUtils getLeague].teamList[0].recruitingClass.count, [HBSharedUtils getLeague].teamList[0].teamRecruitingClassScore];
+    NSMutableString *recruitingRanks = [NSMutableString stringWithFormat:@"%@ leads the pack, has best recruiting class of %lu\n%@ has the nation's best recruiting class this year, pulling in %lu recruits and posting a composite score of %d. Rounding out the top 5 are: ", [HBSharedUtils currentLeague].teamList[0].abbreviation, (long)[[HBSharedUtils currentLeague] getCurrentYear], [HBSharedUtils currentLeague].teamList[0].name, (long)[HBSharedUtils currentLeague].teamList[0].recruitingClass.count, [HBSharedUtils currentLeague].teamList[0].teamRecruitingClassScore];
     for (int i = 1; i < 5; i++) {
-        Team *t = [HBSharedUtils getLeague].teamList[i];
+        Team *t = [HBSharedUtils currentLeague].teamList[i];
         if (i == 4) {
             [recruitingRanks appendFormat:@"and %d) %@.", (i + 1), t.name];
         } else {
             [recruitingRanks appendFormat:@"%d) %@, ", (i + 1), t.name];
         }
     }
-    [[HBSharedUtils getLeague].newsStories[0] addObject:recruitingRanks];
+    [[HBSharedUtils currentLeague].newsStories[0] addObject:recruitingRanks];
     
-    [[HBSharedUtils getLeague] setTeamRanks];
-    for (Team *t in [HBSharedUtils getLeague].teamList) {
+    [[HBSharedUtils currentLeague] setTeamRanks];
+    for (Team *t in [HBSharedUtils currentLeague].teamList) {
         // clear the recruiting classes
         t.recruitingClass = [NSMutableArray array];
         [t updateTalentRatings];
     }
     
-    [HBSharedUtils getLeague].recruitingStage = 0;
-    [[HBSharedUtils getLeague] save];
+    [HBSharedUtils currentLeague].recruitingStage = 0;
+    [[HBSharedUtils currentLeague] save];
     
-    if ([HBSharedUtils getLeague].isHardMode && [[HBSharedUtils getLeague].cursedTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
+    if ([HBSharedUtils currentLeague].isHardMode && [[HBSharedUtils currentLeague].cursedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"userTeamSanctioned" object:nil];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
@@ -568,8 +568,8 @@
 -(int)_calculateTotalInterestLevel:(Player *)p {
     NSMutableArray *recruitEvents = ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) ? recruitActivities[[p uniqueIdentifier]] : [NSMutableArray array];
     
-    if (![p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
-        int interestVal1 = [p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam];
+    if (![p.offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+        int interestVal1 = [p calculateInterestInTeam:[HBSharedUtils currentLeague].userTeam];
         if ([recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
             interestVal1 += MEETING_INTEREST_BONUS;
         }
@@ -581,7 +581,7 @@
         }
         return interestVal1;
     } else {
-        return [p.offers[[HBSharedUtils getLeague].userTeam.abbreviation] intValue];
+        return [p.offers[[HBSharedUtils currentLeague].userTeam.abbreviation] intValue];
     }
 }
 
@@ -603,7 +603,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
     
     // calculate recruiting points, but never show number - just show as usage as "% effort extended"
-    NSInteger offersToGive = (48 - [[HBSharedUtils getLeague].userTeam getTeamSize] + [[HBSharedUtils getLeague].userTeam.playersLeaving count]);
+    NSInteger offersToGive = (48 - [[HBSharedUtils currentLeague].userTeam getTeamSize] + [[HBSharedUtils currentLeague].userTeam.playersLeaving count]);
     
     CGFloat inMin = 0.0;
     CGFloat inMax = 90;
@@ -611,14 +611,14 @@
     CGFloat outMin = 0;
     CGFloat outMax = 5;
     
-    CGFloat input = MIN(90.0, (CGFloat) [HBSharedUtils getLeague].userTeam.teamPrestige);
+    CGFloat input = MIN(90.0, (CGFloat) [HBSharedUtils currentLeague].userTeam.teamPrestige);
     int prestigeMulitplier = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
-    recruitingPoints = ([HBSharedUtils getLeague].isHardMode) ? (int)ceilf((float)offersToGive * 50.0 * prestigeMulitplier) : (int)ceilf((float)offersToGive * 60.0 * prestigeMulitplier);
+    recruitingPoints = ([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf((float)offersToGive * 50.0 * prestigeMulitplier) : (int)ceilf((float)offersToGive * 60.0 * prestigeMulitplier);
     usedRecruitingPoints = 0;
     
     NSLog(@"Recruiting points total: %d", recruitingPoints);
     
-    self.navigationItem.title = [NSString stringWithFormat:@"Winter %lu", ((long)([[HBSharedUtils getLeague] getCurrentYear] + 1))];
+    self.navigationItem.title = [NSString stringWithFormat:@"Winter %lu", ((long)([[HBSharedUtils currentLeague] getCurrentYear] + 1))];
     [self calculateTeamNeeds];
     recruitingStage = 0;
 
@@ -749,9 +749,9 @@
     CGFloat outMin = 0;
     CGFloat outMax = 16;
     
-    CGFloat input = MIN(90.0, (CGFloat) [HBSharedUtils getLeague].userTeam.teamPrestige);
+    CGFloat input = MIN(90.0, (CGFloat) [HBSharedUtils currentLeague].userTeam.teamPrestige);
     int avail5Stars;
-    if ([HBSharedUtils getLeague].isHardMode) {
+    if ([HBSharedUtils currentLeague].isHardMode) {
         avail5Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
     } else {
         avail5Stars = 16;
@@ -770,25 +770,25 @@
         }
         
         if (position == 0) {
-            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 1 ) {
-            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 2) {
-            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 3) {
-            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 4) {
-            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 5) {
-            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 6) {
-            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 7) {
-            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:5 team:nil]];
         } else if (position == 8) {
-            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:5 team:nil]];
         } else {
-            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:5 team:nil]];
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:5 team:nil]];
         }
     }
     
@@ -796,7 +796,7 @@
     outMax = 80;
     
     int avail4Stars;
-    if ([HBSharedUtils getLeague].isHardMode) {
+    if ([HBSharedUtils currentLeague].isHardMode) {
         avail4Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
     } else {
         avail4Stars = 80;
@@ -813,25 +813,25 @@
         }
         
         if (position == 0) {
-            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 1 ) {
-            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 2) {
-            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 3) {
-            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 4) {
-            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 5) {
-            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 6) {
-            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 7) {
-            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:4 team:nil]];
         } else if (position == 8) {
-            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:4 team:nil]];
         } else {
-            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:4 team:nil]];
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:4 team:nil]];
         }
     }
     
@@ -839,7 +839,7 @@
     outMax = 80;
     
     int avail3Stars;
-    if ([HBSharedUtils getLeague].isHardMode) {
+    if ([HBSharedUtils currentLeague].isHardMode) {
         avail3Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
     } else {
         avail3Stars = 80;
@@ -856,25 +856,25 @@
         }
         
         if (position == 0) {
-            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 1 ) {
-            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 2) {
-            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 3) {
-            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 4) {
-            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 5) {
-            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 6) {
-            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 7) {
-            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         } else if (position == 8) {
-            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         } else {
-            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
     
@@ -889,25 +889,25 @@
         }
         
         if (position == 0) {
-            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:2 team:nil]];
         } else if (position == 1 ) {
-            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:2 team:nil]];
         } else if (position == 2) {
-            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:2 team:nil]];
         } else if (position == 3) {
-            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:2 team:nil]];
         } else if (position == 4) {
-            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:2 team:nil]];
         } else if (position == 5) {
-            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 6) {
-            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 7) {
-            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:2 team:nil]];
         } else if (position == 8) {
-            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:2 team:nil]];
         } else {
-            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:2 team:nil]];
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:2 team:nil]];
         }
     }
     
@@ -922,85 +922,85 @@
         }
         
         if (position == 0) {
-            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 1 ) {
-            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 2) {
-            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 3) {
-            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 4) {
-            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 5) {
-            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 6) {
-            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 7) {
-            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         } else if (position == 8) {
-            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         } else {
-            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:1 team:nil]];
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:1 team:nil]];
         }
     }
     
     if (availQBs.count == 0) {
         for (int i = 0; i < 3; i++) {
-            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
     
     if (availRBs.count == 0) {
         for (int i = 0; i < 3; i++) {
-            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
     
     if (availWRs.count == 0) {
         for (int i = 0; i < 3; i++) {
-            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
     
     if (availTEs.count == 0) {
         for (int i = 0; i < 3; i++) {
-            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
     
     if (availOLs.count == 0) {
         for (int i = 0; i < 3; i++) {
-            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
     
     if (availDLs.count == 0) {
         for (int i = 0; i < 3; i++) {
-            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
     
     if (availLBs.count == 0) {
         for (int i = 0; i < 3; i++) {
-            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
     
     if (availCBs.count == 0) {
         for (int i = 0; i < 3; i++) {
-            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
     
     if (availSs.count == 0) {
         for (int i = 0; i < 3; i++) {
-            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
     
     if (availKs.count == 0) {
         for (int i = 0; i < 3; i++) {
-            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils getLeague] getRandName] year:1 stars:3 team:nil]];
+            [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
     
@@ -1019,7 +1019,7 @@
     }];
     
     [hud.label setText:@"Organizing offers from other teams..."];
-    __block NSArray *teamList = [HBSharedUtils getLeague].teamList;
+    __block NSArray *teamList = [HBSharedUtils currentLeague].teamList;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSMutableDictionary *teamNeeds = [NSMutableDictionary dictionary];
         for (Team *t in teamList) {
@@ -1189,7 +1189,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (recruitingStage == CFCRecruitingStageFallCamp) {
-        return [HBSharedUtils getLeague].userTeam.recruitingClass.count;
+        return [HBSharedUtils currentLeague].userTeam.recruitingClass.count;
     } else {
         return currentRecruits.count;
     }
@@ -1199,16 +1199,16 @@
     CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
     Player *p;
     if (recruitingStage == CFCRecruitingStageFallCamp) {
-        p = [HBSharedUtils getLeague].userTeam.recruitingClass[indexPath.row];
+        p = [HBSharedUtils currentLeague].userTeam.recruitingClass[indexPath.row];
     } else {
         p = currentRecruits[indexPath.row];
     }
 
     int interest = 0;
-    if ([p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
-        interest = [p.offers[[HBSharedUtils getLeague].userTeam.abbreviation] intValue];
+    if ([p.offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+        interest = [p.offers[[HBSharedUtils currentLeague].userTeam.abbreviation] intValue];
     } else {
-        interest = [p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam];
+        interest = [p calculateInterestInTeam:[HBSharedUtils currentLeague].userTeam];
         NSMutableArray *recruitEvents = ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) ? recruitActivities[[p uniqueIdentifier]] : [NSMutableArray array];
         if ([recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
             interest += MEETING_INTEREST_BONUS;
@@ -1268,10 +1268,10 @@
     
     UIColor *nameColor = [UIColor blackColor];
     NSString *offerTitle = @"Other Offers: ";
-    if (p.recruitStatus == CFCRecruitStatusCommitted && p.team == [HBSharedUtils getLeague].userTeam) {
+    if (p.recruitStatus == CFCRecruitStatusCommitted && p.team == [HBSharedUtils currentLeague].userTeam) {
         nameColor = [HBSharedUtils styleColor];
         offerTitle = @"Committed: ";
-    } else if (p.recruitStatus == CFCRecruitStatusCommitted && p.team != [HBSharedUtils getLeague].userTeam) {
+    } else if (p.recruitStatus == CFCRecruitStatusCommitted && p.team != [HBSharedUtils currentLeague].userTeam) {
         nameColor = [HBSharedUtils errorColor];
         offerTitle = @"Committed: ";
     } else if ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) {
@@ -1309,8 +1309,8 @@
 
     NSMutableAttributedString *offerString = [[NSMutableAttributedString alloc] initWithString:offerTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
     if (p.recruitStatus == CFCRecruitStatusCommitted) {
-        if (p.team == [HBSharedUtils getLeague].userTeam) {
-            [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils getLeague].userTeam.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [HBSharedUtils styleColor]}]];
+        if (p.team == [HBSharedUtils currentLeague].userTeam) {
+            [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils currentLeague].userTeam.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [HBSharedUtils styleColor]}]];
         } else if ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) {
             [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:p.team.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [HBSharedUtils errorColor]}]];
         } else {
@@ -1344,10 +1344,10 @@
         NSMutableArray *recruitEvents = ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) ? recruitActivities[[p uniqueIdentifier]] : [NSMutableArray array];
         
         int interest = 0;
-        if ([p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
-            interest = [p.offers[[HBSharedUtils getLeague].userTeam.abbreviation] intValue];
+        if ([p.offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+            interest = [p.offers[[HBSharedUtils currentLeague].userTeam.abbreviation] intValue];
         } else {
-            interest = [p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam];
+            interest = [p calculateInterestInTeam:[HBSharedUtils currentLeague].userTeam];
             NSMutableArray *recruitEvents = ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) ? recruitActivities[[p uniqueIdentifier]] : [NSMutableArray array];
             if ([recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
                 interest += MEETING_INTEREST_BONUS;
@@ -1389,8 +1389,8 @@
                 return [obj2 compare:obj1];
             }]];
             
-            if ([orderedOffers containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
-                [orderedOffers removeObject:[HBSharedUtils getLeague].userTeam.abbreviation];
+            if ([orderedOffers containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+                [orderedOffers removeObject:[HBSharedUtils currentLeague].userTeam.abbreviation];
             }
             
             for (int i = 0; i < orderedOffers.count; i++) {
@@ -1399,7 +1399,7 @@
             }
         }
         
-        UIAlertController *recruitOptionsController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Recruiting %@ %@", p.position, p.name] message:[NSString stringWithFormat:@"How would you like to recruit this player?\n\nInterest in %@: %@\n\n%@\n%@",[HBSharedUtils getLeague].userTeam.abbreviation, [HBSharedUtils generateInterestMetadata:interest otherOffers:p.offers][@"interest"], recruitOffers,recruitHistory] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *recruitOptionsController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Recruiting %@ %@", p.position, p.name] message:[NSString stringWithFormat:@"How would you like to recruit this player?\n\nInterest in %@: %@\n\n%@\n%@",[HBSharedUtils currentLeague].userTeam.abbreviation, [HBSharedUtils generateInterestMetadata:interest otherOffers:p.offers][@"interest"], recruitOffers,recruitHistory] preferredStyle:UIAlertControllerStyleAlert];
         
         if (p.recruitStatus != CFCRecruitStatusCommitted) {
             if (abs(recruitingPoints - usedRecruitingPoints) >= MEETING_COST) {
@@ -1409,11 +1409,11 @@
                         [recruitActivities setObject:recruitEvents forKey:[p uniqueIdentifier]];
                         usedRecruitingPoints += MEETING_COST;
                         
-                        if ([p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
-                            NSNumber *offer = p.offers[[HBSharedUtils getLeague].userTeam.abbreviation];
+                        if ([p.offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+                            NSNumber *offer = p.offers[[HBSharedUtils currentLeague].userTeam.abbreviation];
                             int interest = [offer intValue];
                             interest += MEETING_INTEREST_BONUS;
-                            [p.offers setObject:@(interest) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
+                            [p.offers setObject:@(interest) forKey:[HBSharedUtils currentLeague].userTeam.abbreviation];
                         }
                         
                         if (![progressedRecruits containsObject:p]) {
@@ -1435,11 +1435,11 @@
                         [recruitActivities setObject:recruitEvents forKey:[p uniqueIdentifier]];
                         usedRecruitingPoints += OFFICIAL_VISIT_COST;
                         
-                        if ([p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
-                            NSNumber *offer = p.offers[[HBSharedUtils getLeague].userTeam.abbreviation];
+                        if ([p.offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+                            NSNumber *offer = p.offers[[HBSharedUtils currentLeague].userTeam.abbreviation];
                             int interest = [offer intValue];
                             interest += OFFICIAL_VISIT_INTEREST_BONUS;
-                            [p.offers setObject:@(interest) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
+                            [p.offers setObject:@(interest) forKey:[HBSharedUtils currentLeague].userTeam.abbreviation];
                         }
                         
                         if (![progressedRecruits containsObject:p]) {
@@ -1461,11 +1461,11 @@
                         [recruitActivities setObject:recruitEvents forKey:[p uniqueIdentifier]];
                         usedRecruitingPoints += INHOME_VISIT_COST;
                         
-                        if ([p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
-                            NSNumber *offer = p.offers[[HBSharedUtils getLeague].userTeam.abbreviation];
+                        if ([p.offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+                            NSNumber *offer = p.offers[[HBSharedUtils currentLeague].userTeam.abbreviation];
                             int interest = [offer intValue];
                             interest += INHOME_VISIT_INTEREST_BONUS;
-                            [p.offers setObject:@(interest) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
+                            [p.offers setObject:@(interest) forKey:[HBSharedUtils currentLeague].userTeam.abbreviation];
                         }
                         
                         if (![progressedRecruits containsObject:p]) {
@@ -1485,9 +1485,9 @@
                     [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Extend offer" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         [recruitEvents addObject:@(CFCRecruitEventExtendOffer)];
                         [recruitActivities setObject:recruitEvents forKey:[p uniqueIdentifier]];
-                        int interest = [p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam];
+                        int interest = [p calculateInterestInTeam:[HBSharedUtils currentLeague].userTeam];
                         
-                        if (![p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+                        if (![p.offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
                             if ([recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
                                 interest += MEETING_INTEREST_BONUS;
                             }
@@ -1497,7 +1497,7 @@
                             if ([recruitEvents containsObject:@(CFCRecruitEventInHomeVisit)]) {
                                 interest += INHOME_VISIT_INTEREST_BONUS;
                             }
-                            [p.offers setObject:@(interest) forKey:[HBSharedUtils getLeague].userTeam.abbreviation];
+                            [p.offers setObject:@(interest) forKey:[HBSharedUtils currentLeague].userTeam.abbreviation];
                         }
                         
                         if (![progressedRecruits containsObject:p]) {
@@ -1515,7 +1515,7 @@
             }
             
         } else {
-            if (p.team != [HBSharedUtils getLeague].userTeam) {
+            if (p.team != [HBSharedUtils currentLeague].userTeam) {
                 if (![recruitEvents containsObject:@(CFCRecruitEventFlipped)]) {
                     if (abs(recruitingPoints - usedRecruitingPoints) >= FLIP_COST) {
                         [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Try to flip" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -1525,7 +1525,7 @@
                             // flipping depends on school's distance from player - closer == higher chance of flip
                             CGFloat flipChance = 0.0;
                             CFCRegion playerRegion = [HBSharedUtils regionForState:p.personalDetails[@"home_state"]];
-                            CFCRegion teamRegion = [HBSharedUtils regionForState:[HBSharedUtils getLeague].userTeam.state];
+                            CFCRegion teamRegion = [HBSharedUtils regionForState:[HBSharedUtils currentLeague].userTeam.state];
                             
                             CFCRegionDistance distance = [HBSharedUtils distanceFromRegion:playerRegion toRegion:teamRegion];
                             switch (distance) {
@@ -1549,8 +1549,8 @@
                                 // flip successful, move the recruit over to our team
                                 Team *prevTeam = p.team;
                                 [p.team.recruitingClass removeObject:p];
-                                p.team = [HBSharedUtils getLeague].userTeam;
-                                [[HBSharedUtils getLeague].userTeam.recruitingClass addObject:p];
+                                p.team = [HBSharedUtils currentLeague].userTeam;
+                                [[HBSharedUtils currentLeague].userTeam.recruitingClass addObject:p];
                                 
                                 if (![progressedRecruits containsObject:p]) {
                                     [progressedRecruits addObject:p];

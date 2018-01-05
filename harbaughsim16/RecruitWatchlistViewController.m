@@ -156,10 +156,10 @@
     NSArray *recruitEvents = ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) ? recruitActivities[[p uniqueIdentifier]] : [NSMutableArray array];
     
     int interest = 0;
-    if ([p.offers.allKeys containsObject:[HBSharedUtils getLeague].userTeam.abbreviation]) {
-        interest = [p.offers[[HBSharedUtils getLeague].userTeam.abbreviation] intValue];
+    if ([p.offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+        interest = [p.offers[[HBSharedUtils currentLeague].userTeam.abbreviation] intValue];
     } else {
-        interest = [p calculateInterestInTeam:[HBSharedUtils getLeague].userTeam];
+        interest = [p calculateInterestInTeam:[HBSharedUtils currentLeague].userTeam];
         NSMutableArray *recruitEvents = ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) ? recruitActivities[[p uniqueIdentifier]] : [NSMutableArray array];
         if ([recruitEvents containsObject:@(CFCRecruitEventPositionCoachMeeting)]) {
             interest += MEETING_INTEREST_BONUS;
@@ -203,9 +203,9 @@
     [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:p.stars]]];
     
     UIColor *nameColor = [UIColor blackColor];
-    if (p.recruitStatus == CFCRecruitStatusCommitted && p.team == [HBSharedUtils getLeague].userTeam) {
+    if (p.recruitStatus == CFCRecruitStatusCommitted && p.team == [HBSharedUtils currentLeague].userTeam) {
         nameColor = [HBSharedUtils styleColor];
-    } else if (p.recruitStatus == CFCRecruitStatusCommitted && p.team != [HBSharedUtils getLeague].userTeam) {
+    } else if (p.recruitStatus == CFCRecruitStatusCommitted && p.team != [HBSharedUtils currentLeague].userTeam) {
         nameColor = [HBSharedUtils errorColor];
     } else if ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) {
         NSArray *events = recruitActivities[[p uniqueIdentifier]];

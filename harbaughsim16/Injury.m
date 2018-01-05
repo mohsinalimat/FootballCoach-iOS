@@ -58,7 +58,7 @@
 
 - (NSString *)injuryDescription {
     if (_duration > 1) {
-        if (_duration + [HBSharedUtils getLeague].currentWeek > 14) {
+        if (_duration + [HBSharedUtils currentLeague].currentWeek > 14) {
             if (_type != FCInjuryTypeConcussion && _type != FCInjuryTypeIllness) {
                 return [NSString stringWithFormat:@"%@ %@ injury - out for season",[Injury stringForInjurySeverity:_severity], [Injury stringForInjuryType:_type]];
             } else {
@@ -153,7 +153,7 @@
 }
 
 - (void)advanceWeek {
-    int curWeek = [HBSharedUtils getLeague].currentWeek;
+    int curWeek = [HBSharedUtils currentLeague].currentWeek;
     if (curWeek <= 13) {
         _duration--;
     } else if (curWeek == 14) {

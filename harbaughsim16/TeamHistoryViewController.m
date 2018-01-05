@@ -66,13 +66,13 @@
     NSMutableArray *prestigeValues = [NSMutableArray array];
     NSMutableArray *colorValues = [NSMutableArray array];
     for (int i = 0; i < history.count; i++) {
-        NSInteger year = [HBSharedUtils getLeague].baseYear + i;
+        NSInteger year = [HBSharedUtils currentLeague].baseYear + i;
         float prestigeVal = 0.0;
         NSString *hist;
         if (selectedTeam.teamHistoryDictionary.count < i) {
             hist = [NSString stringWithFormat:@"%@ (0-0)",selectedTeam.abbreviation];
         } else {
-            hist = selectedTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + i)]];
+            hist = selectedTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + i)]];
         }
         NSArray *comps = [hist componentsSeparatedByString:@"\n"];
         NSString *prestigeString = nil;
@@ -143,7 +143,7 @@
     if (indexPath.section == 0) {
         return UITableViewAutomaticDimension;
     } else {
-        NSInteger lineCount = [self _lineCount:history[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + indexPath.row)]]];
+        NSInteger lineCount = [self _lineCount:history[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]];
         if (lineCount > 2) {
             return 100 + (10 * (lineCount - 2));
         } else if (lineCount == 2) {
@@ -299,12 +299,12 @@
             [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
         }
         
-        [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + indexPath.row)]];
+        [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
         NSString *hist;
         if (selectedTeam.teamHistoryDictionary.count < indexPath.row) {
             hist = [NSString stringWithFormat:@"%@ (0-0)",selectedTeam.abbreviation];
         } else {
-            hist = selectedTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + indexPath.row)]];
+            hist = selectedTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
         }
         NSArray *comps = [hist componentsSeparatedByString:@"\n"];
         

@@ -58,7 +58,7 @@
         UIViewController *peekVC;
         
         if (indexPath.section == 1) {
-            if ([HBSharedUtils getLeague].currentWeek > 0) {
+            if ([HBSharedUtils currentLeague].currentWeek > 0) {
                 if (indexPath.row == 0) {
                     peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypePollScore];
                 } else if (indexPath.row == 1) {
@@ -160,7 +160,7 @@
 }
 
 -(void)saveUserTeam {
-    [[HBSharedUtils getLeague] save];
+    [[HBSharedUtils currentLeague] save];
 }
 
 -(void)resetForNewSeason {
@@ -170,23 +170,23 @@
 }
 
 -(void)setupTeamHeader {
-    userTeam = [HBSharedUtils getLeague].userTeam;
-    [[HBSharedUtils getLeague] setTeamRanks];
+    userTeam = [HBSharedUtils currentLeague].userTeam;
+    [[HBSharedUtils currentLeague] setTeamRanks];
     stats = [userTeam getTeamStatsArray];
     NSString *rank = @"";
-    if ([HBSharedUtils getLeague].currentWeek > 0 && userTeam.rankTeamPollScore < 26 && userTeam.rankTeamPollScore > 0) {
+    if ([HBSharedUtils currentLeague].currentWeek > 0 && userTeam.rankTeamPollScore < 26 && userTeam.rankTeamPollScore > 0) {
         rank = [NSString stringWithFormat:@"#%d ",userTeam.rankTeamPollScore];
     }
     [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, userTeam.name]];
     
-    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistoryDictionary.count + [HBSharedUtils getLeague].baseYear,(long)userTeam.wins,(long)userTeam.losses]];
+    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils currentLeague].leagueHistoryDictionary.count + [HBSharedUtils currentLeague].baseYear,(long)userTeam.wins,(long)userTeam.losses]];
     [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Prestige: %d",userTeam.teamPrestige]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
 -(void)reloadStats {
-    userTeam = [HBSharedUtils getLeague].userTeam;
-    [[HBSharedUtils getLeague] setTeamRanks];
+    userTeam = [HBSharedUtils currentLeague].userTeam;
+    [[HBSharedUtils currentLeague] setTeamRanks];
     stats = [userTeam getTeamStatsArray];
     [self.tableView reloadData];
 }
@@ -326,7 +326,7 @@
         NSArray *cellStat = stats[indexPath.row];
         
         NSString *stat = @"";
-        if ([HBSharedUtils getLeague].currentWeek > 0) {
+        if ([HBSharedUtils currentLeague].currentWeek > 0) {
             stat = [NSString stringWithFormat:@"%@ (%@)", cellStat[0], cellStat[2]];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
@@ -346,7 +346,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 1) {
-        if ([HBSharedUtils getLeague].currentWeek > 0) {
+        if ([HBSharedUtils currentLeague].currentWeek > 0) {
             if (indexPath.row == 0) {
                 [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
             } else if (indexPath.row == 1) {
@@ -391,13 +391,13 @@
         }
     } else if (indexPath.section == 0) {
         if (indexPath.row == 0) { //offensive
-            popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:TRUE options:[[HBSharedUtils getLeague].userTeam getOffensiveTeamStrategies]]];
+            popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:TRUE options:[[HBSharedUtils currentLeague].userTeam getOffensiveTeamStrategies]]];
             [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
             [popupController presentInViewController:self];
         } else if (indexPath.row == 1) { //defensive
-            popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:FALSE options:[[HBSharedUtils getLeague].userTeam getDefensiveTeamStrategies]]];
+            popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:FALSE options:[[HBSharedUtils currentLeague].userTeam getDefensiveTeamStrategies]]];
             [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;

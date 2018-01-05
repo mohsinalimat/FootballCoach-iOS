@@ -73,7 +73,7 @@
 }
 
 -(void)changeTeamName {
-    if (![HBSharedUtils getLeague].canRebrandTeam) {
+    if (![HBSharedUtils currentLeague].canRebrandTeam) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"You can only rebrand teams during the offseason." preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
@@ -104,16 +104,16 @@
                     && (name.text.length > 0 && abbrev.text.length > 0)
                     && (![name.text isEqualToString:@""]&& ![abbrev.text isEqualToString:@""])
                     && (![trimmedName isEqualToString:@"americansamoa"])
-                    && ([[HBSharedUtils getLeague] findTeam:abbrev.text] == nil)) {
+                    && ([[HBSharedUtils currentLeague] findTeam:abbrev.text] == nil)) {
 
                     [selectedTeam setName:name.text];
                     [selectedTeam setAbbreviation:abbrev.text];
-                    Team *rival = [[HBSharedUtils getLeague] findTeam:selectedTeam.rivalTeam];
+                    Team *rival = [[HBSharedUtils currentLeague] findTeam:selectedTeam.rivalTeam];
                     [rival setRivalTeam:abbrev.text];
                     
                     NSMutableArray *tempLeagueYear;
-                    for (int k = 0; k < [HBSharedUtils getLeague].leagueHistoryDictionary.count; k++) {
-                        NSArray *leagueYear = [HBSharedUtils getLeague].leagueHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear+k)]];
+                    for (int k = 0; k < [HBSharedUtils currentLeague].leagueHistoryDictionary.count; k++) {
+                        NSArray *leagueYear = [HBSharedUtils currentLeague].leagueHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear+k)]];
                         tempLeagueYear = [NSMutableArray arrayWithArray:leagueYear];
                         for (int i =0; i < leagueYear.count; i++) {
                             NSString *teamString = leagueYear[i];
@@ -130,29 +130,29 @@
                             }
                         }
                         
-                        [[HBSharedUtils getLeague].leagueHistoryDictionary setObject:[tempLeagueYear copy] forKey:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + k)]];
+                        [[HBSharedUtils currentLeague].leagueHistoryDictionary setObject:[tempLeagueYear copy] forKey:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + k)]];
                         [tempLeagueYear removeAllObjects];
                     }
                     
                     for (int j = 0; j < selectedTeam.teamHistoryDictionary.count; j++) {
-                        NSString *yearString = selectedTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + j)]];
+                        NSString *yearString = selectedTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + j)]];
                         if ([yearString containsString:oldAbbrev]) {
                             yearString = [yearString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
                             //NSLog(@"FOUND ABBREV MATCH IN TEAM HISTORY, REPLACING");
-                            [selectedTeam.teamHistoryDictionary setObject:yearString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
+                            [selectedTeam.teamHistoryDictionary setObject:yearString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
                         }
                     }
                     
-                    for (int j = 0; j < [HBSharedUtils getLeague].heismanHistoryDictionary.count; j++) {
-                        NSString *heisString = [HBSharedUtils getLeague].heismanHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
+                    for (int j = 0; j < [HBSharedUtils currentLeague].heismanHistoryDictionary.count; j++) {
+                        NSString *heisString = [HBSharedUtils currentLeague].heismanHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
                         if ([heisString containsString:[NSString stringWithFormat:@", %@ (", oldAbbrev]]) {
                             heisString = [heisString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@", %@ (", oldAbbrev] withString:[NSString stringWithFormat:@", %@ (", abbrev.text]];
                             //NSLog(@"FOUND ABBREV MATCH IN HEISMAN HISTORY, REPLACING");
-                            [[HBSharedUtils getLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
+                            [[HBSharedUtils currentLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
                         }
                     }
                     
-                    [[HBSharedUtils getLeague] save];
+                    [[HBSharedUtils currentLeague] save];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTeams" object:nil];
                     [self.tableView reloadData];
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Rebrand successful!" message:[NSString stringWithFormat:@"Successfully rebranded this team to %@ (%@)!", name.text, abbrev.text] onViewController:self];
@@ -177,12 +177,12 @@
 
     stats = [selectedTeam getTeamStatsArray];
     NSString *rank = @"";
-    if ([HBSharedUtils getLeague].currentWeek > 0 && selectedTeam.rankTeamPollScore < 26 && selectedTeam.rankTeamPollScore > 0) {
+    if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedTeam.rankTeamPollScore < 26 && selectedTeam.rankTeamPollScore > 0) {
         rank = [NSString stringWithFormat:@"#%d ",selectedTeam.rankTeamPollScore];
     }
     [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, selectedTeam.name]];
 
-    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistoryDictionary.count + [HBSharedUtils getLeague].baseYear,(long)selectedTeam.wins,(long)selectedTeam.losses]];
+    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils currentLeague].leagueHistoryDictionary.count + [HBSharedUtils currentLeague].baseYear,(long)selectedTeam.wins,(long)selectedTeam.losses]];
     [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Prestige: %d",selectedTeam.teamPrestige]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setTableHeaderView:teamHeaderView];
@@ -191,7 +191,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reloadTeams" object:nil];
     
-    if ([HBSharedUtils getLeague].canRebrandTeam) {
+    if ([HBSharedUtils currentLeague].canRebrandTeam) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(changeTeamName)];
     }
     
@@ -202,12 +202,12 @@
 
 -(void)reloadAll {
     NSString *rank = @"";
-    if ([HBSharedUtils getLeague].currentWeek > 0 && selectedTeam.rankTeamPollScore < 26 && selectedTeam.rankTeamPollScore > 0) {
+    if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedTeam.rankTeamPollScore < 26 && selectedTeam.rankTeamPollScore > 0) {
         rank = [NSString stringWithFormat:@"#%d ",selectedTeam.rankTeamPollScore];
     }
     [teamHeaderView.teamRankLabel setText:[NSString stringWithFormat:@"%@%@",rank, selectedTeam.name]];
     
-    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils getLeague].leagueHistoryDictionary.count + [HBSharedUtils getLeague].baseYear,(long)selectedTeam.wins,(long)selectedTeam.losses]];
+    [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"%ld: %ld-%ld",(long)[HBSharedUtils currentLeague].leagueHistoryDictionary.count + [HBSharedUtils currentLeague].baseYear,(long)selectedTeam.wins,(long)selectedTeam.losses]];
     [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Prestige: %d",selectedTeam.teamPrestige]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setTableHeaderView:teamHeaderView];
@@ -282,7 +282,7 @@
         NSArray *cellStat = stats[indexPath.row];
         
         NSString *stat = @"";
-        if ([HBSharedUtils getLeague].currentWeek > 0) {
+        if ([HBSharedUtils currentLeague].currentWeek > 0) {
             stat = [NSString stringWithFormat:@"%@ (%@)", cellStat[0], cellStat[2]];
         } else {
             stat = cellStat[0];

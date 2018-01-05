@@ -40,7 +40,7 @@
         }
         if (teamHistoryDictionary.count < teamHistory.count) {
             for (int i = 0; i < teamHistory.count; i++) {
-                [teamHistoryDictionary setObject:teamHistory[i] forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + i)]];
+                [teamHistoryDictionary setObject:teamHistory[i] forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + i)]];
             }
         }
     }
@@ -1150,7 +1150,7 @@
         }
     }
 
-    [teamHistoryDictionary setObject:hist forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + league.leagueHistoryDictionary.count)]];
+    [teamHistoryDictionary setObject:hist forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + league.leagueHistoryDictionary.count)]];
 }
 
 -(void)updateStrengthOfWins {
@@ -2046,13 +2046,13 @@
 
 -(NSString*)gameSummaryString:(Game*)g {
     if ([g.homeTeam isEqual: self]) {
-        if ([HBSharedUtils getLeague].currentWeek > 0 && [HBSharedUtils getLeague].currentWeek > 0 && g.awayTeam.rankTeamPollScore > 0 && g.awayTeam.rankTeamPollScore < 26) {
+        if ([HBSharedUtils currentLeague].currentWeek > 0 && [HBSharedUtils currentLeague].currentWeek > 0 && g.awayTeam.rankTeamPollScore > 0 && g.awayTeam.rankTeamPollScore < 26) {
             return [NSString stringWithFormat:@"%ld - %ld vs #%ld %@",(long)g.homeScore,(long)g.awayScore,(long)g.awayTeam.rankTeamPollScore,g.awayTeam.abbreviation];
         } else {
             return [NSString stringWithFormat:@"%ld - %ld vs %@",(long)g.homeScore,(long)g.awayScore,g.awayTeam.abbreviation];
         }
     } else {
-        if ([HBSharedUtils getLeague].currentWeek > 0 && [HBSharedUtils getLeague].currentWeek > 0 && g.homeTeam.rankTeamPollScore > 0 && g.homeTeam.rankTeamPollScore < 26) {
+        if ([HBSharedUtils currentLeague].currentWeek > 0 && [HBSharedUtils currentLeague].currentWeek > 0 && g.homeTeam.rankTeamPollScore > 0 && g.homeTeam.rankTeamPollScore < 26) {
             return [NSString stringWithFormat:@"%ld - %ld vs #%ld %@",(long)g.awayScore,(long)g.homeScore,(long)g.homeTeam.rankTeamPollScore,g.homeTeam.abbreviation];
         } else {
             return [NSString stringWithFormat:@"%ld - %ld vs %@",(long)g.awayScore,(long)g.homeScore,g.homeTeam.abbreviation];
@@ -2072,12 +2072,12 @@
 -(NSString*)gameSummaryStringOpponent:(Game*)g {
     NSString *rank = @"";
     if ([g.homeTeam isEqual: self]) {
-        if ([HBSharedUtils getLeague].currentWeek > 0 && g.awayTeam.rankTeamPollScore < 26 && g.awayTeam.rankTeamPollScore > 0) {
+        if ([HBSharedUtils currentLeague].currentWeek > 0 && g.awayTeam.rankTeamPollScore < 26 && g.awayTeam.rankTeamPollScore > 0) {
             rank = [NSString stringWithFormat:@" #%ld",(long)g.awayTeam.rankTeamPollScore];
         }
         return [NSString stringWithFormat:@"vs%@ %@",rank,g.awayTeam.abbreviation];
     } else {
-        if ([HBSharedUtils getLeague].currentWeek > 0 && g.homeTeam.rankTeamPollScore < 26 && g.homeTeam.rankTeamPollScore > 0) {
+        if ([HBSharedUtils currentLeague].currentWeek > 0 && g.homeTeam.rankTeamPollScore < 26 && g.homeTeam.rankTeamPollScore > 0) {
             rank = [NSString stringWithFormat:@" #%ld",(long)g.homeTeam.rankTeamPollScore];
         }
         return [NSString stringWithFormat:@"@%@ %@",rank,g.homeTeam.abbreviation];

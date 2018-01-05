@@ -78,7 +78,7 @@
 -(void)viewDraftSummary {
     NSMutableString *draftSummary = [NSMutableString string];
     NSMutableArray *userDraftees = [NSMutableArray array];
-    Team *userTeam = [HBSharedUtils getLeague].userTeam;
+    Team *userTeam = [HBSharedUtils currentLeague].userTeam;
     for (Player *p in userTeam.teamQBs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];
@@ -164,7 +164,7 @@
         [draftSummary appendString:@"No players drafted"];
     }
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Draft Summary", [HBSharedUtils getLeague].userTeam.abbreviation] message:draftSummary preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Draft Summary", [HBSharedUtils currentLeague].userTeam.abbreviation] message:draftSummary preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
@@ -204,7 +204,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    draftRounds = [[HBSharedUtils getLeague] allDraftedPlayers];
+    draftRounds = [[HBSharedUtils currentLeague] allDraftedPlayers];
     if (draftRounds != nil && draftRounds.count == 7) {
         round1 = (draftRounds != nil && [draftRounds[0] count] > 0) ? draftRounds[0] : [NSMutableArray array];
         round2 = (draftRounds != nil && [draftRounds[1] count] > 0) ? draftRounds[1] : [NSMutableArray array];
@@ -218,7 +218,7 @@
     }
     
     if (!heisman) {
-        NSArray *candidates = [[HBSharedUtils getLeague] calculateHeismanCandidates];
+        NSArray *candidates = [[HBSharedUtils currentLeague] calculateHeismanCandidates];
         if (candidates.count > 0) {
             heisman = candidates[0];
         }
@@ -226,7 +226,7 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(changeRounds)];
-    self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)([HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count)];
+    self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)([HBSharedUtils currentLeague].baseYear + [HBSharedUtils currentLeague].leagueHistoryDictionary.count)];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
     
@@ -303,7 +303,7 @@
     [attName appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", p.position] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
     UIColor *nameColor = [UIColor blackColor];
-    if ([p.team isEqual:[HBSharedUtils getLeague].userTeam]) {
+    if ([p.team isEqual:[HBSharedUtils currentLeague].userTeam]) {
         nameColor = [HBSharedUtils styleColor];
     } else {
         if (heisman != nil) {

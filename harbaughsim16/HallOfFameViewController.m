@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"Hall of Fame";
-    curLeague = [HBSharedUtils getLeague];
+    curLeague = [HBSharedUtils currentLeague];
     userTeam = curLeague.userTeam;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:110];

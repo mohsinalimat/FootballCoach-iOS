@@ -57,7 +57,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if ([HBSharedUtils getLeague].isHardMode) {
+    if ([HBSharedUtils currentLeague].isHardMode) {
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Injury Report" style:UIBarButtonItemStylePlain target:self action:@selector(viewInjuryReport)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
         self.navigationController.toolbarHidden = NO;
     }

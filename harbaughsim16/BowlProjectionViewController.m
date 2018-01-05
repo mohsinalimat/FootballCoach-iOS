@@ -29,13 +29,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if ([HBSharedUtils getLeague].currentWeek >= 14) {
+    if ([HBSharedUtils currentLeague].currentWeek >= 14) {
        self.title = @"Bowl Results";
     } else {
         self.title = @"Bowl Predictions";
     }
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    bowlPredictions = [[HBSharedUtils getLeague] getBowlPredictions];
+    bowlPredictions = [[HBSharedUtils currentLeague] getBowlPredictions];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBScoreCell" bundle:nil] forCellReuseIdentifier:@"HBScoreCell"];
@@ -111,7 +111,7 @@
                 [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
                 [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
             } else {
-                if ([bowl.awayTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
+                if ([bowl.awayTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
                     [cell.teamNameLabel setTextColor:[HBSharedUtils styleColor]];
                     [cell.scoreLabel setTextColor:[HBSharedUtils styleColor]];
                 } else {
@@ -131,7 +131,7 @@
                 [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
                 [cell.scoreLabel setTextColor:[HBSharedUtils successColor]];
             } else {
-                if ([bowl.homeTeam isEqual:[HBSharedUtils getLeague].userTeam]) {
+                if ([bowl.homeTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
                     [cell.teamNameLabel setTextColor:[HBSharedUtils styleColor]];
                     [cell.scoreLabel setTextColor:[HBSharedUtils styleColor]];
                 } else {

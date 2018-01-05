@@ -42,16 +42,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    heisman = [[HBSharedUtils getLeague] heisman];
+    heisman = [[HBSharedUtils currentLeague] heisman];
     
-    if ([HBSharedUtils getLeague].currentWeek < 13) {
+    if ([HBSharedUtils currentLeague].currentWeek < 13) {
         self.title = @"POTY Leaders";
     } else {
         self.title = @"POTY Results";
     }
     self.tableView.rowHeight = 60;
     self.tableView.estimatedRowHeight = 60;
-    heismanLeaders = [[HBSharedUtils getLeague] getHeismanLeaders];
+    heismanLeaders = [[HBSharedUtils currentLeague] getHeismanLeaders];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
@@ -119,16 +119,16 @@
     
     [statsCell.playerLabel setText:[plyr getInitialName]];
     
-    if ([HBSharedUtils getLeague].currentWeek >= 13 && heisman != nil) {
+    if ([HBSharedUtils currentLeague].currentWeek >= 13 && heisman != nil) {
         [statsCell.teamLabel setText:plyr.team.abbreviation];
     } else {
         [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ (%d votes)", plyr.team.abbreviation, [plyr getHeismanScore]]];
     }
     
-    if ([statsCell.teamLabel.text containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+    if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
     } else {        
-        if ([HBSharedUtils getLeague].currentWeek >= 13 && heisman != nil) {
+        if ([HBSharedUtils currentLeague].currentWeek >= 13 && heisman != nil) {
             if ([heisman isEqual:plyr]) {
                 [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
             } else {

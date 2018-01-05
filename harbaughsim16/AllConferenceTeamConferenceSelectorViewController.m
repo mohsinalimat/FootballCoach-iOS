@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Select a conference to view";
-    conferences = [HBSharedUtils getLeague].conferences;
+    conferences = [HBSharedUtils currentLeague].conferences;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:50];

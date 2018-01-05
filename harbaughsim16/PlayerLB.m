@@ -92,7 +92,7 @@
         self.name = name;
         self.year = year;
         self.stars = stars;
-        self.startYear = (t != nil) ? (int)[t.league getCurrentYear] : (int)[[HBSharedUtils getLeague] getCurrentYear];
+        self.startYear = (t != nil) ? (int)[t.league getCurrentYear] : (int)[[HBSharedUtils currentLeague] getCurrentYear];
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int)([HBSharedUtils randomValue]*50 + 50);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);

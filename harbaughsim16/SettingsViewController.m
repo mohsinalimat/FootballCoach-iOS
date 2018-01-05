@@ -39,8 +39,8 @@
 }
 
 -(void)changeTeamName {
-    if ([HBSharedUtils getLeague].canRebrandTeam) {
-        Team *userTeam = [HBSharedUtils getLeague].userTeam;
+    if ([HBSharedUtils currentLeague].canRebrandTeam) {
+        Team *userTeam = [HBSharedUtils currentLeague].userTeam;
         NSString *oldName = userTeam.name;
         NSString *oldAbbrev = userTeam.abbreviation;
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rebrand Team" message:@"Enter your new team name and abbreviation below." preferredStyle:UIAlertControllerStyleAlert];
@@ -70,24 +70,24 @@
                 NSString* trimmedName = [words componentsJoinedByString:@""];
                 NSLog(@"TRIMMED: %@",trimmedName);
                 if (
-                    [[HBSharedUtils getLeague] isTeamNameValid:name.text allowUserTeam:NO allowOverwrite:NO]
-                    && [[HBSharedUtils getLeague] isTeamAbbrValid:abbrev.text allowUserTeam:NO allowOverwrite:NO]
-                    && [[HBSharedUtils getLeague] isStateValid:state.text]) {
+                    [[HBSharedUtils currentLeague] isTeamNameValid:name.text allowUserTeam:NO allowOverwrite:NO]
+                    && [[HBSharedUtils currentLeague] isTeamAbbrValid:abbrev.text allowUserTeam:NO allowOverwrite:NO]
+                    && [[HBSharedUtils currentLeague] isStateValid:state.text]) {
                     
-                    [[HBSharedUtils getLeague].userTeam setName:name.text];
-                    [[HBSharedUtils getLeague].userTeam setAbbreviation:abbrev.text];
-                    [[HBSharedUtils getLeague].userTeam setState:state.text];
+                    [[HBSharedUtils currentLeague].userTeam setName:name.text];
+                    [[HBSharedUtils currentLeague].userTeam setAbbreviation:abbrev.text];
+                    [[HBSharedUtils currentLeague].userTeam setState:state.text];
                     
-                    Team *rival = [[HBSharedUtils getLeague] findTeam:[HBSharedUtils getLeague].userTeam.rivalTeam];
-                    if (![userTeam isEqual:[[HBSharedUtils getLeague] findTeam:@"GEO"]] && [rival.abbreviation isEqualToString:@"ALA"]) {
+                    Team *rival = [[HBSharedUtils currentLeague] findTeam:[HBSharedUtils currentLeague].userTeam.rivalTeam];
+                    if (![userTeam isEqual:[[HBSharedUtils currentLeague] findTeam:@"GEO"]] && [rival.abbreviation isEqualToString:@"ALA"]) {
                         [rival setRivalTeam:@"GEO"];
                     }
-                    rival = [[HBSharedUtils getLeague] findTeam:[HBSharedUtils getLeague].userTeam.rivalTeam];
+                    rival = [[HBSharedUtils currentLeague] findTeam:[HBSharedUtils currentLeague].userTeam.rivalTeam];
                     [rival setRivalTeam:abbrev.text];
 
                     NSMutableArray *tempLeagueYear;
-                    for (int k = 0; k < [HBSharedUtils getLeague].leagueHistoryDictionary.count; k++) {
-                        NSArray *leagueYear = [HBSharedUtils getLeague].leagueHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + k)]];
+                    for (int k = 0; k < [HBSharedUtils currentLeague].leagueHistoryDictionary.count; k++) {
+                        NSArray *leagueYear = [HBSharedUtils currentLeague].leagueHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + k)]];
                         tempLeagueYear = [NSMutableArray arrayWithArray:leagueYear];
                         for (int i =0; i < leagueYear.count; i++) {
                             NSString *teamString = leagueYear[i];
@@ -102,38 +102,38 @@
                             }
                         }
                         
-                        [[HBSharedUtils getLeague].leagueHistoryDictionary setObject:[tempLeagueYear copy] forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + k)]];
+                        [[HBSharedUtils currentLeague].leagueHistoryDictionary setObject:[tempLeagueYear copy] forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + k)]];
                         [tempLeagueYear removeAllObjects];
                     }
                     
-                    for (int j = 0; j < [HBSharedUtils getLeague].userTeam.teamHistoryDictionary.count; j++) {
-                        NSString *yearString = [HBSharedUtils getLeague].userTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
+                    for (int j = 0; j < [HBSharedUtils currentLeague].userTeam.teamHistoryDictionary.count; j++) {
+                        NSString *yearString = [HBSharedUtils currentLeague].userTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
                         if ([yearString containsString:oldAbbrev]) {
                             yearString = [yearString stringByReplacingOccurrencesOfString:oldAbbrev withString:abbrev.text];
  
-                            [[HBSharedUtils getLeague].userTeam.teamHistoryDictionary setObject:yearString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
+                            [[HBSharedUtils currentLeague].userTeam.teamHistoryDictionary setObject:yearString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
                         }
                     }
                     
-                    for (int j = 0; j < [HBSharedUtils getLeague].heismanHistoryDictionary.count; j++) {
-                        NSString *heisString = [HBSharedUtils getLeague].heismanHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
+                    for (int j = 0; j < [HBSharedUtils currentLeague].heismanHistoryDictionary.count; j++) {
+                        NSString *heisString = [HBSharedUtils currentLeague].heismanHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
                         if ([heisString containsString:[NSString stringWithFormat:@", %@ (", oldAbbrev]]) {
                             heisString = [heisString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@", %@ (", oldAbbrev] withString:[NSString stringWithFormat:@", %@ (", abbrev.text]];
      
-                            [[HBSharedUtils getLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils getLeague].baseYear + j)]];
+                            [[HBSharedUtils currentLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
                         }
                     }
                     
-                    [[HBSharedUtils getLeague] save];
+                    [[HBSharedUtils currentLeague] save];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
                     [self.tableView reloadData];
 
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Rebrand successful!" message:[NSString stringWithFormat:@"Successfully rebranded your team to %@ (%@)!", name.text, abbrev.text] onViewController:self];
-                } else if (![[HBSharedUtils getLeague] isTeamAbbrValid:name.text allowUserTeam:NO allowOverwrite:NO]) {
+                } else if (![[HBSharedUtils currentLeague] isTeamAbbrValid:name.text allowUserTeam:NO allowOverwrite:NO]) {
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand your team - Invalid team name provided." onViewController:self];
-                } else if (![[HBSharedUtils getLeague] isTeamAbbrValid:abbrev.text allowUserTeam:NO allowOverwrite:NO]) {
+                } else if (![[HBSharedUtils currentLeague] isTeamAbbrValid:abbrev.text allowUserTeam:NO allowOverwrite:NO]) {
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand your team - Invalid abbreviation provided." onViewController:self];
-                } else if (![[HBSharedUtils getLeague] isStateValid:state.text]) {
+                } else if (![[HBSharedUtils currentLeague] isStateValid:state.text]) {
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand your team - Invalid state provided." onViewController:self];
                 } else {
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand your team - Invalid inputs provided." onViewController:self];
@@ -307,7 +307,7 @@
             
             if (indexPath.row == 1) {
                 [cell.textLabel setText:@"Rebrand Team"];
-                if ([HBSharedUtils getLeague].canRebrandTeam) {
+                if ([HBSharedUtils currentLeague].canRebrandTeam) {
                     [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
                     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                 } else {
@@ -317,7 +317,7 @@
                 }
             } else if (indexPath.row == 2) {
                 [cell.textLabel setText:@"Rebrand Conferences"];
-                if ([HBSharedUtils getLeague].canRebrandTeam) {
+                if ([HBSharedUtils currentLeague].canRebrandTeam) {
                     [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
                     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                 } else {
@@ -437,7 +437,7 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
                 BOOL success = [FCFileManager removeItemAtPath:@"league.cfb"];
                 if (success) {
-                    [HBSharedUtils getLeague].userTeam = nil;
+                    [HBSharedUtils currentLeague].userTeam = nil;
                     
                     [self dismissViewControllerAnimated:YES completion:^{
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"noSaveFile" object:nil];
@@ -450,11 +450,11 @@
             [self presentViewController:alert animated:YES completion:nil];
             
         } else if (indexPath.row == 1) {
-            if ([HBSharedUtils getLeague].canRebrandTeam) {
+            if ([HBSharedUtils currentLeague].canRebrandTeam) {
                 [self changeTeamName];
             }
         } else if (indexPath.row == 2) {
-            if ([HBSharedUtils getLeague].canRebrandTeam) {
+            if ([HBSharedUtils currentLeague].canRebrandTeam) {
                 popupController = [[STPopupController alloc] initWithRootViewController:[[RebrandConferenceSelectorViewController alloc] init]];
                 [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
                 [popupController.navigationBar setDraggable:YES];
@@ -462,7 +462,7 @@
                 [popupController presentInViewController:self];
             }
         } else if (indexPath.row == 3) { // export
-            NSString *metadataFile = [[HBSharedUtils getLeague] leagueMetadataJSON];
+            NSString *metadataFile = [[HBSharedUtils currentLeague] leagueMetadataJSON];
             UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[metadataFile] applicationActivities:nil];
             activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,UIActivityTypeAirDrop,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr,UIActivityTypeOpenInIBooks,UIActivityTypePostToWeibo,UIActivityTypeAddToReadingList,UIActivityTypePostToFacebook,UIActivityTypePostToTencentWeibo];
             [self presentViewController:activityVC animated:YES completion:nil];

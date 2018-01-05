@@ -92,7 +92,7 @@ typedef enum {
 
 @interface HBSharedUtils : NSObject
 +(double)randomValue;
-+(League*)getLeague;
++(League*)currentLeague;
 +(UIColor *)styleColor;
 +(UIColor *)errorColor;
 +(UIColor *)successColor;

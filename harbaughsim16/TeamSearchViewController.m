@@ -44,7 +44,7 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    teams = [HBSharedUtils getLeague].teamList;
+    teams = [HBSharedUtils currentLeague].teamList;
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     teams=[[teams sortedArrayUsingDescriptors:@[sort]] mutableCopy];
     
@@ -84,7 +84,7 @@
 -(void)refreshData {
     [teams removeAllObjects];
     if (searchString.length > 0 || ![searchString isEqualToString:@""]) {
-        for (Team *t in [HBSharedUtils getLeague].teamList) {
+        for (Team *t in [HBSharedUtils currentLeague].teamList) {
             if ([t.name.lowercaseString containsString:searchString.lowercaseString] || [t.abbreviation.lowercaseString containsString:searchString.lowercaseString] || [t.conference.lowercaseString containsString:searchString.lowercaseString]) {
                 if (![teams containsObject:t]) {
                     [teams addObject:t];

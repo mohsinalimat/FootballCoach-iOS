@@ -26,7 +26,7 @@
 }
 
 +(instancetype)newStreakWithOpponent:(Team*)opp {
-    return [[TeamStreak alloc] initWithTeam:[HBSharedUtils getLeague].userTeam opponent:opp];
+    return [[TeamStreak alloc] initWithTeam:[HBSharedUtils currentLeague].userTeam opponent:opp];
 }
 
 +(instancetype)newStreakWithTeam:(Team *)team opponent:(Team *)opp {

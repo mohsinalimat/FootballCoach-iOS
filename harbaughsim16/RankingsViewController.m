@@ -55,8 +55,8 @@
     
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:UITableViewAutomaticDimension];
-    teams = [HBSharedUtils getLeague].teamList;
-    //[[HBSharedUtils getLeague] setTeamRanks];
+    teams = [HBSharedUtils currentLeague].teamList;
+    
     if (selectedStatType == HBStatTypePollScore) {
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
@@ -65,7 +65,7 @@
             
         }];
         [self.tableView reloadData];
-        if ([HBSharedUtils getLeague].currentWeek >= 15) {
+        if ([HBSharedUtils currentLeague].currentWeek >= 15) {
             self.title = @"Final Polls";
         } else {
             self.title = @"Current Polls";
@@ -234,7 +234,7 @@
     Team *t = teams[indexPath.row];
     [cell.textLabel setText:[NSString stringWithFormat:@"#%ld: %@ (%ld-%ld)", (long)(indexPath.row + 1), t.name,(long)t.wins,(long)t.losses]];
     
-    if ([cell.textLabel.text containsString:[HBSharedUtils getLeague].userTeam.name]) {
+    if ([cell.textLabel.text containsString:[HBSharedUtils currentLeague].userTeam.name]) {
         [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
         [cell.textLabel setTextColor:[UIColor blackColor]];

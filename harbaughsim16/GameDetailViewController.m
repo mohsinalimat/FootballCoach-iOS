@@ -202,7 +202,7 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Game";
-    heisman = [[HBSharedUtils getLeague] heisman];
+    heisman = [[HBSharedUtils currentLeague] heisman];
     stats = [selectedGame gameReport];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBStatsCell" bundle:nil] forCellReuseIdentifier:@"HBStatsCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
@@ -326,16 +326,16 @@
         return @"Kickers";
     } else {
         if ([selectedGame.gameName isEqualToString:@"NCG"]) {
-            return [NSString stringWithFormat:@"%lu National Championship Game", (long)[[HBSharedUtils getLeague] getCurrentYear] + 1];
+            return [NSString stringWithFormat:@"%lu National Championship Game", (long)[[HBSharedUtils currentLeague] getCurrentYear] + 1];
         } else if ([selectedGame.gameName isEqualToString:@"Semis, 1v4"]) {
-            return [NSString stringWithFormat:@"%lu National Semifinal - #1 vs #4", (long)[[HBSharedUtils getLeague] getCurrentYear]];
+            return [NSString stringWithFormat:@"%lu National Semifinal - #1 vs #4", (long)[[HBSharedUtils currentLeague] getCurrentYear]];
         } else if ([selectedGame.gameName isEqualToString:@"Semis, 2v3"]) {
-            return [NSString stringWithFormat:@"%lu National Semifinal - #2 vs #3", (long)[[HBSharedUtils getLeague] getCurrentYear]];
+            return [NSString stringWithFormat:@"%lu National Semifinal - #2 vs #3", (long)[[HBSharedUtils currentLeague] getCurrentYear]];
         } else if ([selectedGame.gameName isEqualToString:@"In Conf"]) {
             return [NSString stringWithFormat:@"%@ Conference Play",selectedGame.homeTeam.conference];
         } else if ([selectedGame.gameName containsString:@" vs "]) {
-            Conference *home = [[HBSharedUtils getLeague] findConference:selectedGame.homeTeam.conference];
-            Conference *away = [[HBSharedUtils getLeague] findConference:selectedGame.awayTeam.conference];
+            Conference *home = [[HBSharedUtils currentLeague] findConference:selectedGame.homeTeam.conference];
+            Conference *away = [[HBSharedUtils currentLeague] findConference:selectedGame.awayTeam.conference];
             if (away != nil && home != nil) {
                 return [NSString stringWithFormat:@"%@ vs %@", away.confFullName, home.confFullName];
             } else {
@@ -428,7 +428,7 @@
             HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
             if (indexPath.row == 0) {
                 NSString *awayRank = @"";
-                if ([HBSharedUtils getLeague].currentWeek > 0 && selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
+                if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
                     awayRank = [NSString stringWithFormat:@"#%d ",selectedGame.awayTeam.rankTeamPollScore];
                 }
                 [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.name]];
@@ -436,7 +436,7 @@
                 [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.awayScore]];
             } else {
                 NSString *homeRank = @"";
-                if ([HBSharedUtils getLeague].currentWeek > 0 && selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
+                if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
                     homeRank = [NSString stringWithFormat:@"#%d ",selectedGame.homeTeam.rankTeamPollScore];
                 }
                 [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.name]];
@@ -557,7 +557,7 @@
             [statsCell.playerLabel setText:[plyr getInitialName]];
             [statsCell.teamLabel setText:plyr.team.abbreviation];
             
-            if ([HBSharedUtils getLeague].currentWeek >= 13 && heisman != nil) {
+            if ([HBSharedUtils currentLeague].currentWeek >= 13 && heisman != nil) {
                 if ([heisman isEqual:plyr]) {
                     [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
                 } else {
@@ -617,7 +617,7 @@
                 HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
                 if (indexPath.row == 0) {
                     NSString *awayRank = @"";
-                    if ([HBSharedUtils getLeague].currentWeek > 0 && selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
+                    if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
                         awayRank = [NSString stringWithFormat:@"#%d ",selectedGame.awayTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.name]];
@@ -632,7 +632,7 @@
                     }
                 } else {
                     NSString *homeRank = @"";
-                    if ([HBSharedUtils getLeague].currentWeek > 0 && selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
+                    if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
                         homeRank = [NSString stringWithFormat:@"#%d ",selectedGame.homeTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.name]];
@@ -793,7 +793,7 @@
                 [statsCell.teamLabel setText:selectedGame.awayTeam.abbreviation];
             }
             
-            if ([HBSharedUtils getLeague].currentWeek >= 13 && heisman != nil) {
+            if ([HBSharedUtils currentLeague].currentWeek >= 13 && heisman != nil) {
                 if ([heisman isEqual:plyr]) {
                     [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
                 } else {

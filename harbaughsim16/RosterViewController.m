@@ -43,7 +43,7 @@
         [self.tableView reloadData];
         [self.navigationItem.rightBarButtonItem setTitle:@"Reorder"];
         [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
-        [[HBSharedUtils getLeague] save];
+        [[HBSharedUtils currentLeague] save];
     } else {
         [super setEditing:YES animated:YES];
         [self.tableView setEditing:YES animated:YES];
@@ -175,7 +175,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if ([HBSharedUtils getLeague].isHardMode) {
+    if ([HBSharedUtils currentLeague].isHardMode) {
         [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Injury Report" style:UIBarButtonItemStylePlain target:self action:@selector(viewInjuryReport)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
         self.navigationController.toolbarHidden = NO;
     }
@@ -185,7 +185,7 @@
     [super viewDidLoad];
     self.title = @"Depth Chart";
     [self.tableView registerNib:[UINib nibWithNibName:@"HBRosterCell" bundle:nil] forCellReuseIdentifier:@"HBRosterCell"];
-    userTeam = [HBSharedUtils getLeague].userTeam;
+    userTeam = [HBSharedUtils currentLeague].userTeam;
     //[userTeam sortPlayers];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
@@ -223,7 +223,7 @@
 }
 
 -(void)reloadRoster {
-    userTeam = [HBSharedUtils getLeague].userTeam;
+    userTeam = [HBSharedUtils currentLeague].userTeam;
     //[userTeam sortPlayers];
     [self.tableView reloadData];
 }
