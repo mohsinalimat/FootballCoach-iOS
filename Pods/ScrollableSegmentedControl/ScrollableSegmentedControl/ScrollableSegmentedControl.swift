@@ -120,29 +120,29 @@ public enum ScrollableSegmentedControlSegmentStyle: Int {
         
         if let title = segment.title {
             if normalAttributes != nil {
-                segment.normalAttributedTitle = NSAttributedString(string: title, attributes: normalAttributes! as [String : Any])
+                segment.normalAttributedTitle = NSAttributedString(string: title, attributes: normalAttributes!)
             }
             
             if highlightedAttributes != nil {
-                segment.highlightedAttributedTitle = NSAttributedString(string: title, attributes: highlightedAttributes! as [String : Any])
+                segment.highlightedAttributedTitle = NSAttributedString(string: title, attributes: highlightedAttributes!)
             } else {
                 if selectedAttributes != nil {
-                    segment.highlightedAttributedTitle = NSAttributedString(string: title, attributes: selectedAttributes! as [String : Any])
+                    segment.highlightedAttributedTitle = NSAttributedString(string: title, attributes: selectedAttributes!)
                 } else {
                     if normalAttributes != nil {
-                        segment.highlightedAttributedTitle = NSAttributedString(string: title, attributes: normalAttributes! as [String : Any])
+                        segment.highlightedAttributedTitle = NSAttributedString(string: title, attributes: normalAttributes!)
                     }
                 }
             }
             
             if selectedAttributes != nil {
-                segment.selectedAttributedTitle = NSAttributedString(string: title, attributes: selectedAttributes! as [String : Any])
+                segment.selectedAttributedTitle = NSAttributedString(string: title, attributes: selectedAttributes!)
             } else {
                 if highlightedAttributes != nil {
-                    segment.selectedAttributedTitle = NSAttributedString(string: title, attributes: highlightedAttributes! as [String : Any])
+                    segment.selectedAttributedTitle = NSAttributedString(string: title, attributes: highlightedAttributes!)
                 } else {
                     if normalAttributes != nil {
-                        segment.selectedAttributedTitle = NSAttributedString(string: title, attributes: normalAttributes! as [String : Any])
+                        segment.selectedAttributedTitle = NSAttributedString(string: title, attributes: normalAttributes!)
                     }
                 }
             }
@@ -317,10 +317,10 @@ public enum ScrollableSegmentedControlSegmentStyle: Int {
         } else if selectedAttributes != nil {
             fontAttributes = selectedAttributes!
         } else {
-            fontAttributes =  [NSFontAttributeName as NSString: BaseSegmentCollectionViewCell.defaultFont]
+            fontAttributes =  [(NSAttributedStringKey.font as NSString) as NSAttributedStringKey: BaseSegmentCollectionViewCell.defaultFont]
         }
         
-        let size = (text as NSString).size(attributes: fontAttributes as [String : Any])
+        let size = (text as NSString).size(withAttributes: fontAttributes)
         let newLongestTextWidth = 2.0 + size.width + BaseSegmentCollectionViewCell.textPadding * 2
         if newLongestTextWidth > longestTextWidth {
             longestTextWidth = newLongestTextWidth
