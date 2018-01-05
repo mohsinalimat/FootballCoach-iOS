@@ -54,6 +54,7 @@ static UIColor *styleColor = nil;
 }
 
 +(League*)getLeague {
+    // This may get called on a background thread sometimes, but it's a necessary evil.
     League *ligue = [((AppDelegate*)[[UIApplication sharedApplication] delegate]) league];
     ligue.userTeam.isUserControlled = YES;
     return ligue;
