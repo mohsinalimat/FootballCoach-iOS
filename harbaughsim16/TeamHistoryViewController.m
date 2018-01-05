@@ -64,6 +64,7 @@
 
 -(void)viewPrestigeHistory {
     NSMutableArray *prestigeValues = [NSMutableArray array];
+    NSMutableArray *colorValues = [NSMutableArray array];
     for (int i = 0; i < history.count; i++) {
         NSInteger year = [HBSharedUtils getLeague].baseYear + i;
         float prestigeVal = 0.0;
@@ -74,7 +75,6 @@
             hist = selectedTeam.teamHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils getLeague].baseYear + i)]];
         }
         NSArray *comps = [hist componentsSeparatedByString:@"\n"];
-        //return ; // The value of the point on the Y-Axis for the index.
         NSString *prestigeString = nil;
         int i = 0;
         while (i < comps.count && (prestigeString == nil || ![prestigeString containsString:@"Prestige: "])) {
@@ -89,13 +89,31 @@
             NSNumber *prestigeNum = [[self numberFormatter] numberFromString:cleanPrestige];
             prestigeVal = prestigeNum.floatValue;
         }
+        
+        UIColor *teamColor;
+        if ([hist containsString:@"NCG - W"] || [hist containsString:@"NCW"]) {
+            teamColor = [HBSharedUtils champColor];
+        } else {
+            if ([hist containsString:@"Bowl - W"] || [hist containsString:@"Semis,1v4 - W"] || [hist containsString:@"Semis,2v3 - W"] || [hist containsString:@"BW"] || [hist containsString:@"SFW"]) {
+                teamColor = [UIColor orangeColor];
+            } else {
+                if ([hist containsString:@"CCG - W"] || [hist containsString:@"CC"]) {
+                    teamColor = [HBSharedUtils successColor];
+                } else {
+                    teamColor = [UIColor whiteColor];
+                }
+            }
+        }
+        [colorValues addObject:teamColor];
+        
         ChartDataEntry *entry = [[ChartDataEntry alloc] initWithX:year y:prestigeVal];
         [prestigeValues addObject:entry];
     }
     
     LineChartDataSet *prestigeHistLine = [[LineChartDataSet alloc] initWithValues:prestigeValues label:@"Prestige over Time"];
-    [prestigeHistLine setCircleColor:[UIColor clearColor]];
-    [prestigeHistLine setCircleHoleColor:[UIColor whiteColor]];
+    prestigeHistLine.circleColors = colorValues;
+    prestigeHistLine.circleRadius /= 2;
+    prestigeHistLine.drawCircleHoleEnabled = NO;
     prestigeHistLine.colors = @[[UIColor whiteColor]];
     prestigeHistLine.valueTextColor = [UIColor lightTextColor];
     
