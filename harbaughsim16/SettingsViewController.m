@@ -81,6 +81,9 @@
     
     if (![name isEqualToString:userTeam.name] && [userTeam.league isTeamNameValid:name allowUserTeam:NO allowOverwrite:NO]) {
         [[HBSharedUtils currentLeague].userTeam setName:name];
+        [[HBSharedUtils currentLeague] save];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
+        [self.tableView reloadData];
     } else if (![userTeam.league isTeamNameValid:name allowUserTeam:NO allowOverwrite:NO]) {
         [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to update your team's information - invalid team name provided" onViewController:self];
         return;
@@ -90,7 +93,6 @@
         [[HBSharedUtils currentLeague].userTeam setAbbreviation:abbrev];
         
         Team *rival = [[HBSharedUtils currentLeague] findTeam:[HBSharedUtils currentLeague].userTeam.rivalTeam];
-        rival = [[HBSharedUtils currentLeague] findTeam:[HBSharedUtils currentLeague].userTeam.rivalTeam];
         [rival setRivalTeam:abbrev];
         
         NSMutableArray *tempLeagueYear;
@@ -131,6 +133,10 @@
                 [[HBSharedUtils currentLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
             }
         }
+        
+        [[HBSharedUtils currentLeague] save];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
+        [self.tableView reloadData];
     } else if (![userTeam.league isTeamAbbrValid:abbrev allowUserTeam:NO allowOverwrite:NO]) {
         [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to update your team's information - invalid team abbreviation provided" onViewController:self];
         return;
@@ -138,18 +144,16 @@
     
     if (![state isEqualToString:userTeam.state] && [userTeam.league isStateValid:state]) {
         [[HBSharedUtils currentLeague].userTeam setState:state];
+        [[HBSharedUtils currentLeague] save];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
+        [self.tableView reloadData];
     } else if (![userTeam.league isStateValid:state]) {
         [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to update your team's information - invalid state provided" onViewController:self];
         return;
     }
     
-    [[HBSharedUtils currentLeague] save];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
-    [self.tableView reloadData];
     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Rebrand successful!" message:@"Successfully updated your team information!" onViewController:self];
-    
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Settings";
