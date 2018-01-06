@@ -56,6 +56,7 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes, I'd like a challenge." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [league setUserTeam:userTeam];
                 league.isHardMode = YES;
+                league.canRebrandTeam = YES;
                 [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
                 [league save];
                 
@@ -70,6 +71,7 @@
             [alert addAction:[UIAlertAction actionWithTitle:@"No, I'll stick with normal mode." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 [league setUserTeam:userTeam];
                 league.isHardMode = NO;
+                league.canRebrandTeam = YES;
                 [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
                 [league save];
                 

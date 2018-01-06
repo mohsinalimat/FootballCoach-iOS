@@ -94,7 +94,8 @@
         self.team = t;
         self.name = name;
         self.year = year;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + (int)t.league.baseYear;
+        self.stars = stars;
+        self.startYear = (t != nil) ? (int)[t.league getCurrentYear] : (int)[[HBSharedUtils currentLeague] getCurrentYear];
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int)([HBSharedUtils randomValue]*50 + 50);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
@@ -105,6 +106,12 @@
         self.position = @"CB";
         self.cost = pow(self.ratOvr / 6, 2) + ([HBSharedUtils randomValue] * 100) - 50;
         
+        if (t == nil) {
+            self.recruitStatus = CFCRecruitStatusUncommitted;
+        } else {
+            self.recruitStatus = CFCRecruitStatusCommitted;
+        }
+        
         NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 170;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 3);
         self.personalDetails = @{
@@ -112,6 +119,17 @@
                                  @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
                                  @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
                                  };
+        
+        CGFloat inMin = 0.0;
+        CGFloat inMax = 100.0;
+        
+        CGFloat outMin = 4.75;
+        CGFloat outMax = 4.33;
+        
+        CGFloat input = (CGFloat) self.ratCBSpd;
+        CGFloat fortyTime = (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+        self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", fortyTime];
+        
     }
     return self;
 }

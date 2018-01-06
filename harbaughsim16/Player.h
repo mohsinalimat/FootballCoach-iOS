@@ -11,14 +11,25 @@
 #import "Injury.h"
 #import "HBSharedUtils.h"
 
+typedef enum {
+    CFCRecruitStatusActivePlayer,
+    CFCRecruitStatusUncommitted,
+    CFCRecruitStatusCommitted,
+} CFCRecruitStatus;
+
 @interface Player : NSObject <NSCoding> {
     BOOL isDraftEligible; //deprecated
 }
 
 @property (strong, nonatomic) Team *team;
+@property (nonatomic) int stars;
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *position;
 @property (strong, nonatomic) NSDictionary *personalDetails; // { "height" : "6\'2\"", "weight" : "235 lbs", "home_state" : "Hawaii" };
+
+
+
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSNumber *> *offers;
 @property (nonatomic) int ratOvr;
 @property (nonatomic) int year;
 @property (nonatomic) int ratPot;
@@ -41,6 +52,10 @@
 @property (nonatomic) int startYear;
 @property (nonatomic) int endYear;
 
+// 40 times based on https://www.reddit.com/r/nfl/comments/48irjp/nfl_combine_full_data/
+@property (strong, nonatomic) NSString *fortyYardDashTime;
+@property (nonatomic) CFCRecruitStatus recruitStatus;
+
 -(BOOL)isInjured;
 -(NSString *)simpleAwardReport;
 +(NSArray *)letterGrades;
@@ -60,4 +75,7 @@
 -(NSDictionary*)detailedRatings;
 -(void)checkRecords;
 +(int)getPosNumber:(NSString*)pos;
+
+-(int)calculateInterestInTeam:(Team *)t;
+-(NSString *)uniqueIdentifier;
 @end

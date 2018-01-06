@@ -27,42 +27,42 @@
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-            self.confName = [aDecoder decodeObjectForKey:@"confName"];
-            self.confPrestige = [aDecoder decodeIntForKey:@"confPrestige"];
-            self.confTeams = [aDecoder decodeObjectForKey:@"confTeams"];
-            self.ccg = [aDecoder decodeObjectForKey:@"ccg"];
-            self.week = [aDecoder decodeIntForKey:@"week"];
-            self.robinWeek = [aDecoder decodeIntForKey:@"robinWeek"];
-            self.league = [aDecoder decodeObjectForKey:@"league"];
-    
-            if (![aDecoder containsValueForKey:@"allConferencePlayers"]) {
-                    self.allConferencePlayers = @{};
-                } else {
-                        self.allConferencePlayers = [aDecoder decodeObjectForKey:@"allConferencePlayers"];
-                    }
-    
-            if (![aDecoder containsValueForKey:@"confFullName"]) {
-                    if ([self.confName isEqualToString:@"SOUTH"]) {
-                            self.confFullName = @"Southern";
-                        } else if ([self.confName isEqualToString:@"COWBY"]) {
-                                self.confFullName = @"Cowboy";
-                            } else if ([self.confName isEqualToString:@"NORTH"]) {
-                                    self.confFullName = @"Northern";
-                                } else if ([self.confName isEqualToString:@"PACIF"]) {
-                                        self.confFullName = @"Pacific";
-                                    } else if ([self.confName isEqualToString:@"MOUNT"]) {
-                                            self.confFullName = @"Mountain";
-                                        } else if ([self.confName isEqualToString:@"LAKES"]) {
-                                                self.confFullName = @"Lakes";
-                                            } else {
-                                                    self.confFullName = @"Unknown";
-                                                }
-                } else {
-                        self.confFullName = [aDecoder decodeObjectForKey:@"confFullName"];
-                    }
-    
-    
+        self.confName = [aDecoder decodeObjectForKey:@"confName"];
+        self.confPrestige = [aDecoder decodeIntForKey:@"confPrestige"];
+        self.confTeams = [aDecoder decodeObjectForKey:@"confTeams"];
+        self.ccg = [aDecoder decodeObjectForKey:@"ccg"];
+        self.week = [aDecoder decodeIntForKey:@"week"];
+        self.robinWeek = [aDecoder decodeIntForKey:@"robinWeek"];
+        self.league = [aDecoder decodeObjectForKey:@"league"];
+        
+        if (![aDecoder containsValueForKey:@"allConferencePlayers"]) {
+            self.allConferencePlayers = @{};
+        } else {
+            self.allConferencePlayers = [aDecoder decodeObjectForKey:@"allConferencePlayers"];
         }
+        
+        if (![aDecoder containsValueForKey:@"confFullName"]) {
+            if ([self.confName isEqualToString:@"SOUTH"]) {
+                self.confFullName = @"Southern";
+            } else if ([self.confName isEqualToString:@"COWBY"]) {
+                self.confFullName = @"Cowboy";
+            } else if ([self.confName isEqualToString:@"NORTH"]) {
+                self.confFullName = @"Northern";
+            } else if ([self.confName isEqualToString:@"PACIF"]) {
+                self.confFullName = @"Pacific";
+            } else if ([self.confName isEqualToString:@"MOUNT"]) {
+                self.confFullName = @"Mountain";
+            } else if ([self.confName isEqualToString:@"LAKES"]) {
+                self.confFullName = @"Lakes";
+            } else {
+                self.confFullName = @"Unknown";
+            }
+        } else {
+            self.confFullName = [aDecoder decodeObjectForKey:@"confFullName"];
+        }
+        
+        
+    }
     return self;
 }
 
@@ -308,9 +308,9 @@
                 
                 Game *gm;
                 if ([HBSharedUtils randomValue] > 0.5) {
-                    gm = [Game newGameWithHome:a away:b name:[NSString stringWithFormat:@"%@ vs %@",[b.conference substringWithRange:NSMakeRange(0, 3)],[a.conference substringWithRange:NSMakeRange(0, 3)]]];
+                    gm = [Game newGameWithHome:a away:b name:[NSString stringWithFormat:@"%@ vs %@",[b.conference substringWithRange:NSMakeRange(0, MIN(3, b.conference.length))],[a.conference substringWithRange:NSMakeRange(0, MIN(3, a.conference.length))]]];
                 } else {
-                    gm = [Game newGameWithHome:b away:a name:[NSString stringWithFormat:@"%@ vs %@",[a.conference substringWithRange:NSMakeRange(0, 3)],[b.conference substringWithRange:NSMakeRange(0, 3)]]];
+                    gm = [Game newGameWithHome:b away:a name:[NSString stringWithFormat:@"%@ vs %@",[a.conference substringWithRange:NSMakeRange(0, MIN(3, a.conference.length))],[b.conference substringWithRange:NSMakeRange(0, MIN(3, b.conference.length))]]];
                 }
                 
                 if ( offsetOOC == 3 ) {
@@ -466,6 +466,55 @@
                            @"K"  : @[k]
                            };
     
+}
+
+-(NSString *)conferenceMetadataJSON {
+    NSMutableString *jsonString = [NSMutableString string];
+    [jsonString appendString:@"{"];
+    [jsonString appendFormat:@"\"confName\" : \"%@\", \"confFullName\" : \"%@\", \"confTeams\" : [",confName, confFullName];
+    for (Team *t in confTeams) {
+        [jsonString appendFormat:@"%@,",[t teamMetadataJSON]];
+    }
+    
+    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@","];
+    jsonString = [NSMutableString stringWithString:[jsonString stringByTrimmingCharactersInSet:charSet]];
+    [jsonString appendString:@"]"];
+    [jsonString appendString:@"}"];
+    return jsonString;
+}
+
+-(void)applyJSONMetadataChanges:(id)json {
+    NSError *error;
+    NSDictionary *jsonDict;
+    if ([json isKindOfClass:[NSString class]]) {
+        NSData *jsonData = [json dataUsingEncoding:NSUTF8StringEncoding];
+        jsonDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+    } else if ([json isKindOfClass:[NSDictionary class]]) {
+        jsonDict = (NSDictionary *)json;
+    } else {
+        NSLog(@"JSON is of invalid type");
+        return;
+    }
+    
+    if (!error) {
+        if ([league isConfAbbrValid:jsonDict[@"confName"]]) {
+            confName = jsonDict[@"confName"];
+        }
+        
+        if ([league isConfNameValid:jsonDict[@"confFullName"]]) {
+            confFullName = jsonDict[@"confFullName"];
+        }
+        
+        NSArray *jsonConfTeams = jsonDict[@"confTeams"];
+        
+        for (int i = 0; i < confTeams.count; i++) {
+             [confTeams[i] applyJSONMetadataChanges:jsonConfTeams[i]];
+        }
+        [self sortConfTeams];
+        
+    } else {
+        NSLog(@"ERROR parsing conf metadata: %@", error);
+    }
 }
 
 @end

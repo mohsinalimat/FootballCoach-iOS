@@ -27,7 +27,7 @@
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.tableFooterView = [UIView new];
-    grads = [[[HBSharedUtils getLeague] userTeam] playersLeaving];
+    grads = [[[HBSharedUtils currentLeague] userTeam] playersLeaving];
     [grads sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;

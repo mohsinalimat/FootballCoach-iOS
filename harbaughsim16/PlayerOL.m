@@ -57,7 +57,7 @@
         self.team = t;
         self.name = nm;
         self.year = yr;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + (int)t.league.baseYear;
+        self.startYear = (t != nil) ? (int)[t.league getCurrentYear] : (int)[[HBSharedUtils currentLeague] getCurrentYear];
         self.ratDur = dur;
         self.ratOvr = (pow*3 + rsh + pass)/5;
         self.ratPot = pot;
@@ -87,7 +87,8 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + (int)t.league.baseYear;
+        self.stars = stars;
+        self.startYear = (t != nil) ? (int)[t.league getCurrentYear] : (int)[[HBSharedUtils currentLeague] getCurrentYear];
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
@@ -97,6 +98,23 @@
         self.ratOvr = (self.ratOLPow*3 + self.ratOLBkR + self.ratOLBkP)/5;
         
         self.cost = (int)pow((float)self.ratOvr/6,2) + (int)([HBSharedUtils randomValue]*100) - 50;
+        
+        if (t == nil) {
+            self.recruitStatus = CFCRecruitStatusUncommitted;
+        } else {
+            self.recruitStatus = CFCRecruitStatusCommitted;
+        }
+       
+        CGFloat inMin = 0.0;
+        CGFloat inMax = 100.0;
+        
+        CGFloat outMin = 5.6;
+        CGFloat outMax = 4.9;
+        
+        CGFloat input = (CGFloat) self.ratOLPow;
+        CGFloat fortyTime = (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+        self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", fortyTime];
+        
         
         NSInteger weight = (int)([HBSharedUtils randomValue] * 100) + 290;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 2) + 6;

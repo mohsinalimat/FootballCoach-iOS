@@ -23,7 +23,7 @@
 
 #define HB_CURRENT_APP_VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 #define HB_APP_VERSION_PRE_OVERHAUL @"1.1.4"
-#define HB_APP_VERSION_POST_OVERHAUL @"1.2"
+#define HB_APP_VERSION_POST_OVERHAUL @"2.0"
 
 #define HB_SAVE_FILE_NEEDS_UPDATE YES
 
@@ -49,19 +49,71 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+#define MEETING_INTEREST_BONUS 5
+#define OFFICIAL_VISIT_INTEREST_BONUS 10
+#define INHOME_VISIT_INTEREST_BONUS 15
+
+#define MEETING_COST 12
+#define OFFICIAL_VISIT_COST 25
+#define INHOME_VISIT_COST 50
+#define EXTEND_OFFER_COST 75
+#define FLIP_COST 150
+
+typedef enum {
+    CFCRegionDistanceMatch,
+    CFCRegionDistanceNeighbor,
+    CFCRegionDistanceFar,
+    CFCRegionDistanceCrossCountry
+} CFCRegionDistance;
+
+typedef enum {
+    CFCRegionNortheast,
+    CFCRegionSouth,
+    CFCRegionMidwest,
+    CFCRegionWest,
+    CFCRegionUnknown
+} CFCRegion;
+
+typedef enum {
+    CFCRecruitEventPositionCoachMeeting,
+    CFCRecruitEventOfficialVisit,
+    CFCRecruitEventInHomeVisit,
+    CFCRecruitEventExtendOffer,
+    CFCRecruitEventCommitted,
+    CFCRecruitEventFlipped
+} CFCRecruitEvent;
+
+typedef enum {
+    CFCRecruitingStageWinter,
+    CFCRecruitingStageEarlySigningDay,
+    CFCRecruitingStageSigningDay,
+    CFCRecruitingStageFallCamp
+} CFCRecruitingStage;
+
 @interface HBSharedUtils : NSObject
 +(double)randomValue;
-+(League*)getLeague;
++(League*)currentLeague;
 +(UIColor *)styleColor;
 +(UIColor *)errorColor;
 +(UIColor *)successColor;
++(UIColor *)progressColor;
++(UIColor *)offeredColor;
 +(UIColor *)champColor;
 +(void)setStyleColor:(NSDictionary*)colorDict;
 +(NSArray *)colorOptions;
++(NSString*)firstNamesCSV;
++(NSString*)lastNamesCSV;
++ (NSArray *)states;
++ (NSString *)generalTutorialText;
++ (NSString *)recruitingTutorialText;
++ (NSString *)depthChartTutorialText;
++ (NSString *)metadataEditingText;
+
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor title:(NSString *)title message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(NSString *)randomState;
 
++(NSComparisonResult)compareRecruitingComposite:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePlayers:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePositions:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareDivTeams:(id)obj1 toObj2:(id)obj2;
@@ -69,6 +121,7 @@
 +(NSComparisonResult)comparePollScore:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareSoW:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePlayoffTeams:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareStars:(id)obj1 toObj2:(id)obj2;
 
 +(NSComparisonResult)compareTeamPPG:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareOppPPG:(id)obj1 toObj2:(id)obj2;
@@ -85,7 +138,15 @@
 +(NSComparisonResult)compareTeamPrestige:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareTeamLeastWins:(id)obj1 toObj2:(id)obj2;
 
++(NSString *)generateOfferString:(NSDictionary *)offers;
++(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers;
++(NSString *)_calculateInterestString:(int)interestVal;
++(NSString *)convertStarsToUIImageName:(int)stars;
+
 +(void)simulateEntireSeason:(int)weekTotal viewController:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback;
 +(void)playWeek:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback;
 
++(CFCRegion)regionForState:(NSString *)state;
++(CFCRegionDistance)distanceFromRegion:(CFCRegion)region1 toRegion:(CFCRegion)region2;
++ (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber;
 @end

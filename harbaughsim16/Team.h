@@ -62,6 +62,8 @@
 
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *abbreviation;
+@property (strong, nonatomic) NSString *state;
+
 @property (strong, nonatomic) NSString *conference;
 @property (strong, nonatomic) NSString *rivalTeam;
 @property (strong, nonatomic) NSMutableDictionary *teamHistoryDictionary;
@@ -96,6 +98,8 @@
 @property (strong, nonatomic) NSMutableArray<Player*> *injuredPlayers;
 @property (strong, nonatomic) NSMutableArray<Player*> *recoveredPlayers;
 @property (strong, nonatomic) NSMutableArray<Game*> *gameSchedule;
+@property (strong, nonatomic) NSMutableArray<Player *> *recruitingClass;
+
 @property (strong, nonatomic) Game *oocGame0;
 @property (strong, nonatomic) Game *oocGame4;
 @property (strong, nonatomic) Game *oocGame9;
@@ -120,6 +124,7 @@
 @property (nonatomic) int teamPrestige;
 @property (nonatomic) int teamPollScore;
 @property (nonatomic) int teamStrengthOfWins;
+@property (nonatomic) int teamRecruitingClassScore;
 
 @property (nonatomic) int teamStatOffNum;
 @property (nonatomic) int teamStatDefNum;
@@ -139,6 +144,7 @@
 @property (nonatomic) int rankTeamPollScore;
 @property (nonatomic) int rankTeamStrengthOfWins;
 @property (nonatomic) int rankTeamTotalWins;
+@property (nonatomic) int rankTeamRecruitingClassScore;
 
 //prestige/talent improvements
 @property (nonatomic) int diffPrestige;
@@ -203,8 +209,8 @@
 @property (strong, nonatomic) Record *careerFgMadeRecord;
 
 
--(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
-+ (instancetype)newTeamWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr;
+-(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr state:(NSString*)stt;
++(instancetype)newTeamWithName:(NSString *)nm abbreviation:(NSString *)abbr conference:(NSString *)conf league:(League *)league prestige:(int)prestige rivalTeam:(NSString *)rivalTeamAbbr state:(NSString*)stt;
 
 -(void)updateTalentRatings;
 -(void)advanceSeason;
@@ -220,6 +226,7 @@
 -(int)getOffensiveTalent;
 -(int)getDefensiveTalent;
 
+-(void)addPlayer:(Player*)p;
 -(PlayerQB*)getQB:(int)depth;
 -(PlayerRB*)getRB:(int)depth;
 -(PlayerWR*)getWR:(int)depth;
@@ -227,7 +234,6 @@
 -(PlayerOL*)getOL:(int)depth;
 -(PlayerS*)getS:(int)depth;
 -(PlayerCB*)getCB:(int)depth;
-//-(PlayerF7*)getF7:(int)depth;
 -(PlayerTE*)getTE:(int)depth;
 -(PlayerDL*)getDL:(int)depth;
 -(PlayerLB*)getLB:(int)depth;
@@ -280,4 +286,13 @@
 
 -(int)getCPUOffense;
 -(int)getCPUDefense;
+
+-(NSString *)teamMetadataJSON;
+-(NSInteger)importIdentifier;
+-(void)applyJSONMetadataChanges:(id)json;
+
+-(NSArray *)getPlayersAtPosition:(NSString*)pos;
+-(NSInteger)getTeamSize;
+
+-(void)calculateRecruitingClassRanking;
 @end

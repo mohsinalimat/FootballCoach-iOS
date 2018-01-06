@@ -56,7 +56,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    heisman = [[HBSharedUtils getLeague] heisman];
+    heisman = [[HBSharedUtils currentLeague] heisman];
     
     if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
@@ -71,7 +71,7 @@
     
     if (position == HBStatPositionQB) {
         self.title = @"Passing Leaders";
-        for (Team *t in [HBSharedUtils getLeague].teamList) {
+        for (Team *t in [HBSharedUtils currentLeague].teamList) {
             [players addObjectsFromArray:t.teamQBs];
         }
         [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -81,7 +81,7 @@
         }];
     } else if (position == HBStatPositionRB) {
         self.title = @"Rushing Leaders";
-        for (Team *t in [HBSharedUtils getLeague].teamList) {
+        for (Team *t in [HBSharedUtils currentLeague].teamList) {
             [players addObjectsFromArray:t.teamRBs];
         }
         
@@ -93,7 +93,7 @@
 
     } else if (position == HBStatPositionWR) {
         self.title = @"Receiving Leaders";
-        for (Team *t in [HBSharedUtils getLeague].teamList) {
+        for (Team *t in [HBSharedUtils currentLeague].teamList) {
             [players addObjectsFromArray:t.teamWRs];
         }
         
@@ -104,7 +104,7 @@
         }];
     } else {
         self.title = @"Kicking Leaders";
-        for (Team *t in [HBSharedUtils getLeague].teamList) {
+        for (Team *t in [HBSharedUtils currentLeague].teamList) {
             [players addObjectsFromArray:t.teamKs];
         }
         [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -444,10 +444,10 @@
     [statsCell.playerLabel setText:[plyr getInitialName]];
     [statsCell.teamLabel setText:plyr.team.abbreviation];
     
-    if ([statsCell.teamLabel.text containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+    if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
-        if ([HBSharedUtils getLeague].currentWeek > 14 && heisman != nil) {
+        if ([HBSharedUtils currentLeague].currentWeek > 14 && heisman != nil) {
             if ([heisman isEqual:plyr]) {
                 [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
             } else {

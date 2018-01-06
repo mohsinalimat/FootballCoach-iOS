@@ -53,7 +53,7 @@
             //[self simSeason:13]; - to bowl week
             //[self simSeason:6]; - to mid season
             //[self playWeek:nil]; - next week
-            int curWeek = [HBSharedUtils getLeague].currentWeek;
+            int curWeek = [HBSharedUtils currentLeague].currentWeek;
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Sim to a specific point" message:@"When in the season do you want to sim to?" preferredStyle:UIAlertControllerStyleActionSheet];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Next Week" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [HBSharedUtils playWeek:self headerView:nil callback:^{
@@ -100,7 +100,7 @@
 
 -(void)simSeason:(NSInteger)weekTotal {
     [HBSharedUtils simulateEntireSeason:(int)weekTotal viewController:self headerView:nil callback:^{
-        if ([HBSharedUtils getLeague].currentWeek <= 15) {
+        if ([HBSharedUtils currentLeague].currentWeek <= 15) {
             [self.tableView reloadData];
         }
         //[self setupTeamHeader];
@@ -109,9 +109,9 @@
 }
 
 -(void)resetSimButton {
-    if ([HBSharedUtils getLeague].recruitingStage == 0) {
+    if ([HBSharedUtils currentLeague].recruitingStage == 0) {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)([HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"Sim %ld",(long)([HBSharedUtils currentLeague].baseYear + [HBSharedUtils currentLeague].leagueHistoryDictionary.count)] style:UIBarButtonItemStylePlain target:self action:@selector(simulateEntireSeason)];
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
     } else {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
@@ -124,8 +124,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    userTeam = [HBSharedUtils getLeague].userTeam;
-    schedule = [[HBSharedUtils getLeague].userTeam.gameSchedule copy];
+    userTeam = [HBSharedUtils currentLeague].userTeam;
+    schedule = [[HBSharedUtils currentLeague].userTeam.gameSchedule copy];
     self.title = @"Schedule";
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 60;
@@ -139,7 +139,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetSimButton) name:@"newSaveFile" object:nil];
     
-    if ([HBSharedUtils getLeague].currentWeek < 15) {
+    if ([HBSharedUtils currentLeague].currentWeek < 15) {
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
     } else {
         [self.navigationItem.leftBarButtonItem setEnabled:NO];
@@ -162,8 +162,8 @@
 }
 
 -(void)reloadSchedule {
-    userTeam = [HBSharedUtils getLeague].userTeam;
-    schedule = [[HBSharedUtils getLeague].userTeam.gameSchedule copy];
+    userTeam = [HBSharedUtils currentLeague].userTeam;
+    schedule = [[HBSharedUtils currentLeague].userTeam.gameSchedule copy];
     [self.tableView reloadData];
 }
 

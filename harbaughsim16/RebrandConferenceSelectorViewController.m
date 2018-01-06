@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Select a conference to rebrand";
-    conferences = [HBSharedUtils getLeague].conferences;
+    conferences = [HBSharedUtils currentLeague].conferences;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:50];
@@ -90,7 +90,7 @@
     }];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        BOOL _notBad = ([[HBSharedUtils getLeague] isConfAbbrValid:alertController.textFields[1].text] && [[HBSharedUtils getLeague] isConfNameValid:alertController.textFields[0].text]);
+        BOOL _notBad = ([[HBSharedUtils currentLeague] isConfAbbrValid:alertController.textFields[1].text] && [[HBSharedUtils currentLeague] isConfNameValid:alertController.textFields[0].text]);
         
         if (!_notBad) {
             NSLog(@"BAD");
@@ -109,7 +109,7 @@
             [self dismissViewControllerAnimated:YES completion:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updatedConferences" object:nil];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [[HBSharedUtils getLeague] save];
+                [[HBSharedUtils currentLeague] save];
             });
         }
     }]];

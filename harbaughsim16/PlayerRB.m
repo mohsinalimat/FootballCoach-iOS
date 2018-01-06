@@ -82,7 +82,7 @@
         self.team = t;
         self.name = nm;
         self.year = yr;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + (int)t.league.baseYear;
+        self.startYear = (t != nil) ? (int)[t.league getCurrentYear] : (int)[[HBSharedUtils currentLeague] getCurrentYear];
         self.ratOvr = (pow + spd + eva)/3;
         self.ratPot = pot;
         self.ratDur = dur;
@@ -122,7 +122,8 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + (int)t.league.baseYear;
+        self.stars = stars;
+        self.startYear = (t != nil) ? (int)[t.league getCurrentYear] : (int)[[HBSharedUtils currentLeague] getCurrentYear];
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
@@ -132,6 +133,22 @@
         self.ratOvr = (self.ratRushPow + self.ratRushSpd + self.ratRushEva)/3;
         
         self.cost = (int)pow((float)self.ratOvr/4,2) + (int)([HBSharedUtils randomValue]*100) - 50;
+        
+        if (t == nil) {
+            self.recruitStatus = CFCRecruitStatusUncommitted;
+        } else {
+            self.recruitStatus = CFCRecruitStatusCommitted;
+        }
+        
+        CGFloat inMin = 0.0;
+        CGFloat inMax = 100.0;
+        
+        CGFloat outMin = 4.75;
+        CGFloat outMax = 4.30;
+        
+        CGFloat input = (CGFloat) self.ratRushSpd;
+        CGFloat fortyTime = (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+        self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", fortyTime];
         
         NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 4);
@@ -265,70 +282,70 @@
 -(void)checkRecords {
     //Carries
     if (self.statsRushAtt > self.team.singleSeasonCarriesRecord.statistic) {
-        self.team.singleSeasonCarriesRecord = [Record newRecord:@"Carries" player:self stat:self.statsRushAtt year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonCarriesRecord = [Record newRecord:@"Carries" player:self stat:self.statsRushAtt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsRushAtt > self.team.careerCarriesRecord.statistic) {
-        self.team.careerCarriesRecord = [Record newRecord:@"Carries" player:self stat:self.careerStatsRushAtt year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerCarriesRecord = [Record newRecord:@"Carries" player:self stat:self.careerStatsRushAtt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsRushAtt > self.team.league.singleSeasonCarriesRecord.statistic) {
-        self.team.league.singleSeasonCarriesRecord = [Record newRecord:@"Carries" player:self stat:self.statsRushAtt year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonCarriesRecord = [Record newRecord:@"Carries" player:self stat:self.statsRushAtt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsRushAtt > self.team.league.careerCarriesRecord.statistic) {
-        self.team.league.careerCarriesRecord = [Record newRecord:@"Carries" player:self stat:self.careerStatsRushAtt year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerCarriesRecord = [Record newRecord:@"Carries" player:self stat:self.careerStatsRushAtt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     //TD
     if (self.statsTD > self.team.singleSeasonRushTDsRecord.statistic) {
-        self.team.singleSeasonRushTDsRecord = [Record newRecord:@"Rush TDs" player:self stat:self.statsTD year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonRushTDsRecord = [Record newRecord:@"Rush TDs" player:self stat:self.statsTD year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsTD > self.team.careerRushTDsRecord.statistic) {
-        self.team.careerRushTDsRecord = [Record newRecord:@"Rush TDs" player:self stat:self.careerStatsTD year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerRushTDsRecord = [Record newRecord:@"Rush TDs" player:self stat:self.careerStatsTD year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsTD > self.team.league.singleSeasonRushTDsRecord.statistic) {
-        self.team.league.singleSeasonRushTDsRecord = [Record newRecord:@"Rush TDs" player:self stat:self.statsTD year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonRushTDsRecord = [Record newRecord:@"Rush TDs" player:self stat:self.statsTD year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsTD > self.team.league.careerRushTDsRecord.statistic) {
-        self.team.league.careerRushTDsRecord = [Record newRecord:@"Rush TDs" player:self stat:self.careerStatsTD year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerRushTDsRecord = [Record newRecord:@"Rush TDs" player:self stat:self.careerStatsTD year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     //Rush Yards
     if (self.statsRushYards > self.team.singleSeasonRushYardsRecord.statistic) {
-        self.team.singleSeasonRushYardsRecord = [Record newRecord:@"Rush Yards" player:self stat:self.statsRushYards year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonRushYardsRecord = [Record newRecord:@"Rush Yards" player:self stat:self.statsRushYards year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsRushYards > self.team.careerRushYardsRecord.statistic) {
-        self.team.careerRushYardsRecord = [Record newRecord:@"Rush Yards" player:self stat:self.careerStatsRushYards year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerRushYardsRecord = [Record newRecord:@"Rush Yards" player:self stat:self.careerStatsRushYards year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsRushYards > self.team.league.singleSeasonRushYardsRecord.statistic) {
-        self.team.league.singleSeasonRushYardsRecord = [Record newRecord:@"Rush Yards" player:self stat:self.statsRushYards year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonRushYardsRecord = [Record newRecord:@"Rush Yards" player:self stat:self.statsRushYards year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsRushYards > self.team.league.careerRushYardsRecord.statistic) {
-        self.team.league.careerRushYardsRecord = [Record newRecord:@"Rush Yards" player:self stat:self.careerStatsRushYards year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerRushYardsRecord = [Record newRecord:@"Rush Yards" player:self stat:self.careerStatsRushYards year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     //Fumbles
     if (self.statsFumbles > self.team.singleSeasonFumblesRecord.statistic) {
-        self.team.singleSeasonFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.statsFumbles year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.statsFumbles year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsFumbles > self.team.careerFumblesRecord.statistic) {
-        self.team.careerFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.careerStatsFumbles year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.careerStatsFumbles year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsFumbles > self.team.league.singleSeasonFumblesRecord.statistic) {
-        self.team.league.singleSeasonFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.statsFumbles year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.statsFumbles year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsFumbles > self.team.league.careerFumblesRecord.statistic) {
-        self.team.league.careerFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.careerStatsFumbles year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.careerStatsFumbles year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 }
 

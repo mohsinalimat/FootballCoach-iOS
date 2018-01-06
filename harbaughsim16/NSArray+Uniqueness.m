@@ -20,4 +20,21 @@
     }
     return true;
 }
+
+- (NSArray *)getElementsRandomly:(NSUInteger)count {
+    if ([self count] < count) {
+        return nil;
+    } else if ([self count] == count) {
+        return self;
+    }
+    
+    NSMutableSet* selection = [[NSMutableSet alloc] init];
+    
+    while ([selection count] < count) {
+        id randomObject = [self objectAtIndex: arc4random() % [self count]];
+        [selection addObject:randomObject];
+    }
+    
+    return [selection allObjects];
+}
 @end

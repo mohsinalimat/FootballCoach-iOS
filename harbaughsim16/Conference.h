@@ -32,4 +32,7 @@
 -(void)setUpOOCSchedule;
 -(void)setUpSchedule;
 -(void)refreshAllConferencePlayers;
+
+-(NSString *)conferenceMetadataJSON;
+-(void)applyJSONMetadataChanges:(id)json;
 @end

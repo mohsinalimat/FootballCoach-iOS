@@ -57,6 +57,7 @@
 @property (strong, nonatomic)  NSMutableArray<Conference*> *conferences;
 @property (strong, nonatomic)  NSMutableArray<Team*> *teamList;
 @property (strong, nonatomic)  NSMutableArray<NSString*> *nameList;
+@property (strong, nonatomic)  NSMutableArray<NSString*> *lastNameList;
 @property (strong, nonatomic)  NSMutableArray<NSMutableArray*> *newsStories;
 @property (strong, nonatomic)  NSMutableArray<Player *> *hallOfFamers;
 
@@ -127,9 +128,12 @@
 
 +(BOOL)loadSavedData;
 -(BOOL)isSaveCorrupt;
+@property (strong, nonatomic) NSArray<NSString *> *bowlTitles;
 -(NSArray*)bowlGameTitles;
+
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV;
-+(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName names:(NSString*)namesCSV;
++(instancetype)newLeagueFromCSV:(NSString*)namesCSV lastNamesCSV:(NSString*)lastNameCSV;
++(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName;
 
 -(int)getConfNumber:(NSString*)conf;
 -(void)playWeek;
@@ -164,8 +168,14 @@
 -(void)completeProDraft;
 -(void)updateHallOfFame;
 
--(BOOL)isTeamNameValid:(NSString*)name;
--(BOOL)isTeamAbbrValid:(NSString*)abbr;
+-(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite ;
+-(BOOL)isTeamAbbrValid:(NSString*)abbr allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite ;
 -(BOOL)isConfNameValid:(NSString*)name;
 -(BOOL)isConfAbbrValid:(NSString*)abbr;
+-(BOOL)isStateValid:(NSString*)stt;
+
+-(NSString *)leagueMetadataJSON;
+-(void)applyJSONMetadataChanges:(NSString *)json;
+
+-(NSInteger)getCurrentYear;
 @end

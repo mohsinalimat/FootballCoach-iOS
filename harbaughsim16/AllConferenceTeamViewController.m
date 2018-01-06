@@ -78,9 +78,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    heisman = [[HBSharedUtils getLeague] heisman];
+    heisman = [[HBSharedUtils currentLeague] heisman];
     
-    self.title = [NSString stringWithFormat:@"%ld's All-%@ Team", (long)([HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count), selectedConf.confName];
+    self.title = [NSString stringWithFormat:@"%ld's All-%@ Team", (long)([HBSharedUtils currentLeague].baseYear + [HBSharedUtils currentLeague].leagueHistoryDictionary.count), selectedConf.confName];
     players = selectedConf.allConferencePlayers;
         
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
@@ -222,7 +222,7 @@
     [statsCell.playerLabel setText:[plyr getInitialName]];
     [statsCell.teamLabel setText:plyr.team.abbreviation];
     
-    if ([statsCell.teamLabel.text containsString:[HBSharedUtils getLeague].userTeam.abbreviation]) {
+    if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
         if (heisman != nil) {

@@ -103,7 +103,7 @@
         self.team = t;
         self.name = nm;
         self.year = yr;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + (int)t.league.baseYear;
+        self.startYear = (t != nil) ? (int)[t.league getCurrentYear] : (int)[[HBSharedUtils currentLeague] getCurrentYear];
         self.ratDur = dur;
         self.ratOvr = (pow + acc)/2;
         self.ratPot = pot;
@@ -117,7 +117,7 @@
         NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 190;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 2);
         self.personalDetails = @{
-                                 @"homeself.state" : [HBSharedUtils randomState],
+                                 @"home_state" : [HBSharedUtils randomState],
                                  @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
                                  @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
                                  };
@@ -143,7 +143,8 @@
         self.name = nm;
         self.year = yr;
         self.team = t;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + (int)t.league.baseYear;
+        self.stars = stars;
+        self.startYear = (t != nil) ? (int)[t.league getCurrentYear] : (int)[[HBSharedUtils currentLeague] getCurrentYear];
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
@@ -154,13 +155,20 @@
         
         self.cost = (int)((pow((float)self.ratOvr/3.5,2) + (int)([HBSharedUtils randomValue]*100) - 50) / 3);
         
+        if (t == nil) {
+            self.recruitStatus = CFCRecruitStatusUncommitted;
+        } else {
+            self.recruitStatus = CFCRecruitStatusCommitted;
+        }
+        
         NSInteger weight = (int)([HBSharedUtils randomValue] * 25) + 190;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 2);
         self.personalDetails = @{
-                                 @"homeself.state" : [HBSharedUtils randomState],
+                                 @"home_state" : [HBSharedUtils randomState],
                                  @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
                                  @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
                                  };
+        self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", [HBSharedUtils randomFloatBetween:4.70 and:4.90]];
         
         self.statsXPAtt = 0;
         self.statsXPMade = 0;
@@ -283,36 +291,36 @@
 -(void)checkRecords {
     //XpMade
     if (self.statsXPMade > self.team.singleSeasonXpMadeRecord.statistic) {
-        self.team.singleSeasonXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.statsXPMade year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.statsXPMade year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsXPMade > self.team.careerXpMadeRecord.statistic) {
-        self.team.careerXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.careerStatsXPMade year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.careerStatsXPMade year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsXPMade > self.team.league.singleSeasonXpMadeRecord.statistic) {
-        self.team.league.singleSeasonXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.statsXPMade year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.statsXPMade year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsXPMade > self.team.league.careerXpMadeRecord.statistic) {
-        self.team.league.careerXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.careerStatsXPMade year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerXpMadeRecord = [Record newRecord:@"XP Made" player:self stat:self.careerStatsXPMade year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     //FGMade
     if (self.statsFGMade > self.team.singleSeasonFgMadeRecord.statistic) {
-        self.team.singleSeasonFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.statsFGMade year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.singleSeasonFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.statsFGMade year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsFGMade > self.team.careerFgMadeRecord.statistic) {
-        self.team.careerFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.careerStatsFGMade year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.careerFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.careerStatsFGMade year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.statsFGMade > self.team.league.singleSeasonFgMadeRecord.statistic) {
-        self.team.league.singleSeasonFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.statsFGMade year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.singleSeasonFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.statsFGMade year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.careerStatsFGMade > self.team.league.careerFgMadeRecord.statistic) {
-        self.team.league.careerFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.careerStatsFGMade year:(int)([HBSharedUtils getLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerFgMadeRecord = [Record newRecord:@"FG Made" player:self stat:self.careerStatsFGMade year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
 }

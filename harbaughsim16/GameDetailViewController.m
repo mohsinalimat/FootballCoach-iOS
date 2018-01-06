@@ -202,7 +202,7 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Game";
-    heisman = [[HBSharedUtils getLeague] heisman];
+    heisman = [[HBSharedUtils currentLeague] heisman];
     stats = [selectedGame gameReport];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBStatsCell" bundle:nil] forCellReuseIdentifier:@"HBStatsCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
@@ -326,16 +326,16 @@
         return @"Kickers";
     } else {
         if ([selectedGame.gameName isEqualToString:@"NCG"]) {
-            return [NSString stringWithFormat:@"%ld National Championship Game", [HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count + 1];
+            return [NSString stringWithFormat:@"%lu National Championship Game", (long)[[HBSharedUtils currentLeague] getCurrentYear] + 1];
         } else if ([selectedGame.gameName isEqualToString:@"Semis, 1v4"]) {
-            return [NSString stringWithFormat:@"%ld National Semifinal - #1 vs #4", [HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count];
+            return [NSString stringWithFormat:@"%lu National Semifinal - #1 vs #4", (long)[[HBSharedUtils currentLeague] getCurrentYear]];
         } else if ([selectedGame.gameName isEqualToString:@"Semis, 2v3"]) {
-            return [NSString stringWithFormat:@"%ld National Semifinal - #2 vs #3", [HBSharedUtils getLeague].baseYear + [HBSharedUtils getLeague].leagueHistoryDictionary.count];
+            return [NSString stringWithFormat:@"%lu National Semifinal - #2 vs #3", (long)[[HBSharedUtils currentLeague] getCurrentYear]];
         } else if ([selectedGame.gameName isEqualToString:@"In Conf"]) {
             return [NSString stringWithFormat:@"%@ Conference Play",selectedGame.homeTeam.conference];
         } else if ([selectedGame.gameName containsString:@" vs "]) {
-            Conference *home = [[HBSharedUtils getLeague] findConference:selectedGame.homeTeam.conference];
-            Conference *away = [[HBSharedUtils getLeague] findConference:selectedGame.awayTeam.conference];
+            Conference *home = [[HBSharedUtils currentLeague] findConference:selectedGame.homeTeam.conference];
+            Conference *away = [[HBSharedUtils currentLeague] findConference:selectedGame.awayTeam.conference];
             if (away != nil && home != nil) {
                 return [NSString stringWithFormat:@"%@ vs %@", away.confFullName, home.confFullName];
             } else {
@@ -361,7 +361,7 @@
                 if (selectedGame.numOT == 1) {
                     return @"Final (OT)";
                 } else {
-                    return [NSString stringWithFormat:@"Final (%ldOT)",(long)selectedGame.numOT];
+                    return [NSString stringWithFormat:@"Final (%luOT)",(long)selectedGame.numOT];
                 }
             } else {
                 return @"Final";
@@ -428,19 +428,19 @@
             HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
             if (indexPath.row == 0) {
                 NSString *awayRank = @"";
-                if ([HBSharedUtils getLeague].currentWeek > 0 && selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
+                if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
                     awayRank = [NSString stringWithFormat:@"#%d ",selectedGame.awayTeam.rankTeamPollScore];
                 }
                 [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.name]];
-                [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",selectedGame.awayTeam.wins,selectedGame.awayTeam.losses,(long)[selectedGame.awayTeam calculateConfWins], (long)[selectedGame.awayTeam calculateConfLosses],selectedGame.awayTeam.conference]];
+                [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%lu-%lu) %@",selectedGame.awayTeam.wins,selectedGame.awayTeam.losses,(long)[selectedGame.awayTeam calculateConfWins], (long)[selectedGame.awayTeam calculateConfLosses],selectedGame.awayTeam.conference]];
                 [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.awayScore]];
             } else {
                 NSString *homeRank = @"";
-                if ([HBSharedUtils getLeague].currentWeek > 0 && selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
+                if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
                     homeRank = [NSString stringWithFormat:@"#%d ",selectedGame.homeTeam.rankTeamPollScore];
                 }
                 [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.name]];
-                [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",selectedGame.homeTeam.wins,selectedGame.homeTeam.losses,(long)[selectedGame.homeTeam calculateConfWins], (long)[selectedGame.homeTeam calculateConfLosses],selectedGame.homeTeam.conference]];
+                [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%lu-%lu) %@",selectedGame.homeTeam.wins,selectedGame.homeTeam.losses,(long)[selectedGame.homeTeam calculateConfWins], (long)[selectedGame.homeTeam calculateConfLosses],selectedGame.homeTeam.conference]];
                 [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.homeScore]];
             }
             return cell;
@@ -557,7 +557,7 @@
             [statsCell.playerLabel setText:[plyr getInitialName]];
             [statsCell.teamLabel setText:plyr.team.abbreviation];
             
-            if ([HBSharedUtils getLeague].currentWeek >= 13 && heisman != nil) {
+            if ([HBSharedUtils currentLeague].currentWeek >= 13 && heisman != nil) {
                 if ([heisman isEqual:plyr]) {
                     [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
                 } else {
@@ -592,7 +592,7 @@
                 } else if (selectedGame.awayTeam.injuredPlayers.count == 1) {
                     number = @"1 player out";
                 } else {
-                    number = [NSString stringWithFormat:@"%ld players out",(long)selectedGame.awayTeam.injuredPlayers.count];
+                    number = [NSString stringWithFormat:@"%lu players out",(long)selectedGame.awayTeam.injuredPlayers.count];
                 }
                 [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.awayTeam.abbreviation]];
                 [cell.detailTextLabel setText:number];
@@ -603,7 +603,7 @@
                 } else if (selectedGame.homeTeam.injuredPlayers.count == 1) {
                     number = @"1 player out";
                 } else {
-                    number = [NSString stringWithFormat:@"%ld players out",(long)selectedGame.awayTeam.injuredPlayers.count];
+                    number = [NSString stringWithFormat:@"%lu players out",(long)selectedGame.awayTeam.injuredPlayers.count];
                 }
                 [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.homeTeam.abbreviation]];
                 [cell.detailTextLabel setText:number];
@@ -617,11 +617,11 @@
                 HBScoreCell *cell = (HBScoreCell*)[tableView dequeueReusableCellWithIdentifier:@"HBScoreCell"];
                 if (indexPath.row == 0) {
                     NSString *awayRank = @"";
-                    if ([HBSharedUtils getLeague].currentWeek > 0 && selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
+                    if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedGame.awayTeam.rankTeamPollScore < 26 && selectedGame.awayTeam.rankTeamPollScore > 0) {
                         awayRank = [NSString stringWithFormat:@"#%d ",selectedGame.awayTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.name]];
-                    [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",selectedGame.awayTeam.wins,selectedGame.awayTeam.losses,(long)[selectedGame.awayTeam calculateConfWins], (long)[selectedGame.awayTeam calculateConfLosses],selectedGame.awayTeam.conference]];
+                    [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%lu-%lu) %@",selectedGame.awayTeam.wins,selectedGame.awayTeam.losses,(long)[selectedGame.awayTeam calculateConfWins], (long)[selectedGame.awayTeam calculateConfLosses],selectedGame.awayTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.awayScore]];
                     if (selectedGame.homeScore < selectedGame.awayScore) {
                         [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
@@ -632,11 +632,11 @@
                     }
                 } else {
                     NSString *homeRank = @"";
-                    if ([HBSharedUtils getLeague].currentWeek > 0 && selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
+                    if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
                         homeRank = [NSString stringWithFormat:@"#%d ",selectedGame.homeTeam.rankTeamPollScore];
                     }
                     [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.name]];
-                    [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%ld-%ld) %@",selectedGame.homeTeam.wins,selectedGame.homeTeam.losses,(long)[selectedGame.homeTeam calculateConfWins], (long)[selectedGame.homeTeam calculateConfLosses],selectedGame.homeTeam.conference]];
+                    [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%lu-%lu) %@",selectedGame.homeTeam.wins,selectedGame.homeTeam.losses,(long)[selectedGame.homeTeam calculateConfWins], (long)[selectedGame.homeTeam calculateConfLosses],selectedGame.homeTeam.conference]];
                     [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.homeScore]];
                     if (selectedGame.homeScore > selectedGame.awayScore) {
                         [cell.teamNameLabel setTextColor:[HBSharedUtils successColor]];
@@ -793,7 +793,7 @@
                 [statsCell.teamLabel setText:selectedGame.awayTeam.abbreviation];
             }
             
-            if ([HBSharedUtils getLeague].currentWeek >= 13 && heisman != nil) {
+            if ([HBSharedUtils currentLeague].currentWeek >= 13 && heisman != nil) {
                 if ([heisman isEqual:plyr]) {
                     [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
                 } else {

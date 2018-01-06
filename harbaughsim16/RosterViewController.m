@@ -41,15 +41,19 @@
         [super setEditing:NO animated:NO];
         [self.tableView setEditing:NO animated:NO];
         [self.tableView reloadData];
-        [self.navigationItem.rightBarButtonItem setTitle:@"Reorder"];
-        [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
-        [[HBSharedUtils getLeague] save];
+        if (!userTeam.league.isHardMode) {
+            [self.navigationItem.rightBarButtonItem setTitle:@"Reorder"];
+            [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
+        }
+        [[HBSharedUtils currentLeague] save];
     } else {
         [super setEditing:YES animated:YES];
         [self.tableView setEditing:YES animated:YES];
         [self.tableView reloadData];
-        [self.navigationItem.rightBarButtonItem setTitle:@"Done"];
-        [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+        if (!userTeam.league.isHardMode) {
+            [self.navigationItem.rightBarButtonItem setTitle:@"Done"];
+            [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+        }
     }
 }
 
@@ -172,31 +176,50 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    if ([HBSharedUtils getLeague].isHardMode) {
-        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Injury Report" style:UIBarButtonItemStylePlain target:self action:@selector(viewInjuryReport)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
-        self.navigationController.toolbarHidden = NO;
+-(void)viewRosterOptions {
+    UIAlertController *rosterOptionsController = [UIAlertController alertControllerWithTitle:@"Roster Options" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    if (!self.editing) {
+        [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Edit Roster" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self manageEditing];
+        }]];
+    } else {
+        [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Save Roster Changes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self manageEditing];
+        }]];
     }
+    
+    if ([HBSharedUtils currentLeague].isHardMode) {
+        [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"View Injury Report" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self viewInjuryReport];
+        }]];
+    }
+    
+    [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    
+    [self presentViewController:rosterOptionsController animated:YES completion:nil];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Depth Chart";
     [self.tableView registerNib:[UINib nibWithNibName:@"HBRosterCell" bundle:nil] forCellReuseIdentifier:@"HBRosterCell"];
-    userTeam = [HBSharedUtils getLeague].userTeam;
+    userTeam = [HBSharedUtils currentLeague].userTeam;
     //[userTeam sortPlayers];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Reorder" style:UIBarButtonItemStylePlain target:self action:@selector(manageEditing)];
-    [self.navigationItem setRightBarButtonItem:addButton];
+    if (userTeam.league.isHardMode) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(viewRosterOptions)];
+    } else {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reorder" style:UIBarButtonItemStylePlain target:self action:@selector(manageEditing)];
+    }
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(scrollToPositionGroup)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"injuriesPosted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"awardsPosted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"updateInjuryCount" object:nil];
     
     BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_ROSTER_TUTORIAL_SHOWN_KEY];
     if (!tutorialShown) {
@@ -204,7 +227,7 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         //display intro screen
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Depth Chart Tips" message:@"This page contains your team's roster, separated into depth charts by position and ordered by overall rating. At any time during the season, you can start or sit players by moving them up or down on the depth chart. Redshirted players will always appear at the bottom of the depth chart. \nThe positions:\n\nQB = Quarterback\n\nRB = Running Back\n\nWR = Wide Reciever\n\nTE = Tight End\n\nOL = Offensive Line\n\nDL = Defensive Line\n\nLB = Linebacker\n\nCB = Cornerback\n\nS = Safety\n\nK = Kicker\n\n\nAt the end of each season, graduating seniors and highly-touted juniors will leave the program and open up spots on the roster, which you can fill during the recruiting period. Over the offseason, players will grow and their stats will improve, as they train and learn from their in-game experience. Some players may even turn into superstars through your offseason training program. Manage your roster carefully, recruit and play the right players, and your team will become a force to be reckoned with. Good luck, coach!" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Depth Chart Tips" message:[HBSharedUtils depthChartTutorialText] preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
             [self presentViewController:alertController animated:YES completion:nil];
         });
@@ -216,6 +239,7 @@
 -(void)reloadAll {
     [self.tableView reloadData];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
 }
 
 -(void)dealloc {
@@ -223,8 +247,14 @@
 }
 
 -(void)reloadRoster {
-    userTeam = [HBSharedUtils getLeague].userTeam;
-    //[userTeam sortPlayers];
+    userTeam = [HBSharedUtils currentLeague].userTeam;
+    if (userTeam.league.isHardMode) {
+        if (userTeam.injuredPlayers.count > 0) {
+            [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)userTeam.injuredPlayers.count];
+        } else {
+            [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
+        }
+    }
     [self.tableView reloadData];
 }
 

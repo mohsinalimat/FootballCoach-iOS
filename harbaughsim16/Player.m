@@ -15,119 +15,125 @@
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self) {
-            self.name = [aDecoder decodeObjectForKey:@"name"];
-            self.position = [aDecoder decodeObjectForKey:@"position"];
-            self.ratOvr = [aDecoder decodeIntForKey:@"ratOvr"];
-            self.ratPot = [aDecoder decodeIntForKey:@"ratPot"];
-            self.ratImprovement = [aDecoder decodeIntForKey:@"ratImprovement"];
-            self.year = [aDecoder decodeIntForKey:@"year"];
-            self.ratFootIQ = [aDecoder decodeIntForKey:@"ratFootIQ"];
-            self.cost = [aDecoder decodeIntForKey:@"cost"];
-            self.gamesPlayed = [aDecoder decodeIntForKey:@"gamesPlayed"];
-            self.injury = [aDecoder decodeObjectForKey:@"injury"];
-            self.team = [aDecoder decodeObjectForKey:@"team"];
-    
-            if ([aDecoder containsValueForKey:@"draftPosition"]) {
-                    self.draftPosition = [aDecoder decodeObjectForKey:@"draftPosition"];
-                } else {
-                        self.draftPosition = nil;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"hasRedshirt"]) {
-                    self.hasRedshirt = [aDecoder decodeBoolForKey:@"hasRedshirt"];
-                } else {
-                        self.hasRedshirt = NO;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"wasRedshirted"]) {
-                    self.wasRedshirted = [aDecoder decodeBoolForKey:@"wasRedshirted"];
-                } else {
-                        self.wasRedshirted = NO;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"isHeisman"]) {
-                    self.isHeisman = [aDecoder decodeBoolForKey:@"isHeisman"];
-                } else {
-                        self.isHeisman = NO;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"isAllAmerican"]) {
-                    self.isAllAmerican = [aDecoder decodeBoolForKey:@"isAllAmerican"];
-                } else {
-                        self.isAllAmerican = NO;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"isAllConference"]) {
-                    self.isAllConference = [aDecoder decodeBoolForKey:@"isAllConference"];
-                } else {
-                        self.isAllConference = NO;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"ratDur"]) {
-                    self.ratDur = [aDecoder decodeIntForKey:@"ratDur"];
-                } else {
-                        self.ratDur = (int) (50 + 50 * [HBSharedUtils randomValue]);
-                    }
-    
-            if ([aDecoder containsValueForKey:@"careerHeismans"]) {
-                    self.careerHeismans = [aDecoder decodeIntForKey:@"careerHeismans"];
-                } else {
-                        self.careerHeismans = 0;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"careerAllConferences"]) {
-                    self.careerAllConferences = [aDecoder decodeIntForKey:@"careerAllConferences"];
-                } else {
-                        self.careerAllConferences = 0;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"careerAllAmericans"]) {
-                    self.careerAllAmericans = [aDecoder decodeIntForKey:@"careerAllAmericans"];
-                } else {
-                        self.careerAllAmericans = 0;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"endYear"]) {
-                    self.endYear = [aDecoder decodeIntForKey:@"endYear"];
-                } else {
-                        self.endYear = 0;
-                    }
-    
-            if ([aDecoder containsValueForKey:@"gamesPlayedSeason"]) {
-                    self.gamesPlayedSeason = [aDecoder decodeIntForKey:@"gamesPlayedSeason"];
-                } else {
-                        if (self.gamesPlayed > 0) {
-                                if (self.team.league.leagueHistoryDictionary.count > 0) {
-                                        NSInteger activeYears = self.team.league.leagueHistoryDictionary.count;
-                                        self.gamesPlayedSeason = self.gamesPlayed % activeYears;
-                                    } else {
-                                            self.gamesPlayedSeason = 0;
-                                        }
-                            } else {
-                                    self.gamesPlayedSeason = 0;
-                                }
-                    }
-    
-            if ([aDecoder containsValueForKey:@"startYear"]) {
-                    int tstStartYr = [aDecoder decodeIntForKey:@"startYear"];
-                    if (tstStartYr < 0) {
-                            self.startYear = self.endYear - (abs(tstStartYr));
-                        } else if (self.endYear != 0 && abs(tstStartYr - self.endYear) > 4) {
-                                self.startYear = self.endYear - 4;
-                            } else {
-                                    self.startYear = [aDecoder decodeIntForKey:@"startYear"];
-                                }
-                } else {
-                        if (self.draftPosition != nil || self.endYear > 0) {
-                                //retiree - subtract years from end year
-                                self.startYear = (self.endYear - self.year + 1);
-                            } else {
-                                    //generate
-                                    NSInteger curYear = self.team.league.leagueHistoryDictionary.count;
-                                    self.startYear = (int)(curYear - self.year + 1) + 2017;
-                                }
-                    }
+        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.position = [aDecoder decodeObjectForKey:@"position"];
+        self.ratOvr = [aDecoder decodeIntForKey:@"ratOvr"];
+        self.ratPot = [aDecoder decodeIntForKey:@"ratPot"];
+        self.ratImprovement = [aDecoder decodeIntForKey:@"ratImprovement"];
+        self.year = [aDecoder decodeIntForKey:@"year"];
+        self.ratFootIQ = [aDecoder decodeIntForKey:@"ratFootIQ"];
+        self.cost = [aDecoder decodeIntForKey:@"cost"];
+        self.gamesPlayed = [aDecoder decodeIntForKey:@"gamesPlayed"];
+        self.injury = [aDecoder decodeObjectForKey:@"injury"];
+        self.team = [aDecoder decodeObjectForKey:@"team"];
+        
+        if ([aDecoder containsValueForKey:@"draftPosition"]) {
+            self.draftPosition = [aDecoder decodeObjectForKey:@"draftPosition"];
+        } else {
+            self.draftPosition = nil;
         }
+        
+        if ([aDecoder containsValueForKey:@"hasRedshirt"]) {
+            self.hasRedshirt = [aDecoder decodeBoolForKey:@"hasRedshirt"];
+        } else {
+            self.hasRedshirt = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"wasRedshirted"]) {
+            self.wasRedshirted = [aDecoder decodeBoolForKey:@"wasRedshirted"];
+        } else {
+            self.wasRedshirted = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"isHeisman"]) {
+            self.isHeisman = [aDecoder decodeBoolForKey:@"isHeisman"];
+        } else {
+            self.isHeisman = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"isAllAmerican"]) {
+            self.isAllAmerican = [aDecoder decodeBoolForKey:@"isAllAmerican"];
+        } else {
+            self.isAllAmerican = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"isAllConference"]) {
+            self.isAllConference = [aDecoder decodeBoolForKey:@"isAllConference"];
+        } else {
+            self.isAllConference = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"ratDur"]) {
+            self.ratDur = [aDecoder decodeIntForKey:@"ratDur"];
+        } else {
+            self.ratDur = (int) (50 + 50 * [HBSharedUtils randomValue]);
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerHeismans"]) {
+            self.careerHeismans = [aDecoder decodeIntForKey:@"careerHeismans"];
+        } else {
+            self.careerHeismans = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerAllConferences"]) {
+            self.careerAllConferences = [aDecoder decodeIntForKey:@"careerAllConferences"];
+        } else {
+            self.careerAllConferences = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerAllAmericans"]) {
+            self.careerAllAmericans = [aDecoder decodeIntForKey:@"careerAllAmericans"];
+        } else {
+            self.careerAllAmericans = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"endYear"]) {
+            self.endYear = [aDecoder decodeIntForKey:@"endYear"];
+        } else {
+            self.endYear = 0;
+        }
+        
+        if ([aDecoder containsValueForKey:@"stars"]) {
+            self.stars = [aDecoder decodeIntForKey:@"stars"];
+        } else {
+            self.stars = (int) ([HBSharedUtils randomValue] * 5);
+        }
+        
+        if ([aDecoder containsValueForKey:@"gamesPlayedSeason"]) {
+            self.gamesPlayedSeason = [aDecoder decodeIntForKey:@"gamesPlayedSeason"];
+        } else {
+            if (self.gamesPlayed > 0) {
+                if (self.team.league.leagueHistoryDictionary.count > 0) {
+                    NSInteger activeYears = self.team.league.leagueHistoryDictionary.count;
+                    self.gamesPlayedSeason = self.gamesPlayed % activeYears;
+                } else {
+                    self.gamesPlayedSeason = 0;
+                }
+            } else {
+                self.gamesPlayedSeason = 0;
+            }
+        }
+        
+        if ([aDecoder containsValueForKey:@"startYear"]) {
+            int tstStartYr = [aDecoder decodeIntForKey:@"startYear"];
+            if (tstStartYr < 0) {
+                self.startYear = self.endYear - (abs(tstStartYr));
+            } else if (self.endYear != 0 && abs(tstStartYr - self.endYear) > 4) {
+                self.startYear = self.endYear - 4;
+            } else {
+                self.startYear = [aDecoder decodeIntForKey:@"startYear"];
+            }
+        } else {
+            if (self.draftPosition != nil || self.endYear > 0) {
+                //retiree - subtract years from end year
+                self.startYear = (self.endYear - self.year + 1);
+            } else {
+                //generate
+                NSInteger curYear = self.team.league.leagueHistoryDictionary.count;
+                self.startYear = (int)(curYear - self.year + 1 + team.league.baseYear);
+            }
+        }
+    }
     return self;
 }
 
@@ -156,6 +162,7 @@
     [aCoder encodeInt:self.careerAllAmericans forKey:@"careerAllAmericans"];
     [aCoder encodeInt:self.startYear forKey:@"startYear"];
     [aCoder encodeInt:self.endYear forKey:@"endYear"];
+    [aCoder encodeInt:self.stars forKey:@"stars"];
 }
 
 +(int)getPosNumber:(NSString*)pos {
@@ -228,7 +235,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         letterGrades = @[@"F", @"F+", @"D", @"D+", @"C", @"C+", @"B", @"B+", @"A", @"A+"];
-
+        
     });
     return letterGrades;
 }
@@ -433,9 +440,121 @@
         [awards replaceOccurrencesOfString:@"?" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
     }
     
-    
-    
     awards = [NSMutableString stringWithString:[[awards stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     return awards;
 }
+
+-(int)calculateInterestInTeam:(Team *)t {
+    // calculate based on:
+    //      team location (25%) - if state match, then 25; if neighboring, then 20; if diff region, then 15; if cross-country, then 5,
+    //      open positional slots (25%) -- if guaranteed first starter, all 25; if starter, 20; if not starting, 10; if bottom of depth chart, 5,
+    //      prestige (35%) -- map prestige values between 0 and 35
+    //      playbook match (15%) -- use stats to determine best playbook for player. If team playbook matches best playbook: 15 points; if team playbook is player's second best: 8 points; else: no points
+    int locationScore = 0;
+    CFCRegion playerRegion = [HBSharedUtils regionForState:self.personalDetails[@"home_state"]];
+    CFCRegion teamRegion = [HBSharedUtils regionForState:t.state];
+    
+    CFCRegionDistance distance = [HBSharedUtils distanceFromRegion:playerRegion toRegion:teamRegion];
+    switch (distance) {
+        case CFCRegionDistanceMatch:
+            locationScore = 25;
+            break;
+        case CFCRegionDistanceNeighbor:
+            locationScore = 20;
+            break;
+        case CFCRegionDistanceFar:
+            locationScore = 15;
+            break;
+        case CFCRegionDistanceCrossCountry:
+            locationScore = 5;
+            break;
+        default:
+            break;
+    }
+    
+    int positionalScore = 0;
+    NSArray *playersAtPosition = [t getPlayersAtPosition: self.position];
+    NSMutableDictionary *positionalOveralls = [NSMutableDictionary dictionary];
+    [positionalOveralls setObject:@(self.ratOvr) forKey:self.name];
+    [playersAtPosition enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Player *p = (Player *)obj;
+        [positionalOveralls setObject:@(p.ratOvr) forKey:p.name];
+    }];
+    
+    NSArray *sortedOveralls = [positionalOveralls keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
+    }];
+    NSInteger plyrNameIndex = [sortedOveralls indexOfObject:self.name];
+    switch (plyrNameIndex) {
+        case 0:
+            positionalScore = 25;
+            break;
+        default:
+            positionalScore = 25 - ((int)(25.0 * ((float)plyrNameIndex / (float)sortedOveralls.count)));
+            break;
+    }
+    
+    CGFloat inMin = 0.0;
+    CGFloat inMax = 100.0;
+    
+    CGFloat outMin = 0.0;
+    CGFloat outMax = 35.0;
+    
+    CGFloat input = (CGFloat) t.teamPrestige;
+    int prestigeScore = (int)(outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+    
+    int playbookScore = 0;
+    if ([self.position isEqualToString:@"QB"] || [self.position isEqualToString:@"RB"] || [self.position isEqualToString:@"WR"] || [self.position isEqualToString:@"TE"] || [self.position isEqualToString:@"OL"]) {
+        // use offensive playbook
+        TeamStrategy *offStrat = t.defensiveStrategy;
+        if ([self.position isEqualToString:@"QB"]) {
+            playbookScore = 15; // always need a good QB & super important to offensive playbook
+        } else if ([self.position isEqualToString:@"WR"] || [self.position isEqualToString:@"TE"]) {
+            if (offStrat.passPref > offStrat.runPref || offStrat.passPotential > offStrat.runPotential || offStrat.passProtection > offStrat.runProtection) {
+                playbookScore = 15;
+            } else {
+                playbookScore = 8;
+            }
+        } else {
+            if (offStrat.runPref > offStrat.passPref || offStrat.runPotential > offStrat.passPotential || offStrat.runProtection > offStrat.passProtection) {
+                playbookScore = 15;
+            } else {
+                playbookScore = 8;
+            }
+        }
+    } else if ([self.position isEqualToString:@"K"]) {
+        playbookScore = 8; // always gonna need a kicker & not that important to either  playbook
+    } else {
+        // use defensive playbook
+        TeamStrategy *defStrat = t.defensiveStrategy;
+        if ([self.position isEqualToString:@"S"] || [self.position isEqualToString:@"CB"]) {
+            if (defStrat.passPref > defStrat.runPref || defStrat.passPotential > defStrat.runPotential || defStrat.passProtection > defStrat.runProtection) {
+                playbookScore = 15;
+            } else {
+                playbookScore = 8;
+            }
+        } else {
+            if (defStrat.runPref > defStrat.passPref || defStrat.runPotential > defStrat.passPotential || defStrat.runProtection > defStrat.passProtection) {
+                playbookScore = 15;
+            } else {
+                playbookScore = 8;
+            }
+        }
+    }
+    
+    //NSLog(@"Location Score: %d Positional Score: %d Prestige Score: %d Playbook Score: %d", locationScore,positionalScore, prestigeScore, playbookScore);
+    return locationScore + positionalScore + prestigeScore + playbookScore;
+}
+
+-(NSString *)uniqueIdentifier {
+    int h = 0;
+    
+    for (int i = 0; i < (int)name.length; i++) {
+        h = (31 * h) + [name characterAtIndex:i];
+    }
+    
+    return [NSString stringWithFormat:@"%d",h];
+}
+
+
 @end

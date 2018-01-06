@@ -39,7 +39,7 @@
         // if there are no new properties to update, just update the version
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         if (![oldLigue.leagueVersion isEqualToString:HB_CURRENT_APP_VERSION]) {
-            if ([HB_CURRENT_APP_VERSION isEqualToString:HB_APP_VERSION_POST_OVERHAUL]) {
+            if ([HB_CURRENT_APP_VERSION isEqualToString:@"2.0"]) {
                 __block float prgs = 0.0;
                 oldLigue.baseYear = 2016;
                 for (Team *t in oldLigue.teamList) {
@@ -49,6 +49,11 @@
                             updatingBlock(prgs, @"Updating team details...");
                         });
                     });
+                    
+                    // Set to a random state for now just to populate the field
+                    t.state = [HBSharedUtils randomState];
+                    t.recruitingClass = [NSMutableArray array];
+                    
                     
                     // add TEs, LBs as 3* freshmen
                     t.teamTEs = [NSMutableArray array];

@@ -28,10 +28,10 @@
         isOffense = offensive;
         if (isOffense) {
             self.title = @"Offensive Playbooks";
-            selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils getLeague].userTeam.teamStatOffNum inSection:0];
+            selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils currentLeague].userTeam.teamStatOffNum inSection:0];
         } else {
             self.title = @"Defensive Playbooks";
-            selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils getLeague].userTeam.teamStatDefNum inSection:0];
+            selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils currentLeague].userTeam.teamStatDefNum inSection:0];
         }
         self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 10 + (options.count * 90));
         teamStrats = options;
@@ -101,15 +101,15 @@
     }
     
     if(isOffense) {
-        [[HBSharedUtils getLeague].userTeam setOffensiveStrategy:teamStrats[indexPath.row]];
-        [[HBSharedUtils getLeague].userTeam setTeamStatOffNum:(int)indexPath.row];
+        [[HBSharedUtils currentLeague].userTeam setOffensiveStrategy:teamStrats[indexPath.row]];
+        [[HBSharedUtils currentLeague].userTeam setTeamStatOffNum:(int)indexPath.row];
     } else {
-        [[HBSharedUtils getLeague].userTeam setDefensiveStrategy:teamStrats[indexPath.row]];
-        [[HBSharedUtils getLeague].userTeam setTeamStatDefNum:(int)indexPath.row];
+        [[HBSharedUtils currentLeague].userTeam setDefensiveStrategy:teamStrats[indexPath.row]];
+        [[HBSharedUtils currentLeague].userTeam setTeamStatDefNum:(int)indexPath.row];
     }
     [self.tableView reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changedStrategy" object:nil];
-    [[HBSharedUtils getLeague] save];
+    [[HBSharedUtils currentLeague] save];
 }
 
 @end

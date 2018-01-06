@@ -14,37 +14,37 @@
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-            self.ratSCov = [aDecoder decodeIntForKey:@"ratSCov"];
-            self.ratSSpd = [aDecoder decodeIntForKey:@"ratSSpd"];
-            self.ratSTkl = [aDecoder decodeIntForKey:@"ratSTkl"];
-    
-            if ([aDecoder containsValueForKey:@"personalDetails"]) {
-                    self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
-                    if (self.personalDetails == nil) {
-                            NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 200;
-                            NSInteger inches = (int)([HBSharedUtils randomValue] * 5);
-                            self.personalDetails = @{
-                                   @"home_state" : [HBSharedUtils randomState],
-                                                                             @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                                                             @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                                                             };
-                        }
-                } else {
-                        NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 200;
-                        NSInteger inches = (int)([HBSharedUtils randomValue] * 5);
-                        self.personalDetails = @{
-                                   @"home_state" : [HBSharedUtils randomState],
-                                                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                                                         };
-                    }
+        self.ratSCov = [aDecoder decodeIntForKey:@"ratSCov"];
+        self.ratSSpd = [aDecoder decodeIntForKey:@"ratSSpd"];
+        self.ratSTkl = [aDecoder decodeIntForKey:@"ratSTkl"];
+        
+        if ([aDecoder containsValueForKey:@"personalDetails"]) {
+            self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+            if (self.personalDetails == nil) {
+                NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 200;
+                NSInteger inches = (int)([HBSharedUtils randomValue] * 5);
+                self.personalDetails = @{
+                                         @"home_state" : [HBSharedUtils randomState],
+                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                         };
+            }
+        } else {
+            NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 200;
+            NSInteger inches = (int)([HBSharedUtils randomValue] * 5);
+            self.personalDetails = @{
+                                     @"home_state" : [HBSharedUtils randomState],
+                                     @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                     @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                     };
         }
+    }
     return self;
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     [super encodeWithCoder:aCoder];
-
+    
     [aCoder encodeInt:self.ratSCov forKey:@"ratSCov"];
     [aCoder encodeInt:self.ratSSpd forKey:@"ratSSpd"];
     [aCoder encodeInt:self.ratSTkl forKey:@"ratSTkl"];
@@ -93,7 +93,8 @@
         self.team = t;
         self.name = name;
         self.year = year;
-        self.startYear = (int)t.league.leagueHistoryDictionary.count + (int)t.league.baseYear;
+        self.stars = stars;
+        self.startYear = (t != nil) ? (int)[t.league getCurrentYear] : (int)[[HBSharedUtils currentLeague] getCurrentYear];
         self.ratDur = (int) (50 + 50* [HBSharedUtils randomValue]);
         self.ratPot = (int)([HBSharedUtils randomValue]*50 + 50);
         self.ratFootIQ = (int) (50 + 50* [HBSharedUtils randomValue]);
@@ -104,6 +105,22 @@
         self.position = @"S";
         self.cost = pow(self.ratOvr / 6, 2) + ([HBSharedUtils randomValue] * 100) - 50;
         
+        if (t == nil) {
+            self.recruitStatus = CFCRecruitStatusUncommitted;
+        } else {
+            self.recruitStatus = CFCRecruitStatusCommitted;
+        }
+        
+        CGFloat inMin = 0.0;
+        CGFloat inMax = 100.0;
+        
+        CGFloat outMin = 4.80;
+        CGFloat outMax = 4.34;
+        
+        CGFloat input = (CGFloat) self.ratSSpd;
+        CGFloat fortyTime = (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+        self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", fortyTime];
+        
         NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 200;
         NSInteger inches = (int)([HBSharedUtils randomValue] * 5);
         self.personalDetails = @{
@@ -111,6 +128,7 @@
                                  @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
                                  @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
                                  };
+        
     }
     return self;
 }

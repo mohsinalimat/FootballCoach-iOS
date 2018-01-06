@@ -88,7 +88,7 @@
         }
         
         //check if data file is corrupt, alert user
-        if ([[HBSharedUtils getLeague] isSaveCorrupt]) {
+        if ([[HBSharedUtils currentLeague] isSaveCorrupt]) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Corrupt Save File" message:@"Your save file may be corrupt. Please delete it and restart to ensure you do not experience any crashes." preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [tabBarController presentViewController:alertController animated:YES completion:nil];
@@ -116,24 +116,24 @@
         convertProgressView.frame = CGRectMake(10, 70, 250, 0);
         [convertProgressAlert.view addSubview:convertProgressView];
         
-        [LeagueUpdater convertLeagueFromOldVersion:_league updatingBlock:^(float progress, NSString * _Nullable updateStatus) {
+        __block League *oldLigue = _league;
+        
+        [LeagueUpdater convertLeagueFromOldVersion:oldLigue updatingBlock:^(float progress, NSString * _Nullable updateStatus) {
             convertProgressAlert.message = updateStatus;
             [convertProgressView setProgress:progress animated:YES];
         } completionBlock:^(BOOL success, NSString * _Nullable finalStatus, League * _Nonnull ligue) {
             convertProgressView.progress = 1.0;
-            convertProgressAlert.message = finalStatus;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.00 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [convertProgressView removeFromSuperview];
+                convertProgressAlert.title = finalStatus;
+                convertProgressAlert.message = @"Please be aware that each school in your save file has been assigned a random home state. This will only have an effect in recruiting. If you want to change this, please edit teams before starting recruiting in the next offseason.";
+                [convertProgressAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+                _league = ligue;
+                [_league save];
             });
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [convertProgressAlert dismissViewControllerAnimated:YES completion:nil];
-            });
-            _league = ligue;
-            [_league save];
         }];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [tabBarController presentViewController:convertProgressAlert animated:YES completion:nil];
         });
     }]];
@@ -165,6 +165,7 @@
 
 -(void)setupAppearance {
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    //[[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     [[UITabBar appearance] setTintColor:[HBSharedUtils styleColor]];
     [[UINavigationBar appearance] setBarTintColor:[HBSharedUtils styleColor]];
     self.window.tintColor = [HBSharedUtils styleColor];
@@ -178,7 +179,7 @@
     [STPopupNavigationBar appearance].barStyle = UIBarStyleDefault;
     
     [RMessage addDesignsFromFileWithName:@"alt-designs" inBundle:[NSBundle mainBundle]];
-    
+
 }
 
 @end

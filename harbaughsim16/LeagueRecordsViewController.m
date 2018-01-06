@@ -115,7 +115,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    curLeague = [HBSharedUtils getLeague];
+    curLeague = [HBSharedUtils currentLeague];
     self.title = @"League Records";
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
