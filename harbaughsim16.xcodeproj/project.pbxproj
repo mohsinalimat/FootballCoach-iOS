@@ -438,6 +438,37 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		7503A01520004AA4004426AA /* Recruiting */ = {
+			isa = PBXGroup;
+			children = (
+				7503A01620004AAF004426AA /* Old */,
+				75CEE9481FF593B6005A86C1 /* RecruitingPeriodViewController.h */,
+				75CEE9491FF593B6005A86C1 /* RecruitingPeriodViewController.m */,
+				7551AC1A1FFFD8880033680E /* RecruitWatchlistViewController.h */,
+				7551AC1B1FFFD8880033680E /* RecruitWatchlistViewController.m */,
+				75C7C4891FF8B176003840D4 /* AEProgressTitleView.h */,
+				75C7C48A1FF8B176003840D4 /* AEProgressTitleView.m */,
+				75C7C4931FF9EE23003840D4 /* AEScrollingToolbarView.h */,
+				75C7C4941FF9EE23003840D4 /* AEScrollingToolbarView.m */,
+				75CEE94B1FF593F5005A86C1 /* CFCRecruitCell.h */,
+				75CEE94C1FF593F5005A86C1 /* CFCRecruitCell.m */,
+				75CEE94D1FF593F5005A86C1 /* CFCRecruitCell.xib */,
+				7551AC1D1FFFD9CA0033680E /* CFCWatchlistCell.h */,
+				7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */,
+				7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */,
+			);
+			name = Recruiting;
+			sourceTree = "<group>";
+		};
+		7503A01620004AAF004426AA /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				755BBC761C9E5930001A8314 /* RecruitingViewController.h */,
+				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
+			);
+			name = Old;
+			sourceTree = "<group>";
+		};
 		7510B8441C9C76AD00BE9CD6 /* Base Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,22 +682,7 @@
 				75C5C3311F83447A00D7CAAD /* UpcomingViewController.h */,
 				75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */,
 				75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */,
-				755BBC761C9E5930001A8314 /* RecruitingViewController.h */,
-				755BBC771C9E5930001A8314 /* RecruitingViewController.m */,
-				75CEE9481FF593B6005A86C1 /* RecruitingPeriodViewController.h */,
-				75CEE9491FF593B6005A86C1 /* RecruitingPeriodViewController.m */,
-				7551AC1A1FFFD8880033680E /* RecruitWatchlistViewController.h */,
-				7551AC1B1FFFD8880033680E /* RecruitWatchlistViewController.m */,
-				75C7C4891FF8B176003840D4 /* AEProgressTitleView.h */,
-				75C7C48A1FF8B176003840D4 /* AEProgressTitleView.m */,
-				75C7C4931FF9EE23003840D4 /* AEScrollingToolbarView.h */,
-				75C7C4941FF9EE23003840D4 /* AEScrollingToolbarView.m */,
-				75CEE94B1FF593F5005A86C1 /* CFCRecruitCell.h */,
-				75CEE94C1FF593F5005A86C1 /* CFCRecruitCell.m */,
-				75CEE94D1FF593F5005A86C1 /* CFCRecruitCell.xib */,
-				7551AC1D1FFFD9CA0033680E /* CFCWatchlistCell.h */,
-				7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */,
-				7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */,
+				7503A01520004AA4004426AA /* Recruiting */,
 				75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */,
 				75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */,
 				754319031CC02EAC00D380F1 /* Conference Standings */,

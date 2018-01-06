@@ -595,6 +595,7 @@
     [super viewDidLoad];
     self.tableView.estimatedRowHeight = 140;
     self.tableView.rowHeight = 140;
+    self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
