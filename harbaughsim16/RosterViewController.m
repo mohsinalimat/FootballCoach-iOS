@@ -224,7 +224,13 @@
 
 -(void)reloadRoster {
     userTeam = [HBSharedUtils currentLeague].userTeam;
-    //[userTeam sortPlayers];
+    if (userTeam.league.isHardMode) {
+        if ([HBSharedUtils currentLeague].userTeam.injuredPlayers.count > 0) {
+            [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)[HBSharedUtils currentLeague].userTeam.injuredPlayers.count];
+        } else {
+            [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
+        }
+    }
     [self.tableView reloadData];
 }
 
