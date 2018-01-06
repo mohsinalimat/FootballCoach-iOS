@@ -91,20 +91,24 @@
             textField.text = selectedTeam.abbreviation;
         }];
         
+        [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"State";
+            textField.text = selectedTeam.state;
+        }];
+        
         [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to rebrand this team?" message:@"You can rebrand again at any time during the offseason." preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 //save
                 UITextField *name = alert.textFields[0];
                 UITextField *abbrev = alert.textFields[1];
+                UITextField *state = alert.textFields[2];
                 NSArray* words = [name.text.lowercaseString componentsSeparatedByCharactersInSet :[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                 NSString* trimmedName = [words componentsJoinedByString:@""];
                 NSLog(@"TRIMMED: %@",trimmedName);
-                if ((![name.text isEqualToString:selectedTeam.name] || ![abbrev.text isEqualToString:selectedTeam.abbreviation])
-                    && (name.text.length > 0 && abbrev.text.length > 0)
-                    && (![name.text isEqualToString:@""]&& ![abbrev.text isEqualToString:@""])
-                    && (![trimmedName isEqualToString:@"americansamoa"])
-                    && ([[HBSharedUtils currentLeague] findTeam:abbrev.text] == nil)) {
+                if ([[HBSharedUtils currentLeague] isTeamNameValid:name.text allowUserTeam:NO allowOverwrite:NO]
+                    && [[HBSharedUtils currentLeague] isTeamAbbrValid:abbrev.text allowUserTeam:NO allowOverwrite:NO]
+                    && [[HBSharedUtils currentLeague] isStateValid:state.text]) {
 
                     [selectedTeam setName:name.text];
                     [selectedTeam setAbbreviation:abbrev.text];
@@ -156,6 +160,12 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"reloadTeams" object:nil];
                     [self.tableView reloadData];
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Rebrand successful!" message:[NSString stringWithFormat:@"Successfully rebranded this team to %@ (%@)!", name.text, abbrev.text] onViewController:self];
+                } else if (![[HBSharedUtils currentLeague] isTeamAbbrValid:name.text allowUserTeam:NO allowOverwrite:NO]) {
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand this team - Invalid team name provided." onViewController:self];
+                } else if (![[HBSharedUtils currentLeague] isTeamAbbrValid:abbrev.text allowUserTeam:NO allowOverwrite:NO]) {
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand this team - Invalid abbreviation provided." onViewController:self];
+                } else if (![[HBSharedUtils currentLeague] isStateValid:state.text]) {
+                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand this team - Invalid state provided." onViewController:self];
                 } else {
                     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to rebrand this team - Invalid inputs provided." onViewController:self];
                 }
