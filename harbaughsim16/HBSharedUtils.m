@@ -443,13 +443,13 @@ static UIColor *styleColor = nil;
                 [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
                 [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
                 
-                if ([[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON] && simLeague.userTeam.league.currentWeek != 15 && simLeague.userTeam.injuredPlayers.count > 0 && simLeague.userTeam.league.isHardMode) {
-                    NSString *injuryReport = [simLeague.userTeam injuryReport];
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Injury Report", simLeague.userTeam.abbreviation] message:injuryReport preferredStyle:UIAlertControllerStyleAlert];
-                    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
-                    });
+                if (simLeague.userTeam.league.currentWeek != 15) {
+                    if (simLeague.userTeam.injuredPlayers.count > 0) {
+                        [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)simLeague.userTeam.injuredPlayers.count];
+                    } else {
+                        [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
+                    }
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateInjuryCount" object:nil];
                 }
                 
             } else if (simLeague.currentWeek == 12) {
@@ -541,6 +541,14 @@ static UIColor *styleColor = nil;
                         [((HBTeamPlayView*)teamHeaderView).playButton setEnabled:YES];
                     }
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"injuriesPosted" object:nil];
+                    if (simLeague.userTeam.league.currentWeek != 15) {
+                        if (simLeague.userTeam.injuredPlayers.count > 0) {
+                            [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)simLeague.userTeam.injuredPlayers.count];
+                        } else {
+                            [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
+                        }
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateInjuryCount" object:nil];
+                    }
                     [[HBSharedUtils currentLeague] save];
                 }
             });

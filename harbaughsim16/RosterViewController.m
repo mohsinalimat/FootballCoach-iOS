@@ -41,15 +41,19 @@
         [super setEditing:NO animated:NO];
         [self.tableView setEditing:NO animated:NO];
         [self.tableView reloadData];
-        [self.navigationItem.rightBarButtonItem setTitle:@"Reorder"];
-        [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
+        if (!userTeam.league.isHardMode) {
+            [self.navigationItem.rightBarButtonItem setTitle:@"Reorder"];
+            [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
+        }
         [[HBSharedUtils currentLeague] save];
     } else {
         [super setEditing:YES animated:YES];
         [self.tableView setEditing:YES animated:YES];
         [self.tableView reloadData];
-        [self.navigationItem.rightBarButtonItem setTitle:@"Done"];
-        [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+        if (!userTeam.league.isHardMode) {
+            [self.navigationItem.rightBarButtonItem setTitle:@"Done"];
+            [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleDone];
+        }
     }
 }
 
@@ -172,13 +176,27 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+-(void)viewRosterOptions {
+    UIAlertController *rosterOptionsController = [UIAlertController alertControllerWithTitle:@"Roster Options" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    if (!self.editing) {
+        [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Edit Roster" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self manageEditing];
+        }]];
+    } else {
+        [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Save Roster Changes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self manageEditing];
+        }]];
+    }
     
     if ([HBSharedUtils currentLeague].isHardMode) {
-        [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Injury Report" style:UIBarButtonItemStylePlain target:self action:@selector(viewInjuryReport)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
-        self.navigationController.toolbarHidden = NO;
+        [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"View Injury Report" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self viewInjuryReport];
+        }]];
     }
+    
+    [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    
+    [self presentViewController:rosterOptionsController animated:YES completion:nil];
 }
 
 - (void)viewDidLoad {
@@ -189,14 +207,19 @@
     //[userTeam sortPlayers];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"Reorder" style:UIBarButtonItemStylePlain target:self action:@selector(manageEditing)];
-    [self.navigationItem setRightBarButtonItem:addButton];
+    if (userTeam.league.isHardMode) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(viewRosterOptions)];
+    } else {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reorder" style:UIBarButtonItemStylePlain target:self action:@selector(manageEditing)];
+    }
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(scrollToPositionGroup)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"injuriesPosted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"awardsPosted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"updateInjuryCount" object:nil];
     
     BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_ROSTER_TUTORIAL_SHOWN_KEY];
     if (!tutorialShown) {
@@ -216,6 +239,7 @@
 -(void)reloadAll {
     [self.tableView reloadData];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
 }
 
 -(void)dealloc {
@@ -225,8 +249,8 @@
 -(void)reloadRoster {
     userTeam = [HBSharedUtils currentLeague].userTeam;
     if (userTeam.league.isHardMode) {
-        if ([HBSharedUtils currentLeague].userTeam.injuredPlayers.count > 0) {
-            [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)[HBSharedUtils currentLeague].userTeam.injuredPlayers.count];
+        if (userTeam.injuredPlayers.count > 0) {
+            [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)userTeam.injuredPlayers.count];
         } else {
             [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
         }
