@@ -497,18 +497,19 @@
     }
     
     if (!error) {
-        if ([league isConfAbbrValid:jsonDict[@"confName"]]) {
+        if ([league isConfAbbrValid:jsonDict[@"confName"] allowOverwrite:YES]) {
             confName = jsonDict[@"confName"];
         }
         
-        if ([league isConfNameValid:jsonDict[@"confFullName"]]) {
+        if ([league isConfNameValid:jsonDict[@"confFullName"] allowOverwrite:YES]) {
             confFullName = jsonDict[@"confFullName"];
         }
         
         NSArray *jsonConfTeams = jsonDict[@"confTeams"];
         
         for (int i = 0; i < confTeams.count; i++) {
-             [confTeams[i] applyJSONMetadataChanges:jsonConfTeams[i]];
+            [confTeams[i] applyJSONMetadataChanges:jsonConfTeams[i]];
+            [confTeams[i] setConference:confName];
         }
         [self sortConfTeams];
         

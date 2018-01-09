@@ -2303,7 +2303,7 @@
     return true;
 }
 
--(BOOL)isConfNameValid:(NSString*)name {
+-(BOOL)isConfNameValid:(NSString*)name allowOverwrite:(BOOL)canOverwrite {
     if (name.length == 0) {
         return NO;
     }
@@ -2319,17 +2319,19 @@
         return false;
     }
     
-    for (int i = 0; i < conferences.count; i++) {
-        // compare using all lower case so no dumb duplicates
-        if ([conferences[i].confFullName.lowercaseString isEqualToString:name.lowercaseString]) {
-            return false;
+    if (!canOverwrite) {
+        for (int i = 0; i < conferences.count; i++) {
+            // compare using all lower case so no dumb duplicates
+            if ([conferences[i].confFullName.lowercaseString isEqualToString:name.lowercaseString]) {
+                return false;
+            }
         }
     }
     
     return true;
 }
 
--(BOOL)isConfAbbrValid:(NSString*)abbr {
+-(BOOL)isConfAbbrValid:(NSString*)abbr allowOverwrite:(BOOL)canOverwrite {
     if (abbr.length == 0 || abbr.length > 5) {
         return NO;
     }
@@ -2347,13 +2349,14 @@
         return false;
     }
     
-    for (int i = 0; i < conferences.count; i++) {
-        // compare using all lower case so no dumb duplicates
-        if ([conferences[i].confName.lowercaseString isEqualToString:abbr.lowercaseString]) {
-            return false;
+    if (!canOverwrite) {
+        for (int i = 0; i < conferences.count; i++) {
+            // compare using all lower case so no dumb duplicates
+            if ([conferences[i].confName.lowercaseString isEqualToString:abbr.lowercaseString]) {
+                return false;
+            }
         }
     }
-    
     return true;
 }
 
@@ -2384,7 +2387,11 @@
     jsonString = [NSMutableString stringWithString:[jsonString stringByTrimmingCharactersInSet:charSet]];
     [jsonString appendString:@"]"];
     [jsonString appendString:@"}"];
-    return jsonString;
+    if (jsonString != nil) {
+        return jsonString;
+    } else {
+        return @"";
+    }
 }
 
 -(void)applyJSONMetadataChanges:(NSString *)json {

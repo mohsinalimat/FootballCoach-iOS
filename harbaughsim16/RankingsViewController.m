@@ -234,7 +234,7 @@
     Team *t = teams[indexPath.row];
     [cell.textLabel setText:[NSString stringWithFormat:@"#%ld: %@ (%ld-%ld)", (long)(indexPath.row + 1), t.name,(long)t.wins,(long)t.losses]];
     
-    if ([cell.textLabel.text containsString:[HBSharedUtils currentLeague].userTeam.name]) {
+    if ([HBSharedUtils currentLeague].userTeam != nil && [HBSharedUtils currentLeague].userTeam.name != nil && [cell.textLabel.text containsString:[HBSharedUtils currentLeague].userTeam.name]) {
         [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
         [cell.textLabel setTextColor:[UIColor blackColor]];

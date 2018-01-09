@@ -90,7 +90,7 @@
     }];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        BOOL _notBad = ([[HBSharedUtils currentLeague] isConfAbbrValid:alertController.textFields[1].text] && [[HBSharedUtils currentLeague] isConfNameValid:alertController.textFields[0].text]);
+        BOOL _notBad = ([[HBSharedUtils currentLeague] isConfAbbrValid:alertController.textFields[1].text allowOverwrite:NO] && [[HBSharedUtils currentLeague] isConfNameValid:alertController.textFields[0].text allowOverwrite:NO]);
         
         if (!_notBad) {
             NSLog(@"BAD");

@@ -392,16 +392,20 @@
         }
         
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
-        safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
-        safariVC.preferredControlTintColor = [UIColor whiteColor];
+        if ([safariVC respondsToSelector:@selector(setPreferredBarTintColor:)]) {
+            safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
+            safariVC.preferredControlTintColor = [UIColor whiteColor];
+        }
         [self presentViewController:safariVC animated:YES completion:nil];
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             [self.navigationController pushViewController:[[HelpViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
         } else if (indexPath.row == 1) {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://akeaswaran.me"]];
-            safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
-            safariVC.preferredControlTintColor = [UIColor whiteColor];
+            if ([safariVC respondsToSelector:@selector(setPreferredBarTintColor:)]) {
+                safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
+                safariVC.preferredControlTintColor = [UIColor whiteColor];
+            }
             [self presentViewController:safariVC animated:YES completion:nil];
         } else if (indexPath.row == 2) {
             MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
@@ -413,14 +417,18 @@
             [self presentViewController:composer animated:YES completion:nil];
         } else if (indexPath.row == 3) {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS"]];
-            safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
-            safariVC.preferredControlTintColor = [UIColor whiteColor];
+            if ([safariVC respondsToSelector:@selector(setPreferredBarTintColor:)]) {
+                safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
+                safariVC.preferredControlTintColor = [UIColor whiteColor];
+            }
             [self presentViewController:safariVC animated:YES completion:nil];
             
         } else if (indexPath.row == 4) {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://reddit.com/r/FootballCoach"]];
-            safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
-            safariVC.preferredControlTintColor = [UIColor whiteColor];
+            if ([safariVC respondsToSelector:@selector(setPreferredBarTintColor:)]) {
+                safariVC.preferredBarTintColor = [HBSharedUtils styleColor];
+                safariVC.preferredControlTintColor = [UIColor whiteColor];
+            }
             [self presentViewController:safariVC animated:YES completion:nil];
             
         } else {
@@ -460,7 +468,8 @@
             }
         } else if (indexPath.row == 2) {
             if ([HBSharedUtils currentLeague].canRebrandTeam) {
-                popupController = [[STPopupController alloc] initWithRootViewController:[[RebrandConferenceSelectorViewController alloc] init]];
+                RebrandConferenceSelectorViewController *selectConf = [[RebrandConferenceSelectorViewController alloc] init];
+                popupController = [[STPopupController alloc] initWithRootViewController:selectConf];
                 [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
                 [popupController.navigationBar setDraggable:YES];
                 popupController.style = STPopupStyleBottomSheet;

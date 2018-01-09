@@ -21,8 +21,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="159.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ara-c4-zD9" customClass="CFCRecruitCell">
-                        <rect key="frame" x="0.0" y="-3" width="320" height="165"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ara-c4-zD9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="100" text="WR Calvin Johnson" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YAG-LU-zmI">
                                 <rect key="frame" x="8" y="18" width="200" height="21"/>
@@ -41,19 +41,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="Georgia" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="192" translatesAutoresizingMaskIntoConstraints="NO" id="rdL-De-fek">
-                                <rect key="frame" x="8" y="42" width="200" height="29"/>
+                                <rect key="frame" x="8" y="42" width="200" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" image="5stars" translatesAutoresizingMaskIntoConstraints="NO" id="E0t-f0-VeY">
-                                <rect key="frame" x="216" y="42" width="96" height="29"/>
+                                <rect key="frame" x="216" y="42" width="96" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="96" id="hj0-Bw-bvQ"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Height: 6'5&quot;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="160" translatesAutoresizingMaskIntoConstraints="NO" id="b1t-38-5bM">
-                                <rect key="frame" x="8" y="74" width="158" height="23"/>
+                                <rect key="frame" x="8" y="69" width="158" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="9NR-e0-3Ud"/>
                                     <constraint firstAttribute="width" constant="158" id="QsI-OY-3LX"/>
@@ -63,19 +63,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight: 236 lbs" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="160" translatesAutoresizingMaskIntoConstraints="NO" id="HEu-gk-eHF">
-                                <rect key="frame" x="168" y="74" width="144" height="23"/>
+                                <rect key="frame" x="168" y="69" width="144" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40-yd dash: 4.50s" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CBW-3W-vaz">
-                                <rect key="frame" x="8" y="100" width="158" height="21"/>
+                                <rect key="frame" x="8" y="95" width="158" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other Offers: GEO, ND, MIA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wC1-vY-Q5f">
-                                <rect key="frame" x="8" y="124" width="304" height="22"/>
+                                <rect key="frame" x="8" y="119" width="304" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="cCC-Pz-1EW"/>
                                 </constraints>
@@ -84,7 +84,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Interest: HIGH" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SfD-Y6-0YQ">
-                                <rect key="frame" x="168" y="100" width="144" height="21"/>
+                                <rect key="frame" x="168" y="95" width="144" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -125,7 +125,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="Ara-c4-zD9" firstAttribute="leading" secondItem="OF7-Xt-KJh" secondAttribute="leading" id="ECZ-vF-SCb"/>
-                    <constraint firstItem="Ara-c4-zD9" firstAttribute="top" secondItem="OF7-Xt-KJh" secondAttribute="topMargin" constant="-14" id="ICs-da-uHZ"/>
+                    <constraint firstItem="Ara-c4-zD9" firstAttribute="top" secondItem="OF7-Xt-KJh" secondAttribute="topMargin" constant="-11" id="ICs-da-uHZ"/>
                     <constraint firstItem="Ara-c4-zD9" firstAttribute="centerY" secondItem="OF7-Xt-KJh" secondAttribute="centerY" id="PT1-t4-Yzn"/>
                     <constraint firstAttribute="trailing" secondItem="Ara-c4-zD9" secondAttribute="trailing" id="lGd-i1-ici"/>
                 </constraints>

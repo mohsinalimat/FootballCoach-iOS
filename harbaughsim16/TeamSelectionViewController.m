@@ -130,19 +130,7 @@
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return @"South";
-    } else if (section == 1) {
-        return @"Lakes";
-    } else if (section == 2) {
-        return @"North";
-    } else if (section == 3) {
-        return @"Cowboy";
-    } else if (section == 4) {
-        return @"Pacific";
-    } else {
-        return @"Mountain";
-    }
+    return league.conferences[section].confFullName;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

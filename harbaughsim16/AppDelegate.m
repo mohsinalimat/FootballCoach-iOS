@@ -82,7 +82,7 @@
         //display intro screen
         [self performSelector:@selector(displayIntro) withObject:nil afterDelay:0.0];
     } else {
-        if (![_league.leagueVersion isEqualToString:HB_CURRENT_APP_VERSION]) {
+        if (![_league.leagueVersion containsString:@"2."]) {
             NSLog(@"Current league version: %@", _league.leagueVersion);
             [self startSaveFileUpdate];
         }

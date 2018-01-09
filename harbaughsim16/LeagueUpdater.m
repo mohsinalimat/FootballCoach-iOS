@@ -38,7 +38,7 @@
             // we know which were added in this new version, so check if those exist and load them with data if needed
         // if there are no new properties to update, just update the version
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        if (![oldLigue.leagueVersion isEqualToString:HB_CURRENT_APP_VERSION]) {
+        if (![oldLigue.leagueVersion containsString:@"2."]) {
             if ([HB_CURRENT_APP_VERSION isEqualToString:@"2.0"]) {
                 __block float prgs = 0.0;
                 oldLigue.baseYear = 2016;

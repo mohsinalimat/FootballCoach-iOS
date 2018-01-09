@@ -170,8 +170,8 @@
 
 -(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite ;
 -(BOOL)isTeamAbbrValid:(NSString*)abbr allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite ;
--(BOOL)isConfNameValid:(NSString*)name;
--(BOOL)isConfAbbrValid:(NSString*)abbr;
+-(BOOL)isConfNameValid:(NSString*)name allowOverwrite:(BOOL)canOverwrite;
+-(BOOL)isConfAbbrValid:(NSString*)abbr allowOverwrite:(BOOL)canOverwrite;
 -(BOOL)isStateValid:(NSString*)stt;
 
 -(NSString *)leagueMetadataJSON;
