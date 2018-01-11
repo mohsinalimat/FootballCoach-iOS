@@ -1,0 +1,6 @@
+framework module AutoCoding {
+  umbrella header "AutoCoding-iOS10.0-umbrella.h"
+
+  export *
+  module * { export * }
+}

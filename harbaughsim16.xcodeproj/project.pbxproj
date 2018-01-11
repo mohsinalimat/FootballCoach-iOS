@@ -109,6 +109,30 @@
 		75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C961C9C7C0C0034140C /* schedule-selected@3x.png */; };
 		75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C971C9C7C0C0034140C /* team-selected@3x.png */; };
 		75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */; };
+		75B9792F20067BD20050E077 /* cfctests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B9792E20067BD20050E077 /* cfctests.m */; };
+		75B9793620067CEA0050E077 /* HBSharedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */; };
+		75B9793720067CEA0050E077 /* LeagueUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 756973961FAAB50400A66C42 /* LeagueUpdater.m */; };
+		75B9793820067CEA0050E077 /* League.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A541C99D24500B165AD /* League.m */; };
+		75B9793920067CEA0050E077 /* NSArray+Uniqueness.m in Sources */ = {isa = PBXBuildFile; fileRef = 7591FE401D465B940037ECFB /* NSArray+Uniqueness.m */; };
+		75B9793A20067CEA0050E077 /* Conference.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A4E1C99D05E00B165AD /* Conference.m */; };
+		75B9793B20067CEA0050E077 /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A3C1C99CD8D00B165AD /* Team.m */; };
+		75B9793C20067CEA0050E077 /* TeamStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A511C99D1C600B165AD /* TeamStrategy.m */; };
+		75B9793D20067CEA0050E077 /* TeamStreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 75300A5F1CB2DC96001EBBCB /* TeamStreak.m */; };
+		75B9793E20067CEA0050E077 /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 7563A8E01CB7F6F20023E43B /* Record.m */; };
+		75B9793F20067CEA0050E077 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A481C99CF7C00B165AD /* Game.m */; };
+		75B9794020067CEA0050E077 /* Injury.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A701D0663B900F24BE6 /* Injury.m */; };
+		75B9794120067CEA0050E077 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A4B1C99D03300B165AD /* Player.m */; };
+		75B9794220067CEA0050E077 /* PlayerQB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A571C99E62F00B165AD /* PlayerQB.m */; };
+		75B9794320067CEA0050E077 /* PlayerRB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A5A1C99E63800B165AD /* PlayerRB.m */; };
+		75B9794420067CEA0050E077 /* PlayerWR.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A5D1C99E64400B165AD /* PlayerWR.m */; };
+		75B9794520067CEA0050E077 /* PlayerTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE584D1FA3838600DE2534 /* PlayerTE.m */; };
+		75B9794620067CEA0050E077 /* PlayerK.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A601C99E64D00B165AD /* PlayerK.m */; };
+		75B9794720067CEA0050E077 /* PlayerOL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A631C99E65600B165AD /* PlayerOL.m */; };
+		75B9794820067CEA0050E077 /* PlayerS.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A661C99E65E00B165AD /* PlayerS.m */; };
+		75B9794920067CEA0050E077 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
+		75B9794A20067CEA0050E077 /* PlayerLB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58481FA37D8C00DE2534 /* PlayerLB.m */; };
+		75B9794B20067CEA0050E077 /* PlayerCB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A691C99E66700B165AD /* PlayerCB.m */; };
+		75B9794C20067CEA0050E077 /* PlayerF7.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A6C1C99E66E00B165AD /* PlayerF7.m */; };
 		75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */; };
 		75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */; };
 		75BBDBB61DEC910A00124AA4 /* GraduatingPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BBDBB51DEC910A00124AA4 /* GraduatingPlayersViewController.m */; };
@@ -155,10 +179,18 @@
 		75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
 		75FE584B1FA37D8C00DE2534 /* PlayerLB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58481FA37D8C00DE2534 /* PlayerLB.m */; };
 		75FE584E1FA3838600DE2534 /* PlayerTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE584D1FA3838600DE2534 /* PlayerTE.m */; };
+		94266A3BCC00501A20BBA8D3 /* Pods_cfctests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 497A9658B389B94C5E120F29 /* Pods_cfctests.framework */; };
 		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		75B9793120067BD20050E077 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75924A131C99CCC000B165AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75924A1A1C99CCC000B165AD;
+			remoteInfo = harbaughsim16;
+		};
 		75CC974C1FB1D60000D08F06 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75924A131C99CCC000B165AD /* Project object */;
@@ -169,7 +201,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C8B90D97AA7A452C16BCE43 /* Pods-cfctests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cfctests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cfctests/Pods-cfctests.release.xcconfig"; sourceTree = "<group>"; };
+		420504B1CC403077798DB85B /* Pods-cfctests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cfctests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cfctests/Pods-cfctests.debug.xcconfig"; sourceTree = "<group>"; };
 		47B6A776B32A57CB82A6413D /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.release.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
+		497A9658B389B94C5E120F29 /* Pods_cfctests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cfctests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75097C591CBC1B55003E2538 /* HBRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBRecordCell.h; sourceTree = "<group>"; };
 		75097C5A1CBC1B55003E2538 /* HBRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBRecordCell.m; sourceTree = "<group>"; };
 		75097C5B1CBC1B55003E2538 /* HBRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBRecordCell.xib; sourceTree = "<group>"; };
@@ -330,6 +365,9 @@
 		75A86C961C9C7C0C0034140C /* schedule-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule-selected@3x.png"; sourceTree = "<group>"; };
 		75A86C971C9C7C0C0034140C /* team-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "team-selected@3x.png"; sourceTree = "<group>"; };
 		75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roster-selected@3x.png"; sourceTree = "<group>"; };
+		75B9792C20067BD20050E077 /* cfctests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cfctests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		75B9792E20067BD20050E077 /* cfctests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cfctests.m; sourceTree = "<group>"; };
+		75B9793020067BD20050E077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
 		75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
 		75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTeamViewController.h; sourceTree = "<group>"; };
@@ -424,6 +462,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		75B9792920067BD20050E077 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94266A3BCC00501A20BBA8D3 /* Pods_cfctests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		75CC97441FB1D60000D08F06 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -439,6 +485,8 @@
 			children = (
 				D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */,
 				47B6A776B32A57CB82A6413D /* Pods-harbaughsim16.release.xcconfig */,
+				420504B1CC403077798DB85B /* Pods-cfctests.debug.xcconfig */,
+				1C8B90D97AA7A452C16BCE43 /* Pods-cfctests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -754,6 +802,7 @@
 			children = (
 				75924A1D1C99CCC000B165AD /* harbaughsim16 */,
 				75CC97481FB1D60000D08F06 /* CFC-Screenshots */,
+				75B9792D20067BD20050E077 /* cfctests */,
 				75924A1C1C99CCC000B165AD /* Products */,
 				38C3A07A6C2A3ED611332D85 /* Pods */,
 				C0C1FC9379CC5881BF7F3C73 /* Frameworks */,
@@ -765,6 +814,7 @@
 			children = (
 				75924A1B1C99CCC000B165AD /* harbaughsim16.app */,
 				75CC97471FB1D60000D08F06 /* CFC-Screenshots.xctest */,
+				75B9792C20067BD20050E077 /* cfctests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -846,6 +896,15 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		75B9792D20067BD20050E077 /* cfctests */ = {
+			isa = PBXGroup;
+			children = (
+				75B9792E20067BD20050E077 /* cfctests.m */,
+				75B9793020067BD20050E077 /* Info.plist */,
+			);
+			path = cfctests;
+			sourceTree = "<group>";
+		};
 		75BABF461C9A5E5E00A68CD6 /* Simulation Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -888,6 +947,7 @@
 			isa = PBXGroup;
 			children = (
 				DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */,
+				497A9658B389B94C5E120F29 /* Pods_cfctests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -915,6 +975,27 @@
 			productName = harbaughsim16;
 			productReference = 75924A1B1C99CCC000B165AD /* harbaughsim16.app */;
 			productType = "com.apple.product-type.application";
+		};
+		75B9792B20067BD20050E077 /* cfctests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75B9793520067BD20050E077 /* Build configuration list for PBXNativeTarget "cfctests" */;
+			buildPhases = (
+				EE2911C49B78FA81238583A8 /* [CP] Check Pods Manifest.lock */,
+				75B9792820067BD20050E077 /* Sources */,
+				75B9792920067BD20050E077 /* Frameworks */,
+				75B9792A20067BD20050E077 /* Resources */,
+				A453EC2219D24D128FA4DB23 /* [CP] Embed Pods Frameworks */,
+				9CB710BDD1F850C84E318F16 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75B9793220067BD20050E077 /* PBXTargetDependency */,
+			);
+			name = cfctests;
+			productName = cfctests;
+			productReference = 75B9792C20067BD20050E077 /* cfctests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		75CC97461FB1D60000D08F06 /* CFC-Screenshots */ = {
 			isa = PBXNativeTarget;
@@ -949,6 +1030,12 @@
 						DevelopmentTeam = 67BW26529D;
 						LastSwiftMigration = 0920;
 					};
+					75B9792B20067BD20050E077 = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 67BW26529D;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 75924A1A1C99CCC000B165AD;
+					};
 					75CC97461FB1D60000D08F06 = {
 						CreatedOnToolsVersion = 9.1;
 						DevelopmentTeam = 67BW26529D;
@@ -972,6 +1059,7 @@
 			targets = (
 				75924A1A1C99CCC000B165AD /* harbaughsim16 */,
 				75CC97461FB1D60000D08F06 /* CFC-Screenshots */,
+				75B9792B20067BD20050E077 /* cfctests */,
 			);
 		};
 /* End PBXProject section */
@@ -1048,6 +1136,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		75B9792A20067BD20050E077 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		75CC97451FB1D60000D08F06 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1086,6 +1181,36 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" b78f856111e2a3bd5e7912b170e627a6117a818e 66e7db92bf1b6f2e94ad0e890361bd81d894a5f91194061aa816c2cb9dc00b1e";
 		};
+		9CB710BDD1F850C84E318F16 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cfctests/Pods-cfctests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A453EC2219D24D128FA4DB23 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cfctests/Pods-cfctests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D697AD2F27F8EAE2FAC35E4F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1114,6 +1239,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EE2911C49B78FA81238583A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1208,6 +1348,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		75B9792820067BD20050E077 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75B9793620067CEA0050E077 /* HBSharedUtils.m in Sources */,
+				75B9793720067CEA0050E077 /* LeagueUpdater.m in Sources */,
+				75B9793820067CEA0050E077 /* League.m in Sources */,
+				75B9793920067CEA0050E077 /* NSArray+Uniqueness.m in Sources */,
+				75B9793A20067CEA0050E077 /* Conference.m in Sources */,
+				75B9793B20067CEA0050E077 /* Team.m in Sources */,
+				75B9793C20067CEA0050E077 /* TeamStrategy.m in Sources */,
+				75B9793D20067CEA0050E077 /* TeamStreak.m in Sources */,
+				75B9793E20067CEA0050E077 /* Record.m in Sources */,
+				75B9793F20067CEA0050E077 /* Game.m in Sources */,
+				75B9794020067CEA0050E077 /* Injury.m in Sources */,
+				75B9794120067CEA0050E077 /* Player.m in Sources */,
+				75B9794220067CEA0050E077 /* PlayerQB.m in Sources */,
+				75B9794320067CEA0050E077 /* PlayerRB.m in Sources */,
+				75B9794420067CEA0050E077 /* PlayerWR.m in Sources */,
+				75B9794520067CEA0050E077 /* PlayerTE.m in Sources */,
+				75B9794620067CEA0050E077 /* PlayerK.m in Sources */,
+				75B9794720067CEA0050E077 /* PlayerOL.m in Sources */,
+				75B9794820067CEA0050E077 /* PlayerS.m in Sources */,
+				75B9794920067CEA0050E077 /* PlayerDL.m in Sources */,
+				75B9794A20067CEA0050E077 /* PlayerLB.m in Sources */,
+				75B9794B20067CEA0050E077 /* PlayerCB.m in Sources */,
+				75B9794C20067CEA0050E077 /* PlayerF7.m in Sources */,
+				75B9792F20067BD20050E077 /* cfctests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		75CC97431FB1D60000D08F06 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1220,6 +1391,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		75B9793220067BD20050E077 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75924A1A1C99CCC000B165AD /* harbaughsim16 */;
+			targetProxy = 75B9793120067BD20050E077 /* PBXContainerItemProxy */;
+		};
 		75CC974D1FB1D60000D08F06 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 75924A1A1C99CCC000B165AD /* harbaughsim16 */;
@@ -1287,6 +1463,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1332,6 +1509,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1348,7 +1526,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 67BW26529D;
 				INFOPLIST_FILE = harbaughsim16/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.harbaughsim16;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1371,13 +1549,63 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 67BW26529D;
 				INFOPLIST_FILE = harbaughsim16/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.harbaughsim16;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "harbaughsim16/harbaughsim16-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		75B9793320067BD20050E077 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 420504B1CC403077798DB85B /* Pods-cfctests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67BW26529D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = cfctests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.cfctests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/harbaughsim16.app/harbaughsim16";
+			};
+			name = Debug;
+		};
+		75B9793420067BD20050E077 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C8B90D97AA7A452C16BCE43 /* Pods-cfctests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67BW26529D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = cfctests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.cfctests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/harbaughsim16.app/harbaughsim16";
 			};
 			name = Release;
 		};
@@ -1448,6 +1676,15 @@
 			buildConfigurations = (
 				75924A361C99CCC000B165AD /* Debug */,
 				75924A371C99CCC000B165AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75B9793520067BD20050E077 /* Build configuration list for PBXNativeTarget "cfctests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75B9793320067BD20050E077 /* Debug */,
+				75B9793420067BD20050E077 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

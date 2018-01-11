@@ -438,7 +438,7 @@
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Do you want to leave College Football Coach?" message:nil preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
                 [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:HB_APP_REVIEW_URL]];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:HB_APP_REVIEW_URL] options:@{} completionHandler:nil];
                 }]];
                 [self presentViewController:alert animated:YES completion:nil];
             }

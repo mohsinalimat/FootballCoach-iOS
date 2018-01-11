@@ -214,24 +214,26 @@
                 if (p.team == nil || p.recruitStatus != CFCRecruitStatusCommitted) {
                     // choose a random offer and increase its interest by a random set of events
                     if (p.offers.allKeys.count > 0) {
-                        NSString *randomOffer;
-                        // NSLog(@"STARTING TO FIND RANDOM OFFER FROM: %@", p.offers.allKeys);
-                        while (randomOffer == nil || [randomOffer isEqualToString:currentLeague.userTeam.abbreviation]) {
-                            randomOffer = [p.offers.allKeys getElementsRandomly:1][0];
-                            // NSLog(@"CYCLED RAND OFFER");
+                        if (recruitingStage != CFCRecruitingStageSigningDay) {
+                            NSString *randomOffer;
+                            // NSLog(@"STARTING TO FIND RANDOM OFFER FROM: %@", p.offers.allKeys);
+                            while (randomOffer == nil || [randomOffer isEqualToString:currentLeague.userTeam.abbreviation]) {
+                                randomOffer = [p.offers.allKeys getElementsRandomly:1][0];
+                                // NSLog(@"CYCLED RAND OFFER");
+                            }
+                            // NSLog(@"VALID RANDOM OFFER FOUND: %@", randomOffer);
+                            
+                            // NSLog(@"ADDING EVENTS FOR OFFER: %@", randomOffer);
+                            NSArray *randomEventsSet = [eventsValues.allKeys getElementsRandomly:(int)([HBSharedUtils randomValue] * 3)];
+                            // NSLog(@"PICKED EVENTS");
+                            int offerInterest = p.offers[randomOffer].intValue;
+                            for (NSNumber *eventType in randomEventsSet) {
+                                offerInterest += eventsValues[eventType].intValue;
+                            }
+                            // NSLog(@"UPDATED INTEREST STATS, SAVING OFFER: %@", randomOffer);
+                            [p.offers setObject:@(offerInterest) forKey:randomOffer];
+                            // NSLog(@"SAVED OFFER: %@", randomOffer);
                         }
-                        // NSLog(@"VALID RANDOM OFFER FOUND: %@", randomOffer);
-
-                        // NSLog(@"ADDING EVENTS FOR OFFER: %@", randomOffer);
-                        NSArray *randomEventsSet = [eventsValues.allKeys getElementsRandomly:(int)([HBSharedUtils randomValue] * 3)];
-                        // NSLog(@"PICKED EVENTS");
-                        int offerInterest = p.offers[randomOffer].intValue;
-                        for (NSNumber *eventType in randomEventsSet) {
-                            offerInterest += eventsValues[eventType].intValue;
-                        }
-                        // NSLog(@"UPDATED INTEREST STATS, SAVING OFFER: %@", randomOffer);
-                        [p.offers setObject:@(offerInterest) forKey:randomOffer];
-                        // NSLog(@"SAVED OFFER: %@", randomOffer);
 
                         // if the offer puts interest for a team at 100+:
                         // NSLog(@"SORTING OFFERS TO FIND TOP ONES");
@@ -248,26 +250,30 @@
                                 // NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
                                 Team *t = [currentLeague findTeam:highestOffer];
                                 if (![t.recruitingClass containsObject:p]) {
-                                    [p setRecruitStatus:CFCRecruitStatusCommitted];
-                                    [p setTeam:t];
-                                    [t.recruitingClass addObject:p];
-
-                                    if (t == currentLeague.userTeam) {
-                                        [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
-                                    }
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [p setRecruitStatus:CFCRecruitStatusCommitted];
+                                        [p setTeam:t];
+                                        [t.recruitingClass addObject:p];
+                                        
+                                        if (t == currentLeague.userTeam) {
+                                            [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
+                                        }
+                                    });
                                 }
                             }
                         } else {
                             Team *t = [currentLeague findTeam:highestOffer];
                             // NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
                             if (![t.recruitingClass containsObject:p]) {
-                                [p setRecruitStatus:CFCRecruitStatusCommitted];
-                                [p setTeam:t];
-                                [t.recruitingClass addObject:p];
-
-                                if (t == currentLeague.userTeam) {
-                                    [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
-                                }
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [p setRecruitStatus:CFCRecruitStatusCommitted];
+                                    [p setTeam:t];
+                                    [t.recruitingClass addObject:p];
+                                    
+                                    if (t == currentLeague.userTeam) {
+                                        [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
+                                    }
+                                });
                             }
                         }
                     } else {
@@ -312,7 +318,6 @@
 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [hud hideAnimated:YES];
-                    [self.tableView reloadData];
                     if (recruitingStage == CFCRecruitingStageFallCamp) {
                         [positionSelectionControl removeFromSuperview];
                         [toolbarView removeFromSuperview];
@@ -323,6 +328,7 @@
                             [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top - 100, 0, self.tableView.contentInset.bottom - toolbarView.frame.size.height, 0)];
                         }
                     }
+                    [self.tableView reloadData];
                 });
             });
         });
