@@ -321,12 +321,7 @@
                     if (recruitingStage == CFCRecruitingStageFallCamp) {
                         [positionSelectionControl removeFromSuperview];
                         [toolbarView removeFromSuperview];
-                        if (SYSTEM_VERSION_GREATER_THAN(@"9.4")) {
-                            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-                        } else {
-                            [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-                            [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top - 100, 0, self.tableView.contentInset.bottom - toolbarView.frame.size.height, 0)];
-                        }
+                        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
                     }
                     [self.tableView reloadData];
                 });
@@ -613,11 +608,7 @@
     self.tableView.estimatedRowHeight = 160;
     self.tableView.rowHeight = 160;
     self.tableView.tableFooterView = [UIView new];
-    if (SYSTEM_VERSION_GREATER_THAN(@"9.4")) {
-        [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
-    } else {
-        [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitiOS9Cell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitiOS9Cell"];
-    }
+    [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
 
@@ -746,14 +737,10 @@
 
         [self.navigationController.view addSubview:toolbarView];
         [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-        if (SYSTEM_VERSION_GREATER_THAN(@"9.4")) {
-            if (SYSTEM_VERSION_GREATER_THAN(@"10.4")) {
-                [self.tableView setContentInset:UIEdgeInsetsMake(44, 0, toolbarView.frame.size.height, 0)];
-            } else {
-                [self.tableView setContentInset:UIEdgeInsetsMake(105, 0, toolbarView.frame.size.height, 0)];
-            }
+        if (SYSTEM_VERSION_GREATER_THAN(@"10.4")) {
+            [self.tableView setContentInset:UIEdgeInsetsMake(44, 0, toolbarView.frame.size.height, 0)];
         } else {
-            [self.tableView setContentInset:UIEdgeInsetsMake(110, 0, toolbarView.frame.size.height, 0)];
+            [self.tableView setContentInset:UIEdgeInsetsMake(105, 0, toolbarView.frame.size.height, 0)];
         }
     }
 }
@@ -1337,32 +1324,21 @@
     }
     
     
-    if (SYSTEM_VERSION_GREATER_THAN(@"9.4")) {
-        CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
-        [cell.interestLabel setAttributedText:interestString];
-        [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:stars]]];
-        [cell.nameLabel setAttributedText:nameString];
-        [cell.stateLabel setText:state];
-        [cell.heightLabel setAttributedText:heightString];
-        [cell.weightLabel setAttributedText:weightString];
-        
-        NSMutableAttributedString *dashString = [[NSMutableAttributedString alloc] initWithString:@"40-yd dash: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-        [dashString appendAttributedString:[[NSAttributedString alloc] initWithString:fortyTime attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
-        [cell.fortyYdDashLabel setAttributedText:dashString];
-        
-        [cell.rankLabel setText:overall];
-        [cell.otherOffersLabel setAttributedText:offerString];
-        return cell;
-    } else {
-        CFCRecruitiOS9Cell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitiOS9Cell"];
-        [cell.interestLabel setAttributedText:interestString];
-        [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:stars]]];
-        [cell.nameLabel setAttributedText:nameString];
-        [cell.stateLabel setText:state];
-        [cell.rankLabel setText:overall];
-        [cell.otherOffersLabel setAttributedText:offerString];
-        return cell;
-    }
+    CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
+    [cell.interestLabel setAttributedText:interestString];
+    [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:stars]]];
+    [cell.nameLabel setAttributedText:nameString];
+    [cell.stateLabel setText:state];
+    [cell.heightLabel setAttributedText:heightString];
+    [cell.weightLabel setAttributedText:weightString];
+    
+    NSMutableAttributedString *dashString = [[NSMutableAttributedString alloc] initWithString:@"40-yd dash: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [dashString appendAttributedString:[[NSAttributedString alloc] initWithString:fortyTime attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    [cell.fortyYdDashLabel setAttributedText:dashString];
+    
+    [cell.rankLabel setText:overall];
+    [cell.otherOffersLabel setAttributedText:offerString];
+    return cell;
     
 }
 
