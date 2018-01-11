@@ -2369,7 +2369,7 @@
 }
 
 -(NSString *)leagueMetadataJSON {
-    NSMutableString *jsonString = [NSMutableString string];
+    NSMutableString *jsonString = [NSMutableString stringWithString:@""];
     [jsonString appendString:@"\{"];
     [jsonString appendString:@"\"bowlGames\" : \["];
     for (NSString *bowl in bowlTitles) {

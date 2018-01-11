@@ -24,8 +24,6 @@
 #import "PlayerS.h"
 
 #import "CFCRecruitCell.h"
-#import "AEScrollingToolbarView.h"
-#import "AEProgressTitleView.h"
 #import "NSArray+Uniqueness.h"
 
 #import "STPopup.h"
@@ -80,9 +78,7 @@
     int recruitingPoints;
     int usedRecruitingPoints;
 
-    AEProgressTitleView *recruitProgressBar;
     LDONavigationSubtitleView *navigationTitleView;
-    //AEScrollingToolbarView *toolbarView;
 
     CFCRecruitingStage recruitingStage;
     BOOL allPlayersAvailable;
@@ -1646,10 +1642,17 @@
             }
         }
     } else {
-        [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Redshirt" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            p.hasRedshirt = YES;
-            [self.tableView reloadData];
-        }]];
+        if (!p.hasRedshirt) {
+            [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Redshirt" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                p.hasRedshirt = YES;
+                [self.tableView reloadData];
+            }]];
+        } else {
+            [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Un-redshirt" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                p.hasRedshirt = NO;
+                [self.tableView reloadData];
+            }]];
+        }
     }
     
     [recruitOptionsController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
