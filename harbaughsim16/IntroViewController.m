@@ -97,7 +97,7 @@
 
 -(IBAction)importLeagueMetadata:(id)sender {
     
-    UIAlertController *urlAlert = [UIAlertController alertControllerWithTitle:@"Import League Metadata" message:@"Please enter the valid URL of a league metadata file." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *urlAlert = [UIAlertController alertControllerWithTitle:@"Import League Metadata" message:@"Please enter the valid URL of a league metadata JSON file." preferredStyle:UIAlertControllerStyleAlert];
     [urlAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         [textField setPlaceholder:@"URL to File"];
         [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];

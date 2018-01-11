@@ -195,6 +195,9 @@
         
         CGFloat input = (CGFloat) self.ratSpeed;
         CGFloat fortyTime = (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+        if (self.ratSpeed >= 80) {
+            fortyTime -= 0.20;
+        }
         self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", fortyTime];
         
         NSInteger weight = (int)([HBSharedUtils randomValue] * 30) + 190;

@@ -145,8 +145,6 @@
 		75C7C48B1FF8B176003840D4 /* AEProgressTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C7C48A1FF8B176003840D4 /* AEProgressTitleView.m */; };
 		75C7C4951FF9EE23003840D4 /* AEScrollingToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C7C4941FF9EE23003840D4 /* AEScrollingToolbarView.m */; };
 		75C7C4981FFA0C9C003840D4 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C7C4971FFA0C9C003840D4 /* HelpViewController.m */; };
-		75C84CC620056AAC00179190 /* CFCRecruitiOS9Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C84CC420056AAC00179190 /* CFCRecruitiOS9Cell.m */; };
-		75C84CC720056AAC00179190 /* CFCRecruitiOS9Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C84CC520056AAC00179190 /* CFCRecruitiOS9Cell.xib */; };
 		75CA698C1FEE2BF2008A58D1 /* last-names.csv in Resources */ = {isa = PBXBuildFile; fileRef = 75CA698A1FEE2BF2008A58D1 /* last-names.csv */; };
 		75CA698D1FEE2BF2008A58D1 /* first-names.csv in Resources */ = {isa = PBXBuildFile; fileRef = 75CA698B1FEE2BF2008A58D1 /* first-names.csv */; };
 		75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE1C1CBECCBC003AB932 /* FCAFootball.png */; };
@@ -402,9 +400,6 @@
 		75C7C4941FF9EE23003840D4 /* AEScrollingToolbarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AEScrollingToolbarView.m; sourceTree = "<group>"; };
 		75C7C4961FFA0C9C003840D4 /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		75C7C4971FFA0C9C003840D4 /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
-		75C84CC320056AAC00179190 /* CFCRecruitiOS9Cell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFCRecruitiOS9Cell.h; sourceTree = "<group>"; };
-		75C84CC420056AAC00179190 /* CFCRecruitiOS9Cell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CFCRecruitiOS9Cell.m; sourceTree = "<group>"; };
-		75C84CC520056AAC00179190 /* CFCRecruitiOS9Cell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CFCRecruitiOS9Cell.xib; sourceTree = "<group>"; };
 		75CA698A1FEE2BF2008A58D1 /* last-names.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "last-names.csv"; sourceTree = "<group>"; };
 		75CA698B1FEE2BF2008A58D1 /* first-names.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "first-names.csv"; sourceTree = "<group>"; };
 		75CACE1C1CBECCBC003AB932 /* FCAFootball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCAFootball.png; sourceTree = "<group>"; };
@@ -506,9 +501,6 @@
 				75CEE94B1FF593F5005A86C1 /* CFCRecruitCell.h */,
 				75CEE94C1FF593F5005A86C1 /* CFCRecruitCell.m */,
 				75CEE94D1FF593F5005A86C1 /* CFCRecruitCell.xib */,
-				75C84CC320056AAC00179190 /* CFCRecruitiOS9Cell.h */,
-				75C84CC420056AAC00179190 /* CFCRecruitiOS9Cell.m */,
-				75C84CC520056AAC00179190 /* CFCRecruitiOS9Cell.xib */,
 				7551AC1D1FFFD9CA0033680E /* CFCWatchlistCell.h */,
 				7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */,
 				7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */,
@@ -1122,7 +1114,6 @@
 				75A86C921C9C7AA80034140C /* team@3x.png in Resources */,
 				755BBC871C9F7DA4001A8314 /* HBScoreCell.xib in Resources */,
 				7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */,
-				75C84CC720056AAC00179190 /* CFCRecruitiOS9Cell.xib in Resources */,
 				7571DD261C9CC64200E67080 /* settings@3x.png in Resources */,
 				75F0E2681FECDAEA00719086 /* trophy@2x.png in Resources */,
 				7571DD351C9CF8E300E67080 /* MyTeamViewController.xib in Resources */,
@@ -1338,7 +1329,6 @@
 				7562A8931FFF4370004C0985 /* BalloonMarker.swift in Sources */,
 				7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */,
 				754E90821CA5A59D00C450CF /* TeamScheduleViewController.m in Sources */,
-				75C84CC620056AAC00179190 /* CFCRecruitiOS9Cell.m in Sources */,
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,
 				7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */,
 				75924A521C99D1C600B165AD /* TeamStrategy.m in Sources */,
