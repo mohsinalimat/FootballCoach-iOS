@@ -349,21 +349,24 @@
 }
 
 -(void)calculateTeamNeeds {
+    //since players haven't actually left yet, adding needs from playersLeaving and subtracting needs for recruits who signed
     Team *t = [HBSharedUtils currentLeague].userTeam;
 
-    needQBs = MAX(0, 2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB"]);
-    needRBs = MAX(0, 4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB"]);
-    needWRs = MAX(0, 6 - t.teamWRs.count + [self _calculateNeededPlayersAtPosition:@"WR"]);
-    needTEs = MAX(0, 2 - t.teamTEs.count + [self _calculateNeededPlayersAtPosition:@"TE"]);
-    needOLs = MAX(0, 10 - t.teamOLs.count + [self _calculateNeededPlayersAtPosition:@"OL"]);
-    needDLs = MAX(0, 8 - t.teamDLs.count + [self _calculateNeededPlayersAtPosition:@"DL"]);
-    needLBs = MAX(0, 6 - t.teamLBs.count + [self _calculateNeededPlayersAtPosition:@"LB"]);
-    needCBs = MAX(0, 6 - t.teamCBs.count + [self _calculateNeededPlayersAtPosition:@"CB"]);
-    needsS = MAX(0, 2 - t.teamSs.count + [self _calculateNeededPlayersAtPosition:@"S"]);
-    needKs = MAX(0, 2 - t.teamKs.count + [self _calculateNeededPlayersAtPosition:@"K"]);
+    needQBs = MAX(0, 2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB"] - [self _calculateSignedPlayersAtPosition:@"QB"]);
+    needRBs = MAX(0, 4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB"] - [self _calculateSignedPlayersAtPosition:@"RB"]);
+    needWRs = MAX(0, 6 - t.teamWRs.count + [self _calculateNeededPlayersAtPosition:@"WR"] - [self _calculateSignedPlayersAtPosition:@"WR"]);
+    needTEs = MAX(0, 2 - t.teamTEs.count + [self _calculateNeededPlayersAtPosition:@"TE"] - [self _calculateSignedPlayersAtPosition:@"TE"]);
+    needOLs = MAX(0, 10 - t.teamOLs.count + [self _calculateNeededPlayersAtPosition:@"OL"] - [self _calculateSignedPlayersAtPosition:@"OL"]);
+    needDLs = MAX(0, 8 - t.teamDLs.count + [self _calculateNeededPlayersAtPosition:@"DL"] - [self _calculateSignedPlayersAtPosition:@"DL"]);
+    needLBs = MAX(0, 6 - t.teamLBs.count + [self _calculateNeededPlayersAtPosition:@"LB"] - [self _calculateSignedPlayersAtPosition:@"LB"]);
+    needCBs = MAX(0, 6 - t.teamCBs.count + [self _calculateNeededPlayersAtPosition:@"CB"] - [self _calculateSignedPlayersAtPosition:@"CB"]);
+    needsS = MAX(0, 2 - t.teamSs.count + [self _calculateNeededPlayersAtPosition:@"S"] - [self _calculateSignedPlayersAtPosition:@"S"]);
+    needKs = MAX(0, 2 - t.teamKs.count + [self _calculateNeededPlayersAtPosition:@"K"] - [self _calculateSignedPlayersAtPosition:@"K"]);
 }
 
 -(void)showRemainingNeeds {
+    // TODO: add snippet to line if recruit at position has been interacted with but not signed - EX: "Need 1 active QB (1 on watchlist)"
+    [self calculateTeamNeeds];
     NSMutableString *summary = [NSMutableString string];
 
     if (needQBs > 0) {
@@ -466,6 +469,17 @@
     [t.playersLeaving enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         Player *p = (Player *)obj;
         if ([p.position isEqualToString:pos]) {
+            [mapped addObject:p];
+        }
+    }];
+    return mapped.count;
+}
+
+-(NSInteger)_calculateSignedPlayersAtPosition:(NSString *)pos {
+    NSMutableArray *mapped = [NSMutableArray array];
+    [progressedRecruits enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Player *p = (Player *)obj;
+        if ([p.position isEqualToString:pos] && p.recruitStatus == CFCRecruitStatusCommitted && p.team == [HBSharedUtils currentLeague].userTeam) {
             [mapped addObject:p];
         }
     }];
@@ -1455,7 +1469,9 @@
                         if (![progressedRecruits containsObject:p]) {
                             [progressedRecruits addObject:p];
                             if (progressedRecruits.count == 1) {
+                                NSInteger selectedIdx = positionSelectionControl.selectedSegmentIndex;
                                 [positionSelectionControl insertSegmentWithTitle:@"WTCH" at:1];
+                                [positionSelectionControl setSelectedSegmentIndex:selectedIdx + 1];
                             }
                         }
                         
@@ -1483,7 +1499,9 @@
                         if (![progressedRecruits containsObject:p]) {
                             [progressedRecruits addObject:p];
                             if (progressedRecruits.count == 1) {
+                                NSInteger selectedIdx = positionSelectionControl.selectedSegmentIndex;
                                 [positionSelectionControl insertSegmentWithTitle:@"WTCH" at:1];
+                                [positionSelectionControl setSelectedSegmentIndex:selectedIdx + 1];
                             }
                         }
 
@@ -1510,7 +1528,9 @@
                         if (![progressedRecruits containsObject:p]) {
                             [progressedRecruits addObject:p];
                             if (progressedRecruits.count == 1) {
+                                NSInteger selectedIdx = positionSelectionControl.selectedSegmentIndex;
                                 [positionSelectionControl insertSegmentWithTitle:@"WTCH" at:1];
+                                [positionSelectionControl setSelectedSegmentIndex:selectedIdx + 1];
                             }
                         }
                         
@@ -1544,7 +1564,9 @@
                         if (![progressedRecruits containsObject:p]) {
                             [progressedRecruits addObject:p];
                             if (progressedRecruits.count == 1) {
+                                NSInteger selectedIdx = positionSelectionControl.selectedSegmentIndex;
                                 [positionSelectionControl insertSegmentWithTitle:@"WTCH" at:1];
+                                [positionSelectionControl setSelectedSegmentIndex:selectedIdx + 1];
                             }
                         }
                         
@@ -1598,7 +1620,9 @@
                                 if (![progressedRecruits containsObject:p]) {
                                     [progressedRecruits addObject:p];
                                     if (progressedRecruits.count == 1) {
-                                        [positionSelectionControl insertSegmentWithTitle:@"WCH" at:1];
+                                        NSInteger selectedIdx = positionSelectionControl.selectedSegmentIndex;
+                                        [positionSelectionControl insertSegmentWithTitle:@"WTCH" at:1];
+                                        [positionSelectionControl setSelectedSegmentIndex:selectedIdx + 1];
                                     }
                                 }
 
