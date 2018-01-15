@@ -80,7 +80,9 @@ typedef enum {
     CFCRecruitEventInHomeVisit,
     CFCRecruitEventExtendOffer,
     CFCRecruitEventCommitted,
-    CFCRecruitEventFlipped
+    CFCRecruitEventFlipped,
+    CFCRecruitEventRedshirted,
+    CFCRecruitEventUnredshirted
 } CFCRecruitEvent;
 
 typedef enum {

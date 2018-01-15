@@ -8,7 +8,13 @@
 
 #import "FCTableViewController.h"
 
-@interface RecruitingPeriodViewController : FCTableViewController
+#import "RecruitingActionsViewController.h"
 
+@interface RecruitingPeriodViewController : FCTableViewController <RecruitingActionsDelegate>
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSString *> *signedRecruitRanks;
+@property (strong, nonatomic) NSMutableArray<Player *>* progressedRecruits;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSMutableArray *> *recruitActivities;
+@property (nonatomic) int recruitingPoints;
+@property (nonatomic) int usedRecruitingPoints;
 @end
 

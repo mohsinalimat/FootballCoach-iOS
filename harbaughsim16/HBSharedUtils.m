@@ -94,7 +94,7 @@ static UIColor *styleColor = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
      [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setupAppearance];
-    
+
 }
 
 +(NSArray*)colorOptions { //FC Android color: #3EB49F //FC iOS color: #009740 //USA Red: #BB133E // USA Blue: #002147
@@ -186,7 +186,7 @@ static UIColor *styleColor = nil;
     Team *b = (Team*)obj2;
     int aDivW = [a calculateConfWins];
     int bDivW = [b calculateConfWins];
-    
+
     if ([a.confChampion isEqualToString:@"CC"] && ![b.confChampion isEqualToString:@"CC"])
         return -1;
     else if ([b.confChampion isEqualToString:@"CC"] && ![a.confChampion isEqualToString:@"CC"])
@@ -322,13 +322,13 @@ static UIColor *styleColor = nil;
 
 + (void)startOffseason:(UIViewController*)viewController callback:(void (^)(void))callback {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu %@ Offseason", (long)([HBSharedUtils currentLeague].leagueHistoryDictionary.count + [HBSharedUtils currentLeague].baseYear), [HBSharedUtils currentLeague].userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
+
     [alertController addAction:[UIAlertAction actionWithTitle:@"Start Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
         });
     }]];
-    
+
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Season Summary" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)[[HBSharedUtils currentLeague] getCurrentYear]] message:[[HBSharedUtils currentLeague] seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
@@ -347,12 +347,11 @@ static UIColor *styleColor = nil;
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
     [viewController presentViewController:alertController animated:YES completion:nil];
-    
+
 }
 
 +(void)playWeek:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback {
     League *simLeague = [HBSharedUtils currentLeague];
-    
     if (simLeague.recruitingStage == 0) {
         // Perform action on click
         if (simLeague.currentWeek == 15) {
@@ -368,8 +367,6 @@ static UIColor *styleColor = nil;
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([HBSharedUtils currentLeague].baseYear + simLeague.userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
-                
-                
             } else if (simLeague.userTeam.gameWLSchedule.count > numGamesPlayed) {
                 // Played a game, show summary - show notification
                 if (simLeague.currentWeek <= 12) {
@@ -409,9 +406,8 @@ static UIColor *styleColor = nil;
                         }
                     }
                 }
-                
             }
-            
+
             if (simLeague.currentWeek >= 12) {
                 if (simLeague.userTeam.gameSchedule.count > 0) {
                     Game *nextGame = [simLeague.userTeam.gameSchedule lastObject];
@@ -437,12 +433,12 @@ static UIColor *styleColor = nil;
                     }
                 }
             }
-            
+
             if (simLeague.currentWeek < 12) {
                 [HBSharedUtils currentLeague].canRebrandTeam = NO;
                 [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
                 [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
-                
+
                 if (simLeague.userTeam.league.currentWeek != 15) {
                     if (simLeague.userTeam.injuredPlayers.count > 0) {
                         [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)simLeague.userTeam.injuredPlayers.count];
@@ -451,7 +447,7 @@ static UIColor *styleColor = nil;
                     }
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateInjuryCount" object:nil];
                 }
-                
+
             } else if (simLeague.currentWeek == 12) {
                 [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 13) {
@@ -461,11 +457,11 @@ static UIColor *styleColor = nil;
                 for (int i = 1; i < heismanParts.count; i++) {
                     [composeHeis appendString:heismanParts[i]];
                 }
-                
+
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Player of the Year", (long)([HBSharedUtils currentLeague].baseYear + simLeague.userTeam.teamHistoryDictionary.count)] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
-                
+
                 [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 14) {
                 [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
@@ -476,7 +472,7 @@ static UIColor *styleColor = nil;
                 [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
             }
-            
+
             callback();
         }
     } else {
@@ -495,7 +491,7 @@ static UIColor *styleColor = nil;
             simLeague.recruitingStage = 1;
             [HBSharedUtils currentLeague].canRebrandTeam = YES;
             [[HBSharedUtils currentLeague] save];
-            
+
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([HBSharedUtils currentLeague].baseYear + simLeague.userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
@@ -504,10 +500,10 @@ static UIColor *styleColor = nil;
             if (IS_IPHONE_5 || IS_IPHONE_4_OR_LESS) {
                 simTime = 1.5;
             }
-            
+
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(simTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [simLeague playWeek];
-                
+
                 if (simLeague.currentWeek < 12) {
                     [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
                     [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
@@ -527,7 +523,7 @@ static UIColor *styleColor = nil;
                     [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
                 }
-                
+
                 callback();
                 if (weekTotal > 1 && simLeague.currentWeek < 15) {
                     NSLog(@"WEEK TOTAL: %d",weekTotal);
@@ -557,7 +553,6 @@ static UIColor *styleColor = nil;
         [HBSharedUtils startOffseason:viewController callback:nil];
     }
 }
-
 
 + (CFCRegion)regionForState:(NSString *)state {
     NSArray *northeast = @[@"Connecticut", @"Delaware", @"Maine", @"Massachusetts", @"New Hampshire", @"New Jersey", @"New York", @"Pennsylvania", @"Rhode Island", @"Vermont"];
@@ -630,20 +625,20 @@ static UIColor *styleColor = nil;
         [offerString appendString:@"None"];
     }
     offerString = [NSMutableString stringWithString:[[offerString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]]];
-    
+
     return offerString;
 }
 
 +(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers {
-    
+
     NSMutableDictionary *totalOffers = [NSMutableDictionary dictionaryWithDictionary:offers];
     [totalOffers setObject:@(interestVal) forKey:[HBSharedUtils currentLeague].userTeam.abbreviation];
     NSArray *sortedOffers = [totalOffers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [obj2 compare:obj1];
     }];
-    
+
     NSInteger offIdx = [sortedOffers indexOfObject:[HBSharedUtils currentLeague].userTeam.abbreviation];
-    
+
     UIColor *letterColor = [UIColor lightGrayColor];
     NSString *interestString = @"LOW";
     if (offIdx == 0) {
@@ -659,9 +654,9 @@ static UIColor *styleColor = nil;
         letterColor = [UIColor lightGrayColor];
         interestString = @"LOW";
     }
-    
+
     return @{@"color" : letterColor, @"interest" : interestString};
-    
+
 }
 
 +(NSString *)_calculateInterestString:(int)interestVal {
@@ -697,7 +692,6 @@ static UIColor *styleColor = nil;
             break;
     }
 }
-
 
 + (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber {
     float diff = bigNumber - smallNumber;

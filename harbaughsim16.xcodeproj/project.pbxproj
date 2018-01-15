@@ -53,6 +53,7 @@
 		7562A8911FFF4040004C0985 /* show@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7562A88D1FFF403F004C0985 /* show@2x.png */; };
 		7562A8931FFF4370004C0985 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7562A8921FFF4370004C0985 /* BalloonMarker.swift */; };
 		7562A8951FFF4394004C0985 /* PrestigeYearMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7562A8941FFF4394004C0985 /* PrestigeYearMarkerView.swift */; };
+		7562CC3F200C7488000A7A1C /* RecruitingActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7562CC3E200C7488000A7A1C /* RecruitingActionsViewController.m */; };
 		7563A8E11CB7F6F20023E43B /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 7563A8E01CB7F6F20023E43B /* Record.m */; };
 		756973971FAAB50400A66C42 /* LeagueUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 756973961FAAB50400A66C42 /* LeagueUpdater.m */; };
 		7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */; };
@@ -272,6 +273,8 @@
 		7562A8921FFF4370004C0985 /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		7562A8941FFF4394004C0985 /* PrestigeYearMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrestigeYearMarkerView.swift; sourceTree = "<group>"; };
 		7562A8961FFF44E8004C0985 /* harbaughsim16-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "harbaughsim16-Bridging-Header.h"; sourceTree = "<group>"; };
+		7562CC3D200C7488000A7A1C /* RecruitingActionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecruitingActionsViewController.h; sourceTree = "<group>"; };
+		7562CC3E200C7488000A7A1C /* RecruitingActionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecruitingActionsViewController.m; sourceTree = "<group>"; };
 		7563A8DF1CB7F6F20023E43B /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
 		7563A8E01CB7F6F20023E43B /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
 		756973951FAAB50400A66C42 /* LeagueUpdater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeagueUpdater.h; sourceTree = "<group>"; };
@@ -483,6 +486,8 @@
 				7503A01620004AAF004426AA /* Old */,
 				75CEE9481FF593B6005A86C1 /* RecruitingPeriodViewController.h */,
 				75CEE9491FF593B6005A86C1 /* RecruitingPeriodViewController.m */,
+				7562CC3D200C7488000A7A1C /* RecruitingActionsViewController.h */,
+				7562CC3E200C7488000A7A1C /* RecruitingActionsViewController.m */,
 				75CEE94B1FF593F5005A86C1 /* CFCRecruitCell.h */,
 				75CEE94C1FF593F5005A86C1 /* CFCRecruitCell.m */,
 				75CEE94D1FF593F5005A86C1 /* CFCRecruitCell.xib */,
@@ -1250,6 +1255,7 @@
 				75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */,
 				75924A581C99E62F00B165AD /* PlayerQB.m in Sources */,
 				75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */,
+				7562CC3F200C7488000A7A1C /* RecruitingActionsViewController.m in Sources */,
 				751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */,
 				75772C2E1D1C079E002DE956 /* RebrandConferenceSelectorViewController.m in Sources */,
 				754319021CC02D2200D380F1 /* ConferenceStandingsSelectorViewController.m in Sources */,

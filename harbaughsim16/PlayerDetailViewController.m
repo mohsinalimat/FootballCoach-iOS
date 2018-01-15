@@ -298,10 +298,6 @@
                     //blkP
                     [cell.detailTextLabel setText:ratings[@"olPassBlock"]];
                     [cell.textLabel setText:@"Pass Blocking"];
-                } else if (indexPath.row == 8) {
-                    //blkP
-                    [cell.detailTextLabel setText:ratings[@"olPassBlock"]];
-                    [cell.textLabel setText:@"Pass Blocking"];
                 } else {
                     //blkR
                     [cell.detailTextLabel setText:ratings[@"olRunBlock"]];

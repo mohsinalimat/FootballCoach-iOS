@@ -93,11 +93,12 @@
                     }
                     
                     // reset strats
-                    t.teamStatOffNum = [t getCPUOffense];
-                    t.teamStatDefNum = [t getCPUDefense];
-                    t.offensiveStrategy = [t getOffensiveTeamStrategies][t.teamStatOffNum];
-                    t.defensiveStrategy = [t getDefensiveTeamStrategies][t.teamStatDefNum];
-                
+                    if (!t.isUserControlled) {
+                        t.teamStatOffNum = [t getCPUOffense];
+                        t.teamStatDefNum = [t getCPUDefense];
+                        t.offensiveStrategy = [t getOffensiveTeamStrategies][t.teamStatOffNum];
+                        t.defensiveStrategy = [t getDefensiveTeamStrategies][t.teamStatDefNum];
+                    }
                 }
                 
                 // add TEStats and TE (as starter) and 4 more QB stats to games

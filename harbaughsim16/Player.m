@@ -176,15 +176,15 @@
         return 3;
     } else if ([pos isEqualToString:@"TE"]) {
         return 4;
-    } else if ([pos isEqualToString:@"K"]) {
-        return 5;
     } else if ([pos isEqualToString:@"S"]) {
-        return 6;
+        return 5;
     } else if ([pos isEqualToString:@"CB"]) {
-        return 7;
+        return 6;
     } else if ([pos isEqualToString:@"DL"]) {
-        return 8;
+        return 7;
     } else if ([pos isEqualToString:@"LB"]) {
+        return 8;
+    } else if ([pos isEqualToString:@"K"]) {
         return 9;
     } else {
         return 10;
