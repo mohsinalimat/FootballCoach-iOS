@@ -170,7 +170,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Drawing cell for section %lu index %lu", indexPath.section, indexPath.row);
+    //NSLog(@"Drawing cell for section %lu index %lu", indexPath.section, indexPath.row);
     if (indexPath.section == 0) {
         int interest = 0;
         if ([selectedRecruit.offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {

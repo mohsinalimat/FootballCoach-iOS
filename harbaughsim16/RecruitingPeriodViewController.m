@@ -310,7 +310,7 @@
                     [hud hideAnimated:YES];
                     if (recruitingStage == CFCRecruitingStageFallCamp) {
                         [positionSelectionControl removeFromSuperview];
-                        //self.navigationController.toolbarHidden = YES;
+                        self.navigationController.toolbarHidden = YES;
                         if (@available(iOS 11, *)) {
                             [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
                         } else {
