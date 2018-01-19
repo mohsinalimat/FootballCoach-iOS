@@ -21,6 +21,8 @@
 #import "RecruitingPeriodViewController.h"
 #import "GraduatingPlayersViewController.h"
 
+#import "ZGNavigationBarTitleViewController.h"
+
 #define ARC4RANDOM_MAX      0x100000000
 static UIColor *styleColor = nil;
 
@@ -191,9 +193,9 @@ static UIColor *styleColor = nil;
         return -1;
     else if ([b.confChampion isEqualToString:@"CC"] && ![a.confChampion isEqualToString:@"CC"])
         return 1;
-    else if (a.wins > b.wins) {
+    else if (aDivW > bDivW) {
         return -1;
-    } else if (a.wins < b.wins) {
+    } else if (bDivW > aDivW) {
         return 1;
     } else { // wins equal, check head to head
         if (![b.gameWinsAgainst containsObject:a]) {
@@ -203,13 +205,7 @@ static UIColor *styleColor = nil;
             // a never won against b
             return 1;
         } else { //they both beat each other at least once, check poll score, which will tie break with ppg if necessary
-            if (aDivW > bDivW) {
-                return -1;
-            } else if (bDivW > aDivW) {
-                return 1;
-            } else {
-                return [HBSharedUtils comparePollScore:a toObj2:b];
-            }
+            return [HBSharedUtils comparePollScore:a toObj2:b];
         }
     }
 }
@@ -325,7 +321,7 @@ static UIColor *styleColor = nil;
 
     [alertController addAction:[UIAlertAction actionWithTitle:@"Start Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
+            [viewController presentViewController:[[ZGNavigationBarTitleViewController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
         });
     }]];
 
@@ -671,6 +667,20 @@ static UIColor *styleColor = nil;
         interestString = @"LOW";
     }
     return interestString;
+}
+
++(UIColor *)_calculateInterestColor:(int)interestVal {
+    UIColor *interestColor = [UIColor lightGrayColor];
+    if (interestVal > 94) { // LOCK
+        interestColor = [HBSharedUtils successColor];
+    } else if (interestVal > 84 && interestVal <= 94) { // HIGH
+        interestColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+    } else if (interestVal > 49 && interestVal <= 64) { // MEDIUM
+        interestColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+    } else { // LOW
+        interestColor = [UIColor lightGrayColor];
+    }
+    return interestColor;
 }
 
 +(NSString *)convertStarsToUIImageName:(int)stars {

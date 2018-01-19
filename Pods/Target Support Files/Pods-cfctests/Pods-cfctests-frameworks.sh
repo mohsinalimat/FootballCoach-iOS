@@ -90,12 +90,12 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FCFileManager-iOS11.2/FCFileManager.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HexColors-iOS11.2/HexColors.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/LDONavigationSubtitleView-iOS11.2/LDONavigationSubtitleView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MBProgressHUD-iOS11.2/MBProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PPTopMostController-iOS11.2/PPTopMostController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RMessage-iOS11.2/RMessage.framework"
   install_framework "$BUILT_PRODUCTS_DIR/STPopup-iOS11.2/STPopup.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ATAppUpdater-iOS11.2/ATAppUpdater.framework"
@@ -104,10 +104,10 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FCFileManager-iOS11.2/FCFileManager.framework"
   install_framework "$BUILT_PRODUCTS_DIR/HexColors-iOS11.2/HexColors.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/LDONavigationSubtitleView-iOS11.2/LDONavigationSubtitleView.framework"
   install_framework "$BUILT_PRODUCTS_DIR/MBProgressHUD-iOS11.2/MBProgressHUD.framework"
   install_framework "$BUILT_PRODUCTS_DIR/PPTopMostController-iOS11.2/PPTopMostController.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RMessage-iOS11.2/RMessage.framework"
   install_framework "$BUILT_PRODUCTS_DIR/STPopup-iOS11.2/STPopup.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle.framework"
 fi

@@ -33,7 +33,7 @@
 #import "MBProgressHUD.h"
 #import "RMessage.h"
 #import "UIScrollView+EmptyDataSet.h"
-#import "LDONavigationSubtitleView.h"
+#import "ZGNavigationBarTitleViewController.h"
 
 #ifdef DEBUG
 #   define NSLog(...) NSLog(__VA_ARGS__)
@@ -48,11 +48,6 @@
 
     NSMutableArray *totalRecruits;
     NSMutableArray *currentRecruits;
-    
-    
-    //NSMutableDictionary<NSString *, NSString *> *signedRecruitRanks;
-    
-//    NSMutableArray<Player *> *userRecruitingClass;
 
     NSMutableArray<Player*>* availQBs;
     NSMutableArray<Player*>* availRBs;
@@ -75,10 +70,6 @@
     NSInteger needCBs;
     NSInteger needLBs;
     NSInteger needDLs;
-
-
-
-    LDONavigationSubtitleView *navigationTitleView;
 
     CFCRecruitingStage recruitingStage;
     BOOL allPlayersAvailable;
@@ -212,7 +203,7 @@
             for (Player *p in totalRecruits) {
                 if (p.team == nil || p.recruitStatus != CFCRecruitStatusCommitted) {
                     // choose a random offer and increase its interest by a random set of events
-                    if (p.offers.count > 0) {
+                    if (p.offers != nil && p.offers.count > 0) {
                         if (recruitingStage != CFCRecruitingStageSigningDay) {
                             NSString *randomOffer;
                             // NSLog(@"STARTING TO FIND RANDOM OFFER FROM: %@", p.offers.allKeys);
@@ -288,29 +279,29 @@
                     if (recruitingStage == CFCRecruitingStageWinter) {
                         recruitingStage = CFCRecruitingStageEarlySigningDay;
                         // NSLog(@"STARTING SIGNING DAY, STAGE %d", recruitingStage);
-                        self.navigationItem.title = [NSString stringWithFormat:@"Early Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
+                        self.title = [NSString stringWithFormat:@"Early Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
                     } else if (recruitingStage == CFCRecruitingStageEarlySigningDay) {
                         recruitingStage = CFCRecruitingStageSigningDay;
                         // NSLog(@"STARTING SIGNING DAY, STAGE %d", recruitingStage);
-                        self.navigationItem.title = [NSString stringWithFormat:@"Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
+                        self.title = [NSString stringWithFormat:@"Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
                     } else {
                         recruitingStage = CFCRecruitingStageFallCamp;
                         // NSLog(@"SHOWING RECRUITING CLASS, STAGE %d", recruitingStage);
-                        navigationTitleView.title = [NSString stringWithFormat:@"%lu Recruiting Class",  (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
+                        self.title = [NSString stringWithFormat:@"%lu Recruiting Class",  (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleDone target:self action:@selector(finishRecruitingSeason)];
                     }
                 } else {
                     if (recruitingStage == CFCRecruitingStageWinter) {
                         recruitingStage = CFCRecruitingStageSigningDay;
                         // NSLog(@"STARTING SIGNING DAY, STAGE %d", recruitingStage);
-                        navigationTitleView.title = [NSString stringWithFormat:@"Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
+                        self.title = [NSString stringWithFormat:@"Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
                     } else {
                         recruitingStage = CFCRecruitingStageFallCamp;
                         // NSLog(@"SHOWING RECRUITING CLASS, STAGE %d", recruitingStage);
-                        navigationTitleView.title = [NSString stringWithFormat:@"%lu Recruiting Class",  (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
+                        self.title = [NSString stringWithFormat:@"%lu Recruiting Class",  (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleDone target:self action:@selector(finishRecruitingSeason)];
                     }
                 }
@@ -363,7 +354,7 @@
         
         NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"QB"];
         if (progressed > 0) {
-            [summary appendFormat:@" (%ld on watchlist)", progressed];
+            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
         }
         
         [summary appendString:@"\n\n"];
@@ -378,7 +369,7 @@
         
         NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"RB"];
         if (progressed > 0) {
-            [summary appendFormat:@" (%ld on watchlist)", progressed];
+            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
         }
         
         [summary appendString:@"\n\n"];
@@ -393,7 +384,7 @@
         
         NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"WR"];
         if (progressed > 0) {
-            [summary appendFormat:@" (%ld on watchlist)", progressed];
+            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
         }
         
         [summary appendString:@"\n\n"];
@@ -408,7 +399,7 @@
         
         NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"TE"];
         if (progressed > 0) {
-            [summary appendFormat:@" (%ld on watchlist)", progressed];
+            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
         }
         
         [summary appendString:@"\n\n"];
@@ -423,7 +414,7 @@
         
         NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"OL"];
         if (progressed > 0) {
-            [summary appendFormat:@" (%ld on watchlist)", progressed];
+            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
         }
         
         [summary appendString:@"\n\n"];
@@ -438,7 +429,7 @@
         
         NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"LB"];
         if (progressed > 0) {
-            [summary appendFormat:@" (%ld on watchlist)", progressed];
+            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
         }
         
         [summary appendString:@"\n\n"];
@@ -453,7 +444,7 @@
         
         NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"DL"];
         if (progressed > 0) {
-            [summary appendFormat:@" (%ld on watchlist)", progressed];
+            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
         }
         
         [summary appendString:@"\n\n"];
@@ -468,7 +459,7 @@
         
         NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"CB"];
         if (progressed > 0) {
-            [summary appendFormat:@" (%ld on watchlist)", progressed];
+            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
         }
         
         [summary appendString:@"\n\n"];
@@ -483,7 +474,7 @@
         
         NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"S"];
         if (progressed > 0) {
-            [summary appendFormat:@" (%ld on watchlist)", progressed];
+            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
         }
         
         [summary appendString:@"\n\n"];
@@ -498,7 +489,7 @@
         
         NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"K"];
         if (progressed > 0) {
-            [summary appendFormat:@" (%ld on watchlist)", progressed];
+            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
         }
         
         [summary appendString:@"\n\n"];
@@ -757,27 +748,15 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
 
     // calculate recruiting points, but never show number - just show as usage as "% effort extended"
-    NSInteger offersToGive = 20;
-
-    CGFloat inMin = 0.0;
-    CGFloat inMax = 90;
-
-    CGFloat outMin = 0;
-    CGFloat outMax = 5;
-
-    CGFloat input = MIN(90.0, (CGFloat) [HBSharedUtils currentLeague].userTeam.teamPrestige);
-    int prestigeMulitplier = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
-    recruitingPoints = ([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf((float)offersToGive * 50.0 * prestigeMulitplier) : (int)ceilf((float)offersToGive * 60.0 * prestigeMulitplier);
+    recruitingPoints = ([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf(20.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige) : (int)ceilf(25.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige);
     usedRecruitingPoints = 0;
 
-    // NSLog(@"Recruiting points total: %d", recruitingPoints);
-    navigationTitleView = [[LDONavigationSubtitleView alloc] initWithFrame:CGRectMake(0, 0, 200, 44)];
-    [navigationTitleView setTitle:[NSString stringWithFormat:@"Winter %lu", ((long)([[HBSharedUtils currentLeague] getCurrentYear] + 1))]];
-    [navigationTitleView setTitleColor:[UIColor whiteColor]];
-    [navigationTitleView setSubtitle:@"0% of total recruiting effort used"];
-    [navigationTitleView setSubtitleColor:[UIColor lightTextColor]];
-    self.navigationItem.titleView = navigationTitleView;
-    //self.navigationItem.title = [NSString stringWithFormat:@"Winter %lu", ((long)([[HBSharedUtils currentLeague] getCurrentYear] + 1))];
+    NSLog(@"Recruiting points total: %d", recruitingPoints);
+    
+    [self setSubtitle:@"0% of total recruiting effort used"];
+    
+    [self setTitle:[NSString stringWithFormat:@"Winter %lu", ((long)([[HBSharedUtils currentLeague] getCurrentYear] + 1))]];
+
     [self calculateTeamNeeds];
     recruitingStage = CFCRecruitingStageWinter;
 
@@ -1498,35 +1477,33 @@
 - (void)recruitingActionsController:(RecruitingActionsViewController *)actionsController didUpdateRecruit:(Player *)recruit withEvent:(CFCRecruitEvent)event {
     NSMutableArray *recruitEvents = ([recruitActivities.allKeys containsObject:[recruit uniqueIdentifier]]) ? recruitActivities[[recruit uniqueIdentifier]] : [NSMutableArray array];
     
+    
     switch (event) {
-        case CFCRecruitEventFlipped:
+        case CFCRecruitEventFlipped: {
             [recruitEvents addObject:@(CFCRecruitEventFlipped)];
             [recruitActivities setObject:recruitEvents forKey:[recruit uniqueIdentifier]];
 
-            // flipping depends on school's distance from player - closer == higher chance of flip
-            CGFloat flipChance = 0.0;
-            CFCRegion playerRegion = [HBSharedUtils regionForState:recruit.personalDetails[@"home_state"]];
-            CFCRegion teamRegion = [HBSharedUtils regionForState:[HBSharedUtils currentLeague].userTeam.state];
+            // flipping depends on difference between first choice and user team.
+            CGFloat inMin = 0.0;
+            CGFloat inMax = 100.0;
+            
+            CGFloat outMin = 50.0;
+            CGFloat outMax = 0.0;
+            
+            NSArray *sortedOffers = [recruit.offers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj2 compare:obj1];
+            }];
+            
+            // NSLog(@"RETREIVING TOP OFFER FROM: %@", sortedOffers);
+            NSString *highestOffer = sortedOffers[0];
+            NSNumber *highestInterest = recruit.offers[highestOffer];
+            
+            CGFloat input = MAX(0.0, highestInterest.floatValue - (float)[self _calculateTotalInterestLevel:recruit]);
+            
+            CGFloat flipChance = ((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
+            //NSLog(@"Flip Chance: %f for INPUT: %f", flipChance, input);
 
-            CFCRegionDistance distance = [HBSharedUtils distanceFromRegion:playerRegion toRegion:teamRegion];
-            switch (distance) {
-                case CFCRegionDistanceMatch:
-                    flipChance = 0.5;
-                    break;
-                case CFCRegionDistanceNeighbor:
-                    flipChance = 0.375;
-                    break;
-                case CFCRegionDistanceFar:
-                    flipChance = 0.25;
-                    break;
-                case CFCRegionDistanceCrossCountry:
-                    flipChance = 0.125;
-                    break;
-                default:
-                    break;
-            }
-
-            if ([HBSharedUtils randomValue] < flipChance) {
+            if ([HBSharedUtils randomValue] < (flipChance / 100.0)) {
                 // flip successful, move the recruit over to our team
                 Team *prevTeam = recruit.team;
                 [recruit.team.recruitingClass removeObject:recruit];
@@ -1542,21 +1519,47 @@
                     }
                 }
 
-
                 [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
-                [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils successColor] title:@"Flip successful!" message:[NSString stringWithFormat:@"%@ %@ signed with your team over %@ on signing day!", recruit.position, recruit.name, prevTeam.abbreviation] onViewController:self.navigationController];
+                //[HBSharedUtils showNotificationWithTintColor:[HBSharedUtils successColor] title:@"Flip successful!" message:[NSString stringWithFormat:@"%@ %@ signed with your team over %@ on signing day!", recruit.position, recruit.name, prevTeam.abbreviation] onViewController:popupController.topViewController];
+                
+                [RMessage showNotificationInViewController:popupController.topViewController.navigationController
+                                                     title:@"Flip successful!"
+                                                  subtitle:[NSString stringWithFormat:@"%@ %@ signed with your team over %@ on signing day!", recruit.position, recruit.name, prevTeam.abbreviation]
+                                                 iconImage:nil
+                                                      type:RMessageTypeCustom
+                                            customTypeName:@"alternate-success"
+                                                  duration:0.75
+                                                  callback:nil
+                                               buttonTitle:nil
+                                            buttonCallback:nil
+                                                atPosition:RMessagePositionNavBarOverlay
+                                      canBeDismissedByUser:YES];
 
             } else {
                 // flip unsuccessful
-                [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Flip failed!" message:[NSString stringWithFormat:@"%@ %@ chose to stay with %@.",recruit.position, recruit.name, recruit.team.abbreviation] onViewController:self.navigationController];
+                //[HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Flip failed!" message:[NSString stringWithFormat:@"%@ %@ chose to stay with %@.",recruit.position, recruit.name, recruit.team.abbreviation] onViewController:popupController.topViewController];
+                [RMessage showNotificationInViewController:popupController.topViewController.navigationController
+                                                     title:@"Flip failed!"
+                                                  subtitle:[NSString stringWithFormat:@"%@ %@ chose to stay with %@.",recruit.position, recruit.name, recruit.team.abbreviation]
+                                                 iconImage:nil
+                                                      type:RMessageTypeCustom
+                                            customTypeName:@"alternate-error"
+                                                  duration:0.75
+                                                  callback:nil
+                                               buttonTitle:nil
+                                            buttonCallback:nil
+                                                atPosition:RMessagePositionNavBarOverlay
+                                      canBeDismissedByUser:YES];
 
             }
 
             usedRecruitingPoints += FLIP_COST;
-            [navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            //[navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
 
             [self.tableView reloadData];
             break;
+        }
         case CFCRecruitEventRedshirted:
             recruit.hasRedshirt = YES;
             break;
@@ -1584,7 +1587,8 @@
                 }
             }
 
-            [navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            //[navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
 
             [self.tableView reloadData];
             break;
@@ -1609,7 +1613,8 @@
                 }
             }
 
-            [navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            //[navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
             [self.tableView reloadData];
             break;
         case CFCRecruitEventInHomeVisit:
@@ -1633,7 +1638,8 @@
                 }
             }
 
-            [navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            //[navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
 
             [self.tableView reloadData];
             break;
@@ -1665,8 +1671,8 @@
             }
 
             usedRecruitingPoints += EXTEND_OFFER_COST;
-            [navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-
+            //[navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
 
             [self.tableView reloadData];
             break;

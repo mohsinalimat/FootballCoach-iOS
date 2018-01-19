@@ -20,6 +20,7 @@
     Player *selectedRecruit;
     NSMutableArray *recruitEvents;
     NSMutableArray *availableEvents;
+    NSMutableArray *offers;
 }
 @end
 
@@ -39,17 +40,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    //[self refreshAvailableActions];
+
     availableEvents = [NSMutableArray arrayWithArray:@[@(CFCRecruitEventPositionCoachMeeting),@(CFCRecruitEventOfficialVisit),@(CFCRecruitEventInHomeVisit),@(CFCRecruitEventExtendOffer)]];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
-    //[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
+    [self reloadOffers];
     
     [self.tableView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
     self.title = @"Recruit Profile";
+}
+
+-(void)reloadOffers {
+    offers = [NSMutableArray array];
+    NSArray *offerAbbrev = [selectedRecruit.offers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
+    }];
+    
+    for (NSString *abbrev in offerAbbrev) {
+        Team *t = [[HBSharedUtils currentLeague] findTeam:abbrev];
+        if (!t.isUserControlled && ![offers containsObject:t]) {
+            [offers addObject:t];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,12 +90,31 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (section == 1) {
+        if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted) {
+            return [NSString stringWithFormat:@"Committed to %@.", selectedRecruit.team.name];
+        } else {
+            if (selectedRecruit.offers.count == 0) {
+                return @"No active offers.";
+            }
+        }
+    }
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 1;
+    } else if (section == 1) {
+        if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted) {
+            return 0;
+        } else {
+            return offers.count;
+        }
     } else {
         NSInteger count = 1;
         if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted) {// && selectedRecruit.team != [HBSharedUtils currentLeague].userTeam) {
@@ -97,22 +130,28 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return 150;
-    } else {
+    } else if (indexPath.section == 2) {
         return 120;
+    } else {
+        return 50;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return 150;
-    } else {
+    } else if (indexPath.section == 2) {
         return 120;
+    } else {
+        return 50;
     }
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         return @"INFORMATION";
+    } else if (section == 1) {
+        return @"OFFER LIST";
     } else {
         return @"ACTIONS";
     }
@@ -131,6 +170,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"Drawing cell for section %lu index %lu", indexPath.section, indexPath.row);
     if (indexPath.section == 0) {
         int interest = 0;
         if ([selectedRecruit.offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
@@ -255,7 +295,7 @@
         [cell.rankLabel setText:overall];
         [cell.otherOffersLabel setAttributedText:offerString];
         return cell;
-    } else {
+    } else if (indexPath.section == 2) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
@@ -321,13 +361,45 @@
         }
         
         return cell;
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OfferCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"OfferCell"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+            [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+        }
+        
+        Team *t = offers[indexPath.row];
+        [cell.textLabel setText:t.name];
+        
+        // Valid cell data formatting code
+        NSMutableAttributedString *interestString = [[NSMutableAttributedString alloc] initWithString:@"Interest: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+
+        UIColor *offerColor;
+        if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted) {
+            if (selectedRecruit.team == [HBSharedUtils currentLeague].userTeam) {
+                offerColor = [HBSharedUtils styleColor];
+            } else if ([((id<RecruitingActionsDelegate>)_delegate).recruitActivities.allKeys containsObject:[selectedRecruit uniqueIdentifier]]) {
+                offerColor = [HBSharedUtils errorColor];
+            } else {
+                offerColor = [UIColor lightGrayColor];
+            }
+        } else {
+            offerColor = [HBSharedUtils _calculateInterestColor:selectedRecruit.offers[t.abbreviation].intValue];
+        }
+        
+        [interestString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils _calculateInterestString:selectedRecruit.offers[t.abbreviation].intValue] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : offerColor}]];
+        [cell.detailTextLabel setAttributedText:interestString];
+        
+        return cell;
     }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted) {
             if (selectedRecruit.team != [HBSharedUtils currentLeague].userTeam) {
                 // flip
@@ -357,7 +429,9 @@
                     [(id<RecruitingActionsDelegate>)_delegate recruitingActionsController:self didUpdateRecruit:selectedRecruit withEvent:(CFCRecruitEvent)event.integerValue];
                 }
             }
+            [self reloadOffers];
         }
+        
         [self.tableView reloadData];
     }
     
