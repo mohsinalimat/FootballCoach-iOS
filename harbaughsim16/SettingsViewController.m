@@ -278,15 +278,15 @@
         }
         
         if (indexPath.row == 0) {
-            [cell.textLabel setText:@"Game Guide"];
+            [cell.textLabel setText:@"View Game Guide"];
         } else if (indexPath.row == 1) {
-            [cell.textLabel setText:@"Developer's Website"];
+            [cell.textLabel setText:@"View Developer's Website"];
         } else if (indexPath.row == 2) {
             [cell.textLabel setText:@"Email Developer"];
         } else if (indexPath.row == 3) {
-            [cell.textLabel setText:@"Football Coach on GitHub"];
+            [cell.textLabel setText:@"View Football Coach on GitHub"];
         } else if (indexPath.row == 4) {
-            [cell.textLabel setText:@"Football Coach on Reddit"];
+            [cell.textLabel setText:@"View Football Coach on Reddit"];
         } else {
             [cell.textLabel setText:@"Submit a Review"];
         }

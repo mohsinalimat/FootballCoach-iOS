@@ -140,6 +140,20 @@ static UIColor *styleColor = nil;
                 [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"loss" duration:0.75 callback:nil];
             }
         }
+    } else { // weekNotifications disabled
+        if (title == nil) {
+            if ([tintColor isEqual:[HBSharedUtils styleColor]]) {
+                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-success" duration:0.75 callback:nil];
+            } else if ([tintColor isEqual:[HBSharedUtils errorColor]]) {
+                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-error" duration:0.75 callback:nil];
+            }
+        } else {
+            if ([tintColor isEqual:[HBSharedUtils styleColor]]) {
+                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-success" duration:0.75 callback:nil];
+            } else if ([tintColor isEqual:[HBSharedUtils errorColor]]) {
+                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-error" duration:0.75 callback:nil];
+            }
+        }
     }
 }
 
