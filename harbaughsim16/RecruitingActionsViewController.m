@@ -423,7 +423,7 @@
             }
         } else {
             NSNumber *event = availableEvents[indexPath.row];
-            if (![recruitEvents containsObject:event] && abs(((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - ( ((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:(CFCRecruitEvent)event.integerValue].intValue)) >= 0) {
+            if (![recruitEvents containsObject:event] && ((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - ( ((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:(CFCRecruitEvent)event.integerValue].intValue) >= 0) {
                 [recruitEvents addObject:event];
                 if (_delegate && [_delegate respondsToSelector:@selector(recruitingActionsController:didUpdateRecruit:withEvent:)]) {
                     [(id<RecruitingActionsDelegate>)_delegate recruitingActionsController:self didUpdateRecruit:selectedRecruit withEvent:(CFCRecruitEvent)event.integerValue];
@@ -434,8 +434,6 @@
         
         [self.tableView reloadData];
     }
-    
-
 }
 
 

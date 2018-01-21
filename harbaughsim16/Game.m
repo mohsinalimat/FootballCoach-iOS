@@ -1364,7 +1364,7 @@
     }
     
     //check for int
-   double intChance = (pressureOnQB + selS.ratOvr - (selQB.ratPassAcc + selQB.ratFootIQ + 100) / 3) / 18 - offense.offensiveStrategy.passProtection + defense.defensiveStrategy.passProtection;
+    double intChance = ((pressureOnQB + selS.ratOvr + defense.defensiveStrategy.passProtection - (selQB.ratPassAcc + selQB.ratFootIQ + 100 + offense.offensiveStrategy.passProtection) / 3) / 25);
     if (intChance < 0.015) intChance = 0.015;
     if ( 100* [HBSharedUtils randomValue] < intChance ) {
         //Interception
@@ -1494,7 +1494,7 @@
     }
     
     //check for int
-    double intChance = (pressureOnQB + selS.ratOvr - (selQB.ratPassAcc + selQB.ratFootIQ + 100) / 3) / 18 - offense.offensiveStrategy.passProtection + defense.defensiveStrategy.passProtection;
+    double intChance = ((pressureOnQB + selS.ratOvr + defense.defensiveStrategy.passProtection - (selQB.ratPassAcc + selQB.ratFootIQ + 100 + offense.offensiveStrategy.passProtection) / 3) / 25);
     if (intChance < 0.015) intChance = 0.015;
     if ( 100* [HBSharedUtils randomValue] < intChance ) {
         //Interception
