@@ -311,7 +311,11 @@
                 // flip
                 [cell.textLabel setText:[NSString stringWithFormat:@"Flip to %@",[HBSharedUtils currentLeague].userTeam.name]];
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"Try to convince this recruit to sign with your school instead of %@. This will use a lot of recruiting effort.",selectedRecruit.team.name]];
-                if (![recruitEvents containsObject:@(CFCRecruitEventFlipped)] && ((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - ((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:CFCRecruitEventFlipped].intValue >= 0) {
+                if (((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - (((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:CFCRecruitEventFlipped].intValue) <= 0) {
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                } else if (![recruitEvents containsObject:@(CFCRecruitEventFlipped)]) {
                     cell.accessoryType = UITableViewCellAccessoryNone;
                     [cell.textLabel setTextColor:[UIColor blackColor]];
                     cell.selectionStyle = UITableViewCellSelectionStyleGray;
@@ -349,7 +353,11 @@
                 [cell.detailTextLabel setText:@"Unknown"];
             }
             
-            if (![recruitEvents containsObject:event] && ((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - (((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:(CFCRecruitEvent)event.integerValue].intValue) >= 0) {
+            if (((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - (((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:(CFCRecruitEvent)event.integerValue].intValue) <= 0) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            } else if (![recruitEvents containsObject:event]) {
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 [cell.textLabel setTextColor:[UIColor blackColor]];
                 cell.selectionStyle = UITableViewCellSelectionStyleGray;
@@ -403,7 +411,9 @@
         if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted) {
             if (selectedRecruit.team != [HBSharedUtils currentLeague].userTeam) {
                 // flip
-                if (![recruitEvents containsObject:@(CFCRecruitEventFlipped)] && ((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - ((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:CFCRecruitEventFlipped].intValue >= 0) {
+                if ([recruitEvents containsObject:@(CFCRecruitEventFlipped)] || ((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - (((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:CFCRecruitEventFlipped].intValue) <= 0) {
+                    NSLog(@"NOT LEGAL");
+                } else {
                     [recruitEvents addObject:@(CFCRecruitEventFlipped)];
                     if (_delegate && [_delegate respondsToSelector:@selector(recruitingActionsController:didUpdateRecruit:withEvent:)]) {
                         [(id<RecruitingActionsDelegate>)_delegate recruitingActionsController:self didUpdateRecruit:selectedRecruit withEvent:CFCRecruitEventFlipped];
@@ -423,7 +433,9 @@
             }
         } else {
             NSNumber *event = availableEvents[indexPath.row];
-            if (![recruitEvents containsObject:event] && ((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - ( ((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:(CFCRecruitEvent)event.integerValue].intValue) >= 0) {
+            if (((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - (((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:(CFCRecruitEvent)event.integerValue].intValue) <= 0 || [recruitEvents containsObject:event]) {
+                NSLog(@"NOT LEGAL");
+            } else {
                 [recruitEvents addObject:event];
                 if (_delegate && [_delegate respondsToSelector:@selector(recruitingActionsController:didUpdateRecruit:withEvent:)]) {
                     [(id<RecruitingActionsDelegate>)_delegate recruitingActionsController:self didUpdateRecruit:selectedRecruit withEvent:(CFCRecruitEvent)event.integerValue];
