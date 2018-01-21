@@ -224,7 +224,7 @@
     if (section == 2) {
         return 6;
     } else if (section == 1) {
-        return 12;
+        return 13;
     } else {
         return 5;
     }
@@ -262,8 +262,10 @@
             [cell.textLabel setText:@"RMessage"];
         } else if (indexPath.row == 10) {
             [cell.textLabel setText:@"ScrollableSegmentedControl"];
-        } else {
+        } else if (indexPath.row == 11) {
             [cell.textLabel setText:@"STPopup"];
+        } else {
+            [cell.textLabel setText:@"ZGNavigationBarTitle"];
         }
         return cell;
     } else if (indexPath.section == 2) {
@@ -349,7 +351,7 @@
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section == 1) return @"Libraries Used in this App";
+    if (section == 1) return @"Libraries Used in this Game";
     else if (section == 2) return @"Support";
     else return @"Options";
 }
@@ -387,8 +389,10 @@
             url = @"https://github.com/donileo/RMessage";
         } else if (indexPath.row == 10) {
             url = @"https://github.com/GocePetrovski/ScrollableSegmentedControl";
-        } else {
+        } else if (indexPath.row == 11) {
             url = @"https://github.com/kevin0571/STPopup";
+        } else {
+            url = @"https://github.com/zhigang1992/ZGNavigationBarTitle";
         }
         
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
