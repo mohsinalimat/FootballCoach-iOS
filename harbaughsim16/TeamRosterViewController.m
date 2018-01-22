@@ -220,7 +220,7 @@
     [cell.nameLabel setText:[player getInitialName]];
     [cell.yrLabel setText:[player getYearString]];
     [cell.ovrLabel setText:[NSString stringWithFormat:@"%d", player.ratOvr]];
-    if ([selectedTeam.playersLeaving containsObject:player]) {
+    if (_isPopup && [selectedTeam.playersLeaving containsObject:player]) {
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
         [cell.yrLabel setText:@"GRAD"];
     } else {
