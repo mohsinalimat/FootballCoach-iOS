@@ -185,7 +185,11 @@
         if (history.count > 0) {
             return nil;
         } else {
-            return @"No history recorded yet. Play some seasons to add to your resume!";
+            if ([selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
+                return @"No history recorded yet. Play some seasons to add to your resume!";
+            } else {
+                return @"No history recorded yet. Play some seasons to add to teams' resumes!";
+            }
         }
     }
 }
