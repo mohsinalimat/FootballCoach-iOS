@@ -1463,7 +1463,13 @@
     //          1. if interest in that team was mild or medium, then:
     //              * offer and flip (for large amount of recruiting points) -- increases interest in user team by 20 pts.
     // also display recruiting process for this recruit: OV -> offer -> commit or offer -> commit or OV -> home visit -> offer -> commit
-    Player *p = currentRecruits[indexPath.row];
+    Player *p;
+    if (recruitingStage == CFCRecruitingStageFallCamp) {
+        p = [HBSharedUtils currentLeague].userTeam.recruitingClass[indexPath.row];
+    } else {
+        p = currentRecruits[indexPath.row];
+    }
+    
     NSMutableArray *recruitEvents = ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) ? recruitActivities[[p uniqueIdentifier]] : [NSMutableArray array];
     RecruitingActionsViewController *actionsVC = [[RecruitingActionsViewController alloc] initWithRecruit:p events:recruitEvents];
     actionsVC.delegate = self;

@@ -595,7 +595,16 @@
 
 -(BOOL)isSaveCorrupt {
     for (Team *t in teamList) {
-        if (t.teamQBs.count < 2 || t.teamRBs.count < 4 || t.teamWRs.count < 6 || t.teamTEs.count < 2 || t.teamOLs.count < 10 || t.teamDLs.count < 8 || t.teamLBs.count < 6 || t.teamCBs.count < 6 || t.teamSs.count < 2 || t.teamKs.count < 2) {
+        if ((t.teamQBs == nil || t.teamQBs.count < 2)
+            || (t.teamRBs == nil || t.teamRBs.count < 4)
+            || (t.teamWRs == nil || t.teamWRs.count < 6)
+            || (t.teamTEs == nil || t.teamTEs.count < 2)
+            || (t.teamOLs == nil || t.teamOLs.count < 10)
+            || (t.teamDLs == nil || t.teamDLs.count < 8)
+            || (t.teamLBs == nil || t.teamLBs.count < 6)
+            || (t.teamCBs == nil || t.teamCBs.count < 6)
+            || (t.teamSs == nil || t.teamSs.count < 2)
+            || (t.teamKs == nil || t.teamKs.count < 2)) {
             return YES;
         }
     }
