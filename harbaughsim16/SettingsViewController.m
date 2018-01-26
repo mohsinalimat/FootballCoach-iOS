@@ -480,7 +480,7 @@
                 [popupController presentInViewController:self];
             }
         } else if (indexPath.row == 3) { // export
-            NSString *metadataFile = [[HBSharedUtils currentLeague] leagueMetadataJSON];
+            NSString *metadataFile = ([HBSharedUtils currentLeague] != nil) ? [[HBSharedUtils currentLeague] leagueMetadataJSON] : @"";
             UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[metadataFile] applicationActivities:nil];
             activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,UIActivityTypeAirDrop,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr,UIActivityTypeOpenInIBooks,UIActivityTypePostToWeibo,UIActivityTypeAddToReadingList,UIActivityTypePostToFacebook,UIActivityTypePostToTencentWeibo];
             [self presentViewController:activityVC animated:YES completion:nil];

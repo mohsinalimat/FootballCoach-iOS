@@ -2396,11 +2396,8 @@
     jsonString = [NSMutableString stringWithString:[jsonString stringByTrimmingCharactersInSet:charSet]];
     [jsonString appendString:@"]"];
     [jsonString appendString:@"}"];
-    if (jsonString != nil) {
-        return jsonString;
-    } else {
-        return @"";
-    }
+    
+    return (jsonString != nil) ? jsonString : @"";
 }
 
 -(void)applyJSONMetadataChanges:(NSString *)json {
