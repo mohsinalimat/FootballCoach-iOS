@@ -18,11 +18,11 @@
 #import "STPopup.h"
 #import <StoreKit/StoreKit.h>
 #import "MBProgressHUD.h"
-#import "CTFeedbackViewController.h"
+#import "RSEmailFeedback.h"
 @import MessageUI;
 @import SafariServices;
 
-@interface SettingsViewController () <MFMailComposeViewControllerDelegate>
+@interface SettingsViewController () //<MFMailComposeViewControllerDelegate>
 {
     STPopupController *popupController;
     NSString *currentYear;
@@ -248,21 +248,21 @@
         } else if (indexPath.row == 2) {
             [cell.textLabel setText:@"ios-charts"];
         } else if (indexPath.row == 3) {
-            [cell.textLabel setText:@"CTFeedback"];
-        } else if (indexPath.row == 4) {
             [cell.textLabel setText:@"DZNEmptyDataSet"];
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 4) {
             [cell.textLabel setText:@"Fabric"];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 5) {
             [cell.textLabel setText:@"FCFileManager"];
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 6) {
             [cell.textLabel setText:@"HexColors"];
-        } else if (indexPath.row == 8) {
+        } else if (indexPath.row == 7) {
             [cell.textLabel setText:@"Icons8"];
-        } else if (indexPath.row == 9) {
+        } else if (indexPath.row == 8) {
             [cell.textLabel setText:@"MBProgressHUD"];
-        } else if (indexPath.row == 10) {
+        } else if (indexPath.row == 9) {
             [cell.textLabel setText:@"RMessage"];
+        } else if (indexPath.row == 10) {
+            [cell.textLabel setText:@"RSEmailFeedback"];
         } else if (indexPath.row == 11) {
             [cell.textLabel setText:@"ScrollableSegmentedControl"];
         } else if (indexPath.row == 12) {
@@ -377,21 +377,21 @@
         } else if (indexPath.row == 2) {
             url = @"https://github.com/danielgindi/Charts";
         } else if (indexPath.row == 3) {
-            url = @"https://github.com/rizumita/ctfeedback";
-        } else if (indexPath.row == 4) {
             url = @"https://github.com/dzenbot/DZNEmptyDataSet";
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 4) {
             url = @"https://fabric.io";
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 5) {
             url = @"https://github.com/fabiocaccamo/FCFileManager";
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 6) {
             url = @"https://github.com/mRs-/HexColors";
-        } else if (indexPath.row == 8) {
+        } else if (indexPath.row == 7) {
             url = @"http://icons8.com";
-        } else if (indexPath.row == 9) {
+        } else if (indexPath.row == 8) {
             url = @"https://github.com/jdg/MBProgressHUD/";
-        } else if (indexPath.row == 10) {
+        } else if (indexPath.row == 9) {
             url = @"https://github.com/donileo/RMessage";
+        } else if (indexPath.row == 10) {
+            url = @"https://github.com/ricsantos/RSEmailFeedback";
         } else if (indexPath.row == 11) {
             url = @"https://github.com/GocePetrovski/ScrollableSegmentedControl";
         } else if (indexPath.row == 12) {
@@ -417,20 +417,18 @@
             }
             [self presentViewController:safariVC animated:YES completion:nil];
         } else if (indexPath.row == 2) {
-//            MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
-//            composer.navigationBar.tintColor = [UIColor whiteColor];
-//            composer.view.tintColor = [HBSharedUtils styleColor];
-//            [composer setMailComposeDelegate:self];
-//            [composer setToRecipients:@[@"akeaswaran@me.com"]];
-//            [composer setSubject:[NSString stringWithFormat:@"College Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
-//            [self presentViewController:composer animated:YES completion:nil];
-            CTFeedbackViewController *feedbackViewController = [CTFeedbackViewController controllerWithTopics:CTFeedbackViewController.defaultTopics localizedTopics:CTFeedbackViewController.defaultLocalizedTopics];
-            feedbackViewController.toRecipients = @[@"akeaswaran@me.com"];
-            [feedbackViewController.view setBackgroundColor:[HBSharedUtils styleColor]];
-            feedbackViewController.useHTML = YES;
-            feedbackViewController.title = @"Send Feedback";
-            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:feedbackViewController] animated:YES completion:nil];
-            
+            RSEmailFeedback *emailFeedback = [[RSEmailFeedback alloc] init];
+            emailFeedback.toRecipients = @[@"akeaswaran@me.com"];
+            emailFeedback.subject = [NSString stringWithFormat:@"Feedback on College Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
+            [emailFeedback showOnViewController:self withCompletionHandler:^(MFMailComposeResult result, NSError *error) {
+                if (result == MFMailComposeResultSent) {
+                    NSLog(@"email sent");
+                    [self emailSuccess];
+                } else if (result == MFMailComposeResultFailed) {
+                    NSLog(@"email not sent");
+                    [self emailFail:error];
+                }
+            }];
         } else if (indexPath.row == 3) {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS"]];
             if ([safariVC respondsToSelector:@selector(setPreferredBarTintColor:)]) {
@@ -522,29 +520,14 @@
     [popupController dismiss];
 }
 
--(void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
-    switch (result) {
-        case MFMailComposeResultFailed:
-            [self dismissViewControllerAnimated:YES completion:nil];
-            [self emailFail:error];
-            break;
-        case MFMailComposeResultSent:
-            [self dismissViewControllerAnimated:YES completion:nil];
-            [self emailSuccess];
-        default:
-            [self dismissViewControllerAnimated:YES completion:nil];
-            break;
-    }
-}
-
 -(void)emailSuccess {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Your email was sent successfully!" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Thanks for your feedback!" message:nil preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }
 
 -(void)emailFail:(NSError*)error {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Your email was unable to be sent." message:[NSString stringWithFormat:@"Sending failed with the following error: \"%@\".",error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Your feedback was unable to be sent." message:[NSString stringWithFormat:@"Sending failed with the following error: \"%@\".",error.localizedDescription] preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
 }

@@ -1,0 +1,6 @@
+framework module RSEmailFeedback {
+  umbrella header "RSEmailFeedback-iOS10.0-umbrella.h"
+
+  export *
+  module * { export * }
+}
