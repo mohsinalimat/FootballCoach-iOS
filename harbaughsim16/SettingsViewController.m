@@ -18,6 +18,7 @@
 #import "STPopup.h"
 #import <StoreKit/StoreKit.h>
 #import "MBProgressHUD.h"
+#import "CTFeedbackViewController.h"
 @import MessageUI;
 @import SafariServices;
 
@@ -224,7 +225,7 @@
     if (section == 2) {
         return 6;
     } else if (section == 1) {
-        return 13;
+        return 14;
     } else {
         return 5;
     }
@@ -247,22 +248,24 @@
         } else if (indexPath.row == 2) {
             [cell.textLabel setText:@"ios-charts"];
         } else if (indexPath.row == 3) {
-            [cell.textLabel setText:@"DZNEmptyDataSet"];
+            [cell.textLabel setText:@"CTFeedback"];
         } else if (indexPath.row == 4) {
-            [cell.textLabel setText:@"Fabric"];
+            [cell.textLabel setText:@"DZNEmptyDataSet"];
         } else if (indexPath.row == 5) {
-            [cell.textLabel setText:@"FCFileManager"];
+            [cell.textLabel setText:@"Fabric"];
         } else if (indexPath.row == 6) {
-            [cell.textLabel setText:@"HexColors"];
+            [cell.textLabel setText:@"FCFileManager"];
         } else if (indexPath.row == 7) {
-            [cell.textLabel setText:@"Icons8"];
+            [cell.textLabel setText:@"HexColors"];
         } else if (indexPath.row == 8) {
-            [cell.textLabel setText:@"MBProgressHUD"];
+            [cell.textLabel setText:@"Icons8"];
         } else if (indexPath.row == 9) {
-            [cell.textLabel setText:@"RMessage"];
+            [cell.textLabel setText:@"MBProgressHUD"];
         } else if (indexPath.row == 10) {
-            [cell.textLabel setText:@"ScrollableSegmentedControl"];
+            [cell.textLabel setText:@"RMessage"];
         } else if (indexPath.row == 11) {
+            [cell.textLabel setText:@"ScrollableSegmentedControl"];
+        } else if (indexPath.row == 12) {
             [cell.textLabel setText:@"STPopup"];
         } else {
             [cell.textLabel setText:@"ZGNavigationBarTitle"];
@@ -282,7 +285,7 @@
         } else if (indexPath.row == 1) {
             [cell.textLabel setText:@"View Developer's Website"];
         } else if (indexPath.row == 2) {
-            [cell.textLabel setText:@"Email Developer"];
+            [cell.textLabel setText:@"Send Feedback"];
         } else if (indexPath.row == 3) {
             [cell.textLabel setText:@"View Football Coach on GitHub"];
         } else if (indexPath.row == 4) {
@@ -374,22 +377,24 @@
         } else if (indexPath.row == 2) {
             url = @"https://github.com/danielgindi/Charts";
         } else if (indexPath.row == 3) {
-            url = @"https://github.com/dzenbot/DZNEmptyDataSet";
+            url = @"https://github.com/rizumita/ctfeedback";
         } else if (indexPath.row == 4) {
-            url = @"https://fabric.io";
+            url = @"https://github.com/dzenbot/DZNEmptyDataSet";
         } else if (indexPath.row == 5) {
-            url = @"https://github.com/fabiocaccamo/FCFileManager";
+            url = @"https://fabric.io";
         } else if (indexPath.row == 6) {
-            url = @"https://github.com/mRs-/HexColors";
+            url = @"https://github.com/fabiocaccamo/FCFileManager";
         } else if (indexPath.row == 7) {
-            url = @"http://icons8.com";
+            url = @"https://github.com/mRs-/HexColors";
         } else if (indexPath.row == 8) {
-            url = @"https://github.com/jdg/MBProgressHUD/";
+            url = @"http://icons8.com";
         } else if (indexPath.row == 9) {
-            url = @"https://github.com/donileo/RMessage";
+            url = @"https://github.com/jdg/MBProgressHUD/";
         } else if (indexPath.row == 10) {
-            url = @"https://github.com/GocePetrovski/ScrollableSegmentedControl";
+            url = @"https://github.com/donileo/RMessage";
         } else if (indexPath.row == 11) {
+            url = @"https://github.com/GocePetrovski/ScrollableSegmentedControl";
+        } else if (indexPath.row == 12) {
             url = @"https://github.com/kevin0571/STPopup";
         } else {
             url = @"https://github.com/zhigang1992/ZGNavigationBarTitle";
@@ -412,13 +417,20 @@
             }
             [self presentViewController:safariVC animated:YES completion:nil];
         } else if (indexPath.row == 2) {
-            MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
-            composer.navigationBar.tintColor = [UIColor whiteColor];
-            composer.view.tintColor = [HBSharedUtils styleColor];
-            [composer setMailComposeDelegate:self];
-            [composer setToRecipients:@[@"akeaswaran@me.com"]];
-            [composer setSubject:[NSString stringWithFormat:@"College Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
-            [self presentViewController:composer animated:YES completion:nil];
+//            MFMailComposeViewController *composer = [[MFMailComposeViewController alloc] init];
+//            composer.navigationBar.tintColor = [UIColor whiteColor];
+//            composer.view.tintColor = [HBSharedUtils styleColor];
+//            [composer setMailComposeDelegate:self];
+//            [composer setToRecipients:@[@"akeaswaran@me.com"]];
+//            [composer setSubject:[NSString stringWithFormat:@"College Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]]];
+//            [self presentViewController:composer animated:YES completion:nil];
+            CTFeedbackViewController *feedbackViewController = [CTFeedbackViewController controllerWithTopics:CTFeedbackViewController.defaultTopics localizedTopics:CTFeedbackViewController.defaultLocalizedTopics];
+            feedbackViewController.toRecipients = @[@"akeaswaran@me.com"];
+            [feedbackViewController.view setBackgroundColor:[HBSharedUtils styleColor]];
+            feedbackViewController.useHTML = YES;
+            feedbackViewController.title = @"Send Feedback";
+            [self presentViewController:[[UINavigationController alloc] initWithRootViewController:feedbackViewController] animated:YES completion:nil];
+            
         } else if (indexPath.row == 3) {
             SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS"]];
             if ([safariVC respondsToSelector:@selector(setPreferredBarTintColor:)]) {

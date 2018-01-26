@@ -6,6 +6,7 @@ PODS:
   - Charts/Core (3.0.5)
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
+  - CTFeedback (1.1.1)
   - DZNEmptyDataSet (1.8.1)
   - Fabric (1.7.2)
   - FCFileManager (1.0.20)
@@ -24,6 +25,7 @@ DEPENDENCIES:
   - AutoCoding
   - Charts
   - Crashlytics
+  - CTFeedback
   - DZNEmptyDataSet
   - Fabric
   - FCFileManager
@@ -39,6 +41,7 @@ SPEC CHECKSUMS:
   AutoCoding: 90ca3cbc0d77a37cfff75167d705b44148c5fc51
   Charts: 45cdc985b764c838b35ee47eb1365d15735f6d1a
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
+  CTFeedback: 6f128606e0d26d46075c3fa9fc33884372df8675
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   FCFileManager: e0f73316e6aa2eb04d2ff4caa75fe7df1ae44270
@@ -50,6 +53,6 @@ SPEC CHECKSUMS:
   STPopup: da1167250a01584af7bcccb898653185f223ec46
   ZGNavigationBarTitle: b3bfa57a5c760bf29a71fd7ab281f20c93093ca7
 
-PODFILE CHECKSUM: '093e16556a0d5fabe5af4ada8c450c56e50e15eb'
+PODFILE CHECKSUM: 338cd321514784af9655aceb7bc5c405ab595693
 
 COCOAPODS: 1.1.1

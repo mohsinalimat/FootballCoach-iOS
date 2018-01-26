@@ -17,6 +17,7 @@ def use_pod_list
     pod 'ScrollableSegmentedControl', '~> 1.3.0'
     pod 'Charts'
     pod 'ZGNavigationBarTitle'
+    pod 'CTFeedback'
 end
 
 target 'harbaughsim16' do

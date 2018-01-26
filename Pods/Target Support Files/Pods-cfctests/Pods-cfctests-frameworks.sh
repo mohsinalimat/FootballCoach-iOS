@@ -86,6 +86,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ATAppUpdater-iOS11.2/ATAppUpdater.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AutoCoding-iOS11.2/AutoCoding.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/CTFeedback-iOS11.2/CTFeedback.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Charts-iOS11.2/Charts.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FCFileManager-iOS11.2/FCFileManager.framework"
@@ -100,6 +101,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/ATAppUpdater-iOS11.2/ATAppUpdater.framework"
   install_framework "$BUILT_PRODUCTS_DIR/AutoCoding-iOS11.2/AutoCoding.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/CTFeedback-iOS11.2/CTFeedback.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Charts-iOS11.2/Charts.framework"
   install_framework "$BUILT_PRODUCTS_DIR/DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet.framework"
   install_framework "$BUILT_PRODUCTS_DIR/FCFileManager-iOS11.2/FCFileManager.framework"
