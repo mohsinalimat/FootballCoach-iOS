@@ -783,9 +783,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		001C60FB2150A9CED884C4651EA53BF1 /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DZNEmptyDataSet.framework; path = "DZNEmptyDataSet-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		001C60FB2150A9CED884C4651EA53BF1 /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DZNEmptyDataSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		006D0B04D755B9A36CC352D555BED761 /* BubbleChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartView.swift; path = Source/Charts/Charts/BubbleChartView.swift; sourceTree = "<group>"; };
-		008A432AE0EB6F5ACEE246AF18837155 /* ZGNavigationBarTitle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZGNavigationBarTitle.framework; path = "ZGNavigationBarTitle-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		008A432AE0EB6F5ACEE246AF18837155 /* ZGNavigationBarTitle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZGNavigationBarTitle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		012558E0A12294A4ABF410307BB49ADA /* ILineChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ILineChartDataSet.swift; path = Source/Charts/Data/Interfaces/ILineChartDataSet.swift; sourceTree = "<group>"; };
 		018B88922D0FBA728E20C7EC2C4A6608 /* UINavigationController+PPTopMostController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+PPTopMostController.h"; path = "PPTopMostController-Files/UINavigationController+PPTopMostController.h"; sourceTree = "<group>"; };
 		0298CA3D453DC31183AB39606B7E3AA6 /* ATAppUpdater.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ATAppUpdater.m; path = ATAppUpdater/ATAppUpdater.m; sourceTree = "<group>"; };
@@ -796,17 +796,17 @@
 		0477F9A77859C1E405B93DC61A724BB2 /* XAxisRendererHorizontalBarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XAxisRendererHorizontalBarChart.swift; path = Source/Charts/Renderers/XAxisRendererHorizontalBarChart.swift; sourceTree = "<group>"; };
 		0543ED09C1DD39FA1735B9251AF5DFF1 /* Pods-cfctests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-cfctests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		067B40000E1C2ECD16E2F92E59EAE9DD /* LineChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartView.swift; path = Source/Charts/Charts/LineChartView.swift; sourceTree = "<group>"; };
-		06A47E9B81164C98A314F073A142B35E /* PPTopMostController-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "PPTopMostController-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		06A47E9B81164C98A314F073A142B35E /* PPTopMostController-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "PPTopMostController-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		072236F10A9D6ED13C54BEE48C330A53 /* STPopup-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "STPopup-iOS11.2.xcconfig"; path = "../STPopup-iOS11.2/STPopup-iOS11.2.xcconfig"; sourceTree = "<group>"; };
 		081D9370B54DD60514DF35291808D939 /* Answers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Answers.h; path = iOS/Crashlytics.framework/Headers/Answers.h; sourceTree = "<group>"; };
-		0889B3A2A5A94B2855BDE31920FC94E1 /* STPopup-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "STPopup-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		0889B3A2A5A94B2855BDE31920FC94E1 /* STPopup-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "STPopup-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		08C98981FFDF1D71432F6A1B3104A728 /* CTFeedbackCellItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CTFeedbackCellItem.m; path = Classes/CTFeedbackCellItem.m; sourceTree = "<group>"; };
-		09DCF559D9AB81783D5BAAE1D536E77F /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ATAppUpdater.framework; path = "ATAppUpdater-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09DCF559D9AB81783D5BAAE1D536E77F /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ATAppUpdater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A09269C0C7359D055D96AB0BA3C9413 /* IShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/IShapeRenderer.swift; sourceTree = "<group>"; };
-		0A489B7A287DAA4442855F446C5B0EAB /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Charts.framework; path = "Charts-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A489B7A287DAA4442855F446C5B0EAB /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A6FAFAA7FDDD8ED2092F591A6B73A35 /* YAxis.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = YAxis.swift; path = Source/Charts/Components/YAxis.swift; sourceTree = "<group>"; };
 		0B651AE3594F19B6DE610516BF506D84 /* Pods-harbaughsim16-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-harbaughsim16-dummy.m"; sourceTree = "<group>"; };
-		0BE65D2C655FD68B58B4F97A198B6E42 /* ZGNavigationBarTitle-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "ZGNavigationBarTitle-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		0BE65D2C655FD68B58B4F97A198B6E42 /* ZGNavigationBarTitle-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "ZGNavigationBarTitle-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		0C5BD366B1E39036423577A17CFDB367 /* XAxisRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XAxisRenderer.swift; path = Source/Charts/Renderers/XAxisRenderer.swift; sourceTree = "<group>"; };
 		0DD51EB0D85CA688B1D8EFE3FCD060E0 /* Fabric.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Fabric.h; path = iOS/Fabric.framework/Headers/Fabric.h; sourceTree = "<group>"; };
 		0E4E4BA840CAEA4399952A3B8158C7EA /* HexColors-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "HexColors-iOS10.0-dummy.m"; sourceTree = "<group>"; };
@@ -815,7 +815,7 @@
 		0FA04E16FF62F0EB24F08E44080D19C8 /* PieHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieHighlighter.swift; path = Source/Charts/Highlight/PieHighlighter.swift; sourceTree = "<group>"; };
 		1138201808D474292646BEF355F6AD05 /* Pods-cfctests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-cfctests.release.xcconfig"; sourceTree = "<group>"; };
 		12270D4E05A061823D0CF2755F27C28F /* CombinedChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartData.swift; path = Source/Charts/Data/Implementations/Standard/CombinedChartData.swift; sourceTree = "<group>"; };
-		13160285406626AA56D7C4B803E0DA9F /* DZNEmptyDataSet-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "DZNEmptyDataSet-iOS11.2.modulemap"; path = "../DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		13160285406626AA56D7C4B803E0DA9F /* DZNEmptyDataSet-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "DZNEmptyDataSet-iOS11.2.modulemap"; path = "../DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		134E32CE6DBDD1C113C699EC4CA3F7B1 /* LineChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartData.swift; path = Source/Charts/Data/Implementations/Standard/LineChartData.swift; sourceTree = "<group>"; };
 		13F499EE005336933DE619BECA19AE4D /* BubbleChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/BubbleChartDataSet.swift; sourceTree = "<group>"; };
 		1425853332391D0DD5FAF612627F1A7A /* BubbleChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartRenderer.swift; path = Source/Charts/Renderers/BubbleChartRenderer.swift; sourceTree = "<group>"; };
@@ -829,18 +829,18 @@
 		15E74EEF1D754D9EA7BEDD2628B04798 /* MBProgressHUD-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		1761B225A00977E6EB04A3DE63784AEC /* RadarChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarChartRenderer.swift; path = Source/Charts/Renderers/RadarChartRenderer.swift; sourceTree = "<group>"; };
 		17BCA43E7041638763141443B5B0C13A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../Charts-iOS11.2/Info.plist"; sourceTree = "<group>"; };
-		1844AD3D73575FAAF812FCAF6FE85E71 /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ATAppUpdater.framework; path = "ATAppUpdater-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		18776E7824581E826CBAAF8120480ED7 /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PPTopMostController.framework; path = "PPTopMostController-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1844AD3D73575FAAF812FCAF6FE85E71 /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ATAppUpdater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		18776E7824581E826CBAAF8120480ED7 /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PPTopMostController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1898EF236E409F2BC06FFC57A9C7D379 /* CTFeedbackCellItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CTFeedbackCellItem.h; path = Classes/CTFeedbackCellItem.h; sourceTree = "<group>"; };
 		191A12B026874F1A25A5A2B0947B8C3F /* CombinedHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedHighlighter.swift; path = Source/Charts/Highlight/CombinedHighlighter.swift; sourceTree = "<group>"; };
 		196E23CAC7BEF2F7B0D28663873AA16F /* LineScatterCandleRadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineScatterCandleRadarChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/LineScatterCandleRadarChartDataSet.swift; sourceTree = "<group>"; };
-		19DC8293D77E0D37B50CA9FF6D705E7E /* ScrollableSegmentedControl-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "ScrollableSegmentedControl-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		19DC8293D77E0D37B50CA9FF6D705E7E /* ScrollableSegmentedControl-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "ScrollableSegmentedControl-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		1A19FCCB379303CC7BC19E03EC2D41D9 /* CTFeedback-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CTFeedback-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		1A33DCDF39716B43759F8B41E3A62EC4 /* Pods-harbaughsim16-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-harbaughsim16-resources.sh"; sourceTree = "<group>"; };
 		1B35F3DBA9711477B193A0928B08E022 /* LineChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/LineChartDataSet.swift; sourceTree = "<group>"; };
 		1C61852F421F46C5FB22065981B17868 /* UIScrollView+EmptyDataSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+EmptyDataSet.h"; path = "Source/UIScrollView+EmptyDataSet.h"; sourceTree = "<group>"; };
 		1CADC9E4BB852546B98C4DC88C46CE94 /* RMessage-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "RMessage-iOS11.2-prefix.pch"; path = "../RMessage-iOS11.2/RMessage-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
-		1D04DEC1456C4922213739F2A63FEE88 /* ZGNavigationBarTitle-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "ZGNavigationBarTitle-iOS11.2.modulemap"; path = "../ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		1D04DEC1456C4922213739F2A63FEE88 /* ZGNavigationBarTitle-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "ZGNavigationBarTitle-iOS11.2.modulemap"; path = "../ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		1D40C5645447F47C18104E13B3E55369 /* ViewPortHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewPortHandler.swift; path = Source/Charts/Utils/ViewPortHandler.swift; sourceTree = "<group>"; };
 		1D60A7066E307C6BBCE33EA15BB422F2 /* YAxisRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = YAxisRenderer.swift; path = Source/Charts/Renderers/YAxisRenderer.swift; sourceTree = "<group>"; };
 		1DA47962A138486556F6F17950810ECA /* ViewPortJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewPortJob.swift; path = Source/Charts/Jobs/ViewPortJob.swift; sourceTree = "<group>"; };
@@ -848,7 +848,7 @@
 		1E8D99629B085592C5534E1C8F963944 /* RMessageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RMessageView.h; path = RMessage/RMessageView.h; sourceTree = "<group>"; };
 		1EBE9AFDE1C5406E9A75FA60FCEF88D5 /* STPopup-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "STPopup-iOS11.2-dummy.m"; path = "../STPopup-iOS11.2/STPopup-iOS11.2-dummy.m"; sourceTree = "<group>"; };
 		211951F2B76BDFDCFEBC02E19A4DF561 /* Pods-cfctests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-cfctests-frameworks.sh"; sourceTree = "<group>"; };
-		222E49D647CDF0C9D78EC31507441AFC /* Base.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = Base.lproj; path = Resources/Base.lproj; sourceTree = "<group>"; };
+		222E49D647CDF0C9D78EC31507441AFC /* Base.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Base.lproj; path = Resources/Base.lproj; sourceTree = "<group>"; };
 		22577EC1B5F62EEFBB0AC38285BAFD43 /* IRadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IRadarChartDataSet.swift; path = Source/Charts/Data/Interfaces/IRadarChartDataSet.swift; sourceTree = "<group>"; };
 		22CE4F181C41862A3FC78E3305005085 /* HexColors.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HexColors.m; path = Classes/HexColors.m; sourceTree = "<group>"; };
 		233AE6AA0D59FE058B74328DCD6D008C /* CandleChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/CandleChartDataSet.swift; sourceTree = "<group>"; };
@@ -857,16 +857,16 @@
 		2543A2F845D4EDD182FCDEEB4E85BA74 /* DefaultFillFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultFillFormatter.swift; path = Source/Charts/Formatters/DefaultFillFormatter.swift; sourceTree = "<group>"; };
 		2568C7EEE9EFFF08E61EA49C32075BD2 /* YAxisRendererHorizontalBarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = YAxisRendererHorizontalBarChart.swift; path = Source/Charts/Renderers/YAxisRendererHorizontalBarChart.swift; sourceTree = "<group>"; };
 		25B36123009A883B7CB5013D1776698C /* PieChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartRenderer.swift; path = Source/Charts/Renderers/PieChartRenderer.swift; sourceTree = "<group>"; };
-		26360CEDF55203319ACFA04D528121E0 /* ATAppUpdater-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "ATAppUpdater-iOS11.2.modulemap"; path = "../ATAppUpdater-iOS11.2/ATAppUpdater-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		26360CEDF55203319ACFA04D528121E0 /* ATAppUpdater-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "ATAppUpdater-iOS11.2.modulemap"; path = "../ATAppUpdater-iOS11.2/ATAppUpdater-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		27059FCD1B50201C2D5C4C6DD6EA7E5E /* RMessage-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "RMessage-iOS11.2.xcconfig"; path = "../RMessage-iOS11.2/RMessage-iOS11.2.xcconfig"; sourceTree = "<group>"; };
-		2877B091D6048E403A0EF65A101EC53C /* Pods-cfctests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-cfctests.modulemap"; sourceTree = "<group>"; };
+		2877B091D6048E403A0EF65A101EC53C /* Pods-cfctests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-cfctests.modulemap"; sourceTree = "<group>"; };
 		28F89EAAD4B1713BE6E3E713DF8FCB65 /* STPopup-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "STPopup-iOS11.2-prefix.pch"; path = "../STPopup-iOS11.2/STPopup-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
 		28FFEEECC1451EA023EF346D457F280D /* RMessageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RMessageView.m; path = RMessage/RMessageView.m; sourceTree = "<group>"; };
 		299C1C964E1F6A447EC629F697246574 /* CandleStickChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleStickChartRenderer.swift; path = Source/Charts/Renderers/CandleStickChartRenderer.swift; sourceTree = "<group>"; };
 		29CBD081D43A47BABD395C6418D6EADC /* NotificationBackgroundErrorIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "NotificationBackgroundErrorIcon@2x.png"; path = "RMessage/Assets/NotificationBackgroundErrorIcon@2x.png"; sourceTree = "<group>"; };
 		2C8DCBD525EE01F4945E3DCB63704AAB /* IBarLineScatterCandleBubbleChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IBarLineScatterCandleBubbleChartDataSet.swift; path = Source/Charts/Data/Interfaces/IBarLineScatterCandleBubbleChartDataSet.swift; sourceTree = "<group>"; };
-		2F242B873A92CA95E14878B29ECA451D /* FCFileManager-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "FCFileManager-iOS11.2.modulemap"; path = "../FCFileManager-iOS11.2/FCFileManager-iOS11.2.modulemap"; sourceTree = "<group>"; };
-		2F499381E498A31D1DD0644908E54C4B /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hans.lproj"; path = "Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
+		2F242B873A92CA95E14878B29ECA451D /* FCFileManager-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "FCFileManager-iOS11.2.modulemap"; path = "../FCFileManager-iOS11.2/FCFileManager-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		2F499381E498A31D1DD0644908E54C4B /* zh-Hans.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hans.lproj"; path = "Resources/zh-Hans.lproj"; sourceTree = "<group>"; };
 		304C834DE9A4EC7194E72D0590ADF323 /* BarLineScatterCandleBubbleChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarLineScatterCandleBubbleChartData.swift; path = Source/Charts/Data/Implementations/Standard/BarLineScatterCandleBubbleChartData.swift; sourceTree = "<group>"; };
 		3118B3592A929A8899A2167B195EB39B /* AutoCoding-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "AutoCoding-iOS11.2-umbrella.h"; path = "../AutoCoding-iOS11.2/AutoCoding-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
 		3141E36A18BD9801D7BF493BDB8F5552 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
@@ -879,14 +879,14 @@
 		35EA7E220A1FD01A6638E27BAC54EEAE /* FCFileManager-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FCFileManager-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
 		38A3EA0BE3B4867D6786BBFDDC7040C6 /* ZGNavigationBarTitleViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZGNavigationBarTitleViewController.m; path = ZGNavigationBarTitle/Class/ZGNavigationBarTitleViewController.m; sourceTree = "<group>"; };
 		391BC0276CB5E07A182B48E12762ACD7 /* Platform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Platform.swift; path = Source/Charts/Utils/Platform.swift; sourceTree = "<group>"; };
-		39ABC8202C5914A791F7C9A28B18DF63 /* AutoCoding-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "AutoCoding-iOS11.2.modulemap"; path = "../AutoCoding-iOS11.2/AutoCoding-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		39ABC8202C5914A791F7C9A28B18DF63 /* AutoCoding-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "AutoCoding-iOS11.2.modulemap"; path = "../AutoCoding-iOS11.2/AutoCoding-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		3A08AED1A427CE44745F10186970DFBC /* AxisRendererBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AxisRendererBase.swift; path = Source/Charts/Renderers/AxisRendererBase.swift; sourceTree = "<group>"; };
 		3A67CE1EB495820915351515BDF1ED06 /* IMarker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IMarker.swift; path = Source/Charts/Components/IMarker.swift; sourceTree = "<group>"; };
-		3AD46266DB18F7D05BE0B4BFB1DB31F5 /* fa-IR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "fa-IR.lproj"; path = "Resources/fa-IR.lproj"; sourceTree = "<group>"; };
+		3AD46266DB18F7D05BE0B4BFB1DB31F5 /* fa-IR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "fa-IR.lproj"; path = "Resources/fa-IR.lproj"; sourceTree = "<group>"; };
 		3B22AC45020F7AE656A9384188760A8C /* PPTopMostController-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PPTopMostController-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
-		3BA2B2E11EEA1FD572537799EF3199E2 /* CTFeedback.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = CTFeedback.bundle; path = CTFeedback.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BA2B2E11EEA1FD572537799EF3199E2 /* CTFeedback.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CTFeedback.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C13FEAA20A5E8216F8F5B21AE375B53 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../ZGNavigationBarTitle-iOS11.2/Info.plist"; sourceTree = "<group>"; };
-		3C7086270DA080749FB527F63E2EF61D /* CTFeedback-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "CTFeedback-iOS11.2.modulemap"; path = "../CTFeedback-iOS11.2/CTFeedback-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		3C7086270DA080749FB527F63E2EF61D /* CTFeedback-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "CTFeedback-iOS11.2.modulemap"; path = "../CTFeedback-iOS11.2/CTFeedback-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		3C725C4C24D971A8700CB9AEA226F642 /* LineChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartRenderer.swift; path = Source/Charts/Renderers/LineChartRenderer.swift; sourceTree = "<group>"; };
 		3E3D002A45E1897A14A2B5ED79E28BAE /* AutoCoding.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AutoCoding.h; path = AutoCoding/AutoCoding.h; sourceTree = "<group>"; };
 		3EB172FF6B23ABB390611699825B41F4 /* STPopupController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupController.h; path = STPopup/STPopupController.h; sourceTree = "<group>"; };
@@ -898,26 +898,26 @@
 		418EDDBF7D9270272064A566AB21646C /* NotificationBackgroundWarningIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "NotificationBackgroundWarningIcon@2x.png"; path = "RMessage/Assets/NotificationBackgroundWarningIcon@2x.png"; sourceTree = "<group>"; };
 		425A44CD7D2CC9656F1D59AD73D70AE0 /* FCFileManager-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FCFileManager-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		42910603AD958E5E517EB9C7E938FE86 /* Charts-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Charts-iOS11.2-prefix.pch"; path = "../Charts-iOS11.2/Charts-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
-		42AAFA4B81841ABA192C628DC12CB8A9 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = it.lproj; path = Resources/it.lproj; sourceTree = "<group>"; };
+		42AAFA4B81841ABA192C628DC12CB8A9 /* it.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = it.lproj; path = Resources/it.lproj; sourceTree = "<group>"; };
 		43688870CABCEE9379C748752B04D9D6 /* PieChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartView.swift; path = Source/Charts/Charts/PieChartView.swift; sourceTree = "<group>"; };
 		43A1FE206FBDCFC9C163A3AC2151753F /* BarLineScatterCandleBubbleChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarLineScatterCandleBubbleChartDataProvider.swift; path = Source/Charts/Interfaces/BarLineScatterCandleBubbleChartDataProvider.swift; sourceTree = "<group>"; };
 		444F25B5CFFA417617B12E89917577E4 /* IFillFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IFillFormatter.swift; path = Source/Charts/Formatters/IFillFormatter.swift; sourceTree = "<group>"; };
 		4469F316129B3C4283A6C58E1ECF198F /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
 		458D8AC953E9206C29F8295339435968 /* DataApproximator+N.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DataApproximator+N.swift"; path = "Source/Charts/Filters/DataApproximator+N.swift"; sourceTree = "<group>"; };
 		463852AC864A091748171615A89E91D7 /* MBProgressHUD-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD-iOS10.0-dummy.m"; sourceTree = "<group>"; };
-		466335C9CCC87B282D6D9F0AE56544D6 /* MBProgressHUD-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "MBProgressHUD-iOS11.2.modulemap"; path = "../MBProgressHUD-iOS11.2/MBProgressHUD-iOS11.2.modulemap"; sourceTree = "<group>"; };
-		4687CAFDC0B84A100A52D9DA9CD62099 /* STPopup-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "STPopup-iOS11.2.modulemap"; path = "../STPopup-iOS11.2/STPopup-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		466335C9CCC87B282D6D9F0AE56544D6 /* MBProgressHUD-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "MBProgressHUD-iOS11.2.modulemap"; path = "../MBProgressHUD-iOS11.2/MBProgressHUD-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		4687CAFDC0B84A100A52D9DA9CD62099 /* STPopup-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "STPopup-iOS11.2.modulemap"; path = "../STPopup-iOS11.2/STPopup-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		469597D8D1397CDB09CFB54228697FBF /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PPTopMostController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4946C26C48284842B45AFBEEB575B3C2 /* DZNEmptyDataSet-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DZNEmptyDataSet-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		4A637066F0FCD6D47B10510FE6276955 /* ILineRadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ILineRadarChartDataSet.swift; path = Source/Charts/Data/Interfaces/ILineRadarChartDataSet.swift; sourceTree = "<group>"; };
 		4A9106BE28926192DFA8859978532C46 /* ScrollableSegmentedControl-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ScrollableSegmentedControl-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
-		4AA21E9DE4F0A8BF70706A922D9BB427 /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ko.lproj; path = Resources/ko.lproj; sourceTree = "<group>"; };
-		4B6A043E9468AF238DD25294CE64107A /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = nl.lproj; path = Resources/nl.lproj; sourceTree = "<group>"; };
+		4AA21E9DE4F0A8BF70706A922D9BB427 /* ko.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ko.lproj; path = Resources/ko.lproj; sourceTree = "<group>"; };
+		4B6A043E9468AF238DD25294CE64107A /* nl.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = nl.lproj; path = Resources/nl.lproj; sourceTree = "<group>"; };
 		4BA2A178DD545B2B2B1B5759DDB7F1F9 /* DZNEmptyDataSet-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DZNEmptyDataSet-iOS11.2-prefix.pch"; path = "../DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
 		4D4B9AEA43FFBCD077A989665427E42D /* CTFeedback-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "CTFeedback-iOS11.2-dummy.m"; path = "../CTFeedback-iOS11.2/CTFeedback-iOS11.2-dummy.m"; sourceTree = "<group>"; };
 		4D7B341C5D048113E63BB47F9C7B5B8E /* ScrollableSegmentedControl-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ScrollableSegmentedControl-iOS11.2-prefix.pch"; path = "../ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
 		4DD57D0A9B6891601AF8BBD1A454A6AD /* CTFeedback-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CTFeedback-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
-		4E266F66ED7F46EE1F5DA86FE3BE16C2 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ru.lproj; path = Resources/ru.lproj; sourceTree = "<group>"; };
+		4E266F66ED7F46EE1F5DA86FE3BE16C2 /* ru.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ru.lproj; path = Resources/ru.lproj; sourceTree = "<group>"; };
 		4E7663BF72F118D3D13CE23C0D0E9F81 /* Transformer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Transformer.swift; path = Source/Charts/Utils/Transformer.swift; sourceTree = "<group>"; };
 		4ED41B076F6B8146E6653CD700011F60 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		4EE9AC8611E9198E6CA15982BAA2A688 /* Range.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Range.swift; path = Source/Charts/Highlight/Range.swift; sourceTree = "<group>"; };
@@ -933,26 +933,26 @@
 		52D02188AB97EB414C461BAB9FC1368E /* HorizontalBarChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HorizontalBarChartRenderer.swift; path = Source/Charts/Renderers/HorizontalBarChartRenderer.swift; sourceTree = "<group>"; };
 		5323B00D3F010743A2D10E585241A84F /* ScrollableSegmentedControl-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ScrollableSegmentedControl-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		5345C0B0BDAA18578FDCE3473506B3FB /* ZGNavigationBarTitle-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "ZGNavigationBarTitle-iOS11.2.xcconfig"; path = "../ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle-iOS11.2.xcconfig"; sourceTree = "<group>"; };
-		53837526230116B7A23E95FDA201E1D6 /* ur.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ur.lproj; path = Resources/ur.lproj; sourceTree = "<group>"; };
+		53837526230116B7A23E95FDA201E1D6 /* ur.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ur.lproj; path = Resources/ur.lproj; sourceTree = "<group>"; };
 		5415E877BBB423F89DABB5AAEA47A99E /* NotificationBackgroundErrorIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = NotificationBackgroundErrorIcon.png; path = RMessage/Assets/NotificationBackgroundErrorIcon.png; sourceTree = "<group>"; };
 		5447BA2CAC287F77B99FDBA6BBE2BD40 /* CLSAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSAttributes.h; path = iOS/Crashlytics.framework/Headers/CLSAttributes.h; sourceTree = "<group>"; };
-		54813D775DBAB09DE6409923C68B0551 /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_harbaughsim16.framework; path = "Pods-harbaughsim16.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		550ACF1A1E6CBDB89F6CB14103E54D95 /* RMessage-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "RMessage-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		54813D775DBAB09DE6409923C68B0551 /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		550ACF1A1E6CBDB89F6CB14103E54D95 /* RMessage-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "RMessage-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		562C2431E9AEAD3DB0754CDCD03ED25F /* STPopup-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "STPopup-iOS11.2-umbrella.h"; path = "../STPopup-iOS11.2/STPopup-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
-		568B90B4C3694B8E4A51EF466B483E64 /* PPTopMostController-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "PPTopMostController-iOS11.2.modulemap"; path = "../PPTopMostController-iOS11.2/PPTopMostController-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		568B90B4C3694B8E4A51EF466B483E64 /* PPTopMostController-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "PPTopMostController-iOS11.2.modulemap"; path = "../PPTopMostController-iOS11.2/PPTopMostController-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		5906387D694333EBA75394C5F3F1A113 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5A1C95671BE6ED5FD9E46A222AFE88D6 /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = tr.lproj; path = Resources/tr.lproj; sourceTree = "<group>"; };
+		5A1C95671BE6ED5FD9E46A222AFE88D6 /* tr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = tr.lproj; path = Resources/tr.lproj; sourceTree = "<group>"; };
 		5BB177717F5FD0EE35A24B44CC4C6D23 /* FCFileManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FCFileManager.m; path = FCFileManager/FCFileManager.m; sourceTree = "<group>"; };
 		5BF36DA515F5650D0C6971FC93F53002 /* BarLineChartViewBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarLineChartViewBase.swift; path = Source/Charts/Charts/BarLineChartViewBase.swift; sourceTree = "<group>"; };
 		5BFC95C5AECDDD8337DF2E766FEB1E3F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../RMessage-iOS11.2/Info.plist"; sourceTree = "<group>"; };
 		5D618BD19931B7FCED4751A2AA6FB927 /* FCFileManager-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FCFileManager-iOS11.2-umbrella.h"; path = "../FCFileManager-iOS11.2/FCFileManager-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
 		5D623D04E8EA915582434EFC291C93E2 /* AutoCoding-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "AutoCoding-iOS10.0.xcconfig"; sourceTree = "<group>"; };
-		5D8213B0175FDE4B595DBB9AE3BEAD27 /* Pods-harbaughsim16.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-harbaughsim16.modulemap"; sourceTree = "<group>"; };
-		5E42C3E90265808B01EADEE34E9CACE6 /* ScrollableSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ScrollableSegmentedControl.framework; path = "ScrollableSegmentedControl-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E4445BC432627A29E663EDFF4C33513 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HexColors.framework; path = "HexColors-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D8213B0175FDE4B595DBB9AE3BEAD27 /* Pods-harbaughsim16.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-harbaughsim16.modulemap"; sourceTree = "<group>"; };
+		5E42C3E90265808B01EADEE34E9CACE6 /* ScrollableSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ScrollableSegmentedControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E4445BC432627A29E663EDFF4C33513 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E4F9E7752841DB65668FACCA96F21E4 /* ChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/ChartDataEntry.swift; sourceTree = "<group>"; };
 		5F618910B1FFB43EE2138BEA77F77CA0 /* PieRadarHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieRadarHighlighter.swift; path = Source/Charts/Highlight/PieRadarHighlighter.swift; sourceTree = "<group>"; };
-		5F7EFA0EAEE5F609121AF599620B9920 /* da.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = da.lproj; path = Resources/da.lproj; sourceTree = "<group>"; };
+		5F7EFA0EAEE5F609121AF599620B9920 /* da.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = da.lproj; path = Resources/da.lproj; sourceTree = "<group>"; };
 		60545BD20972972ED6AE38F65C2A0F9D /* UIViewController+PPTopMostController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+PPTopMostController.h"; path = "PPTopMostController-Files/UIViewController+PPTopMostController.h"; sourceTree = "<group>"; };
 		61739366630A43CCD5B9F64571B67B00 /* CombinedChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartRenderer.swift; path = Source/Charts/Renderers/CombinedChartRenderer.swift; sourceTree = "<group>"; };
 		623FD5919904FFFBF97A24431F5BA0BC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../DZNEmptyDataSet-iOS11.2/Info.plist"; sourceTree = "<group>"; };
@@ -962,11 +962,11 @@
 		6525F07B3D27A050FE441C885E1DB699 /* Animator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Animator.swift; path = Source/Charts/Animation/Animator.swift; sourceTree = "<group>"; };
 		660281C9B9F37B7A4F3FAF54B8F17BB0 /* HorizontalBarChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HorizontalBarChartView.swift; path = Source/Charts/Charts/HorizontalBarChartView.swift; sourceTree = "<group>"; };
 		66B73A1FCD8355CE5FBFD30D4A26E9DA /* ChartHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartHighlighter.swift; path = Source/Charts/Highlight/ChartHighlighter.swift; sourceTree = "<group>"; };
-		68919589014C57CA6F177FF3FBBC00AB /* sr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = sr.lproj; path = Resources/sr.lproj; sourceTree = "<group>"; };
+		68919589014C57CA6F177FF3FBBC00AB /* sr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = sr.lproj; path = Resources/sr.lproj; sourceTree = "<group>"; };
 		6969456338D1247D80B3B6BA3CF9307D /* ScatterChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/ScatterChartDataSet.swift; sourceTree = "<group>"; };
 		6A204DD209909D887069A80A37EF83F5 /* UIScrollView+EmptyDataSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+EmptyDataSet.m"; path = "Source/UIScrollView+EmptyDataSet.m"; sourceTree = "<group>"; };
 		6C83326D4E8CE2EC33AE9D3F24190CA4 /* ScrollableSegmentedControl-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "ScrollableSegmentedControl-iOS11.2.xcconfig"; path = "../ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl-iOS11.2.xcconfig"; sourceTree = "<group>"; };
-		6D76460F3E18BE191D97966350E1675B /* RMessageDefaultDesign.json */ = {isa = PBXFileReference; includeInIndex = 1; name = RMessageDefaultDesign.json; path = RMessage/Assets/RMessageDefaultDesign.json; sourceTree = "<group>"; };
+		6D76460F3E18BE191D97966350E1675B /* RMessageDefaultDesign.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = RMessageDefaultDesign.json; path = RMessage/Assets/RMessageDefaultDesign.json; sourceTree = "<group>"; };
 		6E1CF188E6EB826BED45ACB3B8B7CA9D /* LegendRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LegendRenderer.swift; path = Source/Charts/Renderers/LegendRenderer.swift; sourceTree = "<group>"; };
 		6ED197E348FCBC595EF3AB2A4BF29104 /* UIViewController+PPTopMostController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+PPTopMostController.m"; path = "PPTopMostController-Files/UIViewController+PPTopMostController.m"; sourceTree = "<group>"; };
 		70968BDE0018B1BB5EEDAEFF7E8D8379 /* PPTopMostController-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PPTopMostController-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
@@ -981,7 +981,7 @@
 		7483A83C9C11D4523984CE1D7E2EFA95 /* CTFeedbackViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CTFeedbackViewController.m; path = Classes/CTFeedbackViewController.m; sourceTree = "<group>"; };
 		749DFE0B76EDA199622D4D897FE667C7 /* DZNEmptyDataSet-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DZNEmptyDataSet-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
 		7513E2A501B1EED3A0019983F4F91A28 /* ChartDataEntryBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataEntryBase.swift; path = Source/Charts/Data/Implementations/Standard/ChartDataEntryBase.swift; sourceTree = "<group>"; };
-		75AE59E2E5AC00D02A2FF4A3493577D4 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = en.lproj; path = Resources/en.lproj; sourceTree = "<group>"; };
+		75AE59E2E5AC00D02A2FF4A3493577D4 /* en.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = en.lproj; path = Resources/en.lproj; sourceTree = "<group>"; };
 		75D5C18E9719FDB306E451CD101E273F /* UIResponder+STPopup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIResponder+STPopup.h"; path = "STPopup/UIResponder+STPopup.h"; sourceTree = "<group>"; };
 		766CB48FB23C551E9127218DB3246A90 /* CTFeedbackCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = CTFeedbackCell.m; path = Classes/CTFeedbackCell.m; sourceTree = "<group>"; };
 		767C39BD951D5BF0D9BCED6CF8EB8341 /* IAxisValueFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IAxisValueFormatter.swift; path = Source/Charts/Formatters/IAxisValueFormatter.swift; sourceTree = "<group>"; };
@@ -996,14 +996,14 @@
 		79DC78270847313CC45ED854B81039F0 /* STPopupLeftBarItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupLeftBarItem.h; path = STPopup/STPopupLeftBarItem.h; sourceTree = "<group>"; };
 		79FC6DC34BCA74AE3A6F95976E16C7CF /* RMessage-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "RMessage-iOS11.2-dummy.m"; path = "../RMessage-iOS11.2/RMessage-iOS11.2-dummy.m"; sourceTree = "<group>"; };
 		7A10BA322402483678CF37192AEEEF5E /* NotificationButtonBackground.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = NotificationButtonBackground.png; path = RMessage/Assets/NotificationButtonBackground.png; sourceTree = "<group>"; };
-		7A10BA5D2FAE434DDF9122788B0DB3B9 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Charts.framework; path = "Charts-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A10BA5D2FAE434DDF9122788B0DB3B9 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7ACFA2808B68F8099DBA0EA64C0D2879 /* RadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/RadarChartDataSet.swift; sourceTree = "<group>"; };
 		7B701281DB7412EFAA1781E331FA3833 /* ChevronDownShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChevronDownShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/ChevronDownShapeRenderer.swift; sourceTree = "<group>"; };
 		7CCC131BB0D8113B30C62C3DC036E93D /* ZGNavigationBarTitle-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ZGNavigationBarTitle-iOS11.2-umbrella.h"; path = "../ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
-		7D1F23BA2B221ED421F1CF8A518ECC9E /* ZGNavigationBarTitle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZGNavigationBarTitle.framework; path = "ZGNavigationBarTitle-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D1F23BA2B221ED421F1CF8A518ECC9E /* ZGNavigationBarTitle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZGNavigationBarTitle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D7B5CB7A0A35155758F6C96952445B5 /* ChartLimitLine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartLimitLine.swift; path = Source/Charts/Components/ChartLimitLine.swift; sourceTree = "<group>"; };
-		7DFA76E17E02DC3005333E91A582AF3A /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = STPopup.framework; path = "STPopup-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E93BCC60B367A6A93728BEF5343044F /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = STPopup.framework; path = "STPopup-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DFA76E17E02DC3005333E91A582AF3A /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STPopup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E93BCC60B367A6A93728BEF5343044F /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STPopup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EAC7E675F67EFED8EF28CCB5129CC37 /* BubbleChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/BubbleChartDataEntry.swift; sourceTree = "<group>"; };
 		7F239BE613B31BC39391D3E221C0CBEC /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = iOS/Fabric.framework; sourceTree = "<group>"; };
 		7F7FFBE3EBD10382DFE00E519D41D14C /* STPopup-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "STPopup-iOS10.0.xcconfig"; sourceTree = "<group>"; };
@@ -1017,12 +1017,12 @@
 		819CDF12FB31990863E4377243082E56 /* DZNEmptyDataSet-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "DZNEmptyDataSet-iOS11.2-dummy.m"; path = "../DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet-iOS11.2-dummy.m"; sourceTree = "<group>"; };
 		81B68275AD97D038A620B5F12BB699D5 /* NotificationBackgroundSuccessIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "NotificationBackgroundSuccessIcon@2x.png"; path = "RMessage/Assets/NotificationBackgroundSuccessIcon@2x.png"; sourceTree = "<group>"; };
 		83B4D07DEE07A44E9D0654C22B84C3DB /* FABAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FABAttributes.h; path = iOS/Fabric.framework/Headers/FABAttributes.h; sourceTree = "<group>"; };
-		8645E85910018589F06E1EE4C55A3AB3 /* CTFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CTFeedback.framework; path = "CTFeedback-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8645E85910018589F06E1EE4C55A3AB3 /* CTFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CTFeedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86BADC7E3915D5183344680645E4917E /* BarChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/BarChartDataEntry.swift; sourceTree = "<group>"; };
 		86F36C4C4F182BE01473F10B8611D517 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87118088A981197134DDC243ACEED7E7 /* CircleShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CircleShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/CircleShapeRenderer.swift; sourceTree = "<group>"; };
 		87E86C17F3EAE810BAABFF96F41ACBF8 /* MBProgressHUD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		887A334B46F0726214D89E93DE0130A0 /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AutoCoding.framework; path = "AutoCoding-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		887A334B46F0726214D89E93DE0130A0 /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AutoCoding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		88B0D5A5BA4394823384A96A34366055 /* Pods-cfctests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-cfctests-resources.sh"; sourceTree = "<group>"; };
 		8945DA9DB6F558F55CC811504017946D /* ANSCompatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANSCompatibility.h; path = iOS/Crashlytics.framework/Headers/ANSCompatibility.h; sourceTree = "<group>"; };
 		8A44C57CC214A7A3351FD1234675934B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1034,19 +1034,19 @@
 		8E7BA778CF2CA44A1853FED9E6322696 /* CTFeedbackCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CTFeedbackCell.h; path = Classes/CTFeedbackCell.h; sourceTree = "<group>"; };
 		8E8DE3426A7FCD07FD148BB5697B225A /* CTFeedback-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "CTFeedback-iOS11.2-prefix.pch"; path = "../CTFeedback-iOS11.2/CTFeedback-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
 		8FEA6EE6AA12C9CA706A7F708B620ED1 /* Charts-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Charts-iOS11.2-dummy.m"; path = "../Charts-iOS11.2/Charts-iOS11.2-dummy.m"; sourceTree = "<group>"; };
-		9009466B838E36101EA7CC6A025BBC48 /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = fr.lproj; path = Resources/fr.lproj; sourceTree = "<group>"; };
-		9182A44C2521CCDADC1DBD8034014BC7 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ja.lproj; path = Resources/ja.lproj; sourceTree = "<group>"; };
-		91C2D106D393D8325336023866885572 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HexColors.framework; path = "HexColors-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9009466B838E36101EA7CC6A025BBC48 /* fr.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = fr.lproj; path = Resources/fr.lproj; sourceTree = "<group>"; };
+		9182A44C2521CCDADC1DBD8034014BC7 /* ja.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ja.lproj; path = Resources/ja.lproj; sourceTree = "<group>"; };
+		91C2D106D393D8325336023866885572 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F510878EE3D8090945BD4FE8C2D4BD /* HexColors-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "HexColors-iOS11.2-umbrella.h"; path = "../HexColors-iOS11.2/HexColors-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
-		91F55CB7E008A8A2B7BFE7F8A1DBD292 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FCFileManager.framework; path = "FCFileManager-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		91F55CB7E008A8A2B7BFE7F8A1DBD292 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FCFileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		928387B5057A51A631AF1DBAECEE2D38 /* Legend.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Legend.swift; path = Source/Charts/Components/Legend.swift; sourceTree = "<group>"; };
 		92CD71575598335812DA1021859A4DBC /* HexColors-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		930C235540E6B044D63FCD6943B64556 /* IBubbleChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IBubbleChartDataSet.swift; path = Source/Charts/Data/Interfaces/IBubbleChartDataSet.swift; sourceTree = "<group>"; };
 		93131CE78036046535E3F5CE12364755 /* HexColors-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "HexColors-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		9321870F27B4E3BDCEE51C8189F94A36 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		933B3A552BAA19AD0B4DBAF6ACF04BA0 /* HexColors-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "HexColors-iOS11.2.modulemap"; path = "../HexColors-iOS11.2/HexColors-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		933B3A552BAA19AD0B4DBAF6ACF04BA0 /* HexColors-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "HexColors-iOS11.2.modulemap"; path = "../HexColors-iOS11.2/HexColors-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		938670F5F3FD05849340A0C2B5C762F2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93D88232E79B29DA78D501B0E4FF1163 /* FCFileManager-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FCFileManager-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		93E707FDECE940C2480AFDC3002CDDED /* STPopup-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STPopup-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
 		95183981C2C875D8CE39270A8B59261F /* MBProgressHUD-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
@@ -1054,8 +1054,8 @@
 		96029060CBF5246A38B4F6585FF03E63 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../ScrollableSegmentedControl-iOS11.2/Info.plist"; sourceTree = "<group>"; };
 		960C7C259A70459FAF05482CF2AC6B4E /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
 		96915316AC8D9653D9275B624762850A /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
-		96D805F794E895578C2345D5A5B9BD9C /* FCFileManager-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "FCFileManager-iOS10.0.modulemap"; sourceTree = "<group>"; };
-		990892FC3ADCF5F0AF4648C66FC4AC24 /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PPTopMostController.framework; path = "PPTopMostController-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96D805F794E895578C2345D5A5B9BD9C /* FCFileManager-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "FCFileManager-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		990892FC3ADCF5F0AF4648C66FC4AC24 /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PPTopMostController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		99F8F8F4E5990B0C855CD8E202ABCBAB /* Fill.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Fill.swift; path = Source/Charts/Utils/Fill.swift; sourceTree = "<group>"; };
 		9A11E420ADA852356E1701546637B543 /* ATAppUpdater-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ATAppUpdater-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		9ADD77B3335428F533A2AED6F58B1861 /* UITabBarController+PPTopMostController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UITabBarController+PPTopMostController.h"; path = "PPTopMostController-Files/UITabBarController+PPTopMostController.h"; sourceTree = "<group>"; };
@@ -1069,17 +1069,17 @@
 		A09CFFD44D4F66F9B8F6EB7B4FD9F3DF /* NotificationBackgroundSuccessIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = NotificationBackgroundSuccessIcon.png; path = RMessage/Assets/NotificationBackgroundSuccessIcon.png; sourceTree = "<group>"; };
 		A0AA858AB31E1ACD553C32094D7BA24C /* Highlight.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Highlight.swift; path = Source/Charts/Highlight/Highlight.swift; sourceTree = "<group>"; };
 		A14D1D100ACBF67CF9C933F7FA2DE733 /* ICandleChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ICandleChartDataSet.swift; path = Source/Charts/Data/Interfaces/ICandleChartDataSet.swift; sourceTree = "<group>"; };
-		A204EC0E603FC745E8F74754F4293237 /* ATAppUpdater-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "ATAppUpdater-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		A204EC0E603FC745E8F74754F4293237 /* ATAppUpdater-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "ATAppUpdater-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		A2FE5127E80BB758DA9D6A59CB7F978A /* PPTopMostController-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PPTopMostController-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		A30C09580812A754771A904C84A1FE2A /* LineChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartDataProvider.swift; path = Source/Charts/Interfaces/LineChartDataProvider.swift; sourceTree = "<group>"; };
-		A361C773FE335F04F6F2A60CAAF23C19 /* ScrollableSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ScrollableSegmentedControl.framework; path = "ScrollableSegmentedControl-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A361C773FE335F04F6F2A60CAAF23C19 /* ScrollableSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ScrollableSegmentedControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3AEF7DDE5265D05F513826DD351BB85 /* Pods-harbaughsim16-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-harbaughsim16-umbrella.h"; sourceTree = "<group>"; };
 		A43F3F2E736781CECE66DE668DB1F37B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		A46C65DE1E8A255081EC6F563599534C /* AnimatedViewPortJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedViewPortJob.swift; path = Source/Charts/Jobs/AnimatedViewPortJob.swift; sourceTree = "<group>"; };
 		A5FC3D2416012B694E4421134BE675EC /* CTFeedback-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CTFeedback-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		A6E6D7D4ED19F1B2CF9B1C31882AA32B /* ZGNavigationBarTitle-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZGNavigationBarTitle-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		A73E232DB7C50285ADF69B6332B9CA05 /* ZGNavigationBarTitleViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZGNavigationBarTitleViewController.h; path = ZGNavigationBarTitle/Class/ZGNavigationBarTitleViewController.h; sourceTree = "<group>"; };
-		A7E3F9E8CACB8CA5D45EA655C3C2BF0C /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DZNEmptyDataSet.framework; path = "DZNEmptyDataSet-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7E3F9E8CACB8CA5D45EA655C3C2BF0C /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DZNEmptyDataSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A80CCCA87DA6A5D829276499210C4ADE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A87159440C32EE626074998A6B38C2C6 /* MoveViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MoveViewJob.swift; path = Source/Charts/Jobs/MoveViewJob.swift; sourceTree = "<group>"; };
 		A930D8DC54A8F4B0DB9D7DA3613A5143 /* CTFeedback-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "CTFeedback-iOS10.0.xcconfig"; sourceTree = "<group>"; };
@@ -1087,9 +1087,9 @@
 		AAC09DC2DFA4A0CC05026B28F2986045 /* BarChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartRenderer.swift; path = Source/Charts/Renderers/BarChartRenderer.swift; sourceTree = "<group>"; };
 		AAE531AEEE86DABD0B57BCCE51068C4D /* IPieChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IPieChartDataSet.swift; path = Source/Charts/Data/Interfaces/IPieChartDataSet.swift; sourceTree = "<group>"; };
 		AB9C5EA7AB898F08A9858E498B08C499 /* TransformerHorizontalBarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TransformerHorizontalBarChart.swift; path = Source/Charts/Utils/TransformerHorizontalBarChart.swift; sourceTree = "<group>"; };
-		ABB66D5F584DC76F18772CDCFD494EAD /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MBProgressHUD.framework; path = "MBProgressHUD-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABB66D5F584DC76F18772CDCFD494EAD /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC8579069DDF156537759847A07167FE /* DataApproximator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataApproximator.swift; path = Source/Charts/Filters/DataApproximator.swift; sourceTree = "<group>"; };
-		AE075FDC1DCBF033D3F7BEB0FDC057B6 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FCFileManager.framework; path = "FCFileManager-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE075FDC1DCBF033D3F7BEB0FDC057B6 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FCFileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF3DA090B9BC1611015892172E4D33D2 /* MBProgressHUD-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MBProgressHUD-iOS11.2-dummy.m"; path = "../MBProgressHUD-iOS11.2/MBProgressHUD-iOS11.2-dummy.m"; sourceTree = "<group>"; };
 		AF57272BC7DF7A83D0B07977DD3EB2AD /* ComponentBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ComponentBase.swift; path = Source/Charts/Components/ComponentBase.swift; sourceTree = "<group>"; };
 		B058B4CAB6F259BA4D6FFB068B287198 /* STPopupControllerTransitioningFade.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupControllerTransitioningFade.m; path = STPopup/STPopupControllerTransitioningFade.m; sourceTree = "<group>"; };
@@ -1103,30 +1103,30 @@
 		B5780DF54A3C56FA290A211DD6E77478 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5BCC0E39B03647314FD098C3CC6832C /* DZNEmptyDataSet-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DZNEmptyDataSet-iOS11.2-umbrella.h"; path = "../DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
 		B5D331E04DC613428B2C429D451B6547 /* STPopup-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "STPopup-iOS10.0-dummy.m"; sourceTree = "<group>"; };
-		B6EB2DD72E2CCAE9D91366C020B7EC46 /* ar.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = ar.lproj; path = Resources/ar.lproj; sourceTree = "<group>"; };
+		B6EB2DD72E2CCAE9D91366C020B7EC46 /* ar.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = ar.lproj; path = Resources/ar.lproj; sourceTree = "<group>"; };
 		B71BF5D5727988CF08BC6949D4831BBE /* CombinedChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartView.swift; path = Source/Charts/Charts/CombinedChartView.swift; sourceTree = "<group>"; };
 		B77693CB43312A210A7851939B258B83 /* ZGNavigationBarTitle-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ZGNavigationBarTitle-iOS10.0.xcconfig"; sourceTree = "<group>"; };
-		B82D9F8F835418CC3B127630B3B620B5 /* ScrollableSegmentedControl-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "ScrollableSegmentedControl-iOS11.2.modulemap"; path = "../ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		B82D9F8F835418CC3B127630B3B620B5 /* ScrollableSegmentedControl-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "ScrollableSegmentedControl-iOS11.2.modulemap"; path = "../ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		B9C15989E316C05270F57DF47DBCEC9A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../MBProgressHUD-iOS11.2/Info.plist"; sourceTree = "<group>"; };
 		B9E42DF817C7576F673E95087D3EFCE2 /* Charts-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Charts-iOS11.2-umbrella.h"; path = "../Charts-iOS11.2/Charts-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
-		BB122F0665636708E5C02959612FCF4D /* CTFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = CTFeedback.framework; path = "CTFeedback-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB122F0665636708E5C02959612FCF4D /* CTFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CTFeedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB20117DD039308D4416E9AF007330DE /* ScrollableSegmentedControl-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ScrollableSegmentedControl-iOS11.2-umbrella.h"; path = "../ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
-		BB30285D2744BE36BC01AA193BA2527C /* Pods_cfctests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_cfctests.framework; path = "Pods-cfctests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB30285D2744BE36BC01AA193BA2527C /* Pods_cfctests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cfctests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB375BC7BC7E21704D787FEE44FDEE62 /* BarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/BarChartDataSet.swift; sourceTree = "<group>"; };
 		BB4BD0D66D1B7D5D998DA40652D5F4BF /* ATAppUpdater-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ATAppUpdater-iOS11.2-umbrella.h"; path = "../ATAppUpdater-iOS11.2/ATAppUpdater-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
 		BB724273F12C666BAA7DBB77DE8BB15C /* BarChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartView.swift; path = Source/Charts/Charts/BarChartView.swift; sourceTree = "<group>"; };
 		BB783328CA9E7EE18A009467DD0B2A83 /* ZGNavigationBarTitle-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ZGNavigationBarTitle-iOS11.2-prefix.pch"; path = "../ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
 		BD145B73CDE2C22F33A20EFAEF615D39 /* PPTopMostController-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "PPTopMostController-iOS11.2.xcconfig"; path = "../PPTopMostController-iOS11.2/PPTopMostController-iOS11.2.xcconfig"; sourceTree = "<group>"; };
-		BE03FEFC4311913DE50FAB71E48EC8C5 /* bs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = bs.lproj; path = Resources/bs.lproj; sourceTree = "<group>"; };
+		BE03FEFC4311913DE50FAB71E48EC8C5 /* bs.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = bs.lproj; path = Resources/bs.lproj; sourceTree = "<group>"; };
 		BE7E134BDCF1297BBDFD55A54BD1DD74 /* FCFileManager-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "FCFileManager-iOS11.2.xcconfig"; path = "../FCFileManager-iOS11.2/FCFileManager-iOS11.2.xcconfig"; sourceTree = "<group>"; };
-		BF8B9782F3F1F225BE83FA525E4C3C08 /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MBProgressHUD.framework; path = "MBProgressHUD-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF8B9782F3F1F225BE83FA525E4C3C08 /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C092639A828DB369BE61509C2E607067 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../FCFileManager-iOS11.2/Info.plist"; sourceTree = "<group>"; };
 		C16DDBE8714CF32276C61F642CDC5A8D /* ScatterChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartView.swift; path = Source/Charts/Charts/ScatterChartView.swift; sourceTree = "<group>"; };
 		C1D597D469AF662149B94E64444FEFE8 /* DefaultAxisValueFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultAxisValueFormatter.swift; path = Source/Charts/Formatters/DefaultAxisValueFormatter.swift; sourceTree = "<group>"; };
 		C1E113500CCC0642394854991A77420D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../HexColors-iOS11.2/Info.plist"; sourceTree = "<group>"; };
 		C2184980177D5D66F61A5F33BC8FE9C6 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C25FD57515D7AFD834DABB51744A76C8 /* PieChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/PieChartDataEntry.swift; sourceTree = "<group>"; };
-		C26081136E4F97A0388EA85AB5DB37F5 /* RMessage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RMessage.framework; path = "RMessage-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C26081136E4F97A0388EA85AB5DB37F5 /* RMessage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RMessage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27985436D7C2ED54B064CB398095E58 /* ILineScatterCandleRadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ILineScatterCandleRadarChartDataSet.swift; path = Source/Charts/Data/Interfaces/ILineScatterCandleRadarChartDataSet.swift; sourceTree = "<group>"; };
 		C2D9696FECC8EFA1BE60D9CE02129C92 /* ChartColorTemplates.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartColorTemplates.swift; path = Source/Charts/Utils/ChartColorTemplates.swift; sourceTree = "<group>"; };
 		C44B16B3CB635C7E3225901B7639F30F /* STPopupControllerTransitioningSlideVertical.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupControllerTransitioningSlideVertical.m; path = STPopup/STPopupControllerTransitioningSlideVertical.m; sourceTree = "<group>"; };
@@ -1150,10 +1150,10 @@
 		D0C23ACA5C36B0007A69ECEE3DDA989E /* Charts-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Charts-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
 		D128842685F0BF3899F4BE5C4239D2E7 /* ScrollableSegmentedControl-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ScrollableSegmentedControl-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		D167B1A6AFF8234110BA8313FA26194B /* PieRadarChartViewBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieRadarChartViewBase.swift; path = Source/Charts/Charts/PieRadarChartViewBase.swift; sourceTree = "<group>"; };
-		D16AC62189B00844FA2AA75011A9ADAE /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = de.lproj; path = Resources/de.lproj; sourceTree = "<group>"; };
-		D1FAF5CB09D1BB2464F165FEEEA62691 /* DZNEmptyDataSet-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "DZNEmptyDataSet-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		D16AC62189B00844FA2AA75011A9ADAE /* de.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = de.lproj; path = Resources/de.lproj; sourceTree = "<group>"; };
+		D1FAF5CB09D1BB2464F165FEEEA62691 /* DZNEmptyDataSet-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "DZNEmptyDataSet-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		D234E49393556C2647D0A395629354D8 /* AutoCoding-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "AutoCoding-iOS11.2-dummy.m"; path = "../AutoCoding-iOS11.2/AutoCoding-iOS11.2-dummy.m"; sourceTree = "<group>"; };
-		D24DA29AD3FB0A595EA9B320EB5C8EED /* Charts-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "Charts-iOS11.2.modulemap"; path = "../Charts-iOS11.2/Charts-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		D24DA29AD3FB0A595EA9B320EB5C8EED /* Charts-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "Charts-iOS11.2.modulemap"; path = "../Charts-iOS11.2/Charts-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		D582D78EFA113B9E763436691F2A9B95 /* AnimatedMoveViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedMoveViewJob.swift; path = Source/Charts/Jobs/AnimatedMoveViewJob.swift; sourceTree = "<group>"; };
 		D66BD523FB0F3A0795638BEC2056632B /* Charts-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Charts-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		D75DD554D86A41EA1527406F2A085F99 /* HorizontalBarHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HorizontalBarHighlighter.swift; path = Source/Charts/Highlight/HorizontalBarHighlighter.swift; sourceTree = "<group>"; };
@@ -1163,11 +1163,11 @@
 		D86CB88632C1F5C3C9C45945983E6408 /* MarkerImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MarkerImage.swift; path = Source/Charts/Components/MarkerImage.swift; sourceTree = "<group>"; };
 		D97E6BF535FE87B263FF4A083626EA30 /* DZNEmptyDataSet-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "DZNEmptyDataSet-iOS11.2.xcconfig"; path = "../DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet-iOS11.2.xcconfig"; sourceTree = "<group>"; };
 		D9F4999C50F05101BEA2B0328D0677D9 /* CLSLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSLogging.h; path = iOS/Crashlytics.framework/Headers/CLSLogging.h; sourceTree = "<group>"; };
-		DAEE0D281ABDDD835D59239C17A86A20 /* sv-SE.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "sv-SE.lproj"; path = "Resources/sv-SE.lproj"; sourceTree = "<group>"; };
+		DAEE0D281ABDDD835D59239C17A86A20 /* sv-SE.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "sv-SE.lproj"; path = "Resources/sv-SE.lproj"; sourceTree = "<group>"; };
 		DB2FA83768073B7BBC80298BEFF4CEE7 /* ZGNavigationBarTitle-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZGNavigationBarTitle-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		DB935A1E580891EE94F7B189A6A6124B /* CTFeedbackViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CTFeedbackViewController.h; path = Classes/CTFeedbackViewController.h; sourceTree = "<group>"; };
 		DBDB10D687CA74D556A79DBCCAEB9CFF /* IChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IChartDataSet.swift; path = Source/Charts/Data/Interfaces/IChartDataSet.swift; sourceTree = "<group>"; };
-		DC99999BECBDB007ECC1E3B974A477DB /* RMessage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RMessage.framework; path = "RMessage-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC99999BECBDB007ECC1E3B974A477DB /* RMessage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RMessage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DDD4DC630EBF6C4B723D9429352DF8FB /* ChartDataRendererBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataRendererBase.swift; path = Source/Charts/Renderers/ChartDataRendererBase.swift; sourceTree = "<group>"; };
 		DDF3F60737111C8AD62D1F9B2EB95D65 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
 		DE050A88F87FCF36E6B27CBF8C062CD0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../STPopup-iOS11.2/Info.plist"; sourceTree = "<group>"; };
@@ -1177,15 +1177,15 @@
 		E0FFF849ACC366F519BC4AD12BF9E7AE /* ATAppUpdater-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ATAppUpdater-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		E135204D91C731380AEE6FEA076753BD /* CTFeedback-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "CTFeedback-iOS11.2.xcconfig"; path = "../CTFeedback-iOS11.2/CTFeedback-iOS11.2.xcconfig"; sourceTree = "<group>"; };
 		E1F445F2BBB48874F7DE5985F9D24DBA /* XAxis.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XAxis.swift; path = Source/Charts/Components/XAxis.swift; sourceTree = "<group>"; };
-		E2BF8D84560942BD9D0285B7F36FB9BA /* Charts-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Charts-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		E2BF8D84560942BD9D0285B7F36FB9BA /* Charts-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Charts-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		E2E6C6A7461BFBD34EBBC96361BACB14 /* FCFileManager-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FCFileManager-iOS11.2-prefix.pch"; path = "../FCFileManager-iOS11.2/FCFileManager-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
 		E2EF8C182E9E780C5AACD453181F6AD6 /* STPopupNavigationBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupNavigationBar.m; path = STPopup/STPopupNavigationBar.m; sourceTree = "<group>"; };
 		E2F3EEB4AED5170D0F404072EB1394FC /* RadarHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarHighlighter.swift; path = Source/Charts/Highlight/RadarHighlighter.swift; sourceTree = "<group>"; };
-		E3948F235128A1185F6E7C3C26CFBF4A /* RMessage-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "RMessage-iOS11.2.modulemap"; path = "../RMessage-iOS11.2/RMessage-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		E3948F235128A1185F6E7C3C26CFBF4A /* RMessage-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "RMessage-iOS11.2.modulemap"; path = "../RMessage-iOS11.2/RMessage-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		E3B1A2A32E1F4B39B019BF0A016A5436 /* ChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataProvider.swift; path = Source/Charts/Interfaces/ChartDataProvider.swift; sourceTree = "<group>"; };
 		E4E60806B1D3EBA1E6F65D3A756AB717 /* BarChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartData.swift; path = Source/Charts/Data/Implementations/Standard/BarChartData.swift; sourceTree = "<group>"; };
 		E4E7250DF9FB301BBE85373B242F7C60 /* ScatterChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartData.swift; path = Source/Charts/Data/Implementations/Standard/ScatterChartData.swift; sourceTree = "<group>"; };
-		E5FCD7116F742A8968626645D3B627EE /* MBProgressHUD-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "MBProgressHUD-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		E5FCD7116F742A8968626645D3B627EE /* MBProgressHUD-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "MBProgressHUD-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		E638F23E4B48CD2CF2F86CB37042B78A /* CTFeedbackTopicsViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CTFeedbackTopicsViewController.h; path = Classes/CTFeedbackTopicsViewController.h; sourceTree = "<group>"; };
 		E64E52901F2140D09D1738B479ED9AD4 /* ChartViewBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartViewBase.swift; path = Source/Charts/Charts/ChartViewBase.swift; sourceTree = "<group>"; };
 		E65D4DB83FC1DD261A11FEB4C3D55E39 /* ATAppUpdater-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "ATAppUpdater-iOS11.2.xcconfig"; path = "../ATAppUpdater-iOS11.2/ATAppUpdater-iOS11.2.xcconfig"; sourceTree = "<group>"; };
@@ -1195,14 +1195,14 @@
 		E8A85975369FC2E773353BAC83C5DF78 /* PieChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartData.swift; path = Source/Charts/Data/Implementations/Standard/PieChartData.swift; sourceTree = "<group>"; };
 		E9C62D4B0124D4CF65478F62683869B8 /* ZoomViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomViewJob.swift; path = Source/Charts/Jobs/ZoomViewJob.swift; sourceTree = "<group>"; };
 		E9F5C0F54FE056AEF7C54266769CB1A7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EA3FD3549EA103534CAD1F716B5E6925 /* AutoCoding-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "AutoCoding-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		EA3FD3549EA103534CAD1F716B5E6925 /* AutoCoding-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "AutoCoding-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		EB809ED799CF2C55069F56A32F5AAC15 /* CombinedChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartDataProvider.swift; path = Source/Charts/Interfaces/CombinedChartDataProvider.swift; sourceTree = "<group>"; };
 		EC3CD3E55AA6CEC695E4AA01A41BF686 /* CandleChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/CandleChartDataEntry.swift; sourceTree = "<group>"; };
 		ED0C67A1B526A72DBF9B5DCFAEC6E8CF /* RadarChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarChartData.swift; path = Source/Charts/Data/Implementations/Standard/RadarChartData.swift; sourceTree = "<group>"; };
-		ED76842CC4CA1FD3B20FFE158EF10545 /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AutoCoding.framework; path = "AutoCoding-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED76842CC4CA1FD3B20FFE158EF10545 /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AutoCoding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE5FF0232CB3D449752EA82635C014F9 /* ResourceBundle-CTFeedback-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-CTFeedback-Info.plist"; sourceTree = "<group>"; };
 		EF8E22CAF3B8DCE72A24E93FF2682292 /* MBProgressHUD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		F006524DD1915CD6D084D1A055DD801C /* hr-HR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "hr-HR.lproj"; path = "Resources/hr-HR.lproj"; sourceTree = "<group>"; };
+		F006524DD1915CD6D084D1A055DD801C /* hr-HR.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "hr-HR.lproj"; path = "Resources/hr-HR.lproj"; sourceTree = "<group>"; };
 		F0A458C278E706728F90BA0B477222E0 /* ChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartData.swift; path = Source/Charts/Data/Implementations/Standard/ChartData.swift; sourceTree = "<group>"; };
 		F0AC744EEC767D5C929FB37C615251B5 /* CandleChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleChartDataProvider.swift; path = Source/Charts/Interfaces/CandleChartDataProvider.swift; sourceTree = "<group>"; };
 		F0F2E9965CBEC012B54BAE89047CFE92 /* SquareShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SquareShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/SquareShapeRenderer.swift; sourceTree = "<group>"; };
@@ -1212,7 +1212,7 @@
 		F40A07DA57A8F8C1DBBC374B5D73662B /* Pods-cfctests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-cfctests-acknowledgements.plist"; sourceTree = "<group>"; };
 		F46F93CC3B8231EC553BE9335EA1E35B /* ATAppUpdater-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ATAppUpdater-iOS11.2-dummy.m"; path = "../ATAppUpdater-iOS11.2/ATAppUpdater-iOS11.2-dummy.m"; sourceTree = "<group>"; };
 		F4ECAB5307DFE307D5F7D2FD7622EFC5 /* HexColors-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
-		F50C64D325E99E056E3F101469EE48CA /* HexColors-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "HexColors-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		F50C64D325E99E056E3F101469EE48CA /* HexColors-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "HexColors-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		F793E1E47B9F730F8460E30E65675836 /* BarLineScatterCandleBubbleChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarLineScatterCandleBubbleChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/BarLineScatterCandleBubbleChartDataSet.swift; sourceTree = "<group>"; };
 		F80E6803EC6217EE94A913E9B8051A08 /* MBProgressHUD-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "MBProgressHUD-iOS11.2-umbrella.h"; path = "../MBProgressHUD-iOS11.2/MBProgressHUD-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
 		F8B25193F5829B34457148C06EB44FE8 /* UIResponder+STPopup.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIResponder+STPopup.m"; path = "STPopup/UIResponder+STPopup.m"; sourceTree = "<group>"; };
@@ -1223,8 +1223,8 @@
 		FB9396959A18CC323F0E84772FDDE2D8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FBBA34F1357D717C551F46C4845F2161 /* ScrollableSegmentedControl-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ScrollableSegmentedControl-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		FCB5057939A738C6981D0966315D0F07 /* ScrollableSegmentedControl-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ScrollableSegmentedControl-iOS11.2-dummy.m"; path = "../ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl-iOS11.2-dummy.m"; sourceTree = "<group>"; };
-		FE3AF7546F929259F9A9953245FE0323 /* CTFeedback-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "CTFeedback-iOS10.0.modulemap"; sourceTree = "<group>"; };
-		FE53D69C253EBDE53C0EC827CF59B445 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; name = "zh-Hant.lproj"; path = "Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
+		FE3AF7546F929259F9A9953245FE0323 /* CTFeedback-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "CTFeedback-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		FE53D69C253EBDE53C0EC827CF59B445 /* zh-Hant.lproj */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = "zh-Hant.lproj"; path = "Resources/zh-Hant.lproj"; sourceTree = "<group>"; };
 		FE5F57A36DEAB935A8423D5C1659A1AC /* AutoCoding-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "AutoCoding-iOS11.2-prefix.pch"; path = "../AutoCoding-iOS11.2/AutoCoding-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
 		FE6947AA82A74C9DFF7963CE56C1C395 /* FCFileManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FCFileManager.h; path = FCFileManager/FCFileManager.h; sourceTree = "<group>"; };
 		FF40F0008C2B78E91AFFB1DCF61E6239 /* CLSReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSReport.h; path = iOS/Crashlytics.framework/Headers/CLSReport.h; sourceTree = "<group>"; };
@@ -1531,7 +1531,6 @@
 				C9FE8466BD73C367B222F748FC6683B1 /* AutoCoding.m */,
 				DFA4747EBBE80083C103DEB09B6F6BB3 /* Support Files */,
 			);
-			name = AutoCoding;
 			path = AutoCoding;
 			sourceTree = "<group>";
 		};
@@ -1561,7 +1560,6 @@
 				318F707B2E80C034976246A06FB27D41 /* ScrollableSegmentedControl.swift */,
 				7FAB99F59051FAF4CA3EE7D5E66E1213 /* Support Files */,
 			);
-			name = ScrollableSegmentedControl;
 			path = ScrollableSegmentedControl;
 			sourceTree = "<group>";
 		};
@@ -1649,7 +1647,6 @@
 				20402FD5B98BBB9464C2C9391E4069BC /* Resources */,
 				AEACD2E3B0EE5F40D84918DD76C127B9 /* Support Files */,
 			);
-			name = CTFeedback;
 			path = CTFeedback;
 			sourceTree = "<group>";
 		};
@@ -1689,7 +1686,6 @@
 				EF8E22CAF3B8DCE72A24E93FF2682292 /* MBProgressHUD.m */,
 				0579DAC9FB7F97D0185D83ACF32DEE22 /* Support Files */,
 			);
-			name = MBProgressHUD;
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -1802,7 +1798,6 @@
 				D527B6737F8E58F383937E843E3785FF /* Core */,
 				49E9131CFEB4E5F7A53E263E7888032E /* Support Files */,
 			);
-			name = Charts;
 			path = Charts;
 			sourceTree = "<group>";
 		};
@@ -1826,7 +1821,6 @@
 				9B59F3E8D743B257C21D118CB892B8A0 /* UIViewController+STPopup.m */,
 				18DD2B4060F65A3B0EAB25CA926C7F07 /* Support Files */,
 			);
-			name = STPopup;
 			path = STPopup;
 			sourceTree = "<group>";
 		};
@@ -1855,7 +1849,6 @@
 				22CE4F181C41862A3FC78E3305005085 /* HexColors.m */,
 				BD4A61E2F5366192CE7ACF59482766F6 /* Support Files */,
 			);
-			name = HexColors;
 			path = HexColors;
 			sourceTree = "<group>";
 		};
@@ -1871,7 +1864,6 @@
 				6ED197E348FCBC595EF3AB2A4BF29104 /* UIViewController+PPTopMostController.m */,
 				5B25EF2DCEBD657778577BEA06520C9A /* Support Files */,
 			);
-			name = PPTopMostController;
 			path = PPTopMostController;
 			sourceTree = "<group>";
 		};
@@ -1884,7 +1876,6 @@
 				F1F3BE131EF45EAC62999745E377BA64 /* ZGNavigationTitleView.m */,
 				37B4C69236714407D0FE0126C7B7804A /* Support Files */,
 			);
-			name = ZGNavigationBarTitle;
 			path = ZGNavigationBarTitle;
 			sourceTree = "<group>";
 		};
@@ -1895,7 +1886,6 @@
 				5BB177717F5FD0EE35A24B44CC4C6D23 /* FCFileManager.m */,
 				3740A3351C9F402BD71E1584C63441C9 /* Support Files */,
 			);
-			name = FCFileManager;
 			path = FCFileManager;
 			sourceTree = "<group>";
 		};
@@ -1968,7 +1958,6 @@
 				0DD51EB0D85CA688B1D8EFE3FCD060E0 /* Fabric.h */,
 				0DC8C0EC979D8D4B45FA0E96A71FD272 /* Frameworks */,
 			);
-			name = Fabric;
 			path = Fabric;
 			sourceTree = "<group>";
 		};
@@ -1999,7 +1988,6 @@
 				6A204DD209909D887069A80A37EF83F5 /* UIScrollView+EmptyDataSet.m */,
 				6BEAF9CCF7D16CCAA2D42255EF4191E5 /* Support Files */,
 			);
-			name = DZNEmptyDataSet;
 			path = DZNEmptyDataSet;
 			sourceTree = "<group>";
 		};
@@ -2030,7 +2018,6 @@
 				0298CA3D453DC31183AB39606B7E3AA6 /* ATAppUpdater.m */,
 				FFD126EB6651D9F20554BC27B73D0C05 /* Support Files */,
 			);
-			name = ATAppUpdater;
 			path = ATAppUpdater;
 			sourceTree = "<group>";
 		};
@@ -2046,7 +2033,6 @@
 				52ACB8842CD43364E06B116B8CA417CB /* Crashlytics.h */,
 				607669DAAF1E16FF8C5F4F21D713AB54 /* Frameworks */,
 			);
-			name = Crashlytics;
 			path = Crashlytics;
 			sourceTree = "<group>";
 		};
@@ -2077,7 +2063,6 @@
 				CD40554B41376F544CE6EDC11BFC0B97 /* Resources */,
 				B541004B1E81CDE3C425CFCE75D2E125 /* Support Files */,
 			);
-			name = RMessage;
 			path = RMessage;
 			sourceTree = "<group>";
 		};
@@ -2252,7 +2237,6 @@
 				887A334B46F0726214D89E93DE0130A0 /* AutoCoding.framework */,
 				0A489B7A287DAA4442855F446C5B0EAB /* Charts.framework */,
 				7A10BA5D2FAE434DDF9122788B0DB3B9 /* Charts.framework */,
-				3BA2B2E11EEA1FD572537799EF3199E2 /* CTFeedback.bundle */,
 				3BA2B2E11EEA1FD572537799EF3199E2 /* CTFeedback.bundle */,
 				BB122F0665636708E5C02959612FCF4D /* CTFeedback.framework */,
 				8645E85910018589F06E1EE4C55A3AB3 /* CTFeedback.framework */,
@@ -3137,7 +3121,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0920;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -4426,6 +4410,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 80E730266FEA918101ADD3018C776336 /* Pods-cfctests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -4936,6 +4921,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 96915316AC8D9653D9275B624762850A /* Pods-harbaughsim16.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -5361,6 +5347,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
@@ -5520,6 +5507,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4469F316129B3C4283A6C58E1ECF198F /* Pods-harbaughsim16.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -5795,6 +5783,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1138201808D474292646BEF355F6AD05 /* Pods-cfctests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
