@@ -620,29 +620,31 @@
 -(void)save {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"saveInProgress" object:nil];
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        if([FCFileManager existsItemAtPath:@"league.cfb"]) {
-            NSError *error;
-            BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:self error:&error];
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                if (success) {
-                    NSLog(@"Save was successful");
-                } else {
-                    NSLog(@"Something went wrong on save: %@", error.localizedDescription);
-                }
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
-            });
-        } else {
-            //Run UI Updates
-            NSError *error;
-            BOOL success = [FCFileManager createFileAtPath:@"league.cfb" withContent:self error:&error];
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                if (success) {
-                    NSLog(@"Create and Save were successful");
-                } else {
-                    NSLog(@"Something went wrong on create and save: %@", error.localizedDescription);
-                }
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
-            });
+        @synchronized(self) {
+            if([FCFileManager existsItemAtPath:@"league.cfb"]) {
+                NSError *error;
+                BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:self error:&error];
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    if (success) {
+                        NSLog(@"Save was successful");
+                    } else {
+                        NSLog(@"Something went wrong on save: %@", error.localizedDescription);
+                    }
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
+                });
+            } else {
+                //Run UI Updates
+                NSError *error;
+                BOOL success = [FCFileManager createFileAtPath:@"league.cfb" withContent:self error:&error];
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    if (success) {
+                        NSLog(@"Create and Save were successful");
+                    } else {
+                        NSLog(@"Something went wrong on create and save: %@", error.localizedDescription);
+                    }
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
+                });
+            }
         }
     });
 }

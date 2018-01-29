@@ -238,9 +238,9 @@
                             if (p.offers[highestOffer].intValue > 99) {
                                 // sign him to that team
                                 // NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
-                                Team *t = [currentLeague findTeam:highestOffer];
-                                if (![t.recruitingClass containsObject:p]) {
-                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    Team *t = [currentLeague findTeam:highestOffer];
+                                    if (![t.recruitingClass containsObject:p]) {
                                         [p setRecruitStatus:CFCRecruitStatusCommitted];
                                         [p setTeam:t];
                                         [t.recruitingClass addObject:p];
@@ -248,23 +248,23 @@
                                         if (t == currentLeague.userTeam) {
                                             [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
                                         }
-                                    });
-                                }
-                            }
-                        } else {
-                            Team *t = [currentLeague findTeam:highestOffer];
-                            // NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
-                            if (![t.recruitingClass containsObject:p]) {
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [p setRecruitStatus:CFCRecruitStatusCommitted];
-                                    [p setTeam:t];
-                                    [t.recruitingClass addObject:p];
-                                    
-                                    if (t == currentLeague.userTeam) {
-                                        [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
                                     }
                                 });
                             }
+                        } else {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                Team *t = [currentLeague findTeam:highestOffer];
+                                // NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
+                                if (![t.recruitingClass containsObject:p]) {
+                                    [p setRecruitStatus:CFCRecruitStatusCommitted];
+                                    [p setTeam:t];
+                                    [t.recruitingClass addObject:p];
+                                
+                                    if (t == currentLeague.userTeam) {
+                                        [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
+                                    }
+                                }
+                            });
                         }
                     } else {
                         NSLog(@"YOU AIN'T GOT NO OFFERS, LT. DAN!");
@@ -1297,11 +1297,33 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     Player *p;
     if (recruitingStage == CFCRecruitingStageFallCamp) {
-        p = [HBSharedUtils currentLeague].userTeam.recruitingClass[indexPath.row];
+        @synchronized([HBSharedUtils currentLeague].userTeam.recruitingClass) {
+            if (indexPath.row < [HBSharedUtils currentLeague].userTeam.recruitingClass.count) {
+                p = [HBSharedUtils currentLeague].userTeam.recruitingClass[indexPath.row];
+            }
+        }
     } else {
         p = currentRecruits[indexPath.row];
     }
     
+    CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
+    if (p != nil) {
+        [self configureCellForPlayer:p indexPath:indexPath cell:cell];
+    } else {
+        [cell.interestLabel setText:@""];
+        [cell.starImageView setImage:nil];
+        [cell.nameLabel setText:@""];
+        [cell.stateLabel setText:@""];
+        [cell.heightLabel setText:@""];
+        [cell.weightLabel setText:@""];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    return cell;
+    
+}
+
+-(void)configureCellForPlayer:(Player *)p indexPath:(NSIndexPath *)indexPath cell:(CFCRecruitCell *)cell {
     int interest = 0;
     if ([p.offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         interest = [p.offers[[HBSharedUtils currentLeague].userTeam.abbreviation] intValue];
@@ -1370,7 +1392,7 @@
     // Valid cell data formatting code
     NSMutableAttributedString *interestString = [[NSMutableAttributedString alloc] initWithString:@"Interest: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
     [interestString appendAttributedString:[[NSAttributedString alloc] initWithString:interestMetadata[@"interest"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : interestMetadata[@"color"]}]];
-
+    
     
     UIColor *nameColor = [UIColor blackColor];
     NSString *offerTitle = @"Other Offers: ";
@@ -1416,8 +1438,6 @@
         [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils generateOfferString:p.offers] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     }
     
-    
-    CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
     [cell.interestLabel setAttributedText:interestString];
     [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:stars]]];
     [cell.nameLabel setAttributedText:nameString];
@@ -1447,8 +1467,6 @@
     
     [cell.rankLabel setText:overall];
     [cell.otherOffersLabel setAttributedText:offerString];
-    return cell;
-    
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -1466,19 +1484,24 @@
     // also display recruiting process for this recruit: OV -> offer -> commit or offer -> commit or OV -> home visit -> offer -> commit
     Player *p;
     if (recruitingStage == CFCRecruitingStageFallCamp) {
-        p = [HBSharedUtils currentLeague].userTeam.recruitingClass[indexPath.row];
+        @synchronized([HBSharedUtils currentLeague].userTeam.recruitingClass) {
+            if (indexPath.row < [HBSharedUtils currentLeague].userTeam.recruitingClass.count) {
+                p = [HBSharedUtils currentLeague].userTeam.recruitingClass[indexPath.row];
+            }
+        }
     } else {
         p = currentRecruits[indexPath.row];
     }
-    
-    NSMutableArray *recruitEvents = ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) ? recruitActivities[[p uniqueIdentifier]] : [NSMutableArray array];
-    RecruitingActionsViewController *actionsVC = [[RecruitingActionsViewController alloc] initWithRecruit:p events:recruitEvents];
-    actionsVC.delegate = self;
-    popupController = [[STPopupController alloc] initWithRootViewController:actionsVC];
-    [popupController.navigationBar setDraggable:YES];
-    [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
-    popupController.style = STPopupStyleBottomSheet;
-    [popupController presentInViewController:self];
+    if (p != nil) {
+        NSMutableArray *recruitEvents = ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) ? recruitActivities[[p uniqueIdentifier]] : [NSMutableArray array];
+        RecruitingActionsViewController *actionsVC = [[RecruitingActionsViewController alloc] initWithRecruit:p events:recruitEvents];
+        actionsVC.delegate = self;
+        popupController = [[STPopupController alloc] initWithRootViewController:actionsVC];
+        [popupController.navigationBar setDraggable:YES];
+        [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+        popupController.style = STPopupStyleBottomSheet;
+        [popupController presentInViewController:self];
+    }
 }
 
 - (void)recruitingActionsController:(RecruitingActionsViewController *)actionsController didUpdateRecruit:(Player *)recruit withEvent:(CFCRecruitEvent)event {
