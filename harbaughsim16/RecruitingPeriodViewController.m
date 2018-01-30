@@ -199,11 +199,11 @@
         }
 
         __block League *currentLeague = [HBSharedUtils currentLeague];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             for (Player *p in totalRecruits) {
                 if (p.team == nil || p.recruitStatus != CFCRecruitStatusCommitted) {
                     // choose a random offer and increase its interest by a random set of events
-                    if (p.offers != nil && p.offers.count > 0) {
+                    if (p.offers != nil && p.offers.allKeys.count > 0) {
                         if (recruitingStage != CFCRecruitingStageSigningDay) {
                             NSString *randomOffer;
                             // NSLog(@"STARTING TO FIND RANDOM OFFER FROM: %@", p.offers.allKeys);
