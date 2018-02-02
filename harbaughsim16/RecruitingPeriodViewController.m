@@ -420,6 +420,21 @@
         
         [summary appendString:@"\n\n"];
     }
+    
+    if (needDLs > 0) {
+        if (needDLs > 1) {
+            [summary appendFormat:@"Need %ld active DLs",(long)needDLs];
+        } else {
+            [summary appendFormat:@"Need %ld active DL",(long)needDLs];
+        }
+        
+        NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"DL"];
+        if (progressed > 0) {
+            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
+        }
+        
+        [summary appendString:@"\n\n"];
+    }
 
     if (needLBs > 0) {
         if (needLBs > 1) {
@@ -429,21 +444,6 @@
         }
         
         NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"LB"];
-        if (progressed > 0) {
-            [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
-        }
-        
-        [summary appendString:@"\n\n"];
-    }
-
-    if (needDLs > 0) {
-        if (needDLs > 1) {
-            [summary appendFormat:@"Need %ld active DLs",(long)needDLs];
-        } else {
-            [summary appendFormat:@"Need %ld active DL",(long)needDLs];
-        }
-        
-        NSInteger progressed = [self _calculateProgressedPlayersAtPosition:@"DL"];
         if (progressed > 0) {
             [summary appendFormat:@" (%ld on watchlist)", (long)progressed];
         }
