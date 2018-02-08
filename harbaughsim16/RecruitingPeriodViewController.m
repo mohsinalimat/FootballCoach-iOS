@@ -1594,9 +1594,11 @@
         }
         case CFCRecruitEventRedshirted:
             recruit.hasRedshirt = YES;
+            recruit.year = 0;
             break;
         case CFCRecruitEventUnredshirted:
             recruit.hasRedshirt = NO;
+            recruit.year = 1;
             break;
         case CFCRecruitEventPositionCoachMeeting:
             [recruitEvents addObject:@(CFCRecruitEventPositionCoachMeeting)];

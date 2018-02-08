@@ -347,7 +347,7 @@
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"Travel to %@ and convince this recruit and his family to sign with your school. Requires a considerable amount of recruiting effort.",selectedRecruit.personalDetails[@"home_state"]]];
             } else if ([event isEqual:@(CFCRecruitEventExtendOffer)]) {
                 [cell.textLabel setText:@"Extend official offer"];
-                [cell.detailTextLabel setText:@"Extend this recruit an official offer to sign with your school. Requires a significant amount of recruiting effort. Make sure this recruit is a LOCK before doing this!"];
+                [cell.detailTextLabel setText:@"Extend this recruit an official offer to sign with your school. Requires a significant amount of recruiting effort."];
             } else {
                 [cell.textLabel setText:@"Unknown"];
                 [cell.detailTextLabel setText:@"Unknown"];
