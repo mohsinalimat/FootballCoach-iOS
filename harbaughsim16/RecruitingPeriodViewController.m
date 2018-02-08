@@ -205,24 +205,26 @@
                     // choose a random offer and increase its interest by a random set of events
                     if (p.offers != nil && p.offers.allKeys.count > 0) {
                         if (recruitingStage != CFCRecruitingStageSigningDay) {
-                            NSString *randomOffer;
-                            // NSLog(@"STARTING TO FIND RANDOM OFFER FROM: %@", p.offers.allKeys);
-                            while (randomOffer == nil || [randomOffer isEqualToString:currentLeague.userTeam.abbreviation]) {
-                                randomOffer = [p.offers.allKeys getElementsRandomly:1][0];
-                                // NSLog(@"CYCLED RAND OFFER");
+                            if (!(p.offers.count == 1 && [p.offers.allKeys containsObject:currentLeague.userTeam.abbreviation])) {
+                                NSString *randomOffer;
+                                // NSLog(@"STARTING TO FIND RANDOM OFFER FROM: %@", p.offers.allKeys);
+                                while (randomOffer == nil || [randomOffer isEqualToString:currentLeague.userTeam.abbreviation]) {
+                                    randomOffer = [p.offers.allKeys getElementsRandomly:1][0];
+                                    // NSLog(@"CYCLED RAND OFFER");
+                                }
+                                // NSLog(@"VALID RANDOM OFFER FOUND: %@", randomOffer);
+                                
+                                // NSLog(@"ADDING EVENTS FOR OFFER: %@", randomOffer);
+                                NSArray *randomEventsSet = [eventsValues.allKeys getElementsRandomly:(int)([HBSharedUtils randomValue] * 3)];
+                                // NSLog(@"PICKED EVENTS");
+                                int offerInterest = p.offers[randomOffer].intValue;
+                                for (NSNumber *eventType in randomEventsSet) {
+                                    offerInterest += eventsValues[eventType].intValue;
+                                }
+                                // NSLog(@"UPDATED INTEREST STATS, SAVING OFFER: %@", randomOffer);
+                                [p.offers setObject:@(offerInterest) forKey:randomOffer];
+                                // NSLog(@"SAVED OFFER: %@", randomOffer);
                             }
-                            // NSLog(@"VALID RANDOM OFFER FOUND: %@", randomOffer);
-                            
-                            // NSLog(@"ADDING EVENTS FOR OFFER: %@", randomOffer);
-                            NSArray *randomEventsSet = [eventsValues.allKeys getElementsRandomly:(int)([HBSharedUtils randomValue] * 3)];
-                            // NSLog(@"PICKED EVENTS");
-                            int offerInterest = p.offers[randomOffer].intValue;
-                            for (NSNumber *eventType in randomEventsSet) {
-                                offerInterest += eventsValues[eventType].intValue;
-                            }
-                            // NSLog(@"UPDATED INTEREST STATS, SAVING OFFER: %@", randomOffer);
-                            [p.offers setObject:@(offerInterest) forKey:randomOffer];
-                            // NSLog(@"SAVED OFFER: %@", randomOffer);
                         }
 
                         // if the offer puts interest for a team at 100+:

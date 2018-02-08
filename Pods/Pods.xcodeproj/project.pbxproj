@@ -768,7 +768,7 @@
 		04100F620CCE442F9491C176D24AFE55 /* Charts-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Charts-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		045D1078F36A03E99583D5521F454BCB /* Pods-harbaughsim16-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-harbaughsim16-acknowledgements.plist"; sourceTree = "<group>"; };
 		0543ED09C1DD39FA1735B9251AF5DFF1 /* Pods-cfctests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-cfctests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		05BC1C45888961811B7C52D0CE178B5E /* AutoCoding-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "AutoCoding-iOS11.2.modulemap"; path = "../AutoCoding-iOS11.2/AutoCoding-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		05BC1C45888961811B7C52D0CE178B5E /* AutoCoding-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "AutoCoding-iOS11.2.modulemap"; path = "../AutoCoding-iOS11.2/AutoCoding-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		05EE67D26C75BB258DCCACE3C6657E73 /* RSEmailFeedback.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RSEmailFeedback.h; path = Pod/Classes/RSEmailFeedback.h; sourceTree = "<group>"; };
 		06E0E549F9A269318A7B3D2D147B5D2B /* UIViewController+PPTopMostController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+PPTopMostController.h"; path = "PPTopMostController-Files/UIViewController+PPTopMostController.h"; sourceTree = "<group>"; };
 		074147B1E6D6C0798E919186E67E07F0 /* UIResponder+STPopup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIResponder+STPopup.h"; path = "STPopup/UIResponder+STPopup.h"; sourceTree = "<group>"; };
@@ -785,23 +785,23 @@
 		0FEC785604496EF562F1FDC604FA9D74 /* LineRadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineRadarChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/LineRadarChartDataSet.swift; sourceTree = "<group>"; };
 		10772491DEB01BC2D1624D0B85E1ED0C /* ChevronUpShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChevronUpShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/ChevronUpShapeRenderer.swift; sourceTree = "<group>"; };
 		1138201808D474292646BEF355F6AD05 /* Pods-cfctests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-cfctests.release.xcconfig"; sourceTree = "<group>"; };
-		11A485F27A913E935D737FA5172918B6 /* RSEmailFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RSEmailFeedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		11A485F27A913E935D737FA5172918B6 /* RSEmailFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RSEmailFeedback.framework; path = "RSEmailFeedback-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11CB822ABBF4F45386C5C4673E4A7451 /* BarLineChartViewBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarLineChartViewBase.swift; path = Source/Charts/Charts/BarLineChartViewBase.swift; sourceTree = "<group>"; };
 		1214742D2CF1A9BF1B5860D92B7B3F0C /* STPopupControllerTransitioningSlideVertical.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupControllerTransitioningSlideVertical.m; path = STPopup/STPopupControllerTransitioningSlideVertical.m; sourceTree = "<group>"; };
 		1264159C05EC87D0A217E7FB87788A23 /* ATAppUpdater-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ATAppUpdater-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		13B96996426A7B0366ED45DD1CE054BD /* HexColors-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "HexColors-iOS11.2-dummy.m"; path = "../HexColors-iOS11.2/HexColors-iOS11.2-dummy.m"; sourceTree = "<group>"; };
 		13D6A58FF8A51FD04E663247A894B4A9 /* STPopupControllerTransitioningSlideVertical.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupControllerTransitioningSlideVertical.h; path = STPopup/STPopupControllerTransitioningSlideVertical.h; sourceTree = "<group>"; };
-		14F486BBCF2A895818392FA34DE59FD1 /* FCFileManager-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "FCFileManager-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		14F486BBCF2A895818392FA34DE59FD1 /* FCFileManager-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "FCFileManager-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		1670A3E41F1AAA9CEAB907F9BA006FB0 /* Fill.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Fill.swift; path = Source/Charts/Utils/Fill.swift; sourceTree = "<group>"; };
 		16ABECE5E831FA862F05C34B55CD1A72 /* ComponentBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ComponentBase.swift; path = Source/Charts/Components/ComponentBase.swift; sourceTree = "<group>"; };
-		16EB2BEC7951EC62C185D7DC6657A6A9 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		16EB2BEC7951EC62C185D7DC6657A6A9 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HexColors.framework; path = "HexColors-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		17B249F7DC868FD5C72285CC73174125 /* ATAppUpdater-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ATAppUpdater-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		17BE2E1855E29691AFF7A6D7DC75DA9E /* CombinedChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartData.swift; path = Source/Charts/Data/Implementations/Standard/CombinedChartData.swift; sourceTree = "<group>"; };
 		17F8969A56814C764B1731BF9D1C0236 /* RSEmailFeedback-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "RSEmailFeedback-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		18BE6586613DD36682F6CF21C41FC866 /* Answers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Answers.h; path = iOS/Crashlytics.framework/Headers/Answers.h; sourceTree = "<group>"; };
 		191F79C73411754299036F53B7C9E4BF /* Platform.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Platform.swift; path = Source/Charts/Utils/Platform.swift; sourceTree = "<group>"; };
 		1972E7A3989B86AF3D4D76AE56DAC074 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../HexColors-iOS11.2/Info.plist"; sourceTree = "<group>"; };
-		19CCB321AA48E6F53F257D588692CAEF /* PPTopMostController-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "PPTopMostController-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		19CCB321AA48E6F53F257D588692CAEF /* PPTopMostController-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "PPTopMostController-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		19F86BF47C0D4E7C06C96852F6B481D7 /* ScatterChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartRenderer.swift; path = Source/Charts/Renderers/ScatterChartRenderer.swift; sourceTree = "<group>"; };
 		1A02A55370F3801500CB4E342F9F85CC /* TransformerHorizontalBarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TransformerHorizontalBarChart.swift; path = Source/Charts/Utils/TransformerHorizontalBarChart.swift; sourceTree = "<group>"; };
 		1A33DCDF39716B43759F8B41E3A62EC4 /* Pods-harbaughsim16-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-harbaughsim16-resources.sh"; sourceTree = "<group>"; };
@@ -810,7 +810,7 @@
 		1BA1278671AD6FC3EEDAE004CC1DED5C /* FABAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FABAttributes.h; path = iOS/Fabric.framework/Headers/FABAttributes.h; sourceTree = "<group>"; };
 		1BA482D14B4E5A514AE6F56E91A6EB49 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		1C022F7CE5A6D0221B92FD180195787D /* PPTopMostController-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PPTopMostController-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
-		1D243C6093B3D1FBAA7E1C2D70C52D66 /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D243C6093B3D1FBAA7E1C2D70C52D66 /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MBProgressHUD.framework; path = "MBProgressHUD-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E2F4DFEDB1D54B0EACC6E09BB757365 /* RMessage-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "RMessage-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		1E7A03350A6E7939C3D636B0180926C1 /* RMessageView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = RMessageView.xib; path = RMessage/Resources/RMessageView.xib; sourceTree = "<group>"; };
 		1E87A59251849782A775FB3F21482B8F /* STPopup-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "STPopup-iOS11.2-umbrella.h"; path = "../STPopup-iOS11.2/STPopup-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
@@ -818,7 +818,7 @@
 		206E8CB0481CD4A4994E435607609226 /* ChartHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartHighlighter.swift; path = Source/Charts/Highlight/ChartHighlighter.swift; sourceTree = "<group>"; };
 		2070C08B3A714E07C288205FA602D448 /* STPopup-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STPopup-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		2078EB4123F12D0B4FE8FFF18EF4F1A8 /* RadarChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/RadarChartDataEntry.swift; sourceTree = "<group>"; };
-		20A796FD36F9B18AD53B76A5AD4DAEDB /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DZNEmptyDataSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		20A796FD36F9B18AD53B76A5AD4DAEDB /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DZNEmptyDataSet.framework; path = "DZNEmptyDataSet-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		20D6781149FB3F136FCA526D11C897D9 /* ScrollableSegmentedControl-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ScrollableSegmentedControl-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		211951F2B76BDFDCFEBC02E19A4DF561 /* Pods-cfctests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-cfctests-frameworks.sh"; sourceTree = "<group>"; };
 		214A7280023DE570DBE54D9344FB4148 /* NotificationBackgroundWarningIcon.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = NotificationBackgroundWarningIcon.png; path = RMessage/Assets/NotificationBackgroundWarningIcon.png; sourceTree = "<group>"; };
@@ -831,16 +831,16 @@
 		2687798978FAB6E5C89BDBAFC1537F1C /* CombinedChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartRenderer.swift; path = Source/Charts/Renderers/CombinedChartRenderer.swift; sourceTree = "<group>"; };
 		280F6FD0E86D0251A557575B71FC877C /* ScrollableSegmentedControl-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ScrollableSegmentedControl-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
 		2861671A56DEF41BAFBDBDCF66DD9044 /* CombinedChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartView.swift; path = Source/Charts/Charts/CombinedChartView.swift; sourceTree = "<group>"; };
-		2877B091D6048E403A0EF65A101EC53C /* Pods-cfctests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-cfctests.modulemap"; sourceTree = "<group>"; };
+		2877B091D6048E403A0EF65A101EC53C /* Pods-cfctests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-cfctests.modulemap"; sourceTree = "<group>"; };
 		2A9ABF5F0CC0F50714E9BA8EABBF5E0F /* GBDeviceInfo-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GBDeviceInfo-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
-		2AF5C24249AE6E32BF49812EFA094114 /* RMessageDefaultDesign.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = RMessageDefaultDesign.json; path = RMessage/Assets/RMessageDefaultDesign.json; sourceTree = "<group>"; };
+		2AF5C24249AE6E32BF49812EFA094114 /* RMessageDefaultDesign.json */ = {isa = PBXFileReference; includeInIndex = 1; name = RMessageDefaultDesign.json; path = RMessage/Assets/RMessageDefaultDesign.json; sourceTree = "<group>"; };
 		2C349C290BC3562988B3D9B33DF39DF8 /* ATAppUpdater-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ATAppUpdater-iOS11.2-umbrella.h"; path = "../ATAppUpdater-iOS11.2/ATAppUpdater-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
 		2CD6EFDDF0D0579B6A71A05783DAF716 /* DZNEmptyDataSet-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "DZNEmptyDataSet-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		2D0598908A28C77BA43248B5771A4ED0 /* PPTopMostController-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PPTopMostController-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		2D06FA967008665D138F28A6CD21CF4D /* AutoCoding-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "AutoCoding-iOS11.2.xcconfig"; path = "../AutoCoding-iOS11.2/AutoCoding-iOS11.2.xcconfig"; sourceTree = "<group>"; };
 		2D11A799C9DEFC5BB8AFFF89407BB0F9 /* AutoCoding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AutoCoding.m; path = AutoCoding/AutoCoding.m; sourceTree = "<group>"; };
 		2ECEAEECFFAA413675337F8AEEC1F65C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../PPTopMostController-iOS11.2/Info.plist"; sourceTree = "<group>"; };
-		2F0184972140FFD29A5389CBB8E492AC /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F0184972140FFD29A5389CBB8E492AC /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MBProgressHUD.framework; path = "MBProgressHUD-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F5354BD4E99C6DE4B3930F02B18D1B0 /* ZGNavigationTitleView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZGNavigationTitleView.m; path = ZGNavigationBarTitle/Class/ZGNavigationTitleView.m; sourceTree = "<group>"; };
 		2F9ABEAAE432846C98C3051678BED234 /* ChevronDownShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChevronDownShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/ChevronDownShapeRenderer.swift; sourceTree = "<group>"; };
 		2FD77F4150A02BA12BB43E33B91ED86C /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../AutoCoding-iOS11.2/Info.plist"; sourceTree = "<group>"; };
@@ -855,12 +855,12 @@
 		386E339C36132CC014E288A234EB0DA0 /* BarChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/BarChartDataEntry.swift; sourceTree = "<group>"; };
 		38DF585168A88D5A2E065089C5133CD1 /* DataApproximator+N.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DataApproximator+N.swift"; path = "Source/Charts/Filters/DataApproximator+N.swift"; sourceTree = "<group>"; };
 		3970E12817AE7F9E91DFD732D10D8265 /* Charts-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Charts-iOS11.2-umbrella.h"; path = "../Charts-iOS11.2/Charts-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
-		3B61F4BBB08222FA4932344329D30E02 /* Charts-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Charts-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		3B61F4BBB08222FA4932344329D30E02 /* Charts-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Charts-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		3BD60FACDA0548F0F7A9DFF04EB284BA /* ZGNavigationBarTitleViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZGNavigationBarTitleViewController.h; path = ZGNavigationBarTitle/Class/ZGNavigationBarTitleViewController.h; sourceTree = "<group>"; };
 		3C87C97F9628FC63A95CDB0C20AF4924 /* ChartColorTemplates.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartColorTemplates.swift; path = Source/Charts/Utils/ChartColorTemplates.swift; sourceTree = "<group>"; };
 		3D0032CCB4F2873958264A607F26B61C /* ViewPortJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewPortJob.swift; path = Source/Charts/Jobs/ViewPortJob.swift; sourceTree = "<group>"; };
 		3D429C41F949160BBFAC4CDBCE5E776D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3DDAC6DD09622DC23E5A4B439F1F0EA9 /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ATAppUpdater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3DDAC6DD09622DC23E5A4B439F1F0EA9 /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ATAppUpdater.framework; path = "ATAppUpdater-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E1CA4F1733A5E8AFBF09C1FA881C3B5 /* ChartViewBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartViewBase.swift; path = Source/Charts/Charts/ChartViewBase.swift; sourceTree = "<group>"; };
 		3ECADD0EE5F91063AFE6F6302038FEA8 /* DZNEmptyDataSet-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DZNEmptyDataSet-iOS11.2-umbrella.h"; path = "../DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
 		3F0BF138538D145C56CEDE3A16B5EF1F /* STPopup-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "STPopup-iOS11.2-dummy.m"; path = "../STPopup-iOS11.2/STPopup-iOS11.2-dummy.m"; sourceTree = "<group>"; };
@@ -871,17 +871,17 @@
 		40FC2FE8CC56AE8DD3B57940C1161BCA /* LineRadarRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineRadarRenderer.swift; path = Source/Charts/Renderers/LineRadarRenderer.swift; sourceTree = "<group>"; };
 		4141C8D6F311BE1D6CE97ACA5FB9F3CD /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PPTopMostController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4161AFA2DB5037CA488214BCEB7631E8 /* FCFileManager-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "FCFileManager-iOS11.2.xcconfig"; path = "../FCFileManager-iOS11.2/FCFileManager-iOS11.2.xcconfig"; sourceTree = "<group>"; };
-		41DAB19E96A9679FCC3A9BF4D0416166 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FCFileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		41DAB19E96A9679FCC3A9BF4D0416166 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FCFileManager.framework; path = "FCFileManager-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		42DBBF7CE4CD247485F82E6428899835 /* GBDeviceInfoInterface.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GBDeviceInfoInterface.h; path = GBDeviceInfo/GBDeviceInfoInterface.h; sourceTree = "<group>"; };
 		4318764759A58B6C278B100BCE6446F6 /* DZNEmptyDataSet-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DZNEmptyDataSet-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		439241B34984E90124EA7752CC1D3738 /* Charts-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Charts-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
 		43AF6215363337416ABA43E34E4480F3 /* CLSAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSAttributes.h; path = iOS/Crashlytics.framework/Headers/CLSAttributes.h; sourceTree = "<group>"; };
-		4426176A020C0F77FBE99374776B033C /* ScrollableSegmentedControl-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "ScrollableSegmentedControl-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		4426176A020C0F77FBE99374776B033C /* ScrollableSegmentedControl-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "ScrollableSegmentedControl-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		4469F316129B3C4283A6C58E1ECF198F /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
 		447A107A05B0757381BA9A94AA3037B3 /* BarLineScatterCandleBubbleRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarLineScatterCandleBubbleRenderer.swift; path = Source/Charts/Renderers/BarLineScatterCandleBubbleRenderer.swift; sourceTree = "<group>"; };
 		447B6011CA0AC4D233769A04DE36A47D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4488308D123F262DF8B13D06588AC578 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
-		44AD7E11DA9BE6B897ACED4D30371396 /* ScrollableSegmentedControl-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "ScrollableSegmentedControl-iOS11.2.modulemap"; path = "../ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		44AD7E11DA9BE6B897ACED4D30371396 /* ScrollableSegmentedControl-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "ScrollableSegmentedControl-iOS11.2.modulemap"; path = "../ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		4573FBA4C4147C12A132668D2FEF9B21 /* ANSCompatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANSCompatibility.h; path = iOS/Crashlytics.framework/Headers/ANSCompatibility.h; sourceTree = "<group>"; };
 		45B1141FFC2A6F459211CC4CAB170618 /* MBProgressHUD-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "MBProgressHUD-iOS11.2.xcconfig"; path = "../MBProgressHUD-iOS11.2/MBProgressHUD-iOS11.2.xcconfig"; sourceTree = "<group>"; };
 		460D673B9AC14286F97F7DF06CCB1D30 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -892,7 +892,7 @@
 		47D5F5C54A8DDEF3BBC1B326648DDAD0 /* ZGNavigationTitleView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZGNavigationTitleView.h; path = ZGNavigationBarTitle/Class/ZGNavigationTitleView.h; sourceTree = "<group>"; };
 		4AD8741BE1C2A1A0DF8378196B981906 /* GBDeviceInfoTypes_Common.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GBDeviceInfoTypes_Common.h; path = GBDeviceInfo/GBDeviceInfoTypes_Common.h; sourceTree = "<group>"; };
 		4B5FE58D3696003148C623198CC7B6B8 /* ATAppUpdater-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ATAppUpdater-iOS11.2-prefix.pch"; path = "../ATAppUpdater-iOS11.2/ATAppUpdater-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
-		4BCCABF4FC26C443AE1C11B746881E3F /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PPTopMostController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BCCABF4FC26C443AE1C11B746881E3F /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PPTopMostController.framework; path = "PPTopMostController-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CA4F5B637F165FE962D98F3FC0D4924 /* GBDeviceInfoTypes_iOS.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GBDeviceInfoTypes_iOS.h; path = GBDeviceInfo/GBDeviceInfoTypes_iOS.h; sourceTree = "<group>"; };
 		4E42AF3797071E5FD4416953C85EA420 /* FCFileManager-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "FCFileManager-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		4FE9CECFB34C4BA14BBCA741FA345740 /* Renderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Renderer.swift; path = Source/Charts/Renderers/Renderer.swift; sourceTree = "<group>"; };
@@ -904,15 +904,15 @@
 		5189DA97E52CA46C90938F2648C60591 /* TriangleShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TriangleShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/TriangleShapeRenderer.swift; sourceTree = "<group>"; };
 		518C6BD718372C7F7124A851A9965FDB /* HexColors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HexColors.h; path = Classes/HexColors.h; sourceTree = "<group>"; };
 		533B3AB0DDF03B9B1154CB12A2899BBC /* ZGNavigationBarTitle-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ZGNavigationBarTitle-iOS11.2-umbrella.h"; path = "../ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
-		533CDFE67288FDE8C4AC4AD9F6308A64 /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PPTopMostController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		533CDFE67288FDE8C4AC4AD9F6308A64 /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PPTopMostController.framework; path = "PPTopMostController-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		537354262F2784D25B37A907F83B6B0D /* SquareShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SquareShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/SquareShapeRenderer.swift; sourceTree = "<group>"; };
 		539B316606552B54BAE8B54B41CC80A8 /* GBDeviceInfo-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GBDeviceInfo-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		5407A61B41966B7C12E5F11662F72560 /* ILineScatterCandleRadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ILineScatterCandleRadarChartDataSet.swift; path = Source/Charts/Data/Interfaces/ILineScatterCandleRadarChartDataSet.swift; sourceTree = "<group>"; };
-		5408DD637C01048D7995047F3FD9901E /* DZNEmptyDataSet-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "DZNEmptyDataSet-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		5408DD637C01048D7995047F3FD9901E /* DZNEmptyDataSet-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "DZNEmptyDataSet-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		54AF73399A9CFF741E52314B0D7FBCA4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../Charts-iOS11.2/Info.plist"; sourceTree = "<group>"; };
 		54B1024DA84AA8BDE3DC8E414D4CB85D /* BarChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartRenderer.swift; path = Source/Charts/Renderers/BarChartRenderer.swift; sourceTree = "<group>"; };
 		5560A40FF965766AD4AAC039147C9E20 /* ScrollableSegmentedControl-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ScrollableSegmentedControl-iOS11.2-prefix.pch"; path = "../ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
-		5602CE1298218946582A36F63ACF3DCF /* Charts-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "Charts-iOS11.2.modulemap"; path = "../Charts-iOS11.2/Charts-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		5602CE1298218946582A36F63ACF3DCF /* Charts-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "Charts-iOS11.2.modulemap"; path = "../Charts-iOS11.2/Charts-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		5628AD5F0BE919C35F1F9AE37E8CD1F0 /* STPopupControllerTransitioningFade.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupControllerTransitioningFade.m; path = STPopup/STPopupControllerTransitioningFade.m; sourceTree = "<group>"; };
 		57B492408282CD49066260F9E95E9741 /* PieRadarHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieRadarHighlighter.swift; path = Source/Charts/Highlight/PieRadarHighlighter.swift; sourceTree = "<group>"; };
 		58C53EF21DD8915507704BD1C49FC121 /* ATAppUpdater-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "ATAppUpdater-iOS11.2.xcconfig"; path = "../ATAppUpdater-iOS11.2/ATAppUpdater-iOS11.2.xcconfig"; sourceTree = "<group>"; };
@@ -927,12 +927,12 @@
 		5BA1A2DFA1D6D465710AFE3A4C24A570 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C9A7B20F39852A92D209BFB888C84E7 /* ScrollableSegmentedControl.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScrollableSegmentedControl.swift; path = ScrollableSegmentedControl/ScrollableSegmentedControl.swift; sourceTree = "<group>"; };
 		5CC3522B8ACA139091EB90BBE543289A /* RMessage-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RMessage-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
-		5D8213B0175FDE4B595DBB9AE3BEAD27 /* Pods-harbaughsim16.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-harbaughsim16.modulemap"; sourceTree = "<group>"; };
-		5E88BE720AD03C07B4711B9C08AB95AB /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D8213B0175FDE4B595DBB9AE3BEAD27 /* Pods-harbaughsim16.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-harbaughsim16.modulemap"; sourceTree = "<group>"; };
+		5E88BE720AD03C07B4711B9C08AB95AB /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HexColors.framework; path = "HexColors-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F28B319B282D1B57EFD657DA68DDB1F /* DefaultFillFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultFillFormatter.swift; path = Source/Charts/Formatters/DefaultFillFormatter.swift; sourceTree = "<group>"; };
-		5FAB28656FD2F5A292B58A061C6159EB /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AutoCoding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5FAB28656FD2F5A292B58A061C6159EB /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AutoCoding.framework; path = "AutoCoding-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6027336D56F007E14B93C0D096E93CC7 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		61766C7C82BD8C51B19EA554121425A1 /* STPopup-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "STPopup-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		61766C7C82BD8C51B19EA554121425A1 /* STPopup-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "STPopup-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		61AF31BFF7DC819357B558CD5B2D990B /* MoveViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MoveViewJob.swift; path = Source/Charts/Jobs/MoveViewJob.swift; sourceTree = "<group>"; };
 		61CB2E9D89C59EB70AEBE4ADC1D17B94 /* ZGNavigationBarTitle-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZGNavigationBarTitle-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		621DD8094EA48110D40060E70D38EC20 /* PieChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartRenderer.swift; path = Source/Charts/Renderers/PieChartRenderer.swift; sourceTree = "<group>"; };
@@ -940,16 +940,16 @@
 		639E1AE4B9644E6A1A6EAD8576DD9247 /* CombinedChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartDataProvider.swift; path = Source/Charts/Interfaces/CombinedChartDataProvider.swift; sourceTree = "<group>"; };
 		63E9AE1A01D7B381C25FB542AD315F2C /* RSEmailFeedback-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "RSEmailFeedback-iOS11.2.xcconfig"; path = "../RSEmailFeedback-iOS11.2/RSEmailFeedback-iOS11.2.xcconfig"; sourceTree = "<group>"; };
 		6474996CBFC4638DDD2D70F40D0AE4DC /* Pods-cfctests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-cfctests-dummy.m"; sourceTree = "<group>"; };
-		64B60A369AF92742DD2C291C9C3A1463 /* GBDeviceInfo-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "GBDeviceInfo-iOS11.2.modulemap"; path = "../GBDeviceInfo-iOS11.2/GBDeviceInfo-iOS11.2.modulemap"; sourceTree = "<group>"; };
-		64B922D255EAC5304529146EF75CCE28 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FCFileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		64B60A369AF92742DD2C291C9C3A1463 /* GBDeviceInfo-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "GBDeviceInfo-iOS11.2.modulemap"; path = "../GBDeviceInfo-iOS11.2/GBDeviceInfo-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		64B922D255EAC5304529146EF75CCE28 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FCFileManager.framework; path = "FCFileManager-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6694CA42E38A8DF1F61D71757694DA75 /* XAxis.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = XAxis.swift; path = Source/Charts/Components/XAxis.swift; sourceTree = "<group>"; };
 		66CB67336318D64ED638E760123DBD6D /* NotificationBackgroundSuccessIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "NotificationBackgroundSuccessIcon@2x.png"; path = "RMessage/Assets/NotificationBackgroundSuccessIcon@2x.png"; sourceTree = "<group>"; };
-		6781F5C0B231CD0D2F908E6929A19B3E /* ScrollableSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ScrollableSegmentedControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		68DBA445CE030051D1203613C24C5F89 /* GBDeviceInfo-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "GBDeviceInfo-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		6781F5C0B231CD0D2F908E6929A19B3E /* ScrollableSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ScrollableSegmentedControl.framework; path = "ScrollableSegmentedControl-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		68DBA445CE030051D1203613C24C5F89 /* GBDeviceInfo-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "GBDeviceInfo-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		69464C6AD8160850F52320EE181638CB /* GBDeviceInfo-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "GBDeviceInfo-iOS11.2-dummy.m"; path = "../GBDeviceInfo-iOS11.2/GBDeviceInfo-iOS11.2-dummy.m"; sourceTree = "<group>"; };
-		69B9BBC70938A579828B83A6706517F0 /* STPopup-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "STPopup-iOS11.2.modulemap"; path = "../STPopup-iOS11.2/STPopup-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		69B9BBC70938A579828B83A6706517F0 /* STPopup-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "STPopup-iOS11.2.modulemap"; path = "../STPopup-iOS11.2/STPopup-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		69E43C295BB35C1EF7D72D7C781A2006 /* ZGNavigationBarTitle-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "ZGNavigationBarTitle-iOS11.2-dummy.m"; path = "../ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle-iOS11.2-dummy.m"; sourceTree = "<group>"; };
-		6A5E8AAC1DF690AD5F1D8136B0E4F829 /* RSEmailFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RSEmailFeedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A5E8AAC1DF690AD5F1D8136B0E4F829 /* RSEmailFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RSEmailFeedback.framework; path = "RSEmailFeedback-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D4ED3A6BC4D350F32730BD48053BAE1 /* YAxisRendererRadarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = YAxisRendererRadarChart.swift; path = Source/Charts/Renderers/YAxisRendererRadarChart.swift; sourceTree = "<group>"; };
 		6DB905F84811789F4101B9B8BE01F4FF /* DefaultAxisValueFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultAxisValueFormatter.swift; path = Source/Charts/Formatters/DefaultAxisValueFormatter.swift; sourceTree = "<group>"; };
 		6DC09E2632B4CC8014D23BAFC1D1EB7F /* Description.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Description.swift; path = Source/Charts/Components/Description.swift; sourceTree = "<group>"; };
@@ -967,7 +967,7 @@
 		79EAB72B499064E7E5C179CAFC0EDA4A /* RMessage-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "RMessage-iOS11.2-prefix.pch"; path = "../RMessage-iOS11.2/RMessage-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
 		7C866F742B2FFFF4D229EF3A5AD78B71 /* ChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataProvider.swift; path = Source/Charts/Interfaces/ChartDataProvider.swift; sourceTree = "<group>"; };
 		7CAC7E1A2C92D8CA951D06373A97AE67 /* NotificationButtonBackground.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = NotificationButtonBackground.png; path = RMessage/Assets/NotificationButtonBackground.png; sourceTree = "<group>"; };
-		7CC9A1C95EB3E1E5BE5A952B0A0AF51B /* ZGNavigationBarTitle-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "ZGNavigationBarTitle-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		7CC9A1C95EB3E1E5BE5A952B0A0AF51B /* ZGNavigationBarTitle-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "ZGNavigationBarTitle-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		7CCAE0DA8E0E8B0C35EBEF8509BF3A56 /* ZGNavigationBarTitle-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZGNavigationBarTitle-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
 		7DBFF9368CEF1CFF167243FC555885A0 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD6AF33FBE4CBFC923BEB372AE3E418 /* GBDeviceInfo_Common.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GBDeviceInfo_Common.h; path = GBDeviceInfo/GBDeviceInfo_Common.h; sourceTree = "<group>"; };
@@ -979,12 +979,12 @@
 		80E06058236336737332F35A24BBD8DF /* CLSReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSReport.h; path = iOS/Crashlytics.framework/Headers/CLSReport.h; sourceTree = "<group>"; };
 		80E730266FEA918101ADD3018C776336 /* Pods-cfctests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-cfctests.debug.xcconfig"; sourceTree = "<group>"; };
 		811AE0BA0D1B5D32CF078C3ACB72A57B /* Pods-harbaughsim16-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-harbaughsim16-acknowledgements.markdown"; sourceTree = "<group>"; };
-		814362446A1CC2B8702C72513AE740ED /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ATAppUpdater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		814362446A1CC2B8702C72513AE740ED /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ATAppUpdater.framework; path = "ATAppUpdater-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		816F0F80A19EE1BCBDFF2E9B9F6603BF /* ViewPortHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewPortHandler.swift; path = Source/Charts/Utils/ViewPortHandler.swift; sourceTree = "<group>"; };
-		81A0FF1E7B4B13E6F65020CF18132213 /* RSEmailFeedback-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "RSEmailFeedback-iOS11.2.modulemap"; path = "../RSEmailFeedback-iOS11.2/RSEmailFeedback-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		81A0FF1E7B4B13E6F65020CF18132213 /* RSEmailFeedback-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "RSEmailFeedback-iOS11.2.modulemap"; path = "../RSEmailFeedback-iOS11.2/RSEmailFeedback-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		81CAFE799671F06B02E76C64BFA73F1F /* ZGNavigationBarTitleViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZGNavigationBarTitleViewController.m; path = ZGNavigationBarTitle/Class/ZGNavigationBarTitleViewController.m; sourceTree = "<group>"; };
 		83E8A6DA4D924F361F7F585A8148F810 /* HexColors-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
-		846EE96A63291CD4860E772F16ABE1CB /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		846EE96A63291CD4860E772F16ABE1CB /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Charts.framework; path = "Charts-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84C33E270FD9D4105A583ADFAC2D513F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = iOS/Fabric.framework; sourceTree = "<group>"; };
 		84EB17ED3FA9E8B1DB894E63389E81D4 /* IRadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IRadarChartDataSet.swift; path = Source/Charts/Data/Interfaces/IRadarChartDataSet.swift; sourceTree = "<group>"; };
 		84F7E697D277668BBEFAD8A0A343CEB3 /* RMessage-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "RMessage-iOS11.2.xcconfig"; path = "../RMessage-iOS11.2/RMessage-iOS11.2.xcconfig"; sourceTree = "<group>"; };
@@ -995,7 +995,7 @@
 		867C74672E8D10321CE0E4ED6D217024 /* PPTopMostController-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "PPTopMostController-iOS11.2-umbrella.h"; path = "../PPTopMostController-iOS11.2/PPTopMostController-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
 		86975FB63171F08FF722D85D6574CAC8 /* MarkerImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MarkerImage.swift; path = Source/Charts/Components/MarkerImage.swift; sourceTree = "<group>"; };
 		86CD752F2532A930098AD71624EA5389 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../ScrollableSegmentedControl-iOS11.2/Info.plist"; sourceTree = "<group>"; };
-		879D1C13C43A2C1ECDA6681F24A64EEB /* HexColors-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "HexColors-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		879D1C13C43A2C1ECDA6681F24A64EEB /* HexColors-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "HexColors-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		87AD73FDD3414E652FC57C1CA537F6C8 /* MBProgressHUD-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
 		87D26E8B3F1836ECEF2AE80F7E7517FB /* CandleChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/CandleChartDataEntry.swift; sourceTree = "<group>"; };
 		889E99C861BCB76BC4D973A737BC09F6 /* GBDeviceInfo_Common.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GBDeviceInfo_Common.m; path = GBDeviceInfo/GBDeviceInfo_Common.m; sourceTree = "<group>"; };
@@ -1014,13 +1014,13 @@
 		90E678E434161230DCB0BDCFDEE8656F /* LineScatterCandleRadarRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineScatterCandleRadarRenderer.swift; path = Source/Charts/Renderers/LineScatterCandleRadarRenderer.swift; sourceTree = "<group>"; };
 		9112C30B06467F669746BBBFDD3EEDBD /* AxisBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AxisBase.swift; path = Source/Charts/Components/AxisBase.swift; sourceTree = "<group>"; };
 		91E9BC370247B2D6A9645B75047E704D /* FCFileManager-iOS10.0-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FCFileManager-iOS10.0-umbrella.h"; sourceTree = "<group>"; };
-		92A2F1051DA756CD8A01A439F538826C /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AutoCoding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92A2F1051DA756CD8A01A439F538826C /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AutoCoding.framework; path = "AutoCoding-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		92AB8986C666CA7DE9B2BE6247A5FC9A /* UIViewController+STPopup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+STPopup.h"; path = "STPopup/UIViewController+STPopup.h"; sourceTree = "<group>"; };
 		9318C06040D8619180DB703A8897984F /* AnimatedMoveViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedMoveViewJob.swift; path = Source/Charts/Jobs/AnimatedMoveViewJob.swift; sourceTree = "<group>"; };
 		9350FE37CA2FA5AED9602577829C8DCC /* BubbleChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartDataProvider.swift; path = Source/Charts/Interfaces/BubbleChartDataProvider.swift; sourceTree = "<group>"; };
 		939D5AF49DC4299DE7D22ED1DFD0FBB1 /* GBDeviceInfo_Subclass.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GBDeviceInfo_Subclass.h; path = GBDeviceInfo/GBDeviceInfo_Subclass.h; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		93C471186CF3374CCA05DB4300A43733 /* DZNEmptyDataSet-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "DZNEmptyDataSet-iOS11.2.modulemap"; path = "../DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93C471186CF3374CCA05DB4300A43733 /* DZNEmptyDataSet-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "DZNEmptyDataSet-iOS11.2.modulemap"; path = "../DZNEmptyDataSet-iOS11.2/DZNEmptyDataSet-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		93F0403CB67A77DCD8749A70A817691F /* ScatterChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartData.swift; path = Source/Charts/Data/Implementations/Standard/ScatterChartData.swift; sourceTree = "<group>"; };
 		94ED1A8E8E662DC7D1CEF708C552FEC7 /* Crashlytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Crashlytics.h; path = iOS/Crashlytics.framework/Headers/Crashlytics.h; sourceTree = "<group>"; };
 		954A0688C5F77A03C3D29E4C5567E3D0 /* LegendRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LegendRenderer.swift; path = Source/Charts/Renderers/LegendRenderer.swift; sourceTree = "<group>"; };
@@ -1039,7 +1039,7 @@
 		9DF99D20322CF707B06E3639A9F3D2B7 /* HexColors-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "HexColors-iOS11.2.xcconfig"; path = "../HexColors-iOS11.2/HexColors-iOS11.2.xcconfig"; sourceTree = "<group>"; };
 		9EA3C826426A9B6975F5B08A09AFCDC2 /* PPTopMostController-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PPTopMostController-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
 		9ED007D658C6A4F6E15FE417CCEAFA83 /* GBDeviceInfo-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GBDeviceInfo-iOS11.2-prefix.pch"; path = "../GBDeviceInfo-iOS11.2/GBDeviceInfo-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
-		9F2ADFB39588E563636E12E2F1DA5A00 /* ZGNavigationBarTitle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZGNavigationBarTitle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F2ADFB39588E563636E12E2F1DA5A00 /* ZGNavigationBarTitle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZGNavigationBarTitle.framework; path = "ZGNavigationBarTitle-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FF244D4BDFE709A663EC517742613EC /* GBDeviceInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GBDeviceInfo.h; path = GBDeviceInfo/GBDeviceInfo.h; sourceTree = "<group>"; };
 		A0FD4285E8E93FB76D97751286E3FE87 /* ICandleChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ICandleChartDataSet.swift; path = Source/Charts/Data/Interfaces/ICandleChartDataSet.swift; sourceTree = "<group>"; };
 		A17B611F473BEC31200935958A77FB83 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1050,15 +1050,15 @@
 		A3AEF7DDE5265D05F513826DD351BB85 /* Pods-harbaughsim16-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-harbaughsim16-umbrella.h"; sourceTree = "<group>"; };
 		A4292DBB0AB16617BE4222AA706EEF5C /* Charts-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Charts-iOS11.2-prefix.pch"; path = "../Charts-iOS11.2/Charts-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
 		A535239EDF3FE5195342856F5D563772 /* RMessage-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "RMessage-iOS11.2-dummy.m"; path = "../RMessage-iOS11.2/RMessage-iOS11.2-dummy.m"; sourceTree = "<group>"; };
-		A5BC85CB7C769677444F81E7CDB91830 /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STPopup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5BC85CB7C769677444F81E7CDB91830 /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = STPopup.framework; path = "STPopup-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5C8057762D68CC5EF31AF1BF448CD05 /* FCFileManager-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FCFileManager-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
-		A5E6B8EDBDFCD8A549EFCEC4388E518C /* RMessage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RMessage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5E6B8EDBDFCD8A549EFCEC4388E518C /* RMessage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RMessage.framework; path = "RMessage-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A74EB7505A5D64FB87372CF60FC5E2C0 /* AutoCoding-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AutoCoding-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
 		A8D42D7647310A30DEAF12FD6CCEA753 /* FCFileManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FCFileManager.m; path = FCFileManager/FCFileManager.m; sourceTree = "<group>"; };
 		A9CC176DAD40969B6F572FE99355D093 /* STPopupController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupController.m; path = STPopup/STPopupController.m; sourceTree = "<group>"; };
 		A9D2E030E5954FAF27241AE5ED867CDC /* LineChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartData.swift; path = Source/Charts/Data/Implementations/Standard/LineChartData.swift; sourceTree = "<group>"; };
 		AA8642ADF18F86604D11EFB26885CE64 /* HorizontalBarHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HorizontalBarHighlighter.swift; path = Source/Charts/Highlight/HorizontalBarHighlighter.swift; sourceTree = "<group>"; };
-		AB45294290FDF271CC50DEF56B752460 /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB45294290FDF271CC50DEF56B752460 /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_harbaughsim16.framework; path = "Pods-harbaughsim16.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABED9D479E15708444834E3078F25EAE /* MBProgressHUD-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "MBProgressHUD-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		AD5CCE844BB3FF193F31B7C3C7E0844A /* LineChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartDataProvider.swift; path = Source/Charts/Interfaces/LineChartDataProvider.swift; sourceTree = "<group>"; };
 		AD5E73EC327491B3EC8AAB3B4E2E1122 /* IChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IChartDataSet.swift; path = Source/Charts/Data/Interfaces/IChartDataSet.swift; sourceTree = "<group>"; };
@@ -1067,14 +1067,14 @@
 		B04D8403B03271D851FA468965E0D86C /* LegendEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LegendEntry.swift; path = Source/Charts/Components/LegendEntry.swift; sourceTree = "<group>"; };
 		B04F1F5595415C77378A2DB703DA7833 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../STPopup-iOS11.2/Info.plist"; sourceTree = "<group>"; };
 		B1FF2B09105DD7DA9206CAC39F6AE694 /* ChartDataEntryBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataEntryBase.swift; path = Source/Charts/Data/Implementations/Standard/ChartDataEntryBase.swift; sourceTree = "<group>"; };
-		B31AC485A7DA0721E1382A9FE8C30732 /* GBDeviceInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBDeviceInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B31AC485A7DA0721E1382A9FE8C30732 /* GBDeviceInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GBDeviceInfo.framework; path = "GBDeviceInfo-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B341FD3445229DEE8F4A62173DBBE2E9 /* ChartAnimationEasing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartAnimationEasing.swift; path = Source/Charts/Animation/ChartAnimationEasing.swift; sourceTree = "<group>"; };
 		B418908C8D3B58620E4EF825CF8A47C2 /* NotificationBackgroundWarningIcon@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "NotificationBackgroundWarningIcon@2x.png"; path = "RMessage/Assets/NotificationBackgroundWarningIcon@2x.png"; sourceTree = "<group>"; };
 		B53BAB32DC0593977990B29474D9F1EE /* STPopup-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "STPopup-iOS11.2.xcconfig"; path = "../STPopup-iOS11.2/STPopup-iOS11.2.xcconfig"; sourceTree = "<group>"; };
 		B5883962C540DF52C8AF888C9DC6620A /* CandleChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleChartData.swift; path = Source/Charts/Data/Implementations/Standard/CandleChartData.swift; sourceTree = "<group>"; };
 		B5DA594AFBFEF93D8259030982C819AE /* PPTopMostController-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "PPTopMostController-iOS11.2-prefix.pch"; path = "../PPTopMostController-iOS11.2/PPTopMostController-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
 		B861AEF1A1F99E2EBB7DB8D84A89EEB1 /* RSEmailFeedback-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "RSEmailFeedback-iOS11.2-prefix.pch"; path = "../RSEmailFeedback-iOS11.2/RSEmailFeedback-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
-		B92D2B7423C10C98BC811A7D38843B56 /* HexColors-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "HexColors-iOS11.2.modulemap"; path = "../HexColors-iOS11.2/HexColors-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		B92D2B7423C10C98BC811A7D38843B56 /* HexColors-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "HexColors-iOS11.2.modulemap"; path = "../HexColors-iOS11.2/HexColors-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		B96F42DD4436FB48A4C550902E40D822 /* NotificationButtonBackground@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "NotificationButtonBackground@2x.png"; path = "RMessage/Assets/NotificationButtonBackground@2x.png"; sourceTree = "<group>"; };
 		B9A0E9DFA548D372D0B1BF9B14C4509F /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9F053280A83FA0EB15FD660DFBA3A1E /* GBDeviceInfo-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GBDeviceInfo-iOS11.2-umbrella.h"; path = "../GBDeviceInfo-iOS11.2/GBDeviceInfo-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
@@ -1101,12 +1101,12 @@
 		C760DFC4A9AB37B7120D694DF2622B39 /* ScrollableSegmentedControl-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ScrollableSegmentedControl-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		C76E971153D3CBE7C6769B6655BD17B2 /* Highlight.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Highlight.swift; path = Source/Charts/Highlight/Highlight.swift; sourceTree = "<group>"; };
 		C83CD9E2516B9A0386F6E5C2B7C3FB83 /* HexColors.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HexColors.m; path = Classes/HexColors.m; sourceTree = "<group>"; };
-		C9194316A5B39A50873FEBFE2A75176D /* RSEmailFeedback-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "RSEmailFeedback-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		C9194316A5B39A50873FEBFE2A75176D /* RSEmailFeedback-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "RSEmailFeedback-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		C928A1269C28200A730D2F1D1D54CE24 /* RMessageView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RMessageView.h; path = RMessage/RMessageView.h; sourceTree = "<group>"; };
 		C96F0C5638E27294316B912042CB4AB3 /* ZGNavigationBarTitle-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ZGNavigationBarTitle-iOS11.2-prefix.pch"; path = "../ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
 		CA1BCD1D67F4B63EF77D79E210003F27 /* PPTopMostController-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "PPTopMostController-iOS11.2-dummy.m"; path = "../PPTopMostController-iOS11.2/PPTopMostController-iOS11.2-dummy.m"; sourceTree = "<group>"; };
 		CAABFFCF1A93C3C3526AEEFDDD536F9C /* IScatterChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IScatterChartDataSet.swift; path = Source/Charts/Data/Interfaces/IScatterChartDataSet.swift; sourceTree = "<group>"; };
-		CB392BDBCB0179D9BB1A1AA13FD7B020 /* ScrollableSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ScrollableSegmentedControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB392BDBCB0179D9BB1A1AA13FD7B020 /* ScrollableSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ScrollableSegmentedControl.framework; path = "ScrollableSegmentedControl-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB5673FBB4A793884AC7B127CE6E02DC /* IBarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IBarChartDataSet.swift; path = Source/Charts/Data/Interfaces/IBarChartDataSet.swift; sourceTree = "<group>"; };
 		CB708281DB9E5C4064EC86581159C686 /* DZNEmptyDataSet-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "DZNEmptyDataSet-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		CBD5CF8A189EE3495D2F2D6C1C8D122C /* UINavigationController+PPTopMostController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UINavigationController+PPTopMostController.h"; path = "PPTopMostController-Files/UINavigationController+PPTopMostController.h"; sourceTree = "<group>"; };
@@ -1115,16 +1115,16 @@
 		CE68951F9542AFB6C120972F4C15E622 /* AutoCoding-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AutoCoding-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		CE76A4B3E04528B0C55925E329E74B19 /* RMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RMessage.m; path = RMessage/RMessage.m; sourceTree = "<group>"; };
 		CF2F3E6598C24A6E6F2E99AF14BB3B2B /* YAxisRendererHorizontalBarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = YAxisRendererHorizontalBarChart.swift; path = Source/Charts/Renderers/YAxisRendererHorizontalBarChart.swift; sourceTree = "<group>"; };
-		CF5531C7A1B84196E786FFE89B3F80AF /* MBProgressHUD-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "MBProgressHUD-iOS11.2.modulemap"; path = "../MBProgressHUD-iOS11.2/MBProgressHUD-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		CF5531C7A1B84196E786FFE89B3F80AF /* MBProgressHUD-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "MBProgressHUD-iOS11.2.modulemap"; path = "../MBProgressHUD-iOS11.2/MBProgressHUD-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		CF8E131CEEEC8FAA70225FA331D7C505 /* ATAppUpdater-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ATAppUpdater-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		CFD9BE711213C172FA680C11CA7F3340 /* BubbleChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartData.swift; path = Source/Charts/Data/Implementations/Standard/BubbleChartData.swift; sourceTree = "<group>"; };
 		D073885BF0F720EF4090EF59ED296FAD /* FCFileManager-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "FCFileManager-iOS11.2-dummy.m"; path = "../FCFileManager-iOS11.2/FCFileManager-iOS11.2-dummy.m"; sourceTree = "<group>"; };
 		D2121435364511CE5BC03A1B5095382D /* Transformer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Transformer.swift; path = Source/Charts/Utils/Transformer.swift; sourceTree = "<group>"; };
-		D28E3A6664AF35EA6B0CC4089A9C0B6A /* MBProgressHUD-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "MBProgressHUD-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		D28E3A6664AF35EA6B0CC4089A9C0B6A /* MBProgressHUD-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "MBProgressHUD-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		D2D82A29457636FAC4C4CE399BD5D030 /* ChartLimitLine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartLimitLine.swift; path = Source/Charts/Components/ChartLimitLine.swift; sourceTree = "<group>"; };
 		D2FC301200669BBB27DBA3D001633580 /* LineChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartRenderer.swift; path = Source/Charts/Renderers/LineChartRenderer.swift; sourceTree = "<group>"; };
 		D3147940B8088F9AE2538D96BCE6CC79 /* LineScatterCandleRadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineScatterCandleRadarChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/LineScatterCandleRadarChartDataSet.swift; sourceTree = "<group>"; };
-		D4CB7CEA85E1CC4EBA0351C8D8A4651A /* ZGNavigationBarTitle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZGNavigationBarTitle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4CB7CEA85E1CC4EBA0351C8D8A4651A /* ZGNavigationBarTitle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZGNavigationBarTitle.framework; path = "ZGNavigationBarTitle-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D52623F9AE8247E15F2BAF6DF06342C2 /* YAxisRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = YAxisRenderer.swift; path = Source/Charts/Renderers/YAxisRenderer.swift; sourceTree = "<group>"; };
 		D54156535491B6F593C03A3117B6E5B6 /* PieChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartData.swift; path = Source/Charts/Data/Implementations/Standard/PieChartData.swift; sourceTree = "<group>"; };
 		D579CF5ECAF8ACF498265A9F9E171056 /* STPopup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopup.h; path = STPopup/STPopup.h; sourceTree = "<group>"; };
@@ -1134,21 +1134,21 @@
 		D6F7C39AD559E688F133C6A64BF552D9 /* ZoomViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomViewJob.swift; path = Source/Charts/Jobs/ZoomViewJob.swift; sourceTree = "<group>"; };
 		D712D2B9F2445971665615AB0BE85B24 /* ChartUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartUtils.swift; path = Source/Charts/Utils/ChartUtils.swift; sourceTree = "<group>"; };
 		D7289FD75D6C49E8F57DAD6019867A00 /* STPopup-iOS11.2-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "STPopup-iOS11.2-prefix.pch"; path = "../STPopup-iOS11.2/STPopup-iOS11.2-prefix.pch"; sourceTree = "<group>"; };
-		D72F2473A6E48802D87BC6ED69D1DDD3 /* RMessage-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "RMessage-iOS11.2.modulemap"; path = "../RMessage-iOS11.2/RMessage-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		D72F2473A6E48802D87BC6ED69D1DDD3 /* RMessage-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "RMessage-iOS11.2.modulemap"; path = "../RMessage-iOS11.2/RMessage-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		D8B29C86062D559E29BAA0DBF0588E3F /* STPopup-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "STPopup-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		D98720487ECE09E1B6610EA9D8A15B86 /* ScrollableSegmentedControl-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "ScrollableSegmentedControl-iOS11.2.xcconfig"; path = "../ScrollableSegmentedControl-iOS11.2/ScrollableSegmentedControl-iOS11.2.xcconfig"; sourceTree = "<group>"; };
 		D9ADD07DF2DAA5B74B2FA8EA155157AD /* ZGNavigationBarTitle-iOS10.0.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "ZGNavigationBarTitle-iOS10.0.xcconfig"; sourceTree = "<group>"; };
 		DBB956AD1D0C2910FF1CDA1775A1AF27 /* BubbleChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/BubbleChartDataEntry.swift; sourceTree = "<group>"; };
 		DC37FD76C99C13ED3F4FCC108F174257 /* Legend.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Legend.swift; path = Source/Charts/Components/Legend.swift; sourceTree = "<group>"; };
 		DE16C09BA9E4911FDBFC0E14B31C373E /* RadarChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarChartRenderer.swift; path = Source/Charts/Renderers/RadarChartRenderer.swift; sourceTree = "<group>"; };
-		DE64CEA88A7162E6DDC3E248416C300E /* ZGNavigationBarTitle-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "ZGNavigationBarTitle-iOS11.2.modulemap"; path = "../ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		DE64CEA88A7162E6DDC3E248416C300E /* ZGNavigationBarTitle-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "ZGNavigationBarTitle-iOS11.2.modulemap"; path = "../ZGNavigationBarTitle-iOS11.2/ZGNavigationBarTitle-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		DF062C7568DC16873AF0F9321D3BD5E6 /* GBDeviceInfo-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "GBDeviceInfo-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		DF60DE5878129A2E530C2049B69D4A4C /* DefaultValueFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultValueFormatter.swift; path = Source/Charts/Formatters/DefaultValueFormatter.swift; sourceTree = "<group>"; };
 		DF9319DB794886411741B294FEC4AAF3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		DFF8F7BB214EEDC37E59F3734639471D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		E069CE6AD69AD889C0B7ACB3A50C2F38 /* HorizontalBarChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HorizontalBarChartRenderer.swift; path = Source/Charts/Renderers/HorizontalBarChartRenderer.swift; sourceTree = "<group>"; };
 		E0DDE2AE8BD4CE617F80855F36B62C24 /* ChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartData.swift; path = Source/Charts/Data/Implementations/Standard/ChartData.swift; sourceTree = "<group>"; };
-		E107E24A758458F524C33A25C6A1867A /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STPopup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E107E24A758458F524C33A25C6A1867A /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = STPopup.framework; path = "STPopup-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E194FA49FEBE43F1BFD075979EAF9B6C /* PieHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieHighlighter.swift; path = Source/Charts/Highlight/PieHighlighter.swift; sourceTree = "<group>"; };
 		E266D2BAA1F51DB2DB9C048663F2FB7F /* LineChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartView.swift; path = Source/Charts/Charts/LineChartView.swift; sourceTree = "<group>"; };
 		E2B1451B1E240D41BBDBE44C8E47813C /* CandleChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleChartDataProvider.swift; path = Source/Charts/Interfaces/CandleChartDataProvider.swift; sourceTree = "<group>"; };
@@ -1157,20 +1157,20 @@
 		E3A1DB4968294744166E2BC11381B58E /* ZGNavigationBarTitle-iOS10.0-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ZGNavigationBarTitle-iOS10.0-dummy.m"; sourceTree = "<group>"; };
 		E3B5AFC3FACD21871FE563F97983468D /* FCFileManager-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FCFileManager-iOS11.2-umbrella.h"; path = "../FCFileManager-iOS11.2/FCFileManager-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
 		E4945A8B16AE18603DAF37AACFB576F7 /* DZNEmptyDataSet-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DZNEmptyDataSet-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
-		E580D0BCECF05ACC9A355AE691730670 /* GBDeviceInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBDeviceInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E6841974EEA05B1D4D57FE1B59AA87DE /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DZNEmptyDataSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E7EB8FD99C8CFFDA167218ED356DB954 /* Pods_cfctests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cfctests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E823E1A253D73282B8C9DECAB873A85A /* ATAppUpdater-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "ATAppUpdater-iOS11.2.modulemap"; path = "../ATAppUpdater-iOS11.2/ATAppUpdater-iOS11.2.modulemap"; sourceTree = "<group>"; };
-		E9B82A10FC990DC285D47C9D4F156942 /* FCFileManager-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "FCFileManager-iOS11.2.modulemap"; path = "../FCFileManager-iOS11.2/FCFileManager-iOS11.2.modulemap"; sourceTree = "<group>"; };
-		EAAC526F4C2C7E9B001411123D21C4A5 /* RMessage-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "RMessage-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		E580D0BCECF05ACC9A355AE691730670 /* GBDeviceInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GBDeviceInfo.framework; path = "GBDeviceInfo-iOS10.0.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6841974EEA05B1D4D57FE1B59AA87DE /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DZNEmptyDataSet.framework; path = "DZNEmptyDataSet-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7EB8FD99C8CFFDA167218ED356DB954 /* Pods_cfctests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_cfctests.framework; path = "Pods-cfctests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E823E1A253D73282B8C9DECAB873A85A /* ATAppUpdater-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "ATAppUpdater-iOS11.2.modulemap"; path = "../ATAppUpdater-iOS11.2/ATAppUpdater-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		E9B82A10FC990DC285D47C9D4F156942 /* FCFileManager-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "FCFileManager-iOS11.2.modulemap"; path = "../FCFileManager-iOS11.2/FCFileManager-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		EAAC526F4C2C7E9B001411123D21C4A5 /* RMessage-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "RMessage-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		EAE5467EFF6F2FBFE20659A6317D4764 /* PPTopMostController-iOS11.2.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "PPTopMostController-iOS11.2.xcconfig"; path = "../PPTopMostController-iOS11.2/PPTopMostController-iOS11.2.xcconfig"; sourceTree = "<group>"; };
-		EB3BA38CEF140850B9323827BEF65E23 /* RMessage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RMessage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EC572B573B5BBD42CE30A069776EDD5E /* ATAppUpdater-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "ATAppUpdater-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		EB3BA38CEF140850B9323827BEF65E23 /* RMessage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RMessage.framework; path = "RMessage-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC572B573B5BBD42CE30A069776EDD5E /* ATAppUpdater-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "ATAppUpdater-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		EC5AD769254A4DEC5A6A7C56FBC271D0 /* BarLineScatterCandleBubbleChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarLineScatterCandleBubbleChartData.swift; path = Source/Charts/Data/Implementations/Standard/BarLineScatterCandleBubbleChartData.swift; sourceTree = "<group>"; };
 		EC8953F86D8872BB92418623D2C15597 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ECD9B61D761C3F81572584070D37DA39 /* IPieChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IPieChartDataSet.swift; path = Source/Charts/Data/Interfaces/IPieChartDataSet.swift; sourceTree = "<group>"; };
 		EDD07BB4F45FEEC8D42CDF88EBD63416 /* RMessageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RMessageView.m; path = RMessage/RMessageView.m; sourceTree = "<group>"; };
-		EE11E8F41168C350D688CFD0904845C4 /* AutoCoding-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "AutoCoding-iOS10.0.modulemap"; sourceTree = "<group>"; };
+		EE11E8F41168C350D688CFD0904845C4 /* AutoCoding-iOS10.0.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "AutoCoding-iOS10.0.modulemap"; sourceTree = "<group>"; };
 		EE716D1BA653209024ABD2C7818AF505 /* ILineRadarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ILineRadarChartDataSet.swift; path = Source/Charts/Data/Interfaces/ILineRadarChartDataSet.swift; sourceTree = "<group>"; };
 		F113F5666D817264DDF0794AFC0D25C9 /* BarHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarHighlighter.swift; path = Source/Charts/Highlight/BarHighlighter.swift; sourceTree = "<group>"; };
 		F116EC8DB7371973F2892A58E6C3389E /* GBDeviceInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBDeviceInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1178,7 +1178,7 @@
 		F2E5C92C5AAEBC43049F4C6757C0EF63 /* PieChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartView.swift; path = Source/Charts/Charts/PieChartView.swift; sourceTree = "<group>"; };
 		F37B80F4977AE9AB8334632BA73CCFA5 /* GBDeviceInfo_iOS.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GBDeviceInfo_iOS.h; path = GBDeviceInfo/GBDeviceInfo_iOS.h; sourceTree = "<group>"; };
 		F39812A5178D954EF033FE7A47EFE122 /* HexColors-iOS11.2-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "HexColors-iOS11.2-umbrella.h"; path = "../HexColors-iOS11.2/HexColors-iOS11.2-umbrella.h"; sourceTree = "<group>"; };
-		F3E29C0379C764CAAC91923AD88A7349 /* PPTopMostController-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; name = "PPTopMostController-iOS11.2.modulemap"; path = "../PPTopMostController-iOS11.2/PPTopMostController-iOS11.2.modulemap"; sourceTree = "<group>"; };
+		F3E29C0379C764CAAC91923AD88A7349 /* PPTopMostController-iOS11.2.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; name = "PPTopMostController-iOS11.2.modulemap"; path = "../PPTopMostController-iOS11.2/PPTopMostController-iOS11.2.modulemap"; sourceTree = "<group>"; };
 		F40A07DA57A8F8C1DBBC374B5D73662B /* Pods-cfctests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-cfctests-acknowledgements.plist"; sourceTree = "<group>"; };
 		F50BFB26E4A82CCE97959E70045B6A68 /* AutoCoding-iOS11.2-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "AutoCoding-iOS11.2-dummy.m"; path = "../AutoCoding-iOS11.2/AutoCoding-iOS11.2-dummy.m"; sourceTree = "<group>"; };
 		F525C14D5759F948FF87E9C35A0E7C90 /* BubbleChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartView.swift; path = Source/Charts/Charts/BubbleChartView.swift; sourceTree = "<group>"; };
@@ -1191,7 +1191,7 @@
 		FC246B4BD38CCD70C7283FC136F7E783 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../RMessage-iOS11.2/Info.plist"; sourceTree = "<group>"; };
 		FCB75FDB701E0E1F51330C7848D8A99F /* RSEmailFeedback-iOS10.0-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RSEmailFeedback-iOS10.0-prefix.pch"; sourceTree = "<group>"; };
 		FCC5BB409FCBD4A90D23FC0D328AE021 /* STPopupLeftBarItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupLeftBarItem.h; path = STPopup/STPopupLeftBarItem.h; sourceTree = "<group>"; };
-		FD1AA6B3563A0B110AE14366F96173A4 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD1AA6B3563A0B110AE14366F96173A4 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Charts.framework; path = "Charts-iOS11.2.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD6D7E5EBA9DD9E0D17690A26E7C647D /* HorizontalBarChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HorizontalBarChartView.swift; path = Source/Charts/Charts/HorizontalBarChartView.swift; sourceTree = "<group>"; };
 		FD99EE770E78AFEF60DB1D024F1CEAEF /* CandleChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CandleChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/CandleChartDataSet.swift; sourceTree = "<group>"; };
 		FEFDA47507DD5934771A79A04393EEF1 /* PieChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/PieChartDataSet.swift; sourceTree = "<group>"; };
@@ -1474,6 +1474,7 @@
 				8D49D8BA79F5C70966B7DE5827EFECF6 /* UIScrollView+EmptyDataSet.m */,
 				3AAE92C7B573A20522BBBD4F0A9471AC /* Support Files */,
 			);
+			name = DZNEmptyDataSet;
 			path = DZNEmptyDataSet;
 			sourceTree = "<group>";
 		};
@@ -1524,6 +1525,7 @@
 				21E4288CE4185676CE6E6CF32DA2B257 /* RSEmailFeedback.m */,
 				D941C8BAB016DCFE785B9CFC35363631 /* Support Files */,
 			);
+			name = RSEmailFeedback;
 			path = RSEmailFeedback;
 			sourceTree = "<group>";
 		};
@@ -1593,6 +1595,7 @@
 				2F5354BD4E99C6DE4B3930F02B18D1B0 /* ZGNavigationTitleView.m */,
 				34BB2B7CF7DB969C66F40F44A5C82308 /* Support Files */,
 			);
+			name = ZGNavigationBarTitle;
 			path = ZGNavigationBarTitle;
 			sourceTree = "<group>";
 		};
@@ -1663,6 +1666,7 @@
 				9B6B7D7F47B39247653264A3AB5FDC6A /* MBProgressHUD.m */,
 				250E61CFDAF0A605988FDB190C371B65 /* Support Files */,
 			);
+			name = MBProgressHUD;
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -1673,6 +1677,7 @@
 				784344BD6CE5F3DC1E32A21751FC3716 /* ATAppUpdater.m */,
 				0A1A20BB492082D9A274454886E02448 /* Support Files */,
 			);
+			name = ATAppUpdater;
 			path = ATAppUpdater;
 			sourceTree = "<group>";
 		};
@@ -1825,6 +1830,7 @@
 				A292CE31CF71497A89E6789C207D2D0A /* Fabric.h */,
 				AA6B3E8378CB2633023E55ECBB314775 /* Frameworks */,
 			);
+			name = Fabric;
 			path = Fabric;
 			sourceTree = "<group>";
 		};
@@ -1845,6 +1851,7 @@
 				72D51D5C195EFAD3E52BC25E00E22146 /* Core */,
 				14C58F2381ECCDB75CCC80EC7B9EE2C0 /* Support Files */,
 			);
+			name = Charts;
 			path = Charts;
 			sourceTree = "<group>";
 		};
@@ -1858,6 +1865,7 @@
 				21F79525C1084F2AD0AFF5BA171324B7 /* Resources */,
 				9F4B840DFB517435B545612BEB5CB53E /* Support Files */,
 			);
+			name = RMessage;
 			path = RMessage;
 			sourceTree = "<group>";
 		};
@@ -1891,6 +1899,7 @@
 				94ED1A8E8E662DC7D1CEF708C552FEC7 /* Crashlytics.h */,
 				EB43F32D67DD0558F84964ACC2195EAF /* Frameworks */,
 			);
+			name = Crashlytics;
 			path = Crashlytics;
 			sourceTree = "<group>";
 		};
@@ -1980,6 +1989,7 @@
 				C83CD9E2516B9A0386F6E5C2B7C3FB83 /* HexColors.m */,
 				F5FDFF08AAA272B34DBB2FF29644FBB6 /* Support Files */,
 			);
+			name = HexColors;
 			path = HexColors;
 			sourceTree = "<group>";
 		};
@@ -2049,6 +2059,7 @@
 				89EC402C1EDABB9FF27743CC96E0D904 /* UIViewController+STPopup.m */,
 				FF279902B6C45A4B2CEFCCB911645723 /* Support Files */,
 			);
+			name = STPopup;
 			path = STPopup;
 			sourceTree = "<group>";
 		};
@@ -2058,6 +2069,7 @@
 				95964C430DE871B07B11EA1C096E4B35 /* Core */,
 				E74B32F3DCBFFFE5A6C250BA253C9DFC /* Support Files */,
 			);
+			name = GBDeviceInfo;
 			path = GBDeviceInfo;
 			sourceTree = "<group>";
 		};
@@ -2163,6 +2175,7 @@
 				D61FEA0312884E999AAA5AD264FF6D82 /* UIViewController+PPTopMostController.m */,
 				4588123059A6FC2BADBA9DD2523F2F61 /* Support Files */,
 			);
+			name = PPTopMostController;
 			path = PPTopMostController;
 			sourceTree = "<group>";
 		};
@@ -2181,6 +2194,7 @@
 				A8D42D7647310A30DEAF12FD6CCEA753 /* FCFileManager.m */,
 				B6E8FFEB84D8EA86318D792D8FF18A0E /* Support Files */,
 			);
+			name = FCFileManager;
 			path = FCFileManager;
 			sourceTree = "<group>";
 		};
@@ -2230,6 +2244,7 @@
 				5C9A7B20F39852A92D209BFB888C84E7 /* ScrollableSegmentedControl.swift */,
 				9038AF63F821107DE0E47B1D94D4974B /* Support Files */,
 			);
+			name = ScrollableSegmentedControl;
 			path = ScrollableSegmentedControl;
 			sourceTree = "<group>";
 		};
@@ -2240,6 +2255,7 @@
 				2D11A799C9DEFC5BB8AFFF89407BB0F9 /* AutoCoding.m */,
 				F36F4052575550A3F1DFBE75B76CD19B /* Support Files */,
 			);
+			name = AutoCoding;
 			path = AutoCoding;
 			sourceTree = "<group>";
 		};
@@ -3122,7 +3138,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -5185,7 +5201,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
@@ -5224,7 +5239,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 80E730266FEA918101ADD3018C776336 /* Pods-cfctests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -5319,7 +5333,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1138201808D474292646BEF355F6AD05 /* Pods-cfctests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -5502,7 +5515,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4469F316129B3C4283A6C58E1ECF198F /* Pods-harbaughsim16.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -5567,7 +5579,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 96915316AC8D9653D9275B624762850A /* Pods-harbaughsim16.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
