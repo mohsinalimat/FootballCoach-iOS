@@ -631,6 +631,9 @@ static UIColor *styleColor = nil;
                 [offerString appendFormat:@"%@, ",offer];
             }
         }
+        if (offerString.length == 0) {
+            [offerString appendString:@"None"];
+        }
     } else {
         [offerString appendString:@"None"];
     }
