@@ -1348,7 +1348,7 @@
     NSString *name = [p getInitialName];
     NSString *position = p.position;
     if ([p isKindOfClass:[PlayerQB class]]) {
-        if (((PlayerQB *)p).ratSpeed >= 75) {
+        if (((PlayerQB *)p).ratSpeed >= 70) { // this is where we start rating him as a B+ in speed
             position = @"DUAL";
         } else {
             position = @"PRO";

@@ -176,10 +176,11 @@
         self.ratPassPow = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
         self.ratPassAcc = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
         self.ratPassEva = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
+        self.ratSpeed = (int) (60 + self.year*5 + stars*5 - 25* [HBSharedUtils randomValue]);
         self.ratOvr = (self.ratPassPow*3 + self.ratPassAcc*4 + self.ratPassEva)/8;
 
         self.cost = (int)pow((float)self.ratOvr/3.5,2) + (int)([HBSharedUtils randomValue]*100) - 50;
-        self.ratSpeed = (int)(67 + (self.year*5 * [HBSharedUtils randomValue]));
+        
         
         if (t == nil) {
             self.recruitStatus = CFCRecruitStatusUncommitted;
