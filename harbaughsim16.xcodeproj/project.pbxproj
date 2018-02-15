@@ -28,7 +28,6 @@
 		754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E907D1CA59A0900C450CF /* RankingsViewController.m */; };
 		754E90821CA5A59D00C450CF /* TeamScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E90801CA5A59D00C450CF /* TeamScheduleViewController.m */; };
 		754E90831CA5A59D00C450CF /* TeamScheduleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 754E90811CA5A59D00C450CF /* TeamScheduleViewController.xib */; };
-		7551AC1C1FFFD8880033680E /* RecruitWatchlistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7551AC1B1FFFD8880033680E /* RecruitWatchlistViewController.m */; };
 		7551AC201FFFD9CA0033680E /* CFCWatchlistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */; };
 		7551AC211FFFD9CA0033680E /* CFCWatchlistCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */; };
 		755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC461C9DD0DF001A8314 /* HBStatsCell.m */; };
@@ -54,6 +53,7 @@
 		7562A8911FFF4040004C0985 /* show@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7562A88D1FFF403F004C0985 /* show@2x.png */; };
 		7562A8931FFF4370004C0985 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7562A8921FFF4370004C0985 /* BalloonMarker.swift */; };
 		7562A8951FFF4394004C0985 /* PrestigeYearMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7562A8941FFF4394004C0985 /* PrestigeYearMarkerView.swift */; };
+		7562CC3F200C7488000A7A1C /* RecruitingActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7562CC3E200C7488000A7A1C /* RecruitingActionsViewController.m */; };
 		7563A8E11CB7F6F20023E43B /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 7563A8E01CB7F6F20023E43B /* Record.m */; };
 		756973971FAAB50400A66C42 /* LeagueUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 756973961FAAB50400A66C42 /* LeagueUpdater.m */; };
 		7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */; };
@@ -109,6 +109,30 @@
 		75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C961C9C7C0C0034140C /* schedule-selected@3x.png */; };
 		75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C971C9C7C0C0034140C /* team-selected@3x.png */; };
 		75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */; };
+		75B9792F20067BD20050E077 /* cfctests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B9792E20067BD20050E077 /* cfctests.m */; };
+		75B9793620067CEA0050E077 /* HBSharedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */; };
+		75B9793720067CEA0050E077 /* LeagueUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 756973961FAAB50400A66C42 /* LeagueUpdater.m */; };
+		75B9793820067CEA0050E077 /* League.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A541C99D24500B165AD /* League.m */; };
+		75B9793920067CEA0050E077 /* NSArray+Uniqueness.m in Sources */ = {isa = PBXBuildFile; fileRef = 7591FE401D465B940037ECFB /* NSArray+Uniqueness.m */; };
+		75B9793A20067CEA0050E077 /* Conference.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A4E1C99D05E00B165AD /* Conference.m */; };
+		75B9793B20067CEA0050E077 /* Team.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A3C1C99CD8D00B165AD /* Team.m */; };
+		75B9793C20067CEA0050E077 /* TeamStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A511C99D1C600B165AD /* TeamStrategy.m */; };
+		75B9793D20067CEA0050E077 /* TeamStreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 75300A5F1CB2DC96001EBBCB /* TeamStreak.m */; };
+		75B9793E20067CEA0050E077 /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 7563A8E01CB7F6F20023E43B /* Record.m */; };
+		75B9793F20067CEA0050E077 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A481C99CF7C00B165AD /* Game.m */; };
+		75B9794020067CEA0050E077 /* Injury.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A701D0663B900F24BE6 /* Injury.m */; };
+		75B9794120067CEA0050E077 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A4B1C99D03300B165AD /* Player.m */; };
+		75B9794220067CEA0050E077 /* PlayerQB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A571C99E62F00B165AD /* PlayerQB.m */; };
+		75B9794320067CEA0050E077 /* PlayerRB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A5A1C99E63800B165AD /* PlayerRB.m */; };
+		75B9794420067CEA0050E077 /* PlayerWR.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A5D1C99E64400B165AD /* PlayerWR.m */; };
+		75B9794520067CEA0050E077 /* PlayerTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE584D1FA3838600DE2534 /* PlayerTE.m */; };
+		75B9794620067CEA0050E077 /* PlayerK.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A601C99E64D00B165AD /* PlayerK.m */; };
+		75B9794720067CEA0050E077 /* PlayerOL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A631C99E65600B165AD /* PlayerOL.m */; };
+		75B9794820067CEA0050E077 /* PlayerS.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A661C99E65E00B165AD /* PlayerS.m */; };
+		75B9794920067CEA0050E077 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
+		75B9794A20067CEA0050E077 /* PlayerLB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58481FA37D8C00DE2534 /* PlayerLB.m */; };
+		75B9794B20067CEA0050E077 /* PlayerCB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A691C99E66700B165AD /* PlayerCB.m */; };
+		75B9794C20067CEA0050E077 /* PlayerF7.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A6C1C99E66E00B165AD /* PlayerF7.m */; };
 		75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */; };
 		75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */; };
 		75BBDBB61DEC910A00124AA4 /* GraduatingPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BBDBB51DEC910A00124AA4 /* GraduatingPlayersViewController.m */; };
@@ -118,11 +142,7 @@
 		75C5C3321F83447A00D7CAAD /* UpcomingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */; };
 		75C5C3351F83457100D7CAAD /* PlayerStatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3331F83457000D7CAAD /* PlayerStatsViewController.m */; };
 		75C5C3381F83489D00D7CAAD /* HBTeamPlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */; };
-		75C7C48B1FF8B176003840D4 /* AEProgressTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C7C48A1FF8B176003840D4 /* AEProgressTitleView.m */; };
-		75C7C4951FF9EE23003840D4 /* AEScrollingToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C7C4941FF9EE23003840D4 /* AEScrollingToolbarView.m */; };
 		75C7C4981FFA0C9C003840D4 /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C7C4971FFA0C9C003840D4 /* HelpViewController.m */; };
-		75C84CC620056AAC00179190 /* CFCRecruitiOS9Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C84CC420056AAC00179190 /* CFCRecruitiOS9Cell.m */; };
-		75C84CC720056AAC00179190 /* CFCRecruitiOS9Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C84CC520056AAC00179190 /* CFCRecruitiOS9Cell.xib */; };
 		75CA698C1FEE2BF2008A58D1 /* last-names.csv in Resources */ = {isa = PBXBuildFile; fileRef = 75CA698A1FEE2BF2008A58D1 /* last-names.csv */; };
 		75CA698D1FEE2BF2008A58D1 /* first-names.csv in Resources */ = {isa = PBXBuildFile; fileRef = 75CA698B1FEE2BF2008A58D1 /* first-names.csv */; };
 		75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CACE1C1CBECCBC003AB932 /* FCAFootball.png */; };
@@ -155,10 +175,18 @@
 		75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
 		75FE584B1FA37D8C00DE2534 /* PlayerLB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58481FA37D8C00DE2534 /* PlayerLB.m */; };
 		75FE584E1FA3838600DE2534 /* PlayerTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE584D1FA3838600DE2534 /* PlayerTE.m */; };
+		94266A3BCC00501A20BBA8D3 /* Pods_cfctests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 497A9658B389B94C5E120F29 /* Pods_cfctests.framework */; };
 		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		75B9793120067BD20050E077 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75924A131C99CCC000B165AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75924A1A1C99CCC000B165AD;
+			remoteInfo = harbaughsim16;
+		};
 		75CC974C1FB1D60000D08F06 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 75924A131C99CCC000B165AD /* Project object */;
@@ -169,7 +197,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C8B90D97AA7A452C16BCE43 /* Pods-cfctests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cfctests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cfctests/Pods-cfctests.release.xcconfig"; sourceTree = "<group>"; };
+		420504B1CC403077798DB85B /* Pods-cfctests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cfctests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cfctests/Pods-cfctests.debug.xcconfig"; sourceTree = "<group>"; };
 		47B6A776B32A57CB82A6413D /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.release.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
+		497A9658B389B94C5E120F29 /* Pods_cfctests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cfctests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75097C591CBC1B55003E2538 /* HBRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBRecordCell.h; sourceTree = "<group>"; };
 		75097C5A1CBC1B55003E2538 /* HBRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBRecordCell.m; sourceTree = "<group>"; };
 		75097C5B1CBC1B55003E2538 /* HBRecordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBRecordCell.xib; sourceTree = "<group>"; };
@@ -207,8 +238,6 @@
 		754E907F1CA5A59D00C450CF /* TeamScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScheduleViewController.h; sourceTree = "<group>"; };
 		754E90801CA5A59D00C450CF /* TeamScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScheduleViewController.m; sourceTree = "<group>"; };
 		754E90811CA5A59D00C450CF /* TeamScheduleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamScheduleViewController.xib; sourceTree = "<group>"; };
-		7551AC1A1FFFD8880033680E /* RecruitWatchlistViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecruitWatchlistViewController.h; sourceTree = "<group>"; };
-		7551AC1B1FFFD8880033680E /* RecruitWatchlistViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecruitWatchlistViewController.m; sourceTree = "<group>"; };
 		7551AC1D1FFFD9CA0033680E /* CFCWatchlistCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFCWatchlistCell.h; sourceTree = "<group>"; };
 		7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CFCWatchlistCell.m; sourceTree = "<group>"; };
 		7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CFCWatchlistCell.xib; sourceTree = "<group>"; };
@@ -244,6 +273,8 @@
 		7562A8921FFF4370004C0985 /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		7562A8941FFF4394004C0985 /* PrestigeYearMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrestigeYearMarkerView.swift; sourceTree = "<group>"; };
 		7562A8961FFF44E8004C0985 /* harbaughsim16-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "harbaughsim16-Bridging-Header.h"; sourceTree = "<group>"; };
+		7562CC3D200C7488000A7A1C /* RecruitingActionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecruitingActionsViewController.h; sourceTree = "<group>"; };
+		7562CC3E200C7488000A7A1C /* RecruitingActionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecruitingActionsViewController.m; sourceTree = "<group>"; };
 		7563A8DF1CB7F6F20023E43B /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
 		7563A8E01CB7F6F20023E43B /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
 		756973951FAAB50400A66C42 /* LeagueUpdater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeagueUpdater.h; sourceTree = "<group>"; };
@@ -330,6 +361,9 @@
 		75A86C961C9C7C0C0034140C /* schedule-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule-selected@3x.png"; sourceTree = "<group>"; };
 		75A86C971C9C7C0C0034140C /* team-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "team-selected@3x.png"; sourceTree = "<group>"; };
 		75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roster-selected@3x.png"; sourceTree = "<group>"; };
+		75B9792C20067BD20050E077 /* cfctests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cfctests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		75B9792E20067BD20050E077 /* cfctests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cfctests.m; sourceTree = "<group>"; };
+		75B9793020067BD20050E077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScheduleViewController.h; sourceTree = "<group>"; };
 		75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScheduleViewController.m; sourceTree = "<group>"; };
 		75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyTeamViewController.h; sourceTree = "<group>"; };
@@ -358,15 +392,8 @@
 		75C5C3341F83457100D7CAAD /* PlayerStatsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerStatsViewController.h; sourceTree = "<group>"; };
 		75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBTeamPlayView.h; sourceTree = "<group>"; };
 		75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBTeamPlayView.m; sourceTree = "<group>"; };
-		75C7C4891FF8B176003840D4 /* AEProgressTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AEProgressTitleView.h; sourceTree = "<group>"; };
-		75C7C48A1FF8B176003840D4 /* AEProgressTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AEProgressTitleView.m; sourceTree = "<group>"; };
-		75C7C4931FF9EE23003840D4 /* AEScrollingToolbarView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AEScrollingToolbarView.h; sourceTree = "<group>"; };
-		75C7C4941FF9EE23003840D4 /* AEScrollingToolbarView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AEScrollingToolbarView.m; sourceTree = "<group>"; };
 		75C7C4961FFA0C9C003840D4 /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
 		75C7C4971FFA0C9C003840D4 /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
-		75C84CC320056AAC00179190 /* CFCRecruitiOS9Cell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFCRecruitiOS9Cell.h; sourceTree = "<group>"; };
-		75C84CC420056AAC00179190 /* CFCRecruitiOS9Cell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CFCRecruitiOS9Cell.m; sourceTree = "<group>"; };
-		75C84CC520056AAC00179190 /* CFCRecruitiOS9Cell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CFCRecruitiOS9Cell.xib; sourceTree = "<group>"; };
 		75CA698A1FEE2BF2008A58D1 /* last-names.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "last-names.csv"; sourceTree = "<group>"; };
 		75CA698B1FEE2BF2008A58D1 /* first-names.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "first-names.csv"; sourceTree = "<group>"; };
 		75CACE1C1CBECCBC003AB932 /* FCAFootball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FCAFootball.png; sourceTree = "<group>"; };
@@ -424,6 +451,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		75B9792920067BD20050E077 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94266A3BCC00501A20BBA8D3 /* Pods_cfctests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		75CC97441FB1D60000D08F06 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -439,6 +474,8 @@
 			children = (
 				D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */,
 				47B6A776B32A57CB82A6413D /* Pods-harbaughsim16.release.xcconfig */,
+				420504B1CC403077798DB85B /* Pods-cfctests.debug.xcconfig */,
+				1C8B90D97AA7A452C16BCE43 /* Pods-cfctests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -449,18 +486,11 @@
 				7503A01620004AAF004426AA /* Old */,
 				75CEE9481FF593B6005A86C1 /* RecruitingPeriodViewController.h */,
 				75CEE9491FF593B6005A86C1 /* RecruitingPeriodViewController.m */,
-				7551AC1A1FFFD8880033680E /* RecruitWatchlistViewController.h */,
-				7551AC1B1FFFD8880033680E /* RecruitWatchlistViewController.m */,
-				75C7C4891FF8B176003840D4 /* AEProgressTitleView.h */,
-				75C7C48A1FF8B176003840D4 /* AEProgressTitleView.m */,
-				75C7C4931FF9EE23003840D4 /* AEScrollingToolbarView.h */,
-				75C7C4941FF9EE23003840D4 /* AEScrollingToolbarView.m */,
+				7562CC3D200C7488000A7A1C /* RecruitingActionsViewController.h */,
+				7562CC3E200C7488000A7A1C /* RecruitingActionsViewController.m */,
 				75CEE94B1FF593F5005A86C1 /* CFCRecruitCell.h */,
 				75CEE94C1FF593F5005A86C1 /* CFCRecruitCell.m */,
 				75CEE94D1FF593F5005A86C1 /* CFCRecruitCell.xib */,
-				75C84CC320056AAC00179190 /* CFCRecruitiOS9Cell.h */,
-				75C84CC420056AAC00179190 /* CFCRecruitiOS9Cell.m */,
-				75C84CC520056AAC00179190 /* CFCRecruitiOS9Cell.xib */,
 				7551AC1D1FFFD9CA0033680E /* CFCWatchlistCell.h */,
 				7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */,
 				7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */,
@@ -754,6 +784,7 @@
 			children = (
 				75924A1D1C99CCC000B165AD /* harbaughsim16 */,
 				75CC97481FB1D60000D08F06 /* CFC-Screenshots */,
+				75B9792D20067BD20050E077 /* cfctests */,
 				75924A1C1C99CCC000B165AD /* Products */,
 				38C3A07A6C2A3ED611332D85 /* Pods */,
 				C0C1FC9379CC5881BF7F3C73 /* Frameworks */,
@@ -765,6 +796,7 @@
 			children = (
 				75924A1B1C99CCC000B165AD /* harbaughsim16.app */,
 				75CC97471FB1D60000D08F06 /* CFC-Screenshots.xctest */,
+				75B9792C20067BD20050E077 /* cfctests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -846,6 +878,15 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		75B9792D20067BD20050E077 /* cfctests */ = {
+			isa = PBXGroup;
+			children = (
+				75B9792E20067BD20050E077 /* cfctests.m */,
+				75B9793020067BD20050E077 /* Info.plist */,
+			);
+			path = cfctests;
+			sourceTree = "<group>";
+		};
 		75BABF461C9A5E5E00A68CD6 /* Simulation Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -888,6 +929,7 @@
 			isa = PBXGroup;
 			children = (
 				DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */,
+				497A9658B389B94C5E120F29 /* Pods_cfctests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -915,6 +957,27 @@
 			productName = harbaughsim16;
 			productReference = 75924A1B1C99CCC000B165AD /* harbaughsim16.app */;
 			productType = "com.apple.product-type.application";
+		};
+		75B9792B20067BD20050E077 /* cfctests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75B9793520067BD20050E077 /* Build configuration list for PBXNativeTarget "cfctests" */;
+			buildPhases = (
+				EE2911C49B78FA81238583A8 /* [CP] Check Pods Manifest.lock */,
+				75B9792820067BD20050E077 /* Sources */,
+				75B9792920067BD20050E077 /* Frameworks */,
+				75B9792A20067BD20050E077 /* Resources */,
+				A453EC2219D24D128FA4DB23 /* [CP] Embed Pods Frameworks */,
+				9CB710BDD1F850C84E318F16 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75B9793220067BD20050E077 /* PBXTargetDependency */,
+			);
+			name = cfctests;
+			productName = cfctests;
+			productReference = 75B9792C20067BD20050E077 /* cfctests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		75CC97461FB1D60000D08F06 /* CFC-Screenshots */ = {
 			isa = PBXNativeTarget;
@@ -949,6 +1012,12 @@
 						DevelopmentTeam = 67BW26529D;
 						LastSwiftMigration = 0920;
 					};
+					75B9792B20067BD20050E077 = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = 67BW26529D;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 75924A1A1C99CCC000B165AD;
+					};
 					75CC97461FB1D60000D08F06 = {
 						CreatedOnToolsVersion = 9.1;
 						DevelopmentTeam = 67BW26529D;
@@ -972,6 +1041,7 @@
 			targets = (
 				75924A1A1C99CCC000B165AD /* harbaughsim16 */,
 				75CC97461FB1D60000D08F06 /* CFC-Screenshots */,
+				75B9792B20067BD20050E077 /* cfctests */,
 			);
 		};
 /* End PBXProject section */
@@ -1034,7 +1104,6 @@
 				75A86C921C9C7AA80034140C /* team@3x.png in Resources */,
 				755BBC871C9F7DA4001A8314 /* HBScoreCell.xib in Resources */,
 				7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */,
-				75C84CC720056AAC00179190 /* CFCRecruitiOS9Cell.xib in Resources */,
 				7571DD261C9CC64200E67080 /* settings@3x.png in Resources */,
 				75F0E2681FECDAEA00719086 /* trophy@2x.png in Resources */,
 				7571DD351C9CF8E300E67080 /* MyTeamViewController.xib in Resources */,
@@ -1045,6 +1114,13 @@
 				754E90831CA5A59D00C450CF /* TeamScheduleViewController.xib in Resources */,
 				755BBC7D1C9F6964001A8314 /* TeamSearchViewController.xib in Resources */,
 				75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75B9792A20067BD20050E077 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1086,6 +1162,36 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" b78f856111e2a3bd5e7912b170e627a6117a818e 66e7db92bf1b6f2e94ad0e890361bd81d894a5f91194061aa816c2cb9dc00b1e";
 		};
+		9CB710BDD1F850C84E318F16 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cfctests/Pods-cfctests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A453EC2219D24D128FA4DB23 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cfctests/Pods-cfctests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D697AD2F27F8EAE2FAC35E4F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1116,6 +1222,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EE2911C49B78FA81238583A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1124,18 +1245,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				755BBC811C9F734E001A8314 /* TeamViewController.m in Sources */,
-				75C7C4951FF9EE23003840D4 /* AEScrollingToolbarView.m in Sources */,
 				75924A4C1C99D03300B165AD /* Player.m in Sources */,
 				7563A8E11CB7F6F20023E43B /* Record.m in Sources */,
 				75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */,
 				75C5C3321F83447A00D7CAAD /* UpcomingViewController.m in Sources */,
-				7551AC1C1FFFD8880033680E /* RecruitWatchlistViewController.m in Sources */,
 				75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */,
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
 				755BBC781C9E5930001A8314 /* RecruitingViewController.m in Sources */,
 				75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */,
 				75924A581C99E62F00B165AD /* PlayerQB.m in Sources */,
 				75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */,
+				7562CC3F200C7488000A7A1C /* RecruitingActionsViewController.m in Sources */,
 				751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */,
 				75772C2E1D1C079E002DE956 /* RebrandConferenceSelectorViewController.m in Sources */,
 				754319021CC02D2200D380F1 /* ConferenceStandingsSelectorViewController.m in Sources */,
@@ -1176,7 +1296,6 @@
 				7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */,
 				754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */,
 				7591FE411D465B940037ECFB /* NSArray+Uniqueness.m in Sources */,
-				75C7C48B1FF8B176003840D4 /* AEProgressTitleView.m in Sources */,
 				7571DD381C9CFD4000E67080 /* RosterViewController.m in Sources */,
 				75CEE94E1FF593F5005A86C1 /* CFCRecruitCell.m in Sources */,
 				754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */,
@@ -1198,13 +1317,43 @@
 				7562A8931FFF4370004C0985 /* BalloonMarker.swift in Sources */,
 				7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */,
 				754E90821CA5A59D00C450CF /* TeamScheduleViewController.m in Sources */,
-				75C84CC620056AAC00179190 /* CFCRecruitiOS9Cell.m in Sources */,
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,
 				7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */,
 				75924A521C99D1C600B165AD /* TeamStrategy.m in Sources */,
 				75FE584E1FA3838600DE2534 /* PlayerTE.m in Sources */,
 				7571DD3C1C9CFF6500E67080 /* HBRosterCell.m in Sources */,
 				754E90781CA58BF800C450CF /* BowlProjectionViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75B9792820067BD20050E077 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75B9793620067CEA0050E077 /* HBSharedUtils.m in Sources */,
+				75B9793720067CEA0050E077 /* LeagueUpdater.m in Sources */,
+				75B9793820067CEA0050E077 /* League.m in Sources */,
+				75B9793920067CEA0050E077 /* NSArray+Uniqueness.m in Sources */,
+				75B9793A20067CEA0050E077 /* Conference.m in Sources */,
+				75B9793B20067CEA0050E077 /* Team.m in Sources */,
+				75B9793C20067CEA0050E077 /* TeamStrategy.m in Sources */,
+				75B9793D20067CEA0050E077 /* TeamStreak.m in Sources */,
+				75B9793E20067CEA0050E077 /* Record.m in Sources */,
+				75B9793F20067CEA0050E077 /* Game.m in Sources */,
+				75B9794020067CEA0050E077 /* Injury.m in Sources */,
+				75B9794120067CEA0050E077 /* Player.m in Sources */,
+				75B9794220067CEA0050E077 /* PlayerQB.m in Sources */,
+				75B9794320067CEA0050E077 /* PlayerRB.m in Sources */,
+				75B9794420067CEA0050E077 /* PlayerWR.m in Sources */,
+				75B9794520067CEA0050E077 /* PlayerTE.m in Sources */,
+				75B9794620067CEA0050E077 /* PlayerK.m in Sources */,
+				75B9794720067CEA0050E077 /* PlayerOL.m in Sources */,
+				75B9794820067CEA0050E077 /* PlayerS.m in Sources */,
+				75B9794920067CEA0050E077 /* PlayerDL.m in Sources */,
+				75B9794A20067CEA0050E077 /* PlayerLB.m in Sources */,
+				75B9794B20067CEA0050E077 /* PlayerCB.m in Sources */,
+				75B9794C20067CEA0050E077 /* PlayerF7.m in Sources */,
+				75B9792F20067BD20050E077 /* cfctests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1220,6 +1369,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		75B9793220067BD20050E077 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75924A1A1C99CCC000B165AD /* harbaughsim16 */;
+			targetProxy = 75B9793120067BD20050E077 /* PBXContainerItemProxy */;
+		};
 		75CC974D1FB1D60000D08F06 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 75924A1A1C99CCC000B165AD /* harbaughsim16 */;
@@ -1287,6 +1441,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1332,6 +1487,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1348,7 +1504,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 67BW26529D;
 				INFOPLIST_FILE = harbaughsim16/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.harbaughsim16;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1371,13 +1527,63 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 67BW26529D;
 				INFOPLIST_FILE = harbaughsim16/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.harbaughsim16;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "harbaughsim16/harbaughsim16-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		75B9793320067BD20050E077 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 420504B1CC403077798DB85B /* Pods-cfctests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67BW26529D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = cfctests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.cfctests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/harbaughsim16.app/harbaughsim16";
+			};
+			name = Debug;
+		};
+		75B9793420067BD20050E077 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1C8B90D97AA7A452C16BCE43 /* Pods-cfctests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67BW26529D;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = cfctests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.cfctests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/harbaughsim16.app/harbaughsim16";
 			};
 			name = Release;
 		};
@@ -1448,6 +1654,15 @@
 			buildConfigurations = (
 				75924A361C99CCC000B165AD /* Debug */,
 				75924A371C99CCC000B165AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75B9793520067BD20050E077 /* Build configuration list for PBXNativeTarget "cfctests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75B9793320067BD20050E077 /* Debug */,
+				75B9793420067BD20050E077 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

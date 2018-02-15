@@ -24,6 +24,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import "ATAppUpdater.h"
 #import "FCFileManager.h"
+#import "ZGNavigationTitleView.h"
 
 #define kHBSimFirstLaunchKey @"firstLaunch"
 
@@ -177,6 +178,13 @@
     [STPopupNavigationBar appearance].barTintColor = [HBSharedUtils styleColor];
     [STPopupNavigationBar appearance].tintColor = [UIColor whiteColor];
     [STPopupNavigationBar appearance].barStyle = UIBarStyleDefault;
+    
+    [[ZGNavigationTitleView appearance] setNavigationBarTitleFont:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold]];
+    [[ZGNavigationTitleView appearance] setNavigationBarTitleFontColor:[UIColor whiteColor]];
+    
+    [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFont:[UIFont systemFontOfSize:12.0]];
+    [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFontColor:[UIColor lightTextColor]];
+    
     
     [RMessage addDesignsFromFileWithName:@"alt-designs" inBundle:[NSBundle mainBundle]];
 

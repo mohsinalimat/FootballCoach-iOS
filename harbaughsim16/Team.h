@@ -250,8 +250,6 @@
 
 -(NSMutableArray*)getGameSummaryStrings:(int)gameNumber;
 -(NSString*)getSeasonSummaryString;
--(NSString*)getRankString:(int)num;
--(NSString*)getRankStrStarUser:(int)num;
 
 -(int)numGames;
 -(int)calculateConfWins;

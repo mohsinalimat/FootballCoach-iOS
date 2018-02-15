@@ -69,9 +69,14 @@
     [aCoder encodeObject:self.AwayWR2Stats forKey:@"AwayWR2Stats"];
     [aCoder encodeObject:self.AwayWR3Stats forKey:@"AwayWR3Stats"];
     [aCoder encodeObject:self.AwayKStats forKey:@"AwayKStats"];
-
-    [aCoder encodeObject:self.homeTeam forKey:@"homeTeam"];
-    [aCoder encodeObject:self.awayTeam forKey:@"awayTeam"];
+    
+    @synchronized(self.homeTeam) {
+        [aCoder encodeObject:self.homeTeam forKey:@"homeTeam"];
+    }
+    
+    @synchronized(self.awayTeam) {
+        [aCoder encodeObject:self.awayTeam forKey:@"awayTeam"];
+    }
 
     [aCoder encodeObject:self.homeStarters forKey:@"homeStarters"];
     [aCoder encodeObject:self.awayStarters forKey:@"awayStarters"];
@@ -150,90 +155,8 @@
     return self;
 }
 
-
--(instancetype)initWithHome:(Team*)home away:(Team*)away {
-    self = [super init];
-    if (self) {
-        homeTeam = home;
-        awayTeam = away;
-        
-        homeScore = 0;
-        homeQScore = [NSMutableArray array];
-        awayScore = 0;
-        awayQScore = [NSMutableArray array];
-        numOT = 0;
-        
-        for (int i = 0; i < 10; i++) {
-            [homeQScore addObject:@(0)];
-            [awayQScore addObject:@(0)];
-        }
-        
-        homeTOs = 0;
-        awayTOs = 0;
-        
-        gameEventLog = [NSMutableString stringWithFormat:@"LOG: #%ld %@ (%ld-%ld) @ #%ld %@ (%ld-%ld)\n---------------------------------------------------------",(long)awayTeam.rankTeamPollScore,awayTeam.abbreviation,(long)awayTeam.wins,(long)awayTeam.losses,(long)homeTeam.rankTeamPollScore,homeTeam.abbreviation,(long)homeTeam.wins,(long)homeTeam.losses];
-        
-        //initialize arrays, set everything to zero
-        HomeQBStats = [NSMutableArray array];
-        AwayQBStats = [NSMutableArray array];
-        
-        HomeRB1Stats = [NSMutableArray array];
-        HomeRB2Stats = [NSMutableArray array];
-        AwayRB1Stats = [NSMutableArray array];
-        AwayRB2Stats = [NSMutableArray array];
-        
-        HomeWR1Stats = [NSMutableArray array];
-        HomeWR2Stats = [NSMutableArray array];
-        HomeWR3Stats = [NSMutableArray array];
-        AwayWR1Stats = [NSMutableArray array];
-        AwayWR2Stats = [NSMutableArray array];
-        AwayWR3Stats = [NSMutableArray array];
-        
-        HomeTEStats = [NSMutableArray array];
-        AwayTEStats = [NSMutableArray array];
-        
-        HomeKStats = [NSMutableArray array];
-        AwayKStats = [NSMutableArray array];
-        
-        
-        for (int i = 0; i < 10; i++) {
-            [HomeQBStats addObject:@(0)];
-            [AwayQBStats addObject:@(0)];
-        }
-        
-        for (int i = 0; i < 6; i++) {
-            [HomeTEStats addObject:@(0)];
-            [AwayTEStats addObject:@(0)];
-            
-            [HomeKStats addObject:@(0)];
-            [AwayKStats addObject:@(0)];
-            
-            [HomeWR1Stats addObject:@(0)];
-            [AwayWR1Stats addObject:@(0)];
-            
-            [HomeWR2Stats addObject:@(0)];
-            [AwayWR2Stats addObject:@(0)];
-            
-            [HomeWR3Stats addObject:@(0)];
-            [AwayWR3Stats addObject:@(0)];
-        }
-        
-        for (int i = 0; i < 4; i++) {
-            [HomeRB1Stats addObject:@(0)];
-            [AwayRB1Stats addObject:@(0)];
-            [HomeRB2Stats addObject:@(0)];
-            [AwayRB2Stats addObject:@(0)];
-        }
-        
-        hasPlayed = false;
-        
-        gameName = @"";
-    }
-    return self;
-}
-
 +(instancetype)newGameWithHome:(Team*)home away:(Team*)away {
-    return [[Game alloc] initWithHome:home away:away];
+    return [[Game alloc] initWithHome:home away:away name:nil];
 }
 
 +(instancetype)newGameWithHome:(Team*)home away:(Team*)away name:(NSString*)name {
@@ -246,7 +169,9 @@
         homeTeam = home;
         awayTeam = away;
         
-        gameName = name;
+        if (name != nil) {
+            gameName = name;
+        }
         
         homeScore = 0;
         homeQScore = [NSMutableArray array];
@@ -321,7 +246,7 @@
         
         hasPlayed = false;
         
-        if ([gameName isEqualToString:@"In Conf"] && ([homeTeam.rivalTeam isEqualToString:awayTeam.abbreviation] || [awayTeam.rivalTeam isEqualToString:homeTeam.abbreviation])) {
+        if (gameName != nil && [gameName isEqualToString:@"In Conf"] && ([homeTeam.rivalTeam isEqualToString:awayTeam.abbreviation] || [awayTeam.rivalTeam isEqualToString:homeTeam.abbreviation])) {
             // Rivalry game!
             gameName = @"Rivalry Game";
         }
@@ -396,7 +321,7 @@
                                                              [awayTeam getWR:1],
                                                              [awayTeam getWR:2],
                                                             
-                                                            [awayTeam getTE:0],
+                                                             [awayTeam getTE:0],
                                                              
                                                              [awayTeam getOL:0],
                                                              [awayTeam getOL:1],
@@ -747,7 +672,7 @@
                                                          [awayTeam getWR:1],
                                                          [awayTeam getWR:2],
                                                         
-                                                        [awayTeam getTE:0],
+                                                         [awayTeam getTE:0],
                                                          
                                                          [awayTeam getOL:0],
                                                          [awayTeam getOL:1],
@@ -1444,7 +1369,7 @@
     }
     
     //check for int
-   double intChance = (pressureOnQB + selS.ratOvr - (selQB.ratPassAcc + selQB.ratFootIQ + 100) / 3) / 18 - offense.offensiveStrategy.passProtection + defense.defensiveStrategy.passProtection;
+    double intChance = ((pressureOnQB + selS.ratOvr + defense.defensiveStrategy.passProtection - (selQB.ratPassAcc + selQB.ratFootIQ + 100 + offense.offensiveStrategy.passProtection) / 3) / 25);
     if (intChance < 0.015) intChance = 0.015;
     if ( 100* [HBSharedUtils randomValue] < intChance ) {
         //Interception
@@ -1574,7 +1499,7 @@
     }
     
     //check for int
-    double intChance = (pressureOnQB + selS.ratOvr - (selQB.ratPassAcc + selQB.ratFootIQ + 100) / 3) / 18 - offense.offensiveStrategy.passProtection + defense.defensiveStrategy.passProtection;
+    double intChance = ((pressureOnQB + selS.ratOvr + defense.defensiveStrategy.passProtection - (selQB.ratPassAcc + selQB.ratFootIQ + 100 + offense.offensiveStrategy.passProtection) / 3) / 25);
     if (intChance < 0.015) intChance = 0.015;
     if ( 100* [HBSharedUtils randomValue] < intChance ) {
         //Interception

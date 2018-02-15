@@ -21,6 +21,8 @@
 #import "RecruitingPeriodViewController.h"
 #import "GraduatingPlayersViewController.h"
 
+#import "ZGNavigationBarTitleViewController.h"
+
 #define ARC4RANDOM_MAX      0x100000000
 static UIColor *styleColor = nil;
 
@@ -30,7 +32,7 @@ static UIColor *styleColor = nil;
 }
 
 + (NSString *)recruitingTutorialText {
-    return @"At the end of each season, graduating seniors leave the program and spots open up. As coach, you are responsible for recruiting the next class of players that will lead your team to bigger and better wins. You have a maximum amount of effort you can exert while recruiting, which is dependent on your prestige and openings. Better teams will be able to exert more force in recruiting, while weaker teams may have to force their efforts more.\n\nWhen you press \"Start Offseason\" after the season, you can see who is leaving your program and give you a sense of how many players you will need to replace. Next, the Recruiting menu opens up (where you are now).\n\nHere, you can interact with potential signees and convince them to sign with your program over the others that have extended them offers. The quality of recruits available to you will differ depending on your prestige, denoted in recruits' ranking by avl. (available) or overall. Better programs will be able to recruit blue-chip recruits, while weaker programs will be forced to settle for 2- or 3-stars.\n\nAt the bottom of the screen, you'll see a toolbar with a few pages. You can swipe through these pages to access various options that may help you while you search for recruits. The toolbar starts with the 'recruiting effort bar'; keep an eye on this while you recruit to ensure you make choices efficiently. \n\nIn normal mode, there are two stages: Winter and Signing Day. Hard mode adds an extra stage in between the two: Early Signing Day. During both periods, you have four possible interactions with an uncommitted recruit: offering them a meeting with their positional coach, inviting them on an official visit to campus, offering to visit them at home, and extending them an official offer. The first three of these interactions with a player will turn their name orange in the list, while extending them an offer will mark them as dark green. When you advance between stages, other teams will make efforts to recruit players. Depending on their interest in your program, recruits will choose to accept your offer or choose another school's. If a recruit accepts your offer, their name will appear in light green. If a recruit commits to a different school, their name will be faded out. If you recruited them and they STILL committed to a different school, their name and the school they committed to will be listed in red. However, you can put in a lot of effort to flip that recruit's commitment, but you may miss out on other recruits in the process.\n\nAt the end of recruiting season, you'll be able to view the recruits that signed with your program. Any remaining positional needs will be filled by walk-on players.\n\nNow, go out there and bolster your team - good luck, coach!";
+    return @"At the end of each season, graduating seniors leave the program and spots open up. As coach, you are responsible for recruiting the next class of players that will lead your team to bigger and better wins. You have a maximum amount of effort you can exert while recruiting, which is dependent on your prestige and openings. Better teams will be able to exert more effort in recruiting, while weaker teams may have to plan their effort more carefully.\n\nWhen you press \"Start Offseason\" after the season, you can see who is leaving your program and give you a sense of how many players you will need to replace. Next, if you tap the \"Start Recruiting\" button, the Recruiting menu opens up (where you are now).\n\nHere, you can interact with potential signees and convince them to sign with your program over the others that have extended them offers. The quality of recruits available to you will differ depending on your prestige, denoted in recruits' ranking by avl. (available) or overall. Better programs will be able to recruit blue-chip recruits, while weaker programs will be forced to settle for 2- or 3-stars.\n\nAt the bottom of the screen, you'll see a toolbar with a few options: \"View Team Needs\" and a jersey icon. The \"View Team Needs\" button displays a popup with your current team needs, which live-updates as you sign recruits, and the jersey button displays your current roster with graduating players grayed out. \n\nIn normal mode, there are two stages: Winter and Signing Day. Hard mode adds an extra stage in between the two: Early Signing Day. During both periods, you have four possible interactions with an uncommitted recruit: offering them a meeting with their positional coach, inviting them on an official visit to campus, offering to visit them at home, and extending them an official offer. The first three of these interactions with a player will turn their name orange in the list, while extending them an offer will mark them as dark green. When you advance between stages, other teams will make efforts to recruit players. Depending on their interest in your program, recruits will choose to accept your offer or choose another school's. If a recruit accepts your offer, their name will appear in light green. If a recruit commits to a different school, their name will be faded out. If you recruited them and they STILL committed to a different school, their name and the school they committed to will be listed in red. However, you can put in a lot of effort to flip that recruit's commitment, but you may miss out on other recruits in the process.\n\nAt the end of recruiting season, you'll be able to view the recruits that signed with your program. Any remaining positional needs will be filled by walk-on players.\n\nNow, go out there and bolster your team - good luck, coach!";
 }
 
 + (NSString *)depthChartTutorialText {
@@ -94,7 +96,7 @@ static UIColor *styleColor = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
      [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setupAppearance];
-    
+
 }
 
 +(NSArray*)colorOptions { //FC Android color: #3EB49F //FC iOS color: #009740 //USA Red: #BB133E // USA Blue: #002147
@@ -136,6 +138,20 @@ static UIColor *styleColor = nil;
                 [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-error" duration:0.75 callback:nil];
             } else {
                 [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"loss" duration:0.75 callback:nil];
+            }
+        }
+    } else { // weekNotifications disabled
+        if (title == nil) {
+            if ([tintColor isEqual:[HBSharedUtils styleColor]]) {
+                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-success" duration:0.75 callback:nil];
+            } else if ([tintColor isEqual:[HBSharedUtils errorColor]]) {
+                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-error" duration:0.75 callback:nil];
+            }
+        } else {
+            if ([tintColor isEqual:[HBSharedUtils styleColor]]) {
+                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-success" duration:0.75 callback:nil];
+            } else if ([tintColor isEqual:[HBSharedUtils errorColor]]) {
+                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-error" duration:0.75 callback:nil];
             }
         }
     }
@@ -186,14 +202,14 @@ static UIColor *styleColor = nil;
     Team *b = (Team*)obj2;
     int aDivW = [a calculateConfWins];
     int bDivW = [b calculateConfWins];
-    
+
     if ([a.confChampion isEqualToString:@"CC"] && ![b.confChampion isEqualToString:@"CC"])
         return -1;
     else if ([b.confChampion isEqualToString:@"CC"] && ![a.confChampion isEqualToString:@"CC"])
         return 1;
-    else if (a.wins > b.wins) {
+    else if (aDivW > bDivW) {
         return -1;
-    } else if (a.wins < b.wins) {
+    } else if (bDivW > aDivW) {
         return 1;
     } else { // wins equal, check head to head
         if (![b.gameWinsAgainst containsObject:a]) {
@@ -203,13 +219,7 @@ static UIColor *styleColor = nil;
             // a never won against b
             return 1;
         } else { //they both beat each other at least once, check poll score, which will tie break with ppg if necessary
-            if (aDivW > bDivW) {
-                return -1;
-            } else if (bDivW > aDivW) {
-                return 1;
-            } else {
-                return [HBSharedUtils comparePollScore:a toObj2:b];
-            }
+            return [HBSharedUtils comparePollScore:a toObj2:b];
         }
     }
 }
@@ -322,13 +332,13 @@ static UIColor *styleColor = nil;
 
 + (void)startOffseason:(UIViewController*)viewController callback:(void (^)(void))callback {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu %@ Offseason", (long)([HBSharedUtils currentLeague].leagueHistoryDictionary.count + [HBSharedUtils currentLeague].baseYear), [HBSharedUtils currentLeague].userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
+
     [alertController addAction:[UIAlertAction actionWithTitle:@"Start Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
+            [viewController presentViewController:[[ZGNavigationBarTitleViewController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
         });
     }]];
-    
+
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Season Summary" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)[[HBSharedUtils currentLeague] getCurrentYear]] message:[[HBSharedUtils currentLeague] seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
@@ -347,12 +357,11 @@ static UIColor *styleColor = nil;
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
     [viewController presentViewController:alertController animated:YES completion:nil];
-    
+
 }
 
 +(void)playWeek:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback {
     League *simLeague = [HBSharedUtils currentLeague];
-    
     if (simLeague.recruitingStage == 0) {
         // Perform action on click
         if (simLeague.currentWeek == 15) {
@@ -368,8 +377,6 @@ static UIColor *styleColor = nil;
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([HBSharedUtils currentLeague].baseYear + simLeague.userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
-                
-                
             } else if (simLeague.userTeam.gameWLSchedule.count > numGamesPlayed) {
                 // Played a game, show summary - show notification
                 if (simLeague.currentWeek <= 12) {
@@ -409,9 +416,8 @@ static UIColor *styleColor = nil;
                         }
                     }
                 }
-                
             }
-            
+
             if (simLeague.currentWeek >= 12) {
                 if (simLeague.userTeam.gameSchedule.count > 0) {
                     Game *nextGame = [simLeague.userTeam.gameSchedule lastObject];
@@ -437,12 +443,12 @@ static UIColor *styleColor = nil;
                     }
                 }
             }
-            
+
             if (simLeague.currentWeek < 12) {
                 [HBSharedUtils currentLeague].canRebrandTeam = NO;
                 [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
                 [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
-                
+
                 if (simLeague.userTeam.league.currentWeek != 15) {
                     if (simLeague.userTeam.injuredPlayers.count > 0) {
                         [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)simLeague.userTeam.injuredPlayers.count];
@@ -451,7 +457,7 @@ static UIColor *styleColor = nil;
                     }
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateInjuryCount" object:nil];
                 }
-                
+
             } else if (simLeague.currentWeek == 12) {
                 [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 13) {
@@ -461,11 +467,11 @@ static UIColor *styleColor = nil;
                 for (int i = 1; i < heismanParts.count; i++) {
                     [composeHeis appendString:heismanParts[i]];
                 }
-                
+
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Player of the Year", (long)([HBSharedUtils currentLeague].baseYear + simLeague.userTeam.teamHistoryDictionary.count)] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
-                
+
                 [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 14) {
                 [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
@@ -476,7 +482,7 @@ static UIColor *styleColor = nil;
                 [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
             }
-            
+
             callback();
         }
     } else {
@@ -495,7 +501,7 @@ static UIColor *styleColor = nil;
             simLeague.recruitingStage = 1;
             [HBSharedUtils currentLeague].canRebrandTeam = YES;
             [[HBSharedUtils currentLeague] save];
-            
+
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([HBSharedUtils currentLeague].baseYear + simLeague.userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
@@ -504,10 +510,10 @@ static UIColor *styleColor = nil;
             if (IS_IPHONE_5 || IS_IPHONE_4_OR_LESS) {
                 simTime = 1.5;
             }
-            
+
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(simTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [simLeague playWeek];
-                
+
                 if (simLeague.currentWeek < 12) {
                     [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
                     [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
@@ -527,7 +533,7 @@ static UIColor *styleColor = nil;
                     [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
                 }
-                
+
                 callback();
                 if (weekTotal > 1 && simLeague.currentWeek < 15) {
                     NSLog(@"WEEK TOTAL: %d",weekTotal);
@@ -557,7 +563,6 @@ static UIColor *styleColor = nil;
         [HBSharedUtils startOffseason:viewController callback:nil];
     }
 }
-
 
 + (CFCRegion)regionForState:(NSString *)state {
     NSArray *northeast = @[@"Connecticut", @"Delaware", @"Maine", @"Massachusetts", @"New Hampshire", @"New Jersey", @"New York", @"Pennsylvania", @"Rhode Island", @"Vermont"];
@@ -626,56 +631,76 @@ static UIColor *styleColor = nil;
                 [offerString appendFormat:@"%@, ",offer];
             }
         }
+        if (offerString.length == 0) {
+            [offerString appendString:@"None"];
+        }
     } else {
         [offerString appendString:@"None"];
     }
     offerString = [NSMutableString stringWithString:[[offerString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]]];
-    
+
     return offerString;
 }
 
 +(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers {
-    
-    NSMutableDictionary *totalOffers = [NSMutableDictionary dictionaryWithDictionary:offers];
-    [totalOffers setObject:@(interestVal) forKey:[HBSharedUtils currentLeague].userTeam.abbreviation];
-    NSArray *sortedOffers = [totalOffers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [obj2 compare:obj1];
-    }];
-    
-    NSInteger offIdx = [sortedOffers indexOfObject:[HBSharedUtils currentLeague].userTeam.abbreviation];
-    
-    UIColor *letterColor = [UIColor lightGrayColor];
-    NSString *interestString = @"LOW";
-    if (offIdx == 0) {
-        letterColor = [HBSharedUtils successColor];
-        interestString = @"LOCK";
-    } else if (offIdx == 1) {
-        letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
-        interestString = @"HIGH";
-    } else if (offIdx == 2) {
-        letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
-        interestString = @"MEDIUM";
+    if (offers == nil || offers.count == 0 || (offers.count == 1 && [offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation])) {
+        NSLog(@"INTEREST: %d", interestVal);
+        return @{@"color" : [HBSharedUtils _calculateInterestColor:interestVal], @"interest" : [HBSharedUtils _calculateInterestString:interestVal]};
     } else {
-        letterColor = [UIColor lightGrayColor];
-        interestString = @"LOW";
+        NSMutableDictionary *totalOffers = [NSMutableDictionary dictionaryWithDictionary:offers];
+        [totalOffers setObject:@(interestVal) forKey:[HBSharedUtils currentLeague].userTeam.abbreviation];
+        NSArray *sortedOffers = [totalOffers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj2 compare:obj1];
+        }];
+        
+        NSInteger offIdx = [sortedOffers indexOfObject:[HBSharedUtils currentLeague].userTeam.abbreviation];
+        
+        UIColor *letterColor = [UIColor lightGrayColor];
+        NSString *interestString = @"LOW";
+        if (offIdx == 0) {
+            letterColor = [HBSharedUtils successColor];
+            interestString = @"LOCK";
+        } else if (offIdx == 1) {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+            interestString = @"HIGH";
+        } else if (offIdx == 2) {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+            interestString = @"MEDIUM";
+        } else {
+            letterColor = [UIColor lightGrayColor];
+            interestString = @"LOW";
+        }
+        
+        return @{@"color" : letterColor, @"interest" : interestString};
     }
-    
-    return @{@"color" : letterColor, @"interest" : interestString};
-    
 }
 
 +(NSString *)_calculateInterestString:(int)interestVal {
     NSString *interestString = @"LOW";
     if (interestVal > 94) { // LOCK
         interestString = @"LOCK";
-    } else if (interestVal > 84 && interestVal <= 94) { // HIGH
+    } else if (interestVal > 80 && interestVal <= 94) { // HIGH
         interestString = @"HIGH";
-    } else if (interestVal > 49 && interestVal <= 64) { // MEDIUM
+    } else if (interestVal > 49 && interestVal <= 79) { // MEDIUM
         interestString = @"MEDIUM";
     } else { // LOW
         interestString = @"LOW";
     }
     return interestString;
+}
+
++(UIColor *)_calculateInterestColor:(int)interestVal {
+    UIColor *interestColor = [UIColor lightGrayColor];
+    if (interestVal > 94) { // LOCK
+        interestColor = [HBSharedUtils successColor];
+    } else if (interestVal > 80 && interestVal <= 94) { // HIGH
+        interestColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+    } else if (interestVal > 49 && interestVal <= 79) { // MEDIUM
+        interestColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+    } else { // LOW
+        interestColor = [UIColor lightGrayColor];
+    }
+    return interestColor;
 }
 
 +(NSString *)convertStarsToUIImageName:(int)stars {
@@ -697,7 +722,6 @@ static UIColor *styleColor = nil;
             break;
     }
 }
-
 
 + (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber {
     float diff = bigNumber - smallNumber;

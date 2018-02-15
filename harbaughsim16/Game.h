@@ -76,10 +76,8 @@
 @property (strong, nonatomic) NSMutableString *gameEventLog;
 
 -(void)playGame;
--(instancetype)initWithHome:(Team*)home away:(Team*)away;
 +(instancetype)newGameWithHome:(Team*)home away:(Team*)away;
 +(instancetype)newGameWithHome:(Team*)home away:(Team*)away name:(NSString*)name;
--(instancetype)initWithHome:(Team*)home away:(Team*)away name:(NSString*)name;
 -(NSString*)gameSummary;
 -(NSDictionary*)gameReport;
 -(int)getPassYards:(BOOL)ha;

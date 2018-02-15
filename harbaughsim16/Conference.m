@@ -215,9 +215,7 @@
     if (teamTB.count > 2) {
         // ugh 3 way tiebreaker
         [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            Team *a = (Team*)obj1;
-            Team *b = (Team*)obj2;
-            return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+            return [HBSharedUtils comparePlayoffTeams:obj1 toObj2:obj2];
         }];
         for (int j = 0; j < teamTB.count; ++j) {
             [self.confTeams replaceObjectAtIndex:j withObject:teamTB[j]];
@@ -241,9 +239,7 @@
     if (teamTB.count > 2) {
         // ugh 3 way tiebreaker
         [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            Team *a = (Team*)obj1;
-            Team *b = (Team*)obj2;
-            return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
+            return [HBSharedUtils comparePlayoffTeams:obj1 toObj2:obj2];
         }];
         for (int j = 0; j < teamTB.count; ++j) {
             [self.confTeams replaceObjectAtIndex:(j+1) withObject:teamTB[j]];

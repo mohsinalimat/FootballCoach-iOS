@@ -3,20 +3,31 @@
 # Uncomment this line if you're using Swift
 use_frameworks!
 
-target 'harbaughsim16' do
-pod 'HexColors', '4.0.0'
-pod 'FCFileManager'
-pod 'AutoCoding'
-pod 'STPopup'
-pod 'RMessage'
-pod 'Fabric'
-pod 'Crashlytics'
-pod 'ATAppUpdater'
-pod 'DZNEmptyDataSet'
-pod 'MBProgressHUD'
-pod 'ScrollableSegmentedControl', '~> 1.3.0'
-pod 'Charts'
+def use_pod_list
+    pod 'HexColors', '4.0.0'
+    pod 'FCFileManager'
+    pod 'AutoCoding'
+    pod 'STPopup'
+    pod 'RMessage'
+    pod 'Fabric'
+    pod 'Crashlytics'
+    pod 'ATAppUpdater'
+    pod 'DZNEmptyDataSet'
+    pod 'MBProgressHUD'
+    pod 'ScrollableSegmentedControl', '~> 1.3.0'
+    pod 'Charts'
+    pod 'ZGNavigationBarTitle'
+    pod 'RSEmailFeedback'
 end
+
+target 'harbaughsim16' do
+    use_pod_list
+end
+
+target 'cfctests' do
+    use_pod_list
+end
+
 
 post_install do |installer|
     installer.aggregate_targets.each do |target|

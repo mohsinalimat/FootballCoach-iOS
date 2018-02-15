@@ -1,0 +1,6 @@
+framework module DZNEmptyDataSet {
+  umbrella header "DZNEmptyDataSet-iOS10.0-umbrella.h"
+
+  export *
+  module * { export * }
+}

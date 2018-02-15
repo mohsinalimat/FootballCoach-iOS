@@ -39,7 +39,7 @@
         // if there are no new properties to update, just update the version
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         if (![oldLigue.leagueVersion containsString:@"2."]) {
-            if ([HB_CURRENT_APP_VERSION isEqualToString:@"2.0"]) {
+            if ([HB_CURRENT_APP_VERSION containsString:@"2."]) {
                 __block float prgs = 0.0;
                 oldLigue.baseYear = 2016;
                 for (Team *t in oldLigue.teamList) {
@@ -93,11 +93,12 @@
                     }
                     
                     // reset strats
-                    t.teamStatOffNum = [t getCPUOffense];
-                    t.teamStatDefNum = [t getCPUDefense];
-                    t.offensiveStrategy = [t getOffensiveTeamStrategies][t.teamStatOffNum];
-                    t.defensiveStrategy = [t getDefensiveTeamStrategies][t.teamStatDefNum];
-                
+                    if (!t.isUserControlled) {
+                        t.teamStatOffNum = [t getCPUOffense];
+                        t.teamStatDefNum = [t getCPUDefense];
+                        t.offensiveStrategy = [t getOffensiveTeamStrategies][t.teamStatOffNum];
+                        t.defensiveStrategy = [t getDefensiveTeamStrategies][t.teamStatDefNum];
+                    }
                 }
                 
                 // add TEStats and TE (as starter) and 4 more QB stats to games

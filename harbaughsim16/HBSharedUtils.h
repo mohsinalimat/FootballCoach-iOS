@@ -80,7 +80,9 @@ typedef enum {
     CFCRecruitEventInHomeVisit,
     CFCRecruitEventExtendOffer,
     CFCRecruitEventCommitted,
-    CFCRecruitEventFlipped
+    CFCRecruitEventFlipped,
+    CFCRecruitEventRedshirted,
+    CFCRecruitEventUnredshirted
 } CFCRecruitEvent;
 
 typedef enum {
@@ -141,6 +143,7 @@ typedef enum {
 +(NSString *)generateOfferString:(NSDictionary *)offers;
 +(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers;
 +(NSString *)_calculateInterestString:(int)interestVal;
++(UIColor *)_calculateInterestColor:(int)interestVal;
 +(NSString *)convertStarsToUIImageName:(int)stars;
 
 +(void)simulateEntireSeason:(int)weekTotal viewController:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback;

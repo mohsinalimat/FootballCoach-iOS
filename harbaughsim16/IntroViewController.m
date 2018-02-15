@@ -36,7 +36,14 @@
 //    SFSafariViewController *safVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://github.com/akeaswaran/FootballCoach-iOS/blob/master/README.md"]];
 //    [safVC setDelegate:self];
 //    [self presentViewController:safVC animated:YES completion:nil];
-    [self.navigationController pushViewController:[[HelpViewController alloc] initWithStyle:UITableViewStyleGrouped] animated:YES];
+    HelpViewController *helpVC = [[HelpViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    helpVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStyleDone target:self action:@selector(dismissVC)];
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:helpVC] animated:YES completion:nil];
+
+}
+
+-(void)dismissVC {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(IBAction)newDynasty {
@@ -97,7 +104,7 @@
 
 -(IBAction)importLeagueMetadata:(id)sender {
     
-    UIAlertController *urlAlert = [UIAlertController alertControllerWithTitle:@"Import League Metadata" message:@"Please enter the valid URL of a league metadata file." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *urlAlert = [UIAlertController alertControllerWithTitle:@"Import League Metadata" message:@"Please enter the valid URL of a league metadata JSON file." preferredStyle:UIAlertControllerStyleAlert];
     [urlAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         [textField setPlaceholder:@"URL to File"];
         [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];

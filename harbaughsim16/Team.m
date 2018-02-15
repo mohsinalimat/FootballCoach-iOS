@@ -1073,10 +1073,13 @@
     diffDefTalent = [self getDefensiveTalent] - teamDefTalent;
     teamDefTalent = [self getDefensiveTalent];
     teamPollScore = teamPrestige + [self getOffensiveTalent] + [self getDefensiveTalent];
-    teamStatOffNum = [self getCPUOffense];
-    teamStatDefNum = [self getCPUDefense];
-    offensiveStrategy = [self getOffensiveTeamStrategies][teamStatOffNum];
-    defensiveStrategy = [self getDefensiveTeamStrategies][teamStatDefNum];
+
+    if (!isUserControlled) {
+        teamStatOffNum = [self getCPUOffense];
+        teamStatDefNum = [self getCPUDefense];
+        offensiveStrategy = [self getOffensiveTeamStrategies][teamStatOffNum];
+        defensiveStrategy = [self getDefensiveTeamStrategies][teamStatDefNum];
+    }
 }
 
 -(void)updatePollScore {
@@ -2343,24 +2346,6 @@
         return 1;
     } else {
         return 0;
-    }
-}
-
--(NSString*)getRankStrStarUser:(int)num {
-    if (num == 11) {
-        return @"** 11th **";
-    } else if (num == 12) {
-        return @"** 12th **";
-    } else if (num == 13) {
-        return @"** 13th **";
-    } else if (num%10 == 1) {
-        return [NSString stringWithFormat:@"** %ldst **",(long)num];
-    } else if (num%10 == 2) {
-        return [NSString stringWithFormat:@"** %ldnd **",(long)num];
-    } else if (num%10 == 3){
-        return [NSString stringWithFormat:@"** %ldrd **",(long)num];
-    } else {
-        return [NSString stringWithFormat:@"** %ldth **",(long)num];
     }
 }
 
