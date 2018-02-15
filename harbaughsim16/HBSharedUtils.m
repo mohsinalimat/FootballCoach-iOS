@@ -643,42 +643,45 @@ static UIColor *styleColor = nil;
 }
 
 +(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers {
-
-    NSMutableDictionary *totalOffers = [NSMutableDictionary dictionaryWithDictionary:offers];
-    [totalOffers setObject:@(interestVal) forKey:[HBSharedUtils currentLeague].userTeam.abbreviation];
-    NSArray *sortedOffers = [totalOffers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [obj2 compare:obj1];
-    }];
-
-    NSInteger offIdx = [sortedOffers indexOfObject:[HBSharedUtils currentLeague].userTeam.abbreviation];
-
-    UIColor *letterColor = [UIColor lightGrayColor];
-    NSString *interestString = @"LOW";
-    if (offIdx == 0) {
-        letterColor = [HBSharedUtils successColor];
-        interestString = @"LOCK";
-    } else if (offIdx == 1) {
-        letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
-        interestString = @"HIGH";
-    } else if (offIdx == 2) {
-        letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
-        interestString = @"MEDIUM";
+    if (offers == nil || offers.count == 0 || (offers.count == 1 && [offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation])) {
+        NSLog(@"INTEREST: %d", interestVal);
+        return @{@"color" : [HBSharedUtils _calculateInterestColor:interestVal], @"interest" : [HBSharedUtils _calculateInterestString:interestVal]};
     } else {
-        letterColor = [UIColor lightGrayColor];
-        interestString = @"LOW";
+        NSMutableDictionary *totalOffers = [NSMutableDictionary dictionaryWithDictionary:offers];
+        [totalOffers setObject:@(interestVal) forKey:[HBSharedUtils currentLeague].userTeam.abbreviation];
+        NSArray *sortedOffers = [totalOffers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj2 compare:obj1];
+        }];
+        
+        NSInteger offIdx = [sortedOffers indexOfObject:[HBSharedUtils currentLeague].userTeam.abbreviation];
+        
+        UIColor *letterColor = [UIColor lightGrayColor];
+        NSString *interestString = @"LOW";
+        if (offIdx == 0) {
+            letterColor = [HBSharedUtils successColor];
+            interestString = @"LOCK";
+        } else if (offIdx == 1) {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+            interestString = @"HIGH";
+        } else if (offIdx == 2) {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+            interestString = @"MEDIUM";
+        } else {
+            letterColor = [UIColor lightGrayColor];
+            interestString = @"LOW";
+        }
+        
+        return @{@"color" : letterColor, @"interest" : interestString};
     }
-
-    return @{@"color" : letterColor, @"interest" : interestString};
-
 }
 
 +(NSString *)_calculateInterestString:(int)interestVal {
     NSString *interestString = @"LOW";
     if (interestVal > 94) { // LOCK
         interestString = @"LOCK";
-    } else if (interestVal > 84 && interestVal <= 94) { // HIGH
+    } else if (interestVal > 80 && interestVal <= 94) { // HIGH
         interestString = @"HIGH";
-    } else if (interestVal > 49 && interestVal <= 64) { // MEDIUM
+    } else if (interestVal > 49 && interestVal <= 79) { // MEDIUM
         interestString = @"MEDIUM";
     } else { // LOW
         interestString = @"LOW";
@@ -690,9 +693,9 @@ static UIColor *styleColor = nil;
     UIColor *interestColor = [UIColor lightGrayColor];
     if (interestVal > 94) { // LOCK
         interestColor = [HBSharedUtils successColor];
-    } else if (interestVal > 84 && interestVal <= 94) { // HIGH
+    } else if (interestVal > 80 && interestVal <= 94) { // HIGH
         interestColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
-    } else if (interestVal > 49 && interestVal <= 64) { // MEDIUM
+    } else if (interestVal > 49 && interestVal <= 79) { // MEDIUM
         interestColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
     } else { // LOW
         interestColor = [UIColor lightGrayColor];

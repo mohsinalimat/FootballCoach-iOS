@@ -69,9 +69,14 @@
     [aCoder encodeObject:self.AwayWR2Stats forKey:@"AwayWR2Stats"];
     [aCoder encodeObject:self.AwayWR3Stats forKey:@"AwayWR3Stats"];
     [aCoder encodeObject:self.AwayKStats forKey:@"AwayKStats"];
-
-    [aCoder encodeObject:self.homeTeam forKey:@"homeTeam"];
-    [aCoder encodeObject:self.awayTeam forKey:@"awayTeam"];
+    
+    @synchronized(self.homeTeam) {
+        [aCoder encodeObject:self.homeTeam forKey:@"homeTeam"];
+    }
+    
+    @synchronized(self.awayTeam) {
+        [aCoder encodeObject:self.awayTeam forKey:@"awayTeam"];
+    }
 
     [aCoder encodeObject:self.homeStarters forKey:@"homeStarters"];
     [aCoder encodeObject:self.awayStarters forKey:@"awayStarters"];
