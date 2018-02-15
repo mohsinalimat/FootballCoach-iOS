@@ -1305,7 +1305,11 @@
             }
         }
     } else {
-        p = currentRecruits[indexPath.row];
+        @synchronized(currentRecruits) {
+            if (indexPath.row < currentRecruits.count) {
+                p = currentRecruits[indexPath.row];
+            }
+        }
     }
     
     CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
@@ -1492,7 +1496,11 @@
             }
         }
     } else {
-        p = currentRecruits[indexPath.row];
+        @synchronized(currentRecruits) {
+            if (indexPath.row < currentRecruits.count) {
+                p = currentRecruits[indexPath.row];
+            }
+        }
     }
     if (p != nil) {
         NSMutableArray *recruitEvents = ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) ? recruitActivities[[p uniqueIdentifier]] : [NSMutableArray array];
