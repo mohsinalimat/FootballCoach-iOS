@@ -117,41 +117,41 @@ static UIColor *styleColor = nil;
     if (weekNotifs) {
         if (title == nil) {
             if ([tintColor isEqual:[HBSharedUtils styleColor]]) {
-                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-success" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-success" duration:1.00 callback:nil];
             } else if ([tintColor isEqual:[HBSharedUtils successColor]]) {
-                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"win" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"win" duration:1.00 callback:nil];
             } else if ([tintColor isEqual:[HBSharedUtils champColor]]) {
-                 [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"champs" duration:0.75 callback:nil];
+                 [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"champs" duration:1.00 callback:nil];
             } else if ([tintColor isEqual:[HBSharedUtils errorColor]]) {
-                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-error" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-error" duration:1.00 callback:nil];
             } else {
-                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"loss" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"loss" duration:1.00 callback:nil];
             }
         } else {
             if ([tintColor isEqual:[HBSharedUtils styleColor]]) {
-                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-success" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-success" duration:1.00 callback:nil];
             } else if ([tintColor isEqual:[HBSharedUtils successColor]]) {
-                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"win" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"win" duration:1.00 callback:nil];
             } else if ([tintColor isEqual:[HBSharedUtils champColor]]) {
-                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"champs" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"champs" duration:1.00 callback:nil];
             } else if ([tintColor isEqual:[HBSharedUtils errorColor]]) {
-                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-error" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-error" duration:1.00 callback:nil];
             } else {
-                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"loss" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"loss" duration:1.00 callback:nil];
             }
         }
     } else { // weekNotifications disabled
         if (title == nil) {
             if ([tintColor isEqual:[HBSharedUtils styleColor]]) {
-                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-success" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-success" duration:1.00 callback:nil];
             } else if ([tintColor isEqual:[HBSharedUtils errorColor]]) {
-                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-error" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:message subtitle:nil type:RMessageTypeCustom customTypeName:@"alternate-error" duration:1.00 callback:nil];
             }
         } else {
             if ([tintColor isEqual:[HBSharedUtils styleColor]]) {
-                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-success" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-success" duration:1.00 callback:nil];
             } else if ([tintColor isEqual:[HBSharedUtils errorColor]]) {
-                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-error" duration:0.75 callback:nil];
+                [RMessage showNotificationInViewController:viewController title:title subtitle:message type:RMessageTypeCustom customTypeName:@"alternate-error" duration:1.00 callback:nil];
             }
         }
     }
@@ -467,11 +467,10 @@ static UIColor *styleColor = nil;
                 for (int i = 1; i < heismanParts.count; i++) {
                     [composeHeis appendString:heismanParts[i]];
                 }
-
+                NSLog(@"HEISMAN: %@", composeHeis);
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Player of the Year", (long)([HBSharedUtils currentLeague].baseYear + simLeague.userTeam.teamHistoryDictionary.count)] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
-
                 [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 14) {
                 [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
