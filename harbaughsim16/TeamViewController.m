@@ -117,17 +117,17 @@
     NSString *abbrev = [textFields[1].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *state = [textFields[2].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if (![name isEqualToString:selTeam.name] && [selTeam.league isTeamNameValid:name allowUserTeam:NO allowOverwrite:NO]) {
+    if (![name isEqualToString:selTeam.name] && [selTeam.league isTeamNameValid:name allowUserTeam:YES allowOverwrite:NO]) {
         [selectedTeam setName:name];
         [[HBSharedUtils currentLeague] save];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
         [self.tableView reloadData];
-    } else if (![selTeam.league isTeamNameValid:name allowUserTeam:NO allowOverwrite:NO]) {
+    } else if (![name isEqualToString:selTeam.name] && ![selTeam.league isTeamNameValid:name allowUserTeam:YES allowOverwrite:NO]) {
         [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to update this team's information - invalid team name provided" onViewController:self];
         return;
     }
     
-    if (![abbrev isEqualToString:selTeam.abbreviation] && [selTeam.league isTeamAbbrValid:abbrev allowUserTeam:NO allowOverwrite:NO]) {
+    if (![abbrev isEqualToString:selTeam.abbreviation] && [selTeam.league isTeamAbbrValid:abbrev allowUserTeam:YES allowOverwrite:NO]) {
         [selectedTeam setAbbreviation:abbrev];
         [[HBSharedUtils currentLeague] save];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
@@ -174,7 +174,7 @@
                 [[HBSharedUtils currentLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
             }
         }
-    } else if (![selTeam.league isTeamAbbrValid:abbrev allowUserTeam:NO allowOverwrite:NO]) {
+    } else if (![abbrev isEqualToString:selTeam.abbreviation] && ![selTeam.league isTeamAbbrValid:abbrev allowUserTeam:YES allowOverwrite:NO]) {
         [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to update this team's information - invalid team abbreviation provided" onViewController:self];
         return;
     }
