@@ -1505,8 +1505,8 @@
         i++;
     }
 
-    heisman.team.heismans++;
-    heisman.careerHeismans++;
+//    heisman.team.heismans++;
+//    heisman.careerHeismans++;
     heisman.isHeisman = YES;
     if ([heisman isKindOfClass:[PlayerQB class]]) {
         //qb heisman

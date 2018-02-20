@@ -337,6 +337,12 @@
 -(void)advanceSeason {
     self.year++;
     self.gamesPlayedSeason = 0;
+    
+    if (self.isHeisman) {
+        self.team.heismans++;
+        self.careerHeismans++;
+    }
+    
     self.isHeisman = NO;
     self.isAllAmerican = NO;
     self.isAllConference = NO;
@@ -345,6 +351,7 @@
         self.hasRedshirt = NO;
         self.wasRedshirted = YES;
     }
+    
 }
 
 -(int)getHeismanScore {

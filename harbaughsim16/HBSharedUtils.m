@@ -518,10 +518,10 @@ static UIColor *styleColor = nil;
                     [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
                     [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 12) {
-                    NSString *heisman = [simLeague getHeismanCeremonyStr];
-                    NSLog(@"HEISMAN: %@", heisman); //can't do anything with this result, just want to run it tbh
                     [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 13) {
+                    NSString *heisman = [simLeague getHeismanCeremonyStr];
+                    NSLog(@"HEISMAN: %@", heisman); //can't do anything with this result, just want to run it tbh
                     [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 14) {
                     [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
