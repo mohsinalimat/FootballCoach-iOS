@@ -1270,7 +1270,7 @@
             curseTeam = teamList[3 + curseNumber];
         }
         
-        if (!curseTeam.isUserControlled && curseTeam.teamPrestige > 85) {
+        if (!curseTeam.isUserControlled) {
             curseTeam.teamPrestige -= 20;
             cursedTeam = curseTeam;
         }
@@ -1282,6 +1282,11 @@
         
         if (curseTeam.teamPrestige > 85) {
             curseTeam.teamPrestige -= 20;
+            if ([curseTeam.name isEqualToString:@"American Samoa"]) {
+                curseTeam.teamPrestige = MAX(0, curseTeam.teamPrestige);
+            } else {
+                curseTeam.teamPrestige = MAX(25, curseTeam.teamPrestige);
+            }
             cursedTeam = curseTeam;
         }
     }
