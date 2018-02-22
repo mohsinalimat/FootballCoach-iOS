@@ -1990,13 +1990,13 @@
         } else if ([a isKindOfClass:[PlayerRB class]]) {
             PlayerRB *p = (PlayerRB*)a;
             adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRushEva + p.ratRushPow + p.ratRushSpd + adjAHeisScore) / 6.0) * 12.0);
-        } else if ([a isKindOfClass:[PlayerWR class]]) {
-            PlayerWR *p = (PlayerWR*)a;
-            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratRecEva + p.ratRecSpd + adjAHeisScore) / 6.0) * 12.0);
         } else if ([a isKindOfClass:[PlayerTE class]]) {
             PlayerTE *p = (PlayerTE*)a;
             adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratTERunBlk + p.ratRecSpd + adjAHeisScore) / 6.0) * 12.0);
-        } else if ([a isKindOfClass:[PlayerOL class]]) {
+        } else if ([a isKindOfClass:[PlayerWR class]]) {
+            PlayerWR *p = (PlayerWR*)a;
+            adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratRecEva + p.ratRecSpd + adjAHeisScore) / 6.0) * 12.0);
+        }else if ([a isKindOfClass:[PlayerOL class]]) {
             PlayerOL *p = (PlayerOL*)a;
             adjADraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratOLBkP + p.ratOLPow + p.ratOLBkR) / 5.0) * 11.0);
         } else if ([a isKindOfClass:[PlayerDL class]]) {
@@ -2023,12 +2023,12 @@
         } else if ([b isKindOfClass:[PlayerRB class]]) {
             PlayerRB *p = (PlayerRB*)b;
             adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRushEva + p.ratRushPow + p.ratRushSpd  + adjBHeisScore) / 6.0) * 12.0);
-        } else if ([b isKindOfClass:[PlayerWR class]]) {
-            PlayerWR *p = (PlayerWR*)b;
-            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratRecEva + p.ratRecSpd + adjBHeisScore) / 6.0) * 12.0);
         } else if ([b isKindOfClass:[PlayerTE class]]) {
             PlayerTE *p = (PlayerTE*)b;
             adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratTERunBlk + p.ratRecSpd + adjBHeisScore) / 6.0) * 12.0);
+        } else if ([b isKindOfClass:[PlayerWR class]]) {
+            PlayerWR *p = (PlayerWR*)b;
+            adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratRecCat + p.ratRecEva + p.ratRecSpd + adjBHeisScore) / 6.0) * 12.0);
         } else if ([b isKindOfClass:[PlayerOL class]]) {
             PlayerOL *p = (PlayerOL*)b;
             adjBDraftGrade = (int)(((double)(p.ratOvr + p.ratFootIQ + p.ratOLBkP + p.ratOLPow + p.ratOLBkR) / 5.0) * 11.0);

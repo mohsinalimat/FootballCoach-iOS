@@ -2137,7 +2137,7 @@
             if (teamTEs[i].year >= 4 || (teamTEs[i].year == 3 && teamTEs[i].gamesPlayed && teamTEs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamTEs[i]];
                 if (teamTEs[i].year == 3) {
-                    NSLog(@"JUNIOR WR LEAVING");
+                    NSLog(@"JUNIOR TE LEAVING");
                 }
             }
             ++i;
