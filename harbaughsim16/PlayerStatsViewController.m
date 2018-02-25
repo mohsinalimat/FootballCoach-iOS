@@ -84,6 +84,7 @@
         self.title = @"Rushing Leaders";
         for (Team *t in [HBSharedUtils currentLeague].teamList) {
             [players addObjectsFromArray:t.teamRBs];
+            [players addObjectsFromArray:t.teamQBs];
         }
         
         [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -188,65 +189,176 @@
     } else if (position == HBStatPositionRB) { //Yds, att, YPG, TD, Fum
         [alertController addAction:[UIAlertAction actionWithTitle:@"Rushing Yards" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                PlayerRB *a = (PlayerRB*)obj1;
-                PlayerRB *b = (PlayerRB*)obj2;
-                return (a.statsRushYards > b.statsRushYards) ? -1 : ((a.statsRushYards == b.statsRushYards) ? [a.name compare:b.name] : 1);
+                Player *a = (Player*)obj1;
+                Player *b = (Player*)obj2;
+                if (([a isKindOfClass:[PlayerQB class]] || [a isKindOfClass:[PlayerRB class]]) && ([b isKindOfClass:[PlayerQB class]] || [b isKindOfClass:[PlayerRB class]])) {
+                    int aYards;
+                    int bYards;
+                    if ([a isKindOfClass:[PlayerQB class]]) {
+                        aYards = ((PlayerQB*)a).statsRushYards;
+                    } else if ([a isKindOfClass:[PlayerRB class]]) {
+                        aYards = ((PlayerRB*)a).statsRushYards;
+                    } else {
+                        aYards = 0;
+                    }
+                    
+                    if ([b isKindOfClass:[PlayerQB class]]) {
+                        bYards = ((PlayerQB*)b).statsRushYards;
+                    } else if ([b isKindOfClass:[PlayerRB class]]) {
+                        bYards = ((PlayerRB*)b).statsRushYards;
+                    } else {
+                        bYards = 0;
+                    }
+                    
+                    return (aYards > bYards) ? -1 : ((aYards == bYards) ? [a.name compare:b.name] : 1);
+                } else {
+                    return [a.name compare:b.name];
+                }
             }];
             [self.tableView reloadData];
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Yards per Attempt" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                PlayerRB *a = (PlayerRB*)obj1;
-                PlayerRB *b = (PlayerRB*)obj2;
                 int aYPA = 0;
-                if (a.statsRushAtt > 0) {
-                    aYPA = (int)ceil((double)a.statsRushYards/(double)a.statsRushAtt);
-                }
-                
                 int bYPA = 0;
-                if (b.statsRushAtt > 0) {
-                    bYPA = (int)ceil((double)b.statsRushYards/(double)b.statsRushAtt);
-                }
+
+                Player *a = (Player*)obj1;
+                Player *b = (Player*)obj2;
+                if (([a isKindOfClass:[PlayerQB class]] || [a isKindOfClass:[PlayerRB class]]) && ([b isKindOfClass:[PlayerQB class]] || [b isKindOfClass:[PlayerRB class]])) {
+                    if ([a isKindOfClass:[PlayerQB class]]) {
+                        if (((PlayerQB*)a).statsRushAtt > 0) {
+                            aYPA = (int)ceil((double) ((PlayerRB*)a).statsRushYards/(double) ((PlayerRB*)a).statsRushAtt);
+                        }
+                    } else if ([a isKindOfClass:[PlayerRB class]]) {
+                        if (((PlayerRB*)a).statsRushAtt > 0) {
+                            aYPA = (int)ceil((double) ((PlayerRB*)a).statsRushYards/(double) ((PlayerRB*)a).statsRushAtt);
+                        }
+                    } else {
+                        aYPA = 0;
+                    }
+                    
+                    if ([b isKindOfClass:[PlayerQB class]]) {
+                        if (((PlayerQB*)b).statsRushAtt > 0) {
+                            bYPA = (int)ceil((double) ((PlayerRB*)b).statsRushYards/(double) ((PlayerRB*)b).statsRushAtt);
+                        }
+                    } else if ([b isKindOfClass:[PlayerRB class]]) {
+                        if (((PlayerRB*)b).statsRushAtt > 0) {
+                            bYPA = (int)ceil((double) ((PlayerRB*)b).statsRushYards/(double) ((PlayerRB*)b).statsRushAtt);
+                        }
+                    } else {
+                        bYPA = 0;
+                    }
+                    
                 
-                return (aYPA > bYPA) ? -1 : ((aYPA == bYPA) ? [a.name compare:b.name] : 1);
+                    return (aYPA > bYPA) ? -1 : ((aYPA == bYPA) ? [a.name compare:b.name] : 1);
+                } else {
+                    return [a.name compare:b.name];
+                }
             }];
             [self.tableView reloadData];
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Yards per Game" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                PlayerRB *a = (PlayerRB*)obj1;
-                PlayerRB *b = (PlayerRB*)obj2;
                 int aYPG = 0;
-                if (a.gamesPlayed > 0) {
-                    aYPG = (int)ceil((double)a.statsRushYards/(double)a.gamesPlayed);
-                }
-                
                 int bYPG = 0;
-                if (b.gamesPlayed > 0) {
-                    bYPG = (int)ceil((double)b.statsRushYards/(double)b.gamesPlayed);
-                }
                 
-                return (aYPG > bYPG) ? -1 : ((aYPG == bYPG) ? [a.name compare:b.name] : 1);
+                Player *a = (Player*)obj1;
+                Player *b = (Player*)obj2;
+                if (([a isKindOfClass:[PlayerQB class]] || [a isKindOfClass:[PlayerRB class]]) && ([b isKindOfClass:[PlayerQB class]] || [b isKindOfClass:[PlayerRB class]])) {
+                    if ([a isKindOfClass:[PlayerQB class]]) {
+                        if (((PlayerQB*)a).gamesPlayed > 0) {
+                            aYPG = (int)ceil((double) ((PlayerRB*)a).statsRushYards/(double) ((PlayerRB*)a).gamesPlayed);
+                        }
+                    } else if ([a isKindOfClass:[PlayerRB class]]) {
+                        if (((PlayerRB*)a).gamesPlayed > 0) {
+                            aYPG = (int)ceil((double) ((PlayerRB*)a).statsRushYards/(double) ((PlayerRB*)a).gamesPlayed);
+                        }
+                    } else {
+                        aYPG = 0;
+                    }
+                    
+                    if ([b isKindOfClass:[PlayerQB class]]) {
+                        if (((PlayerQB*)b).gamesPlayed > 0) {
+                            bYPG = (int)ceil((double) ((PlayerRB*)b).statsRushYards/(double) ((PlayerRB*)b).gamesPlayed);
+                        }
+                    } else if ([b isKindOfClass:[PlayerRB class]]) {
+                        if (((PlayerRB*)b).gamesPlayed > 0) {
+                            bYPG = (int)ceil((double) ((PlayerRB*)b).statsRushYards/(double) ((PlayerRB*)b).gamesPlayed);
+                        }
+                    } else {
+                        bYPG = 0;
+                    }
+                    
+                    
+                    return (aYPG > bYPG) ? -1 : ((aYPG == bYPG) ? [a.name compare:b.name] : 1);
+                } else {
+                    return [a.name compare:b.name];
+                }
             }];
             [self.tableView reloadData];
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Touchdowns" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                PlayerRB *a = (PlayerRB*)obj1;
-                PlayerRB *b = (PlayerRB*)obj2;
-                return (a.statsTD > b.statsTD) ? -1 : ((a.statsTD == b.statsTD) ? [a.name compare:b.name] : 1);
+                Player *a = (Player*)obj1;
+                Player *b = (Player*)obj2;
+                if (([a isKindOfClass:[PlayerQB class]] || [a isKindOfClass:[PlayerRB class]]) && ([b isKindOfClass:[PlayerQB class]] || [b isKindOfClass:[PlayerRB class]])) {
+                    int aTD = 0;
+                    int bTD = 0;
+                    
+                    if ([a isKindOfClass:[PlayerQB class]]) {
+                        aTD = ((PlayerQB*)a).statsRushTD;
+                    } else if ([a isKindOfClass:[PlayerRB class]]) {
+                        aTD = ((PlayerRB*)a).statsTD;
+                    } else {
+                        aTD = 0;
+                    }
+                    
+                    if ([b isKindOfClass:[PlayerQB class]]) {
+                        bTD = ((PlayerQB*)b).statsRushTD;
+                    } else if ([b isKindOfClass:[PlayerRB class]]) {
+                        bTD = ((PlayerRB*)b).statsTD;
+                    } else {
+                        bTD = 0;
+                    }
+                    
+                    return (aTD > bTD) ? -1 : ((aTD == bTD) ? [a.name compare:b.name] : 1);
+                } else {
+                    return [a.name compare:b.name];
+                }
             }];
             [self.tableView reloadData];
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Fumbles" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                PlayerRB *a = (PlayerRB*)obj1;
-                PlayerRB *b = (PlayerRB*)obj2;
-                return (a.statsFumbles > b.statsFumbles) ? -1 : ((a.statsFumbles == b.statsFumbles) ? [a.name compare:b.name] : 1);
+                Player *a = (Player*)obj1;
+                Player *b = (Player*)obj2;
+                if (([a isKindOfClass:[PlayerQB class]] || [a isKindOfClass:[PlayerRB class]]) && ([b isKindOfClass:[PlayerQB class]] || [b isKindOfClass:[PlayerRB class]])) {
+                    int aFumbles = 0;
+                    int bFumbles = 0;
+                    if ([a isKindOfClass:[PlayerQB class]]) {
+                        aFumbles = ((PlayerQB*)a).statsFumbles;
+                    } else if ([a isKindOfClass:[PlayerRB class]]) {
+                        aFumbles = ((PlayerRB*)a).statsFumbles;
+                    } else {
+                        aFumbles = 0;
+                    }
+                    
+                    if ([b isKindOfClass:[PlayerQB class]]) {
+                        bFumbles = ((PlayerQB*)b).statsFumbles;
+                    } else if ([b isKindOfClass:[PlayerRB class]]) {
+                        bFumbles = ((PlayerRB*)b).statsFumbles;
+                    } else {
+                        bFumbles = 0;
+                    }
+                    
+                    return (aFumbles > bFumbles) ? -1 : ((aFumbles == bFumbles) ? [a.name compare:b.name] : 1);
+                } else {
+                    return [a.name compare:b.name];
+                }
             }];
             [self.tableView reloadData];
         }]];
@@ -401,7 +513,7 @@
     NSString *stat3Value = @"";
     NSString *stat4Value = @"";
     
-    if ([plyr isKindOfClass:[PlayerQB class]]) {
+    if (position == HBStatPositionQB) {
         stat1 = @"CMP%"; //comp/att, yds, td, int
         stat2 = @"Yds";
         stat3 = @"TDs";
@@ -413,17 +525,24 @@
         stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsTD];
         stat4Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsInt];
         //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:13.0]];
-    } else if ([plyr isKindOfClass:[PlayerRB class]]) {
+    } else if (position == HBStatPositionRB) {
         stat1 = @"Car";
         stat2 = @"Yds";
         stat3 = @"TD";
         stat4 = @"Fum";
-        stat1Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsRushAtt];
-        stat2Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsRushYards];
-        stat3Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsTD];
-        stat4Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsFumbles];
+        if ([plyr isKindOfClass:[PlayerQB class]]) {
+            stat1Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsRushAtt];
+            stat2Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsRushYards];
+            stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsRushTD];
+            stat4Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsFumbles];
+        } else {
+            stat1Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsRushAtt];
+            stat2Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsRushYards];
+            stat3Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsTD];
+            stat4Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsFumbles];
+        }
         //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
-    } else if ([plyr isKindOfClass:[PlayerWR class]]) {
+    } else if (position == HBStatPositionWR) {
         stat1 = @"Rec";
         stat2 = @"Yds";
         stat3 = @"TD";

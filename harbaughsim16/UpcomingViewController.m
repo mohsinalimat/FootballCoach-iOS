@@ -457,11 +457,12 @@
     
     NSMutableArray *qbs = [NSMutableArray array];
     NSMutableArray *ks = [NSMutableArray array];
-    NSMutableArray *rbs = [NSMutableArray array];
+    NSMutableArray *rushers = [NSMutableArray array];
     NSMutableArray *wrs = [NSMutableArray array];
     for (Team *t in simLeague.teamList) {
         [qbs addObjectsFromArray:t.teamQBs];
-        [rbs addObjectsFromArray:t.teamRBs];
+        [rushers addObjectsFromArray:t.teamRBs];
+        [rushers addObjectsFromArray:t.teamQBs];
         [wrs addObjectsFromArray:t.teamWRs];
         [ks addObjectsFromArray:t.teamKs];
     }
@@ -471,10 +472,32 @@
         PlayerQB *b = (PlayerQB*)obj2;
         return (a.statsPassYards > b.statsPassYards) ? -1 : ((a.statsPassYards == b.statsPassYards) ? [a.name compare:b.name] : 1);
     }];
-    [rbs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        PlayerRB *a = (PlayerRB*)obj1;
-        PlayerRB *b = (PlayerRB*)obj2;
-        return (a.statsRushYards > b.statsRushYards) ? -1 : ((a.statsRushYards == b.statsRushYards) ? [a.name compare:b.name] : 1);
+    [rushers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (([a isKindOfClass:[PlayerQB class]] || [a isKindOfClass:[PlayerRB class]]) && ([b isKindOfClass:[PlayerQB class]] || [b isKindOfClass:[PlayerRB class]])) {
+            int aYards;
+            int bYards;
+            if ([a isKindOfClass:[PlayerQB class]]) {
+                aYards = ((PlayerQB*)a).statsRushYards;
+            } else if ([a isKindOfClass:[PlayerRB class]]) {
+                aYards = ((PlayerRB*)a).statsRushYards;
+            } else {
+                aYards = 0;
+            }
+            
+            if ([b isKindOfClass:[PlayerQB class]]) {
+                bYards = ((PlayerQB*)b).statsRushYards;
+            } else if ([b isKindOfClass:[PlayerRB class]]) {
+                bYards = ((PlayerRB*)b).statsRushYards;
+            } else {
+                bYards = 0;
+            }
+            
+            return (aYards > bYards) ? -1 : ((aYards == bYards) ? [a.name compare:b.name] : 1);
+        } else {
+            return [a.name compare:b.name];
+        }
     }];
     [wrs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         PlayerWR *a = (PlayerWR*)obj1;
@@ -494,7 +517,7 @@
     
     
     passLeader = [qbs firstObject];
-    rushLeader = [rbs firstObject];
+    rushLeader = [rushers firstObject];
     recLeader = [wrs firstObject];
     kickLeader = [ks firstObject];
     defLeader = [teams firstObject];
