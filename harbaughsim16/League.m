@@ -1247,6 +1247,7 @@
     currentWeek = 0;
     ncg = nil;
     heisman = nil;
+    heismanWinnerStrFull = nil;
     // Bless a random team with lots of prestige
     int blessNumber = (int)([HBSharedUtils randomValue]*9);
     Team *blessTeam = teamList[50 + blessNumber];
