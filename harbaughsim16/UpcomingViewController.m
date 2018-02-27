@@ -41,8 +41,8 @@
 @interface UpcomingViewController () <UIViewControllerPreviewingDelegate>
 {
     PlayerQB *passLeader;
-    PlayerRB *rushLeader;
-    PlayerWR *recLeader;
+    Player *rushLeader;
+    Player *recLeader;
     Team *defLeader;
     PlayerK *kickLeader;
     Team *userTeam;
@@ -464,6 +464,7 @@
         [rushers addObjectsFromArray:t.teamRBs];
         [rushers addObjectsFromArray:t.teamQBs];
         [wrs addObjectsFromArray:t.teamWRs];
+        [wrs addObjectsFromArray:t.teamTEs];
         [ks addObjectsFromArray:t.teamKs];
     }
     
@@ -917,7 +918,7 @@
                 }
             } else if (indexPath.row == 1) {
                 cell.textLabel.text = @"Rushing";
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ RB %@", rushLeader.team.abbreviation, [rushLeader getInitialName]]];
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", rushLeader.team.abbreviation, rushLeader.position, [rushLeader getInitialName]]];
                 if (rushLeader.isHeisman) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
@@ -927,7 +928,7 @@
                 }
             } else if (indexPath.row == 2) {
                 cell.textLabel.text = @"Receiving";
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ WR %@", recLeader.team.abbreviation, [recLeader getInitialName]]];
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", recLeader.team.abbreviation, recLeader.position, [recLeader getInitialName]]];
                 if (recLeader.isHeisman) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
@@ -1083,7 +1084,7 @@
                 }
             } else if (indexPath.row == 1) {
                 cell.textLabel.text = @"Rushing";
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ RB %@", rushLeader.team.abbreviation, [rushLeader getInitialName]]];
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", rushLeader.team.abbreviation,rushLeader.position, [rushLeader getInitialName]]];
                 if (rushLeader.isHeisman) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
@@ -1093,7 +1094,7 @@
                 }
             } else if (indexPath.row == 2) {
                 cell.textLabel.text = @"Receiving";
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ WR %@", recLeader.team.abbreviation, [recLeader getInitialName]]];
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", recLeader.team.abbreviation,recLeader.position, [recLeader getInitialName]]];
                 if (recLeader.isHeisman) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {

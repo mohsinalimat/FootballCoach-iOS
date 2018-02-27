@@ -97,6 +97,7 @@
         self.title = @"Receiving Leaders";
         for (Team *t in [HBSharedUtils currentLeague].teamList) {
             [players addObjectsFromArray:t.teamWRs];
+            [players addObjectsFromArray:t.teamTEs];
         }
         
         [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
