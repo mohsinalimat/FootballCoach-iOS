@@ -556,12 +556,12 @@
     [popupController presentInViewController:self];
 }
 
--(void)finishRecruitingSeason {
+-(void)finishRecruiting {
     [[HBSharedUtils currentLeague] updateTeamHistories];
     [[HBSharedUtils currentLeague] updateLeagueHistory];
     [[HBSharedUtils currentLeague].userTeam resetStats];
     [[HBSharedUtils currentLeague] advanceSeason];
-
+    
     for (Team *t in [HBSharedUtils currentLeague].teamList) {
         for (Player *p in t.recruitingClass) {
             [t addPlayer:p];
@@ -572,11 +572,11 @@
         } else {
             [t recruitPlayersFreshman:@[@(2 - t.teamQBs.count), @(4 - t.teamRBs.count), @(6 - t.teamWRs.count), @(2 - t.teamKs.count), @(10 - t.teamOLs.count), @(2 - t.teamSs.count), @(6 - t.teamCBs.count), @(8 - t.teamDLs.count), @(6 - t.teamLBs.count), @(2 - t.teamTEs.count)]];
         }
-
+        
         [t calculateRecruitingClassRanking];
     }
     [[HBSharedUtils currentLeague] setTeamRanks];
-
+    
     // post a news story about recruiting
     [[HBSharedUtils currentLeague].teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [HBSharedUtils compareRecruitingComposite:obj1 toObj2:obj2];
@@ -591,24 +591,33 @@
         }
     }
     [[HBSharedUtils currentLeague].newsStories[0] addObject:recruitingRanks];
-
+    
     [[HBSharedUtils currentLeague] setTeamRanks];
     for (Team *t in [HBSharedUtils currentLeague].teamList) {
         // clear the recruiting classes
         t.recruitingClass = [NSMutableArray array];
         [t updateTalentRatings];
     }
-
+    
     [HBSharedUtils currentLeague].recruitingStage = 0;
     [[HBSharedUtils currentLeague] save];
-
+    
     if ([HBSharedUtils currentLeague].isHardMode && [[HBSharedUtils currentLeague].cursedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"userTeamSanctioned" object:nil];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
-
+    
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)finishRecruitingSeason {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to advance to next season?" message:@"You will not be able to redshirt players past this point." preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self finishRecruiting];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(void)selectPosition:(ScrollableSegmentedControl *)sender {
@@ -747,11 +756,11 @@
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(closeRecruiting)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
 
     // calculate recruiting points, but never show number - just show as usage as "% effort extended"
-    recruitingPoints = ([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf(20.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige) : (int)ceilf(25.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige);
+    recruitingPoints = MAX(([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf(20.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige) : (int)ceilf(25.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige), 600);
     usedRecruitingPoints = 0;
 
     NSLog(@"Recruiting points total: %d", recruitingPoints);
@@ -1187,11 +1196,11 @@
     });
 }
 
--(void)dismissVC {
+-(void)closeRecruiting {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you are done recruiting?" message:@"You will be sent to the start of next season, and any remaining openings on your team will be filled by walk-ons." preferredStyle:UIAlertControllerStyleAlert];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         // finish the recruiting season
-        [self finishRecruitingSeason];
+        [self finishRecruiting];
 
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
@@ -1305,7 +1314,11 @@
             }
         }
     } else {
-        p = currentRecruits[indexPath.row];
+        @synchronized(currentRecruits) {
+            if (indexPath.row < currentRecruits.count) {
+                p = currentRecruits[indexPath.row];
+            }
+        }
     }
     
     CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
@@ -1492,7 +1505,11 @@
             }
         }
     } else {
-        p = currentRecruits[indexPath.row];
+        @synchronized(currentRecruits) {
+            if (indexPath.row < currentRecruits.count) {
+                p = currentRecruits[indexPath.row];
+            }
+        }
     }
     if (p != nil) {
         NSMutableArray *recruitEvents = ([recruitActivities.allKeys containsObject:[p uniqueIdentifier]]) ? recruitActivities[[p uniqueIdentifier]] : [NSMutableArray array];

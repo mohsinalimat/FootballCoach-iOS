@@ -38,7 +38,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prestige: A+" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjt-YK-FYs">
-                    <rect key="frame" x="8" y="36" width="84" height="21"/>
+                    <rect key="frame" x="8" y="36" width="84" height="25"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -61,7 +61,7 @@
                 <constraint firstAttribute="trailing" secondItem="C0m-aE-2wG" secondAttribute="trailing" constant="8" id="gbz-45-gfk"/>
                 <constraint firstItem="bBE-Z3-kUp" firstAttribute="bottom" secondItem="C0m-aE-2wG" secondAttribute="bottom" id="nK3-5D-h3g"/>
                 <constraint firstItem="jjt-YK-FYs" firstAttribute="top" secondItem="bBE-Z3-kUp" secondAttribute="bottom" constant="2" id="rit-FI-oq2"/>
-                <constraint firstItem="jjt-YK-FYs" firstAttribute="bottom" secondItem="Dyy-ML-bUT" secondAttribute="bottomMargin" constant="-8" id="yLR-Rg-hIa"/>
+                <constraint firstItem="jjt-YK-FYs" firstAttribute="bottom" secondItem="Dyy-ML-bUT" secondAttribute="bottomMargin" constant="-4" id="yLR-Rg-hIa"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

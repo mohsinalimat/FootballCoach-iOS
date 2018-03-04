@@ -303,7 +303,7 @@
                 Team *b = availTeams[selTeam];
                 
                 Game *gm;
-                if ([HBSharedUtils randomValue] > 0.5) {
+                if (offsetOOC % 2 == 0) {
                     gm = [Game newGameWithHome:a away:b name:[NSString stringWithFormat:@"%@ vs %@",[b.conference substringWithRange:NSMakeRange(0, MIN(3, b.conference.length))],[a.conference substringWithRange:NSMakeRange(0, MIN(3, a.conference.length))]]];
                 } else {
                     gm = [Game newGameWithHome:b away:a name:[NSString stringWithFormat:@"%@ vs %@",[a.conference substringWithRange:NSMakeRange(0, MIN(3, a.conference.length))],[b.conference substringWithRange:NSMakeRange(0, MIN(3, b.conference.length))]]];
@@ -346,7 +346,7 @@
             }
             
             Game *gm;
-            if ([HBSharedUtils randomValue] > 0.5) {
+            if (r % 2 == 0) {
                 gm = [Game
                       newGameWithHome:a away:b name:@"In Conf"];
             } else {

@@ -337,6 +337,12 @@
 -(void)advanceSeason {
     self.year++;
     self.gamesPlayedSeason = 0;
+    
+//    if (self.isHeisman) {
+//        self.team.heismans++;
+//        self.careerHeismans++;
+//    }
+    
     self.isHeisman = NO;
     self.isAllAmerican = NO;
     self.isAllConference = NO;
@@ -345,6 +351,7 @@
         self.hasRedshirt = NO;
         self.wasRedshirted = YES;
     }
+    
 }
 
 -(int)getHeismanScore {
@@ -506,7 +513,7 @@
     int playbookScore = 0;
     if ([self.position isEqualToString:@"QB"] || [self.position isEqualToString:@"RB"] || [self.position isEqualToString:@"WR"] || [self.position isEqualToString:@"TE"] || [self.position isEqualToString:@"OL"]) {
         // use offensive playbook
-        TeamStrategy *offStrat = t.defensiveStrategy;
+        TeamStrategy *offStrat = t.offensiveStrategy;
         if ([self.position isEqualToString:@"QB"]) {
             playbookScore = 15; // always need a good QB & super important to offensive playbook
         } else if ([self.position isEqualToString:@"WR"] || [self.position isEqualToString:@"TE"]) {
@@ -541,9 +548,9 @@
             }
         }
     }
-    
-    //NSLog(@"Location Score: %d Positional Score: %d Prestige Score: %d Playbook Score: %d", locationScore,positionalScore, prestigeScore, playbookScore);
-    return locationScore + positionalScore + prestigeScore + playbookScore;
+    int sum = locationScore + positionalScore + prestigeScore + playbookScore;
+    //NSLog(@"Location Score: %d Positional Score: %d Prestige Score: %d Playbook Score: %d => TOTAL %@ INTEREST: %d", locationScore,positionalScore, prestigeScore, playbookScore, position, sum);
+    return sum;
 }
 
 -(NSString *)uniqueIdentifier {
