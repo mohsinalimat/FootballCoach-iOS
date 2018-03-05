@@ -814,7 +814,7 @@
         qbRushYds = HomeQBStats[7];
         [homeTeam getQB:0].careerStatsRushYards += [qbRushYds intValue];
         qbRushTDs = HomeQBStats[8];
-        [homeTeam getQB:0].careerStatsTD += [qbRushTDs intValue];
+        [homeTeam getQB:0].careerStatsRushTD += [qbRushTDs intValue];
         qbRushFum = HomeQBStats[9];
         [homeTeam getQB:0].careerStatsFumbles += [qbRushFum intValue];
         
@@ -915,7 +915,7 @@
         qbRushYds = AwayQBStats[7];
         [awayTeam getQB:0].careerStatsRushYards += [qbRushYds intValue];
         qbRushTDs = AwayQBStats[8];
-        [awayTeam getQB:0].careerStatsTD += [qbRushTDs intValue];
+        [awayTeam getQB:0].careerStatsRushTD += [qbRushTDs intValue];
         qbRushFum = AwayQBStats[9];
         [awayTeam getQB:0].careerStatsFumbles += [qbRushFum intValue];
         

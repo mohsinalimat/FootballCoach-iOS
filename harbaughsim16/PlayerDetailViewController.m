@@ -202,7 +202,11 @@
         if (section == 2) {
             return [NSString stringWithFormat:@"Over %ld games", (long)selectedPlayer.gamesPlayed];
         } else if (section == 1) {
-            return [NSString stringWithFormat:@"Through %ld games this season", (long)selectedPlayer.gamesPlayedSeason];
+            if ([selectedPlayer isKindOfClass:[PlayerDL class]] || [selectedPlayer isKindOfClass:[PlayerLB class]] || [selectedPlayer isKindOfClass:[PlayerCB class]] || [selectedPlayer isKindOfClass:[PlayerS class]]) {
+                return [NSString stringWithFormat:@"Through %ld games this season (%ld games total)", (long)selectedPlayer.gamesPlayedSeason, (long)selectedPlayer.gamesPlayed];
+            } else {
+                return [NSString stringWithFormat:@"Through %ld games this season", (long)selectedPlayer.gamesPlayedSeason];
+            }
         } else {
             return nil;
         }
