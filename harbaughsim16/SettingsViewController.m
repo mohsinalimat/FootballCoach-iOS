@@ -227,7 +227,7 @@
     } else if (section == 1) {
         return 14;
     } else {
-        return 5;
+        return 6;
     }
 }
 
@@ -326,7 +326,7 @@
                
             }
             
-            if (indexPath.row == 1) {
+            if (indexPath.row == 2) {
                 [cell.textLabel setText:@"Rebrand Team"];
                 if ([HBSharedUtils currentLeague].canRebrandTeam) {
                     [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
@@ -336,7 +336,7 @@
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     
                 }
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 [cell.textLabel setText:@"Rebrand Conferences"];
                 if ([HBSharedUtils currentLeague].canRebrandTeam) {
                     [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
@@ -345,7 +345,7 @@
                     [cell.textLabel setTextColor:[UIColor lightGrayColor]];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
-            } else if (indexPath.row == 3) {
+            } else if (indexPath.row == 4) {
                 [cell.textLabel setText:@"Export League Metadata"];
                 [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
                 cell.selectionStyle = UITableViewCellSelectionStyleBlue;

@@ -96,7 +96,6 @@
         gameDown = [aDecoder decodeIntForKey:@"gameDown"];
         gameYardsNeed = [aDecoder decodeIntForKey:@"gameYardsNeed"];
         gameYardLine = [aDecoder decodeIntForKey:@"gameYardLine"];
-        pbpEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:HB_PLAY_BY_PLAY_ENABLED];
 
         self.homeTeam = [aDecoder decodeObjectForKey:@"homeTeam"];
         self.awayTeam = [aDecoder decodeObjectForKey:@"awayTeam"];
@@ -252,8 +251,6 @@
             // Rivalry game!
             gameName = @"Rivalry Game";
         }
-        
-        pbpEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:HB_PLAY_BY_PLAY_ENABLED];
     }
     return self;
 }
@@ -620,6 +617,7 @@
 
 -(void)playGame {
     if ( !hasPlayed ) {
+        pbpEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:HB_PLAY_BY_PLAY_ENABLED];
         //NSLog(@"START PLAY GAME, GAME SETUP");
         gameEventLog = [NSMutableString stringWithFormat:@"LOG: #%ld %@ (%ld-%ld) @ #%ld %@ (%ld-%ld)\n---------------------------------------------------------",(long)awayTeam.rankTeamPollScore, awayTeam.abbreviation,(long)awayTeam.wins,(long)awayTeam.losses,(long)homeTeam.rankTeamPollScore,homeTeam.abbreviation,(long)homeTeam.wins,(long)homeTeam.losses];
         //probably establish some home field advantage before playing
@@ -731,7 +729,6 @@
             } else {
                 [self runPlay:awayTeam defense:homeTeam];
             }
-            
         }
         //NSLog(@"OUT OF TIME");
         
@@ -1435,9 +1432,6 @@
                 if ( gameYardsNeed <= 0) {
                     gameDown = 1;
                     gameYardsNeed = 10;
-                    if (pbpEnabled) {
-                        [gameEventLog appendString:[NSString stringWithFormat:@"%@\nFIRST DOWN, %@!",[self getEventPrefix],offense.abbreviation]];
-                    }
                 } else gameDown++;
             }
             
@@ -1878,9 +1872,6 @@
         if ( gameYardsNeed <= 0 ) {
             gameDown = 1;
             gameYardsNeed = 10;
-            if (pbpEnabled) {
-                [gameEventLog appendString:[NSString stringWithFormat:@"%@FIRST DOWN, %@!\n",[self getEventPrefix],offense.abbreviation]];
-            }
         } else gameDown++;
     }
     
@@ -2386,6 +2377,9 @@
 
 -(void)qbSack:(Team *)offense {
     [offense getQB:0].statsSacked++;
+    if (pbpEnabled) {
+        [gameEventLog appendString:[NSString stringWithFormat:@"%@SACK!\n%@ QB %@ was sacked for a 3-yard loss.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name]];
+    }
     gameYardsNeed += 3;
     gameYardLine -= 3;
     
@@ -2403,10 +2397,6 @@
         // Safety!
         gameTime -= (10 * [HBSharedUtils randomValue]);
         [self safety];
-    } else {
-        if (pbpEnabled) {
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@SACK!\n%@ QB %@ was sacked for a 3-yard loss.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name]];
-        }
     }
     
     gameTime -=  (25 + (10 * [HBSharedUtils randomValue]));
