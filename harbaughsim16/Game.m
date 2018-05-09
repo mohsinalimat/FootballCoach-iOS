@@ -95,6 +95,8 @@
         gamePoss = [aDecoder decodeBoolForKey:@"gamePoss"];
         gameDown = [aDecoder decodeIntForKey:@"gameDown"];
         gameYardsNeed = [aDecoder decodeIntForKey:@"gameYardsNeed"];
+        gameYardLine = [aDecoder decodeIntForKey:@"gameYardLine"];
+        pbpEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:HB_PLAY_BY_PLAY_ENABLED];
 
         self.homeTeam = [aDecoder decodeObjectForKey:@"homeTeam"];
         self.awayTeam = [aDecoder decodeObjectForKey:@"awayTeam"];
@@ -250,6 +252,8 @@
             // Rivalry game!
             gameName = @"Rivalry Game";
         }
+        
+        pbpEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:HB_PLAY_BY_PLAY_ENABLED];
     }
     return self;
 }
@@ -735,7 +739,7 @@
         if (homeScore != awayScore) {
             [gameEventLog appendFormat:@"\n\nTime has expired! The game is over.\n\nFINAL SCORE: %@ %ld - %ld %@", awayTeam.abbreviation, (long)awayScore, (long)homeScore, homeTeam.abbreviation ];
         } else {
-            [gameEventLog appendFormat:@"%@\nOVERTIME!\n\nTie game at 0:00, overtime begins!",[self getEventPrefix]];
+            [gameEventLog appendFormat:@"%@\nOVERTIME!\n\nTie game at 0:00 - we're headed to overtime!",[self getEventPrefix]];
         }
         
         //NSLog(@"SETTING UP OT IF NECESSARY");
@@ -1378,10 +1382,13 @@
     }
     
     //throw ball, check for completion
-    double completion = ( [self getHFAdv] + [self normalize:[offense getQB:0].ratPassAcc] + [self normalize:selTE.ratRecCat] - [self normalize:selLB.ratLBPas])/2 + 18.25 - pressureOnQB/16.8 + offense.offensiveStrategy.passProtection - defense.defensiveStrategy.passProtection;
+    double completion = ( [self getHFAdv] + [self normalize:selQB.ratPassAcc] + [self normalize:selTE.ratRecCat] - [self normalize:selLB.ratLBPas])/2 + 18.25 - pressureOnQB/16.8 + offense.offensiveStrategy.passProtection - defense.defensiveStrategy.passProtection;
     if ( 100* [HBSharedUtils randomValue] < completion ) {
         if ( 100* [HBSharedUtils randomValue] < (100 - selTE.ratRecCat)/3 ) {
             //drop
+            if (pbpEnabled) {
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@'s pass falls incomplete. Dropped by TE %@.", [self getEventPrefix],offense.abbreviation,selQB.name,selTE.name]];
+            }
             gameDown++;
             NSNumber *wrStat = selTEStats[4];
             wrStat = [NSNumber numberWithInteger:wrStat.integerValue + 1];
@@ -1428,6 +1435,9 @@
                 if ( gameYardsNeed <= 0) {
                     gameDown = 1;
                     gameYardsNeed = 10;
+                    if (pbpEnabled) {
+                        [gameEventLog appendString:[NSString stringWithFormat:@"%@\nFIRST DOWN, %@!",[self getEventPrefix],offense.abbreviation]];
+                    }
                 } else gameDown++;
             }
             
@@ -1438,6 +1448,9 @@
     } else {
         //no completion, advance downs
         [self passAttempt:offense defense:defense receiver:selTE stats:selTEStats yardsGained:yardsGain];
+        if (pbpEnabled) {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@\n%@ QB %@'s pass falls incomplete. Intended for %@ %@.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selTE.position, selTE.name]];
+        }
         gameDown++;
         gameTime -= (15 * [HBSharedUtils randomValue]);
         return;
@@ -1512,6 +1525,9 @@
     if ( 100* [HBSharedUtils randomValue] < completion ) {
         if ( 100* [HBSharedUtils randomValue] < (100 - selWR.ratRecCat)/3 ) {
             //drop
+            if (pbpEnabled) {
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@'s pass falls incomplete. Dropped by WR %@.", [self getEventPrefix],offense.abbreviation,selQB.name,selWR.name]];
+            }
             gameDown++;
             NSNumber *wrStat = selWRStats[4];
             wrStat = [NSNumber numberWithInteger:wrStat.integerValue + 1];
@@ -1569,6 +1585,9 @@
     } else {
         //no completion, advance downs
         [self passAttempt:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
+        if (pbpEnabled) {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@\n%@ QB %@'s pass falls incomplete. Intended for %@ %@.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selWR.position, selWR.name]];
+        }
         gameDown++;
         gameTime -= (15 * [HBSharedUtils randomValue]);
         return;
@@ -1859,6 +1878,9 @@
         if ( gameYardsNeed <= 0 ) {
             gameDown = 1;
             gameYardsNeed = 10;
+            if (pbpEnabled) {
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@FIRST DOWN, %@!\n",[self getEventPrefix],offense.abbreviation]];
+            }
         } else gameDown++;
     }
     
@@ -2335,10 +2357,14 @@
         } else {
             // Just regular kick off
             gameYardLine = (int) (100 - ([offense getK:0].ratKickPow + 20 - 40* [HBSharedUtils randomValue] ));
+            if (pbpEnabled) {
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ kicks off.",[self getEventPrefix],offense.abbreviation]];
+            }
             if ( gameYardLine <= 0 ) gameYardLine = 25;
             gameDown = 1;
             gameYardsNeed = 10;
             gamePoss = !gamePoss;
+            
         }
     }
 }
@@ -2347,6 +2373,9 @@
     gameYardLine = (int) (100 - ( gameYardLine + [offense getK:0].ratKickPow/3 + 20 - 10* [HBSharedUtils randomValue] ));
     if ( gameYardLine < 0 ) {
         gameYardLine = 20;
+    }
+    if (pbpEnabled) {
+        [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ punts.",[self getEventPrefix],offense.abbreviation]];
     }
     gameDown = 1;
     gameYardsNeed = 10;
@@ -2374,6 +2403,10 @@
         // Safety!
         gameTime -= (10 * [HBSharedUtils randomValue]);
         [self safety];
+    } else {
+        if (pbpEnabled) {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@SACK!\n%@ QB %@ was sacked for a 3-yard loss.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name]];
+        }
     }
     
     gameTime -=  (25 + (10 * [HBSharedUtils randomValue]));
@@ -2445,6 +2478,8 @@
         [selWRStats replaceObjectAtIndex:3 withObject:wrTarget];
     }
     tdInfo = [NSString stringWithFormat:@"%@ QB %@ threw a %ld-yard TD to %@.\n",offense.abbreviation,[offense getQB:0].name,(long)yardsGained,selWR.name];
+
+    
     [offense getQB:0].statsTD++;
     selWR.statsTD++;
 }
@@ -2458,6 +2493,16 @@
     selWR.statsTargets++;
     selWR.statsRecYards += yardsGained;
     offense.teamPassYards += yardsGained;
+    
+    if (pbpEnabled) {
+        if (yardsGained > 0) {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@'s pass complete to %@ %@ for a %d-yard gain.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selWR.position, selWR.name, yardsGained]];
+        } else if (yardsGained < 0) {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@'s pass complete to %@ %@ for a %d-yard loss.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selWR.position, selWR.name, abs(yardsGained)]];
+        } else {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@'s pass complete to %@ %@ for no gain.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selWR.position, selWR.name]];
+        }
+    }
     
     if ( gamePoss ) { // home possession
         homeYards += yardsGained;
@@ -2525,12 +2570,11 @@
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
         [AwayQBStats replaceObjectAtIndex:0 withObject:qbStat];
         
-        
-        
         NSNumber *wrTarget = selWRStats[1];
         wrTarget = [NSNumber numberWithInteger:wrTarget.integerValue + 1];
         [selWRStats replaceObjectAtIndex:1 withObject:wrTarget];
     }
+    
 }
 
 -(void)rushAttemptQB:(Team *)offense defense:(Team *)defense rusher:(PlayerQB *)selQB yardsGained:(int)yardsGained {
@@ -2554,6 +2598,16 @@
         NSNumber *rb2Att = AwayQBStats[7];
         rb2Att = [NSNumber numberWithInteger:rb2Att.integerValue + yardsGained];
         [AwayQBStats replaceObjectAtIndex:7 withObject:rb2Att];
+    }
+    
+    if (pbpEnabled) {
+        if (yardsGained > 0) {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@ rushes for a %d-yard gain.",[self getEventPrefix],offense.abbreviation,selQB.name, yardsGained]];
+        } else if (yardsGained < 0) {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@ rushes for a %d-yard loss.",[self getEventPrefix],offense.abbreviation,selQB.name, abs(yardsGained)]];
+        } else {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@ rushes for no gain.",[self getEventPrefix],offense.abbreviation,selQB.name]];
+        }
     }
 }
 
@@ -2602,6 +2656,16 @@
             [AwayRB2Stats replaceObjectAtIndex:1 withObject:rb2Att];
         }
     }
+    
+    if (pbpEnabled) {
+        if (yardsGained > 0) {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ RB %@ rushes for a %d-yard gain.",[self getEventPrefix],offense.abbreviation,selRB.name, yardsGained]];
+        } else if (yardsGained < 0) {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ RB %@ rushes for a %d-yard loss.",[self getEventPrefix],offense.abbreviation,selRB.name, abs(yardsGained)]];
+        } else {
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ RB %@ rushes for no gain.",[self getEventPrefix],offense.abbreviation,selRB.name]];
+        }
+    }
 }
 
 -(void)freeKick:(Team*)offense {
@@ -2631,6 +2695,9 @@
         } else {
             // Just regular kick off
             gameYardLine = (int) (115 - ( [offense getK:0].ratKickPow + 20 - 40*[HBSharedUtils randomValue] ));
+            if (pbpEnabled) {
+                [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ kicks off.",[self getEventPrefix],offense.abbreviation]];
+            }
             if ( gameYardLine <= 0 ) gameYardLine = 25;
             gameDown = 1;
             gameYardsNeed = 10;

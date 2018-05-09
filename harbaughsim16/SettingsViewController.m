@@ -300,7 +300,18 @@
             BOOL notifsOn = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
             [setCell.settingSwitch setOnTintColor:[HBSharedUtils styleColor]];
             [setCell.settingSwitch setOn:notifsOn];
+            setCell.tag = 1;
             [setCell.titleLabel setText:@"Weekly Summary Notifications"];
+            [setCell.settingSwitch addTarget:self action:@selector(changeNotificationSettings:) forControlEvents:UIControlEventValueChanged];
+            
+            return setCell;
+        } else if (indexPath.row == 1) {
+            HBSettingsCell *setCell = (HBSettingsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBSettingsCell"];
+            BOOL pbpEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:HB_PLAY_BY_PLAY_ENABLED];
+            [setCell.settingSwitch setOnTintColor:[HBSharedUtils styleColor]];
+            [setCell.settingSwitch setOn:pbpEnabled];
+            setCell.tag = 2;
+            [setCell.titleLabel setText:@"Full Play by Play"];
             [setCell.settingSwitch addTarget:self action:@selector(changeNotificationSettings:) forControlEvents:UIControlEventValueChanged];
             
             return setCell;
@@ -349,8 +360,13 @@
 }
 
 -(void)changeNotificationSettings:(UISwitch*)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:sender.isOn forKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    if (sender.tag == 1) {
+        [[NSUserDefaults standardUserDefaults] setBool:sender.isOn forKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setBool:sender.isOn forKey:HB_PLAY_BY_PLAY_ENABLED];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
