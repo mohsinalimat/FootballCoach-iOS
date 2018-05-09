@@ -117,7 +117,7 @@
         convertProgressView.frame = CGRectMake(10, 70, 250, 0);
         [convertProgressAlert.view addSubview:convertProgressView];
         
-        __block League *oldLigue = _league;
+        __block League *oldLigue = self->_league;
         
         [LeagueUpdater convertLeagueFromOldVersion:oldLigue updatingBlock:^(float progress, NSString * _Nullable updateStatus) {
             convertProgressAlert.message = updateStatus;
@@ -129,13 +129,13 @@
                 convertProgressAlert.title = finalStatus;
                 convertProgressAlert.message = @"Please be aware that each school in your save file has been assigned a random home state. This will only have an effect in recruiting. If you want to change this, please edit teams before starting recruiting in the next offseason.";
                 [convertProgressAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
-                _league = ligue;
-                [_league save];
+                self->_league = ligue;
+                [self->_league save];
             });
         }];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [tabBarController presentViewController:convertProgressAlert animated:YES completion:nil];
+            [self->tabBarController presentViewController:convertProgressAlert animated:YES completion:nil];
         });
     }]];
     
@@ -144,7 +144,7 @@
         [dangerAlert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             BOOL success = [FCFileManager removeItemAtPath:@"league.cfb"];
             if (success) {
-                _league.userTeam = nil;
+                self->_league.userTeam = nil;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"noSaveFile" object:nil];
                     [self displayIntro];
@@ -156,7 +156,7 @@
         }]];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [tabBarController presentViewController:dangerAlert animated:YES completion:nil];
+            [self->tabBarController presentViewController:dangerAlert animated:YES completion:nil];
         });
     }]];
     

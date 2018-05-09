@@ -54,14 +54,14 @@
         [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Game Mode" message:@"Would you like to turn on hard mode? In hard mode, your rival will be more competitive, good players will have a higher chance of leaving for the pros, and your program can incur sanctions from the league." preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes, I'd like a challenge." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [league setUserTeam:userTeam];
-                league.isHardMode = YES;
-                league.canRebrandTeam = YES;
-                [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
-                [league save];
+                [self->league setUserTeam:self->userTeam];
+                self->league.isHardMode = YES;
+                self->league.canRebrandTeam = YES;
+                [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
+                [self->league save];
                 
                 NSLog(@"HARD MODE ENGAGED");
-                [Answers logContentViewWithName:@"New Hard Mode Save Created" contentType:@"Team" contentId:@"hardmode-team16" customAttributes:@{@"Team Name":userTeam.name}];
+                [Answers logContentViewWithName:@"New Hard Mode Save Created" contentType:@"Team" contentId:@"hardmode-team16" customAttributes:@{@"Team Name":self->userTeam.name}];
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
@@ -69,13 +69,13 @@
             }]];
             
             [alert addAction:[UIAlertAction actionWithTitle:@"No, I'll stick with normal mode." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                [league setUserTeam:userTeam];
-                league.isHardMode = NO;
-                league.canRebrandTeam = YES;
-                [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:league];
-                [league save];
+                [self->league setUserTeam:self->userTeam];
+                self->league.isHardMode = NO;
+                self->league.canRebrandTeam = YES;
+                [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
+                [self->league save];
                 
-                [Answers logContentViewWithName:@"New Normal Mode Save Created" contentType:@"Team" contentId:@"team16" customAttributes:@{@"Team Name":userTeam.name}];
+                [Answers logContentViewWithName:@"New Normal Mode Save Created" contentType:@"Team" contentId:@"team16" customAttributes:@{@"Team Name":self->userTeam.name}];
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];

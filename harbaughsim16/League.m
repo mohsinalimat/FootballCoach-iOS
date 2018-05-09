@@ -2009,8 +2009,8 @@
         Player *b = (Player*)obj2;
         int adjADraftGrade = 0;
         int adjBDraftGrade = 0;
-        int adjAHeisScore = 100 * ((double)[a getHeismanScore]/(double)[heisman getHeismanScore]);
-        int adjBHeisScore = 100 * ((double)[b getHeismanScore]/(double)[heisman getHeismanScore]);
+        int adjAHeisScore = 100 * ((double)[a getHeismanScore]/(double)[self->heisman getHeismanScore]);
+        int adjBHeisScore = 100 * ((double)[b getHeismanScore]/(double)[self->heisman getHeismanScore]);
         
         if ([a isKindOfClass:[PlayerQB class]]) {
             PlayerQB *p = (PlayerQB*)a;
