@@ -227,7 +227,7 @@
     } else if (section == 1) {
         return 14;
     } else {
-        return 5;
+        return 6;
     }
 }
 
@@ -300,7 +300,18 @@
             BOOL notifsOn = [[NSUserDefaults standardUserDefaults] boolForKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
             [setCell.settingSwitch setOnTintColor:[HBSharedUtils styleColor]];
             [setCell.settingSwitch setOn:notifsOn];
+            setCell.tag = 1;
             [setCell.titleLabel setText:@"Weekly Summary Notifications"];
+            [setCell.settingSwitch addTarget:self action:@selector(changeNotificationSettings:) forControlEvents:UIControlEventValueChanged];
+            
+            return setCell;
+        } else if (indexPath.row == 1) {
+            HBSettingsCell *setCell = (HBSettingsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBSettingsCell"];
+            BOOL pbpEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:HB_PLAY_BY_PLAY_ENABLED];
+            [setCell.settingSwitch setOnTintColor:[HBSharedUtils styleColor]];
+            [setCell.settingSwitch setOn:pbpEnabled];
+            setCell.tag = 2;
+            [setCell.titleLabel setText:@"Full Play by Play"];
             [setCell.settingSwitch addTarget:self action:@selector(changeNotificationSettings:) forControlEvents:UIControlEventValueChanged];
             
             return setCell;
@@ -315,7 +326,7 @@
                
             }
             
-            if (indexPath.row == 1) {
+            if (indexPath.row == 2) {
                 [cell.textLabel setText:@"Rebrand Team"];
                 if ([HBSharedUtils currentLeague].canRebrandTeam) {
                     [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
@@ -325,7 +336,7 @@
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     
                 }
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 [cell.textLabel setText:@"Rebrand Conferences"];
                 if ([HBSharedUtils currentLeague].canRebrandTeam) {
                     [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
@@ -334,7 +345,7 @@
                     [cell.textLabel setTextColor:[UIColor lightGrayColor]];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
-            } else if (indexPath.row == 3) {
+            } else if (indexPath.row == 4) {
                 [cell.textLabel setText:@"Export League Metadata"];
                 [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
                 cell.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -349,8 +360,13 @@
 }
 
 -(void)changeNotificationSettings:(UISwitch*)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:sender.isOn forKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    if (sender.tag == 1) {
+        [[NSUserDefaults standardUserDefaults] setBool:sender.isOn forKey:HB_IN_APP_NOTIFICATIONS_TURNED_ON];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setBool:sender.isOn forKey:HB_PLAY_BY_PLAY_ENABLED];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

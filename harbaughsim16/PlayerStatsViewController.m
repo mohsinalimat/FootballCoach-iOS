@@ -75,7 +75,7 @@
         for (Team *t in [HBSharedUtils currentLeague].teamList) {
             [players addObjectsFromArray:t.teamQBs];
         }
-        [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             PlayerQB *a = (PlayerQB*)obj1;
             PlayerQB *b = (PlayerQB*)obj2;
             return (a.statsPassYards > b.statsPassYards) ? -1 : ((a.statsPassYards == b.statsPassYards) ? [a.name compare:b.name] : 1);
@@ -87,7 +87,7 @@
             [players addObjectsFromArray:t.teamQBs];
         }
         
-        [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             PlayerRB *a = (PlayerRB*)obj1;
             PlayerRB *b = (PlayerRB*)obj2;
             return (a.statsRushYards > b.statsRushYards) ? -1 : ((a.statsRushYards == b.statsRushYards) ? [a.name compare:b.name] : 1);
@@ -100,7 +100,7 @@
             [players addObjectsFromArray:t.teamTEs];
         }
         
-        [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             PlayerWR *a = (PlayerWR*)obj1;
             PlayerWR *b = (PlayerWR*)obj2;
             return (a.statsRecYards > b.statsRecYards) ? -1 : ((a.statsRecYards == b.statsRecYards) ? [a.name compare:b.name] : 1);
@@ -110,7 +110,7 @@
         for (Team *t in [HBSharedUtils currentLeague].teamList) {
             [players addObjectsFromArray:t.teamKs];
         }
-        [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             PlayerK *a = (PlayerK*)obj1;
             PlayerK *b = (PlayerK*)obj2;
             return ([a getHeismanScore] > [b getHeismanScore]) ? -1 : (([a getHeismanScore] == [b getHeismanScore]) ? [a.name compare:b.name] : 1);
@@ -124,7 +124,7 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Stat Sort Options" message:@"What statistic would you like to sort by?" preferredStyle:UIAlertControllerStyleActionSheet];
     if (position == HBStatPositionQB) { //Yds, Comp/Att, YPG, TD, Int
         [alertController addAction:[UIAlertAction actionWithTitle:@"Passing Yards" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerQB *a = (PlayerQB*)obj1;
                 PlayerQB *b = (PlayerQB*)obj2;
                 return (a.statsPassYards > b.statsPassYards) ? -1 : ((a.statsPassYards == b.statsPassYards) ? [a.name compare:b.name] : 1);
@@ -133,7 +133,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Completion Percentage" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerQB *a = (PlayerQB*)obj1;
                 PlayerQB *b = (PlayerQB*)obj2;
                 int aCompPercent = 0;
@@ -152,7 +152,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Yards per Game" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerQB *a = (PlayerQB*)obj1;
                 PlayerQB *b = (PlayerQB*)obj2;
                 int aYPG = 0;
@@ -171,7 +171,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Touchdowns" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerQB *a = (PlayerQB*)obj1;
                 PlayerQB *b = (PlayerQB*)obj2;
                 return (a.statsTD > b.statsTD) ? -1 : ((a.statsTD == b.statsTD) ? [a.name compare:b.name] : 1);
@@ -180,7 +180,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Interceptions" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerQB *a = (PlayerQB*)obj1;
                 PlayerQB *b = (PlayerQB*)obj2;
                 return (a.statsInt > b.statsInt) ? -1 : ((a.statsInt == b.statsInt) ? [a.name compare:b.name] : 1);
@@ -189,7 +189,7 @@
         }]];
     } else if (position == HBStatPositionRB) { //Yds, att, YPG, TD, Fum
         [alertController addAction:[UIAlertAction actionWithTitle:@"Rushing Yards" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 Player *a = (Player*)obj1;
                 Player *b = (Player*)obj2;
                 if (([a isKindOfClass:[PlayerQB class]] || [a isKindOfClass:[PlayerRB class]]) && ([b isKindOfClass:[PlayerQB class]] || [b isKindOfClass:[PlayerRB class]])) {
@@ -220,7 +220,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Yards per Attempt" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 int aYPA = 0;
                 int bYPA = 0;
 
@@ -261,7 +261,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Yards per Game" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 int aYPG = 0;
                 int bYPG = 0;
                 
@@ -302,7 +302,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Touchdowns" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 Player *a = (Player*)obj1;
                 Player *b = (Player*)obj2;
                 if (([a isKindOfClass:[PlayerQB class]] || [a isKindOfClass:[PlayerRB class]]) && ([b isKindOfClass:[PlayerQB class]] || [b isKindOfClass:[PlayerRB class]])) {
@@ -334,7 +334,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Fumbles" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 Player *a = (Player*)obj1;
                 Player *b = (Player*)obj2;
                 if (([a isKindOfClass:[PlayerQB class]] || [a isKindOfClass:[PlayerRB class]]) && ([b isKindOfClass:[PlayerQB class]] || [b isKindOfClass:[PlayerRB class]])) {
@@ -365,7 +365,7 @@
         }]];
     } else if (position == HBStatPositionWR) { //Yds, rec, YPG, TD, Fum
         [alertController addAction:[UIAlertAction actionWithTitle:@"Receiving Yards" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerWR *a = (PlayerWR*)obj1;
                 PlayerWR *b = (PlayerWR*)obj2;
                 return (a.statsRecYards > b.statsRecYards) ? -1 : ((a.statsRecYards == b.statsRecYards) ? [a.name compare:b.name] : 1);
@@ -374,7 +374,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Receptions" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerWR *a = (PlayerWR*)obj1;
                 PlayerWR *b = (PlayerWR*)obj2;
                 return (a.statsReceptions > b.statsReceptions) ? -1 : ((a.statsReceptions == b.statsReceptions) ? [a.name compare:b.name] : 1);
@@ -383,7 +383,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Yards per Catch" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerWR *a = (PlayerWR*)obj1;
                 PlayerWR *b = (PlayerWR*)obj2;
                 int aYPA = 0;
@@ -402,7 +402,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Yards per Game" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerWR *a = (PlayerWR*)obj1;
                 PlayerWR *b = (PlayerWR*)obj2;
                 int aYPG = 0;
@@ -421,7 +421,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Touchdowns" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerWR *a = (PlayerWR*)obj1;
                 PlayerWR *b = (PlayerWR*)obj2;
                 return (a.statsTD > b.statsTD) ? -1 : ((a.statsTD == b.statsTD) ? [a.name compare:b.name] : 1);
@@ -430,7 +430,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Fumbles" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerWR *a = (PlayerWR*)obj1;
                 PlayerWR *b = (PlayerWR*)obj2;
                 return (a.statsFumbles > b.statsFumbles) ? -1 : ((a.statsFumbles == b.statsFumbles) ? [a.name compare:b.name] : 1);
@@ -439,7 +439,7 @@
         }]];
     } else { //K - FG%, XP%
         [alertController addAction:[UIAlertAction actionWithTitle:@"Field Goal Percentage" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerK *a = (PlayerK *)obj1;
                 PlayerK *b = (PlayerK *)obj2;
 
@@ -459,7 +459,7 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Extra Point Percentage" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerK *a = (PlayerK *)obj1;
                 PlayerK *b = (PlayerK *)obj2;
                 

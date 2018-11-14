@@ -1,6 +1,0 @@
-framework module PPTopMostController {
-  umbrella header "PPTopMostController-iOS10.0-umbrella.h"
-
-  export *
-  module * { export * }
-}

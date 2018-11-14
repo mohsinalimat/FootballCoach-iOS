@@ -130,18 +130,18 @@
 }
 
 -(void)backgroundViewDidTap {
-    [popupController dismiss];
+    [self->popupController dismiss];
 }
 
 -(void)runOnSaveInProgress {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [teamHeaderView.playButton setEnabled:NO];
+        [self->teamHeaderView.playButton setEnabled:NO];
     });
 }
 
 -(void)runOnSaveFinished {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [teamHeaderView.playButton setEnabled:YES];
+        [self->teamHeaderView.playButton setEnabled:YES];
     });
 }
 
@@ -257,22 +257,22 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
-            [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
-            [popupController.navigationBar setDraggable:YES];
-            popupController.style = STPopupStyleBottomSheet;
-            [popupController presentInViewController:self];
+            self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
+            [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+            [self->popupController.navigationBar setDraggable:YES];
+            self->popupController.style = STPopupStyleBottomSheet;
+            [self->popupController presentInViewController:self];
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"All-League Team" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[AllLeagueTeamViewController alloc] init] animated:YES];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"All-Conference Teams" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            popupController = [[STPopupController alloc] initWithRootViewController:[[AllConferenceTeamConferenceSelectorViewController alloc] init]];
-            [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
-            [popupController.navigationBar setDraggable:YES];
-            popupController.style = STPopupStyleBottomSheet;
-            [popupController presentInViewController:self];
+            self->popupController = [[STPopupController alloc] initWithRootViewController:[[AllConferenceTeamConferenceSelectorViewController alloc] init]];
+            [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+            [self->popupController.navigationBar setDraggable:YES];
+            self->popupController.style = STPopupStyleBottomSheet;
+            [self->popupController presentInViewController:self];
         }]];
     } else if ([HBSharedUtils currentLeague].currentWeek == 14) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Current Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -288,11 +288,11 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
-            [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
-            [popupController.navigationBar setDraggable:YES];
-            popupController.style = STPopupStyleBottomSheet;
-            [popupController presentInViewController:self];
+            self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
+            [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+            [self->popupController.navigationBar setDraggable:YES];
+            self->popupController.style = STPopupStyleBottomSheet;
+            [self->popupController presentInViewController:self];
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"All-League Team" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -300,11 +300,11 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"All-Conference Teams" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            popupController = [[STPopupController alloc] initWithRootViewController:[[AllConferenceTeamConferenceSelectorViewController alloc] init]];
-            [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
-            [popupController.navigationBar setDraggable:YES];
-            popupController.style = STPopupStyleBottomSheet;
-            [popupController presentInViewController:self];
+            self->popupController = [[STPopupController alloc] initWithRootViewController:[[AllConferenceTeamConferenceSelectorViewController alloc] init]];
+            [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+            [self->popupController.navigationBar setDraggable:YES];
+            self->popupController.style = STPopupStyleBottomSheet;
+            [self->popupController presentInViewController:self];
         }]];
     } else if ([HBSharedUtils currentLeague].currentWeek == 13) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Current Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -320,11 +320,11 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
-            [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
-            [popupController.navigationBar setDraggable:YES];
-            popupController.style = STPopupStyleBottomSheet;
-            [popupController presentInViewController:self];
+            self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
+            [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+            [self->popupController.navigationBar setDraggable:YES];
+            self->popupController.style = STPopupStyleBottomSheet;
+            [self->popupController presentInViewController:self];
         }]];
         
     } else if ([HBSharedUtils currentLeague].currentWeek > 6) {
@@ -341,11 +341,11 @@
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
-            [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
-            [popupController.navigationBar setDraggable:YES];
-            popupController.style = STPopupStyleBottomSheet;
-            [popupController presentInViewController:self];
+            self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
+            [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+            [self->popupController.navigationBar setDraggable:YES];
+            self->popupController.style = STPopupStyleBottomSheet;
+            [self->popupController presentInViewController:self];
         }]];
         
     } else {
@@ -353,11 +353,11 @@
              [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
-            [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
-            [popupController.navigationBar setDraggable:YES];
-            popupController.style = STPopupStyleBottomSheet;
-            [popupController presentInViewController:self];
+            self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
+            [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+            [self->popupController.navigationBar setDraggable:YES];
+            self->popupController.style = STPopupStyleBottomSheet;
+            [self->popupController presentInViewController:self];
         }]];
     }
 

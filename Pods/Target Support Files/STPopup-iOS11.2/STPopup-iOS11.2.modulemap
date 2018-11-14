@@ -1,6 +1,0 @@
-framework module STPopup {
-  umbrella header "STPopup-iOS11.2-umbrella.h"
-
-  export *
-  module * { export * }
-}

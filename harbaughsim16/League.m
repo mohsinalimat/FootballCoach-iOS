@@ -990,8 +990,10 @@
 
         [self scheduleBowlGames];
     } else if (currentWeek == 13 ) {
-        heisman = [self calculateHeismanCandidates][0];
-        [heismanHistoryDictionary setObject:[NSString stringWithFormat:@"%@ %@ [%@], %@ (%ld-%ld)",heisman.position,heisman.getInitialName,heisman.getYearString,heisman.team.abbreviation,(long)heisman.team.wins,(long)heisman.team.losses] forKey:[NSString stringWithFormat:@"%ld",(long)(2016+heismanHistoryDictionary.count)]];
+        if (!heisman) {
+            [self getHeismanCeremonyStr];
+            [heismanHistoryDictionary setObject:[NSString stringWithFormat:@"%@ %@ [%@], %@ (%ld-%ld)",heisman.position,heisman.getInitialName,heisman.getYearString,heisman.team.abbreviation,(long)heisman.team.wins,(long)heisman.team.losses] forKey:[NSString stringWithFormat:@"%ld",(long)(2016+heismanHistoryDictionary.count)]];
+        }
         
         [self playBowlGames];
 
@@ -1410,6 +1412,19 @@
                     }
                 }
             }
+            
+            //te
+            if (teamList[i].teamTEs.count > 1) {
+                PlayerTE *wrec = teamList[i].teamTEs[0];
+                if (![heismanCandidates containsObject:wrec]) {
+                    [heismanCandidates addObject:wrec];
+                }
+                tempScore = [wrec getHeismanScore] + teamList[i].wins*150;
+                if ( tempScore > heismanScore ) {
+                    heisman = wrec;
+                    heismanScore = tempScore;
+                }
+            }
         }
 
         [heismanCandidates sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -1504,6 +1519,9 @@
             } else if ([p isKindOfClass:[PlayerRB class]]) {
                 PlayerRB *prb = (PlayerRB*)p;
                 heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" RB %@: %ld votes\n\t(%ld TDs, %ld Fum, %ld Yds)\n",[prb getInitialName],(long)[prb getHeismanScore],(long)prb.statsTD,(long)prb.statsFumbles,(long)prb.statsRushYards]];
+            } else if ([p isKindOfClass:[PlayerTE class]]) {
+                PlayerTE *pwr = (PlayerTE*)p;
+                heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" TE %@: %ld votes\n\t(%ld TDs, %ld Fum, %ld Yds)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTD,(long)pwr.statsFumbles,(long)pwr.statsRecYards]];
             } else if ([p isKindOfClass:[PlayerWR class]]) {
                 PlayerWR *pwr = (PlayerWR*)p;
                 heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" WR %@: %ld votes\n\t(%ld TDs, %ld Fum, %ld Yds)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTD,(long)pwr.statsFumbles,(long)pwr.statsRecYards]];
@@ -1536,6 +1554,16 @@
             } else {
                 heismanWinnerStr = [NSString stringWithFormat:@"%ld's POTY: %@ RB %@!\n?Congratulations to %@ RB %@ [%@], who had %ld TDs, %ld fumble, and %ld rushing yards and led %@ to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heisRB.team.abbreviation, [heisRB getInitialName],heisRB.team.abbreviation, heisRB.name, [heisman getYearString], (long)heisRB.statsTD, (long)heisRB.statsFumbles, (long)heisRB.statsRushYards, heisRB.team.name, (long)heisRB.team.wins,(long)heisRB.team.losses,(long)heisRB.team.rankTeamPollScore];
             }
+            [heismanStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",heismanWinnerStr, heismanTop5]];
+        } else if ([heisman isKindOfClass:[PlayerTE class]]) {
+            //te heisman
+            PlayerTE *heisWR = (PlayerTE*)heisman;
+            if (heisWR.statsFumbles > 1 || heisWR.statsFumbles == 0) {
+                heismanWinnerStr = [NSString stringWithFormat:@"%ld's POTY: %@ TE %@!\n?Congratulations to %@ TE %@ [%@], who had %ld TDs, %ld fumbles, and %ld receiving yards and led %@ to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heisWR.team.abbreviation, [heisWR getInitialName], heisWR.team.abbreviation, heisWR.name, [heisman getYearString], (long)heisWR.statsTD, (long)heisWR.statsFumbles, (long)heisWR.statsRecYards, heisWR.team.name, (long)heisWR.team.wins,(long)heisWR.team.losses,(long)heisWR.team.rankTeamPollScore];
+            } else {
+                heismanWinnerStr = [NSString stringWithFormat:@"%ld's POTY: %@ TE %@!\n?Congratulations to %@ TE %@ [%@], who had %ld TDs, %ld fumble, and %ld receiving yards and led %@ to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heisWR.team.abbreviation, [heisWR getInitialName],heisWR.team.abbreviation, heisWR.name, [heisman getYearString], (long)heisWR.statsTD, (long)heisWR.statsFumbles, (long)heisWR.statsRecYards, heisWR.team.name, (long)heisWR.team.wins,(long)heisWR.team.losses,(long)heisWR.team.rankTeamPollScore];
+            }
+            
             [heismanStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",heismanWinnerStr, heismanTop5]];
         } else if ([heisman isKindOfClass:[PlayerWR class]]) {
             //wr heisman
@@ -1981,8 +2009,8 @@
         Player *b = (Player*)obj2;
         int adjADraftGrade = 0;
         int adjBDraftGrade = 0;
-        int adjAHeisScore = 100 * ((double)[a getHeismanScore]/(double)[heisman getHeismanScore]);
-        int adjBHeisScore = 100 * ((double)[b getHeismanScore]/(double)[heisman getHeismanScore]);
+        int adjAHeisScore = 100 * ((double)[a getHeismanScore]/(double)[self->heisman getHeismanScore]);
+        int adjBHeisScore = 100 * ((double)[b getHeismanScore]/(double)[self->heisman getHeismanScore]);
         
         if ([a isKindOfClass:[PlayerQB class]]) {
             PlayerQB *p = (PlayerQB*)a;

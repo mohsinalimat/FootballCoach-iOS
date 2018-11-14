@@ -32,6 +32,8 @@
     BOOL playingOT;
     BOOL bottomOT;
     
+    BOOL pbpEnabled;
+    
 }
 @property (nonatomic) int homeScore;
 @property (nonatomic) int awayScore;

@@ -97,6 +97,12 @@
         }
     }
     
+    for (Player *p in userTeam.teamTEs) {
+        if (p.draftPosition != nil) {
+            [userDraftees addObject:p];
+        }
+    }
+    
     for (Player *p in userTeam.teamOLs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];

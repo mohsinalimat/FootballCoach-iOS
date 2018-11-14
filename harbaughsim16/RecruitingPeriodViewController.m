@@ -200,11 +200,11 @@
 
         __block League *currentLeague = [HBSharedUtils currentLeague];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            for (Player *p in totalRecruits) {
+            for (Player *p in self->totalRecruits) {
                 if (p.team == nil || p.recruitStatus != CFCRecruitStatusCommitted) {
                     // choose a random offer and increase its interest by a random set of events
                     if (p.offers != nil && p.offers.allKeys.count > 0) {
-                        if (recruitingStage != CFCRecruitingStageSigningDay) {
+                        if (self->recruitingStage != CFCRecruitingStageSigningDay) {
                             if (!(p.offers.count == 1 && [p.offers.allKeys containsObject:currentLeague.userTeam.abbreviation])) {
                                 NSString *randomOffer;
                                 // NSLog(@"STARTING TO FIND RANDOM OFFER FROM: %@", p.offers.allKeys);
@@ -236,7 +236,7 @@
                         // NSLog(@"RETREIVING TOP OFFER FROM: %@", sortedOffers);
                         NSString *highestOffer = sortedOffers[0];
                         // NSLog(@"PROCESSING TOP OFFER: %@", highestOffer);
-                        if (recruitingStage != CFCRecruitingStageSigningDay) {
+                        if (self->recruitingStage != CFCRecruitingStageSigningDay) {
                             if (p.offers[highestOffer].intValue > 99) {
                                 // sign him to that team
                                 // NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
@@ -248,7 +248,7 @@
                                         [t.recruitingClass addObject:p];
                                         
                                         if (t == currentLeague.userTeam) {
-                                            [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
+                                            [self->signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([self->totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
                                         }
                                     }
                                 });
@@ -263,7 +263,7 @@
                                     [t.recruitingClass addObject:p];
                                 
                                     if (t == currentLeague.userTeam) {
-                                        [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
+                                        [self->signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:p] + 1), p.position, (long)([self->totalRecruits indexOfObject:p] + 1)] forKey:[p uniqueIdentifier]];
                                     }
                                 }
                             });
@@ -278,30 +278,30 @@
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([HBSharedUtils currentLeague].isHardMode) {
-                    if (recruitingStage == CFCRecruitingStageWinter) {
-                        recruitingStage = CFCRecruitingStageEarlySigningDay;
+                    if (self->recruitingStage == CFCRecruitingStageWinter) {
+                        self->recruitingStage = CFCRecruitingStageEarlySigningDay;
                         // NSLog(@"STARTING SIGNING DAY, STAGE %d", recruitingStage);
                         self.title = [NSString stringWithFormat:@"Early Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
-                    } else if (recruitingStage == CFCRecruitingStageEarlySigningDay) {
-                        recruitingStage = CFCRecruitingStageSigningDay;
+                    } else if (self->recruitingStage == CFCRecruitingStageEarlySigningDay) {
+                        self->recruitingStage = CFCRecruitingStageSigningDay;
                         // NSLog(@"STARTING SIGNING DAY, STAGE %d", recruitingStage);
                         self.title = [NSString stringWithFormat:@"Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
                     } else {
-                        recruitingStage = CFCRecruitingStageFallCamp;
+                        self->recruitingStage = CFCRecruitingStageFallCamp;
                         // NSLog(@"SHOWING RECRUITING CLASS, STAGE %d", recruitingStage);
                         self.title = [NSString stringWithFormat:@"%lu Recruiting Class",  (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleDone target:self action:@selector(finishRecruitingSeason)];
                     }
                 } else {
-                    if (recruitingStage == CFCRecruitingStageWinter) {
-                        recruitingStage = CFCRecruitingStageSigningDay;
+                    if (self->recruitingStage == CFCRecruitingStageWinter) {
+                        self->recruitingStage = CFCRecruitingStageSigningDay;
                         // NSLog(@"STARTING SIGNING DAY, STAGE %d", recruitingStage);
                         self.title = [NSString stringWithFormat:@"Signing Day %lu", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
                     } else {
-                        recruitingStage = CFCRecruitingStageFallCamp;
+                        self->recruitingStage = CFCRecruitingStageFallCamp;
                         // NSLog(@"SHOWING RECRUITING CLASS, STAGE %d", recruitingStage);
                         self.title = [NSString stringWithFormat:@"%lu Recruiting Class",  (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleDone target:self action:@selector(finishRecruitingSeason)];
@@ -310,8 +310,8 @@
 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [hud hideAnimated:YES];
-                    if (recruitingStage == CFCRecruitingStageFallCamp) {
-                        [positionSelectionControl removeFromSuperview];
+                    if (self->recruitingStage == CFCRecruitingStageFallCamp) {
+                        [self->positionSelectionControl removeFromSuperview];
                         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
                         self.navigationController.toolbarHidden = YES;
                         if (@available(iOS 11, *)) {
@@ -760,7 +760,8 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
 
     // calculate recruiting points, but never show number - just show as usage as "% effort extended"
-    recruitingPoints = MAX(([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf(20.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige) : (int)ceilf(25.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige), 600);
+    int estimatedRecruitingPoints = ([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf(25.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige) : (int)ceilf(30.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige);
+    recruitingPoints = MAX(estimatedRecruitingPoints, 600);
     usedRecruitingPoints = 0;
 
     NSLog(@"Recruiting points total: %d", recruitingPoints);
@@ -1152,7 +1153,7 @@
         }
 
         // generate offers from other teams
-        for (Player *p in totalRecruits) {
+        for (Player *p in self->totalRecruits) {
             p.offers = [NSMutableDictionary dictionary];
             NSMutableDictionary *prelimOffers = [NSMutableDictionary dictionary];
             for (Team *t in teamList) {
@@ -1190,7 +1191,7 @@
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [hud hideAnimated:YES];
-            [positionSelectionControl setSelectedSegmentIndex:0];
+            [self->positionSelectionControl setSelectedSegmentIndex:0];
             [self.tableView reloadData];
         });
     });
