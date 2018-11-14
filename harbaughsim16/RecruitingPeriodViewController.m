@@ -760,7 +760,8 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
 
     // calculate recruiting points, but never show number - just show as usage as "% effort extended"
-    recruitingPoints = MAX(([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf(20.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige) : (int)ceilf(25.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige), 600);
+    int estimatedRecruitingPoints = ([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf(25.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige) : (int)ceilf(30.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige);
+    recruitingPoints = MAX(estimatedRecruitingPoints, 600);
     usedRecruitingPoints = 0;
 
     NSLog(@"Recruiting points total: %d", recruitingPoints);
