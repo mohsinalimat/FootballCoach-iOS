@@ -183,7 +183,7 @@
         homeTOs = 0;
         awayTOs = 0;
         
-        gameEventLog = [NSMutableString stringWithFormat:@"LOG: #%ld %@ (%ld-%ld) @ #%ld %@ (%ld-%ld)\n%@\n---------------------------------------------------------",(long)awayTeam.rankTeamPollScore,awayTeam.abbreviation,(long)awayTeam.wins,(long)awayTeam.losses,(long)homeTeam.rankTeamPollScore,homeTeam.abbreviation,(long)homeTeam.wins,(long)homeTeam.losses,gameName];
+        gameEventLog = [NSMutableString stringWithFormat:@"#%ld %@ (%ld-%ld) @ #%ld %@ (%ld-%ld)\n%@\n---------------------------------------------------------",(long)awayTeam.rankTeamPollScore,awayTeam.abbreviation,(long)awayTeam.wins,(long)awayTeam.losses,(long)homeTeam.rankTeamPollScore,homeTeam.abbreviation,(long)homeTeam.wins,(long)homeTeam.losses,gameName];
         
         //initialize arrays, set everything to zero
         HomeQBStats = [NSMutableArray array];
@@ -1443,7 +1443,7 @@
         //no completion, advance downs
         [self passAttempt:offense defense:defense receiver:selTE stats:selTEStats yardsGained:yardsGain];
         if (pbpEnabled) {
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@\n%@ QB %@'s pass falls incomplete. Intended for %@ %@.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selTE.position, selTE.name]];
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@'s pass falls incomplete. Intended for %@ %@.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selTE.position, selTE.name]];
         }
         gameDown++;
         gameTime -= (15 * [HBSharedUtils randomValue]);
@@ -1580,7 +1580,7 @@
         //no completion, advance downs
         [self passAttempt:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
         if (pbpEnabled) {
-            [gameEventLog appendString:[NSString stringWithFormat:@"%@\n%@ QB %@'s pass falls incomplete. Intended for %@ %@.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selWR.position, selWR.name]];
+            [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@'s pass falls incomplete. Intended for %@ %@.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selWR.position, selWR.name]];
         }
         gameDown++;
         gameTime -= (15 * [HBSharedUtils randomValue]);

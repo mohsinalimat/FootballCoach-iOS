@@ -1,6 +1,0 @@
-framework module ATAppUpdater {
-  umbrella header "ATAppUpdater-iOS10.0-umbrella.h"
-
-  export *
-  module * { export * }
-}

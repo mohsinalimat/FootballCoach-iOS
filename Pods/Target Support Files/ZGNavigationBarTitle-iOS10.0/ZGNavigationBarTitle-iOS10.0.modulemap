@@ -1,6 +1,0 @@
-framework module ZGNavigationBarTitle {
-  umbrella header "ZGNavigationBarTitle-iOS10.0-umbrella.h"
-
-  export *
-  module * { export * }
-}
