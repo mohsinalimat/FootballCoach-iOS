@@ -41,7 +41,7 @@ DEPENDENCIES:
   - ZGNavigationBarTitle
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - ATAppUpdater
     - AutoCoding
     - Charts
@@ -79,4 +79,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 718d0e3d16d6df40badd43553fd862ba4d0e176b
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
