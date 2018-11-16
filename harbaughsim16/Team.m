@@ -1705,12 +1705,22 @@
         for ( int i = 0; i < 5; ++i ) {
             compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkP)/2;
         }
-        return compositeOL / 5;
+        if (self.offensiveStrategy.passUsage > 0) {
+            compositeOL += ([self getTE:0] != nil) ? [self getTE:0].ratTERunBlk : 0;
+            return ([self getTE:0] != nil) ? compositeOL / 5.5 : compositeOL / 5;
+        } else {
+            return compositeOL / 5;
+        }
     } else {
         for ( int i = 0; i < teamOLs.count; ++i ) {
             compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkP)/2;
         }
-        return compositeOL / teamOLs.count;
+        if (self.offensiveStrategy.passUsage > 0) {
+            compositeOL += ([self getTE:0] != nil) ? [self getTE:0].ratTERunBlk : 0;
+            return ([self getTE:0] != nil) ? compositeOL / (0.5 + (float)(teamOLs.count)) : compositeOL / teamOLs.count;
+        } else {
+            return compositeOL / teamOLs.count;
+        }
     }
 }
 
@@ -1720,12 +1730,22 @@
         for ( int i = 0; i < 5; ++i ) {
             compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkR)/2;
         }
-        return compositeOL / 5;
+        if (self.offensiveStrategy.runUsage > 0) {
+            compositeOL += ([self getTE:0] != nil) ? [self getTE:0].ratTERunBlk : 0;
+            return ([self getTE:0] != nil) ? compositeOL / 5.5 : compositeOL / 5;
+        } else {
+            return compositeOL / 5;
+        }
     } else {
         for ( int i = 0; i < teamOLs.count; ++i ) {
             compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkR)/2;
         }
-        return compositeOL / teamOLs.count;
+        if (self.offensiveStrategy.runUsage > 0) {
+            compositeOL += ([self getTE:0] != nil) ? [self getTE:0].ratTERunBlk : 0;
+            return ([self getTE:0] != nil) ? compositeOL / (0.5 + (float)(teamOLs.count)) : compositeOL / teamOLs.count;
+        } else {
+            return compositeOL / teamOLs.count;
+        }
     }
 }
 
@@ -1761,22 +1781,21 @@
         }
     }
     
-    if (teamLBs.count >= 3) {
-        for ( int i = 0; i < 3; ++i ) {
-            compositeF7 += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBPas)/2;
+    if (self.defensiveStrategy.passUsage > 0) {
+        PlayerLB *selLB = [self getLB:0];
+        if (selLB != nil) {
+            compositeF7 += (selLB.ratLBPas + selLB.ratLBTkl) / 2;
+            return (compositeF7 / 4.58);
+        } else {
+            return compositeF7 / 4;
         }
     } else {
-        for ( int i = 0; i < teamLBs.count; ++i ) {
-            compositeF7 += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBPas)/2;
-        }
+        return compositeF7 / 4;
     }
-    return compositeF7 / 7;
 }
 
 -(int)getCompositeF7Rush {
     int compositeDL = 0;
-    int compositeLB = 0;
-
     if (teamDLs.count >= 4) {
         for ( int i = 0; i < 4; ++i ) {
             compositeDL += (teamDLs[i].ratDLPow + teamDLs[i].ratDLRsh)/2;
@@ -1787,17 +1806,18 @@
         }
     }
     
-    if (teamLBs.count >= 3) {
-        for ( int i = 0; i < 3; ++i ) {
-            compositeLB += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBRsh)/2;
+    if (self.defensiveStrategy.runUsage > 0) {
+        PlayerLB *selLB = [self getLB:0];
+        PlayerS *selS = [self getS:0];
+        if (selLB != nil && selS != nil) {
+            compositeDL += selLB.ratLBRsh + selS.ratSTkl;
+            return (compositeDL / 5.5);
+        } else {
+            return compositeDL / 4;
         }
     } else {
-        for ( int i = 0; i < teamLBs.count; ++i ) {
-            compositeLB += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBRsh)/2;
-        }
+        return compositeDL / 4;
     }
-
-    return (2*compositeDL + compositeLB)/11;
 }
 
 -(NSArray*)getTeamStatsArray {
@@ -2300,10 +2320,11 @@
 -(NSArray*)getOffensiveTeamStrategies {
     return @[
              [TeamStrategy newStrategy], // default - Balanced
-             [TeamStrategy newStrategyWithName:@"Smashmouth" description:@"Play a conservative, run-heavy offense." rPref:2 runProt:2 runPot:-2 rUsg:1 pPref:1 passProt:2 passPot:1 pUsg:0],
-             [TeamStrategy newStrategyWithName:@"West Coast" description:@"Play a dink-and-dunk passing game. Short accurate passes will set up the run game." rPref:2 runProt:0 runPot:1 rUsg:0 pPref:3 passProt:2 passPot:-2 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Spread" description:@"Play a pass-heavy offense that focuses on big plays but runs the risk of turnovers." rPref:1 runProt:-2 runPot:1 rUsg:0 pPref:2 passProt:-2 passPot:2 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Read Option" description:@"Play an offense that relies heavily on option reads based on coverage and LB positioning." rPref:6 runProt:-1 runPot:1 rUsg:1 pPref:5 passProt:-1 passPot:0 pUsg:0]
+             [TeamStrategy newStrategyWithName:@"Smashmouth" description:@"Play a conservative, run-heavy offense where the running game sets up the pass." rPref:2 runProt:1 runPot:-1 rUsg:1 pPref:1 passProt:2 passPot:1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"West Coast" description:@"Play a dink-and-dunk passing game. Short accurate passes will set up the run game." rPref:2 runProt:0 runPot:1 rUsg:0 pPref:3 passProt:1 passPot:-2 pUsg:2],
+             [TeamStrategy newStrategyWithName:@"Spread" description:@"Play a pass-heavy offense that focuses on big plays but runs the risk of turnovers." rPref:1 runProt:-2 runPot:1 rUsg:0 pPref:2 passProt:-2 passPot:1 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Read Option" description:@"Play an offense that relies heavily on option reads for running plays based on coverage and LB positioning." rPref:3 runProt:-1 runPot:1 rUsg:1 pPref:2 passProt:-1 passPot:-1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"Run-Pass Option" description:@"Play an offense relying on option reads for running and passing plays based on coverage and LB positioning." rPref:2 runProt:-1 runPot:1 rUsg:1 pPref:3 passProt:-1 passPot:-1 pUsg:1],
 
              ];
 }
@@ -2313,7 +2334,8 @@
              [TeamStrategy newStrategyWithName:@"4-3 Man" description:@"Play a standard 4-3 man-to-man balanced defense." rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1],
              [TeamStrategy newStrategyWithName:@"4-6 Bear" description:@"Play a defense focused on stopping the run. Will allow few yards and big plays on the ground, but may give up big passing plays." rPref:2 runProt:0 runPot:2 rUsg:1 pPref:1 passProt:-1 passPot:-1 pUsg:0],
              [TeamStrategy newStrategyWithName:@"Cover 2" description:@"Play a zone defense with safety help in the back against the pass and LBs that stay home to cover the run." rPref:2 runProt:0 runPot:-1 rUsg:1 pPref:3 passProt:2 passPot:0 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense that will stop big passing plays, but may allow short gains underneath." rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1]
+             [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense that will stop big passing plays, but may allow short gains underneath." rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"3-4 Man" description:@"Play a standard 3-4 man-to-man balanced defense." rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1],
              ];
 }
 

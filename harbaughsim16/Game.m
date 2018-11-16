@@ -2745,7 +2745,7 @@
 }
 
 -(int)normalize:(int)rating {
-    return (100 + rating)/2;
+    return rating;
 }
 
 @end
