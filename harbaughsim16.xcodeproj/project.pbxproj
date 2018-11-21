@@ -1527,6 +1527,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 67BW26529D;
+				HEADER_SEARCH_PATHS = "${inherited}";
 				INFOPLIST_FILE = harbaughsim16/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1535,6 +1536,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "harbaughsim16/harbaughsim16-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
+				USER_HEADER_SEARCH_PATHS = "${PODS_ROOT}/**";
 			};
 			name = Debug;
 		};
@@ -1550,6 +1552,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 67BW26529D;
+				HEADER_SEARCH_PATHS = "${inherited}";
 				INFOPLIST_FILE = harbaughsim16/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1557,6 +1560,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "harbaughsim16/harbaughsim16-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
+				USER_HEADER_SEARCH_PATHS = "${PODS_ROOT}/**";
 			};
 			name = Release;
 		};
@@ -1580,6 +1584,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.cfctests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/harbaughsim16.app/harbaughsim16";
 			};
@@ -1605,6 +1610,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.akeaswaran.cfctests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/harbaughsim16.app/harbaughsim16";
 			};
