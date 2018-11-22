@@ -93,6 +93,13 @@
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Corrupt Save File" message:@"Your save file may be corrupt. Please delete it and restart to ensure you do not experience any crashes." preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
             [tabBarController presentViewController:alertController animated:YES completion:nil];
+        } else if (![[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"me.akeaswaran.harbaughsim16"]) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Unofficial Build" message:@"You are using an unofficial build of College Football Coach. In order to ensure you get the latest bug fixes and features, please install the official version." preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Go to App Store" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/us/app/college-football-coach/id1095701497?ls=1&mt=8"] options:@{} completionHandler:nil];
+            }]];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Continue playing" style:UIAlertActionStyleCancel handler:nil]];
+            [tabBarController presentViewController:alertController animated:YES completion:nil];
         }
     }
     
