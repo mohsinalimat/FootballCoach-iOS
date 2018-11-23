@@ -674,7 +674,7 @@ static UIColor *styleColor = nil;
         NSString *interestString = @"LOW";
         if (offIdx == 0) {
             letterColor = [HBSharedUtils successColor];
-            interestString = @"LOCK";
+            interestString = @"STRONG";
         } else if (offIdx == 1) {
             letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
             interestString = @"HIGH";
@@ -693,7 +693,7 @@ static UIColor *styleColor = nil;
 +(NSString *)_calculateInterestString:(int)interestVal {
     NSString *interestString = @"LOW";
     if (interestVal > 94) { // LOCK
-        interestString = @"LOCK";
+        interestString = @"STRONG";
     } else if (interestVal > 80 && interestVal <= 94) { // HIGH
         interestString = @"HIGH";
     } else if (interestVal > 49 && interestVal <= 79) { // MEDIUM

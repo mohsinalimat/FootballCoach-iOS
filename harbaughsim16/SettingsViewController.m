@@ -474,7 +474,7 @@
             }
         }
     } else {
-        if (indexPath.row == 4) {
+        if (indexPath.row == 5) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete your save file and start your career over?" message:@"This will take you back to the Team Selection screen." preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
@@ -492,11 +492,11 @@
             }]];
             [self presentViewController:alert animated:YES completion:nil];
             
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             if ([HBSharedUtils currentLeague].canRebrandTeam) {
                 [self changeTeamName];
             }
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             if ([HBSharedUtils currentLeague].canRebrandTeam) {
                 RebrandConferenceSelectorViewController *selectConf = [[RebrandConferenceSelectorViewController alloc] init];
                 popupController = [[STPopupController alloc] initWithRootViewController:selectConf];
@@ -505,7 +505,7 @@
                 popupController.style = STPopupStyleBottomSheet;
                 [popupController presentInViewController:self];
             }
-        } else if (indexPath.row == 3) { // export
+        } else if (indexPath.row == 4) { // export
             NSString *metadataFile = ([HBSharedUtils currentLeague] != nil) ? [[HBSharedUtils currentLeague] leagueMetadataJSON] : @"";
             UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[metadataFile] applicationActivities:nil];
             activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,UIActivityTypeAirDrop,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr,UIActivityTypeOpenInIBooks,UIActivityTypePostToWeibo,UIActivityTypeAddToReadingList,UIActivityTypePostToFacebook,UIActivityTypePostToTencentWeibo];

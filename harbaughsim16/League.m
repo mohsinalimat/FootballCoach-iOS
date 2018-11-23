@@ -247,6 +247,19 @@
             }
         } else {
             self.heismanHistoryDictionary = [decoder decodeObjectForKey:@"heismanHistoryDictionary"];
+            // check minimum year; if is 2016, then remap based on baseYear of save file
+            NSMutableArray *keys = [NSMutableArray arrayWithArray:self.heismanHistoryDictionary.allKeys];
+            [keys sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj1 compare:obj2];
+            }];
+            if ([[keys firstObject] isEqualToString:@"2016"] && baseYear != 2016) {
+                NSMutableDictionary *newLeagueHistory = [NSMutableDictionary dictionary];
+                for (NSString *yearKey in keys) {
+                    NSInteger yearDiff = [yearKey integerValue] - 2016;
+                    [newLeagueHistory setObject:self.heismanHistoryDictionary[yearKey] forKey:[NSString stringWithFormat:@"%ld",(long)(baseYear + yearDiff)]];
+                }
+                self.heismanHistoryDictionary = newLeagueHistory;
+            }
         }
         
         if (![decoder containsValueForKey:@"bowlTitles"]) {
@@ -842,7 +855,7 @@
          [pacific.confTeams addObject:[Team newTeamWithName:@"Oakland St" abbreviation:@"OAK" conference:@"PACIF" league:self prestige:75 rivalTeam:@"HOL" state:@"California"]];//pacific.confTeams.add( new Team( "Oakland St", "OAK", "PACIF", this, 75, "HOL" ));
          [pacific.confTeams addObject:[Team newTeamWithName:@"Washington" abbreviation:@"WAS" conference:@"PACIF" league:self prestige:75 rivalTeam:@"ORE" state:@"Washington"]];//pacific.confTeams.add( new Team( "Washington", "WAS", "PACIF", this, 75, "ORE" ));
          [pacific.confTeams addObject:[Team newTeamWithName:@"Hawaii" abbreviation:@"HAW" conference:@"PACIF" league:self prestige:70 rivalTeam:@"SAM" state:@"Hawaii"]];//pacific.confTeams.add( new Team( "Hawaii", "HAW", "PACIF", this, 70, "SAM" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"Seattle" abbreviation:@"SEA" conference:@"PACIF" league:self prestige:70 rivalTeam:@"SAN" state:@"Washington"]];//pacific.confTeams.add( new Team( "Seattle", "SEA", "PACIF", this, 70, "SAN" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"Pullman" abbreviation:@"PUL" conference:@"PACIF" league:self prestige:70 rivalTeam:@"SAN" state:@"Washington"]];//pacific.confTeams.add( new Team( "Seattle", "SEA", "PACIF", this, 70, "SAN" ));
          [pacific.confTeams addObject:[Team newTeamWithName:@"Hollywood St" abbreviation:@"HOL" conference:@"PACIF" league:self prestige:70 rivalTeam:@"OAK" state:@"California"]];//pacific.confTeams.add( new Team( "Hollywood St", "HOL", "PACIF", this, 70, "OAK" ));
          [pacific.confTeams addObject:[Team newTeamWithName:@"San Diego St" abbreviation:@"SAN" conference:@"PACIF" league:self prestige:60 rivalTeam:@"SEA" state:@"California"]];//pacific.confTeams.add( new Team( "San Diego St", "SAN", "PACIF", this, 60, "SEA" ));
          [pacific.confTeams addObject:[Team newTeamWithName:@"American Samoa" abbreviation:@"SAM" conference:@"PACIF" league:self prestige:25 rivalTeam:@"HAW" state:@"American Samoa"]];//pacific.confTeams.add( new Team( "American Samoa", "SAM", "PACIF", this, 25, "HAW" ));
@@ -992,7 +1005,7 @@
     } else if (currentWeek == 13 ) {
         if (!heisman) {
             [self getHeismanCeremonyStr];
-            [heismanHistoryDictionary setObject:[NSString stringWithFormat:@"%@ %@ [%@], %@ (%ld-%ld)",heisman.position,heisman.getInitialName,heisman.getYearString,heisman.team.abbreviation,(long)heisman.team.wins,(long)heisman.team.losses] forKey:[NSString stringWithFormat:@"%ld",(long)(2016+heismanHistoryDictionary.count)]];
+            [heismanHistoryDictionary setObject:[NSString stringWithFormat:@"%@ %@ [%@], %@ (%ld-%ld)",heisman.position,heisman.getInitialName,heisman.getYearString,heisman.team.abbreviation,(long)heisman.team.wins,(long)heisman.team.losses] forKey:[NSString stringWithFormat:@"%ld",(long)[self getCurrentYear]]];
         }
         
         [self playBowlGames];

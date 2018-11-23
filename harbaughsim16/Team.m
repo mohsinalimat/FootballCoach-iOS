@@ -356,6 +356,24 @@
                 rival.teamPrestige = teamPrestige - 10;
             }
         }
+        
+        NSArray *draftRounds = self.league.allDraftedPlayers;
+        int nflPts = 0, players = 0;
+        for (NSArray *round in draftRounds) {
+            for (Player *p in round) {
+                if ([p.team isEqual:self]) {
+                    players++;
+                }
+            }
+        }
+        if (players > 2) {
+            nflPts = 2;
+        } else {
+            nflPts = players;
+        }
+        if (nflPts > 0) {
+            deltaPrestige += nflPts;
+        }
 
         teamPrestige += deltaPrestige;
     }
@@ -1705,12 +1723,22 @@
         for ( int i = 0; i < 5; ++i ) {
             compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkP)/2;
         }
-        return compositeOL / 5;
+        if (self.offensiveStrategy.passUsage > 0) {
+            compositeOL += ([self getTE:0] != nil) ? [self getTE:0].ratTERunBlk : 0;
+            return ([self getTE:0] != nil) ? compositeOL / 5.5 : compositeOL / 5;
+        } else {
+            return compositeOL / 5;
+        }
     } else {
         for ( int i = 0; i < teamOLs.count; ++i ) {
             compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkP)/2;
         }
-        return compositeOL / teamOLs.count;
+        if (self.offensiveStrategy.passUsage > 0) {
+            compositeOL += ([self getTE:0] != nil) ? [self getTE:0].ratTERunBlk : 0;
+            return ([self getTE:0] != nil) ? compositeOL / (0.5 + (float)(teamOLs.count)) : compositeOL / teamOLs.count;
+        } else {
+            return compositeOL / teamOLs.count;
+        }
     }
 }
 
@@ -1720,12 +1748,22 @@
         for ( int i = 0; i < 5; ++i ) {
             compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkR)/2;
         }
-        return compositeOL / 5;
+        if (self.offensiveStrategy.runUsage > 0) {
+            compositeOL += ([self getTE:0] != nil) ? [self getTE:0].ratTERunBlk : 0;
+            return ([self getTE:0] != nil) ? compositeOL / 5.5 : compositeOL / 5;
+        } else {
+            return compositeOL / 5;
+        }
     } else {
         for ( int i = 0; i < teamOLs.count; ++i ) {
             compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkR)/2;
         }
-        return compositeOL / teamOLs.count;
+        if (self.offensiveStrategy.runUsage > 0) {
+            compositeOL += ([self getTE:0] != nil) ? [self getTE:0].ratTERunBlk : 0;
+            return ([self getTE:0] != nil) ? compositeOL / (0.5 + (float)(teamOLs.count)) : compositeOL / teamOLs.count;
+        } else {
+            return compositeOL / teamOLs.count;
+        }
     }
 }
 
@@ -1761,22 +1799,21 @@
         }
     }
     
-    if (teamLBs.count >= 3) {
-        for ( int i = 0; i < 3; ++i ) {
-            compositeF7 += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBPas)/2;
+    if (self.defensiveStrategy.passUsage > 0) {
+        PlayerLB *selLB = [self getLB:0];
+        if (selLB != nil) {
+            compositeF7 += (selLB.ratLBPas + selLB.ratLBTkl) / 2;
+            return (compositeF7 / 4.58);
+        } else {
+            return compositeF7 / 4;
         }
     } else {
-        for ( int i = 0; i < teamLBs.count; ++i ) {
-            compositeF7 += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBPas)/2;
-        }
+        return compositeF7 / 4;
     }
-    return compositeF7 / 7;
 }
 
 -(int)getCompositeF7Rush {
     int compositeDL = 0;
-    int compositeLB = 0;
-
     if (teamDLs.count >= 4) {
         for ( int i = 0; i < 4; ++i ) {
             compositeDL += (teamDLs[i].ratDLPow + teamDLs[i].ratDLRsh)/2;
@@ -1787,17 +1824,18 @@
         }
     }
     
-    if (teamLBs.count >= 3) {
-        for ( int i = 0; i < 3; ++i ) {
-            compositeLB += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBRsh)/2;
+    if (self.defensiveStrategy.runUsage > 0) {
+        PlayerLB *selLB = [self getLB:0];
+        PlayerS *selS = [self getS:0];
+        if (selLB != nil && selS != nil) {
+            compositeDL += selLB.ratLBRsh + selS.ratSTkl;
+            return (compositeDL / 5.5);
+        } else {
+            return compositeDL / 4;
         }
     } else {
-        for ( int i = 0; i < teamLBs.count; ++i ) {
-            compositeLB += (teamLBs[i].ratLBTkl + teamLBs[i].ratLBRsh)/2;
-        }
+        return compositeDL / 4;
     }
-
-    return (2*compositeDL + compositeLB)/11;
 }
 
 -(NSArray*)getTeamStatsArray {
@@ -1919,18 +1957,43 @@
     }
 
     NSLog(@"RIVALRY SERIES FOR %@: %d - %d", abbreviation, rivalryWins, rivalryLosses);
-    if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20) ) {
+    if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 25) ) {
         [summary appendString:@"\n\nRecruits were impressed that you defeated your rival. You gained 2 prestige."];
         deltaPrestige += 2;
-    } else if ((rivalryLosses > rivalryWins) && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
+    } else if ((rivalryLosses > rivalryWins) && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20)) {
         [summary appendString:@"\n\nSince you couldn't win your rivalry series, recruits aren't excited to attend your school. You lost 2 prestige."];
         deltaPrestige -= 2;
     } else if (rivalryWins == rivalryLosses) {
         [summary appendString:@"\n\nThe season series between you and your rival was tied. You gain no prestige for this."];
-    } else if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 20)) {
+    } else if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 25)) {
         [summary appendString:@"\n\nYou won your rivalry series, but it was expected given the state of their program. You gain no prestige for this."];
-    } else if ((rivalryWins < rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 20)) {
+    } else if ((rivalryWins < rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 25)) {
         [summary appendString:@"\n\nYou lost your rivalry series, but this was expected given your rebuilding program. You lost no prestige for this."];
+    }
+    
+    NSArray *draftRounds = self.league.allDraftedPlayers;
+    int nflPts = 0, players = 0;
+    for (NSArray *round in draftRounds) {
+        for (Player *p in round) {
+            if ([p.team isEqual:self]) {
+                players++;
+            }
+        }
+    }
+    if (players > 2) {
+         nflPts = 2;
+    } else {
+        nflPts = players;
+    }
+    if (nflPts > 0) {
+        NSMutableString *playerString = [NSMutableString stringWithFormat:@"%d", players];
+        if (nflPts == 1) {
+            [playerString appendString:@" player"];
+        } else {
+            [playerString appendString:@" players"];
+        }
+        [summary appendFormat:@"\n\nYou had %@ drafted to the NFL this year. For this, you gained %d prestige.",playerString,nflPts];
+        deltaPrestige += nflPts;
     }
 
     if (deltaPrestige > 0) {
@@ -2300,10 +2363,11 @@
 -(NSArray*)getOffensiveTeamStrategies {
     return @[
              [TeamStrategy newStrategy], // default - Balanced
-             [TeamStrategy newStrategyWithName:@"Smashmouth" description:@"Play a conservative, run-heavy offense." rPref:2 runProt:2 runPot:-2 rUsg:1 pPref:1 passProt:2 passPot:1 pUsg:0],
-             [TeamStrategy newStrategyWithName:@"West Coast" description:@"Play a dink-and-dunk passing game. Short accurate passes will set up the run game." rPref:2 runProt:0 runPot:1 rUsg:0 pPref:3 passProt:2 passPot:-2 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Spread" description:@"Play a pass-heavy offense that focuses on big plays but runs the risk of turnovers." rPref:1 runProt:-2 runPot:1 rUsg:0 pPref:2 passProt:-2 passPot:2 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Read Option" description:@"Play an offense that relies heavily on option reads based on coverage and LB positioning." rPref:6 runProt:-1 runPot:1 rUsg:1 pPref:5 passProt:-1 passPot:0 pUsg:0]
+             [TeamStrategy newStrategyWithName:@"Smashmouth" description:@"Play a conservative, run-heavy offense where the running game sets up the pass." rPref:2 runProt:1 runPot:-1 rUsg:1 pPref:1 passProt:2 passPot:1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"West Coast" description:@"Play a dink-and-dunk passing game. Short accurate passes will set up the run game." rPref:2 runProt:0 runPot:1 rUsg:0 pPref:3 passProt:1 passPot:-2 pUsg:2],
+             [TeamStrategy newStrategyWithName:@"Spread" description:@"Play a pass-heavy offense that focuses on big plays but runs the risk of turnovers." rPref:1 runProt:-2 runPot:1 rUsg:0 pPref:2 passProt:-2 passPot:1 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Read Option" description:@"Play an offense that relies heavily on option reads for running plays based on coverage and LB positioning." rPref:3 runProt:-1 runPot:1 rUsg:1 pPref:2 passProt:-1 passPot:-1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"Run-Pass Option" description:@"Play an offense relying on option reads for running and passing plays based on coverage and LB positioning." rPref:2 runProt:-1 runPot:1 rUsg:1 pPref:3 passProt:-1 passPot:-1 pUsg:1],
 
              ];
 }
@@ -2313,7 +2377,8 @@
              [TeamStrategy newStrategyWithName:@"4-3 Man" description:@"Play a standard 4-3 man-to-man balanced defense." rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1],
              [TeamStrategy newStrategyWithName:@"4-6 Bear" description:@"Play a defense focused on stopping the run. Will allow few yards and big plays on the ground, but may give up big passing plays." rPref:2 runProt:0 runPot:2 rUsg:1 pPref:1 passProt:-1 passPot:-1 pUsg:0],
              [TeamStrategy newStrategyWithName:@"Cover 2" description:@"Play a zone defense with safety help in the back against the pass and LBs that stay home to cover the run." rPref:2 runProt:0 runPot:-1 rUsg:1 pPref:3 passProt:2 passPot:0 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense that will stop big passing plays, but may allow short gains underneath." rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1]
+             [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense that will stop big passing plays, but may allow short gains underneath." rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1]//,
+             //[TeamStrategy newStrategyWithName:@"3-4 Man" description:@"Play a standard 3-4 man-to-man balanced defense." rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1],
              ];
 }
 
@@ -2323,11 +2388,13 @@
     OR = [self getRushProf];
     if(OP > (OR + 5)) {
         return 3;
-    } else if(OP > (OR + 3)) {
+    } else if (OP > (OR + 3)) {
         return 2;
-    } else if(OR > (OP + 5) && [self getQB:0].ratSpeed > 75 && [self getQB:0].ratSpeed >= [self getRB:0].ratRushSpd) {
+    } else if (OR > (OP + 5) && [self getQB:0].ratSpeed > 75 && [self getQB:0].ratSpeed >= [self getRB:0].ratRushSpd) {
+        return 5;
+    } else if (OR > (OP + 5) && [self getQB:0].ratSpeed < [self getRB:0].ratRushSpd) {
         return 4;
-    } else if(OR > (OR + 5)) {
+    } else if (OR > (OP + 5)) {
         return 1;
     } else {
         return 0;
@@ -2340,9 +2407,9 @@
     DR = [self getRushDef];
     if(DR > (DP + 5)) {
         return 3;
-    } else if(DR > (DP + 3)) {
+    } else if (DR > (DP + 3)) {
         return 2;
-    } else if(DP > (DR + 3)) {
+    } else if (DP > (DR + 3)) {
         return 1;
     } else {
         return 0;

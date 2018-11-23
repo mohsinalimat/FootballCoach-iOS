@@ -303,6 +303,7 @@
                     } else {
                         self->recruitingStage = CFCRecruitingStageFallCamp;
                         // NSLog(@"SHOWING RECRUITING CLASS, STAGE %d", recruitingStage);
+                        [self setSubtitle:@"Tap on a recruit to show more options."];
                         self.title = [NSString stringWithFormat:@"%lu Recruiting Class",  (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleDone target:self action:@selector(finishRecruitingSeason)];
                     }
@@ -1383,6 +1384,8 @@
             } else {
                 overall = [NSString stringWithFormat:@"#%lu %@ int.", (long)(indexPath.row + 1), p.position];
             }
+        } else if (positionSelectionControl.selectedSegmentIndex == 1 && [[positionSelectionControl titleForSegmentAt:1] isEqualToString:@"WTCH"]) {
+            overall = signedRecruitRanks[[p uniqueIdentifier]];
         } else {
             if (allPlayersAvailable) {
                 if (positionSelectionControl.selectedSegmentIndex == 0) {
@@ -1398,6 +1401,7 @@
                 }
             }
         }
+        
     } else {
         overall = signedRecruitRanks[[p uniqueIdentifier]];
     }
@@ -1407,9 +1411,9 @@
     
     // Valid cell data formatting code
     NSMutableAttributedString *interestString = [[NSMutableAttributedString alloc] initWithString:@"Interest: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [interestString appendAttributedString:[[NSAttributedString alloc] initWithString:interestMetadata[@"interest"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : interestMetadata[@"color"]}]];
+    [interestString appendAttributedString:[[NSAttributedString alloc] initWithString:(p.recruitStatus == CFCRecruitStatusCommitted && p.team == [HBSharedUtils currentLeague].userTeam) ? @"LOCK" : interestMetadata[@"interest"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : interestMetadata[@"color"]}]];
     
-    
+
     UIColor *nameColor = [UIColor blackColor];
     NSString *offerTitle = @"Other Offers: ";
     if (p.recruitStatus == CFCRecruitStatusCommitted && p.team == [HBSharedUtils currentLeague].userTeam) {
@@ -1639,7 +1643,7 @@
                 }
             }
 
-            //[navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+             [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
             [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
 
             [self.tableView reloadData];
@@ -1665,7 +1669,7 @@
                 }
             }
 
-            //[navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
             [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
             [self.tableView reloadData];
             break;
@@ -1690,7 +1694,7 @@
                 }
             }
 
-            //[navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
             [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
 
             [self.tableView reloadData];
@@ -1723,7 +1727,8 @@
             }
 
             usedRecruitingPoints += EXTEND_OFFER_COST;
-            //[navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            
+            [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
             [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
 
             [self.tableView reloadData];
