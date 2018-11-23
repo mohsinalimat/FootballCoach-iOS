@@ -156,12 +156,12 @@
     [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
     NSString *heisman;
     NSMutableArray *leagueYear;
-    if (indexPath.row >= heismanHistory.count || indexPath.row >= leagueHistory.count) {
-        heisman = @"None";
-        leagueYear = [NSMutableArray arrayWithObject:@"None"];
-    } else {
+    if (indexPath.row < heismanHistory.count || indexPath.row < leagueHistory.count) {
         heisman = heismanHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
         leagueYear = leagueHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+    } else {
+        heisman = @"None";
+        leagueYear = [NSMutableArray arrayWithObject:@"None"];
     }
     NSMutableAttributedString *champString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Champion: %@",leagueYear[0]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
     if ([champString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {

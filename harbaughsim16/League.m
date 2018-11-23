@@ -247,6 +247,19 @@
             }
         } else {
             self.heismanHistoryDictionary = [decoder decodeObjectForKey:@"heismanHistoryDictionary"];
+            // check minimum year; if is 2016, then remap based on baseYear of save file
+            NSMutableArray *keys = [NSMutableArray arrayWithArray:self.heismanHistoryDictionary.allKeys];
+            [keys sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj1 compare:obj2];
+            }];
+            if ([[keys firstObject] isEqualToString:@"2016"] && baseYear != 2016) {
+                NSMutableDictionary *newLeagueHistory = [NSMutableDictionary dictionary];
+                for (NSString *yearKey in keys) {
+                    NSInteger yearDiff = [yearKey integerValue] - 2016;
+                    [newLeagueHistory setObject:self.heismanHistoryDictionary[yearKey] forKey:[NSString stringWithFormat:@"%ld",(long)(baseYear + yearDiff)]];
+                }
+                self.heismanHistoryDictionary = newLeagueHistory;
+            }
         }
         
         if (![decoder containsValueForKey:@"bowlTitles"]) {
