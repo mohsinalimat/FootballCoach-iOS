@@ -356,6 +356,24 @@
                 rival.teamPrestige = teamPrestige - 10;
             }
         }
+        
+        NSArray *draftRounds = self.league.allDraftedPlayers;
+        int nflPts = 0, players = 0;
+        for (NSArray *round in draftRounds) {
+            for (Player *p in round) {
+                if ([p.team isEqual:self]) {
+                    players++;
+                }
+            }
+        }
+        if (players > 2) {
+            nflPts = 2;
+        } else {
+            nflPts = players;
+        }
+        if (nflPts > 0) {
+            deltaPrestige += nflPts;
+        }
 
         teamPrestige += deltaPrestige;
     }
@@ -1939,18 +1957,43 @@
     }
 
     NSLog(@"RIVALRY SERIES FOR %@: %d - %d", abbreviation, rivalryWins, rivalryLosses);
-    if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 20) ) {
+    if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 25) ) {
         [summary appendString:@"\n\nRecruits were impressed that you defeated your rival. You gained 2 prestige."];
         deltaPrestige += 2;
-    } else if ((rivalryLosses > rivalryWins) && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20 || [name isEqualToString:@"American Samoa"])) {
+    } else if ((rivalryLosses > rivalryWins) && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20)) {
         [summary appendString:@"\n\nSince you couldn't win your rivalry series, recruits aren't excited to attend your school. You lost 2 prestige."];
         deltaPrestige -= 2;
     } else if (rivalryWins == rivalryLosses) {
         [summary appendString:@"\n\nThe season series between you and your rival was tied. You gain no prestige for this."];
-    } else if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 20)) {
+    } else if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 25)) {
         [summary appendString:@"\n\nYou won your rivalry series, but it was expected given the state of their program. You gain no prestige for this."];
-    } else if ((rivalryWins < rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 20)) {
+    } else if ((rivalryWins < rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 25)) {
         [summary appendString:@"\n\nYou lost your rivalry series, but this was expected given your rebuilding program. You lost no prestige for this."];
+    }
+    
+    NSArray *draftRounds = self.league.allDraftedPlayers;
+    int nflPts = 0, players = 0;
+    for (NSArray *round in draftRounds) {
+        for (Player *p in round) {
+            if ([p.team isEqual:self]) {
+                players++;
+            }
+        }
+    }
+    if (players > 2) {
+         nflPts = 2;
+    } else {
+        nflPts = players;
+    }
+    if (nflPts > 0) {
+        NSMutableString *playerString = [NSMutableString stringWithFormat:@"%d", players];
+        if (nflPts == 1) {
+            [playerString appendString:@" player"];
+        } else {
+            [playerString appendString:@" players"];
+        }
+        [summary appendFormat:@"\n\nYou had %@ drafted to the NFL this year. For this, you gained %d prestige.",playerString,nflPts];
+        deltaPrestige += nflPts;
     }
 
     if (deltaPrestige > 0) {
