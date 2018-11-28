@@ -1054,62 +1054,62 @@
         }
     }
 
-    if (availQBs.count == 0) {
-        for (int i = 0; i < 3; i++) {
+    if (availQBs.count < 6) {
+        for (int i = 0; i < 5; i++) {
             [availQBs addObject:[PlayerQB newQBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
 
-    if (availRBs.count == 0) {
-        for (int i = 0; i < 3; i++) {
+    if (availRBs.count < 6) {
+        for (int i = 0; i < 5; i++) {
             [availRBs addObject:[PlayerRB newRBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
 
-    if (availWRs.count == 0) {
-        for (int i = 0; i < 3; i++) {
+    if (availWRs.count < 6) {
+        for (int i = 0; i < 5; i++) {
             [availWRs addObject:[PlayerWR newWRWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
 
-    if (availTEs.count == 0) {
-        for (int i = 0; i < 3; i++) {
+    if (availTEs.count < 6) {
+        for (int i = 0; i < 5; i++) {
             [availTEs addObject:[PlayerTE newTEWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
 
-    if (availOLs.count == 0) {
-        for (int i = 0; i < 3; i++) {
+    if (availOLs.count < 6) {
+        for (int i = 0; i < 5; i++) {
             [availOLs addObject:[PlayerOL newOLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
 
-    if (availDLs.count == 0) {
-        for (int i = 0; i < 3; i++) {
+    if (availDLs.count < 6) {
+        for (int i = 0; i < 5; i++) {
             [availDLs addObject:[PlayerDL newDLWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
 
-    if (availLBs.count == 0) {
-        for (int i = 0; i < 3; i++) {
+    if (availLBs.count < 6) {
+        for (int i = 0; i < 5; i++) {
             [availLBs addObject:[PlayerLB newLBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
 
-    if (availCBs.count == 0) {
-        for (int i = 0; i < 3; i++) {
+    if (availCBs.count < 6) {
+        for (int i = 0; i < 5; i++) {
             [availCBs addObject:[PlayerCB newCBWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
 
-    if (availSs.count == 0) {
-        for (int i = 0; i < 3; i++) {
+    if (availSs.count < 6) {
+        for (int i = 0; i < 5; i++) {
             [availSs addObject:[PlayerS newSWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
 
-    if (availKs.count == 0) {
-        for (int i = 0; i < 3; i++) {
+    if (availKs.count < 6) {
+        for (int i = 0; i < 5; i++) {
             [availKs addObject:[PlayerK newKWithName:[[HBSharedUtils currentLeague] getRandName] year:1 stars:3 team:nil]];
         }
     }
