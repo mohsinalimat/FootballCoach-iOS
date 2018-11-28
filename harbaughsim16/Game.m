@@ -2573,6 +2573,7 @@
     offense.teamRushYards += yardsGained;
     
     if ( gamePoss ) { // home possession
+        homeYards += yardsGained;
         NSNumber *qbStat = HomeQBStats[6];
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
         [HomeQBStats replaceObjectAtIndex:6 withObject:qbStat];
@@ -2581,6 +2582,7 @@
         rb2Att = [NSNumber numberWithInteger:rb2Att.integerValue + yardsGained];
         [HomeQBStats replaceObjectAtIndex:7 withObject:rb2Att];
     } else {
+        awayYards += yardsGained;
         NSNumber *qbStat = AwayQBStats[6];
         qbStat = [NSNumber numberWithInteger:qbStat.integerValue + 1];
         [AwayQBStats replaceObjectAtIndex:6 withObject:qbStat];
