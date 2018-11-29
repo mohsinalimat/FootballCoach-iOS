@@ -390,7 +390,7 @@ static UIColor *styleColor = nil;
             [[HBSharedUtils currentLeague] save];
             if (simLeague.currentWeek == 15) {
                 // Show NCG summary
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([HBSharedUtils currentLeague].baseYear + simLeague.userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
             } else if (simLeague.userTeam.gameWLSchedule.count > numGamesPlayed) {
@@ -484,7 +484,7 @@ static UIColor *styleColor = nil;
                     [composeHeis appendString:heismanParts[i]];
                 }
                 NSLog(@"HEISMAN: %@", composeHeis);
-                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Player of the Year", (long)([HBSharedUtils currentLeague].baseYear + simLeague.userTeam.teamHistoryDictionary.count)] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Player of the Year", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
                 [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
@@ -517,7 +517,7 @@ static UIColor *styleColor = nil;
             [HBSharedUtils currentLeague].canRebrandTeam = YES;
             [[HBSharedUtils currentLeague] save];
 
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([HBSharedUtils currentLeague].baseYear + simLeague.userTeam.teamHistoryDictionary.count)] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
             [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
             [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
         } else {

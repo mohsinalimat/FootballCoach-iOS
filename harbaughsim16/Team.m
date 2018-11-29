@@ -1142,7 +1142,11 @@
     if (![confChampion isEqualToString:@""] && confChampion.length > 0) {
         Game *ccg = [league findConference:conference].ccg;
         if (gameWLSchedule.count >= 13) {
-            [hist appendFormat:@"\n%@ - W %@",ccg.gameName,[self gameSummaryString:ccg]];
+            if ([confChampion isEqualToString:@"CC"]) {
+                [hist appendFormat:@"\n%@ - W %@",ccg.gameName,[self gameSummaryString:ccg]];
+            } else { 
+                [hist appendFormat:@"\n%@ - L %@",ccg.gameName,[self gameSummaryString:ccg]];
+            }
         }
     }
 

@@ -145,12 +145,14 @@
     [self.ccg playGame];
      if (self.ccg.homeScore > self.ccg.awayScore) {
          self.confTeams[0].confChampion = @"CC";
+         self.confTeams[1].confChampion = @"CL";
          self.confTeams[0].totalCCs++;
          self.confTeams[1].totalCCLosses++;
          NSMutableArray *week13 = self.league.newsStories[13];
          [week13 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ took care of business in the conference championship against %@, winning at home with a score of %ld to %ld.",self.ccg.homeTeam.name, self.confName, self.ccg.homeTeam.strRep, self.ccg.awayTeam.strRep, (long)self.ccg.homeScore, (long)self.ccg.awayScore]];
      } else {
          self.confTeams[1].confChampion = @"CC";
+         self.confTeams[0].confChampion = @"CL";
          self.confTeams[1].totalCCs++;
          self.confTeams[0].totalCCLosses++;
          NSMutableArray *week13 = self.league.newsStories[13];
