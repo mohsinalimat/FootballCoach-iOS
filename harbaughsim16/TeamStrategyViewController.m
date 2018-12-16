@@ -33,7 +33,7 @@
             self.title = @"Defensive Playbooks";
             selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils currentLeague].userTeam.teamStatDefNum inSection:0];
         }
-        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 10 + (options.count * 90));
+        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, MIN(10 + (options.count * 85), [UIScreen mainScreen].bounds.size.height - 100));
         teamStrats = options;
         
     }
@@ -42,8 +42,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.rowHeight = 90;
-    self.tableView.estimatedRowHeight = 90;
+    self.tableView.rowHeight = 85;
+    self.tableView.estimatedRowHeight = 85;
     [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
     self.tableView.tableFooterView = [UIView new];
 }
