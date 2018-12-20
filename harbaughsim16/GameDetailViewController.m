@@ -350,11 +350,12 @@
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == 0) {
         if (!selectedGame.hasPlayed) {
+            NSString *spread = [selectedGame.homeTeam getGameSummaryStrings:[NSNumber numberWithInteger:[selectedGame.homeTeam.gameSchedule indexOfObject:selectedGame]].intValue][1];
             if (selectedGame.homeTeam.streaks != nil && [selectedGame.homeTeam.streaks.allKeys containsObject:selectedGame.awayTeam.abbreviation]) {
                 TeamStreak *streak = selectedGame.homeTeam.streaks[selectedGame.awayTeam.abbreviation];
-                return [streak stringRepresentation];
+                return [NSString stringWithFormat:@"Odds: %@, %@", spread, [streak stringRepresentation]];
             } else {
-                return @"To be played";
+                return [NSString stringWithFormat:@"Odds: %@", spread];
             }
         } else {
             if (selectedGame.numOT > 0) {

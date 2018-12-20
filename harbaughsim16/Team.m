@@ -2420,6 +2420,16 @@
     }
 }
 
+-(float)mapFloat:(float)floatIn {
+    CGFloat const inMin = 0.0;
+    CGFloat const inMax = 60.0;
+    
+    CGFloat const outMin = 0.0;
+    CGFloat const outMax = 100.0;
+    
+    return outMin + (outMax - outMin) * (floatIn - inMin) / (inMax - inMin);
+}
+
 -(NSArray*)getGameSummaryStrings:(int)gameNumber {
     NSMutableArray *gs = [NSMutableArray array];
     if (gameNumber >= gameSchedule.count) {
@@ -2439,7 +2449,22 @@
                 }
             }
         } else {
-            gs[1] = @"---";
+            //gs[1] = @"---";
+            Game *g = gameSchedule[gameNumber];
+            // Calculating game spread: avg of offensive talent, defensive talent, prestige, and rank
+            float homeAbility = ((float)[g.homeTeam getOffensiveTalent] + (float)[g.homeTeam getDefensiveTalent] + (self.league.currentWeek > 0 ? [self mapFloat:(float)(60-g.homeTeam.rankTeamPollScore)] : 0.0 + (float)g.homeTeam.teamPrestige));
+            float awayAbility = ((float)[g.awayTeam getOffensiveTalent] + (float)[g.awayTeam getDefensiveTalent] + (self.league.currentWeek > 0 ? [self mapFloat:(float)(60-g.awayTeam.rankTeamPollScore)] : 0.0  + (float)g.awayTeam.teamPrestige));
+            float basicSpread = (homeAbility - awayAbility) / (self.league.currentWeek > 0 ? 4.0 : 3.0);
+            //NSLog(@"Home: %f, Away: %f, Diff: %f", homeAbility, awayAbility, basicSpread);
+            
+            float roundedSpread = floorf(basicSpread * 2) / 2;
+            if (roundedSpread > 0) {
+                gs[1] = [NSString stringWithFormat:@"%@ -%.1f",g.homeTeam.abbreviation,fabsf(roundedSpread)];
+            } else if (roundedSpread < 0) {
+                gs[1] = [NSString stringWithFormat:@"%@ -%.1f",g.awayTeam.abbreviation,fabsf(roundedSpread)];
+            } else {
+                gs[1] = @"PUSH";
+            }
         }
         gs[2] = [self gameSummaryStringOpponent:g];
     }

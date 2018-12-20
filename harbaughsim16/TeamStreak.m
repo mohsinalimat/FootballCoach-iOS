@@ -45,11 +45,11 @@
 
 -(NSString*)stringRepresentation {
     if (wins > losses) {
-        return [NSString stringWithFormat:@"%@ leads the series %ld-%ld", mainTeam.abbreviation, (long)wins, (long)losses];
+        return [NSString stringWithFormat:@"%@ leads series %ld-%ld", mainTeam.abbreviation, (long)wins, (long)losses];
     } else if (losses > wins) {
-        return [NSString stringWithFormat:@"%@ leads the series %ld-%ld", opponent.abbreviation, (long)losses, (long)wins];
+        return [NSString stringWithFormat:@"%@ leads series %ld-%ld", opponent.abbreviation, (long)losses, (long)wins];
     } else {
-        return [NSString stringWithFormat:@"The series is tied %ld-%ld", (long)losses, (long)wins];
+        return [NSString stringWithFormat:@"Series is tied %ld-%ld", (long)losses, (long)wins];
     }
 }
 

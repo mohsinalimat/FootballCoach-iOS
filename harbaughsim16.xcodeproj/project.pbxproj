@@ -26,8 +26,6 @@
 		754E90781CA58BF800C450CF /* BowlProjectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E90771CA58BF800C450CF /* BowlProjectionViewController.m */; };
 		754E907B1CA58C0F00C450CF /* HeismanLeadersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E907A1CA58C0F00C450CF /* HeismanLeadersViewController.m */; };
 		754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E907D1CA59A0900C450CF /* RankingsViewController.m */; };
-		754E90821CA5A59D00C450CF /* TeamScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E90801CA5A59D00C450CF /* TeamScheduleViewController.m */; };
-		754E90831CA5A59D00C450CF /* TeamScheduleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 754E90811CA5A59D00C450CF /* TeamScheduleViewController.xib */; };
 		7551AC201FFFD9CA0033680E /* CFCWatchlistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */; };
 		7551AC211FFFD9CA0033680E /* CFCWatchlistCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */; };
 		755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC461C9DD0DF001A8314 /* HBStatsCell.m */; };
@@ -99,6 +97,8 @@
 		759C79A121AE53AD009DC88E /* help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 759C799F21AE53AD009DC88E /* help@2x.png */; };
 		759C79A221AE53AE009DC88E /* help@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 759C79A021AE53AD009DC88E /* help@3x.png */; };
 		75A41B4C1CA311CF00025E53 /* close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A41B4B1CA311CF00025E53 /* close@3x.png */; };
+		75A4516221CC4803007E481A /* TeamScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4516021CC4802007E481A /* TeamScheduleViewController.m */; };
+		75A4516321CC4803007E481A /* TeamScheduleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75A4516121CC4803007E481A /* TeamScheduleViewController.xib */; };
 		75A86C881C9C790D0034140C /* FCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A86C871C9C790D0034140C /* FCTableViewController.m */; };
 		75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C891C9C7AA80034140C /* news@3x.png */; };
 		75A86C901C9C7AA80034140C /* roster@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C8B1C9C7AA80034140C /* roster@3x.png */; };
@@ -236,9 +236,6 @@
 		754E907A1CA58C0F00C450CF /* HeismanLeadersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeismanLeadersViewController.m; sourceTree = "<group>"; };
 		754E907C1CA59A0900C450CF /* RankingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingsViewController.h; sourceTree = "<group>"; };
 		754E907D1CA59A0900C450CF /* RankingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingsViewController.m; sourceTree = "<group>"; };
-		754E907F1CA5A59D00C450CF /* TeamScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScheduleViewController.h; sourceTree = "<group>"; };
-		754E90801CA5A59D00C450CF /* TeamScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScheduleViewController.m; sourceTree = "<group>"; };
-		754E90811CA5A59D00C450CF /* TeamScheduleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamScheduleViewController.xib; sourceTree = "<group>"; };
 		7551AC1D1FFFD9CA0033680E /* CFCWatchlistCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFCWatchlistCell.h; sourceTree = "<group>"; };
 		7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CFCWatchlistCell.m; sourceTree = "<group>"; };
 		7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CFCWatchlistCell.xib; sourceTree = "<group>"; };
@@ -350,6 +347,9 @@
 		759C799F21AE53AD009DC88E /* help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help@2x.png"; sourceTree = "<group>"; };
 		759C79A021AE53AD009DC88E /* help@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help@3x.png"; sourceTree = "<group>"; };
 		75A41B4B1CA311CF00025E53 /* close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@3x.png"; sourceTree = "<group>"; };
+		75A4515F21CC4802007E481A /* TeamScheduleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamScheduleViewController.h; sourceTree = "<group>"; };
+		75A4516021CC4802007E481A /* TeamScheduleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamScheduleViewController.m; sourceTree = "<group>"; };
+		75A4516121CC4803007E481A /* TeamScheduleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TeamScheduleViewController.xib; sourceTree = "<group>"; };
 		75A86C861C9C790D0034140C /* FCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCTableViewController.h; sourceTree = "<group>"; };
 		75A86C871C9C790D0034140C /* FCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCTableViewController.m; sourceTree = "<group>"; };
 		75A86C891C9C7AA80034140C /* news@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "news@3x.png"; sourceTree = "<group>"; };
@@ -678,12 +678,12 @@
 				75BABF3A1C9A5D1100A68CD6 /* ScheduleViewController.h */,
 				75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */,
 				7571DD271C9CC9A000E67080 /* ScheduleViewController.xib */,
-				754E907F1CA5A59D00C450CF /* TeamScheduleViewController.h */,
-				754E90801CA5A59D00C450CF /* TeamScheduleViewController.m */,
-				754E90811CA5A59D00C450CF /* TeamScheduleViewController.xib */,
 				7510B8481C9C76C900BE9CD6 /* GameDetailViewController.h */,
 				7510B8491C9C76C900BE9CD6 /* GameDetailViewController.m */,
 				7571DD431C9D0C7000E67080 /* GameDetailViewController.xib */,
+				75A4515F21CC4802007E481A /* TeamScheduleViewController.h */,
+				75A4516021CC4802007E481A /* TeamScheduleViewController.m */,
+				75A4516121CC4803007E481A /* TeamScheduleViewController.xib */,
 				755BBC831C9F7DA4001A8314 /* HBScoreCell.h */,
 				755BBC841C9F7DA4001A8314 /* HBScoreCell.m */,
 				755BBC851C9F7DA4001A8314 /* HBScoreCell.xib */,
@@ -1055,6 +1055,7 @@
 				75EC9A761D07D9DC00F24BE6 /* medical@3x.png in Resources */,
 				75F0E25F1FECD7C100719086 /* alt-designs.json in Resources */,
 				7543190F1CC02F2200D380F1 /* HBTeamRankCell.xib in Resources */,
+				75A4516321CC4803007E481A /* TeamScheduleViewController.xib in Resources */,
 				7562A8851FFF3C55004C0985 /* PrestigeHistoryViewController.xib in Resources */,
 				75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */,
 				7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */,
@@ -1104,7 +1105,6 @@
 				75097C5D1CBC1B55003E2538 /* HBRecordCell.xib in Resources */,
 				751D052D1FA6A01D002CB414 /* triline@3x.png in Resources */,
 				7571DD331C9CD3A200E67080 /* play-week@3x.png in Resources */,
-				754E90831CA5A59D00C450CF /* TeamScheduleViewController.xib in Resources */,
 				755BBC7D1C9F6964001A8314 /* TeamSearchViewController.xib in Resources */,
 				75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */,
 				759C79A221AE53AE009DC88E /* help@3x.png in Resources */,
@@ -1338,12 +1338,12 @@
 				75924A671C99E65E00B165AD /* PlayerS.m in Sources */,
 				75C7C4981FFA0C9C003840D4 /* HelpViewController.m in Sources */,
 				755BBC8B1CA03252001A8314 /* HBRecruitCell.m in Sources */,
+				75A4516221CC4803007E481A /* TeamScheduleViewController.m in Sources */,
 				7571DD2C1C9CCD8100E67080 /* HBScheduleCell.m in Sources */,
 				754E907B1CA58C0F00C450CF /* HeismanLeadersViewController.m in Sources */,
 				7586330A1CC142B900E1E458 /* MockDraftViewController.m in Sources */,
 				7562A8931FFF4370004C0985 /* BalloonMarker.swift in Sources */,
 				7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */,
-				754E90821CA5A59D00C450CF /* TeamScheduleViewController.m in Sources */,
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,
 				7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */,
 				75924A521C99D1C600B165AD /* TeamStrategy.m in Sources */,
