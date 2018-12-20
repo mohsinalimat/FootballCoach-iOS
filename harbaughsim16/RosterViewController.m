@@ -22,6 +22,8 @@
 #import "PlayerCB.h"
 #import "PlayerS.h"
 #import "PlayerDetailViewController.h"
+#import "PlayerQBDetailViewController.h"
+#import "PlayerRBDetailViewController.h"
 #import "InjuryReportViewController.h"
 
 #import "HexColors.h"
@@ -499,7 +501,13 @@
         player = [userTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];
     }
     
-    popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerDetailViewController alloc] initWithPlayer:player]];
+    if (indexPath.section == 0) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerQBDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 1) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerRBDetailViewController alloc] initWithPlayer:player]];
+    } else {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerDetailViewController alloc] initWithPlayer:player]];
+    }
     [popupController.navigationBar setDraggable:YES];
     [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
     popupController.style = STPopupStyleBottomSheet;

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayerRBDetailViewController">
+            <connections>
+                <outlet property="playerDetailView" destination="GLf-zw-Qz1" id="kEN-kt-wfY"/>
+                <outlet property="view" destination="rEZ-af-cpW" id="QcV-Jg-MZf"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rEZ-af-cpW">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" red="0.0" green="0.59215686270000001" blue="0.24882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <connections>
+                <outlet property="dataSource" destination="-1" id="fOs-QA-clv"/>
+                <outlet property="delegate" destination="-1" id="Xr8-1n-lEE"/>
+                <outlet property="emptyDataSetDelegate" destination="-1" id="vsM-rk-g3H"/>
+                <outlet property="emptyDataSetSource" destination="-1" id="scK-aG-aob"/>
+            </connections>
+            <point key="canvasLocation" x="428" y="211"/>
+        </tableView>
+        <view contentMode="scaleToFill" id="GLf-zw-Qz1" customClass="HBPlayerDetailView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Year" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="siU-YU-89j">
+                    <rect key="frame" x="19" y="52" width="34" height="23"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First and Last Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kfl-3c-jns">
+                    <rect key="frame" x="19" y="21" width="328" height="29"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QB" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1d-Gf-WZE">
+                    <rect key="frame" x="355" y="21" width="40" height="29"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="DCc-Ni-28g"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="medical" translatesAutoresizingMaskIntoConstraints="NO" id="cMf-Nj-OkP">
+                    <rect key="frame" x="61" y="51" width="25" height="25"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="0.23921568630000001" green="0.70196078429999997" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="siU-YU-89j" secondAttribute="bottom" constant="21" id="3cQ-HX-uW3"/>
+                <constraint firstAttribute="trailing" secondItem="b1d-Gf-WZE" secondAttribute="trailing" constant="19" id="Ixt-Md-mbR"/>
+                <constraint firstItem="b1d-Gf-WZE" firstAttribute="leading" secondItem="Kfl-3c-jns" secondAttribute="trailing" constant="8" symbolic="YES" id="KX5-ag-xaZ"/>
+                <constraint firstItem="Kfl-3c-jns" firstAttribute="top" secondItem="GLf-zw-Qz1" secondAttribute="top" constant="21" id="Pgj-1n-8Zo"/>
+                <constraint firstItem="cMf-Nj-OkP" firstAttribute="leading" secondItem="siU-YU-89j" secondAttribute="trailing" constant="8" id="Q1u-2e-dC4"/>
+                <constraint firstItem="b1d-Gf-WZE" firstAttribute="top" secondItem="GLf-zw-Qz1" secondAttribute="top" constant="21" id="avc-Ug-pw7"/>
+                <constraint firstItem="Kfl-3c-jns" firstAttribute="leading" secondItem="GLf-zw-Qz1" secondAttribute="leading" constant="19" id="baZ-Nu-Uya"/>
+                <constraint firstItem="Kfl-3c-jns" firstAttribute="leading" secondItem="siU-YU-89j" secondAttribute="leading" id="dQo-6h-sPr"/>
+                <constraint firstItem="siU-YU-89j" firstAttribute="top" secondItem="Kfl-3c-jns" secondAttribute="bottom" constant="2" id="eU3-9c-eZW"/>
+                <constraint firstAttribute="bottom" secondItem="b1d-Gf-WZE" secondAttribute="bottom" constant="46" id="hCj-ek-rbN"/>
+                <constraint firstAttribute="bottom" secondItem="cMf-Nj-OkP" secondAttribute="bottom" constant="20" id="hse-U9-5TA"/>
+                <constraint firstItem="cMf-Nj-OkP" firstAttribute="bottom" secondItem="siU-YU-89j" secondAttribute="bottom" constant="1" id="mO7-43-aoR"/>
+                <constraint firstItem="cMf-Nj-OkP" firstAttribute="top" secondItem="siU-YU-89j" secondAttribute="top" constant="-1" id="q2Y-ZI-xbM"/>
+                <constraint firstItem="Kfl-3c-jns" firstAttribute="centerY" secondItem="b1d-Gf-WZE" secondAttribute="centerY" id="ulT-j6-jXT"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="qdf-FF-VhV"/>
+            <connections>
+                <outlet property="medImageView" destination="cMf-Nj-OkP" id="y0J-f8-BN9"/>
+                <outlet property="nameLabel" destination="Kfl-3c-jns" id="idg-cT-sjh"/>
+                <outlet property="posLabel" destination="b1d-Gf-WZE" id="QEq-KC-OwG"/>
+                <outlet property="yrLabel" destination="siU-YU-89j" id="8gh-Qz-QBc"/>
+            </connections>
+            <point key="canvasLocation" x="462" y="-539"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="medical" width="25" height="25"/>
+    </resources>
+</document>

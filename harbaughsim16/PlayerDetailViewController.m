@@ -23,22 +23,9 @@
 #import "HexColors.h"
 #import "STPopup.h"
 
-@interface HBPlayerDetailView : UIView
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *yrLabel;
-@property (weak, nonatomic) IBOutlet UILabel *posLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *medImageView;
-@end
-@implementation HBPlayerDetailView
-@end
-
 @interface PlayerDetailViewController ()
 {
-    Player *selectedPlayer;
-    IBOutlet HBPlayerDetailView *playerDetailView;
-    NSDictionary *stats;
-    NSDictionary *careerStats;
-    NSDictionary *ratings;
+    
 }
 @end
 
@@ -187,7 +174,7 @@
     } else if (section == 2) {
         return careerStats.allKeys.count;
     } else {
-        return (ratings.count + 3);
+        return (ratings.count + 4);
     }
 }
 
