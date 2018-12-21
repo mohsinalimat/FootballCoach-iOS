@@ -735,7 +735,7 @@
         cursedStoryIndex = 0;
         
         leagueVersion = HB_CURRENT_APP_VERSION;
-        baseYear = 2018;
+        baseYear = [[[NSCalendar currentCalendar] components: NSCalendarUnitYear fromDate:[NSDate date]] year];
 
         careerCompletionsRecord = nil;
         careerPassYardsRecord = nil;
