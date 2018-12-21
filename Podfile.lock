@@ -13,9 +13,6 @@ PODS:
     - GBDeviceInfo/Core (= 4.4.0)
   - GBDeviceInfo/Core (4.4.0)
   - HexColors (4.0.0)
-  - Mantle (2.1.0):
-    - Mantle/extobjc (= 2.1.0)
-  - Mantle/extobjc (2.1.0)
   - MBProgressHUD (1.1.0)
   - PPTopMostController (0.0.1)
   - RMessage (2.1.5):
@@ -36,7 +33,6 @@ DEPENDENCIES:
   - Fabric
   - FCFileManager
   - HexColors (= 4.0.0)
-  - Mantle
   - MBProgressHUD
   - RMessage
   - RSEmailFeedback
@@ -55,7 +51,6 @@ SPEC REPOS:
     - FCFileManager
     - GBDeviceInfo
     - HexColors
-    - Mantle
     - MBProgressHUD
     - PPTopMostController
     - RMessage
@@ -74,7 +69,6 @@ SPEC CHECKSUMS:
   FCFileManager: e0f73316e6aa2eb04d2ff4caa75fe7df1ae44270
   GBDeviceInfo: 2ec90c6808d063061b16773ec8e857257058dc5d
   HexColors: 5f95843ef89aff6a72e1fd3a8ebabf205cc43379
-  Mantle: 2fa750afa478cd625a94230fbf1c13462f29395b
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   PPTopMostController: 4e6f1e5f8c645bdcc74cd837a20f607ff262c048
   RMessage: 31d44bd26a8f353f987d2e7194f3e9ffb203cbf2
@@ -83,6 +77,6 @@ SPEC CHECKSUMS:
   STPopup: da1167250a01584af7bcccb898653185f223ec46
   ZGNavigationBarTitle: b3bfa57a5c760bf29a71fd7ab281f20c93093ca7
 
-PODFILE CHECKSUM: 99f87476c1b4c6575ee83d7deca1b0f098c7116e
+PODFILE CHECKSUM: 718d0e3d16d6df40badd43553fd862ba4d0e176b
 
 COCOAPODS: 1.5.3

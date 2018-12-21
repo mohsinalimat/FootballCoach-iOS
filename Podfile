@@ -16,7 +16,6 @@ def use_pod_list
     pod 'Charts'
     pod 'ZGNavigationBarTitle'
     pod 'RSEmailFeedback'
-    pod 'Mantle'
 end
 
 target 'harbaughsim16' do
