@@ -26,6 +26,12 @@
 #import "PlayerRBDetailViewController.h"
 #import "PlayerWRDetailViewController.h"
 #import "PlayerTEDetailViewController.h"
+#import "PlayerOLDetailViewController.h"
+#import "PlayerKDetailViewController.h"
+#import "PlayerDLDetailViewController.h"
+#import "PlayerLBDetailViewController.h"
+#import "PlayerCBDetailViewController.h"
+#import "PlayerSDetailViewController.h"
 #import "InjuryReportViewController.h"
 
 #import "HexColors.h"
@@ -511,6 +517,18 @@
         popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerWRDetailViewController alloc] initWithPlayer:player]];
     } else if (indexPath.section == 3) {
         popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerTEDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 4) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerOLDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 5) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerDLDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 6) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerLBDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 7) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerCBDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 8) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerSDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 9) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerKDetailViewController alloc] initWithPlayer:player]];
     } else {
         popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerDetailViewController alloc] initWithPlayer:player]];
     }

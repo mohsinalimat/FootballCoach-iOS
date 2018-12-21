@@ -34,9 +34,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.tableView.tableHeaderView = playerDetailView;
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+        return 2;
+    } else {
+        return 3;
+    }
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

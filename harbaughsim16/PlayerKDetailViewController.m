@@ -1,26 +1,26 @@
 //
-//  PlayerTEDetailViewController.m
+//  PlayerKDetailViewController.m
 //  harbaughsim16
 //
 //  Created by Akshay Easwaran on 12/20/18.
 //  Copyright © 2018 Akshay Easwaran. All rights reserved.
 //
 
-#import "PlayerTEDetailViewController.h"
+#import "PlayerKDetailViewController.h"
 
 #import "Player.h"
 
-#import "PlayerTE.h"
+#import "PlayerK.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
 
-@interface PlayerTEDetailViewController ()
+@interface PlayerKDetailViewController ()
 
 @end
 
-@implementation PlayerTEDetailViewController
--(instancetype)initWithPlayer:(PlayerTE*)player {
+@implementation PlayerKDetailViewController
+-(instancetype)initWithPlayer:(PlayerK*)player {
     self = [super initWithStyle:UITableViewStyleGrouped];
     if(self) {
         selectedPlayer = player;
@@ -34,30 +34,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.tableView.tableHeaderView = playerDetailView;
-}
-
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
         return 2;
     } else {
         return 3;
-    }
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 11;
-    } else if (section == 1) {
-        if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
-            return 9;
-        } else {
-            return 6;
-        }
-    } else {
-        return 9;
     }
 }
 
@@ -94,21 +75,17 @@
             [cell.detailTextLabel setText:ratings[@"durability"]];
             [cell.textLabel setText:@"Durability"];
         } else if (indexPath.row == 7) {
-            //cat
-            [cell.detailTextLabel setText:ratings[@"recCatch"]];
-            [cell.textLabel setText:@"Catching"];
+            //pow
+            [cell.detailTextLabel setText:ratings[@"kickPower"]];
+            [cell.textLabel setText:@"Kick Power"];
         } else if (indexPath.row == 8) {
-            //spd
-            [cell.detailTextLabel setText:ratings[@"recSpeed"]];
-            [cell.textLabel setText:@"Speed"];
-        } else if (indexPath.row == 9)  {
-            //blkP
-            [cell.detailTextLabel setText:ratings[@"recEvasion"]];
-            [cell.textLabel setText:@"Evasion"];
+            //acc
+            [cell.detailTextLabel setText:ratings[@"kickAccuracy"]];
+            [cell.textLabel setText:@"Kick Accuracy"];
         } else {
-            //blkP
-            [cell.detailTextLabel setText:ratings[@"teRunBlk"]];
-            [cell.textLabel setText:@"Run Blocking"];
+            //fum
+            [cell.detailTextLabel setText:ratings[@"kickClumsiness"]];
+            [cell.textLabel setText:@"Clumsiness"];
         }
     } else if (indexPath.section == 1) {
         if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
@@ -122,43 +99,43 @@
                 [cell.detailTextLabel setText:careerStats[@"allConferences"]];
                 [cell.textLabel setText:@"All-Conference Nominations"];
             } else if (indexPath.row == 3) {
-                [cell.detailTextLabel setText:careerStats[@"catches"]];
-                [cell.textLabel setText:@"Catches"];
+                [cell.detailTextLabel setText:careerStats[@"xpMade"]];
+                [cell.textLabel setText:@"XP Made"];
             } else if (indexPath.row == 4) {
-                [cell.detailTextLabel setText:careerStats[@"recYards"]];
-                [cell.textLabel setText:@"Receiving Yards"];
+                [cell.detailTextLabel setText:careerStats[@"xpAtt"]];
+                [cell.textLabel setText:@"XP Attempted"];
             } else if (indexPath.row == 5) {
-                [cell.detailTextLabel setText:careerStats[@"yardsPerCatch"]];
-                [cell.textLabel setText:@"Yards Per Catch"];
+                [cell.detailTextLabel setText:careerStats[@"xpPercentage"]];
+                [cell.textLabel setText:@"XP Percentage"];
             } else if (indexPath.row == 6) {
-                [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
-                [cell.textLabel setText:@"Yards Per Game"];
+                [cell.detailTextLabel setText:careerStats[@"fgMade"]];
+                [cell.textLabel setText:@"FG Made"];
             } else if (indexPath.row == 7) {
-                [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
-                [cell.textLabel setText:@"Touchdowns"];
+                [cell.detailTextLabel setText:careerStats[@"fgAtt"]];
+                [cell.textLabel setText:@"FG Attempted"];
             } else {
-                [cell.detailTextLabel setText:careerStats[@"fumbles"]];
-                [cell.textLabel setText:@"Fumbles"];
+                [cell.detailTextLabel setText:careerStats[@"fgPercentage"]];
+                [cell.textLabel setText:@"FG Percentage"];
             }
         } else {
             if (indexPath.row == 0) {
-                [cell.detailTextLabel setText:stats[@"catches"]];
-                [cell.textLabel setText:@"Catches"];
+                [cell.detailTextLabel setText:stats[@"xpMade"]];
+                [cell.textLabel setText:@"XP Made"];
             } else if (indexPath.row == 1) {
-                [cell.detailTextLabel setText:stats[@"recYards"]];
-                [cell.textLabel setText:@"Receiving Yards"];
+                [cell.detailTextLabel setText:stats[@"xpAtt"]];
+                [cell.textLabel setText:@"XP Attempted"];
             } else if (indexPath.row == 2) {
-                [cell.detailTextLabel setText:stats[@"yardsPerCatch"]];
-                [cell.textLabel setText:@"Yards Per Catch"];
+                [cell.detailTextLabel setText:stats[@"xpPercentage"]];
+                [cell.textLabel setText:@"XP Percentage"];
             } else if (indexPath.row == 3) {
-                [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
-                [cell.textLabel setText:@"Yards Per Game"];
+                [cell.detailTextLabel setText:stats[@"fgMade"]];
+                [cell.textLabel setText:@"FG Made"];
             } else if (indexPath.row == 4) {
-                [cell.detailTextLabel setText:stats[@"touchdowns"]];
-                [cell.textLabel setText:@"Touchdowns"];
+                [cell.detailTextLabel setText:stats[@"fgAtt"]];
+                [cell.textLabel setText:@"FG Attempted"];
             } else {
-                [cell.detailTextLabel setText:stats[@"fumbles"]];
-                [cell.textLabel setText:@"Fumbles"];
+                [cell.detailTextLabel setText:stats[@"fgPercentage"]];
+                [cell.textLabel setText:@"FG Percentage"];
             }
         }
     } else {
@@ -172,23 +149,23 @@
             [cell.detailTextLabel setText:careerStats[@"allConferences"]];
             [cell.textLabel setText:@"All-Conference Nominations"];
         } else if (indexPath.row == 3) {
-            [cell.detailTextLabel setText:careerStats[@"catches"]];
-            [cell.textLabel setText:@"Catches"];
+            [cell.detailTextLabel setText:careerStats[@"xpMade"]];
+            [cell.textLabel setText:@"XP Made"];
         } else if (indexPath.row == 4) {
-            [cell.detailTextLabel setText:careerStats[@"recYards"]];
-            [cell.textLabel setText:@"Receiving Yards"];
+            [cell.detailTextLabel setText:careerStats[@"xpAtt"]];
+            [cell.textLabel setText:@"XP Attempted"];
         } else if (indexPath.row == 5) {
-            [cell.detailTextLabel setText:careerStats[@"yardsPerCatch"]];
-            [cell.textLabel setText:@"Yards Per Catch"];
+            [cell.detailTextLabel setText:careerStats[@"xpPercentage"]];
+            [cell.textLabel setText:@"XP Percentage"];
         } else if (indexPath.row == 6) {
-            [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
-            [cell.textLabel setText:@"Yards Per Game"];
+            [cell.detailTextLabel setText:careerStats[@"fgMade"]];
+            [cell.textLabel setText:@"FG Made"];
         } else if (indexPath.row == 7) {
-            [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
-            [cell.textLabel setText:@"Touchdowns"];
+            [cell.detailTextLabel setText:careerStats[@"fgAtt"]];
+            [cell.textLabel setText:@"FG Attempted"];
         } else {
-            [cell.detailTextLabel setText:careerStats[@"fumbles"]];
-            [cell.textLabel setText:@"Fumbles"];
+            [cell.detailTextLabel setText:careerStats[@"fgPercentage"]];
+            [cell.textLabel setText:@"FG Percentage"];
         }
     }
     
@@ -217,5 +194,6 @@
     }
     return cell;
 }
+
 
 @end

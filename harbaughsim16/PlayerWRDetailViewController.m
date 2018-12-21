@@ -39,9 +39,17 @@
     self.tableView.tableHeaderView = playerDetailView;
 }
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+        return 2;
+    } else {
+        return 3;
+    }
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 9;
+        return 10;
     } else if (section == 1) {
          if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
              return 9;
@@ -85,11 +93,11 @@
         } else if (indexPath.row == 6) {
             [cell.detailTextLabel setText:ratings[@"durability"]];
             [cell.textLabel setText:@"Durability"];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 7) {
             //cat
             [cell.detailTextLabel setText:ratings[@"recCatch"]];
             [cell.textLabel setText:@"Catching"];
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 8) {
             //spd
             [cell.detailTextLabel setText:ratings[@"recSpeed"]];
             [cell.textLabel setText:@"Speed"];

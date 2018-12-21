@@ -30,6 +30,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+        return 2;
+    } else {
+        return 3;
+    }
+}
+
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if(!cell) {
