@@ -84,7 +84,7 @@
                 <outlet property="posLabel" destination="b1d-Gf-WZE" id="QEq-KC-OwG"/>
                 <outlet property="yrLabel" destination="siU-YU-89j" id="8gh-Qz-QBc"/>
             </connections>
-            <point key="canvasLocation" x="462" y="-539"/>
+            <point key="canvasLocation" x="460.80000000000001" y="-539.73013493253382"/>
         </view>
     </objects>
     <resources>

@@ -104,6 +104,10 @@
 		75A4516E21CC5536007E481A /* PlayerQBDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75A4516D21CC5536007E481A /* PlayerQBDetailViewController.xib */; };
 		75A4517221CC55F4007E481A /* PlayerRBDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4517021CC55F4007E481A /* PlayerRBDetailViewController.m */; };
 		75A4517321CC55F4007E481A /* PlayerRBDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75A4517121CC55F4007E481A /* PlayerRBDetailViewController.xib */; };
+		75A4517721CC6F80007E481A /* PlayerWRDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4517521CC6F80007E481A /* PlayerWRDetailViewController.m */; };
+		75A4517821CC6F80007E481A /* PlayerWRDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75A4517621CC6F80007E481A /* PlayerWRDetailViewController.xib */; };
+		75A4517C21CC726D007E481A /* PlayerTEDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A4517A21CC726D007E481A /* PlayerTEDetailViewController.m */; };
+		75A4517D21CC726D007E481A /* PlayerTEDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75A4517B21CC726D007E481A /* PlayerTEDetailViewController.xib */; };
 		75A86C881C9C790D0034140C /* FCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75A86C871C9C790D0034140C /* FCTableViewController.m */; };
 		75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C891C9C7AA80034140C /* news@3x.png */; };
 		75A86C901C9C7AA80034140C /* roster@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C8B1C9C7AA80034140C /* roster@3x.png */; };
@@ -363,6 +367,12 @@
 		75A4516F21CC55F4007E481A /* PlayerRBDetailViewControllerTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerRBDetailViewControllerTableViewController.h; sourceTree = "<group>"; };
 		75A4517021CC55F4007E481A /* PlayerRBDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerRBDetailViewController.m; sourceTree = "<group>"; };
 		75A4517121CC55F4007E481A /* PlayerRBDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerRBDetailViewController.xib; sourceTree = "<group>"; };
+		75A4517421CC6F80007E481A /* PlayerWRDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerWRDetailViewController.h; sourceTree = "<group>"; };
+		75A4517521CC6F80007E481A /* PlayerWRDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerWRDetailViewController.m; sourceTree = "<group>"; };
+		75A4517621CC6F80007E481A /* PlayerWRDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerWRDetailViewController.xib; sourceTree = "<group>"; };
+		75A4517921CC726D007E481A /* PlayerTEDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayerTEDetailViewController.h; sourceTree = "<group>"; };
+		75A4517A21CC726D007E481A /* PlayerTEDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayerTEDetailViewController.m; sourceTree = "<group>"; };
+		75A4517B21CC726D007E481A /* PlayerTEDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayerTEDetailViewController.xib; sourceTree = "<group>"; };
 		75A86C861C9C790D0034140C /* FCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCTableViewController.h; sourceTree = "<group>"; };
 		75A86C871C9C790D0034140C /* FCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCTableViewController.m; sourceTree = "<group>"; };
 		75A86C891C9C7AA80034140C /* news@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "news@3x.png"; sourceTree = "<group>"; };
@@ -675,17 +685,7 @@
 				7571DD361C9CFD4000E67080 /* RosterViewController.h */,
 				7571DD371C9CFD4000E67080 /* RosterViewController.m */,
 				7571DD451C9D34B300E67080 /* RosterViewController.xib */,
-				7571DD3E1C9D032F00E67080 /* PlayerDetailViewController.h */,
-				7571DD3F1C9D032F00E67080 /* PlayerDetailViewController.m */,
-				7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */,
-				75A4516A21CC5257007E481A /* HBPlayerDetailView.h */,
-				75A4516B21CC5257007E481A /* HBPlayerDetailView.m */,
-				75A4516721CC517D007E481A /* PlayerQBDetailViewController.h */,
-				75A4516821CC517D007E481A /* PlayerQBDetailViewController.m */,
-				75A4516D21CC5536007E481A /* PlayerQBDetailViewController.xib */,
-				75A4516F21CC55F4007E481A /* PlayerRBDetailViewControllerTableViewController.h */,
-				75A4517021CC55F4007E481A /* PlayerRBDetailViewController.m */,
-				75A4517121CC55F4007E481A /* PlayerRBDetailViewController.xib */,
+				75A4517E21CC7399007E481A /* Player Detail */,
 				7571DD391C9CFF6500E67080 /* HBRosterCell.h */,
 				7571DD3A1C9CFF6500E67080 /* HBRosterCell.m */,
 				7571DD3B1C9CFF6500E67080 /* HBRosterCell.xib */,
@@ -836,6 +836,30 @@
 				7562A8961FFF44E8004C0985 /* harbaughsim16-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		75A4517E21CC7399007E481A /* Player Detail */ = {
+			isa = PBXGroup;
+			children = (
+				7571DD3E1C9D032F00E67080 /* PlayerDetailViewController.h */,
+				7571DD3F1C9D032F00E67080 /* PlayerDetailViewController.m */,
+				7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */,
+				75A4516A21CC5257007E481A /* HBPlayerDetailView.h */,
+				75A4516B21CC5257007E481A /* HBPlayerDetailView.m */,
+				75A4516721CC517D007E481A /* PlayerQBDetailViewController.h */,
+				75A4516821CC517D007E481A /* PlayerQBDetailViewController.m */,
+				75A4516D21CC5536007E481A /* PlayerQBDetailViewController.xib */,
+				75A4516F21CC55F4007E481A /* PlayerRBDetailViewControllerTableViewController.h */,
+				75A4517021CC55F4007E481A /* PlayerRBDetailViewController.m */,
+				75A4517121CC55F4007E481A /* PlayerRBDetailViewController.xib */,
+				75A4517421CC6F80007E481A /* PlayerWRDetailViewController.h */,
+				75A4517521CC6F80007E481A /* PlayerWRDetailViewController.m */,
+				75A4517621CC6F80007E481A /* PlayerWRDetailViewController.xib */,
+				75A4517921CC726D007E481A /* PlayerTEDetailViewController.h */,
+				75A4517A21CC726D007E481A /* PlayerTEDetailViewController.m */,
+				75A4517B21CC726D007E481A /* PlayerTEDetailViewController.xib */,
+			);
+			name = "Player Detail";
 			sourceTree = "<group>";
 		};
 		75A86C9F1C9C7CAA0034140C /* Images */ = {
@@ -1079,6 +1103,7 @@
 				7543190F1CC02F2200D380F1 /* HBTeamRankCell.xib in Resources */,
 				75A4516321CC4803007E481A /* TeamScheduleViewController.xib in Resources */,
 				7562A8851FFF3C55004C0985 /* PrestigeHistoryViewController.xib in Resources */,
+				75A4517D21CC726D007E481A /* PlayerTEDetailViewController.xib in Resources */,
 				75CACE261CBECCBC003AB932 /* FCAFootball.png in Resources */,
 				7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */,
 				7571DD221C9CC62400E67080 /* news-sort@3x.png in Resources */,
@@ -1094,6 +1119,7 @@
 				75A86C901C9C7AA80034140C /* roster@3x.png in Resources */,
 				7562A8891FFF3E26004C0985 /* graph@3x.png in Resources */,
 				7571DD2D1C9CCD8100E67080 /* HBScheduleCell.xib in Resources */,
+				75A4517821CC6F80007E481A /* PlayerWRDetailViewController.xib in Resources */,
 				755BBC8C1CA03252001A8314 /* HBRecruitCell.xib in Resources */,
 				75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */,
 				751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */,
@@ -1320,6 +1346,7 @@
 				75EC9A791D08E12D00F24BE6 /* RingOfHonorViewController.m in Sources */,
 				75A4516921CC517D007E481A /* PlayerQBDetailViewController.m in Sources */,
 				7571DD411C9D032F00E67080 /* PlayerDetailViewController.m in Sources */,
+				75A4517C21CC726D007E481A /* PlayerTEDetailViewController.m in Sources */,
 				75C5C3381F83489D00D7CAAD /* HBTeamPlayView.m in Sources */,
 				7543190E1CC02F2200D380F1 /* HBTeamRankCell.m in Sources */,
 				751DF8201CA17F81003C62F2 /* HBSettingsCell.m in Sources */,
@@ -1350,6 +1377,7 @@
 				7591FE411D465B940037ECFB /* NSArray+Uniqueness.m in Sources */,
 				7571DD381C9CFD4000E67080 /* RosterViewController.m in Sources */,
 				75CEE94E1FF593F5005A86C1 /* CFCRecruitCell.m in Sources */,
+				75A4517721CC6F80007E481A /* PlayerWRDetailViewController.m in Sources */,
 				754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */,
 				75924A551C99D24500B165AD /* League.m in Sources */,
 				75924A6A1C99E66700B165AD /* PlayerCB.m in Sources */,

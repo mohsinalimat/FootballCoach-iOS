@@ -24,6 +24,8 @@
 #import "PlayerDetailViewController.h"
 #import "PlayerQBDetailViewController.h"
 #import "PlayerRBDetailViewController.h"
+#import "PlayerWRDetailViewController.h"
+#import "PlayerTEDetailViewController.h"
 #import "InjuryReportViewController.h"
 
 #import "HexColors.h"
@@ -505,6 +507,10 @@
         popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerQBDetailViewController alloc] initWithPlayer:player]];
     } else if (indexPath.section == 1) {
         popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerRBDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 2) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerWRDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 3) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerTEDetailViewController alloc] initWithPlayer:player]];
     } else {
         popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerDetailViewController alloc] initWithPlayer:player]];
     }
