@@ -27,6 +27,25 @@
 static UIColor *styleColor = nil;
 
 @implementation HBSharedUtils
+
++ (NSArray *)letterGrades
+{
+    static NSArray *letterGrades;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        letterGrades = @[@"F", @"F+", @"D", @"D+", @"C", @"C+", @"B", @"B+", @"A", @"A+"];
+        
+    });
+    return letterGrades;
+}
+
++(NSString*)getLetterGrade:(int)num {
+    int ind = (num - 50)/5;
+    if (ind > 9) ind = 9;
+    if (ind < 0) ind = 0;
+    return [[self class] letterGrades][ind];
+}
+
 +(NSString *)generalTutorialText {
     return @"In College Football Coach, you play the newly-hired head coach at your college of choice. As head coach, it will be your responsibility to manage your team's strategy, simulate through seasons, recruit new players, and above all, win championships.\n\nPlaying a Season: Your team will play 12 games in the regular season, which consist of playing all 9 of your conference opponents once and three out-of-conference games. The most important game of the regular season is your rivalry game, which you gain prestige if won or lose prestige if lost.\n\nAt the end of the regular season, the Conference Championship is played between the two teams with the best in-conference record. If two teams have the same record, a head-to-head tiebreaker is used. If three or more teams have the same record, the one with the highest poll ranking is chosen. After the Conference Championships, Bowl Games are played. Only the top 24 teams get chosen for a bowl, with the most important being the National Semifinals between the #1 and #4 team, and the #2 and #3 team. The winner of these two games advance to the National Championship where an undisputed champion is crowned.\n\nAfter the season, your team will gain or lose prestige based on their results versus their expectations.\n\nRankings: As your team plays through the season, pollsters will determine how good (or bad) your team is compared to others. This \"poll ranking\" is determined by wins, margin of victory, strength of schedule, and more, and determines who gets into a bowl game and the semifinals.\n\nRoster: When you start your career, you\'ll inherit a roster of 48 players (23 starters), broken down by position like so:\n* 2 Quarterbacks (1 starter)\n* 4 Running Backs (2 starters)\n* 6 Wide Receivers (2 starters)\n* 2 Tight Ends (1 starter)\n* 10 Offensive Linemen (5 starters)\n* 8 Defensive Linemen (4 starters)\n* 6 Linebackers (3 starters)\n* 6 Cornerbacks (3 starters)\n* 2 Safeties (1 starter)\n* 2 Kickers (1 starter)\n\nPlaybooks: As a coach, you can pick what playbooks your team employs on offense and defense throughout the season. Among what\'s offered on offense:\n* Balanced: a standard pro-style offense with equal emphasis on passing and running.\n* Smashmouth: a conservative, run-heavy offense.\n* West Coast: a dink-and-dunk passing game that uses short, accurate passes to set up the run game.\n* Spread: a pass-heavy offense that focuses on big plays but runs the risk of turnovers.\n* Read Option: an offense that relies heavily on option reads based on coverage and LB positioning.\n\nOn defense, coaches can choose from the following philosophies:\n* 4-3 Man: a standard 4-3 man-to-man balanced defense.\n* 4-6 Bear: a defense focused on stopping the run that will not allow yards and big plays on the ground, but may give up big passing plays.\n* Cover 2: a zone defense with safety help in the back against the pass and LBs that stay home to cover the run.\n* Cover 3: a zone defense that will stop big passing plays, but may allow short gains underneath.\n\nEstablish your own college football dynasty today!";
 }
@@ -741,6 +760,18 @@ static UIColor *styleColor = nil;
 + (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber {
     float diff = bigNumber - smallNumber;
     return (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
+}
+
++(NSComparisonResult)compareCoachScore:(id)obj1 toObj2:(id)obj2 {
+    HeadCoach *a = (HeadCoach *)obj1;
+    HeadCoach *b = (HeadCoach *)obj2;
+    return [a getCoachScore] > [b getCoachScore] ? -1 : ([a getCoachScore] == [b getCoachScore]) ? [a.name compare:b.name] : 1;
+}
+
++(NSComparisonResult)compareCoachOvr:(id)obj1 toObj2:(id)obj2 {
+    HeadCoach *a = (HeadCoach *)obj1;
+    HeadCoach *b = (HeadCoach *)obj2;
+    return a.ratOvr > b.ratOvr ? -1 : (a.ratOvr == b.ratOvr ? [a.name compare:b.name] : 1);
 }
 
 @end

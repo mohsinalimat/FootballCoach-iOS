@@ -10,6 +10,8 @@
 #import "Conference.h"
 #import "Game.h"
 #import "TeamStrategy.h"
+#import "HeadCoach.h"
+
 @class Player;
 @class League;
 @class Record;
@@ -208,6 +210,13 @@
 @property (strong, nonatomic) Record *careerXpMadeRecord;
 @property (strong, nonatomic) Record *careerFgMadeRecord;
 
+// coaching
+@property (strong, nonatomic) NSMutableArray<HeadCoach *> *coaches;
+@property (nonatomic) BOOL coachFired;
+@property (nonatomic) BOOL coachGotNewContract;
+@property (nonatomic) BOOL coachRetired;
+@property (strong, nonatomic) NSString *coachContractString;
+
 
 -(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr state:(NSString*)stt;
 +(instancetype)newTeamWithName:(NSString *)nm abbreviation:(NSString *)abbr conference:(NSString *)conf league:(League *)league prestige:(int)prestige rivalTeam:(NSString *)rivalTeamAbbr state:(NSString*)stt;
@@ -237,6 +246,8 @@
 -(PlayerTE*)getTE:(int)depth;
 -(PlayerDL*)getDL:(int)depth;
 -(PlayerLB*)getLB:(int)depth;
+-(HeadCoach*)getHC:(int)depth;
+-(HeadCoach*)getCurrentHC;
 
 -(int)getPassProf;
 -(int)getRushProf;
@@ -293,4 +304,12 @@
 -(NSInteger)getTeamSize;
 
 -(void)calculateRecruitingClassRanking;
+-(NSMutableArray<Player*>*)getAllPlayers;
+-(void)calculateCoachingContracts:(int)totalPrestigeDiff newPrestige:(int)newPrestige;
+-(void)updateCoachHistory;
+-(void)setupUserCoach:(NSString *)name;
+-(void)newCustomHeadCoach:(NSString *)name stars:(int)stars;
+-(void)promoteCoach;
+-(int)getMinCoachHireReq;
+-(void)advanceHC;
 @end

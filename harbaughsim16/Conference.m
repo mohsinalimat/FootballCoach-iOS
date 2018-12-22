@@ -516,4 +516,13 @@
     }
 }
 
+-(void)updateConfPrestige {
+    int CP = 0;
+    for (Team *t in confTeams) {
+        CP += t.teamPrestige;
+    }
+    confPrestige = CP / confTeams.count;
+    
+}
+
 @end

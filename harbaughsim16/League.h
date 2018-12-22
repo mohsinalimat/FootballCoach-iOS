@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+
 @class Player;
 @class Game;
 @class Team;
 @class Conference;
 @class Record;
+@class HeadCoach;
 
 @interface League : NSObject <NSCoding> {
     BOOL heismanDecided;
@@ -53,7 +55,7 @@
 @property (strong, nonatomic)  NSMutableDictionary *heismanHistoryDictionary;
 @property (strong, nonatomic)  NSDictionary *allLeaguePlayers;
 @property (strong, nonatomic)  NSArray *allDraftedPlayers;
-@property (strong, nonatomic) NSMutableArray<Player*> *heismanCandidates;
+@property (strong, nonatomic)  NSMutableArray<Player*> *heismanCandidates;
 @property (strong, nonatomic)  NSMutableArray<Conference*> *conferences;
 @property (strong, nonatomic)  NSMutableArray<Team*> *teamList;
 @property (strong, nonatomic)  NSMutableArray<NSString*> *nameList;
@@ -82,6 +84,13 @@
 @property (strong, nonatomic)  Game *semiG23;
 @property (strong, nonatomic)  Game *ncg;
 @property (strong, nonatomic)  NSMutableArray<Game*> *bowlGames;
+
+// Coaching Carousel
+@property (strong, nonatomic)  NSMutableArray<HeadCoach*> *coachList;
+@property (strong, nonatomic)  NSMutableArray<HeadCoach*> *coachStarList;
+@property (strong, nonatomic)  NSMutableArray<HeadCoach*> *coachFreeAgents;
+@property (strong, nonatomic)  HeadCoach *cotyWinner;
+@property (strong, nonatomic)  NSString *cotyWinnerStrFull;
 
 //User Team
 @property (strong, nonatomic) Team *userTeam;
@@ -178,4 +187,22 @@
 -(void)applyJSONMetadataChanges:(NSString *)json;
 
 -(NSInteger)getCurrentYear;
+
+//Coaching stuff
+-(void)advanceHC;
+-(NSString *)getCoachAwardStr;
+-(NSArray *)calculateCOTYCandidates;
+-(int)getAvgCoachDiscipline;
+-(int)getAvgCoachTalent;
+-(int)getAvgCoachOff;
+-(int)getAvgCoachDef;
+-(void)coachHiringForSingleTeam:(Team *)t;
+-(void)coachingCarousel;
+-(void)newJobTransfer:(NSString *)coachTeam;
+-(NSMutableArray<Team*> *)getPromotedCoachTeams:(int)rating offers:(double)offers oldTeam:(NSString *)oldTeam;
+-(NSMutableArray<Team *> *)getHardModeTeamVacancyList;
+-(NSMutableArray<Team*> *)getFiredCoachTeams:(int)rating oldTeam:(NSString *)oldTeam;
+-(void)updateHCHistory;
+-(int)getAvgYards;
+-(int)getAvgConfPrestige;
 @end

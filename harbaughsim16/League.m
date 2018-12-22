@@ -13,6 +13,7 @@
 #import "Team.h"
 #import "AppDelegate.h"
 #import "Record.h"
+#import "HeadCoach.h"
 
 #import "PlayerQB.h"
 #import "PlayerRB.h"
@@ -33,7 +34,7 @@
 #import "AutoCoding.h"
 
 @implementation League
-@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles;
+@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles,coachList,coachStarList,coachFreeAgents;
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
@@ -736,6 +737,10 @@
         
         leagueVersion = HB_CURRENT_APP_VERSION;
         baseYear = [[[NSCalendar currentCalendar] components: NSCalendarUnitYear fromDate:[NSDate date]] year];
+        
+        coachFreeAgents = [NSMutableArray array];
+        coachStarList = [NSMutableArray array];
+        coachList = [NSMutableArray array];
 
         careerCompletionsRecord = nil;
         careerPassYardsRecord = nil;
@@ -1019,7 +1024,9 @@
             ncg.homeTeam.natlChampWL = @"NCW";
             ncg.awayTeam.natlChampWL = @"NCL";
             ncg.homeTeam.totalNCs++;
+            [ncg.homeTeam getCurrentHC].totalNCs++;
             ncg.awayTeam.totalNCLosses++;
+            [ncg.awayTeam getCurrentHC].totalNCLosses++;
             NSMutableArray *week15 = newsStories[15];
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", ncg.homeTeam.name, [ncg.homeTeam strRep], [ncg.awayTeam strRep], (long)ncg.homeScore, (long)ncg.awayScore, ncg.homeTeam.name]];
 
@@ -1029,7 +1036,9 @@
             ncg.awayTeam.natlChampWL = @"NCW";
             ncg.homeTeam.natlChampWL = @"NCL";
             ncg.awayTeam.totalNCs++;
+            [ncg.awayTeam getCurrentHC].totalNCs++;
             ncg.homeTeam.totalNCLosses++;
+            [ncg.homeTeam getCurrentHC].totalNCLosses++;
             NSMutableArray *week15 = newsStories[15];
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", ncg.awayTeam.name, [ncg.awayTeam strRep], [ncg.homeTeam strRep], (long)ncg.awayScore, (long)ncg.homeScore, ncg.awayTeam.name]];
         }
@@ -1133,8 +1142,10 @@
     if (semiG14.homeScore > semiG14.awayScore ) {
         semiG14.homeTeam.semifinalWL = @"SFW";
         semiG14.homeTeam.totalBowls++;
+        [semiG14.homeTeam getCurrentHC].totalBowls++;
         semiG14.awayTeam.semifinalWL = @"SFL";
         semiG14.awayTeam.totalBowlLosses++;
+        [semiG14.awayTeam getCurrentHC].totalBowlLosses++;
         semi14winner = semiG14.homeTeam;
         //newsStories.get(14).add(semiG14.homeTeam.name + " wins the " + semiG14.gameName +"!\n" + semiG14.homeTeam.strRep() + " defeats " + semiG14.awayTeam.strRep() + " in the semifinals, winning " + semiG14.homeScore + " to " + semiG14.awayScore + ". " + semiG14.homeTeam.name + " advances to the National Championship!" );
         NSMutableArray *week14 = newsStories[14];
@@ -1143,8 +1154,10 @@
     } else {
         semiG14.homeTeam.semifinalWL = @"SFL";
         semiG14.homeTeam.totalBowlLosses++;
+        [semiG14.homeTeam getCurrentHC].totalBowlLosses++;
         semiG14.awayTeam.semifinalWL = @"SFW";
         semiG14.awayTeam.totalBowls++;
+        [semiG14.awayTeam getCurrentHC].totalBowls++;
         semi14winner = semiG14.awayTeam;
         NSMutableArray *week14 = newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",semiG14.awayTeam.name, semiG14.gameName, semiG14.awayTeam.strRep, semiG14.homeTeam.strRep, (long)semiG14.awayScore, (long)semiG14.homeScore, semiG14.awayTeam.name]];
@@ -1153,8 +1166,10 @@
     if (semiG23.homeScore > semiG23.awayScore ) {
         semiG23.homeTeam.semifinalWL = @"SFW";
         semiG23.homeTeam.totalBowls++;
+        [semiG23.homeTeam getCurrentHC].totalBowls++;
         semiG23.awayTeam.semifinalWL = @"SFL";
         semiG23.awayTeam.totalBowlLosses++;
+        [semiG23.awayTeam getCurrentHC].totalBowlLosses++;
         semi23winner = semiG23.homeTeam;
         //newsStories.get(14).add(semiG14.homeTeam.name + " wins the " + semiG14.gameName +"!\n" + semiG14.homeTeam.strRep() + " defeats " + semiG14.awayTeam.strRep() + " in the semifinals, winning " + semiG14.homeScore + " to " + semiG14.awayScore + ". " + semiG14.homeTeam.name + " advances to the National Championship!" );
         NSMutableArray *week14 = newsStories[14];
@@ -1163,8 +1178,10 @@
     } else {
         semiG23.homeTeam.semifinalWL = @"SFL";
         semiG23.homeTeam.totalBowlLosses++;
+        [semiG23.homeTeam getCurrentHC].totalBowlLosses++;
         semiG23.awayTeam.semifinalWL = @"SFW";
         semiG23.awayTeam.totalBowls++;
+        [semiG23.awayTeam getCurrentHC].totalBowls++;
         semi23winner = semiG23.awayTeam;
         NSMutableArray *week14 = newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",semiG23.awayTeam.name, semiG23.gameName, semiG23.awayTeam.strRep, semiG23.homeTeam.strRep, (long)semiG23.awayScore, (long)semiG23.homeScore, semiG23.awayTeam.name]];
@@ -1184,19 +1201,22 @@
     if (g.homeScore > g.awayScore ) {
         g.homeTeam.semifinalWL = @"BW";
         g.homeTeam.totalBowls++;
+        [g.homeTeam getCurrentHC].totalBowls++;
         g.awayTeam.semifinalWL = @"BL";
         g.awayTeam.totalBowlLosses++;
+        [g.awayTeam getCurrentHC].totalBowlLosses++;
         NSMutableArray *week14 = newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %d to %d.",g.homeTeam.name, g.gameName, g.homeTeam.strRep, g.awayTeam.strRep, g.gameName, g.homeScore, g.awayScore]];
 
     } else {
         g.homeTeam.semifinalWL = @"BL";
         g.homeTeam.totalBowlLosses++;
+        [g.homeTeam getCurrentHC].totalBowlLosses++;
         g.awayTeam.semifinalWL = @"BW";
         g.awayTeam.totalBowls++;
+        [g.awayTeam getCurrentHC].totalBowls++;
         NSMutableArray *week14 = newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %d to %d.",g.awayTeam.name, g.gameName, g.awayTeam.strRep, g.homeTeam.strRep, g.gameName, g.awayScore, g.homeScore]];
-       // [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
      [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
@@ -1953,34 +1973,42 @@
     
     PlayerQB *qb = leadingQBs[0];
     qb.careerAllAmericans++;
+    [qb.team getCurrentHC].totalAllAmericans++;
     qb.isAllAmerican = YES;
     
     PlayerRB *rb1 = leadingRBs[0];
     rb1.careerAllAmericans++;
+    [rb1.team getCurrentHC].totalAllAmericans++;
     rb1.isAllAmerican = YES;
     
     PlayerRB *rb2 = leadingRBs[1];
     rb2.careerAllAmericans++;
+    [rb2.team getCurrentHC].totalAllAmericans++;
     rb2.isAllAmerican = YES;
     
     PlayerWR *wr1 = leadingWRs[0];
     wr1.careerAllAmericans++;
+    [wr1.team getCurrentHC].totalAllAmericans++;
     wr1.isAllAmerican = YES;
     
     PlayerWR *wr2 = leadingWRs[1];
     wr2.careerAllAmericans++;
+    [wr2.team getCurrentHC].totalAllAmericans++;
     wr2.isAllAmerican = YES;
     
     PlayerWR *wr3 = leadingWRs[2];
     wr3.careerAllAmericans++;
+    [wr3.team getCurrentHC].totalAllAmericans++;
     wr3.isAllAmerican = YES;
     
     PlayerTE *te = leadingTEs[0];
     te.careerAllAmericans++;
+    [te.team getCurrentHC].totalAllAmericans++;
     te.isAllAmerican = YES;
     
     PlayerK *k = leadingKs[0];
     k.careerAllAmericans++;
+    [k.team getCurrentHC].totalAllAmericans++;
     k.isAllAmerican = YES;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"awardsPosted" object:nil];
@@ -2493,6 +2521,350 @@
 
 -(NSInteger)getCurrentYear {
     return baseYear + [HBSharedUtils currentLeague].leagueHistoryDictionary.count;
+}
+
+// Coaching stuff
+-(NSArray *)calculateCOTYCandidates {
+    _cotyWinner = nil;
+    NSMutableArray<HeadCoach *> *cotyCandidates = [NSMutableArray array];
+    for (Team *t in teamList) {
+        if (![cotyCandidates containsObject:[t getCurrentHC]]) {
+            [cotyCandidates addObject:[t getCurrentHC]];
+        }
+    }
+    [cotyCandidates sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareCoachScore:obj1 toObj2:obj2];
+    }];
+    return cotyCandidates;
+}
+
+-(NSString *)getCoachAwardStr {
+    if (_cotyWinner != nil && _cotyWinnerStrFull != nil && _cotyWinnerStrFull.length != 0) {
+        _cotyWinner.wonTopHC = YES;
+        return _cotyWinnerStrFull;
+    } else {
+        //BOOL putNewsStory = false;
+        
+        NSMutableArray *cotyCandidates = [[self calculateCOTYCandidates] mutableCopy];
+        _cotyWinner = cotyCandidates[0];
+        //heismanDecided = true;
+        //putNewsStory = true;
+        
+        NSMutableString* heismanTop5 = [NSMutableString stringWithString:@"\n"];
+        NSMutableString* heismanStats = [NSMutableString string];
+        NSString* heismanWinnerStr = @"";
+        //heismanFinalists = [NSMutableArray array];
+        //full results string
+        int i = 0;
+        int place = 1;
+        while (cotyCandidates.count < 5 && i < cotyCandidates.count) {
+            HeadCoach *hc = cotyCandidates[i];
+            [heismanTop5 appendFormat:@"%d. %@ (%ld-%ld) - %d votes",place,hc.team.abbreviation,(long)hc.team.wins,(long)hc.team.losses, [hc getCoachScore]];
+            i++;
+        }
+        
+//        _cotyWinner.team.totalCOTYs++;
+        _cotyWinner.careerCOTYs++;
+        _cotyWinner.wonTopHC = YES;
+        heismanWinnerStr = [NSString stringWithFormat:@"Congratulations to the Coach of the Year, %@!\nHe led %@ to a %d-%d record and a #%d poll ranking.", _cotyWinner.name, _cotyWinner.team.name, _cotyWinner.team.wins, _cotyWinner.team.losses, _cotyWinner.team.rankTeamPollScore];
+        
+        [heismanStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",heismanWinnerStr, heismanTop5]];
+        
+        // Add news story
+        NSMutableArray *week13 = newsStories[13];
+        NSString *newsString = [heismanWinnerStr stringByReplacingOccurrencesOfString:@"?" withString:@""];
+        if (![week13 containsObject:newsString]) {
+            [week13 addObject:newsString];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+        
+        _cotyWinnerStrFull = heismanStats;
+        return heismanStats;
+    }
+}
+
+-(void)advanceHC {
+    [coachList removeAllObjects];
+    [coachStarList removeAllObjects];
+    [teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+    }];
+    for (Team *t in teamList) {
+        [t advanceHC];
+    }
+}
+
+-(void)updateHCHistory {
+    for (Team *t in teamList) {
+        [t updateCoachHistory];
+    }
+}
+
+-(NSMutableArray<Team *> *)getHardModeTeamVacancyList {
+    NSMutableArray<Team *> *vacancies = [NSMutableArray array];
+    for (Conference *c in conferences) {
+        [vacancies addObject:[c.confTeams lastObject]];
+        [vacancies addObject:c.confTeams[c.confTeams.count - 2]];
+    }
+    return vacancies;
+}
+
+-(NSMutableArray<Team*> *)getFiredCoachTeams:(int)rating oldTeam:(NSString *)oldTeam {
+    NSMutableArray<Team *> *vacancies = [NSMutableArray array];
+    for (Team *t in teamList) {
+        if ([t getMinCoachHireReq] < rating && t.coaches.count == 0 && ![t.name isEqualToString:oldTeam]) {
+            [vacancies addObject:t];
+        }
+    }
+    return vacancies;
+}
+
+-(NSMutableArray<Team*> *)getPromotedCoachTeams:(int)rating offers:(double)offers oldTeam:(NSString *)oldTeam {
+    NSMutableArray<Team *> *vacancies = [NSMutableArray array];
+    for (Team *t in teamList) {
+        if ([t getMinCoachHireReq] < rating && t.coaches.count == 0 && ![t.name isEqualToString:oldTeam] && offers < 0.50) {
+            [vacancies addObject:t];
+        }
+    }
+    return vacancies;
+}
+
+-(void)newJobTransfer:(NSString *)coachTeam {
+    for (Team *t in teamList) {
+        if ([t.name isEqualToString:coachTeam]) {
+            t.isUserControlled = YES;
+            userTeam = t;
+        }
+    }
+}
+
+-(void)coachingCarousel {
+    [teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+    }];
+    
+    for (HeadCoach *coach in coachStarList) {
+        NSString *tmName = coach.team.name;
+        int tmPrestige = coach.team.teamPrestige;
+        Team *oldTeam = coach.team;
+        int confPrestige = [self findConference:coach.team.conference].confPrestige;
+        for (Team *t in teamList) {
+            if (t.coaches.count == 0 && coach.ratOvr >= [t getMinCoachHireReq] && ![t.name isEqualToString:tmName]) {
+                if ((t.teamPrestige > tmPrestige && [self findConference:t.conference].confPrestige > confPrestige) || t.teamPrestige > (tmPrestige + 5) || [self findConference:t.conference].confPrestige + 10 > confPrestige) {
+                    [oldTeam.coaches removeObject:coach];
+                    [t getCurrentHC].team = t;
+                    [t.coaches addObject:coach];
+                    [t getCurrentHC].contractLength = 6;
+                    [t getCurrentHC].contractYear = 0;
+                    [t getCurrentHC].baselinePrestige = t.teamPrestige;
+                   // newsStories.get(currentWeek + 1).add("Rising Star Coach Hired: " + teamList.get(t).name + ">Rising star head coach " + teamList.get(t).HC.get(0).name + " has announced his departure from " + tmName + " after being selected by " + teamList.get(t).name + " as their new head coach. His previous track record has had him on the top list of many schools.");
+                    if ([HBSharedUtils randomValue] < 0.20) {
+                        [oldTeam promoteCoach];
+//                        teamList.get(j).HC.get(0).history.add("");
+//                        newsStories.get(currentWeek + 1).add("Replacement Promoted: " + teamList.get(j).name + ">" + teamList.get(j).name + " hopes to continue their recent success, despite the recent loss of coach " + teamList.get(t).HC.get(0).name + ". The team has promoted his assistant coach " + teamList.get(j).HC.get(0).name + " to the head coaching job at the school.");
+                    }
+                }
+            }
+        }
+    }
+    
+    [coachList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
+    }];
+    for (int i = 0; i < coachList.count; i++) {
+        HeadCoach *c = coachList[i];
+        for (Team *t in teamList) {
+            if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
+                Team *oldTeam = c.team;
+                c.team = t;
+                [t.coaches addObject:c];
+                [t getCurrentHC].contractLength = 6;
+                [t getCurrentHC].contractYear = 0;
+                [t getCurrentHC].baselinePrestige = t.teamPrestige;
+//                newsStories.get(currentWeek + 1).add("Coaching Switch: " + teamList.get(t).name + ">After an extensive search for a new head coach, " + teamList.get(t).name + " has hired " + teamList.get(t).HC.get(0).name + " to lead the team. Coach " + teamList.get(t).HC.get(0).name + " previously coached at " + coachList.get(i).team.name + ", before being let go this past season.");
+                [oldTeam.coaches removeObject:c];
+                [coachList removeObject:c];
+                break; // should break from Team loop
+            }
+        }
+    }
+    
+    [coachFreeAgents sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
+    }];
+    
+    for (int i = 0; i < coachFreeAgents.count; i++) {
+        HeadCoach *c = coachList[i];
+        for (Team *t in teamList) {
+            if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
+                Team *oldTeam = c.team;
+                c.team = t;
+                [t.coaches addObject:c];
+                [t getCurrentHC].contractLength = 6;
+                [t getCurrentHC].contractYear = 0;
+                [t getCurrentHC].baselinePrestige = t.teamPrestige;
+                //                newsStories.get(currentWeek + 1).add("Return to the Sidelines: " + teamList.get(t).name + ">After an extensive search for a new head coach, " + teamList.get(t).name + " has hired " + teamList.get(t).HC.get(0).name + " to lead the team. Coach " + teamList.get(t).HC.get(0).name + " has been out of football, but is returning this season!");
+                [oldTeam.coaches removeObject:c];
+                [coachFreeAgents removeObject:c];
+                break; // should break from Team loop
+            }
+        }
+    }
+    
+    for (Team *t in teamList) {
+        if (t.coaches.count == 0) {
+            [t promoteCoach];
+            //teamList.get(t).HC.get(0).history.add("");
+            //newsStories.get(currentWeek + 1).add("Coaching Promotion: " + teamList.get(t).name + ">Following the departure of their previous head coach, " + teamList.get(t).name + " has promoted assistant " + teamList.get(t).HC.get(0).name + " to lead the team.");
+        }
+    }
+}
+
+-(void)coachHiringForSingleTeam:(Team *)t {
+    for (HeadCoach *coach in coachStarList) {
+        NSString *tmName = coach.team.name;
+        int tmPrestige = coach.team.teamPrestige;
+        Team *oldTeam = coach.team;
+        int confPrestige = [self findConference:coach.team.conference].confPrestige;
+        if (t.coaches.count == 0 && coach.ratOvr >= [t getMinCoachHireReq] && ![t.name isEqualToString:tmName]) {
+            if ((t.teamPrestige > tmPrestige && [self findConference:t.conference].confPrestige > confPrestige) || t.teamPrestige > (tmPrestige + 5) || [self findConference:t.conference].confPrestige + 10 > confPrestige) {
+                [oldTeam.coaches removeObject:coach];
+                [t getCurrentHC].team = t;
+                [t.coaches addObject:coach];
+                [t getCurrentHC].contractLength = 6;
+                [t getCurrentHC].contractYear = 0;
+                [t getCurrentHC].baselinePrestige = t.teamPrestige;
+                // newsStories.get(currentWeek + 1).add("Rising Star Coach Hired: " + teamList.get(t).name + ">Rising star head coach " + teamList.get(t).HC.get(0).name + " has announced his departure from " + tmName + " after being selected by " + teamList.get(t).name + " as their new head coach. His previous track record has had him on the top list of many schools.");
+                if ([HBSharedUtils randomValue] < 0.20) {
+                    [oldTeam promoteCoach];
+                    //                        teamList.get(j).HC.get(0).history.add("");
+                    //                        newsStories.get(currentWeek + 1).add("Replacement Promoted: " + teamList.get(j).name + ">" + teamList.get(j).name + " hopes to continue their recent success, despite the recent loss of coach " + teamList.get(t).HC.get(0).name + ". The team has promoted his assistant coach " + teamList.get(j).HC.get(0).name + " to the head coaching job at the school.");
+                }
+            }
+        }
+    }
+    
+    [coachList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
+    }];
+    for (int i = 0; i < coachList.count; i++) {
+        HeadCoach *c = coachList[i];
+        if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
+            Team *oldTeam = c.team;
+            c.team = t;
+            [t.coaches addObject:c];
+            [t getCurrentHC].contractLength = 6;
+            [t getCurrentHC].contractYear = 0;
+            [t getCurrentHC].baselinePrestige = t.teamPrestige;
+            // newsStories.get(currentWeek + 1).add("Coaching Change: " + school.name + ">After an extensive search for a new head coach, " + school.name + " has hired " + school.HC.get(0).name + " to lead the team. Coach " + school.HC.get(0).name + " previously coached at " + coachList.get(i).team.name + ", before being let go this past season.");
+            [oldTeam.coaches removeObject:c];
+            [coachList removeObject:c];
+            break; // should break from Team loop
+        }
+    }
+    
+    if (t.coaches.count == 0) {
+        [coachFreeAgents sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
+        }];
+        
+        for (int i = 0; i < coachFreeAgents.count; i++) {
+            HeadCoach *c = coachList[i];
+            if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
+                Team *oldTeam = c.team;
+                c.team = t;
+                [t.coaches addObject:c];
+                [t getCurrentHC].contractLength = 6;
+                [t getCurrentHC].contractYear = 0;
+                [t getCurrentHC].baselinePrestige = t.teamPrestige;
+                //newsStories.get(currentWeek + 1).add("Back to Coaching: " + school.name + ">After an extensive search for a new head coach, " + school.name + " has hired " + school.HC.get(0).name + " to lead the team. Coach " + school.HC.get(0).name + " has been out of football, but is returning this upcoming season!");
+                [oldTeam.coaches removeObject:c];
+                [coachFreeAgents removeObject:c];
+                break; // should break from Team loop
+            }
+        }
+    }
+    
+    
+    if (t.coaches.count == 0) {
+        [t promoteCoach];
+//        school.HC.get(0).history.add("");
+//        newsStories.get(currentWeek + 1).add("Coaching Promotion: " + school.name + ">Following the departure of their previous head coach, " + school.name + " has promoted assistant " + school.HC.get(0).name + " to lead the team.");
+    }
+}
+
+-(void)coachingHotSeat {
+    if (currentWeek == 0) {
+        for (Team *t in teamList) {
+            if ([t getCurrentHC].baselinePrestige < t.teamPrestige && [t getCurrentHC].contractYear == [t getCurrentHC].contractLength) {
+                //newsStories.get(0).add("Coaching Hot Seat: " + teamList.get(i).name + ">Head Coach " + teamList.get(i).HC.get(0).name + " has struggled over the course of his current contract with " + teamList.get(i).name + " and has failed to raise the team prestige. Because this is his final contract year, the team will be evaluating whether to continue with the coach at the end of " + "this season. He'll remain on the hot seat throughout this year.");
+            } else if (t.teamPrestige > ([t getCurrentHC].baselinePrestige + 10) && t.teamPrestige < teamList[(int)(teamList.count * 0.35)].teamPrestige) {
+                //newsStories.get(0).add("Coaching Rising Star: " + teamList.get(i).HC.get(0).name + ">" + teamList.get(i).name + " head coach " + teamList.get(i).HC.get(0).name + " has been building a strong program and if he continues this path, he'll be on the top of the wishlist at a major program in the future.");
+            }
+        }
+    } else if (currentWeek == 7) {
+        for (Team *t in teamList) {
+            if ([t getCurrentHC].baselinePrestige < t.teamPrestige && [t getCurrentHC].contractYear == [t getCurrentHC].contractLength && t.rankTeamPollScore > (100 - [t getCurrentHC].baselinePrestige)) {
+                //newsStories.get(currentWeek + 1).add("Coaching Hot Seat: " + teamList.get(i).name + ">Head Coach " + teamList.get(i).HC.get(0).name + " future is in jeopardy at  " + teamList.get(i).name + ". The coach has failed to get out of the hot seat this season with disappointing losses and failing to live up to the school's standards.");
+            }
+        }
+    }
+}
+
+-(int)getAvgCoachTalent {
+    int avg = 0;
+    for (Team *t in teamList) {
+        if (t != userTeam && t.coaches.count > 0)
+            avg += [t getCurrentHC].ratTalent;
+    }
+    return avg / (teamList.count - 1);
+}
+
+-(int)getAvgCoachDef {
+    int avg = 0;
+    for (Team *t in teamList) {
+        if (t != userTeam && t.coaches.count > 0)
+            avg += [t getCurrentHC].ratDef;
+    }
+    return avg / (teamList.count - 1);
+}
+
+-(int)getAvgCoachOff {
+    int avg = 0;
+    for (Team *t in teamList) {
+        if (t != userTeam && t.coaches.count > 0)
+            avg += [t getCurrentHC].ratOff;
+    }
+    return avg / (teamList.count - 1);
+}
+
+-(int)getAvgCoachDiscipline {
+    int avg = 0;
+    for (Team *t in teamList) {
+        if (t != userTeam && t.coaches.count > 0)
+            avg += [t getCurrentHC].ratDiscipline;
+    }
+    return avg / (teamList.count - 1);
+}
+
+-(int)getAvgYards {
+    int average = 0;
+    for (Team *t in teamList) {
+        average += t.teamYards;
+    }
+    average = average / teamList.count;
+    return average;
+}
+
+-(int)getAvgConfPrestige {
+    int avgPrestige = 0;
+    for (Conference *c in conferences) {
+        [c updateConfPrestige];
+    }
+    for (Conference *c in conferences) {
+        avgPrestige += c.confPrestige;
+    }
+    return avgPrestige / conferences.count;
 }
 
 @end

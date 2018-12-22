@@ -141,6 +141,9 @@ typedef enum {
 +(NSComparisonResult)compareTeamPrestige:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareTeamLeastWins:(id)obj1 toObj2:(id)obj2;
 
++(NSComparisonResult)compareCoachScore:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareCoachOvr:(id)obj1 toObj2:(id)obj2;
+
 +(NSString *)generateOfferString:(NSDictionary *)offers;
 +(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers;
 +(NSString *)_calculateInterestString:(int)interestVal;
@@ -153,4 +156,6 @@ typedef enum {
 +(CFCRegion)regionForState:(NSString *)state;
 +(CFCRegionDistance)distanceFromRegion:(CFCRegion)region1 toRegion:(CFCRegion)region2;
 + (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber;
+
++(NSString*)getLetterGrade:(int)num;
 @end

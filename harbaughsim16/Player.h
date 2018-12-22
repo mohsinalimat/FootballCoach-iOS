@@ -58,7 +58,6 @@ typedef enum {
 
 -(BOOL)isInjured;
 -(NSString *)simpleAwardReport;
-+(NSArray *)letterGrades;
 -(NSString*)getYearString;
 -(NSString*)getFullYearString;
 -(void)advanceSeason;

@@ -229,17 +229,6 @@
     }
 }
 
-+ (NSArray *)letterGrades
-{
-    static NSArray *letterGrades;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        letterGrades = @[@"F", @"F+", @"D", @"D+", @"C", @"C+", @"B", @"B+", @"A", @"A+"];
-        
-    });
-    return letterGrades;
-}
-
 -(NSString*)getYearString {
     if (self.wasRedshirted || self.hasRedshirt) {
         if (self.year == 0) {
@@ -378,28 +367,22 @@
     int ind = ([num intValue] - 50)/5;
     if (ind > 9) ind = 9;
     if (ind < 0) ind = 0;
-    return [[self class] letterGrades][ind];
+    return [HBSharedUtils getLetterGrade:ind];
 }
 
 -(NSString*)getLetterGradePotWithString:(NSString*)num {
-    int ind = ([num intValue]) / 10;
+    int ind = [num intValue] / 10;
     if (ind > 9) ind = 9;
     if (ind < 0) ind = 0;
-    return [[self class] letterGrades][ind];
+    return [HBSharedUtils getLetterGrade:ind];
 }
 
 -(NSString*)getLetterGrade:(int)num {
-    int ind = (num - 50)/5;
-    if (ind > 9) ind = 9;
-    if (ind < 0) ind = 0;
-    return [[self class] letterGrades][ind];
+    return [HBSharedUtils getLetterGrade:num];
 }
 
 -(NSString*)getLetterGradePot:(int)num {
-    int ind = num / 10;
-    if (ind > 9) ind = 9;
-    if (ind < 0) ind = 0;
-    return [[self class] letterGrades][ind];
+    return [HBSharedUtils getLetterGrade:num];
 }
 
 -(NSDictionary*)detailedStats:(int)games {

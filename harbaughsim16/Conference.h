@@ -35,4 +35,6 @@
 
 -(NSString *)conferenceMetadataJSON;
 -(void)applyJSONMetadataChanges:(id)json;
+
+-(void)updateConfPrestige;
 @end
