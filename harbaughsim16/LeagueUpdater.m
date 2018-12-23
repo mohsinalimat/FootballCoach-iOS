@@ -32,10 +32,13 @@
 @implementation LeagueUpdater
 
 + (BOOL)needsUpdateFromVersion:(NSString*)actualVersion toVersion:(NSString*)requiredVersion {
+    if (actualVersion == nil) {
+        return YES;
+    }
     return ([requiredVersion compare:actualVersion options:NSNumericSearch] == NSOrderedDescending);
 }
 
-+(void)convertLeagueFromOldVersion:(League* _Nonnull)oldLigue updatingBlock:(void (^_Nullable)(float progress, NSString * _Nullable updateStatus))updatingBlock completionBlock:(void (^_Nullable)(BOOL success, NSString * _Nullable finalStatus, League * _Nonnull ligue))completionBlock {
++ (void)convertLeagueFromOldVersion:(League* _Nonnull)oldLigue updatingBlock:(void (^_Nullable)(float progress, NSString * _Nullable updateStatus))updatingBlock completionBlock:(void (^_Nullable)(BOOL success, NSString * _Nullable finalStatus, League * _Nonnull ligue))completionBlock {
     //Alg:
     // If app version is not the same as the league version:
         // check the properties of the league
@@ -43,7 +46,7 @@
             // we know which were added in this new version, so check if those exist and load them with data if needed
         // if there are no new properties to update, just update the version
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        if (oldLigue.leagueVersion == nil || [[self class] needsUpdateFromVersion:@"1.1.4" toVersion:@"2.0"]) {
+        if ([[self class] needsUpdateFromVersion:oldLigue.leagueVersion toVersion:@"2.0"]) {
             __block float prgs = 0.0;
             oldLigue.baseYear = 2016;
             for (Team *t in oldLigue.teamList) {
