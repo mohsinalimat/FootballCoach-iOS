@@ -44,6 +44,8 @@ typedef enum {
 @property (nonatomic) BOOL isHeisman;
 @property (nonatomic) BOOL isAllAmerican;
 @property (nonatomic) BOOL isAllConference;
+@property (nonatomic) BOOL isTransfer;
+@property (nonatomic) BOOL isGradTransfer;
 @property (strong, nonatomic) Injury *injury;
 @property (strong, nonatomic) NSDictionary *draftPosition; // { "round" : "1", @"pick" : "32" }
 @property (nonatomic) int careerHeismans;

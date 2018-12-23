@@ -133,6 +133,18 @@
                 self.startYear = (int)(curYear - self.year + 1 + team.league.baseYear);
             }
         }
+        
+        if ([aDecoder containsValueForKey:@"isGradTransfer"]) {
+            self.isGradTransfer = [aDecoder decodeBoolForKey:@"isGradTransfer"];
+        } else {
+            self.isGradTransfer = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"isTransfer"]) {
+            self.isTransfer = [aDecoder decodeBoolForKey:@"isTransfer"];
+        } else {
+            self.isTransfer = NO;
+        }
     }
     return self;
 }
@@ -163,6 +175,8 @@
     [aCoder encodeInt:self.startYear forKey:@"startYear"];
     [aCoder encodeInt:self.endYear forKey:@"endYear"];
     [aCoder encodeInt:self.stars forKey:@"stars"];
+    [aCoder encodeBool:self.isGradTransfer forKey:@"isGradTransfer"];
+    [aCoder encodeBool:self.isTransfer forKey:@"isTransfer"];
 }
 
 +(int)getPosNumber:(NSString*)pos {
@@ -252,6 +266,8 @@
             return @"RS Jr";
         } else if (self.year == 4) {
             return @"RS Sr";
+        } else if (self.year == 5) {
+            return @"RS Grd";
         } else {
             if (self.draftPosition) {
                 return [NSString stringWithFormat:@"Rd%@-Pk%@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
@@ -272,6 +288,8 @@
             return @"Jr";
         } else if (self.year == 4) {
             return @"Sr";
+        } else if (self.year == 5) {
+            return @"Grd";
         } else {
             if (self.draftPosition) {
                 return [NSString stringWithFormat:@"Rd%@-Pk%@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
@@ -338,10 +356,9 @@
     self.year++;
     self.gamesPlayedSeason = 0;
     
-//    if (self.isHeisman) {
-//        self.team.heismans++;
-//        self.careerHeismans++;
-//    }
+    if (self.isTransfer) {
+        self.isTransfer = NO;
+    }
     
     self.isHeisman = NO;
     self.isAllAmerican = NO;

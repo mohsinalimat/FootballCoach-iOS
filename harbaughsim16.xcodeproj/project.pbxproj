@@ -197,6 +197,10 @@
 		75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
 		75FE584B1FA37D8C00DE2534 /* PlayerLB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58481FA37D8C00DE2534 /* PlayerLB.m */; };
 		75FE584E1FA3838600DE2534 /* PlayerTE.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE584D1FA3838600DE2534 /* PlayerTE.m */; };
+		75FFAB2E21CF09DD002156C1 /* TransferPeriodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FFAB2D21CF09DD002156C1 /* TransferPeriodViewController.m */; };
+		75FFAB3121CF09EF002156C1 /* TransferActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FFAB3021CF09EF002156C1 /* TransferActionsViewController.m */; };
+		75FFAB3421CF1D4B002156C1 /* TransferringPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FFAB3321CF1D4B002156C1 /* TransferringPlayersViewController.m */; };
+		75FFAB3721CF28C5002156C1 /* TransferLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FFAB3621CF28C5002156C1 /* TransferLogViewController.m */; };
 		94266A3BCC00501A20BBA8D3 /* Pods_cfctests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 497A9658B389B94C5E120F29 /* Pods_cfctests.framework */; };
 		E8BD34A541E5C863735F984C /* Pods_harbaughsim16.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */; };
 /* End PBXBuildFile section */
@@ -492,6 +496,14 @@
 		75FE58491FA37D8C00DE2534 /* PlayerLB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerLB.h; sourceTree = "<group>"; };
 		75FE584C1FA3838600DE2534 /* PlayerTE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerTE.h; sourceTree = "<group>"; };
 		75FE584D1FA3838600DE2534 /* PlayerTE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerTE.m; sourceTree = "<group>"; };
+		75FFAB2C21CF09DD002156C1 /* TransferPeriodViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferPeriodViewController.h; sourceTree = "<group>"; };
+		75FFAB2D21CF09DD002156C1 /* TransferPeriodViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransferPeriodViewController.m; sourceTree = "<group>"; };
+		75FFAB2F21CF09EF002156C1 /* TransferActionsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferActionsViewController.h; sourceTree = "<group>"; };
+		75FFAB3021CF09EF002156C1 /* TransferActionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransferActionsViewController.m; sourceTree = "<group>"; };
+		75FFAB3221CF1D4B002156C1 /* TransferringPlayersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferringPlayersViewController.h; sourceTree = "<group>"; };
+		75FFAB3321CF1D4B002156C1 /* TransferringPlayersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransferringPlayersViewController.m; sourceTree = "<group>"; };
+		75FFAB3521CF28C5002156C1 /* TransferLogViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TransferLogViewController.h; sourceTree = "<group>"; };
+		75FFAB3621CF28C5002156C1 /* TransferLogViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TransferLogViewController.m; sourceTree = "<group>"; };
 		D85668D6F39B03DA6E50DA73 /* Pods-harbaughsim16.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-harbaughsim16.debug.xcconfig"; path = "Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16.debug.xcconfig"; sourceTree = "<group>"; };
 		DE5D30C92C8078E09A259CAE /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -754,6 +766,8 @@
 		755BBC691C9E10D0001A8314 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				7503A01520004AA4004426AA /* Recruiting */,
+				75FFAB3821CF3425002156C1 /* Transfers */,
 				755BBC881CA03252001A8314 /* HBRecruitCell.h */,
 				755BBC891CA03252001A8314 /* HBRecruitCell.m */,
 				755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */,
@@ -762,7 +776,6 @@
 				75C5C3311F83447A00D7CAAD /* UpcomingViewController.h */,
 				75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */,
 				75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */,
-				7503A01520004AA4004426AA /* Recruiting */,
 				75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */,
 				75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */,
 				754319031CC02EAC00D380F1 /* Conference Standings */,
@@ -1009,6 +1022,21 @@
 				75CC974B1FB1D60000D08F06 /* Info.plist */,
 			);
 			path = "CFC-Screenshots";
+			sourceTree = "<group>";
+		};
+		75FFAB3821CF3425002156C1 /* Transfers */ = {
+			isa = PBXGroup;
+			children = (
+				75FFAB2C21CF09DD002156C1 /* TransferPeriodViewController.h */,
+				75FFAB2D21CF09DD002156C1 /* TransferPeriodViewController.m */,
+				75FFAB2F21CF09EF002156C1 /* TransferActionsViewController.h */,
+				75FFAB3021CF09EF002156C1 /* TransferActionsViewController.m */,
+				75FFAB3221CF1D4B002156C1 /* TransferringPlayersViewController.h */,
+				75FFAB3321CF1D4B002156C1 /* TransferringPlayersViewController.m */,
+				75FFAB3521CF28C5002156C1 /* TransferLogViewController.h */,
+				75FFAB3621CF28C5002156C1 /* TransferLogViewController.m */,
+			);
+			name = Transfers;
 			sourceTree = "<group>";
 		};
 		C0C1FC9379CC5881BF7F3C73 /* Frameworks */ = {
@@ -1399,6 +1427,7 @@
 				75A4519621CC79EA007E481A /* PlayerCBDetailViewController.m in Sources */,
 				75BBDBB61DEC910A00124AA4 /* GraduatingPlayersViewController.m in Sources */,
 				75880F8C1CAC949300AF2C1C /* LeagueRecordsViewController.m in Sources */,
+				75FFAB3121CF09EF002156C1 /* TransferActionsViewController.m in Sources */,
 				75A4516C21CC5257007E481A /* HBPlayerDetailView.m in Sources */,
 				75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */,
 				75A4518221CC7457007E481A /* PlayerOLDetailViewController.m in Sources */,
@@ -1425,6 +1454,7 @@
 				75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */,
 				755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */,
 				75C321C41CAD7BBB00906A38 /* AllConferenceTeamViewController.m in Sources */,
+				75FFAB2E21CF09DD002156C1 /* TransferPeriodViewController.m in Sources */,
 				75097C5C1CBC1B55003E2538 /* HBRecordCell.m in Sources */,
 				7562A8951FFF4394004C0985 /* PrestigeYearMarkerView.swift in Sources */,
 				75924A4F1C99D05E00B165AD /* Conference.m in Sources */,
@@ -1451,12 +1481,14 @@
 				75924A671C99E65E00B165AD /* PlayerS.m in Sources */,
 				75C7C4981FFA0C9C003840D4 /* HelpViewController.m in Sources */,
 				755BBC8B1CA03252001A8314 /* HBRecruitCell.m in Sources */,
+				75FFAB3421CF1D4B002156C1 /* TransferringPlayersViewController.m in Sources */,
 				75A4517221CC55F4007E481A /* PlayerRBDetailViewController.m in Sources */,
 				75A4516221CC4803007E481A /* TeamScheduleViewController.m in Sources */,
 				7571DD2C1C9CCD8100E67080 /* HBScheduleCell.m in Sources */,
 				754E907B1CA58C0F00C450CF /* HeismanLeadersViewController.m in Sources */,
 				7586330A1CC142B900E1E458 /* MockDraftViewController.m in Sources */,
 				7562A8931FFF4370004C0985 /* BalloonMarker.swift in Sources */,
+				75FFAB3721CF28C5002156C1 /* TransferLogViewController.m in Sources */,
 				7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */,
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,
 				7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */,

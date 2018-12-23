@@ -60,6 +60,10 @@
 @property (strong, nonatomic)  NSMutableArray<NSString*> *lastNameList;
 @property (strong, nonatomic)  NSMutableArray<NSMutableArray*> *newsStories;
 @property (strong, nonatomic)  NSMutableArray<Player *> *hallOfFamers;
+@property (nonatomic) BOOL didFinishTransferPeriod;
+
+@property (strong, nonatomic) NSDictionary<NSString *, NSMutableArray<Player *> *> *transferList;
+@property (strong, nonatomic) NSMutableArray<NSString *> *transferLog;
 
 @property (strong, nonatomic) Team *blessedTeam;
 @property (strong, nonatomic) Team *cursedTeam;

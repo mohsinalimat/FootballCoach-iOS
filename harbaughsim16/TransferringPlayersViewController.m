@@ -1,14 +1,16 @@
 //
-//  GraduatingPlayersViewController.m
+//  TransferringPlayersViewController.m
 //  harbaughsim16
 //
-//  Created by Akshay Easwaran on 11/28/16.
-//  Copyright © 2016 Akshay Easwaran. All rights reserved.
+//  Created by Akshay Easwaran on 12/22/18.
+//  Copyright © 2018 Akshay Easwaran. All rights reserved.
 //
 
-#import "GraduatingPlayersViewController.h"
+#import "TransferringPlayersViewController.h"
 
-#import "PlayerDetailViewController.h"
+#import "Team.h"
+#import "Player.h"
+
 #import "PlayerQBDetailViewController.h"
 #import "PlayerRBDetailViewController.h"
 #import "PlayerWRDetailViewController.h"
@@ -21,48 +23,84 @@
 #import "PlayerSDetailViewController.h"
 #import "PlayerDetailViewController.h"
 
-#import "Team.h"
-#import "Player.h"
-
 #import "UIScrollView+EmptyDataSet.h"
 
-@interface GraduatingPlayersViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface TransferringPlayersViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
 {
-    NSMutableArray *grads;
+    Team *selectedTeam;
+    CRCTransferViewOption selectedViewOption;
+    NSInteger selectedIndex;
+    NSMutableArray<Player *> *players;
+    NSMutableDictionary<NSString *, NSString *> *incomingPlayerOldTeams;
 }
 @end
 
-@implementation GraduatingPlayersViewController
+@implementation TransferringPlayersViewController
+
+-(instancetype)initWithTeam:(Team *)t viewOption:(CRCTransferViewOption)option {
+    self = [super initWithStyle:UITableViewStylePlain];
+    if (self) {
+        selectedTeam = t;
+        selectedViewOption = option;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UISegmentedControl *segControl = [[UISegmentedControl alloc] initWithItems:@[@"Outgoing", @"Incoming"]];
+    [segControl setTintColor:[UIColor whiteColor]];
+    [segControl setSelectedSegmentIndex:0];
+    if (selectedViewOption == CRCTransferViewOptionIncoming) {
+        players = selectedTeam.transferClass;
+        self.title = @"Incoming Transfers";
+    } else {
+        players = selectedTeam.playersTransferring;
+        self.title = @"Outgoing Transfers";
+    }
+    
+    if (selectedViewOption == CRCTransferViewOptionIncoming || selectedViewOption == CRCTransferViewOptionBoth) {
+        incomingPlayerOldTeams = [NSMutableDictionary dictionary];
+        [self generateOrigins];
+    }
+    
+    selectedIndex = 0;
+    
+    if (selectedViewOption == CRCTransferViewOptionBoth) {
+        [segControl addTarget:self action:@selector(switchViews:) forControlEvents:UIControlEventValueChanged];
+        self.navigationItem.titleView = segControl;
+    }
+    
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.tableFooterView = [UIView new];
-    grads = [[[HBSharedUtils currentLeague] userTeam] playersLeaving];
-    [grads sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        return (a.ratOvr > b.ratOvr ? -1 : a.ratOvr == b.ratOvr ? ([a.name compare:b.name]) : 1);
-    }];
-    self.tableView.tableFooterView = [UIView new];
     self.tableView.backgroundColor = [HBSharedUtils styleColor];
-    
-    [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-    if (grads.count > 0) {
-        self.title = [NSString stringWithFormat:@"%lu Players Leaving", (long)grads.count];
-    } else {
-        self.title = @"No Players Leaving";
+}
+
+-(void)generateOrigins {
+    for (Player *p in players) {
+        for (Team *t in [HBSharedUtils currentLeague].teamList) {
+            if (![t isEqual:[HBSharedUtils currentLeague].userTeam] && [t.playersTransferring containsObject:p]) {
+                [incomingPlayerOldTeams setObject:t.abbreviation forKey:[p uniqueIdentifier]];
+                break;
+            }
+        }
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+-(void)switchViews:(UISegmentedControl*)sender {
+    selectedIndex = sender.selectedSegmentIndex;
+    if (sender.selectedSegmentIndex == 0) {
+        players = selectedTeam.playersTransferring;
+    } else {
+        players = selectedTeam.transferClass;
+    }
+    [self.tableView reloadData];
 }
 
+    
 #pragma mark - DZNEmptyDataSetSource Methods
-
+    
 - (NSAttributedString *)titleForEmptyDataSet:(UIScrollView *)scrollView
 {
     NSString *text = nil;
@@ -71,7 +109,11 @@
     
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
-    text = @"No Players Leaving";
+    if (selectedIndex == 0) {
+        text = @"No outgoing transfers";
+    } else {
+        text = @"No incoming transfers";
+    }
     font = [UIFont boldSystemFontOfSize:17.0];
     textColor = [UIColor lightTextColor];
     
@@ -98,7 +140,11 @@
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     paragraph.alignment = NSTextAlignmentCenter;
     
-    text = @"No players are leaving your program this offseason.";
+    if (selectedIndex == 0) {
+        text = @"No players transferred out of your program this offseason.";
+    } else {
+        text = @"No players transferred into your program this offseason.";
+    }
     font = [UIFont systemFontOfSize:15.0];
     textColor = [UIColor lightTextColor];
     
@@ -131,24 +177,22 @@
     return 10.0;
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
-    return grads.count;
-}
-
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return CGFLOAT_MIN;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+#pragma mark - Table view data source
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return players.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
@@ -160,7 +204,7 @@
         [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
         
     }
-    Player *player = grads[indexPath.row];
+    Player *player = players[indexPath.row];
     UIColor *nameColor;
     
     if (player.hasRedshirt) {
@@ -175,18 +219,26 @@
         nameColor = [UIColor blackColor];
     }
     
-    NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",player.position,player.name] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightRegular]}];
-    [attText addAttribute:NSForegroundColorAttributeName value:nameColor range:[attText.string rangeOfString:player.name]];
+    NSString *name = (IS_IPHONE_5) ? [player getInitialName] : player.name;
+    
+    NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@ (Ovr: %d)",player.position,name, player.ratOvr] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightRegular]}];
+    [attText addAttribute:NSForegroundColorAttributeName value:nameColor range:[attText.string rangeOfString:name]];
     [attText addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:[attText.string rangeOfString:player.position]];
+    [attText addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:[attText.string rangeOfString:[NSString stringWithFormat:@"(Ovr: %d)", (player.ratOvr)]]];
     [cell.textLabel setAttributedText:attText];
-    [cell.detailTextLabel setText:[NSString stringWithFormat:@"Ovr: %lu", (long)(player.ratOvr)]];
+    if ([HBSharedUtils currentLeague].didFinishTransferPeriod) {
+        if (selectedIndex == 0) {
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"to %@", player.team.abbreviation]];
+        } else {
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"from %@", incomingPlayerOldTeams[[player uniqueIdentifier]]]];
+        }
+    }
     return cell;
-
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Player *p = grads[indexPath.row];
+    Player *p = players[indexPath.row];
     if ([p.position isEqualToString:@"QB"]) {
         [self.navigationController pushViewController:[[PlayerQBDetailViewController alloc] initWithPlayer:p] animated:YES];
     } else if ([p.position isEqualToString:@"RB"]) {

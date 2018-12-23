@@ -33,7 +33,7 @@
 #import "AutoCoding.h"
 
 @implementation League
-@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles;
+@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles, transferList,transferLog,didFinishTransferPeriod;
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
@@ -129,7 +129,10 @@
     
     [encoder encodeInteger:self.baseYear forKey:@"baseYear"];
     [encoder encodeObject:self.leagueVersion forKey:@"leagueVersion"];
-    
+
+    [encoder encodeBool:self.didFinishTransferPeriod forKey:@"didFinishTransferPeriod"];
+    [encoder encodeObject:self.transferList forKey:@"transferList"];
+    [encoder encodeObject:self.transferLog forKey:@"transferLog"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -460,6 +463,24 @@
             self.lastNameList = [decoder decodeObjectForKey:@"lastNameList"];
         }
         
+        if (![decoder containsValueForKey:@"transferList"]) {
+            self.transferList = @{};
+        } else {
+            self.transferList = [decoder decodeObjectForKey:@"transferList"];
+        }
+        
+        if (![decoder containsValueForKey:@"transferLog"]) {
+            self.transferLog = [NSMutableArray array];
+        } else {
+            self.transferLog = [decoder decodeObjectForKey:@"transferLog"];
+        }
+        
+        if (![decoder containsValueForKey:@"didFinishTransferPeriod"]) {
+            self.didFinishTransferPeriod = NO;
+        } else {
+            self.didFinishTransferPeriod = [decoder decodeBoolForKey:@"didFinishTransferPeriod"];
+        }
+        
         //deprecated
         leagueRecordYearPassYards = 0;
         leagueRecordYearCompletions = 0;
@@ -725,6 +746,22 @@
         heismanHistory = [NSMutableArray array];
         heismanHistoryDictionary = [NSMutableDictionary dictionary];
         heismanFinalists = [NSMutableArray array];
+        
+        transferList = @{
+                         @"QB" : [NSMutableArray array],
+                         @"RB" : [NSMutableArray array],
+                         @"WR" : [NSMutableArray array],
+                         @"TE" : [NSMutableArray array],
+                         @"OL" : [NSMutableArray array],
+                         @"DL" : [NSMutableArray array],
+                         @"LB" : [NSMutableArray array],
+                         @"CB" : [NSMutableArray array],
+                         @"S" : [NSMutableArray array],
+                         @"K" : [NSMutableArray array]
+                         };
+        transferLog = [NSMutableArray array];
+        didFinishTransferPeriod = NO;
+        
         heisman = nil;
         currentWeek = 0;
         bowlGames = [NSMutableArray array];
@@ -1263,6 +1300,7 @@
     ncg = nil;
     heisman = nil;
     heismanWinnerStrFull = nil;
+    didFinishTransferPeriod = NO;
     // Bless a random team with lots of prestige
     int blessNumber = (int)([HBSharedUtils randomValue]*9);
     Team *blessTeam = teamList[50 + blessNumber];

@@ -405,7 +405,7 @@
         [cell.medImageView setHidden:YES];
     }
     
-    if (player.hasRedshirt) {
+    if (player.hasRedshirt || player.isTransfer) {
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
     } else if (player.isHeisman) {
         [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
