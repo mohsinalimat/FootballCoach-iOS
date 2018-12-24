@@ -448,6 +448,9 @@
                 qbNeeds++;
             } else {
                 [teamQBs[i] advanceSeason];
+                if ([transferClass containsObject:teamQBs[i]] && !teamQBs[i].isGradTransfer) {
+                    teamQBs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
@@ -459,6 +462,9 @@
                 rbNeeds++;
             } else {
                 [teamRBs[i] advanceSeason];
+                if ([transferClass containsObject:teamRBs[i]] && !teamRBs[i].isGradTransfer) {
+                    teamRBs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
@@ -470,6 +476,9 @@
                 wrNeeds++;
             } else {
                 [teamWRs[i] advanceSeason];
+                if ([transferClass containsObject:teamWRs[i]] && !teamWRs[i].isGradTransfer) {
+                    teamWRs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
@@ -481,6 +490,9 @@
                 teNeeds++;
             } else {
                 [teamTEs[i] advanceSeason];
+                if ([transferClass containsObject:teamTEs[i]] && !teamTEs[i].isGradTransfer) {
+                    teamTEs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
@@ -492,6 +504,9 @@
                 kNeeds++;
             } else {
                 [teamKs[i] advanceSeason];
+                if ([transferClass containsObject:teamKs[i]] && !teamKs[i].isGradTransfer) {
+                    teamKs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
@@ -503,6 +518,9 @@
                 olNeeds++;
             } else {
                 [teamOLs[i] advanceSeason];
+                if ([transferClass containsObject:teamOLs[i]] && !teamOLs[i].isGradTransfer) {
+                    teamOLs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
@@ -514,6 +532,9 @@
                 sNeeds++;
             } else {
                 [teamSs[i] advanceSeason];
+                if ([transferClass containsObject:teamSs[i]] && !teamSs[i].isGradTransfer) {
+                    teamSs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
@@ -525,6 +546,9 @@
                 cbNeeds++;
             } else {
                 [teamCBs[i] advanceSeason];
+                if ([transferClass containsObject:teamCBs[i]] && !teamCBs[i].isGradTransfer) {
+                    teamCBs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
@@ -536,6 +560,9 @@
                 lbNeeds++;
             } else {
                 [teamLBs[i] advanceSeason];
+                if ([transferClass containsObject:teamLBs[i]] && !teamLBs[i].isGradTransfer) {
+                    teamLBs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
@@ -547,6 +574,9 @@
                 dlNeeds++;
             } else {
                 [teamDLs[i] advanceSeason];
+                if ([transferClass containsObject:teamDLs[i]] && !teamDLs[i].isGradTransfer) {
+                    teamDLs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
@@ -562,6 +592,7 @@
     if ( !isUserControlled ) {
         [self resetStats];
     }
+    [self sortPlayers];
 }
 
 -(void)recruitPlayers:(NSArray*)needs {
@@ -1096,7 +1127,7 @@
     gameWinsAgainst = [NSMutableArray array];
     gameWLSchedule = [NSMutableArray array];
     injuredPlayers = [NSMutableArray array];
-    transferClass = [NSMutableArray array];
+//    transferClass = [NSMutableArray array];
     confChampion = @"";
     semifinalWL = @"";
     natlChampWL = @"";
