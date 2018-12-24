@@ -547,7 +547,7 @@
     NSMutableArray *mapped = [NSMutableArray array];
     [players enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         Player *p = (Player *)obj;
-        if ([p.position isEqualToString:pos] && p.isTransfer == YES) {
+        if ([p.position isEqualToString:pos] && [t.transferClass containsObject:p]) {
             [mapped addObject:p];
         }
     }];

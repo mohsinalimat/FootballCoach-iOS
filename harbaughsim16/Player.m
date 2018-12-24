@@ -582,5 +582,8 @@
     return [NSString stringWithFormat:@"%d",h];
 }
 
+-(NSString *)debugDescription {
+    return [self getPosNameYrOvrPot_Str];
+}
 
 @end

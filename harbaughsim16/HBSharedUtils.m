@@ -180,12 +180,80 @@ static UIColor *styleColor = nil;
 +(NSComparisonResult)comparePlayers:(id)obj1 toObj2:(id)obj2 {
     Player *a = (Player*)obj1;
     Player *b = (Player*)obj2;
-    if (![a isInjured] && [b isInjured]) {
-        return -1;
-    } else if ([a isInjured] && ![b isInjured]) {
+    if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured && !a.isTransfer && !b.isTransfer) {
+        if (a.ratOvr > b.ratOvr) {
+            return -1;
+        } else if (a.ratOvr < b.ratOvr) {
+            return 1;
+        } else {
+            if (a.ratPot > b.ratPot) {
+                return -1;
+            } else if (a.ratPot < b.ratPot) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    } else if (a.hasRedshirt) {
         return 1;
+    } else if (b.hasRedshirt) {
+        return -1;
+    } else if (a.isTransfer) {
+        return 1;
+    } else if (b.isTransfer) {
+        return -1;
+    } else if (a.isInjured) {
+        return 1;
+    } else if (b.isInjured) {
+        return  -1;
     } else {
         return a.ratOvr > b.ratOvr ? -1 : (a.ratOvr == b.ratOvr ? [HBSharedUtils comparePositions:obj1 toObj2:obj2] : 1);
+    }
+}
+
++(NSComparisonResult)compareDepthChartPositions:(id)obj1 toObj2:(id)obj2 {
+    Player *a = (Player*)obj1;
+    Player *b = (Player*)obj2;
+    if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured && !a.isTransfer && !b.isTransfer) {
+        if (a.ratOvr > b.ratOvr) {
+            return -1;
+        } else if (a.ratOvr < b.ratOvr) {
+            return 1;
+        } else {
+            if (a.ratPot > b.ratPot) {
+                return -1;
+            } else if (a.ratPot < b.ratPot) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    } else if (a.hasRedshirt) {
+        return 1;
+    } else if (b.hasRedshirt) {
+        return -1;
+    } else if (a.isTransfer) {
+        return 1;
+    } else if (b.isTransfer) {
+        return -1;
+    } else if (a.isInjured) {
+        return 1;
+    } else if (b.isInjured) {
+        return  -1;
+    } else {
+        if (a.ratOvr > b.ratOvr) {
+            return -1;
+        } else if (a.ratOvr < b.ratOvr) {
+            return 1;
+        } else {
+            if (a.ratPot > b.ratPot) {
+                return -1;
+            } else if (a.ratPot < b.ratPot) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
     }
 }
 

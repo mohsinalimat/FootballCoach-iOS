@@ -433,7 +433,7 @@
         [self getGraduatingPlayers];
     }
     
-    if (playersTransferring == nil || playersTransferring.count == 0) {
+    if (playersTransferring == nil) { // don't reload this if it's just empty cause we could get a different set of players
         [self getTransferringPlayers];
     }
     
@@ -513,7 +513,7 @@
                 [teamSs removeObjectAtIndex:i];
                 sNeeds++;
             } else {
-                [teamSs[i] advanceSeason];;
+                [teamSs[i] advanceSeason];
                 i++;
             }
         }
@@ -554,7 +554,10 @@
  
     [playersLeaving removeAllObjects];
     [injuredPlayers removeAllObjects];
-    [playersTransferring removeAllObjects]; // all transfers have been added to new teams in -[TransferPeriodViewController advanceRecruits] and have been removed from this roster above. we can clear this out now.
+    
+     // all transfers have been added to new teams in -[TransferPeriodViewController advanceRecruits] and have been removed from this roster above. we can clear these out now.
+    [playersTransferring removeAllObjects];
+    [transferClass removeAllObjects];
     
     if ( !isUserControlled ) {
         [self resetStats];
@@ -1224,457 +1227,34 @@
 
 -(void)sortPlayers {
     [teamQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isTransfer) {
-            return 1;
-        } else if (b.isTransfer) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isTransfer) {
-            return 1;
-        } else if (b.isTransfer) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isTransfer) {
-            return 1;
-        } else if (b.isTransfer) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamTEs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isTransfer) {
-            return 1;
-        } else if (b.isTransfer) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isTransfer) {
-            return 1;
-        } else if (b.isTransfer) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamOLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isTransfer) {
-            return 1;
-        } else if (b.isTransfer) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
-    
-
     [teamCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isTransfer) {
-            return 1;
-        } else if (b.isTransfer) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamSs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isTransfer) {
-            return 1;
-        } else if (b.isTransfer) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamDLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isTransfer) {
-            return 1;
-        } else if (b.isTransfer) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
-    
     [teamLBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isTransfer) {
-            return 1;
-        } else if (b.isTransfer) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
 }
 
@@ -2880,45 +2460,7 @@
         
         //sort normally
         [hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            Player *a = (Player*)obj1;
-            Player *b = (Player*)obj2;
-            if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-                if (a.ratOvr > b.ratOvr) {
-                    return -1;
-                } else if (a.ratOvr < b.ratOvr) {
-                    return 1;
-                } else {
-                    if (a.ratPot > b.ratPot) {
-                        return -1;
-                    } else if (a.ratPot < b.ratPot) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                }
-            } else if (a.hasRedshirt) {
-                return 1;
-            } else if (b.hasRedshirt) {
-                return -1;
-            } else if (a.isInjured) {
-                return 1;
-            } else if (b.isInjured) {
-                return  -1;
-            } else {
-                if (a.ratOvr > b.ratOvr) {
-                    return -1;
-                } else if (a.ratOvr < b.ratOvr) {
-                    return 1;
-                } else {
-                    if (a.ratPot > b.ratPot) {
-                        return -1;
-                    } else if (a.ratPot < b.ratPot) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                }
-            }
+            return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
         }];
         
         //sort by most hallowed (hallowScore = normalized OVR + 2 * all-conf + 4 * all-Amer + 6 * Heisman; tie-break w/ pure OVR, then gamesPlayed, then potential)
