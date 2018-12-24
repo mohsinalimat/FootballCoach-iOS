@@ -78,9 +78,9 @@
 }
 
 -(void)generateOrigins {
-    for (Player *p in players) {
+    for (Player *p in selectedTeam.transferClass) {
         for (Team *t in [HBSharedUtils currentLeague].teamList) {
-            if (![t isEqual:[HBSharedUtils currentLeague].userTeam] && [t.playersTransferring containsObject:p]) {
+            if (![t isEqual:selectedTeam] && [t.playersTransferring containsObject:p]) {
                 [incomingPlayerOldTeams setObject:t.abbreviation forKey:[p uniqueIdentifier]];
                 break;
             }

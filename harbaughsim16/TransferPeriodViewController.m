@@ -74,6 +74,8 @@
     CFCRecruitingStage recruitingStage;
     BOOL allPlayersAvailable;
     BOOL sortedByInterest;
+    
+    NSMutableDictionary *playerOrigins;
 }
 
 @end
@@ -256,9 +258,8 @@
                                 Team *t = [currentLeague findTeam:highestOffer];
                                 // NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
                                 if (![t.transferClass containsObject:p]) {
-                                    //Team *oldTeam = p.team;
                                     [p setRecruitStatus:CFCRecruitStatusCommitted];
-                                    //[p setTeam:t];
+                                    [p setTeam:t];
                                     [t.transferClass addObject:p];
                                     
                                     if (t == currentLeague.userTeam) {
@@ -586,12 +587,17 @@
 }
 
 -(void)finishTransferPeriod {
+    if (![HBSharedUtils currentLeague].transferLog) {
+        [HBSharedUtils currentLeague].transferLog = [NSMutableArray array];
+    } else {
+        [[HBSharedUtils currentLeague].transferLog removeAllObjects];
+    }
+    
     for (Team *t in [HBSharedUtils currentLeague].teamList) {
         for (Player *p in t.transferClass) {
-            Team *oldTeam = p.team;
             [p setTeam:t];
             [t addPlayer:p];
-            [[HBSharedUtils currentLeague].transferLog addObject:[NSString stringWithFormat:@"Former %@ %@ %@ signs with %@.", oldTeam.abbreviation,p.position,[p getInitialName],p.team.name]];
+            [[HBSharedUtils currentLeague].transferLog addObject:[NSString stringWithFormat:@"Former %@ %@ %@ signs with %@.",playerOrigins[[p uniqueIdentifier]],p.position,[p getInitialName],p.team.name]];
         }
     }
     
@@ -702,7 +708,9 @@
     
     [self.tableView reloadData];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        if (self->currentRecruits.count > 0) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
     });
 }
 
@@ -747,12 +755,6 @@
     [[HBSharedUtils currentLeague].userTeam calculateRecruitingPoints];
     recruitingPoints = [HBSharedUtils currentLeague].userTeam.recruitingPoints;
     usedRecruitingPoints = 0;
-    
-    if (![HBSharedUtils currentLeague].transferLog) {
-        [HBSharedUtils currentLeague].transferLog = [NSMutableArray array];
-    } else {
-        [[HBSharedUtils currentLeague].transferLog removeAllObjects];
-    }
     
     if (![HBSharedUtils currentLeague].userTeam.transferClass) {
         [HBSharedUtils currentLeague].userTeam.transferClass = [NSMutableArray array];
@@ -875,6 +877,17 @@
         return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     
+    playerOrigins = [NSMutableDictionary dictionary];
+    for (Player *p in totalRecruits) {
+        [playerOrigins setObject:p.team.abbreviation forKey:[p uniqueIdentifier]];
+//        for (Team *t in [HBSharedUtils currentLeague].teamList) {
+//            if (![t isEqual:[HBSharedUtils currentLeague].userTeam] && [t.playersTransferring containsObject:p]) {
+//                [playerOrigins setObject:t.abbreviation forKey:[p uniqueIdentifier]];
+//                break;
+//            }
+//        }
+    }
+    
     [hud.label setText:@"Organizing offers from other teams..."];
     __block NSArray *teamList = [HBSharedUtils currentLeague].teamList;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -974,7 +987,11 @@
     
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
-    text = @"No signed transfers";
+    if (recruitingStage != CFCRecruitingStageEndTransferPeriod) {
+        text = [NSString stringWithFormat:@"No transfer %@ available", [positionSelectionControl titleForSegmentAt:positionSelectionControl.selectedSegmentIndex]];
+    } else {
+        text = @"No signed transfers";
+    }
     font = [UIFont boldSystemFontOfSize:17.0];
     textColor = [UIColor lightTextColor];
     
@@ -1001,7 +1018,11 @@
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     paragraph.alignment = NSTextAlignmentCenter;
     
-    text = @"You weren't able to sign any transfers this year. Better luck next year!";
+    if (recruitingStage != CFCRecruitingStageEndTransferPeriod) {
+        text = [NSString stringWithFormat:@"Unfortunately, there were no transfer %@s available this year. Hopefully you can pick one up in recruiting season!", [positionSelectionControl titleForSegmentAt:positionSelectionControl.selectedSegmentIndex]];
+    } else {
+        text = @"You weren't able to sign any transfers this year. Better luck next year!";
+    }
     font = [UIFont systemFontOfSize:15.0];
     textColor = [UIColor lightTextColor];
     

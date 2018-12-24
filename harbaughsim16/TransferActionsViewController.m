@@ -117,7 +117,11 @@
     } else {
         NSInteger count = 1;
         if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted) {// && selectedRecruit.team != [HBSharedUtils currentLeague].userTeam) {
-            count = 0; // no redshirt option
+            if (selectedRecruit.team != [HBSharedUtils currentLeague].userTeam) {
+                return 1;
+            } else {
+                return 0;
+            }
         } else {
             count = availableEvents.count;
         }
@@ -323,16 +327,7 @@
                     [cell.textLabel setTextColor:[UIColor lightGrayColor]];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
-            } else {
-//                // redshirt or unredshirt
-//                if (!selectedRecruit.hasRedshirt) {
-//                    [cell.textLabel setText:@"Redshirt Player"];
-//                    [cell.detailTextLabel setText:@"Ask this player to sit a year in order to preserve his eligibility. Requires no extra recruiting effort."];
-//                } else {
-//                    [cell.textLabel setText:@"Un-redshirt Player"];
-//                    [cell.detailTextLabel setText:@"Remove this player's redshirt. Requires no extra recruiting effort."];
-//                }
-            }
+            } // no option to redshirt a transfer
         } else {
             NSNumber *event = availableEvents[indexPath.row];
             if ([event isEqual:@(CFCRecruitEventPositionCoachMeeting)]) {
@@ -418,18 +413,7 @@
                         [(id<TransferActionsDelegate>)_delegate transferActionsController:self didUpdateTransfer:selectedRecruit withEvent:CFCRecruitEventFlipped];
                     }
                 }
-            } else {
-                // redshirt or unredshirt
-                if (!selectedRecruit.hasRedshirt) {
-                    if (_delegate && [_delegate respondsToSelector:@selector(transferActionsController:didUpdateTransfer:withEvent:)]) {
-                        [(id<TransferActionsDelegate>)_delegate transferActionsController:self didUpdateTransfer:selectedRecruit withEvent:CFCRecruitEventRedshirted];
-                    }
-                } else {
-                    if (_delegate && [_delegate respondsToSelector:@selector(transferActionsController:didUpdateTransfer:withEvent:)]) {
-                        [(id<TransferActionsDelegate>)_delegate transferActionsController:self didUpdateTransfer:selectedRecruit withEvent:CFCRecruitEventUnredshirted];
-                    }
-                }
-            }
+            } // no option to redshirt a transfer
         } else {
             NSNumber *event = availableEvents[indexPath.row];
             if (((id<TransferActionsDelegate>)_delegate).recruitingPoints - (((id<TransferActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:(CFCRecruitEvent)event.integerValue].intValue) <= 0 || [recruitEvents containsObject:event]) {

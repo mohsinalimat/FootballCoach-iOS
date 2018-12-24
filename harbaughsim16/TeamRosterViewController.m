@@ -244,6 +244,9 @@
     } else {
         if (player.hasRedshirt) {
             [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+        } else if (player.isTransfer) {
+            [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+            [cell.yrLabel setText:@"XFER"];
         } else if (player.isHeisman) {
             [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
         } else if (player.isAllAmerican) {

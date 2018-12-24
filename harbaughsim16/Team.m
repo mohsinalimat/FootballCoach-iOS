@@ -554,6 +554,7 @@
  
     [playersLeaving removeAllObjects];
     [injuredPlayers removeAllObjects];
+    [playersTransferring removeAllObjects]; // all transfers have been added to new teams in -[TransferPeriodViewController advanceRecruits] and have been removed from this roster above. we can clear this out now.
     
     if ( !isUserControlled ) {
         [self resetStats];
@@ -1288,6 +1289,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
+        } else if (a.isTransfer) {
+            return 1;
+        } else if (b.isTransfer) {
+            return -1;
         } else if (a.isInjured) {
             return 1;
         } else if (b.isInjured) {
@@ -1328,6 +1333,10 @@
         } else if (a.hasRedshirt) {
             return 1;
         } else if (b.hasRedshirt) {
+            return -1;
+        } else if (a.isTransfer) {
+            return 1;
+        } else if (b.isTransfer) {
             return -1;
         } else if (a.isInjured) {
             return 1;
@@ -1370,6 +1379,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
+        } else if (a.isTransfer) {
+            return 1;
+        } else if (b.isTransfer) {
+            return -1;
         } else if (a.isInjured) {
             return 1;
         } else if (b.isInjured) {
@@ -1411,6 +1424,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
+        } else if (a.isTransfer) {
+            return 1;
+        } else if (b.isTransfer) {
+            return -1;
         } else if (a.isInjured) {
             return 1;
         } else if (b.isInjured) {
@@ -1451,6 +1468,10 @@
         } else if (a.hasRedshirt) {
             return 1;
         } else if (b.hasRedshirt) {
+            return -1;
+        } else if (a.isTransfer) {
+            return 1;
+        } else if (b.isTransfer) {
             return -1;
         } else if (a.isInjured) {
             return 1;
@@ -1495,6 +1516,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
+        } else if (a.isTransfer) {
+            return 1;
+        } else if (b.isTransfer) {
+            return -1;
         } else if (a.isInjured) {
             return 1;
         } else if (b.isInjured) {
@@ -1535,6 +1560,10 @@
         } else if (a.hasRedshirt) {
             return 1;
         } else if (b.hasRedshirt) {
+            return -1;
+        } else if (a.isTransfer) {
+            return 1;
+        } else if (b.isTransfer) {
             return -1;
         } else if (a.isInjured) {
             return 1;
@@ -1577,6 +1606,10 @@
             return 1;
         } else if (b.hasRedshirt) {
             return -1;
+        } else if (a.isTransfer) {
+            return 1;
+        } else if (b.isTransfer) {
+            return -1;
         } else if (a.isInjured) {
             return 1;
         } else if (b.isInjured) {
@@ -1618,6 +1651,10 @@
         } else if (a.hasRedshirt) {
             return 1;
         } else if (b.hasRedshirt) {
+            return -1;
+        } else if (a.isTransfer) {
+            return 1;
+        } else if (b.isTransfer) {
             return -1;
         } else if (a.isInjured) {
             return 1;
@@ -2027,7 +2064,7 @@
         } else {
             [playerString appendString:@" players"];
         }
-        [summary appendFormat:@"\n\nYou had %@ drafted to the NFL this year. For this, you gained %d prestige.",playerString,nflPts];
+        [summary appendFormat:@"\n\nYou had %@ players drafted this year. For this, you gained %d prestige.",playerString,nflPts];
         deltaPrestige += nflPts;
     }
 
@@ -2245,23 +2282,29 @@
                         || [q isEqual: [self getK:0]]);
         
         if (q.year > transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer) { // || q.troubledTimes > Math.random() * dismissalChance) {
+            NSLog(@"XFER: Confirmed that %@ %@ is a valid transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
             q.isTransfer = true;
             //            if (q.troubledTimes > 0) {
             //                league.newsStories.get(league.currentWeek + 1).add(name + " Player Dismissed>Following several incidents, " + name + " has dimissed QB " + q.name + ". The player will have to sit out a year if he chooses to transfer to a new program.");
             //                q.personality += (int) Math.random() * 20;
             //            }
-            [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to leave town for greener pastures after getting limited playing time during his time at %@. If he signs with another school, he will have to sit for one year.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+
             if (q.year == 4) {  //&& q.personality > gradTransferRat) {
                 q.isTransfer = false;
                 q.isGradTransfer = true;
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to transfer after graduating from %@. If he signs with another school, he is immediately eligible to play.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+            } else {
+                q.isGradTransfer = false;
+                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to leave town for greener pastures after getting limited playing time during his time at %@. If he signs with another school, he will have to sit for one year.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
             }
             //q.team = nil;
+            NSLog(@"XFER: Adding %@ %@ to team's outgoing transfers", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
             q.recruitStatus = CFCRecruitStatusUncommitted;
             if (![playersTransferring containsObject:q]) {
                 [playersTransferring addObject:q];
             }
             
+            // Removal done in advanceSeasonPlayers()
 //            if ([positionPlayers containsObject:q]) {
 //                [positionPlayers removeObject:q];
 //            }
@@ -2280,6 +2323,8 @@
                                         @"K" : [NSMutableArray array]
                                         };
             }
+            
+            NSLog(@"XFER: Adding %@ %@ to league transfer portal", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
             [league.transferList[pos] addObject:q];
         }
         ++i;
@@ -2299,6 +2344,7 @@
         [self _calculateTransferringPlayers:teamCBs position:@"CB" starterCount:3];
         [self _calculateTransferringPlayers:teamSs position:@"S" starterCount:1];
         [self _calculateTransferringPlayers:teamKs position:@"K" starterCount:1];
+        NSLog(@"XFER: There are %lu transfers for %@ this year.", (unsigned long)playersTransferring.count, abbreviation);
     }
 }
 

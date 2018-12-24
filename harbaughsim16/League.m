@@ -629,20 +629,34 @@
 
 -(BOOL)isSaveCorrupt {
     for (Team *t in teamList) {
-        if ((t.teamQBs == nil || t.teamQBs.count < 2)
-            || (t.teamRBs == nil || t.teamRBs.count < 4)
-            || (t.teamWRs == nil || t.teamWRs.count < 6)
-            || (t.teamTEs == nil || t.teamTEs.count < 2)
-            || (t.teamOLs == nil || t.teamOLs.count < 10)
-            || (t.teamDLs == nil || t.teamDLs.count < 8)
-            || (t.teamLBs == nil || t.teamLBs.count < 6)
-            || (t.teamCBs == nil || t.teamCBs.count < 6)
-            || (t.teamSs == nil || t.teamSs.count < 2)
-            || (t.teamKs == nil || t.teamKs.count < 2)) {
-            return YES;
+         // check this at all points EXCEPT at the end of the season after transfers processed. Teams will be uneven after transfers process.
+        if (didFinishTransferPeriod == NO && currentWeek > 15) {
+            if ((t.teamQBs == nil || t.teamQBs.count < 2)
+                || (t.teamRBs == nil || t.teamRBs.count < 4)
+                || (t.teamWRs == nil || t.teamWRs.count < 6)
+                || (t.teamTEs == nil || t.teamTEs.count < 2)
+                || (t.teamOLs == nil || t.teamOLs.count < 10)
+                || (t.teamDLs == nil || t.teamDLs.count < 8)
+                || (t.teamLBs == nil || t.teamLBs.count < 6)
+                || (t.teamCBs == nil || t.teamCBs.count < 6)
+                || (t.teamSs == nil || t.teamSs.count < 2)
+                || (t.teamKs == nil || t.teamKs.count < 2)) {
+                return YES;
+            }
+        }
+        
+        // check this at all times EXCEPT immediately after transfers have been processed. p.team will be never be nil b/c we don't remove their team in -[Team getTransferringPlayers] or -[TransferPeriodViewController advanceRecruits]
+        if (!didFinishTransferPeriod) {
+            NSArray *players = [t getAllPlayers];
+            for (Player *p in players) {
+                if ((((p.isTransfer || p.isGradTransfer) && p.team == nil) || ![p.team isEqual:t])) {
+                    return YES;
+                }
+            }
         }
     }
     
+    // check this at all times. Conferences always need to be in working order.
     for (Conference *c in conferences) {
         if (![c.confTeams allObjectsAreUnique]) {
             return YES;
@@ -1280,7 +1294,7 @@
     NSArray *stories = @[
                          [NSString stringWithFormat:@"League hits %@ with sanctions!\n%@ hit with two-year probation after league investigation finds program committed minor infractions.",t.abbreviation,t.name],
                          [NSString stringWithFormat:@"Scandal at %@!\n%@ puts itself on a 3-year probation after school self-reports dozens of recruiting violations.",t.abbreviation,t.name],
-                         [NSString stringWithFormat:@"The end of an era at %@\n%@ head coach %@ announces sudden retirement effectively immediately.", t.abbreviation,t.abbreviation, cursedTeamCoachName],
+                         [NSString stringWithFormat:@"The end of an era at %@\n%@ head coach %@ announces sudden retirement effective immediately.", t.abbreviation,t.abbreviation, cursedTeamCoachName],
                          [NSString stringWithFormat:@"%@ head coach in hot water!\nAfter a scandal involving a sleepover at a prospect's home, %@'s head coach %@ has been suspended. No charges have been filed, but it is safe to say he won't be having any more pajama parties any time soon.", t.abbreviation, t.name, cursedTeamCoachName],
                          [NSString stringWithFormat:@"%@ won the College Basketball National Championship\nReporters everywhere are now wondering if %@ has lost its emphasis on football.", t.abbreviation,t.name],
                          [NSString stringWithFormat:@"%@ didn't come to play school\n%@'s reputation takes a hit after news surfaced that the university falsified grades for student-athletes in order to retain their athletic eligibility. Recruits are leery of being associated with such a program.",t.abbreviation,t.name]
@@ -1301,6 +1315,7 @@
     heisman = nil;
     heismanWinnerStrFull = nil;
     didFinishTransferPeriod = NO;
+    transferList = nil;
     // Bless a random team with lots of prestige
     int blessNumber = (int)([HBSharedUtils randomValue]*9);
     Team *blessTeam = teamList[50 + blessNumber];
