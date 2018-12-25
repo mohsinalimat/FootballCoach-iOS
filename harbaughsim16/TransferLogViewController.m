@@ -56,7 +56,7 @@
     }
     
     [cell.textLabel setText:[HBSharedUtils currentLeague].transferLog[indexPath.row]];
-    if ([cell.textLabel.text containsString:[NSString stringWithFormat:@" %@ ", [HBSharedUtils currentLeague].userTeam.abbreviation]]) {
+    if ([cell.textLabel.text containsString:[NSString stringWithFormat:@" %@ ", [HBSharedUtils currentLeague].userTeam.abbreviation]] || [cell.textLabel.text containsString:[NSString stringWithFormat:@" %@.", [HBSharedUtils currentLeague].userTeam.name]]) {
         [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
        [cell.textLabel setTextColor:[UIColor blackColor]];

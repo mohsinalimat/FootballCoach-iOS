@@ -182,4 +182,5 @@
 -(void)applyJSONMetadataChanges:(NSString *)json;
 
 -(NSInteger)getCurrentYear;
+-(BOOL)transferListEmpty;
 @end

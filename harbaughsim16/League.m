@@ -2510,4 +2510,14 @@
     return baseYear + [HBSharedUtils currentLeague].leagueHistoryDictionary.count;
 }
 
+-(BOOL)transferListEmpty {
+    if (transferList != nil) {
+        for (NSMutableArray *players in transferList.allValues) {
+            if (players.count > 0) {
+                return NO;
+            }
+        }
+    }
+    return YES;
+}
 @end
