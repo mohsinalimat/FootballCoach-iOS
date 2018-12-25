@@ -40,7 +40,7 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+    if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
         return 2;
     } else {
         return 3;
@@ -51,7 +51,7 @@
     if (section == 0) {
         return 11;
     } else if (section == 1) {
-        if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+        if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
             return 9;
         } else {
             return 6;
@@ -111,7 +111,7 @@
             [cell.textLabel setText:@"Run Blocking"];
         }
     } else if (indexPath.section == 1) {
-        if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+        if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
             if (indexPath.row == 0) {
                 [cell.detailTextLabel setText:careerStats[@"heismans"]];
                 [cell.textLabel setText:@"Player of the Year Awards"];

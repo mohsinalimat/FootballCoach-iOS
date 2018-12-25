@@ -79,7 +79,7 @@
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+    if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
         if (section == 1) {
             return @"Career Stats";
         } else {
@@ -109,7 +109,7 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+    if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
         if (section == 1) {
             return 36;
         } else {
@@ -126,7 +126,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 1) {
-        if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+        if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
            return careerStats.allKeys.count;
         } else {
             return stats.allKeys.count;
@@ -139,7 +139,7 @@
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+    if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
         if (section == 1) {
             return [NSString stringWithFormat:@"Over %ld games", (long)selectedPlayer.gamesPlayed];
         } else {

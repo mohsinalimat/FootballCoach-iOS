@@ -307,44 +307,52 @@
 }
 
 -(NSString*)getFullYearString {
-    if (self.wasRedshirted || self.hasRedshirt) {
-        if (self.year == 0) {
-            return @"Redshirt";
-        } else if (self.year == 1) {
-            return @"Freshman (RS)";
-        } else if (self.year == 2) {
-            return @"Sophomore (RS)";
-        } else if (self.year == 3) {
-            return @"Junior (RS)";
-        } else if (self.year == 4) {
-            return @"Senior (RS)";
-        } else {
-            if (self.draftPosition) {
-                return [NSString stringWithFormat:@"Round %@, Pick %@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
-            } else if (self.draftPosition == nil && self.year > 4) {
-                return [NSString stringWithFormat:@"Graduted in %ld", (long)self.endYear];
-            } else {
-                return @"ERROR";
-            }
-        }
+    if (self.isTransfer) {
+        return @"Transfer";
     } else {
-        if (self.year == 0) {
-            return @"High School";
-        } else if (self.year == 1) {
-            return @"Freshman";
-        } else if (self.year == 2) {
-            return @"Sophomore";
-        } else if (self.year == 3) {
-            return @"Junior";
-        } else if (self.year == 4) {
-            return @"Senior";
-        } else {
-            if (self.draftPosition) {
-                return [NSString stringWithFormat:@"Round %@, Pick %@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
-            } else if (self.draftPosition == nil && self.year > 4) {
-                return [NSString stringWithFormat:@"Graduted in %ld", (long)self.endYear];
+        if (self.wasRedshirted || self.hasRedshirt) {
+            if (self.year == 0) {
+                return @"Redshirt";
+            } else if (self.year == 1) {
+                return @"Freshman (RS)";
+            } else if (self.year == 2) {
+                return @"Sophomore (RS)";
+            } else if (self.year == 3) {
+                return @"Junior (RS)";
+            } else if (self.year == 4) {
+                return @"Senior (RS)";
+            } else if (self.year == 5) {
+                return @"Grad Student (RS)";
             } else {
-                return @"ERROR";
+                if (self.draftPosition) {
+                    return [NSString stringWithFormat:@"Round %@, Pick %@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
+                } else if (self.draftPosition == nil && self.year > 4) {
+                    return [NSString stringWithFormat:@"Graduated in %ld", (long)self.endYear];
+                } else {
+                    return @"ERROR";
+                }
+            }
+        } else {
+            if (self.year == 0) {
+                return @"High School";
+            } else if (self.year == 1) {
+                return @"Freshman";
+            } else if (self.year == 2) {
+                return @"Sophomore";
+            } else if (self.year == 3) {
+                return @"Junior";
+            } else if (self.year == 4) {
+                return @"Senior";
+            } else if (self.year == 5) {
+                return @"Grad Student";
+            } else {
+                if (self.draftPosition) {
+                    return [NSString stringWithFormat:@"Round %@, Pick %@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
+                } else if (self.draftPosition == nil && self.year > 4) {
+                    return [NSString stringWithFormat:@"Graduated in %ld", (long)self.endYear];
+                } else {
+                    return @"ERROR";
+                }
             }
         }
     }
