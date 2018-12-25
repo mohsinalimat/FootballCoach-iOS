@@ -287,9 +287,9 @@
                     // NSLog(@"SHOWING RECRUITING CLASS, STAGE %d", recruitingStage);
                     if ([HBSharedUtils currentLeague].userTeam.transferClass.count > 1) {
                         if (IS_IPHONE_5) {
-                            [self setSubtitle:[NSString stringWithFormat:@"You signed %ld transfers.", [HBSharedUtils currentLeague].userTeam.transferClass.count]];
+                            [self setSubtitle:[NSString stringWithFormat:@"You signed %lu transfers.", (unsigned long)[HBSharedUtils currentLeague].userTeam.transferClass.count]];
                         } else {
-                            [self setSubtitle:[NSString stringWithFormat:@"You signed %ld transfers this offseason.", [HBSharedUtils currentLeague].userTeam.transferClass.count]];
+                            [self setSubtitle:[NSString stringWithFormat:@"You signed %lu transfers this offseason.", (unsigned long)[HBSharedUtils currentLeague].userTeam.transferClass.count]];
                         }
                     } else if ([HBSharedUtils currentLeague].userTeam.transferClass.count == 1) {
                         if (IS_IPHONE_5) {
