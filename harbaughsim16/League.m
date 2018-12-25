@@ -33,7 +33,7 @@
 #import "AutoCoding.h"
 
 @implementation League
-@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles, transferList,transferLog,didFinishTransferPeriod;
+@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary;
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
@@ -2520,4 +2520,139 @@
     }
     return YES;
 }
+
+-(NSString*)getRotyCeremonyStr {
+    if (roty != nil && rotyWinnerStrFull != nil && rotyWinnerStrFull.length != 0) {
+        roty.isROTY = YES;
+        return rotyWinnerStrFull;
+    } else {
+        BOOL putNewsStory = false;
+        
+        rotyCandidates = [[self calculateROTYCandidates] mutableCopy];
+        roty = rotyCandidates[0];
+        rotyDecided = true;
+        putNewsStory = true;
+        
+        NSString* rotyTop5 = @"\n";
+        NSMutableString* rotyStats = [NSMutableString string];
+        NSString* rotyWinnerStr = @"";
+        rotyFinalists = [NSMutableArray array];
+        //full results string
+        int i = 0;
+        int place = 1;
+        while (rotyFinalists.count < 5 && i < rotyCandidates.count) {
+            Player *p = rotyCandidates[i];
+            rotyTop5 = [rotyTop5 stringByAppendingString:[NSString stringWithFormat:@"%d. %@ (%ld-%ld) - ",place,p.team.abbreviation,(long)p.team.wins,(long)p.team.losses]];
+            if ([p isKindOfClass:[PlayerQB class]]) {
+                PlayerQB *pqb = (PlayerQB*)p;
+                rotyTop5 = [rotyTop5 stringByAppendingString:[NSString stringWithFormat:@" QB %@: %ld votes\n\t(%ld TDs, %ld Int, %ld Yds)\n",[pqb getInitialName],(long)[pqb getHeismanScore],(long)pqb.statsTD,(long)pqb.statsInt,(long)pqb.statsPassYards]];
+            } else if ([p isKindOfClass:[PlayerRB class]]) {
+                PlayerRB *prb = (PlayerRB*)p;
+                rotyTop5 = [rotyTop5 stringByAppendingString:[NSString stringWithFormat:@" RB %@: %ld votes\n\t(%ld TDs, %ld Fum, %ld Yds)\n",[prb getInitialName],(long)[prb getHeismanScore],(long)prb.statsTD,(long)prb.statsFumbles,(long)prb.statsRushYards]];
+            } else if ([p isKindOfClass:[PlayerTE class]]) {
+                PlayerTE *pwr = (PlayerTE*)p;
+                rotyTop5 = [rotyTop5 stringByAppendingString:[NSString stringWithFormat:@" TE %@: %ld votes\n\t(%ld TDs, %ld Fum, %ld Yds)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTD,(long)pwr.statsFumbles,(long)pwr.statsRecYards]];
+            } else if ([p isKindOfClass:[PlayerWR class]]) {
+                PlayerWR *pwr = (PlayerWR*)p;
+                rotyTop5 = [rotyTop5 stringByAppendingString:[NSString stringWithFormat:@" WR %@: %ld votes\n\t(%ld TDs, %ld Fum, %ld Yds)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTD,(long)pwr.statsFumbles,(long)pwr.statsRecYards]];
+            }
+            if (p != nil && ![rotyFinalists containsObject:p]) {
+                [rotyFinalists addObject:p];
+                place++;
+            }
+            i++;
+        }
+        
+        roty.team.rotys++;
+        roty.careerROTYs++;
+        roty.isROTY = YES;
+        if ([roty isKindOfClass:[PlayerQB class]]) {
+            //qb heisman
+            PlayerQB *heisQB = (PlayerQB*)roty;
+            if (heisQB.statsInt > 1 || heisQB.statsInt == 0) {
+                rotyWinnerStr = [NSString stringWithFormat:@"%ld's ROTY: %@ QB %@!\n?Congratulations to %@ QB %@ [%@], who had %ld TDs, %ld interceptions, and %ld passing yards and helped %@ get to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heisQB.team.abbreviation, [heisQB getInitialName],heisQB.team.abbreviation, heisQB.name, [heisman getYearString], (long)heisQB.statsTD, (long)heisQB.statsInt, (long)heisQB.statsPassYards, heisQB.team.name, (long)heisQB.team.wins,(long)heisQB.team.losses,(long)heisQB.team.rankTeamPollScore];
+            } else {
+                rotyWinnerStr = [NSString stringWithFormat:@"%ld's ROTY: %@ QB %@!\n?Congratulations to %@ QB %@ [%@], who had %ld TDs, %ld interception, and %ld passing yards and helped %@ get to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heisQB.team.abbreviation, [heisQB getInitialName],heisQB.team.abbreviation, heisQB.name, [heisman getYearString], (long)heisQB.statsTD, (long)heisQB.statsInt, (long)heisQB.statsPassYards, heisQB.team.name, (long)heisQB.team.wins,(long)heisQB.team.losses,(long)heisQB.team.rankTeamPollScore];
+            }
+            
+            [rotyStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",rotyWinnerStr, rotyTop5]];
+        } else if ([heisman isKindOfClass:[PlayerRB class]]) {
+            //rb heisman
+            PlayerRB *heisRB = (PlayerRB*)heisman;
+            if (heisRB.statsFumbles > 1 || heisRB.statsFumbles == 0) {
+                rotyWinnerStr = [NSString stringWithFormat:@"%ld's ROTY: %@ RB %@!\n?Congratulations to %@ RB %@ [%@], who had %ld TDs, %ld fumbles, and %ld rushing yards and helped %@ get to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heisRB.team.abbreviation, [heisRB getInitialName], heisRB.team.abbreviation, heisRB.name, [heisman getYearString], (long)heisRB.statsTD, (long)heisRB.statsFumbles, (long)heisRB.statsRushYards, heisRB.team.name, (long)heisRB.team.wins,(long)heisRB.team.losses,(long)heisRB.team.rankTeamPollScore];
+            } else {
+                rotyWinnerStr = [NSString stringWithFormat:@"%ld's ROTY: %@ RB %@!\n?Congratulations to %@ RB %@ [%@], who had %ld TDs, %ld fumble, and %ld rushing yards and helped %@ get to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heisRB.team.abbreviation, [heisRB getInitialName],heisRB.team.abbreviation, heisRB.name, [heisman getYearString], (long)heisRB.statsTD, (long)heisRB.statsFumbles, (long)heisRB.statsRushYards, heisRB.team.name, (long)heisRB.team.wins,(long)heisRB.team.losses,(long)heisRB.team.rankTeamPollScore];
+            }
+            [rotyStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",rotyWinnerStr, rotyTop5]];
+        } else if ([heisman isKindOfClass:[PlayerTE class]]) {
+            //te heisman
+            PlayerTE *heisWR = (PlayerTE*)heisman;
+            if (heisWR.statsFumbles > 1 || heisWR.statsFumbles == 0) {
+                rotyWinnerStr = [NSString stringWithFormat:@"%ld's ROTY: %@ TE %@!\n?Congratulations to %@ TE %@ [%@], who had %ld TDs, %ld fumbles, and %ld receiving yards and helped %@ get to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heisWR.team.abbreviation, [heisWR getInitialName], heisWR.team.abbreviation, heisWR.name, [heisman getYearString], (long)heisWR.statsTD, (long)heisWR.statsFumbles, (long)heisWR.statsRecYards, heisWR.team.name, (long)heisWR.team.wins,(long)heisWR.team.losses,(long)heisWR.team.rankTeamPollScore];
+            } else {
+                rotyWinnerStr = [NSString stringWithFormat:@"%ld's POTY: %@ TE %@!\n?Congratulations to %@ TE %@ [%@], who had %ld TDs, %ld fumble, and %ld receiving yards and led %@ to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heisWR.team.abbreviation, [heisWR getInitialName],heisWR.team.abbreviation, heisWR.name, [heisman getYearString], (long)heisWR.statsTD, (long)heisWR.statsFumbles, (long)heisWR.statsRecYards, heisWR.team.name, (long)heisWR.team.wins,(long)heisWR.team.losses,(long)heisWR.team.rankTeamPollScore];
+            }
+            
+            [rotyStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",rotyWinnerStr, rotyTop5]];
+        } else if ([heisman isKindOfClass:[PlayerWR class]]) {
+            //wr heisman
+            PlayerWR *heisWR = (PlayerWR*)heisman;
+            if (heisWR.statsFumbles > 1 || heisWR.statsFumbles == 0) {
+                rotyWinnerStr = [NSString stringWithFormat:@"%ld's ROTY: %@ WR %@!\n?Congratulations to %@ WR %@ [%@], who had %ld TDs, %ld fumbles, and %ld receiving yards and helped %@ get to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heisWR.team.abbreviation, [heisWR getInitialName], heisWR.team.abbreviation, heisWR.name, [heisman getYearString], (long)heisWR.statsTD, (long)heisWR.statsFumbles, (long)heisWR.statsRecYards, heisWR.team.name, (long)heisWR.team.wins,(long)heisWR.team.losses,(long)heisWR.team.rankTeamPollScore];
+            } else {
+                rotyWinnerStr = [NSString stringWithFormat:@"%ld's ROTY: %@ WR %@!\n?Congratulations to %@ WR %@ [%@], who had %ld TDs, %ld fumble, and %ld receiving yards and helped %@ get to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heisWR.team.abbreviation, [heisWR getInitialName],heisWR.team.abbreviation, heisWR.name, [heisman getYearString], (long)heisWR.statsTD, (long)heisWR.statsFumbles, (long)heisWR.statsRecYards, heisWR.team.name, (long)heisWR.team.wins,(long)heisWR.team.losses,(long)heisWR.team.rankTeamPollScore];
+            }
+            
+            [rotyStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",rotyTop5, heismanTop5]];
+        }
+        
+        // Add news story
+        if (putNewsStory) {
+            NSMutableArray *week13 = newsStories[13];
+            NSString *newsString = [rotyWinnerStr stringByReplacingOccurrencesOfString:@"?" withString:@""];
+            if (![week13 containsObject:newsString]) {
+                [week13 addObject:newsString];
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+        }
+        
+        rotyWinnerStrFull = rotyStats;
+        return rotyStats;
+    }
+}
+
+-(NSArray*)getROTYLeaders {
+    if (!rotyDecided || !rotyFinalists) {
+        NSMutableArray *tempHeis = [NSMutableArray array];
+        NSArray *candidates = [self calculateROTYCandidates];
+        int i = 0;
+        while (tempHeis.count < 5 && i < candidates.count) {
+            Player *p = candidates[i];
+            if (p != nil && ![tempHeis containsObject:p]) {
+                [tempHeis addObject:p];
+            }
+            
+            i++;
+        }
+        
+        [tempHeis sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Player *a = (Player*)obj1;
+            Player *b = (Player*)obj2;
+            if (a.isROTY) {
+                return -1;
+            } else if (b.isROTY) {
+                return 1;
+            } else {
+                return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+            }
+        }];
+        
+        return [tempHeis copy];
+    } else {
+        return [rotyFinalists copy];
+    }
+}
+
+
 @end

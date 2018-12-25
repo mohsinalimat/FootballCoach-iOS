@@ -75,6 +75,7 @@
 @property (nonatomic) int usedRecruitingPoints;
 @property (nonatomic) int numberOfRecruits;
 @property (nonatomic) int heismans;
+@property (nonatomic) int rotys;
 @property (strong, nonatomic) NSMutableArray<Player*> *playersLeaving;
 @property (strong, nonatomic) NSMutableArray<Player*> *hallOfFamers;
 @property (strong, nonatomic) NSMutableArray<Player*> *playersTransferring;

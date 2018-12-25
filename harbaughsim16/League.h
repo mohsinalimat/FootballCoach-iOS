@@ -18,6 +18,10 @@
     
     NSString *heismanWinnerStrFull;
     
+    BOOL rotyDecided;
+    
+    NSString *rotyWinnerStrFull;
+    
     //deprecated record tracking ivars
     int leagueRecordCompletions;
     int leagueRecordPassYards;
@@ -183,4 +187,11 @@
 
 -(NSInteger)getCurrentYear;
 -(BOOL)transferListEmpty;
+
+@property (strong, nonatomic) NSMutableDictionary *rotyHistoryDictionary;
+@property (strong, nonatomic) NSMutableArray<Player*> *rotyCandidates;
+@property (strong, nonatomic) Player *roty;
+@property (strong, nonatomic) NSMutableArray<Player*> *rotyFinalists;
+-(NSArray*)getROTYLeaders;
+-(NSString*)getROTYCeremonyStr;
 @end

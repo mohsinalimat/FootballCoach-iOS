@@ -145,6 +145,18 @@
         } else {
             self.isTransfer = NO;
         }
+        
+        if ([aDecoder containsValueForKey:@"isROTY"]) {
+            self.isROTY = [aDecoder decodeBoolForKey:@"isROTY"];
+        } else {
+            self.isROTY = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerROTYs"]) {
+            self.careerROTYs = [aDecoder decodeIntForKey:@"careerROTYs"];
+        } else {
+            self.careerROTYs = 0;
+        }
     }
     return self;
 }
@@ -177,6 +189,7 @@
     [aCoder encodeInt:self.stars forKey:@"stars"];
     [aCoder encodeBool:self.isGradTransfer forKey:@"isGradTransfer"];
     [aCoder encodeBool:self.isTransfer forKey:@"isTransfer"];
+    [aCoder encodeBool:self.isROTY forKey:@"isROTY"];
 }
 
 +(int)getPosNumber:(NSString*)pos {
@@ -345,6 +358,7 @@
     }
     
     self.isHeisman = NO;
+    self.isROTY = NO;
     self.isAllAmerican = NO;
     self.isAllConference = NO;
     self.injury = nil;
@@ -413,6 +427,7 @@
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerAllConferences] forKey:@"allConferences"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerAllAmericans] forKey:@"allAmericans"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerHeismans] forKey:@"heismans"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.careerROTYs] forKey:@"rotys"];
     return stats;
 }
 
@@ -428,7 +443,12 @@
     NSMutableString *awards = [NSMutableString string];
     int parts = 0;
     if (self.careerHeismans > 0) {
-        [awards appendFormat:@"%lix POTY",(long)self.careerHeismans];
+        [awards appendFormat:@"%lix ROTY",(long)self.careerROTYs];
+        parts++;
+    }
+    
+    if (self.careerHeismans > 0) {
+        [awards appendFormat:@"?%lix POTY",(long)self.careerHeismans];
         parts++;
     }
     
