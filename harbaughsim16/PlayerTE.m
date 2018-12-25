@@ -193,6 +193,7 @@
     self.year++;
     self.gamesPlayedSeason = 0;
     self.isHeisman = NO;
+    self.isROTY = NO;
     self.isAllAmerican = NO;
     self.isAllConference = NO;
     self.injury = nil;
