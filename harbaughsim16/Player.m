@@ -207,40 +207,7 @@
 
 - (NSComparisonResult)compare:(id)other
 {
-    Player *player = (Player*)other;
-    if (!self.hasRedshirt && !player.hasRedshirt) {
-        if (self.ratOvr > player.ratOvr) {
-            return -1;
-        } else if (self.ratOvr < player.ratOvr) {
-            return 1;
-        } else {
-            if (self.ratPot > player.ratPot) {
-                return -1;
-            } else if (self.ratPot < player.ratPot) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-    } else if (self.hasRedshirt) {
-        return 1;
-    } else if (player.hasRedshirt) {
-        return -1;
-    } else {
-        if (self.ratOvr > player.ratOvr) {
-            return -1;
-        } else if (self.ratOvr < player.ratOvr) {
-            return 1;
-        } else {
-            if (self.ratPot > player.ratPot) {
-                return -1;
-            } else if (self.ratPot < player.ratPot) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-    }
+    return [HBSharedUtils comparePlayers:self toObj2:other];
 }
 
 + (NSArray *)letterGrades
