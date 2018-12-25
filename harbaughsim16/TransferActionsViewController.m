@@ -169,7 +169,7 @@
             }
         }
     } else if (section == 0) {
-        return 54;
+        return 50;
     }
     return 18;
 }
