@@ -813,15 +813,11 @@
     // calculate recruiting points, but never show number - just show as usage as "% effort extended"
     [[HBSharedUtils currentLeague].userTeam calculateRecruitingPoints];
     recruitingPoints = [HBSharedUtils currentLeague].userTeam.recruitingPoints;
-    usedRecruitingPoints = 0;
+    usedRecruitingPoints = [HBSharedUtils currentLeague].userTeam.usedRecruitingPoints;
 
     NSLog(@"Recruiting points total: %d", recruitingPoints);
     
-    if ([HBSharedUtils currentLeague].didFinishTransferPeriod) {
-        [self setSubtitle:@"0% of remaining recruiting effort used"];
-    } else {
-        [self setSubtitle:@"0% of total recruiting effort used"];
-    }
+    [self updateRecruitingPointUsage];
     
     [self setTitle:[NSString stringWithFormat:@"Winter %lu", ((long)([[HBSharedUtils currentLeague] getCurrentYear] + 1))]];
 
@@ -902,6 +898,10 @@
     } else {
         [self.tableView setContentInset:UIEdgeInsetsMake(positionSelectionControl.frame.size.height + self.navigationController.navigationBar.frame.size.height + 5, 0, positionSelectionControl.frame.size.height, 0)];
     }
+}
+
+-(void)updateRecruitingPointUsage {
+    [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
 }
 
 -(void)generateRecruits {
@@ -1666,11 +1666,7 @@
             }
 
             usedRecruitingPoints += FLIP_COST;
-            if ([HBSharedUtils currentLeague].didFinishTransferPeriod) {
-                [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of remaining recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-            } else {
-                [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-            }
+            [self updateRecruitingPointUsage];
 
             [self.tableView reloadData];
             break;
@@ -1705,11 +1701,7 @@
             }
 
              [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
-            if ([HBSharedUtils currentLeague].didFinishTransferPeriod) {
-                [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of remaining recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-            } else {
-                [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-            }
+            [self updateRecruitingPointUsage];
 
             [self.tableView reloadData];
             break;
@@ -1735,11 +1727,7 @@
             }
 
             [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
-            if ([HBSharedUtils currentLeague].didFinishTransferPeriod) {
-                [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of remaining recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-            } else {
-                [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-            }
+            [self updateRecruitingPointUsage];
             [self.tableView reloadData];
             break;
         case CFCRecruitEventInHomeVisit:
@@ -1764,11 +1752,7 @@
             }
 
             [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
-            if ([HBSharedUtils currentLeague].didFinishTransferPeriod) {
-                [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of remaining recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-            } else {
-                [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-            }
+            [self updateRecruitingPointUsage];
 
             [self.tableView reloadData];
             break;
@@ -1802,11 +1786,7 @@
             usedRecruitingPoints += EXTEND_OFFER_COST;
             
             [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
-            if ([HBSharedUtils currentLeague].didFinishTransferPeriod) {
-                [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of remaining recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-            } else {
-                [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-            }
+            [self updateRecruitingPointUsage];
 
             [self.tableView reloadData];
             break;

@@ -336,6 +336,7 @@
                 t.playersTransferring = [NSMutableArray array];
                 t.transferClass = [NSMutableArray array];
                 t.recruitingPoints = 0;
+                t.usedRecruitingPoints = 0;
                 NSMutableArray<Player *> *players = [t getAllPlayers];
                 for (Player *p in players) {
                     p.isTransfer = NO;

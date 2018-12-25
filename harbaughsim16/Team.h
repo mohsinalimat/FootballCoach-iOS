@@ -72,6 +72,7 @@
 @property (nonatomic) BOOL isUserControlled;
 @property (nonatomic) BOOL wonRivalryGame;
 @property (nonatomic) int recruitingPoints;
+@property (nonatomic) int usedRecruitingPoints;
 @property (nonatomic) int numberOfRecruits;
 @property (nonatomic) int heismans;
 @property (strong, nonatomic) NSMutableArray<Player*> *playersLeaving;

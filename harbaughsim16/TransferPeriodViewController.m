@@ -285,7 +285,25 @@
                 } else {
                     self->recruitingStage = CFCRecruitingStageEndTransferPeriod;
                     // NSLog(@"SHOWING RECRUITING CLASS, STAGE %d", recruitingStage);
-                    [self setSubtitle:@"Tap on a player to show more options."];
+                    if ([HBSharedUtils currentLeague].userTeam.transferClass.count > 1) {
+                        if (IS_IPHONE_5) {
+                            [self setSubtitle:[NSString stringWithFormat:@"You signed %ld transfers.", [HBSharedUtils currentLeague].userTeam.transferClass.count]];
+                        } else {
+                            [self setSubtitle:[NSString stringWithFormat:@"You signed %ld transfers this offseason.", [HBSharedUtils currentLeague].userTeam.transferClass.count]];
+                        }
+                    } else if ([HBSharedUtils currentLeague].userTeam.transferClass.count == 1) {
+                        if (IS_IPHONE_5) {
+                            [self setSubtitle:@"You signed 1 transfer."];
+                        } else {
+                            [self setSubtitle:@"You signed 1 transfer this offseason."];
+                        }
+                    } else {
+                        if (IS_IPHONE_5) {
+                            [self setSubtitle:@"You did not sign a transfer."];
+                        } else {
+                            [self setSubtitle:@"You did not sign a transfer this offseason."];
+                        }
+                    }
                     self.title = [NSString stringWithFormat:@"%lu Transfer Class",  (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
                     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStyleDone target:self action:@selector(finishTransferPeriod)];
                 }
@@ -600,12 +618,8 @@
             [[HBSharedUtils currentLeague].transferLog addObject:[NSString stringWithFormat:@"Former %@ %@ %@ signs with %@.",playerOrigins[[p uniqueIdentifier]],p.position,[p getInitialName],p.team.name]];
         }
     }
-    
-//    for (Team *t in [HBSharedUtils currentLeague].teamList) {
-//        // clear the recruiting classes
-//        t.transferClass = [NSMutableArray array];
-//    }
-    [HBSharedUtils currentLeague].userTeam.recruitingPoints -= usedRecruitingPoints;
+
+    [HBSharedUtils currentLeague].userTeam.usedRecruitingPoints = usedRecruitingPoints;
     [HBSharedUtils currentLeague].didFinishTransferPeriod = YES;
     [[HBSharedUtils currentLeague] save];
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -754,7 +768,7 @@
     
     [[HBSharedUtils currentLeague].userTeam calculateRecruitingPoints];
     recruitingPoints = [HBSharedUtils currentLeague].userTeam.recruitingPoints;
-    usedRecruitingPoints = 0;
+    usedRecruitingPoints = [HBSharedUtils currentLeague].userTeam.usedRecruitingPoints;
     
     if (![HBSharedUtils currentLeague].userTeam.transferClass) {
         [HBSharedUtils currentLeague].userTeam.transferClass = [NSMutableArray array];
