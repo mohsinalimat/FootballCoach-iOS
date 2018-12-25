@@ -364,6 +364,13 @@
 
 -(void)advanceSeason {
     self.year++;
+    
+    // If not an old/existing redshirt and not a rising senior and not a transfer BUT has played 4 games or less, then give them an extra year of eligibility -- <= 4 games in a season == redshirt year
+    if ((!self.hasRedshirt && !self.isTransfer && !self.wasRedshirted && self.year > 0 && self.year < 4) && self.gamesPlayedSeason < 5) {
+        self.year--;
+        self.wasRedshirted = YES;
+    }
+    
     self.gamesPlayedSeason = 0;
     
     if (self.isTransfer) {
