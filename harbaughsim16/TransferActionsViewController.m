@@ -104,6 +104,12 @@
                 return @"No active offers.";
             }
         }
+    } else if (section == 0) {
+        if (selectedRecruit.isGradTransfer) {
+            return [NSString stringWithFormat:@"As a graduate transfer, %@ is eligible to play immediately.", [selectedRecruit getInitialName]];
+        } else {
+            return [NSString stringWithFormat:@"As a normal transfer, %@ will have to sit one year before he is eligible to play.", [selectedRecruit getInitialName]];
+        }
     }
     return nil;
 }
@@ -151,6 +157,28 @@
     } else {
         return 50;
     }
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 1) {
+        if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted) {
+            return 36;
+        } else {
+            if (selectedRecruit.offers.count == 0) {
+                return 36;
+            }
+        }
+    } else if (section == 0) {
+        return 54;
+    }
+    return 18;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return 55.5;
+    }
+    return 38;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -209,8 +237,6 @@
         }
         
         NSString *state = selectedRecruit.personalDetails[@"home_state"];
-        NSString *height = selectedRecruit.personalDetails[@"height"];
-        NSString *weight = selectedRecruit.personalDetails[@"weight"];
         NSString *overall;
         
         if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted && selectedRecruit.team == [HBSharedUtils currentLeague].userTeam) {
@@ -249,11 +275,28 @@
         
         [nameString appendAttributedString:[[NSAttributedString alloc] initWithString:name attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium], NSForegroundColorAttributeName : nameColor}]];
         
-        NSMutableAttributedString *heightString = [[NSMutableAttributedString alloc] initWithString:@"Height: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-        [heightString appendAttributedString:[[NSAttributedString alloc] initWithString:height attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+        NSString *stat2 = [selectedRecruit getLetterGrade:selectedRecruit.ratOvr];
+        UIColor *stat2Color = [UIColor lightGrayColor];
+        if ([stat2 containsString:@"A"]) {
+            stat2Color = [HBSharedUtils successColor];
+        } else if ([stat2 containsString:@"B"]) {
+            stat2Color = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+        } else if ([stat2 containsString:@"C"]) {
+            stat2Color = [HBSharedUtils champColor];
+        } else if ([stat2 containsString:@"D"]) {
+            stat2Color = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+        } else if ([stat2 containsString:@"F"]) {
+            stat2Color = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+        } else {
+            stat2Color = [UIColor lightGrayColor];
+        }
         
-        NSMutableAttributedString *weightString = [[NSMutableAttributedString alloc] initWithString:@"Weight: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-        [weightString appendAttributedString:[[NSAttributedString alloc] initWithString:weight attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+        NSMutableAttributedString *overallString = [[NSMutableAttributedString alloc] initWithString:@"Overall: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+        [overallString appendAttributedString:[[NSAttributedString alloc] initWithString:stat2 attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : stat2Color}]];
+        
+        NSString *type = selectedRecruit.isGradTransfer ? @"Grad" : @"Normal";
+        NSMutableAttributedString *typeString = [[NSMutableAttributedString alloc] initWithString:@"Type: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+        [typeString appendAttributedString:[[NSAttributedString alloc] initWithString:type attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
         
         NSMutableAttributedString *offerString = [[NSMutableAttributedString alloc] initWithString:offerTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
         if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted) {
@@ -275,8 +318,8 @@
         [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:stars]]];
         [cell.nameLabel setAttributedText:nameString];
         [cell.stateLabel setText:state];
-        [cell.heightLabel setAttributedText:heightString];
-        [cell.weightLabel setAttributedText:weightString];
+        [cell.heightLabel setAttributedText:overallString];
+        [cell.weightLabel setAttributedText:typeString];
         
         NSMutableAttributedString *potAtt = [[NSMutableAttributedString alloc] initWithString:@"Potential: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0]}];
         NSString *stat1 = [selectedRecruit getLetterGrade:selectedRecruit.ratPot];

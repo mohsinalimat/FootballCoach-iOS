@@ -1143,8 +1143,6 @@
     }
     
     NSString *state = p.personalDetails[@"home_state"];
-    NSString *height = p.personalDetails[@"height"];
-    NSString *weight = p.personalDetails[@"weight"];
     NSString *overall;
     
     if (recruitingStage != CFCRecruitingStageEndTransferPeriod) {
@@ -1167,6 +1165,7 @@
     } else {
         overall = signedTransferRanks[[p uniqueIdentifier]];
     }
+    [cell.rankLabel setText:overall];
     
     NSDictionary *interestMetadata = [HBSharedUtils generateInterestMetadata:interest otherOffers:p.offers];
     
@@ -1201,11 +1200,10 @@
     
     [nameString appendAttributedString:[[NSAttributedString alloc] initWithString:name attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium], NSForegroundColorAttributeName : nameColor}]];
     
-    NSMutableAttributedString *heightString = [[NSMutableAttributedString alloc] initWithString:@"Height: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [heightString appendAttributedString:[[NSAttributedString alloc] initWithString:height attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
-    
-    NSMutableAttributedString *weightString = [[NSMutableAttributedString alloc] initWithString:@"Weight: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [weightString appendAttributedString:[[NSAttributedString alloc] initWithString:weight attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSString *type = p.isGradTransfer ? @"Grad" : @"Normal";
+    NSMutableAttributedString *typeString = [[NSMutableAttributedString alloc] initWithString:@"Type: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [typeString appendAttributedString:[[NSAttributedString alloc] initWithString:type attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+
     
     NSMutableAttributedString *offerString = [[NSMutableAttributedString alloc] initWithString:offerTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
     if (p.recruitStatus == CFCRecruitStatusCommitted) {
@@ -1219,13 +1217,13 @@
     } else {
         [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils generateOfferString:p.offers] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     }
+    [cell.otherOffersLabel setAttributedText:offerString];
     
     [cell.interestLabel setAttributedText:interestString];
     [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:stars]]];
     [cell.nameLabel setAttributedText:nameString];
     [cell.stateLabel setText:state];
-    [cell.heightLabel setAttributedText:heightString];
-    [cell.weightLabel setAttributedText:weightString];
+    [cell.weightLabel setAttributedText:typeString];
     
     NSMutableAttributedString *potAtt = [[NSMutableAttributedString alloc] initWithString:@"Potential: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0]}];
     NSString *stat1 = [p getLetterGrade:p.ratPot];
@@ -1247,8 +1245,25 @@
     [potAtt appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium]}]];
     [cell.fortyYdDashLabel setAttributedText:potAtt];
     
-    [cell.rankLabel setText:overall];
-    [cell.otherOffersLabel setAttributedText:offerString];
+    NSString *stat2 = [p getLetterGrade:p.ratOvr];
+    UIColor *stat2Color = [UIColor lightGrayColor];
+    if ([stat2 containsString:@"A"]) {
+        stat2Color = [HBSharedUtils successColor];
+    } else if ([stat2 containsString:@"B"]) {
+        stat2Color = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+    } else if ([stat2 containsString:@"C"]) {
+        stat2Color = [HBSharedUtils champColor];
+    } else if ([stat2 containsString:@"D"]) {
+        stat2Color = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+    } else if ([stat2 containsString:@"F"]) {
+        stat2Color = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+    } else {
+        stat2Color = [UIColor lightGrayColor];
+    }
+    
+    NSMutableAttributedString *overallString = [[NSMutableAttributedString alloc] initWithString:@"Overall: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [overallString appendAttributedString:[[NSAttributedString alloc] initWithString:stat2 attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : stat2Color}]];
+    [cell.heightLabel setAttributedText:overallString];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
