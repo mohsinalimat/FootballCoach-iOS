@@ -52,6 +52,7 @@
 		7562A8951FFF4394004C0985 /* PrestigeYearMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7562A8941FFF4394004C0985 /* PrestigeYearMarkerView.swift */; };
 		7562CC3F200C7488000A7A1C /* RecruitingActionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7562CC3E200C7488000A7A1C /* RecruitingActionsViewController.m */; };
 		7563A8E11CB7F6F20023E43B /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 7563A8E01CB7F6F20023E43B /* Record.m */; };
+		7564701921D2EAE70038E4AD /* ROTYLeadersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7564701821D2EAE70038E4AD /* ROTYLeadersViewController.m */; };
 		756973971FAAB50400A66C42 /* LeagueUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 756973961FAAB50400A66C42 /* LeagueUpdater.m */; };
 		7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1A1C9CB1DC00E67080 /* IntroViewController.m */; };
 		7571DD1D1C9CB1E500E67080 /* IntroViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7571DD1C1C9CB1E500E67080 /* IntroViewController.xib */; };
@@ -298,6 +299,8 @@
 		7562CC3E200C7488000A7A1C /* RecruitingActionsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecruitingActionsViewController.m; sourceTree = "<group>"; };
 		7563A8DF1CB7F6F20023E43B /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
 		7563A8E01CB7F6F20023E43B /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
+		7564701721D2EAE70038E4AD /* ROTYLeadersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ROTYLeadersViewController.h; sourceTree = "<group>"; };
+		7564701821D2EAE70038E4AD /* ROTYLeadersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ROTYLeadersViewController.m; sourceTree = "<group>"; };
 		756973951FAAB50400A66C42 /* LeagueUpdater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LeagueUpdater.h; sourceTree = "<group>"; };
 		756973961FAAB50400A66C42 /* LeagueUpdater.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeagueUpdater.m; sourceTree = "<group>"; };
 		7571DD191C9CB1DC00E67080 /* IntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroViewController.h; sourceTree = "<group>"; };
@@ -783,6 +786,8 @@
 				75BBDBB51DEC910A00124AA4 /* GraduatingPlayersViewController.m */,
 				754E90791CA58C0F00C450CF /* HeismanLeadersViewController.h */,
 				754E907A1CA58C0F00C450CF /* HeismanLeadersViewController.m */,
+				7564701721D2EAE70038E4AD /* ROTYLeadersViewController.h */,
+				7564701821D2EAE70038E4AD /* ROTYLeadersViewController.m */,
 				754E90761CA58BF800C450CF /* BowlProjectionViewController.h */,
 				754E90771CA58BF800C450CF /* BowlProjectionViewController.m */,
 				75C5C3341F83457100D7CAAD /* PlayerStatsViewController.h */,
@@ -1410,6 +1415,7 @@
 				7563A8E11CB7F6F20023E43B /* Record.m in Sources */,
 				75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */,
 				75C5C3321F83447A00D7CAAD /* UpcomingViewController.m in Sources */,
+				7564701921D2EAE70038E4AD /* ROTYLeadersViewController.m in Sources */,
 				75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */,
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
 				75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */,

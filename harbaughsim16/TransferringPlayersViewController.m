@@ -209,7 +209,7 @@
     
     if (player.hasRedshirt) {
         nameColor = [UIColor lightGrayColor];
-    } else if (player.isHeisman) {
+    } else if (player.isHeisman || player.isROTY) {
         nameColor = [HBSharedUtils champColor];
     } else if (player.isAllAmerican) {
         nameColor = [UIColor orangeColor];

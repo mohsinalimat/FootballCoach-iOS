@@ -1,13 +1,14 @@
 //
-//  HeismanLeadersViewController.m
+//  ROTYLeadersViewController.m
 //  harbaughsim16
 //
-//  Created by Akshay Easwaran on 3/25/16.
-//  Copyright © 2016 Akshay Easwaran. All rights reserved.
+//  Created by Akshay Easwaran on 12/25/18.
+//  Copyright © 2018 Akshay Easwaran. All rights reserved.
 //
 
-#import "HeismanLeadersViewController.h"
+#import "ROTYLeadersViewController.h"
 #import "HBPlayerCell.h"
+
 #import "Player.h"
 #import "PlayerDetailViewController.h"
 #import "PlayerDetailViewController.h"
@@ -34,14 +35,14 @@
 
 #import "HexColors.h"
 
-@interface HeismanLeadersViewController ()
+@interface ROTYLeadersViewController ()
 {
-    NSArray *heismanLeaders;
-    Player *heisman;
+    NSArray *rotyLeaders;
+    Player *roty;
 }
 @end
 
-@implementation HeismanLeadersViewController
+@implementation ROTYLeadersViewController
 
 -(instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
@@ -53,16 +54,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    heisman = [[HBSharedUtils currentLeague] heisman];
+    roty = [[HBSharedUtils currentLeague] roty];
     
     if ([HBSharedUtils currentLeague].currentWeek < 13) {
-        self.title = @"POTY Leaders";
+        self.title = @"ROTY Leaders";
     } else {
-        self.title = @"POTY Results";
+        self.title = @"ROTY Results";
     }
     self.tableView.rowHeight = 60;
     self.tableView.estimatedRowHeight = 60;
-    heismanLeaders = [[HBSharedUtils currentLeague] getHeismanLeaders];
+    rotyLeaders = [[HBSharedUtils currentLeague] getROTYLeaders];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 }
@@ -79,12 +80,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return heismanLeaders.count;
+    return rotyLeaders.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HBPlayerCell *statsCell = (HBPlayerCell*)[tableView dequeueReusableCellWithIdentifier:@"HBPlayerCell"];
-    Player *plyr = heismanLeaders[indexPath.row];
+    Player *plyr = rotyLeaders[indexPath.row];
     NSString *stat1 = @"";
     NSString *stat2 = @"";
     NSString *stat3 = @"";
@@ -130,7 +131,7 @@
     
     [statsCell.playerLabel setText:[plyr getInitialName]];
     
-    if ([HBSharedUtils currentLeague].currentWeek >= 13 && heisman != nil) {
+    if ([HBSharedUtils currentLeague].currentWeek >= 13 && roty != nil) {
         [statsCell.teamLabel setText:plyr.team.abbreviation];
     } else {
         [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ (%d votes)", plyr.team.abbreviation, [plyr getHeismanScore]]];
@@ -138,9 +139,9 @@
     
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
-    } else {        
-        if ([HBSharedUtils currentLeague].currentWeek >= 13 && heisman != nil) {
-            if ([heisman isEqual:plyr]) {
+    } else {
+        if ([HBSharedUtils currentLeague].currentWeek >= 13 && roty != nil) {
+            if ([roty isEqual:plyr]) {
                 [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
             } else {
                 [statsCell.playerLabel setTextColor:[UIColor blackColor]];
@@ -162,7 +163,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Player *p = heismanLeaders[indexPath.row];
+    Player *p = rotyLeaders[indexPath.row];
     if ([p.position isEqualToString:@"QB"]) {
         [self.navigationController pushViewController:[[PlayerQBDetailViewController alloc] initWithPlayer:p] animated:YES];
     } else if ([p.position isEqualToString:@"RB"]) {

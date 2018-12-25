@@ -247,7 +247,7 @@
         } else if (player.isTransfer) {
             [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
             [cell.yrLabel setText:@"XFER"];
-        } else if (player.isHeisman) {
+        } else if (player.isHeisman || player.isROTY) {
             [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
         } else if (player.isAllAmerican) {
             [cell.nameLabel setTextColor:[UIColor orangeColor]];

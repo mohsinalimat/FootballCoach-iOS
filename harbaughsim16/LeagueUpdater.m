@@ -318,6 +318,12 @@
             oldLigue.transferLog = [NSMutableArray array];
             oldLigue.didFinishTransferPeriod = NO;
             
+            // add stuff for ROTY
+            oldLigue.rotyHistoryDictionary = [NSMutableDictionary dictionary];
+            oldLigue.rotyCandidates = [NSMutableArray array];
+            oldLigue.roty = nil;
+            oldLigue.rotyFinalists = [NSMutableArray array];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 prgs += 0.20;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -337,14 +343,34 @@
                 t.transferClass = [NSMutableArray array];
                 t.recruitingPoints = 0;
                 t.usedRecruitingPoints = 0;
+                t.rotys = 0;
                 NSMutableArray<Player *> *players = [t getAllPlayers];
                 for (Player *p in players) {
                     p.isTransfer = NO;
                     p.isGradTransfer = NO;
+                    
+                    // ROTY stuff
+                    p.isROTY = NO;
+                    p.careerROTYs = 0;
                 }
             }
             
+            if (oldLigue.currentWeek > 14) {
+                [oldLigue getROTYCeremonyStr];
+            }
             
+            // if all league players were calculated, then recalculate
+            if (oldLigue.currentWeek > 14 && (oldLigue.allLeaguePlayers != nil || oldLigue.allLeaguePlayers.count != 0)) {
+                [oldLigue refreshAllLeaguePlayers];
+            }
+            
+            // if all conf players were calculated, then recalculate
+            for (Conference *c in oldLigue.conferences) {
+                if (oldLigue.currentWeek > 14 && (c.allConferencePlayers != nil || c.allConferencePlayers.count != 0)) {
+                    [c refreshAllConferencePlayers];
+                }
+            }
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 prgs += 0.15;
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

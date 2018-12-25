@@ -82,9 +82,9 @@
         [topPlayers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Player *a = (Player*)obj1;
             Player *b = (Player*)obj2;
-            if (a.isHeisman) {
+            if (a.isHeisman || a.isROTY) {
                 return -1;
-            } else if (b.isHeisman) {
+            } else if (b.isHeisman || b.isROTY) {
                 return 1;
             } else {
                 return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;

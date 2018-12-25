@@ -287,6 +287,10 @@
             [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"ROTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
@@ -319,6 +323,10 @@
             [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"ROTY Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
@@ -338,6 +346,10 @@
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"POTY Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"ROTY Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -911,7 +923,7 @@
             if (indexPath.row == 0) {
                 cell.textLabel.text = @"Passing";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ QB %@", passLeader.team.abbreviation, [passLeader getInitialName]]];
-                if (passLeader.isHeisman) {
+                if (passLeader.isHeisman || passLeader.isROTY) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
@@ -921,7 +933,7 @@
             } else if (indexPath.row == 1) {
                 cell.textLabel.text = @"Rushing";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", rushLeader.team.abbreviation, rushLeader.position, [rushLeader getInitialName]]];
-                if (rushLeader.isHeisman) {
+                if (rushLeader.isHeisman || rushLeader.isROTY) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
@@ -931,7 +943,7 @@
             } else if (indexPath.row == 2) {
                 cell.textLabel.text = @"Receiving";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", recLeader.team.abbreviation, recLeader.position, [recLeader getInitialName]]];
-                if (recLeader.isHeisman) {
+                if (recLeader.isHeisman || recLeader.isROTY) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
@@ -949,7 +961,7 @@
             } else {
                 cell.textLabel.text = @"Kicking";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ K %@", kickLeader.team.abbreviation, [kickLeader getInitialName]]];
-                if (kickLeader.isHeisman) {
+                if (kickLeader.isHeisman || kickLeader.isROTY) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
@@ -1077,7 +1089,7 @@
             if (indexPath.row == 0) {
                 cell.textLabel.text = @"Passing";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ QB %@", passLeader.team.abbreviation, [passLeader getInitialName]]];
-                if (passLeader.isHeisman) {
+                if (passLeader.isHeisman || passLeader.isROTY) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
@@ -1087,7 +1099,7 @@
             } else if (indexPath.row == 1) {
                 cell.textLabel.text = @"Rushing";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", rushLeader.team.abbreviation,rushLeader.position, [rushLeader getInitialName]]];
-                if (rushLeader.isHeisman) {
+                if (rushLeader.isHeisman || rushLeader.isROTY) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
@@ -1097,7 +1109,7 @@
             } else if (indexPath.row == 2) {
                 cell.textLabel.text = @"Receiving";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", recLeader.team.abbreviation,recLeader.position, [recLeader getInitialName]]];
-                if (recLeader.isHeisman) {
+                if (recLeader.isHeisman || recLeader.isROTY) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
@@ -1115,7 +1127,7 @@
             } else {
                 cell.textLabel.text = @"Kicking";
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ K %@", kickLeader.team.abbreviation, [kickLeader getInitialName]]];
-                if (kickLeader.isHeisman) {
+                if (kickLeader.isHeisman || kickLeader.isROTY) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
                 } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
