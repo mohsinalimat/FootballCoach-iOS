@@ -470,6 +470,21 @@ static UIColor *styleColor = nil;
             [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
         });
     }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"View ROTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSString *heismanString = [[HBSharedUtils currentLeague] getROTYCeremonyStr];
+            NSArray *heismanParts = [heismanString componentsSeparatedByString:@"?"];
+            NSMutableString *composeHeis = [NSMutableString string];
+            for (int i = 1; i < heismanParts.count; i++) {
+                [composeHeis appendString:heismanParts[i]];
+            }
+            NSLog(@"ROTY: %@", composeHeis);
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Rookie of the Year", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
+            [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
+        });
+    }]];
 
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Mock Draft" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -592,6 +607,10 @@ static UIColor *styleColor = nil;
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Player of the Year", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
+                
+                NSString *roty = [simLeague getROTYCeremonyStr];
+                NSLog(@"ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
+                
                 [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 14) {
                 [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
@@ -642,6 +661,9 @@ static UIColor *styleColor = nil;
                 } else if (simLeague.currentWeek == 13) {
                     NSString *heisman = [simLeague getHeismanCeremonyStr];
                     NSLog(@"HEISMAN: %@", heisman); //can't do anything with this result, just want to run it tbh
+                    
+                    NSString *roty = [simLeague getROTYCeremonyStr];
+                    NSLog(@"ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
                     [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 14) {
                     [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];

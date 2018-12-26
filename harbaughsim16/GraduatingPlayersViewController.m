@@ -8,7 +8,6 @@
 
 #import "GraduatingPlayersViewController.h"
 
-#import "PlayerDetailViewController.h"
 #import "PlayerQBDetailViewController.h"
 #import "PlayerRBDetailViewController.h"
 #import "PlayerWRDetailViewController.h"
@@ -165,7 +164,7 @@
     
     if (player.hasRedshirt) {
         nameColor = [UIColor lightGrayColor];
-    } else if (player.isHeisman || player.isROTY) {
+    } else if (player.isHeisman) {
         nameColor = [HBSharedUtils champColor];
     } else if (player.isAllAmerican) {
         nameColor = [UIColor orangeColor];

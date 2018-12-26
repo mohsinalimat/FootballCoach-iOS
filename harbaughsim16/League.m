@@ -1443,7 +1443,7 @@
 -(NSString*)getRandName {
     int fn = (int)([HBSharedUtils randomValue] * nameList.count);
     int ln = (int)([HBSharedUtils randomValue] * lastNameList.count);
-    return [NSString stringWithFormat:@"%@ %@",nameList[fn],lastNameList[ln]];
+    return [NSString stringWithFormat:@"%@ %@",[nameList[fn] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]],[lastNameList[ln] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
 }
 
 -(NSArray<Player*>*)calculateHeismanCandidates {
