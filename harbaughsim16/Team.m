@@ -341,48 +341,7 @@
 
 -(void)advanceSeason {
     if (![self isEqual:league.blessedTeam] && ![self isEqual:league.cursedTeam]) {
-        if (!self.isUserControlled) {
-            int expectedPollFinish = 100 - teamPrestige;
-            int diffExpected = expectedPollFinish - rankTeamPollScore;
-            int oldPrestige = teamPrestige;
-            int newPrestige;
-            if (teamPrestige > 45 || diffExpected > 0) {
-                newPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);
-                deltaPrestige = (newPrestige - oldPrestige);
-            }
-        }
-        
-        if ([league findTeam:rivalTeam].isUserControlled && league.isHardMode) {
-            // My rival is the user team, lock my prestige if it is Hard Mode
-            Team *rival = [league findTeam:rivalTeam];
-            if (teamPrestige < rival.teamPrestige - 10) {
-                teamPrestige = rival.teamPrestige - 10;
-            }
-        } else if (isUserControlled && league.isHardMode) {
-            // I am the user team, lock my rivals prestige
-            Team *rival = [league findTeam:rivalTeam];
-            if (rival.teamPrestige < teamPrestige - 10) {
-                rival.teamPrestige = teamPrestige - 10;
-            }
-        }
-        
-        NSArray *draftRounds = self.league.allDraftedPlayers;
-        int nflPts = 0, players = 0;
-        for (NSArray *round in draftRounds) {
-            for (Player *p in round) {
-                if ([p.team isEqual:self]) {
-                    players++;
-                }
-            }
-        }
-        if (players > 2) {
-            nflPts = 2;
-        } else {
-            nflPts = players;
-        }
-        if (nflPts > 0) {
-            deltaPrestige += nflPts;
-        }
+        [self getSeasonSummaryString];
 
         teamPrestige += deltaPrestige;
     }

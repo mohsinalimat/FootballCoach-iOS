@@ -427,7 +427,7 @@
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerAllConferences] forKey:@"allConferences"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerAllAmericans] forKey:@"allAmericans"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerHeismans] forKey:@"heismans"];
-    [stats setObject:[NSString stringWithFormat:@"%d",self.careerROTYs] forKey:@"rotys"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.careerROTYs] forKey:@"ROTYs"];
     return stats;
 }
 
