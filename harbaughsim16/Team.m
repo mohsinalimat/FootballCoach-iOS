@@ -677,6 +677,40 @@
     [self sortPlayers];
 }
 
+-(NSInteger)_calculateTransferSlots:(NSString *)pos {
+    NSMutableArray *players = [NSMutableArray array];
+    if ([pos isEqualToString:@"QB"]) {
+        players = self.teamQBs;
+    } else if ([pos isEqualToString:@"RB"]) {
+        players = self.teamRBs;
+    } else if ([pos isEqualToString:@"WR"]) {
+        players = self.teamWRs;
+    } else if ([pos isEqualToString:@"TE"]) {
+        players = self.teamTEs;
+    } else if ([pos isEqualToString:@"OL"]) {
+        players = self.teamOLs;
+    } else if ([pos isEqualToString:@"DL"]) {
+        players = self.teamDLs;
+    } else if ([pos isEqualToString:@"LB"]) {
+        players = self.teamLBs;
+    } else if ([pos isEqualToString:@"CB"]) {
+        players = self.teamCBs;
+    } else if ([pos isEqualToString:@"S"]) {
+        players = self.teamSs;
+    } else { // K
+        players = self.teamKs;
+    }
+    
+    NSMutableArray *mapped = [NSMutableArray array];
+    [players enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Player *p = (Player *)obj;
+        if ([p.position isEqualToString:pos] && (self.transferClass != nil && [self.transferClass containsObject:p])) {
+            [mapped addObject:p];
+        }
+    }];
+    return mapped.count;
+}
+
 -(void)recruitPlayersFreshman:(NSArray*)needs {
 
     int qbNeeds, rbNeeds, wrNeeds, kNeeds, olNeeds, sNeeds, cbNeeds, dlNeeds, lbNeeds, teNeeds;
@@ -694,7 +728,7 @@
     if (qbNeeds > 2) {
         qbNeeds = 2;
     } else {
-        if (teamQBs.count >= 2) {
+        if (teamQBs.count >= 2 && [self _calculateTransferSlots:@"QB"] == 0) {
             qbNeeds = 0;
         }
     }
@@ -702,7 +736,7 @@
     if (rbNeeds > 4) {
         rbNeeds = 4;
     } else {
-        if (teamRBs.count >= 4) {
+        if (teamRBs.count >= 4 && [self _calculateTransferSlots:@"RB"] == 0) {
             rbNeeds = 0;
         }
     }
@@ -710,7 +744,7 @@
     if (wrNeeds > 6) {
         wrNeeds = 6;
     } else {
-        if (teamWRs.count >= 6) {
+        if (teamWRs.count >= 6 && [self _calculateTransferSlots:@"WR"] == 0) {
             wrNeeds = 0;
         }
     }
@@ -718,7 +752,7 @@
     if (teNeeds > 2) {
         teNeeds = 2;
     } else {
-        if (teamTEs.count >= 2) {
+        if (teamTEs.count >= 2 && [self _calculateTransferSlots:@"TE"] == 0) {
             teNeeds = 0;
         }
     }
@@ -726,7 +760,7 @@
     if (kNeeds > 2) {
         kNeeds = 2;
     } else {
-        if (teamKs.count >= 2) {
+        if (teamKs.count >= 2 && [self _calculateTransferSlots:@"K"] == 0) {
             kNeeds = 0;
         }
     }
@@ -734,7 +768,7 @@
     if (olNeeds > 10) {
         olNeeds = 10;
     } else {
-        if (teamOLs.count >= 10) {
+        if (teamOLs.count >= 10 && [self _calculateTransferSlots:@"OL"] == 0) {
             olNeeds = 0;
         }
     }
@@ -742,7 +776,7 @@
     if (sNeeds > 2) {
         sNeeds = 2;
     } else {
-        if (teamSs.count >= 2) {
+        if (teamSs.count >= 2 && [self _calculateTransferSlots:@"S"] == 0) {
             sNeeds = 0;
         }
     }
@@ -750,7 +784,7 @@
     if (cbNeeds > 6) {
         cbNeeds = 6;
     } else {
-        if (teamCBs.count >= 6) {
+        if (teamCBs.count >= 6 && [self _calculateTransferSlots:@"CB"] == 0) {
             cbNeeds = 0;
         }
     }
@@ -758,7 +792,7 @@
     if (lbNeeds > 6) {
         lbNeeds = 6;
     } else {
-        if (teamLBs.count >= 6) {
+        if (teamLBs.count >= 6 && [self _calculateTransferSlots:@"LB"] == 0) {
             lbNeeds = 0;
         }
     }
@@ -766,7 +800,7 @@
     if (dlNeeds > 8) {
         dlNeeds = 8;
     } else {
-        if (teamDLs.count >= 8) {
+        if (teamDLs.count >= 8 && [self _calculateTransferSlots:@"DL"] == 0) {
             dlNeeds = 0;
         }
     }
