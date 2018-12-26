@@ -548,9 +548,9 @@
     [playersTransferring removeAllObjects];
     [transferClass removeAllObjects];
     
-    if ( !isUserControlled ) {
+    //if ( !isUserControlled ) {
         [self resetStats];
-    }
+    //}
     [self sortPlayers];
 }
 

@@ -610,7 +610,7 @@
 -(void)finishRecruiting {
     [[HBSharedUtils currentLeague] updateTeamHistories];
     [[HBSharedUtils currentLeague] updateLeagueHistory];
-    [[HBSharedUtils currentLeague].userTeam resetStats];
+    //[[HBSharedUtils currentLeague].userTeam resetStats];
     [[HBSharedUtils currentLeague] advanceSeason];
     
     for (Team *t in [HBSharedUtils currentLeague].teamList) {
