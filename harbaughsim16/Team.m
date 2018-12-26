@@ -2242,7 +2242,7 @@
             float roundedSpread = floorf(basicSpread * 2) / 2;
             if (roundedSpread > 0.5) {
                 gs[1] = [NSString stringWithFormat:@"%@ -%.1f",g.homeTeam.abbreviation,fabsf(roundedSpread)];
-            } else if (roundedSpread < 0.5) {
+            } else if (roundedSpread < -0.5) {
                 gs[1] = [NSString stringWithFormat:@"%@ -%.1f",g.awayTeam.abbreviation,fabsf(roundedSpread)];
             } else {
                 gs[1] = @"PUSH";

@@ -767,7 +767,7 @@
 }
 
 -(NSArray*)bowlGameTitles {
-    if (bowlTitles == nil) {
+    if (bowlTitles == nil || bowlTitles.count == 0) {
         return @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
     } else {
         return bowlTitles;
@@ -824,6 +824,9 @@
         heisman = nil;
         currentWeek = 0;
         bowlGames = [NSMutableArray array];
+        
+        bowlTitles = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+        
         conferences = [NSMutableArray array];
         blessedTeam = nil;
         cursedTeam = nil;
@@ -2511,7 +2514,7 @@
     NSMutableString *jsonString = [NSMutableString stringWithString:@""];
     [jsonString appendString:@"\{"];
     [jsonString appendString:@"\"bowlGames\" : \["];
-    for (NSString *bowl in bowlTitles) {
+    for (NSString *bowl in [self bowlGameTitles]) {
         [jsonString appendFormat:@"\"%@\",", bowl];
     }
     NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@","];

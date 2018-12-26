@@ -190,6 +190,7 @@
     [aCoder encodeBool:self.isGradTransfer forKey:@"isGradTransfer"];
     [aCoder encodeBool:self.isTransfer forKey:@"isTransfer"];
     [aCoder encodeBool:self.isROTY forKey:@"isROTY"];
+    [aCoder encodeInt:self.careerROTYs forKey:@"careerROTYs"];
 }
 
 +(int)getPosNumber:(NSString*)pos {

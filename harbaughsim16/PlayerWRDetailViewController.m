@@ -109,7 +109,7 @@
     } else if (indexPath.section == 1) {
         if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
             if (indexPath.row == 0) {
-                [cell.detailTextLabel setText:careerStats[@"rotys"]];
+                [cell.detailTextLabel setText:careerStats[@"ROTYs"]];
                 [cell.textLabel setText:@"Rookie of the Year Awards"];
             } else if (indexPath.row == 1) {
                 [cell.detailTextLabel setText:careerStats[@"heismans"]];
@@ -162,7 +162,7 @@
         }
     } else {
         if (indexPath.row == 0) {
-            [cell.detailTextLabel setText:careerStats[@"rotys"]];
+            [cell.detailTextLabel setText:careerStats[@"ROTYs"]];
             [cell.textLabel setText:@"Rookie of the Year Awards"];
         } else if (indexPath.row == 1) {
             [cell.detailTextLabel setText:careerStats[@"heismans"]];
