@@ -19,6 +19,7 @@
 #import "Game.h"
 #import "HBScoreCell.h"
 #import "Conference.h"
+#import "LeagueUpdater.h"
 
 #import "HeismanLeadersViewController.h"
 #import "BowlProjectionViewController.h"
@@ -237,8 +238,7 @@
 
 -(void)viewResultsOptions {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"News Options" message:@"What would you like to view?" preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    if ([HBSharedUtils currentLeague].currentWeek < 1 && [HBSharedUtils currentLeague].baseYear != [[HBSharedUtils currentLeague] getCurrentYear] && [[HBSharedUtils currentLeague].leagueVersion isEqualToString:HB_CURRENT_APP_VERSION]) {
+    if ([HBSharedUtils currentLeague].currentWeek < 1 && [HBSharedUtils currentLeague].baseYear != [[HBSharedUtils currentLeague] getCurrentYear] && ![LeagueUpdater needsUpdateFromVersion:[HBSharedUtils currentLeague].leagueVersion toVersion:@"2.0"]) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Recruiting Composite Rankings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRecruitingScore] animated:YES];
         }]];
