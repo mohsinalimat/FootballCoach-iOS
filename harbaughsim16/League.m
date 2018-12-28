@@ -706,7 +706,7 @@
 
 -(void)save {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"saveInProgress" object:nil];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^(void){
         if([FCFileManager existsItemAtPath:@"league.cfb"]) {
             NSError *error;
             BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:self error:&error];

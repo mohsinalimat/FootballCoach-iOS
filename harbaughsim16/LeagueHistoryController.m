@@ -165,14 +165,14 @@
 //        heisman = @"None";
 //        leagueYear = [NSMutableArray arrayWithObject:@"None"];
 //    }
-    if ([heismanHistory.allKeys containsObject:[NSString stringWithFormat:@"%d",([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
-        heisman = heismanHistory[[NSString stringWithFormat:@"%d",([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+    if ([heismanHistory.allKeys containsObject:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
+        heisman = heismanHistory[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
     } else {
         heisman = @"None";
     }
     
-    if ([leagueHistory.allKeys containsObject:[NSString stringWithFormat:@"%d",([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
-        leagueYear = leagueHistory[[NSString stringWithFormat:@"%d",([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+    if ([leagueHistory.allKeys containsObject:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
+        leagueYear = leagueHistory[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
     } else {
         leagueYear = [NSMutableArray arrayWithObject:@"None"];
     }
