@@ -59,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int totalHeismans;
 @property (nonatomic) int totalAllAmericans;
 @property (nonatomic) int totalAllConferences;
+@property (nonatomic) int totalROTYs;
 @property (nonatomic) int careerCOTYs;
 @property (nonatomic) int careerConfCOTYs;
 @property (nonatomic) BOOL retirement;

@@ -147,14 +147,18 @@
          self.confTeams[0].confChampion = @"CC";
          self.confTeams[1].confChampion = @"CL";
          self.confTeams[0].totalCCs++;
+         [self.confTeams[0] getCurrentHC].totalCCs++;
          self.confTeams[1].totalCCLosses++;
+         [self.confTeams[1] getCurrentHC].totalCCLosses++;
          NSMutableArray *week13 = self.league.newsStories[13];
          [week13 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ took care of business in the conference championship against %@, winning at home with a score of %ld to %ld.",self.ccg.homeTeam.name, self.confName, self.ccg.homeTeam.strRep, self.ccg.awayTeam.strRep, (long)self.ccg.homeScore, (long)self.ccg.awayScore]];
      } else {
          self.confTeams[1].confChampion = @"CC";
          self.confTeams[0].confChampion = @"CL";
          self.confTeams[1].totalCCs++;
+         [self.confTeams[1] getCurrentHC].totalCCs++;
          self.confTeams[0].totalCCLosses++;
+         [self.confTeams[0] getCurrentHC].totalCCLosses++;
          NSMutableArray *week13 = self.league.newsStories[13];
          [week13 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ surprised many in the conference championship against %@, winning on the road with a score of %ld to %ld.",self.ccg.awayTeam.name, self.confName, self.ccg.awayTeam.strRep, self.ccg.homeTeam.strRep, (long)self.ccg.awayScore, (long)self.ccg.homeScore]];
      }
@@ -365,6 +369,7 @@
 }
 
 -(void)refreshAllConferencePlayers {
+    NSMutableArray *leadingHCs = [NSMutableArray array];
     NSMutableArray *leadingQBs = [NSMutableArray array];
     NSMutableArray *leadingRBs = [NSMutableArray array];
     NSMutableArray *leadingWRs = [NSMutableArray array];
@@ -372,6 +377,7 @@
     NSMutableArray *leadingKs = [NSMutableArray array];
     
     for (Team *t in self.confTeams) {
+        [leadingHCs addObject:[t getCurrentHC]];
         [leadingQBs addObject:[t getQB:0]];
         [leadingRBs addObject:[t getRB:0]];
         [leadingRBs addObject:[t getRB:1]];
@@ -381,6 +387,10 @@
         [leadingTEs addObject:[t getTE:0]];
         [leadingKs addObject:[t getK:0]];
     }
+    
+    [leadingHCs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareCoachScore:obj1 toObj2:obj2];
+    }];
     
     [leadingQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
@@ -422,41 +432,54 @@
         else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
+    HeadCoach *hc = leadingHCs[0];
+    hc.careerConfCOTYs++;
+    hc.wonConfHC = YES;
+    
     PlayerQB *qb = leadingQBs[0];
     qb.careerAllConferences++;
+    [qb.team getCurrentHC].totalAllConferences++;
     qb.isAllConference = YES;
     
     PlayerRB *rb1 = leadingRBs[0];
     rb1.careerAllConferences++;
+    [rb1.team getCurrentHC].totalAllConferences++;
     rb1.isAllConference = YES;
     
     PlayerRB *rb2 = leadingRBs[1];
     rb2.careerAllConferences++;
+    [rb2.team getCurrentHC].totalAllConferences++;
     rb2.isAllConference = YES;
     
     PlayerWR *wr1 = leadingWRs[0];
     wr1.careerAllConferences++;
+    [wr1.team getCurrentHC].totalAllConferences++;
     wr1.isAllConference = YES;
     
     PlayerWR *wr2 = leadingWRs[1];
     wr2.careerAllConferences++;
+    [wr2.team getCurrentHC].totalAllConferences++;
     wr2.isAllConference = YES;
     
     PlayerWR *wr3 = leadingWRs[2];
     wr3.careerAllConferences++;
+    [wr3.team getCurrentHC].totalAllConferences++;
     wr3.isAllConference = YES;
     
     PlayerTE *te = leadingTEs[0];
     te.careerAllConferences++;
+    [te.team getCurrentHC].totalAllConferences++;
     te.isAllConference = YES;
     
     PlayerK *k = leadingKs[0];
     k.careerAllConferences++;
+    [k.team getCurrentHC].totalAllConferences++;
     k.isAllConference = YES;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"awardsPosted" object:nil];
 
     self.allConferencePlayers = @{
+                           @"HC" : @[hc],
                            @"QB" : @[qb],
                            @"RB" : @[rb1,rb2],
                            @"WR" : @[wr1,wr2,wr3],

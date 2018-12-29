@@ -460,7 +460,8 @@
     // calculate based on:
     //      team location (25%) - if state match, then 25; if neighboring, then 20; if diff region, then 15; if cross-country, then 5,
     //      open positional slots (25%) -- if guaranteed first starter, all 25; if starter, 20; if not starting, 10; if bottom of depth chart, 5,
-    //      prestige (35%) -- map prestige values between 0 and 35
+    //      prestige (25%) -- map prestige values between 0 and 25
+    //      coach abililty (10%) -- map coach overall values between 0 and 10
     //      playbook match (15%) -- use stats to determine best playbook for player. If team playbook matches best playbook: 15 points; if team playbook is player's second best: 8 points; else: no points
     int locationScore = 0;
     CFCRegion playerRegion = [HBSharedUtils regionForState:self.personalDetails[@"home_state"]];
@@ -515,6 +516,10 @@
     CGFloat input = (CGFloat) t.teamPrestige;
     int prestigeScore = (int)(outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
     
+    outMax = 25.0;
+    input = (CGFloat)[t getCurrentHC].ratOvr;
+    int coachAbility = (int)(outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+    
     int playbookScore = 0;
     if ([self.position isEqualToString:@"QB"] || [self.position isEqualToString:@"RB"] || [self.position isEqualToString:@"WR"] || [self.position isEqualToString:@"TE"] || [self.position isEqualToString:@"OL"]) {
         // use offensive playbook
@@ -553,7 +558,7 @@
             }
         }
     }
-    int sum = locationScore + positionalScore + prestigeScore + playbookScore;
+    int sum = locationScore + positionalScore + prestigeScore + coachAbility + playbookScore;
     //NSLog(@"Location Score: %d Positional Score: %d Prestige Score: %d Playbook Score: %d => TOTAL %@ INTEREST: %d", locationScore,positionalScore, prestigeScore, playbookScore, position, sum);
     return sum;
 }

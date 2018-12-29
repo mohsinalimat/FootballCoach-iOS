@@ -46,6 +46,7 @@
     hc.careerConfCOTYs = 0;
     hc.careerCOTYs = 0;
     hc.cumulativePrestige = 0;
+    hc.totalROTYs = 0;
     hc.retirement = NO;
     hc.wonTopHC = NO;
     hc.wonConfHC = NO;
@@ -100,44 +101,16 @@
         self.ratDiscipline -= (int) [HBSharedUtils randomValue] * 4;
     }
     
-    if (self.age > 70 && self.team.isUserControlled) { // && team.league.isCareerMode() && !team.league.neverRetire ) {
+    if (self.age > 70 && self.team.isUserControlled && self.team.league.isCareerMode) { //&& !team.league.neverRetire ) {
         self.ratOff -= (int) [HBSharedUtils randomValue] * (self.age / 20);
         self.ratDef -= (int) [HBSharedUtils randomValue] * (self.age / 20);
         self.ratTalent -= (int) [HBSharedUtils randomValue] * (self.age / 20);
         self.ratDiscipline -= (int) [HBSharedUtils randomValue] * (self.age / 20);
     }
     
-    self.ratOvr = [self getHCOverall];;
+    self.ratOvr = [self getHCOverall];
     self.ratImprovement = self.ratOvr - oldOvr;
-    
-    self.totalWins += self.team.wins;
-    self.totalLosses += self.team.losses;
-    if ([self.team.confChampion isEqualToString:@"CC"]) {
-        self.totalCCs += 1;
-    } else if ([self.team.confChampion isEqualToString:@"CL"]) {
-        self.totalCCLosses += 1;
-    }
-    if ([self.team.natlChampWL isEqualToString:@"NCW"]) {
-        self.totalNCs += 1;
-    } else if ([self.team.confChampion isEqualToString:@"NCL"]) {
-        self.totalNCLosses += 1;
-    }
-    
-    for (Player *p in [self.team getAllPlayers]) {
-        if (p.isAllAmerican) {
-            self.totalAllAmericans++;
-        }
-        
-        if (p.isAllConference) {
-            self.totalAllConferences++;
-        }
-    }
-    
-//    if ([self.team.league.heisman.team isEqual:self.team]) {
-//       self.totalHeismans++;
-//    }
-//    self.confAward += 0;
-//    self.awards += 0;
+
     self.cumulativePrestige += prestigeDiff;
 }
 
@@ -213,12 +186,13 @@
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalNCLosses] forKey:@"totalBowlLosses"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerConfCOTYs] forKey:@"totalConCOTYs"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerCOTYs] forKey:@"totalCOTYs"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.totalROTYs] forKey:@"totalROTYs"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.cumulativePrestige] forKey:@"cumulativePrestige"];
     return stats;
 }
 
 -(NSDictionary*)detailedRatings {
-    return @{@"offensiveAbility" : [HBSharedUtils getLetterGrade:self.ratOff], @"defensiveAbility" : [HBSharedUtils getLetterGrade:self.ratDef],  @"talentProgression" : [HBSharedUtils getLetterGrade:self.ratTalent], @"discipline" :  [HBSharedUtils getLetterGrade:self.ratDiscipline], @"jobStatus" : [self getCoachStatusString]};
+    return @{@"offensiveAbility" : [HBSharedUtils getLetterGrade:self.ratOff], @"defensiveAbility" : [HBSharedUtils getLetterGrade:self.ratDef],  @"talentProgression" : [HBSharedUtils getLetterGrade:self.ratTalent], @"discipline" :  [HBSharedUtils getLetterGrade:self.ratDiscipline], @"jobStatus" : [self getCoachStatusString],@"contractYearsLeft" : @(self.contractLength - self.contractYear - 1),@"contractLength" : @(self.contractLength)};
 }
 
 -(NSString*)getInitialName {
@@ -234,38 +208,10 @@
     return prestigeDiff * 10 + (self.team.teamStrengthOfWins / 20) + 3 * self.team.wins - 1 * self.team.losses + [self.team.league findConference:self.team.conference].confPrestige;
 }
 
-//-(NSString *)simpleAwardReport {
-//    NSMutableString *awards = [NSMutableString string];
-//    int parts = 0;
-//    if (self.careerHeismans > 0) {
-//        [awards appendFormat:@"%lix POTY",(long)self.careerHeismans];
-//        parts++;
-//    }
-//
-//    if (self.careerAllAmericans > 0) {
-//        [awards appendFormat:@"?%lix All-League",(long)self.careerAllAmericans];
-//        parts++;
-//    }
-//
-//    if (self.careerAllConferences > 0) {
-//        [awards appendFormat:@"?%lix All-Conference",(long)self.careerAllConferences];
-//        parts++;
-//    }
-//
-//    if (parts > 1) {
-//        [awards replaceOccurrencesOfString:@"?" withString:@", " options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
-//    } else {
-//        [awards replaceOccurrencesOfString:@"?" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
-//    }
-//
-//    awards = [NSMutableString stringWithString:[[awards stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
-//    return awards;
-//}
-
 -(NSString *)coachMetadataJSON {
     NSMutableString *jsonString = [NSMutableString string];
     [jsonString appendString:@"{"];
-    [jsonString appendFormat:@"\"name\" : \"%@\", \"age\" : \"%d\", \"contractYear\" : \"%d\", \"contractLength\" : \"%d\", \"homeState\" : \"%@\", \"baselinePrestige\" : \"%d\", \"cumulativePrestige\" : \"%d\"",self.name,self.age, self.contractYear, self.contractLength, self.homeState, self.baselinePrestige,self.cumulativePrestige];
+    [jsonString appendFormat:@"\"name\" : \"%@\", \"age\" : \"%d\", \"contractYear\" : \"%d\", \"contractLength\" : \"%d\", \"homeState\" : \"%@\", \"baselinePrestige\" : \"%d\", \"cumulativePrestige\" : \"%d\", \"ratOvr\" : \"%d\", \"ratDef\" : \"%d\", \"ratOff\" : \"%d\", \"ratTalent\" : \"%d\", \"ratDiscipline\" : \"%d\", \"ratPot\" : \"%d\"",self.name,self.age, self.contractYear, self.contractLength, self.homeState, self.baselinePrestige,self.cumulativePrestige,self.ratOvr,self.ratDef,self.ratOff,self.ratTalent,self.ratDiscipline,self.ratPot];
     [jsonString appendString:@"}"];
     return jsonString;
 }
@@ -294,8 +240,7 @@
     }
     
     if (!error) {
-        self.name = jsonDict[@"name"];
-        
+        self.name = [jsonDict[@"name"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
         if ([jsonDict[@"baselinePrestige"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
@@ -368,11 +313,94 @@
             NSLog(@"New age for %@: %d", self.name,self.age);
         }
         
-        if ([self.team.league isStateValid:jsonDict[@"state"]]) {
-            self.homeState = jsonDict[@"state"];
+        if ([jsonDict[@"ratOvr"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+        {
+            NSLog(@"Changing ratOvr for %@ from original value of %d", self.name, self.ratOvr);
+            NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratOvr"]];
+            if (year.intValue > 95) {
+                self.ratOvr = 95;
+            } else if (year.intValue < 25) {
+                self.ratOvr = 25;
+            } else {
+                self.ratOvr = year.intValue;
+            }
+            NSLog(@"New ratOvr for %@: %d", self.name,self.ratOvr);
         }
         
+        if ([jsonDict[@"ratPot"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+        {
+            NSLog(@"Changing ratPot for %@ from original value of %d", self.name, self.ratPot);
+            NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratPot"]];
+            if (year.intValue > 95) {
+                self.ratPot = 95;
+            } else if (year.intValue < 25) {
+                self.ratPot = 25;
+            } else {
+                self.ratPot = year.intValue;
+            }
+            NSLog(@"New ratPot for %@: %d", self.name,self.ratPot);
+        }
         
+        if ([jsonDict[@"ratOff"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+        {
+            NSLog(@"Changing ratOff for %@ from original value of %d", self.name, self.ratOff);
+            NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratOff"]];
+            if (year.intValue > 95) {
+                self.ratOff = 95;
+            } else if (year.intValue < 25) {
+                self.ratOff = 25;
+            } else {
+                self.ratOff = year.intValue;
+            }
+            NSLog(@"New ratOff for %@: %d", self.name,self.ratOff);
+        }
+        
+        if ([jsonDict[@"ratDef"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+        {
+            NSLog(@"Changing ratDef for %@ from original value of %d", self.name, self.ratDef);
+            NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratDef"]];
+            if (year.intValue > 95) {
+                self.ratDef = 95;
+            } else if (year.intValue < 25) {
+                self.ratDef = 25;
+            } else {
+                self.ratDef = year.intValue;
+            }
+            NSLog(@"New ratDef for %@: %d", self.name,self.ratDef);
+        }
+        
+        if ([jsonDict[@"ratTalent"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+        {
+            NSLog(@"Changing ratTalent for %@ from original value of %d", self.name, self.ratTalent);
+            NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratTalent"]];
+            if (year.intValue > 95) {
+                self.ratTalent = 95;
+            } else if (year.intValue < 25) {
+                self.ratTalent = 25;
+            } else {
+                self.ratTalent = year.intValue;
+            }
+            NSLog(@"New ratTalent for %@: %d", self.name,self.ratTalent);
+        }
+        
+        if ([jsonDict[@"ratDiscipline"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+        {
+            NSLog(@"Changing ratDiscipline for %@ from original value of %d", self.name, self.ratDiscipline);
+            NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratDiscipline"]];
+            if (year.intValue > 95) {
+                self.ratDiscipline = 95;
+            } else if (year.intValue < 25) {
+                self.ratDiscipline = 25;
+            } else {
+                self.ratDiscipline = year.intValue;
+            }
+            NSLog(@"New ratDiscipline for %@: %d", self.name,self.ratDiscipline);
+        }
+        
+        if ([self.team.league isStateValid:[jsonDict[@"state"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]) {
+            self.homeState = [jsonDict[@"state"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }
+    
     } else {
         NSLog(@"ERROR parsing team metadata: %@", error);
     }
@@ -387,4 +415,9 @@
     
     return h;
 }
+
+-(NSString *)debugDescription {
+    return [NSString stringWithFormat:@"%@ HC %@ [Age: %d, Ovr: %d]",self.team.abbreviation, self.name, self.age,self.ratOvr];
+}
+
 @end

@@ -94,11 +94,12 @@
 @property (strong, nonatomic)  NSMutableArray<Game*> *bowlGames;
 
 // Coaching Carousel
-@property (strong, nonatomic)  NSMutableArray<HeadCoach*> *coachList;
-@property (strong, nonatomic)  NSMutableArray<HeadCoach*> *coachStarList;
-@property (strong, nonatomic)  NSMutableArray<HeadCoach*> *coachFreeAgents;
-@property (strong, nonatomic)  HeadCoach *cotyWinner;
-@property (strong, nonatomic)  NSString *cotyWinnerStrFull;
+@property (strong, nonatomic) NSMutableArray<HeadCoach*> *coachList;
+@property (strong, nonatomic) NSMutableArray<HeadCoach*> *coachStarList;
+@property (strong, nonatomic) NSMutableArray<HeadCoach*> *coachFreeAgents;
+@property (strong, nonatomic) HeadCoach *cotyWinner;
+@property (strong, nonatomic) NSString *cotyWinnerStrFull;
+@property (nonatomic) BOOL isCareerMode;
 
 //User Team
 @property (strong, nonatomic) Team *userTeam;

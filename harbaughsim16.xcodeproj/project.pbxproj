@@ -182,6 +182,8 @@
 		75CEE9651FF5FF5E005A86C1 /* 3star-recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CEE9601FF5FF5E005A86C1 /* 3star-recruit@3x.png */; };
 		75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */; };
 		75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */; };
+		75E8D89821D743FE0077CBC1 /* HeadCoachDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E8D89621D743FE0077CBC1 /* HeadCoachDetailViewController.m */; };
+		75E8D89921D743FE0077CBC1 /* HeadCoachDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75E8D89721D743FE0077CBC1 /* HeadCoachDetailViewController.xib */; };
 		75EC9A711D0663B900F24BE6 /* Injury.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A701D0663B900F24BE6 /* Injury.m */; };
 		75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75EC9A731D07D6D100F24BE6 /* InjuryReportViewController.m */; };
 		75EC9A761D07D9DC00F24BE6 /* medical@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75EC9A751D07D9DC00F24BE6 /* medical@3x.png */; };
@@ -478,6 +480,9 @@
 		75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamHistoryViewController.m; sourceTree = "<group>"; };
 		75E10F1F1CA0E0170000DA78 /* LeagueHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueHistoryController.h; sourceTree = "<group>"; };
 		75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueHistoryController.m; sourceTree = "<group>"; };
+		75E8D89521D743FE0077CBC1 /* HeadCoachDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeadCoachDetailViewController.h; sourceTree = "<group>"; };
+		75E8D89621D743FE0077CBC1 /* HeadCoachDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeadCoachDetailViewController.m; sourceTree = "<group>"; };
+		75E8D89721D743FE0077CBC1 /* HeadCoachDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeadCoachDetailViewController.xib; sourceTree = "<group>"; };
 		75EC9A6F1D0663B900F24BE6 /* Injury.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Injury.h; sourceTree = "<group>"; };
 		75EC9A701D0663B900F24BE6 /* Injury.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Injury.m; sourceTree = "<group>"; };
 		75EC9A721D07D6D100F24BE6 /* InjuryReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InjuryReportViewController.h; sourceTree = "<group>"; };
@@ -897,6 +902,9 @@
 				7571DD3E1C9D032F00E67080 /* PlayerDetailViewController.h */,
 				7571DD3F1C9D032F00E67080 /* PlayerDetailViewController.m */,
 				7571DD401C9D032F00E67080 /* PlayerDetailViewController.xib */,
+				75E8D89521D743FE0077CBC1 /* HeadCoachDetailViewController.h */,
+				75E8D89621D743FE0077CBC1 /* HeadCoachDetailViewController.m */,
+				75E8D89721D743FE0077CBC1 /* HeadCoachDetailViewController.xib */,
 				75A4516A21CC5257007E481A /* HBPlayerDetailView.h */,
 				75A4516B21CC5257007E481A /* HBPlayerDetailView.m */,
 				75A4516721CC517D007E481A /* PlayerQBDetailViewController.h */,
@@ -1226,6 +1234,7 @@
 				75A86C981C9C7C0C0034140C /* news-selected@3x.png in Resources */,
 				755BBC821C9F734E001A8314 /* TeamViewController.xib in Resources */,
 				75F0E2691FECDAEA00719086 /* loser@3x.png in Resources */,
+				75E8D89921D743FE0077CBC1 /* HeadCoachDetailViewController.xib in Resources */,
 				75A4517321CC55F4007E481A /* PlayerRBDetailViewController.xib in Resources */,
 				7571DD241C9CC62E00E67080 /* stats@3x.png in Resources */,
 				7551AC211FFFD9CA0033680E /* CFCWatchlistCell.xib in Resources */,
@@ -1473,6 +1482,7 @@
 				751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */,
 				75924A491C99CF7C00B165AD /* Game.m in Sources */,
 				75EC9A7C1D08E5B300F24BE6 /* HallOfFameViewController.m in Sources */,
+				75E8D89821D743FE0077CBC1 /* HeadCoachDetailViewController.m in Sources */,
 				75C5C3351F83457100D7CAAD /* PlayerStatsViewController.m in Sources */,
 				7571DD1B1C9CB1DC00E67080 /* IntroViewController.m in Sources */,
 				754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */,

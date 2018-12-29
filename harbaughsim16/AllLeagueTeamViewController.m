@@ -16,6 +16,16 @@
 #import "PlayerTE.h"
 #import "PlayerK.h"
 #import "HBPlayerCell.h"
+#import "PlayerQBDetailViewController.h"
+#import "PlayerRBDetailViewController.h"
+#import "PlayerWRDetailViewController.h"
+#import "PlayerTEDetailViewController.h"
+#import "PlayerOLDetailViewController.h"
+#import "PlayerKDetailViewController.h"
+#import "PlayerDLDetailViewController.h"
+#import "PlayerLBDetailViewController.h"
+#import "PlayerCBDetailViewController.h"
+#import "PlayerSDetailViewController.h"
 #import "PlayerDetailViewController.h"
 
 #import "HexColors.h"
@@ -39,21 +49,26 @@
     if (indexPath != nil) {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         Player *plyr;
+        PlayerDetailViewController *vc;
         if (indexPath.section == 0) {
             plyr = players[@"QB"][indexPath.row];
+            vc = [[PlayerQBDetailViewController alloc] initWithPlayer:plyr];
         } else if (indexPath.section == 1) {
             plyr = players[@"RB"][indexPath.row];
+            vc = [[PlayerRBDetailViewController alloc] initWithPlayer:plyr];
         } else if (indexPath.section == 2) {
             plyr = players[@"WR"][indexPath.row];
+            vc = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
         } else if (indexPath.section == 3) {
             plyr = players[@"TE"][indexPath.row];
+            vc = [[PlayerTEDetailViewController alloc] initWithPlayer:plyr];
         } else {
             plyr = players[@"K"][indexPath.row];
+            vc = [[PlayerKDetailViewController alloc] initWithPlayer:plyr];
         }
-        PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
-        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        vc.preferredContentSize = CGSizeMake(0.0, 600);
         previewingContext.sourceRect = cell.frame;
-        return playerDetail;
+        return vc;
     } else {
         return nil;
     }
@@ -239,18 +254,24 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Player *plyr;
+    PlayerDetailViewController *vc;
     if (indexPath.section == 0) {
         plyr = players[@"QB"][indexPath.row];
+        vc = [[PlayerQBDetailViewController alloc] initWithPlayer:plyr];
     } else if (indexPath.section == 1) {
         plyr = players[@"RB"][indexPath.row];
+        vc = [[PlayerRBDetailViewController alloc] initWithPlayer:plyr];
     } else if (indexPath.section == 2) {
         plyr = players[@"WR"][indexPath.row];
+        vc = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
     } else if (indexPath.section == 3) {
         plyr = players[@"TE"][indexPath.row];
+        vc = [[PlayerTEDetailViewController alloc] initWithPlayer:plyr];
     } else {
         plyr = players[@"K"][indexPath.row];
+        vc = [[PlayerKDetailViewController alloc] initWithPlayer:plyr];
     }
-    [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:plyr] animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

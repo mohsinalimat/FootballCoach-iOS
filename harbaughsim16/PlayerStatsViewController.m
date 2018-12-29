@@ -55,7 +55,31 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
     if (indexPath != nil) {
         HBPlayerCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:players[indexPath.row]];
+        Player *p = players[indexPath.row];
+        PlayerDetailViewController *playerDetail;
+        if ([p.position isEqualToString:@"QB"]) {
+            playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"RB"]) {
+            playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"WR"]) {
+            playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"TE"]) {
+            playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"OL"]) {
+            playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"DL"]) {
+            playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"LB"]) {
+            playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"CB"]) {
+            playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"S"]) {
+            playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"K"]) {
+            playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+        } else {
+            playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+        }
         playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
         previewingContext.sourceRect = cell.frame;
         return playerDetail;

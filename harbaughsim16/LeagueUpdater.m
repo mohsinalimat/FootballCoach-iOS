@@ -290,11 +290,11 @@
                 });
             });
             
-            oldLigue.leagueVersion = HB_CURRENT_APP_VERSION;
+            oldLigue.leagueVersion = @"2.0";
             [oldLigue save];
         }
         
-        if ([[self class] needsUpdateFromVersion:oldLigue.leagueVersion toVersion:HB_CURRENT_APP_VERSION]) {
+        if ([[self class] needsUpdateFromVersion:oldLigue.leagueVersion toVersion:@"2.1"]) {
             __block float prgs = 0.0;
             dispatch_async(dispatch_get_main_queue(), ^{
                 prgs += 0.05;
@@ -378,8 +378,31 @@
                 });
             });
             
-            oldLigue.leagueVersion = HB_CURRENT_APP_VERSION;
+            oldLigue.leagueVersion = @"2.1";
             [oldLigue save];
+        }
+        
+        if ([[self class] needsUpdateFromVersion:oldLigue.leagueVersion toVersion:@"3.0"]) {
+            oldLigue.isCareerMode = NO;
+            oldLigue.coachList = [NSMutableArray array];
+            oldLigue.coachStarList = [NSMutableArray array];
+            oldLigue.coachFreeAgents = [NSMutableArray array];
+            oldLigue.cotyWinner = nil;
+            oldLigue.cotyWinnerStrFull = nil;
+            
+            for (Team *t in oldLigue.teamList) {
+                t.coaches = [NSMutableArray array];
+                t.totalCOTYs = 0;
+                t.coachGotNewContract = NO;
+                t.coachContractString = nil;
+                t.coachRetired = NO;
+                t.coachFired = NO;
+                [t newCustomHeadCoach:[oldLigue getRandName] stars:((int)([HBSharedUtils randomValue] * 4) + 1)];
+            }
+            
+            if (oldLigue.currentWeek > 13 && oldLigue.cotyWinner == nil) {
+                [oldLigue getCoachAwardStr];
+            }
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{

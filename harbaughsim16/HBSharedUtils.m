@@ -504,6 +504,21 @@ static UIColor *styleColor = nil;
             [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
         });
     }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"View COTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSString *heismanString = [[HBSharedUtils currentLeague] getCoachAwardStr];
+            NSArray *heismanParts = [heismanString componentsSeparatedByString:@"?"];
+            NSMutableString *composeHeis = [NSMutableString string];
+            for (int i = 1; i < heismanParts.count; i++) {
+                [composeHeis appendString:heismanParts[i]];
+            }
+            NSLog(@"COTY: %@", composeHeis);
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Coach of the Year", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
+            [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
+        });
+    }]];
 
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Mock Draft" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -630,6 +645,9 @@ static UIColor *styleColor = nil;
                 NSString *roty = [simLeague getROTYCeremonyStr];
                 NSLog(@"ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
                 
+                NSString *coty = [simLeague getCoachAwardStr];
+                NSLog(@"COTY: %@", coty); //can't do anything with this result, just want to run it tbh
+                
                 [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 14) {
                 [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
@@ -683,6 +701,10 @@ static UIColor *styleColor = nil;
                     
                     NSString *roty = [simLeague getROTYCeremonyStr];
                     NSLog(@"ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
+                    
+                    NSString *coty = [simLeague getCoachAwardStr];
+                    NSLog(@"COTY: %@", coty); //can't do anything with this result, just want to run it tbh
+                    
                     [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 14) {
                     [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
@@ -892,7 +914,13 @@ static UIColor *styleColor = nil;
 +(NSComparisonResult)compareCoachScore:(id)obj1 toObj2:(id)obj2 {
     HeadCoach *a = (HeadCoach *)obj1;
     HeadCoach *b = (HeadCoach *)obj2;
-    return [a getCoachScore] > [b getCoachScore] ? -1 : ([a getCoachScore] == [b getCoachScore]) ? [a.name compare:b.name] : 1;
+    if (a.wonTopHC) {
+        return -1;
+    } else if (b.wonTopHC) {
+        return 1;
+    } else {
+        return [a getCoachScore] > [b getCoachScore] ? -1 : (([a getCoachScore] == [b getCoachScore]) ? ((a.team.teamPrestige == b.team.teamPrestige) ? [a.name compare:b.name] : 1) : 1);
+    }
 }
 
 +(NSComparisonResult)compareCoachOvr:(id)obj1 toObj2:(id)obj2 {

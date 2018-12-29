@@ -22,6 +22,18 @@
 #import "PlayerCB.h"
 #import "PlayerS.h"
 
+#import "PlayerQBDetailViewController.h"
+#import "PlayerRBDetailViewController.h"
+#import "PlayerWRDetailViewController.h"
+#import "PlayerTEDetailViewController.h"
+#import "PlayerOLDetailViewController.h"
+#import "PlayerKDetailViewController.h"
+#import "PlayerDLDetailViewController.h"
+#import "PlayerLBDetailViewController.h"
+#import "PlayerCBDetailViewController.h"
+#import "PlayerSDetailViewController.h"
+#import "PlayerDetailViewController.h"
+
 #import "HexColors.h"
 
 @interface MockDraftViewController () <UIViewControllerPreviewingDelegate>
@@ -66,7 +78,30 @@
             p = round7[indexPath.row];
         }
         
-        PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+        PlayerDetailViewController *playerDetail;
+        if ([p.position isEqualToString:@"QB"]) {
+            playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"RB"]) {
+            playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"WR"]) {
+            playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"TE"]) {
+            playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"OL"]) {
+            playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"DL"]) {
+            playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"LB"]) {
+            playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"CB"]) {
+            playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"S"]) {
+            playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"K"]) {
+            playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+        } else {
+            playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+        }
         playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
         previewingContext.sourceRect = cell.frame;
         return playerDetail;
@@ -347,7 +382,32 @@
     } else {
         p = round7[indexPath.row];
     }
-    [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:p] animated:YES];
+    
+    PlayerDetailViewController *playerDetail;
+    if ([p.position isEqualToString:@"QB"]) {
+        playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"RB"]) {
+        playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"WR"]) {
+        playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"TE"]) {
+        playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"OL"]) {
+        playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"DL"]) {
+        playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"LB"]) {
+        playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"CB"]) {
+        playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"S"]) {
+        playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"K"]) {
+        playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+    } else {
+        playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+    }
+    [self.navigationController pushViewController:playerDetail animated:YES];
 }
 
 

@@ -12,7 +12,6 @@
 #import "Player.h"
 #import "HBStatsCell.h"
 #import "HBPlayerCell.h"
-#import "PlayerDetailViewController.h"
 #import "TeamViewController.h"
 #import "HBScoreCell.h"
 #import "TeamStreak.h"
@@ -24,6 +23,18 @@
 #import "PlayerTE.h"
 #import "PlayerK.h"
 #import "PlayerOL.h"
+
+#import "PlayerQBDetailViewController.h"
+#import "PlayerRBDetailViewController.h"
+#import "PlayerWRDetailViewController.h"
+#import "PlayerTEDetailViewController.h"
+#import "PlayerOLDetailViewController.h"
+#import "PlayerKDetailViewController.h"
+#import "PlayerDLDetailViewController.h"
+#import "PlayerLBDetailViewController.h"
+#import "PlayerCBDetailViewController.h"
+#import "PlayerSDetailViewController.h"
+#import "PlayerDetailViewController.h"
 
 #import "HexColors.h"
 
@@ -50,14 +61,37 @@
         UIViewController *peekVC;
         if (section == 1) {
             if (!selectedGame.hasPlayed) {
-                Player *plyr;
+                Player *p;
                 if (indexPath.row == 0) {
-                    plyr = [selectedGame.awayTeam playerToWatch];
+                    p = [selectedGame.awayTeam playerToWatch];
                 } else {
-                    plyr = [selectedGame.homeTeam playerToWatch];
+                    p = [selectedGame.homeTeam playerToWatch];
                 }
-                if (plyr != nil) {
-                    PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+                if (p != nil) {
+                    PlayerDetailViewController *playerDetail;
+                    if ([p.position isEqualToString:@"QB"]) {
+                        playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+                    } else if ([p.position isEqualToString:@"RB"]) {
+                        playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+                    } else if ([p.position isEqualToString:@"WR"]) {
+                        playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+                    } else if ([p.position isEqualToString:@"TE"]) {
+                        playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+                    } else if ([p.position isEqualToString:@"OL"]) {
+                        playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+                    } else if ([p.position isEqualToString:@"DL"]) {
+                        playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+                    } else if ([p.position isEqualToString:@"LB"]) {
+                        playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+                    } else if ([p.position isEqualToString:@"CB"]) {
+                        playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+                    } else if ([p.position isEqualToString:@"S"]) {
+                        playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+                    } else if ([p.position isEqualToString:@"K"]) {
+                        playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+                    } else {
+                        playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+                    }
                     peekVC = playerDetail;
                 } else {
                     return nil;
@@ -74,7 +108,7 @@
                         plyr = qbStats[@"homeQB"];
                     }
                     
-                    PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+                    PlayerQBDetailViewController *playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:plyr];
                     peekVC = playerDetail;
                 }
             } else {
@@ -93,7 +127,7 @@
                         plyr = qbStats[@"homeQB"];
                     }
                     
-                    PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+                    PlayerQBDetailViewController *playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:plyr];
                     peekVC = playerDetail;
                 }
             }
@@ -110,7 +144,7 @@
                 } else {
                     plyr = rbStats[@"homeRB2"];
                 }
-                PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+                PlayerRBDetailViewController *playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:plyr];
                 peekVC = playerDetail;
             } else {
                 if (selectedGame.hasPlayed) {
@@ -125,7 +159,7 @@
                     } else {
                         plyr = rbStats[@"homeRB2"];
                     }
-                    PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+                    PlayerRBDetailViewController *playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:plyr];
                     peekVC = playerDetail;
                 }
             }
@@ -141,7 +175,7 @@
             } else {
                 plyr = wrStats[@"homeWR2"];
             }
-            PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+            PlayerWRDetailViewController *playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
             peekVC = playerDetail;
         } else if (section == 5) {
             Player *plyr;
@@ -152,7 +186,7 @@
                 plyr = qbStats[@"homeTE"];
             }
             
-            PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+            PlayerTEDetailViewController *playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:plyr];
             peekVC = playerDetail;
         } else if (section == 6) {
             Player *plyr;
@@ -163,7 +197,7 @@
                 plyr = qbStats[@"homeK"];
             }
             
-            PlayerDetailViewController *playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:plyr];
+            PlayerKDetailViewController *playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:plyr];
             peekVC = playerDetail;
         } else {
             if (indexPath.row == 0) {
@@ -918,13 +952,37 @@
                     [self viewGameSummary];
                 }
             } else if (indexPath.section == 1) {
-                Player *plyr;
+                Player *p;
                 if (indexPath.row == 0) {
-                    plyr = [selectedGame.awayTeam playerToWatch];
+                    p = [selectedGame.awayTeam playerToWatch];
                 } else {
-                    plyr = [selectedGame.homeTeam playerToWatch];
+                    p = [selectedGame.homeTeam playerToWatch];
                 }
-                [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:plyr] animated:YES];
+                PlayerDetailViewController *playerDetail;
+                if ([p.position isEqualToString:@"QB"]) {
+                    playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"RB"]) {
+                    playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"WR"]) {
+                    playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"TE"]) {
+                    playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"OL"]) {
+                    playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"DL"]) {
+                    playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"LB"]) {
+                    playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"CB"]) {
+                    playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"S"]) {
+                    playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"K"]) {
+                    playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+                } else {
+                    playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+                }
+                [self.navigationController pushViewController:playerDetail animated:YES];
             } else if (indexPath.section == 2) {
                 if (indexPath.row == 0) {
                     [self.navigationController pushViewController:[[InjuryReportViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
@@ -942,13 +1000,37 @@
                     [self viewGameSummary];
                 }
             } else if (indexPath.section == 1) {
-                Player *plyr;
+                Player *p;
                 if (indexPath.row == 0) {
-                    plyr = [selectedGame.awayTeam playerToWatch];
+                    p = [selectedGame.awayTeam playerToWatch];
                 } else {
-                    plyr = [selectedGame.homeTeam playerToWatch];
+                    p = [selectedGame.homeTeam playerToWatch];
                 }
-                [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:plyr] animated:YES];
+                PlayerDetailViewController *playerDetail;
+                if ([p.position isEqualToString:@"QB"]) {
+                    playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"RB"]) {
+                    playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"WR"]) {
+                    playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"TE"]) {
+                    playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"OL"]) {
+                    playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"DL"]) {
+                    playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"LB"]) {
+                    playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"CB"]) {
+                    playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"S"]) {
+                    playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"K"]) {
+                    playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+                } else {
+                    playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+                }
+                [self.navigationController pushViewController:playerDetail animated:YES];
             }
         }
     }

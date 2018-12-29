@@ -215,6 +215,7 @@
 
 // coaching
 @property (strong, nonatomic) NSMutableArray<HeadCoach *> *coaches;
+@property (nonatomic) int totalCOTYs;
 @property (nonatomic) BOOL coachFired;
 @property (nonatomic) BOOL coachGotNewContract;
 @property (nonatomic) BOOL coachRetired;

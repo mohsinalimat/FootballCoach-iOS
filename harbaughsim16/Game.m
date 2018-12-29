@@ -721,6 +721,9 @@
             p.gamesPlayed++;
         }
         
+        [awayTeam getCurrentHC].gamesCoached++;
+        [homeTeam getCurrentHC].gamesCoached++;
+        
         //NSLog(@"START PLAYING GAME");
         while ( gameTime > 0 ) {
             //play ball!
@@ -1004,9 +1007,11 @@
         //NSLog(@"CALCULATING STREAKS");
         if (homeScore > awayScore) {
             homeTeam.wins++;
+            [homeTeam getCurrentHC].totalWins++;
             homeTeam.totalWins++;
             [homeTeam.gameWLSchedule addObject:@"W"];
             awayTeam.losses++;
+            [awayTeam getCurrentHC].totalLosses++;
             awayTeam.totalLosses++;
             [awayTeam.gameWLSchedule addObject:@"L"];
             [homeTeam.gameWinsAgainst addObject:awayTeam];
@@ -1048,9 +1053,11 @@
         } else {
             homeTeam.losses++;
             homeTeam.totalLosses++;
+            [homeTeam getCurrentHC].totalLosses++;
             [homeTeam.gameWLSchedule addObject:@"L"];
             awayTeam.wins++;
             awayTeam.totalWins++;
+            [awayTeam getCurrentHC].totalWins++;
             [awayTeam.gameWLSchedule addObject:@"W"];
             [awayTeam.gameWinsAgainst addObject:homeTeam];
             
@@ -1097,13 +1104,17 @@
             if (homeScore > awayScore) {
                 homeTeam.confWins++;
                 homeTeam.totalConfWins++;
+                [homeTeam getCurrentHC].totalConfWins++;
                 awayTeam.confLosses++;
                 awayTeam.totalConfLosses++;
+                [awayTeam getCurrentHC].totalConfLosses++;
             } else if (homeScore < awayScore) {
                 awayTeam.confWins++;
                 awayTeam.totalConfWins++;
+                [awayTeam getCurrentHC].totalConfWins++;
                 homeTeam.confLosses++;
                 homeTeam.totalConfLosses++;
+                [homeTeam getCurrentHC].totalConfLosses++;
             }
         }
         //NSLog(@"END CONF GAME CALC");
@@ -1114,12 +1125,16 @@
                 homeTeam.wonRivalryGame = true;
                 awayTeam.wonRivalryGame = false;
                 homeTeam.rivalryWins++;
+                [homeTeam getCurrentHC].totalRivalryWins++;
                 awayTeam.rivalryLosses++;
+                [awayTeam getCurrentHC].totalRivalryLosses++;
             } else {
                 awayTeam.wonRivalryGame = true;
                 homeTeam.wonRivalryGame = false;
+                [awayTeam getCurrentHC].totalRivalryWins++;
                 awayTeam.rivalryWins++;
                 homeTeam.rivalryLosses++;
+                [homeTeam getCurrentHC].totalRivalryLosses++;
             }
         }
         //NSLog(@"END RIVALRY GAME CALC");

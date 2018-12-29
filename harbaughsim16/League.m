@@ -34,7 +34,7 @@
 #import "AutoCoding.h"
 
 @implementation League
-@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles,coachList,coachStarList,coachFreeAgents, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary;
+@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles,coachList,coachStarList,coachFreeAgents, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary,cotyWinnerStrFull,cotyWinner,isCareerMode;
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
@@ -141,6 +141,13 @@
     [encoder encodeObject:self.roty forKey:@"roty"];
     [encoder encodeBool:rotyDecided forKey:@"rotyDecided"];
     [encoder encodeObject:rotyWinnerStrFull forKey:@"rotyWinnerStrFull"];
+    
+    [encoder encodeObject:cotyWinnerStrFull forKey:@"cotyWinnerStrFull"];
+    [encoder encodeObject:coachFreeAgents forKey:@"coachFreeAgents"];
+    [encoder encodeObject:coachStarList forKey:@"coachStarList"];
+    [encoder encodeObject:coachList forKey:@"coachList"];
+    [encoder encodeObject:cotyWinner forKey:@"cotyWinner"];
+    [encoder encodeBool:self.isCareerMode forKey:@"isCareerMode"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -519,7 +526,48 @@
             rotyWinnerStrFull = [decoder decodeObjectForKey:@"rotyWinnerStrFull"];
         }
 
-        self.roty = [decoder decodeObjectForKey:@"roty"];
+        if (![decoder containsValueForKey:@"roty"]) {
+            roty = nil;
+        } else {
+            roty = [decoder decodeObjectForKey:@"roty"];
+        }
+        
+        // coaching
+        if (![decoder containsValueForKey:@"cotyWinnerStrFull"]) {
+            cotyWinnerStrFull = @"";
+        } else {
+            cotyWinnerStrFull = [decoder decodeObjectForKey:@"cotyWinnerStrFull"];
+        }
+        
+        if (![decoder containsValueForKey:@"cotyWinner"]) {
+            cotyWinner = nil;
+        } else {
+            cotyWinner = [decoder decodeObjectForKey:@"cotyWinner"];
+        }
+        
+        if (![decoder containsValueForKey:@"coachFreeAgents"]) {
+            coachFreeAgents = nil;
+        } else {
+            coachFreeAgents = [decoder decodeObjectForKey:@"coachFreeAgents"];
+        }
+        
+        if (![decoder containsValueForKey:@"coachStarList"]) {
+            coachStarList = nil;
+        } else {
+            coachStarList = [decoder decodeObjectForKey:@"coachStarList"];
+        }
+        
+        if (![decoder containsValueForKey:@"coachList"]) {
+            coachList = nil;
+        } else {
+            coachList = [decoder decodeObjectForKey:@"coachList"];
+        }
+        
+        if (![decoder containsValueForKey:@"isCareerMode"]) {
+            isCareerMode = NO;
+        } else {
+            isCareerMode = [decoder decodeBoolForKey:@"isCareerMode"];
+        }
 
         //deprecated
         leagueRecordYearPassYards = 0;
@@ -791,6 +839,7 @@
     self = [super init];
     if (self){
         isHardMode = NO;
+        isCareerMode = NO;
         recruitingStage = 0;
         heismanDecided = NO;
         hasScheduledBowls = NO;
@@ -1354,11 +1403,11 @@
 }
 
 -(NSString*)randomBlessedTeamStory:(Team*)t {
-    blessedTeamCoachName = [self getRandName];
+    blessedTeamCoachName = [t getCurrentHC].name;
    NSArray *stories = @[
                          [NSString stringWithFormat:@"%@ gets new digs!\nAn anonymous benefactor has completely covered the cost of new training facilities for %@, resulting in large scale improvements to the program's infrastructure.",t.abbreviation,t.name],
                          [NSString stringWithFormat:@"%@ makes a big splash at head coach!\n%@ has hired alumnus and professional football coach %@ in hopes of revitalizing the program.", t.abbreviation, t.name, blessedTeamCoachName],
-                         [NSString stringWithFormat:@"%@ hires new AD!\n%@ has hired alumnus %@ as athletic director, who has pledged to invest more in the school's football program.", t.abbreviation, t.name, blessedTeamCoachName],
+                         [NSString stringWithFormat:@"%@ hires new AD!\n%@ has hired alumnus %@ as athletic director, who has pledged to invest more in the school's football program.", t.abbreviation, t.name, [self getRandName]],
                          [NSString stringWithFormat:@"New drink fuels %@!\nA new recovery drink developed by the science department at %@ has been a hit at offseason practice. The players are singing its praises and coming out of this offseason better than ever.", t.abbreviation, t.name],
                          [NSString stringWithFormat:@"%@ gets a fresh coat of paint!\nAfter starting a successful athletic apparel company, one of %@'s alumni proclaims that the team will never have to play another game with the same uniform combination.",t.abbreviation,t.name],
                          [NSString stringWithFormat:@"%@ improving in the classroom!\n%@ has seen a dramatic increase in their academic performance over the past couple of years. Recruits have taken notice and are showing more interest in attending a school with high academic integrity.",t.abbreviation,t.name]
@@ -1368,11 +1417,10 @@
 }
 
 -(NSString*)randomCursedTeamStory:(Team*)t {
-     cursedTeamCoachName = [self getRandName];
+    cursedTeamCoachName = [t getCurrentHC].name;
     NSArray *stories = @[
                          [NSString stringWithFormat:@"League hits %@ with sanctions!\n%@ hit with two-year probation after league investigation finds program committed minor infractions.",t.abbreviation,t.name],
                          [NSString stringWithFormat:@"Scandal at %@!\n%@ puts itself on a 3-year probation after school self-reports dozens of recruiting violations.",t.abbreviation,t.name],
-                         [NSString stringWithFormat:@"The end of an era at %@\n%@ head coach %@ announces sudden retirement effective immediately.", t.abbreviation,t.abbreviation, cursedTeamCoachName],
                          [NSString stringWithFormat:@"%@ head coach in hot water!\nAfter a scandal involving a sleepover at a prospect's home, %@'s head coach %@ has been suspended. No charges have been filed, but it is safe to say he won't be having any more pajama parties any time soon.", t.abbreviation, t.name, cursedTeamCoachName],
                          [NSString stringWithFormat:@"%@ won the College Basketball National Championship\nReporters everywhere are now wondering if %@ has lost its emphasis on football.", t.abbreviation,t.name],
                          [NSString stringWithFormat:@"%@ didn't come to play school\n%@'s reputation takes a hit after news surfaced that the university falsified grades for student-athletes in order to retain their athletic eligibility. Recruits are leery of being associated with such a program.",t.abbreviation,t.name]
@@ -2762,6 +2810,7 @@
 
         roty.team.rotys++;
         roty.careerROTYs++;
+        [roty.team getCurrentHC].totalROTYs++;
         roty.isROTY = YES;
         if ([roty isKindOfClass:[PlayerQB class]]) {
             //qb heisman
@@ -2853,7 +2902,7 @@
 
 // Coaching stuff
 -(NSArray *)calculateCOTYCandidates {
-    _cotyWinner = nil;
+    cotyWinner = nil;
     NSMutableArray<HeadCoach *> *cotyCandidates = [NSMutableArray array];
     for (Team *t in teamList) {
         if (![cotyCandidates containsObject:[t getCurrentHC]]) {
@@ -2867,14 +2916,14 @@
 }
 
 -(NSString *)getCoachAwardStr {
-    if (_cotyWinner != nil && _cotyWinnerStrFull != nil && _cotyWinnerStrFull.length != 0) {
-        _cotyWinner.wonTopHC = YES;
-        return _cotyWinnerStrFull;
+    if (cotyWinner != nil && cotyWinnerStrFull != nil && cotyWinnerStrFull.length != 0) {
+        cotyWinner.wonTopHC = YES;
+        return cotyWinnerStrFull;
     } else {
         //BOOL putNewsStory = false;
 
         NSMutableArray *cotyCandidates = [[self calculateCOTYCandidates] mutableCopy];
-        _cotyWinner = cotyCandidates[0];
+        cotyWinner = cotyCandidates[0];
         //heismanDecided = true;
         //putNewsStory = true;
 
@@ -2891,10 +2940,10 @@
             i++;
         }
 
-//        _cotyWinner.team.totalCOTYs++;
-        _cotyWinner.careerCOTYs++;
-        _cotyWinner.wonTopHC = YES;
-        heismanWinnerStr = [NSString stringWithFormat:@"Congratulations to the Coach of the Year, %@!\nHe led %@ to a %d-%d record and a #%d poll ranking.", _cotyWinner.name, _cotyWinner.team.name, _cotyWinner.team.wins, _cotyWinner.team.losses, _cotyWinner.team.rankTeamPollScore];
+        cotyWinner.team.totalCOTYs++;
+        cotyWinner.careerCOTYs++;
+        cotyWinner.wonTopHC = YES;
+        heismanWinnerStr = [NSString stringWithFormat:@"Congratulations to the Coach of the Year, %@!\nHe led %@ to a %d-%d record and a #%d poll ranking.", cotyWinner.name, cotyWinner.team.name, cotyWinner.team.wins, cotyWinner.team.losses, cotyWinner.team.rankTeamPollScore];
 
         [heismanStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",heismanWinnerStr, heismanTop5]];
 
@@ -2906,7 +2955,7 @@
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 
-        _cotyWinnerStrFull = heismanStats;
+        cotyWinnerStrFull = heismanStats;
         return heismanStats;
     }
 }
