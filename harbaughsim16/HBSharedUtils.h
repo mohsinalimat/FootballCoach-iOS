@@ -90,8 +90,17 @@ typedef enum {
     CFCRecruitingStageWinter,
     CFCRecruitingStageEarlySigningDay,
     CFCRecruitingStageSigningDay,
-    CFCRecruitingStageFallCamp
+    CFCRecruitingStageFallCamp,
+    CFCRecruitingStageStartTransferPeriod,
+    CFCRecruitingStageMidTransferPeriod,
+    CFCRecruitingStageEndTransferPeriod
 } CFCRecruitingStage;
+
+typedef enum {
+    CRCTransferViewOptionIncoming,
+    CRCTransferViewOptionOutgoing,
+    CRCTransferViewOptionBoth
+} CRCTransferViewOption;
 
 @interface HBSharedUtils : NSObject
 +(double)randomValue;
@@ -111,6 +120,7 @@ typedef enum {
 + (NSString *)recruitingTutorialText;
 + (NSString *)depthChartTutorialText;
 + (NSString *)metadataEditingText;
++ (NSString *)transferTutorialText;
 
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor title:(NSString *)title message:(NSString*)message onViewController:(UIViewController*)viewController;
@@ -118,6 +128,7 @@ typedef enum {
 
 +(NSComparisonResult)compareRecruitingComposite:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePlayers:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareDepthChartPositions:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePositions:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareDivTeams:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareMVPScore:(id)obj1 toObj2:(id)obj2;

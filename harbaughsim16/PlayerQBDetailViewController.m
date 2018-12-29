@@ -31,7 +31,7 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+    if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
         return 2;
     } else {
         return 3;
@@ -88,53 +88,56 @@
             [cell.textLabel setText:@"Speed"];
         }
     } else if (indexPath.section == 1) {
-        if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+        if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
             if (indexPath.row == 0) {
+                [cell.detailTextLabel setText:careerStats[@"ROTYs"]];
+                [cell.textLabel setText:@"Rookie of the Year Awards"];
+            } else if (indexPath.row == 1) {
                 [cell.detailTextLabel setText:careerStats[@"heismans"]];
                 [cell.textLabel setText:@"Player of the Year Awards"];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 2) {
                 [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
                 [cell.textLabel setText:@"All-League Nominations"];
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 [cell.detailTextLabel setText:careerStats[@"allConferences"]];
                 [cell.textLabel setText:@"All-Conference Nominations"];
-            } else if (indexPath.row == 3) {
+            } else if (indexPath.row == 4) {
                 [cell.detailTextLabel setText:careerStats[@"completions"]];
                 [cell.textLabel setText:@"Completions"];
-            } else if (indexPath.row == 4) {
+            } else if (indexPath.row == 5) {
                 [cell.detailTextLabel setText:careerStats[@"attempts"]];
                 [cell.textLabel setText:@"Pass Attempts"];
-            } else if (indexPath.row == 5) {
+            } else if (indexPath.row == 6) {
                 [cell.detailTextLabel setText:careerStats[@"passYards"]];
                 [cell.textLabel setText:@"Pass Yards"];
-            } else if (indexPath.row == 6) {
+            } else if (indexPath.row == 7) {
                 [cell.detailTextLabel setText:careerStats[@"completionPercentage"]];
                 [cell.textLabel setText:@"Completion Percentage"];
-            } else if (indexPath.row == 7) {
+            } else if (indexPath.row == 8) {
                 [cell.detailTextLabel setText:careerStats[@"yardsPerAttempt"]];
                 [cell.textLabel setText:@"Yards Per Attempt"];
-            } else if (indexPath.row == 8) {
+            } else if (indexPath.row == 9) {
                 [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
                 [cell.textLabel setText:@"Pass Yards Per Game"];
-            } else if (indexPath.row == 9) {
+            } else if (indexPath.row == 10) {
                 [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
                 [cell.textLabel setText:@"Pass TDs"];
-            } else if (indexPath.row == 10) {
+            } else if (indexPath.row == 11) {
                 [cell.detailTextLabel setText:careerStats[@"interceptions"]];
                 [cell.textLabel setText:@"Interceptions"];
-            } else if (indexPath.row == 11) {
+            } else if (indexPath.row == 12) {
                 [cell.detailTextLabel setText:careerStats[@"carries"]];
                 [cell.textLabel setText:@"Carries"];
-            } else if (indexPath.row == 12) {
+            } else if (indexPath.row == 13) {
                 [cell.detailTextLabel setText:careerStats[@"rushYards"]];
                 [cell.textLabel setText:@"Rush Yards"];
-            } else if (indexPath.row == 13) {
+            } else if (indexPath.row == 14) {
                 [cell.detailTextLabel setText:careerStats[@"yardsPerCarry"]];
                 [cell.textLabel setText:@"Rush Yards Per Carry"];
-            } else if (indexPath.row == 14) {
+            } else if (indexPath.row == 15) {
                 [cell.detailTextLabel setText:careerStats[@"rushYardsPerGame"]];
                 [cell.textLabel setText:@"Rush Yards Per Game"];
-            } else if (indexPath.row == 15) {
+            } else if (indexPath.row == 16) {
                 [cell.detailTextLabel setText:careerStats[@"rushTouchdowns"]];
                 [cell.textLabel setText:@"Rush TDs"];
             } else {
@@ -188,51 +191,54 @@
         }
     } else {
         if (indexPath.row == 0) {
+            [cell.detailTextLabel setText:careerStats[@"ROTYs"]];
+            [cell.textLabel setText:@"Rookie of the Year Awards"];
+        } else if (indexPath.row == 1) {
             [cell.detailTextLabel setText:careerStats[@"heismans"]];
             [cell.textLabel setText:@"Player of the Year Awards"];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
             [cell.textLabel setText:@"All-League Nominations"];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             [cell.detailTextLabel setText:careerStats[@"allConferences"]];
             [cell.textLabel setText:@"All-Conference Nominations"];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             [cell.detailTextLabel setText:careerStats[@"completions"]];
             [cell.textLabel setText:@"Completions"];
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             [cell.detailTextLabel setText:careerStats[@"attempts"]];
             [cell.textLabel setText:@"Pass Attempts"];
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 6) {
             [cell.detailTextLabel setText:careerStats[@"passYards"]];
             [cell.textLabel setText:@"Pass Yards"];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 7) {
             [cell.detailTextLabel setText:careerStats[@"completionPercentage"]];
             [cell.textLabel setText:@"Completion Percentage"];
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 8) {
             [cell.detailTextLabel setText:careerStats[@"yardsPerAttempt"]];
             [cell.textLabel setText:@"Yards Per Attempt"];
-        } else if (indexPath.row == 8) {
+        } else if (indexPath.row == 9) {
             [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
             [cell.textLabel setText:@"Yards Per Game"];
-        } else if (indexPath.row == 9) {
+        } else if (indexPath.row == 10) {
             [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
             [cell.textLabel setText:@"Touchdowns"];
-        } else if (indexPath.row == 10) {
+        } else if (indexPath.row == 11) {
             [cell.detailTextLabel setText:careerStats[@"interceptions"]];
             [cell.textLabel setText:@"Interceptions"];
-        } else if (indexPath.row == 11) {
+        } else if (indexPath.row == 12) {
             [cell.detailTextLabel setText:careerStats[@"carries"]];
             [cell.textLabel setText:@"Carries"];
-        } else if (indexPath.row == 12) {
+        } else if (indexPath.row == 13) {
             [cell.detailTextLabel setText:careerStats[@"rushYards"]];
             [cell.textLabel setText:@"Rush Yards"];
-        } else if (indexPath.row == 13) {
+        } else if (indexPath.row == 14) {
             [cell.detailTextLabel setText:careerStats[@"yardsPerCarry"]];
             [cell.textLabel setText:@"Rush Yards Per Carry"];
-        } else if (indexPath.row == 14) {
+        } else if (indexPath.row == 15) {
             [cell.detailTextLabel setText:careerStats[@"rushYardsPerGame"]];
             [cell.textLabel setText:@"Rush Yards Per Game"];
-        } else if (indexPath.row == 15) {
+        } else if (indexPath.row == 16) {
             [cell.detailTextLabel setText:careerStats[@"rushTouchdowns"]];
             [cell.textLabel setText:@"Rush TDs"];
         } else {

@@ -17,9 +17,13 @@
 
 @interface League : NSObject <NSCoding> {
     BOOL heismanDecided;
-    
+
     NSString *heismanWinnerStrFull;
-    
+
+    BOOL rotyDecided;
+
+    NSString *rotyWinnerStrFull;
+
     //deprecated record tracking ivars
     int leagueRecordCompletions;
     int leagueRecordPassYards;
@@ -49,7 +53,7 @@
     int leagueRecordYearFGMade;
     NSMutableArray<NSArray*> *leagueHistory;
     NSMutableArray<NSString*> *heismanHistory;
-    
+
 }
 @property (strong, nonatomic)  NSMutableDictionary *leagueHistoryDictionary;
 @property (strong, nonatomic)  NSMutableDictionary *heismanHistoryDictionary;
@@ -62,6 +66,10 @@
 @property (strong, nonatomic)  NSMutableArray<NSString*> *lastNameList;
 @property (strong, nonatomic)  NSMutableArray<NSMutableArray*> *newsStories;
 @property (strong, nonatomic)  NSMutableArray<Player *> *hallOfFamers;
+@property (nonatomic) BOOL didFinishTransferPeriod;
+
+@property (strong, nonatomic) NSDictionary<NSString *, NSMutableArray<Player *> *> *transferList;
+@property (strong, nonatomic) NSMutableArray<NSString *> *transferLog;
 
 @property (strong, nonatomic) Team *blessedTeam;
 @property (strong, nonatomic) Team *cursedTeam;
@@ -75,7 +83,7 @@
 //Current week, 1-14
 @property (nonatomic) int currentWeek;
 @property (nonatomic) BOOL isHardMode;
- 
+
 //Bowl Games
 @property (strong, nonatomic) Player *heisman;
 @property (strong, nonatomic) NSMutableArray<Player*> *heismanFinalists;
@@ -187,6 +195,15 @@
 -(void)applyJSONMetadataChanges:(NSString *)json;
 
 -(NSInteger)getCurrentYear;
+// Transfer stuff
+-(BOOL)transferListEmpty;
+
+@property (strong, nonatomic) NSMutableDictionary *rotyHistoryDictionary;
+@property (strong, nonatomic) NSMutableArray<Player*> *rotyCandidates;
+@property (strong, nonatomic) Player *roty;
+@property (strong, nonatomic) NSMutableArray<Player*> *rotyFinalists;
+-(NSArray*)getROTYLeaders;
+-(NSString*)getROTYCeremonyStr;
 
 //Coaching stuff
 -(void)advanceHC;

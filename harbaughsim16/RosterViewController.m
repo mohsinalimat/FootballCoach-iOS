@@ -95,7 +95,7 @@
         player = [userTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];
     }
     
-    if (player.hasRedshirt || [player isInjured]) {
+    if (player.hasRedshirt || [player isInjured] || player.isTransfer) {
         return NO;
     } else {
         return YES;
@@ -405,9 +405,12 @@
         [cell.medImageView setHidden:YES];
     }
     
-    if (player.hasRedshirt) {
+    if (player.hasRedshirt || player.isTransfer) {
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
-    } else if (player.isHeisman) {
+    } else if (player.isTransfer) {
+        [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+        [cell.yrLabel setText:@"XFER"];
+    } else if (player.isHeisman || player.isROTY) {
         [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
     } else if (player.isAllAmerican) {
         [cell.nameLabel setTextColor:[UIColor orangeColor]];

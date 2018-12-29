@@ -231,13 +231,23 @@
     [cell.nameLabel setText:[player getInitialName]];
     [cell.yrLabel setText:[player getYearString]];
     [cell.ovrLabel setText:[NSString stringWithFormat:@"%d", player.ratOvr]];
-    if (_isPopup && [selectedTeam.playersLeaving containsObject:player]) {
-        [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
-        [cell.yrLabel setText:@"GRAD"];
+    if (_isPopup) {
+        if ([selectedTeam.playersLeaving containsObject:player]) {
+            [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+            [cell.yrLabel setText:@"GRAD"];
+        } else if ([selectedTeam.playersTransferring containsObject:player]) {
+            [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+            [cell.yrLabel setText:@"XFER"];
+        } else {
+            [cell.nameLabel setTextColor:[UIColor blackColor]];
+        }
     } else {
         if (player.hasRedshirt) {
             [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
-        } else if (player.isHeisman) {
+        } else if (player.isTransfer) {
+            [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+            [cell.yrLabel setText:@"XFER"];
+        } else if (player.isHeisman || player.isROTY) {
             [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
         } else if (player.isAllAmerican) {
             [cell.nameLabel setTextColor:[UIColor orangeColor]];

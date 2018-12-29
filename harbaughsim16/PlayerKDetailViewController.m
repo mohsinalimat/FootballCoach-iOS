@@ -35,7 +35,7 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+    if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
         return 2;
     } else {
         return 3;
@@ -88,7 +88,7 @@
             [cell.textLabel setText:@"Clumsiness"];
         }
     } else if (indexPath.section == 1) {
-        if (selectedPlayer.year > 4 || selectedPlayer.draftPosition != nil) {
+        if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
             if (indexPath.row == 0) {
                 [cell.detailTextLabel setText:careerStats[@"heismans"]];
                 [cell.textLabel setText:@"Player of the Year Awards"];

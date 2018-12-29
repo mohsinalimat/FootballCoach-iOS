@@ -135,6 +135,15 @@
             }
         }
         
+        for (int j = 0; j < [HBSharedUtils currentLeague].rotyHistoryDictionary.count; j++) {
+            NSString *heisString = [HBSharedUtils currentLeague].rotyHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
+            if ([heisString containsString:[NSString stringWithFormat:@", %@ (", oldAbbrev]]) {
+                heisString = [heisString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@", %@ (", oldAbbrev] withString:[NSString stringWithFormat:@", %@ (", abbrev]];
+                
+                [[HBSharedUtils currentLeague].rotyHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
+            }
+        }
+        
         [[HBSharedUtils currentLeague] save];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newTeamName" object:nil];
         [self.tableView reloadData];

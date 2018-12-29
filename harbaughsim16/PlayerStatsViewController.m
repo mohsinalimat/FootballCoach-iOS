@@ -16,6 +16,16 @@
 #import "PlayerCB.h"
 #import "PlayerS.h"
 #import "Team.h"
+#import "PlayerQBDetailViewController.h"
+#import "PlayerRBDetailViewController.h"
+#import "PlayerWRDetailViewController.h"
+#import "PlayerTEDetailViewController.h"
+#import "PlayerOLDetailViewController.h"
+#import "PlayerKDetailViewController.h"
+#import "PlayerDLDetailViewController.h"
+#import "PlayerLBDetailViewController.h"
+#import "PlayerCBDetailViewController.h"
+#import "PlayerSDetailViewController.h"
 #import "PlayerDetailViewController.h"
 
 @interface PlayerStatsViewController () <UIViewControllerPreviewingDelegate>
@@ -598,8 +608,30 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Player *plyr = players[indexPath.row];
-    [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:plyr] animated:YES];
+    Player *p = players[indexPath.row];
+    if ([p.position isEqualToString:@"QB"]) {
+        [self.navigationController pushViewController:[[PlayerQBDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"RB"]) {
+        [self.navigationController pushViewController:[[PlayerRBDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"WR"]) {
+        [self.navigationController pushViewController:[[PlayerWRDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"TE"]) {
+        [self.navigationController pushViewController:[[PlayerTEDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"OL"]) {
+        [self.navigationController pushViewController:[[PlayerOLDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"DL"]) {
+        [self.navigationController pushViewController:[[PlayerDLDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"LB"]) {
+        [self.navigationController pushViewController:[[PlayerLBDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"CB"]) {
+        [self.navigationController pushViewController:[[PlayerCBDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"S"]) {
+        [self.navigationController pushViewController:[[PlayerSDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"K"]) {
+        [self.navigationController pushViewController:[[PlayerKDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else {
+        [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:p] animated:YES];
+    }
 }
 
 

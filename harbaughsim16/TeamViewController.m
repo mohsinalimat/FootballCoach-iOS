@@ -174,6 +174,15 @@
                 [[HBSharedUtils currentLeague].heismanHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
             }
         }
+        
+        for (int j = 0; j < [HBSharedUtils currentLeague].rotyHistoryDictionary.count; j++) {
+            NSString *heisString = [HBSharedUtils currentLeague].rotyHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
+            if ([heisString containsString:[NSString stringWithFormat:@", %@ (", oldAbbrev]]) {
+                heisString = [heisString stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@", %@ (", oldAbbrev] withString:[NSString stringWithFormat:@", %@ (", abbrev]];
+                
+                [[HBSharedUtils currentLeague].rotyHistoryDictionary setObject:heisString forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + j)]];
+            }
+        }
     } else if (![abbrev isEqualToString:selTeam.abbreviation] && ![selTeam.league isTeamAbbrValid:abbrev allowUserTeam:YES allowOverwrite:NO]) {
         [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils errorColor] title:@"Error" message:@"Unable to update this team's information - invalid team abbreviation provided" onViewController:self];
         return;

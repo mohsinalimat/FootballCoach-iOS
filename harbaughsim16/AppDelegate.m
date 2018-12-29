@@ -83,8 +83,8 @@
         //display intro screen
         [self performSelector:@selector(displayIntro) withObject:nil afterDelay:0.0];
     } else {
-        if (![_league.leagueVersion containsString:@"2."]) {
-            NSLog(@"Current league version: %@", _league.leagueVersion);
+        if (_league.leagueVersion == nil || [LeagueUpdater needsUpdateFromVersion:_league.leagueVersion toVersion:HB_CURRENT_APP_VERSION]) {
+            //NSLog(@"Current league version: %@", _league.leagueVersion);
             [self startSaveFileUpdate];
         }
         
@@ -134,10 +134,15 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.00 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [convertProgressView removeFromSuperview];
                 convertProgressAlert.title = finalStatus;
-                convertProgressAlert.message = @"Please be aware that each school in your save file has been assigned a random home state. This will only have an effect in recruiting. If you want to change this, please edit teams before starting recruiting in the next offseason.";
+                if ([LeagueUpdater needsUpdateFromVersion:oldLigue.leagueVersion toVersion:@"2.0"]) {
+                    convertProgressAlert.message = @"Please be aware that each school in your save file has been assigned a random home state. This will only have an effect in recruiting. If you want to change this, please edit teams before starting recruiting in the next offseason.";
+                } else { // 2.0.x -> 2.1.x
+                    convertProgressAlert.message = @"Your save file has been updated for use in 2.1!";
+                }
                 [convertProgressAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
                 self->_league = ligue;
                 [self->_league save];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFileUpdate" object:nil];
             });
         }];
         

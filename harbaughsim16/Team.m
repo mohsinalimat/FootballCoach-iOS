@@ -28,8 +28,12 @@
 #define NCG_DRAFT_BONUS 0.20
 #define HARD_MODE_DRAFT_BONUS 0.20
 
+#define RAT_TRANSFER 70
+#define GRAD_TRANSFER_MIN_GAMES 6
+#define GRAD_TRANSFER_RAT 77
+
 @implementation Team
-@synthesize league, name, abbreviation,conference,rivalTeam,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamLBs, teamDLs,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers,teamHistoryDictionary, teamHistory,teamTEs,teamF7s, state,recruitingClass,coaches;
+@synthesize league, name, abbreviation,conference,rivalTeam,isUserControlled,wonRivalryGame,recruitingMoney,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamLBs, teamDLs,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers,teamHistoryDictionary, teamHistory,teamTEs,teamF7s, state,recruitingClass,coaches,playersTransferring,transferClass,recruitingPoints,usedRecruitingPoints;
 
 -(void)setWithCoder:(NSCoder *)aDecoder {
     [super setWithCoder:aDecoder];
@@ -44,9 +48,13 @@
             }
         }
     }
-    
+
     if (state == nil) {
         // set the home state here
+    }
+
+    if (playersTransferring == nil) {
+        playersTransferring = [NSMutableArray array];
     }
 }
 
@@ -74,9 +82,9 @@
         [topPlayers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Player *a = (Player*)obj1;
             Player *b = (Player*)obj2;
-            if (a.isHeisman) {
+            if (a.isHeisman || a.isROTY) {
                 return -1;
-            } else if (b.isHeisman) {
+            } else if (b.isHeisman || b.isROTY) {
                 return 1;
             } else {
                 return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
@@ -214,7 +222,7 @@
         teamHistory = [NSMutableArray array];
         hallOfFamers = [NSMutableArray array];
         teamHistoryDictionary = [NSMutableDictionary dictionary];
-        
+
         teamQBs = [NSMutableArray array];
         teamRBs = [NSMutableArray array];
         teamWRs = [NSMutableArray array];
@@ -228,6 +236,7 @@
 
         gameSchedule = [NSMutableArray array];
         playersLeaving = [NSMutableArray array];
+        playersTransferring = [NSMutableArray array];
         injuredPlayers = [NSMutableArray array];
         oocGame0 = nil;
         oocGame4 = nil;
@@ -243,7 +252,7 @@
 
         teamPrestige = prestige;
         [self recruitPlayers: @[@2, @4, @6, @2, @10, @2, @6, @8, @6, @2]];
-        
+
         coaches = [NSMutableArray array];
 
         //set stats
@@ -272,7 +281,7 @@
         conference = conf;
         rivalTeam = rivalTeamAbbr;
         state = stt;
-        
+
         wonRivalryGame = false;
         teamPoints = 0;
         teamOppPoints = 0;
@@ -339,9 +348,9 @@
     int avgOff = [league getAvgYards];
     int totalPrestigeDiff = teamPrestige - [self getCurrentHC].baselinePrestige;
     [[self getCurrentHC] advanceSeason:avgOff offTalent:teamOffTalent defTalent:teamDefTalent];
-    
+
     [self calculateCoachingContracts:totalPrestigeDiff newPrestige:teamPrestige];
-    
+
     if (coaches.count != 0) {
         if (isUserControlled && teamPrestige >= [self getCurrentHC].baselinePrestige) { //&& totalPrestigeDiff > promotionNum) {
             [self getCurrentHC].promotionCandidate = YES;
@@ -351,58 +360,17 @@
 
 -(void)advanceSeason {
     if (![self isEqual:league.blessedTeam] && ![self isEqual:league.cursedTeam]) {
-        if (!self.isUserControlled) {
-            int expectedPollFinish = 100 - teamPrestige;
-            int diffExpected = expectedPollFinish - rankTeamPollScore;
-            int oldPrestige = teamPrestige;
-            int newPrestige;
-            if (teamPrestige > 45 || diffExpected > 0) {
-                newPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);
-                deltaPrestige = (newPrestige - oldPrestige);
-            }
-        }
-        
-        if ([league findTeam:rivalTeam].isUserControlled && league.isHardMode) {
-            // My rival is the user team, lock my prestige if it is Hard Mode
-            Team *rival = [league findTeam:rivalTeam];
-            if (teamPrestige < rival.teamPrestige - 10) {
-                teamPrestige = rival.teamPrestige - 10;
-            }
-        } else if (isUserControlled && league.isHardMode) {
-            // I am the user team, lock my rivals prestige
-            Team *rival = [league findTeam:rivalTeam];
-            if (rival.teamPrestige < teamPrestige - 10) {
-                rival.teamPrestige = teamPrestige - 10;
-            }
-        }
-        
-        NSArray *draftRounds = self.league.allDraftedPlayers;
-        int nflPts = 0, players = 0;
-        for (NSArray *round in draftRounds) {
-            for (Player *p in round) {
-                if ([p.team isEqual:self]) {
-                    players++;
-                }
-            }
-        }
-        if (players > 2) {
-            nflPts = 2;
-        } else {
-            nflPts = players;
-        }
-        if (nflPts > 0) {
-            deltaPrestige += nflPts;
-        }
+        [self getSeasonSummaryString];
 
         teamPrestige += deltaPrestige;
     }
 
     if (teamPrestige > 95) teamPrestige = 95;
-    
+
     if (!league.isHardMode) {
         if (teamPrestige < 45 && ![name isEqualToString:@"American Samoa"]) teamPrestige = 45;
     }
-    
+
     if (teamPrestige <= 0) teamPrestige = 0;
 
     diffPrestige = deltaPrestige;
@@ -425,8 +393,7 @@
     [k checkRecords];
 
     [self advanceSeasonPlayers];
-    
-    
+
     if (!isUserControlled) {
         teamStatOffNum = [self getCPUOffense];
         teamStatDefNum = [self getCPUDefense];
@@ -439,133 +406,171 @@
     int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, dlNeeds=0, lbNeeds = 0, teNeeds = 0;
     int curYear = (int)league.leagueHistoryDictionary.count + (int)league.baseYear;
     int i = 0;
-    
+
     if (playersLeaving == nil || playersLeaving.count == 0) {
         [self getGraduatingPlayers];
     }
-    
-    if (playersLeaving.count > 0) {
+
+    if (playersTransferring == nil) { // don't reload this if it's just empty cause we could get a different set of players
+        [self getTransferringPlayers];
+    }
+
+    if (playersLeaving.count > 0 || playersTransferring.count > 0) {
         for (Player *p in playersLeaving) {
             p.endYear = curYear;
         }
-        
+
         while (i < teamQBs.count) {
-            if ([playersLeaving containsObject:teamQBs[i]]) {
+            if ([playersLeaving containsObject:teamQBs[i]] || [playersTransferring containsObject:teamQBs[i]]) {
                 [teamQBs removeObjectAtIndex:i];
                 qbNeeds++;
             } else {
                 [teamQBs[i] advanceSeason];
+                if ([transferClass containsObject:teamQBs[i]] && !teamQBs[i].isGradTransfer) {
+                    teamQBs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
-        
+
         i = 0;
         while (i < teamRBs.count) {
-            if ([playersLeaving containsObject:teamRBs[i]]) {
+            if ([playersLeaving containsObject:teamRBs[i]] || [playersTransferring containsObject:teamRBs[i]]) {
                 [teamRBs removeObjectAtIndex:i];
                 rbNeeds++;
             } else {
                 [teamRBs[i] advanceSeason];
+                if ([transferClass containsObject:teamRBs[i]] && !teamRBs[i].isGradTransfer) {
+                    teamRBs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
-        
+
         i = 0;
         while (i < teamWRs.count) {
-            if ([playersLeaving containsObject:teamWRs[i]]) {
+            if ([playersLeaving containsObject:teamWRs[i]] || [playersTransferring containsObject:teamWRs[i]]) {
                 [teamWRs removeObjectAtIndex:i];
                 wrNeeds++;
             } else {
                 [teamWRs[i] advanceSeason];
+                if ([transferClass containsObject:teamWRs[i]] && !teamWRs[i].isGradTransfer) {
+                    teamWRs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
-        
+
         i = 0;
         while (i < teamTEs.count) {
-            if ([playersLeaving containsObject:teamTEs[i]]) {
+            if ([playersLeaving containsObject:teamTEs[i]] || [playersTransferring containsObject:teamTEs[i]]) {
                 [teamTEs removeObjectAtIndex:i];
                 teNeeds++;
             } else {
                 [teamTEs[i] advanceSeason];
+                if ([transferClass containsObject:teamTEs[i]] && !teamTEs[i].isGradTransfer) {
+                    teamTEs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
-        
+
         i = 0;
         while (i < teamKs.count) {
-            if ([playersLeaving containsObject:teamKs[i]]) {
+            if ([playersLeaving containsObject:teamKs[i]] || [playersTransferring containsObject:teamKs[i]]) {
                 [teamKs removeObjectAtIndex:i];
                 kNeeds++;
             } else {
                 [teamKs[i] advanceSeason];
+                if ([transferClass containsObject:teamKs[i]] && !teamKs[i].isGradTransfer) {
+                    teamKs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
-        
+
         i = 0;
         while (i < teamOLs.count) {
-            if ([playersLeaving containsObject:teamOLs[i]]) {
+            if ([playersLeaving containsObject:teamOLs[i]] || [playersTransferring containsObject:teamOLs[i]]) {
                 [teamOLs removeObjectAtIndex:i];
                 olNeeds++;
             } else {
                 [teamOLs[i] advanceSeason];
+                if ([transferClass containsObject:teamOLs[i]] && !teamOLs[i].isGradTransfer) {
+                    teamOLs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
-        
+
         i = 0;
         while (i < teamSs.count) {
-            if ([playersLeaving containsObject:teamSs[i]]) {
+            if ([playersLeaving containsObject:teamSs[i]] || [playersTransferring containsObject:teamSs[i]]) {
                 [teamSs removeObjectAtIndex:i];
                 sNeeds++;
             } else {
-                [teamSs[i] advanceSeason];;
+                [teamSs[i] advanceSeason];
+                if ([transferClass containsObject:teamSs[i]] && !teamSs[i].isGradTransfer) {
+                    teamSs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
-        
+
         i = 0;
         while (i < teamCBs.count) {
-            if ([playersLeaving containsObject:teamCBs[i]]) {
+            if ([playersLeaving containsObject:teamCBs[i]] || [playersTransferring containsObject:teamCBs[i]]) {
                 [teamCBs removeObjectAtIndex:i];
                 cbNeeds++;
             } else {
                 [teamCBs[i] advanceSeason];
+                if ([transferClass containsObject:teamCBs[i]] && !teamCBs[i].isGradTransfer) {
+                    teamCBs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
-        
+
         i = 0;
         while (i < teamLBs.count) {
-            if ([playersLeaving containsObject:teamLBs[i]]) {
+            if ([playersLeaving containsObject:teamLBs[i]] || [playersTransferring containsObject:teamLBs[i]]) {
                 [teamLBs removeObjectAtIndex:i];
                 lbNeeds++;
             } else {
                 [teamLBs[i] advanceSeason];
+                if ([transferClass containsObject:teamLBs[i]] && !teamLBs[i].isGradTransfer) {
+                    teamLBs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
-        
+
         i = 0;
         while (i < teamDLs.count) {
-            if ([playersLeaving containsObject:teamDLs[i]]) {
+            if ([playersLeaving containsObject:teamDLs[i]] || [playersTransferring containsObject:teamDLs[i]]) {
                 [teamDLs removeObjectAtIndex:i];
                 dlNeeds++;
             } else {
                 [teamDLs[i] advanceSeason];
+                if ([transferClass containsObject:teamDLs[i]] && !teamDLs[i].isGradTransfer) {
+                    teamDLs[i].isTransfer = YES;
+                }
                 i++;
             }
         }
     }
- 
+
     [playersLeaving removeAllObjects];
     [injuredPlayers removeAllObjects];
-    
-    if ( !isUserControlled ) {
-        //[self recruitPlayersFreshman:@[@(qbNeeds), @(rbNeeds), @(wrNeeds), @(kNeeds), @(olNeeds), @(sNeeds), @(cbNeeds), @(dlNeeds), @(lbNeeds), @(teNeeds)]];
+
+     // all transfers have been added to new teams in -[TransferPeriodViewController advanceRecruits] and have been removed from this roster above. we can clear these out now.
+    [playersTransferring removeAllObjects];
+    [transferClass removeAllObjects];
+
+    //if ( !isUserControlled ) {
         [self resetStats];
-    }
+    //}
+    [self sortPlayers];
 }
 
 -(void)recruitPlayers:(NSArray*)needs {
@@ -579,7 +584,7 @@
     teamDLs = [NSMutableArray array];
     teamSs = [NSMutableArray array];
     teamCBs = [NSMutableArray array];
-    
+
     int qbNeeds, rbNeeds, wrNeeds, kNeeds, olNeeds, sNeeds, cbNeeds, dlNeeds, lbNeeds, teNeeds;
     qbNeeds = [needs[0] intValue];
     rbNeeds = [needs[1] intValue];
@@ -630,7 +635,7 @@
             [teamWRs addObject:[PlayerWR newWRWithName:[league getRandName] year:(int)(4* [HBSharedUtils randomValue] + 1) stars:(stars) team:self]];
         }
     }
-    
+
     for( int i = 0; i < teNeeds; ++i ) {
         //make TEs
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
@@ -668,7 +673,7 @@
             [teamLBs addObject:[PlayerLB newLBWithName:[league getRandName] year:(int)(4* [HBSharedUtils randomValue] + 1) stars:(stars) team:self]];
         }
     }
-    
+
     for( int i = 0; i < dlNeeds; ++i ) {
         //make DLs
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
@@ -686,7 +691,7 @@
             [teamSs addObject:[PlayerS newSWithName:[league getRandName] year:(int)(4* [HBSharedUtils randomValue] + 1) stars:(stars) team:self]];
         }
     }
-    
+
     if (coaches.count == 0) {
         int coachNum = 100 * (int) [HBSharedUtils randomValue];
         if (coachNum < 20) {
@@ -739,7 +744,7 @@
     hc.wonTopHC = NO;
     hc.wonConfHC = NO;
     hc.coachingHistoryDictionary = [NSMutableDictionary dictionary];
-    
+
 }
 
 
@@ -747,7 +752,7 @@
     BOOL promote = true;
     int stars = teamPrestige / 20 + 1;
     int chance = 20 - (teamPrestige - 20 * (teamPrestige / 20)); //between 0 and 20
-    
+
     //MAKE HEAD COACH
     if (100 * [HBSharedUtils randomValue] < 5 * chance) {
         //HC.add(new HeadCoach(league.getRandName(), (int) (4 * [HBSharedUtils randomValue] + 1), stars - 1, this, promote));
@@ -775,6 +780,40 @@
     return [self getHC:0];
 }
 
+-(NSInteger)_calculateTransferSlots:(NSString *)pos {
+    NSMutableArray *players = [NSMutableArray array];
+    if ([pos isEqualToString:@"QB"]) {
+        players = self.teamQBs;
+    } else if ([pos isEqualToString:@"RB"]) {
+        players = self.teamRBs;
+    } else if ([pos isEqualToString:@"WR"]) {
+        players = self.teamWRs;
+    } else if ([pos isEqualToString:@"TE"]) {
+        players = self.teamTEs;
+    } else if ([pos isEqualToString:@"OL"]) {
+        players = self.teamOLs;
+    } else if ([pos isEqualToString:@"DL"]) {
+        players = self.teamDLs;
+    } else if ([pos isEqualToString:@"LB"]) {
+        players = self.teamLBs;
+    } else if ([pos isEqualToString:@"CB"]) {
+        players = self.teamCBs;
+    } else if ([pos isEqualToString:@"S"]) {
+        players = self.teamSs;
+    } else { // K
+        players = self.teamKs;
+    }
+
+    NSMutableArray *mapped = [NSMutableArray array];
+    [players enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Player *p = (Player *)obj;
+        if ([p.position isEqualToString:pos] && (self.transferClass != nil && [self.transferClass containsObject:p])) {
+            [mapped addObject:p];
+        }
+    }];
+    return mapped.count;
+}
+
 -(void)recruitPlayersFreshman:(NSArray*)needs {
 
     int qbNeeds, rbNeeds, wrNeeds, kNeeds, olNeeds, sNeeds, cbNeeds, dlNeeds, lbNeeds, teNeeds;
@@ -792,7 +831,7 @@
     if (qbNeeds > 2) {
         qbNeeds = 2;
     } else {
-        if (teamQBs.count >= 2) {
+        if (teamQBs.count >= 2 && [self _calculateTransferSlots:@"QB"] == 0) {
             qbNeeds = 0;
         }
     }
@@ -800,7 +839,7 @@
     if (rbNeeds > 4) {
         rbNeeds = 4;
     } else {
-        if (teamRBs.count >= 4) {
+        if (teamRBs.count >= 4 && [self _calculateTransferSlots:@"RB"] == 0) {
             rbNeeds = 0;
         }
     }
@@ -808,15 +847,15 @@
     if (wrNeeds > 6) {
         wrNeeds = 6;
     } else {
-        if (teamWRs.count >= 6) {
+        if (teamWRs.count >= 6 && [self _calculateTransferSlots:@"WR"] == 0) {
             wrNeeds = 0;
         }
     }
-    
+
     if (teNeeds > 2) {
         teNeeds = 2;
     } else {
-        if (teamTEs.count >= 2) {
+        if (teamTEs.count >= 2 && [self _calculateTransferSlots:@"TE"] == 0) {
             teNeeds = 0;
         }
     }
@@ -824,7 +863,7 @@
     if (kNeeds > 2) {
         kNeeds = 2;
     } else {
-        if (teamKs.count >= 2) {
+        if (teamKs.count >= 2 && [self _calculateTransferSlots:@"K"] == 0) {
             kNeeds = 0;
         }
     }
@@ -832,7 +871,7 @@
     if (olNeeds > 10) {
         olNeeds = 10;
     } else {
-        if (teamOLs.count >= 10) {
+        if (teamOLs.count >= 10 && [self _calculateTransferSlots:@"OL"] == 0) {
             olNeeds = 0;
         }
     }
@@ -840,7 +879,7 @@
     if (sNeeds > 2) {
         sNeeds = 2;
     } else {
-        if (teamSs.count >= 2) {
+        if (teamSs.count >= 2 && [self _calculateTransferSlots:@"S"] == 0) {
             sNeeds = 0;
         }
     }
@@ -848,7 +887,7 @@
     if (cbNeeds > 6) {
         cbNeeds = 6;
     } else {
-        if (teamCBs.count >= 6) {
+        if (teamCBs.count >= 6 && [self _calculateTransferSlots:@"CB"] == 0) {
             cbNeeds = 0;
         }
     }
@@ -856,15 +895,15 @@
     if (lbNeeds > 6) {
         lbNeeds = 6;
     } else {
-        if (teamLBs.count >= 6) {
+        if (teamLBs.count >= 6 && [self _calculateTransferSlots:@"LB"] == 0) {
             lbNeeds = 0;
         }
     }
-    
+
     if (dlNeeds > 8) {
         dlNeeds = 8;
     } else {
-        if (teamDLs.count >= 8) {
+        if (teamDLs.count >= 8 && [self _calculateTransferSlots:@"DL"] == 0) {
             dlNeeds = 0;
         }
     }
@@ -883,7 +922,7 @@
         } else if ([HBSharedUtils randomValue] < starsBonusDoubleChance) {
             stars += 2;
         }
-        
+
         PlayerQB *qb;
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
             qb = [PlayerQB newQBWithName:[league getRandName] year:1 stars:(stars - 1) team:self];
@@ -950,7 +989,7 @@
         [recruitingClass addObject:wr];
         [teamWRs addObject:wr];
     }
-    
+
     for( int i = 0; i < teNeeds; ++i ) {
         //make TEs
         stars = teamPrestige/20 + 1;
@@ -959,7 +998,7 @@
         } else if ([HBSharedUtils randomValue] < starsBonusDoubleChance) {
             stars += 2;
         }
-        
+
         PlayerTE *te;
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
             te = [PlayerTE newTEWithName:[league getRandName] year:1 stars:(stars - 1) team:self];
@@ -1007,7 +1046,7 @@
         [recruitingClass addObject:cb];
         [teamCBs addObject:cb];
     }
-    
+
     for( int i = 0; i < lbNeeds; ++i ) {
         //make LBs
         stars = teamPrestige/20 + 1;
@@ -1016,7 +1055,7 @@
         } else if ([HBSharedUtils randomValue] < starsBonusDoubleChance) {
             stars += 2;
         }
-        
+
         PlayerLB *lb;
         if ((([HBSharedUtils randomValue] * 100)/100) < 5*chance ) {
             lb = [PlayerLB newLBWithName:[league getRandName] year:1 stars:(stars - 1) team:self];
@@ -1104,7 +1143,7 @@
         [teamWRs addObject:wr];
         [recruitingClass addObject:wr];
     }
-    
+
     for( int i = 0; i < teNeeds; ++i ) {
         //make TEs
         PlayerTE *te = [PlayerTE newTEWithName:[league getRandName] year:1 stars:1 team:self];
@@ -1139,7 +1178,7 @@
         [teamCBs addObject:cb];
         [recruitingClass addObject:cb];
     }
-    
+
     for( int i = 0; i < lbNeeds; ++i ) {
         //make LBs
         PlayerLB *lb = [PlayerLB newLBWithName:[league getRandName] year:1 stars:1 team:self];
@@ -1161,6 +1200,21 @@
     }];
 }
 
+-(NSMutableArray<Player*>*)getAllPlayers {
+    NSMutableArray<Player*> *players = [NSMutableArray array];
+    [players addObjectsFromArray:teamQBs];
+    [players addObjectsFromArray:teamRBs];
+    [players addObjectsFromArray:teamWRs];
+    [players addObjectsFromArray:teamTEs];
+    [players addObjectsFromArray:teamOLs];
+    [players addObjectsFromArray:teamKs];
+    [players addObjectsFromArray:teamSs];
+    [players addObjectsFromArray:teamCBs];
+    [players addObjectsFromArray:teamLBs];
+    [players addObjectsFromArray:teamDLs];
+    return players;
+}
+
 -(void)resetStats {
     gameSchedule = [NSMutableArray array];
     oocGame0 = nil;
@@ -1169,6 +1223,8 @@
     gameWinsAgainst = [NSMutableArray array];
     gameWLSchedule = [NSMutableArray array];
     injuredPlayers = [NSMutableArray array];
+    recruitingPoints = 0;
+    usedRecruitingPoints = 0;
     confChampion = @"";
     semifinalWL = @"";
     natlChampWL = @"";
@@ -1247,7 +1303,7 @@
         if (gameWLSchedule.count >= 13) {
             if ([confChampion isEqualToString:@"CC"]) {
                 [hist appendFormat:@"\n%@ - W %@",ccg.gameName,[self gameSummaryString:ccg]];
-            } else { 
+            } else {
                 [hist appendFormat:@"\n%@ - L %@",ccg.gameName,[self gameSummaryString:ccg]];
             }
         }
@@ -1290,7 +1346,7 @@
     int wins = [self getCurrentHC].totalWins;
     int losses = [self getCurrentHC].totalLosses;
     BOOL proveIt = false;
-    
+
     //RETIREMENT
     if (age > retire && !isUserControlled) {
         _coachRetired = true;
@@ -1302,7 +1358,7 @@
         //league.newsStories.get(league.currentWeek + 1).add(name + " Coaching Retirement>" + oldCoach + " has announced his retirement at the age of " + age + ". His former team, " + name + " have not announced a new successor to replace the retired coach. Coach " + oldCoach + " had a career record of " + wins + "-" + losses + ".");
         [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ Coach Retires!\n%@ has announced his retirement from football at the age of %d. %@ has not yet announced a successor. Coach %@ had a career record of %d-%d. We wish him the best in retirement!",abbreviation, oldCoach,age,name,oldCoach,wins,losses]];
     }
-    
+
     if (!_coachRetired) {
         if ((teamPrestige > ([self getCurrentHC].baselinePrestige + 9)
              && teamPrestige < league.teamList[(int) (league.teamList.count * 0.35)].teamPrestige
@@ -1403,13 +1459,13 @@
 
 -(void)updateCoachHistory {
     NSMutableString *hist = [NSMutableString string];
-    
+
     if (rankTeamPollScore > 0 && rankTeamPollScore < 26) {
         [hist appendFormat:@"#%ld %@ (%ld-%ld)\nPrestige: %ld",(long)rankTeamPollScore, abbreviation, (long)wins, (long)losses, (long)teamPrestige];
     } else {
         [hist appendFormat:@"%@ (%ld-%ld)\nPrestige: %ld",abbreviation, (long)wins, (long)losses, (long)teamPrestige];
     }
-    
+
     if (![confChampion isEqualToString:@""] && confChampion.length > 0) {
         Game *ccg = [league findConference:conference].ccg;
         if (gameWLSchedule.count >= 13) {
@@ -1420,7 +1476,7 @@
             }
         }
     }
-    
+
     if (gameSchedule.count > 12 && gameWLSchedule.count > 12) {
         if (![semifinalWL isEqualToString:@""] && semifinalWL.length > 0) {
             if ([semifinalWL isEqualToString:@"BW"] || [semifinalWL isEqualToString:@"BL"] || [semifinalWL containsString:@"SF"]) {
@@ -1430,7 +1486,7 @@
                         [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[12],[self gameSummaryString:bowl]];
                     }
                 }
-                
+
                 if (gameSchedule.count > 13 && gameWLSchedule.count > 13) {
                     Game *bowl = gameSchedule[13];
                     if (bowl && ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"])) {
@@ -1439,7 +1495,7 @@
                 }
             }
         }
-        
+
         if (![natlChampWL isEqualToString:@""] && natlChampWL.length > 0) {
             Game *ncg = league.ncg;
             [hist appendFormat:@"\n%@ - %@ %@",ncg.gameName,gameWLSchedule[gameWLSchedule.count - 1],[self gameSummaryString:ncg]];
@@ -1468,417 +1524,34 @@
 
 -(void)sortPlayers {
     [teamQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamTEs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamOLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
-    
-
     [teamCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamSs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
     [teamDLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
-    
     [teamLBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
     }];
 }
 
@@ -2075,7 +1748,7 @@
             compositeF7 += (teamDLs[i].ratDLPow + teamDLs[i].ratDLPas)/2;
         }
     }
-    
+
     if (self.defensiveStrategy.passUsage > 0) {
         PlayerLB *selLB = [self getLB:0];
         if (selLB != nil) {
@@ -2100,7 +1773,7 @@
             compositeDL += (teamDLs[i].ratDLPow + teamDLs[i].ratDLRsh)/2;
         }
     }
-    
+
     if (self.defensiveStrategy.runUsage > 0) {
         PlayerLB *selLB = [self getLB:0];
         PlayerS *selS = [self getS:0];
@@ -2247,7 +1920,7 @@
     } else if ((rivalryWins < rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 25)) {
         [summary appendString:@"\n\nYou lost your rivalry series, but this was expected given your rebuilding program. You lost no prestige for this."];
     }
-    
+
     NSArray *draftRounds = self.league.allDraftedPlayers;
     int nflPts = 0, players = 0;
     for (NSArray *round in draftRounds) {
@@ -2269,7 +1942,7 @@
         } else {
             [playerString appendString:@" players"];
         }
-        [summary appendFormat:@"\n\nYou had %@ drafted to the NFL this year. For this, you gained %d prestige.",playerString,nflPts];
+        [summary appendFormat:@"\n\nYou had %@ players drafted this year. For this, you gained %d prestige.",playerString,nflPts];
         deltaPrestige += nflPts;
     }
 
@@ -2280,15 +1953,15 @@
     } else {
         [summary appendString:@"\n\nOverall, your program didn't gain or lose prestige this season."];
     }
-    
+
     [summary appendFormat:@"\n\nYour final coach score for this year was %d.", [[self getCurrentHC] getCoachScore]];
-    
+
     if (_coachGotNewContract) {
         [summary appendFormat:@"\n\nCongratulations! Your contact has been extended %d years!", [self getCurrentHC].contractLength];
     } else if (_coachFired) {
         [summary appendString:@"\n\nSince you failed to raise the team's prestige during your contract, the AD has decided to fire you. This team may take an additional prestige hit because of your firing."];
     }
- 
+
     return summary;
 }
 
@@ -2435,6 +2108,132 @@
     }
 }
 
+-(void)_calculateTransferringPlayers:(NSMutableArray *)positionPlayers position:(NSString *)pos starterCount:(int)starterCount {
+    int i = 0;
+    int transferChance = 12;
+    int transferYear = 2;
+
+    [self sortPlayers];
+    while (i < positionPlayers.count && positionPlayers.count > starterCount) {
+        int chance = 1;
+        Player *q = positionPlayers[i];
+        CFCRegionDistance distance = [HBSharedUtils distanceFromRegion:[HBSharedUtils regionForState:q.personalDetails[@"home_state"]] toRegion:[HBSharedUtils regionForState:state]];
+        if (distance != CFCRegionDistanceMatch || distance != CFCRegionDistanceNeighbor) {
+            chance++;
+        }
+        // could add discipline stuff?
+        if (q.gamesPlayedSeason < GRAD_TRANSFER_MIN_GAMES) {
+            chance++;
+        }
+
+        if (q.year == 4) {
+            chance++;
+        }
+
+        if (q.year < 2) {
+            chance--;
+        }
+
+        BOOL starter = ([q isEqual: [self getQB:0]]
+
+                        || [q isEqual: [self getRB:0]]
+                        || [q isEqual: [self getRB:1]]
+
+                        || [q isEqual: [self getWR:0]]
+                        || [q isEqual: [self getWR:1]]
+
+                        || [q isEqual: [self getTE:0]]
+
+                        || [q isEqual: [self getOL:0]]
+                        || [q isEqual: [self getOL:1]]
+                        || [q isEqual: [self getOL:2]]
+                        || [q isEqual: [self getOL:3]]
+                        || [q isEqual: [self getOL:4]]
+
+                        || [q isEqual: [self getDL:0]]
+                        || [q isEqual: [self getDL:1]]
+                        || [q isEqual: [self getDL:2]]
+                        || [q isEqual: [self getDL:3]]
+
+                        || [q isEqual: [self getLB:0]]
+                        || [q isEqual: [self getLB:1]]
+                        || [q isEqual: [self getLB:2]]
+
+                        || [q isEqual: [self getCB:0]]
+                        || [q isEqual: [self getCB:1]]
+                        || [q isEqual: [self getCB:2]]
+
+                        || [q isEqual: [self getS:0]]
+
+                        || [q isEqual: [self getK:0]]);
+
+        if (q.year > transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer) { // || q.troubledTimes > Math.random() * dismissalChance) {
+            NSLog(@"XFER: Confirmed that %@ %@ is a valid transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
+            q.isTransfer = true;
+            //            if (q.troubledTimes > 0) {
+            //                league.newsStories.get(league.currentWeek + 1).add(name + " Player Dismissed>Following several incidents, " + name + " has dimissed QB " + q.name + ". The player will have to sit out a year if he chooses to transfer to a new program.");
+            //                q.personality += (int) Math.random() * 20;
+            //            }
+
+            if (q.year == 4) {  //&& q.personality > gradTransferRat) {
+                q.isTransfer = false;
+                q.isGradTransfer = true;
+                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to transfer after graduating from %@. If he signs with another school, he is immediately eligible to play.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+            } else {
+                q.isGradTransfer = false;
+                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to leave town for greener pastures after getting limited playing time during his time at %@. If he signs with another school, he will have to sit for one year.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+            }
+            //q.team = nil;
+            NSLog(@"XFER: Adding %@ %@ to team's outgoing transfers", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
+            q.recruitStatus = CFCRecruitStatusUncommitted;
+            if (![playersTransferring containsObject:q]) {
+                [playersTransferring addObject:q];
+            }
+
+            // Removal done in advanceSeasonPlayers()
+//            if ([positionPlayers containsObject:q]) {
+//                [positionPlayers removeObject:q];
+//            }
+
+            if (league.transferList == nil) {
+                league.transferList = @{
+                                        @"QB" : [NSMutableArray array],
+                                        @"RB" : [NSMutableArray array],
+                                        @"WR" : [NSMutableArray array],
+                                        @"TE" : [NSMutableArray array],
+                                        @"OL" : [NSMutableArray array],
+                                        @"DL" : [NSMutableArray array],
+                                        @"LB" : [NSMutableArray array],
+                                        @"CB" : [NSMutableArray array],
+                                        @"S" : [NSMutableArray array],
+                                        @"K" : [NSMutableArray array]
+                                        };
+            }
+
+            NSLog(@"XFER: Adding %@ %@ to league transfer portal", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
+            [league.transferList[pos] addObject:q];
+        }
+        ++i;
+    }
+}
+
+-(void)getTransferringPlayers {
+    if (playersTransferring.count == 0) {
+        playersTransferring = [NSMutableArray array];
+        [self _calculateTransferringPlayers:teamQBs position:@"QB" starterCount:1];
+        [self _calculateTransferringPlayers:teamRBs position:@"RB" starterCount:2];
+        [self _calculateTransferringPlayers:teamWRs position:@"WR" starterCount:2];
+        [self _calculateTransferringPlayers:teamTEs position:@"TE" starterCount:1];
+        [self _calculateTransferringPlayers:teamOLs position:@"OL" starterCount:5];
+        [self _calculateTransferringPlayers:teamDLs position:@"DL" starterCount:4];
+        [self _calculateTransferringPlayers:teamLBs position:@"LB" starterCount:3];
+        [self _calculateTransferringPlayers:teamCBs position:@"CB" starterCount:3];
+        [self _calculateTransferringPlayers:teamSs position:@"S" starterCount:1];
+        [self _calculateTransferringPlayers:teamKs position:@"K" starterCount:1];
+        NSLog(@"XFER: There are %lu transfers for %@ this year.", (unsigned long)playersTransferring.count, abbreviation);
+    }
+}
+
 -(void)getGraduatingPlayers {
     if (playersLeaving.count == 0) {
         playersLeaving = [NSMutableArray array];
@@ -2443,13 +2242,13 @@
         if (league.isHardMode) {
             draftChance += HARD_MODE_DRAFT_BONUS;
         }
-        
+
         if ([natlChampWL isEqualToString:@"NCW"]) {
             draftChance += NCG_DRAFT_BONUS;
         }
 
         while (i < teamQBs.count) {
-            if (teamQBs[i].year >= 4 || (teamQBs[i].year == 3 && teamQBs[i].gamesPlayed && teamQBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if ((teamQBs[i].year >= 4 && !teamQBs[i].isTransfer) || (teamQBs[i].year == 3 && teamQBs[i].gamesPlayed && teamQBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamQBs[i]];
                 if (teamQBs[i].year == 3) {
                     NSLog(@"JUNIOR QB LEAVING");
@@ -2460,7 +2259,7 @@
 
         i = 0;
         while (i < teamRBs.count) {
-            if (teamRBs[i].year >= 4 || (teamRBs[i].year == 3 && teamRBs[i].gamesPlayed && teamRBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if ((teamRBs[i].year >= 4 && !teamRBs[i].isTransfer) || (teamRBs[i].year == 3 && teamRBs[i].gamesPlayed && teamRBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamRBs[i]];
                 if (teamRBs[i].year == 3) {
                     NSLog(@"JUNIOR RB LEAVING");
@@ -2471,7 +2270,7 @@
 
         i = 0;
         while (i < teamWRs.count) {
-            if (teamWRs[i].year >= 4 || (teamWRs[i].year == 3 && teamWRs[i].gamesPlayed && teamWRs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if ((teamWRs[i].year >= 4 && !teamWRs[i].isTransfer) || (teamWRs[i].year == 3 && teamWRs[i].gamesPlayed && teamWRs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamWRs[i]];
                 if (teamWRs[i].year == 3) {
                     NSLog(@"JUNIOR WR LEAVING");
@@ -2479,10 +2278,10 @@
             }
             ++i;
         }
-        
+
         i = 0;
         while (i < teamTEs.count) {
-            if (teamTEs[i].year >= 4 || (teamTEs[i].year == 3 && teamTEs[i].gamesPlayed && teamTEs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if ((teamTEs[i].year >= 4 && !teamTEs[i].isTransfer) || (teamTEs[i].year == 3 && teamTEs[i].gamesPlayed && teamTEs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamTEs[i]];
                 if (teamTEs[i].year == 3) {
                     NSLog(@"JUNIOR TE LEAVING");
@@ -2493,7 +2292,7 @@
 
         i = 0;
         while (i < teamKs.count) {
-            if (teamKs[i].year >= 4 || (teamKs[i].year == 3 && teamKs[i].gamesPlayed && teamKs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if ((teamKs[i].year >= 4 && !teamKs[i].isTransfer) || (teamKs[i].year == 3 && teamKs[i].gamesPlayed && teamKs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamKs[i]];
                 if (teamKs[i].year == 3) {
                     NSLog(@"JUNIOR K LEAVING");
@@ -2504,7 +2303,7 @@
 
         i = 0;
         while (i < teamOLs.count) {
-            if (teamOLs[i].year >= 4 || (teamOLs[i].year == 3 && teamOLs[i].gamesPlayed && teamOLs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if ((teamOLs[i].year >= 4 && !teamOLs[i].isTransfer) || (teamOLs[i].year == 3 && teamOLs[i].gamesPlayed && teamOLs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamOLs[i]];
                 if (teamOLs[i].year == 3) {
                     NSLog(@"JUNIOR OL LEAVING");
@@ -2515,7 +2314,7 @@
 
         i = 0;
         while (i < teamSs.count) {
-            if (teamSs[i].year >= 4 || (teamSs[i].year == 3 && teamSs[i].gamesPlayed && teamSs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if ((teamSs[i].year >= 4 && !teamSs[i].isTransfer) || (teamSs[i].year == 3 && teamSs[i].gamesPlayed && teamSs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamSs[i]];
                 if (teamSs[i].year == 3) {
                     NSLog(@"JUNIOR S LEAVING");
@@ -2526,7 +2325,7 @@
 
         i = 0;
         while (i < teamCBs.count) {
-            if (teamCBs[i].year >= 4 || (teamCBs[i].year == 3 && teamCBs[i].gamesPlayed && teamCBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if ((teamCBs[i].year >= 4 && !teamCBs[i].isTransfer) || (teamCBs[i].year == 3 && teamCBs[i].gamesPlayed && teamCBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamCBs[i]];
                 if (teamCBs[i].year == 3) {
                     NSLog(@"JUNIOR CB LEAVING");
@@ -2537,7 +2336,7 @@
 
         i = 0;
         while (i < teamLBs.count) {
-            if (teamLBs[i].year >= 4 || (teamLBs[i].year == 3 && teamLBs[i].gamesPlayed && teamLBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if ((teamLBs[i].year >= 4 && !teamLBs[i].isTransfer) || (teamLBs[i].year == 3 && teamLBs[i].gamesPlayed && teamLBs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamLBs[i]];
                 if (teamLBs[i].year == 3) {
                     NSLog(@"JUNIOR LB LEAVING");
@@ -2545,10 +2344,10 @@
             }
             ++i;
         }
-        
+
         i = 0;
         while (i < teamDLs.count) {
-            if (teamDLs[i].year >= 4 || (teamDLs[i].year == 3 && teamDLs[i].gamesPlayed && teamDLs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
+            if ((teamDLs[i].year >= 4 && !teamDLs[i].isTransfer) || (teamDLs[i].year == 3 && teamDLs[i].gamesPlayed && teamDLs[i].ratOvr > NFL_OVR && [HBSharedUtils randomValue] < draftChance)) {
                 [playersLeaving addObject:teamDLs[i]];
                 if (teamDLs[i].year == 3) {
                     NSLog(@"JUNIOR DL LEAVING");
@@ -2557,6 +2356,8 @@
             ++i;
         }
     }
+
+    [self getTransferringPlayers];
 }
 
 -(NSString*)injuryReport {
@@ -2590,25 +2391,25 @@
 
 -(void)checkInjuryPosition:(NSMutableArray*)positionGroup starters:(int)numStarters {
     int numInjured = 0;
-    
+
     for (Player *p in positionGroup) {
-        if ([p isInjured]) {
+        if ([p isInjured] && !p.isTransfer) {
             [p.injury advanceWeek];
             numInjured++;
             if (p.injury == nil || p.injury.duration == 0) {
                 p.injury = nil;
-                
+
                 if (![recoveredPlayers containsObject:p]) {
                     [recoveredPlayers addObject:p];
                 }
-                
+
                 if ([injuredPlayers containsObject:p]) {
                     [injuredPlayers removeObject:p];
                 }
             }
         }
     }
-    
+
     if (numInjured < numStarters) {
         for (int i = 0; i < numStarters; i++) {
             Player *p = positionGroup[i];
@@ -2624,8 +2425,8 @@
             }
         }
     }
-    
-    
+
+
     if (numInjured > 0) {
         [self sortPlayers];
     }
@@ -2644,6 +2445,21 @@
 
     return [sb copy];
 }
+
+-(NSString*)getTransferringPlayersString {
+    NSMutableString *sb = [NSMutableString string];
+    for (Player *p in playersTransferring)
+    {
+        [sb appendFormat:@"%@\n", p.getPosNameYrOvrPot_OneLine];
+    }
+
+    if (sb.length == 0 || [sb isEqualToString:@""]) {
+        [sb appendString:@"No transferring players"];
+    }
+
+    return [sb copy];
+}
+
 
 -(NSArray*)getOffensiveTeamStrategies {
     return @[
@@ -2704,10 +2520,10 @@
 -(float)mapFloat:(float)floatIn {
     CGFloat const inMin = 0.0;
     CGFloat const inMax = 60.0;
-    
+
     CGFloat const outMin = 0.0;
     CGFloat const outMax = 100.0;
-    
+
     return outMin + (outMax - outMin) * (floatIn - inMin) / (inMax - inMin);
 }
 
@@ -2716,7 +2532,7 @@
     if (gameNumber >= gameSchedule.count) {
         return @[@"? vs ?", @"T 0-0", @"#0 ??? (0-0)"];
     }
-    
+
     if (gameNumber < gameSchedule.count) {
         Game *g = gameSchedule[gameNumber];
         gs[0] = g.gameName;
@@ -2737,11 +2553,11 @@
             float awayAbility = ((float)[g.awayTeam getOffensiveTalent] + (float)[g.awayTeam getDefensiveTalent] + (self.league.currentWeek > 0 ? [self mapFloat:(float)(60-g.awayTeam.rankTeamPollScore)] : 0.0  + (float)g.awayTeam.teamPrestige));
             float basicSpread = (homeAbility - awayAbility) / (self.league.currentWeek > 0 ? 4.0 : 3.0);
             //NSLog(@"Home: %f, Away: %f, Diff: %f", homeAbility, awayAbility, basicSpread);
-            
+
             float roundedSpread = floorf(basicSpread * 2) / 2;
-            if (roundedSpread > 0) {
+            if (roundedSpread > 0.5) {
                 gs[1] = [NSString stringWithFormat:@"%@ -%.1f",g.homeTeam.abbreviation,fabsf(roundedSpread)];
-            } else if (roundedSpread < 0) {
+            } else if (roundedSpread < -0.5) {
                 gs[1] = [NSString stringWithFormat:@"%@ -%.1f",g.awayTeam.abbreviation,fabsf(roundedSpread)];
             } else {
                 gs[1] = @"PUSH";
@@ -2912,7 +2728,7 @@
             }
         }
     }
-    
+
     for (Player *p in teamRBs) {
         if (((isUserControlled && [playersLeaving containsObject:p]) || (!isUserControlled && p.year == 4))
             && (p.careerAllConferences > 2 || p.careerHeismans > 0 || p.careerAllAmericans > 1)) {
@@ -2922,7 +2738,7 @@
             }
         }
     }
-    
+
     for (Player *p in teamWRs) {
         if (((isUserControlled && [playersLeaving containsObject:p]) || (!isUserControlled && p.year == 4))
             && (p.careerAllConferences > 2 || p.careerHeismans > 0 || p.careerAllAmericans > 1)) {
@@ -2932,7 +2748,7 @@
             }
         }
     }
-    
+
     for (Player *p in teamTEs) {
         if (((isUserControlled && [playersLeaving containsObject:p]) || (!isUserControlled && p.year == 4))
             && (p.careerAllConferences > 2 || p.careerHeismans > 0 || p.careerAllAmericans > 1)) {
@@ -2942,55 +2758,17 @@
             }
         }
     }
-    
+
     if (hallOfFamers.count > 0) {
         //for (Player *p in hallOfFamers) {
             //p.year = 5;
         //}//
-        
+
         //sort normally
         [hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            Player *a = (Player*)obj1;
-            Player *b = (Player*)obj2;
-            if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-                if (a.ratOvr > b.ratOvr) {
-                    return -1;
-                } else if (a.ratOvr < b.ratOvr) {
-                    return 1;
-                } else {
-                    if (a.ratPot > b.ratPot) {
-                        return -1;
-                    } else if (a.ratPot < b.ratPot) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                }
-            } else if (a.hasRedshirt) {
-                return 1;
-            } else if (b.hasRedshirt) {
-                return -1;
-            } else if (a.isInjured) {
-                return 1;
-            } else if (b.isInjured) {
-                return  -1;
-            } else {
-                if (a.ratOvr > b.ratOvr) {
-                    return -1;
-                } else if (a.ratOvr < b.ratOvr) {
-                    return 1;
-                } else {
-                    if (a.ratPot > b.ratPot) {
-                        return -1;
-                    } else if (a.ratPot < b.ratPot) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                }
-            }
+            return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
         }];
-        
+
         //sort by most hallowed (hallowScore = normalized OVR + 2 * all-conf + 4 * all-Amer + 6 * Heisman; tie-break w/ pure OVR, then gamesPlayed, then potential)
         int maxOvr = hallOfFamers[0].ratOvr;
         [hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -3059,15 +2837,15 @@
         NSLog(@"JSON is of invalid type");
         return;
     }
-    
+
     if (!error) {
         if ([league isTeamNameValid:jsonDict[@"name"] allowUserTeam:YES allowOverwrite:YES]) {
             name = jsonDict[@"name"];
         }
-        
+
         [[self getCurrentHC] applyJSONMetadataChanges:jsonDict[@"headCoach"]];
         [self getCurrentHC].team = self; // just in case
-        
+
         NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
         if ([jsonDict[@"prestige"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
@@ -3084,15 +2862,15 @@
             NSLog(@"recycling players...");
             [self recruitPlayers: @[@2, @4, @6, @2, @10, @2, @6, @8, @6, @2]];
         }
-        
+
         if ([league isTeamAbbrValid:jsonDict[@"abbreviation"] allowUserTeam:YES allowOverwrite:YES]) {
             abbreviation = jsonDict[@"abbreviation"];
         }
-        
+
         if ([league isStateValid:jsonDict[@"state"]]) {
             state = jsonDict[@"state"];
         }
-        
+
         if ([league isTeamAbbrValid:jsonDict[@"rival"] allowUserTeam:YES allowOverwrite:YES]) {
             NSLog(@"CHANGING RIVAL FOR %@ TO %@", abbreviation, json[@"rival"]);
             rivalTeam = jsonDict[@"rival"];
@@ -3106,11 +2884,11 @@
 
 -(NSInteger)importIdentifier {
     int h = 0;
-    
+
     for (int i = 0; i < (int)name.length; i++) {
         h = (31 * h) + [name characterAtIndex:i];
     }
-    
+
     return h;
 }
 
@@ -3159,29 +2937,29 @@
 - (NSNumber *)_meanOf:(NSArray *)array
 {
     double runningTotal = 0.0;
-    
+
     for(NSNumber *number in array)
     {
         runningTotal += [number doubleValue];
     }
-    
+
     return [NSNumber numberWithDouble:(runningTotal / [array count])];
 }
 
 - (NSNumber *)_standardDeviationOf:(NSArray *)array
 {
     if(![array count]) return nil;
-    
+
     double mean = [[self _meanOf:array] doubleValue];
     double sumOfSquaredDifferences = 0.0;
-    
+
     for(NSNumber *number in array)
     {
         double valueOfNumber = [number doubleValue];
         double difference = valueOfNumber - mean;
         sumOfSquaredDifferences += difference * difference;
     }
-    
+
     return [NSNumber numberWithDouble:sqrt(sumOfSquaredDifferences / [array count])];
 }
 
@@ -3191,12 +2969,12 @@
     [self.recruitingClass sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
-    
+
     [self.recruitingClass enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         Player *p = (Player *)obj;
         [mapped addObject:@(p.ratOvr)];
     }];
-    
+
     float sum = 0;
     float stdDev = [[self _standardDeviationOf:mapped] floatValue];
     for (int n = 0; n < mapped.count; n++) {
@@ -3208,19 +2986,12 @@
     self.teamRecruitingClassScore = (int)(ceilf(sum));
 }
 
--(NSMutableArray<Player*>*)getAllPlayers {
-    NSMutableArray<Player*> *players = [NSMutableArray array];
-    [players addObjectsFromArray:teamQBs];
-    [players addObjectsFromArray:teamRBs];
-    [players addObjectsFromArray:teamWRs];
-    [players addObjectsFromArray:teamTEs];
-    [players addObjectsFromArray:teamOLs];
-    [players addObjectsFromArray:teamKs];
-    [players addObjectsFromArray:teamSs];
-    [players addObjectsFromArray:teamCBs];
-    [players addObjectsFromArray:teamLBs];
-    [players addObjectsFromArray:teamDLs];
-    return players;
+-(void)calculateRecruitingPoints {
+    if (!league.didFinishTransferPeriod) {
+        // calculate recruiting points, but never show number - just show as usage as "% effort extended"
+        int estimatedRecruitingPoints = ([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf(25.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige) : (int)ceilf(30.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige);
+        recruitingPoints = MAX(estimatedRecruitingPoints, 600);
+    }
 }
 
 @end

@@ -73,11 +73,14 @@
 @property (strong, nonatomic) NSMutableDictionary<NSString*, TeamStreak*> *streaks;
 @property (nonatomic) BOOL isUserControlled;
 @property (nonatomic) BOOL wonRivalryGame;
-@property (nonatomic) int recruitingMoney;
+@property (nonatomic) int recruitingPoints;
+@property (nonatomic) int usedRecruitingPoints;
 @property (nonatomic) int numberOfRecruits;
 @property (nonatomic) int heismans;
+@property (nonatomic) int rotys;
 @property (strong, nonatomic) NSMutableArray<Player*> *playersLeaving;
 @property (strong, nonatomic) NSMutableArray<Player*> *hallOfFamers;
+@property (strong, nonatomic) NSMutableArray<Player*> *playersTransferring;
 
 @property (nonatomic) int wins;
 @property (nonatomic) int losses;
@@ -96,11 +99,11 @@
 @property (nonatomic) int totalBowls;
 @property (nonatomic) int totalBowlLosses;
 
-//Game Log variables
 @property (strong, nonatomic) NSMutableArray<Player*> *injuredPlayers;
 @property (strong, nonatomic) NSMutableArray<Player*> *recoveredPlayers;
 @property (strong, nonatomic) NSMutableArray<Game*> *gameSchedule;
 @property (strong, nonatomic) NSMutableArray<Player *> *recruitingClass;
+@property (strong, nonatomic) NSMutableArray<Player *> *transferClass;
 
 @property (strong, nonatomic) Game *oocGame0;
 @property (strong, nonatomic) Game *oocGame4;
@@ -312,4 +315,7 @@
 -(void)promoteCoach;
 -(int)getMinCoachHireReq;
 -(void)advanceHC;
+-(void)calculateRecruitingPoints;
+-(void)getTransferringPlayers;
+-(NSString*)getTransferringPlayersString;
 @end
