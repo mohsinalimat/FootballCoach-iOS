@@ -16,7 +16,6 @@
 @interface HeadCoachDetailViewController ()
 {
     HeadCoach *selectedCoach;
-    NSDictionary *stats;
     NSDictionary *careerStats;
     NSDictionary *ratings;
     IBOutlet HBPlayerDetailView *playerDetailView;
@@ -36,19 +35,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Coach";
-    [playerDetailView.nameLabel setText:selectedPlayer.name];
-    [playerDetailView.yrLabel setText:[NSString stringWithFormat:@"%@ - %@ (Ovr: %d)",[selectedPlayer getFullYearString],selectedPlayer.team.abbreviation,selectedPlayer.ratOvr]];
-    [playerDetailView.posLabel setText:selectedPlayer.position];
+    [playerDetailView.nameLabel setText:selectedCoach.name];
+    [playerDetailView.yrLabel setText:[NSString stringWithFormat:@"%@ - %@ (Ovr: %d)",selectedCoach.name,selectedCoach.team.abbreviation,selectedCoach.ratOvr]];
+    [playerDetailView.posLabel setText:@"Head Coach"];
     self.tableView.tableHeaderView = playerDetailView;
-    stats = [selectedPlayer detailedStats:selectedPlayer.gamesPlayedSeason];
-    careerStats = [selectedPlayer detailedCareerStats];
-    ratings = [selectedPlayer detailedRatings];
-    
-    if ([selectedPlayer isInjured]) {
-        [playerDetailView.medImageView setHidden:NO];
-    } else {
-        [playerDetailView.medImageView setHidden:YES];
-    }
+    careerStats = [selectedCoach detailedCareerStats];
+    ratings = [selectedCoach detailedRatings];
+    [playerDetailView.medImageView setHidden:YES];
     
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
@@ -73,20 +66,12 @@
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
-        if (section == 1) {
-            return @"Career Stats";
-        } else {
-            return @"Information";
-        }
+    if (section == 1) {
+        return @"Career Stats";
+    } else if (section == 0) {
+        return @"Information";
     } else {
-        if (section == 1) {
-            return @"Season Stats";
-        } else if (section == 2) {
-            return @"Career Stats";
-        } else {
-            return @"Information";
-        }
+        return nil;
     }
 }
 
@@ -103,54 +88,54 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
-        if (section == 1) {
-            return 36;
-        } else {
-            return 18;
-        }
+    if (section == 1) {
+        return 36;
     } else {
-        if (section != 0) {
-            return 36;
-        } else {
-            return 18;
-        }
+        return 18;
     }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 1) {
-        if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
-            return careerStats.allKeys.count;
-        } else {
-            return stats.allKeys.count;
-        }
-    } else if (section == 2) {
-        return careerStats.allKeys.count;
+        return 13;
+    } else if (section == 0) {
+        return 9;
     } else {
-        return (ratings.count + 4);
+        return 1;
     }
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
-        if (section == 1) {
-            return [NSString stringWithFormat:@"Over %ld games", (long)selectedPlayer.gamesPlayed];
-        } else {
-            return nil;
-        }
+    if (section == 1) {
+        return [NSString stringWithFormat:@"Over %ld career games", (long)selectedCoach.gamesCoached];
     } else {
-        if (section == 2) {
-            return [NSString stringWithFormat:@"Over %ld games", (long)selectedPlayer.gamesPlayed];
-        } else if (section == 1) {
-            if ([selectedPlayer isKindOfClass:[PlayerDL class]] || [selectedPlayer isKindOfClass:[PlayerLB class]] || [selectedPlayer isKindOfClass:[PlayerCB class]] || [selectedPlayer isKindOfClass:[PlayerS class]]) {
-                return [NSString stringWithFormat:@"Through %ld games this season (%ld games total)", (long)selectedPlayer.gamesPlayedSeason, (long)selectedPlayer.gamesPlayed];
-            } else {
-                return [NSString stringWithFormat:@"Through %ld games this season", (long)selectedPlayer.gamesPlayedSeason];
-            }
-        } else {
-            return nil;
-        }
+        return nil;
+    }
+}
+
+-(UIColor *)_colorForCoachStatus:(FCCoachStatus)status {
+    switch (status) {
+        case FCCoachStatusNormal:
+            return [UIColor lightGrayColor];
+            break;
+        case FCCoachStatusOk:
+            return [HBSharedUtils champColor];
+            break;
+        case FCCoachStatusUnsafe:
+            return [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+            break;
+        case FCCoachStatusSafe:
+            return [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+            break;
+        case FCCoachStatusHotSeat:
+            return [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+            break;
+        case FCCoachStatusSecure:
+            return [HBSharedUtils successColor];
+            break;
+        default:
+            return [UIColor lightGrayColor];
+            break;
     }
 }
 
@@ -162,9 +147,168 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
         [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            // age
+            [cell.textLabel setText:@"Age"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.age]];
+        } else if (indexPath.row == 1) {
+            // coach status
+            [cell.textLabel setText:@"Status"];
+            [cell.detailTextLabel setText:[selectedCoach getCoachStatusString]];
+            [cell.detailTextLabel setTextColor:[self _colorForCoachStatus:[selectedCoach getCoachStatus]]];
+        } else if (indexPath.row == 2) {
+            // contract yera + length
+            [cell.textLabel setText:@"Contract Details"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d years (%d left)", selectedCoach.contractLength,(selectedCoach.contractLength - selectedCoach.contractYear - 1)]];
+        } else if (indexPath.row == 3) {
+            // off
+            [cell.textLabel setText:@"Offensive Ability"];
+            [cell.detailTextLabel setText:ratings[@"offensiveAbility"]];
+        } else if (indexPath.row == 4) {
+            // def
+            [cell.textLabel setText:@"Defensive Ability"];
+            [cell.detailTextLabel setText:ratings[@"defensiveAbility"]];
+        } else if (indexPath.row == 5) {
+            // talent
+            [cell.textLabel setText:@"Talent Progression"];
+            [cell.detailTextLabel setText:ratings[@"talentProgression"]];
+        } else if (indexPath.row == 6) {
+            // discipline
+            [cell.textLabel setText:@"Discipline"];
+            [cell.detailTextLabel setText:ratings[@"discipline"]];
+        } else if (indexPath.row == 7) {
+            // potential
+            [cell.textLabel setText:@"Potential"];
+            [cell.detailTextLabel setText:ratings[@"potential"]];
+        } else {
+            // baseline prestige
+            [cell.textLabel setText:@"Baseline Prestige"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.baselinePrestige]];
+        }
+        
+        if (indexPath.section == 0 && indexPath.row > 2) {
+            NSString *stat = cell.detailTextLabel.text;
+            if (indexPath.section == 0) {
+                UIColor *letterColor;   //colors for ratings to tell what's what
+                if ([stat containsString:@"A"]) {
+                    letterColor = [HBSharedUtils successColor];
+                } else if ([stat containsString:@"B"]) {
+                    letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+                } else if ([stat containsString:@"C"]) {
+                    letterColor = [HBSharedUtils champColor];
+                } else if ([stat containsString:@"D"]) {
+                    letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+                } else {
+                    letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+                }
+                [cell.detailTextLabel setTextColor:letterColor];
+            } else {
+                [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+            }
+        } else {
+            [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+        }
+        
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            // Career Record
+            [cell.textLabel setText:@"Winning Percentage"];
+            if ((selectedCoach.totalWins + selectedCoach.totalLosses) > 0) {
+                int winPercent = (int)ceil(100 * ((double)selectedCoach.totalWins) / (double)(selectedCoach.totalWins + selectedCoach.totalLosses));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedCoach.totalWins,selectedCoach.totalLosses]];
+            } else {
+                [cell.detailTextLabel setText:@"0% (0-0)"];
+            }
+        } else if (indexPath.row == 1) {
+            // Career Conf Record
+            [cell.textLabel setText:@"Conference Winning Percentage"];
+            if ((selectedCoach.totalConfLosses + selectedCoach.totalConfWins) > 0) {
+                int winPercent = (int)ceil(100 * ((double)selectedCoach.totalConfWins) / (double)(selectedCoach.totalConfWins + selectedCoach.totalConfLosses));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedCoach.totalConfWins,selectedCoach.totalConfLosses]];
+            } else {
+                [cell.detailTextLabel setText:@"0% (0-0)"];
+            }
+        } else if (indexPath.row == 2) {
+            // Career Rivalry Record
+            [cell.textLabel setText:@"Rivalry Winning Percentage"];
+            if ((selectedCoach.totalRivalryWins + selectedCoach.totalRivalryLosses) > 0) {
+                int winPercent = (int)ceil(100 * ((double)selectedCoach.totalRivalryWins) / (double)(selectedCoach.totalRivalryWins + selectedCoach.totalRivalryLosses));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedCoach.totalRivalryWins,selectedCoach.totalRivalryLosses]];
+            } else {
+                [cell.detailTextLabel setText:@"0% (0-0)"];
+            }
+        } else if (indexPath.row == 3) {
+            // Career Bowl Record
+            [cell.textLabel setText:@"Bowl Win Percentage"];
+            if ((selectedCoach.totalBowls + selectedCoach.totalBowlLosses) > 0) {
+                int winPercent = (int)ceil(100 * ((double)selectedCoach.totalBowls) / (double)(selectedCoach.totalBowls + selectedCoach.totalBowlLosses));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedCoach.totalBowls,selectedCoach.totalBowlLosses]];
+            } else {
+                [cell.detailTextLabel setText:@"0% (0-0)"];
+            }
+        } else if (indexPath.row == 4) {
+            // Career CC Record
+            [cell.textLabel setText:@"Conference Championships"];
+            if ((selectedCoach.totalCCs + selectedCoach.totalCCLosses) > 0) {
+                int winPercent = (int)ceil(100 * ((double)selectedCoach.totalCCs) / (double)(selectedCoach.totalCCs + selectedCoach.totalCCLosses));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedCoach.totalCCs,selectedCoach.totalCCLosses]];
+            } else {
+                [cell.detailTextLabel setText:@"0% (0-0)"];
+            }
+        } else if (indexPath.row == 5) {
+            // Career NC Record
+            [cell.textLabel setText:@"National Championships"];
+            if ((selectedCoach.totalNCs + selectedCoach.totalNCLosses) > 0) {
+                int winPercent = (int)ceil(100 * ((double)selectedCoach.totalNCs) / (double)(selectedCoach.totalNCs + selectedCoach.totalNCLosses));
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedCoach.totalNCs,selectedCoach.totalNCLosses]];
+            } else {
+                [cell.detailTextLabel setText:@"0% (0-0)"];
+            }
+        } else if (indexPath.row == 6) {
+            // Cumulative Prestige
+            [cell.textLabel setText:@"Cumulative Prestige"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.cumulativePrestige]];
+        } else if (indexPath.row == 7) {
+            // COTYs
+            [cell.textLabel setText:@"National Coach of the Year Awards"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.careerCOTYs]];
+        } else if (indexPath.row == 8) {
+            // Conf COTYs
+            [cell.textLabel setText:@"Conf Coach of the Year Awards"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.careerConfCOTYs]];
+        } else if (indexPath.row == 9) {
+            // POTYs
+            [cell.textLabel setText:@"Players of the Year Coached"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.totalHeismans]];
+        } else if (indexPath.row == 10) {
+            // ROTYs
+            [cell.textLabel setText:@"Rookies of the Year Coached"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.totalROTYs]];
+        } else if (indexPath.row == 11) {
+            // All Americans
+            [cell.textLabel setText:@"All-League Players Coached"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.totalAllAmericans]];
+        } else {
+            // All Conference
+            [cell.textLabel setText:@"All-Conference Players Coached"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.totalAllConferences]];
+        }
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        // show coach history view
+        cell.textLabel.text = @"View Coaching History";
+        cell.detailTextLabel.text = @"";
     }
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
