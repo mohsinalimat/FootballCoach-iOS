@@ -443,7 +443,7 @@
 -(NSString *)simpleAwardReport {
     NSMutableString *awards = [NSMutableString string];
     int parts = 0;
-    if (self.careerHeismans > 0) {
+    if (self.careerROTYs > 0) {
         [awards appendFormat:@"%lix ROTY",(long)self.careerROTYs];
         parts++;
     }

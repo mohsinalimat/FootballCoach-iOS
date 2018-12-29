@@ -257,6 +257,10 @@
             [self.navigationController pushViewController:[[HeismanLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"ROTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
