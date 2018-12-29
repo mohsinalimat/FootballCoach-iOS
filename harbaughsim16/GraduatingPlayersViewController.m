@@ -25,13 +25,55 @@
 
 #import "UIScrollView+EmptyDataSet.h"
 
-@interface GraduatingPlayersViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface GraduatingPlayersViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIViewControllerPreviewingDelegate>
 {
     NSMutableArray *grads;
 }
 @end
 
 @implementation GraduatingPlayersViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        PlayerDetailViewController *playerDetail;
+        Player *p = grads[indexPath.row];
+        if ([p.position isEqualToString:@"QB"]) {
+            playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"RB"]) {
+            playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"WR"]) {
+            playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"TE"]) {
+            playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"OL"]) {
+            playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"DL"]) {
+            playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"LB"]) {
+            playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"CB"]) {
+            playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"S"]) {
+            playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"K"]) {
+            playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+        } else {
+            playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+        }
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return playerDetail;
+    } else {
+        return nil;
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,6 +94,10 @@
         self.title = [NSString stringWithFormat:@"%lu Players Leaving", (long)grads.count];
     } else {
         self.title = @"No Players Leaving";
+    }
+    
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
 }
 
