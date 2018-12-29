@@ -1512,7 +1512,7 @@
         }
     }
     if (coaches.count != 0) {
-        [teamHistoryDictionary setObject:hist forKey:[NSString stringWithFormat:@"%ld",(long)([league getCurrentYear])]];
+        [[self getCurrentHC].coachingHistoryDictionary setObject:hist forKey:[NSString stringWithFormat:@"%ld",(long)([league getCurrentYear])]];
     }
 }
 
