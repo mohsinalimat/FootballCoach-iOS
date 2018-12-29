@@ -52,30 +52,43 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
     if (indexPath != nil) {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        UIViewController *vc = [UIViewController new];
+        Player *p;
         if (indexPath.section == 0) {
-            HeadCoach *hc = players[@"HC"][indexPath.row];
-            vc = [[HeadCoachDetailViewController alloc] initWithCoach:hc];
+            p = players[@"QB"][indexPath.row];
+        } else if (indexPath.section == 1) {
+            p = players[@"RB"][indexPath.row];
+        } else if (indexPath.section == 2) {
+            p = players[@"WR"][indexPath.row];
+        } else if (indexPath.section == 3) {
+            p = players[@"TE"][indexPath.row];
         } else {
-            Player *plyr;
-            if (indexPath.section == 1) {
-                plyr = players[@"QB"][indexPath.row];
-                vc = [[PlayerQBDetailViewController alloc] initWithPlayer:plyr];
-            } else if (indexPath.section == 2) {
-                plyr = players[@"RB"][indexPath.row];
-                vc = [[PlayerRBDetailViewController alloc] initWithPlayer:plyr];
-            } else if (indexPath.section == 3) {
-                plyr = players[@"WR"][indexPath.row];
-                vc = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
-            } else if (indexPath.section == 4) {
-                plyr = players[@"TE"][indexPath.row];
-                vc = [[PlayerTEDetailViewController alloc] initWithPlayer:plyr];
-            } else {
-                plyr = players[@"K"][indexPath.row];
-                vc = [[PlayerKDetailViewController alloc] initWithPlayer:plyr];
-            }
+            p = players[@"K"][indexPath.row];
         }
-        vc.preferredContentSize = CGSizeMake(0.0, 600);
+        PlayerDetailViewController *playerDetail;
+        if ([p.position isEqualToString:@"QB"]) {
+            playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"RB"]) {
+            playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"WR"]) {
+            playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"TE"]) {
+            playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"OL"]) {
+            playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"DL"]) {
+            playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"LB"]) {
+            playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"CB"]) {
+            playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"S"]) {
+            playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"K"]) {
+            playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+        } else {
+            playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+        }
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
         previewingContext.sourceRect = cell.frame;
         return vc;
     } else {
@@ -85,7 +98,7 @@
 
 -(id)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
-        
+
     }
     return self;
 }
@@ -99,19 +112,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     heisman = [[HBSharedUtils currentLeague] heisman];
     coty = [[HBSharedUtils currentLeague] cotyWinner];
-    
+
     self.title = [NSString stringWithFormat:@"%ld's All-%@ Team", (long)([HBSharedUtils currentLeague].baseYear + [HBSharedUtils currentLeague].leagueHistoryDictionary.count), selectedConf.confName];
     players = selectedConf.allConferencePlayers;
-        
+
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView setRowHeight:60];
     [self.tableView setEstimatedRowHeight:60];
     self.tableView.tableFooterView = [UIView new];
-    
+
     if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
@@ -177,15 +190,15 @@
         NSString *stat2 = @"W";
         NSString *stat3 = @"L";
         NSString *stat4 = @"";
-        
+
         NSString *stat1Value = [NSString stringWithFormat:@"%d", hc.team.rankTeamPollScore];
         NSString *stat2Value = [NSString stringWithFormat:@"%d", hc.team.wins];
         NSString *stat3Value = [NSString stringWithFormat:@"%d", hc.team.losses];;
         NSString *stat4Value = @"";
-        
+
         [statsCell.playerLabel setText:[hc getInitialName]];
         [statsCell.teamLabel setText:hc.team.abbreviation];
-        
+
         if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
             [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
         } else {
@@ -199,7 +212,7 @@
                 [statsCell.playerLabel setTextColor:[UIColor blackColor]];
             }
         }
-        
+
         [statsCell.stat1Label setText:stat1];
         [statsCell.stat1ValueLabel setText:stat1Value];
         [statsCell.stat2Label setText:stat2];
@@ -225,18 +238,18 @@
         NSString *stat2 = @"";
         NSString *stat3 = @"";
         NSString *stat4 = @"";
-        
+
         NSString *stat1Value = @"";
         NSString *stat2Value = @"";
         NSString *stat3Value = @"";
         NSString *stat4Value = @"";
-        
+
         if ([plyr isKindOfClass:[PlayerQB class]]) {
             stat1 = @"CMP%"; //comp/att, yds, td, int
             stat2 = @"Yds";
             stat3 = @"TDs";
             stat4 = @"INTs";
-            
+
             stat1Value = [NSString stringWithFormat:@"%d%%",(100 * ((PlayerQB*)plyr).statsPassComp/((PlayerQB*)plyr).statsPassAtt)];
             stat2Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsPassYards];
             stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsTD];
@@ -277,16 +290,16 @@
             stat2 = @"XPA";
             stat3 = @"FGM";
             stat4 = @"FGA";
-            
+
             stat1Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsXPMade];
             stat2Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsXPAtt];
             stat3Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsFGMade];
             stat4Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsFGAtt];
         }
-        
+
         [statsCell.playerLabel setText:[plyr getInitialName]];
         [statsCell.teamLabel setText:plyr.team.abbreviation];
-        
+
         if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
             [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
         } else {
@@ -300,7 +313,7 @@
                 [statsCell.playerLabel setTextColor:[UIColor blackColor]];
             }
         }
-        
+
         [statsCell.stat1Label setText:stat1];
         [statsCell.stat1ValueLabel setText:stat1Value];
         [statsCell.stat2Label setText:stat2];
@@ -310,36 +323,49 @@
         [statsCell.stat4Label setText:stat4];
         [statsCell.stat4ValueLabel setText:stat4Value];
     }
-    
+
     return statsCell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    Player *p;
     if (indexPath.section == 0) {
-        HeadCoach *hc = players[@"HC"][indexPath.row];
-        [self.navigationController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:hc] animated:YES];
+        p = players[@"QB"][indexPath.row];
+    } else if (indexPath.section == 1) {
+        p = players[@"RB"][indexPath.row];
+    } else if (indexPath.section == 2) {
+        p = players[@"WR"][indexPath.row];
+    } else if (indexPath.section == 3) {
+        p = players[@"TE"][indexPath.row];
     } else {
-        Player *plyr;
-        
-        if (indexPath.section == 0) {
-            plyr = players[@"QB"][indexPath.row];
-            [self.navigationController pushViewController:[[PlayerQBDetailViewController alloc] initWithPlayer:plyr] animated:YES];
-        } else if (indexPath.section == 1) {
-            plyr = players[@"RB"][indexPath.row];
-            [self.navigationController pushViewController:[[PlayerRBDetailViewController alloc] initWithPlayer:plyr] animated:YES];
-        } else if (indexPath.section == 2) {
-            plyr = players[@"WR"][indexPath.row];
-            [self.navigationController pushViewController:[[PlayerWRDetailViewController alloc] initWithPlayer:plyr] animated:YES];
-        } else if (indexPath.section == 3) {
-            plyr = players[@"TE"][indexPath.row];
-            [self.navigationController pushViewController:[[PlayerTEDetailViewController alloc] initWithPlayer:plyr] animated:YES];
-        } else {
-            plyr = players[@"K"][indexPath.row];
-            [self.navigationController pushViewController:[[PlayerKDetailViewController alloc] initWithPlayer:plyr] animated:YES];
-        }
-
+        p = players[@"K"][indexPath.row];
     }
+    PlayerDetailViewController *playerDetail;
+    if ([p.position isEqualToString:@"QB"]) {
+        playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"RB"]) {
+        playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"WR"]) {
+        playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"TE"]) {
+        playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"OL"]) {
+        playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"DL"]) {
+        playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"LB"]) {
+        playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"CB"]) {
+        playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"S"]) {
+        playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"K"]) {
+        playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+    } else {
+        playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+    }
+    [self.navigationController pushViewController:playerDetail animated:YES];
 }
 
 @end

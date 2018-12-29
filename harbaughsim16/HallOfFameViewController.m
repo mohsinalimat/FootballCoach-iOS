@@ -26,7 +26,7 @@
 
 #import "UIScrollView+EmptyDataSet.h"
 
-@interface HallOfFameViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface HallOfFameViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIViewControllerPreviewingDelegate>
 {
     League *curLeague;
     Team *userTeam;
@@ -34,6 +34,48 @@
 @end
 
 @implementation HallOfFameViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        PlayerDetailViewController *playerDetail;
+        Player *p = curLeague.hallOfFamers[indexPath.row];
+        if ([p.position isEqualToString:@"QB"]) {
+            playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"RB"]) {
+            playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"WR"]) {
+            playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"TE"]) {
+            playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"OL"]) {
+            playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"DL"]) {
+            playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"LB"]) {
+            playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"CB"]) {
+            playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"S"]) {
+            playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"K"]) {
+            playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+        } else {
+            playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+        }
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return playerDetail;
+    } else {
+        return nil;
+    }
+}
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -53,6 +95,11 @@
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     self.tableView.tableFooterView = [UIView new];
+
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
+
     if (curLeague.hallOfFamers.count > 0) {
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(sortROH)]];
     }
@@ -82,7 +129,7 @@
 
 -(void)sortByHallow {
     [self sortByOvr];
-    
+
     //sort by most hallowed (hallowScore = normalized OVR + 2 * all-conf + 4 * all-Amer + 6 * Heisman; tie-break w/ pure OVR, then gamesPlayed, then potential)
     int maxOvr = curLeague.hallOfFamers[0].ratOvr;
     [curLeague.hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -114,7 +161,7 @@
                     }
                 }
             }
-            
+
         }
     }];
     [self.tableView reloadData];
@@ -137,21 +184,21 @@
     NSString *text = nil;
     UIFont *font = nil;
     UIColor *textColor = nil;
-    
+
     NSMutableDictionary *attributes = [NSMutableDictionary new];
-    
+
     text = @"No Hall of Famers";
     font = [UIFont boldSystemFontOfSize:17.0];
     textColor = [UIColor lightTextColor];
-    
-    
+
+
     if (!text) {
         return nil;
     }
-    
+
     if (font) [attributes setObject:font forKey:NSFontAttributeName];
     if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
-    
+
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
@@ -160,28 +207,28 @@
     NSString *text = nil;
     UIFont *font = nil;
     UIColor *textColor = nil;
-    
+
     NSMutableDictionary *attributes = [NSMutableDictionary new];
-    
+
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     paragraph.alignment = NSTextAlignmentCenter;
-    
+
     text = @"No former players have been enshrined yet!";
     font = [UIFont systemFontOfSize:15.0];
     textColor = [UIColor lightTextColor];
-    
-    
+
+
     if (!text) {
         return nil;
     }
-    
+
     if (font) [attributes setObject:font forKey:NSFontAttributeName];
     if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
     if (paragraph) [attributes setObject:paragraph forKey:NSParagraphStyleAttributeName];
-    
+
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
-    
+
     return attributedString;
 }
 
@@ -228,7 +275,7 @@
         [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15.0]];
         [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
     }
-    
+
     Player *p = curLeague.hallOfFamers[indexPath.row];
     [cell.textLabel setText:[NSString stringWithFormat:@"%@ %@ %@ (OVR: %li)",p.team.abbreviation,p.position,p.name,(long)p.ratOvr]];
     if (p.draftPosition) {
@@ -237,7 +284,7 @@
         [cell.detailTextLabel setText:[NSString stringWithFormat:@"Played from %li - %li\nUndrafted in %li\n%@",(long)p.startYear,(long)p.endYear, (long)p.endYear,[p simpleAwardReport]]];
     }
     [cell.detailTextLabel sizeToFit];
-    
+
     if ([p.team isEqual:userTeam]) {
         [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
     } else {

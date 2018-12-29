@@ -67,8 +67,8 @@
                 } else {
                     p = [selectedGame.homeTeam playerToWatch];
                 }
+                PlayerDetailViewController *playerDetail;
                 if (p != nil) {
-                    PlayerDetailViewController *playerDetail;
                     if ([p.position isEqualToString:@"QB"]) {
                         playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
                     } else if ([p.position isEqualToString:@"RB"]) {
@@ -107,7 +107,7 @@
                     } else {
                         plyr = qbStats[@"homeQB"];
                     }
-                    
+
                     PlayerQBDetailViewController *playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:plyr];
                     peekVC = playerDetail;
                 }
@@ -126,7 +126,7 @@
                     } else {
                         plyr = qbStats[@"homeQB"];
                     }
-                    
+
                     PlayerQBDetailViewController *playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:plyr];
                     peekVC = playerDetail;
                 }
@@ -165,7 +165,7 @@
             }
         } else if (section == 4) {
             Player *plyr;
-            NSDictionary *wrStats = stats[@"WRs"]; //catchs, yds, td, fum
+            NSDictionary *wrStats = stats[@"WRs"]; //catches, yds, td, fum
             if (indexPath.row == 0) {
                 plyr = wrStats[@"awayWR1"];
             } else if (indexPath.row == 1) {
@@ -185,7 +185,7 @@
             } else {
                 plyr = qbStats[@"homeTE"];
             }
-            
+
             PlayerTEDetailViewController *playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:plyr];
             peekVC = playerDetail;
         } else if (section == 6) {
@@ -196,7 +196,7 @@
             } else {
                 plyr = qbStats[@"homeK"];
             }
-            
+
             PlayerKDetailViewController *playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:plyr];
             peekVC = playerDetail;
         } else {
@@ -244,7 +244,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
-    
+
     if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
@@ -264,19 +264,19 @@
     UIViewController *viewController = [[UIViewController alloc] init];
     [viewController.view setBackgroundColor:[UIColor whiteColor]];
     viewController.title = @"Summary";
-    
+
     NSString *summary = [selectedGame gameSummary];
-    
+
     CGSize size = [summary boundingRectWithSize:CGSizeMake(260, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil].size;
     UITextView *postTextLabel = [[UITextView alloc] initWithFrame:CGRectMake(15, 0, [UIScreen mainScreen].bounds.size.width - 30, size.height)];
     [postTextLabel setSelectable:NO];
     [postTextLabel setEditable:NO];
-    
+
     [postTextLabel setText:summary];
     [postTextLabel sizeToFit];
     [postTextLabel.textContainer setSize:postTextLabel.frame.size];
-    
-    
+
+
     [viewController setView:postTextLabel];
     [self.navigationController pushViewController:viewController animated:YES];
 }
@@ -511,7 +511,7 @@
                 title = @"Opp Rush YPG";
             }
             stat = stats[title];
-            
+
             [statsCell.statLabel setText:title];
             [statsCell.homeTeamLabel setText:selectedGame.homeTeam.abbreviation];
             [statsCell.awayTeamLabel setText:selectedGame.awayTeam.abbreviation];
@@ -526,28 +526,28 @@
             } else {
                 plyr = [selectedGame.homeTeam playerToWatch];
             }
-            
+
             if (plyr == nil) {
                 [statsCell.playerLabel setText:@"No player found"];
                 return statsCell;
             }
-            
+
             NSString *stat1 = @"";
             NSString *stat2 = @"";
             NSString *stat3 = @"";
             NSString *stat4 = @"";
-            
+
             NSString *stat1Value = @"";
             NSString *stat2Value = @"";
             NSString *stat3Value = @"";
             NSString *stat4Value = @"";
-            
+
             if ([plyr isKindOfClass:[PlayerQB class]]) {
                 stat1 = @"CMP%"; //comp/att, yds, td, int
                 stat2 = @"Yds";
                 stat3 = @"TDs";
                 stat4 = @"INTs";
-                
+
                 if (((PlayerQB*)plyr).statsPassAtt > 0) {
                     stat1Value = [NSString stringWithFormat:@"%d%%",(100 * ((PlayerQB*)plyr).statsPassComp/((PlayerQB*)plyr).statsPassAtt)];
                 } else {
@@ -588,10 +588,10 @@
                 stat4Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsFumbles];
                 //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
             }
-            
+
             [statsCell.playerLabel setText:[plyr getInitialName]];
             [statsCell.teamLabel setText:plyr.team.abbreviation];
-            
+
             if ([HBSharedUtils currentLeague].currentWeek >= 13 && heisman != nil) {
                 if ([heisman isEqual:plyr]) {
                     [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
@@ -599,7 +599,7 @@
                     [statsCell.playerLabel setTextColor:[UIColor blackColor]];
                 }
             }
-            
+
             [statsCell.stat1Label setText:stat1];
             [statsCell.stat1ValueLabel setText:stat1Value];
             [statsCell.stat2Label setText:stat2];
@@ -608,7 +608,7 @@
             [statsCell.stat3ValueLabel setText:stat3Value];
             [statsCell.stat4Label setText:stat4];
             [statsCell.stat4ValueLabel setText:stat4Value];
-            
+
             return statsCell;
         } else {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InjuryCell"];
@@ -619,7 +619,7 @@
                 [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
-            
+
             if (indexPath.row == 0) {
                 NSString *number;
                 if (selectedGame.awayTeam.injuredPlayers.count == 0) {
@@ -643,7 +643,7 @@
                 [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.homeTeam.abbreviation]];
                 [cell.detailTextLabel setText:number];
             }
-            
+
             return cell;
         }
     } else {
@@ -684,7 +684,7 @@
                 return cell;
             } else {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ButtonCell"];
-                
+
                 if (!cell) {
                     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ButtonCell"];
                     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
@@ -692,9 +692,9 @@
                     [cell setAccessoryType:UITableViewCellAccessoryNone];
                     [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
                 }
-                
+
                 [cell.textLabel setText:@"View Game Summary"];
-                
+
                 return cell;
             }
         } else if (indexPath.section != 1) {
@@ -706,12 +706,12 @@
             NSString *stat2 = @"";
             NSString *stat3 = @"";
             NSString *stat4 = @"";
-            
+
             NSString *stat1Value = @"";
             NSString *stat2Value = @"";
             NSString *stat3Value = @"";
             NSString *stat4Value = @"";
-            
+
             if (indexPath.section == 2) {
                 NSDictionary *qbStats = combinedStats[@"QBs"];
                 if (indexPath.row == 0) {
@@ -725,7 +725,7 @@
                 stat2 = @"Yds";
                 stat3 = @"TDs";
                 stat4 = @"INTs";
-                
+
                 stat1Value = [NSString stringWithFormat:@"%d/%d",[plyrStats[1] intValue],[plyrStats[0] intValue]];
                 stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[4] intValue]];
                 stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
@@ -745,7 +745,7 @@
                     plyr = rbStats[@"homeRB2"];
                     plyrStats = rbStats[@"homeRB2Stats"];
                 }
-                
+
                 stat1 = @"Car";
                 stat2 = @"Yds";
                 stat3 = @"TD";
@@ -769,8 +769,8 @@
                     plyr = wrStats[@"homeWR2"];
                     plyrStats = wrStats[@"homeWR2Stats"];
                 }
-                
-                
+
+
                 stat1 = @"Rec";
                 stat2 = @"Yds";
                 stat3 = @"TD";
@@ -788,8 +788,8 @@
                     plyr = teStats[@"homeTE"];
                     plyrStats = teStats[@"homeTEStats"];
                 }
-                
-                
+
+
                 stat1 = @"Rec";
                 stat2 = @"Yds";
                 stat3 = @"TD";
@@ -811,23 +811,23 @@
                 stat2 = @"XPA";
                 stat3 = @"FGM";
                 stat4 = @"FGA";
-                
+
                 stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[0] intValue]];
                 stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[1] intValue]];
                 stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
                 stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
             }
-            
-            
-            
+
+
+
             [statsCell.playerLabel setText:[plyr getInitialName]];
-            
+
             if (([self tableView:tableView numberOfRowsInSection:indexPath.section]/ 2) <= indexPath.row) {
                 [statsCell.teamLabel setText:selectedGame.homeTeam.abbreviation];
             } else {
                 [statsCell.teamLabel setText:selectedGame.awayTeam.abbreviation];
             }
-            
+
             if ([HBSharedUtils currentLeague].currentWeek >= 13 && heisman != nil) {
                 if ([heisman isEqual:plyr]) {
                     [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
@@ -835,8 +835,8 @@
                     [statsCell.playerLabel setTextColor:[UIColor blackColor]];
                 }
             }
-            
-            
+
+
             [statsCell.stat1Label setText:stat1];
             [statsCell.stat1ValueLabel setText:stat1Value];
             [statsCell.stat2Label setText:stat2];
@@ -845,15 +845,15 @@
             [statsCell.stat3ValueLabel setText:stat3Value];
             [statsCell.stat4Label setText:stat4];
             [statsCell.stat4ValueLabel setText:stat4Value];
-            
-            
+
+
             return statsCell;
         } else {
             HBStatsCell *statsCell = (HBStatsCell*)[tableView dequeueReusableCellWithIdentifier:@"HBStatsCell"];
             NSArray *stat; // = [stats[@"gameStats"] allValues][indexPath.row];
             NSString *title; //= [stats[@"gameStats"] allKeys][indexPath.row];
             NSDictionary *gameStats = stats[@"gameStats"];
-            
+
             if (indexPath.row == 0) {
                 title = @"Score";
             } else if (indexPath.row == 1) {
@@ -864,7 +864,7 @@
                 title = @"Rush Yards";
             }
             stat = gameStats[title];
-            
+
             [statsCell.statLabel setText:title];
             [statsCell.homeTeamLabel setText:selectedGame.homeTeam.abbreviation];
             [statsCell.awayTeamLabel setText:selectedGame.awayTeam.abbreviation];
@@ -873,14 +873,14 @@
             return statsCell;
         }
     }
-    
+
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (selectedGame.hasPlayed) {
         if (indexPath.section != 0 || indexPath.section != 1) {
-            Player *plyr;
+            Player *p;
             NSDictionary *combinedStats = stats;
             NSDictionary *qbStats = combinedStats[@"QBs"];
             NSDictionary *rbStats = combinedStats[@"RBs"];
@@ -889,41 +889,41 @@
             NSDictionary *kStats = combinedStats[@"Ks"];
             if (indexPath.section == 2) {
                 if (indexPath.row == 0) {
-                    plyr = qbStats[@"awayQB"];
+                    p = qbStats[@"awayQB"];
                 } else {
-                    plyr = qbStats[@"homeQB"];
+                    p = qbStats[@"homeQB"];
                 }
             } else if (indexPath.section == 3) {
                 if (indexPath.row == 0) {
-                    plyr = rbStats[@"awayRB1"];
+                    p = rbStats[@"awayRB1"];
                 } else if (indexPath.row == 1) {
-                    plyr = rbStats[@"awayRB2"];
+                    p = rbStats[@"awayRB2"];
                 } else if (indexPath.row == 2) {
-                    plyr = rbStats[@"homeRB1"];
+                    p = rbStats[@"homeRB1"];
                 } else {
-                    plyr = rbStats[@"homeRB2"];
+                    p = rbStats[@"homeRB2"];
                 }
             } else if (indexPath.section == 4) {
                 if (indexPath.row == 0) {
-                    plyr = wrStats[@"awayWR1"];
+                    p = wrStats[@"awayWR1"];
                 } else if (indexPath.row == 1) {
-                    plyr = wrStats[@"awayWR2"];
+                    p = wrStats[@"awayWR2"];
                 } else if (indexPath.row == 2) {
-                    plyr = wrStats[@"homeWR1"];
+                    p = wrStats[@"homeWR1"];
                 } else {
-                    plyr = wrStats[@"homeWR2"];
+                    p = wrStats[@"homeWR2"];
                 }
             } else if (indexPath.section == 5) {
                 if (indexPath.row == 0) {
-                    plyr = teStats[@"awayTE"];
+                    p = teStats[@"awayTE"];
                 } else {
-                    plyr = teStats[@"homeTE"];
+                    p = teStats[@"homeTE"];
                 }
             } else if (indexPath.section == 6) {
                 if (indexPath.row == 0) {
-                    plyr = kStats[@"awayK"];
+                    p = kStats[@"awayK"];
                 } else {
-                    plyr = kStats[@"homeK"];
+                    p = kStats[@"homeK"];
                 }
             } else {
                 if (indexPath.section == 0) {
@@ -936,9 +936,33 @@
                     }
                 }
             }
-            
-            if (plyr) {
-                [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:plyr] animated:YES];
+
+            if (p) {
+                PlayerDetailViewController *playerDetail;
+                if ([p.position isEqualToString:@"QB"]) {
+                    playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"RB"]) {
+                    playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"WR"]) {
+                    playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"TE"]) {
+                    playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"OL"]) {
+                    playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"DL"]) {
+                    playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"LB"]) {
+                    playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"CB"]) {
+                    playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"S"]) {
+                    playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+                } else if ([p.position isEqualToString:@"K"]) {
+                    playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+                } else {
+                    playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+                }
+                [self.navigationController pushViewController:playerDetail animated:YES];
             }
         }
     } else {
