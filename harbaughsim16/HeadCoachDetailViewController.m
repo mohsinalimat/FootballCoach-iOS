@@ -9,6 +9,7 @@
 #import "HeadCoachDetailViewController.h"
 
 #import "HeadCoach.h"
+#import "HeadCoachHistoryViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -36,8 +37,8 @@
     [super viewDidLoad];
     self.title = @"Coach";
     [playerDetailView.nameLabel setText:selectedCoach.name];
-    [playerDetailView.yrLabel setText:[NSString stringWithFormat:@"%@ - %@ (Ovr: %d)",selectedCoach.name,selectedCoach.team.abbreviation,selectedCoach.ratOvr]];
-    [playerDetailView.posLabel setText:@"Head Coach"];
+    [playerDetailView.yrLabel setText:[NSString stringWithFormat:@"%@ - Ovr: %d",selectedCoach.team.abbreviation,selectedCoach.ratOvr]];
+    [playerDetailView.posLabel setText:@"HC"];
     self.tableView.tableHeaderView = playerDetailView;
     careerStats = [selectedCoach detailedCareerStats];
     ratings = [selectedCoach detailedRatings];
@@ -45,6 +46,7 @@
     
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"changedStrategy" object:nil];
     [playerDetailView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
@@ -62,7 +64,11 @@
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 36;
+    if (section != 2) {
+        return 36;
+    } else {
+        return 0;
+    }
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -87,6 +93,10 @@
     [footer.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 3;
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 1) {
         return 36;
@@ -99,7 +109,7 @@
     if (section == 1) {
         return 13;
     } else if (section == 0) {
-        return 9;
+        return 11;
     } else {
         return 1;
     }
@@ -151,10 +161,12 @@
     }
     
     if (indexPath.section == 0) {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if (indexPath.row == 0) {
             // age
             [cell.textLabel setText:@"Age"];
-            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.age]];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d years old", selectedCoach.age]];
         } else if (indexPath.row == 1) {
             // coach status
             [cell.textLabel setText:@"Status"];
@@ -166,21 +178,29 @@
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d years (%d left)", selectedCoach.contractLength,(selectedCoach.contractLength - selectedCoach.contractYear - 1)]];
         } else if (indexPath.row == 3) {
             // off
+            [cell.textLabel setText:@"Offensive Philosophy"];
+            [cell.detailTextLabel setText:ratings[@"offensivePlaybook"]];
+        } else if (indexPath.row == 4) {
+            // def
+            [cell.textLabel setText:@"Defensive Philosophy"];
+            [cell.detailTextLabel setText:ratings[@"defensivePlaybook"]];
+        } else if (indexPath.row == 5) {
+            // off
             [cell.textLabel setText:@"Offensive Ability"];
             [cell.detailTextLabel setText:ratings[@"offensiveAbility"]];
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 6) {
             // def
             [cell.textLabel setText:@"Defensive Ability"];
             [cell.detailTextLabel setText:ratings[@"defensiveAbility"]];
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 7) {
             // talent
             [cell.textLabel setText:@"Talent Progression"];
             [cell.detailTextLabel setText:ratings[@"talentProgression"]];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 8) {
             // discipline
             [cell.textLabel setText:@"Discipline"];
             [cell.detailTextLabel setText:ratings[@"discipline"]];
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 9) {
             // potential
             [cell.textLabel setText:@"Potential"];
             [cell.detailTextLabel setText:ratings[@"potential"]];
@@ -190,7 +210,7 @@
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.baselinePrestige]];
         }
         
-        if (indexPath.section == 0 && indexPath.row > 2) {
+        if (indexPath.section == 0 && indexPath.row > 4) {
             NSString *stat = cell.detailTextLabel.text;
             if (indexPath.section == 0) {
                 UIColor *letterColor;   //colors for ratings to tell what's what
@@ -214,6 +234,9 @@
         }
         
     } else if (indexPath.section == 1) {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         if (indexPath.row == 0) {
             // Career Record
             [cell.textLabel setText:@"Winning Percentage"];
@@ -299,6 +322,7 @@
         }
     } else {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         // show coach history view
         cell.textLabel.text = @"View Coaching History";
         cell.detailTextLabel.text = @"";
@@ -309,6 +333,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            [self.navigationController pushViewController:[[HeadCoachHistoryViewController alloc] initWithCoach:selectedCoach] animated:YES];
+        }
+    }
 }
 
 

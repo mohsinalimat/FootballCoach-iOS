@@ -9,6 +9,7 @@
 #import "HeadCoach.h"
 #import "HBSharedUtils.h"
 #import "Player.h"
+#import "TeamStrategy.h"
 
 @implementation HeadCoach
 
@@ -192,7 +193,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    return @{@"offensiveAbility" : [HBSharedUtils getLetterGrade:self.ratOff], @"defensiveAbility" : [HBSharedUtils getLetterGrade:self.ratDef],  @"talentProgression" : [HBSharedUtils getLetterGrade:self.ratTalent], @"discipline" :  [HBSharedUtils getLetterGrade:self.ratDiscipline], @"jobStatus" : [self getCoachStatusString],@"potential" : [HBSharedUtils getLetterGrade:self.ratPot],@"contractYearsLeft" : @(self.contractLength - self.contractYear - 1),@"contractLength" : @(self.contractLength)};
+    return @{@"offensiveAbility" : [HBSharedUtils getLetterGrade:self.ratOff], @"defensiveAbility" : [HBSharedUtils getLetterGrade:self.ratDef],  @"talentProgression" : [HBSharedUtils getLetterGrade:self.ratTalent], @"discipline" :  [HBSharedUtils getLetterGrade:self.ratDiscipline], @"jobStatus" : [self getCoachStatusString],@"potential" : [HBSharedUtils getLetterGrade:self.ratPot],@"contractYearsLeft" : @(self.contractLength - self.contractYear - 1),@"contractLength" : @(self.contractLength), @"offensivePlaybook" : [self.team getOffensiveTeamStrategies][self.offStratNum].stratName,@"defensivePlaybook" : [self.team getDefensiveTeamStrategies][self.defStratNum].stratName};
 }
 
 -(NSString*)getInitialName {

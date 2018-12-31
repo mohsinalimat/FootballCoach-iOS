@@ -278,8 +278,8 @@
 -(NSString*)gameSummaryStringOpponent:(Game*)g;
 -(NSString*)getGraduatingPlayersString;
 
--(NSMutableArray*)getOffensiveTeamStrategies;
--(NSMutableArray*)getDefensiveTeamStrategies;
+-(NSArray<TeamStrategy *>*)getOffensiveTeamStrategies;
+-(NSArray<TeamStrategy *>*)getDefensiveTeamStrategies;
 
 -(NSArray*)getTeamStatsArray;
 
@@ -312,7 +312,7 @@
 -(void)calculateCoachingContracts:(int)totalPrestigeDiff newPrestige:(int)newPrestige;
 -(void)updateCoachHistory;
 -(void)setupUserCoach:(NSString *)name;
--(void)newCustomHeadCoach:(NSString *)name stars:(int)stars;
+-(void)createNewCustomHeadCoach:(NSString *)name stars:(int)stars;
 -(void)promoteCoach;
 -(int)getMinCoachHireReq;
 -(void)advanceHC;

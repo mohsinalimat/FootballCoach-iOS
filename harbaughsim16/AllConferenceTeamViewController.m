@@ -90,7 +90,7 @@
         }
         playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
         previewingContext.sourceRect = cell.frame;
-        return vc;
+        return playerDetail;
     } else {
         return nil;
     }

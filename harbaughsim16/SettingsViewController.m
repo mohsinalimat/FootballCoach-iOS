@@ -443,6 +443,7 @@
             [self presentViewController:safariVC animated:YES completion:nil];
         } else if (indexPath.row == 2) {
             RSEmailFeedback *emailFeedback = [[RSEmailFeedback alloc] init];
+            emailFeedback.additionalDeviceInfo = @[([HBSharedUtils currentLeague].isHardMode ? @"Difficulty: Hard" : @"Difficulty: Easy"),([HBSharedUtils currentLeague].isCareerMode ? @"Mode: Career" : @"Mode: Normal")];
             emailFeedback.toRecipients = @[@"akeaswaran@me.com"];
             emailFeedback.subject = [NSString stringWithFormat:@"Feedback on College Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
             [emailFeedback showOnViewController:self withCompletionHandler:^(MFMailComposeResult result, NSError *error) {

@@ -196,6 +196,7 @@
 		75F0E2691FECDAEA00719086 /* loser@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E2631FECDAE900719086 /* loser@3x.png */; };
 		75F0E26A1FECDAEA00719086 /* winner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E2641FECDAEA00719086 /* winner@2x.png */; };
 		75F0E26B1FECDAEA00719086 /* winner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E2651FECDAEA00719086 /* winner@3x.png */; };
+		75F8F65D21D9DAB7006981E7 /* HeadCoachHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F8F65C21D9DAB7006981E7 /* HeadCoachHistoryViewController.m */; };
 		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
 		75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */; };
 		75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
@@ -499,6 +500,8 @@
 		75F0E2631FECDAE900719086 /* loser@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loser@3x.png"; sourceTree = "<group>"; };
 		75F0E2641FECDAEA00719086 /* winner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "winner@2x.png"; sourceTree = "<group>"; };
 		75F0E2651FECDAEA00719086 /* winner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "winner@3x.png"; sourceTree = "<group>"; };
+		75F8F65B21D9DAB7006981E7 /* HeadCoachHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeadCoachHistoryViewController.h; sourceTree = "<group>"; };
+		75F8F65C21D9DAB7006981E7 /* HeadCoachHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeadCoachHistoryViewController.m; sourceTree = "<group>"; };
 		75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreaksViewController.h; sourceTree = "<group>"; };
 		75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreaksViewController.m; sourceTree = "<group>"; };
 		75FE58461FA37D8A00DE2534 /* PlayerDL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDL.m; sourceTree = "<group>"; };
@@ -653,6 +656,8 @@
 			children = (
 				75245BDC1D2069CE00F0A8AB /* TeamHistoryViewController.h */,
 				75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */,
+				75F8F65B21D9DAB7006981E7 /* HeadCoachHistoryViewController.h */,
+				75F8F65C21D9DAB7006981E7 /* HeadCoachHistoryViewController.m */,
 				75E10F1F1CA0E0170000DA78 /* LeagueHistoryController.h */,
 				75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */,
 				7562A8811FFF3C55004C0985 /* PrestigeHistoryViewController.h */,
@@ -1465,6 +1470,7 @@
 				75A4518C21CC78B7007E481A /* PlayerDLDetailViewController.m in Sources */,
 				755BBC861C9F7DA4001A8314 /* HBScoreCell.m in Sources */,
 				75924A5E1C99E64400B165AD /* PlayerWR.m in Sources */,
+				75F8F65D21D9DAB7006981E7 /* HeadCoachHistoryViewController.m in Sources */,
 				75A86C881C9C790D0034140C /* FCTableViewController.m in Sources */,
 				7595342E21CDA65B00AF6FE3 /* HeadCoach.m in Sources */,
 				75924A611C99E64D00B165AD /* PlayerK.m in Sources */,

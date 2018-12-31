@@ -397,12 +397,29 @@
                 t.coachContractString = nil;
                 t.coachRetired = NO;
                 t.coachFired = NO;
-                [t newCustomHeadCoach:[oldLigue getRandName] stars:((int)([HBSharedUtils randomValue] * 4) + 1)];
+                [t createNewCustomHeadCoach:[oldLigue getRandName] stars:((int)([HBSharedUtils randomValue] * 4) + 1)];
+                [t getCurrentHC].totalWins = t.totalWins;
+                [t getCurrentHC].totalLosses = t.totalLosses;
+                [t getCurrentHC].totalConfWins = t.totalConfWins;
+                [t getCurrentHC].totalConfLosses = t.totalConfLosses;
+                [t getCurrentHC].totalHeismans = t.heismans;
+                [t getCurrentHC].totalROTYs = t.rotys;
+                [t getCurrentHC].totalCCs = t.totalCCs;
+                [t getCurrentHC].totalNCs = t.totalNCs;
+                [t getCurrentHC].totalBowls = t.totalBowls;
+                [t getCurrentHC].totalCCLosses = t.totalCCLosses;
+                [t getCurrentHC].totalNCLosses = t.totalNCLosses;
+                [t getCurrentHC].totalBowlLosses = t.totalBowlLosses;
+                [t getCurrentHC].gamesCoached = [t getCurrentHC].totalWins + [t getCurrentHC].totalLosses;
+                
+                // give HC the team history too
             }
             
             if (oldLigue.currentWeek > 13 && oldLigue.cotyWinner == nil) {
                 [oldLigue getCoachAwardStr];
             }
+            
+            oldLigue.leagueVersion = HB_CURRENT_APP_VERSION;
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{

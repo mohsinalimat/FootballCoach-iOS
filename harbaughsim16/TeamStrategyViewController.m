@@ -9,6 +9,7 @@
 #import "TeamStrategyViewController.h"
 #import "TeamStrategy.h"
 #import "Team.h"
+#import "HeadCoach.h"
 
 #import "STPopup.h"
 
@@ -103,9 +104,11 @@
     if(isOffense) {
         [[HBSharedUtils currentLeague].userTeam setOffensiveStrategy:teamStrats[indexPath.row]];
         [[HBSharedUtils currentLeague].userTeam setTeamStatOffNum:(int)indexPath.row];
+        [[[HBSharedUtils currentLeague].userTeam getCurrentHC] setOffStratNum:(int)indexPath.row];
     } else {
         [[HBSharedUtils currentLeague].userTeam setDefensiveStrategy:teamStrats[indexPath.row]];
         [[HBSharedUtils currentLeague].userTeam setTeamStatDefNum:(int)indexPath.row];
+        [[[HBSharedUtils currentLeague].userTeam getCurrentHC] setDefStratNum:(int)indexPath.row];
     }
     [self.tableView reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"changedStrategy" object:nil];

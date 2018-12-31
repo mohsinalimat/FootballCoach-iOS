@@ -718,7 +718,7 @@
     [self sortPlayers];
 }
 
--(void)newCustomHeadCoach:(NSString *)name stars:(int)stars {
+-(void)createNewCustomHeadCoach:(NSString *)name stars:(int)stars {
     [coaches addObject:[HeadCoach newHC:self name:name stars:stars year:1]];
 }
 
@@ -1964,7 +1964,7 @@
         [summary appendString:@"\n\nOverall, your program didn't gain or lose prestige this season."];
     }
 
-    [summary appendFormat:@"\n\nYour final coach score for this year was %d.", [[self getCurrentHC] getCoachScore]];
+    //[summary appendFormat:@"\n\nYour final coach score for this year was %d.", [[self getCurrentHC] getCoachScore]];
 
     if (coachGotNewContract && league.isCareerMode) {
         [summary appendFormat:@"\n\nCongratulations! Your contact has been extended %d years!", [self getCurrentHC].contractLength];
@@ -2471,7 +2471,7 @@
 }
 
 
--(NSArray*)getOffensiveTeamStrategies {
+-(NSArray<TeamStrategy *>*)getOffensiveTeamStrategies {
     return @[
              [TeamStrategy newStrategy], // default - Balanced
              [TeamStrategy newStrategyWithName:@"Smashmouth" description:@"Play a conservative, run-heavy offense where the running game sets up the pass." rPref:2 runProt:1 runPot:-1 rUsg:1 pPref:1 passProt:2 passPot:1 pUsg:0],
@@ -2483,7 +2483,7 @@
              ];
 }
 
--(NSArray*)getDefensiveTeamStrategies {
+-(NSArray<TeamStrategy *>*)getDefensiveTeamStrategies {
     return @[
              [TeamStrategy newStrategyWithName:@"4-3 Man" description:@"Play a standard 4-3 man-to-man balanced defense." rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1],
              [TeamStrategy newStrategyWithName:@"4-6 Bear" description:@"Play a defense focused on stopping the run. Will allow few yards and big plays on the ground, but may give up big passing plays." rPref:2 runProt:0 runPot:2 rUsg:1 pPref:1 passProt:-1 passPot:-1 pUsg:0],
