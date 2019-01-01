@@ -929,4 +929,49 @@ static UIColor *styleColor = nil;
     return a.ratOvr > b.ratOvr ? -1 : (a.ratOvr == b.ratOvr ? [a.name compare:b.name] : 1);
 }
 
++(UIColor *)_colorForCoachStatus:(FCCoachStatus)status {
+    switch (status) {
+        case FCCoachStatusNormal:
+            return [UIColor lightGrayColor];
+            break;
+        case FCCoachStatusOk:
+            return [HBSharedUtils champColor];
+            break;
+        case FCCoachStatusUnsafe:
+            return [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+            break;
+        case FCCoachStatusSafe:
+            return [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+            break;
+        case FCCoachStatusHotSeat:
+            return [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+            break;
+        case FCCoachStatusSecure:
+            return [HBSharedUtils successColor];
+            break;
+        default:
+            return [UIColor lightGrayColor];
+            break;
+    }
+}
+
++ (UIColor *)_colorForLetterGrade:(NSString *)letterGrade {
+    if (letterGrade != nil && letterGrade.length > 0) {
+        UIColor *letterColor;   //colors for ratings to tell what's what
+        if ([letterGrade containsString:@"A"]) {
+            letterColor = [HBSharedUtils successColor];
+        } else if ([letterGrade containsString:@"B"]) {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
+        } else if ([letterGrade containsString:@"C"]) {
+            letterColor = [HBSharedUtils champColor];
+        } else if ([letterGrade containsString:@"D"]) {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
+        } else {
+            letterColor = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
+        }
+        return letterColor;
+    } else {
+        return [UIColor lightGrayColor];
+    }
+}
 @end

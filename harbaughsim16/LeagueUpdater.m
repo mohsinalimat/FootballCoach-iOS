@@ -411,8 +411,11 @@
                 [t getCurrentHC].totalNCLosses = t.totalNCLosses;
                 [t getCurrentHC].totalBowlLosses = t.totalBowlLosses;
                 [t getCurrentHC].gamesCoached = [t getCurrentHC].totalWins + [t getCurrentHC].totalLosses;
+                [t getCurrentHC].offStratNum = t.teamStatOffNum;
+                [t getCurrentHC].defStratNum = t.teamStatDefNum;
                 
                 // give HC the team history too
+                [t getCurrentHC].coachingHistoryDictionary = [t.teamHistoryDictionary mutableCopy];
             }
             
             if (oldLigue.currentWeek > 13 && oldLigue.cotyWinner == nil) {

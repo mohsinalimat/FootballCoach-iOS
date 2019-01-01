@@ -1475,6 +1475,8 @@
     } else {
         [hist appendFormat:@"%@ (%ld-%ld)\nPrestige: %ld",abbreviation, (long)wins, (long)losses, (long)teamPrestige];
     }
+    
+    [hist appendFormat:@"\nCoach Score: %d", [[self getCurrentHC] getCoachScore]];
 
     if (![confChampion isEqualToString:@""] && confChampion.length > 0) {
         Game *ccg = [league findConference:conference].ccg;

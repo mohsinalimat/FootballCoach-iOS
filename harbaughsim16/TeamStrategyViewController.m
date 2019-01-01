@@ -29,10 +29,18 @@
         isOffense = offensive;
         if (isOffense) {
             self.title = @"Offensive Playbooks";
-            selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils currentLeague].userTeam.teamStatOffNum inSection:0];
+            if ([HBSharedUtils currentLeague].isCareerMode) {
+                selectedIndexPath = [NSIndexPath indexPathForRow:[[HBSharedUtils currentLeague].userTeam getCurrentHC].offStratNum inSection:0];
+            } else {
+                selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils currentLeague].userTeam.teamStatOffNum inSection:0];
+            }
         } else {
             self.title = @"Defensive Playbooks";
-            selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils currentLeague].userTeam.teamStatDefNum inSection:0];
+            if ([HBSharedUtils currentLeague].isCareerMode) {
+                selectedIndexPath = [NSIndexPath indexPathForRow:[[HBSharedUtils currentLeague].userTeam getCurrentHC].defStratNum inSection:0];
+            } else {
+                selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils currentLeague].userTeam.teamStatDefNum inSection:0];
+            }
         }
         self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, MIN(10 + (options.count * 85), [UIScreen mainScreen].bounds.size.height - 100));
         teamStrats = options;

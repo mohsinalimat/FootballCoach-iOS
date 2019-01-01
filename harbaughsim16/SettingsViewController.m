@@ -39,6 +39,25 @@
     return self;
 }
 
+-(void)changeCoachName {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rename Coach" message:@"Enter your coach's new name below." preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Coach Name";
+        textField.text = [[HBSharedUtils currentLeague].userTeam getCurrentHC].name;
+    }];
+    
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[HBSharedUtils currentLeague].userTeam getCurrentHC].name = alert.textFields[0].text;
+        [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Rename successful!" message:[NSString stringWithFormat:@"Coach renamed to %@",[[HBSharedUtils currentLeague].userTeam getCurrentHC].name] onViewController:self];
+        [[HBSharedUtils currentLeague] save];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updatedCoachName" object:nil];
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 -(void)changeTeamName {
     if ([HBSharedUtils currentLeague].canRebrandTeam) {
         __block Team *userTeam = [HBSharedUtils currentLeague].userTeam;
@@ -336,14 +355,20 @@
             }
             
             if (indexPath.row == 2) {
-                [cell.textLabel setText:@"Rebrand Team"];
-                if ([HBSharedUtils currentLeague].canRebrandTeam) {
+                if ([HBSharedUtils currentLeague].isCareerMode) {
+                    [cell.textLabel setText:@"Rename Coach"];
                     [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
                     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                 } else {
-                    [cell.textLabel setTextColor:[UIColor lightGrayColor]];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    
+                    [cell.textLabel setText:@"Rebrand Team"];
+                    if ([HBSharedUtils currentLeague].canRebrandTeam) {
+                        [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+                        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                    } else {
+                        [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        
+                    }
                 }
             } else if (indexPath.row == 3) {
                 [cell.textLabel setText:@"Rebrand Conferences"];
@@ -503,8 +528,13 @@
             [self presentViewController:alert animated:YES completion:nil];
             
         } else if (indexPath.row == 2) {
-            if ([HBSharedUtils currentLeague].canRebrandTeam) {
-                [self changeTeamName];
+            if ([HBSharedUtils currentLeague].isCareerMode) {
+                // rename coach
+                [self changeCoachName];
+            } else {
+                if ([HBSharedUtils currentLeague].canRebrandTeam) {
+                    [self changeTeamName];
+                }
             }
         } else if (indexPath.row == 3) {
             if ([HBSharedUtils currentLeague].canRebrandTeam) {

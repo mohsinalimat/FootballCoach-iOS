@@ -80,7 +80,7 @@
         NSArray *comps = [hist componentsSeparatedByString:@"\n"];
         NSString *prestigeString = nil;
         int i = 0;
-        while (i < comps.count && (prestigeString == nil || ![prestigeString containsString:@"Prestige: "])) {
+        while (i < comps.count && (prestigeString == nil || ![prestigeString containsString:@"Coach Score: "])) {
             prestigeString = comps[i];
             i++;
         }
@@ -88,7 +88,7 @@
         if (prestigeString == nil) {
             prestigeVal = 0.0;
         } else {
-            NSString *cleanPrestige = [prestigeString stringByReplacingOccurrencesOfString:@"Prestige: " withString:@""];
+            NSString *cleanPrestige = [prestigeString stringByReplacingOccurrencesOfString:@"Coach Score: " withString:@""];
             NSNumber *prestigeNum = [[self numberFormatter] numberFromString:cleanPrestige];
             prestigeVal = prestigeNum.floatValue;
         }
@@ -113,7 +113,7 @@
         [prestigeValues addObject:entry];
     }
     
-    LineChartDataSet *prestigeHistLine = [[LineChartDataSet alloc] initWithValues:prestigeValues label:@"Prestige over Time"];
+    LineChartDataSet *prestigeHistLine = [[LineChartDataSet alloc] initWithValues:prestigeValues label:@"Coach Score over Time"];
     prestigeHistLine.circleColors = colorValues;
     prestigeHistLine.circleRadius /= 2;
     prestigeHistLine.drawCircleHoleEnabled = NO;
@@ -121,7 +121,7 @@
     prestigeHistLine.valueTextColor = [UIColor lightTextColor];
     
     PrestigeHistoryViewController *prestigeHistoryVC = [[PrestigeHistoryViewController alloc] initWithDataSets:@[prestigeHistLine]];
-    prestigeHistoryVC.title = [NSString stringWithFormat:@"Prestige History for %@", [selectedCoach getInitialName]];
+    prestigeHistoryVC.title = [NSString stringWithFormat:@"Coach Score History for %@", [selectedCoach getInitialName]];
     [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
 }
 

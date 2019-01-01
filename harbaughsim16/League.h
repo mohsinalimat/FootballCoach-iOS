@@ -153,7 +153,6 @@
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV lastNamesCSV:(NSString*)lastNameCSV;
 +(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName;
 
--(int)getConfNumber:(NSString*)conf;
 -(void)playWeek;
 -(void)scheduleBowlGames;
 -(void)playBowlGames;

@@ -47,6 +47,7 @@
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"changedStrategy" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"updatedCoachName" object:nil];
     [playerDetailView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
@@ -123,32 +124,6 @@
     }
 }
 
--(UIColor *)_colorForCoachStatus:(FCCoachStatus)status {
-    switch (status) {
-        case FCCoachStatusNormal:
-            return [UIColor lightGrayColor];
-            break;
-        case FCCoachStatusOk:
-            return [HBSharedUtils champColor];
-            break;
-        case FCCoachStatusUnsafe:
-            return [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
-            break;
-        case FCCoachStatusSafe:
-            return [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
-            break;
-        case FCCoachStatusHotSeat:
-            return [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
-            break;
-        case FCCoachStatusSecure:
-            return [HBSharedUtils successColor];
-            break;
-        default:
-            return [UIColor lightGrayColor];
-            break;
-    }
-}
-
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if(!cell) {
@@ -171,7 +146,7 @@
             // coach status
             [cell.textLabel setText:@"Status"];
             [cell.detailTextLabel setText:[selectedCoach getCoachStatusString]];
-            [cell.detailTextLabel setTextColor:[self _colorForCoachStatus:[selectedCoach getCoachStatus]]];
+            [cell.detailTextLabel setTextColor:[HBSharedUtils _colorForCoachStatus:[selectedCoach getCoachStatus]]];
         } else if (indexPath.row == 2) {
             // contract yera + length
             [cell.textLabel setText:@"Contract Details"];
@@ -229,8 +204,10 @@
             } else {
                 [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
             }
-        } else {
+        } else if (indexPath.row != 1) {
             [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
+        } else {
+            [cell.detailTextLabel setTextColor:[HBSharedUtils _colorForCoachStatus:[selectedCoach getCoachStatus]]];
         }
         
     } else if (indexPath.section == 1) {

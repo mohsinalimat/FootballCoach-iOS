@@ -102,6 +102,15 @@ typedef enum {
     CRCTransferViewOptionBoth
 } CRCTransferViewOption;
 
+typedef enum {
+    FCCoachStatusNormal,
+    FCCoachStatusHotSeat,
+    FCCoachStatusSecure,
+    FCCoachStatusSafe,
+    FCCoachStatusUnsafe,
+    FCCoachStatusOk
+} FCCoachStatus;
+
 @interface HBSharedUtils : NSObject
 +(double)randomValue;
 +(League*)currentLeague;
@@ -169,4 +178,7 @@ typedef enum {
 + (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber;
 
 +(NSString*)getLetterGrade:(int)num;
+
++(UIColor *)_colorForCoachStatus:(FCCoachStatus)status;
++(UIColor *)_colorForLetterGrade:(NSString *)letterGrade;
 @end

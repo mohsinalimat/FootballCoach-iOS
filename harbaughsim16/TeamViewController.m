@@ -13,6 +13,7 @@
 #import "TeamScheduleViewController.h"
 #import "TeamRecordsViewController.h"
 #import "RingOfHonorViewController.h"
+#import "HeadCoachDetailViewController.h"
 
 @interface HBTeamInfoView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
@@ -44,16 +45,32 @@
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         UIViewController *peekVC;
         if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-                peekVC = [[TeamRosterViewController alloc] initWithTeam:selectedTeam];
-            } else if (indexPath.row == 1) {
-                peekVC = [[TeamScheduleViewController alloc] initWithTeam:selectedTeam];
-            } else if (indexPath.row == 2) {
-                peekVC = [[TeamHistoryViewController alloc] initWithTeam:selectedTeam];
-            } else if (indexPath.row == 3) {
-                peekVC = [[RingOfHonorViewController alloc] initWithTeam:selectedTeam];
+            if (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
+                if (indexPath.row == 0) {
+                    peekVC = [[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]];
+                } else if (indexPath.row == 1) {
+                    peekVC = [[TeamRosterViewController alloc] initWithTeam:selectedTeam];
+                } else if (indexPath.row == 2) {
+                    peekVC = [[TeamScheduleViewController alloc] initWithTeam:selectedTeam];
+                } else if (indexPath.row == 3) {
+                    peekVC = [[TeamHistoryViewController alloc] initWithTeam:selectedTeam];
+                } else if (indexPath.row == 4) {
+                    peekVC = [[RingOfHonorViewController alloc] initWithTeam:selectedTeam];
+                } else {
+                    peekVC = [[TeamRecordsViewController alloc] initWithTeam:selectedTeam];
+                }
             } else {
-                peekVC = [[TeamRecordsViewController alloc] initWithTeam:selectedTeam];
+                if (indexPath.row == 0) {
+                    peekVC = [[TeamRosterViewController alloc] initWithTeam:selectedTeam];
+                } else if (indexPath.row == 1) {
+                    peekVC = [[TeamScheduleViewController alloc] initWithTeam:selectedTeam];
+                } else if (indexPath.row == 2) {
+                    peekVC = [[TeamHistoryViewController alloc] initWithTeam:selectedTeam];
+                } else if (indexPath.row == 3) {
+                    peekVC = [[RingOfHonorViewController alloc] initWithTeam:selectedTeam];
+                } else {
+                    peekVC = [[TeamRecordsViewController alloc] initWithTeam:selectedTeam];
+                }
             }
         }
         peekVC.preferredContentSize = CGSizeMake(0.0, 600);
@@ -295,7 +312,11 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 5;
+        if (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
+            return 6;
+        } else {
+            return 5;
+        }
     } else {
         return stats.count;
     }
@@ -331,16 +352,33 @@
             [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
             [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
         }
-        if (indexPath.row == 0) {
-            [cell.textLabel setText:@"Roster"];
-        } else if (indexPath.row == 1) {
-            [cell.textLabel setText:@"Schedule"];
-        } else if (indexPath.row == 2) {
-            [cell.textLabel setText:@"Team History"];
-        } else if (indexPath.row == 3) {
-            [cell.textLabel setText:@"Ring of Honor"];
+        if (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
+            if (indexPath.row == 0) {
+                [cell.textLabel setText:@"Head Coach"];
+                [cell.detailTextLabel setText:[[selectedTeam getCurrentHC] getInitialName]];
+            } else if (indexPath.row == 1) {
+                [cell.textLabel setText:@"Roster"];
+            } else if (indexPath.row == 2) {
+                [cell.textLabel setText:@"Schedule"];
+            } else if (indexPath.row == 3) {
+                [cell.textLabel setText:@"Team History"];
+            } else if (indexPath.row == 4) {
+                [cell.textLabel setText:@"Ring of Honor"];
+            } else {
+                [cell.textLabel setText:@"Team Records"];
+            }
         } else {
-            [cell.textLabel setText:@"Team Records"];
+            if (indexPath.row == 0) {
+                [cell.textLabel setText:@"Roster"];
+            } else if (indexPath.row == 1) {
+                [cell.textLabel setText:@"Schedule"];
+            } else if (indexPath.row == 2) {
+                [cell.textLabel setText:@"Team History"];
+            } else if (indexPath.row == 3) {
+                [cell.textLabel setText:@"Ring of Honor"];
+            } else {
+                [cell.textLabel setText:@"Team Records"];
+            }
         }
         return cell;
 
@@ -350,16 +388,32 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
-        } else if (indexPath.row == 1) {
-            [self.navigationController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
-        } else if (indexPath.row == 2) {
-            [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
-        } else if (indexPath.row == 3) {
-            [self.navigationController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
+        if (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
+            if (indexPath.row == 0) {
+                [self.navigationController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]] animated:YES];
+            } else if (indexPath.row == 1) {
+                [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            } else if (indexPath.row == 2) {
+                [self.navigationController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            } else if (indexPath.row == 3) {
+                [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            } else if (indexPath.row == 4) {
+                [self.navigationController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            } else {
+                [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            }
         } else {
-            [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            if (indexPath.row == 0) {
+                [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            } else if (indexPath.row == 1) {
+                [self.navigationController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            } else if (indexPath.row == 2) {
+                [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            } else if (indexPath.row == 3) {
+                [self.navigationController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            } else {
+                [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            }
         }
     }
 }

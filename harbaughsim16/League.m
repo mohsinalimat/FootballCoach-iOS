@@ -1047,16 +1047,6 @@
     return self;
 }
 
--(int)getConfNumber:(NSString*)conf {
-    if ([conf isEqualToString:@"SOUTH"]) return 0;
-    if ([conf isEqualToString:@"LAKES"]) return 1;
-    if ([conf isEqualToString:@"NORTH"]) return 2;
-    if ([conf isEqualToString:@"COWBY"]) return 3;
-    if ([conf isEqualToString:@"PACIF"]) return 4;
-    if ([conf isEqualToString:@"MOUNT"]) return 5;
-    return 0;
-}
-
 -(void)playWeek {
     canRebrandTeam = NO;
 

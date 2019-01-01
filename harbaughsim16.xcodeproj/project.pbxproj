@@ -96,6 +96,10 @@
 		75924A6A1C99E66700B165AD /* PlayerCB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A691C99E66700B165AD /* PlayerCB.m */; };
 		75924A6D1C99E66E00B165AD /* PlayerF7.m in Sources */ = {isa = PBXBuildFile; fileRef = 75924A6C1C99E66E00B165AD /* PlayerF7.m */; };
 		7595342E21CDA65B00AF6FE3 /* HeadCoach.m in Sources */ = {isa = PBXBuildFile; fileRef = 7595342D21CDA65B00AF6FE3 /* HeadCoach.m */; };
+		75968B6D21DC12A5009B040C /* coach@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75968B6B21DC12A4009B040C /* coach@2x.png */; };
+		75968B6E21DC12A5009B040C /* coach@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75968B6C21DC12A5009B040C /* coach@3x.png */; };
+		75968B7121DC12EE009B040C /* coach-unselected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75968B6F21DC12EE009B040C /* coach-unselected@3x.png */; };
+		75968B7221DC12EE009B040C /* coach-unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75968B7021DC12EE009B040C /* coach-unselected@2x.png */; };
 		759C79A121AE53AD009DC88E /* help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 759C799F21AE53AD009DC88E /* help@2x.png */; };
 		759C79A221AE53AE009DC88E /* help@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 759C79A021AE53AD009DC88E /* help@3x.png */; };
 		75A41B4C1CA311CF00025E53 /* close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A41B4B1CA311CF00025E53 /* close@3x.png */; };
@@ -197,6 +201,9 @@
 		75F0E26A1FECDAEA00719086 /* winner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E2641FECDAEA00719086 /* winner@2x.png */; };
 		75F0E26B1FECDAEA00719086 /* winner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75F0E2651FECDAEA00719086 /* winner@3x.png */; };
 		75F8F65D21D9DAB7006981E7 /* HeadCoachHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F8F65C21D9DAB7006981E7 /* HeadCoachHistoryViewController.m */; };
+		75F8F66821DBEE9F006981E7 /* MyCareerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F8F66721DBEE9F006981E7 /* MyCareerViewController.m */; };
+		75F8F66A21DBF07C006981E7 /* MyCareerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75F8F66921DBF07C006981E7 /* MyCareerViewController.xib */; };
+		75F8F66D21DBF0C6006981E7 /* CFCTeamHistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F8F66C21DBF0C6006981E7 /* CFCTeamHistoryView.m */; };
 		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
 		75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */; };
 		75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
@@ -378,6 +385,10 @@
 		75924A6C1C99E66E00B165AD /* PlayerF7.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerF7.m; sourceTree = "<group>"; };
 		7595342C21CDA65B00AF6FE3 /* HeadCoach.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeadCoach.h; sourceTree = "<group>"; };
 		7595342D21CDA65B00AF6FE3 /* HeadCoach.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeadCoach.m; sourceTree = "<group>"; };
+		75968B6B21DC12A4009B040C /* coach@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coach@2x.png"; sourceTree = "<group>"; };
+		75968B6C21DC12A5009B040C /* coach@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coach@3x.png"; sourceTree = "<group>"; };
+		75968B6F21DC12EE009B040C /* coach-unselected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coach-unselected@3x.png"; sourceTree = "<group>"; };
+		75968B7021DC12EE009B040C /* coach-unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coach-unselected@2x.png"; sourceTree = "<group>"; };
 		759C799F21AE53AD009DC88E /* help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help@2x.png"; sourceTree = "<group>"; };
 		759C79A021AE53AD009DC88E /* help@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help@3x.png"; sourceTree = "<group>"; };
 		75A41B4B1CA311CF00025E53 /* close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@3x.png"; sourceTree = "<group>"; };
@@ -502,6 +513,11 @@
 		75F0E2651FECDAEA00719086 /* winner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "winner@3x.png"; sourceTree = "<group>"; };
 		75F8F65B21D9DAB7006981E7 /* HeadCoachHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeadCoachHistoryViewController.h; sourceTree = "<group>"; };
 		75F8F65C21D9DAB7006981E7 /* HeadCoachHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeadCoachHistoryViewController.m; sourceTree = "<group>"; };
+		75F8F66621DBEE9F006981E7 /* MyCareerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCareerViewController.h; sourceTree = "<group>"; };
+		75F8F66721DBEE9F006981E7 /* MyCareerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCareerViewController.m; sourceTree = "<group>"; };
+		75F8F66921DBF07C006981E7 /* MyCareerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCareerViewController.xib; sourceTree = "<group>"; };
+		75F8F66B21DBF0C6006981E7 /* CFCTeamHistoryView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFCTeamHistoryView.h; sourceTree = "<group>"; };
+		75F8F66C21DBF0C6006981E7 /* CFCTeamHistoryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CFCTeamHistoryView.m; sourceTree = "<group>"; };
 		75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreaksViewController.h; sourceTree = "<group>"; };
 		75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreaksViewController.m; sourceTree = "<group>"; };
 		75FE58461FA37D8A00DE2534 /* PlayerDL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDL.m; sourceTree = "<group>"; };
@@ -675,6 +691,11 @@
 				75BABF431C9A5D5300A68CD6 /* MyTeamViewController.h */,
 				75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */,
 				7571DD341C9CF8E300E67080 /* MyTeamViewController.xib */,
+				75F8F66621DBEE9F006981E7 /* MyCareerViewController.h */,
+				75F8F66721DBEE9F006981E7 /* MyCareerViewController.m */,
+				75F8F66921DBF07C006981E7 /* MyCareerViewController.xib */,
+				75F8F66B21DBF0C6006981E7 /* CFCTeamHistoryView.h */,
+				75F8F66C21DBF0C6006981E7 /* CFCTeamHistoryView.m */,
 				75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */,
 				75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */,
 				751DF8221CA1D66D003C62F2 /* TeamStrategyViewController.h */,
@@ -949,6 +970,10 @@
 		75A86C9F1C9C7CAA0034140C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				75968B6F21DC12EE009B040C /* coach-unselected@3x.png */,
+				75968B7021DC12EE009B040C /* coach-unselected@2x.png */,
+				75968B6B21DC12A4009B040C /* coach@2x.png */,
+				75968B6C21DC12A5009B040C /* coach@3x.png */,
 				759C799F21AE53AD009DC88E /* help@2x.png */,
 				759C79A021AE53AD009DC88E /* help@3x.png */,
 				7562A88C1FFF403F004C0985 /* hide@2x.png */,
@@ -1194,8 +1219,10 @@
 				7562A8901FFF4040004C0985 /* hide@2x.png in Resources */,
 				7562A8911FFF4040004C0985 /* show@2x.png in Resources */,
 				75A4516E21CC5536007E481A /* PlayerQBDetailViewController.xib in Resources */,
+				75968B6D21DC12A5009B040C /* coach@2x.png in Resources */,
 				75CEE9641FF5FF5E005A86C1 /* 1star-recruit@3x.png in Resources */,
 				75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */,
+				75F8F66A21DBF07C006981E7 /* MyCareerViewController.xib in Resources */,
 				7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */,
 				75EC9A761D07D9DC00F24BE6 /* medical@3x.png in Resources */,
 				75F0E25F1FECD7C100719086 /* alt-designs.json in Resources */,
@@ -1208,6 +1235,7 @@
 				7571DD421C9D032F00E67080 /* PlayerDetailViewController.xib in Resources */,
 				7571DD221C9CC62400E67080 /* news-sort@3x.png in Resources */,
 				75F0E26B1FECDAEA00719086 /* winner@3x.png in Resources */,
+				75968B7121DC12EE009B040C /* coach-unselected@3x.png in Resources */,
 				759C79A121AE53AD009DC88E /* help@2x.png in Resources */,
 				75F0E2661FECDAEA00719086 /* trophy@3x.png in Resources */,
 				75A4518D21CC78B7007E481A /* PlayerDLDetailViewController.xib in Resources */,
@@ -1227,6 +1255,7 @@
 				75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */,
 				751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */,
 				75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */,
+				75968B6E21DC12A5009B040C /* coach@3x.png in Resources */,
 				75CA698D1FEE2BF2008A58D1 /* first-names.csv in Resources */,
 				75CEE9611FF5FF5E005A86C1 /* 4star-recruit@3x.png in Resources */,
 				75A86C991C9C7C0C0034140C /* recruit-selected@3x.png in Resources */,
@@ -1245,6 +1274,7 @@
 				7551AC211FFFD9CA0033680E /* CFCWatchlistCell.xib in Resources */,
 				75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */,
 				75F0E2671FECDAEA00719086 /* loser@2x.png in Resources */,
+				75968B7221DC12EE009B040C /* coach-unselected@2x.png in Resources */,
 				75CEE9631FF5FF5E005A86C1 /* 2star-recruit@3x.png in Resources */,
 				75A4518321CC7457007E481A /* PlayerOLDetailViewController.xib in Resources */,
 				75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */,
@@ -1485,6 +1515,7 @@
 				75097C5C1CBC1B55003E2538 /* HBRecordCell.m in Sources */,
 				7562A8951FFF4394004C0985 /* PrestigeYearMarkerView.swift in Sources */,
 				75924A4F1C99D05E00B165AD /* Conference.m in Sources */,
+				75F8F66821DBEE9F006981E7 /* MyCareerViewController.m in Sources */,
 				751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */,
 				75924A491C99CF7C00B165AD /* Game.m in Sources */,
 				75EC9A7C1D08E5B300F24BE6 /* HallOfFameViewController.m in Sources */,
@@ -1517,6 +1548,7 @@
 				7586330A1CC142B900E1E458 /* MockDraftViewController.m in Sources */,
 				7562A8931FFF4370004C0985 /* BalloonMarker.swift in Sources */,
 				75FFAB3721CF28C5002156C1 /* TransferLogViewController.m in Sources */,
+				75F8F66D21DBF0C6006981E7 /* CFCTeamHistoryView.m in Sources */,
 				7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */,
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,
 				7510B84A1C9C76C900BE9CD6 /* GameDetailViewController.m in Sources */,

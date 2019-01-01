@@ -10,15 +10,7 @@
 #import "AutoCoding.h"
 #import "TeamStrategy.h"
 #import "Team.h"
-
-typedef enum {
-    FCCoachStatusNormal,
-    FCCoachStatusHotSeat,
-    FCCoachStatusSecure,
-    FCCoachStatusSafe,
-    FCCoachStatusUnsafe,
-    FCCoachStatusOk
-} FCCoachStatus;
+#import "HBSharedUtils.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

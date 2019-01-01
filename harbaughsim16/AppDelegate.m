@@ -13,6 +13,7 @@
 #import "MyTeamViewController.h"
 #import "IntroViewController.h"
 #import "TeamSearchViewController.h"
+#import "MyCareerViewController.h"
 
 #import "League.h"
 #import "LeagueUpdater.h"
@@ -25,6 +26,7 @@
 #import "ATAppUpdater.h"
 #import "FCFileManager.h"
 #import "ZGNavigationTitleView.h"
+//#import "harbaughsim16-Swift.h"
 
 #define kHBSimFirstLaunchKey @"firstLaunch"
 
@@ -60,10 +62,10 @@
     searchNav.title = @"Search";
     searchNav.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:3];
     
-    UINavigationController *teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyTeamViewController alloc] init]];
-    teamNav.title = @"My Team";
-    teamNav.tabBarItem.image = [UIImage imageNamed:@"team"];
-    teamNav.tabBarItem.selectedImage = [UIImage imageNamed:@"team-selected"];
+    UINavigationController *teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyCareerViewController alloc] init]];
+    teamNav.title = @"Career";
+    teamNav.tabBarItem.image = [UIImage imageNamed:@"coach-unselected"];
+    teamNav.tabBarItem.selectedImage = [UIImage imageNamed:@"coach"];
     
     [self setupAppearance];
     
@@ -86,6 +88,14 @@
         if (_league.leagueVersion == nil || [LeagueUpdater needsUpdateFromVersion:_league.leagueVersion toVersion:HB_CURRENT_APP_VERSION]) {
             //NSLog(@"Current league version: %@", _league.leagueVersion);
             [self startSaveFileUpdate];
+        }
+        
+        if (!_league.isCareerMode) {
+            teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyTeamViewController alloc] init]];
+            teamNav.title = @"Team";
+            teamNav.tabBarItem.image = [UIImage imageNamed:@"team"];
+            teamNav.tabBarItem.selectedImage = [UIImage imageNamed:@"team-selected"];
+            tabBarController.viewControllers = @[newsNav, scheduleNav, rosterNav, searchNav, teamNav];
         }
         
         //check if data file is corrupt, alert user
