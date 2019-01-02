@@ -2588,7 +2588,7 @@
 }
 
 -(NSArray<Player*>*)calculateROTYCandidates {
-    if (!rotyDecided && currentWeek < 13) {
+    if (!rotyDecided && currentWeek <= 13) {
         if (roty) {
             roty.isROTY = NO;
             roty = nil;

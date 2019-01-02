@@ -355,7 +355,7 @@
                 }
             }
             
-            if (oldLigue.currentWeek > 13 && oldLigue.roty == nil) {
+            if (oldLigue.currentWeek > 12 && oldLigue.roty == nil) {
                 [oldLigue getROTYCeremonyStr];
             }
             
