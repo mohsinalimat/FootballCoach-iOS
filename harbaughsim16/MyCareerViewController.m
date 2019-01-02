@@ -144,13 +144,6 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    if (section == 0) {
-//        return 6;
-//    } else if (section == 2) {
-//        return 3;
-//    } else {
-//        return stats.count;
-//    }
     if (section == 0) {
         return 3;
     } else if (section == 1) {
@@ -164,13 +157,6 @@
 
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    if (section == 2) {
-//        return @"History";
-//    } else if (section == 1) {
-//        return @"Team Statistics";
-//    } else {
-//        return nil;
-//    }
     if (section == 0) {
         return nil;
     } else if (section == 1) {
