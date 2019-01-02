@@ -209,7 +209,7 @@
             }
         }
         if (peekVC != nil) {
-            peekVC.preferredContentSize = CGSizeMake(0.0, 600);
+            peekVC.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
             previewingContext.sourceRect = cell.frame;
             return peekVC;
         } else {

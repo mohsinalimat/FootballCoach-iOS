@@ -35,7 +35,7 @@
         HBScheduleCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         
         GameDetailViewController *gameDetail = [[GameDetailViewController alloc] initWithGame:userTeam.gameSchedule[indexPath.row]];
-        gameDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        gameDetail.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
         previewingContext.sourceRect = cell.frame;
         return gameDetail;
     } else {

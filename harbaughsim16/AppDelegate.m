@@ -62,10 +62,10 @@
     searchNav.title = @"Search";
     searchNav.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:3];
     
-    UINavigationController *teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyCareerViewController alloc] init]];
-    teamNav.title = @"Career";
-    teamNav.tabBarItem.image = [UIImage imageNamed:@"coach-unselected"];
-    teamNav.tabBarItem.selectedImage = [UIImage imageNamed:@"coach"];
+    UINavigationController *teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyTeamViewController alloc] init]];
+    teamNav.title = @"My Team";
+    teamNav.tabBarItem.image = [UIImage imageNamed:@"team"];
+    teamNav.tabBarItem.selectedImage = [UIImage imageNamed:@"team-selected"];
     
     [self setupAppearance];
     
@@ -90,12 +90,8 @@
             [self startSaveFileUpdate];
         }
         
-        if (!_league.isCareerMode) {
-            teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyTeamViewController alloc] init]];
-            teamNav.title = @"Team";
-            teamNav.tabBarItem.image = [UIImage imageNamed:@"team"];
-            teamNav.tabBarItem.selectedImage = [UIImage imageNamed:@"team-selected"];
-            tabBarController.viewControllers = @[newsNav, scheduleNav, rosterNav, searchNav, teamNav];
+        if (_league.isCareerMode) {
+            [self updateTabBarForCareer];
         }
         
         //check if data file is corrupt, alert user
@@ -183,6 +179,17 @@
     }]];
     
     [tabBarController presentViewController:convertAlertPerm animated:YES completion:nil];
+}
+
+-(void)updateTabBarForCareer {
+    UINavigationController *teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyCareerViewController alloc] init]];
+    teamNav.title = @"Career";
+    teamNav.tabBarItem.image = [UIImage imageNamed:@"coach-unselected"];
+    teamNav.tabBarItem.selectedImage = [UIImage imageNamed:@"coach"];
+    NSMutableArray *navs = [NSMutableArray arrayWithArray:tabBarController.viewControllers];
+    [navs removeLastObject];
+    [navs addObject:teamNav];
+    tabBarController.viewControllers = navs;
 }
 
 

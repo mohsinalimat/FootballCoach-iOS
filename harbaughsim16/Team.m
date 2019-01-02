@@ -256,8 +256,6 @@
         teamPrestige = prestige;
         [self recruitPlayers: @[@2, @4, @6, @2, @10, @2, @6, @8, @6, @2]];
 
-        coaches = [NSMutableArray array];
-
         //set stats
         totalWins = 0;
         totalLosses = 0;
@@ -280,6 +278,11 @@
 
         teamStatOffNum = [self getCPUOffense];
         teamStatDefNum = [self getCPUDefense];
+        
+        if (coaches.count > 0) {
+            [self getCurrentHC].offStratNum = teamStatOffNum;
+            [self getCurrentHC].defStratNum = teamStatDefNum;
+        }
 
         name = nm;
         abbreviation = abbr;
@@ -706,11 +709,11 @@
     if (coaches.count == 0) {
         int coachNum = 100 * (int) [HBSharedUtils randomValue];
         if (coachNum < 20) {
-            [coaches addObject:[HeadCoach newHC:self name:[league getRandName] stars:(stars - 2) year:(int) (4 * [HBSharedUtils randomValue] + 1)]];
+            [coaches addObject:[HeadCoach newHC:self name:[league getRandName] stars:(stars - 2) year:MAX(1, (int) (4 * [HBSharedUtils randomValue] + 1))]];
         } else if (coachNum > 80) {
-            [coaches addObject:[HeadCoach newHC:self name:[league getRandName] stars:(stars + 2) year:(int) (4 * [HBSharedUtils randomValue] + 1)]];
+            [coaches addObject:[HeadCoach newHC:self name:[league getRandName] stars:(stars + 2) year:MAX(1, (int) (4 * [HBSharedUtils randomValue] + 1))]];
         } else {
-            [coaches addObject:[HeadCoach newHC:self name:[league getRandName] stars:stars year:(int) (4 * [HBSharedUtils randomValue] + 1)]];
+            [coaches addObject:[HeadCoach newHC:self name:[league getRandName] stars:stars year:MAX(1, (int) (4 * [HBSharedUtils randomValue] + 1))]];
         }
     }
 
@@ -734,8 +737,8 @@
     hc.ratDef = [league getAvgCoachDef];
     hc.ratTalent = [league getAvgCoachTalent];
     hc.ratDiscipline = [league getAvgCoachDiscipline];
-    hc.offStratNum = 0;
-    hc.defStratNum = 0;
+    hc.offStratNum = self.teamStatOffNum;
+    hc.defStratNum = self.teamStatDefNum;
     hc.totalWins = 0;
     hc.totalLosses = 0;
     hc.totalRivalryWins = 0;

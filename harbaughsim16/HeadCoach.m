@@ -20,8 +20,7 @@
     hc.team = t;
     hc.homeState = [HBSharedUtils randomState];
     hc.age = 30 + (int) ([HBSharedUtils randomValue] * 28);
-    hc.year = 0;
-    hc.contractYear = (int) (6 * [HBSharedUtils randomValue]);
+    hc.contractYear = MAX(1, (int) (6 * [HBSharedUtils randomValue]));
     hc.contractLength = 6;
     hc.ratPot = (int) (50 + 50 * [HBSharedUtils randomValue]);
     hc.ratOff = (int) (50 + stars * 5 - 15 * [HBSharedUtils randomValue] + 15 * [HBSharedUtils randomValue]);

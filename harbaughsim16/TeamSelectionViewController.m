@@ -51,43 +51,68 @@
 -(void)confirmTeamSelection {
     if (selectedIndexPath && userTeam) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to pick this team?" message:@"This choice can NOT be changed later." preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Game Mode" message:@"Would you like to turn on hard mode? In hard mode, your rival will be more competitive, good players will have a higher chance of leaving for the pros, and your program can incur sanctions from the league." preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Yes, I'd like a challenge." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self->league setUserTeam:self->userTeam];
-                self->league.isHardMode = YES;
-                self->league.canRebrandTeam = YES;
-                [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
-                [self->league save];
+        if (league.isCareerMode) {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"New Career - Coach Name" message:@"What do you want your coach to be named?" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                    textField.placeholder = @"Coach First Name";
+                }];
+                [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                    textField.placeholder = @"Coach Last Name";
+                }];
                 
-                NSLog(@"HARD MODE ENGAGED");
-                [Answers logContentViewWithName:@"New Hard Mode Save Created" contentType:@"Team" contentId:@"hardmode-team16" customAttributes:@{@"Team Name":self->userTeam.name}];
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self->userTeam setupUserCoach:[NSString stringWithFormat:@"%@ %@", alert.textFields[0].text, alert.textFields[1].text]];
+                    [self->league setUserTeam:self->userTeam];
+                    [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
+                    [self->league save];
+                    
+                    NSLog(@"Career MODE ENGAGED: %@, difficulty: %@", [self->userTeam getCurrentHC].name, (self->league.isHardMode) ? @"hard" : @"easy");
+                    [Answers logContentViewWithName:@"New career Save Created" contentType:@"Team" contentId:@"career-team19" customAttributes:@{@"Team Name":self->userTeam.name}];
+                    
+                    [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForCareer];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }]];
+                [self presentViewController:alert animated:YES completion:nil];
             }]];
-            
-            [alert addAction:[UIAlertAction actionWithTitle:@"No, I'll stick with easy mode." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                [self->league setUserTeam:self->userTeam];
-                self->league.isHardMode = NO;
-                self->league.canRebrandTeam = YES;
-                [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
-                [self->league save];
+        } else {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Game Difficulty" message:@"Would you like to set your game difficulty to hard? On hard, your rival will be more competitive, good players will have a higher chance of leaving for the pros, and your program can incur sanctions from the league." preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"Yes, I'd like a challenge." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    [self->league setUserTeam:self->userTeam];
+                    self->league.isHardMode = YES;
+                    self->league.canRebrandTeam = YES;
+                    [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
+                    [self->league save];
+                    
+                    NSLog(@"HARD MODE ENGAGED");
+                    [Answers logContentViewWithName:@"New Hard Mode Save Created" contentType:@"Team" contentId:@"hardmode-team16" customAttributes:@{@"Team Name":self->userTeam.name}];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }]];
                 
-                [Answers logContentViewWithName:@"New Easy Mode Save Created" contentType:@"Team" contentId:@"team16" customAttributes:@{@"Team Name":self->userTeam.name}];
-                
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [alert addAction:[UIAlertAction actionWithTitle:@"No, I'll stick with easy." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    [self->league setUserTeam:self->userTeam];
+                    self->league.isHardMode = NO;
+                    self->league.canRebrandTeam = YES;
+                    [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
+                    [self->league save];
+                    
+                    [Answers logContentViewWithName:@"New Easy Mode Save Created" contentType:@"Team" contentId:@"team16" customAttributes:@{@"Team Name":self->userTeam.name}];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }]];
+                [self presentViewController:alert animated:YES completion:nil];
             }]];
-            [self presentViewController:alert animated:YES completion:nil];
-        }]];
+        }
+       
         [alertController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alertController animated:YES completion:nil];
-    } else {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"No team has been chosen. Please select one and try again." preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alertController animated:YES completion:nil];
     }
 }
@@ -169,30 +194,67 @@
     }
     [cell.textLabel setText:team.name];
     [cell.detailTextLabel setText:[NSString stringWithFormat:@"Prestige: %d",team.teamPrestige]];
+    if (league.isHardMode && league.isCareerMode) {
+        if (indexPath.row == southTeams.count - 1 || indexPath.row == southTeams.count - 2) {
+            [cell.textLabel setTextColor:[UIColor blackColor]];
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        } else {
+            [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+    } else {
+        [cell.textLabel setTextColor:[UIColor blackColor]];
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    }
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0) {
-        userTeam = southTeams[indexPath.row];
-    } else if (indexPath.section == 1) {
-        userTeam = lakesTeams[indexPath.row];
-    } else if (indexPath.section == 2) {
-        userTeam = northTeams[indexPath.row];
-    } else if (indexPath.section == 3) {
-        userTeam = cowbyTeams[indexPath.row];
-    } else if (indexPath.section == 4) {
-        userTeam = pacificTeams[indexPath.row];
+    if (league.isHardMode && league.isCareerMode) {
+        if (indexPath.row == southTeams.count - 1 || indexPath.row == southTeams.count - 2) {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            if (indexPath.section == 0) {
+                userTeam = southTeams[indexPath.row];
+            } else if (indexPath.section == 1) {
+                userTeam = lakesTeams[indexPath.row];
+            } else if (indexPath.section == 2) {
+                userTeam = northTeams[indexPath.row];
+            } else if (indexPath.section == 3) {
+                userTeam = cowbyTeams[indexPath.row];
+            } else if (indexPath.section == 4) {
+                userTeam = pacificTeams[indexPath.row];
+            } else {
+                userTeam = mountTeams[indexPath.row];
+            }
+            if ([selectedIndexPath isEqual:indexPath]) {
+                selectedIndexPath = nil;
+            } else {
+                selectedIndexPath = indexPath;
+            }
+            [self reloadTable];
+        }
     } else {
-        userTeam = mountTeams[indexPath.row];
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        if (indexPath.section == 0) {
+            userTeam = southTeams[indexPath.row];
+        } else if (indexPath.section == 1) {
+            userTeam = lakesTeams[indexPath.row];
+        } else if (indexPath.section == 2) {
+            userTeam = northTeams[indexPath.row];
+        } else if (indexPath.section == 3) {
+            userTeam = cowbyTeams[indexPath.row];
+        } else if (indexPath.section == 4) {
+            userTeam = pacificTeams[indexPath.row];
+        } else {
+            userTeam = mountTeams[indexPath.row];
+        }
+        if ([selectedIndexPath isEqual:indexPath]) {
+            selectedIndexPath = nil;
+        } else {
+            selectedIndexPath = indexPath;
+        }
+        [self reloadTable];
     }
-    if ([selectedIndexPath isEqual:indexPath]) {
-        selectedIndexPath = nil;
-    } else {
-        selectedIndexPath = indexPath;
-    }
-    [self reloadTable];
     
 }
 

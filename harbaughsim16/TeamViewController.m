@@ -45,7 +45,7 @@
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         UIViewController *peekVC;
         if (indexPath.section == 0) {
-            if (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
+            if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
                 if (indexPath.row == 0) {
                     peekVC = [[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]];
                 } else if (indexPath.row == 1) {
@@ -73,7 +73,7 @@
                 }
             }
         }
-        peekVC.preferredContentSize = CGSizeMake(0.0, 600);
+        peekVC.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
         previewingContext.sourceRect = cell.frame;
         return peekVC;
     } else {
@@ -312,7 +312,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        if (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
+        if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
             return 6;
         } else {
             return 5;
@@ -352,7 +352,7 @@
             [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
             [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
         }
-        if (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
+        if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
             if (indexPath.row == 0) {
                 [cell.textLabel setText:@"Head Coach"];
                 [cell.detailTextLabel setText:[[selectedTeam getCurrentHC] getInitialName]];
@@ -388,7 +388,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        if (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
+        if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
             if (indexPath.row == 0) {
                 [self.navigationController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]] animated:YES];
             } else if (indexPath.row == 1) {

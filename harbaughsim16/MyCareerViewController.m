@@ -46,71 +46,40 @@
 }
 
 - (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
-//    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-//    if (indexPath != nil) {
-//        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-//        UIViewController *peekVC;
-//
-//        if (indexPath.section == 1) {
-//            if ([HBSharedUtils currentLeague].currentWeek > 0) {
-//                if (indexPath.row == 0) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypePollScore];
-//                } else if (indexPath.row == 1) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOffTalent];
-//                } else if (indexPath.row == 2) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeDefTalent];
-//                } else if (indexPath.row == 3) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeTeamPrestige];
-//                } else if (indexPath.row == 4) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeWins];
-//                } else if (indexPath.row == 5) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeSOS];
-//                } else if (indexPath.row == 6) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypePPG];
-//                } else if (indexPath.row == 7) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG];
-//                } else if (indexPath.row == 8) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeYPG];
-//                } else if (indexPath.row == 9) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
-//                } else if (indexPath.row == 10) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypePYPG];
-//                } else if (indexPath.row == 11) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG];
-//                } else if (indexPath.row == 12) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG];
-//                } else if (indexPath.row == 13) {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppRYPG];
-//                } else {
-//                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeTODiff];
-//                }
-//            }
-//        } else if (indexPath.section == 2) {
-//            if (indexPath.row == 0) {
-//                //league
-//                peekVC = [[LeagueHistoryController alloc] init];
-//            } else if (indexPath.row == 1) { //hallOfFame
-//                peekVC = [[HallOfFameViewController alloc] init];
-//            } else {
-//                //league records
-//                peekVC = [[LeagueRecordsViewController alloc] init];
-//            }
-//        } else if (indexPath.section == 0) {
-//            if (indexPath.row == 0) {
-//                peekVC = [[HeadCoachDetailViewController alloc] initWithCoach:currentCoach];
-//            }
-//        }
-//
-//        if (peekVC != nil) {
-//            peekVC.preferredContentSize = CGSizeMake(0.0, 600);
-//            previewingContext.sourceRect = cell.frame;
-//            return peekVC;
-//        } else {
-//            return nil;
-//        }
-//    } else {
-//        return nil;
-//    }
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        UIViewController *peekVC;
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+                peekVC = [[TeamViewController alloc] initWithTeam:currentCoach.team];
+            }
+        } else if (indexPath.section == 3) {
+            if (indexPath.row == 0) {
+                //league
+                peekVC = [[HeadCoachHistoryViewController alloc] initWithCoach:currentCoach];
+            } else if (indexPath.row == 1) {
+                //league
+                peekVC = [[LeagueHistoryController alloc] init];
+            } else if (indexPath.row == 2) { //hallOfFame
+                peekVC = [[HallOfFameViewController alloc] init];
+            } else {
+                //league records
+                peekVC = [[LeagueRecordsViewController alloc] init];
+            }
+        } else if (indexPath.section == 2) {
+            if (indexPath.row == 4) { //hallOfFame
+                peekVC = [[HeadCoachDetailViewController alloc] initWithCoach:currentCoach];
+            }
+        }
+        if (peekVC != nil) {
+            peekVC.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
+            previewingContext.sourceRect = cell.frame;
+            return peekVC;
+        } else {
+            return nil;
+        }
+    }
     return nil;
 }
 
@@ -154,6 +123,10 @@
     if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
+}
+
+-(void)resetForNewSeason {
+    [self setupTeamHeader];
 }
 
 -(void)openMyTeamView {

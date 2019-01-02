@@ -34,7 +34,7 @@
 #import "AutoCoding.h"
 
 @implementation League
-@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles,coachList,coachStarList,coachFreeAgents, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary,cotyWinnerStrFull,cotyWinner,isCareerMode;
+@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles,coachList,coachStarList,coachFreeAgents, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary,cotyWinnerStrFull,cotyWinner,isCareerMode,cotyFinalists;
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
@@ -147,6 +147,8 @@
     [encoder encodeObject:coachStarList forKey:@"coachStarList"];
     [encoder encodeObject:coachList forKey:@"coachList"];
     [encoder encodeObject:cotyWinner forKey:@"cotyWinner"];
+    [encoder encodeObject:cotyFinalists forKey:@"cotyFinalists"];
+    [encoder encodeBool:cotyDecided forKey:@"cotyDecided"];
     [encoder encodeBool:self.isCareerMode forKey:@"isCareerMode"];
 }
 
@@ -568,6 +570,18 @@
         } else {
             isCareerMode = [decoder decodeBoolForKey:@"isCareerMode"];
         }
+        
+        if (![decoder containsValueForKey:@"cotyDecided"]) {
+            cotyDecided = NO;
+        } else {
+            cotyDecided = [decoder decodeBoolForKey:@"cotyDecided"];
+        }
+        
+        if (![decoder containsValueForKey:@"cotyFinalists"]) {
+            cotyFinalists = [NSMutableArray array];
+        } else {
+            cotyFinalists = [decoder decodeObjectForKey:@"cotyFinalists"];
+        }
 
         //deprecated
         leagueRecordYearPassYards = 0;
@@ -886,9 +900,13 @@
         leagueVersion = HB_CURRENT_APP_VERSION;
         baseYear = [[[NSCalendar currentCalendar] components: NSCalendarUnitYear fromDate:[NSDate date]] year];
 
+        cotyWinner = nil;
+        cotyWinnerStrFull = nil;
         coachFreeAgents = [NSMutableArray array];
         coachStarList = [NSMutableArray array];
         coachList = [NSMutableArray array];
+        cotyFinalists = [NSMutableArray array];
+        cotyDecided = NO;
 
         careerCompletionsRecord = nil;
         careerPassYardsRecord = nil;
@@ -2891,6 +2909,30 @@
 }
 
 // Coaching stuff
+-(NSArray<HeadCoach*> *)getCOTYLeaders {
+    if (!cotyDecided || !cotyFinalists) {
+        NSMutableArray *tempHeis = [NSMutableArray array];
+        NSArray *candidates = [self calculateCOTYCandidates];
+        int i = 0;
+        while (tempHeis.count < 5 && i < candidates.count) {
+            Player *p = candidates[i];
+            if (p != nil && ![tempHeis containsObject:p]) {
+                [tempHeis addObject:p];
+            }
+            
+            i++;
+        }
+        
+        [tempHeis sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [HBSharedUtils compareCoachScore:obj1 toObj2:obj2];
+        }];
+        
+        return [tempHeis copy];
+    } else {
+        return [cotyFinalists copy];
+    }
+}
+
 -(NSArray *)calculateCOTYCandidates {
     cotyWinner = nil;
     NSMutableArray<HeadCoach *> *cotyCandidates = [NSMutableArray array];
@@ -2910,12 +2952,10 @@
         cotyWinner.wonTopHC = YES;
         return cotyWinnerStrFull;
     } else {
-        //BOOL putNewsStory = false;
-
         NSMutableArray *cotyCandidates = [[self calculateCOTYCandidates] mutableCopy];
         cotyWinner = cotyCandidates[0];
-        //heismanDecided = true;
-        //putNewsStory = true;
+        cotyDecided = true;
+        cotyFinalists = [NSMutableArray array];
 
         NSMutableString* heismanTop5 = [NSMutableString stringWithString:@"\n"];
         NSMutableString* heismanStats = [NSMutableString string];
@@ -2924,16 +2964,18 @@
         //full results string
         int i = 0;
         int place = 1;
-        while (cotyCandidates.count < 5 && i < cotyCandidates.count) {
+        while (i < cotyCandidates.count && i < 5) {
             HeadCoach *hc = cotyCandidates[i];
-            [heismanTop5 appendFormat:@"%d. %@ (%ld-%ld) - %d votes",place,hc.team.abbreviation,(long)hc.team.wins,(long)hc.team.losses, [hc getCoachScore]];
+            [heismanTop5 appendFormat:@"%d. %@ HC %@ (%ld-%ld) - %d votes\n",place,hc.team.abbreviation,[hc getInitialName],(long)hc.team.wins,(long)hc.team.losses, [hc getCoachScore]];
+            [cotyFinalists addObject:hc];
             i++;
+            place++;
         }
 
         cotyWinner.team.totalCOTYs++;
         cotyWinner.careerCOTYs++;
         cotyWinner.wonTopHC = YES;
-        heismanWinnerStr = [NSString stringWithFormat:@"Congratulations to the Coach of the Year, %@!\nHe led %@ to a %d-%d record and a #%d poll ranking.", cotyWinner.name, cotyWinner.team.name, cotyWinner.team.wins, cotyWinner.team.losses, cotyWinner.team.rankTeamPollScore];
+        heismanWinnerStr = [NSString stringWithFormat:@"%ld's COTY: %@ HC %@!\n?Congratulations to the Coach of the Year, %@!\nHe led %@ to a %d-%d record and a #%d poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), cotyWinner.team.abbreviation, [cotyWinner getInitialName], cotyWinner.name, cotyWinner.team.name, cotyWinner.team.wins, cotyWinner.team.losses, cotyWinner.team.rankTeamPollScore];
 
         [heismanStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",heismanWinnerStr, heismanTop5]];
 

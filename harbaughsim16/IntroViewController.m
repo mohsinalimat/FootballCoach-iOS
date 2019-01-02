@@ -46,10 +46,64 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
--(IBAction)newDynasty {
+-(IBAction)newGame:(id)sender {
+    // show alert for career vs normal
+    UIAlertController *modeChooser = [UIAlertController alertControllerWithTitle:@"What mode would you like to play?" message:@"In Career mode, you can change jobs if other schools have openings and be fired from your program for poor performance.\n\nIn Normal mode, there's no hiring and firing. You can play forever as the same coach at the same program." preferredStyle:UIAlertControllerStyleAlert];
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Normal Mode" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // career mode stuff
+            [self startNewNormalModeGame];
+        });
+    }]];
+    
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Career Mode" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // career mode stuff
+            [self startNewCareerModeGame];
+        });
+    }]];
+    
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    
+    [self presentViewController:modeChooser animated:YES completion:nil];
+}
+
+-(void)startNewCareerModeGame {
+    NSLog(@"Career Mode");
+    // show alert for career vs normal
+    UIAlertController *modeChooser = [UIAlertController alertControllerWithTitle:@"Game Difficulty" message:@"Would you like to set your career difficulty to hard? On hard, your rival will be more competitive, good players will have a higher chance of leaving for the pros, and your program can incur sanctions from the league." preferredStyle:UIAlertControllerStyleAlert];
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Yes, I'd like a challenge." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self provisionNewCareer:YES];
+        });
+    }]];
+    
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"No, I'll stick with easy." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self provisionNewCareer:NO];
+        });
+    }]];
+    [self presentViewController:modeChooser animated:YES completion:nil];
+}
+
+-(void)provisionNewCareer:(BOOL)isHardMode {
+    [self createLeague:^(League * _Nullable ligue) {
+        ligue.isCareerMode = YES;
+        ligue.isHardMode = isHardMode;
+        [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:ligue] animated:YES];
+    }];
+}
+
+-(void)startNewNormalModeGame {
+    [self createLeague:^(League * _Nullable ligue) {
+        [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:ligue] animated:YES];
+    }];
+}
+
+-(void)createLeague:(void (^_Nullable)(League * _Nullable ligue))completionBlock {
     __block NSString *firstNameCSV, *lastNameCSV;
     // display a HUD while we wait for things to get done
-    UIAlertController *convertProgressAlert = [UIAlertController alertControllerWithTitle:@"Welcome, Coach!" message:@"Preparing new career..." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *convertProgressAlert = [UIAlertController alertControllerWithTitle:@"Welcome, Coach!" message:@"Preparing new game..." preferredStyle:UIAlertControllerStyleAlert];
     UIActivityIndicatorView *convertProgressView = [[UIActivityIndicatorView alloc] initWithFrame:convertProgressAlert.view.bounds];
     [convertProgressView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     [convertProgressView setAutoresizingMask: UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleWidth];
@@ -58,7 +112,7 @@
     convertProgressView.tintColor = [HBSharedUtils styleColor];
     [convertProgressView setUserInteractionEnabled:NO];
     [convertProgressView startAnimating];
-
+    
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self presentViewController:convertProgressAlert animated:YES completion:nil];
@@ -95,7 +149,7 @@
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     League *ligue = [League newLeagueFromCSV:firstNameCSV lastNamesCSV:lastNameCSV];
                     ligue.canRebrandTeam = YES;
-                    [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:ligue] animated:YES];
+                    completionBlock(ligue);
                 });
             });
         });

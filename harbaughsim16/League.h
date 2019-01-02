@@ -17,12 +17,12 @@
 
 @interface League : NSObject <NSCoding> {
     BOOL heismanDecided;
-
     NSString *heismanWinnerStrFull;
 
     BOOL rotyDecided;
-
     NSString *rotyWinnerStrFull;
+    
+    BOOL cotyDecided;
 
     //deprecated record tracking ivars
     int leagueRecordCompletions;
@@ -99,6 +99,7 @@
 @property (strong, nonatomic) NSMutableArray<HeadCoach*> *coachFreeAgents;
 @property (strong, nonatomic) HeadCoach *cotyWinner;
 @property (strong, nonatomic) NSString *cotyWinnerStrFull;
+@property (strong, nonatomic) NSMutableArray<HeadCoach*> *cotyFinalists;
 @property (nonatomic) BOOL isCareerMode;
 
 //User Team
@@ -205,10 +206,12 @@
 -(NSArray*)getROTYLeaders;
 -(NSString*)getROTYCeremonyStr;
 
+
 //Coaching stuff
 -(void)advanceHC;
 -(NSString *)getCoachAwardStr;
 -(NSArray *)calculateCOTYCandidates;
+-(NSArray*)getCOTYLeaders;
 -(int)getAvgCoachDiscipline;
 -(int)getAvgCoachTalent;
 -(int)getAvgCoachOff;

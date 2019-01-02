@@ -88,7 +88,7 @@
         } else {
             playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
         }
-        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
         previewingContext.sourceRect = cell.frame;
         return playerDetail;
     } else {

@@ -30,7 +30,7 @@
     if (indexPath != nil) {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         TeamViewController *teamDetail = [[TeamViewController alloc] initWithTeam:teams[indexPath.row]];
-        teamDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        teamDetail.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
         previewingContext.sourceRect = cell.frame;
         return teamDetail;
     } else {

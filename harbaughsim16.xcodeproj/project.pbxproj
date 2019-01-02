@@ -100,6 +100,7 @@
 		75968B6E21DC12A5009B040C /* coach@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75968B6C21DC12A5009B040C /* coach@3x.png */; };
 		75968B7121DC12EE009B040C /* coach-unselected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75968B6F21DC12EE009B040C /* coach-unselected@3x.png */; };
 		75968B7221DC12EE009B040C /* coach-unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75968B7021DC12EE009B040C /* coach-unselected@2x.png */; };
+		75968B7521DC4573009B040C /* COTYLeadersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75968B7421DC4573009B040C /* COTYLeadersViewController.m */; };
 		759C79A121AE53AD009DC88E /* help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 759C799F21AE53AD009DC88E /* help@2x.png */; };
 		759C79A221AE53AE009DC88E /* help@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 759C79A021AE53AD009DC88E /* help@3x.png */; };
 		75A41B4C1CA311CF00025E53 /* close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A41B4B1CA311CF00025E53 /* close@3x.png */; };
@@ -389,6 +390,8 @@
 		75968B6C21DC12A5009B040C /* coach@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coach@3x.png"; sourceTree = "<group>"; };
 		75968B6F21DC12EE009B040C /* coach-unselected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coach-unselected@3x.png"; sourceTree = "<group>"; };
 		75968B7021DC12EE009B040C /* coach-unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coach-unselected@2x.png"; sourceTree = "<group>"; };
+		75968B7321DC4573009B040C /* COTYLeadersViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = COTYLeadersViewController.h; sourceTree = "<group>"; };
+		75968B7421DC4573009B040C /* COTYLeadersViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = COTYLeadersViewController.m; sourceTree = "<group>"; };
 		759C799F21AE53AD009DC88E /* help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help@2x.png"; sourceTree = "<group>"; };
 		759C79A021AE53AD009DC88E /* help@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "help@3x.png"; sourceTree = "<group>"; };
 		75A41B4B1CA311CF00025E53 /* close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@3x.png"; sourceTree = "<group>"; };
@@ -822,6 +825,8 @@
 				754E907A1CA58C0F00C450CF /* HeismanLeadersViewController.m */,
 				7564701721D2EAE70038E4AD /* ROTYLeadersViewController.h */,
 				7564701821D2EAE70038E4AD /* ROTYLeadersViewController.m */,
+				75968B7321DC4573009B040C /* COTYLeadersViewController.h */,
+				75968B7421DC4573009B040C /* COTYLeadersViewController.m */,
 				754E90761CA58BF800C450CF /* BowlProjectionViewController.h */,
 				754E90771CA58BF800C450CF /* BowlProjectionViewController.m */,
 				75C5C3341F83457100D7CAAD /* PlayerStatsViewController.h */,
@@ -1465,6 +1470,7 @@
 				75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */,
 				75C5C3321F83447A00D7CAAD /* UpcomingViewController.m in Sources */,
 				7564701921D2EAE70038E4AD /* ROTYLeadersViewController.m in Sources */,
+				75968B7521DC4573009B040C /* COTYLeadersViewController.m in Sources */,
 				75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */,
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
 				75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */,

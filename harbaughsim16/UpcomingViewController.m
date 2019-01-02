@@ -33,6 +33,7 @@
 #import "GameDetailViewController.h"
 #import "PlayerStatsViewController.h"
 #import "ROTYLeadersViewController.h"
+#import "COTYLeadersViewController.h"
 
 #import "RecruitingPeriodViewController.h"
 
@@ -120,7 +121,7 @@
             }
         }
         if (peekVC != nil) {
-            peekVC.preferredContentSize = CGSizeMake(0.0, 600);
+            peekVC.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
             previewingContext.sourceRect = cell.frame;
             return peekVC;
         } else {
@@ -261,6 +262,10 @@
             [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"COTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
@@ -294,6 +299,10 @@
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"ROTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"COTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -332,6 +341,10 @@
             [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"COTY Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
@@ -355,6 +368,10 @@
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"ROTY Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"COTY Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

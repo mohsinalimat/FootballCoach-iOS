@@ -13,5 +13,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) League* league;
 -(void)setupAppearance;
+-(void)updateTabBarForCareer;
 @end
 
