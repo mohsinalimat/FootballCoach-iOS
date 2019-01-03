@@ -3276,4 +3276,12 @@
     return avgPrestige / conferences.count;
 }
 
+-(void)setUserTeam:(Team *)t {
+    if (userTeam != nil) {
+        userTeam.isUserControlled = NO;
+    }
+    self.userTeam = t;
+    self.userTeam.isUserControlled = YES;
+}
+
 @end

@@ -34,6 +34,7 @@
 #import "PlayerStatsViewController.h"
 #import "ROTYLeadersViewController.h"
 #import "COTYLeadersViewController.h"
+#import "MockDraftViewController.h"
 
 #import "RecruitingPeriodViewController.h"
 
@@ -274,6 +275,12 @@
             [self->popupController presentInViewController:self];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Pro Draft Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[MockDraftViewController alloc] init]] animated:YES completion:nil];
+            });
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"All-League Team" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[AllLeagueTeamViewController alloc] init] animated:YES];
         }]];
@@ -284,6 +291,7 @@
             self->popupController.style = STPopupStyleBottomSheet;
             [self->popupController presentInViewController:self];
         }]];
+
     } else if ([HBSharedUtils currentLeague].currentWeek == 14) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Current Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
              [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];

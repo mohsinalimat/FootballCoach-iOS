@@ -425,12 +425,6 @@ static UIColor *styleColor = nil;
 
 + (void)startOffseason:(UIViewController*)viewController callback:(void (^)(void))callback {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu %@ Offseason", (long)([HBSharedUtils currentLeague].leagueHistoryDictionary.count + [HBSharedUtils currentLeague].baseYear), [HBSharedUtils currentLeague].userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
-
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Start Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [viewController presentViewController:[[ZGNavigationBarTitleViewController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
-        });
-    }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Season Summary" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -439,92 +433,69 @@ static UIColor *styleColor = nil;
             [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
         });
     }]];
+
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"View Players Leaving" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [viewController.navigationController pushViewController:[[GraduatingPlayersViewController alloc] init] animated:YES];
-    }]];
-    
-    if (![[self class] currentLeague].didFinishTransferPeriod) {
-        if (![[[self class] currentLeague] transferListEmpty]) {
-            [alertController addAction:[UIAlertAction actionWithTitle:@"View Transfer Portal" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [viewController presentViewController:[[ZGNavigationBarTitleViewController alloc] initWithRootViewController:[[TransferPeriodViewController alloc] init]] animated:YES completion:nil];
-                });
-            }]];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"View Outgoing Transfers" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [viewController.navigationController pushViewController:[[TransferringPlayersViewController alloc] initWithTeam:[[self class] currentLeague].userTeam viewOption:CRCTransferViewOptionOutgoing] animated:YES];
-                });
-            }]];
-        } else {
-            UIAlertAction *action = [UIAlertAction actionWithTitle:@"No Transfers Available" style:UIAlertActionStyleDefault handler:nil];
-            action.enabled = NO;
-            [alertController addAction:action];
-        }
+    if ([[self class] currentLeague].userTeam.coachFired) {
+        // create job offers based on team's interest in your career
+        // select job offer and update userTeam
+        // process other jobs
+        // SAVE
+        // Update all UI to reflect new team
+        // Allow teams to go to offseason
     } else {
-        [alertController addAction:[UIAlertAction actionWithTitle:@"View Transfer Class" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([[[self class] currentLeague].userTeam getCurrentHC].age > 59) {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Retire" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    // "thanks for playing!" screen?
+                    // career stats display
+                    // display career progress and history
+                    // share career progress? - like the activity rings app thing by Pat Murray?
+                    // UIView to image code: https://github.com/PatMurrayDEV/Share-Your-Rings/blob/master/CloseTheRings/Video%20Code/New%20Group/Glimpse.m
+                    // give option to take another coaching job
+                });
+            }]];
+        }
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Start Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [viewController.navigationController pushViewController:[[TransferringPlayersViewController alloc] initWithTeam:[[self class] currentLeague].userTeam viewOption:CRCTransferViewOptionBoth] animated:YES];
+                [viewController presentViewController:[[ZGNavigationBarTitleViewController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
             });
         }]];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"View Transfer Log" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [viewController.navigationController pushViewController:[[TransferLogViewController alloc] init] animated:YES];
-            });
+        [alertController addAction:[UIAlertAction actionWithTitle:@"View Players Leaving" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [viewController.navigationController pushViewController:[[GraduatingPlayersViewController alloc] init] animated:YES];
         }]];
+        if (![[self class] currentLeague].didFinishTransferPeriod) {
+            if (![[[self class] currentLeague] transferListEmpty]) {
+                [alertController addAction:[UIAlertAction actionWithTitle:@"View Transfer Portal" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [viewController presentViewController:[[ZGNavigationBarTitleViewController alloc] initWithRootViewController:[[TransferPeriodViewController alloc] init]] animated:YES completion:nil];
+                    });
+                }]];
+                [alertController addAction:[UIAlertAction actionWithTitle:@"View Outgoing Transfers" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [viewController.navigationController pushViewController:[[TransferringPlayersViewController alloc] initWithTeam:[[self class] currentLeague].userTeam viewOption:CRCTransferViewOptionOutgoing] animated:YES];
+                    });
+                }]];
+            } else {
+                UIAlertAction *action = [UIAlertAction actionWithTitle:@"No Transfers Available" style:UIAlertActionStyleDefault handler:nil];
+                action.enabled = NO;
+                [alertController addAction:action];
+            }
+        } else {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"View Transfer Class" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [viewController.navigationController pushViewController:[[TransferringPlayersViewController alloc] initWithTeam:[[self class] currentLeague].userTeam viewOption:CRCTransferViewOptionBoth] animated:YES];
+                });
+            }]];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:@"View Transfer Log" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [viewController.navigationController pushViewController:[[TransferLogViewController alloc] init] animated:YES];
+                });
+            }]];
+        }
     }
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"View POTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *heismanString = [[HBSharedUtils currentLeague] getHeismanCeremonyStr];
-            NSArray *heismanParts = [heismanString componentsSeparatedByString:@"?"];
-            NSMutableString *composeHeis = [NSMutableString string];
-            for (int i = 1; i < heismanParts.count; i++) {
-                [composeHeis appendString:heismanParts[i]];
-            }
-            NSLog(@"HEISMAN: %@", composeHeis);
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Player of the Year", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
-            [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
-        });
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"View ROTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *heismanString = [[HBSharedUtils currentLeague] getROTYCeremonyStr];
-            NSArray *heismanParts = [heismanString componentsSeparatedByString:@"?"];
-            NSMutableString *composeHeis = [NSMutableString string];
-            for (int i = 1; i < heismanParts.count; i++) {
-                [composeHeis appendString:heismanParts[i]];
-            }
-            NSLog(@"ROTY: %@", composeHeis);
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Rookie of the Year", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
-            [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
-        });
-    }]];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"View COTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *heismanString = [[HBSharedUtils currentLeague] getCoachAwardStr];
-            NSArray *heismanParts = [heismanString componentsSeparatedByString:@"?"];
-            NSMutableString *composeHeis = [NSMutableString string];
-            for (int i = 1; i < heismanParts.count; i++) {
-                [composeHeis appendString:heismanParts[i]];
-            }
-            NSLog(@"COTY: %@", composeHeis);
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Coach of the Year", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
-            [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
-        });
-    }]];
-
-    [alertController addAction:[UIAlertAction actionWithTitle:@"View Mock Draft" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[MockDraftViewController alloc] init]] animated:YES completion:nil];
-        });
-    }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
     [viewController presentViewController:alertController animated:YES completion:nil];
 

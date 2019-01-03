@@ -316,6 +316,8 @@
 -(void)promoteCoach;
 -(int)getMinCoachHireReq;
 -(void)advanceHC;
+-(int)calculateInterestInCoach:(HeadCoach *)coach;
+
 -(void)calculateRecruitingPoints;
 -(void)getTransferringPlayers;
 -(NSString*)getTransferringPlayersString;

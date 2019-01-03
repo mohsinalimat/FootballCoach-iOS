@@ -414,6 +414,9 @@
         offensiveStrategy = [self getOffensiveTeamStrategies][teamStatOffNum];
         defensiveStrategy = [self getDefensiveTeamStrategies][teamStatDefNum];
     }
+    coachRetired = NO;
+    coachFired = NO;
+    coachGotNewContract = NO;
 }
 
 -(void)advanceSeasonPlayers {
@@ -1381,7 +1384,7 @@
                                                                        && !isUserControlled && [self getCurrentHC].age < 48)) {
             //league.newsStories.get(league.currentWeek + 1).add("Head Coach Rumor Mill>After another successful season at " + name + ", " + age + " year old head coach " + [self getCurrentHC].name + " has moved to the top of" + " many of the schools looking for a replacement at that position. He has a career record of " + wins + "-" + losses + ". ");
             if ([HBSharedUtils randomValue] > 0.50) {
-                //league.coachStarList.add([self getCurrentHC]);
+                [league.coachStarList addObject:[self getCurrentHC]];
             }
         }
         //New Contracts or Firing
@@ -1429,7 +1432,7 @@
                      [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ despite his efforts to get the program back on the right track. His teams struggled in his first couple of seasons at the helm, but he seemed to have righted the ship this year. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                     teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                     if (!isUserControlled) {
-                        //league.coachList.add([self getCurrentHC]);
+                        [league.coachList addObject:[self getCurrentHC]];
                     }
                     [coaches removeObjectAtIndex:0];
                 }
@@ -1444,7 +1447,7 @@
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                 teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                 if (!isUserControlled) {
-                    //league.coachList.add([self getCurrentHC]);
+                    [league.coachList addObject:[self getCurrentHC]];
                 }
                 [coaches removeObjectAtIndex:0];
             } else {
@@ -1452,6 +1455,7 @@
                 [self getCurrentHC].contractYear = 0;
                 [self getCurrentHC].baselinePrestige = (3 * [self getCurrentHC].baselinePrestige + teamPrestige) / 4;
                 coachGotNewContract = true;
+                proveIt = true;
             }
         }
     }
@@ -1466,7 +1470,6 @@
             coachContractString = [NSString stringWithFormat:@"You have %d years left on your contract. Your team prestige is currently at %d and started at %d." , ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear), teamPrestige, [self getCurrentHC].baselinePrestige];
         }
     }
-
 }
 
 
@@ -1968,13 +1971,13 @@
     } else {
         [summary appendString:@"\n\nOverall, your program didn't gain or lose prestige this season."];
     }
-
-    //[summary appendFormat:@"\n\nYour final coach score for this year was %d.", [[self getCurrentHC] getCoachScore]];
-
-    if (coachGotNewContract && league.isCareerMode) {
-        [summary appendFormat:@"\n\nCongratulations! Your contact has been extended %d years!", [self getCurrentHC].contractLength];
-    } else if (coachFired) {
-        [summary appendString:@"\n\nSince you failed to raise the team's prestige during your contract, the AD has decided to fire you. This team may take an additional prestige hit because of your firing."];
+    
+    if (league.isCareerMode) {
+        if (coachGotNewContract) {
+            [summary appendFormat:@"\n\nCongratulations! Your contact has been extended %d years!", [self getCurrentHC].contractLength];
+        } else if (coachFired) {
+            [summary appendString:@"\n\nSince you failed to raise the team's prestige during your contract, the AD has decided to fire you. This team may take an additional prestige hit because of your firing."];
+        }
     }
 
     return summary;
@@ -3007,6 +3010,10 @@
         int estimatedRecruitingPoints = ([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf(25.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige) : (int)ceilf(30.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige);
         recruitingPoints = MAX(estimatedRecruitingPoints, 600);
     }
+}
+
+-(int)calculateInterestInCoach:(HeadCoach *)coach {
+    
 }
 
 @end

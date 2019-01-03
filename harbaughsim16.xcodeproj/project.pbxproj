@@ -138,6 +138,7 @@
 		75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C961C9C7C0C0034140C /* schedule-selected@3x.png */; };
 		75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C971C9C7C0C0034140C /* team-selected@3x.png */; };
 		75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */; };
+		75AB014921DD87CA009E7A61 /* AvailableJobsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AB014821DD87CA009E7A61 /* AvailableJobsViewController.m */; };
 		75B9792F20067BD20050E077 /* cfctests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B9792E20067BD20050E077 /* cfctests.m */; };
 		75B9793620067CEA0050E077 /* HBSharedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */; };
 		75B9793720067CEA0050E077 /* LeagueUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 756973961FAAB50400A66C42 /* LeagueUpdater.m */; };
@@ -442,6 +443,8 @@
 		75A86C961C9C7C0C0034140C /* schedule-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "schedule-selected@3x.png"; sourceTree = "<group>"; };
 		75A86C971C9C7C0C0034140C /* team-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "team-selected@3x.png"; sourceTree = "<group>"; };
 		75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roster-selected@3x.png"; sourceTree = "<group>"; };
+		75AB014721DD87CA009E7A61 /* AvailableJobsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AvailableJobsViewController.h; sourceTree = "<group>"; };
+		75AB014821DD87CA009E7A61 /* AvailableJobsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AvailableJobsViewController.m; sourceTree = "<group>"; };
 		75B9792C20067BD20050E077 /* cfctests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cfctests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75B9792E20067BD20050E077 /* cfctests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cfctests.m; sourceTree = "<group>"; };
 		75B9793020067BD20050E077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -806,6 +809,7 @@
 		755BBC691C9E10D0001A8314 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				75AB014A21DE70C7009E7A61 /* Job Searching */,
 				7503A01520004AA4004426AA /* Recruiting */,
 				75FFAB3821CF3425002156C1 /* Transfers */,
 				755BBC881CA03252001A8314 /* HBRecruitCell.h */,
@@ -1028,6 +1032,15 @@
 				75A86C8D1C9C7AA80034140C /* team@3x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		75AB014A21DE70C7009E7A61 /* Job Searching */ = {
+			isa = PBXGroup;
+			children = (
+				75AB014721DD87CA009E7A61 /* AvailableJobsViewController.h */,
+				75AB014821DD87CA009E7A61 /* AvailableJobsViewController.m */,
+			);
+			name = "Job Searching";
 			sourceTree = "<group>";
 		};
 		75B9792D20067BD20050E077 /* cfctests */ = {
@@ -1518,6 +1531,7 @@
 				755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */,
 				75C321C41CAD7BBB00906A38 /* AllConferenceTeamViewController.m in Sources */,
 				75FFAB2E21CF09DD002156C1 /* TransferPeriodViewController.m in Sources */,
+				75AB014921DD87CA009E7A61 /* AvailableJobsViewController.m in Sources */,
 				75097C5C1CBC1B55003E2538 /* HBRecordCell.m in Sources */,
 				7562A8951FFF4394004C0985 /* PrestigeYearMarkerView.swift in Sources */,
 				75924A4F1C99D05E00B165AD /* Conference.m in Sources */,
