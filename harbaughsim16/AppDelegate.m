@@ -137,7 +137,7 @@
                 if ([LeagueUpdater needsUpdateFromVersion:oldLigue.leagueVersion toVersion:@"2.0"]) {
                     convertProgressAlert.message = @"Please be aware that each school in your save file has been assigned a random home state. This will only have an effect in recruiting. If you want to change this, please edit teams before starting recruiting in the next offseason.";
                 } else { // 2.0.x -> 2.1.x
-                    convertProgressAlert.message = @"Your save file has been updated for use in version 2.1!";
+                    convertProgressAlert.message = [NSString stringWithFormat:@"Your save file has been updated for use in version %@!", HB_CURRENT_APP_VERSION];
                 }
                 [convertProgressAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
                 self->_league = ligue;

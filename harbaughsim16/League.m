@@ -2588,7 +2588,9 @@
 }
 
 -(NSArray<Player*>*)calculateROTYCandidates {
-    if (!rotyDecided && currentWeek <= 13) {
+    if ((!rotyDecided && currentWeek <= 13)
+        || (currentWeek > 12 && roty == nil)
+        || (rotyCandidates == nil || rotyCandidates.count == 0)) {
         if (roty) {
             roty.isROTY = NO;
             roty = nil;
@@ -2697,7 +2699,7 @@
     } else {
         BOOL putNewsStory = false;
         
-        rotyCandidates = [[self calculateROTYCandidates] mutableCopy];
+        [self calculateROTYCandidates];
         roty = rotyCandidates[0];
         rotyDecided = true;
         putNewsStory = true;
