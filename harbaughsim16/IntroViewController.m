@@ -49,7 +49,7 @@
 -(IBAction)newDynasty {
     __block NSString *firstNameCSV, *lastNameCSV;
     // display a HUD while we wait for things to get done
-    UIAlertController *convertProgressAlert = [UIAlertController alertControllerWithTitle:@"Welcome, Coach!" message:@"Preparing new career..." preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *convertProgressAlert = [UIAlertController alertControllerWithTitle:@"Welcome, Coach!" message:@"Preparing new game..." preferredStyle:UIAlertControllerStyleAlert];
     UIActivityIndicatorView *convertProgressView = [[UIActivityIndicatorView alloc] initWithFrame:convertProgressAlert.view.bounds];
     [convertProgressView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
     [convertProgressView setAutoresizingMask: UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleWidth];
