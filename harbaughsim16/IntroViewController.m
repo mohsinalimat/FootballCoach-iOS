@@ -77,7 +77,7 @@
             [self provisionNewCareer:YES];
         });
     }]];
-    
+
     [modeChooser addAction:[UIAlertAction actionWithTitle:@"No, I'll stick with easy." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self provisionNewCareer:NO];

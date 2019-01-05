@@ -29,14 +29,6 @@
     return self;
 }
 
--(id)initWithStyle:(UITableViewStyle)style {
-    self = [super initWithStyle:UITableViewStyleGrouped];
-    if (self) {
-        
-    }
-    return self;
-}
-
 -(NSInteger)_lineCount:(NSString*)string {
     NSInteger numberOfLines, index, stringLength = [string length];
     for (index = 0, numberOfLines = 0; index < stringLength; numberOfLines++)

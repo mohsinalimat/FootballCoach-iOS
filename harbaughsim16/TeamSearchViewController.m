@@ -64,12 +64,17 @@
     self.navigationItem.titleView = navSearchBar;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reloadTeams" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newSaveFile" object:nil];
     
     self.tableView.tableFooterView = [UIView new];
     
     if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)reloadAll {
@@ -131,7 +136,7 @@
         [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
     }
     Team *t = teams[indexPath.row];
-    if (t.isUserControlled) {
+    if ([t isEqual:[HBSharedUtils currentLeague].userTeam]) {
         [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
         [cell.textLabel setTextColor:[UIColor blackColor]];

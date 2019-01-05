@@ -105,11 +105,12 @@
     [super viewDidLoad];
     self.title = @"My Career";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(openSettings)];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"team"] style:UIBarButtonItemStylePlain target:self action:@selector(openMyTeamView)];
+    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"team"] style:UIBarButtonItemStylePlain target:self action:@selector(openMyTeamView)];
     [self setupTeamHeader];
     self.tableView.tableHeaderView = teamHeaderView;
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setupTeamHeader) name:@"endedSeason" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"checkedContracts" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetForNewSeason) name:@"playedWeek" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadStats) name:@"changedStrategy" object:nil];
@@ -127,6 +128,7 @@
 
 -(void)resetForNewSeason {
     [self setupTeamHeader];
+    [self.tableView reloadData];
 }
 
 -(void)openMyTeamView {

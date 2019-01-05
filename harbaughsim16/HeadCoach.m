@@ -20,7 +20,7 @@
     hc.team = t;
     hc.homeState = [HBSharedUtils randomState];
     hc.age = 30 + (int) ([HBSharedUtils randomValue] * 28);
-    hc.contractYear = MAX(1, (int) (6 * [HBSharedUtils randomValue]));
+    hc.contractYear = (int)(6 * [HBSharedUtils randomValue]);
     hc.contractLength = 6;
     hc.ratPot = (int) (50 + 50 * [HBSharedUtils randomValue]);
     hc.ratOff = (int) (50 + stars * 5 - 15 * [HBSharedUtils randomValue] + 15 * [HBSharedUtils randomValue]);
@@ -95,17 +95,17 @@
     
     
     if (self.age > 65 && !self.team.isUserControlled) {
-        self.ratOff -= (int) [HBSharedUtils randomValue] * 4;
-        self.ratDef -= (int) [HBSharedUtils randomValue] * 4;
-        self.ratTalent -= (int) [HBSharedUtils randomValue] * 4;
-        self.ratDiscipline -= (int) [HBSharedUtils randomValue] * 4;
+        self.ratOff -= (int) ([HBSharedUtils randomValue] * 4);
+        self.ratDef -= (int) ([HBSharedUtils randomValue] * 4);
+        self.ratTalent -= (int) ([HBSharedUtils randomValue] * 4);
+        self.ratDiscipline -= (int) ([HBSharedUtils randomValue] * 4);
     }
     
     if (self.age > 70 && self.team.isUserControlled && self.team.league.isCareerMode) { //&& !team.league.neverRetire ) {
-        self.ratOff -= (int) [HBSharedUtils randomValue] * (self.age / 20);
-        self.ratDef -= (int) [HBSharedUtils randomValue] * (self.age / 20);
-        self.ratTalent -= (int) [HBSharedUtils randomValue] * (self.age / 20);
-        self.ratDiscipline -= (int) [HBSharedUtils randomValue] * (self.age / 20);
+        self.ratOff -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
+        self.ratDef -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
+        self.ratTalent -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
+        self.ratDiscipline -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
     }
     
     self.ratOvr = [self getHCOverall];

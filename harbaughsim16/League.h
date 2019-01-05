@@ -101,6 +101,7 @@
 @property (strong, nonatomic) NSString *cotyWinnerStrFull;
 @property (strong, nonatomic) NSMutableArray<HeadCoach*> *cotyFinalists;
 @property (nonatomic) BOOL isCareerMode;
+@property (nonatomic) BOOL didFinishCoachingCarousel;
 
 //User Team
 @property (strong, nonatomic) Team *userTeam;
@@ -208,7 +209,7 @@
 
 
 //Coaching stuff
--(void)advanceHC;
+-(void)processCoachingContracts;
 -(NSString *)getCoachAwardStr;
 -(NSArray *)calculateCOTYCandidates;
 -(NSArray*)getCOTYLeaders;
@@ -217,7 +218,7 @@
 -(int)getAvgCoachOff;
 -(int)getAvgCoachDef;
 -(void)coachHiringForSingleTeam:(Team *)t;
--(void)coachingCarousel;
+-(void)processCoachingCarousel;
 -(void)newJobTransfer:(NSString *)coachTeam;
 -(NSMutableArray<Team*> *)getPromotedCoachTeams:(int)rating offers:(double)offers oldTeam:(NSString *)oldTeam;
 -(NSMutableArray<Team *> *)getHardModeTeamVacancyList;

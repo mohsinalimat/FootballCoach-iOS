@@ -309,13 +309,13 @@
 
 -(void)calculateRecruitingClassRanking;
 -(NSMutableArray<Player*>*)getAllPlayers;
--(void)calculateCoachingContracts:(int)totalPrestigeDiff newPrestige:(int)newPrestige;
+-(void)checkCoachingContracts:(int)totalPrestigeDiff newPrestige:(int)newPrestige;
 -(void)updateCoachHistory;
 -(void)setupUserCoach:(NSString *)name;
 -(void)createNewCustomHeadCoach:(NSString *)name stars:(int)stars;
 -(void)promoteCoach;
 -(int)getMinCoachHireReq;
--(void)advanceHC;
+//-(void)advanceHC;
 -(int)calculateInterestInCoach:(HeadCoach *)coach;
 
 -(void)calculateRecruitingPoints;

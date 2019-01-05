@@ -22,6 +22,7 @@
 #import "GraduatingPlayersViewController.h"
 #import "TransferringPlayersViewController.h"
 #import "TransferLogViewController.h"
+#import "AvailableJobsViewController.h"
 
 #import "ZGNavigationBarTitleViewController.h"
 
@@ -435,13 +436,19 @@ static UIColor *styleColor = nil;
     }]];
 
     
-    if ([[self class] currentLeague].userTeam.coachFired) {
-        // create job offers based on team's interest in your career
-        // select job offer and update userTeam
-        // process other jobs
-        // SAVE
-        // Update all UI to reflect new team
-        // Allow teams to go to offseason
+    // Testing
+//    [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
+//        });
+//    }]];
+    
+    if ([[self class] currentLeague].userTeam.coachFired && (![[self class] currentLeague].didFinishCoachingCarousel && [[self class] currentLeague].coachList.count > 0)) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
+            });
+        }]];
     } else {
         if ([[[self class] currentLeague].userTeam getCurrentHC].age > 59) {
             [alertController addAction:[UIAlertAction actionWithTitle:@"Retire" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {

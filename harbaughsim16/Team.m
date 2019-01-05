@@ -355,22 +355,22 @@
     teamPollScore = teamPrestige + [self getOffensiveTalent] + [self getDefensiveTalent];
 }
 
--(void)advanceHC {
-    coachGotNewContract = NO;
-    coachFired = NO;
-    coachRetired = NO;
-    int avgOff = [league getAvgYards];
-    int totalPrestigeDiff = teamPrestige - [self getCurrentHC].baselinePrestige;
-    [[self getCurrentHC] advanceSeason:avgOff offTalent:teamOffTalent defTalent:teamDefTalent];
-
-    [self calculateCoachingContracts:totalPrestigeDiff newPrestige:teamPrestige];
-
-    if (coaches.count != 0) {
-        if (isUserControlled && league.isCareerMode && teamPrestige >= [self getCurrentHC].baselinePrestige && totalPrestigeDiff > PROMOTION_NUM) {
-            [self getCurrentHC].promotionCandidate = YES;
-        }
-    }
-}
+//-(void)advanceHC {
+//    coachGotNewContract = NO;
+//    coachFired = NO;
+//    coachRetired = NO;
+//    int avgOff = [league getAvgYards];
+//    int totalPrestigeDiff = teamPrestige - [self getCurrentHC].baselinePrestige;
+//    [[self getCurrentHC] advanceSeason:avgOff offTalent:teamOffTalent defTalent:teamDefTalent];
+//
+//    [self calculateCoachingContracts:totalPrestigeDiff newPrestige:teamPrestige];
+//
+//    if (coaches.count != 0) {
+//        if (isUserControlled && league.isCareerMode && teamPrestige >= [self getCurrentHC].baselinePrestige && totalPrestigeDiff > PROMOTION_NUM) {
+//            [self getCurrentHC].promotionCandidate = YES;
+//        }
+//    }
+//}
 
 -(void)advanceSeason {
     if (![self isEqual:league.blessedTeam] && ![self isEqual:league.cursedTeam]) {
@@ -583,6 +583,22 @@
      // all transfers have been added to new teams in -[TransferPeriodViewController advanceRecruits] and have been removed from this roster above. we can clear these out now.
     [playersTransferring removeAllObjects];
     [transferClass removeAllObjects];
+    
+    int stars = teamPrestige/20 + 1;
+    if (coaches.count == 0) {
+        int coachNum = 100 * (int) [HBSharedUtils randomValue];
+        HeadCoach *hc;
+        if (coachNum < 20) {
+            hc = [HeadCoach newHC:self name:[league getRandName] stars:(stars - 2) year:MAX(1, (int) (4 * [HBSharedUtils randomValue] + 1))];
+        } else if (coachNum > 80) {
+            hc = [HeadCoach newHC:self name:[league getRandName] stars:(stars + 2) year:MAX(1, (int) (4 * [HBSharedUtils randomValue] + 1))];
+        } else {
+            hc = [HeadCoach newHC:self name:[league getRandName] stars:stars year:MAX(1, (int) (4 * [HBSharedUtils randomValue] + 1))];
+        }
+        hc.promotionCandidate = YES;
+        hc.contractYear = 0;
+        [coaches addObject:hc];
+    }
 
     //if ( !isUserControlled ) {
         [self resetStats];
@@ -710,14 +726,7 @@
     }
 
     if (coaches.count == 0) {
-        int coachNum = 100 * (int) [HBSharedUtils randomValue];
-        if (coachNum < 20) {
-            [coaches addObject:[HeadCoach newHC:self name:[league getRandName] stars:(stars - 2) year:MAX(1, (int) (4 * [HBSharedUtils randomValue] + 1))]];
-        } else if (coachNum > 80) {
-            [coaches addObject:[HeadCoach newHC:self name:[league getRandName] stars:(stars + 2) year:MAX(1, (int) (4 * [HBSharedUtils randomValue] + 1))]];
-        } else {
-            [coaches addObject:[HeadCoach newHC:self name:[league getRandName] stars:stars year:MAX(1, (int) (4 * [HBSharedUtils randomValue] + 1))]];
-        }
+        [self promoteCoach];
     }
 
     //done making players, sort them
@@ -1353,7 +1362,7 @@
     [teamHistoryDictionary setObject:hist forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + league.leagueHistoryDictionary.count)]];
 }
 
--(void)calculateCoachingContracts:(int)totalPrestigeDiff newPrestige:(int)newPrestige {
+-(void)checkCoachingContracts:(int)totalPrestigeDiff newPrestige:(int)newPrestige {
     int max = 78;
     int min = 63;
 
@@ -1369,9 +1378,9 @@
         //league.leagueRecords.checkRecord("Coach Career Score", [self getCurrentHC].getCoachCareerScore(), [self getCurrentHC].name + "%" + abbr, league.getYear());
         //league.leagueRecords.checkRecord("Coach Career Prestige", [self getCurrentHC].cumulativePrestige, [self getCurrentHC].name + "%" + abbr, league.getYear());
         NSString *oldCoach = [self getCurrentHC].name;
-        coachFired = true;
-        [coaches removeObjectAtIndex:0];
-        //league.newsStories.get(league.currentWeek + 1).add(name + " Coaching Retirement>" + oldCoach + " has announced his retirement at the age of " + age + ". His former team, " + name + " have not announced a new successor to replace the retired coach. Coach " + oldCoach + " had a career record of " + wins + "-" + losses + ".");
+//        coachFired = true;
+        //[coaches removeObjectAtIndex:0];
+        NSLog(@"%@ COACH Status: Retired", abbreviation);
         [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ Coach Retires!\n%@ has announced his retirement from football at the age of %d. %@ has not yet announced a successor. Coach %@ had a career record of %d-%d. We wish him the best in retirement!",abbreviation, oldCoach,age,name,oldCoach,wins,losses]];
     }
 
@@ -1382,7 +1391,7 @@
                                                                        && [league findConference:conference].confPrestige < [league getAvgConfPrestige]
                                                                        && teamPrestige < league.teamList[(int) (league.teamList.count * 0.20)].teamPrestige
                                                                        && !isUserControlled && [self getCurrentHC].age < 48)) {
-            //league.newsStories.get(league.currentWeek + 1).add("Head Coach Rumor Mill>After another successful season at " + name + ", " + age + " year old head coach " + [self getCurrentHC].name + " has moved to the top of" + " many of the schools looking for a replacement at that position. He has a career record of " + wins + "-" + losses + ". ");
+            [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"Head Coach Rumor Mill\nAfter another successful season at %@, %d-year-old head coach %@ has been rumored to be a top candidate for various open head coaching positions this offseason. He has a career record of %d wins and %d losses. ", self.name, [self getCurrentHC].age, [self getCurrentHC].name,[self getCurrentHC].totalWins,[self getCurrentHC].totalLosses]];
             if ([HBSharedUtils randomValue] > 0.50) {
                 [league.coachStarList addObject:[self getCurrentHC]];
             }
@@ -1434,14 +1443,18 @@
                     if (!isUserControlled) {
                         [league.coachList addObject:[self getCurrentHC]];
                     }
-                    [coaches removeObjectAtIndex:0];
+                   // [coaches removeObjectAtIndex:0];
+                    NSLog(@"%@ COACH Status: Fired", abbreviation);
                 }
             } else if ((totalPrestigeDiff < -2 && !league.isCareerMode && !isUserControlled && rankTeamPrestige > 10) || (!isUserControlled && rankTeamPrestige > 15 && totalPrestigeDiff < -1)) {
                 coachFired = true;
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                 teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
-                //league.coachList.add([self getCurrentHC]);
-                [coaches removeObjectAtIndex:0];
+                if (!isUserControlled) {
+                    [league.coachList addObject:[self getCurrentHC]];
+                }
+                NSLog(@"%@ COACH Status: Fired", abbreviation);
+                //[coaches removeObjectAtIndex:0];
             } else if ((totalPrestigeDiff < -2 && league.isCareerMode && rankTeamPrestige > 10) || (rankTeamPrestige > 15 && totalPrestigeDiff < -1)) {
                 coachFired = true;
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
@@ -1449,7 +1462,8 @@
                 if (!isUserControlled) {
                     [league.coachList addObject:[self getCurrentHC]];
                 }
-                [coaches removeObjectAtIndex:0];
+                NSLog(@"%@ COACH Status: Fired", abbreviation);
+                //[coaches removeObjectAtIndex:0];
             } else {
                 [self getCurrentHC].contractLength = 2;
                 [self getCurrentHC].contractYear = 0;
@@ -1466,6 +1480,7 @@
             coachContractString = [NSString stringWithFormat:@"Congratulations! Your performance has been rewarded with a contract extension for %d years!", [self getCurrentHC].contractLength];
         } else if (coachFired) {
             coachContractString = [NSString stringWithFormat:@"Because of your team's poor performances, %@'s Athletic Director has terminated your contract.", name];
+            NSLog(@"[USER] Coach Status: Fired");
         } else {
             coachContractString = [NSString stringWithFormat:@"You have %d years left on your contract. Your team prestige is currently at %d and started at %d." , ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear), teamPrestige, [self getCurrentHC].baselinePrestige];
         }
@@ -1977,6 +1992,8 @@
             [summary appendFormat:@"\n\nCongratulations! Your contact has been extended %d years!", [self getCurrentHC].contractLength];
         } else if (coachFired) {
             [summary appendString:@"\n\nSince you failed to raise the team's prestige during your contract, the AD has decided to fire you. This team may take an additional prestige hit because of your firing."];
+        } else {
+            [summary appendFormat:@"\n\n%@",coachContractString];
         }
     }
 
@@ -3011,9 +3028,9 @@
         recruitingPoints = MAX(estimatedRecruitingPoints, 600);
     }
 }
-
--(int)calculateInterestInCoach:(HeadCoach *)coach {
-    
-}
+//
+//-(int)calculateInterestInCoach:(HeadCoach *)coach {
+//    
+//}
 
 @end

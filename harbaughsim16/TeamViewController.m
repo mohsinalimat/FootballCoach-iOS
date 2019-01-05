@@ -15,6 +15,8 @@
 #import "RingOfHonorViewController.h"
 #import "HeadCoachDetailViewController.h"
 
+#import "STPopup.h"
+
 @interface HBTeamInfoView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
 @property (weak, nonatomic) IBOutlet UILabel *teamRecordLabel;
@@ -85,8 +87,17 @@
     self = [super init];
     if (self) {
         selectedTeam = team;
+        
+        if ([HBSharedUtils currentLeague].canRebrandTeam) {
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(changeTeamName)];
+        }
     }
     return self;
+}
+
+-(void)finalizeCoachingCarousel {
+    NSLog(@"Carousel team: %@",selectedTeam.abbreviation);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"signingWithTeam" object:selectedTeam];
 }
 
 -(void)changeTeamName {
@@ -218,8 +229,6 @@
     [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Rebrand successful!" message:@"Successfully updated this team information!" onViewController:self];
 }
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Team";
@@ -239,10 +248,7 @@
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reloadTeams" object:nil];
-    
-    if ([HBSharedUtils currentLeague].canRebrandTeam) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(changeTeamName)];
-    }
+
     
     if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
@@ -388,31 +394,61 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
-            if (indexPath.row == 0) {
-                [self.navigationController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]] animated:YES];
-            } else if (indexPath.row == 1) {
-                [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
-            } else if (indexPath.row == 2) {
-                [self.navigationController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
-            } else if (indexPath.row == 3) {
-                [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
-            } else if (indexPath.row == 4) {
-                [self.navigationController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
+        if (self.popupController) {
+            if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
+                if (indexPath.row == 0) {
+                    [self.popupController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]] animated:YES];
+                } else if (indexPath.row == 1) {
+                    [self.popupController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 2) {
+                    [self.popupController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 3) {
+                    [self.popupController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 4) {
+                    [self.popupController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else {
+                    [self.popupController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                }
             } else {
-                [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                if (indexPath.row == 0) {
+                    [self.popupController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 1) {
+                    [self.popupController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 2) {
+                    [self.popupController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 3) {
+                    [self.popupController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else {
+                    [self.popupController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                }
             }
         } else {
-            if (indexPath.row == 0) {
-                [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
-            } else if (indexPath.row == 1) {
-                [self.navigationController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
-            } else if (indexPath.row == 2) {
-                [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
-            } else if (indexPath.row == 3) {
-                [self.navigationController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
+            if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
+                if (indexPath.row == 0) {
+                    [self.navigationController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]] animated:YES];
+                } else if (indexPath.row == 1) {
+                    [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 2) {
+                    [self.navigationController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 3) {
+                    [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 4) {
+                    [self.navigationController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else {
+                    [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                }
             } else {
-                [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                if (indexPath.row == 0) {
+                    [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 1) {
+                    [self.navigationController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 2) {
+                    [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 3) {
+                    [self.navigationController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else {
+                    [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                }
             }
         }
     }
