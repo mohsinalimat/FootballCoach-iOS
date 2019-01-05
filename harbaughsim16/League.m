@@ -583,7 +583,7 @@
         } else {
             cotyFinalists = [decoder decodeObjectForKey:@"cotyFinalists"];
         }
-        
+
         if (![decoder containsValueForKey:@"didFinishCoachingCarousel"]) {
             self.didFinishCoachingCarousel = NO;
         } else {
@@ -764,23 +764,23 @@
                 }
             }
         }
-        
+
         if (t.coaches.count == 0) {
             return YES;
         }
-        
+
         for (HeadCoach *hc in t.coaches) {
             if (![hc.team isEqual:t]) {
                 return YES;
             }
         }
-        
+
         if (t.isUserControlled) {
             NSLog(@"%@ is marked user controlled", t.abbreviation);
             userControl++;
         }
     }
-    
+
     if (userControl > 1) {
         NSLog(@"Only %@ is to be user controlled", userTeam.abbreviation);
         return YES;
@@ -1487,11 +1487,11 @@
 
     didFinishTransferPeriod = NO;
     transferList = nil;
-    
+
     for (NSMutableArray *week in newsStories) {
         [week removeAllObjects];
     }
-    
+
     // process coaching carousel if it hasn't already
     [self processCoachingCarousel];
     // Store remaining coaches in free agents
@@ -2396,7 +2396,7 @@
         [round6 addObject:p];
     }
 
-    for (int b = 192; b < 224; b++) {
+    for (int b = 192; b < players.count; b++) {
         Player *p = players[b];
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
@@ -2823,7 +2823,7 @@
         return rotyWinnerStrFull;
     } else {
         BOOL putNewsStory = false;
-        
+
         [self calculateROTYCandidates];
         roty = rotyCandidates[0];
         rotyDecided = true;
@@ -3102,7 +3102,7 @@
         [teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
         }];
-        
+
         NSInteger k = 0;
         NSInteger starCount = coachStarList.count;
         while (starCount > 0 && k < starCount) {
@@ -3124,7 +3124,7 @@
                         if ([HBSharedUtils randomValue] < 0.20) {
                             [oldTeam promoteCoach];
                             [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Promotion at %@!\n%@ hopes to continue their recent success despite the loss of head coach %@ to %@, promoting %@ %@ to be its next head coach.", oldTeam.abbreviation, oldTeam.name, coach.name,coach.team.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC", [oldTeam getCurrentHC].name]];
-                            
+
                         }
                         [coachStarList removeObject:coach];
                         starCount--;
@@ -3134,7 +3134,7 @@
             }
             k++;
         }
-        
+
         [coachList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
         }];
@@ -3160,11 +3160,11 @@
             }
             i++;
         }
-        
+
         [coachFreeAgents sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
         }];
-        
+
         NSInteger j = 0;
         NSInteger faCount = coachFreeAgents.count;
         while (faCount > 0 && j < faCount) {
@@ -3187,7 +3187,7 @@
             }
             j++;
         }
-        
+
         for (Team *t in teamList) {
             if (t.coaches.count == 0) {
                 [t promoteCoach];
