@@ -356,7 +356,8 @@
             }
             
             if (oldLigue.currentWeek > 12 && oldLigue.roty == nil) {
-                [oldLigue getROTYCeremonyStr];
+                NSString *roty = [oldLigue getROTYCeremonyStr];
+                NSLog(@"ROTY: %@", roty);
             }
             
             // if all league players were calculated, then recalculate

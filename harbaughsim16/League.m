@@ -141,7 +141,7 @@
     [encoder encodeObject:self.roty forKey:@"roty"];
     [encoder encodeBool:rotyDecided forKey:@"rotyDecided"];
     [encoder encodeObject:rotyWinnerStrFull forKey:@"rotyWinnerStrFull"];
-    
+
     [encoder encodeObject:cotyWinnerStrFull forKey:@"cotyWinnerStrFull"];
     [encoder encodeObject:coachFreeAgents forKey:@"coachFreeAgents"];
     [encoder encodeObject:coachStarList forKey:@"coachStarList"];
@@ -533,50 +533,50 @@
         } else {
             roty = [decoder decodeObjectForKey:@"roty"];
         }
-        
+
         // coaching
         if (![decoder containsValueForKey:@"cotyWinnerStrFull"]) {
             cotyWinnerStrFull = @"";
         } else {
             cotyWinnerStrFull = [decoder decodeObjectForKey:@"cotyWinnerStrFull"];
         }
-        
+
         if (![decoder containsValueForKey:@"cotyWinner"]) {
             cotyWinner = nil;
         } else {
             cotyWinner = [decoder decodeObjectForKey:@"cotyWinner"];
         }
-        
+
         if (![decoder containsValueForKey:@"coachFreeAgents"]) {
             coachFreeAgents = nil;
         } else {
             coachFreeAgents = [decoder decodeObjectForKey:@"coachFreeAgents"];
         }
-        
+
         if (![decoder containsValueForKey:@"coachStarList"]) {
             coachStarList = nil;
         } else {
             coachStarList = [decoder decodeObjectForKey:@"coachStarList"];
         }
-        
+
         if (![decoder containsValueForKey:@"coachList"]) {
             coachList = nil;
         } else {
             coachList = [decoder decodeObjectForKey:@"coachList"];
         }
-        
+
         if (![decoder containsValueForKey:@"isCareerMode"]) {
             isCareerMode = NO;
         } else {
             isCareerMode = [decoder decodeBoolForKey:@"isCareerMode"];
         }
-        
+
         if (![decoder containsValueForKey:@"cotyDecided"]) {
             cotyDecided = NO;
         } else {
             cotyDecided = [decoder decodeBoolForKey:@"cotyDecided"];
         }
-        
+
         if (![decoder containsValueForKey:@"cotyFinalists"]) {
             cotyFinalists = [NSMutableArray array];
         } else {
@@ -2672,7 +2672,9 @@
 }
 
 -(NSArray<Player*>*)calculateROTYCandidates {
-    if (!rotyDecided && currentWeek <= 13) {
+    if ((!rotyDecided && currentWeek <= 13)
+        || (currentWeek > 12 && roty == nil)
+        || (rotyCandidates == nil || rotyCandidates.count == 0)) {
         if (roty) {
             roty.isROTY = NO;
             roty = nil;
@@ -2780,8 +2782,8 @@
         return rotyWinnerStrFull;
     } else {
         BOOL putNewsStory = false;
-
-        rotyCandidates = [[self calculateROTYCandidates] mutableCopy];
+        
+        [self calculateROTYCandidates];
         roty = rotyCandidates[0];
         rotyDecided = true;
         putNewsStory = true;
@@ -2919,14 +2921,14 @@
             if (p != nil && ![tempHeis containsObject:p]) {
                 [tempHeis addObject:p];
             }
-            
+
             i++;
         }
-        
+
         [tempHeis sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [HBSharedUtils compareCoachScore:obj1 toObj2:obj2];
         }];
-        
+
         return [tempHeis copy];
     } else {
         return [cotyFinalists copy];
