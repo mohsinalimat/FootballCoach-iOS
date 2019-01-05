@@ -511,12 +511,12 @@
     CGFloat inMax = 100.0;
     
     CGFloat outMin = 0.0;
-    CGFloat outMax = 35.0;
+    CGFloat outMax = 25.0;
     
     CGFloat input = (CGFloat) t.teamPrestige;
     int prestigeScore = (int)(outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
     
-    outMax = 25.0;
+    outMax = 15.0;
     input = (CGFloat)[t getCurrentHC].ratOvr;
     int coachAbility = (int)(outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
     

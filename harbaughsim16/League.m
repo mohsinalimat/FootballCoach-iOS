@@ -1473,13 +1473,7 @@
 
 
 -(void)advanceSeason {
-    // process coaching carousel if it hasn't already
-    [self processCoachingCarousel];
-    // Store remaining coaches in free agents
-    [coachFreeAgents addObjectsFromArray:coachList];
-    coachList = [NSMutableArray array];
-    didFinishCoachingCarousel = NO;
-    
+
     currentWeek = 0;
     ncg = nil;
     heisman = nil;
@@ -1493,6 +1487,21 @@
 
     didFinishTransferPeriod = NO;
     transferList = nil;
+    
+    for (NSMutableArray *week in newsStories) {
+        [week removeAllObjects];
+    }
+    
+    // process coaching carousel if it hasn't already
+    [self processCoachingCarousel];
+    // Store remaining coaches in free agents
+    for (HeadCoach *hc in coachList) {
+        if (![coachFreeAgents containsObject:hc]) {
+            [coachFreeAgents addObject:hc];
+        }
+    }
+    coachList = [NSMutableArray array];
+    didFinishCoachingCarousel = NO;
 
     // Bless a random team with lots of prestige
     int blessNumber = (int)([HBSharedUtils randomValue]*9);
@@ -1562,10 +1571,6 @@
     hasScheduledBowls = false;
     heismanDecided = NO;
     [bowlGames removeAllObjects];
-
-    for (NSMutableArray *week in newsStories) {
-        [week removeAllObjects];
-    }
 
     if (blessedTeam) {
         NSMutableArray *week0 = newsStories[0];
@@ -3098,7 +3103,10 @@
             return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
         }];
         
-        for (HeadCoach *coach in coachStarList) {
+        NSInteger k = 0;
+        NSInteger starCount = coachStarList.count;
+        while (starCount > 0 && k < starCount) {
+            HeadCoach *coach = coachStarList[k];
             NSString *tmName = coach.team.name;
             int tmPrestige = coach.team.teamPrestige;
             Team *oldTeam = coach.team;
@@ -3112,35 +3120,38 @@
                         [t getCurrentHC].contractLength = 6;
                         [t getCurrentHC].contractYear = 0;
                         [t getCurrentHC].baselinePrestige = t.teamPrestige;
-                        // newsStories.get(currentWeek + 1).add("Rising Star Coach Hired: " + teamList.get(t).name + ">Rising star head coach " + teamList.get(t).HC.get(0).name + " has announced his departure from " + tmName + " after being selected by " + teamList.get(t).name + " as their new head coach. His previous track record has had him on the top list of many schools.");
+                        [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Rising Star Hired at %@!\nAfter an offseason full of rumors, %@ head coach %@ has decided to take the job at %@. His success at %@ had him on many top programs' radars.",coach.team.abbreviation,oldTeam.abbreviation,coach.name,coach.team.name,oldTeam.name]];
                         if ([HBSharedUtils randomValue] < 0.20) {
                             [oldTeam promoteCoach];
-                            //                        teamList.get(j).HC.get(0).history.add("");
-                            //                        newsStories.get(currentWeek + 1).add("Replacement Promoted: " + teamList.get(j).name + ">" + teamList.get(j).name + " hopes to continue their recent success, despite the recent loss of coach " + teamList.get(t).HC.get(0).name + ". The team has promoted his assistant coach " + teamList.get(j).HC.get(0).name + " to the head coaching job at the school.");
+                            [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Promotion at %@!\n%@ hopes to continue their recent success despite the loss of head coach %@ to %@, promoting %@ %@ to be its next head coach.", oldTeam.abbreviation, oldTeam.name, coach.name,coach.team.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC", [oldTeam getCurrentHC].name]];
+                            
                         }
                         [coachStarList removeObject:coach];
+                        starCount--;
                         break;
                     }
                 }
             }
+            k++;
         }
         
         [coachList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
         }];
-        int i = 0;
+        NSInteger i = 0;
         NSInteger count = coachList.count;
         while (count > 0 && i < count) {
             HeadCoach *c = coachList[i];
             for (Team *t in teamList) {
                 if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
                     Team *oldTeam = c.team;
+                    c.contractYear = 0;
                     c.team = t;
                     [t.coaches addObject:c];
                     [t getCurrentHC].contractLength = 6;
                     [t getCurrentHC].contractYear = 0;
                     [t getCurrentHC].baselinePrestige = t.teamPrestige;
-                    //                newsStories.get(currentWeek + 1).add("Coaching Switch: " + teamList.get(t).name + ">After an extensive search for a new head coach, " + teamList.get(t).name + " has hired " + teamList.get(t).HC.get(0).name + " to lead the team. Coach " + teamList.get(t).HC.get(0).name + " previously coached at " + coachList.get(i).team.name + ", before being let go this past season.");
+                    [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Switch: %@\nAfter an extensive nationwide search, %@ has hired %@ to lead its football program. His last stop was at %@, where he was let go after this past season.",t.abbreviation,t.name,c.name,oldTeam.name]];
                     [oldTeam.coaches removeObject:c];
                     [coachList removeObject:c];
                     count--;
@@ -3154,19 +3165,20 @@
             return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
         }];
         
-        int j = 0;
+        NSInteger j = 0;
         NSInteger faCount = coachFreeAgents.count;
         while (faCount > 0 && j < faCount) {
-            HeadCoach *c = coachFreeAgents[i];
+            HeadCoach *c = coachFreeAgents[j];
             for (Team *t in teamList) {
                 if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
                     Team *oldTeam = c.team;
+                    c.contractYear = 0;
                     c.team = t;
                     [t.coaches addObject:c];
                     [t getCurrentHC].contractLength = 6;
                     [t getCurrentHC].contractYear = 0;
                     [t getCurrentHC].baselinePrestige = t.teamPrestige;
-                    //                newsStories.get(currentWeek + 1).add("Return to the Sidelines: " + teamList.get(t).name + ">After an extensive search for a new head coach, " + teamList.get(t).name + " has hired " + teamList.get(t).HC.get(0).name + " to lead the team. Coach " + teamList.get(t).HC.get(0).name + " has been out of football, but is returning this season!");
+                    [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Return to the Sidelines: %@\nAfter an extensive search, %@ has hired %@ to lead its football program. His last stop was at %@ a few years ago, but he now makes his triumphant return to the sideline.",t.abbreviation,t.name,c.name,oldTeam.name]];
                     [oldTeam.coaches removeObject:c];
                     [coachFreeAgents removeObject:c];
                     faCount--;
@@ -3179,8 +3191,7 @@
         for (Team *t in teamList) {
             if (t.coaches.count == 0) {
                 [t promoteCoach];
-                //teamList.get(t).HC.get(0).history.add("");
-                //newsStories.get(currentWeek + 1).add("Coaching Promotion: " + teamList.get(t).name + ">Following the departure of their previous head coach, " + teamList.get(t).name + " has promoted assistant " + teamList.get(t).HC.get(0).name + " to lead the team.");
+                [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Promotion: %@\nAfter the departure of their previous head coach, %@ has promoted %@ %@ to lead the team.",t.abbreviation,t.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC",[t getCurrentHC].name]];
             }
         }
         didFinishCoachingCarousel = YES;
@@ -3190,8 +3201,7 @@
         for (Team *t in teamList) {
             if (t.coaches.count == 0) {
                 [t promoteCoach];
-                //teamList.get(t).HC.get(0).history.add("");
-                //newsStories.get(currentWeek + 1).add("Coaching Promotion: " + teamList.get(t).name + ">Following the departure of their previous head coach, " + teamList.get(t).name + " has promoted assistant " + teamList.get(t).HC.get(0).name + " to lead the team.");
+                [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Promotion: %@\nAfter the departure of their previous head coach, %@ has promoted %@ %@ to lead the team.",t.abbreviation,t.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC",[t getCurrentHC].name]];
             }
         }
         didFinishCoachingCarousel = YES;

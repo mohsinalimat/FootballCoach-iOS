@@ -399,6 +399,8 @@
                 t.coachRetired = NO;
                 t.coachFired = NO;
                 [t createNewCustomHeadCoach:[oldLigue getRandName] stars:((int)([HBSharedUtils randomValue] * 4) + 1)];
+                [t getCurrentHC].contractLength = 1 + (int)([HBSharedUtils randomValue] * 6);
+                [t getCurrentHC].contractYear = (int)([HBSharedUtils randomValue] * [t getCurrentHC].contractLength);
                 [t getCurrentHC].totalWins = t.totalWins;
                 [t getCurrentHC].totalLosses = t.totalLosses;
                 [t getCurrentHC].totalConfWins = t.totalConfWins;

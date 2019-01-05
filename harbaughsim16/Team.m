@@ -1482,7 +1482,7 @@
             coachContractString = [NSString stringWithFormat:@"Because of your team's poor performances, %@'s Athletic Director has terminated your contract.", name];
             NSLog(@"[USER] Coach Status: Fired");
         } else {
-            coachContractString = [NSString stringWithFormat:@"You have %d years left on your contract. Your team prestige is currently at %d and started at %d." , ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear), teamPrestige, [self getCurrentHC].baselinePrestige];
+            coachContractString = [NSString stringWithFormat:@"You have %d years left on your contract. Your team prestige is currently at %d and started at %d." , MAX(0, ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear - 1)), teamPrestige, [self getCurrentHC].baselinePrestige];
         }
     }
 }
@@ -2845,7 +2845,7 @@
     NSMutableString *jsonString = [NSMutableString string];
     [jsonString appendString:@"{"];
     [jsonString appendFormat:@"\"name\" : \"%@\", \"abbreviation\" : \"%@\", \"prestige\" : \"%d\",  \"state\" : \"%@\", \"rival\" : \"%@\",",name, abbreviation, teamPrestige, state, rivalTeam];
-    [jsonString appendFormat:@"\"headCoach\" : \"%@\"", [[self getCurrentHC] coachMetadataJSON]];
+    [jsonString appendFormat:@"\"headCoach\" : %@", [[self getCurrentHC] coachMetadataJSON]];
     [jsonString appendString:@"}"];
     return jsonString;
 }
