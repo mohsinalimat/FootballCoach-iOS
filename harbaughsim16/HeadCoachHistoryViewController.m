@@ -49,7 +49,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    history = [selectedCoach.coachingHistoryDictionary copy];
+    history = selectedCoach.coachingHistoryDictionary;
     self.title = [NSString stringWithFormat:@"Coaching History for %@", [selectedCoach getInitialName]];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
@@ -65,33 +65,26 @@
     self.tableView.emptyDataSetDelegate = self;
 }
 
--(void)viewPrestigeHistory {
-    NSMutableArray *prestigeValues = [NSMutableArray array];
+-(void)viewChartOptions {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Chart Options" message:@"Which chart would you like to view?" preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Prestige" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self viewPrestigeHistory];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Coach Score" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self viewCoachScoreHistory];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)viewCoachScoreHistory {
+    NSMutableArray *scoreValues = [NSMutableArray array];
     NSMutableArray *colorValues = [NSMutableArray array];
-    for (int i = 0; i < history.count; i++) {
+    
+    for (int i = 0; i < selectedCoach.prestigeHistoryDictionary.count; i++) {
         NSInteger year = [HBSharedUtils currentLeague].baseYear + i;
-        float prestigeVal = 0.0;
-        NSString *hist;
-        if (selectedCoach.coachingHistoryDictionary.count < i) {
-            hist = [NSString stringWithFormat:@"%@ (0-0)",selectedCoach.team.abbreviation];
-        } else {
-            hist = selectedCoach.coachingHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + i)]];
-        }
-        NSArray *comps = [hist componentsSeparatedByString:@"\n"];
-        NSString *prestigeString = nil;
-        int i = 0;
-        while (i < comps.count && (prestigeString == nil || ![prestigeString containsString:@"Coach Score: "])) {
-            prestigeString = comps[i];
-            i++;
-        }
-        
-        if (prestigeString == nil) {
-            prestigeVal = 0.0;
-        } else {
-            NSString *cleanPrestige = [prestigeString stringByReplacingOccurrencesOfString:@"Coach Score: " withString:@""];
-            NSNumber *prestigeNum = [[self numberFormatter] numberFromString:cleanPrestige];
-            prestigeVal = prestigeNum.floatValue;
-        }
+        NSInteger coachScore = [selectedCoach.prestigeHistoryDictionary[[NSString stringWithFormat:@"%ld",year]][@"coachScore"] integerValue];
+        NSString *hist = history[[NSString stringWithFormat:@"%ld",year]];
         
         UIColor *teamColor;
         if ([hist containsString:@"NCG - W"] || [hist containsString:@"NCW"]) {
@@ -109,11 +102,11 @@
         }
         [colorValues addObject:teamColor];
         
-        ChartDataEntry *entry = [[ChartDataEntry alloc] initWithX:year y:prestigeVal];
-        [prestigeValues addObject:entry];
+        ChartDataEntry *entry = [[ChartDataEntry alloc] initWithX:year y:coachScore];
+        [scoreValues addObject:entry];
     }
     
-    LineChartDataSet *prestigeHistLine = [[LineChartDataSet alloc] initWithValues:prestigeValues label:@"Coach Score over Time"];
+    LineChartDataSet *prestigeHistLine = [[LineChartDataSet alloc] initWithValues:scoreValues label:@"Coach Score over Time"];
     prestigeHistLine.circleColors = colorValues;
     prestigeHistLine.circleRadius /= 2;
     prestigeHistLine.drawCircleHoleEnabled = NO;
@@ -122,6 +115,47 @@
     
     PrestigeHistoryViewController *prestigeHistoryVC = [[PrestigeHistoryViewController alloc] initWithDataSets:@[prestigeHistLine]];
     prestigeHistoryVC.title = [NSString stringWithFormat:@"Coach Score History for %@", [selectedCoach getInitialName]];
+    [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
+}
+
+-(void)viewPrestigeHistory {
+    NSMutableArray *scoreValues = [NSMutableArray array];
+    NSMutableArray *colorValues = [NSMutableArray array];
+    
+    for (int i = 0; i < selectedCoach.prestigeHistoryDictionary.count; i++) {
+        NSInteger year = [HBSharedUtils currentLeague].baseYear + i;
+        NSInteger coachScore = [selectedCoach.prestigeHistoryDictionary[[NSString stringWithFormat:@"%ld",year]][@"prestige"] integerValue];
+        NSString *hist = history[[NSString stringWithFormat:@"%ld",year]];
+        
+        UIColor *teamColor;
+        if ([hist containsString:@"NCG - W"] || [hist containsString:@"NCW"]) {
+            teamColor = [HBSharedUtils champColor];
+        } else {
+            if ([hist containsString:@"Bowl - W"] || [hist containsString:@"Semis,1v4 - W"] || [hist containsString:@"Semis,2v3 - W"] || [hist containsString:@"BW"] || [hist containsString:@"SFW"]) {
+                teamColor = [UIColor orangeColor];
+            } else {
+                if ([hist containsString:@"CCG - W"] || [hist containsString:@"CC"]) {
+                    teamColor = [HBSharedUtils successColor];
+                } else {
+                    teamColor = [UIColor whiteColor];
+                }
+            }
+        }
+        [colorValues addObject:teamColor];
+        
+        ChartDataEntry *entry = [[ChartDataEntry alloc] initWithX:year y:coachScore];
+        [scoreValues addObject:entry];
+    }
+    
+    LineChartDataSet *prestigeHistLine = [[LineChartDataSet alloc] initWithValues:scoreValues label:@"Team Prestige over Time"];
+    prestigeHistLine.circleColors = colorValues;
+    prestigeHistLine.circleRadius /= 2;
+    prestigeHistLine.drawCircleHoleEnabled = NO;
+    prestigeHistLine.colors = @[[UIColor whiteColor]];
+    prestigeHistLine.valueTextColor = [UIColor lightTextColor];
+    
+    PrestigeHistoryViewController *prestigeHistoryVC = [[PrestigeHistoryViewController alloc] initWithDataSets:@[prestigeHistLine]];
+    prestigeHistoryVC.title = [NSString stringWithFormat:@"Team Prestige History for %@", [selectedCoach getInitialName]];
     [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
 }
 
@@ -275,7 +309,7 @@
     
     [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
     NSString *hist;
-    if (selectedCoach.coachingHistoryDictionary.count < indexPath.row) {
+    if (![history.allKeys containsObject:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
         hist = [NSString stringWithFormat:@"%@ (0-0)",selectedCoach.team.abbreviation];
     } else {
         hist = selectedCoach.coachingHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];

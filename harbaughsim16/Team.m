@@ -780,16 +780,18 @@
 
     //MAKE HEAD COACH
     if (100 * [HBSharedUtils randomValue] < 5 * chance) {
-        //HC.add(new HeadCoach(league.getRandName(), (int) (4 * [HBSharedUtils randomValue] + 1), stars - 1, this, promote));
         [coaches addObject:[HeadCoach newHC:self name:[league getRandName] stars:(stars - 1) year:(int) (4 * [HBSharedUtils randomValue] + 1) newHire:!promote]];
     } else {
         [coaches addObject:[HeadCoach newHC:self name:[league getRandName] stars:stars year:(int) (4 * [HBSharedUtils randomValue] + 1) newHire:!promote]];
     }
+    [self getCurrentHC].contractYear = 0;
+    [self getCurrentHC].baselinePrestige = self.teamPrestige;
+    [self getCurrentHC].cumulativePrestige = 0;
 }
 
 -(int)getMinCoachHireReq {
-    int req = (int)((league.teamList.count - rankTeamPrestige) / 2.0) + (int)round(league.teamList.count/3.6);
-    if (req > 90) req = 90;
+    int req = (int)(league.teamList.count - rankTeamPrestige) / 2 + (int)round(league.teamList.count/3.6);
+    if (req >= 88) req = 88;
     return req;
 }
 
@@ -1380,7 +1382,7 @@
         NSString *oldCoach = [self getCurrentHC].name;
 //        coachFired = true;
         //[coaches removeObjectAtIndex:0];
-        NSLog(@"%@ COACH Status: Retired", abbreviation);
+        NSLog(@"[Carousel] %@ COACH Status: Retired", abbreviation);
         [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ Coach Retires!\n%@ has announced his retirement from football at the age of %d. %@ has not yet announced a successor. Coach %@ had a career record of %d-%d. We wish him the best in retirement!",abbreviation, oldCoach,age,name,oldCoach,wins,losses]];
     }
 
@@ -1444,7 +1446,7 @@
                         [league.coachList addObject:[self getCurrentHC]];
                     }
                    // [coaches removeObjectAtIndex:0];
-                    NSLog(@"%@ COACH Status: Fired", abbreviation);
+                    NSLog(@"[Carousel] %@ COACH Status: Fired", abbreviation);
                 }
             } else if ((totalPrestigeDiff < -2 && !league.isCareerMode && !isUserControlled && rankTeamPrestige > 10) || (!isUserControlled && rankTeamPrestige > 15 && totalPrestigeDiff < -1)) {
                 coachFired = true;
@@ -1453,7 +1455,7 @@
                 if (!isUserControlled) {
                     [league.coachList addObject:[self getCurrentHC]];
                 }
-                NSLog(@"%@ COACH Status: Fired", abbreviation);
+                NSLog(@"[Carousel] %@ COACH Status: Fired", abbreviation);
                 //[coaches removeObjectAtIndex:0];
             } else if ((totalPrestigeDiff < -2 && league.isCareerMode && rankTeamPrestige > 10) || (rankTeamPrestige > 15 && totalPrestigeDiff < -1)) {
                 coachFired = true;
@@ -1462,7 +1464,7 @@
                 if (!isUserControlled) {
                     [league.coachList addObject:[self getCurrentHC]];
                 }
-                NSLog(@"%@ COACH Status: Fired", abbreviation);
+                NSLog(@"[Carousel] %@ COACH Status: Fired", abbreviation);
                 //[coaches removeObjectAtIndex:0];
             } else {
                 [self getCurrentHC].contractLength = 2;
@@ -1480,9 +1482,16 @@
             coachContractString = [NSString stringWithFormat:@"Congratulations! Your performance has been rewarded with a contract extension for %d years!", [self getCurrentHC].contractLength];
         } else if (coachFired) {
             coachContractString = [NSString stringWithFormat:@"Because of your team's poor performances, %@'s Athletic Director has terminated your contract.", name];
-            NSLog(@"[USER] Coach Status: Fired");
+            NSLog(@"[Carousel] Coach Status: Fired");
         } else {
-            coachContractString = [NSString stringWithFormat:@"You have %d years left on your contract. Your team prestige is currently at %d and started at %d." , MAX(0, ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear - 1)), teamPrestige, [self getCurrentHC].baselinePrestige];
+            int yearsLeft = MAX(0, ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear - 1));
+            if (yearsLeft == 0) {
+                coachContractString = [NSString stringWithFormat:@"This will be the last year of your contract. Your team prestige is currently at %d and started at %d.", teamPrestige, [self getCurrentHC].baselinePrestige];
+            } else if (yearsLeft == 1) {
+                coachContractString = [NSString stringWithFormat:@"You have 1 year left on your contract. Your team prestige is currently at %d and started at %d.", teamPrestige, [self getCurrentHC].baselinePrestige];
+            } else {
+                coachContractString = [NSString stringWithFormat:@"You have %d years left on your contract. Your team prestige is currently at %d and started at %d.", yearsLeft, teamPrestige, [self getCurrentHC].baselinePrestige];
+            }
         }
     }
 }
@@ -1536,6 +1545,7 @@
     }
     if (coaches.count != 0) {
         [[self getCurrentHC].coachingHistoryDictionary setObject:hist forKey:[NSString stringWithFormat:@"%ld",(long)([league getCurrentYear])]];
+        [[self getCurrentHC].prestigeHistoryDictionary setObject:@{@"team" : self.abbreviation, @"prestige" : @(self.teamPrestige), @"coachScore" : @([[self getCurrentHC] getCoachScore])} forKey:[NSString stringWithFormat:@"%ld",(long)([league getCurrentYear])]];
     }
 }
 

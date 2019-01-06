@@ -223,7 +223,6 @@
 -(NSMutableArray<Team*> *)getPromotedCoachTeams:(int)rating offers:(double)offers oldTeam:(NSString *)oldTeam;
 -(NSMutableArray<Team *> *)getHardModeTeamVacancyList;
 -(NSMutableArray<Team*> *)getFiredCoachTeams:(int)rating oldTeam:(NSString *)oldTeam;
--(void)updateHCHistory;
 -(int)getAvgYards;
 -(int)getAvgConfPrestige;
 @end

@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSString *position;
 @property (strong, nonatomic) NSString *homeState;
 @property (strong, nonatomic) NSMutableDictionary *coachingHistoryDictionary;
+@property (strong, nonatomic) NSMutableDictionary *prestigeHistoryDictionary; // { @"2019" : { @"team" : @"ATL", @"prestige" : 90 } } 
 @property (nonatomic) int year;
 @property (nonatomic) int age;
 @property (nonatomic) int ratOvr;
@@ -74,6 +75,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *)coachMetadataJSON;
 -(NSInteger)importIdentifier;
 -(void)applyJSONMetadataChanges:(id)json;
+
+-(NSString *)coachAwardReportString;
+-(NSString *)playerAwardReportString;
+-(NSString *)teamsCoachedString;
 
 @end
 

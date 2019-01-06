@@ -51,6 +51,7 @@
     hc.wonTopHC = NO;
     hc.wonConfHC = NO;
     hc.coachingHistoryDictionary = [NSMutableDictionary dictionary];
+    hc.prestigeHistoryDictionary = [NSMutableDictionary dictionary];
 
     return hc;
 }
@@ -205,7 +206,7 @@
     [self.team getSeasonSummaryString]; // just running this to generate the deltaPrestige
     int prestigeDiff = self.team.deltaPrestige; // make sure this comes after advanceSeason or Season Summary Str
     
-    return prestigeDiff * 10 + (self.team.teamStrengthOfWins / 20) + 3 * self.team.wins - 1 * self.team.losses + [self.team.league findConference:self.team.conference].confPrestige;
+    return (prestigeDiff * 10) + (self.team.teamStrengthOfWins / 20) + (3 * (self.team.wins - self.team.losses)) + [self.team.league findConference:self.team.conference].confPrestige;
 }
 
 -(NSString *)coachMetadataJSON {
@@ -418,6 +419,97 @@
 
 -(NSString *)debugDescription {
     return [NSString stringWithFormat:@"%@ HC %@ [Age: %d, Ovr: %d]",self.team.abbreviation, self.name, self.age,self.ratOvr];
+}
+
+-(NSString *)playerAwardReportString {
+    NSMutableString *awards = [NSMutableString string];
+    int parts = 0;
+    if (self.totalROTYs > 0) {
+        [awards appendFormat:@"%lix ROTY",(long)self.totalROTYs];
+        parts++;
+    }
+    
+    if (self.totalAllConferences > 0) {
+        [awards appendFormat:@"?%lix All-Conference",(long)self.totalAllConferences];
+        parts++;
+    }
+    
+    if (self.totalAllAmericans > 0) {
+        [awards appendFormat:@"?%lix All-League",(long)self.totalAllAmericans];
+        parts++;
+    }
+    
+    if (self.totalHeismans > 0) {
+        [awards appendFormat:@"?%lix POTY",(long)self.totalHeismans];
+        parts++;
+    }
+    
+    if (parts > 1) {
+        [awards replaceOccurrencesOfString:@"?" withString:@", " options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
+    } else {
+        [awards replaceOccurrencesOfString:@"?" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
+    }
+    
+    awards = [NSMutableString stringWithString:[[awards stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    return (awards.length > 0) ? awards : @"None";
+}
+
+-(NSString *)coachAwardReportString {
+    NSMutableString *awards = [NSMutableString string];
+    int parts = 0;
+    if (self.careerConfCOTYs > 0) {
+        [awards appendFormat:@"%lix Conf COTY",(long)self.careerConfCOTYs];
+        parts++;
+    }
+    
+    if (self.careerCOTYs > 0) {
+        [awards appendFormat:@"?%lix COTY",(long)self.careerCOTYs];
+        parts++;
+    }
+    
+    if (parts > 1) {
+        [awards replaceOccurrencesOfString:@"?" withString:@", " options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
+    } else {
+        [awards replaceOccurrencesOfString:@"?" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
+    }
+    
+    awards = [NSMutableString stringWithString:[[awards stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    return (awards.length > 0) ? awards : @"None";
+}
+
+
+-(NSString *)teamsCoachedString {
+    __block NSMutableString *awards = [NSMutableString string];
+    __block int parts = 0;
+
+    for (NSString *hist in self.coachingHistoryDictionary) {
+        NSArray *stringParts = [hist componentsSeparatedByString:@"\n"];
+        NSString *teamInfo = (stringParts.count > 0) ? stringParts[0] : [NSString stringWithFormat:@"%@ (0-0)",self.team.abbreviation];
+    
+        NSError *error = NULL;
+        NSRegularExpression *regex = [NSRegularExpression
+                                      regularExpressionWithPattern:@"([A-Z])\\w+"
+                                      options:NSRegularExpressionCaseInsensitive
+                                      error:&error];
+        [regex enumerateMatchesInString:teamInfo options:0 range:NSMakeRange(0, [teamInfo length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
+            if (match != nil) {
+                NSString *matchedTeam = [teamInfo substringWithRange:match.range];
+                if (![awards containsString:matchedTeam]) {
+                    [awards appendFormat:@"?%@",matchedTeam];
+                    parts++;
+                }
+            }
+        }];
+    }
+    
+    if (parts > 1) {
+        [awards replaceOccurrencesOfString:@"?" withString:@", " options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
+    } else {
+        [awards replaceOccurrencesOfString:@"?" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, awards.length)];
+    }
+    
+    awards = [NSMutableString stringWithString:[[awards stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+    return (awards.length > 0) ? awards : @"None";
 }
 
 @end

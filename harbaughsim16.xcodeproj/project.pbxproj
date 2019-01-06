@@ -207,6 +207,8 @@
 		75F8F66A21DBF07C006981E7 /* MyCareerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75F8F66921DBF07C006981E7 /* MyCareerViewController.xib */; };
 		75F8F66D21DBF0C6006981E7 /* CFCTeamHistoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F8F66C21DBF0C6006981E7 /* CFCTeamHistoryView.m */; };
 		75F9C5D91CC55FAB00068554 /* TeamStreaksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */; };
+		75FA3F9A21E1A99A00DC7869 /* CareerCompletionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FA3F9921E1A99A00DC7869 /* CareerCompletionViewController.m */; };
+		75FA3F9C21E1A9B800DC7869 /* CareerCompletionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75FA3F9B21E1A9B800DC7869 /* CareerCompletionViewController.xib */; };
 		75FE58451FA25ED400DE2534 /* UpcomingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */; };
 		75FE584A1FA37D8C00DE2534 /* PlayerDL.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58461FA37D8A00DE2534 /* PlayerDL.m */; };
 		75FE584B1FA37D8C00DE2534 /* PlayerLB.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FE58481FA37D8C00DE2534 /* PlayerLB.m */; };
@@ -526,6 +528,9 @@
 		75F8F66C21DBF0C6006981E7 /* CFCTeamHistoryView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CFCTeamHistoryView.m; sourceTree = "<group>"; };
 		75F9C5D71CC55FAA00068554 /* TeamStreaksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreaksViewController.h; sourceTree = "<group>"; };
 		75F9C5D81CC55FAA00068554 /* TeamStreaksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreaksViewController.m; sourceTree = "<group>"; };
+		75FA3F9821E1A99A00DC7869 /* CareerCompletionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareerCompletionViewController.h; sourceTree = "<group>"; };
+		75FA3F9921E1A99A00DC7869 /* CareerCompletionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerCompletionViewController.m; sourceTree = "<group>"; };
+		75FA3F9B21E1A9B800DC7869 /* CareerCompletionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CareerCompletionViewController.xib; sourceTree = "<group>"; };
 		75FE58461FA37D8A00DE2534 /* PlayerDL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerDL.m; sourceTree = "<group>"; };
 		75FE58471FA37D8B00DE2534 /* PlayerDL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerDL.h; sourceTree = "<group>"; };
 		75FE58481FA37D8C00DE2534 /* PlayerLB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerLB.m; sourceTree = "<group>"; };
@@ -809,7 +814,7 @@
 		755BBC691C9E10D0001A8314 /* News */ = {
 			isa = PBXGroup;
 			children = (
-				75AB014A21DE70C7009E7A61 /* Job Searching */,
+				75AB014A21DE70C7009E7A61 /* Career Mode */,
 				7503A01520004AA4004426AA /* Recruiting */,
 				75FFAB3821CF3425002156C1 /* Transfers */,
 				755BBC881CA03252001A8314 /* HBRecruitCell.h */,
@@ -1034,13 +1039,16 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
-		75AB014A21DE70C7009E7A61 /* Job Searching */ = {
+		75AB014A21DE70C7009E7A61 /* Career Mode */ = {
 			isa = PBXGroup;
 			children = (
 				75AB014721DD87CA009E7A61 /* AvailableJobsViewController.h */,
 				75AB014821DD87CA009E7A61 /* AvailableJobsViewController.m */,
+				75FA3F9821E1A99A00DC7869 /* CareerCompletionViewController.h */,
+				75FA3F9921E1A99A00DC7869 /* CareerCompletionViewController.m */,
+				75FA3F9B21E1A9B800DC7869 /* CareerCompletionViewController.xib */,
 			);
-			name = "Job Searching";
+			name = "Career Mode";
 			sourceTree = "<group>";
 		};
 		75B9792D20067BD20050E077 /* cfctests */ = {
@@ -1272,6 +1280,7 @@
 				755BBC8C1CA03252001A8314 /* HBRecruitCell.xib in Resources */,
 				75924A2E1C99CCC000B165AD /* Assets.xcassets in Resources */,
 				751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */,
+				75FA3F9C21E1A9B800DC7869 /* CareerCompletionViewController.xib in Resources */,
 				75A86C8E1C9C7AA80034140C /* news@3x.png in Resources */,
 				75968B6E21DC12A5009B040C /* coach@3x.png in Resources */,
 				75CA698D1FEE2BF2008A58D1 /* first-names.csv in Resources */,
@@ -1507,6 +1516,7 @@
 				75A4518221CC7457007E481A /* PlayerOLDetailViewController.m in Sources */,
 				75EC9A791D08E12D00F24BE6 /* RingOfHonorViewController.m in Sources */,
 				75A4516921CC517D007E481A /* PlayerQBDetailViewController.m in Sources */,
+				75FA3F9A21E1A99A00DC7869 /* CareerCompletionViewController.m in Sources */,
 				7571DD411C9D032F00E67080 /* PlayerDetailViewController.m in Sources */,
 				75A4517C21CC726D007E481A /* PlayerTEDetailViewController.m in Sources */,
 				75C5C3381F83489D00D7CAAD /* HBTeamPlayView.m in Sources */,

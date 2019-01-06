@@ -784,6 +784,9 @@
     if (userControl > 1) {
         NSLog(@"Only %@ is to be user controlled", userTeam.abbreviation);
         return YES;
+    } else if (userControl == 0) {
+        NSLog(@"%@ not marked as user controlled", userTeam.abbreviation);
+        return YES;
     }
 
     // check this at all times. Conferences always need to be in working order.
@@ -1049,14 +1052,14 @@
 
          //PACIF
          [pacific.confTeams addObject:[Team newTeamWithName:@"California" abbreviation:@"CAL" conference:@"PACIF" league:self prestige:90 rivalTeam:@"ULA" state:@"California"]];//pacific.confTeams.add( new Team( "California", "CAL", "PACIF", this, 90, "ULA" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"Oregon" abbreviation:@"ORE" conference:@"PACIF" league:self prestige:85 rivalTeam:@"WAS" state:@"Oregon"]];//pacific.confTeams.add( new Team( "Oregon", "ORE", "PACIF", this, 85, "WAS" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"Oregon" abbreviation:@"ORE" conference:@"PACIF" league:self prestige:85 rivalTeam:@"SAN" state:@"Oregon"]];//pacific.confTeams.add( new Team( "Oregon", "ORE", "PACIF", this, 85, "WAS" ));
          [pacific.confTeams addObject:[Team newTeamWithName:@"Los Angeles" abbreviation:@"ULA" conference:@"PACIF" league:self prestige:80 rivalTeam:@"CAL" state:@"California"]];//pacific.confTeams.add( new Team( "Los Angeles", "ULA", "PACIF", this, 80, "CAL" ));
          [pacific.confTeams addObject:[Team newTeamWithName:@"Oakland St" abbreviation:@"OAK" conference:@"PACIF" league:self prestige:75 rivalTeam:@"HOL" state:@"California"]];//pacific.confTeams.add( new Team( "Oakland St", "OAK", "PACIF", this, 75, "HOL" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"Washington" abbreviation:@"WAS" conference:@"PACIF" league:self prestige:75 rivalTeam:@"ORE" state:@"Washington"]];//pacific.confTeams.add( new Team( "Washington", "WAS", "PACIF", this, 75, "ORE" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"Seattle" abbreviation:@"SEA" conference:@"PACIF" league:self prestige:75 rivalTeam:@"PUL" state:@"Washington"]];//pacific.confTeams.add( new Team( "Washington", "WAS", "PACIF", this, 75, "ORE" ));
          [pacific.confTeams addObject:[Team newTeamWithName:@"Hawaii" abbreviation:@"HAW" conference:@"PACIF" league:self prestige:70 rivalTeam:@"SAM" state:@"Hawaii"]];//pacific.confTeams.add( new Team( "Hawaii", "HAW", "PACIF", this, 70, "SAM" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"Pullman" abbreviation:@"PUL" conference:@"PACIF" league:self prestige:70 rivalTeam:@"SAN" state:@"Washington"]];//pacific.confTeams.add( new Team( "Seattle", "SEA", "PACIF", this, 70, "SAN" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"Pullman" abbreviation:@"PUL" conference:@"PACIF" league:self prestige:70 rivalTeam:@"SEA" state:@"Washington"]];//pacific.confTeams.add( new Team( "Seattle", "SEA", "PACIF", this, 70, "SAN" ));
          [pacific.confTeams addObject:[Team newTeamWithName:@"Hollywood St" abbreviation:@"HOL" conference:@"PACIF" league:self prestige:70 rivalTeam:@"OAK" state:@"California"]];//pacific.confTeams.add( new Team( "Hollywood St", "HOL", "PACIF", this, 70, "OAK" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"San Diego St" abbreviation:@"SAN" conference:@"PACIF" league:self prestige:60 rivalTeam:@"SEA" state:@"California"]];//pacific.confTeams.add( new Team( "San Diego St", "SAN", "PACIF", this, 60, "SEA" ));
+         [pacific.confTeams addObject:[Team newTeamWithName:@"San Diego St" abbreviation:@"SAN" conference:@"PACIF" league:self prestige:60 rivalTeam:@"ORE" state:@"California"]];//pacific.confTeams.add( new Team( "San Diego St", "SAN", "PACIF", this, 60, "SEA" ));
          [pacific.confTeams addObject:[Team newTeamWithName:@"American Samoa" abbreviation:@"SAM" conference:@"PACIF" league:self prestige:25 rivalTeam:@"HAW" state:@"American Samoa"]];//pacific.confTeams.add( new Team( "American Samoa", "SAM", "PACIF", this, 25, "HAW" ));
 
          //MOUNT
@@ -1443,7 +1446,7 @@
     blessedTeamCoachName = [t getCurrentHC].name;
    NSArray *stories = @[
                          [NSString stringWithFormat:@"%@ gets new digs!\nAn anonymous benefactor has completely covered the cost of new training facilities for %@, resulting in large scale improvements to the program's infrastructure.",t.abbreviation,t.name],
-                         [NSString stringWithFormat:@"%@ makes a big splash at head coach!\n%@ has hired alumnus and professional football coach %@ in hopes of revitalizing the program.", t.abbreviation, t.name, blessedTeamCoachName],
+                         //[NSString stringWithFormat:@"%@ makes a big splash at head coach!\n%@ has hired alumnus and professional football coach %@ in hopes of revitalizing the program.", t.abbreviation, t.name, blessedTeamCoachName],
                          [NSString stringWithFormat:@"%@ hires new AD!\n%@ has hired alumnus %@ as athletic director, who has pledged to invest more in the school's football program.", t.abbreviation, t.name, [self getRandName]],
                          [NSString stringWithFormat:@"New drink fuels %@!\nA new recovery drink developed by the science department at %@ has been a hit at offseason practice. The players are singing its praises and coming out of this offseason better than ever.", t.abbreviation, t.name],
                          [NSString stringWithFormat:@"%@ gets a fresh coat of paint!\nAfter starting a successful athletic apparel company, one of %@'s alumni proclaims that the team will never have to play another game with the same uniform combination.",t.abbreviation,t.name],
@@ -1490,6 +1493,14 @@
 
     for (NSMutableArray *week in newsStories) {
         [week removeAllObjects];
+    }
+    
+    for (Team *t in teamList) {
+        if (t.coaches.count != 0 && (t.coachFired || t.coachRetired) && (!t.isUserControlled)) {
+            [t.coaches removeObjectAtIndex:0];
+        } else if (t.coaches.count != 0 && (t.coachFired || t.coachRetired) && t.isUserControlled && !isCareerMode) {
+            [t.coaches removeObjectAtIndex:0];
+        }
     }
 
     // process coaching carousel if it hasn't already
@@ -1556,6 +1567,7 @@
         conferences[c].robinWeek = 0;
         conferences[c].week = 0;
         conferences[c].ccg = nil;
+        [conferences[c] updateConfPrestige];
     }
     //set up schedule
     for (int i = 0; i < conferences.count; ++i ) {
@@ -3042,6 +3054,7 @@
         return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
     }];
     for (Team *t in teamList) {
+        [t updateCoachHistory];
         t.coachGotNewContract = NO;
         t.coachFired = NO;
         t.coachRetired = NO;
@@ -3051,12 +3064,6 @@
         [t checkCoachingContracts:totalPrestigeDiff newPrestige:t.teamPrestige];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"checkedContracts" object:nil];
-}
-
--(void)updateHCHistory {
-    for (Team *t in teamList) {
-        [t updateCoachHistory];
-    }
 }
 
 -(NSMutableArray<Team *> *)getHardModeTeamVacancyList {
@@ -3116,10 +3123,11 @@
                     if ((t.teamPrestige > tmPrestige && [self findConference:t.conference].confPrestige > confPrestige) || t.teamPrestige > (tmPrestige + 5) || [self findConference:t.conference].confPrestige + 10 > confPrestige) {
                         [oldTeam.coaches removeObject:coach];
                         coach.team = t;
+                        coach.contractYear = 0;
+                        coach.contractLength = 6;
+                        coach.baselinePrestige = t.teamPrestige;
+                        coach.cumulativePrestige = 0;
                         [t.coaches addObject:coach];
-                        [t getCurrentHC].contractLength = 6;
-                        [t getCurrentHC].contractYear = 0;
-                        [t getCurrentHC].baselinePrestige = t.teamPrestige;
                         [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Rising Star Hired at %@!\nAfter an offseason full of rumors, %@ head coach %@ has decided to take the job at %@. His success at %@ had him on many top programs' radars.",coach.team.abbreviation,oldTeam.abbreviation,coach.name,coach.team.name,oldTeam.name]];
                         if ([HBSharedUtils randomValue] < 0.20) {
                             [oldTeam promoteCoach];
@@ -3128,6 +3136,7 @@
                         }
                         [coachStarList removeObject:coach];
                         starCount--;
+                        NSLog(@"[Carousel] Star coach for %@ %@ hired by %@", oldTeam.abbreviation, [coach debugDescription], t.abbreviation);
                         break;
                     }
                 }
@@ -3147,14 +3156,16 @@
                     Team *oldTeam = c.team;
                     c.contractYear = 0;
                     c.team = t;
+                    c.contractYear = 0;
+                    c.contractLength = 6;
+                    c.baselinePrestige = t.teamPrestige;
+                    c.cumulativePrestige = 0;
                     [t.coaches addObject:c];
-                    [t getCurrentHC].contractLength = 6;
-                    [t getCurrentHC].contractYear = 0;
-                    [t getCurrentHC].baselinePrestige = t.teamPrestige;
                     [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Switch: %@\nAfter an extensive nationwide search, %@ has hired %@ to lead its football program. His last stop was at %@, where he was let go after this past season.",t.abbreviation,t.name,c.name,oldTeam.name]];
                     [oldTeam.coaches removeObject:c];
                     [coachList removeObject:c];
                     count--;
+                    NSLog(@"[Carousel] %@ %@ hired by %@", oldTeam.abbreviation, [c getInitialName], t.abbreviation);
                     break; // should break from Team loop
                 }
             }
@@ -3174,14 +3185,16 @@
                     Team *oldTeam = c.team;
                     c.contractYear = 0;
                     c.team = t;
+                    c.contractYear = 0;
+                    c.contractLength = 6;
+                    c.baselinePrestige = t.teamPrestige;
+                    c.cumulativePrestige = 0;
                     [t.coaches addObject:c];
-                    [t getCurrentHC].contractLength = 6;
-                    [t getCurrentHC].contractYear = 0;
-                    [t getCurrentHC].baselinePrestige = t.teamPrestige;
                     [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Return to the Sidelines: %@\nAfter an extensive search, %@ has hired %@ to lead its football program. His last stop was at %@ a few years ago, but he now makes his triumphant return to the sideline.",t.abbreviation,t.name,c.name,oldTeam.name]];
                     [oldTeam.coaches removeObject:c];
                     [coachFreeAgents removeObject:c];
                     faCount--;
+                    NSLog(@"[Carousel] FA %@ hired by %@", [c getInitialName], t.abbreviation);
                     break; // should break from Team loop
                 }
             }
@@ -3192,6 +3205,7 @@
             if (t.coaches.count == 0) {
                 [t promoteCoach];
                 [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Promotion: %@\nAfter the departure of their previous head coach, %@ has promoted %@ %@ to lead the team.",t.abbreviation,t.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC",[t getCurrentHC].name]];
+                NSLog(@"[Carousel] %@ promoted internally", t.abbreviation);
             }
         }
         didFinishCoachingCarousel = YES;
@@ -3202,11 +3216,11 @@
             if (t.coaches.count == 0) {
                 [t promoteCoach];
                 [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Promotion: %@\nAfter the departure of their previous head coach, %@ has promoted %@ %@ to lead the team.",t.abbreviation,t.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC",[t getCurrentHC].name]];
+                NSLog(@"[Carousel] %@ promoted internally", t.abbreviation);
             }
         }
         didFinishCoachingCarousel = YES;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
 }
 
 -(void)coachHiringForSingleTeam:(Team *)t {

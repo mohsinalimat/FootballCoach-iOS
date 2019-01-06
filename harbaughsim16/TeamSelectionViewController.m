@@ -63,6 +63,7 @@
                 
                 [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     [self->userTeam setupUserCoach:[NSString stringWithFormat:@"%@ %@", alert.textFields[0].text, alert.textFields[1].text]];
+                    self->userTeam.isUserControlled = YES;
                     [self->league setUserTeam:self->userTeam];
                     [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
                     [self->league save];
@@ -81,6 +82,7 @@
             [alertController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Game Difficulty" message:@"Would you like to set your game difficulty to hard? On hard, your rival will be more competitive, good players will have a higher chance of leaving for the pros, and your program can incur sanctions from the league." preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:@"Yes, I'd like a challenge." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    self->userTeam.isUserControlled = YES;
                     [self->league setUserTeam:self->userTeam];
                     self->league.isHardMode = YES;
                     self->league.canRebrandTeam = YES;
@@ -96,6 +98,7 @@
                 }]];
                 
                 [alert addAction:[UIAlertAction actionWithTitle:@"No, I'll stick with easy." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                    self->userTeam.isUserControlled = YES;  
                     [self->league setUserTeam:self->userTeam];
                     self->league.isHardMode = NO;
                     self->league.canRebrandTeam = YES;

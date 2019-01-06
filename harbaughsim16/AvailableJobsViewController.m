@@ -17,7 +17,7 @@
 
 #import "STPopup.h"
 #import "HexColors.h"
-#import "RMessage.h"
+#import "MBProgressHUD.h"
 #import "UIScrollView+EmptyDataSet.h"
 
 @interface AvailableJobsViewController () <DZNEmptyDataSetDelegate, DZNEmptyDataSetSource>
@@ -45,10 +45,15 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
     self.title = [NSString stringWithFormat:@"%ld Coaching Carousel", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
     
     userCoach = [[HBSharedUtils currentLeague].userTeam getCurrentHC];
     
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    [hud setMode:MBProgressHUDModeIndeterminate];
+//    [hud.label setText:@"Retrieving open coaching jobs..."];
     availableJobs = [NSMutableArray array];
     for (Team *t in [HBSharedUtils currentLeague].teamList) {
         if (![t isEqual:[HBSharedUtils currentLeague].userTeam]
@@ -57,30 +62,45 @@
             [availableJobs addObject:t];
         }
     }
-//    availableJobs = [HBSharedUtils currentLeague].teamList; // for testing
+    //    availableJobs = [HBSharedUtils currentLeague].teamList; // for testing
     
+    
+
     [availableJobs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
     }];
+    [self generateDetailStrings];
+    //[hud hideAnimated:YES];
+    [self.tableView reloadData];
 
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-    [self generateDetailStrings];
+
     self.tableView.estimatedRowHeight = 150;
     self.tableView.rowHeight = 150;
     self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
-    self.tableView.emptyDataSetSource = self;
-    self.tableView.emptyDataSetDelegate = self;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recieveSigningNotif:) name:@"signingWithTeam" object:nil];
-    
-    
-    [self.tableView reloadData];
-    
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign" style:UIBarButtonItemStyleDone target:self action:@selector(finalizeCoachingCarousel)];
-//    [self.navigationItem.rightBarButtonItem setEnabled:NO];
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"help"] style:UIBarButtonItemStylePlain target:self action:@selector(openJobTutorial)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStyleDone target:self action:@selector(closeCarousel)];
+    
+    
+    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_COACHING_TUTORIAL_SHOWN_KEY];
+    if (!tutorialShown) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_COACHING_TUTORIAL_SHOWN_KEY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        //display intro screen
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self openJobTutorial];
+        });
+    }
+}
+
+-(void)openJobTutorial {
+    //display intro screen
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to the Coaching Carousel!" message:[HBSharedUtils jobPickerTutorial:userCoach.team.coachFired] preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(void)closeCarousel {
@@ -88,28 +108,36 @@
     // will be assigned to a random team if one is not selected
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Exiting Coaching Carousel" message:@"Are you sure you want to exit and sim the coaching carousel? You will be randomly signed to a team with a head coaching vacancy." preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [HBSharedUtils currentLeague].userTeam.isUserControlled = NO;
-//        [[HBSharedUtils currentLeague].userTeam.coaches removeObject:self->userCoach];
-        if (![[HBSharedUtils currentLeague].coachList containsObject:self->userCoach]) {
-            [[HBSharedUtils currentLeague].coachList addObject:self->userCoach];
-        }
-        
-        for (Team *t in self->availableJobs) {
-            if (t.coaches.count != 0 && (t.coachFired || t.coachRetired)) {
-                [t.coaches removeObjectAtIndex:0]; // remove all fired coaches (if not removed already)
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            [hud setMode:MBProgressHUDModeIndeterminate];
+            [hud.label setText:@"Processing open coaching positions..."];
+            [HBSharedUtils currentLeague].userTeam.isUserControlled = NO;
+            //        [[HBSharedUtils currentLeague].userTeam.coaches removeObject:self->userCoach];
+            if (![[HBSharedUtils currentLeague].coachList containsObject:self->userCoach]) {
+                [[HBSharedUtils currentLeague].coachList addObject:self->userCoach];
             }
-        }
-        
-        // process rest of coaching carousel
-        [[HBSharedUtils currentLeague] processCoachingCarousel];
-        // mark coaching carousel as over
-        [HBSharedUtils currentLeague].didFinishCoachingCarousel = YES;
-        // save
-        [[HBSharedUtils currentLeague] save];
-        // post newCoach notif (same as newSaveFile)
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
-        // dismiss
-        [self dismissViewControllerAnimated:YES completion:nil];
+            
+            for (Team *t in self->availableJobs) {
+                if (t.coaches.count != 0 && (t.coachFired || t.coachRetired)) {
+                    [t.coaches removeObjectAtIndex:0]; // remove all fired coaches (if not removed already)
+                }
+            }
+            
+            // process rest of coaching carousel
+            [[HBSharedUtils currentLeague] processCoachingCarousel];
+            // mark coaching carousel as over
+            [HBSharedUtils currentLeague].didFinishCoachingCarousel = YES;
+            // save
+            [[HBSharedUtils currentLeague] save];
+            // post newCoach notif (same as newSaveFile)
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
+            [hud hideAnimated:YES];
+            // dismiss
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self dismissViewControllerAnimated:YES completion:nil];
+            });
+        });
     }]];
      
      [alert addAction:[UIAlertAction actionWithTitle:@"No, I want to keep looking at offers." style:UIAlertActionStyleCancel handler:nil]];
@@ -128,40 +156,51 @@
     if (selectedTeam) {
         // Are you sure you want to sign with (team)? Your contract will be for 6 years.
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Signing Contract with %@", selectedTeam.abbreviation] message:[NSString stringWithFormat:@"Are you sure you want to sign with %@? Your contract will be for 6 years.\n\nThis action will end the coaching carousel. You will not be able to pick another job this offseason.", selectedTeam.name] preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"Yes, I'll sign." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            for (Team *t in self->availableJobs) {
-                if (t.coaches.count != 0 && (t.coachFired || t.coachRetired)) {
-                    [t.coaches removeObjectAtIndex:0]; // remove all fired coaches
+        [alert addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"Yes, I'll sign with %@.",self->selectedTeam.abbreviation] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+                [hud setMode:MBProgressHUDModeIndeterminate];
+                [hud.label setText:[NSString stringWithFormat:@"Signing contract with %@...",self->selectedTeam.abbreviation]];
+                for (Team *t in self->availableJobs) {
+                    if (t.coaches.count != 0 && (t.coachFired || t.coachRetired)) {
+                        [t.coaches removeObjectAtIndex:0]; // remove all fired coaches
+                    }
                 }
-            }
-            
-            // yes
-            [HBSharedUtils currentLeague].userTeam.isUserControlled = NO;
-            [[HBSharedUtils currentLeague].userTeam.coaches removeObject:self->userCoach];
-            self->userCoach.team = self->selectedTeam;
-            self->userCoach.contractYear = 0;
-            self->userCoach.contractLength = 6;
-            [HBSharedUtils currentLeague].userTeam = self->selectedTeam;
-            [HBSharedUtils currentLeague].userTeam.isUserControlled = YES;
-            [self->selectedTeam.coaches addObject:self->userCoach];
-            
-            if ([[HBSharedUtils currentLeague].coachList containsObject:self->userCoach]) {
-                [[HBSharedUtils currentLeague].coachList removeObject:self->userCoach];
-            }
-            if ([[HBSharedUtils currentLeague].coachStarList containsObject:self->userCoach]) {
-                [[HBSharedUtils currentLeague].coachStarList removeObject:self->userCoach];
-            }
-            
-            // process rest of coaching carousel
-            [[HBSharedUtils currentLeague] processCoachingCarousel];
-            // mark coaching carousel as over
-            [HBSharedUtils currentLeague].didFinishCoachingCarousel = YES;
-            // save
-            [[HBSharedUtils currentLeague] save];
-            // post newCoach notif (same as newSaveFile)
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
-            // dismiss
-            [self dismissViewControllerAnimated:YES completion:nil];
+                
+                // yes
+                [HBSharedUtils currentLeague].userTeam.isUserControlled = NO;
+                [[HBSharedUtils currentLeague].userTeam.coaches removeObject:self->userCoach];
+                self->userCoach.team = self->selectedTeam;
+                self->userCoach.contractYear = 0;
+                self->userCoach.contractLength = 6;
+                self->userCoach.baselinePrestige = self->selectedTeam.teamPrestige;
+                self->userCoach.cumulativePrestige = 0;
+                [HBSharedUtils currentLeague].userTeam = self->selectedTeam;
+                [HBSharedUtils currentLeague].userTeam.isUserControlled = YES;
+                [self->selectedTeam.coaches addObject:self->userCoach];
+                
+                if ([[HBSharedUtils currentLeague].coachList containsObject:self->userCoach]) {
+                    [[HBSharedUtils currentLeague].coachList removeObject:self->userCoach];
+                }
+                if ([[HBSharedUtils currentLeague].coachStarList containsObject:self->userCoach]) {
+                    [[HBSharedUtils currentLeague].coachStarList removeObject:self->userCoach];
+                }
+                
+                [hud.label setText:@"Processing remaining open coaching positions..."];
+                // process rest of coaching carousel
+                [[HBSharedUtils currentLeague] processCoachingCarousel];
+                // mark coaching carousel as over
+                [HBSharedUtils currentLeague].didFinishCoachingCarousel = YES;
+                // save
+                [[HBSharedUtils currentLeague] save];
+                // post newCoach notif (same as newSaveFile)
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
+                [hud hideAnimated:YES];
+                // dismiss
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                });
+            });
         }]];
         
         // NO
@@ -346,10 +385,6 @@
     [cell.nameLabel setText:t.name];
     [cell.stateLabel setText:t.state];
     if (userCoach.ratOvr >= [t getMinCoachHireReq]) {
-//        if (selectedIndexPath && [indexPath isEqual:selectedIndexPath]) {
-//            [cell.nameLabel setTextColor:[HBSharedUtils styleColor]];
-//        } else
-        
         if ([t.natlChampWL containsString:@"NCW"]) {
             [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
         } else {

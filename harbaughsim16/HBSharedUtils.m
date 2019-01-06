@@ -23,6 +23,7 @@
 #import "TransferringPlayersViewController.h"
 #import "TransferLogViewController.h"
 #import "AvailableJobsViewController.h"
+#import "CareerCompletionViewController.h"
 
 #import "ZGNavigationBarTitleViewController.h"
 
@@ -65,6 +66,21 @@ static UIColor *styleColor = nil;
     return @"This page contains your team's roster, separated into depth charts by position and ordered by overall rating. At any time during the season, you can start or sit players by moving them up or down on the depth chart. Redshirted players will always appear at the bottom of the depth chart. \nThe positions:\n\nQB = Quarterback\n\nRB = Running Back\n\nWR = Wide Reciever\n\nTE = Tight End\n\nOL = Offensive Line\n\nDL = Defensive Line\n\nLB = Linebacker\n\nCB = Cornerback\n\nS = Safety\n\nK = Kicker\n\n\nAt the end of each season, graduating seniors and highly-touted juniors will leave the program and open up spots on the roster, which you can fill during the recruiting period. Over the offseason, players will grow and their stats will improve, as they train and learn from their in-game experience. Some players may even turn into superstars through your offseason training program. Manage your roster carefully, recruit and play the right players, and your team will become a force to be reckoned with. Good luck, coach!";
 }
 
++ (NSString *)jobPickerTutorial:(BOOL)wasFired {
+    NSMutableString *tutorial = [NSMutableString string];
+    if (wasFired) {
+        [tutorial appendString:@"Congratulations! You've been fired and are now unemployed.\n\n"];
+    }
+    
+    [tutorial appendString:@"You're now looking at other open jobs around the country. In the table, you'll see the name of the team, its prestige as a program (denoted by the number of stars it has), its record in the past season, its lifetime record, and the last time it reached various milestones: bowl games, conference championships, and national championships. From here, you can tap on a team to view other details - its roster, history, schedule, etc. You may be unable to take some jobs because you may not meet the requirements; these teams will be grayed out in the table. When you want to sign with a team, tap the \"Sign\" button that appears in the top-right of the team pop-up window. You'll then be asked to confirm your selection."];
+    [tutorial appendString:@"\n\n"];
+    [tutorial appendString:@"If you don't really care where you sign, click the X in the top-left of your screen to exit the coaching carousel and get randomly signed to a team. You will be asked to confirm your selection."];
+    [tutorial appendString:@"\n\n"];
+    [tutorial appendString:@"You can view this tutorial again at any time by tapping the question-mark button at the top-right of your screen. Good luck and happy job-hunting, coach!"];
+    
+    return tutorial;
+}
+
 + (NSString *)metadataEditingText {
     return @"After you edit team and conference names during an offseason, you can export a JSON file containing all of the metadata for your league from Settings. This file will include conference names and abbreviations; team names, states, and prestige levels; and bowl game titles. You can edit this file and upload it to any cloud service, then use it in CFC by starting a new game with the \"Import League Metadata\" option.";
 }
@@ -84,7 +100,7 @@ static UIColor *styleColor = nil;
 +(League*)currentLeague {
     // This may get called on a background thread sometimes, but it's a necessary evil.
     League *ligue = [((AppDelegate*)[[UIApplication sharedApplication] delegate]) league];
-    ligue.userTeam.isUserControlled = YES;
+    //ligue.userTeam.isUserControlled = YES;
     return ligue;
 }
 
@@ -443,14 +459,29 @@ static UIColor *styleColor = nil;
 //        });
 //    }]];
     
-    if ([[self class] currentLeague].userTeam.coachFired && (![[self class] currentLeague].didFinishCoachingCarousel && [[self class] currentLeague].coachList.count > 0)) {
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Retire" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // "thanks for playing!" screen?
+            // career stats display
+            // display career progress and history
+            // share career progress? - like the activity rings app thing by Pat Murray?
+            // UIView to image code: https://github.com/PatMurrayDEV/Share-Your-Rings/blob/master/CloseTheRings/Video%20Code/New%20Group/Glimpse.m
+            // give option to take another coaching job
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]]] animated:YES completion:nil];
+            });
+        });
+    }]];
+    
+    if ([[self class] currentLeague].isCareerMode && ([[self class] currentLeague].userTeam.coachFired && (![[self class] currentLeague].didFinishCoachingCarousel && [[self class] currentLeague].coachList.count > 0))) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
             });
         }]];
     } else {
-        if ([[[self class] currentLeague].userTeam getCurrentHC].age > 59) {
+        if ([[self class] currentLeague].isCareerMode && [[[self class] currentLeague].userTeam getCurrentHC].age > 59) {
             [alertController addAction:[UIAlertAction actionWithTitle:@"Retire" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     // "thanks for playing!" screen?
@@ -459,6 +490,10 @@ static UIColor *styleColor = nil;
                     // share career progress? - like the activity rings app thing by Pat Murray?
                     // UIView to image code: https://github.com/PatMurrayDEV/Share-Your-Rings/blob/master/CloseTheRings/Video%20Code/New%20Group/Glimpse.m
                     // give option to take another coaching job
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]]] animated:YES completion:nil];
+                    });
                 });
             }]];
         }
