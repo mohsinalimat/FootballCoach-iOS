@@ -14,5 +14,6 @@
 @property (strong, nonatomic) League* league;
 -(void)setupAppearance;
 -(void)updateTabBarForCareer;
+-(void)startNewSaveFile;
 @end
 

@@ -459,20 +459,39 @@ static UIColor *styleColor = nil;
 //        });
 //    }]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Retire" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // "thanks for playing!" screen?
-            // career stats display
-            // display career progress and history
-            // share career progress? - like the activity rings app thing by Pat Murray?
-            // UIView to image code: https://github.com/PatMurrayDEV/Share-Your-Rings/blob/master/CloseTheRings/Video%20Code/New%20Group/Glimpse.m
-            // give option to take another coaching job
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [viewController presentViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]] animated:YES completion:nil];
-            });
-        });
-    }]];
+//    [alertController addAction:[UIAlertAction actionWithTitle:@"Retire" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//
+//            UIAlertController *retirementOptionsController = [UIAlertController alertControllerWithTitle:@"Retirement Options" message:@"You have retired and ended your career. Thanks for playing College Football Coach! What would you like to do next?" preferredStyle:UIAlertControllerStyleAlert];
+//            [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"View Career Card" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    [viewController presentViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]] animated:YES completion:nil];
+//                });
+//            }]];
+////            [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+////                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+////                    [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
+////                });
+////            }]];
+//            [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"Start New Game" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+//                // are you sure?
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    UIAlertController *checkController = [UIAlertController alertControllerWithTitle:@"Starting new save file" message:@"Are you sure you want to start a new game?\n\nThis WILL delete your current save file and all of your progress." preferredStyle:UIAlertControllerStyleAlert];
+//                    [checkController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+//
+//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                            [((AppDelegate*)[[UIApplication sharedApplication] delegate]) startNewSaveFile];
+//                        });
+//                    }]];
+//                    [checkController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:nil]];
+//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                        [viewController presentViewController:checkController animated:YES completion:nil];
+//                    });
+//                });
+//            }]];
+//            [viewController presentViewController:retirementOptionsController animated:YES completion:nil];
+//        });
+//    }]];
     
     if ([[self class] currentLeague].isCareerMode && ([[self class] currentLeague].userTeam.coachFired && (![[self class] currentLeague].didFinishCoachingCarousel && [[self class] currentLeague].coachList.count > 0))) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -484,16 +503,35 @@ static UIColor *styleColor = nil;
         if ([[self class] currentLeague].isCareerMode && [[[self class] currentLeague].userTeam getCurrentHC].age > 59) {
             [alertController addAction:[UIAlertAction actionWithTitle:@"Retire" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    // "thanks for playing!" screen?
-                    // career stats display
-                    // display career progress and history
-                    // share career progress? - like the activity rings app thing by Pat Murray?
-                    // UIView to image code: https://github.com/PatMurrayDEV/Share-Your-Rings/blob/master/CloseTheRings/Video%20Code/New%20Group/Glimpse.m
-                    // give option to take another coaching job
-                    
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [viewController presentViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]] animated:YES completion:nil];
-                    });
+
+                    UIAlertController *retirementOptionsController = [UIAlertController alertControllerWithTitle:@"Retirement Options" message:@"You have retired and ended your career. Thanks for playing College Football Coach! What would you like to do next?" preferredStyle:UIAlertControllerStyleAlert];
+                    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"View Career Card" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [viewController presentViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]] animated:YES completion:nil];
+                        });
+                    }]];
+//                    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                            [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
+//                        });
+//                    }]];
+                    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"Start New Game" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                       // are you sure?
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            UIAlertController *checkController = [UIAlertController alertControllerWithTitle:@"Starting new save file" message:@"Are you sure you want to start a new game?\n\nThis WILL delete your current save file and all of your progress." preferredStyle:UIAlertControllerStyleAlert];
+                            [checkController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                     
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                    [((AppDelegate*)[[UIApplication sharedApplication] delegate]) startNewSaveFile];
+                                });
+                            }]];
+                            [checkController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:nil]];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [viewController presentViewController:checkController animated:YES completion:nil];
+                            });
+                        });
+                    }]];
+                    [viewController presentViewController:retirementOptionsController animated:YES completion:nil];
                 });
             }]];
         }
