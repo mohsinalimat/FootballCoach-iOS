@@ -469,7 +469,7 @@ static UIColor *styleColor = nil;
             // give option to take another coaching job
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]]] animated:YES completion:nil];
+                [viewController presentViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]] animated:YES completion:nil];
             });
         });
     }]];
@@ -492,7 +492,7 @@ static UIColor *styleColor = nil;
                     // give option to take another coaching job
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]]] animated:YES completion:nil];
+                        [viewController presentViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]] animated:YES completion:nil];
                     });
                 });
             }]];

@@ -315,8 +315,6 @@
 -(void)createNewCustomHeadCoach:(NSString *)name stars:(int)stars;
 -(void)promoteCoach;
 -(int)getMinCoachHireReq;
-//-(void)advanceHC;
--(int)calculateInterestInCoach:(HeadCoach *)coach;
 
 -(void)calculateRecruitingPoints;
 -(void)getTransferringPlayers;
