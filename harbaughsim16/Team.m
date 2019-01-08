@@ -1619,6 +1619,10 @@
     [ts0 addObject:@[[NSString stringWithFormat:@"%d",teamPrestige], @"Prestige",[self getRankString:rankTeamPrestige]]];
 
     [ts0 addObject:@[[NSString stringWithFormat:@"%d",totalWins], @"Total Wins",[self getRankString:rankTeamTotalWins]]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d",totalCCs], @"Conf Championships"]];
+    
+    [ts0 addObject:@[[NSString stringWithFormat:@"%d",totalNCs], @"Natl Championships"]];
 
     //[ts0 appendFormat:@"%ld,",(long)teamStrengthOfWins];
     //[ts0 appendString:@"SOS,"];

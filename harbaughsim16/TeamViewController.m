@@ -315,11 +315,16 @@
         
         NSString *stat = @"";
         if ([HBSharedUtils currentLeague].currentWeek > 0) {
-            stat = [NSString stringWithFormat:@"%@ (%@)", cellStat[0], cellStat[2]];
+            if (indexPath.row == 5 || indexPath.row == 6) {
+                stat = cellStat[0];
+            } else {
+                stat = [NSString stringWithFormat:@"%@ (%@)", cellStat[0], cellStat[2]];
+            }
         } else {
             stat = cellStat[0];
         }
-        
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.textLabel setText:cellStat[1]];
         [cell.detailTextLabel setText:stat];
         return cell;
