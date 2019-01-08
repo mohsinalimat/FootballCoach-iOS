@@ -1019,6 +1019,86 @@
     dlNeeds = [needs[7] intValue];
     lbNeeds = [needs[8] intValue];
     teNeeds = [needs[9] intValue];
+    
+    if (qbNeeds > 2) {
+        qbNeeds = 2;
+    } else {
+        if (teamQBs.count >= 2 && [self _calculateTransferSlots:@"QB"] == 0) {
+            qbNeeds = 0;
+        }
+    }
+    
+    if (rbNeeds > 4) {
+        rbNeeds = 4;
+    } else {
+        if (teamRBs.count >= 4 && [self _calculateTransferSlots:@"RB"] == 0) {
+            rbNeeds = 0;
+        }
+    }
+    
+    if (wrNeeds > 6) {
+        wrNeeds = 6;
+    } else {
+        if (teamWRs.count >= 6 && [self _calculateTransferSlots:@"WR"] == 0) {
+            wrNeeds = 0;
+        }
+    }
+    
+    if (teNeeds > 2) {
+        teNeeds = 2;
+    } else {
+        if (teamTEs.count >= 2 && [self _calculateTransferSlots:@"TE"] == 0) {
+            teNeeds = 0;
+        }
+    }
+    
+    if (kNeeds > 2) {
+        kNeeds = 2;
+    } else {
+        if (teamKs.count >= 2 && [self _calculateTransferSlots:@"K"] == 0) {
+            kNeeds = 0;
+        }
+    }
+    
+    if (olNeeds > 10) {
+        olNeeds = 10;
+    } else {
+        if (teamOLs.count >= 10 && [self _calculateTransferSlots:@"OL"] == 0) {
+            olNeeds = 0;
+        }
+    }
+    
+    if (sNeeds > 2) {
+        sNeeds = 2;
+    } else {
+        if (teamSs.count >= 2 && [self _calculateTransferSlots:@"S"] == 0) {
+            sNeeds = 0;
+        }
+    }
+    
+    if (cbNeeds > 6) {
+        cbNeeds = 6;
+    } else {
+        if (teamCBs.count >= 6 && [self _calculateTransferSlots:@"CB"] == 0) {
+            cbNeeds = 0;
+        }
+    }
+    
+    if (lbNeeds > 6) {
+        lbNeeds = 6;
+    } else {
+        if (teamLBs.count >= 6 && [self _calculateTransferSlots:@"LB"] == 0) {
+            lbNeeds = 0;
+        }
+    }
+    
+    if (dlNeeds > 8) {
+        dlNeeds = 8;
+    } else {
+        if (teamDLs.count >= 8 && [self _calculateTransferSlots:@"DL"] == 0) {
+            dlNeeds = 0;
+        }
+    }
 
     for( int i = 0; i < qbNeeds; ++i ) {
         //make QBs
@@ -1886,19 +1966,14 @@
                         
                         || [q isEqual: [self getK:0]]);
         
-        if (q.year > transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer) { // || q.troubledTimes > Math.random() * dismissalChance) {
+        if (q.year > transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer && !q.isGradTransfer) { // || q.troubledTimes > Math.random() * dismissalChance) {
             NSLog(@"XFER: Confirmed that %@ %@ is a valid transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
-            q.isTransfer = true;
-            //            if (q.troubledTimes > 0) {
-            //                league.newsStories.get(league.currentWeek + 1).add(name + " Player Dismissed>Following several incidents, " + name + " has dimissed QB " + q.name + ". The player will have to sit out a year if he chooses to transfer to a new program.");
-            //                q.personality += (int) Math.random() * 20;
-            //            }
-
             if (q.year == 4) {  //&& q.personality > gradTransferRat) {
                 q.isTransfer = false;
                 q.isGradTransfer = true;
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to transfer after graduating from %@. If he signs with another school, he is immediately eligible to play.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
             } else {
+                q.isTransfer = true;
                 q.isGradTransfer = false;
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to leave town for greener pastures after getting limited playing time during his time at %@. If he signs with another school, he will have to sit for one year.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
             }
@@ -1929,7 +2004,7 @@
                                         };
             }
             
-            NSLog(@"XFER: Adding %@ %@ to league transfer portal", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
+            NSLog(@"XFER: Adding %@ %@ to league transfer portal as %@ transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str], (q.isGradTransfer) ? @"grad" : @"normal");
             [league.transferList[pos] addObject:q];
         }
         ++i;
