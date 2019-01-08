@@ -882,13 +882,19 @@
         nameList = [NSMutableArray array];
         NSArray *namesSplit = [namesCSV componentsSeparatedByString:@","];
         for (NSString *n in namesSplit) {
-            [nameList addObject:[n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]];
+            NSString *clean = [n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            if (clean.length > 0) {
+                [nameList addObject:clean];
+            }
         }
         
         lastNameList = [NSMutableArray array];
         NSArray *lastNamesSplit = [lastNameCSV componentsSeparatedByString:@","];
         for (NSString *n in lastNamesSplit) {
-            [lastNameList addObject:[n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]];
+            NSString *clean = [n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            if (clean.length > 0) {
+                [lastNameList addObject:clean];
+            }
         }
 
         Conference *south = conferences[0];
