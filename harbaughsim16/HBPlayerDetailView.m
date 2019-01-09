@@ -8,7 +8,15 @@
 
 #import "HBPlayerDetailView.h"
 
+#import "HBSharedUtils.h"
+
 @implementation HBPlayerDetailView
 
+-(void)awakeFromNib {
+    [super awakeFromNib];
+    [self.potyTagView setBackgroundColor:[HBSharedUtils champColor]];
+    [self.allConfTagView setBackgroundColor:[HBSharedUtils successColor]];
+    [self.allLeagueTagView setBackgroundColor:[UIColor orangeColor]];
+}
 
 @end

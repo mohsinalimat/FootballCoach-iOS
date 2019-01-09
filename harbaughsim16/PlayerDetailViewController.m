@@ -55,6 +55,29 @@
     } else {
         [playerDetailView.medImageView setHidden:YES];
     }
+
+    if (!selectedPlayer.isHeisman) {
+        //        [playerDetailView.potyTagView setAlpha:0.5];
+        [playerDetailView.allConfTagView setFrame:CGRectMake(playerDetailView.potyTagView.frame.origin.x, playerDetailView.potyTagView.frame.origin.y, playerDetailView.allConfTagView.frame.size.width, playerDetailView.allConfTagView.frame.size.height)];
+        [playerDetailView setNeedsDisplay];
+        [playerDetailView.potyTagView removeFromSuperview];
+
+    } else if (selectedPlayer.isROTY) {
+        [playerDetailView.potyTagView.titleLabel setText:@"ROTY"];
+    }
+    
+    if (!selectedPlayer.isAllConference) {
+        //        [playerDetailView.allConfTagView setAlpha:0.5];
+        [playerDetailView.allConfTagView removeFromSuperview];
+    }
+    
+    if (!selectedPlayer.isAllAmerican) {
+        //        [playerDetailView.allLeagueTagView setAlpha:0.5];
+        [playerDetailView.allLeagueTagView removeFromSuperview];
+    }
+    
+
+    [playerDetailView layoutSubviews];
     
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];

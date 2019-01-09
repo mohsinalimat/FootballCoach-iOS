@@ -693,6 +693,20 @@
                 }
             }
         }
+        
+        if (IS_DEBUG) {
+            NSArray *players = [t getAllPlayers];
+            for (Player *p in players) {
+                if (p.careerROTYs > 1) {
+                    return YES;
+                }
+                
+                if (currentWeek < 15 && (p.draftPosition != nil && p.draftPosition.count > 0)) {
+                    return YES;
+                }
+            }
+        }
+        
     }
     
     // check this at all times. Conferences always need to be in working order.
