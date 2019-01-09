@@ -32,6 +32,12 @@
 #import "FCFileManager.h"
 #import "AutoCoding.h"
 
+#ifdef DEBUG
+#   define IS_DEBUG true
+#else
+#   define IS_DEBUG false
+#endif
+
 @implementation League
 @synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary;
 
@@ -689,6 +695,19 @@
             NSArray *players = [t getAllPlayers];
             for (Player *p in players) {
                 if ((((p.isTransfer || p.isGradTransfer) && p.team == nil) || ![p.team isEqual:t])) {
+                    return YES;
+                }
+            }
+        }
+        
+        if (IS_DEBUG) {
+            NSArray *players = [t getAllPlayers];
+            for (Player *p in players) {
+                if (p.careerROTYs > 1) {
+                    return YES;
+                }
+                
+                if (currentWeek < 15 && (p.draftPosition != nil && p.draftPosition.count > 0)) {
                     return YES;
                 }
             }
