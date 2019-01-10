@@ -33,6 +33,12 @@
 #import "FCFileManager.h"
 #import "AutoCoding.h"
 
+#ifdef DEBUG
+#   define IS_DEBUG true
+#else
+#   define IS_DEBUG false
+#endif
+
 @implementation League
 @synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles,coachList,coachStarList,coachFreeAgents, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary,cotyWinnerStrFull,cotyWinner,isCareerMode,cotyFinalists,didFinishCoachingCarousel;
 
@@ -779,6 +785,19 @@
             NSLog(@"%@ is marked user controlled", t.abbreviation);
             userControl++;
         }
+
+        if (IS_DEBUG) {
+            NSArray *players = [t getAllPlayers];
+            for (Player *p in players) {
+                if (p.careerROTYs > 1) {
+                    return YES;
+                }
+
+                if (currentWeek < 15 && (p.draftPosition != nil && p.draftPosition.count > 0)) {
+                    return YES;
+                }
+            }
+        }
     }
 
     if (userControl > 1) {
@@ -985,13 +1004,19 @@
         nameList = [NSMutableArray array];
         NSArray *namesSplit = [namesCSV componentsSeparatedByString:@","];
         for (NSString *n in namesSplit) {
-            [nameList addObject:[n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]];
+            NSString *clean = [n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            if (clean.length > 0) {
+                [nameList addObject:clean];
+            }
         }
 
         lastNameList = [NSMutableArray array];
         NSArray *lastNamesSplit = [lastNameCSV componentsSeparatedByString:@","];
         for (NSString *n in lastNamesSplit) {
-            [lastNameList addObject:[n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]]];
+            NSString *clean = [n stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            if (clean.length > 0) {
+                [lastNameList addObject:clean];
+            }
         }
 
         Conference *south = conferences[0];
@@ -1335,7 +1360,6 @@
         semiG14.awayTeam.totalBowlLosses++;
         [semiG14.awayTeam getCurrentHC].totalBowlLosses++;
         semi14winner = semiG14.homeTeam;
-        //newsStories.get(14).add(semiG14.homeTeam.name + " wins the " + semiG14.gameName +"!\n" + semiG14.homeTeam.strRep() + " defeats " + semiG14.awayTeam.strRep() + " in the semifinals, winning " + semiG14.homeScore + " to " + semiG14.awayScore + ". " + semiG14.homeTeam.name + " advances to the National Championship!" );
         NSMutableArray *week14 = newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",semiG14.homeTeam.name, semiG14.gameName, semiG14.homeTeam.strRep, semiG14.awayTeam.strRep, (long)semiG14.homeScore, (long)semiG14.awayScore, semiG14.homeTeam.name]];
 
@@ -1494,7 +1518,7 @@
     for (NSMutableArray *week in newsStories) {
         [week removeAllObjects];
     }
-    
+
     for (Team *t in teamList) {
         if (t.coaches.count != 0 && (t.coachFired || t.coachRetired) && (!t.isUserControlled)) {
             [t.coaches removeObjectAtIndex:0];

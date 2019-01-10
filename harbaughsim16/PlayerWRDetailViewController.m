@@ -76,7 +76,7 @@
             [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"home_state"]];
             [cell.textLabel setText:@"Home State"];
         } else if (indexPath.row == 1) {
-            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d-star", selectedPlayer.stars]];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d-star", MIN(5, selectedPlayer.stars)]];
             [cell.textLabel setText:@"Recruit Rating"];
         } else if (indexPath.row == 2) {
             [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"height"]];

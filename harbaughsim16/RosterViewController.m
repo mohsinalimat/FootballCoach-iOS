@@ -123,55 +123,75 @@
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     if(sourceIndexPath.section == destinationIndexPath.section) {
         if (destinationIndexPath.section == 0) {
-            PlayerQB *qb = userTeam.teamQBs[sourceIndexPath.row];
-            [userTeam.teamQBs removeObject:qb];
-            [userTeam.teamQBs insertObject:qb atIndex:destinationIndexPath.row];
-            [userTeam setStarters:[userTeam.teamQBs copy] position:0];
+            PlayerQB *qb = [userTeam getQB:[NSNumber numberWithInteger:sourceIndexPath.row].intValue];
+            if (qb != nil) {
+                [userTeam.teamQBs removeObject:qb];
+                [userTeam.teamQBs insertObject:qb atIndex:destinationIndexPath.row];
+                [userTeam setStarters:[userTeam.teamQBs copy] position:0];
+            }
         } else if (destinationIndexPath.section == 1) {
-            PlayerRB *rb = userTeam.teamRBs[sourceIndexPath.row];
-            [userTeam.teamRBs removeObject:rb];
-            [userTeam.teamRBs insertObject:rb atIndex:destinationIndexPath.row];
-            [userTeam setStarters:[userTeam.teamRBs copy] position:1];
+            PlayerRB *rb = [userTeam getRB:[NSNumber numberWithInteger:sourceIndexPath.row].intValue];
+            if (rb != nil) {
+                [userTeam.teamRBs removeObject:rb];
+                [userTeam.teamRBs insertObject:rb atIndex:destinationIndexPath.row];
+                [userTeam setStarters:[userTeam.teamRBs copy] position:1];
+            }
         } else if (destinationIndexPath.section == 2) {
-            PlayerWR *wr = userTeam.teamWRs[sourceIndexPath.row];
-            [userTeam.teamWRs removeObject:wr];
-            [userTeam.teamWRs insertObject:wr atIndex:destinationIndexPath.row];
-            [userTeam setStarters:[userTeam.teamWRs copy] position:2];
+            PlayerWR *wr = [userTeam getWR:[NSNumber numberWithInteger:sourceIndexPath.row].intValue];
+            if (wr != nil) {
+                [userTeam.teamWRs removeObject:wr];
+                [userTeam.teamWRs insertObject:wr atIndex:destinationIndexPath.row];
+                [userTeam setStarters:[userTeam.teamWRs copy] position:2];
+            }
         } else if (destinationIndexPath.section == 3) {
-            PlayerTE *te = userTeam.teamTEs[sourceIndexPath.row];
-            [userTeam.teamTEs removeObject:te];
-            [userTeam.teamTEs insertObject:te atIndex:destinationIndexPath.row];
-            [userTeam setStarters:[userTeam.teamTEs copy] position:3];
+            PlayerTE *te = [userTeam getTE:[NSNumber numberWithInteger:sourceIndexPath.row].intValue];
+            if (te != nil) {
+                [userTeam.teamTEs removeObject:te];
+                [userTeam.teamTEs insertObject:te atIndex:destinationIndexPath.row];
+                [userTeam setStarters:[userTeam.teamTEs copy] position:3];
+            }
         } else if (destinationIndexPath.section == 4) {
-            PlayerOL *ol = userTeam.teamOLs[sourceIndexPath.row];
-            [userTeam.teamOLs removeObject:ol];
-            [userTeam.teamOLs insertObject:ol atIndex:destinationIndexPath.row];
-            [userTeam setStarters:[userTeam.teamOLs copy] position:4];
+            PlayerOL *ol = [userTeam getOL:[NSNumber numberWithInteger:sourceIndexPath.row].intValue];
+            if (ol != nil) {
+                [userTeam.teamOLs removeObject:ol];
+                [userTeam.teamOLs insertObject:ol atIndex:destinationIndexPath.row];
+                [userTeam setStarters:[userTeam.teamOLs copy] position:4];
+            }
         } else if (destinationIndexPath.section == 5) {
-            PlayerDL *f7 = userTeam.teamDLs[sourceIndexPath.row];
-            [userTeam.teamDLs removeObject:f7];
-            [userTeam.teamDLs insertObject:f7 atIndex:destinationIndexPath.row];
-            [userTeam setStarters:[userTeam.teamDLs copy] position:5];
+            PlayerDL *f7 = [userTeam getDL:[NSNumber numberWithInteger:sourceIndexPath.row].intValue];
+            if (f7 != nil) {
+                [userTeam.teamDLs removeObject:f7];
+                [userTeam.teamDLs insertObject:f7 atIndex:destinationIndexPath.row];
+                [userTeam setStarters:[userTeam.teamDLs copy] position:5];
+            }
         } else if (destinationIndexPath.section == 6) {
-            PlayerLB *f7 = userTeam.teamLBs[sourceIndexPath.row];
-            [userTeam.teamLBs removeObject:f7];
-            [userTeam.teamLBs insertObject:f7 atIndex:destinationIndexPath.row];
-            [userTeam setStarters:[userTeam.teamLBs copy] position:6];
+            PlayerLB *f7 = [userTeam getLB:[NSNumber numberWithInteger:sourceIndexPath.row].intValue];
+            if (f7 != nil) {
+                [userTeam.teamLBs removeObject:f7];
+                [userTeam.teamLBs insertObject:f7 atIndex:destinationIndexPath.row];
+                [userTeam setStarters:[userTeam.teamLBs copy] position:6];
+            }
         } else if (destinationIndexPath.section == 7) {
-            PlayerCB *cb = userTeam.teamCBs[sourceIndexPath.row];
-            [userTeam.teamCBs removeObject:cb];
-            [userTeam.teamCBs insertObject:cb atIndex:destinationIndexPath.row];
-            [userTeam setStarters:[userTeam.teamCBs copy] position:7];
+            PlayerCB *cb = [userTeam getCB:[NSNumber numberWithInteger:sourceIndexPath.row].intValue];
+            if (cb != nil) {
+                [userTeam.teamCBs removeObject:cb];
+                [userTeam.teamCBs insertObject:cb atIndex:destinationIndexPath.row];
+                [userTeam setStarters:[userTeam.teamCBs copy] position:7];
+            }
         } else if (destinationIndexPath.section == 8) {
-            PlayerS *s = userTeam.teamSs[sourceIndexPath.row];
-            [userTeam.teamSs removeObject:s];
-            [userTeam.teamSs insertObject:s atIndex:destinationIndexPath.row];
-            [userTeam setStarters:[userTeam.teamSs copy] position:8];
+            PlayerS *s = [userTeam getS:[NSNumber numberWithInteger:sourceIndexPath.row].intValue];
+            if (s != nil) {
+                [userTeam.teamSs removeObject:s];
+                [userTeam.teamSs insertObject:s atIndex:destinationIndexPath.row];
+                [userTeam setStarters:[userTeam.teamSs copy] position:8];
+            }
         } else {
-            PlayerK *k = userTeam.teamKs[sourceIndexPath.row];
-            [userTeam.teamKs removeObject:k];
-            [userTeam.teamKs insertObject:k atIndex:destinationIndexPath.row];
-            [userTeam setStarters:[userTeam.teamKs copy] position:9];
+            PlayerK *k = [userTeam getK:[NSNumber numberWithInteger:sourceIndexPath.row].intValue];
+            if (k != nil) {
+                [userTeam.teamKs removeObject:k];
+                [userTeam.teamKs insertObject:k atIndex:destinationIndexPath.row];
+                [userTeam setStarters:[userTeam.teamKs copy] position:9];
+            }
         }
     }
 }

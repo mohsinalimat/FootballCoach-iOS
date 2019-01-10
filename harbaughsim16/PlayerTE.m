@@ -199,6 +199,11 @@
     }
     
     self.gamesPlayedSeason = 0;
+    
+    if (self.isTransfer) {
+        self.isTransfer = NO;
+    }
+    
     self.isHeisman = NO;
     self.isROTY = NO;
     self.isAllAmerican = NO;
