@@ -55,29 +55,29 @@
     } else {
         [playerDetailView.medImageView setHidden:YES];
     }
+    
+    
 
-    if (!selectedPlayer.isHeisman) {
-        //        [playerDetailView.potyTagView setAlpha:0.5];
-        [playerDetailView.allConfTagView setFrame:CGRectMake(playerDetailView.potyTagView.frame.origin.x, playerDetailView.potyTagView.frame.origin.y, playerDetailView.allConfTagView.frame.size.width, playerDetailView.allConfTagView.frame.size.height)];
-        [playerDetailView setNeedsDisplay];
+    if (!selectedPlayer.isHeisman && !selectedPlayer.isROTY) {
+        [playerDetailView addConstraint:[NSLayoutConstraint constraintWithItem:playerDetailView.yrLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationLessThanOrEqual toItem:playerDetailView.allConfTagView attribute:NSLayoutAttributeLeading multiplier:1 constant:0]];
         [playerDetailView.potyTagView removeFromSuperview];
-
     } else if (selectedPlayer.isROTY) {
         [playerDetailView.potyTagView.titleLabel setText:@"ROTY"];
     }
     
-    if (!selectedPlayer.isAllConference) {
-        //        [playerDetailView.allConfTagView setAlpha:0.5];
+    if (!selectedPlayer.isAllConference & !selectedPlayer.isAllAmerican) {
         [playerDetailView.allConfTagView removeFromSuperview];
+    } else if (selectedPlayer.isAllAmerican) {
+        [playerDetailView.allConfTagView.titleLabel setText:@"All-League"];
+        [playerDetailView.allConfTagView setBackgroundColor:[UIColor orangeColor]];
+    } else if (selectedPlayer.isAllConference) {
+        [playerDetailView.allConfTagView.titleLabel setText:[NSString stringWithFormat:@"All-%@",selectedPlayer.team.conference]];
+        [playerDetailView.allConfTagView setBackgroundColor:[HBSharedUtils successColor]];
+        [playerDetailView.allConfTagView.titleLabel sizeToFit];
+        //[playerDetailView.allConfTagView setFrame:CGRectMake(playerDetailView.allConfTagView.frame.origin.x, playerDetailView.allConfTagView.frame.origin.y, playerDetailView.allConfTagView.titleLabel.frame.size.width + 16, playerDetailView.allConfTagView.frame.size.height)];
     }
     
-    if (!selectedPlayer.isAllAmerican) {
-        //        [playerDetailView.allLeagueTagView setAlpha:0.5];
-        [playerDetailView.allLeagueTagView removeFromSuperview];
-    }
-    
-
-    [playerDetailView layoutSubviews];
+    [playerDetailView layoutIfNeeded];
     
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];

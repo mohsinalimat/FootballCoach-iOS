@@ -83,8 +83,8 @@
     
     for (int i = 0; i < selectedCoach.prestigeHistoryDictionary.count; i++) {
         NSInteger year = [HBSharedUtils currentLeague].baseYear + i;
-        NSInteger coachScore = [selectedCoach.prestigeHistoryDictionary[[NSString stringWithFormat:@"%ld",year]][@"coachScore"] integerValue];
-        NSString *hist = history[[NSString stringWithFormat:@"%ld",year]];
+        NSInteger coachScore = [selectedCoach.prestigeHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)year]][@"coachScore"] integerValue];
+        NSString *hist = history[[NSString stringWithFormat:@"%ld",(long)year]];
         
         UIColor *teamColor;
         if ([hist containsString:@"NCG - W"] || [hist containsString:@"NCW"]) {

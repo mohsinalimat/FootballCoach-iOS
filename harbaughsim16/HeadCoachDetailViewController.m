@@ -44,6 +44,17 @@
     ratings = [selectedCoach detailedRatings];
     [playerDetailView.medImageView setHidden:YES];
     
+    [playerDetailView.allConfTagView.titleLabel setText:[NSString stringWithFormat:@"%@ COTY", selectedCoach.team.conference]];
+    
+    if (!selectedCoach.wonTopHC) {
+        [playerDetailView addConstraint:[NSLayoutConstraint constraintWithItem:playerDetailView.yrLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationLessThanOrEqual toItem:playerDetailView.allConfTagView attribute:NSLayoutAttributeLeading multiplier:1 constant:0]];
+        [playerDetailView.potyTagView removeFromSuperview];
+    }
+    
+    if (!selectedCoach.wonConfHC) {
+        [playerDetailView.allConfTagView removeFromSuperview];
+    }
+    
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"changedStrategy" object:nil];
