@@ -52,41 +52,47 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
     if (indexPath != nil) {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        Player *p;
+        UIViewController *playerDetail;
         if (indexPath.section == 0) {
-            p = players[@"QB"][indexPath.row];
-        } else if (indexPath.section == 1) {
-            p = players[@"RB"][indexPath.row];
-        } else if (indexPath.section == 2) {
-            p = players[@"WR"][indexPath.row];
-        } else if (indexPath.section == 3) {
-            p = players[@"TE"][indexPath.row];
+            HeadCoach *hc = players[@"HC"][0];
+            playerDetail = [[HeadCoachDetailViewController alloc] initWithCoach:hc];
         } else {
-            p = players[@"K"][indexPath.row];
-        }
-        PlayerDetailViewController *playerDetail;
-        if ([p.position isEqualToString:@"QB"]) {
-            playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
-        } else if ([p.position isEqualToString:@"RB"]) {
-            playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
-        } else if ([p.position isEqualToString:@"WR"]) {
-            playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
-        } else if ([p.position isEqualToString:@"TE"]) {
-            playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
-        } else if ([p.position isEqualToString:@"OL"]) {
-            playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
-        } else if ([p.position isEqualToString:@"DL"]) {
-            playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
-        } else if ([p.position isEqualToString:@"LB"]) {
-            playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
-        } else if ([p.position isEqualToString:@"CB"]) {
-            playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
-        } else if ([p.position isEqualToString:@"S"]) {
-            playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
-        } else if ([p.position isEqualToString:@"K"]) {
-            playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
-        } else {
-            playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+            Player *p;
+            if (indexPath.section == 0) {
+                p = players[@"QB"][indexPath.row];
+            } else if (indexPath.section == 1) {
+                p = players[@"RB"][indexPath.row];
+            } else if (indexPath.section == 2) {
+                p = players[@"WR"][indexPath.row];
+            } else if (indexPath.section == 3) {
+                p = players[@"TE"][indexPath.row];
+            } else {
+                p = players[@"K"][indexPath.row];
+            }
+
+            if ([p.position isEqualToString:@"QB"]) {
+                playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+            } else if ([p.position isEqualToString:@"RB"]) {
+                playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+            } else if ([p.position isEqualToString:@"WR"]) {
+                playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+            } else if ([p.position isEqualToString:@"TE"]) {
+                playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+            } else if ([p.position isEqualToString:@"OL"]) {
+                playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+            } else if ([p.position isEqualToString:@"DL"]) {
+                playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+            } else if ([p.position isEqualToString:@"LB"]) {
+                playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+            } else if ([p.position isEqualToString:@"CB"]) {
+                playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+            } else if ([p.position isEqualToString:@"S"]) {
+                playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+            } else if ([p.position isEqualToString:@"K"]) {
+                playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+            } else {
+                playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+            }
         }
         playerDetail.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
         previewingContext.sourceRect = cell.frame;
@@ -185,13 +191,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HBPlayerCell *statsCell = (HBPlayerCell*)[tableView dequeueReusableCellWithIdentifier:@"HBPlayerCell"];
     if (indexPath.section == 0) {
-        HeadCoach *hc = players[@"hc"][indexPath.row];
+        HeadCoach *hc = players[@"HC"][0];
         NSString *stat1 = @"Rank";
         NSString *stat2 = @"W";
         NSString *stat3 = @"L";
         NSString *stat4 = @"";
 
-        NSString *stat1Value = [NSString stringWithFormat:@"%d", hc.team.rankTeamPollScore];
+        NSString *stat1Value = [NSString stringWithFormat:@"#%d", hc.team.rankTeamPollScore];
         NSString *stat2Value = [NSString stringWithFormat:@"%d", hc.team.wins];
         NSString *stat3Value = [NSString stringWithFormat:@"%d", hc.team.losses];;
         NSString *stat4Value = @"";
@@ -223,13 +229,13 @@
         [statsCell.stat4ValueLabel setText:stat4Value];
     } else {
         Player *plyr;
-        if (indexPath.section == 0) {
+        if (indexPath.section == 1) {
             plyr = players[@"QB"][indexPath.row];
-        } else if (indexPath.section == 1) {
-            plyr = players[@"RB"][indexPath.row];
         } else if (indexPath.section == 2) {
-            plyr = players[@"WR"][indexPath.row];
+            plyr = players[@"RB"][indexPath.row];
         } else if (indexPath.section == 3) {
+            plyr = players[@"WR"][indexPath.row];
+        } else if (indexPath.section == 4) {
             plyr = players[@"TE"][indexPath.row];
         } else {
             plyr = players[@"K"][indexPath.row];
@@ -329,43 +335,48 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Player *p;
     if (indexPath.section == 0) {
-        p = players[@"QB"][indexPath.row];
-    } else if (indexPath.section == 1) {
-        p = players[@"RB"][indexPath.row];
-    } else if (indexPath.section == 2) {
-        p = players[@"WR"][indexPath.row];
-    } else if (indexPath.section == 3) {
-        p = players[@"TE"][indexPath.row];
+        HeadCoach *hc = players[@"HC"][0];
+        [self.navigationController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:hc] animated:YES];
     } else {
-        p = players[@"K"][indexPath.row];
+        Player *p;
+        if (indexPath.section == 0) {
+            p = players[@"QB"][indexPath.row];
+        } else if (indexPath.section == 1) {
+            p = players[@"RB"][indexPath.row];
+        } else if (indexPath.section == 2) {
+            p = players[@"WR"][indexPath.row];
+        } else if (indexPath.section == 3) {
+            p = players[@"TE"][indexPath.row];
+        } else {
+            p = players[@"K"][indexPath.row];
+        }
+        PlayerDetailViewController *playerDetail;
+        if ([p.position isEqualToString:@"QB"]) {
+            playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"RB"]) {
+            playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"WR"]) {
+            playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"TE"]) {
+            playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"OL"]) {
+            playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"DL"]) {
+            playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"LB"]) {
+            playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"CB"]) {
+            playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"S"]) {
+            playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"K"]) {
+            playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+        } else {
+            playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+        }
+        [self.navigationController pushViewController:playerDetail animated:YES];
     }
-    PlayerDetailViewController *playerDetail;
-    if ([p.position isEqualToString:@"QB"]) {
-        playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
-    } else if ([p.position isEqualToString:@"RB"]) {
-        playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
-    } else if ([p.position isEqualToString:@"WR"]) {
-        playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
-    } else if ([p.position isEqualToString:@"TE"]) {
-        playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
-    } else if ([p.position isEqualToString:@"OL"]) {
-        playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
-    } else if ([p.position isEqualToString:@"DL"]) {
-        playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
-    } else if ([p.position isEqualToString:@"LB"]) {
-        playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
-    } else if ([p.position isEqualToString:@"CB"]) {
-        playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
-    } else if ([p.position isEqualToString:@"S"]) {
-        playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
-    } else if ([p.position isEqualToString:@"K"]) {
-        playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
-    } else {
-        playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
-    }
-    [self.navigationController pushViewController:playerDetail animated:YES];
 }
 
 @end
