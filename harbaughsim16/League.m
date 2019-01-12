@@ -2295,7 +2295,7 @@
         [round6 addObject:p];
     }
     
-    for (int b = 192; b < players.count; b++) {
+    for (int b = 192; b < MIN(224, players.count); b++) {
         Player *p = players[b];
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
