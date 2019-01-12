@@ -362,7 +362,7 @@
     PlayerRB *rb2 = [self getRB:1];
     PlayerWR *wr1 = [self getWR:0];
     PlayerWR *wr2 = [self getWR:1];
-    PlayerWR *wr3 = [self getWR:2];
+    PlayerTE *te = [self getTE:0];
     PlayerK *k = [self getK:0];
 
     [qb checkRecords];
@@ -370,7 +370,7 @@
     [rb2 checkRecords];
     [wr1 checkRecords];
     [wr2 checkRecords];
-    [wr3 checkRecords];
+    [te checkRecords];
     [k checkRecords];
 
     [self advanceSeasonPlayers];

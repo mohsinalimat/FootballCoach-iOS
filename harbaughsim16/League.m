@@ -710,6 +710,14 @@
                 if (currentWeek < 15 && (p.draftPosition != nil && p.draftPosition.count > 0)) {
                     return YES;
                 }
+                
+                if (p.gamesPlayedSeason > 15) {
+                    return YES;
+                }
+                
+                if (self.currentWeek < 1 && p.gamesPlayedSeason > 0) {
+                    return YES;
+                }
             }
         }
     }
@@ -1402,6 +1410,10 @@
     rotyFinalists = [NSMutableArray array];
     rotyCandidates = [NSMutableArray array];
     rotyDecided = NO;
+    
+//    if (!didFinishTransferPeriod) {
+//        [self processTransfers];
+//    }
     
     didFinishTransferPeriod = NO;
     transferList = nil;
@@ -2817,6 +2829,21 @@
     }
 }
 
+-(NSInteger)_calculateNeededPlayersAtPosition:(NSString *)pos {
+    return [self _calculateNeededPlayersAtPosition:pos team:[HBSharedUtils currentLeague].userTeam];
+}
+
+-(NSInteger)_calculateNeededPlayersAtPosition:(NSString *)pos team:(Team*)t {
+    NSMutableArray *mapped = [NSMutableArray array];
+    [t.playersLeaving enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Player *p = (Player *)obj;
+        if ([p.position isEqualToString:pos]) {
+            [mapped addObject:p];
+        }
+    }];
+    return mapped.count;
+}
+
 -(NSArray*)getROTYLeaders {
     if (!rotyDecided || !rotyFinalists) {
         NSMutableArray *tempHeis = [NSMutableArray array];
@@ -2847,6 +2874,134 @@
     } else {
         return [rotyFinalists copy];
     }
+}
+
+-(void)processTransfers {
+    NSMutableArray *totalTransfers = [NSMutableArray array];
+    [totalTransfers addObjectsFromArray:[HBSharedUtils currentLeague].transferList[@"QB"]];
+    [totalTransfers addObjectsFromArray:[HBSharedUtils currentLeague].transferList[@"RB"]];
+    [totalTransfers addObjectsFromArray:[HBSharedUtils currentLeague].transferList[@"WR"]];
+    [totalTransfers addObjectsFromArray:[HBSharedUtils currentLeague].transferList[@"TE"]];
+    [totalTransfers addObjectsFromArray:[HBSharedUtils currentLeague].transferList[@"OL"]];
+    [totalTransfers addObjectsFromArray:[HBSharedUtils currentLeague].transferList[@"DL"]];
+    [totalTransfers addObjectsFromArray:[HBSharedUtils currentLeague].transferList[@"LB"]];
+    [totalTransfers addObjectsFromArray:[HBSharedUtils currentLeague].transferList[@"CB"]];
+    [totalTransfers addObjectsFromArray:[HBSharedUtils currentLeague].transferList[@"S"]];
+    [totalTransfers addObjectsFromArray:[HBSharedUtils currentLeague].transferList[@"K"]];
+    [totalTransfers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+    }];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSMutableDictionary *teamNeeds = [NSMutableDictionary dictionary];
+        for (Team *t in self->teamList) {
+            t.transferClass = [NSMutableArray array];
+            if (!t.isUserControlled) {
+                // need to prevent some teams from just stockpiling recruits - that's bad
+                // let's create a data structure that takes into account positional needs for each team.
+                //[teamNeeds setObject:@(48 - [t getTeamSize]) forKey:t.abbreviation];
+                [teamNeeds setObject:[NSMutableDictionary dictionaryWithDictionary:@{
+                                                                                     @"QB" : @(MAX(0, [self _calculateNeededPlayersAtPosition:@"QB" team:t])),
+                                                                                     @"RB" : @(MAX(0, [self _calculateNeededPlayersAtPosition:@"RB" team:t])),
+                                                                                     @"WR" : @(MAX(0, [self _calculateNeededPlayersAtPosition:@"WR" team:t])),
+                                                                                     @"K"  : @(MAX(0, [self _calculateNeededPlayersAtPosition:@"K" team:t])),
+                                                                                     @"OL" : @(MAX(0, [self _calculateNeededPlayersAtPosition:@"OL" team:t])),
+                                                                                     @"S"  : @(MAX(0, [self _calculateNeededPlayersAtPosition:@"S" team:t])),
+                                                                                     @"CB" : @(MAX(0, [self _calculateNeededPlayersAtPosition:@"CB" team:t])),
+                                                                                     @"DL" : @(MAX(0, [self _calculateNeededPlayersAtPosition:@"DL" team:t])),
+                                                                                     @"LB" : @(MAX(0, [self _calculateNeededPlayersAtPosition:@"LB" team:t])),
+                                                                                     @"TE" : @(MAX(0, [self _calculateNeededPlayersAtPosition:@"TE" team:t]))
+                                                                                     }] forKey:t.abbreviation];
+            }
+        }
+        
+        // generate offers from other teams
+        for (Player *p in totalTransfers) {
+            p.offers = [NSMutableDictionary dictionary];
+            NSMutableDictionary *prelimOffers = [NSMutableDictionary dictionary];
+            for (Team *t in self->teamList) {
+                if (!t.isUserControlled && ![p.team isEqual:t]) {
+                    int interest = [p calculateInterestInTeam:t];
+                    [prelimOffers setObject:@(interest) forKey:t.abbreviation];
+                }
+            }
+            
+            NSArray *sortedOffers = [prelimOffers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj2 compare:obj1];
+            }];
+            
+            NSMutableDictionary *highestOffers  = [NSMutableDictionary dictionary];
+            int offers = 0;
+            int i = 0;
+            while (offers < 3 && i < sortedOffers.count) {
+                NSString *abbrev = sortedOffers[i];
+                NSMutableDictionary *teamPositionalNeeds = teamNeeds[abbrev];
+                NSNumber *slotsAvailable = teamPositionalNeeds[p.position];
+                if (slotsAvailable.intValue > 0) {
+                    [highestOffers setObject:prelimOffers[abbrev] forKey:abbrev];
+                    [teamPositionalNeeds setObject:[NSNumber numberWithInt:slotsAvailable.intValue - 1] forKey:p.position];
+                    [teamNeeds setObject:teamPositionalNeeds forKey:abbrev];
+                    offers++;
+                }
+                i++;
+            }
+            
+            p.offers = highestOffers;
+            if (highestOffers.count == 0) {
+                NSLog(@"%@ %@ has no offers; may cause crash", p.position, p.name);
+            }
+        }
+    
+        __block NSDictionary<NSNumber *, NSNumber *> *eventsValues = @{@(CFCRecruitEventPositionCoachMeeting) : @(MEETING_INTEREST_BONUS), @(CFCRecruitEventOfficialVisit): @(OFFICIAL_VISIT_INTEREST_BONUS), @(CFCRecruitEventInHomeVisit) : @(INHOME_VISIT_INTEREST_BONUS)};
+        for (Player *p in totalTransfers) {
+            if (p.team == nil || p.recruitStatus != CFCRecruitStatusCommitted) {
+                // choose a random offer and increase its interest by a random set of events
+                if (p.offers != nil && p.offers.allKeys.count > 0) {
+                    if (!(p.offers.count == 1 && [p.offers.allKeys containsObject:self.userTeam.abbreviation])) {
+                        NSString *randomOffer;
+                        // NSLog(@"STARTING TO FIND RANDOM OFFER FROM: %@", p.offers.allKeys);
+                        while (randomOffer == nil || [randomOffer isEqualToString:self.userTeam.abbreviation]) {
+                            randomOffer = [p.offers.allKeys getElementsRandomly:1][0];
+                            // NSLog(@"CYCLED RAND OFFER");
+                        }
+                        // NSLog(@"VALID RANDOM OFFER FOUND: %@", randomOffer);
+                        
+                        // NSLog(@"ADDING EVENTS FOR OFFER: %@", randomOffer);
+                        NSArray *randomEventsSet = [eventsValues.allKeys getElementsRandomly:(int)([HBSharedUtils randomValue] * 3)];
+                        // NSLog(@"PICKED EVENTS");
+                        int offerInterest = p.offers[randomOffer].intValue;
+                        for (NSNumber *eventType in randomEventsSet) {
+                            offerInterest += eventsValues[eventType].intValue;
+                        }
+                        // NSLog(@"UPDATED INTEREST STATS, SAVING OFFER: %@", randomOffer);
+                        [p.offers setObject:@(offerInterest) forKey:randomOffer];
+                        // NSLog(@"SAVED OFFER: %@", randomOffer);
+                    }
+                    
+                    // if the offer puts interest for a team at 100+:
+                    // NSLog(@"SORTING OFFERS TO FIND TOP ONES");
+                    NSArray *sortedOffers = [p.offers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                        return [obj2 compare:obj1];
+                    }];
+                    
+                    // NSLog(@"RETREIVING TOP OFFER FROM: %@", sortedOffers);
+                    NSString *highestOffer = sortedOffers[0];
+                    // NSLog(@"PROCESSING TOP OFFER: %@", highestOffer);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        Team *t = [self findTeam:highestOffer];
+                        // NSLog(@"STAGE %d - SIGNING PLAYER TO %@", recruitingStage, highestOffer);
+                        if (![t.transferClass containsObject:p]) {
+                            [p setRecruitStatus:CFCRecruitStatusCommitted];
+                            [p setTeam:t];
+                            [t.transferClass addObject:p];
+                        }
+                    });
+                } else {
+                    NSLog(@"YOU AIN'T GOT NO OFFERS, LT. DAN!");
+                }
+            }
+        }
+    });
 }
 
 
