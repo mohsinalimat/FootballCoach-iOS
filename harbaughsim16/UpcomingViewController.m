@@ -1250,7 +1250,11 @@
                 [cell.detailTextLabel setFont:[UIFont systemFontOfSize:13.0]];
             }
             
-            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
+            NSString *newsStory = @"";
+            if (indexPath.row < news.count) {
+                newsStory = news[indexPath.row];
+            }
+            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:newsStory attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
             NSRange firstLine = [attString.string rangeOfString:@"\n"];
             [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
             
