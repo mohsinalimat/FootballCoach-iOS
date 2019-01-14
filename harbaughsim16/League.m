@@ -710,6 +710,10 @@
                 if (currentWeek < 15 && (p.draftPosition != nil && p.draftPosition.count > 0)) {
                     return YES;
                 }
+                
+                if (p.gamesPlayedSeason > 15 || p.gamesPlayed > (15 * 4)) {
+                    return YES;
+                }
             }
         }
     }
