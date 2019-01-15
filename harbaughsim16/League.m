@@ -2410,7 +2410,7 @@
 }
 
 -(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite  {
-    if (name.length == 0) {
+    if (name == nil || name.length == 0) {
         return NO;
     }
     
@@ -2444,7 +2444,7 @@
 }
 
 -(BOOL)isTeamAbbrValid:(NSString*)abbr allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite {
-    if (abbr.length == 0 || abbr.length > 4) {
+    if (abbr == nil || abbr.length == 0 || abbr.length > 4) {
         return NO;
     }
     
