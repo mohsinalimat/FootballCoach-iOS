@@ -711,7 +711,15 @@
                     return YES;
                 }
                 
-                if (p.gamesPlayedSeason > 15 || p.gamesPlayed > (15 * 4)) {
+                if (p.gamesPlayed > (15 * p.year) || p.gamesPlayedSeason > 15) {
+                    return YES;
+                }
+                
+                if (currentWeek < 1 && p.gamesPlayedSeason > 0) {
+                    return YES;
+                }
+                
+                if (p.year > 5) {
                     return YES;
                 }
             }
