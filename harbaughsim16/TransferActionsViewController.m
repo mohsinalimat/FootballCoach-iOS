@@ -102,6 +102,8 @@
         } else {
             if (selectedRecruit.offers.count == 0) {
                 return @"No active offers.";
+            } else if ([selectedRecruit.team isEqual:[HBSharedUtils currentLeague].userTeam]) {
+                return @"This player is tranferring out of your program.";
             }
         }
     } else if (section == 0) {
@@ -132,7 +134,11 @@
                 return 0;
             }
         } else {
-            count = availableEvents.count;
+            if (![selectedRecruit.team isEqual:[HBSharedUtils currentLeague].userTeam]) {
+                count = availableEvents.count;
+            } else {
+                return 0;
+            }
         }
         
         return count;

@@ -875,4 +875,10 @@ static UIColor *styleColor = nil;
     return ([supposedNumber isKindOfClass:[NSNumber class]] || [supposedNumber rangeOfCharacterFromSet:notDigits].location == NSNotFound);
 }
 
++(NSString *)currentMinorVersion {
+    NSString *version = HB_CURRENT_APP_VERSION;
+    NSLog(@"Minor Version %@", [version stringByDeletingPathExtension]);
+    return [version stringByDeletingPathExtension];
+}
+
 @end

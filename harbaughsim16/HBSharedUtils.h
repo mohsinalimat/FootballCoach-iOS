@@ -23,6 +23,7 @@
 #define HB_APP_REVIEW_URL @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1095701497&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software"
 
 #define HB_CURRENT_APP_VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define HB_APP_VERSION_CURRENT_MINOR_VERSION [HBSharedUtils currentMinorVersion]
 #define HB_APP_VERSION_PRE_OVERHAUL @"1.1.4"
 #define HB_APP_VERSION_POST_OVERHAUL @"2.0"
 
@@ -166,4 +167,5 @@ typedef enum {
 + (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber;
 
 +(BOOL)isValidNumber:(id)supposedNumber;
++(NSString *)currentMinorVersion;
 @end
