@@ -870,4 +870,9 @@ static UIColor *styleColor = nil;
     return (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
 }
 
++(BOOL)isValidNumber:(id)supposedNumber {
+    NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    return ([supposedNumber isKindOfClass:[NSNumber class]] || [supposedNumber rangeOfCharacterFromSet:notDigits].location == NSNotFound);
+}
+
 @end

@@ -164,4 +164,6 @@ typedef enum {
 +(CFCRegion)regionForState:(NSString *)state;
 +(CFCRegionDistance)distanceFromRegion:(CFCRegion)region1 toRegion:(CFCRegion)region2;
 + (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber;
+
++(BOOL)isValidNumber:(id)supposedNumber;
 @end
