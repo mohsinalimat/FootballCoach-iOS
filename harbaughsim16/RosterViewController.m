@@ -109,15 +109,44 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
+    NSIndexPath *attemptIndexPath = proposedDestinationIndexPath;
+    
     if (sourceIndexPath.section != proposedDestinationIndexPath.section) {
         NSInteger row = 0;
         if (sourceIndexPath.section < proposedDestinationIndexPath.section) {
             row = [tableView numberOfRowsInSection:sourceIndexPath.section] - 1;
         }
-        return [NSIndexPath indexPathForRow:row inSection:sourceIndexPath.section];
+        attemptIndexPath = [NSIndexPath indexPathForRow:row inSection:sourceIndexPath.section];
     }
     
-    return proposedDestinationIndexPath;
+    Player *player;
+    if (attemptIndexPath.section == 0) {
+        player = [userTeam getQB:[NSNumber numberWithInteger:attemptIndexPath.row].intValue];
+    } else if (attemptIndexPath.section == 1) {
+        player = [userTeam getRB:[NSNumber numberWithInteger:attemptIndexPath.row].intValue];
+    } else if (attemptIndexPath.section == 2) {
+        player = [userTeam getWR:[NSNumber numberWithInteger:attemptIndexPath.row].intValue];
+    } else if (attemptIndexPath.section == 3) {
+        player = [userTeam getTE:[NSNumber numberWithInteger:attemptIndexPath.row].intValue];
+    } else if (attemptIndexPath.section == 4) {
+        player = [userTeam getOL:[NSNumber numberWithInteger:attemptIndexPath.row].intValue];
+    } else if (attemptIndexPath.section == 5) {
+        player = [userTeam getDL:[NSNumber numberWithInteger:attemptIndexPath.row].intValue];
+    } else if (attemptIndexPath.section == 6) {
+        player = [userTeam getLB:[NSNumber numberWithInteger:attemptIndexPath.row].intValue];
+    } else if (attemptIndexPath.section == 7) {
+        player = [userTeam getCB:[NSNumber numberWithInteger:attemptIndexPath.row].intValue];
+    } else if (attemptIndexPath.section == 8) {
+        player = [userTeam getS:[NSNumber numberWithInteger:attemptIndexPath.row].intValue];
+    } else {
+        player = [userTeam getK:[NSNumber numberWithInteger:attemptIndexPath.row].intValue];
+    }
+
+    if (player.hasRedshirt || [player isInjured] || player.isTransfer) {
+        return sourceIndexPath;
+    }
+    
+    return attemptIndexPath;
 }
 
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
