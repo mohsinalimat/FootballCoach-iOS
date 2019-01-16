@@ -386,7 +386,6 @@
 -(void)advanceSeasonPlayers {
     int qbNeeds=0, rbNeeds=0, wrNeeds=0, kNeeds=0, olNeeds=0, sNeeds=0, cbNeeds=0, dlNeeds=0, lbNeeds = 0, teNeeds = 0;
     int curYear = (int)league.leagueHistoryDictionary.count + (int)league.baseYear;
-    int i = 0;
     
     if (playersLeaving == nil || playersLeaving.count == 0) {
         [self getGraduatingPlayers];
@@ -537,6 +536,14 @@
                     teamDLs[i].isTransfer = YES;
                 }
                 i++;
+            }
+        }
+    } else {
+        NSArray *players = [self getAllPlayers];
+        for (Player *p in players) {
+            [p advanceSeason];
+            if ([transferClass containsObject:p] && !p.isGradTransfer) {
+                p.isTransfer = YES;
             }
         }
     }
