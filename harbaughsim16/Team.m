@@ -704,7 +704,7 @@
     NSMutableArray *mapped = [NSMutableArray array];
     [players enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         Player *p = (Player *)obj;
-        if ([p.position isEqualToString:pos] && (self.transferClass != nil && [self.transferClass containsObject:p])) {
+        if ([p.position isEqualToString:pos] && p.isTransfer) {
             [mapped addObject:p];
         }
     }];
@@ -712,7 +712,6 @@
 }
 
 -(void)recruitPlayersFreshman:(NSArray*)needs {
-
     int qbNeeds, rbNeeds, wrNeeds, kNeeds, olNeeds, sNeeds, cbNeeds, dlNeeds, lbNeeds, teNeeds;
     qbNeeds = [needs[0] intValue];
     rbNeeds = [needs[1] intValue];
@@ -1360,6 +1359,39 @@
     }];
     [teamLBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [HBSharedUtils compareDepthChartPositions:obj1 toObj2:obj2];
+    }];
+}
+
+-(void)sortPlayersPostInjury {
+    [teamQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareDepthChartPositionsPostInjury:obj1 toObj2:obj2];
+    }];
+    [teamRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareDepthChartPositionsPostInjury:obj1 toObj2:obj2];
+    }];
+    [teamWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareDepthChartPositionsPostInjury:obj1 toObj2:obj2];
+    }];
+    [teamTEs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareDepthChartPositionsPostInjury:obj1 toObj2:obj2];
+    }];
+    [teamKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareDepthChartPositionsPostInjury:obj1 toObj2:obj2];
+    }];
+    [teamOLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareDepthChartPositionsPostInjury:obj1 toObj2:obj2];
+    }];
+    [teamCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareDepthChartPositionsPostInjury:obj1 toObj2:obj2];
+    }];
+    [teamSs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareDepthChartPositionsPostInjury:obj1 toObj2:obj2];
+    }];
+    [teamDLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareDepthChartPositionsPostInjury:obj1 toObj2:obj2];
+    }];
+    [teamLBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareDepthChartPositionsPostInjury:obj1 toObj2:obj2];
     }];
 }
 
@@ -2261,7 +2293,7 @@
     
     
     if (numInjured > 0) {
-        [self sortPlayers];
+        [self sortPlayersPostInjury];
     }
 }
 
