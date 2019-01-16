@@ -396,6 +396,7 @@
     }
     
     if (playersLeaving.count > 0 || playersTransferring.count > 0) {
+        int i = 0;
         for (Player *p in playersLeaving) {
             p.endYear = curYear;
         }
