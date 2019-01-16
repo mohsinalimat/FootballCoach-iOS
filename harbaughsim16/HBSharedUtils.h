@@ -130,6 +130,7 @@ typedef enum {
 +(NSComparisonResult)compareRecruitingComposite:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePlayers:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareDepthChartPositions:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareDepthChartPositionsPostInjury:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePositions:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareDivTeams:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareMVPScore:(id)obj1 toObj2:(id)obj2;
