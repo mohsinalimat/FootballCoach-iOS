@@ -38,7 +38,7 @@ static UIColor *styleColor = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         letterGrades = @[@"F", @"F+", @"D", @"D+", @"C", @"C+", @"B", @"B+", @"A", @"A+"];
-        
+
     });
     return letterGrades;
 }
@@ -71,13 +71,13 @@ static UIColor *styleColor = nil;
     if (wasFired) {
         [tutorial appendString:@"Congratulations! You've been fired and are now unemployed.\n\n"];
     }
-    
+
     [tutorial appendString:@"You're now looking at other open jobs around the country. In the table, you'll see the name of the team, its prestige as a program (denoted by the number of stars it has), its record in the past season, its lifetime record, and the last time it reached various milestones: bowl games, conference championships, and national championships. From here, you can tap on a team to view other details - its roster, history, schedule, etc. You may be unable to take some jobs because you may not meet the requirements; these teams will be grayed out in the table. When you want to sign with a team, tap the \"Sign\" button that appears in the top-right of the team pop-up window. You'll then be asked to confirm your selection."];
     [tutorial appendString:@"\n\n"];
     [tutorial appendString:@"If you don't really care where you sign, click the X in the top-left of your screen to exit the coaching carousel and get randomly signed to a team. You will be asked to confirm your selection."];
     [tutorial appendString:@"\n\n"];
     [tutorial appendString:@"You can view this tutorial again at any time by tapping the question-mark button at the top-right of your screen. Good luck and happy job-hunting, coach!"];
-    
+
     return tutorial;
 }
 
@@ -244,6 +244,26 @@ static UIColor *styleColor = nil;
         return  -1;
     } else {
         return a.ratOvr > b.ratOvr ? -1 : (a.ratOvr == b.ratOvr ? [HBSharedUtils comparePositions:obj1 toObj2:obj2] : 1);
+    }
+}
+
++(NSComparisonResult)compareDepthChartPositionsPostInjury:(id)obj1 toObj2:(id)obj2 {
+    Player *a = (Player*)obj1;
+    Player *b = (Player*)obj2;
+    if (a.isInjured && !b.isInjured) {
+        return 1;
+    } else if (!a.isInjured && b.isInjured) {
+        return -1;
+    } else if (a.isInjured && b.isInjured) {
+        if (a.ratPot > b.ratPot) {
+            return -1;
+        } else if (a.ratPot < b.ratPot) {
+            return 1;
+        } else {
+            return [a.name compare:b.name];
+        }
+    } else { //(!a.isInjured && !b.isInjured)
+        return 0;
     }
 }
 
@@ -442,7 +462,7 @@ static UIColor *styleColor = nil;
 
 + (void)startOffseason:(UIViewController*)viewController callback:(void (^)(void))callback {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu %@ Offseason", (long)([HBSharedUtils currentLeague].leagueHistoryDictionary.count + [HBSharedUtils currentLeague].baseYear), [HBSharedUtils currentLeague].userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
+
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Season Summary" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)[[HBSharedUtils currentLeague] getCurrentYear]] message:[[HBSharedUtils currentLeague] seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
@@ -451,14 +471,14 @@ static UIColor *styleColor = nil;
         });
     }]];
 
-    
+
     // Testing
 //    [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //            [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
 //        });
 //    }]];
-    
+
 //    [alertController addAction:[UIAlertAction actionWithTitle:@"Retire" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //
@@ -492,7 +512,7 @@ static UIColor *styleColor = nil;
 //            [viewController presentViewController:retirementOptionsController animated:YES completion:nil];
 //        });
 //    }]];
-    
+
     if ([[self class] currentLeague].isCareerMode && ([[self class] currentLeague].userTeam.coachFired && (![[self class] currentLeague].didFinishCoachingCarousel && [[self class] currentLeague].coachList.count > 0))) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -520,7 +540,7 @@ static UIColor *styleColor = nil;
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             UIAlertController *checkController = [UIAlertController alertControllerWithTitle:@"Starting new save file" message:@"Are you sure you want to start a new game?\n\nThis WILL delete your current save file and all of your progress." preferredStyle:UIAlertControllerStyleAlert];
                             [checkController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                     
+
                                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                     [((AppDelegate*)[[UIApplication sharedApplication] delegate]) startNewSaveFile];
                                 });
@@ -540,7 +560,7 @@ static UIColor *styleColor = nil;
                 [viewController presentViewController:[[ZGNavigationBarTitleViewController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
             });
         }]];
-        
+
         [alertController addAction:[UIAlertAction actionWithTitle:@"View Players Leaving" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [viewController.navigationController pushViewController:[[GraduatingPlayersViewController alloc] init] animated:YES];
         }]];
@@ -567,7 +587,7 @@ static UIColor *styleColor = nil;
                     [viewController.navigationController pushViewController:[[TransferringPlayersViewController alloc] initWithTeam:[[self class] currentLeague].userTeam viewOption:CRCTransferViewOptionBoth] animated:YES];
                 });
             }]];
-            
+
             [alertController addAction:[UIAlertAction actionWithTitle:@"View Transfer Log" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [viewController.navigationController pushViewController:[[TransferLogViewController alloc] init] animated:YES];
@@ -575,7 +595,7 @@ static UIColor *styleColor = nil;
             }]];
         }
     }
-    
+
     [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
     [viewController presentViewController:alertController animated:YES completion:nil];
 
@@ -692,13 +712,13 @@ static UIColor *styleColor = nil;
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Player of the Year", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
-                
+
                 NSString *roty = [simLeague getROTYCeremonyStr];
                 NSLog(@"ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
-                
+
                 NSString *coty = [simLeague getCoachAwardStr];
                 NSLog(@"COTY: %@", coty); //can't do anything with this result, just want to run it tbh
-                
+
                 [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 14) {
                 [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
@@ -749,13 +769,13 @@ static UIColor *styleColor = nil;
                 } else if (simLeague.currentWeek == 13) {
                     NSString *heisman = [simLeague getHeismanCeremonyStr];
                     NSLog(@"HEISMAN: %@", heisman); //can't do anything with this result, just want to run it tbh
-                    
+
                     NSString *roty = [simLeague getROTYCeremonyStr];
                     NSLog(@"ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
-                    
+
                     NSString *coty = [simLeague getCoachAwardStr];
                     NSLog(@"COTY: %@", coty); //can't do anything with this result, just want to run it tbh
-                    
+
                     [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 14) {
                     [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
@@ -886,9 +906,9 @@ static UIColor *styleColor = nil;
         NSArray *sortedOffers = [totalOffers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [obj2 compare:obj1];
         }];
-        
+
         NSInteger offIdx = [sortedOffers indexOfObject:[HBSharedUtils currentLeague].userTeam.abbreviation];
-        
+
         UIColor *letterColor = [UIColor lightGrayColor];
         NSString *interestString = @"LOW";
         if (offIdx == 0) {
@@ -904,7 +924,7 @@ static UIColor *styleColor = nil;
             letterColor = [UIColor lightGrayColor];
             interestString = @"LOW";
         }
-        
+
         return @{@"color" : letterColor, @"interest" : interestString};
     }
 }
@@ -960,6 +980,17 @@ static UIColor *styleColor = nil;
 + (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber {
     float diff = bigNumber - smallNumber;
     return (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
+}
+
++(BOOL)isValidNumber:(id)supposedNumber {
+    NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    return ([supposedNumber isKindOfClass:[NSNumber class]] || [supposedNumber rangeOfCharacterFromSet:notDigits].location == NSNotFound);
+}
+
++(NSString *)currentMinorVersion {
+    NSString *version = HB_CURRENT_APP_VERSION;
+    NSLog(@"Minor Version %@", [version stringByDeletingPathExtension]);
+    return [version stringByDeletingPathExtension];
 }
 
 +(NSComparisonResult)compareCoachScore:(id)obj1 toObj2:(id)obj2 {

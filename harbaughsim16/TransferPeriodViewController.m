@@ -91,37 +91,37 @@
     [totalRecruits removeAllObjects];
     
     [availQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     
     [availRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     [availWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     [availTEs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     [availOLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     [availDLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     
     [availLBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     
     [availCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     [availSs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     [availKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     
     [totalRecruits addObjectsFromArray:availQBs];
@@ -136,7 +136,7 @@
     [totalRecruits addObjectsFromArray:availKs];
     
     [totalRecruits sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareStars:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     
     dispatch_async(dispatch_get_main_queue(), ^{

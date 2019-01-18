@@ -796,6 +796,18 @@
                 if (currentWeek < 15 && (p.draftPosition != nil && p.draftPosition.count > 0)) {
                     return YES;
                 }
+
+                if (p.gamesPlayed > (15 * p.year) || p.gamesPlayedSeason > 15) {
+                    return YES;
+                }
+
+                if (currentWeek < 1 && p.gamesPlayedSeason > 0) {
+                    return YES;
+                }
+
+                if (p.year > 5) {
+                    return YES;
+                }
             }
         }
     }
@@ -2432,7 +2444,7 @@
         [round6 addObject:p];
     }
 
-    for (int b = 192; b < players.count; b++) {
+    for (int b = 192; b < MIN(224, players.count); b++) {
         Player *p = players[b];
         if ([p.team isEqual:userTeam]) {
             userDraftees++;
@@ -2535,7 +2547,7 @@
 }
 
 -(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite  {
-    if (name.length == 0) {
+    if (name == nil || name.length == 0) {
         return NO;
     }
 
@@ -2569,7 +2581,7 @@
 }
 
 -(BOOL)isTeamAbbrValid:(NSString*)abbr allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite {
-    if (abbr.length == 0 || abbr.length > 4) {
+    if (abbr == nil || abbr.length == 0 || abbr.length > 4) {
         return NO;
     }
 
@@ -2953,6 +2965,21 @@
         rotyWinnerStrFull = rotyStats;
         return rotyStats;
     }
+}
+
+-(NSInteger)_calculateNeededPlayersAtPosition:(NSString *)pos {
+    return [self _calculateNeededPlayersAtPosition:pos team:[HBSharedUtils currentLeague].userTeam];
+}
+
+-(NSInteger)_calculateNeededPlayersAtPosition:(NSString *)pos team:(Team*)t {
+    NSMutableArray *mapped = [NSMutableArray array];
+    [t.playersLeaving enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Player *p = (Player *)obj;
+        if ([p.position isEqualToString:pos]) {
+            [mapped addObject:p];
+        }
+    }];
+    return mapped.count;
 }
 
 -(NSArray*)getROTYLeaders {

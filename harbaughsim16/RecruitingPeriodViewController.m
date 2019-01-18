@@ -347,16 +347,16 @@
 }
 
 -(NSArray<NSNumber *> *)_generateTeamNeeds:(Team*)t {
-    NSInteger qb = MAX(0, 2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB" team:t] + [self _calculateTransferSlots:@"QB" team:t]);
-    NSInteger rb = MAX(0, 4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB" team:t] + [self _calculateTransferSlots:@"RB" team:t]);
-    NSInteger wr = MAX(0, 6 - t.teamWRs.count + [self _calculateNeededPlayersAtPosition:@"WR" team:t] + [self _calculateTransferSlots:@"WR" team:t]);
-    NSInteger te = MAX(0, 2 - t.teamTEs.count + [self _calculateNeededPlayersAtPosition:@"TE" team:t] + [self _calculateTransferSlots:@"TE" team:t]);
-    NSInteger ol = MAX(0, 10 - t.teamOLs.count + [self _calculateNeededPlayersAtPosition:@"OL" team:t] + [self _calculateTransferSlots:@"OL" team:t]);
-    NSInteger dl = MAX(0, 8 - t.teamDLs.count + [self _calculateNeededPlayersAtPosition:@"DL" team:t] + [self _calculateTransferSlots:@"DL" team:t]);
-    NSInteger lb = MAX(0, 6 - t.teamLBs.count + [self _calculateNeededPlayersAtPosition:@"LB" team:t] + [self _calculateTransferSlots:@"LB" team:t]);
-    NSInteger cb = MAX(0, 6 - t.teamCBs.count + [self _calculateNeededPlayersAtPosition:@"CB" team:t] + [self _calculateTransferSlots:@"CB" team:t]);
-    NSInteger s = MAX(0, 2 - t.teamSs.count + [self _calculateNeededPlayersAtPosition:@"S" team:t] + [self _calculateTransferSlots:@"S" team:t]);
-    NSInteger k = MAX(0, 2 - t.teamKs.count + [self _calculateNeededPlayersAtPosition:@"K" team:t] + [self _calculateTransferSlots:@"K" team:t]);
+    NSInteger qb = MAX(0, 2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB" team:t] + [self _calculateTransferSlots:@"QB" team:t postReset:YES]);
+    NSInteger rb = MAX(0, 4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB" team:t] + [self _calculateTransferSlots:@"RB" team:t postReset:YES]);
+    NSInteger wr = MAX(0, 6 - t.teamWRs.count + [self _calculateNeededPlayersAtPosition:@"WR" team:t] + [self _calculateTransferSlots:@"WR" team:t postReset:YES]);
+    NSInteger te = MAX(0, 2 - t.teamTEs.count + [self _calculateNeededPlayersAtPosition:@"TE" team:t] + [self _calculateTransferSlots:@"TE" team:t postReset:YES]);
+    NSInteger ol = MAX(0, 10 - t.teamOLs.count + [self _calculateNeededPlayersAtPosition:@"OL" team:t] + [self _calculateTransferSlots:@"OL" team:t postReset:YES]);
+    NSInteger dl = MAX(0, 8 - t.teamDLs.count + [self _calculateNeededPlayersAtPosition:@"DL" team:t] + [self _calculateTransferSlots:@"DL" team:t postReset:YES]);
+    NSInteger lb = MAX(0, 6 - t.teamLBs.count + [self _calculateNeededPlayersAtPosition:@"LB" team:t] + [self _calculateTransferSlots:@"LB" team:t postReset:YES]);
+    NSInteger cb = MAX(0, 6 - t.teamCBs.count + [self _calculateNeededPlayersAtPosition:@"CB" team:t] + [self _calculateTransferSlots:@"CB" team:t postReset:YES]);
+    NSInteger s = MAX(0, 2 - t.teamSs.count + [self _calculateNeededPlayersAtPosition:@"S" team:t] + [self _calculateTransferSlots:@"S" team:t postReset:YES]);
+    NSInteger k = MAX(0, 2 - t.teamKs.count + [self _calculateNeededPlayersAtPosition:@"K" team:t] + [self _calculateTransferSlots:@"K" team:t postReset:YES]);
     return @[@(qb), @(rb), @(wr), @(k), @(ol), @(s), @(cb), @(dl), @(lb), @(te)];
 }
 
@@ -538,10 +538,15 @@
             [mapped addObject:p];
         }
     }];
+    
     return mapped.count;
 }
 
 -(NSInteger)_calculateTransferSlots:(NSString *)pos team:(Team *)t {
+    return [self _calculateTransferSlots:pos team:t postReset:NO];
+}
+
+-(NSInteger)_calculateTransferSlots:(NSString *)pos team:(Team *)t postReset:(BOOL)postReset {
     NSMutableArray *players = [NSMutableArray array];
     if ([pos isEqualToString:@"QB"]) {
         players = t.teamQBs;
@@ -568,8 +573,14 @@
     NSMutableArray *mapped = [NSMutableArray array];
     [players enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         Player *p = (Player *)obj;
-        if ([p.position isEqualToString:pos] && [t.transferClass containsObject:p]) {
-            [mapped addObject:p];
+        if (!postReset) {
+            if ([p.position isEqualToString:pos] && [t.transferClass containsObject:p]) {
+                [mapped addObject:p];
+            }
+        } else {
+            if (p.isTransfer) {
+                [mapped addObject:p];
+            }
         }
     }];
     return mapped.count;
@@ -618,7 +629,8 @@
         }
         // if necessary, add walk-ons
         if (t.isUserControlled) {
-            [t recruitWalkOns:[self _generateTeamNeeds:[HBSharedUtils currentLeague].userTeam]];
+            NSLog(@"%@", [self _generateTeamNeeds:t]);
+            [t recruitWalkOns:[self _generateTeamNeeds:t]];
         } else {
             [t recruitPlayersFreshman:[self _generateTeamNeeds:t]];
         }
