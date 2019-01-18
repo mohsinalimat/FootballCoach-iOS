@@ -554,6 +554,7 @@
     
      // all transfers have been added to new teams in -[TransferPeriodViewController advanceRecruits] and have been removed from this roster above. we can clear these out now.
     [playersTransferring removeAllObjects];
+    playersTransferring = nil;
     [transferClass removeAllObjects];
     
     //if ( !isUserControlled ) {
@@ -2080,7 +2081,8 @@
 }
 
 -(void)getTransferringPlayers {
-    if (playersTransferring.count == 0) {
+    if (([league getCurrentYear] == league.baseYear && playersTransferring.count == 0)
+        || ([league getCurrentYear] != league.baseYear && playersTransferring == nil)) {
         playersTransferring = [NSMutableArray array];
         [self _calculateTransferringPlayers:teamQBs position:@"QB" starterCount:1];
         [self _calculateTransferringPlayers:teamRBs position:@"RB" starterCount:2];
