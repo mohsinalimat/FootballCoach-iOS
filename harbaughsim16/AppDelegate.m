@@ -104,6 +104,8 @@
     }
     
     [Fabric with:@[CrashlyticsKit]];
+    [CrashlyticsKit setObjectValue:self.league.leagueVersion forKey:@"leagueVersion"];
+    [CrashlyticsKit setBoolValue:self.league.isHardMode forKey:@"isHardMode"];
     [[ATAppUpdater sharedUpdater] showUpdateWithConfirmation];
     return YES;
 }
