@@ -2193,7 +2193,7 @@
     
     
     if (numInjured > 0) {
-        [self sortPlayersPostInjury];
+        [self sortPlayers];
     }
 }
 
