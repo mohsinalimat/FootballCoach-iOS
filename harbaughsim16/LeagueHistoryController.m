@@ -16,6 +16,7 @@
 {
     NSDictionary *leagueHistory;
     NSDictionary *heismanHistory;
+    NSDictionary *rotyHistory;
 }
 @end
 
@@ -109,8 +110,9 @@
     [super viewDidLoad];
     leagueHistory = [HBSharedUtils currentLeague].leagueHistoryDictionary;
     heismanHistory = [HBSharedUtils currentLeague].heismanHistoryDictionary;
-    [self.tableView setRowHeight:75];
-    [self.tableView setEstimatedRowHeight:75];
+    rotyHistory = [HBSharedUtils currentLeague].rotyHistoryDictionary;
+    [self.tableView setRowHeight:105];
+    [self.tableView setEstimatedRowHeight:105];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     self.title = @"League History";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
@@ -154,15 +156,27 @@
     }
     // Configure the cell...
     [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
-    NSString *heisman;
-    NSMutableArray *leagueYear;
-    if (indexPath.row < heismanHistory.count || indexPath.row < leagueHistory.count) {
-        heisman = heismanHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
-        leagueYear = leagueHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+    NSString *heisman = @"None";
+    NSMutableArray *leagueYear = [NSMutableArray arrayWithObject:@"None"];
+//    if (indexPath.row < heismanHistory.count || indexPath.row < leagueHistory.count) {
+//        heisman = heismanHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+//        leagueYear = leagueHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+//    } else {
+//        heisman = @"None";
+//        leagueYear = [NSMutableArray arrayWithObject:@"None"];
+//    }
+    if ([heismanHistory.allKeys containsObject:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
+        heisman = heismanHistory[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
     } else {
         heisman = @"None";
+    }
+    
+    if ([leagueHistory.allKeys containsObject:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
+        leagueYear = leagueHistory[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+    } else {
         leagueYear = [NSMutableArray arrayWithObject:@"None"];
     }
+    
     NSMutableAttributedString *champString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Champion: %@",leagueYear[0]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
     if ([champString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [champString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, champString.string.length)];
@@ -177,7 +191,23 @@
         [heismanString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, heismanString.string.length)];
     }
     
+    NSString *roty;
+    if ([rotyHistory.allKeys containsObject:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
+         roty = rotyHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+
+    } else {
+        roty = @"None";
+    }
+    
+    NSMutableAttributedString *rotyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nROTY: %@",roty] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
+    if ([roty containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+        [rotyString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, rotyString.string.length)];
+    } else {
+        [rotyString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, rotyString.string.length)];
+    }
+    
     [champString appendAttributedString:heismanString];
+    [champString appendAttributedString:rotyString];
     [cell.detailTextLabel setAttributedText:champString];
     [cell.detailTextLabel sizeToFit];
     

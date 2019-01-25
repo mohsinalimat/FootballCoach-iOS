@@ -108,9 +108,7 @@
             
             [self dismissViewControllerAnimated:YES completion:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"updatedConferences" object:nil];
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [[HBSharedUtils currentLeague] save];
-            });
+            [[HBSharedUtils currentLeague] save];
         }
     }]];
     

@@ -133,6 +133,30 @@
                 self.startYear = (int)(curYear - self.year + 1 + team.league.baseYear);
             }
         }
+        
+        if ([aDecoder containsValueForKey:@"isGradTransfer"]) {
+            self.isGradTransfer = [aDecoder decodeBoolForKey:@"isGradTransfer"];
+        } else {
+            self.isGradTransfer = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"isTransfer"]) {
+            self.isTransfer = [aDecoder decodeBoolForKey:@"isTransfer"];
+        } else {
+            self.isTransfer = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"isROTY"]) {
+            self.isROTY = [aDecoder decodeBoolForKey:@"isROTY"];
+        } else {
+            self.isROTY = NO;
+        }
+        
+        if ([aDecoder containsValueForKey:@"careerROTYs"]) {
+            self.careerROTYs = [aDecoder decodeIntForKey:@"careerROTYs"];
+        } else {
+            self.careerROTYs = 0;
+        }
     }
     return self;
 }
@@ -163,6 +187,10 @@
     [aCoder encodeInt:self.startYear forKey:@"startYear"];
     [aCoder encodeInt:self.endYear forKey:@"endYear"];
     [aCoder encodeInt:self.stars forKey:@"stars"];
+    [aCoder encodeBool:self.isGradTransfer forKey:@"isGradTransfer"];
+    [aCoder encodeBool:self.isTransfer forKey:@"isTransfer"];
+    [aCoder encodeBool:self.isROTY forKey:@"isROTY"];
+    [aCoder encodeInt:self.careerROTYs forKey:@"careerROTYs"];
 }
 
 +(int)getPosNumber:(NSString*)pos {
@@ -193,40 +221,7 @@
 
 - (NSComparisonResult)compare:(id)other
 {
-    Player *player = (Player*)other;
-    if (!self.hasRedshirt && !player.hasRedshirt) {
-        if (self.ratOvr > player.ratOvr) {
-            return -1;
-        } else if (self.ratOvr < player.ratOvr) {
-            return 1;
-        } else {
-            if (self.ratPot > player.ratPot) {
-                return -1;
-            } else if (self.ratPot < player.ratPot) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-    } else if (self.hasRedshirt) {
-        return 1;
-    } else if (player.hasRedshirt) {
-        return -1;
-    } else {
-        if (self.ratOvr > player.ratOvr) {
-            return -1;
-        } else if (self.ratOvr < player.ratOvr) {
-            return 1;
-        } else {
-            if (self.ratPot > player.ratPot) {
-                return -1;
-            } else if (self.ratPot < player.ratPot) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-    }
+    return [HBSharedUtils comparePlayers:self toObj2:other];
 }
 
 + (NSArray *)letterGrades
@@ -241,90 +236,104 @@
 }
 
 -(NSString*)getYearString {
-    if (self.wasRedshirted || self.hasRedshirt) {
-        if (self.year == 0) {
-            return @"RS";
-        } else if (self.year == 1) {
-            return @"RS Fr";
-        } else if (self.year == 2) {
-            return @"RS So";
-        } else if (self.year == 3) {
-            return @"RS Jr";
-        } else if (self.year == 4) {
-            return @"RS Sr";
-        } else {
-            if (self.draftPosition) {
-                return [NSString stringWithFormat:@"Rd%@-Pk%@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
-            } else if (self.draftPosition == nil && self.year > 4) {
-                return [NSString stringWithFormat:@"GRAD%ld", (long)self.endYear];
-            } else {
-                return @"ERROR";
-            }
-        }
+    if (_isTransfer) {
+        return @"XFER";
     } else {
-        if (self.year == 0) {
-            return @"HS";
-        } else if (self.year == 1) {
-            return @"Fr";
-        } else if (self.year == 2) {
-            return @"So";
-        } else if (self.year == 3) {
-            return @"Jr";
-        } else if (self.year == 4) {
-            return @"Sr";
-        } else {
-            if (self.draftPosition) {
-                return [NSString stringWithFormat:@"Rd%@-Pk%@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
-            } else if (self.draftPosition == nil && self.year > 4) {
-                return [NSString stringWithFormat:@"GRAD%ld", (long)self.endYear];
+        if (self.wasRedshirted || self.hasRedshirt) {
+            if (self.year == 0) {
+                return @"RS";
+            } else if (self.year == 1) {
+                return @"RS Fr";
+            } else if (self.year == 2) {
+                return @"RS So";
+            } else if (self.year == 3) {
+                return @"RS Jr";
+            } else if (self.year == 4) {
+                return @"RS Sr";
+            } else if (self.year == 5) {
+                return @"RS Grd";
             } else {
-                return @"ERROR";
+                if (self.draftPosition) {
+                    return [NSString stringWithFormat:@"Rd%@-Pk%@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
+                } else if (self.draftPosition == nil && self.year > 4) {
+                    return [NSString stringWithFormat:@"GRAD%ld", (long)self.endYear];
+                } else {
+                    return @"ERROR";
+                }
+            }
+        } else {
+            if (self.year == 0) {
+                return @"HS";
+            } else if (self.year == 1) {
+                return @"Fr";
+            } else if (self.year == 2) {
+                return @"So";
+            } else if (self.year == 3) {
+                return @"Jr";
+            } else if (self.year == 4) {
+                return @"Sr";
+            } else if (self.year == 5) {
+                return @"Grd";
+            } else {
+                if (self.draftPosition) {
+                    return [NSString stringWithFormat:@"Rd%@-Pk%@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
+                } else if (self.draftPosition == nil && self.year > 4) {
+                    return [NSString stringWithFormat:@"GRAD%ld", (long)self.endYear];
+                } else {
+                    return @"ERROR";
+                }
             }
         }
     }
-    
-    
 }
 
 -(NSString*)getFullYearString {
-    if (self.wasRedshirted || self.hasRedshirt) {
-        if (self.year == 0) {
-            return @"Redshirt";
-        } else if (self.year == 1) {
-            return @"Freshman (RS)";
-        } else if (self.year == 2) {
-            return @"Sophomore (RS)";
-        } else if (self.year == 3) {
-            return @"Junior (RS)";
-        } else if (self.year == 4) {
-            return @"Senior (RS)";
-        } else {
-            if (self.draftPosition) {
-                return [NSString stringWithFormat:@"Round %@, Pick %@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
-            } else if (self.draftPosition == nil && self.year > 4) {
-                return [NSString stringWithFormat:@"Graduted in %ld", (long)self.endYear];
-            } else {
-                return @"ERROR";
-            }
-        }
+    if (self.isTransfer) {
+        return @"Transfer";
     } else {
-        if (self.year == 0) {
-            return @"High School";
-        } else if (self.year == 1) {
-            return @"Freshman";
-        } else if (self.year == 2) {
-            return @"Sophomore";
-        } else if (self.year == 3) {
-            return @"Junior";
-        } else if (self.year == 4) {
-            return @"Senior";
-        } else {
-            if (self.draftPosition) {
-                return [NSString stringWithFormat:@"Round %@, Pick %@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
-            } else if (self.draftPosition == nil && self.year > 4) {
-                return [NSString stringWithFormat:@"Graduted in %ld", (long)self.endYear];
+        if (self.wasRedshirted || self.hasRedshirt) {
+            if (self.year == 0) {
+                return @"Redshirt";
+            } else if (self.year == 1) {
+                return @"Freshman (RS)";
+            } else if (self.year == 2) {
+                return @"Sophomore (RS)";
+            } else if (self.year == 3) {
+                return @"Junior (RS)";
+            } else if (self.year == 4) {
+                return @"Senior (RS)";
+            } else if (self.year == 5) {
+                return @"Grad Student (RS)";
             } else {
-                return @"ERROR";
+                if (self.draftPosition) {
+                    return [NSString stringWithFormat:@"Round %@, Pick %@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
+                } else if (self.draftPosition == nil && self.year > 4) {
+                    return [NSString stringWithFormat:@"Graduated in %ld", (long)self.endYear];
+                } else {
+                    return @"ERROR";
+                }
+            }
+        } else {
+            if (self.year == 0) {
+                return @"High School";
+            } else if (self.year == 1) {
+                return @"Freshman";
+            } else if (self.year == 2) {
+                return @"Sophomore";
+            } else if (self.year == 3) {
+                return @"Junior";
+            } else if (self.year == 4) {
+                return @"Senior";
+            } else if (self.year == 5) {
+                return @"Grad Student";
+            } else {
+                if (self.draftPosition) {
+                    return [NSString stringWithFormat:@"Round %@, Pick %@", self.draftPosition[@"round"],self.draftPosition[@"pick"]];
+                } else if (self.draftPosition == nil && self.year > 4) {
+                    return [NSString stringWithFormat:@"Graduated in %ld", (long)self.endYear];
+                } else {
+                    return @"ERROR";
+                }
             }
         }
     }
@@ -336,14 +345,21 @@
 
 -(void)advanceSeason {
     self.year++;
+    
+    // If not an old/existing redshirt and not a rising senior and not a transfer BUT has played 4 games or less, then give them an extra year of eligibility -- <= 4 games in a season == redshirt year
+    if ((!self.hasRedshirt && !self.isTransfer && !self.isGradTransfer && !self.wasRedshirted && self.year > 0 && self.year < 4) && self.gamesPlayedSeason < 5) {
+        self.year--;
+        self.wasRedshirted = YES;
+    }
+    
     self.gamesPlayedSeason = 0;
     
-//    if (self.isHeisman) {
-//        self.team.heismans++;
-//        self.careerHeismans++;
-//    }
+    if (self.isTransfer) {
+        self.isTransfer = NO;
+    }
     
     self.isHeisman = NO;
+    self.isROTY = NO;
     self.isAllAmerican = NO;
     self.isAllConference = NO;
     self.injury = nil;
@@ -351,7 +367,6 @@
         self.hasRedshirt = NO;
         self.wasRedshirted = YES;
     }
-    
 }
 
 -(int)getHeismanScore {
@@ -412,6 +427,7 @@
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerAllConferences] forKey:@"allConferences"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerAllAmericans] forKey:@"allAmericans"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerHeismans] forKey:@"heismans"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.careerROTYs] forKey:@"ROTYs"];
     return stats;
 }
 
@@ -426,8 +442,13 @@
 -(NSString *)simpleAwardReport {
     NSMutableString *awards = [NSMutableString string];
     int parts = 0;
+    if (self.careerROTYs > 0) {
+        [awards appendFormat:@"%lix ROTY",(long)self.careerROTYs];
+        parts++;
+    }
+    
     if (self.careerHeismans > 0) {
-        [awards appendFormat:@"%lix POTY",(long)self.careerHeismans];
+        [awards appendFormat:@"?%lix POTY",(long)self.careerHeismans];
         parts++;
     }
     
@@ -563,5 +584,8 @@
     return [NSString stringWithFormat:@"%d",h];
 }
 
+-(NSString *)debugDescription {
+    return [self getPosNameYrOvrPot_Str];
+}
 
 @end

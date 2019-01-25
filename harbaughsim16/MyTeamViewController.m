@@ -70,22 +70,26 @@
                 } else if (indexPath.row == 4) {
                     peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeWins];
                 } else if (indexPath.row == 5) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeSOS];
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeCCGs];
                 } else if (indexPath.row == 6) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypePPG];
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeNCGs];
                 } else if (indexPath.row == 7) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG];
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeSOS];
                 } else if (indexPath.row == 8) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeYPG];
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypePPG];
                 } else if (indexPath.row == 9) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG];
                 } else if (indexPath.row == 10) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypePYPG];
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeYPG];
                 } else if (indexPath.row == 11) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG];
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
                 } else if (indexPath.row == 12) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG];
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypePYPG];
                 } else if (indexPath.row == 13) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG];
+                } else if (indexPath.row == 14) {
+                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG];
+                } else if (indexPath.row == 15) {
                     peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppRYPG];
                 } else {
                     peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeTODiff];
@@ -327,7 +331,12 @@
         
         NSString *stat = @"";
         if ([HBSharedUtils currentLeague].currentWeek > 0) {
-            stat = [NSString stringWithFormat:@"%@ (%@)", cellStat[0], cellStat[2]];
+            if (indexPath.row == 5 || indexPath.row == 6) {
+                stat = cellStat[0];
+            } else {
+                stat = [NSString stringWithFormat:@"%@ (%@)", cellStat[0], cellStat[2]];
+            }
+
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
         } else {
@@ -358,22 +367,26 @@
             } else if (indexPath.row == 4) {
                 [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeWins] animated:YES];
             } else if (indexPath.row == 5) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeSOS] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeCCGs] animated:YES];
             } else if (indexPath.row == 6) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeNCGs] animated:YES];
             } else if (indexPath.row == 7) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeSOS] animated:YES];
             } else if (indexPath.row == 8) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeYPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePPG] animated:YES];
             } else if (indexPath.row == 9) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG] animated:YES];
             } else if (indexPath.row == 10) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePYPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeYPG] animated:YES];
             } else if (indexPath.row == 11) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG] animated:YES];
             } else if (indexPath.row == 12) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG] animated:YES];
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePYPG] animated:YES];
             } else if (indexPath.row == 13) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG] animated:YES];
+            } else if (indexPath.row == 14) {
+                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG] animated:YES];
+            } else if (indexPath.row == 15) {
                 [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppRYPG] animated:YES];
             } else {
                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeTODiff] animated:YES];

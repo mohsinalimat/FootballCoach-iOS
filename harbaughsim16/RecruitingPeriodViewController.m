@@ -313,7 +313,9 @@
                     [hud hideAnimated:YES];
                     if (self->recruitingStage == CFCRecruitingStageFallCamp) {
                         [self->positionSelectionControl removeFromSuperview];
-                        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                        if (self->currentRecruits.count > 0) {
+                            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+                        }
                         self.navigationController.toolbarHidden = YES;
                         if (@available(iOS 11, *)) {
                             [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -332,16 +334,30 @@
     //since players haven't actually left yet, adding needs from playersLeaving and subtracting needs for recruits who signed
     Team *t = [HBSharedUtils currentLeague].userTeam;
 
-    needQBs = MAX(0, 2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB"] - [self _calculateSignedPlayersAtPosition:@"QB"]);
-    needRBs = MAX(0, 4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB"] - [self _calculateSignedPlayersAtPosition:@"RB"]);
-    needWRs = MAX(0, 6 - t.teamWRs.count + [self _calculateNeededPlayersAtPosition:@"WR"] - [self _calculateSignedPlayersAtPosition:@"WR"]);
-    needTEs = MAX(0, 2 - t.teamTEs.count + [self _calculateNeededPlayersAtPosition:@"TE"] - [self _calculateSignedPlayersAtPosition:@"TE"]);
-    needOLs = MAX(0, 10 - t.teamOLs.count + [self _calculateNeededPlayersAtPosition:@"OL"] - [self _calculateSignedPlayersAtPosition:@"OL"]);
-    needDLs = MAX(0, 8 - t.teamDLs.count + [self _calculateNeededPlayersAtPosition:@"DL"] - [self _calculateSignedPlayersAtPosition:@"DL"]);
-    needLBs = MAX(0, 6 - t.teamLBs.count + [self _calculateNeededPlayersAtPosition:@"LB"] - [self _calculateSignedPlayersAtPosition:@"LB"]);
-    needCBs = MAX(0, 6 - t.teamCBs.count + [self _calculateNeededPlayersAtPosition:@"CB"] - [self _calculateSignedPlayersAtPosition:@"CB"]);
-    needsS = MAX(0, 2 - t.teamSs.count + [self _calculateNeededPlayersAtPosition:@"S"] - [self _calculateSignedPlayersAtPosition:@"S"]);
-    needKs = MAX(0, 2 - t.teamKs.count + [self _calculateNeededPlayersAtPosition:@"K"] - [self _calculateSignedPlayersAtPosition:@"K"]);
+    needQBs = MAX(0, 2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB"] - [self _calculateSignedPlayersAtPosition:@"QB"] + [self _calculateTransferSlots:@"QB" team:t]);
+    needRBs = MAX(0, 4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB"] - [self _calculateSignedPlayersAtPosition:@"RB"] + [self _calculateTransferSlots:@"RB" team:t]);
+    needWRs = MAX(0, 6 - t.teamWRs.count + [self _calculateNeededPlayersAtPosition:@"WR"] - [self _calculateSignedPlayersAtPosition:@"WR"] + [self _calculateTransferSlots:@"WR" team:t]);
+    needTEs = MAX(0, 2 - t.teamTEs.count + [self _calculateNeededPlayersAtPosition:@"TE"] - [self _calculateSignedPlayersAtPosition:@"TE"] + [self _calculateTransferSlots:@"TE" team:t]);
+    needOLs = MAX(0, 10 - t.teamOLs.count + [self _calculateNeededPlayersAtPosition:@"OL"] - [self _calculateSignedPlayersAtPosition:@"OL"] + [self _calculateTransferSlots:@"OL" team:t]);
+    needDLs = MAX(0, 8 - t.teamDLs.count + [self _calculateNeededPlayersAtPosition:@"DL"] - [self _calculateSignedPlayersAtPosition:@"DL"] + [self _calculateTransferSlots:@"DL" team:t]);
+    needLBs = MAX(0, 6 - t.teamLBs.count + [self _calculateNeededPlayersAtPosition:@"LB"] - [self _calculateSignedPlayersAtPosition:@"LB"] + [self _calculateTransferSlots:@"LB" team:t]);
+    needCBs = MAX(0, 6 - t.teamCBs.count + [self _calculateNeededPlayersAtPosition:@"CB"] - [self _calculateSignedPlayersAtPosition:@"CB"] + [self _calculateTransferSlots:@"CB" team:t]);
+    needsS = MAX(0, 2 - t.teamSs.count + [self _calculateNeededPlayersAtPosition:@"S"] - [self _calculateSignedPlayersAtPosition:@"S"] + [self _calculateTransferSlots:@"S" team:t]);
+    needKs = MAX(0, 2 - t.teamKs.count + [self _calculateNeededPlayersAtPosition:@"K"] - [self _calculateSignedPlayersAtPosition:@"K"] + [self _calculateTransferSlots:@"K" team:t]);
+}
+
+-(NSArray<NSNumber *> *)_generateTeamNeeds:(Team*)t {
+    NSInteger qb = MAX(0, 2 - t.teamQBs.count + [self _calculateNeededPlayersAtPosition:@"QB" team:t] + [self _calculateTransferSlots:@"QB" team:t postReset:YES]);
+    NSInteger rb = MAX(0, 4 - t.teamRBs.count + [self _calculateNeededPlayersAtPosition:@"RB" team:t] + [self _calculateTransferSlots:@"RB" team:t postReset:YES]);
+    NSInteger wr = MAX(0, 6 - t.teamWRs.count + [self _calculateNeededPlayersAtPosition:@"WR" team:t] + [self _calculateTransferSlots:@"WR" team:t postReset:YES]);
+    NSInteger te = MAX(0, 2 - t.teamTEs.count + [self _calculateNeededPlayersAtPosition:@"TE" team:t] + [self _calculateTransferSlots:@"TE" team:t postReset:YES]);
+    NSInteger ol = MAX(0, 10 - t.teamOLs.count + [self _calculateNeededPlayersAtPosition:@"OL" team:t] + [self _calculateTransferSlots:@"OL" team:t postReset:YES]);
+    NSInteger dl = MAX(0, 8 - t.teamDLs.count + [self _calculateNeededPlayersAtPosition:@"DL" team:t] + [self _calculateTransferSlots:@"DL" team:t postReset:YES]);
+    NSInteger lb = MAX(0, 6 - t.teamLBs.count + [self _calculateNeededPlayersAtPosition:@"LB" team:t] + [self _calculateTransferSlots:@"LB" team:t postReset:YES]);
+    NSInteger cb = MAX(0, 6 - t.teamCBs.count + [self _calculateNeededPlayersAtPosition:@"CB" team:t] + [self _calculateTransferSlots:@"CB" team:t postReset:YES]);
+    NSInteger s = MAX(0, 2 - t.teamSs.count + [self _calculateNeededPlayersAtPosition:@"S" team:t] + [self _calculateTransferSlots:@"S" team:t postReset:YES]);
+    NSInteger k = MAX(0, 2 - t.teamKs.count + [self _calculateNeededPlayersAtPosition:@"K" team:t] + [self _calculateTransferSlots:@"K" team:t postReset:YES]);
+    return @[@(qb), @(rb), @(wr), @(k), @(ol), @(s), @(cb), @(dl), @(lb), @(te)];
 }
 
 -(void)showRemainingNeeds {
@@ -522,6 +538,51 @@
             [mapped addObject:p];
         }
     }];
+    
+    return mapped.count;
+}
+
+-(NSInteger)_calculateTransferSlots:(NSString *)pos team:(Team *)t {
+    return [self _calculateTransferSlots:pos team:t postReset:NO];
+}
+
+-(NSInteger)_calculateTransferSlots:(NSString *)pos team:(Team *)t postReset:(BOOL)postReset {
+    NSMutableArray *players = [NSMutableArray array];
+    if ([pos isEqualToString:@"QB"]) {
+        players = t.teamQBs;
+    } else if ([pos isEqualToString:@"RB"]) {
+        players = t.teamRBs;
+    } else if ([pos isEqualToString:@"WR"]) {
+        players = t.teamWRs;
+    } else if ([pos isEqualToString:@"TE"]) {
+        players = t.teamTEs;
+    } else if ([pos isEqualToString:@"OL"]) {
+        players = t.teamOLs;
+    } else if ([pos isEqualToString:@"DL"]) {
+        players = t.teamDLs;
+    } else if ([pos isEqualToString:@"LB"]) {
+        players = t.teamLBs;
+    } else if ([pos isEqualToString:@"CB"]) {
+        players = t.teamCBs;
+    } else if ([pos isEqualToString:@"S"]) {
+        players = t.teamSs;
+    } else { // K
+        players = t.teamKs;
+    }
+
+    NSMutableArray *mapped = [NSMutableArray array];
+    [players enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Player *p = (Player *)obj;
+        if (!postReset) {
+            if ([p.position isEqualToString:pos] && [t.transferClass containsObject:p]) {
+                [mapped addObject:p];
+            }
+        } else {
+            if (p.isTransfer) {
+                [mapped addObject:p];
+            }
+        }
+    }];
     return mapped.count;
 }
 
@@ -560,7 +621,7 @@
 -(void)finishRecruiting {
     [[HBSharedUtils currentLeague] updateTeamHistories];
     [[HBSharedUtils currentLeague] updateLeagueHistory];
-    [[HBSharedUtils currentLeague].userTeam resetStats];
+    //[[HBSharedUtils currentLeague].userTeam resetStats];
     [[HBSharedUtils currentLeague] advanceSeason];
     
     for (Team *t in [HBSharedUtils currentLeague].teamList) {
@@ -569,9 +630,10 @@
         }
         // if necessary, add walk-ons
         if (t.isUserControlled) {
-            [t recruitWalkOns:@[@(2 - t.teamQBs.count), @(4 - t.teamRBs.count), @(6 - t.teamWRs.count), @(2 - t.teamKs.count), @(10 - t.teamOLs.count), @(2 - t.teamSs.count), @(6 - t.teamCBs.count), @(8 - t.teamDLs.count), @(6 - t.teamLBs.count), @(2 - t.teamTEs.count)]];
+            NSLog(@"%@", [self _generateTeamNeeds:t]);
+            [t recruitWalkOns:[self _generateTeamNeeds:t]];
         } else {
-            [t recruitPlayersFreshman:@[@(2 - t.teamQBs.count), @(4 - t.teamRBs.count), @(6 - t.teamWRs.count), @(2 - t.teamKs.count), @(10 - t.teamOLs.count), @(2 - t.teamSs.count), @(6 - t.teamCBs.count), @(8 - t.teamDLs.count), @(6 - t.teamLBs.count), @(2 - t.teamTEs.count)]];
+            [t recruitPlayersFreshman:[self _generateTeamNeeds:t]];
         }
         
         [t calculateRecruitingClassRanking];
@@ -718,7 +780,9 @@
 
     [self.tableView reloadData];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        if (self->currentRecruits.count > 0) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
     });
 }
 
@@ -761,13 +825,13 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(advanceRecruits)];
 
     // calculate recruiting points, but never show number - just show as usage as "% effort extended"
-    int estimatedRecruitingPoints = ([HBSharedUtils currentLeague].isHardMode) ? (int)ceilf(25.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige) : (int)ceilf(30.0 * [HBSharedUtils currentLeague].userTeam.teamPrestige);
-    recruitingPoints = MAX(estimatedRecruitingPoints, 600);
-    usedRecruitingPoints = 0;
+    [[HBSharedUtils currentLeague].userTeam calculateRecruitingPoints];
+    recruitingPoints = [HBSharedUtils currentLeague].userTeam.recruitingPoints;
+    usedRecruitingPoints = [HBSharedUtils currentLeague].userTeam.usedRecruitingPoints;
 
     NSLog(@"Recruiting points total: %d", recruitingPoints);
     
-    [self setSubtitle:@"0% of total recruiting effort used"];
+    [self updateRecruitingPointUsage];
     
     [self setTitle:[NSString stringWithFormat:@"Winter %lu", ((long)([[HBSharedUtils currentLeague] getCurrentYear] + 1))]];
 
@@ -848,6 +912,10 @@
     } else {
         [self.tableView setContentInset:UIEdgeInsetsMake(positionSelectionControl.frame.size.height + self.navigationController.navigationBar.frame.size.height + 5, 0, positionSelectionControl.frame.size.height, 0)];
     }
+}
+
+-(void)updateRecruitingPointUsage {
+    [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
 }
 
 -(void)generateRecruits {
@@ -1612,8 +1680,7 @@
             }
 
             usedRecruitingPoints += FLIP_COST;
-            //[navigationTitleView setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
-            [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [self updateRecruitingPointUsage];
 
             [self.tableView reloadData];
             break;
@@ -1648,7 +1715,7 @@
             }
 
              [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
-            [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [self updateRecruitingPointUsage];
 
             [self.tableView reloadData];
             break;
@@ -1674,7 +1741,7 @@
             }
 
             [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
-            [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [self updateRecruitingPointUsage];
             [self.tableView reloadData];
             break;
         case CFCRecruitEventInHomeVisit:
@@ -1699,7 +1766,7 @@
             }
 
             [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
-            [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [self updateRecruitingPointUsage];
 
             [self.tableView reloadData];
             break;
@@ -1733,7 +1800,7 @@
             usedRecruitingPoints += EXTEND_OFFER_COST;
             
             [signedRecruitRanks setObject:[NSString stringWithFormat:@"#%lu %@ (#%lu ovr)", (long)([self _indexForPosition:recruit] + 1), recruit.position, (long)([totalRecruits indexOfObject:recruit] + 1)] forKey:[recruit uniqueIdentifier]];
-            [self setSubtitle:[NSString stringWithFormat:@"%.0f%% of total recruiting effort used",((float) usedRecruitingPoints / (float) recruitingPoints) * 100.0]];
+            [self updateRecruitingPointUsage];
 
             [self.tableView reloadData];
             break;

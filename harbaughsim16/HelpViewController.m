@@ -35,8 +35,11 @@
     [sectionSelect addAction:[UIAlertAction actionWithTitle:@"Recruiting" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }]];
-    [sectionSelect addAction:[UIAlertAction actionWithTitle:@"Metadata Editing" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [sectionSelect addAction:[UIAlertAction actionWithTitle:@"Transfers" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:3] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }]];
+    [sectionSelect addAction:[UIAlertAction actionWithTitle:@"Metadata Editing" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:4] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }]];
     
     [sectionSelect addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
@@ -54,7 +57,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -69,6 +72,8 @@
         title = @"Depth Chart";
     } else if (section == 2) {
         title = @"Recruiting";
+    } else if (section == 3) {
+        title = @"Transfers";
     } else {
         title = @"Metadata Editing";
     }
@@ -101,6 +106,8 @@
         [cell.textLabel setText:[HBSharedUtils depthChartTutorialText]];
     } else if (indexPath.section == 2) { // recruiting
         [cell.textLabel setText:[HBSharedUtils recruitingTutorialText]];
+    } else if (indexPath.section == 3) { // recruiting
+        [cell.textLabel setText:[HBSharedUtils transferTutorialText]];
     } else { //metadata editing
         [cell.textLabel setText:[HBSharedUtils metadataEditingText]];
     }

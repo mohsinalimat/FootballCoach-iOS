@@ -21,6 +21,17 @@
 #import "PlayerCB.h"
 #import "PlayerS.h"
 #import "PlayerDetailViewController.h"
+#import "PlayerDetailViewController.h"
+#import "PlayerQBDetailViewController.h"
+#import "PlayerRBDetailViewController.h"
+#import "PlayerWRDetailViewController.h"
+#import "PlayerTEDetailViewController.h"
+#import "PlayerOLDetailViewController.h"
+#import "PlayerKDetailViewController.h"
+#import "PlayerDLDetailViewController.h"
+#import "PlayerLBDetailViewController.h"
+#import "PlayerCBDetailViewController.h"
+#import "PlayerSDetailViewController.h"
 #import "InjuryReportViewController.h"
 
 #import "HexColors.h"
@@ -220,13 +231,23 @@
     [cell.nameLabel setText:[player getInitialName]];
     [cell.yrLabel setText:[player getYearString]];
     [cell.ovrLabel setText:[NSString stringWithFormat:@"%d", player.ratOvr]];
-    if (_isPopup && [selectedTeam.playersLeaving containsObject:player]) {
-        [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
-        [cell.yrLabel setText:@"GRAD"];
+    if (_isPopup) {
+        if ([selectedTeam.playersLeaving containsObject:player]) {
+            [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+            [cell.yrLabel setText:@"GRAD"];
+        } else if ([selectedTeam.playersTransferring containsObject:player]) {
+            [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+            [cell.yrLabel setText:@"XFER"];
+        } else {
+            [cell.nameLabel setTextColor:[UIColor blackColor]];
+        }
     } else {
         if (player.hasRedshirt) {
             [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
-        } else if (player.isHeisman) {
+        } else if (player.isTransfer) {
+            [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
+            [cell.yrLabel setText:@"XFER"];
+        } else if (player.isHeisman || player.isROTY) {
             [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
         } else if (player.isAllAmerican) {
             [cell.nameLabel setTextColor:[UIColor orangeColor]];
@@ -250,8 +271,7 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     Player *player;
     if (indexPath.section == 0) {
         player = [selectedTeam getQB:[NSNumber numberWithInteger:indexPath.row].intValue];
@@ -275,15 +295,33 @@
         player = [selectedTeam getK:[NSNumber numberWithInteger:indexPath.row].intValue];
     }
     
-    if (!_isPopup) {
-        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerDetailViewController alloc] initWithPlayer:player]];
-        [popupController.navigationBar setDraggable:YES];
-        [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
-        popupController.style = STPopupStyleBottomSheet;
-        [popupController presentInViewController:self];
+    if (indexPath.section == 0) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerQBDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 1) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerRBDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 2) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerWRDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 3) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerTEDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 4) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerOLDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 5) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerDLDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 6) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerLBDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 7) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerCBDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 8) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerSDetailViewController alloc] initWithPlayer:player]];
+    } else if (indexPath.section == 9) {
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerKDetailViewController alloc] initWithPlayer:player]];
     } else {
-        [self.popupController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:player] animated:YES];
+        popupController = [[STPopupController alloc] initWithRootViewController:[[PlayerDetailViewController alloc] initWithPlayer:player]];
     }
+    [popupController.navigationBar setDraggable:YES];
+    [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+    popupController.style = STPopupStyleBottomSheet;
+    [popupController presentInViewController:self];
 }
 
 

@@ -10,6 +10,17 @@
 #import "HBPlayerCell.h"
 #import "Player.h"
 #import "PlayerDetailViewController.h"
+#import "PlayerDetailViewController.h"
+#import "PlayerQBDetailViewController.h"
+#import "PlayerRBDetailViewController.h"
+#import "PlayerWRDetailViewController.h"
+#import "PlayerTEDetailViewController.h"
+#import "PlayerOLDetailViewController.h"
+#import "PlayerKDetailViewController.h"
+#import "PlayerDLDetailViewController.h"
+#import "PlayerLBDetailViewController.h"
+#import "PlayerCBDetailViewController.h"
+#import "PlayerSDetailViewController.h"
 
 #import "PlayerQB.h"
 #import "PlayerRB.h"
@@ -23,7 +34,7 @@
 
 #import "HexColors.h"
 
-@interface HeismanLeadersViewController ()
+@interface HeismanLeadersViewController () <UIViewControllerPreviewingDelegate>
 {
     NSArray *heismanLeaders;
     Player *heisman;
@@ -31,6 +42,48 @@
 @end
 
 @implementation HeismanLeadersViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        HBPlayerCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        PlayerDetailViewController *playerDetail;
+        Player *p = heismanLeaders[indexPath.row];
+        if ([p.position isEqualToString:@"QB"]) {
+            playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"RB"]) {
+            playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"WR"]) {
+            playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"TE"]) {
+            playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"OL"]) {
+            playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"DL"]) {
+            playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"LB"]) {
+            playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"CB"]) {
+            playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"S"]) {
+            playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"K"]) {
+            playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+        } else {
+            playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+        }
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return playerDetail;
+    } else {
+        return nil;
+    }
+}
 
 -(instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:UITableViewStyleGrouped]) {
@@ -54,6 +107,11 @@
     heismanLeaders = [[HBSharedUtils currentLeague] getHeismanLeaders];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+    
+    
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -151,8 +209,30 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    Player *plyr = heismanLeaders[indexPath.row];
-    [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:plyr] animated:YES];
+    Player *p = heismanLeaders[indexPath.row];
+    if ([p.position isEqualToString:@"QB"]) {
+        [self.navigationController pushViewController:[[PlayerQBDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"RB"]) {
+        [self.navigationController pushViewController:[[PlayerRBDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"WR"]) {
+        [self.navigationController pushViewController:[[PlayerWRDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"TE"]) {
+        [self.navigationController pushViewController:[[PlayerTEDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"OL"]) {
+        [self.navigationController pushViewController:[[PlayerOLDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"DL"]) {
+        [self.navigationController pushViewController:[[PlayerDLDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"LB"]) {
+        [self.navigationController pushViewController:[[PlayerLBDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"CB"]) {
+        [self.navigationController pushViewController:[[PlayerCBDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"S"]) {
+        [self.navigationController pushViewController:[[PlayerSDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else if ([p.position isEqualToString:@"K"]) {
+        [self.navigationController pushViewController:[[PlayerKDetailViewController alloc] initWithPlayer:p] animated:YES];
+    } else {
+        [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:p] animated:YES];
+    }
 }
 
 

@@ -7,6 +7,16 @@
 //
 
 #import "RingOfHonorViewController.h"
+#import "PlayerQBDetailViewController.h"
+#import "PlayerRBDetailViewController.h"
+#import "PlayerWRDetailViewController.h"
+#import "PlayerTEDetailViewController.h"
+#import "PlayerOLDetailViewController.h"
+#import "PlayerKDetailViewController.h"
+#import "PlayerDLDetailViewController.h"
+#import "PlayerLBDetailViewController.h"
+#import "PlayerCBDetailViewController.h"
+#import "PlayerSDetailViewController.h"
 #import "PlayerDetailViewController.h"
 #import "Player.h"
 #import "Team.h"
@@ -14,13 +24,55 @@
 
 #import "UIScrollView+EmptyDataSet.h"
 
-@interface RingOfHonorViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate>
+@interface RingOfHonorViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIViewControllerPreviewingDelegate>
 {
     Team *selectedTeam;
 }
 @end
 
 @implementation RingOfHonorViewController
+
+// 3D Touch methods
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
+- (nullable UIViewController *)previewingContext:(nonnull id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath != nil) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        PlayerDetailViewController *playerDetail;
+        Player *p = selectedTeam.hallOfFamers[indexPath.row];
+        if ([p.position isEqualToString:@"QB"]) {
+            playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"RB"]) {
+            playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"WR"]) {
+            playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"TE"]) {
+            playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"OL"]) {
+            playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"DL"]) {
+            playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"LB"]) {
+            playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"CB"]) {
+            playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"S"]) {
+            playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+        } else if ([p.position isEqualToString:@"K"]) {
+            playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+        } else {
+            playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+        }
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        previewingContext.sourceRect = cell.frame;
+        return playerDetail;
+    } else {
+        return nil;
+    }
+}
 
 -(instancetype)initWithTeam:(Team *)t {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
@@ -48,6 +100,10 @@
     if (selectedTeam.hallOfFamers.count > 0) {
         [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(sortROH)]];
     }
+    
+    if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
+        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    }
 }
 
 -(void)sortROH {
@@ -67,45 +123,7 @@
 
 -(void)sortByOvr {
     [selectedTeam.hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player*)obj1;
-        Player *b = (Player*)obj2;
-        if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured) {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        } else if (a.hasRedshirt) {
-            return 1;
-        } else if (b.hasRedshirt) {
-            return -1;
-        } else if (a.isInjured) {
-            return 1;
-        } else if (b.isInjured) {
-            return  -1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
-                return -1;
-            } else if (a.ratOvr < b.ratOvr) {
-                return 1;
-            } else {
-                if (a.ratPot > b.ratPot) {
-                    return -1;
-                } else if (a.ratPot < b.ratPot) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        }
+        return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
     }];
     [self.tableView reloadData];
 }
@@ -272,7 +290,31 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Player *p = selectedTeam.hallOfFamers[indexPath.row];
-    [self.navigationController pushViewController:[[PlayerDetailViewController alloc] initWithPlayer:p] animated:YES];
+    PlayerDetailViewController *playerDetail;
+    if ([p.position isEqualToString:@"QB"]) {
+        playerDetail = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"RB"]) {
+        playerDetail = [[PlayerRBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"WR"]) {
+        playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"TE"]) {
+        playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"OL"]) {
+        playerDetail = [[PlayerOLDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"DL"]) {
+        playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"LB"]) {
+        playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"CB"]) {
+        playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"S"]) {
+        playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:p];
+    } else if ([p.position isEqualToString:@"K"]) {
+        playerDetail = [[PlayerKDetailViewController alloc] initWithPlayer:p];
+    } else {
+        playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
+    }
+    [self.navigationController pushViewController:playerDetail animated:YES];
 }
 
 @end

@@ -17,9 +17,11 @@
 #import "HexColors.h"
 
 #import "MockDraftViewController.h"
-//#import "RecruitingViewController.h"
 #import "RecruitingPeriodViewController.h"
+#import "TransferPeriodViewController.h"
 #import "GraduatingPlayersViewController.h"
+#import "TransferringPlayersViewController.h"
+#import "TransferLogViewController.h"
 
 #import "ZGNavigationBarTitleViewController.h"
 
@@ -29,6 +31,10 @@ static UIColor *styleColor = nil;
 @implementation HBSharedUtils
 +(NSString *)generalTutorialText {
     return @"In College Football Coach, you play the newly-hired head coach at your college of choice. As head coach, it will be your responsibility to manage your team's strategy, simulate through seasons, recruit new players, and above all, win championships.\n\nPlaying a Season: Your team will play 12 games in the regular season, which consist of playing all 9 of your conference opponents once and three out-of-conference games. The most important game of the regular season is your rivalry game, which you gain prestige if won or lose prestige if lost.\n\nAt the end of the regular season, the Conference Championship is played between the two teams with the best in-conference record. If two teams have the same record, a head-to-head tiebreaker is used. If three or more teams have the same record, the one with the highest poll ranking is chosen. After the Conference Championships, Bowl Games are played. Only the top 24 teams get chosen for a bowl, with the most important being the National Semifinals between the #1 and #4 team, and the #2 and #3 team. The winner of these two games advance to the National Championship where an undisputed champion is crowned.\n\nAfter the season, your team will gain or lose prestige based on their results versus their expectations.\n\nRankings: As your team plays through the season, pollsters will determine how good (or bad) your team is compared to others. This \"poll ranking\" is determined by wins, margin of victory, strength of schedule, and more, and determines who gets into a bowl game and the semifinals.\n\nRoster: When you start your career, you\'ll inherit a roster of 48 players (23 starters), broken down by position like so:\n* 2 Quarterbacks (1 starter)\n* 4 Running Backs (2 starters)\n* 6 Wide Receivers (2 starters)\n* 2 Tight Ends (1 starter)\n* 10 Offensive Linemen (5 starters)\n* 8 Defensive Linemen (4 starters)\n* 6 Linebackers (3 starters)\n* 6 Cornerbacks (3 starters)\n* 2 Safeties (1 starter)\n* 2 Kickers (1 starter)\n\nPlaybooks: As a coach, you can pick what playbooks your team employs on offense and defense throughout the season. Among what\'s offered on offense:\n* Balanced: a standard pro-style offense with equal emphasis on passing and running.\n* Smashmouth: a conservative, run-heavy offense.\n* West Coast: a dink-and-dunk passing game that uses short, accurate passes to set up the run game.\n* Spread: a pass-heavy offense that focuses on big plays but runs the risk of turnovers.\n* Read Option: an offense that relies heavily on option reads based on coverage and LB positioning.\n\nOn defense, coaches can choose from the following philosophies:\n* 4-3 Man: a standard 4-3 man-to-man balanced defense.\n* 4-6 Bear: a defense focused on stopping the run that will not allow yards and big plays on the ground, but may give up big passing plays.\n* Cover 2: a zone defense with safety help in the back against the pass and LBs that stay home to cover the run.\n* Cover 3: a zone defense that will stop big passing plays, but may allow short gains underneath.\n\nEstablish your own college football dynasty today!";
+}
+
++ (NSString *)transferTutorialText {
+    return @"At the end of each season, players may decide to leave their schools because of a lack of playing time. These players are available for you to sign in the transfer portal.\n\nWhen you press \"Start Offseason\" after the season, you can see who is leaving your program and give you a sense of how many players you will need to replace. Next, if you tap the \"View Transfer Portal\" button, the Transfer portal opens up (where you are now).\n\nHere, you can interact with potential transfers and convince them to sign with your program over the others that have extended them offers.\n\nAt the bottom of the screen, you'll see a toolbar with a few options: \"View Team Needs\", a question mark icon, and a jersey icon. The \"View Team Needs\" button displays a popup with your current team needs (which live-updates as you sign recruits), the question mark button allows you to view this help text again, and the jersey button displays your current roster with graduating players grayed out. \n\nThere are two weeks to the transfer signing period. During both weeks, you have four possible interactions with an uncommitted transfer: offering them a meeting with their positional coach, inviting them on an official visit to campus, offering to visit them at home, and extending them an official offer. The first three of these interactions with a player will turn their name orange in the list, while extending them an offer will mark them as dark green. When you advance between stages, other teams will make efforts to sign transfer players. Depending on their interest in your program, transfers will choose to accept your offer or choose another school's. If a transfer accepts your offer, their name will appear in light green. If a transfer commits to a different school, their name will be faded out. If you recruited them and they STILL committed to a different school, their name and the school they committed to will be listed in red. However, you can attempt to flip that transfer's commitment, but because of the amount of effort it takes, you may miss out on other transfers in the process. Keep in mind: the number of transfers you sign during the transfer period limits the number of recruits you can sign during the recruiting season.";
 }
 
 + (NSString *)recruitingTutorialText {
@@ -174,12 +180,100 @@ static UIColor *styleColor = nil;
 +(NSComparisonResult)comparePlayers:(id)obj1 toObj2:(id)obj2 {
     Player *a = (Player*)obj1;
     Player *b = (Player*)obj2;
-    if (![a isInjured] && [b isInjured]) {
-        return -1;
-    } else if ([a isInjured] && ![b isInjured]) {
+    if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured && !a.isTransfer && !b.isTransfer) {
+        if (a.ratOvr > b.ratOvr) {
+            return -1;
+        } else if (a.ratOvr < b.ratOvr) {
+            return 1;
+        } else {
+            if (a.ratPot > b.ratPot) {
+                return -1;
+            } else if (a.ratPot < b.ratPot) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    } else if (a.hasRedshirt) {
         return 1;
+    } else if (b.hasRedshirt) {
+        return -1;
+    } else if (a.isTransfer) {
+        return 1;
+    } else if (b.isTransfer) {
+        return -1;
+    } else if (a.isInjured) {
+        return 1;
+    } else if (b.isInjured) {
+        return  -1;
     } else {
         return a.ratOvr > b.ratOvr ? -1 : (a.ratOvr == b.ratOvr ? [HBSharedUtils comparePositions:obj1 toObj2:obj2] : 1);
+    }
+}
+
++(NSComparisonResult)compareDepthChartPositionsPostInjury:(id)obj1 toObj2:(id)obj2 {
+    Player *a = (Player*)obj1;
+    Player *b = (Player*)obj2;
+    if ([a isInjured] && ![b isInjured]) {
+        return 1;
+    } else if (![a isInjured] && [b isInjured]) {
+        return -1;
+    } else if ([a isInjured] && [b isInjured]) {
+        if (a.ratPot > b.ratPot) {
+            return -1;
+        } else if (a.ratPot < b.ratPot) {
+            return 1;
+        } else {
+            return [a.name compare:b.name];
+        }
+    } else { //(!a.isInjured && !b.isInjured)
+        return 0;
+    }
+}
+
++(NSComparisonResult)compareDepthChartPositions:(id)obj1 toObj2:(id)obj2 {
+    Player *a = (Player*)obj1;
+    Player *b = (Player*)obj2;
+    if (!a.hasRedshirt && !b.hasRedshirt && !a.isInjured && !b.isInjured && !a.isTransfer && !b.isTransfer) {
+        if (a.ratOvr > b.ratOvr) {
+            return -1;
+        } else if (a.ratOvr < b.ratOvr) {
+            return 1;
+        } else {
+            if (a.ratPot > b.ratPot) {
+                return -1;
+            } else if (a.ratPot < b.ratPot) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    } else if (a.hasRedshirt) {
+        return 1;
+    } else if (b.hasRedshirt) {
+        return -1;
+    } else if (a.isTransfer) {
+        return 1;
+    } else if (b.isTransfer) {
+        return -1;
+    } else if (a.isInjured) {
+        return 1;
+    } else if (b.isInjured) {
+        return  -1;
+    } else {
+        if (a.ratOvr > b.ratOvr) {
+            return -1;
+        } else if (a.ratOvr < b.ratOvr) {
+            return 1;
+        } else {
+            if (a.ratPot > b.ratPot) {
+                return -1;
+            } else if (a.ratPot < b.ratPot) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
     }
 }
 
@@ -338,7 +432,7 @@ static UIColor *styleColor = nil;
             [viewController presentViewController:[[ZGNavigationBarTitleViewController alloc] initWithRootViewController:[[RecruitingPeriodViewController alloc] init]] animated:YES completion:nil];
         });
     }]];
-
+    
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Season Summary" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)[[HBSharedUtils currentLeague] getCurrentYear]] message:[[HBSharedUtils currentLeague] seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
@@ -346,6 +440,41 @@ static UIColor *styleColor = nil;
             [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
         });
     }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"View Players Leaving" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [viewController.navigationController pushViewController:[[GraduatingPlayersViewController alloc] init] animated:YES];
+    }]];
+    
+    if (![[self class] currentLeague].didFinishTransferPeriod) {
+        if (![[[self class] currentLeague] transferListEmpty]) {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"View Transfer Portal" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [viewController presentViewController:[[ZGNavigationBarTitleViewController alloc] initWithRootViewController:[[TransferPeriodViewController alloc] init]] animated:YES completion:nil];
+                });
+            }]];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"View Outgoing Transfers" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [viewController.navigationController pushViewController:[[TransferringPlayersViewController alloc] initWithTeam:[[self class] currentLeague].userTeam viewOption:CRCTransferViewOptionOutgoing] animated:YES];
+                });
+            }]];
+        } else {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"No Transfers Available" style:UIAlertActionStyleDefault handler:nil];
+            action.enabled = NO;
+            [alertController addAction:action];
+        }
+    } else {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"View Transfer Class" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [viewController.navigationController pushViewController:[[TransferringPlayersViewController alloc] initWithTeam:[[self class] currentLeague].userTeam viewOption:CRCTransferViewOptionBoth] animated:YES];
+            });
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"View Transfer Log" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [viewController.navigationController pushViewController:[[TransferLogViewController alloc] init] animated:YES];
+            });
+        }]];
+    }
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"View POTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -362,8 +491,19 @@ static UIColor *styleColor = nil;
         });
     }]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"View Players Leaving" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [viewController.navigationController pushViewController:[[GraduatingPlayersViewController alloc] init] animated:YES];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"View ROTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSString *heismanString = [[HBSharedUtils currentLeague] getROTYCeremonyStr];
+            NSArray *heismanParts = [heismanString componentsSeparatedByString:@"?"];
+            NSMutableString *composeHeis = [NSMutableString string];
+            for (int i = 1; i < heismanParts.count; i++) {
+                [composeHeis appendString:heismanParts[i]];
+            }
+            NSLog(@"ROTY: %@", composeHeis);
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Rookie of the Year", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
+            [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
+        });
     }]];
 
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Mock Draft" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -487,6 +627,10 @@ static UIColor *styleColor = nil;
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Player of the Year", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
                 [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
                 [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
+                
+                NSString *roty = [simLeague getROTYCeremonyStr];
+                NSLog(@"ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
+                
                 [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
             } else if (simLeague.currentWeek == 14) {
                 [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
@@ -537,6 +681,9 @@ static UIColor *styleColor = nil;
                 } else if (simLeague.currentWeek == 13) {
                     NSString *heisman = [simLeague getHeismanCeremonyStr];
                     NSLog(@"HEISMAN: %@", heisman); //can't do anything with this result, just want to run it tbh
+                    
+                    NSString *roty = [simLeague getROTYCeremonyStr];
+                    NSLog(@"ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
                     [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 14) {
                     [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
@@ -741,6 +888,17 @@ static UIColor *styleColor = nil;
 + (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber {
     float diff = bigNumber - smallNumber;
     return (((float) (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX) * diff) + smallNumber;
+}
+
++(BOOL)isValidNumber:(id)supposedNumber {
+    NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    return ([supposedNumber isKindOfClass:[NSNumber class]] || [supposedNumber rangeOfCharacterFromSet:notDigits].location == NSNotFound);
+}
+
++(NSString *)currentMinorVersion {
+    NSString *version = HB_CURRENT_APP_VERSION;
+    NSLog(@"Minor Version %@", [version stringByDeletingPathExtension]);
+    return [version stringByDeletingPathExtension];
 }
 
 @end

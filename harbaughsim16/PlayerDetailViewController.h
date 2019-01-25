@@ -9,7 +9,15 @@
 #import <UIKit/UIKit.h>
 @class Player;
 #import "FCTableViewController.h"
+#import "HBPlayerDetailView.h"
 
 @interface PlayerDetailViewController : FCTableViewController
+{
+    Player *selectedPlayer;
+    NSDictionary *stats;
+    NSDictionary *careerStats;
+    NSDictionary *ratings;
+    IBOutlet HBPlayerDetailView *playerDetailView;
+}
 -(instancetype)initWithPlayer:(Player*)player;
 @end

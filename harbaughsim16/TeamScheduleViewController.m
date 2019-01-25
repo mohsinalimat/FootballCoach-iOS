@@ -86,11 +86,15 @@
     [cell.gameScoreLabel setText:[userTeam getGameSummaryStrings:index][1]];
     [cell.gameSummaryLabel setText:[userTeam getGameSummaryStrings:index][2]];
     
-    if (userTeam.gameWLSchedule.count > 0) {
-        if ([cell.gameScoreLabel.text containsString:@"W"]) {
-            [cell.gameScoreLabel setTextColor:[HBSharedUtils successColor]];
-        } else if ([cell.gameScoreLabel.text containsString:@"L"]) {
-            [cell.gameScoreLabel setTextColor:[HBSharedUtils errorColor]];
+    if (userTeam.gameWLSchedule.count > indexPath.row) {
+        if (![cell.gameScoreLabel.text containsString:userTeam.abbreviation] && ![cell.gameScoreLabel.text containsString:@"PUSH"]) {
+            if ([cell.gameScoreLabel.text containsString:@"W"]) {
+                [cell.gameScoreLabel setTextColor:[HBSharedUtils successColor]];
+            } else if ([cell.gameScoreLabel.text containsString:@"L"]) {
+                [cell.gameScoreLabel setTextColor:[HBSharedUtils errorColor]];
+            } else {
+                [cell.gameScoreLabel setTextColor:[UIColor blackColor]];
+            }
         } else {
             [cell.gameScoreLabel setTextColor:[UIColor blackColor]];
         }

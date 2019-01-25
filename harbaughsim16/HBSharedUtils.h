@@ -23,6 +23,7 @@
 #define HB_APP_REVIEW_URL @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1095701497&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software"
 
 #define HB_CURRENT_APP_VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define HB_APP_VERSION_CURRENT_MINOR_VERSION [HBSharedUtils currentMinorVersion]
 #define HB_APP_VERSION_PRE_OVERHAUL @"1.1.4"
 #define HB_APP_VERSION_POST_OVERHAUL @"2.0"
 
@@ -90,8 +91,17 @@ typedef enum {
     CFCRecruitingStageWinter,
     CFCRecruitingStageEarlySigningDay,
     CFCRecruitingStageSigningDay,
-    CFCRecruitingStageFallCamp
+    CFCRecruitingStageFallCamp,
+    CFCRecruitingStageStartTransferPeriod,
+    CFCRecruitingStageMidTransferPeriod,
+    CFCRecruitingStageEndTransferPeriod
 } CFCRecruitingStage;
+
+typedef enum {
+    CRCTransferViewOptionIncoming,
+    CRCTransferViewOptionOutgoing,
+    CRCTransferViewOptionBoth
+} CRCTransferViewOption;
 
 @interface HBSharedUtils : NSObject
 +(double)randomValue;
@@ -111,6 +121,7 @@ typedef enum {
 + (NSString *)recruitingTutorialText;
 + (NSString *)depthChartTutorialText;
 + (NSString *)metadataEditingText;
++ (NSString *)transferTutorialText;
 
 +(void)showNotificationWithTintColor:(UIColor*)tintColor message:(NSString*)message onViewController:(UIViewController*)viewController;
 +(void)showNotificationWithTintColor:(UIColor*)tintColor title:(NSString *)title message:(NSString*)message onViewController:(UIViewController*)viewController;
@@ -118,6 +129,8 @@ typedef enum {
 
 +(NSComparisonResult)compareRecruitingComposite:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePlayers:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareDepthChartPositions:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareDepthChartPositionsPostInjury:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)comparePositions:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareDivTeams:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareMVPScore:(id)obj1 toObj2:(id)obj2;
@@ -153,4 +166,7 @@ typedef enum {
 +(CFCRegion)regionForState:(NSString *)state;
 +(CFCRegionDistance)distanceFromRegion:(CFCRegion)region1 toRegion:(CFCRegion)region2;
 + (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber;
+
++(BOOL)isValidNumber:(id)supposedNumber;
++(NSString *)currentMinorVersion;
 @end

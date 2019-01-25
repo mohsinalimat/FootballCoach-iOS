@@ -164,7 +164,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 7;
+        return 8;
     } else {
         return history.count;
     }
@@ -282,10 +282,17 @@
             } else {
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
-        } else {
+        } else if (index == 6) {
             [cell.textLabel setText:@"Player of the Year Awards Won"];
             if (selectedTeam.heismans > 0) {
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedTeam.heismans]];
+            } else {
+                [cell.detailTextLabel setText:@"0"];
+            }
+        } else {
+            [cell.textLabel setText:@"Rookie of the Year Awards Won"];
+            if (selectedTeam.rotys > 0) {
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedTeam.rotys]];
             } else {
                 [cell.detailTextLabel setText:@"0"];
             }
