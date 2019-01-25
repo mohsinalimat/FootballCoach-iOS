@@ -590,6 +590,7 @@
 
      // all transfers have been added to new teams in -[TransferPeriodViewController advanceRecruits] and have been removed from this roster above. we can clear these out now.
     [playersTransferring removeAllObjects];
+    playersTransferring = nil;
     [transferClass removeAllObjects];
 
     int stars = teamPrestige/20 + 1;
@@ -2406,7 +2407,8 @@
 }
 
 -(void)getTransferringPlayers {
-    if (playersTransferring.count == 0) {
+    if (([league getCurrentYear] == league.baseYear && playersTransferring.count == 0)
+        || ([league getCurrentYear] != league.baseYear && playersTransferring == nil)) {
         playersTransferring = [NSMutableArray array];
         [self _calculateTransferringPlayers:teamQBs position:@"QB" starterCount:1];
         [self _calculateTransferringPlayers:teamRBs position:@"RB" starterCount:2];
@@ -2418,11 +2420,13 @@
         [self _calculateTransferringPlayers:teamCBs position:@"CB" starterCount:3];
         [self _calculateTransferringPlayers:teamSs position:@"S" starterCount:1];
         [self _calculateTransferringPlayers:teamKs position:@"K" starterCount:1];
-        NSLog(@"XFER: There are %lu transfers for %@ this year.", (unsigned long)playersTransferring.count, abbreviation);
+        NSLog(@"XFER: There are %ld transfers for %@ this year.", (long)playersTransferring.count, abbreviation);
     }
 }
 
 -(void)getGraduatingPlayers {
+    [self getTransferringPlayers];
+
     if (playersLeaving == nil || playersLeaving.count == 0) {
         playersLeaving = [NSMutableArray array];
         double draftChance = NFL_CHANCE;
@@ -2445,8 +2449,6 @@
             }
         }
     }
-
-    [self getTransferringPlayers];
 }
 
 -(NSString*)injuryReport {
@@ -2517,7 +2519,7 @@
 
 
     if (numInjured > 0) {
-        [self sortPlayersPostInjury];
+        [self sortPlayers];
     }
 }
 
@@ -2567,8 +2569,7 @@
              [TeamStrategy newStrategyWithName:@"4-3 Man" description:@"Play a standard 4-3 man-to-man balanced defense." rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1],
              [TeamStrategy newStrategyWithName:@"4-6 Bear" description:@"Play a defense focused on stopping the run. Will allow few yards and big plays on the ground, but may give up big passing plays." rPref:2 runProt:0 runPot:2 rUsg:1 pPref:1 passProt:-1 passPot:-1 pUsg:0],
              [TeamStrategy newStrategyWithName:@"Cover 2" description:@"Play a zone defense with safety help in the back against the pass and LBs that stay home to cover the run." rPref:2 runProt:0 runPot:-1 rUsg:1 pPref:3 passProt:2 passPot:0 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense that will stop big passing plays, but may allow short gains underneath." rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1]//,
-             //[TeamStrategy newStrategyWithName:@"3-4 Man" description:@"Play a standard 3-4 man-to-man balanced defense." rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense that will stop big passing plays, but may allow short gains underneath." rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1]
              ];
 }
 

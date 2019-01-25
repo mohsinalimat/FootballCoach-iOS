@@ -250,11 +250,11 @@ static UIColor *styleColor = nil;
 +(NSComparisonResult)compareDepthChartPositionsPostInjury:(id)obj1 toObj2:(id)obj2 {
     Player *a = (Player*)obj1;
     Player *b = (Player*)obj2;
-    if (a.isInjured && !b.isInjured) {
+    if ([a isInjured] && ![b isInjured]) {
         return 1;
-    } else if (!a.isInjured && b.isInjured) {
+    } else if (![a isInjured] && [b isInjured]) {
         return -1;
-    } else if (a.isInjured && b.isInjured) {
+    } else if ([a isInjured] && [b isInjured]) {
         if (a.ratPot > b.ratPot) {
             return -1;
         } else if (a.ratPot < b.ratPot) {
