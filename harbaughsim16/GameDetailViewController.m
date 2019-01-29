@@ -638,7 +638,7 @@
                 } else if (selectedGame.homeTeam.injuredPlayers.count == 1) {
                     number = @"1 player out";
                 } else {
-                    number = [NSString stringWithFormat:@"%lu players out",(long)selectedGame.awayTeam.injuredPlayers.count];
+                    number = [NSString stringWithFormat:@"%lu players out",(long)selectedGame.homeTeam.injuredPlayers.count];
                 }
                 [cell.textLabel setText:[NSString stringWithFormat:@"%@ Injury Report",selectedGame.homeTeam.abbreviation]];
                 [cell.detailTextLabel setText:number];
