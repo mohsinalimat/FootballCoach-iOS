@@ -51,9 +51,6 @@
     
     userCoach = [[HBSharedUtils currentLeague].userTeam getCurrentHC];
     
-//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-//    [hud setMode:MBProgressHUDModeIndeterminate];
-//    [hud.label setText:@"Retrieving open coaching jobs..."];
     availableJobs = [NSMutableArray array];
     for (Team *t in [HBSharedUtils currentLeague].teamList) {
         if (![t isEqual:[HBSharedUtils currentLeague].userTeam]
@@ -62,9 +59,6 @@
             [availableJobs addObject:t];
         }
     }
-    //    availableJobs = [HBSharedUtils currentLeague].teamList; // for testing
-    
-    
 
     [availableJobs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
@@ -244,7 +238,7 @@
                 break;
             }
         } else {
-            lastBowlYear = [NSString stringWithFormat:@"%ld", [[HBSharedUtils currentLeague] getCurrentYear]];
+            lastBowlYear = [NSString stringWithFormat:@"%ld", (long)[[HBSharedUtils currentLeague] getCurrentYear]];
         }
         [lastBowlMap setObject:lastBowlYear forKey:t.abbreviation];
         
@@ -257,7 +251,7 @@
                 break;
             }
         } else {
-            lastCCGYear = [NSString stringWithFormat:@"%ld", [[HBSharedUtils currentLeague] getCurrentYear]];
+            lastCCGYear = [NSString stringWithFormat:@"%ld", (long)[[HBSharedUtils currentLeague] getCurrentYear]];
         }
         [lastCCGMap setObject:lastCCGYear forKey:t.abbreviation];
         
@@ -270,7 +264,7 @@
                 break;
             }
         } else {
-            lastNCGYear = [NSString stringWithFormat:@"%ld", [[HBSharedUtils currentLeague] getCurrentYear]];
+            lastNCGYear = [NSString stringWithFormat:@"%ld", (long)[[HBSharedUtils currentLeague] getCurrentYear]];
         }
         [lastNCGMap setObject:lastNCGYear forKey:t.abbreviation];
     }
@@ -427,7 +421,7 @@
     [cell.weightLabel setAttributedText:recordString];
     [cell.interestLabel setAttributedText:lifetimeRecordString];
     
-    [cell.rankLabel setText:[NSString stringWithFormat:@"#%ld job avl", (indexPath.row + 1)]];
+    [cell.rankLabel setText:[NSString stringWithFormat:@"#%ld job avl", (long)(indexPath.row + 1)]];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

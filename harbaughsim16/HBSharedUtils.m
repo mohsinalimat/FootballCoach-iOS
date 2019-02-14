@@ -530,11 +530,35 @@ static UIColor *styleColor = nil;
                             [viewController presentViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]] animated:YES completion:nil];
                         });
                     }]];
-//                    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                            [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
-//                        });
-//                    }]];
+                    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"Reincarnate" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+
+                        UIAlertController *reincarnateVC = [UIAlertController alertControllerWithTitle:@"This will reset your ratings to league average and roll your age back to 32, but allow you to continue playing in your current save file and with your existing coaching history. You can also choose to take a new job at this time." message:@"Are you sure you want to proceed?" preferredStyle:UIAlertControllerStyleAlert];
+                        [reincarnateVC addAction:[UIAlertAction actionWithTitle:@"Yes, and I want to stay with my current team." style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].age = 32;
+                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratOff = [[HBSharedUtils currentLeague] getAvgCoachOff];
+                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDef = [[HBSharedUtils currentLeague] getAvgCoachDef];
+                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratTalent = [[HBSharedUtils currentLeague] getAvgCoachTalent];
+                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDiscipline = [[HBSharedUtils currentLeague] getAvgCoachDiscipline];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [[NSNotificationCenter defaultCenter] postNotificationName:@"reincarnateCoach" object:nil];
+                            });
+                        }]];
+                        [reincarnateVC addAction:[UIAlertAction actionWithTitle:@"Yes, but I want to change teams." style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].age = 32;
+                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratOff = [[HBSharedUtils currentLeague] getAvgCoachOff];
+                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDef = [[HBSharedUtils currentLeague] getAvgCoachDef];
+                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratTalent = [[HBSharedUtils currentLeague] getAvgCoachTalent];
+                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDiscipline = [[HBSharedUtils currentLeague] getAvgCoachDiscipline];
+                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                [[NSNotificationCenter defaultCenter] postNotificationName:@"reincarnateCoach" object:nil];
+                                [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
+                            });
+                        }]];
+                        [reincarnateVC addAction:[UIAlertAction actionWithTitle:@"No, I do not want to proceed." style:UIAlertActionStyleCancel handler:nil]];
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [viewController presentViewController:reincarnateVC animated:YES completion:nil];
+                        });
+                    }]];
                     [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"Start New Game" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                        // are you sure?
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

@@ -32,8 +32,7 @@
         selectedRecruit = p;
         recruitEvents = [NSMutableArray arrayWithArray:events];
 
-        
-        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height * 0.85);
+        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height * 0.80);
     }
     return self;
 }
