@@ -211,10 +211,18 @@
 
 -(NSDictionary*)detailedStats:(int)games {
     NSMutableDictionary *stats = [NSMutableDictionary dictionary];
-    [stats setObject:[NSString stringWithFormat:@"%d",self.ratPot] forKey:@"dlPotential"];
-    [stats setObject:[self getLetterGrade:ratDLPow] forKey:@"dlPow"];
-    [stats setObject:[self getLetterGrade:ratDLRsh] forKey:@"dlRun"];
-    [stats setObject:[self getLetterGrade:ratDLPas] forKey:@"dlPass"];
+    [stats setObject:[NSString stringWithFormat:@"%d Tkls",self.statsTkl] forKey:@"tackles"];
+    [stats setObject:[NSString stringWithFormat:@"%d Fum",self.statsForcedFum] forKey:@"forcedFumbles"];
+    [stats setObject:[NSString stringWithFormat:@"%d sacks",self.statsSacks] forKey:@"sacks"];
+    
+    return [stats copy];
+}
+
+-(NSDictionary*)detailedCareerStats {
+    NSMutableDictionary *stats = [NSMutableDictionary dictionary];
+    [stats setObject:[NSString stringWithFormat:@"%d Tkls",self.careerStatsTkl] forKey:@"tackles"];
+    [stats setObject:[NSString stringWithFormat:@"%d Fum",self.careerStatsForcedFum] forKey:@"forcedFumbles"];
+    [stats setObject:[NSString stringWithFormat:@"%d sacks",self.careerStatsSacks] forKey:@"sacks"];
     
     return [stats copy];
 }
@@ -228,5 +236,57 @@
     return [stats copy];
 }
 
+-(void)checkRecords {
+    // sacks
+    if (self.statsSacks > self.team.singleSeasonSacksRecord.statistic) {
+        self.team.singleSeasonSacksRecord = [Record newRecord:@"Sacks" player:self stat:self.statsSacks year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsSacks > self.team.careerSacksRecord.statistic) {
+        self.team.careerSacksRecord = [Record newRecord:@"Sacks" player:self stat:self.careerStatsSacks year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.statsSacks > self.team.league.singleSeasonSacksRecord.statistic) {
+        self.team.league.singleSeasonSacksRecord = [Record newRecord:@"Sacks" player:self stat:self.statsSacks year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsSacks > self.team.league.careerSacksRecord.statistic) {
+        self.team.league.careerSacksRecord = [Record newRecord:@"Sacks" player:self stat:self.careerStatsSacks year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // tackles
+    if (self.statsTkl > self.team.singleSeasonTacklesRecord.statistic) {
+        self.team.singleSeasonTacklesRecord = [Record newRecord:@"Tackles" player:self stat:self.statsTkl year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsTkl > self.team.careerTacklesRecord.statistic) {
+        self.team.careerTacklesRecord = [Record newRecord:@"Tackles" player:self stat:self.careerStatsTkl year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.statsTkl > self.team.league.singleSeasonTacklesRecord.statistic) {
+        self.team.league.singleSeasonTacklesRecord = [Record newRecord:@"Tackles" player:self stat:self.statsTkl year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsTkl > self.team.league.careerTacklesRecord.statistic) {
+        self.team.league.careerTacklesRecord = [Record newRecord:@"Tackles" player:self stat:self.careerStatsTkl year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    //forced fum
+    if (self.statsForcedFum > self.team.singleSeasonForcedFumRecord.statistic) {
+        self.team.singleSeasonForcedFumRecord = [Record newRecord:@"Forced Fumbles" player:self stat:self.statsForcedFum year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsForcedFum > self.team.careerForcedFumRecord.statistic) {
+        self.team.careerForcedFumRecord = [Record newRecord:@"Forced Fumbles" player:self stat:self.careerStatsForcedFum year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.statsForcedFum > self.team.league.singleSeasonForcedFumRecord.statistic) {
+        self.team.league.singleSeasonForcedFumRecord = [Record newRecord:@"Forced Fumbles" player:self stat:self.statsForcedFum year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsForcedFum > self.team.league.careerForcedFumRecord.statistic) {
+        self.team.league.careerForcedFumRecord = [Record newRecord:@"Forced Fumbles" player:self stat:self.careerStatsForcedFum year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+}
 
 @end

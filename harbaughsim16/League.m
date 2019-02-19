@@ -39,7 +39,7 @@
 #endif
 
 @implementation League
-@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary;
+@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary,singleSeasonSacksRecord,singleSeasonTacklesRecord,singleSeasonPassDefRecord,singleSeasonForcedFumRecord,singleSeasonDefInterceptionsRecord,careerSacksRecord,careerTacklesRecord,careerPassDefRecord,careerForcedFumRecord,careerDefInterceptionsRecord;
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
@@ -90,6 +90,11 @@
     [encoder encodeObject:self.singleSeasonCatchesRecord forKey:@"singleSeasonCatchesRecord"];
     [encoder encodeObject:self.singleSeasonFgMadeRecord forKey:@"singleSeasonFgMadeRecord"];
     [encoder encodeObject:self.singleSeasonXpMadeRecord forKey:@"singleSeasonXpMadeRecord"];
+    [encoder encodeObject:self.singleSeasonSacksRecord forKey:@"singleSeasonSacksRecord"];
+    [encoder encodeObject:self.singleSeasonTacklesRecord forKey:@"singleSeasonTacklesRecord"];
+    [encoder encodeObject:self.singleSeasonPassDefRecord forKey:@"singleSeasonPassDefRecord"];
+    [encoder encodeObject:self.singleSeasonForcedFumRecord forKey:@"singleSeasonForcedFumRecord"];
+    [encoder encodeObject:self.singleSeasonDefInterceptionsRecord forKey:@"singleSeasonDefInterceptionsRecord"];
 
     [encoder encodeObject:self.careerCompletionsRecord forKey:@"careerCompletionsRecord"];
     [encoder encodeObject:self.careerPassYardsRecord forKey:@"careerPassYardsRecord"];
@@ -104,6 +109,11 @@
     [encoder encodeObject:self.careerCatchesRecord forKey:@"careerCatchesRecord"];
     [encoder encodeObject:self.careerFgMadeRecord forKey:@"careerFgMadeRecord"];
     [encoder encodeObject:self.careerXpMadeRecord forKey:@"careerXpMadeRecord"];
+    [encoder encodeObject:self.careerSacksRecord forKey:@"careerSacksRecord"];
+    [encoder encodeObject:self.careerTacklesRecord forKey:@"careerTacklesRecord"];
+    [encoder encodeObject:self.careerPassDefRecord forKey:@"careerPassDefRecord"];
+    [encoder encodeObject:self.careerForcedFumRecord forKey:@"careerForcedFumRecord"];
+    [encoder encodeObject:self.careerDefInterceptionsRecord forKey:@"careerDefInterceptionsRecord"];
 
     //deprecated
     [encoder encodeInt:leagueRecordFum forKey:@"leagueRecordFum"];
@@ -370,6 +380,37 @@
         } else {
             self.singleSeasonFgMadeRecord = [decoder decodeObjectForKey:@"singleSeasonFgMadeRecord"];
         }
+        
+        //def records
+        if (![decoder containsValueForKey:@"singleSeasonSacksRecord"]) {
+            self.singleSeasonSacksRecord = nil;
+        } else {
+            self.singleSeasonSacksRecord = [decoder decodeObjectForKey:@"singleSeasonSacksRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonTacklesRecord"]) {
+            self.singleSeasonTacklesRecord = nil;
+        } else {
+            self.singleSeasonTacklesRecord = [decoder decodeObjectForKey:@"singleSeasonTacklesRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonPassDefRecord"]) {
+            self.singleSeasonPassDefRecord = nil;
+        } else {
+            self.singleSeasonPassDefRecord = [decoder decodeObjectForKey:@"singleSeasonPassDefRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonDefInterceptionsRecord"]) {
+            self.singleSeasonDefInterceptionsRecord = nil;
+        } else {
+            self.singleSeasonDefInterceptionsRecord = [decoder decodeObjectForKey:@"singleSeasonDefInterceptionsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"singleSeasonForcedFumRecord"]) {
+            self.singleSeasonForcedFumRecord = nil;
+        } else {
+            self.singleSeasonForcedFumRecord = [decoder decodeObjectForKey:@"singleSeasonForcedFumRecord"];
+        }
 
         //career
         //pass records
@@ -456,6 +497,37 @@
             self.careerFgMadeRecord = nil;
         } else {
             self.careerFgMadeRecord = [decoder decodeObjectForKey:@"careerFgMadeRecord"];
+        }
+        
+        //def records
+        if (![decoder containsValueForKey:@"careerSacksRecord"]) {
+            self.careerSacksRecord = nil;
+        } else {
+            self.careerSacksRecord = [decoder decodeObjectForKey:@"careerSacksRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerTacklesRecord"]) {
+            self.careerTacklesRecord = nil;
+        } else {
+            self.careerTacklesRecord = [decoder decodeObjectForKey:@"careerTacklesRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerPassDefRecord"]) {
+            self.careerPassDefRecord = nil;
+        } else {
+            self.careerPassDefRecord = [decoder decodeObjectForKey:@"careerPassDefRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerDefInterceptionsRecord"]) {
+            self.careerDefInterceptionsRecord = nil;
+        } else {
+            self.careerDefInterceptionsRecord = [decoder decodeObjectForKey:@"careerDefInterceptionsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerForcedFumRecord"]) {
+            self.careerForcedFumRecord = nil;
+        } else {
+            self.careerForcedFumRecord = [decoder decodeObjectForKey:@"careerForcedFumRecord"];
         }
 
         if (![decoder containsValueForKey:@"lastNameList"]) {
@@ -611,6 +683,26 @@
     if (singleSeasonFgMadeRecord != nil) {
         [records addObject:singleSeasonFgMadeRecord];
     }
+    
+    if (singleSeasonSacksRecord != nil) {
+        [records addObject:singleSeasonSacksRecord];
+    }
+    
+    if (singleSeasonTacklesRecord != nil) {
+        [records addObject:singleSeasonTacklesRecord];
+    }
+    
+    if (singleSeasonPassDefRecord != nil) {
+        [records addObject:singleSeasonPassDefRecord];
+    }
+    
+    if (singleSeasonForcedFumRecord != nil) {
+        [records addObject:singleSeasonForcedFumRecord];
+    }
+    
+    if (singleSeasonDefInterceptionsRecord != nil) {
+        [records addObject:singleSeasonDefInterceptionsRecord];
+    }
 
     return records;
 }
@@ -667,6 +759,26 @@
 
     if (careerFgMadeRecord != nil) {
         [records addObject:careerFgMadeRecord];
+    }
+    
+    if (careerSacksRecord != nil) {
+        [records addObject:careerSacksRecord];
+    }
+    
+    if (careerTacklesRecord != nil) {
+        [records addObject:careerTacklesRecord];
+    }
+    
+    if (careerPassDefRecord != nil) {
+        [records addObject:careerPassDefRecord];
+    }
+    
+    if (careerForcedFumRecord != nil) {
+        [records addObject:careerForcedFumRecord];
+    }
+    
+    if (careerDefInterceptionsRecord != nil) {
+        [records addObject:careerDefInterceptionsRecord];
     }
 
     return records;
@@ -880,6 +992,11 @@
         careerCatchesRecord = nil;
         careerXpMadeRecord = nil;
         careerFgMadeRecord = nil;
+        careerSacksRecord = nil;
+        careerTacklesRecord = nil;
+        careerPassDefRecord = nil;
+        careerForcedFumRecord = nil;
+        careerDefInterceptionsRecord = nil;
 
         singleSeasonCompletionsRecord = nil;
         singleSeasonPassYardsRecord = nil;
@@ -894,6 +1011,11 @@
         singleSeasonCatchesRecord = nil;
         singleSeasonXpMadeRecord = nil;
         singleSeasonFgMadeRecord = nil;
+        singleSeasonSacksRecord = nil;
+        singleSeasonTacklesRecord = nil;
+        singleSeasonPassDefRecord = nil;
+        singleSeasonForcedFumRecord = nil;
+        singleSeasonDefInterceptionsRecord = nil;
 
         [conferences addObject:[Conference newConferenceWithName:@"SOUTH" fullName:@"Southern" league:self]];
         [conferences addObject:[Conference newConferenceWithName:@"LAKES" fullName:@"Lakes" league:self]];
