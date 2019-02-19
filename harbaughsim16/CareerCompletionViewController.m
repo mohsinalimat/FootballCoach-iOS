@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *careerNCGRecordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *careerAwardsReportLabel;
 @property (weak, nonatomic) IBOutlet UILabel *playerAwardsReportLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *coachCareerScoreLabel;
 @end
 @implementation CareerCompletionGlimpseView
 @end
@@ -81,6 +83,8 @@
     [glimpseView.playerAwardsReportLabel setText:[selectedCoach playerAwardReportString]];
     [glimpseView.playerAwardsReportLabel sizeToFit];
     
+    [glimpseView.coachCareerScoreLabel setText:[NSString stringWithFormat:@"%d", [selectedCoach getCoachCareerScore]]];
+    
     if (IS_IPHONE_5) {
         [glimpseView.careerConfRecordTitleLabel setText:@"Conf"];
         [glimpseView.careerCCGRecordTitleLabel setText:@"In CCG"];
@@ -93,9 +97,9 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(IBAction)viewCareerOptions {
-    
-}
+//-(IBAction)viewCareerOptions {
+//    
+//}
 
 -(IBAction)shareCareer:(id)sender {
     UIImage *glimpseImage = [self imageFromView:glimpseView];

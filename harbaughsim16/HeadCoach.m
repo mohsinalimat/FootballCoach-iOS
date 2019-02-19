@@ -209,6 +209,12 @@
     return (prestigeDiff * 10) + (self.team.teamStrengthOfWins / 20) + (3 * (self.team.wins - self.team.losses)) + [self.team.league findConference:self.team.conference].confPrestige;
 }
 
+-(int)getCoachCareerScore {
+    if (self.year < 1) return 0;
+    else
+        return (5 * (self.totalWins) - 2 * (self.totalLosses) + 10 * self.totalNCs + 3 * self.totalCCs + 10 * self.careerCOTYs + 3 * self.careerConfCOTYs + self.totalAllConferences + 2 * self.totalAllAmericans + 5* self.cumulativePrestige) / self.year;
+}
+
 -(NSString *)coachMetadataJSON {
     NSMutableString *jsonString = [NSMutableString string];
     [jsonString appendString:@"{"];

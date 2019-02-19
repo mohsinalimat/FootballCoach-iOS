@@ -66,6 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *)uniqueIdentifier;
 -(NSString *)getInitialName;
 -(int)getCoachScore;
+-(int)getCoachCareerScore;
 -(void)advanceSeason:(int)avgYards offTalent:(int)offTalent defTalent:(int)defTalent;
 -(NSDictionary*)detailedCareerStats;
 -(NSDictionary*)detailedRatings;
