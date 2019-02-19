@@ -799,9 +799,19 @@
 }
 
 -(int)getMinCoachHireReq {
-    int req = (int)(league.teamList.count - rankTeamPrestige) / 2 + (int)round(league.teamList.count/3.6);
-    if (req >= 88) req = 88;
-    return req;
+//    int req = (league.teamList.count - rankTeamPrestige) / 2 + (int)round(league.teamList.count/3.6);
+//    if (req >= 88) req = 88;
+//    return req;
+    
+    if (teamPrestige < 61) {
+        return 50;
+    } else if (teamPrestige < 71) {
+        return teamPrestige - 2;
+    } else if (teamPrestige < 81) {
+        return teamPrestige - 5;
+    } else { // if (teamPrestige < 100)
+        return teamPrestige - 8;
+    }
 }
 
 -(HeadCoach *)getHC:(int)depth {
@@ -2124,9 +2134,9 @@
 
     if (league.isCareerMode) {
         if (coachGotNewContract) {
-            [summary appendFormat:@"\n\nCongratulations! Your contact has been extended %d years!", [self getCurrentHC].contractLength];
+            [summary appendFormat:@"\n\nCongratulations! Your contract has been extended %d years!", [self getCurrentHC].contractLength];
         } else if (coachFired) {
-            [summary appendString:@"\n\nSince you failed to raise the team's prestige during your contract, the AD has decided to fire you. This team may take an additional prestige hit because of your firing."];
+            [summary appendString:@"\n\nSince you failed to raise your team's prestige during your contract, your athletic director has decided to fire you. Your now-former program may take an additional prestige hit because of your firing."];
         } else {
             [summary appendFormat:@"\n\n%@",coachContractString];
         }
