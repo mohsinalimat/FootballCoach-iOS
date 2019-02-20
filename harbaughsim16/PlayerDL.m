@@ -209,11 +209,17 @@
     [super advanceSeason];
 }
 
+-(int)getHeismanScore {
+    return _statsTkl * 25 + _statsSacks * 425 + _statsForcedFum * 425 + _statsInt * 425;
+}
+
 -(NSDictionary*)detailedStats:(int)games {
     NSMutableDictionary *stats = [NSMutableDictionary dictionary];
     [stats setObject:[NSString stringWithFormat:@"%d Tkls",self.statsTkl] forKey:@"tackles"];
     [stats setObject:[NSString stringWithFormat:@"%d Fum",self.statsForcedFum] forKey:@"forcedFumbles"];
     [stats setObject:[NSString stringWithFormat:@"%d sacks",self.statsSacks] forKey:@"sacks"];
+    [stats setObject:[NSString stringWithFormat:@"%d INT",self.statsInt] forKey:@"interceptions"];
+    [stats setObject:[NSString stringWithFormat:@"%d passes def",self.statsPassDef] forKey:@"passesDefended"];
     
     return [stats copy];
 }
@@ -223,6 +229,8 @@
     [stats setObject:[NSString stringWithFormat:@"%d Tkls",self.careerStatsTkl] forKey:@"tackles"];
     [stats setObject:[NSString stringWithFormat:@"%d Fum",self.careerStatsForcedFum] forKey:@"forcedFumbles"];
     [stats setObject:[NSString stringWithFormat:@"%d sacks",self.careerStatsSacks] forKey:@"sacks"];
+    [stats setObject:[NSString stringWithFormat:@"%d INT",self.careerStatsInt] forKey:@"interceptions"];
+    [stats setObject:[NSString stringWithFormat:@"%d passes def",self.careerStatsPassDef] forKey:@"passesDefended"];
     
     return [stats copy];
 }
@@ -286,6 +294,40 @@
     
     if (self.careerStatsForcedFum > self.team.league.careerForcedFumRecord.statistic) {
         self.team.league.careerForcedFumRecord = [Record newRecord:@"Forced Fumbles" player:self stat:self.careerStatsForcedFum year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // passes def
+    if (self.statsPassDef > self.team.singleSeasonPassDefRecord.statistic) {
+        self.team.singleSeasonPassDefRecord = [Record newRecord:@"Passes Defended" player:self stat:self.statsPassDef year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsPassDef > self.team.careerPassDefRecord.statistic) {
+        self.team.careerPassDefRecord = [Record newRecord:@"Passes Defended" player:self stat:self.careerStatsPassDef year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.statsPassDef > self.team.league.singleSeasonPassDefRecord.statistic) {
+        self.team.league.singleSeasonPassDefRecord = [Record newRecord:@"Passes Defended" player:self stat:self.statsPassDef year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsPassDef > self.team.league.careerPassDefRecord.statistic) {
+        self.team.league.careerPassDefRecord = [Record newRecord:@"Passes Defended" player:self stat:self.careerStatsPassDef year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    //interceptions
+    if (self.statsInt > self.team.singleSeasonDefInterceptionsRecord.statistic) {
+        self.team.singleSeasonDefInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.statsInt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsInt > self.team.careerDefInterceptionsRecord.statistic) {
+        self.team.careerDefInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.careerStatsInt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.statsInt > self.team.league.singleSeasonDefInterceptionsRecord.statistic) {
+        self.team.league.singleSeasonDefInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.statsInt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsInt > self.team.league.careerDefInterceptionsRecord.statistic) {
+        self.team.league.careerDefInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.careerStatsInt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 }
 

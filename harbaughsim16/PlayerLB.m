@@ -160,6 +160,7 @@
     
     [stats setObject:[NSString stringWithFormat:@"%d passes def",self.statsPassDef] forKey:@"passesDefended"];
     [stats setObject:[NSString stringWithFormat:@"%d sacks",self.statsSacks] forKey:@"sacks"];
+    [stats setObject:[NSString stringWithFormat:@"%d INT",self.statsInt] forKey:@"interceptions"];
     
     return [stats copy];
 }
@@ -171,6 +172,7 @@
     
     [stats setObject:[NSString stringWithFormat:@"%d passes def",self.careerStatsPassDef] forKey:@"passesDefended"];
     [stats setObject:[NSString stringWithFormat:@"%d sacks",self.careerStatsSacks] forKey:@"sacks"];
+    [stats setObject:[NSString stringWithFormat:@"%d INT",self.careerStatsInt] forKey:@"interceptions"];
     
     return [stats copy];
 }
@@ -182,6 +184,10 @@
     [stats setObject:[self getLetterGrade:ratLBPas] forKey:@"lbPass"];
     [stats setObject:[self getLetterGrade:self.ratFootIQ] forKey:@"footballIQ"];
     return [stats copy];
+}
+
+-(int)getHeismanScore {
+    return _statsTkl * 25 + _statsSacks * 425 + _statsForcedFum * 425 + _statsInt * 425;
 }
 
 -(void)checkRecords {
@@ -251,6 +257,23 @@
     
     if (self.careerStatsPassDef > self.team.league.careerPassDefRecord.statistic) {
         self.team.league.careerPassDefRecord = [Record newRecord:@"Passes Defended" player:self stat:self.careerStatsPassDef year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    //interceptions
+    if (self.statsInt > self.team.singleSeasonDefInterceptionsRecord.statistic) {
+        self.team.singleSeasonDefInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.statsInt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsInt > self.team.careerDefInterceptionsRecord.statistic) {
+        self.team.careerDefInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.careerStatsInt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.statsInt > self.team.league.singleSeasonDefInterceptionsRecord.statistic) {
+        self.team.league.singleSeasonDefInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.statsInt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.careerStatsInt > self.team.league.careerDefInterceptionsRecord.statistic) {
+        self.team.league.careerDefInterceptionsRecord = [Record newRecord:@"Interceptions" player:self stat:self.careerStatsInt year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
 }
 

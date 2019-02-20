@@ -19,6 +19,50 @@
 @class PlayerCB;
 @class PlayerS;
 
+typedef NS_ENUM(NSInteger, FCQBStat) {
+    FCQBStatPassAtt = 0,
+    FCQBStatPassComp = 1,
+    FCQBStatPassTD = 2,
+    FCQBStatINT = 3,
+    FCQBStatPassYards = 4,
+    FCQBStatSacked = 5,
+    FCQBStatRushAtt = 6,
+    FCQBStatRushYards = 7,
+    FCQBStatRushTD = 8,
+    FCQBStatFumbles = 9
+};
+
+typedef NS_ENUM(NSInteger, FCRBStat) {
+    FCRBStatRushAtt = 0,
+    FCRBStatRushYards = 1,
+    FCRBStatRushTD = 2,
+    FCRBStatFumbles = 3
+};
+
+typedef NS_ENUM(NSInteger, FCWRStat) {
+    FCWRStatCatches = 0,
+    FCWRStatTargets = 1,
+    FCWRStatRecYards = 2,
+    FCWRStatRecTD = 3,
+    FCWRStatDrops = 4,
+    FCWRStatFumbles = 5
+};
+
+typedef NS_ENUM(NSInteger, FCDefensiveStat) {
+    FCDefensiveStatTkl = 0,
+    FCDefensiveStatPassDef = 1,
+    FCDefensiveStatSacks = 2,
+    FCDefensiveStatINT = 3,
+    FCDefensiveStatForcedFum = 4
+};
+
+typedef NS_ENUM(NSInteger, FCKStat) {
+    FCKStatXPMade = 0,
+    FCKStatXPAtt = 1,
+    FCKStatFGMade = 2,
+    FCKStatFGAtt = 3
+};
+
 @interface Game : NSObject <NSCoding> {
     
     NSString *tdInfo;
@@ -72,10 +116,39 @@
 @property (strong, nonatomic) NSMutableArray* HomeTEStats;
 @property (strong, nonatomic) NSMutableArray* AwayTEStats;
 
+@property (strong, nonatomic) NSMutableArray* HomeDL1Stats; // 0 tkl, 1 pass def, 2 sacks, 3 INT, 4 Fum
+@property (strong, nonatomic) NSMutableArray* HomeDL2Stats;
+@property (strong, nonatomic) NSMutableArray* HomeDL3Stats;
+@property (strong, nonatomic) NSMutableArray* HomeDL4Stats;
+@property (strong, nonatomic) NSMutableArray* AwayDL1Stats;
+@property (strong, nonatomic) NSMutableArray* AwayDL2Stats;
+@property (strong, nonatomic) NSMutableArray* AwayDL3Stats;
+@property (strong, nonatomic) NSMutableArray* AwayDL4Stats;
+
+@property (strong, nonatomic) NSMutableArray* HomeLB1Stats;
+@property (strong, nonatomic) NSMutableArray* HomeLB2Stats;
+@property (strong, nonatomic) NSMutableArray* HomeLB3Stats;
+@property (strong, nonatomic) NSMutableArray* AwayLB1Stats;
+@property (strong, nonatomic) NSMutableArray* AwayLB2Stats;
+@property (strong, nonatomic) NSMutableArray* AwayLB3Stats;
+
+@property (strong, nonatomic) NSMutableArray* HomeCB1Stats;
+@property (strong, nonatomic) NSMutableArray* HomeCB2Stats;
+@property (strong, nonatomic) NSMutableArray* HomeCB3Stats;
+@property (strong, nonatomic) NSMutableArray* AwayCB1Stats;
+@property (strong, nonatomic) NSMutableArray* AwayCB2Stats;
+@property (strong, nonatomic) NSMutableArray* AwayCB3Stats;
+
+@property (strong, nonatomic) NSMutableArray* HomeSStats;
+@property (strong, nonatomic) NSMutableArray* AwaySStats;
+
 @property (strong, nonatomic) NSMutableArray* HomeKStats;
 @property (strong, nonatomic) NSMutableArray* AwayKStats;
 
 @property (strong, nonatomic) NSMutableString *gameEventLog;
+
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSNumber*> *homePlayerPrefs;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSNumber*> *awayPlayerPrefs;
 
 -(void)playGame;
 +(instancetype)newGameWithHome:(Team*)home away:(Team*)away;
@@ -95,13 +168,13 @@
 -(void)kickXP:(Team*)offense defense:(Team*)defense;
 -(void)kickOff:(Team*)offense;
 -(void)puntPlay:(Team*)offense;
--(void)qbSack:(Team*)offense;
--(void)safety;
--(void)qbInterception:(Team*)offense;
--(void)passingTD:(Team*)offense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
--(void)passCompletion:(Team*)offense defense:(Team*)defense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
--(void)passAttempt:(Team*)offense defense:(Team*)defense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
--(void)rushAttempt:(Team*)offense defense:(Team*)defense rusher:(PlayerRB*)selRB rb1Pref:(double)rb1Pref rb2Pref:(double)rb2Pref yardsGained:(int)yardsGained;
+//-(void)qbSack:(Team*)offense;
+//-(void)safety;
+//-(void)qbInterception:(Team*)offense;
+//-(void)passingTD:(Team*)offense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
+//-(void)passCompletion:(Team*)offense defense:(Team*)defense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
+//-(void)passAttempt:(Team*)offense defense:(Team*)defense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
+//-(void)rushAttempt:(Team*)offense defense:(Team*)defense rusher:(PlayerRB*)selRB rb1Pref:(double)rb1Pref rb2Pref:(double)rb2Pref yardsGained:(int)yardsGained;
 -(void)addPointsQuarter:(int)points;
 -(int)normalize:(int)rating;
 @end

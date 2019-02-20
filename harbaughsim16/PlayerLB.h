@@ -16,10 +16,12 @@
 @property (nonatomic) int statsTkl;
 @property (nonatomic) int statsForcedFum;
 @property (nonatomic) int statsSacks;
+@property (nonatomic) int statsInt;
 @property (nonatomic) int statsPassDef;
 
 @property (nonatomic) int careerStatsTkl;
 @property (nonatomic) int careerStatsForcedFum;
+@property (nonatomic) int careerStatsInt;
 @property (nonatomic) int careerStatsSacks;
 @property (nonatomic) int careerStatsPassDef;
 
