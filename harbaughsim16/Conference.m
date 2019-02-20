@@ -374,17 +374,40 @@
     NSMutableArray *leadingRBs = [NSMutableArray array];
     NSMutableArray *leadingWRs = [NSMutableArray array];
     NSMutableArray *leadingTEs = [NSMutableArray array];
+    NSMutableArray *leadingDLs = [NSMutableArray array];
+    NSMutableArray *leadingLBs = [NSMutableArray array];
+    NSMutableArray *leadingCBs = [NSMutableArray array];
+    NSMutableArray *leadingSs = [NSMutableArray array];
     NSMutableArray *leadingKs = [NSMutableArray array];
     
     for (Team *t in self.confTeams) {
         [leadingHCs addObject:[t getCurrentHC]];
         [leadingQBs addObject:[t getQB:0]];
+        
         [leadingRBs addObject:[t getRB:0]];
         [leadingRBs addObject:[t getRB:1]];
+        
         [leadingWRs addObject:[t getWR:0]];
         [leadingWRs addObject:[t getWR:1]];
         [leadingWRs addObject:[t getWR:2]];
+        
         [leadingTEs addObject:[t getTE:0]];
+        
+        [leadingDLs addObject:[t getDL:0]];
+        [leadingDLs addObject:[t getDL:1]];
+        [leadingDLs addObject:[t getDL:2]];
+        [leadingDLs addObject:[t getDL:3]];
+        
+        [leadingLBs addObject:[t getLB:0]];
+        [leadingLBs addObject:[t getLB:1]];
+        [leadingLBs addObject:[t getLB:2]];
+        
+        [leadingCBs addObject:[t getCB:0]];
+        [leadingCBs addObject:[t getCB:1]];
+        [leadingCBs addObject:[t getCB:2]];
+        
+        [leadingSs addObject:[t getS:0]];
+        
         [leadingKs addObject:[t getK:0]];
     }
     
@@ -417,6 +440,38 @@
     }];
     
     [leadingTEs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingDLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingLBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingSs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
         if (a.isHeisman || a.isROTY) return -1;
@@ -471,6 +526,61 @@
     [te.team getCurrentHC].totalAllConferences++;
     te.isAllConference = YES;
     
+    PlayerDL *dl1 = leadingDLs[0];
+    dl1.careerAllConferences++;
+    [dl1.team getCurrentHC].totalAllConferences++;
+    dl1.isAllConference = YES;
+    
+    PlayerDL *dl2 = leadingDLs[1];
+    dl2.careerAllConferences++;
+    [dl2.team getCurrentHC].totalAllConferences++;
+    dl2.isAllConference = YES;
+    
+    PlayerDL *dl3 = leadingDLs[2];
+    dl3.careerAllConferences++;
+    [dl3.team getCurrentHC].totalAllConferences++;
+    dl3.isAllConference = YES;
+    
+    PlayerDL *dl4 = leadingDLs[3];
+    dl4.careerAllConferences++;
+    [dl4.team getCurrentHC].totalAllConferences++;
+    dl4.isAllConference = YES;
+    
+    PlayerLB *lb1 = leadingLBs[0];
+    lb1.careerAllConferences++;
+    [lb1.team getCurrentHC].totalAllConferences++;
+    lb1.isAllConference = YES;
+    
+    PlayerLB *lb2 = leadingLBs[1];
+    lb2.careerAllConferences++;
+    [lb2.team getCurrentHC].totalAllConferences++;
+    lb2.isAllConference = YES;
+    
+    PlayerLB *lb3 = leadingLBs[2];
+    lb3.careerAllConferences++;
+    [lb3.team getCurrentHC].totalAllConferences++;
+    lb3.isAllConference = YES;
+    
+    PlayerCB *cb1 = leadingCBs[0];
+    cb1.careerAllConferences++;
+    [cb1.team getCurrentHC].totalAllConferences++;
+    cb1.isAllConference = YES;
+    
+    PlayerCB *cb2 = leadingCBs[1];
+    cb2.careerAllConferences++;
+    [cb2.team getCurrentHC].totalAllConferences++;
+    cb2.isAllConference = YES;
+    
+    PlayerCB *cb3 = leadingCBs[2];
+    cb3.careerAllConferences++;
+    [cb3.team getCurrentHC].totalAllConferences++;
+    cb3.isAllConference = YES;
+    
+    PlayerS *s = leadingSs[0];
+    s.careerAllConferences++;
+    [s.team getCurrentHC].totalAllConferences++;
+    s.isAllConference = YES;
+    
     PlayerK *k = leadingKs[0];
     k.careerAllConferences++;
     [k.team getCurrentHC].totalAllConferences++;
@@ -484,6 +594,10 @@
                            @"RB" : @[rb1,rb2],
                            @"WR" : @[wr1,wr2,wr3],
                            @"TE" : @[te],
+                           @"DL" : @[dl1,dl2,dl3,dl4],
+                           @"LB" : @[lb1,lb2,lb3],
+                           @"CB" : @[cb1,cb2,cb3],
+                           @"S" : @[s],
                            @"K"  : @[k]
                            };
     

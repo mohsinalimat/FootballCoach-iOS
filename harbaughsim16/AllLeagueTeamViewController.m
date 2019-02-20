@@ -14,6 +14,10 @@
 #import "PlayerRB.h"
 #import "PlayerWR.h"
 #import "PlayerTE.h"
+#import "PlayerDL.h"
+#import "PlayerLB.h"
+#import "PlayerCB.h"
+#import "PlayerS.h"
 #import "PlayerK.h"
 #import "HBPlayerCell.h"
 #import "PlayerQBDetailViewController.h"
@@ -57,6 +61,14 @@
             p = players[@"WR"][indexPath.row];
         } else if (indexPath.section == 3) {
             p = players[@"TE"][indexPath.row];
+        } else if (indexPath.section == 4) {
+            p = players[@"DL"][indexPath.row];
+        } else if (indexPath.section == 5) {
+            p = players[@"LB"][indexPath.row];
+        } else if (indexPath.section == 6) {
+            p = players[@"CB"][indexPath.row];
+        } else if (indexPath.section == 7) {
+            p = players[@"S"][indexPath.row];
         } else {
             p = players[@"K"][indexPath.row];
         }
@@ -130,6 +142,14 @@
         return @"WR";
     } else if (section == 3) {
         return @"TE";
+    } else if (section == 4) {
+        return @"DL";
+    } else if (section == 5) {
+        return @"LB";
+    } else if (section == 6) {
+        return @"CB";
+    } else if (section == 7) {
+        return @"S";
     } else {
         return @"K";
     }
@@ -148,7 +168,7 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 5;
+    return 9;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -159,6 +179,14 @@
     } else if (section == 2) {
         return 3;
     } else if (section == 3) {
+        return 1;
+    } else if (section == 4) {
+        return 4;
+    } else if (section == 5) {
+        return 3;
+    } else if (section == 6) {
+        return 3;
+    } else if (section == 7) {
         return 1;
     } else {
         return 1;
@@ -176,6 +204,14 @@
         plyr = players[@"WR"][indexPath.row];
     } else if (indexPath.section == 3) {
         plyr = players[@"TE"][indexPath.row];
+    } else if (indexPath.section == 4) {
+        plyr = players[@"DL"][indexPath.row];
+    } else if (indexPath.section == 5) {
+        plyr = players[@"LB"][indexPath.row];
+    } else if (indexPath.section == 6) {
+        plyr = players[@"CB"][indexPath.row];
+    } else if (indexPath.section == 7) {
+        plyr = players[@"S"][indexPath.row];
     } else {
         plyr = players[@"K"][indexPath.row];
     }
@@ -230,7 +266,7 @@
         stat3Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsTD];
         stat4Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsFumbles];
         //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
-    } else { //PlayerK class
+    } else if ([plyr isKindOfClass:[PlayerK class]]) { //PlayerK class
         stat1 = @"XPM";
         stat2 = @"XPA";
         stat3 = @"FGM";
@@ -240,6 +276,46 @@
         stat2Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsXPAtt];
         stat3Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsFGMade];
         stat4Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsFGAtt];
+    } else if ([plyr isKindOfClass:[PlayerDL class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"Sck";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsSacks];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsPassDef];
+    } else if ([plyr isKindOfClass:[PlayerLB class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"Sck";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsSacks];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsPassDef];
+    } else if ([plyr isKindOfClass:[PlayerCB class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"INT";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsInt];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsPassDef];
+    } else if ([plyr isKindOfClass:[PlayerS class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"INT";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsInt];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsPassDef];
     }
 
     [statsCell.playerLabel setText:[plyr getInitialName]];
@@ -285,7 +361,19 @@
     } else if (indexPath.section == 3) {
         plyr = players[@"TE"][indexPath.row];
         vc = [[PlayerTEDetailViewController alloc] initWithPlayer:plyr];
-    } else {
+    } else if (indexPath.section == 4) {
+        plyr = players[@"DL"][indexPath.row];
+        vc = [[PlayerDLDetailViewController alloc] initWithPlayer:plyr];
+    } else if (indexPath.section == 5) {
+        plyr = players[@"LB"][indexPath.row];
+        vc = [[PlayerLBDetailViewController alloc] initWithPlayer:plyr];
+    } else if (indexPath.section == 6) {
+        plyr = players[@"CB"][indexPath.row];
+        vc = [[PlayerCBDetailViewController alloc] initWithPlayer:plyr];
+    } else if (indexPath.section == 7) {
+        plyr = players[@"S"][indexPath.row];
+        vc = [[PlayerSDetailViewController alloc] initWithPlayer:plyr];
+    } else { // PlayerK
         plyr = players[@"K"][indexPath.row];
         vc = [[PlayerKDetailViewController alloc] initWithPlayer:plyr];
     }
