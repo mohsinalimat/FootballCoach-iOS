@@ -441,19 +441,55 @@
 
     //team records
     PlayerQB *qb = [self getQB:0];
+    
     PlayerRB *rb1 = [self getRB:0];
     PlayerRB *rb2 = [self getRB:1];
+    
     PlayerWR *wr1 = [self getWR:0];
     PlayerWR *wr2 = [self getWR:1];
     PlayerTE *te = [self getTE:0];
+    
+    PlayerDL *dl1 = [self getDL:0];
+    PlayerDL *dl2 = [self getDL:1];
+    PlayerDL *dl3 = [self getDL:2];
+    PlayerDL *dl4 = [self getDL:3];
+    
+    PlayerLB *lb1 = [self getLB:0];
+    PlayerLB *lb2 = [self getLB:1];
+    PlayerLB *lb3 = [self getLB:2];
+    
+    PlayerCB *cb1 = [self getCB:0];
+    PlayerCB *cb2 = [self getCB:1];
+    PlayerCB *cb3 = [self getCB:2];
+    
+    PlayerS *s = [self getS:0];
+    
     PlayerK *k = [self getK:0];
 
     [qb checkRecords];
+    
     [rb1 checkRecords];
     [rb2 checkRecords];
+    
     [wr1 checkRecords];
     [wr2 checkRecords];
     [te checkRecords];
+    
+    [dl1 checkRecords];
+    [dl2 checkRecords];
+    [dl3 checkRecords];
+    [dl4 checkRecords];
+    
+    [lb1 checkRecords];
+    [lb2 checkRecords];
+    [lb3 checkRecords];
+    
+    [cb1 checkRecords];
+    [cb2 checkRecords];
+    [cb3 checkRecords];
+    
+    [s checkRecords];
+    
     [k checkRecords];
 
     [self advanceSeasonPlayers];
