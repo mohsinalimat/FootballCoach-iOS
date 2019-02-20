@@ -490,6 +490,62 @@
                     }
                 }
                 
+                for (PlayerDL *dl in t.teamDLs) {
+                    dl.statsTkl = 0;
+                    dl.statsSacks = 0;
+                    dl.statsPassDef = 0;
+                    dl.statsForcedFum = 0;
+                    dl.statsInt = 0;
+                    
+                    dl.careerStatsTkl = 0;
+                    dl.careerStatsSacks = 0;
+                    dl.careerStatsPassDef = 0;
+                    dl.careerStatsForcedFum = 0;
+                    dl.careerStatsInt = 0;
+                }
+                
+                for (PlayerLB *dl in t.teamLBs) {
+                    dl.statsTkl = 0;
+                    dl.statsSacks = 0;
+                    dl.statsPassDef = 0;
+                    dl.statsForcedFum = 0;
+                    dl.statsInt = 0;
+                    
+                    dl.careerStatsTkl = 0;
+                    dl.careerStatsSacks = 0;
+                    dl.careerStatsPassDef = 0;
+                    dl.careerStatsForcedFum = 0;
+                    dl.careerStatsInt = 0;
+                }
+                
+                for (PlayerCB *dl in t.teamCBs) {
+                    dl.statsTkl = 0;
+                    dl.statsSacks = 0;
+                    dl.statsPassDef = 0;
+                    dl.statsForcedFum = 0;
+                    dl.statsInt = 0;
+                    
+                    dl.careerStatsTkl = 0;
+                    dl.careerStatsSacks = 0;
+                    dl.careerStatsPassDef = 0;
+                    dl.careerStatsForcedFum = 0;
+                    dl.careerStatsInt = 0;
+                }
+                
+                for (PlayerS *dl in t.teamSs) {
+                    dl.statsTkl = 0;
+                    dl.statsSacks = 0;
+                    dl.statsPassDef = 0;
+                    dl.statsForcedFum = 0;
+                    dl.statsInt = 0;
+                    
+                    dl.careerStatsTkl = 0;
+                    dl.careerStatsSacks = 0;
+                    dl.careerStatsPassDef = 0;
+                    dl.careerStatsForcedFum = 0;
+                    dl.careerStatsInt = 0;
+                }
+                
                 t.careerSacksRecord = nil;
                 t.careerTacklesRecord = nil;
                 t.careerPassDefRecord = nil;
