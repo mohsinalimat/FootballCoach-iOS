@@ -489,6 +489,18 @@
                         [g.AwaySStats addObject:@(0)];
                     }
                 }
+                
+                t.careerSacksRecord = nil;
+                t.careerTacklesRecord = nil;
+                t.careerPassDefRecord = nil;
+                t.careerForcedFumRecord = nil;
+                t.careerDefInterceptionsRecord = nil;
+                
+                t.singleSeasonSacksRecord = nil;
+                t.singleSeasonTacklesRecord = nil;
+                t.singleSeasonPassDefRecord = nil;
+                t.singleSeasonForcedFumRecord = nil;
+                t.singleSeasonDefInterceptionsRecord = nil;
             }
             
             // if NCG, bowls, semis are not null, add TEStats and TE and 4 more QB stats
@@ -578,6 +590,18 @@
                     }
                 }
             }
+            
+            oldLigue.careerSacksRecord = nil;
+            oldLigue.careerTacklesRecord = nil;
+            oldLigue.careerPassDefRecord = nil;
+            oldLigue.careerForcedFumRecord = nil;
+            oldLigue.careerDefInterceptionsRecord = nil;
+            
+            oldLigue.singleSeasonSacksRecord = nil;
+            oldLigue.singleSeasonTacklesRecord = nil;
+            oldLigue.singleSeasonPassDefRecord = nil;
+            oldLigue.singleSeasonForcedFumRecord = nil;
+            oldLigue.singleSeasonDefInterceptionsRecord = nil;
             
             // if all league players were calculated, then recalculate
             if (oldLigue.currentWeek > 14 && (oldLigue.allLeaguePlayers != nil || oldLigue.allLeaguePlayers.count != 0)) {
