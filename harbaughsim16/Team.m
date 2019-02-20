@@ -35,7 +35,7 @@
 #define PROMOTION_NUM 0
 
 @implementation Team
-@synthesize league, name, abbreviation,conference,rivalTeam,isUserControlled,wonRivalryGame,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamLBs, teamDLs,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers,teamHistoryDictionary, teamHistory,teamTEs,teamF7s, state,recruitingClass,coaches,playersTransferring,transferClass,recruitingPoints,usedRecruitingPoints, totalCOTYs,coachFired,coachRetired,coachContractString,coachGotNewContract;
+@synthesize league, name, abbreviation,conference,rivalTeam,isUserControlled,wonRivalryGame,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamLBs, teamDLs,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers,teamHistoryDictionary, teamHistory,teamTEs,teamF7s, state,recruitingClass,coaches,playersTransferring,transferClass,recruitingPoints,usedRecruitingPoints, totalCOTYs,coachFired,coachRetired,coachContractString,coachGotNewContract,singleSeasonSacksRecord,singleSeasonTacklesRecord,singleSeasonPassDefRecord,singleSeasonForcedFumRecord,singleSeasonDefInterceptionsRecord,careerSacksRecord,careerTacklesRecord,careerPassDefRecord,careerForcedFumRecord,careerDefInterceptionsRecord;
 
 -(void)setWithCoder:(NSCoder *)aDecoder {
     [super setWithCoder:aDecoder];
@@ -152,6 +152,26 @@
         [records addObject:singleSeasonFgMadeRecord];
     }
 
+    if (singleSeasonSacksRecord != nil) {
+        [records addObject:singleSeasonSacksRecord];
+    }
+
+    if (singleSeasonTacklesRecord != nil) {
+        [records addObject:singleSeasonTacklesRecord];
+    }
+
+    if (singleSeasonPassDefRecord != nil) {
+        [records addObject:singleSeasonPassDefRecord];
+    }
+
+    if (singleSeasonForcedFumRecord != nil) {
+        [records addObject:singleSeasonForcedFumRecord];
+    }
+
+    if (singleSeasonDefInterceptionsRecord != nil) {
+        [records addObject:singleSeasonDefInterceptionsRecord];
+    }
+
     return records;
 }
 
@@ -207,6 +227,26 @@
 
     if (careerFgMadeRecord != nil) {
         [records addObject:careerFgMadeRecord];
+    }
+
+    if (careerSacksRecord != nil) {
+        [records addObject:careerSacksRecord];
+    }
+
+    if (careerTacklesRecord != nil) {
+        [records addObject:careerTacklesRecord];
+    }
+
+    if (careerPassDefRecord != nil) {
+        [records addObject:careerPassDefRecord];
+    }
+
+    if (careerForcedFumRecord != nil) {
+        [records addObject:careerForcedFumRecord];
+    }
+
+    if (careerDefInterceptionsRecord != nil) {
+        [records addObject:careerDefInterceptionsRecord];
     }
 
     return records;
@@ -325,6 +365,11 @@
         careerCatchesRecord = nil;
         careerXpMadeRecord = nil;
         careerFgMadeRecord = nil;
+        careerSacksRecord = nil;
+        careerTacklesRecord = nil;
+        careerPassDefRecord = nil;
+        careerForcedFumRecord = nil;
+        careerDefInterceptionsRecord = nil;
 
         singleSeasonCompletionsRecord = nil;
         singleSeasonPassYardsRecord = nil;
@@ -339,6 +384,11 @@
         singleSeasonCatchesRecord = nil;
         singleSeasonXpMadeRecord = nil;
         singleSeasonFgMadeRecord = nil;
+        singleSeasonSacksRecord = nil;
+        singleSeasonTacklesRecord = nil;
+        singleSeasonPassDefRecord = nil;
+        singleSeasonForcedFumRecord = nil;
+        singleSeasonDefInterceptionsRecord = nil;
 
         // more coaching stuff
         coachFired = NO;
@@ -802,7 +852,7 @@
 //    int req = (league.teamList.count - rankTeamPrestige) / 2 + (int)round(league.teamList.count/3.6);
 //    if (req >= 88) req = 88;
 //    return req;
-    
+
     if (teamPrestige < 61) {
         return 50;
     } else if (teamPrestige < 71) {

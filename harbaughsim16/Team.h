@@ -195,6 +195,12 @@
 @property (strong, nonatomic) Record *singleSeasonXpMadeRecord;
 @property (strong, nonatomic) Record *singleSeasonFgMadeRecord;
 
+@property (strong, nonatomic) Record *singleSeasonDefInterceptionsRecord;
+@property (strong, nonatomic) Record *singleSeasonPassDefRecord;
+@property (strong, nonatomic) Record *singleSeasonSacksRecord;
+@property (strong, nonatomic) Record *singleSeasonForcedFumRecord;
+@property (strong, nonatomic) Record *singleSeasonTacklesRecord;
+
 //career Records
 @property (strong, nonatomic) Record *careerCompletionsRecord;
 @property (strong, nonatomic) Record *careerPassYardsRecord;
@@ -212,6 +218,12 @@
 
 @property (strong, nonatomic) Record *careerXpMadeRecord;
 @property (strong, nonatomic) Record *careerFgMadeRecord;
+
+@property (strong, nonatomic) Record *careerDefInterceptionsRecord;
+@property (strong, nonatomic) Record *careerPassDefRecord;
+@property (strong, nonatomic) Record *careerSacksRecord;
+@property (strong, nonatomic) Record *careerForcedFumRecord;
+@property (strong, nonatomic) Record *careerTacklesRecord;
 
 // coaching
 @property (strong, nonatomic) NSMutableArray<HeadCoach *> *coaches;
