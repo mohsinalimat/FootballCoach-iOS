@@ -163,7 +163,7 @@
         stat3Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsTD];
         stat4Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsFumbles];
         //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
-    } else {
+    } else if ([plyr isKindOfClass:[PlayerWR class]]) {
         stat1 = @"Rec";
         stat2 = @"Yds";
         stat3 = @"TD";
@@ -173,6 +173,56 @@
         stat3Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsTD];
         stat4Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsFumbles];
         //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+    } else if ([plyr isKindOfClass:[PlayerK class]]) { //PlayerK class
+        stat1 = @"XPM";
+        stat2 = @"XPA";
+        stat3 = @"FGM";
+        stat4 = @"FGA";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsXPMade];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsXPAtt];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsFGMade];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsFGAtt];
+    } else if ([plyr isKindOfClass:[PlayerDL class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"Sck";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsSacks];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsPassDef];
+    } else if ([plyr isKindOfClass:[PlayerLB class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"Sck";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsSacks];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsPassDef];
+    } else if ([plyr isKindOfClass:[PlayerCB class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"INT";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsInt];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsPassDef];
+    } else if ([plyr isKindOfClass:[PlayerS class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"INT";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsInt];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsPassDef];
     }
     
     [statsCell.playerLabel setText:[plyr getInitialName]];
