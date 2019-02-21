@@ -2458,7 +2458,7 @@
                 [AwayQBStats replaceObjectAtIndex:FCQBStatFumbles withObject:kStat1];
             }
             
-            [gameEventLog  appendString:[NSString stringWithFormat:@"%@TURNOVER!\n%@ QB %@ fumbled the ball while rushing. Forced by %@ %@ %@",[self getEventPrefix], offense.abbreviation, selQB.name, defender.team.abbreviation,defender.position,defender.name]];
+            [gameEventLog  appendString:[NSString stringWithFormat:@"%@TURNOVER!\n%@ QB %@ fumbled the ball while rushing. Forced by %@ %@ %@.",[self getEventPrefix], offense.abbreviation, selQB.name, defender.team.abbreviation,defender.position,defender.name]];
             
             if (!playingOT) {
                 gameDown = 1;
