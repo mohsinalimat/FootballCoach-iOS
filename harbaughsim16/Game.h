@@ -63,6 +63,18 @@ typedef NS_ENUM(NSInteger, FCKStat) {
     FCKStatFGAtt = 3
 };
 
+typedef NS_ENUM(NSInteger, FCGameSituation) {
+    FCGameSituationPassCatch = 0,
+    FCGameSituationPassDefense = 1,
+    FCGameSituationRunCarry = 2,
+    FCGameSituationRunDefense = 3,
+    FCGameSituationFumble = 4,
+    FCGameSituationInterception = 5,
+    FCGameSituationSack = 6,
+    FCGameSituationTackle = 7,
+    FCGameSituationPassCompletion = 8
+};
+
 @interface Game : NSObject <NSCoding> {
     
     NSString *tdInfo;
@@ -168,13 +180,7 @@ typedef NS_ENUM(NSInteger, FCKStat) {
 -(void)kickXP:(Team*)offense defense:(Team*)defense;
 -(void)kickOff:(Team*)offense;
 -(void)puntPlay:(Team*)offense;
-//-(void)qbSack:(Team*)offense;
-//-(void)safety;
-//-(void)qbInterception:(Team*)offense;
-//-(void)passingTD:(Team*)offense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
-//-(void)passCompletion:(Team*)offense defense:(Team*)defense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
-//-(void)passAttempt:(Team*)offense defense:(Team*)defense receiver:(PlayerWR*)selWR stats:(NSMutableArray*)selWRStats yardsGained:(int)yardsGained;
-//-(void)rushAttempt:(Team*)offense defense:(Team*)defense rusher:(PlayerRB*)selRB rb1Pref:(double)rb1Pref rb2Pref:(double)rb2Pref yardsGained:(int)yardsGained;
+
 -(void)addPointsQuarter:(int)points;
 -(int)normalize:(int)rating;
 @end

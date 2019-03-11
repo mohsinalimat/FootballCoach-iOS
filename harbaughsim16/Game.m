@@ -24,7 +24,7 @@
 #import "TeamStreak.h"
 
 @implementation Game
-@synthesize AwayKStats,AwayQBStats,AwayRB1Stats,AwayRB2Stats,AwayWR1Stats,AwayWR2Stats,AwayWR3Stats,awayTOs,awayTeam,awayScore,awayYards,awayQScore,awayStarters,gameName,homeTeam,hasPlayed,homeYards,HomeKStats,superclass,HomeQBStats,HomeRB1Stats,HomeRB2Stats,homeStarters,HomeWR1Stats,HomeWR2Stats,HomeWR3Stats,homeScore,homeQScore,homeTOs,numOT,AwayTEStats,HomeTEStats, gameEventLog,HomeSStats,HomeCB1Stats,HomeCB2Stats,HomeCB3Stats,HomeDL1Stats,HomeDL2Stats,HomeDL3Stats,HomeDL4Stats,HomeLB1Stats,HomeLB2Stats,HomeLB3Stats,homePlayerPrefs,AwaySStats,AwayCB1Stats,AwayCB2Stats,AwayCB3Stats,AwayDL1Stats,AwayDL2Stats,AwayDL3Stats,AwayDL4Stats,AwayLB1Stats,AwayLB2Stats,AwayLB3Stats,awayPlayerPrefs;
+@synthesize AwayKStats,AwayQBStats,AwayRB1Stats,AwayRB2Stats,AwayWR1Stats,AwayWR2Stats,AwayWR3Stats,awayTOs,awayTeam,awayScore,awayYards,awayQScore,awayStarters,gameName,homeTeam,hasPlayed,homeYards,HomeKStats,superclass,HomeQBStats,HomeRB1Stats,HomeRB2Stats,homeStarters,HomeWR1Stats,HomeWR2Stats,HomeWR3Stats,homeScore,homeQScore,homeTOs,numOT,AwayTEStats,HomeTEStats, gameEventLog,HomeSStats,HomeCB1Stats,HomeCB2Stats,HomeCB3Stats,HomeDL1Stats,HomeDL2Stats,HomeDL3Stats,HomeDL4Stats,HomeLB1Stats,HomeLB2Stats,HomeLB3Stats,AwaySStats,AwayCB1Stats,AwayCB2Stats,AwayCB3Stats,AwayDL1Stats,AwayDL2Stats,AwayDL3Stats,AwayDL4Stats,AwayLB1Stats,AwayLB2Stats,AwayLB3Stats;
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.gameEventLog forKey:@"gameEventLog"];
@@ -181,18 +181,6 @@
             self.AwayTEStats = [aDecoder decodeObjectForKey:@"AwayTEStats"];
         } else {
             self.AwayTEStats = [NSMutableArray arrayWithObjects:@0,@0,@0,@0,@0,@0, nil];
-        }
-        
-        if ([aDecoder containsValueForKey:@"homePlayerPrefs"]) {
-            self.homePlayerPrefs = [aDecoder decodeObjectForKey:@"homePlayerPrefs"];
-        } else {
-            self.homePlayerPrefs = [NSMutableDictionary dictionary];
-        }
-        
-        if ([aDecoder containsValueForKey:@"awayPlayerPrefs"]) {
-            self.awayPlayerPrefs = [aDecoder decodeObjectForKey:@"awayPlayerPrefs"];
-        } else {
-            self.awayPlayerPrefs = [NSMutableDictionary dictionary];
         }
         
         // defensive stats
@@ -411,9 +399,6 @@
         
         homeStarters = [NSMutableArray array];
         awayStarters = [NSMutableArray array];
-        
-        homePlayerPrefs = [NSMutableDictionary dictionary];
-        awayPlayerPrefs = [NSMutableDictionary dictionary];
         
         for (int i = 0; i < 10; i++) {
             [homeQScore addObject:@(0)];
@@ -947,14 +932,188 @@
     }
 }
 
--(void)recyclePlayerInvolvementValues {
-    for (Player *p in homeStarters) {
-        [homePlayerPrefs setObject:@([HBSharedUtils randomValue] * p.ratOvr) forKey:[p uniqueIdentifier]];
+-(int)calculatePlayerPreferenceForPlayer:(Player *)p inGameSituation:(FCGameSituation)situation relatedPlayer:(nonnull Player*)relatedPlayer yardsGained:(int)yardsGain {
+    return [self calculatePlayerPreferenceForPlayer:p inGameSituation:situation relatedPlayer:relatedPlayer yardsGained:yardsGain gotTD:NO];
+}
+
+-(int)calculatePlayerPreferenceForPlayer:(Player *)p inGameSituation:(FCGameSituation)situation relatedPlayer:(nonnull Player*)relatedPlayer yardsGained:(int)yardsGain gotTD:(BOOL)gotTD {
+    if (situation == FCGameSituationPassCompletion) {
+        if ([relatedPlayer.position isEqualToString:@"WR"]) {
+            if ([p.position isEqualToString:@"CB"]) {
+                return ((PlayerCB *)p).ratCBCov * [HBSharedUtils randomValue] * 100;
+            } else if ([p.position isEqualToString:@"S"]) {
+                return ((PlayerS *)p).ratSCov * [HBSharedUtils randomValue] * 60;
+            } else if ([p.position isEqualToString:@"LB"]) {
+                return ((PlayerLB *)p).ratLBPas * [HBSharedUtils randomValue] * 40;
+            } else if ([p.position isEqualToString:@"DL"]) {
+                return ((PlayerDL *)p).ratDLPas * [HBSharedUtils randomValue] * 10;
+            } else {
+                return 0;
+            }
+        } else if ([relatedPlayer.position isEqualToString:@"TE"]) {
+            if ([p.position isEqualToString:@"CB"]) {
+                return ((PlayerCB *)p).ratCBCov * [HBSharedUtils randomValue] * 40;
+            } else if ([p.position isEqualToString:@"S"]) {
+                return ((PlayerS *)p).ratSCov * [HBSharedUtils randomValue] * 60;
+            } else if ([p.position isEqualToString:@"LB"]) {
+                return ((PlayerLB *)p).ratLBPas * [HBSharedUtils randomValue] * 80;
+            } else if ([p.position isEqualToString:@"DL"]) {
+                return ((PlayerDL *)p).ratDLPas * [HBSharedUtils randomValue] * 10;
+            } else {
+                return 0;
+            }
+        } else {
+            if ([relatedPlayer.position isEqualToString:@"WR"]) {
+                if ([p.position isEqualToString:@"CB"]) {
+                    return ((PlayerCB *)p).ratCBCov * [HBSharedUtils randomValue] * 30;
+                } else if ([p.position isEqualToString:@"S"]) {
+                    return ((PlayerS *)p).ratSCov * [HBSharedUtils randomValue] * 40;
+                } else if ([p.position isEqualToString:@"LB"]) {
+                    return ((PlayerLB *)p).ratLBPas * [HBSharedUtils randomValue] * 60;
+                } else if ([p.position isEqualToString:@"DL"]) {
+                    return 0;
+                } else {
+                    return 0;
+                }
+            }
+        }
+    } else if (situation == FCGameSituationFumble) {
+        if ([relatedPlayer.position isEqualToString:@"WR"]) {
+            if ([p.position isEqualToString:@"CB"]) {
+                return ((PlayerCB *)p).ratCBTkl * [HBSharedUtils randomValue] * 100;
+            } else if ([p.position isEqualToString:@"S"]) {
+                return ((PlayerS *)p).ratSTkl * [HBSharedUtils randomValue] * 60;
+            } else if ([p.position isEqualToString:@"LB"]) {
+                return ((PlayerLB *)p).ratLBTkl * [HBSharedUtils randomValue] * 40;
+            } else {
+                return 0;
+            }
+        } else if ([relatedPlayer.position isEqualToString:@"TE"]) {
+            if ([p.position isEqualToString:@"CB"]) {
+                return ((PlayerCB *)p).ratCBTkl * [HBSharedUtils randomValue] * 50;
+            } else if ([p.position isEqualToString:@"S"]) {
+                return ((PlayerS *)p).ratSTkl * [HBSharedUtils randomValue] * 55;
+            } else if ([p.position isEqualToString:@"LB"]) {
+                return ((PlayerLB *)p).ratLBTkl * [HBSharedUtils randomValue] * 80;
+            } else if ([p.position isEqualToString:@"DL"]) {
+                return ((PlayerDL *)p).ratDLPow  * [HBSharedUtils randomValue] * 15;
+            } else {
+                return 0;
+            }
+        } else {
+            if ([p.position isEqualToString:@"CB"]) {
+                return ((PlayerCB *)p).ratCBTkl * [HBSharedUtils randomValue] * 30;
+            } else if ([p.position isEqualToString:@"S"]) {
+                return ((PlayerS *)p).ratSTkl * [HBSharedUtils randomValue] * 35;
+            } else if ([p.position isEqualToString:@"LB"]) {
+                return ((PlayerLB *)p).ratLBTkl * [HBSharedUtils randomValue] * 65;
+            } else if ([p.position isEqualToString:@"DL"]) {
+                return ((PlayerDL *)p).ratDLPow * [HBSharedUtils randomValue] * 40;
+            } else {
+                return 0;
+            }
+        }
+    } else if (situation == FCGameSituationSack) {
+        if ([p.position isEqualToString:@"CB"]) {
+            return ((PlayerCB *)p).ratCBTkl * [HBSharedUtils randomValue] * 0;
+        } else if ([p.position isEqualToString:@"S"]) {
+            return ((PlayerS *)p).ratSTkl * [HBSharedUtils randomValue] * 25;
+        } else if ([p.position isEqualToString:@"LB"]) {
+            return ((PlayerLB *)p).ratLBTkl * [HBSharedUtils randomValue] * 60;
+        } else if ([p.position isEqualToString:@"DL"]) {
+            return ((PlayerDL *)p).ratDLPow * [HBSharedUtils randomValue] * 100;
+        } else {
+            return 0;
+        }
+    } else if (situation == FCGameSituationInterception) {
+        if ([relatedPlayer.position isEqualToString:@"WR"]) {
+            if ([p.position isEqualToString:@"CB"]) {
+                return ((PlayerCB *)p).ratCBCov * [HBSharedUtils randomValue] * 100;
+            } else if ([p.position isEqualToString:@"S"]) {
+                return ((PlayerS *)p).ratSCov * [HBSharedUtils randomValue] * 50;
+            } else if ([p.position isEqualToString:@"LB"]) {
+                return ((PlayerLB *)p).ratLBPas * [HBSharedUtils randomValue] * 30;
+            } else if ([p.position isEqualToString:@"DL"]) {
+                return ((PlayerDL *)p).ratDLPas * [HBSharedUtils randomValue] * 15;
+            } else {
+                return 0;
+            }
+        } else if ([relatedPlayer.position isEqualToString:@"TE"]) {
+            if ([p.position isEqualToString:@"CB"]) {
+                return ((PlayerCB *)p).ratCBTkl * [HBSharedUtils randomValue] * 50;
+            } else if ([p.position isEqualToString:@"S"]) {
+                return ((PlayerS *)p).ratSTkl * [HBSharedUtils randomValue] * 45;
+            } else if ([p.position isEqualToString:@"LB"]) {
+                return ((PlayerLB *)p).ratLBPas * [HBSharedUtils randomValue] * 65;
+            } else if ([p.position isEqualToString:@"DL"]) {
+                return ((PlayerDL *)p).ratDLPas * [HBSharedUtils randomValue] * 15;
+            } else {
+                return 0;
+            }
+        } else {
+            if ([p.position isEqualToString:@"CB"]) {
+                return ((PlayerCB *)p).ratCBTkl * [HBSharedUtils randomValue] * 80;
+            } else if ([p.position isEqualToString:@"S"]) {
+                return ((PlayerS *)p).ratSTkl * [HBSharedUtils randomValue] * 50;
+            } else if ([p.position isEqualToString:@"LB"]) {
+                return ((PlayerLB *)p).ratLBTkl * [HBSharedUtils randomValue] * 65;
+            } else if ([p.position isEqualToString:@"DL"]) {
+                return ((PlayerDL *)p).ratDLPas * [HBSharedUtils randomValue] * 15;
+            } else {
+                return 0;
+            }
+        }
+    } else if (situation == FCGameSituationTackle) {
+        if (yardsGain < 5) {
+            if ([p.position isEqualToString:@"CB"]) {
+                return ((PlayerCB *)p).ratCBTkl * [HBSharedUtils randomValue] * 20;
+            } else if ([p.position isEqualToString:@"S"]) {
+                return ((PlayerS *)p).ratSTkl * [HBSharedUtils randomValue] * 20;
+            } else if ([p.position isEqualToString:@"LB"]) {
+                return ((PlayerLB *)p).ratLBTkl * [HBSharedUtils randomValue] * 60;
+            } else if ([p.position isEqualToString:@"DL"]) {
+                return ((PlayerDL *)p).ratDLPas * [HBSharedUtils randomValue] * 80;
+            } else {
+                return 0;
+            }
+        } else {
+            if ([p.position isEqualToString:@"CB"]) {
+                return ((PlayerCB *)p).ratCBTkl * [HBSharedUtils randomValue] * 25;
+            } else if ([p.position isEqualToString:@"S"]) {
+                return ((PlayerS *)p).ratSTkl * [HBSharedUtils randomValue] * 50;
+            } else if ([p.position isEqualToString:@"LB"]) {
+                return ((PlayerLB *)p).ratLBTkl * [HBSharedUtils randomValue] * 75;
+            } else if ([p.position isEqualToString:@"DL"]) {
+                return ((PlayerDL *)p).ratDLPas * [HBSharedUtils randomValue] * 20;
+            } else {
+                return 0;
+            }
+        }
+    } else if (situation == FCGameSituationRunDefense) {
+        if (yardsGain < 2 && !gotTD) {
+            if ([p.position isEqualToString:@"DL"]) {
+                return ((PlayerDL *)p).ratDLRsh * [HBSharedUtils randomValue] * 100;
+            } else {
+                return 0;
+            }
+        } else if (yardsGain >= 2 && yardsGain < 12 && !gotTD) {
+            if ([p.position isEqualToString:@"LB"]) {
+                return ((PlayerLB *)p).ratLBTkl * [HBSharedUtils randomValue] * 100;
+            } else {
+                return 0;
+            }
+        } else if (yardsGain >= 12 && !gotTD) {
+            if ([p.position isEqualToString:@"CB"]) {
+                return ((PlayerCB *)p).ratCBTkl * [HBSharedUtils randomValue] * 50;
+            } else if ([p.position isEqualToString:@"S"]) {
+                return ((PlayerS *)p).ratSTkl * [HBSharedUtils randomValue] * 100;
+            } else {
+                return 0;
+            }
+        }
     }
     
-    for (Player *p in awayStarters) {
-        [awayPlayerPrefs setObject:@([HBSharedUtils randomValue] * p.ratOvr) forKey:[p uniqueIdentifier]];
-    }
+    return 0;
 }
 
 -(void)playGame {
@@ -1068,7 +1227,6 @@
         
         //NSLog(@"START PLAYING GAME");
         while ( gameTime > 0 ) {
-            [self recyclePlayerInvolvementValues];
             //play ball!
             if (gamePoss) {
                 [self runPlay:homeTeam defense:awayTeam];
@@ -1246,127 +1404,181 @@
         [homeTeam getK:0].careerStatsFGAtt += [kFGA intValue];
         
         tkl = HomeSStats[FCDefensiveStatTkl];
+        [homeTeam getS:0].statsTkl += [tkl intValue];
         [homeTeam getS:0].careerStatsTkl += [tkl intValue];
         passDef = HomeSStats[FCDefensiveStatPassDef];
+        [homeTeam getS:0].statsPassDef += [passDef intValue];
         [homeTeam getS:0].careerStatsPassDef += [passDef intValue];
         sks = HomeSStats[FCDefensiveStatSacks];
+        [homeTeam getS:0].statsSacks += [sks intValue];
         [homeTeam getS:0].careerStatsSacks += [sks intValue];
         defInt = HomeSStats[FCDefensiveStatINT];
+        [homeTeam getS:0].statsInt += [defInt intValue];
         [homeTeam getS:0].careerStatsInt += [defInt intValue];
         ffum = HomeSStats[FCDefensiveStatForcedFum];
+        [homeTeam getS:0].statsForcedFum += [ffum intValue];
         [homeTeam getS:0].careerStatsForcedFum += [ffum intValue];
         
         tkl = HomeCB1Stats[FCDefensiveStatTkl];
+        [homeTeam getCB:0].statsTkl += [tkl intValue];
         [homeTeam getCB:0].careerStatsTkl += [tkl intValue];
         passDef = HomeCB1Stats[FCDefensiveStatPassDef];
+        [homeTeam getCB:0].statsPassDef += [passDef intValue];
         [homeTeam getCB:0].careerStatsPassDef += [passDef intValue];
         sks = HomeCB1Stats[FCDefensiveStatSacks];
+        [homeTeam getCB:0].statsSacks += [sks intValue];
         [homeTeam getCB:0].careerStatsSacks += [sks intValue];
         defInt = HomeCB1Stats[FCDefensiveStatINT];
+        [homeTeam getCB:0].statsInt += [defInt intValue];
         [homeTeam getCB:0].careerStatsInt += [defInt intValue];
         ffum = HomeCB1Stats[FCDefensiveStatForcedFum];
+        [homeTeam getCB:0].statsForcedFum += [ffum intValue];
         [homeTeam getCB:0].careerStatsForcedFum += [ffum intValue];
         
         tkl = HomeCB2Stats[FCDefensiveStatTkl];
+        [homeTeam getCB:1].statsTkl += [tkl intValue];
         [homeTeam getCB:1].careerStatsTkl += [tkl intValue];
         passDef = HomeCB2Stats[FCDefensiveStatPassDef];
+        [homeTeam getCB:1].statsPassDef += [passDef intValue];
         [homeTeam getCB:1].careerStatsPassDef += [passDef intValue];
         sks = HomeCB2Stats[FCDefensiveStatSacks];
+        [homeTeam getCB:1].statsSacks += [sks intValue];
         [homeTeam getCB:1].careerStatsSacks += [sks intValue];
         defInt = HomeCB2Stats[FCDefensiveStatINT];
+        [homeTeam getCB:1].statsInt += [defInt intValue];
         [homeTeam getCB:1].careerStatsInt += [defInt intValue];
         ffum = HomeCB2Stats[FCDefensiveStatForcedFum];
+        [homeTeam getCB:1].statsForcedFum += [ffum intValue];
         [homeTeam getCB:1].careerStatsForcedFum += [ffum intValue];
         
         tkl = HomeCB3Stats[FCDefensiveStatTkl];
+        [homeTeam getCB:2].statsTkl += [tkl intValue];
         [homeTeam getCB:2].careerStatsTkl += [tkl intValue];
         passDef = HomeCB3Stats[FCDefensiveStatPassDef];
+        [homeTeam getCB:2].statsPassDef += [passDef intValue];
         [homeTeam getCB:2].careerStatsPassDef += [passDef intValue];
         sks = HomeCB3Stats[FCDefensiveStatSacks];
+        [homeTeam getCB:2].statsSacks += [sks intValue];
         [homeTeam getCB:2].careerStatsSacks += [sks intValue];
         defInt = HomeCB3Stats[FCDefensiveStatINT];
+        [homeTeam getCB:2].statsInt += [defInt intValue];
         [homeTeam getCB:2].careerStatsInt += [defInt intValue];
         ffum = HomeCB3Stats[FCDefensiveStatForcedFum];
+        [homeTeam getCB:2].statsForcedFum += [ffum intValue];
         [homeTeam getCB:2].careerStatsForcedFum += [ffum intValue];
         
         ///
         tkl = HomeDL1Stats[FCDefensiveStatTkl];
+        [homeTeam getDL:0].statsTkl += [tkl intValue];
         [homeTeam getDL:0].careerStatsTkl += [tkl intValue];
         passDef = HomeDL1Stats[FCDefensiveStatPassDef];
+        [homeTeam getDL:0].statsPassDef += [passDef intValue];
         [homeTeam getDL:0].careerStatsPassDef += [passDef intValue];
         sks = HomeDL1Stats[FCDefensiveStatSacks];
+        [homeTeam getDL:0].statsSacks += [sks intValue];
         [homeTeam getDL:0].careerStatsSacks += [sks intValue];
         defInt = HomeDL1Stats[FCDefensiveStatINT];
+        [homeTeam getDL:0].statsInt += [defInt intValue];
         [homeTeam getDL:0].careerStatsInt += [defInt intValue];
         ffum = HomeDL1Stats[FCDefensiveStatForcedFum];
+        [homeTeam getDL:0].statsForcedFum += [ffum intValue];
         [homeTeam getDL:0].careerStatsForcedFum += [ffum intValue];
         
         tkl = HomeDL2Stats[FCDefensiveStatTkl];
+        [homeTeam getDL:1].statsTkl += [tkl intValue];
         [homeTeam getDL:1].careerStatsTkl += [tkl intValue];
         passDef = HomeDL2Stats[FCDefensiveStatPassDef];
+        [homeTeam getDL:1].statsPassDef += [passDef intValue];
         [homeTeam getDL:1].careerStatsPassDef += [passDef intValue];
         sks = HomeDL2Stats[FCDefensiveStatSacks];
+        [homeTeam getDL:1].statsSacks += [sks intValue];
         [homeTeam getDL:1].careerStatsSacks += [sks intValue];
         defInt = HomeDL2Stats[FCDefensiveStatINT];
+        [homeTeam getDL:1].statsInt += [defInt intValue];
         [homeTeam getDL:1].careerStatsInt += [defInt intValue];
         ffum = HomeDL2Stats[FCDefensiveStatForcedFum];
+        [homeTeam getDL:1].statsForcedFum += [ffum intValue];
         [homeTeam getDL:1].careerStatsForcedFum += [ffum intValue];
         
         tkl = HomeDL3Stats[FCDefensiveStatTkl];
+        [homeTeam getDL:2].statsTkl += [tkl intValue];
         [homeTeam getDL:2].careerStatsTkl += [tkl intValue];
         passDef = HomeDL3Stats[FCDefensiveStatPassDef];
+        [homeTeam getDL:2].statsPassDef += [passDef intValue];
         [homeTeam getDL:2].careerStatsPassDef += [passDef intValue];
         sks = HomeDL3Stats[FCDefensiveStatSacks];
+        [homeTeam getDL:2].statsSacks += [sks intValue];
         [homeTeam getDL:2].careerStatsSacks += [sks intValue];
         defInt = HomeDL3Stats[FCDefensiveStatINT];
+        [homeTeam getDL:2].statsInt += [defInt intValue];
         [homeTeam getDL:2].careerStatsInt += [defInt intValue];
         ffum = HomeDL3Stats[FCDefensiveStatForcedFum];
+        [homeTeam getDL:2].statsForcedFum += [ffum intValue];
         [homeTeam getDL:2].careerStatsForcedFum += [ffum intValue];
         
         tkl = HomeDL4Stats[FCDefensiveStatTkl];
+        [homeTeam getDL:3].statsTkl += [tkl intValue];
         [homeTeam getDL:3].careerStatsTkl += [tkl intValue];
         passDef = HomeDL4Stats[FCDefensiveStatPassDef];
+        [homeTeam getDL:3].statsPassDef += [passDef intValue];
         [homeTeam getDL:3].careerStatsPassDef += [passDef intValue];
         sks = HomeDL4Stats[FCDefensiveStatSacks];
+        [homeTeam getDL:3].statsSacks += [sks intValue];
         [homeTeam getDL:3].careerStatsSacks += [sks intValue];
         defInt = HomeDL4Stats[FCDefensiveStatINT];
+        [homeTeam getDL:3].statsInt += [defInt intValue];
         [homeTeam getDL:3].careerStatsInt += [defInt intValue];
         ffum = HomeDL4Stats[FCDefensiveStatForcedFum];
+        [homeTeam getDL:3].statsForcedFum += [ffum intValue];
         [homeTeam getDL:3].careerStatsForcedFum += [ffum intValue];
         
         ///
-        
         tkl = HomeLB1Stats[FCDefensiveStatTkl];
+        [homeTeam getLB:0].statsTkl += [tkl intValue];
         [homeTeam getLB:0].careerStatsTkl += [tkl intValue];
         passDef = HomeLB1Stats[FCDefensiveStatPassDef];
+        [homeTeam getLB:0].statsPassDef += [passDef intValue];
         [homeTeam getLB:0].careerStatsPassDef += [passDef intValue];
         sks = HomeLB1Stats[FCDefensiveStatSacks];
+        [homeTeam getLB:0].statsSacks += [sks intValue];
         [homeTeam getLB:0].careerStatsSacks += [sks intValue];
         defInt = HomeLB1Stats[FCDefensiveStatINT];
+        [homeTeam getLB:0].statsInt += [defInt intValue];
         [homeTeam getLB:0].careerStatsInt += [defInt intValue];
         ffum = HomeLB1Stats[FCDefensiveStatForcedFum];
+        [homeTeam getLB:0].statsForcedFum += [ffum intValue];
         [homeTeam getLB:0].careerStatsForcedFum += [ffum intValue];
         
         tkl = HomeLB2Stats[FCDefensiveStatTkl];
+        [homeTeam getLB:1].statsTkl += [tkl intValue];
         [homeTeam getLB:1].careerStatsTkl += [tkl intValue];
         passDef = HomeLB2Stats[FCDefensiveStatPassDef];
+        [homeTeam getLB:1].statsPassDef += [passDef intValue];
         [homeTeam getLB:1].careerStatsPassDef += [passDef intValue];
         sks = HomeLB2Stats[FCDefensiveStatSacks];
+        [homeTeam getLB:1].statsSacks += [sks intValue];
         [homeTeam getLB:1].careerStatsSacks += [sks intValue];
         defInt = HomeLB2Stats[FCDefensiveStatINT];
+        [homeTeam getLB:1].statsInt += [defInt intValue];
         [homeTeam getLB:1].careerStatsInt += [defInt intValue];
         ffum = HomeLB2Stats[FCDefensiveStatForcedFum];
+        [homeTeam getLB:1].statsForcedFum += [ffum intValue];
         [homeTeam getLB:1].careerStatsForcedFum += [ffum intValue];
         
         tkl = HomeLB3Stats[FCDefensiveStatTkl];
+        [homeTeam getLB:2].statsTkl += [tkl intValue];
         [homeTeam getLB:2].careerStatsTkl += [tkl intValue];
         passDef = HomeLB3Stats[FCDefensiveStatPassDef];
+        [homeTeam getLB:2].statsPassDef += [passDef intValue];
         [homeTeam getLB:2].careerStatsPassDef += [passDef intValue];
         sks = HomeLB3Stats[FCDefensiveStatSacks];
+        [homeTeam getLB:2].statsSacks += [sks intValue];
         [homeTeam getLB:2].careerStatsSacks += [sks intValue];
         defInt = HomeLB3Stats[FCDefensiveStatINT];
+        [homeTeam getLB:2].statsInt += [defInt intValue];
         [homeTeam getLB:2].careerStatsInt += [defInt intValue];
         ffum = HomeLB3Stats[FCDefensiveStatForcedFum];
+        [homeTeam getLB:2].statsForcedFum += [ffum intValue];
         [homeTeam getLB:2].careerStatsForcedFum += [ffum intValue];
         //NSLog(@"END HOME TEAM");
         
@@ -1471,127 +1683,182 @@
         [awayTeam getK:0].careerStatsFGAtt += [kFGA intValue];
         
         tkl = AwaySStats[FCDefensiveStatTkl];
+        [awayTeam getS:0].statsTkl += [tkl intValue];
         [awayTeam getS:0].careerStatsTkl += [tkl intValue];
         passDef = AwaySStats[FCDefensiveStatPassDef];
+        [awayTeam getS:0].statsPassDef += [passDef intValue];
         [awayTeam getS:0].careerStatsPassDef += [passDef intValue];
         sks = AwaySStats[FCDefensiveStatSacks];
+        [awayTeam getS:0].statsSacks += [sks intValue];
         [awayTeam getS:0].careerStatsSacks += [sks intValue];
         defInt = AwaySStats[FCDefensiveStatINT];
+        [awayTeam getS:0].statsInt += [defInt intValue];
         [awayTeam getS:0].careerStatsInt += [defInt intValue];
         ffum = AwaySStats[FCDefensiveStatForcedFum];
+        [awayTeam getS:0].statsForcedFum += [ffum intValue];
         [awayTeam getS:0].careerStatsForcedFum += [ffum intValue];
         
         tkl = AwayCB1Stats[FCDefensiveStatTkl];
+        [awayTeam getCB:0].statsTkl += [tkl intValue];
         [awayTeam getCB:0].careerStatsTkl += [tkl intValue];
         passDef = AwayCB1Stats[FCDefensiveStatPassDef];
+        [awayTeam getCB:0].statsPassDef += [passDef intValue];
         [awayTeam getCB:0].careerStatsPassDef += [passDef intValue];
         sks = AwayCB1Stats[FCDefensiveStatSacks];
+        [awayTeam getCB:0].statsSacks += [sks intValue];
         [awayTeam getCB:0].careerStatsSacks += [sks intValue];
         defInt = AwayCB1Stats[FCDefensiveStatINT];
+        [awayTeam getCB:0].statsInt += [defInt intValue];
         [awayTeam getCB:0].careerStatsInt += [defInt intValue];
         ffum = AwayCB1Stats[FCDefensiveStatForcedFum];
+        [awayTeam getCB:0].statsForcedFum += [ffum intValue];
         [awayTeam getCB:0].careerStatsForcedFum += [ffum intValue];
         
         tkl = AwayCB2Stats[FCDefensiveStatTkl];
+        [awayTeam getCB:1].statsTkl += [tkl intValue];
         [awayTeam getCB:1].careerStatsTkl += [tkl intValue];
         passDef = AwayCB2Stats[FCDefensiveStatPassDef];
+        [awayTeam getCB:1].statsPassDef += [passDef intValue];
         [awayTeam getCB:1].careerStatsPassDef += [passDef intValue];
         sks = AwayCB2Stats[FCDefensiveStatSacks];
+        [awayTeam getCB:1].statsSacks += [sks intValue];
         [awayTeam getCB:1].careerStatsSacks += [sks intValue];
         defInt = AwayCB2Stats[FCDefensiveStatINT];
+        [awayTeam getCB:1].statsInt += [defInt intValue];
         [awayTeam getCB:1].careerStatsInt += [defInt intValue];
         ffum = AwayCB2Stats[FCDefensiveStatForcedFum];
+        [awayTeam getCB:1].statsForcedFum += [ffum intValue];
         [awayTeam getCB:1].careerStatsForcedFum += [ffum intValue];
         
         tkl = AwayCB3Stats[FCDefensiveStatTkl];
+        [awayTeam getCB:2].statsTkl += [tkl intValue];
         [awayTeam getCB:2].careerStatsTkl += [tkl intValue];
         passDef = AwayCB3Stats[FCDefensiveStatPassDef];
+        [awayTeam getCB:2].statsPassDef += [passDef intValue];
         [awayTeam getCB:2].careerStatsPassDef += [passDef intValue];
         sks = AwayCB3Stats[FCDefensiveStatSacks];
+        [awayTeam getCB:2].statsSacks += [sks intValue];
         [awayTeam getCB:2].careerStatsSacks += [sks intValue];
         defInt = AwayCB3Stats[FCDefensiveStatINT];
+        [awayTeam getCB:2].statsInt += [defInt intValue];
         [awayTeam getCB:2].careerStatsInt += [defInt intValue];
         ffum = AwayCB3Stats[FCDefensiveStatForcedFum];
+        [awayTeam getCB:2].statsForcedFum += [ffum intValue];
         [awayTeam getCB:2].careerStatsForcedFum += [ffum intValue];
         
         ///
         tkl = AwayDL1Stats[FCDefensiveStatTkl];
+        [awayTeam getDL:0].statsTkl += [tkl intValue];
         [awayTeam getDL:0].careerStatsTkl += [tkl intValue];
         passDef = AwayDL1Stats[FCDefensiveStatPassDef];
+        [awayTeam getDL:0].statsPassDef += [passDef intValue];
         [awayTeam getDL:0].careerStatsPassDef += [passDef intValue];
         sks = AwayDL1Stats[FCDefensiveStatSacks];
+        [awayTeam getDL:0].statsSacks += [sks intValue];
         [awayTeam getDL:0].careerStatsSacks += [sks intValue];
         defInt = AwayDL1Stats[FCDefensiveStatINT];
+        [awayTeam getDL:0].statsInt += [defInt intValue];
         [awayTeam getDL:0].careerStatsInt += [defInt intValue];
         ffum = AwayDL1Stats[FCDefensiveStatForcedFum];
+        [awayTeam getDL:0].statsForcedFum += [ffum intValue];
         [awayTeam getDL:0].careerStatsForcedFum += [ffum intValue];
         
         tkl = AwayDL2Stats[FCDefensiveStatTkl];
+        [awayTeam getDL:1].statsTkl += [tkl intValue];
         [awayTeam getDL:1].careerStatsTkl += [tkl intValue];
         passDef = AwayDL2Stats[FCDefensiveStatPassDef];
+        [awayTeam getDL:1].statsPassDef += [passDef intValue];
         [awayTeam getDL:1].careerStatsPassDef += [passDef intValue];
         sks = AwayDL2Stats[FCDefensiveStatSacks];
+        [awayTeam getDL:1].statsSacks += [sks intValue];
         [awayTeam getDL:1].careerStatsSacks += [sks intValue];
         defInt = AwayDL2Stats[FCDefensiveStatINT];
+        [awayTeam getDL:1].statsInt += [defInt intValue];
         [awayTeam getDL:1].careerStatsInt += [defInt intValue];
         ffum = AwayDL2Stats[FCDefensiveStatForcedFum];
+        [awayTeam getDL:1].statsForcedFum += [ffum intValue];
         [awayTeam getDL:1].careerStatsForcedFum += [ffum intValue];
         
         tkl = AwayDL3Stats[FCDefensiveStatTkl];
+        [awayTeam getDL:2].statsTkl += [tkl intValue];
         [awayTeam getDL:2].careerStatsTkl += [tkl intValue];
         passDef = AwayDL3Stats[FCDefensiveStatPassDef];
+        [awayTeam getDL:2].statsPassDef += [passDef intValue];
         [awayTeam getDL:2].careerStatsPassDef += [passDef intValue];
         sks = AwayDL3Stats[FCDefensiveStatSacks];
+        [awayTeam getDL:2].statsSacks += [sks intValue];
         [awayTeam getDL:2].careerStatsSacks += [sks intValue];
         defInt = AwayDL3Stats[FCDefensiveStatINT];
+        [awayTeam getDL:2].statsInt += [defInt intValue];
         [awayTeam getDL:2].careerStatsInt += [defInt intValue];
         ffum = AwayDL3Stats[FCDefensiveStatForcedFum];
+        [awayTeam getDL:2].statsForcedFum += [ffum intValue];
         [awayTeam getDL:2].careerStatsForcedFum += [ffum intValue];
         
         tkl = AwayDL4Stats[FCDefensiveStatTkl];
+        [awayTeam getDL:3].statsTkl += [tkl intValue];
         [awayTeam getDL:3].careerStatsTkl += [tkl intValue];
         passDef = AwayDL4Stats[FCDefensiveStatPassDef];
+        [awayTeam getDL:3].statsPassDef += [passDef intValue];
         [awayTeam getDL:3].careerStatsPassDef += [passDef intValue];
         sks = AwayDL4Stats[FCDefensiveStatSacks];
+        [awayTeam getDL:3].statsSacks += [sks intValue];
         [awayTeam getDL:3].careerStatsSacks += [sks intValue];
         defInt = AwayDL4Stats[FCDefensiveStatINT];
+        [awayTeam getDL:3].statsInt += [defInt intValue];
         [awayTeam getDL:3].careerStatsInt += [defInt intValue];
         ffum = AwayDL4Stats[FCDefensiveStatForcedFum];
+        [awayTeam getDL:3].statsForcedFum += [ffum intValue];
         [awayTeam getDL:3].careerStatsForcedFum += [ffum intValue];
         
         ///
         
         tkl = AwayLB1Stats[FCDefensiveStatTkl];
+        [awayTeam getLB:0].statsTkl += [tkl intValue];
         [awayTeam getLB:0].careerStatsTkl += [tkl intValue];
         passDef = AwayLB1Stats[FCDefensiveStatPassDef];
+        [awayTeam getLB:0].statsPassDef += [passDef intValue];
         [awayTeam getLB:0].careerStatsPassDef += [passDef intValue];
         sks = AwayLB1Stats[FCDefensiveStatSacks];
+        [awayTeam getLB:0].statsSacks += [sks intValue];
         [awayTeam getLB:0].careerStatsSacks += [sks intValue];
         defInt = AwayLB1Stats[FCDefensiveStatINT];
+        [awayTeam getLB:0].statsInt += [defInt intValue];
         [awayTeam getLB:0].careerStatsInt += [defInt intValue];
         ffum = AwayLB1Stats[FCDefensiveStatForcedFum];
+        [awayTeam getLB:0].statsForcedFum += [ffum intValue];
         [awayTeam getLB:0].careerStatsForcedFum += [ffum intValue];
         
         tkl = AwayLB2Stats[FCDefensiveStatTkl];
+        [awayTeam getLB:1].statsTkl += [tkl intValue];
         [awayTeam getLB:1].careerStatsTkl += [tkl intValue];
         passDef = AwayLB2Stats[FCDefensiveStatPassDef];
+        [awayTeam getLB:1].statsPassDef += [passDef intValue];
         [awayTeam getLB:1].careerStatsPassDef += [passDef intValue];
         sks = AwayLB2Stats[FCDefensiveStatSacks];
+        [awayTeam getLB:1].statsSacks += [sks intValue];
         [awayTeam getLB:1].careerStatsSacks += [sks intValue];
         defInt = AwayLB2Stats[FCDefensiveStatINT];
+        [awayTeam getLB:1].statsInt += [defInt intValue];
         [awayTeam getLB:1].careerStatsInt += [defInt intValue];
         ffum = AwayLB2Stats[FCDefensiveStatForcedFum];
+        [awayTeam getLB:1].statsForcedFum += [ffum intValue];
         [awayTeam getLB:1].careerStatsForcedFum += [ffum intValue];
         
         tkl = AwayLB3Stats[FCDefensiveStatTkl];
+        [awayTeam getLB:2].statsTkl += [tkl intValue];
         [awayTeam getLB:2].careerStatsTkl += [tkl intValue];
         passDef = AwayLB3Stats[FCDefensiveStatPassDef];
+        [awayTeam getLB:2].statsPassDef += [passDef intValue];
         [awayTeam getLB:2].careerStatsPassDef += [passDef intValue];
         sks = AwayLB3Stats[FCDefensiveStatSacks];
+        [awayTeam getLB:2].statsSacks += [sks intValue];
         [awayTeam getLB:2].careerStatsSacks += [sks intValue];
         defInt = AwayLB3Stats[FCDefensiveStatINT];
+        [awayTeam getLB:2].statsInt += [defInt intValue];
         [awayTeam getLB:2].careerStatsInt += [defInt intValue];
         ffum = AwayLB3Stats[FCDefensiveStatForcedFum];
+        [awayTeam getLB:2].statsForcedFum += [ffum intValue];
         [awayTeam getLB:2].careerStatsForcedFum += [ffum intValue];
         //NSLog(@"END AWAY TEAM");
         
@@ -1972,6 +2239,24 @@
     int pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass] - [self getHFAdv] + (defense.defensiveStrategy.runProtection*2 - offense.offensiveStrategy.runProtection);
     if ([HBSharedUtils randomValue]*100 < pressureOnQB/8 ) {
         //sacked!
+//        NSArray *defenders = @[selS,selCB,selDL,selLB];
+//        NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+//        for (Player *p in defenders) {
+//            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationSack relatedPlayer:[offense getQB:0] yardsGained:0]) forKey:[p uniqueIdentifier]];
+//        }
+//
+//        NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//            return [obj2 compare:obj1];
+//        }];
+//
+//        Player *defender = defenders[0];
+//        for (Player *p in defenders) {
+//            if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+//                defender = p;
+//                break;
+//            }
+//        }
+        
         [self qbSack:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS];
         return;
     }
@@ -1981,7 +2266,7 @@
     if (intChance < 0.015) intChance = 0.015;
     if ( 100* [HBSharedUtils randomValue] < intChance ) {
         //Interception
-        [self qbInterception:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS];
+        [self qbInterception:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS selectedReceiver:selTE];
         return;
     }
     
@@ -1998,7 +2283,7 @@
             wrStat = [NSNumber numberWithInteger:wrStat.integerValue + 1];
             [selTEStats replaceObjectAtIndex:FCWRStatDrops withObject:wrStat];
             selTE.statsDrops++;
-            [self passAttempt:offense defense:defense receiver:selTE stats:selTEStats yardsGained:yardsGain];
+            [self passAttempt:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS receiver:selTE stats:selTEStats yardsGained:yardsGain];
             gameTime -= (15 * [HBSharedUtils randomValue]);
             return;
         } else {
@@ -2043,12 +2328,12 @@
             }
             
             //stats management
-            [self passCompletion:offense defense:defense receiver:selTE stats:selTEStats yardsGained:yardsGain];
+            [self passCompletion:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS receiver:selTE stats:selTEStats yardsGained:yardsGain];
         }
         
     } else {
         //no completion, advance downs
-        [self passAttempt:offense defense:defense receiver:selTE stats:selTEStats yardsGained:yardsGain];
+        [self passAttempt:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS receiver:selTE stats:selTEStats yardsGained:yardsGain];
         if (pbpEnabled) {
             [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@'s pass falls incomplete. Intended for %@ %@.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selTE.position, selTE.name]];
         }
@@ -2059,21 +2344,23 @@
     
     
     if ( gotFumble ) {
+        NSArray *defenders = @[selS,selCB,selDL,selLB];
+        NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+        for (Player *p in defenders) {
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationFumble relatedPlayer:selTE yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
+        }
         
-        NSMutableArray *defenders = [NSMutableArray arrayWithArray:@[selS,selCB,selDL,selLB]];
-        [defenders sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            Player *a = (Player *)obj1;
-            Player *b = (Player *)obj2;
-            if (self->gamePoss) {
-                // home
-                return [self.homePlayerPrefs[[b uniqueIdentifier]] compare:self.homePlayerPrefs[[a uniqueIdentifier]]];
-            } else {
-                // away
-                return [self.awayPlayerPrefs[[b uniqueIdentifier]] compare:self.awayPlayerPrefs[[a uniqueIdentifier]]];
-            }
+        NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj2 compare:obj1];
         }];
         
-        Player *defender = (Player*)defenders[0];
+        Player *defender = defenders[0];
+        for (Player *p in defenders) {
+            if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+                defender = p;
+                break;
+            }
+        }
         // add game stats
         [self _addGameStat:FCDefensiveStatForcedFum forDefender:defender onDefense:defense amount:1];
         
@@ -2136,7 +2423,7 @@
     if (intChance < 0.015) intChance = 0.015;
     if ( 100* [HBSharedUtils randomValue] < intChance ) {
         //Interception
-        [self qbInterception:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS];
+        [self qbInterception:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS selectedReceiver:selWR];
         return;
     }
     
@@ -2153,7 +2440,7 @@
             wrStat = [NSNumber numberWithInteger:wrStat.integerValue + 1];
             [selWRStats replaceObjectAtIndex:FCWRStatDrops withObject:wrStat];
             selWR.statsDrops++;
-            [self passAttempt:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
+            [self passAttempt:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS receiver:selWR stats:selWRStats yardsGained:yardsGain];
             gameTime -= (15 * [HBSharedUtils randomValue]);
             return;
         } else {
@@ -2199,12 +2486,12 @@
             }
             
             //stats management
-            [self passCompletion:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
+            [self passCompletion:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS receiver:selWR stats:selWRStats yardsGained:yardsGain];
         }
         
     } else {
         //no completion, advance downs
-        [self passAttempt:offense defense:defense receiver:selWR stats:selWRStats yardsGained:yardsGain];
+        [self passAttempt:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS receiver:selWR stats:selWRStats yardsGained:yardsGain];
         if (pbpEnabled) {
             [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@'s pass falls incomplete. Intended for %@ %@.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selWR.position, selWR.name]];
         }
@@ -2215,20 +2502,23 @@
     
     
     if ( gotFumble ) {
-        NSMutableArray *defenders = [NSMutableArray arrayWithArray:@[selS,selCB,selDL,selLB]];
-        [defenders sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            Player *a = (Player *)obj1;
-            Player *b = (Player *)obj2;
-            if (self->gamePoss) {
-                // home
-                return [self.homePlayerPrefs[[b uniqueIdentifier]] compare:self.homePlayerPrefs[[a uniqueIdentifier]]];
-            } else {
-                // away
-                return [self.awayPlayerPrefs[[b uniqueIdentifier]] compare:self.awayPlayerPrefs[[a uniqueIdentifier]]];
-            }
+        NSArray *defenders = @[selS,selCB,selDL,selLB];
+        NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+        for (Player *p in defenders) {
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationFumble relatedPlayer:selWR yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
+        }
+        
+        NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj2 compare:obj1];
         }];
         
-        Player *defender = (Player*)defenders[0];
+        Player *defender = defenders[0];
+        for (Player *p in defenders) {
+            if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+                defender = p;
+                break;
+            }
+        }
         // add game stats
         [self _addGameStat:FCDefensiveStatForcedFum forDefender:defender onDefense:defense amount:1];
         
@@ -2412,7 +2702,7 @@
     }
     
     //stats management
-    [self rushAttemptQB:offense defense:defense rusher:selQB yardsGained:yardsGain];
+    [self rushAttemptQB:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS rusher:selQB yardsGained:yardsGain];
     
     if ( gotTD ) {
         [self kickXP:offense defense:defense];
@@ -2427,20 +2717,23 @@
         double fumChance = (selS.ratSTkl + [defense getCompositeF7Rush] - [self getHFAdv])/2 + offense.offensiveStrategy.runProtection;
         if ( 100* [HBSharedUtils randomValue] < fumChance/40 ) {
             
-            NSMutableArray *defenders = [NSMutableArray arrayWithArray:@[selS,selCB,selDL,selLB]];
-            [defenders sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Player *a = (Player *)obj1;
-                Player *b = (Player *)obj2;
-                if (self->gamePoss) {
-                    // home
-                    return [self.homePlayerPrefs[[b uniqueIdentifier]] compare:self.homePlayerPrefs[[a uniqueIdentifier]]];
-                } else {
-                    // away
-                    return [self.awayPlayerPrefs[[b uniqueIdentifier]] compare:self.awayPlayerPrefs[[a uniqueIdentifier]]];
-                }
+            NSArray *defenders = @[selS,selCB,selDL,selLB];
+            NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+            for (Player *p in defenders) {
+                [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationFumble relatedPlayer:selTE yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
+            }
+            
+            NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj2 compare:obj1];
             }];
             
-            Player *defender = (Player*)defenders[0];
+            Player *defender = defenders[0];
+            for (Player *p in defenders) {
+                if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+                    defender = p;
+                    break;
+                }
+            }
             // add game stats
             [self _addGameStat:FCDefensiveStatForcedFum forDefender:defender onDefense:defense amount:1];
             
@@ -2537,7 +2830,7 @@
     }
     
     //stats management
-    [self rushAttempt:offense defense:defense rusher:selRB rb1Pref:RB1pref rb2Pref:RB2pref yardsGained:yardsGain];
+    [self rushAttempt:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS rusher:selRB rb1Pref:RB1pref rb2Pref:RB2pref yardsGained:yardsGain];
     
     if ( gotTD ) {
         [self kickXP:offense defense:defense];
@@ -2553,20 +2846,23 @@
         if ( 100* [HBSharedUtils randomValue] < fumChance/40 ) {
             //Fumble!
             
-            NSMutableArray *defenders = [NSMutableArray arrayWithArray:@[selS,selCB,selDL,selLB]];
-            [defenders sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Player *a = (Player *)obj1;
-                Player *b = (Player *)obj2;
-                if (self->gamePoss) {
-                    // home
-                    return [self.homePlayerPrefs[[b uniqueIdentifier]] compare:self.homePlayerPrefs[[a uniqueIdentifier]]];
-                } else {
-                    // away
-                    return [self.awayPlayerPrefs[[b uniqueIdentifier]] compare:self.awayPlayerPrefs[[a uniqueIdentifier]]];
-                }
+            NSArray *defenders = @[selS,selCB,selDL,selLB];
+            NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+            for (Player *p in defenders) {
+                [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationFumble relatedPlayer:selTE yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
+            }
+            
+            NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [obj2 compare:obj1];
             }];
             
-            Player *defender = (Player*)defenders[0];
+            Player *defender = defenders[0];
+            for (Player *p in defenders) {
+                if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+                    defender = p;
+                    break;
+                }
+            }
             // add game stats
             [self _addGameStat:FCDefensiveStatForcedFum forDefender:defender onDefense:defense amount:1];
             
@@ -3068,21 +3364,23 @@
         qbSack = [NSNumber numberWithInteger:qbSack.integerValue + 1];
         [AwayQBStats replaceObjectAtIndex:FCQBStatSacked withObject:qbSack];
     }
+    NSArray *defenders = @[selS,selCB,selDL,selLB];
+    NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+    for (Player *p in defenders) {
+        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationSack relatedPlayer:[offense getQB:0] yardsGained:sackLoss]) forKey:[p uniqueIdentifier]];
+    }
     
-    NSMutableArray *defenders = [NSMutableArray arrayWithArray:@[selS,selCB,selDL,selLB]];
-    [defenders sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player *)obj1;
-        Player *b = (Player *)obj2;
-        if (self->gamePoss) {
-            // home
-            return [self.homePlayerPrefs[[b uniqueIdentifier]] compare:self.homePlayerPrefs[[a uniqueIdentifier]]];
-        } else {
-            // away
-            return [self.awayPlayerPrefs[[b uniqueIdentifier]] compare:self.awayPlayerPrefs[[a uniqueIdentifier]]];
-        }
+    NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
     }];
     
-    Player *defender = (Player*)defenders[0];
+    Player *defender = defenders[0];
+    for (Player *p in defenders) {
+        if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+            defender = p;
+            break;
+        }
+    }
     // add game stats
     [self _addGameStat:FCDefensiveStatSacks forDefender:defender onDefense:defense amount:1];
 
@@ -3107,17 +3405,17 @@
     if (gamePoss) { // home
         if ([defender isKindOfClass:[PlayerCB class]]) {
             PlayerCB *cb = (PlayerCB*)defender;
-            if (statType == FCDefensiveStatTkl) {
-                cb.statsTkl++;
-            } else if (statType == FCDefensiveStatPassDef) {
-                cb.statsPassDef++;
-            } else if (statType == FCDefensiveStatINT) {
-                cb.statsInt++;
-            } else if (statType == FCDefensiveStatForcedFum) {
-                cb.statsForcedFum++;
-            } else { // sack
-                cb.statsSacks++;
-            }
+//            if (statType == FCDefensiveStatTkl) {
+//                cb.statsTkl++;
+//            } else if (statType == FCDefensiveStatPassDef) {
+//                cb.statsPassDef++;
+//            } else if (statType == FCDefensiveStatINT) {
+//                cb.statsInt++;
+//            } else if (statType == FCDefensiveStatForcedFum) {
+//                cb.statsForcedFum++;
+//            } else { // sack
+//                cb.statsSacks++;
+//            }
             if ([defense.teamCBs indexOfObject:cb] == 0) {
                 NSNumber *qbSack = HomeCB1Stats[statType];
                 qbSack = [NSNumber numberWithInteger:qbSack.integerValue + amount];
@@ -3132,34 +3430,34 @@
                 [HomeCB3Stats replaceObjectAtIndex:statType withObject:qbSack];
             }
         } else if ([defender isKindOfClass:[PlayerS class]]) {
-            PlayerS *s = (PlayerS*)defender;
-            if (statType == FCDefensiveStatTkl) {
-                s.statsTkl++;
-            } else if (statType == FCDefensiveStatPassDef) {
-                s.statsPassDef++;
-            } else if (statType == FCDefensiveStatINT) {
-                s.statsInt++;
-            } else if (statType == FCDefensiveStatForcedFum) {
-                s.statsForcedFum++;
-            } else { // sack
-                s.statsSacks++;
-            }
+//            PlayerS *s = (PlayerS*)defender;
+//            if (statType == FCDefensiveStatTkl) {
+//                s.statsTkl++;
+//            } else if (statType == FCDefensiveStatPassDef) {
+//                s.statsPassDef++;
+//            } else if (statType == FCDefensiveStatINT) {
+//                s.statsInt++;
+//            } else if (statType == FCDefensiveStatForcedFum) {
+//                s.statsForcedFum++;
+//            } else { // sack
+//                s.statsSacks++;
+//            }
             NSNumber *qbSack = HomeSStats[statType];
             qbSack = [NSNumber numberWithInteger:qbSack.integerValue + amount];
             [HomeSStats replaceObjectAtIndex:statType withObject:qbSack];
         } else if ([defender isKindOfClass:[PlayerDL class]]) {
             PlayerDL *dl = (PlayerDL*)defender;
-            if (statType == FCDefensiveStatTkl) {
-                dl.statsTkl++;
-            } else if (statType == FCDefensiveStatPassDef) {
-                dl.statsPassDef++;
-            } else if (statType == FCDefensiveStatINT) {
-                dl.statsInt++;
-            } else if (statType == FCDefensiveStatForcedFum) {
-                dl.statsForcedFum++;
-            } else { // sack
-                dl.statsSacks++;
-            }
+//            if (statType == FCDefensiveStatTkl) {
+//                dl.statsTkl++;
+//            } else if (statType == FCDefensiveStatPassDef) {
+//                dl.statsPassDef++;
+//            } else if (statType == FCDefensiveStatINT) {
+//                dl.statsInt++;
+//            } else if (statType == FCDefensiveStatForcedFum) {
+//                dl.statsForcedFum++;
+//            } else { // sack
+//                dl.statsSacks++;
+//            }
             if ([defense.teamDLs indexOfObject:dl] == 0) {
                 NSNumber *qbSack = HomeDL1Stats[statType];
                 qbSack = [NSNumber numberWithInteger:qbSack.integerValue + amount];
@@ -3179,17 +3477,17 @@
             }
         } else { // PlayerLB
             PlayerLB *lb = (PlayerLB*)defender;
-            if (statType == FCDefensiveStatTkl) {
-                lb.statsTkl++;
-            } else if (statType == FCDefensiveStatPassDef) {
-                lb.statsPassDef++;
-            } else if (statType == FCDefensiveStatINT) {
-                lb.statsInt++;
-            } else if (statType == FCDefensiveStatForcedFum) {
-                lb.statsForcedFum++;
-            } else { // sack
-                lb.statsSacks++;
-            }
+//            if (statType == FCDefensiveStatTkl) {
+//                lb.statsTkl++;
+//            } else if (statType == FCDefensiveStatPassDef) {
+//                lb.statsPassDef++;
+//            } else if (statType == FCDefensiveStatINT) {
+//                lb.statsInt++;
+//            } else if (statType == FCDefensiveStatForcedFum) {
+//                lb.statsForcedFum++;
+//            } else { // sack
+//                lb.statsSacks++;
+//            }
             if ([defense.teamLBs indexOfObject:lb] == 0) {
                 NSNumber *qbSack = HomeLB1Stats[statType];
                 qbSack = [NSNumber numberWithInteger:qbSack.integerValue + amount];
@@ -3207,17 +3505,17 @@
     } else {
         if ([defender isKindOfClass:[PlayerCB class]]) {
             PlayerCB *cb = (PlayerCB*)defender;
-            if (statType == FCDefensiveStatTkl) {
-                cb.statsTkl++;
-            } else if (statType == FCDefensiveStatPassDef) {
-                cb.statsPassDef++;
-            } else if (statType == FCDefensiveStatINT) {
-                cb.statsInt++;
-            } else if (statType == FCDefensiveStatForcedFum) {
-                cb.statsForcedFum++;
-            } else { // sack
-                cb.statsSacks++;
-            }
+//            if (statType == FCDefensiveStatTkl) {
+//                cb.statsTkl++;
+//            } else if (statType == FCDefensiveStatPassDef) {
+//                cb.statsPassDef++;
+//            } else if (statType == FCDefensiveStatINT) {
+//                cb.statsInt++;
+//            } else if (statType == FCDefensiveStatForcedFum) {
+//                cb.statsForcedFum++;
+//            } else { // sack
+//                cb.statsSacks++;
+//            }
             if ([defense.teamCBs indexOfObject:cb] == 0) {
                 NSNumber *qbSack = AwayCB1Stats[statType];
                 qbSack = [NSNumber numberWithInteger:qbSack.integerValue + amount];
@@ -3232,34 +3530,34 @@
                 [AwayCB3Stats replaceObjectAtIndex:statType withObject:qbSack];
             }
         } else if ([defender isKindOfClass:[PlayerS class]]) {
-            PlayerS *s = (PlayerS*)defender;
-            if (statType == FCDefensiveStatTkl) {
-                s.statsTkl++;
-            } else if (statType == FCDefensiveStatPassDef) {
-                s.statsPassDef++;
-            } else if (statType == FCDefensiveStatINT) {
-                s.statsInt++;
-            } else if (statType == FCDefensiveStatForcedFum) {
-                s.statsForcedFum++;
-            } else { // sack
-                s.statsSacks++;
-            }
+//            PlayerS *s = (PlayerS*)defender;
+//            if (statType == FCDefensiveStatTkl) {
+//                s.statsTkl++;
+//            } else if (statType == FCDefensiveStatPassDef) {
+//                s.statsPassDef++;
+//            } else if (statType == FCDefensiveStatINT) {
+//                s.statsInt++;
+//            } else if (statType == FCDefensiveStatForcedFum) {
+//                s.statsForcedFum++;
+//            } else { // sack
+//                s.statsSacks++;
+//            }
             NSNumber *qbSack = AwaySStats[statType];
             qbSack = [NSNumber numberWithInteger:qbSack.integerValue + amount];
             [AwaySStats replaceObjectAtIndex:statType withObject:qbSack];
         } else if ([defender isKindOfClass:[PlayerDL class]]) {
             PlayerDL *dl = (PlayerDL*)defender;
-            if (statType == FCDefensiveStatTkl) {
-                dl.statsTkl++;
-            } else if (statType == FCDefensiveStatPassDef) {
-                dl.statsPassDef++;
-            } else if (statType == FCDefensiveStatINT) {
-                dl.statsInt++;
-            } else if (statType == FCDefensiveStatForcedFum) {
-                dl.statsForcedFum++;
-            } else { // sack
-                dl.statsSacks++;
-            }
+//            if (statType == FCDefensiveStatTkl) {
+//                dl.statsTkl++;
+//            } else if (statType == FCDefensiveStatPassDef) {
+//                dl.statsPassDef++;
+//            } else if (statType == FCDefensiveStatINT) {
+//                dl.statsInt++;
+//            } else if (statType == FCDefensiveStatForcedFum) {
+//                dl.statsForcedFum++;
+//            } else { // sack
+//                dl.statsSacks++;
+//            }
             if ([defense.teamDLs indexOfObject:dl] == 0) {
                 NSNumber *qbSack = AwayDL1Stats[statType];
                 qbSack = [NSNumber numberWithInteger:qbSack.integerValue + amount];
@@ -3279,17 +3577,17 @@
             }
         } else { // PlayerLB
             PlayerLB *lb = (PlayerLB*)defender;
-            if (statType == FCDefensiveStatTkl) {
-                lb.statsTkl++;
-            } else if (statType == FCDefensiveStatPassDef) {
-                lb.statsPassDef++;
-            } else if (statType == FCDefensiveStatINT) {
-                lb.statsInt++;
-            } else if (statType == FCDefensiveStatForcedFum) {
-                lb.statsForcedFum++;
-            } else { // sack
-                lb.statsSacks++;
-            }
+//            if (statType == FCDefensiveStatTkl) {
+//                lb.statsTkl++;
+//            } else if (statType == FCDefensiveStatPassDef) {
+//                lb.statsPassDef++;
+//            } else if (statType == FCDefensiveStatINT) {
+//                lb.statsInt++;
+//            } else if (statType == FCDefensiveStatForcedFum) {
+//                lb.statsForcedFum++;
+//            } else { // sack
+//                lb.statsSacks++;
+//            }
             if ([defense.teamLBs indexOfObject:lb] == 0) {
                 NSNumber *qbSack = AwayLB1Stats[statType];
                 qbSack = [NSNumber numberWithInteger:qbSack.integerValue + amount];
@@ -3319,7 +3617,7 @@
     }
 }
 
--(void)qbInterception:(Team *)offense defense:(Team*)defense selectedDL:(PlayerDL*)selDL selectedLB:(PlayerLB*)selLB selectedCB:(PlayerCB*)selCB selectedS:(PlayerS*)selS {
+-(void)qbInterception:(Team *)offense defense:(Team*)defense selectedDL:(PlayerDL*)selDL selectedLB:(PlayerLB*)selLB selectedCB:(PlayerCB*)selCB selectedS:(PlayerS*)selS selectedReceiver:(Player *)selPlayer {
 
     if ( gamePoss ) { // home possession
         NSNumber *qbInt = HomeQBStats[FCQBStatINT];
@@ -3341,20 +3639,23 @@
         awayTOs++;
     }
     
-    NSMutableArray *defenders = [NSMutableArray arrayWithArray:@[selS,selCB,selDL,selLB]];
-    [defenders sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Player *a = (Player *)obj1;
-        Player *b = (Player *)obj2;
-        if (self->gamePoss) {
-            // home
-            return [self.homePlayerPrefs[[b uniqueIdentifier]] compare:self.homePlayerPrefs[[a uniqueIdentifier]]];
-        } else {
-            // away
-            return [self.awayPlayerPrefs[[b uniqueIdentifier]] compare:self.awayPlayerPrefs[[a uniqueIdentifier]]];
-        }
+    NSArray *defenders = @[selS,selCB,selDL,selLB];
+    NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+    for (Player *p in defenders) {
+        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationInterception relatedPlayer:selPlayer yardsGained:0]) forKey:[p uniqueIdentifier]];
+    }
+    
+    NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
     }];
     
-    Player *defender = (Player*)defenders[0];
+    Player *defender = defenders[0];
+    for (Player *p in defenders) {
+        if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+            defender = p;
+            break;
+        }
+    }
     // add game stats
     [self _addGameStat:FCDefensiveStatINT forDefender:defender onDefense:defense amount:1];
     
@@ -3398,7 +3699,8 @@
 }
 
 
--(void)passCompletion:(Team *)offense defense:(Team *)defense receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(int)yardsGained {
+-(void)passCompletion:(Team *)offense defense:(Team *)defense selectedDL:(PlayerDL *)selDL selectedLB:(PlayerLB *)selLB selectedCB:(PlayerCB *)selCB selectedS:(PlayerS *)selS receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(int)yardsGained {
+    
     [offense getQB:0].statsPassComp++;
     [offense getQB:0].statsPassAtt++;
     [offense getQB:0].statsPassYards += yardsGained;
@@ -3406,6 +3708,25 @@
     selWR.statsTargets++;
     selWR.statsRecYards += yardsGained;
     offense.teamPassYards += yardsGained;
+    
+    NSArray *defenders = @[selS,selCB,selDL,selLB];
+    NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+    for (Player *p in defenders) {
+        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationTackle relatedPlayer:selWR yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
+    }
+    
+    NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
+    }];
+    
+    Player *defender = defenders[0];
+    for (Player *p in defenders) {
+        if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+            defender = p;
+            break;
+        }
+    }
+    [self _addGameStat:FCDefensiveStatTkl forDefender:defender onDefense:defense amount:1];
     
     if (pbpEnabled) {
         if (yardsGained > 0) {
@@ -3462,10 +3783,29 @@
     }
 }
 
--(void)passAttempt:(Team *)offense defense:(Team *)defense receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(int)yardsGained {
+-(void)passAttempt:(Team *)offense defense:(Team *)defense selectedDL:(PlayerDL *)selDL selectedLB:(PlayerLB *)selLB selectedCB:(PlayerCB *)selCB selectedS:(PlayerS *)selS receiver:(PlayerWR *)selWR stats:(NSMutableArray *)selWRStats yardsGained:(int)yardsGained {
     PlayerQB *qb = [offense getQB:0];
     qb.statsPassAtt++;
     selWR.statsTargets++;
+    
+    NSArray *defenders = @[selS,selCB,selDL,selLB];
+    NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+    for (Player *p in defenders) {
+        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationPassDefense relatedPlayer:selWR yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
+    }
+    
+    NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
+    }];
+    
+    Player *defender = defenders[0];
+    for (Player *p in defenders) {
+        if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+            defender = p;
+            break;
+        }
+    }
+    [self _addGameStat:FCDefensiveStatPassDef forDefender:defender onDefense:defense amount:1];
     
     if ( gamePoss ) { // home possession
         
@@ -3490,10 +3830,29 @@
     
 }
 
--(void)rushAttemptQB:(Team *)offense defense:(Team *)defense rusher:(PlayerQB *)selQB yardsGained:(int)yardsGained {
+-(void)rushAttemptQB:(Team *)offense defense:(Team *)defense selectedDL:(PlayerDL *)selDL selectedLB:(PlayerLB *)selLB selectedCB:(PlayerCB *)selCB selectedS:(PlayerS *)selS rusher:(PlayerQB *)selQB yardsGained:(int)yardsGained {
     selQB.statsRushAtt++;
     selQB.statsRushYards += yardsGained;
     offense.teamRushYards += yardsGained;
+    
+    NSArray *defenders = @[selS,selCB,selDL,selLB];
+    NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+    for (Player *p in defenders) {
+        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationRunDefense relatedPlayer:selQB yardsGained:yardsGained gotTD:NO]) forKey:[p uniqueIdentifier]];
+    }
+    
+    NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
+    }];
+    
+    Player *defender = defenders[0];
+    for (Player *p in defenders) {
+        if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+            defender = p;
+            break;
+        }
+    }
+    [self _addGameStat:FCDefensiveStatTkl forDefender:defender onDefense:defense amount:1];
     
     if ( gamePoss ) { // home possession
         homeYards += yardsGained;
@@ -3526,10 +3885,29 @@
     }
 }
 
--(void)rushAttempt:(Team *)offense defense:(Team *)defense rusher:(PlayerRB *)selRB rb1Pref:(double)rb1Pref rb2Pref:(double)rb2Pref yardsGained:(int)yardsGained {
+-(void)rushAttempt:(Team *)offense defense:(Team *)defense selectedDL:(PlayerDL *)selDL selectedLB:(PlayerLB *)selLB selectedCB:(PlayerCB *)selCB selectedS:(PlayerS *)selS rusher:(PlayerRB *)selRB rb1Pref:(double)rb1Pref rb2Pref:(double)rb2Pref yardsGained:(int)yardsGained {
     selRB.statsRushAtt++;
     selRB.statsRushYards += yardsGained;
     offense.teamRushYards += yardsGained;
+    
+    NSArray *defenders = @[selS,selCB,selDL,selLB];
+    NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+    for (Player *p in defenders) {
+        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationRunDefense relatedPlayer:selRB yardsGained:yardsGained gotTD:NO]) forKey:[p uniqueIdentifier]];
+    }
+    
+    NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [obj2 compare:obj1];
+    }];
+    
+    Player *defender = defenders[0];
+    for (Player *p in defenders) {
+        if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+            defender = p;
+            break;
+        }
+    }
+    [self _addGameStat:FCDefensiveStatTkl forDefender:defender onDefense:defense amount:1];
     
     if ( gamePoss ) { // home possession
         homeYards += yardsGained;
