@@ -5,6 +5,10 @@
 //  Created by Akshay Easwaran on 3/16/16.
 //  Copyright © 2016 Akshay Easwaran. All rights reserved.
 //
+//  Seconds per play based on Tempo stats: https://www.cfbanalytics.com/2018-tempo
+//  ^ generates plays/gm in range of about [57, 82]
+//  Yards per game: aiming for range here https://www.teamrankings.com/college-football/stat/yards-per-game
+
 
 #import "Game.h"
 #import "Team.h"
@@ -318,6 +322,29 @@
         
     }
     return self;
+}
+
+-(int)calculateSecondsPerPlay:(TeamStrategy *)strat {
+    // Team Archetypes based on stats here: https://www.cfbanalytics.com/2018-tempo
+    if ([strat.stratName isEqualToString:@"Balanced"] || [strat.stratName isEqualToString:@"West Coast"]) {
+        // Archetype: NC State / Pro-style - https://www.footballoutsiders.com/stats/pacestats
+        return (25 + (5 * [HBSharedUtils randomValue]));
+    } else if ([strat.stratName isEqualToString:@"Smashmouth"]) {
+        // Archetype: Wisconsin - 28.0373831776 sec/play
+        return (27 + (2 * [HBSharedUtils randomValue]));
+    } else if ([strat.stratName isEqualToString:@"Spread"]) {
+        // Archetype: West Virginia - 24.0 sec/play
+        return (22 + (3 * [HBSharedUtils randomValue]));
+    } else if ([strat.stratName isEqualToString:@"Read Option"]) {
+        // Archetype: Georgia Tech - 29.8507462687 sec/play
+        return (28 + (3 * [HBSharedUtils randomValue]));
+    } else if ([strat.stratName isEqualToString:@"Run-Pass Option"]) {
+        // Archetype: Auburn - 24.3902439024 sec/play
+        return (20 + (5 * [HBSharedUtils randomValue]));
+    }
+    
+    // old time scale
+    return (15 * [HBSharedUtils randomValue]);
 }
 
 +(instancetype)newGameWithHome:(Team*)home away:(Team*)away {
@@ -1226,12 +1253,16 @@
         [homeTeam getCurrentHC].gamesCoached++;
         
         //NSLog(@"START PLAYING GAME");
+        int homePlays = 0;
+        int awayPlays = 0;
         while ( gameTime > 0 ) {
             //play ball!
             if (gamePoss) {
                 [self runPlay:homeTeam defense:awayTeam];
+                homePlays++;
             } else {
                 [self runPlay:awayTeam defense:homeTeam];
+                awayPlays++;
             }
         }
         //NSLog(@"OUT OF TIME");
@@ -1256,16 +1287,21 @@
             while (playingOT) {
                 if (gamePoss) {
                     [self runPlay:homeTeam defense:awayTeam];
+                    homePlays++;
                 } else {
                     [self runPlay:awayTeam defense:homeTeam];
+                    awayPlays++;
                 }
             }
             
             if (homeScore != awayScore) {
-                [gameEventLog appendFormat:@"\n\nFINAL SCORE: %@ %ld - %ld %@", awayTeam.abbreviation, (long)awayScore, (long)homeScore, homeTeam.abbreviation ];
+                [gameEventLog appendFormat:@"\n\nFINAL SCORE: %@ %ld - %ld %@", awayTeam.abbreviation, (long)awayScore, (long)homeScore, homeTeam.abbreviation];
             }
         }
         //NSLog(@"END OT");
+        
+        NSLog(@"%@ Plays (Home): %d", homeTeam.abbreviation, homePlays);
+        NSLog(@"%@ Plays (Away): %d", awayTeam.abbreviation, awayPlays);
         
         // Add points/opp points
         //NSLog(@"DOING SEASON STATS");
@@ -2284,7 +2320,7 @@
             [selTEStats replaceObjectAtIndex:FCWRStatDrops withObject:wrStat];
             selTE.statsDrops++;
             [self passAttempt:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS receiver:selTE stats:selTEStats yardsGained:yardsGain];
-            gameTime -= (15 * [HBSharedUtils randomValue]);
+            gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
             return;
         } else {
             //no drop
@@ -2338,7 +2374,7 @@
             [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@'s pass falls incomplete. Intended for %@ %@.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selTE.position, selTE.name]];
         }
         gameDown++;
-        gameTime -= (15 * [HBSharedUtils randomValue]);
+        gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
         return;
     }
     
@@ -2382,7 +2418,7 @@
             gameYardsNeed = 10;
             gamePoss = !gamePoss;
             gameYardLine = 100 - gameYardLine;
-            gameTime -= (15 * [HBSharedUtils randomValue]);
+            gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
             return;
         } else {
             [self resetForOT];
@@ -2391,7 +2427,7 @@
     }
     
     if ( gotTD ) {
-        gameTime -= (15 * [HBSharedUtils randomValue]);
+        gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
         [self kickXP:offense defense:defense];
         if (!playingOT) {
             [self kickOff:offense];
@@ -2441,7 +2477,7 @@
             [selWRStats replaceObjectAtIndex:FCWRStatDrops withObject:wrStat];
             selWR.statsDrops++;
             [self passAttempt:offense defense:defense selectedDL:selDL selectedLB:selLB selectedCB:selCB selectedS:selS receiver:selWR stats:selWRStats yardsGained:yardsGain];
-            gameTime -= (15 * [HBSharedUtils randomValue]);
+            gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
             return;
         } else {
             //no drop
@@ -2496,7 +2532,7 @@
             [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@'s pass falls incomplete. Intended for %@ %@.",[self getEventPrefix],offense.abbreviation,[offense getQB:0].name, selWR.position, selWR.name]];
         }
         gameDown++;
-        gameTime -= (15 * [HBSharedUtils randomValue]);
+        gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
         return;
     }
     
@@ -2539,7 +2575,7 @@
             gameYardsNeed = 10;
             gamePoss = !gamePoss;
             gameYardLine = 100 - gameYardLine;
-            gameTime -= (15 * [HBSharedUtils randomValue]);
+            gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
             return;
         } else {
             [self resetForOT];
@@ -2548,7 +2584,7 @@
     }
     
     if ( gotTD ) {
-        gameTime -= (15 * [HBSharedUtils randomValue]);
+        gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
         [self kickXP:offense defense:defense];
         if (!playingOT) {
             [self kickOff:offense];
@@ -3660,7 +3696,7 @@
     [self _addGameStat:FCDefensiveStatINT forDefender:defender onDefense:defense amount:1];
     
     [gameEventLog appendString:[NSString stringWithFormat:@"%@TURNOVER!\n%@ QB %@ was intercepted by %@ %@ %@.", [self getEventPrefix], offense.abbreviation, [offense getQB:0].name, defender.team.abbreviation,defender.position,defender.name]];
-    gameTime -= (15 * [HBSharedUtils randomValue]);
+    gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
     [offense getQB:0].statsInt++;
     [offense getQB:0].statsPassAtt++;
     if (!playingOT) {
@@ -3788,24 +3824,26 @@
     qb.statsPassAtt++;
     selWR.statsTargets++;
     
-    NSArray *defenders = @[selS,selCB,selDL,selLB];
-    NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
-    for (Player *p in defenders) {
-        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationPassDefense relatedPlayer:selWR yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
-    }
-    
-    NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [obj2 compare:obj1];
-    }];
-    
-    Player *defender = defenders[0];
-    for (Player *p in defenders) {
-        if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
-            defender = p;
-            break;
+    if ([HBSharedUtils randomValue] < 0.45) {
+        NSArray *defenders = @[selS,selCB,selDL,selLB];
+        NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+        for (Player *p in defenders) {
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationPassDefense relatedPlayer:selWR yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
         }
+        
+        NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj2 compare:obj1];
+        }];
+        
+        Player *defender = defenders[0];
+        for (Player *p in defenders) {
+            if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+                defender = p;
+                break;
+            }
+        }
+        [self _addGameStat:FCDefensiveStatPassDef forDefender:defender onDefense:defense amount:1];
     }
-    [self _addGameStat:FCDefensiveStatPassDef forDefender:defender onDefense:defense amount:1];
     
     if ( gamePoss ) { // home possession
         
