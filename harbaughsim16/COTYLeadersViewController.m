@@ -99,11 +99,7 @@
     
     [statsCell.playerLabel setText:[hc getInitialName]];
     
-    if ([HBSharedUtils currentLeague].currentWeek >= 13 && coty != nil) {
-        [statsCell.teamLabel setText:hc.team.abbreviation];
-    } else {
-        [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ (%d votes)", hc.team.abbreviation, [hc getCoachScore]]];
-    }
+    [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ (%d vts)", hc.team.abbreviation, [hc getCoachScore]]];
     
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];

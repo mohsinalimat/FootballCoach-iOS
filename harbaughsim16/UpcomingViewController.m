@@ -47,7 +47,7 @@
     PlayerQB *passLeader;
     Player *rushLeader;
     Player *recLeader;
-    Team *defLeader;
+    Player *defLeader;
     PlayerK *kickLeader;
     Team *userTeam;
     IBOutlet HBTeamPlayView *teamHeaderView;
@@ -553,9 +553,24 @@
         return ([a getHeismanScore] > [b getHeismanScore]) ? -1 : (([a getHeismanScore] == [b getHeismanScore]) ? [a.name compare:b.name] : 1);
     }];
     
-    NSMutableArray *teams = [[HBSharedUtils currentLeague].teamList mutableCopy];
-    [teams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareOppYPG:obj1 toObj2:obj2];
+// Old Defense Leader:
+//    NSMutableArray *teams = [[HBSharedUtils currentLeague].teamList mutableCopy];
+//    [teams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//        return [HBSharedUtils compareOppYPG:obj1 toObj2:obj2];
+//    }];
+    
+    // New Defense Leader:
+    NSMutableArray *defenders = [NSMutableArray array];
+    for (Team *t in simLeague.teamList) {
+        [defenders addObjectsFromArray:t.teamDLs];
+        [defenders addObjectsFromArray:t.teamLBs];
+        [defenders addObjectsFromArray:t.teamCBs];
+        [defenders addObjectsFromArray:t.teamSs];
+    }
+    [defenders sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        return ([a getHeismanScore] > [b getHeismanScore]) ? -1 : (([a getHeismanScore] == [b getHeismanScore]) ? [a.name compare:b.name] : 1);
     }];
     
     
@@ -563,7 +578,7 @@
     rushLeader = [rushers firstObject];
     recLeader = [wrs firstObject];
     kickLeader = [ks firstObject];
-    defLeader = [teams firstObject];
+    defLeader = [defenders firstObject];
     [self.tableView reloadData];
 }
 
@@ -984,8 +999,10 @@
                 }
             } else if (indexPath.row == 3) {
                 cell.textLabel.text = @"Defense";
-                cell.detailTextLabel.text = defLeader.name;
-                if ([cell.detailTextLabel.text containsString:userTeam.name]) {
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", defLeader.team.abbreviation, defLeader.position, [defLeader getInitialName]]];
+                if (defLeader.isHeisman || defLeader.isROTY) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
                 } else {
                     [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
@@ -1150,8 +1167,10 @@
                 }
             } else if (indexPath.row == 3) {
                 cell.textLabel.text = @"Defense";
-                cell.detailTextLabel.text = defLeader.name;
-                if ([cell.detailTextLabel.text containsString:userTeam.name]) {
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", defLeader.team.abbreviation, defLeader.position, [defLeader getInitialName]]];
+                if (defLeader.isHeisman || defLeader.isROTY) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
                 } else {
                     [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
@@ -1326,9 +1345,10 @@
             } else if (indexPath.row == 2) { //WR
                 [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionWR] animated:YES];
             } else if (indexPath.row == 3) { //DEF
-                RankingsViewController *def = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
-                def.title = @"Defense";
-                [self.navigationController pushViewController:def animated:YES];
+//                RankingsViewController *def = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
+//                def.title = @"Defense";
+//                [self.navigationController pushViewController:def animated:YES];
+                [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionDEF] animated:YES];
             } else { //K
                 [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK] animated:YES];
             }
@@ -1347,9 +1367,10 @@
             } else if (indexPath.row == 2) { //WR
                 [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionWR] animated:YES];
             } else if (indexPath.row == 3) { //DEF
-                RankingsViewController *def = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
-                def.title = @"Defense";
-                [self.navigationController pushViewController:def animated:YES];
+//                RankingsViewController *def = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
+//                def.title = @"Defense";
+//                [self.navigationController pushViewController:def animated:YES];
+                [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionDEF] animated:YES];
             } else { //K
                 [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK] animated:YES];
             }

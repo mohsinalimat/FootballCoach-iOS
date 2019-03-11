@@ -186,9 +186,9 @@
     return [stats copy];
 }
 
--(int)getHeismanScore {
-    return _statsTkl * 25 + _statsSacks * 425 + _statsForcedFum * 425 + _statsInt * 425;
-}
+//-(int)getHeismanScore {
+//    return self.statsTkl * 25 + self.statsSacks * 425 + self.statsForcedFum * 425 + self.statsInt * 425;
+//}
 
 -(void)checkRecords {
     // sacks

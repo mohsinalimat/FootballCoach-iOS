@@ -208,10 +208,10 @@
     self.ratImprovement = self.ratOvr - oldOvr;
     [super advanceSeason];
 }
-
--(int)getHeismanScore {
-    return _statsTkl * 25 + _statsSacks * 425 + _statsForcedFum * 425 + _statsInt * 425;
-}
+//
+//-(int)getHeismanScore {
+//    return self.statsTkl * 25 + self.statsSacks * 425 + self.statsForcedFum * 425 + self.statsInt * 425;
+//}
 
 -(NSDictionary*)detailedStats:(int)games {
     NSMutableDictionary *stats = [NSMutableDictionary dictionary];

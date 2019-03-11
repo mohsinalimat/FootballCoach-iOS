@@ -13,8 +13,11 @@
 #import "PlayerWR.h"
 #import "PlayerK.h"
 #import "PlayerOL.h"
+#import "PlayerDL.h"
+#import "PlayerLB.h"
 #import "PlayerCB.h"
 #import "PlayerS.h"
+#import "PlayerDefender.h"
 #import "Team.h"
 #import "PlayerQBDetailViewController.h"
 #import "PlayerRBDetailViewController.h"
@@ -139,7 +142,7 @@
             PlayerWR *b = (PlayerWR*)obj2;
             return (a.statsRecYards > b.statsRecYards) ? -1 : ((a.statsRecYards == b.statsRecYards) ? [a.name compare:b.name] : 1);
         }];
-    } else {
+    } else if (position == HBStatPositionK) {
         self.title = @"Kicking Leaders";
         for (Team *t in [HBSharedUtils currentLeague].teamList) {
             [players addObjectsFromArray:t.teamKs];
@@ -147,6 +150,19 @@
         [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             PlayerK *a = (PlayerK*)obj1;
             PlayerK *b = (PlayerK*)obj2;
+            return ([a getHeismanScore] > [b getHeismanScore]) ? -1 : (([a getHeismanScore] == [b getHeismanScore]) ? [a.name compare:b.name] : 1);
+        }];
+    } else { // all defenders
+        self.title = @"Defensive Leaders";
+        for (Team *t in [HBSharedUtils currentLeague].teamList) {
+            [players addObjectsFromArray:t.teamDLs];
+            [players addObjectsFromArray:t.teamLBs];
+            [players addObjectsFromArray:t.teamCBs];
+            [players addObjectsFromArray:t.teamSs];
+        }
+        [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Player *a = (Player*)obj1;
+            Player *b = (Player*)obj2;
             return ([a getHeismanScore] > [b getHeismanScore]) ? -1 : (([a getHeismanScore] == [b getHeismanScore]) ? [a.name compare:b.name] : 1);
         }];
     }
@@ -471,7 +487,7 @@
             }];
             [self.tableView reloadData];
         }]];
-    } else { //K - FG%, XP%
+    } else if (position == HBStatPositionK) { //K - FG%, XP%
         [alertController addAction:[UIAlertAction actionWithTitle:@"Field Goal Percentage" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 PlayerK *a = (PlayerK *)obj1;
@@ -512,6 +528,56 @@
             [self.tableView reloadData];
         }]];
 
+    } else { //def --> tkl, pass def, INT, forced fum, sacks
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Tackles" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                PlayerDefender *a = (PlayerDefender *)obj1;
+                PlayerDefender *b = (PlayerDefender *)obj2;
+                
+                return (a.statsTkl > b.statsTkl) ? -1 : ((a.statsTkl == b.statsTkl) ? 0 : 1);
+            }];
+            [self.tableView reloadData];
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Passes Defended" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                PlayerDefender *a = (PlayerDefender *)obj1;
+                PlayerDefender *b = (PlayerDefender *)obj2;
+                
+                return (a.statsPassDef > b.statsPassDef) ? -1 : ((a.statsPassDef == b.statsPassDef) ? 0 : 1);
+            }];
+            [self.tableView reloadData];
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Interceptions" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                PlayerDefender *a = (PlayerDefender *)obj1;
+                PlayerDefender *b = (PlayerDefender *)obj2;
+                
+                return (a.statsInt > b.statsInt) ? -1 : ((a.statsInt == b.statsInt) ? 0 : 1);
+            }];
+            [self.tableView reloadData];
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Sacks" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                PlayerDefender *a = (PlayerDefender *)obj1;
+                PlayerDefender *b = (PlayerDefender *)obj2;
+                
+                return (a.statsSacks > b.statsSacks) ? -1 : ((a.statsSacks == b.statsSacks) ? 0 : 1);
+            }];
+            [self.tableView reloadData];
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Forced Fumbles" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                PlayerDefender *a = (PlayerDefender *)obj1;
+                PlayerDefender *b = (PlayerDefender *)obj2;
+                
+                return (a.statsForcedFum > b.statsForcedFum) ? -1 : ((a.statsForcedFum == b.statsForcedFum) ? 0 : 1);
+            }];
+            [self.tableView reloadData];
+        }]];
     }
 
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
@@ -587,7 +653,7 @@
         stat3Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsTD];
         stat4Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsFumbles];
         //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
-    } else { //PlayerK class
+    } else if (position == HBStatPositionK)  { //PlayerK class
         stat1 = @"XPM";
         stat2 = @"XPA";
         stat3 = @"FGM";
@@ -597,11 +663,62 @@
         stat2Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsXPAtt];
         stat3Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsFGMade];
         stat4Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsFGAtt];
+    } else { // any defender
+        if ([plyr isKindOfClass:[PlayerDL class]]) {
+            stat1 = @"Tkl";
+            stat2 = @"Sck";
+            stat3 = @"FFum";
+            stat4 = @"PsDef";
+
+            stat1Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsTkl];
+            stat2Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsSacks];
+            stat3Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsForcedFum];
+            stat4Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsPassDef];
+        } else if ([plyr isKindOfClass:[PlayerLB class]]) {
+            stat1 = @"Tkl";
+            stat2 = @"Sck";
+            stat3 = @"FFum";
+            stat4 = @"PsDef";
+
+            stat1Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsTkl];
+            stat2Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsSacks];
+            stat3Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsForcedFum];
+            stat4Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsPassDef];
+        } else if ([plyr isKindOfClass:[PlayerCB class]]) {
+            stat1 = @"Tkl";
+            stat2 = @"INT";
+            stat3 = @"FFum";
+            stat4 = @"PsDef";
+
+            stat1Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsTkl];
+            stat2Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsInt];
+            stat3Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsForcedFum];
+            stat4Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsPassDef];
+        } else if ([plyr isKindOfClass:[PlayerS class]]) {
+            stat1 = @"Tkl";
+            stat2 = @"INT";
+            stat3 = @"FFum";
+            stat4 = @"PsDef";
+
+            stat1Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsTkl];
+            stat2Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsInt];
+            stat3Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsForcedFum];
+            stat4Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsPassDef];
+        }
+        
+//        stat1Value = [NSString stringWithFormat:@"%d",((PlayerDefender *)plyr).statsTkl];
+//        stat2Value = [NSString stringWithFormat:@"%d",((PlayerDefender *)plyr).statsSacks];
+//        stat3Value = [NSString stringWithFormat:@"%d",((Player<PlayerDefender>)plyr).statsForcedFum];
+//        stat4Value = [NSString stringWithFormat:@"%d",((Player<PlayerDefender>)plyr).statsPassDef];
     }
 
 
     [statsCell.playerLabel setText:[plyr getInitialName]];
-    [statsCell.teamLabel setText:plyr.team.abbreviation];
+    if (position == HBStatPositionDEF) {
+        [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ %@", plyr.team.abbreviation, plyr.position]];
+    } else {
+        [statsCell.teamLabel setText:plyr.team.abbreviation];
+    }
 
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];

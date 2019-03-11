@@ -11,6 +11,7 @@ typedef NS_ENUM(NSUInteger, HBStatPosition) {
     HBStatPositionQB,
     HBStatPositionRB,
     HBStatPositionWR,
+    HBStatPositionDEF,
     HBStatPositionK
 };
 
