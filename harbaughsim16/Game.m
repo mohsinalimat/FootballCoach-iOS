@@ -1300,8 +1300,8 @@
         }
         //NSLog(@"END OT");
         
-        NSLog(@"%@ Plays (Home): %d", homeTeam.abbreviation, homePlays);
-        NSLog(@"%@ Plays (Away): %d", awayTeam.abbreviation, awayPlays);
+//        NSLog(@"%@ Plays (Home): %d", homeTeam.abbreviation, homePlays);
+//        NSLog(@"%@ Plays (Away): %d", awayTeam.abbreviation, awayPlays);
         
         // Add points/opp points
         //NSLog(@"DOING SEASON STATS");
