@@ -23,6 +23,11 @@
 #import "PlayerTE.h"
 #import "PlayerK.h"
 #import "PlayerOL.h"
+#import "PlayerDefender.h"
+#import "PlayerDL.h"
+#import "PlayerLB.h"
+#import "PlayerCB.h"
+#import "PlayerS.h"
 
 #import "PlayerQBDetailViewController.h"
 #import "PlayerRBDetailViewController.h"
@@ -189,6 +194,75 @@
             PlayerTEDetailViewController *playerDetail = [[PlayerTEDetailViewController alloc] initWithPlayer:plyr];
             peekVC = playerDetail;
         } else if (section == 6) {
+            Player *plyr;
+            NSDictionary *wrStats = stats[@"DLs"]; //catches, yds, td, fum
+            if (indexPath.row == 0) {
+                plyr = wrStats[@"awayDL1"];
+            } else if (indexPath.row == 1) {
+                plyr = wrStats[@"awayDL2"];
+            } else if (indexPath.row == 2) {
+                plyr = wrStats[@"awayDL3"];
+            } else if (indexPath.row == 3) {
+                plyr = wrStats[@"awayDL4"];
+            } else if (indexPath.row == 4) {
+                plyr = wrStats[@"homeDL1"];
+            } else if (indexPath.row == 5) {
+                plyr = wrStats[@"homeDL2"];
+            } else if (indexPath.row == 6) {
+                plyr = wrStats[@"homeDL3"];
+            } else {
+                plyr = wrStats[@"homeDL4"];
+            }
+            PlayerWRDetailViewController *playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
+            peekVC = playerDetail;
+        } else if (section == 7) {
+            Player *plyr;
+            NSDictionary *wrStats = stats[@"LBs"]; //catches, yds, td, fum
+            if (indexPath.row == 0) {
+                plyr = wrStats[@"awayLB1"];
+            } else if (indexPath.row == 1) {
+                plyr = wrStats[@"awayLB2"];
+            } else if (indexPath.row == 2) {
+                plyr = wrStats[@"awayLB3"];
+            } else if (indexPath.row == 3) {
+                plyr = wrStats[@"homeLB1"];
+            } else if (indexPath.row == 4) {
+                plyr = wrStats[@"homeLB2"];
+            } else {
+                plyr = wrStats[@"homeLB3"];
+            }
+            PlayerWRDetailViewController *playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
+            peekVC = playerDetail;
+        } else if (section == 8) {
+            Player *plyr;
+            NSDictionary *wrStats = stats[@"CBs"]; //catches, yds, td, fum
+            if (indexPath.row == 0) {
+                plyr = wrStats[@"awayCB1"];
+            } else if (indexPath.row == 1) {
+                plyr = wrStats[@"awayCB2"];
+            } else if (indexPath.row == 2) {
+                plyr = wrStats[@"awayCB3"];
+            } else if (indexPath.row == 3) {
+                plyr = wrStats[@"homeCB1"];
+            } else if (indexPath.row == 4) {
+                plyr = wrStats[@"homeCB2"];
+            } else {
+                plyr = wrStats[@"homeCB3"];
+            }
+            PlayerWRDetailViewController *playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
+            peekVC = playerDetail;
+        } else if (section == 9) {
+            Player *plyr;
+            NSDictionary *qbStats = stats[@"Ss"];
+            if (indexPath.row == 0) {
+                plyr = qbStats[@"awayS"];
+            } else {
+                plyr = qbStats[@"homeS"];
+            }
+            
+            PlayerSDetailViewController *playerDetail = [[PlayerSDetailViewController alloc] initWithPlayer:plyr];
+            peekVC = playerDetail;
+        } else if (section == 10) {
             Player *plyr;
             NSDictionary *qbStats = stats[@"Ks"];
             if (indexPath.row == 0) {
@@ -358,6 +432,14 @@
     } else if (section == 5) {
         return @"Tight Ends";
     } else if (section == 6) {
+        return @"Defensive Lineman";
+    } else if (section == 7) {
+        return @"Linebackers";
+    } else if (section == 8) {
+        return @"Cornerbacks";
+    } else if (section == 9) {
+        return @"Safeties";
+    } else if (section == 10) {
         return @"Kickers";
     } else {
         if ([selectedGame.gameName isEqualToString:@"NCG"]) {
@@ -416,7 +498,7 @@
             return 3;
         }
     } else {
-        return 7;
+        return 11;
     }
 }
 
@@ -451,6 +533,14 @@
         } else if (section == 4) {
             return 4;
         } else if (section == 5) {
+            return 2;
+        } else if (section == 6) {
+            return 8;
+        } else if (section == 7) {
+            return 6;
+        } else if (section == 8) {
+            return 6;
+        } else if (section == 9) {
             return 2;
         } else {
             return 2;
@@ -588,6 +678,15 @@
                 stat3Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsTD];
                 stat4Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsFumbles];
                 //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+            } else if ([plyr isKindOfClass:[PlayerDefender class]]) {
+                stat1 = @"Tkl";
+                stat2 = @"INT";
+                stat3 = @"FFum";
+                stat4 = @"PsDef";
+                stat1Value = [NSString stringWithFormat:@"%d",((PlayerDefender *)plyr).statsTkl];
+                stat2Value = [NSString stringWithFormat:@"%d",((PlayerDefender *)plyr).statsSacks];
+                stat3Value = [NSString stringWithFormat:@"%d",((PlayerDefender*)plyr).statsForcedFum];
+                stat4Value = [NSString stringWithFormat:@"%d",((PlayerDefender*)plyr).statsPassDef];
             }
 
             [statsCell.playerLabel setText:[plyr getInitialName]];
@@ -799,6 +898,123 @@
                 stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[2] intValue]];
                 stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[3] intValue]];
                 stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[5] intValue]];
+            } else if (indexPath.section == 6) {
+                NSDictionary *dlStats = combinedStats[@"DLs"]; //catchs, yds, td, fum
+                if (indexPath.row == 0) {
+                    plyr = dlStats[@"awayDL1"];
+                    plyrStats = dlStats[@"awayDL1Stats"];
+                } else if (indexPath.row == 1) {
+                    plyr = dlStats[@"awayDL2"];
+                    plyrStats = dlStats[@"awayDL2Stats"];
+                } else if (indexPath.row == 2) {
+                    plyr = dlStats[@"awayDL3"];
+                    plyrStats = dlStats[@"awayDL3Stats"];
+                } else if (indexPath.row == 3) {
+                    plyr = dlStats[@"awayDL4"];
+                    plyrStats = dlStats[@"awayDL4Stats"];
+                } else if (indexPath.row == 4) {
+                    plyr = dlStats[@"homeDL1"];
+                    plyrStats = dlStats[@"homeDL1Stats"];
+                } else if (indexPath.row == 5) {
+                    plyr = dlStats[@"homeDL2"];
+                    plyrStats = dlStats[@"homeDL2Stats"];
+                } else if (indexPath.row == 6) {
+                    plyr = dlStats[@"homeDL3"];
+                    plyrStats = dlStats[@"homeDL3Stats"];
+                } else {
+                    plyr = dlStats[@"homeDL4"];
+                    plyrStats = dlStats[@"homeDL4Stats"];
+                }
+                
+                
+                stat1 = @"Tkl";
+                stat2 = @"INT";
+                stat3 = @"FFum";
+                stat4 = @"PsDef";
+                stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatTkl] intValue]];
+                stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatINT] intValue]];
+                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatForcedFum] intValue]];
+                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatPassDef] intValue]];
+            } else if (indexPath.section == 7) {
+                NSDictionary *dlStats = combinedStats[@"LBs"]; //catchs, yds, td, fum
+                if (indexPath.row == 0) {
+                    plyr = dlStats[@"awayLB1"];
+                    plyrStats = dlStats[@"awayLB1Stats"];
+                } else if (indexPath.row == 1) {
+                    plyr = dlStats[@"awayLB2"];
+                    plyrStats = dlStats[@"awayLB2Stats"];
+                } else if (indexPath.row == 2) {
+                    plyr = dlStats[@"awayLB3"];
+                    plyrStats = dlStats[@"awayLB3Stats"];
+                } else if (indexPath.row == 3) {
+                    plyr = dlStats[@"homeLB1"];
+                    plyrStats = dlStats[@"homeLB1Stats"];
+                } else if (indexPath.row == 4) {
+                    plyr = dlStats[@"homeLB2"];
+                    plyrStats = dlStats[@"homeLB2Stats"];
+                } else {
+                    plyr = dlStats[@"homeLB3"];
+                    plyrStats = dlStats[@"homeLB3Stats"];
+                }
+                
+                
+                stat1 = @"Tkl";
+                stat2 = @"INT";
+                stat3 = @"FFum";
+                stat4 = @"PsDef";
+                stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatTkl] intValue]];
+                stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatINT] intValue]];
+                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatForcedFum] intValue]];
+                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatPassDef] intValue]];
+            } else if (indexPath.section == 8) {
+                NSDictionary *dlStats = combinedStats[@"CBs"]; //catchs, yds, td, fum
+                if (indexPath.row == 0) {
+                    plyr = dlStats[@"awayCB1"];
+                    plyrStats = dlStats[@"awayCB1Stats"];
+                } else if (indexPath.row == 1) {
+                    plyr = dlStats[@"awayCB2"];
+                    plyrStats = dlStats[@"awayCB2Stats"];
+                } else if (indexPath.row == 2) {
+                    plyr = dlStats[@"awayCB3"];
+                    plyrStats = dlStats[@"awayCB3Stats"];
+                } else if (indexPath.row == 3) {
+                    plyr = dlStats[@"homeCB1"];
+                    plyrStats = dlStats[@"homeCB1Stats"];
+                } else if (indexPath.row == 4) {
+                    plyr = dlStats[@"homeCB2"];
+                    plyrStats = dlStats[@"homeCB2Stats"];
+                } else {
+                    plyr = dlStats[@"homeCB3"];
+                    plyrStats = dlStats[@"homeCB3Stats"];
+                }
+                
+                
+                stat1 = @"Tkl";
+                stat2 = @"INT";
+                stat3 = @"FFum";
+                stat4 = @"PsDef";
+                stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatTkl] intValue]];
+                stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatINT] intValue]];
+                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatForcedFum] intValue]];
+                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatPassDef] intValue]];
+            } else if (indexPath.section == 9) {
+                NSDictionary *dlStats = combinedStats[@"Ss"]; //catchs, yds, td, fum
+                if (indexPath.row == 0) {
+                    plyr = dlStats[@"awayS"];
+                    plyrStats = dlStats[@"awaySStats"];
+                } else {
+                    plyr = dlStats[@"homeS"];
+                    plyrStats = dlStats[@"homeSStats"];
+                }
+                
+                stat1 = @"Tkl";
+                stat2 = @"INT";
+                stat3 = @"FFum";
+                stat4 = @"PsDef";
+                stat1Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatTkl] intValue]];
+                stat2Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatINT] intValue]];
+                stat3Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatForcedFum] intValue]];
+                stat4Value = [NSString stringWithFormat:@"%d",[plyrStats[FCDefensiveStatPassDef] intValue]];
             } else {
                 NSDictionary *kStats = combinedStats[@"Ks"]; //xp made, xp att, fg made, fg att
                 if (indexPath.row == 0) {
@@ -921,6 +1137,58 @@
                     p = teStats[@"homeTE"];
                 }
             } else if (indexPath.section == 6) {
+                if (indexPath.row == 0) {
+                    p = wrStats[@"awayDL1"];
+                } else if (indexPath.row == 1) {
+                    p = wrStats[@"awayDL2"];
+                } else if (indexPath.row == 2) {
+                    p = wrStats[@"awayDL3"];
+                } else if (indexPath.row == 3) {
+                    p = wrStats[@"awayDL4"];
+                } else if (indexPath.row == 4) {
+                    p = wrStats[@"homeDL1"];
+                } else if (indexPath.row == 5) {
+                    p = wrStats[@"homeDL2"];
+                } else if (indexPath.row == 6) {
+                    p = wrStats[@"homeDL3"];
+                } else {
+                    p = wrStats[@"homeDL4"];
+                }
+            } else if (indexPath.section == 7) {
+                if (indexPath.row == 0) {
+                    p = wrStats[@"awayLB1"];
+                } else if (indexPath.row == 1) {
+                    p = wrStats[@"awayLB2"];
+                } else if (indexPath.row == 2) {
+                    p = wrStats[@"awayLB3"];
+                } else if (indexPath.row == 4) {
+                    p = wrStats[@"homeLB1"];
+                } else if (indexPath.row == 5) {
+                    p = wrStats[@"homeLB2"];
+                } else {
+                    p = wrStats[@"homeLB3"];
+                }
+            } else if (indexPath.section == 8) {
+                if (indexPath.row == 0) {
+                    p = wrStats[@"awayCB1"];
+                } else if (indexPath.row == 1) {
+                    p = wrStats[@"awayCB2"];
+                } else if (indexPath.row == 2) {
+                    p = wrStats[@"awayCB3"];
+                } else if (indexPath.row == 4) {
+                    p = wrStats[@"homeCB1"];
+                } else if (indexPath.row == 5) {
+                    p = wrStats[@"homeCB2"];
+                } else {
+                    p = wrStats[@"homeCB3"];
+                }
+            } else if (indexPath.section == 9) {
+                if (indexPath.row == 0) {
+                    p = kStats[@"awayS"];
+                } else {
+                    p = kStats[@"homeS"];
+                }
+            } else if (indexPath.section == 10) {
                 if (indexPath.row == 0) {
                     p = kStats[@"awayK"];
                 } else {

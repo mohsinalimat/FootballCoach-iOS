@@ -653,37 +653,37 @@
         //DLs
         NSMutableDictionary *DLs = [NSMutableDictionary dictionary];
         
-        [DLs setObject:homeStarters[20] forKey:@"HomeDL1"];
-        [DLs setObject:HomeDL1Stats forKey:@"HomeDL1Stats"];
+        [DLs setObject:homeStarters[20] forKey:@"homeDL1"];
+        [DLs setObject:HomeDL1Stats forKey:@"homeDL1Stats"];
         
-        [DLs setObject:homeStarters[21] forKey:@"HomeDL2"];
-        [DLs setObject:HomeDL2Stats forKey:@"HomeDL2Stats"];
+        [DLs setObject:homeStarters[21] forKey:@"homeDL2"];
+        [DLs setObject:HomeDL2Stats forKey:@"homeDL2Stats"];
         
-        [DLs setObject:homeStarters[22] forKey:@"HomeDL3"];
-        [DLs setObject:HomeDL3Stats forKey:@"HomeDL3Stats"];
+        [DLs setObject:homeStarters[22] forKey:@"homeDL3"];
+        [DLs setObject:HomeDL3Stats forKey:@"homeDL3Stats"];
         
         if (homeStarters.count < 24) {
-            [DLs setObject:[homeTeam getDL:3] forKey:@"HomeDL4"];
+            [DLs setObject:[homeTeam getDL:3] forKey:@"homeDL4"];
         } else {
-            [DLs setObject:homeStarters[23] forKey:@"HomeDL4"];
+            [DLs setObject:homeStarters[23] forKey:@"homeDL4"];
         }
-        [DLs setObject:HomeDL4Stats forKey:@"HomeDL4Stats"];
+        [DLs setObject:HomeDL4Stats forKey:@"homeDL4Stats"];
         
-        [DLs setObject:awayStarters[20] forKey:@"AwayDL1"];
-        [DLs setObject:AwayDL1Stats forKey:@"AwayDL1Stats"];
+        [DLs setObject:awayStarters[20] forKey:@"awayDL1"];
+        [DLs setObject:AwayDL1Stats forKey:@"awayDL1Stats"];
         
-        [DLs setObject:awayStarters[21] forKey:@"AwayDL2"];
-        [DLs setObject:AwayDL2Stats forKey:@"AwayDL2Stats"];
+        [DLs setObject:awayStarters[21] forKey:@"awayDL2"];
+        [DLs setObject:AwayDL2Stats forKey:@"awayDL2Stats"];
         
-        [DLs setObject:awayStarters[22] forKey:@"AwayDL3"];
-        [DLs setObject:AwayDL3Stats forKey:@"AwayDL3Stats"];
+        [DLs setObject:awayStarters[22] forKey:@"awayDL3"];
+        [DLs setObject:AwayDL3Stats forKey:@"awayDL3Stats"];
         
         if (awayStarters.count < 24) {
-            [DLs setObject:[awayTeam getDL:3] forKey:@"AwayDL4"];
+            [DLs setObject:[awayTeam getDL:3] forKey:@"awayDL4"];
         } else {
-            [DLs setObject:awayStarters[23] forKey:@"AwayDL4"];
+            [DLs setObject:awayStarters[23] forKey:@"awayDL4"];
         }
-        [DLs setObject:AwayDL4Stats forKey:@"AwayDL4Stats"];
+        [DLs setObject:AwayDL4Stats forKey:@"awayDL4Stats"];
         
         [report setObject:DLs forKey:@"DLs"];
         
@@ -691,56 +691,56 @@
         //LBs
         NSMutableDictionary *lbs = [NSMutableDictionary dictionary];
         
-        [lbs setObject:homeStarters[17] forKey:@"HomeLB1"];
-        [lbs setObject:HomeLB1Stats forKey:@"HomeLB1Stats"];
+        [lbs setObject:homeStarters[17] forKey:@"homeLB1"];
+        [lbs setObject:HomeLB1Stats forKey:@"homeLB1Stats"];
         
-        [lbs setObject:homeStarters[18] forKey:@"HomeLB2"];
-        [lbs setObject:HomeLB2Stats forKey:@"HomeLB2Stats"];
+        [lbs setObject:homeStarters[18] forKey:@"homeLB2"];
+        [lbs setObject:HomeLB2Stats forKey:@"homeLB2Stats"];
         
-        [lbs setObject:homeStarters[19] forKey:@"HomeLB3"];
-        [lbs setObject:HomeLB3Stats forKey:@"HomeLB3Stats"];
+        [lbs setObject:homeStarters[19] forKey:@"homeLB3"];
+        [lbs setObject:HomeLB3Stats forKey:@"homeLB3Stats"];
         
-        [lbs setObject:awayStarters[17] forKey:@"AwayLB1"];
-        [lbs setObject:AwayLB1Stats forKey:@"AwayLB1Stats"];
+        [lbs setObject:awayStarters[17] forKey:@"awayLB1"];
+        [lbs setObject:AwayLB1Stats forKey:@"awayLB1Stats"];
         
-        [lbs setObject:awayStarters[18] forKey:@"AwayLB2"];
-        [lbs setObject:AwayLB2Stats forKey:@"AwayLB2Stats"];
+        [lbs setObject:awayStarters[18] forKey:@"awayLB2"];
+        [lbs setObject:AwayLB2Stats forKey:@"awayLB2Stats"];
         
-        [lbs setObject:awayStarters[19] forKey:@"AwayLB3"];
-        [lbs setObject:AwayLB3Stats forKey:@"AwayLB3Stats"];
+        [lbs setObject:awayStarters[19] forKey:@"awayLB3"];
+        [lbs setObject:AwayLB3Stats forKey:@"awayLB3Stats"];
         
         [report setObject:lbs forKey:@"LBs"];
         
         //CBs
         NSMutableDictionary *cbs = [NSMutableDictionary dictionary];
         
-        [cbs setObject:homeStarters[14] forKey:@"HomeCB1"];
-        [cbs setObject:HomeCB1Stats forKey:@"HomeCB1Stats"];
+        [cbs setObject:homeStarters[14] forKey:@"homeCB1"];
+        [cbs setObject:HomeCB1Stats forKey:@"homeCB1Stats"];
         
-        [cbs setObject:homeStarters[15] forKey:@"HomeCB2"];
-        [cbs setObject:HomeCB2Stats forKey:@"HomeCB2Stats"];
+        [cbs setObject:homeStarters[15] forKey:@"homeCB2"];
+        [cbs setObject:HomeCB2Stats forKey:@"homeCB2Stats"];
         
-        [cbs setObject:homeStarters[16] forKey:@"HomeCB3"];
-        [cbs setObject:HomeCB3Stats forKey:@"HomeCB3Stats"];
+        [cbs setObject:homeStarters[16] forKey:@"homeCB3"];
+        [cbs setObject:HomeCB3Stats forKey:@"homeCB3Stats"];
         
-        [cbs setObject:awayStarters[14] forKey:@"AwayCB1"];
-        [cbs setObject:AwayCB1Stats forKey:@"AwayCB1Stats"];
+        [cbs setObject:awayStarters[14] forKey:@"awayCB1"];
+        [cbs setObject:AwayCB1Stats forKey:@"awayCB1Stats"];
         
-        [cbs setObject:awayStarters[15] forKey:@"AwayCB2"];
-        [cbs setObject:AwayCB2Stats forKey:@"AwayCB2Stats"];
+        [cbs setObject:awayStarters[15] forKey:@"awayCB2"];
+        [cbs setObject:AwayCB2Stats forKey:@"awayCB2Stats"];
         
-        [cbs setObject:awayStarters[16] forKey:@"AwayCB3"];
-        [cbs setObject:AwayCB3Stats forKey:@"AwayCB3Stats"];
+        [cbs setObject:awayStarters[16] forKey:@"awayCB3"];
+        [cbs setObject:AwayCB3Stats forKey:@"awayCB3Stats"];
         
         [report setObject:cbs forKey:@"CBs"];
         
         //Ss
         NSMutableDictionary *ss = [NSMutableDictionary dictionary];
-        [ss setObject:homeStarters[13] forKey:@"HomeS"];
-        [ss setObject:HomeSStats forKey:@"HomeSStats"];
+        [ss setObject:homeStarters[13] forKey:@"homeS"];
+        [ss setObject:HomeSStats forKey:@"homeSStats"];
         
-        [ss setObject:awayStarters[13] forKey:@"AwayS"];
-        [ss setObject:AwaySStats forKey:@"AwaySStats"];
+        [ss setObject:awayStarters[13] forKey:@"awayS"];
+        [ss setObject:AwaySStats forKey:@"awaySStats"];
         [report setObject:ss forKey:@"Ss"];
         
         //Ks
@@ -3824,7 +3824,7 @@
     qb.statsPassAtt++;
     selWR.statsTargets++;
     
-    if ([HBSharedUtils randomValue] < 0.45) {
+    if ([HBSharedUtils randomValue] < 0.50) {
         NSArray *defenders = @[selS,selCB,selDL,selLB];
         NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
         for (Player *p in defenders) {
