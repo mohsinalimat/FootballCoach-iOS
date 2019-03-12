@@ -27,7 +27,7 @@ typedef enum {
 @property (strong, nonatomic) NSString *position;
 @property (strong, nonatomic) NSDictionary *personalDetails; // { "height" : "6\'2\"", "weight" : "235 lbs", "home_state" : "Hawaii" };
 
-
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSDictionary *> *statHistoryDictionary;
 
 @property (strong, nonatomic) NSMutableDictionary<NSString *, NSNumber *> *offers;
 @property (nonatomic) int ratOvr;

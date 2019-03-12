@@ -546,6 +546,10 @@
                     dl.careerStatsInt = 0;
                 }
                 
+                for (Player *p in [t getAllPlayers]) {
+                    p.statHistoryDictionary = [NSMutableDictionary dictionary];
+                }
+                
                 t.careerSacksRecord = nil;
                 t.careerTacklesRecord = nil;
                 t.careerPassDefRecord = nil;

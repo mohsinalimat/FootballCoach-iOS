@@ -10,7 +10,7 @@
 #import "HBSharedUtils.h"
 
 @implementation Player
-@synthesize position,draftPosition,ratDur,personalDetails,endYear,name,team,year,isHeisman,startYear,gamesPlayedSeason,cost,gamesPlayed,hasRedshirt,isAllAmerican,isAllConference,careerAllAmericans,careerAllConferences,ratOvr,ratPot,ratFootIQ,ratImprovement,wasRedshirted,injury,careerHeismans;
+@synthesize position,draftPosition,ratDur,personalDetails,endYear,name,team,year,isHeisman,startYear,gamesPlayedSeason,cost,gamesPlayed,hasRedshirt,isAllAmerican,isAllConference,careerAllAmericans,careerAllConferences,ratOvr,ratPot,ratFootIQ,ratImprovement,wasRedshirted,injury,careerHeismans,statHistoryDictionary;
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
@@ -157,6 +157,12 @@
         } else {
             self.careerROTYs = 0;
         }
+        
+        if ([aDecoder containsValueForKey:@"statHistoryDictionary"]) {
+            self.statHistoryDictionary = [aDecoder decodeObjectForKey:@"statHistoryDictionary"];
+        } else {
+            self.statHistoryDictionary = [NSMutableDictionary dictionary];
+        }
     }
     return self;
 }
@@ -191,6 +197,7 @@
     [aCoder encodeBool:self.isTransfer forKey:@"isTransfer"];
     [aCoder encodeBool:self.isROTY forKey:@"isROTY"];
     [aCoder encodeInt:self.careerROTYs forKey:@"careerROTYs"];
+    [aCoder encodeObject:self.statHistoryDictionary forKey:@"statHistoryDictionary"];
 }
 
 +(int)getPosNumber:(NSString*)pos {
@@ -333,6 +340,11 @@
 }
 
 -(void)advanceSeason {
+    
+    if (self.statHistoryDictionary == nil) {
+        [self.statHistoryDictionary setObject:[self detailedStats:self.gamesPlayedSeason] forKey:[NSString stringWithFormat:@"%ld%@",(long)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1),(self.hasRedshirt ? @" (RS)" : @"")]];
+    }
+    
     self.year++;
     
     // If not an old/existing redshirt and not a rising senior and not a transfer BUT has played 4 games or less, then give them an extra year of eligibility -- <= 4 games in a season == redshirt year
