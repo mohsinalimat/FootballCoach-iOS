@@ -1080,4 +1080,103 @@ static UIColor *styleColor = nil;
         return [UIColor lightGrayColor];
     }
 }
+
++(NSString *)convertStatKeyToTitle:(NSString *)key {
+    NSDictionary<NSString *, NSString *> *definitions = @{
+                                                          @"completions" : @"Completions",
+                                                          @"attempts" : @"Attempts",
+                                                          @"passYards" : @"Pass Yards",
+                                                          @"completionPercentage" : @"Completion %",
+                                                          @"yardsPerAttempt" : @"Yards per Attempt",
+                                                          @"passYardsPerGame" : @"Pass Yards per Game",
+                                                          @"passTouchdowns" : @"Pass TD",
+                                                          //@"interceptions" : @(0),
+                                                          
+                                                          @"carries" : @"Carries",
+                                                          @"rushYards" : @"Rush Yards",
+                                                          @"yardsPerCarry" : @"Yards per Carry",
+                                                          @"rushYardsPerGame" : @"Rush Yards Per Game",
+                                                          //@"fumbles" : @(0),
+                                                          @"rushTouchdowns": @"Rush TD",
+                                                          
+                                                          
+                                                          @"catches": @"Catches",
+                                                          @"recYards": @"Rec Yards",
+                                                          @"yardsPerCatch": @"Yards per Catch",
+                                                          @"recTouchdowns": @"Rec TD",
+                                                          @"fumbles": @"Fumbles",
+                                                          @"recYardsPerGame" : @"Yards per Game",
+                                                          
+                                                          @"passesDefended": @"Passes Defended",
+                                                          @"tackles": @"Tackles",
+                                                          @"sacks": @"Sacks",
+                                                          @"interceptions": @"Interceptions",
+                                                          @"forcedFumbles": @"Forced Fumbles",
+                                  };
+    
+    if (definitions[key] == nil) {
+        return key;
+    } else {
+        return definitions[key];
+    }
+}
+
++(NSNumber *)convertStatKeyToSortingValue:(NSString *)key {
+    NSDictionary<NSString *, NSNumber *> *definitions = @{
+                                                          @"completions" : @(0),
+                                                          @"attempts" : @(1),
+                                                          @"passYards" : @(2),
+                                                          @"completionPercentage" : @(3),
+                                                          @"yardsPerAttempt" : @(4),
+                                                          @"passYardsPerGame" : @(5),
+                                                          @"passTouchdowns" : @(0),
+                                                          //@"interceptions" : @(0),
+                                                          
+                                                          @"carries" : @(6),
+                                                          @"rushYards" : @(7),
+                                                          @"yardsPerCarry" : @(8),
+                                                          @"rushYardsPerGame" : @(9),
+                                                          //@"fumbles" : @(0),
+                                                          @"rushTouchdowns": @(10),
+                                                          
+
+                                                          @"catches": @(12),
+                                                          @"recYards": @(13),
+                                                          @"yardsPerCatch": @(14),
+                                                          @"recTouchdowns": @(15),
+                                                          @"fumbles": @(16),
+                                                          @"recYardsPerGame" : @(17),
+                                                          
+                                                          @"passesDefended": @(18),
+                                                          @"tackles": @(19),
+                                                          @"sacks": @(20),
+                                                          @"interceptions": @(21),
+                                                          @"forcedFumbles": @(22),
+                                  };
+    
+    if (definitions[key] == nil) {
+        return [NSNumber numberWithInteger:0];
+    } else {
+        return definitions[key];
+    }
+}
+
++(NSComparisonResult)compareStatHistoryYears:(NSString *)year1 year2:(NSString *)year2 {
+    NSString *cleanedYear1 = [year1 stringByReplacingOccurrencesOfString:@" (RS)" withString:@""];
+    NSString *cleanedYear2 = [year2 stringByReplacingOccurrencesOfString:@" (RS)" withString:@""];
+    
+    return [[NSNumber numberWithInteger:[cleanedYear1 integerValue]] compare:[NSNumber numberWithInteger:[cleanedYear2 integerValue]]];
+}
+
++(NSArray *)sortStatHistoryYears:(NSArray<NSString *> *)keys {
+    return [keys sortedArrayUsingComparator:^NSComparisonResult(NSString*  _Nonnull obj1, NSString*  _Nonnull obj2) {
+        return [HBSharedUtils compareStatHistoryYears:obj1 year2:obj2];
+    }];
+}
+
++(NSArray *)sortStatKeyArray:(NSArray<NSString *> *)keys {
+    return [keys sortedArrayUsingComparator:^NSComparisonResult(NSString*  _Nonnull obj1, NSString*  _Nonnull obj2) {
+        return [[HBSharedUtils convertStatKeyToSortingValue:obj1] compare:[HBSharedUtils convertStatKeyToSortingValue:obj2]];
+    }];
+}
 @end

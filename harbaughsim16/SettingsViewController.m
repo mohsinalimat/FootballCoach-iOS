@@ -254,7 +254,7 @@
     if (section == 2) {
         return 6;
     } else if (section == 1) {
-        return 14;
+        return 15;
     } else {
         return 6;
     }
@@ -271,30 +271,32 @@
         }
         
         if (indexPath.row == 0) {
-            [cell.textLabel setText:@"ATAppUpdater"];
+            [cell.textLabel setText:@"AccordionSwift"];
         } else if (indexPath.row == 1) {
-            [cell.textLabel setText:@"AutoCoding"];
+            [cell.textLabel setText:@"ATAppUpdater"];
         } else if (indexPath.row == 2) {
-            [cell.textLabel setText:@"ios-charts"];
+            [cell.textLabel setText:@"AutoCoding"];
         } else if (indexPath.row == 3) {
-            [cell.textLabel setText:@"DZNEmptyDataSet"];
+            [cell.textLabel setText:@"ios-charts"];
         } else if (indexPath.row == 4) {
-            [cell.textLabel setText:@"Fabric"];
+            [cell.textLabel setText:@"DZNEmptyDataSet"];
         } else if (indexPath.row == 5) {
-            [cell.textLabel setText:@"FCFileManager"];
+            [cell.textLabel setText:@"Fabric"];
         } else if (indexPath.row == 6) {
-            [cell.textLabel setText:@"HexColors"];
+            [cell.textLabel setText:@"FCFileManager"];
         } else if (indexPath.row == 7) {
-            [cell.textLabel setText:@"Icons8"];
+            [cell.textLabel setText:@"HexColors"];
         } else if (indexPath.row == 8) {
-            [cell.textLabel setText:@"MBProgressHUD"];
+            [cell.textLabel setText:@"Icons8"];
         } else if (indexPath.row == 9) {
-            [cell.textLabel setText:@"RMessage"];
+            [cell.textLabel setText:@"MBProgressHUD"];
         } else if (indexPath.row == 10) {
-            [cell.textLabel setText:@"RSEmailFeedback"];
+            [cell.textLabel setText:@"RMessage"];
         } else if (indexPath.row == 11) {
-            [cell.textLabel setText:@"ScrollableSegmentedControl"];
+            [cell.textLabel setText:@"RSEmailFeedback"];
         } else if (indexPath.row == 12) {
+            [cell.textLabel setText:@"ScrollableSegmentedControl"];
+        } else if (indexPath.row == 13) {
             [cell.textLabel setText:@"STPopup"];
         } else {
             [cell.textLabel setText:@"ZGNavigationBarTitle"];
@@ -422,30 +424,32 @@
     if (indexPath.section == 1) {
         NSString *url;
         if (indexPath.row == 0) {
-            url = @"https://github.com/apptality/ATAppUpdater";
+            url = @"https://github.com/Vkt0r/AccordionSwift";
         } else if (indexPath.row == 1) {
-            url = @"https://github.com/nicklockwood/AutoCoding";
+            url = @"https://github.com/apptality/ATAppUpdater";
         } else if (indexPath.row == 2) {
-            url = @"https://github.com/danielgindi/Charts";
+            url = @"https://github.com/nicklockwood/AutoCoding";
         } else if (indexPath.row == 3) {
-            url = @"https://github.com/dzenbot/DZNEmptyDataSet";
+            url = @"https://github.com/danielgindi/Charts";
         } else if (indexPath.row == 4) {
-            url = @"https://fabric.io";
+            url = @"https://github.com/dzenbot/DZNEmptyDataSet";
         } else if (indexPath.row == 5) {
-            url = @"https://github.com/fabiocaccamo/FCFileManager";
+            url = @"https://fabric.io";
         } else if (indexPath.row == 6) {
-            url = @"https://github.com/mRs-/HexColors";
+            url = @"https://github.com/fabiocaccamo/FCFileManager";
         } else if (indexPath.row == 7) {
-            url = @"http://icons8.com";
+            url = @"https://github.com/mRs-/HexColors";
         } else if (indexPath.row == 8) {
-            url = @"https://github.com/jdg/MBProgressHUD/";
+            url = @"http://icons8.com";
         } else if (indexPath.row == 9) {
-            url = @"https://github.com/donileo/RMessage";
+            url = @"https://github.com/jdg/MBProgressHUD/";
         } else if (indexPath.row == 10) {
-            url = @"https://github.com/ricsantos/RSEmailFeedback";
+            url = @"https://github.com/donileo/RMessage";
         } else if (indexPath.row == 11) {
-            url = @"https://github.com/GocePetrovski/ScrollableSegmentedControl";
+            url = @"https://github.com/ricsantos/RSEmailFeedback";
         } else if (indexPath.row == 12) {
+            url = @"https://github.com/GocePetrovski/ScrollableSegmentedControl";
+        } else if (indexPath.row == 13) {
             url = @"https://github.com/kevin0571/STPopup";
         } else {
             url = @"https://github.com/zhigang1992/ZGNavigationBarTitle";

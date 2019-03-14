@@ -331,4 +331,5 @@
 -(void)calculateRecruitingPoints;
 -(void)getTransferringPlayers;
 -(NSString*)getTransferringPlayersString;
+-(void)updatePlayerHistories;
 @end

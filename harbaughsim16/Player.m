@@ -339,12 +339,14 @@
     return (self.injury != nil);
 }
 
--(void)advanceSeason {
-    
+-(void)updateStatHistory {
     if (self.statHistoryDictionary == nil) {
-        [self.statHistoryDictionary setObject:[self detailedStats:self.gamesPlayedSeason] forKey:[NSString stringWithFormat:@"%ld%@",(long)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1),(self.hasRedshirt ? @" (RS)" : @"")]];
+        self.statHistoryDictionary = [NSMutableDictionary dictionary];
     }
-    
+    [self.statHistoryDictionary setObject:[self detailedStats:self.gamesPlayedSeason] forKey:[NSString stringWithFormat:@"%ld%@",(long)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count),(self.hasRedshirt ? @" (RS)" : @"")]];
+}
+
+-(void)advanceSeason {
     self.year++;
     
     // If not an old/existing redshirt and not a rising senior and not a transfer BUT has played 4 games or less, then give them an extra year of eligibility -- <= 4 games in a season == redshirt year

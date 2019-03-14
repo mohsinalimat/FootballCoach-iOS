@@ -22,6 +22,7 @@
 
 #import "HexColors.h"
 #import "STPopup.h"
+#import "harbaughsim16-Swift.h"
 
 @interface PlayerDetailViewController ()
 {
@@ -37,6 +38,11 @@
         self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, ([UIScreen mainScreen].bounds.size.height * (3.0/4.0)));
     }
     return self;
+}
+
+-(void)openStatHistory {
+    PlayerStatHistoryViewController *vc = [[PlayerStatHistoryViewController alloc] initWithPlayer: selectedPlayer];
+    [self.popupController pushViewController:vc animated:YES];
 }
 
 - (void)viewDidLoad {
@@ -55,8 +61,6 @@
     } else {
         [playerDetailView.medImageView setHidden:YES];
     }
-    
-    
 
     if (!selectedPlayer.isHeisman && !selectedPlayer.isROTY) {
         [playerDetailView addConstraint:[NSLayoutConstraint constraintWithItem:playerDetailView.yrLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationLessThanOrEqual toItem:playerDetailView.allConfTagView attribute:NSLayoutAttributeLeading multiplier:1 constant:0]];
@@ -85,6 +89,10 @@
     [playerDetailView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
+    
+    if (selectedPlayer.statHistoryDictionary != nil && selectedPlayer.statHistoryDictionary.count > 0) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"history-unselected"] style:UIBarButtonItemStylePlain target:self action:@selector(openStatHistory)];
+    }
 }
 
 -(void)reloadAll {
@@ -165,18 +173,26 @@
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
         if (section == 1) {
-            return [NSString stringWithFormat:@"Over %ld games", (long)selectedPlayer.gamesPlayed];
+            if (selectedPlayer.gamesPlayed > 1 || selectedPlayer.gamesPlayed == 0) {
+                return [NSString stringWithFormat:@"Over %ld career games", (long)selectedPlayer.gamesPlayed];
+            } else {
+                return @"Through 1 career game";
+            }
         } else {
             return nil;
         }
     } else {
         if (section == 2) {
-            return [NSString stringWithFormat:@"Over %ld games", (long)selectedPlayer.gamesPlayed];
-        } else if (section == 1) {
-            if ([selectedPlayer isKindOfClass:[PlayerDL class]] || [selectedPlayer isKindOfClass:[PlayerLB class]] || [selectedPlayer isKindOfClass:[PlayerCB class]] || [selectedPlayer isKindOfClass:[PlayerS class]]) {
-                return [NSString stringWithFormat:@"Through %ld games this season (%ld games total)", (long)selectedPlayer.gamesPlayedSeason, (long)selectedPlayer.gamesPlayed];
+            if (selectedPlayer.gamesPlayed > 1 || selectedPlayer.gamesPlayed == 0) {
+                return [NSString stringWithFormat:@"Over %ld career games", (long)selectedPlayer.gamesPlayed];
             } else {
+                return @"Through 1 career game";
+            }
+        } else if (section == 1) {
+            if (selectedPlayer.gamesPlayedSeason > 1 || selectedPlayer.gamesPlayedSeason == 0) {
                 return [NSString stringWithFormat:@"Through %ld games this season", (long)selectedPlayer.gamesPlayedSeason];
+            } else {
+                return @"Through 1 game this season";
             }
         } else {
             return nil;

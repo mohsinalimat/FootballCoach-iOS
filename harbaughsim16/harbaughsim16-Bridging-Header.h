@@ -8,10 +8,9 @@
 
 #ifndef harbaughsim16_Bridging_Header_h
 #define harbaughsim16_Bridging_Header_h
-//#import "FCTableViewController.h"
-//#import "MyTeamViewController.h"
-//#import "HeadCoachDetailViewController.h"
-//#import "HeadCoach.h"
-//#import "Team.h"
+#import "STPopup.h"
+#import "UIScrollView+EmptyDataSet.h"
+#import "Player.h"
+
 
 #endif /* harbaughsim16_Bridging_Header_h */

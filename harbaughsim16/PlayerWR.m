@@ -272,7 +272,7 @@
 
 -(NSDictionary*)detailedStats:(int)games {
     NSMutableDictionary *stats = [NSMutableDictionary dictionary];
-    [stats setObject:[NSString stringWithFormat:@"%d TDs",self.statsTD] forKey:@"touchdowns"];
+    [stats setObject:[NSString stringWithFormat:@"%d TDs",self.statsTD] forKey:@"recTouchdowns"];
     [stats setObject:[NSString stringWithFormat:@"%d Fum",self.statsFumbles] forKey:@"fumbles"];
     
     [stats setObject:[NSString stringWithFormat:@"%d catches",self.statsReceptions] forKey:@"catches"];
@@ -288,7 +288,7 @@
     if (games > 0) {
         ypg = (int)ceil((double)self.statsRecYards/(double)games);
     }
-    [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"yardsPerGame"];
+    [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"recYardsPerGame"];
     
     
     return [stats copy];
@@ -296,7 +296,7 @@
 
 -(NSDictionary*)detailedCareerStats {
     NSMutableDictionary *stats = [NSMutableDictionary dictionaryWithDictionary:[super detailedCareerStats]];
-    [stats setObject:[NSString stringWithFormat:@"%d TDs",self.careerStatsTD] forKey:@"touchdowns"];
+    [stats setObject:[NSString stringWithFormat:@"%d TDs",self.careerStatsTD] forKey:@"recTouchdowns"];
     [stats setObject:[NSString stringWithFormat:@"%d Fum",self.careerStatsFumbles] forKey:@"fumbles"];
     
     [stats setObject:[NSString stringWithFormat:@"%d catches",self.careerStatsReceptions] forKey:@"catches"];
@@ -312,7 +312,7 @@
     if (self.gamesPlayed > 0) {
         ypg = (int)((double)self.careerStatsRecYards/(double)self.gamesPlayed);
     }
-    [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"yardsPerGame"];
+    [stats setObject:[NSString stringWithFormat:@"%d yds/gm",ypg] forKey:@"recYardsPerGame"];
     
     
     return [stats copy];

@@ -134,10 +134,10 @@
                 [cell.detailTextLabel setText:careerStats[@"yardsPerCatch"]];
                 [cell.textLabel setText:@"Yards Per Catch"];
             } else if (indexPath.row == 7) {
-                [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+                [cell.detailTextLabel setText:careerStats[@"recYardsPerGame"]];
                 [cell.textLabel setText:@"Yards Per Game"];
             } else if (indexPath.row == 8) {
-                [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+                [cell.detailTextLabel setText:careerStats[@"recTouchdowns"]];
                 [cell.textLabel setText:@"Touchdowns"];
             } else {
                 [cell.detailTextLabel setText:careerStats[@"fumbles"]];
@@ -154,10 +154,10 @@
                 [cell.detailTextLabel setText:stats[@"yardsPerCatch"]];
                 [cell.textLabel setText:@"Yards Per Catch"];
             } else if (indexPath.row == 3) {
-                [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                [cell.detailTextLabel setText:stats[@"recYardsPerGame"]];
                 [cell.textLabel setText:@"Yards Per Game"];
             } else if (indexPath.row == 4) {
-                [cell.detailTextLabel setText:stats[@"touchdowns"]];
+                [cell.detailTextLabel setText:stats[@"recTouchdowns"]];
                 [cell.textLabel setText:@"Touchdowns"];
             } else {
                 [cell.detailTextLabel setText:stats[@"fumbles"]];
@@ -187,10 +187,10 @@
             [cell.detailTextLabel setText:careerStats[@"yardsPerCatch"]];
             [cell.textLabel setText:@"Yards Per Catch"];
         } else if (indexPath.row == 7) {
-            [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+            [cell.detailTextLabel setText:careerStats[@"recYardsPerGame"]];
             [cell.textLabel setText:@"Yards Per Game"];
         } else if (indexPath.row == 8) {
-            [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+            [cell.detailTextLabel setText:careerStats[@"recTouchdowns"]];
             [cell.textLabel setText:@"Touchdowns"];
         } else {
             [cell.detailTextLabel setText:careerStats[@"fumbles"]];

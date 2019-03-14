@@ -81,4 +81,6 @@ typedef enum {
 
 -(int)calculateInterestInTeam:(Team *)t;
 -(NSString *)uniqueIdentifier;
+
+-(void)updateStatHistory;
 @end

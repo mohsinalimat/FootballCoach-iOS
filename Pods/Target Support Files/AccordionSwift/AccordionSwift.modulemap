@@ -1,0 +1,6 @@
+framework module AccordionSwift {
+  umbrella header "AccordionSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

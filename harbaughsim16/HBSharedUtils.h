@@ -186,4 +186,9 @@ typedef enum {
 + (NSString *)jobPickerTutorial:(BOOL)wasFired;
 +(BOOL)isValidNumber:(id)supposedNumber;
 +(NSString *)currentMinorVersion;
+
++(NSString *)convertStatKeyToTitle:(NSString *)key;
++(NSArray *)sortStatKeyArray:(NSArray<NSString *> *)keys;
++(NSArray *)sortStatHistoryYears:(NSArray<NSString *> *)keys;
++(NSComparisonResult)compareStatHistoryYears:(NSString *)year1 year2:(NSString *)year2;
 @end

@@ -1548,6 +1548,12 @@
     [teamHistoryDictionary setObject:hist forKey:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + league.leagueHistoryDictionary.count)]];
 }
 
+-(void)updatePlayerHistories {
+    for (Player *p in [self getAllPlayers]) {
+        [p updateStatHistory];
+    }
+}
+
 -(void)checkCoachingContracts:(int)totalPrestigeDiff newPrestige:(int)newPrestige {
     int max = 78;
     int min = 63;

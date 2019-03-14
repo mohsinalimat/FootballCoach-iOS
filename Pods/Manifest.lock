@@ -1,4 +1,5 @@
 PODS:
+  - AccordionSwift (2.0.1)
   - ATAppUpdater (2.0)
   - AutoCoding (2.2.3)
   - Charts (3.0.5):
@@ -25,6 +26,7 @@ PODS:
   - ZGNavigationBarTitle (0.1.1)
 
 DEPENDENCIES:
+  - AccordionSwift (from `https://github.com/Vkt0r/AccordionSwift.git`)
   - ATAppUpdater
   - AutoCoding
   - Charts
@@ -59,7 +61,17 @@ SPEC REPOS:
     - STPopup
     - ZGNavigationBarTitle
 
+EXTERNAL SOURCES:
+  AccordionSwift:
+    :git: https://github.com/Vkt0r/AccordionSwift.git
+
+CHECKOUT OPTIONS:
+  AccordionSwift:
+    :commit: ab1f402cf5228bb731926e30f64807fdb1e079e0
+    :git: https://github.com/Vkt0r/AccordionSwift.git
+
 SPEC CHECKSUMS:
+  AccordionSwift: 51aa6498279922f0c473f4bb3b80153661451d9a
   ATAppUpdater: a9f7027060959d47e58733d3b48f6b9a28cb8de1
   AutoCoding: 90ca3cbc0d77a37cfff75167d705b44148c5fc51
   Charts: 45cdc985b764c838b35ee47eb1365d15735f6d1a
@@ -77,6 +89,6 @@ SPEC CHECKSUMS:
   STPopup: da1167250a01584af7bcccb898653185f223ec46
   ZGNavigationBarTitle: b3bfa57a5c760bf29a71fd7ab281f20c93093ca7
 
-PODFILE CHECKSUM: 718d0e3d16d6df40badd43553fd862ba4d0e176b
+PODFILE CHECKSUM: c92a8e05d7dd3a1e4a44d09a86a80a85c44d1bc8
 
 COCOAPODS: 1.5.3

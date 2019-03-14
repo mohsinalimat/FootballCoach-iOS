@@ -16,6 +16,7 @@ def use_pod_list
     pod 'Charts'
     pod 'ZGNavigationBarTitle'
     pod 'RSEmailFeedback'
+    pod 'AccordionSwift', :git => 'https://github.com/Vkt0r/AccordionSwift.git'
 end
 
 target 'harbaughsim16' do

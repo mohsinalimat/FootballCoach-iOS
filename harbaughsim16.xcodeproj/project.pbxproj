@@ -188,6 +188,15 @@
 		75CEE9631FF5FF5E005A86C1 /* 2star-recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CEE95E1FF5FF5E005A86C1 /* 2star-recruit@3x.png */; };
 		75CEE9641FF5FF5E005A86C1 /* 1star-recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CEE95F1FF5FF5E005A86C1 /* 1star-recruit@3x.png */; };
 		75CEE9651FF5FF5E005A86C1 /* 3star-recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CEE9601FF5FF5E005A86C1 /* 3star-recruit@3x.png */; };
+		75DF165722399AD600E85626 /* PlayerStatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DF165622399AD600E85626 /* PlayerStatHistoryViewController.swift */; };
+		75DF165B2239B55100E85626 /* YearCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DF16592239B55100E85626 /* YearCell.m */; };
+		75DF165C2239B55100E85626 /* YearCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75DF165A2239B55100E85626 /* YearCell.xib */; };
+		75DF165F2239B57A00E85626 /* StatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DF165D2239B57A00E85626 /* StatCell.swift */; };
+		75DF16602239B57A00E85626 /* StatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75DF165E2239B57A00E85626 /* StatCell.xib */; };
+		75DF1665223A09B000E85626 /* history-unselected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75DF1661223A09B000E85626 /* history-unselected@2x.png */; };
+		75DF1666223A09B000E85626 /* history-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75DF1662223A09B000E85626 /* history-selected@2x.png */; };
+		75DF1667223A09B000E85626 /* history-unselected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75DF1663223A09B000E85626 /* history-unselected@3x.png */; };
+		75DF1668223A09B000E85626 /* history-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75DF1664223A09B000E85626 /* history-selected@3x.png */; };
 		75E10F1D1CA0D9CA0000DA78 /* TeamHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */; };
 		75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */; };
 		75E8D89821D743FE0077CBC1 /* HeadCoachDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E8D89621D743FE0077CBC1 /* HeadCoachDetailViewController.m */; };
@@ -503,6 +512,16 @@
 		75CEE95E1FF5FF5E005A86C1 /* 2star-recruit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2star-recruit@3x.png"; sourceTree = "<group>"; };
 		75CEE95F1FF5FF5E005A86C1 /* 1star-recruit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1star-recruit@3x.png"; sourceTree = "<group>"; };
 		75CEE9601FF5FF5E005A86C1 /* 3star-recruit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3star-recruit@3x.png"; sourceTree = "<group>"; };
+		75DF165622399AD600E85626 /* PlayerStatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatHistoryViewController.swift; sourceTree = "<group>"; };
+		75DF16582239B55100E85626 /* YearCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YearCell.h; sourceTree = "<group>"; };
+		75DF16592239B55100E85626 /* YearCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YearCell.m; sourceTree = "<group>"; };
+		75DF165A2239B55100E85626 /* YearCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = YearCell.xib; sourceTree = "<group>"; };
+		75DF165D2239B57A00E85626 /* StatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCell.swift; sourceTree = "<group>"; };
+		75DF165E2239B57A00E85626 /* StatCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StatCell.xib; sourceTree = "<group>"; };
+		75DF1661223A09B000E85626 /* history-unselected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "history-unselected@2x.png"; sourceTree = "<group>"; };
+		75DF1662223A09B000E85626 /* history-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "history-selected@2x.png"; sourceTree = "<group>"; };
+		75DF1663223A09B000E85626 /* history-unselected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "history-unselected@3x.png"; sourceTree = "<group>"; };
+		75DF1664223A09B000E85626 /* history-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "history-selected@3x.png"; sourceTree = "<group>"; };
 		75E10F1B1CA0D9CA0000DA78 /* TeamHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamHistoryViewController.m; sourceTree = "<group>"; };
 		75E10F1F1CA0E0170000DA78 /* LeagueHistoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueHistoryController.h; sourceTree = "<group>"; };
 		75E10F201CA0E0170000DA78 /* LeagueHistoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueHistoryController.m; sourceTree = "<group>"; };
@@ -987,6 +1006,12 @@
 				75A4519821CC7AA4007E481A /* PlayerSDetailViewController.h */,
 				75A4519921CC7AA4007E481A /* PlayerSDetailViewController.m */,
 				75A4519A21CC7AA4007E481A /* PlayerSDetailViewController.xib */,
+				75DF165622399AD600E85626 /* PlayerStatHistoryViewController.swift */,
+				75DF165D2239B57A00E85626 /* StatCell.swift */,
+				75DF165E2239B57A00E85626 /* StatCell.xib */,
+				75DF16582239B55100E85626 /* YearCell.h */,
+				75DF16592239B55100E85626 /* YearCell.m */,
+				75DF165A2239B55100E85626 /* YearCell.xib */,
 			);
 			name = "Player Detail";
 			sourceTree = "<group>";
@@ -994,6 +1019,10 @@
 		75A86C9F1C9C7CAA0034140C /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				75DF1662223A09B000E85626 /* history-selected@2x.png */,
+				75DF1664223A09B000E85626 /* history-selected@3x.png */,
+				75DF1661223A09B000E85626 /* history-unselected@2x.png */,
+				75DF1663223A09B000E85626 /* history-unselected@3x.png */,
 				75968B6F21DC12EE009B040C /* coach-unselected@3x.png */,
 				75968B7021DC12EE009B040C /* coach-unselected@2x.png */,
 				75968B6B21DC12A4009B040C /* coach@2x.png */,
@@ -1249,8 +1278,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				75A86C911C9C7AA80034140C /* schedule@3x.png in Resources */,
+				75DF16602239B57A00E85626 /* StatCell.xib in Resources */,
 				75924A311C99CCC000B165AD /* LaunchScreen.storyboard in Resources */,
 				755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */,
+				75DF1665223A09B000E85626 /* history-unselected@2x.png in Resources */,
 				75CEE94F1FF593F5005A86C1 /* CFCRecruitCell.xib in Resources */,
 				7562A8901FFF4040004C0985 /* hide@2x.png in Resources */,
 				7562A8911FFF4040004C0985 /* show@2x.png in Resources */,
@@ -1259,6 +1290,7 @@
 				75CEE9641FF5FF5E005A86C1 /* 1star-recruit@3x.png in Resources */,
 				75A86C9A1C9C7C0C0034140C /* recruit@3x.png in Resources */,
 				75F8F66A21DBF07C006981E7 /* MyCareerViewController.xib in Resources */,
+				75DF1668223A09B000E85626 /* history-selected@3x.png in Resources */,
 				7571DD441C9D0C7000E67080 /* GameDetailViewController.xib in Resources */,
 				75EC9A761D07D9DC00F24BE6 /* medical@3x.png in Resources */,
 				75F0E25F1FECD7C100719086 /* alt-designs.json in Resources */,
@@ -1278,6 +1310,7 @@
 				75CA698C1FEE2BF2008A58D1 /* last-names.csv in Resources */,
 				75A41B4C1CA311CF00025E53 /* close@3x.png in Resources */,
 				7562A88F1FFF4040004C0985 /* show@3x.png in Resources */,
+				75DF1667223A09B000E85626 /* history-unselected@3x.png in Resources */,
 				7571DD281C9CC9A000E67080 /* ScheduleViewController.xib in Resources */,
 				755BBC4E1C9DEDF0001A8314 /* HBPlayerCell.xib in Resources */,
 				7571DD461C9D34B300E67080 /* RosterViewController.xib in Resources */,
@@ -1296,10 +1329,12 @@
 				75CA698D1FEE2BF2008A58D1 /* first-names.csv in Resources */,
 				75CEE9611FF5FF5E005A86C1 /* 4star-recruit@3x.png in Resources */,
 				75A86C991C9C7C0C0034140C /* recruit-selected@3x.png in Resources */,
+				75DF1666223A09B000E85626 /* history-selected@2x.png in Resources */,
 				751D052E1FA6A01D002CB414 /* triline@2x.png in Resources */,
 				7571DD3D1C9CFF6500E67080 /* HBRosterCell.xib in Resources */,
 				75CEE9621FF5FF5E005A86C1 /* 5star-recruit@3x.png in Resources */,
 				75F0E26A1FECDAEA00719086 /* winner@2x.png in Resources */,
+				75DF165C2239B55100E85626 /* YearCell.xib in Resources */,
 				75CEE9651FF5FF5E005A86C1 /* 3star-recruit@3x.png in Resources */,
 				7562A88E1FFF4040004C0985 /* hide@3x.png in Resources */,
 				75A86C981C9C7C0C0034140C /* news-selected@3x.png in Resources */,
@@ -1389,6 +1424,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-cfctests/Pods-cfctests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ATAppUpdater/ATAppUpdater.framework",
+				"${BUILT_PRODUCTS_DIR}/AccordionSwift/AccordionSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/AutoCoding/AutoCoding.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
@@ -1406,6 +1442,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ATAppUpdater.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AccordionSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AutoCoding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
@@ -1433,6 +1470,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-harbaughsim16/Pods-harbaughsim16-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ATAppUpdater/ATAppUpdater.framework",
+				"${BUILT_PRODUCTS_DIR}/AccordionSwift/AccordionSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/AutoCoding/AutoCoding.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
@@ -1450,6 +1488,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ATAppUpdater.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AccordionSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AutoCoding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
@@ -1545,6 +1584,7 @@
 				75A86C881C9C790D0034140C /* FCTableViewController.m in Sources */,
 				7595342E21CDA65B00AF6FE3 /* HeadCoach.m in Sources */,
 				75924A611C99E64D00B165AD /* PlayerK.m in Sources */,
+				75DF165722399AD600E85626 /* PlayerStatHistoryViewController.swift in Sources */,
 				75CEE94A1FF593B6005A86C1 /* RecruitingPeriodViewController.m in Sources */,
 				75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */,
 				75880F8F1CAC949F00AF2C1C /* TeamRecordsViewController.m in Sources */,
@@ -1577,6 +1617,7 @@
 				75924A201C99CCC000B165AD /* main.m in Sources */,
 				7551AC201FFFD9CA0033680E /* CFCWatchlistCell.m in Sources */,
 				75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */,
+				75DF165F2239B57A00E85626 /* StatCell.swift in Sources */,
 				75924A641C99E65600B165AD /* PlayerOL.m in Sources */,
 				75924A5B1C99E63800B165AD /* PlayerRB.m in Sources */,
 				75924A671C99E65E00B165AD /* PlayerS.m in Sources */,
@@ -1597,6 +1638,7 @@
 				75924A521C99D1C600B165AD /* TeamStrategy.m in Sources */,
 				75FE584E1FA3838600DE2534 /* PlayerTE.m in Sources */,
 				7571DD3C1C9CFF6500E67080 /* HBRosterCell.m in Sources */,
+				75DF165B2239B55100E85626 /* YearCell.m in Sources */,
 				754E90781CA58BF800C450CF /* BowlProjectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

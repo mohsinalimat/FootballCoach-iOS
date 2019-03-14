@@ -1760,6 +1760,7 @@
 -(void)updateTeamHistories {
     for (int i = 0; i < teamList.count; ++i) {
         [teamList[i] updateTeamHistory];
+        [teamList[i] updatePlayerHistories];
     }
 }
 
