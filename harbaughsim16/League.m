@@ -1187,10 +1187,7 @@
             [conferences[i] setUpSchedule];
         }
         
-//        for (int i = 0; i < conferences.count; ++i ) {
-//            [conferences[i] setUpOOCSchedule];
-//        }
-        
+        // set up OOC scheduling
         NSArray *weeks = @[@(0), @(4), @(9)];
         for (NSNumber *weekNum in weeks) {
             int week = [weekNum intValue];
