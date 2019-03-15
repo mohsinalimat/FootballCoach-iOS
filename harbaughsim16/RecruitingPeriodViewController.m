@@ -928,17 +928,17 @@
     CGFloat inMax = 90;
 
     CGFloat outMin = 0;
-    CGFloat outMax = 8;
+    CGFloat outMax = 24;
 
     CGFloat input = MIN(90.0, (CGFloat) [HBSharedUtils currentLeague].userTeam.teamPrestige);
     int avail5Stars;
     if ([HBSharedUtils currentLeague].isHardMode) {
         avail5Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
     } else {
-        avail5Stars = 8;
+        avail5Stars = 24;
     }
 
-    allPlayersAvailable = (avail5Stars == 8);
+    allPlayersAvailable = (avail5Stars == 24);
 
     for (int i = 0; i < avail5Stars; i++) {
         position = (int)([HBSharedUtils randomValue] * 10);
@@ -974,13 +974,13 @@
     }
 
     outMin = 0;
-    outMax = 40;
+    outMax = 120;
 
     int avail4Stars;
     if ([HBSharedUtils currentLeague].isHardMode) {
         avail4Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
     } else {
-        avail4Stars = 40;
+        avail4Stars = 120;
     }
 
     for (int i = 0; i < avail4Stars; i++) {
@@ -1017,13 +1017,13 @@
     }
 
     outMin = 0;
-    outMax = 40;
+    outMax = 120;
 
     int avail3Stars;
     if ([HBSharedUtils currentLeague].isHardMode) {
         avail3Stars = (int)((outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin)));
     } else {
-        avail3Stars = 40;
+        avail3Stars = 120;
     }
 
     for (int i = 0; i < avail3Stars; i++) {
@@ -1059,7 +1059,7 @@
         }
     }
 
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 48; i++) {
         position = (int)([HBSharedUtils randomValue] * 10);
         if (position < 0) {
             position = 0;
@@ -1092,7 +1092,7 @@
         }
     }
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 9; i++) {
         position = (int)([HBSharedUtils randomValue] * 10);
         if (position < 0) {
             position = 0;

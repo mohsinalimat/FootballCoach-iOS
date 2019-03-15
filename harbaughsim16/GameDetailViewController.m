@@ -560,6 +560,11 @@
                 [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",awayRank,selectedGame.awayTeam.name]];
                 [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%lu-%lu) %@",selectedGame.awayTeam.wins,selectedGame.awayTeam.losses,(long)[selectedGame.awayTeam calculateConfWins], (long)[selectedGame.awayTeam calculateConfLosses],selectedGame.awayTeam.conference]];
                 [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.awayScore]];
+                if ([selectedGame.awayTeam.abbreviation isEqualToString:@"FCS"]) {
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                } else {
+                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                }
             } else {
                 NSString *homeRank = @"";
                 if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
@@ -568,6 +573,11 @@
                 [cell.teamNameLabel setText:[NSString stringWithFormat:@"%@%@",homeRank,selectedGame.homeTeam.name]];
                 [cell.teamAbbrevLabel setText:[NSString stringWithFormat:@"%d-%d (%lu-%lu) %@",selectedGame.homeTeam.wins,selectedGame.homeTeam.losses,(long)[selectedGame.homeTeam calculateConfWins], (long)[selectedGame.homeTeam calculateConfLosses],selectedGame.homeTeam.conference]];
                 [cell.scoreLabel setText:[NSString stringWithFormat:@"%d",selectedGame.homeScore]];
+                if ([selectedGame.homeTeam.abbreviation isEqualToString:@"FCS"]) {
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                } else {
+                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                }
             }
             return cell;
         } else if ((indexPath.section == 3 && [self isHardMode]) || (indexPath.section == 2 && ![self isHardMode])) {
@@ -765,6 +775,11 @@
                         [cell.teamNameLabel setTextColor:[UIColor blackColor]];
                         [cell.scoreLabel setTextColor:[UIColor blackColor]];
                     }
+                    if ([selectedGame.awayTeam.abbreviation isEqualToString:@"FCS"]) {
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    } else {
+                        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                    }
                 } else {
                     NSString *homeRank = @"";
                     if ([HBSharedUtils currentLeague].currentWeek > 0 && selectedGame.homeTeam.rankTeamPollScore < 26 && selectedGame.homeTeam.rankTeamPollScore > 0) {
@@ -779,6 +794,11 @@
                     } else {
                         [cell.teamNameLabel setTextColor:[UIColor blackColor]];
                         [cell.scoreLabel setTextColor:[UIColor blackColor]];
+                    }
+                    if ([selectedGame.homeTeam.abbreviation isEqualToString:@"FCS"]) {
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    } else {
+                        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                     }
                 }
                 return cell;
@@ -1197,9 +1217,13 @@
             } else {
                 if (indexPath.section == 0) {
                     if (indexPath.row == 0) {
-                        [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                        if (![selectedGame.awayTeam.abbreviation isEqualToString:@"FCS"]) {
+                            [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                        }
                     } else if (indexPath.row == 1) {
-                        [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                        if (![selectedGame.homeTeam.abbreviation isEqualToString:@"FCS"]) {
+                            [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                        }
                     } else {
                         [self viewGameSummary];
                     }
@@ -1238,9 +1262,13 @@
         if ([self isHardMode]) {
             if (indexPath.section == 0) {
                 if (indexPath.row == 0) {
-                    [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                    if (![selectedGame.awayTeam.abbreviation isEqualToString:@"FCS"]) {
+                        [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                    }
                 } else if (indexPath.row == 1) {
-                    [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                    if (![selectedGame.homeTeam.abbreviation isEqualToString:@"FCS"]) {
+                        [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                    }
                 } else {
                     [self viewGameSummary];
                 }
@@ -1278,17 +1306,25 @@
                 [self.navigationController pushViewController:playerDetail animated:YES];
             } else if (indexPath.section == 2) {
                 if (indexPath.row == 0) {
-                    [self.navigationController pushViewController:[[InjuryReportViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                    if (![selectedGame.awayTeam.abbreviation isEqualToString:@"FCS"]) {
+                        [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                    }
                 } else {
-                    [self.navigationController pushViewController:[[InjuryReportViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                    if (![selectedGame.homeTeam.abbreviation isEqualToString:@"FCS"]) {
+                        [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                    }
                 }
             }
         } else {
             if (indexPath.section == 0) {
                 if (indexPath.row == 0) {
-                    [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                    if (![selectedGame.awayTeam.abbreviation isEqualToString:@"FCS"]) {
+                        [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+                    }
                 } else if (indexPath.row == 1) {
-                    [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                    if (![selectedGame.homeTeam.abbreviation isEqualToString:@"FCS"]) {
+                        [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+                    }
                 } else {
                     [self viewGameSummary];
                 }

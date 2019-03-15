@@ -1822,7 +1822,39 @@
 }
 
 -(int)getOffensiveTalent {
-    return ([self getQB:0].ratOvr*5 + [self getWR:0].ratOvr + [self getWR:1].ratOvr + [self getWR:2].ratOvr + [self getRB:0].ratOvr + [self getRB:1].ratOvr + [self getCompositeOLPass] + [self getCompositeOLRush] ) / 12;
+    int parts = 0;
+    int sum = 0;
+    //return ([self getQB:0].ratOvr*5 + [self getWR:0].ratOvr + [self getWR:1].ratOvr + [self getWR:2].ratOvr + [self getRB:0].ratOvr + [self getRB:1].ratOvr + [self getCompositeOLPass] + [self getCompositeOLRush] ) / 12;
+    if ([self getQB:0] != nil) {
+        sum += ([self getQB:0].ratOvr * 5);
+        parts+=5;
+    }
+    if ([self getWR:0] != nil) {
+        sum += ([self getWR:0].ratOvr);
+        parts++;
+    }
+    if ([self getWR:1] != nil) {
+        sum += ([self getWR:1].ratOvr);
+        parts++;
+    }
+    if ([self getWR:2] != nil) {
+        sum += ([self getWR:2].ratOvr);
+        parts++;
+    }
+    if ([self getRB:0] != nil) {
+        sum += ([self getRB:0].ratOvr);
+        parts++;
+    }
+    if ([self getRB:1] != nil) {
+        sum += ([self getRB:1].ratOvr);
+        parts++;
+    }
+    sum += [self getCompositeOLPass];
+    parts++;
+    sum += [self getCompositeOLRush];
+    parts++;
+    NSLog(@"SUM: %d / PARTS: %d", sum, parts);
+    return sum / parts;
 }
 
 -(int)getDefensiveTalent {

@@ -700,6 +700,16 @@
     }
     return self;
 }
+
+-(NSArray *)fcsTeamNames {
+    static NSArray *names;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        names = @[@"New Mexico Tech", @"Southwest Alaska", @"San Luis Obispo", @"Central Arkansas", @"Chattanooga", @"Fraklin", @"East Tennessee", @"Charlotte", @"Boston Central", @"Nebraska Tech", @"Coastal NJ", @"Four Corners Univ", @"Potomac Tech", @"Idaho State", @"Independence St", @"Banff St", @"Miss Valley", @"South Dakota", @"South Dakota St", @"Southern Arizona", @"Portland", @"Rhode Island", @"Southern TX", @"Youngstown"];
+    });
+    return names;
+}
+
 -(NSArray*)singleSeasonRecords {
     NSMutableArray *records = [NSMutableArray array];
     if (singleSeasonCompletionsRecord != nil) {
@@ -858,7 +868,7 @@
     int userControl = 0;
     for (Team *t in teamList) {
          // check this at all points EXCEPT at the end of the season after transfers processed. Teams will be uneven after transfers process.
-        if (didFinishTransferPeriod == NO && currentWeek > 15) {
+        if (!didFinishTransferPeriod) {
             if ((t.teamQBs == nil || t.teamQBs.count < 2)
                 || (t.teamRBs == nil || t.teamRBs.count < 4)
                 || (t.teamWRs == nil || t.teamWRs.count < 6)
@@ -896,6 +906,40 @@
         if (t.isUserControlled) {
             NSLog(@"%@ is marked user controlled", t.abbreviation);
             userControl++;
+        }
+        
+        if (t.oocGame0 == nil) {
+            return YES;
+        }
+        
+        if (t.oocGame4 == nil) {
+            return YES;
+        }
+        
+        if (t.oocGame9 == nil) {
+            return YES;
+        }
+        
+        if (t.gameSchedule.count < 12) {
+            return YES;
+        }
+        
+        for (Game *g in t.gameSchedule) {
+            if (g == nil) {
+                return YES;
+            }
+            
+            if (g.homeTeam == nil) {
+                return YES;
+            }
+            
+            if (g.awayTeam == nil) {
+                return YES;
+            }
+            
+            if ([g.gameName containsString:@"(null)"]) {
+                return YES;
+            }
         }
 
         if (IS_DEBUG) {
@@ -938,6 +982,7 @@
             return YES;
         }
     }
+    
     return NO;
 }
 
@@ -1188,46 +1233,65 @@
         }
         
         // set up OOC scheduling
-        NSArray *weeks = @[@(0), @(4), @(9)];
-        for (NSNumber *weekNum in weeks) {
-            int week = [weekNum intValue];
-            NSMutableArray<Team *> *availTeams = [NSMutableArray array];
-            for (Team *t in teamList) {
-                if (week == 0) {
-                    if (t.oocGame0 == nil) {
-                        [availTeams addObject:t];
-                    }
-                } else if (week == 4) {
-                    if (t.oocGame4 == nil) {
-                        [availTeams addObject:t];
-                    }
-                } else {
-                    if (t.oocGame9 == nil) {
-                        [availTeams addObject:t];
-                    }
+        [self scheduleOOCGames];
+        
+        for (int i = 0; i < conferences.count; ++i ) {
+            [conferences[i] insertOOCSchedule];
+        }
+    }
+    return self;
+}
+
+-(void)scheduleOOCGames {
+    int fcsGames = 0;
+    NSArray *weeks = @[@(0), @(4), @(9)];
+    for (NSNumber *weekNum in weeks) {
+        int week = [weekNum intValue];
+        NSMutableArray<Team *> *availTeams = [NSMutableArray array];
+        for (Team *t in teamList) {
+            if (week == 0) {
+                if (t.oocGame0 == nil) {
+                    [availTeams addObject:t];
+                }
+            } else if (week == 4) {
+                if (t.oocGame4 == nil) {
+                    [availTeams addObject:t];
+                }
+            } else {
+                if (t.oocGame9 == nil) {
+                    [availTeams addObject:t];
                 }
             }
+        }
+        
+        while (availTeams.count > 0) {
+            int selTeamA = (int) (availTeams.count * [HBSharedUtils randomValue]);
+            Team *a = availTeams[selTeamA];
             
-            while (availTeams.count > 0) {
-                int selTeamA = (int) (availTeams.count * [HBSharedUtils randomValue]);
-                Team *a = availTeams[selTeamA];
-                
-                NSMutableArray<Team *> *availTeamsB = [NSMutableArray array];
-                for (Team *k in teamList) {
-                    if (![k.conference isEqualToString:a.conference] && ((week == 0 && k.oocGame0 == nil) || (week == 4 && k.oocGame4 == nil) || (week == 9 && k.oocGame9 == nil))) {
-                        [availTeamsB addObject:k];
-                    }
+            NSMutableArray<Team *> *availTeamsB = [NSMutableArray array];
+            for (Team *k in teamList) {
+                if (![k.conference isEqualToString:a.conference] && ((week == 0 && k.oocGame0 == nil) || (week == 4 && k.oocGame4 == nil) || (week == 9 && k.oocGame9 == nil))) {
+                    [availTeamsB addObject:k];
                 }
-                Team *b;
-                
-                if (availTeamsB.count == 0) {
-//                    b = new Team(teamsFCS[(int) (teamsFCS.length * Math.random())], "FCS", "FCS Division", (int) (Math.random() * 40), "FCS1", 0, this, false);
-                } else {
-                    int selTeamB = (int) (availTeamsB.count * [HBSharedUtils randomValue]);
-                    b = availTeamsB[selTeamB];
-                }
-                
+            }
+            Team *b;
+            
+            if (availTeamsB.count == 0) {
+                //b = new Team(teamsFCS[(int) (teamsFCS.length * Math.random())], "FCS", "FCS Division", (int) (Math.random() * 40), "FCS1", 0, this, false);
+                b = [Team newTeamWithName:[self fcsTeamNames][(int)([self fcsTeamNames].count * [HBSharedUtils randomValue])] abbreviation:@"FCS" conference:@"FCS" league:self prestige:(int)([HBSharedUtils randomValue] * 50) rivalTeam:@"FCS1" state:@"USA"];
+                fcsGames++;
+            } else {
+                int selTeamB = (int) (availTeamsB.count * [HBSharedUtils randomValue]);
+                b = availTeamsB[selTeamB];
+            }
+            
+
+            if (b == nil || a == nil) {
+                NSLog(@"WHY");
+            }
+            if (a != nil && b != nil) {
                 Game *gm;
+                NSLog(@"Scheduling %@ vs %@ game", a.conference, b.conference);
                 if (week % 2 == 0) {
                     gm = [Game newGameWithHome:a away:b name:[NSString stringWithFormat:@"%@ vs %@",[b.conference substringWithRange:NSMakeRange(0, MIN(3, b.conference.length))],[a.conference substringWithRange:NSMakeRange(0, MIN(3, a.conference.length))]]];
                 } else {
@@ -1248,14 +1312,9 @@
                 [availTeams removeObject:a];
                 [availTeams removeObject:b];
             }
-            
-        }
-        
-        for (int i = 0; i < conferences.count; ++i ) {
-            [conferences[i] insertOOCSchedule];
         }
     }
-    return self;
+    NSLog(@"FCS GAMES: %d", fcsGames);
 }
 
 -(void)playWeek {
@@ -1734,9 +1793,10 @@
     for (int i = 0; i < conferences.count; ++i ) {
         [conferences[i] setUpSchedule];
     }
-    for (int i = 0; i < conferences.count; ++i ) {
-        [conferences[i] setUpOOCSchedule];
-    }
+    [self scheduleOOCGames];
+//    for (int i = 0; i < conferences.count; ++i ) {
+//        [conferences[i] setUpOOCSchedule];
+//    }
     for (int i = 0; i < conferences.count; ++i ) {
         [conferences[i] insertOOCSchedule];
     }
