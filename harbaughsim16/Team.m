@@ -3188,4 +3188,12 @@
 //
 //}
 
+-(NSString *)debugDescription {
+    return [NSString stringWithFormat:@"%@ (Abbr: %@, Conf: %@, Pres: %d, Rival: %@)", name, abbreviation, conference, teamPrestige, rivalTeam];
+}
+
+-(NSString *)description {
+    return [NSString stringWithFormat:@"%@ (Abbr: %@, Conf: %@, Pres: %d, Rival: %@)", name, abbreviation, conference, teamPrestige, rivalTeam];
+}
+
 @end

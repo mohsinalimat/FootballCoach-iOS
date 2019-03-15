@@ -80,11 +80,15 @@
 }
 
 +(instancetype)newConferenceWithName:(NSString*)name fullName:(NSString*)fullName league:(League*)league {
+    return [Conference newConferenceWithName:name fullName:fullName league:league prestige:75];
+}
+
++(instancetype)newConferenceWithName:(NSString*)name fullName:(NSString*)fullName league:(League*)league prestige:(int)defPrest {
     Conference *conf = [[Conference alloc] init];
     if (conf) {
         conf.confName = name;
         conf.confFullName = fullName;
-        conf.confPrestige = 75;
+        conf.confPrestige = defPrest;
         conf.confTeams = [NSMutableArray array];
         conf.allConferencePlayers = [NSDictionary dictionary];
         conf.league = league;
@@ -660,6 +664,10 @@
     }
     confPrestige = CP / confTeams.count;
     
+}
+
+-(NSString *)debugDescription {
+    return [NSString stringWithFormat:@"%@ Conference (Abbr: %@, Pres: %d) - Teams: %@", confFullName, confName, confPrestige, confTeams];
 }
 
 @end

@@ -236,7 +236,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 60;
+    if (selectedStatType == HBStatTypePollScore) {
+        return 25;
+    } else {
+        return teams.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

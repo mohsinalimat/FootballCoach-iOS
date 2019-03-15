@@ -16,12 +16,6 @@
 
 @interface TeamSelectionViewController ()
 {
-    NSArray *southTeams;
-    NSArray *lakesTeams;
-    NSArray *pacificTeams;
-    NSArray *northTeams;
-    NSArray *cowbyTeams;
-    NSArray *mountTeams;
     League *league;
     Team *userTeam;
     NSIndexPath *selectedIndexPath;
@@ -123,12 +117,12 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Pick your team!";
-    southTeams = league.conferences[0].confTeams;
-    lakesTeams = league.conferences[1].confTeams;
-    northTeams = league.conferences[2].confTeams;
-    cowbyTeams = league.conferences[3].confTeams;
-    pacificTeams = league.conferences[4].confTeams;
-    mountTeams = league.conferences[5].confTeams;
+//    southTeams = league.conferences[0].confTeams;
+//    lakesTeams = league.conferences[1].confTeams;
+//    northTeams = league.conferences[2].confTeams;
+//    cowbyTeams = league.conferences[3].confTeams;
+//    pacificTeams = league.conferences[4].confTeams;
+//    mountTeams = league.conferences[5].confTeams;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(confirmTeamSelection)];
     [self.navigationItem.rightBarButtonItem setEnabled:NO];
 }
@@ -150,15 +144,15 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 6;
+    return league.conferences.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return league.conferences[section].confTeams.count;
 }
 
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return league.conferences[section].confFullName;
+    return [NSString stringWithFormat:@"%@ (Prestige: %d)",league.conferences[section].confFullName,league.conferences[section].confPrestige];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -182,23 +176,11 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    if (indexPath.section == 0) {
-        team = southTeams[indexPath.row];
-    } else if (indexPath.section == 1) {
-        team = lakesTeams[indexPath.row];
-    } else if (indexPath.section == 2) {
-        team = northTeams[indexPath.row];
-    } else if (indexPath.section == 3) {
-        team = cowbyTeams[indexPath.row];
-    } else if (indexPath.section == 4) {
-        team = pacificTeams[indexPath.row];
-    } else {
-        team = mountTeams[indexPath.row];
-    }
+    team = league.conferences[indexPath.section].confTeams[indexPath.row];
     [cell.textLabel setText:team.name];
     [cell.detailTextLabel setText:[NSString stringWithFormat:@"Prestige: %d",team.teamPrestige]];
     if (league.isHardMode && league.isCareerMode) {
-        if (indexPath.row == southTeams.count - 1 || indexPath.row == southTeams.count - 2) {
+        if (indexPath.row == league.conferences[indexPath.section].confTeams.count - 1 || indexPath.row == league.conferences[indexPath.section].confTeams.count - 2) {
             [cell.textLabel setTextColor:[UIColor blackColor]];
             cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         } else {
@@ -214,21 +196,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (league.isHardMode && league.isCareerMode) {
-        if (indexPath.row == southTeams.count - 1 || indexPath.row == southTeams.count - 2) {
+        if (indexPath.row == league.conferences[indexPath.section].confTeams.count - 1 || indexPath.row == league.conferences[indexPath.section].confTeams.count - 2) {
             [tableView deselectRowAtIndexPath:indexPath animated:YES];
-            if (indexPath.section == 0) {
-                userTeam = southTeams[indexPath.row];
-            } else if (indexPath.section == 1) {
-                userTeam = lakesTeams[indexPath.row];
-            } else if (indexPath.section == 2) {
-                userTeam = northTeams[indexPath.row];
-            } else if (indexPath.section == 3) {
-                userTeam = cowbyTeams[indexPath.row];
-            } else if (indexPath.section == 4) {
-                userTeam = pacificTeams[indexPath.row];
-            } else {
-                userTeam = mountTeams[indexPath.row];
-            }
+            userTeam = league.conferences[indexPath.section].confTeams[indexPath.row];
             if ([selectedIndexPath isEqual:indexPath]) {
                 selectedIndexPath = nil;
             } else {
@@ -238,19 +208,7 @@
         }
     } else {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        if (indexPath.section == 0) {
-            userTeam = southTeams[indexPath.row];
-        } else if (indexPath.section == 1) {
-            userTeam = lakesTeams[indexPath.row];
-        } else if (indexPath.section == 2) {
-            userTeam = northTeams[indexPath.row];
-        } else if (indexPath.section == 3) {
-            userTeam = cowbyTeams[indexPath.row];
-        } else if (indexPath.section == 4) {
-            userTeam = pacificTeams[indexPath.row];
-        } else {
-            userTeam = mountTeams[indexPath.row];
-        }
+        userTeam = league.conferences[indexPath.section].confTeams[indexPath.row];
         if ([selectedIndexPath isEqual:indexPath]) {
             selectedIndexPath = nil;
         } else {

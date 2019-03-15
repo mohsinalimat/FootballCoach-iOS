@@ -18,6 +18,7 @@
 		751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */; };
 		751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF8231CA1D66D003C62F2 /* TeamStrategyViewController.m */; };
 		751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */; };
+		752ECC7D223AE69D00C33EAE /* base.json in Resources */ = {isa = PBXBuildFile; fileRef = 752ECC7C223AE69D00C33EAE /* base.json */; };
 		75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 75300A5F1CB2DC96001EBBCB /* TeamStreak.m */; };
 		75315AFE21E64E72006A1372 /* CFCAwardTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75315AFD21E64E72006A1372 /* CFCAwardTagView.m */; };
 		754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754318FE1CC02CF400D380F1 /* ConferenceStandingsViewController.m */; };
@@ -273,6 +274,7 @@
 		751DF8251CA1F273003C62F2 /* TeamRosterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamRosterViewController.h; sourceTree = "<group>"; };
 		751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamRosterViewController.m; sourceTree = "<group>"; };
 		75245BDC1D2069CE00F0A8AB /* TeamHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeamHistoryViewController.h; sourceTree = "<group>"; };
+		752ECC7C223AE69D00C33EAE /* base.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = base.json; sourceTree = "<group>"; };
 		75300A5E1CB2DC96001EBBCB /* TeamStreak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreak.h; sourceTree = "<group>"; };
 		75300A5F1CB2DC96001EBBCB /* TeamStreak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreak.m; sourceTree = "<group>"; };
 		75315AFC21E64E72006A1372 /* CFCAwardTagView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFCAwardTagView.h; sourceTree = "<group>"; };
@@ -1106,6 +1108,7 @@
 				756973961FAAB50400A66C42 /* LeagueUpdater.m */,
 				75924A531C99D24500B165AD /* League.h */,
 				75924A541C99D24500B165AD /* League.m */,
+				752ECC7C223AE69D00C33EAE /* base.json */,
 				7591FE3F1D465B940037ECFB /* NSArray+Uniqueness.h */,
 				7591FE401D465B940037ECFB /* NSArray+Uniqueness.m */,
 				75924A4D1C99D05E00B165AD /* Conference.h */,
@@ -1362,6 +1365,7 @@
 				75097C5D1CBC1B55003E2538 /* HBRecordCell.xib in Resources */,
 				751D052D1FA6A01D002CB414 /* triline@3x.png in Resources */,
 				7571DD331C9CD3A200E67080 /* play-week@3x.png in Resources */,
+				752ECC7D223AE69D00C33EAE /* base.json in Resources */,
 				755BBC7D1C9F6964001A8314 /* TeamSearchViewController.xib in Resources */,
 				75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */,
 				759C79A221AE53AE009DC88E /* help@3x.png in Resources */,

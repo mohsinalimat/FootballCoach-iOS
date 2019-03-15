@@ -22,6 +22,8 @@
 @property (nonatomic) int robinWeek;
 
 +(instancetype)newConferenceWithName:(NSString*)name fullName:(NSString*)fullName league:(League*)league;
+
++(instancetype)newConferenceWithName:(NSString*)name fullName:(NSString*)fullName league:(League*)league prestige:(int)defPrest;
 -(NSString *)confShortName;
 -(Game*)ccgPrediction;
 -(void)sortConfTeams;
