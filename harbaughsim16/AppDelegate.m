@@ -26,6 +26,7 @@
 #import "ATAppUpdater.h"
 #import "FCFileManager.h"
 #import "ZGNavigationTitleView.h"
+#import <ZMJTipView/ZMJTipView.h>
 //#import "harbaughsim16-Swift.h"
 
 #define kHBSimFirstLaunchKey @"firstLaunch"
@@ -229,6 +230,12 @@
     
     
     [RMessage addDesignsFromFileWithName:@"alt-designs" inBundle:[NSBundle mainBundle]];
+    
+    ZMJPreferences *prefs = [ZMJPreferences new];
+    prefs.drawing.font = [UIFont systemFontOfSize:12.0];
+    prefs.drawing.foregroundColor = [UIColor whiteColor];
+    prefs.drawing.backgroundColor = [HBSharedUtils styleColor];
+    [ZMJTipView setGlobalPreferences:prefs];
 
 }
 
