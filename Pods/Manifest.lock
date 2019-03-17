@@ -24,6 +24,7 @@ PODS:
   - ScrollableSegmentedControl (1.3.0)
   - STPopup (1.8.3)
   - ZGNavigationBarTitle (0.1.1)
+  - ZMJTipView (0.1.7)
 
 DEPENDENCIES:
   - AccordionSwift (from `https://github.com/Vkt0r/AccordionSwift.git`)
@@ -41,6 +42,7 @@ DEPENDENCIES:
   - ScrollableSegmentedControl (~> 1.3.0)
   - STPopup
   - ZGNavigationBarTitle
+  - ZMJTipView
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -60,6 +62,7 @@ SPEC REPOS:
     - ScrollableSegmentedControl
     - STPopup
     - ZGNavigationBarTitle
+    - ZMJTipView
 
 EXTERNAL SOURCES:
   AccordionSwift:
@@ -88,7 +91,8 @@ SPEC CHECKSUMS:
   ScrollableSegmentedControl: a90ae91537fd670a46b177301d035223e3bd149e
   STPopup: da1167250a01584af7bcccb898653185f223ec46
   ZGNavigationBarTitle: b3bfa57a5c760bf29a71fd7ab281f20c93093ca7
+  ZMJTipView: c51b687cd307b5329d09760e8b95e5e37d01cd63
 
-PODFILE CHECKSUM: c92a8e05d7dd3a1e4a44d09a86a80a85c44d1bc8
+PODFILE CHECKSUM: 8189a24e117b68586e3cff19a72294e0f8e67c3a
 
 COCOAPODS: 1.5.3
