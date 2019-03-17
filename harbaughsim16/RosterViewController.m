@@ -36,8 +36,13 @@
 
 #import "HexColors.h"
 #import "STPopup.h"
+#import "ZMJTipView.h"
 
-@interface RosterViewController ()
+#define FCTutorialEditDepthChart 1000
+#define FCTutorialScrollToPosition 1001
+#define FCTutorialInjuryToolbar 1002
+
+@interface RosterViewController () <ZMJTipViewDelegate>
 {
     Team *userTeam;
     STPopupController *popupController;
@@ -45,6 +50,20 @@
 @end
 
 @implementation RosterViewController
+
+//MARK: ZMJTipViewDelegate
+- (void)tipViewDidDimiss:(ZMJTipView *)tipView {
+    // show new tips based on last shown tipview
+    if (tipView.tag == FCTutorialEditDepthChart) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to select a specific position to scroll down to view." preferences:nil delegate:self];
+        editTip.tag = FCTutorialScrollToPosition;
+        [editTip showAnimated:YES forItem:self.navigationItem.leftBarButtonItem withinSuperview:self.navigationController.view];
+    }
+}
+
+- (void)tipViewDidSelected:(ZMJTipView *)tipView {
+    // do nothing
+}
 
 -(void)manageEditing {
     if (self.editing) {
@@ -287,9 +306,15 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         //display intro screen
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Depth Chart Tips" message:[HBSharedUtils depthChartTutorialText] preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
-            [self presentViewController:alertController animated:YES completion:nil];
+
+            NSString *tipText = @"Tap here to edit your depth chart. When you're done, tap again to save your changes.";
+            if ([HBSharedUtils currentLeague].isHardMode) {
+                tipText = @"Tap here to view your roster options. From here, you can edit your depth chart and view your injury report for this week.";
+            }
+            ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
+            editTip.tag = FCTutorialEditDepthChart;
+            [editTip showAnimated:YES forItem:self.navigationItem.rightBarButtonItem withinSuperview:self.navigationController.view];
+            
         });
     }
     [self.tableView setRowHeight:50];

@@ -158,6 +158,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/STPopup/STPopup.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ScrollableSegmentedControl/ScrollableSegmentedControl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZGNavigationBarTitle/ZGNavigationBarTitle.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZMJTipView/ZMJTipView.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ATAppUpdater/ATAppUpdater.framework"
@@ -175,6 +176,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/STPopup/STPopup.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ScrollableSegmentedControl/ScrollableSegmentedControl.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZGNavigationBarTitle/ZGNavigationBarTitle.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZMJTipView/ZMJTipView.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
