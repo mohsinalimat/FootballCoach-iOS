@@ -228,7 +228,7 @@
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         if (indexPath.row == 0) {
             // Career Record
-            [cell.textLabel setText:@"Winning Percentage"];
+            [cell.textLabel setText:@"Win %"];
             if ((selectedCoach.totalWins + selectedCoach.totalLosses) > 0) {
                 int winPercent = (int)ceil(100 * ((double)selectedCoach.totalWins) / (double)(selectedCoach.totalWins + selectedCoach.totalLosses));
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedCoach.totalWins,selectedCoach.totalLosses]];
@@ -237,7 +237,7 @@
             }
         } else if (indexPath.row == 1) {
             // Career Conf Record
-            [cell.textLabel setText:@"Conference Winning Percentage"];
+            [cell.textLabel setText:@"Conference Win %"];
             if ((selectedCoach.totalConfLosses + selectedCoach.totalConfWins) > 0) {
                 int winPercent = (int)ceil(100 * ((double)selectedCoach.totalConfWins) / (double)(selectedCoach.totalConfWins + selectedCoach.totalConfLosses));
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedCoach.totalConfWins,selectedCoach.totalConfLosses]];
@@ -246,7 +246,7 @@
             }
         } else if (indexPath.row == 2) {
             // Career Rivalry Record
-            [cell.textLabel setText:@"Rivalry Winning Percentage"];
+            [cell.textLabel setText:@"Rivalry Win %"];
             if ((selectedCoach.totalRivalryWins + selectedCoach.totalRivalryLosses) > 0) {
                 int winPercent = (int)ceil(100 * ((double)selectedCoach.totalRivalryWins) / (double)(selectedCoach.totalRivalryWins + selectedCoach.totalRivalryLosses));
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedCoach.totalRivalryWins,selectedCoach.totalRivalryLosses]];
@@ -255,7 +255,7 @@
             }
         } else if (indexPath.row == 3) {
             // Career Bowl Record
-            [cell.textLabel setText:@"Bowl Win Percentage"];
+            [cell.textLabel setText:@"Bowl Win %"];
             if ((selectedCoach.totalBowls + selectedCoach.totalBowlLosses) > 0) {
                 int winPercent = (int)ceil(100 * ((double)selectedCoach.totalBowls) / (double)(selectedCoach.totalBowls + selectedCoach.totalBowlLosses));
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedCoach.totalBowls,selectedCoach.totalBowlLosses]];

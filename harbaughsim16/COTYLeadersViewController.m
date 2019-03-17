@@ -86,20 +86,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HBPlayerCell *statsCell = (HBPlayerCell*)[tableView dequeueReusableCellWithIdentifier:@"HBPlayerCell"];
     HeadCoach *hc = cotyLeaders[indexPath.row];
-    NSString *stat1 = @"W";
-    NSString *stat2 = @"L";
-    NSString *stat3 = @"Rank";
-    NSString *stat4 = @"";
+    NSString *stat1 = @"";
+    NSString *stat2 = @"W";
+    NSString *stat3 = @"L";
+    NSString *stat4 = @"Rank";
     
-    NSString *stat1Value = [NSString stringWithFormat:@"%d", hc.team.wins];
-    NSString *stat2Value = [NSString stringWithFormat:@"%d", hc.team.losses];
-    NSString *stat3Value = [NSString stringWithFormat:@"%d", hc.team.rankTeamPollScore];
-    NSString *stat4Value = @"";
+    NSString *stat2Value = [NSString stringWithFormat:@"%d", hc.team.wins];
+    NSString *stat3Value = [NSString stringWithFormat:@"%d", hc.team.losses];
+    NSString *stat4Value = [NSString stringWithFormat:@"%d", hc.team.rankTeamPollScore];
+    NSString *stat1Value = @"";
     
     
     [statsCell.playerLabel setText:[hc getInitialName]];
     
-    [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ (%d vts)", hc.team.abbreviation, [hc getCoachScore]]];
+    if ([HBSharedUtils currentLeague].currentWeek >= 13 && coty != nil) {
+        [statsCell.teamLabel setText:hc.team.abbreviation];
+    } else {
+        [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ (%d vts)", hc.team.abbreviation, [hc getCoachScore]]];
+    }
     
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];

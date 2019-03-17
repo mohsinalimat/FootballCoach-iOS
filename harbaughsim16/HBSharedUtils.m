@@ -1025,7 +1025,7 @@ static UIColor *styleColor = nil;
     } else if (b.wonTopHC) {
         return 1;
     } else {
-        return [a getCoachScore] > [b getCoachScore] ? -1 : (([a getCoachScore] == [b getCoachScore]) ? ((a.team.teamPrestige == b.team.teamPrestige) ? [a.name compare:b.name] : 1) : 1);
+        return ([a getCoachScore] > [b getCoachScore]) ? -1 : ((([a getCoachScore] == [b getCoachScore]) ? [a.name compare:b.name] : 1));
     }
 }
 
@@ -1179,4 +1179,49 @@ static UIColor *styleColor = nil;
         return [[HBSharedUtils convertStatKeyToSortingValue:obj1] compare:[HBSharedUtils convertStatKeyToSortingValue:obj2]];
     }];
 }
+
++(NSComparisonResult)compareConfPrestige:(id)obj1 toObj2:(id)obj2 {
+    Conference *a = (Conference *)obj1;
+    Conference *b = (Conference *)obj2;
+    return a.confPrestige > b.confPrestige ? -1 : (a.confPrestige == b.confPrestige ? [a.confFullName compare:b.confFullName] : 1);
+}
+
++ (CGFloat)calculateConferencePrestigeFactor:(NSString *)conf resetMarker:(BOOL)resetMarker {
+    static dispatch_once_t onceToken;
+    static NSMutableDictionary<NSString *, NSNumber *> *confPrestigeDict = nil;
+    dispatch_once(&onceToken, ^{
+        confPrestigeDict = [NSMutableDictionary dictionary];
+    });
+    
+    if ([confPrestigeDict.allKeys containsObject:conf] && !resetMarker) {
+        return [confPrestigeDict[conf] doubleValue];
+    } else {
+        Conference *foundConf = [[HBSharedUtils currentLeague] findConference:conf];
+        if (foundConf != nil) {
+            [[HBSharedUtils currentLeague].conferences sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                return [HBSharedUtils compareConfPrestige:obj1 toObj2:obj2];
+            }];
+            
+            Conference *bestConf = [[HBSharedUtils currentLeague].conferences firstObject];
+            NSLog(@"BEST CONF: %@ (%d)", bestConf.confName, bestConf.confPrestige);
+            Conference *worstConf = [[HBSharedUtils currentLeague].conferences lastObject];
+            NSLog(@"WORST CONF: %@ (%d)", worstConf.confName, worstConf.confPrestige);
+            
+            CGFloat inMin = (CGFloat)worstConf.confPrestige;
+            CGFloat inMax = (CGFloat)bestConf.confPrestige;
+            
+            CGFloat outMin = 0.35;
+            CGFloat outMax = 1.0;
+            
+            CGFloat input = (CGFloat) foundConf.confPrestige;
+            CGFloat result = (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+            
+            [confPrestigeDict setObject:@(result) forKey:conf];
+            return result;
+        }
+    }
+    
+    return 1.0;
+}
+
 @end

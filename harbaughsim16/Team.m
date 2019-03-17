@@ -1853,7 +1853,7 @@
     parts++;
     sum += [self getCompositeOLRush];
     parts++;
-    NSLog(@"SUM: %d / PARTS: %d", sum, parts);
+//    NSLog(@"SUM: %d / PARTS: %d", sum, parts);
     return sum / parts;
 }
 
@@ -2185,6 +2185,7 @@
 }
 
 -(NSString*)getSeasonSummaryString {
+    deltaPrestige = 0;
     NSMutableString *summary = [NSMutableString stringWithFormat:@"Your team, %@, finished the season ranked #%d with %d wins and %d losses.",name, rankTeamPollScore, wins, losses];
     int expectedPollFinish = 100 - teamPrestige;
     int diffExpected = expectedPollFinish - rankTeamPollScore;

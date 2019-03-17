@@ -206,7 +206,7 @@
     [self.team getSeasonSummaryString]; // just running this to generate the deltaPrestige
     int prestigeDiff = self.team.deltaPrestige; // make sure this comes after advanceSeason or Season Summary Str
     
-    return (prestigeDiff * 10) + (self.team.teamStrengthOfWins / 20) + (3 * (self.team.wins - self.team.losses)) + [self.team.league findConference:self.team.conference].confPrestige;
+    return (prestigeDiff * 10) + (self.team.teamStrengthOfWins / 20) + (3 * self.team.wins) - self.team.losses + [self.team.league findConference:self.team.conference].confPrestige;
 }
 
 -(int)getCoachCareerScore {

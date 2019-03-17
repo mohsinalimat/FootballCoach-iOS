@@ -663,7 +663,8 @@
         CP += t.teamPrestige;
     }
     confPrestige = CP / confTeams.count;
-    
+    CGFloat prestigeFactor = [HBSharedUtils calculateConferencePrestigeFactor:confName resetMarker:YES];
+    NSLog(@"%@ conf prestige factor: %f", confName,prestigeFactor);
 }
 
 -(NSString *)debugDescription {

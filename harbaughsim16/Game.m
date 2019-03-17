@@ -1156,7 +1156,7 @@
         gameYardLine = 25;
         
         //Home Team Starters
-        NSLog(@"SET HOME STARTERS FOR %@", homeTeam.abbreviation);
+//        NSLog(@"SET HOME STARTERS FOR %@", homeTeam.abbreviation);
         if (homeTeam == nil) {
             NSLog(@"WHY");
         }
@@ -1193,10 +1193,10 @@
                                                          [homeTeam getLB:0],
                                                          [homeTeam getLB:1],
                                                          [homeTeam getLB:2]]];
-        NSLog(@"END HOME STARTERS FOR %@", homeTeam.abbreviation);
+//        NSLog(@"END HOME STARTERS FOR %@", homeTeam.abbreviation);
         
         //Away Team starters
-        NSLog(@"SET AWAY STARTERS FOR %@", awayTeam.abbreviation);
+//        NSLog(@"SET AWAY STARTERS FOR %@", awayTeam.abbreviation);
         if (awayTeam == nil) {
             NSLog(@"WHY");
         }
@@ -1233,7 +1233,7 @@
                                                          [awayTeam getLB:0],
                                                          [awayTeam getLB:1],
                                                          [awayTeam getLB:2]]];
-        NSLog(@"END AWAY STARTERS FOR %@", awayTeam.abbreviation);
+//        NSLog(@"END AWAY STARTERS FOR %@", awayTeam.abbreviation);
         //break redshirts if starters are marked as such and add gamesPlayed/gamesPlayedSeason
         //NSLog(@"BREAKING REDSHIRTS IF NECESSARY");
         for (Player *p in homeStarters) {
@@ -1274,7 +1274,7 @@
         }
         //NSLog(@"OUT OF TIME");
         
-        NSLog(@"CHECK IF OT NEEDED");
+        //NSLog(@"CHECK IF OT NEEDED");
         if (homeScore != awayScore) {
             [gameEventLog appendFormat:@"\n\nTime has expired! The game is over.\n\nFINAL SCORE: %@ %ld - %ld %@", awayTeam.abbreviation, (long)awayScore, (long)homeScore, homeTeam.abbreviation ];
         } else {
@@ -1311,7 +1311,7 @@
 //        NSLog(@"%@ Plays (Away): %d", awayTeam.abbreviation, awayPlays);
         
         // Add points/opp points
-        NSLog(@"DOING SEASON STATS");
+        //NSLog(@"DOING SEASON STATS");
         homeTeam.teamPoints += homeScore;
         awayTeam.teamPoints += awayScore;
         
@@ -1331,11 +1331,11 @@
         
         homeTeam.teamTODiff += awayTOs-homeTOs;
         awayTeam.teamTODiff += homeTOs-awayTOs;
-        NSLog(@"END SEASON STATS");
+        //NSLog(@"END SEASON STATS");
         
         hasPlayed = true;
         
-        NSLog(@"COMPILING PLAYER STATS");
+        //NSLog(@"COMPILING PLAYER STATS");
         //NSLog(@"HOME TEAM");
         NSNumber *qbComp, *qbAtt, *qbYds, *qbTD, *qbInt, *qbRushAtt, *qbRushYds, *qbRushTDs, *qbRushFum;
         NSNumber *rb1Att, *rb1Yds, *rb1TDs, *rb1Fum;
@@ -1906,7 +1906,7 @@
         //NSLog(@"END AWAY TEAM");
         
         //game over, add wins
-        NSLog(@"CALCULATING STREAKS");
+        //NSLog(@"CALCULATING STREAKS");
         if (homeScore > awayScore) {
             homeTeam.wins++;
             [homeTeam getCurrentHC].totalWins++;
@@ -1999,7 +1999,7 @@
             }
         }
         
-        NSLog(@"END CALCULATING STREAKS");
+        //NSLog(@"END CALCULATING STREAKS");
         //NSLog(@"START CONF GAME CALC");
         if (([homeTeam.conference isEqualToString:awayTeam.conference]) || [gameName isEqualToString:@"In Conf"] || [gameName isEqualToString:@"Rivalry Game"] ) {
             // in conference game, see if was won

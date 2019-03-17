@@ -167,6 +167,8 @@ typedef enum {
 +(NSComparisonResult)compareCoachScore:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareCoachOvr:(id)obj1 toObj2:(id)obj2;
 
++(NSComparisonResult)compareConfPrestige:(id)obj1 toObj2:(id)obj2;
+
 +(NSString *)generateOfferString:(NSDictionary *)offers;
 +(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers;
 +(NSString *)_calculateInterestString:(int)interestVal;
@@ -191,4 +193,6 @@ typedef enum {
 +(NSArray *)sortStatKeyArray:(NSArray<NSString *> *)keys;
 +(NSArray *)sortStatHistoryYears:(NSArray<NSString *> *)keys;
 +(NSComparisonResult)compareStatHistoryYears:(NSString *)year1 year2:(NSString *)year2;
+
++ (CGFloat)calculateConferencePrestigeFactor:(NSString *)conf resetMarker:(BOOL)resetMarker;
 @end

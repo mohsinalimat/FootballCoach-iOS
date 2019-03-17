@@ -24,7 +24,7 @@
 
 -(instancetype)initWithStyle:(UITableViewStyle)style {
     if (self = [super initWithStyle:UITableViewStylePlain]) {
-        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, (6 * 50));
+        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, ([HBSharedUtils currentLeague].conferences.count * 50));
     }
     return self;
 }
