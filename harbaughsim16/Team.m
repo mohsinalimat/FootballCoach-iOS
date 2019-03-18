@@ -2212,7 +2212,7 @@
         } else {
             [playerString appendString:@" players"];
         }
-        [summary appendFormat:@"\n\nYou had %@ players drafted this year. For this, you gained %d prestige.",playerString,nflPts];
+        [summary appendFormat:@"\n\nYou had %@ drafted this year. For this, you gained %d prestige.",playerString,nflPts];
         deltaPrestige += nflPts;
     }
 

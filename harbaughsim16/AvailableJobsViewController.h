@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AvailableJobsViewController : FCTableViewController
-
+-(instancetype)initWithJobStatus:(BOOL)wasFired;
 @end
 
 NS_ASSUME_NONNULL_END
