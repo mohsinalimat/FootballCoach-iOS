@@ -343,16 +343,15 @@
 }
 
 -(void)setUpSchedule {
-    
-    self.robinWeek = 0;
+    int confRoundWeek = 0;
     for (int r = 0; r < 9; ++r) {
         for (int g = 0; g < 5; ++g) {
-            Team *a = self.confTeams[(self.robinWeek + g) % 9];
+            Team *a = self.confTeams[(confRoundWeek + g) % 9];
             Team *b;
             if ( g == 0 ) {
                 b = self.confTeams[9];
             } else {
-                b = self.confTeams[(9 - g + self.robinWeek) % 9];
+                b = self.confTeams[(9 - g + confRoundWeek) % 9];
             }
             
             Game *gm;
@@ -367,9 +366,8 @@
             [a.gameSchedule addObject:gm];
             [b.gameSchedule addObject:gm];
         }
-        self.robinWeek++;
+        confRoundWeek++;
     }
-    
 }
 
 -(void)refreshAllConferencePlayers {
@@ -663,8 +661,6 @@
         CP += t.teamPrestige;
     }
     confPrestige = CP / confTeams.count;
-    CGFloat prestigeFactor = [HBSharedUtils calculateConferencePrestigeFactor:confName resetMarker:YES];
-    NSLog(@"%@ conf prestige factor: %f", confName,prestigeFactor);
 }
 
 -(NSString *)debugDescription {

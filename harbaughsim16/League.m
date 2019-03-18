@@ -1788,17 +1788,18 @@
         conferences[c].week = 0;
         conferences[c].ccg = nil;
         [conferences[c] updateConfPrestige];
+        CGFloat prestigeFactor = [HBSharedUtils calculateConferencePrestigeFactor:conferences[c].confName resetMarker:YES];
+        NSLog(@"%@ conf prestige factor: %f", conferences[c].confName,prestigeFactor);
     }
     //set up schedule
-    for (int i = 0; i < conferences.count; ++i ) {
-        [conferences[i] setUpSchedule];
+    for (Conference *c in conferences) {
+        [c setUpSchedule];
     }
+
     [self scheduleOOCGames];
-//    for (int i = 0; i < conferences.count; ++i ) {
-//        [conferences[i] setUpOOCSchedule];
-//    }
-    for (int i = 0; i < conferences.count; ++i ) {
-        [conferences[i] insertOOCSchedule];
+
+    for (Conference *c in conferences) {
+        [c insertOOCSchedule];
     }
 
     hasScheduledBowls = false;
