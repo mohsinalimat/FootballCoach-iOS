@@ -34,6 +34,7 @@
 #import "RMessage.h"
 #import "UIScrollView+EmptyDataSet.h"
 #import "ZGNavigationBarTitleViewController.h"
+#import "ZMJTipView.h"
 
 #ifdef DEBUG
 #   define NSLog(...) NSLog(__VA_ARGS__)
@@ -41,7 +42,13 @@
 #   define NSLog(...) (void)0
 #endif
 
-@interface TransferPeriodViewController ()<DZNEmptyDataSetDelegate, DZNEmptyDataSetSource>
+#define FCTutorialRecruitSelect 1000
+#define FCTutorialAdvanceWeek 1001
+#define FCTutorialViewCurrentRoster 1002
+#define FCTutorialViewTeamNeeds 1003
+#define FCTutorialCloseTransferWindow 1004
+
+@interface TransferPeriodViewController ()<DZNEmptyDataSetDelegate, DZNEmptyDataSetSource,ZMJTipViewDelegate>
 {
     ScrollableSegmentedControl *positionSelectionControl;
     STPopupController *popupController;
@@ -82,6 +89,32 @@
 
 @implementation TransferPeriodViewController
 @synthesize signedTransferRanks,progressedTransfers,recruitingPoints,usedRecruitingPoints,transferActivities;
+
+//MARK: ZMJTipViewDelegate
+- (void)tipViewDidDimiss:(ZMJTipView *)tipView {
+    // show new tips based on last shown tipview
+    if (tipView.tag == FCTutorialRecruitSelect) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to view your current roster and check where you need to bolster it." preferences:nil delegate:self];
+        editTip.tag = FCTutorialViewCurrentRoster;
+        [editTip showAnimated:YES forItem:self.toolbarItems[0] withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialViewCurrentRoster) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to view a list of your roster's current positional needs." preferences:nil delegate:self];
+        editTip.tag = FCTutorialViewTeamNeeds;
+        [editTip showAnimated:YES forItem:self.toolbarItems[2] withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialViewTeamNeeds) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to end the transfer period. Note: if you select this option, you will not be able to return to this screen and sign transfers again." preferences:nil delegate:self];
+        editTip.tag = FCTutorialCloseTransferWindow;
+        [editTip showAnimated:YES forItem:self.navigationItem.leftBarButtonItem withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialCloseTransferWindow) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to advance to the next week of the transfer period. Be warned: other teams may make offers to recruits you have contacted." preferences:nil delegate:self];
+        editTip.tag = FCTutorialAdvanceWeek;
+        [editTip showAnimated:YES forItem:self.navigationItem.rightBarButtonItem withinSuperview:self.navigationController.view];
+    }
+}
+
+- (void)tipViewDidSelected:(ZMJTipView *)tipView {
+    // do nothing
+}
 
 -(void)backgroundViewDidTap {
     [popupController dismiss];
@@ -842,9 +875,14 @@
 
 -(void)showTutorial {
     //display intro screen
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to the Transfer Period, Coach!" message:[HBSharedUtils transferTutorialText] preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self->totalRecruits.count > 0) {
+            NSString *tipText = @"Tap on a player to view how you can interact with them to recruit them to your program.";
+            ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
+            editTip.tag = FCTutorialRecruitSelect;
+            [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] withinSuperview:self.tableView];
+        }
+    });
 }
 
 -(void)viewWillAppear:(BOOL)animated {
