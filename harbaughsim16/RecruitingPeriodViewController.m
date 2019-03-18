@@ -934,7 +934,7 @@
     
     UIBarButtonItem *needsButton = [[UIBarButtonItem alloc] initWithTitle:@"View Team Needs" style:UIBarButtonItemStylePlain target:self action:@selector(showRemainingNeeds)];
     
-    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"roster"] style:UIBarButtonItemStylePlain target:self action:@selector(viewRoster)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],needsButton, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"help"] style:UIBarButtonItemStylePlain target:self action:@selector(showTutorial)]]];
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"roster"] style:UIBarButtonItemStylePlain target:self action:@selector(viewRoster)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],needsButton, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
     self.navigationController.toolbarHidden = NO;
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     if (@available(iOS 11, *)) {
@@ -1298,12 +1298,12 @@
             [self.tableView reloadData];
             
             //display tutorial alert on first launch
-            //    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
-            //    if (!tutorialShown) {
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            [self showTutorial];
-            //    }
+            BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
+            if (!tutorialShown) {
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [self showTutorial];
+            }
         });
     });
 }
