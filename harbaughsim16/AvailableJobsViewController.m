@@ -467,15 +467,17 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    TeamViewController *teamVC = [[TeamViewController alloc] initWithTeam:availableJobs[indexPath.row]];
-    teamVC.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.75 * [UIScreen mainScreen].bounds.size.height);
-    teamVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign" style:UIBarButtonItemStyleDone target:teamVC action:@selector(finalizeCoachingCarousel)];
-    popupController = [[STPopupController alloc] initWithRootViewController:teamVC];
-    [popupController.navigationBar setDraggable:YES];
-    [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
-    popupController.style = STPopupStyleBottomSheet;
-    [popupController presentInViewController:self];
+    Team *t = availableJobs[indexPath.row];
+    if (userCoach.ratOvr >= [t getMinCoachHireReq]) {
+        TeamViewController *teamVC = [[TeamViewController alloc] initWithTeam:t];
+        teamVC.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.75 * [UIScreen mainScreen].bounds.size.height);
+        teamVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign" style:UIBarButtonItemStyleDone target:teamVC action:@selector(finalizeCoachingCarousel)];
+        popupController = [[STPopupController alloc] initWithRootViewController:teamVC];
+        [popupController.navigationBar setDraggable:YES];
+        [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+        popupController.style = STPopupStyleBottomSheet;
+        [popupController presentInViewController:self];
+    }
 }
 
 

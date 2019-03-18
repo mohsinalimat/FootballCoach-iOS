@@ -97,7 +97,7 @@
     stats = [[HBSharedUtils currentLeague].userTeam getTeamStatsArray];
     [teamHeaderView.teamRankLabel setText:currentCoach.name];
     [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"Career: %ld-%ld",(long)currentCoach.totalWins,(long)currentCoach.totalLosses]];
-    [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Age: %d | Prestige: %d",currentCoach.age, currentCoach.cumulativePrestige]];
+    [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Age: %d | Overall: %d | Prestige: %d",currentCoach.age, currentCoach.ratOvr,currentCoach.cumulativePrestige]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
