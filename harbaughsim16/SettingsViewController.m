@@ -254,7 +254,7 @@
     if (section == 2) {
         return 6;
     } else if (section == 1) {
-        return 15;
+        return 16;
     } else {
         return 6;
     }
@@ -298,8 +298,10 @@
             [cell.textLabel setText:@"ScrollableSegmentedControl"];
         } else if (indexPath.row == 13) {
             [cell.textLabel setText:@"STPopup"];
-        } else {
+        } else if (indexPath.row == 14) {
             [cell.textLabel setText:@"ZGNavigationBarTitle"];
+        } else {
+            [cell.textLabel setText:@"ZMJTipView"];
         }
         return cell;
     } else if (indexPath.section == 2) {
@@ -451,8 +453,10 @@
             url = @"https://github.com/GocePetrovski/ScrollableSegmentedControl";
         } else if (indexPath.row == 13) {
             url = @"https://github.com/kevin0571/STPopup";
-        } else {
+        } else if (indexPath.row == 14) {
             url = @"https://github.com/zhigang1992/ZGNavigationBarTitle";
+        } else {
+            url = @"https://github.com/keshiim/ZMJTipView";
         }
         
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
