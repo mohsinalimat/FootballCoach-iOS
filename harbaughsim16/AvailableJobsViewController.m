@@ -124,7 +124,7 @@
     //display intro screen
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self->availableJobs.count > 0) {
-            NSString *tipText = @"Here's an job opening from across the nation. You can read about how the program has done recently, and tap on the program to sign a contract with it.";
+            NSString *tipText = @"Here's an job opening from across the nation. You can read about how the program has done recently, and tap on the program to sign a contract with it.\n\nSometimes teams might be grayed out -- if that's the case, you don't have a high enough overall rating to sign with them.";
             ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
             editTip.tag = FCTutorialTeamSelect;
             [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] withinSuperview:self.tableView];
@@ -418,7 +418,7 @@
 
 -(void)configureCellForTeam:(Team *)t indexPath:(NSIndexPath *)indexPath cell:(CFCRecruitCell *)cell {
     [cell.nameLabel setText:t.name];
-    [cell.stateLabel setText:t.state];
+    [cell.stateLabel setText:[NSString stringWithFormat:@"Conference: %@", t.conference]];
     if (userCoach.ratOvr >= [t getMinCoachHireReq]) {
         if ([t.natlChampWL containsString:@"NCW"]) {
             [cell.nameLabel setTextColor:[HBSharedUtils champColor]];

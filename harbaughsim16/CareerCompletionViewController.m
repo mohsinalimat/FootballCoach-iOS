@@ -102,10 +102,6 @@
     }];
 }
 
-//-(IBAction)viewCareerOptions {
-//    
-//}
-
 -(IBAction)shareCareer:(id)sender {
     UIImage *glimpseImage = [self imageFromView:glimpseView];
     UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:@[glimpseImage] applicationActivities:nil];

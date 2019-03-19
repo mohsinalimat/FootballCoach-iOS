@@ -103,7 +103,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"My Career";
+    self.title = @"Career";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(openSettings)];
     //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"team"] style:UIBarButtonItemStylePlain target:self action:@selector(openMyTeamView)];
     [self setupTeamHeader];

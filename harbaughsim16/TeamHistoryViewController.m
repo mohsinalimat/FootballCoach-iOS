@@ -235,7 +235,7 @@
             [cell.textLabel setText:@"Seasons"];
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%ld",(unsigned long)history.count]];
         } else if (index == 1) {
-            [cell.textLabel setText:@"Winning Percentage"];
+            [cell.textLabel setText:@"Win %"];
             if ((selectedTeam.totalLosses + selectedTeam.totalWins) > 0) {
                 int winPercent = (int)ceil(100 * ((double)selectedTeam.totalWins) / (double)(selectedTeam.totalWins + selectedTeam.totalLosses));
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedTeam.totalWins,selectedTeam.totalLosses]];
@@ -243,7 +243,7 @@
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
         } else if (index == 2) {
-            [cell.textLabel setText:@"Conference Win Percentage"];
+            [cell.textLabel setText:@"Conference Win %"];
             if ((selectedTeam.totalConfLosses + selectedTeam.totalConfWins) > 0) {
                 int winPercent = (int)ceil(100 * ((double)selectedTeam.totalConfWins) / (double)(selectedTeam.totalConfWins + selectedTeam.totalConfLosses));
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedTeam.totalConfWins,selectedTeam.totalConfLosses]];
@@ -251,7 +251,7 @@
                 [cell.detailTextLabel setText:@"0% (0-0)"];
             }
         } else if (index == 3) {
-            [cell.textLabel setText:@"Bowl Win Percentage"]; //XX% (W-L)
+            [cell.textLabel setText:@"Bowl Win %"]; //XX% (W-L)
             if ((selectedTeam.totalBowlLosses + selectedTeam.totalBowls) > 0) {
                 int winPercent = (int)ceil(100 * ((double)selectedTeam.totalBowls) / (double)(selectedTeam.totalBowls + selectedTeam.totalBowlLosses));
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent,selectedTeam.totalBowls,selectedTeam.totalBowlLosses]];

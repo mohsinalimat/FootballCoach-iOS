@@ -193,7 +193,7 @@
             return a.rankTeamTotalWins < b.rankTeamTotalWins ? -1 : a.rankTeamTotalWins == b.rankTeamTotalWins ? 0 : 1;
         }];
         [self.tableView reloadData];
-        self.title = @"All-Time Win Percentage";
+        self.title = @"All-Time Win %";
     } else if (selectedStatType == HBStatTypeRecruitingScore) { //HBStatTypeRecruitingScore
         teams = [teams sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;

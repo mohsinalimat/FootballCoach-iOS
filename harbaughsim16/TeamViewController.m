@@ -367,7 +367,13 @@
         if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
             if (indexPath.row == 0) {
                 [cell.textLabel setText:@"Head Coach"];
-                [cell.detailTextLabel setText:[[selectedTeam getCurrentHC] getInitialName]];
+                if (selectedTeam.coachFired) {
+                    [cell.detailTextLabel setText:@"None (coach fired)"];
+                } else if (selectedTeam.coachRetired) {
+                    [cell.detailTextLabel setText:@"None (coach retired)"];
+                } else {
+                    [cell.detailTextLabel setText:[[selectedTeam getCurrentHC] getInitialName]];
+                }
             } else if (indexPath.row == 1) {
                 [cell.textLabel setText:@"Roster"];
             } else if (indexPath.row == 2) {
