@@ -3040,16 +3040,6 @@
     return jsonString;
 }
 
--(NSNumberFormatter *)numberFormatter {
-    static dispatch_once_t onceToken;
-    static NSNumberFormatter *numFormatter;
-    dispatch_once(&onceToken, ^{
-        numFormatter = [[NSNumberFormatter alloc] init];
-        numFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-    });
-    return numFormatter;
-}
-
 -(void)applyJSONMetadataChanges:(id)json {
     NSError *error;
     NSDictionary *jsonDict;
@@ -3073,7 +3063,7 @@
         if ([HBSharedUtils isValidNumber:jsonDict[@"prestige"]])
         {
             NSLog(@"Changing prestige for %@ from base value of %d", abbreviation, teamPrestige);
-            NSNumber *prestige = [[self numberFormatter] numberFromString:jsonDict[@"prestige"]];
+            NSNumber *prestige = [[HBSharedUtils prestigeNumberFormatter] numberFromString:jsonDict[@"prestige"]];
             if (prestige.intValue > 95) {
                 teamPrestige = 95;
             } else if (prestige.intValue < 25) {

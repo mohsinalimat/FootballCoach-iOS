@@ -608,7 +608,7 @@
 -(NSString *)conferenceMetadataJSON {
     NSMutableString *jsonString = [NSMutableString string];
     [jsonString appendString:@"{"];
-    [jsonString appendFormat:@"\"confName\" : \"%@\", \"confFullName\" : \"%@\", \"confTeams\" : [",confName, confFullName];
+    [jsonString appendFormat:@"\"confName\" : \"%@\", \"confFullName\" : \"%@\", \"confPrestige\" : \"%d\", \"confTeams\" : [",confName, confFullName,confPrestige];
     for (Team *t in confTeams) {
         [jsonString appendFormat:@"%@,",[t teamMetadataJSON]];
     }
@@ -642,14 +642,26 @@
             confFullName = jsonDict[@"confFullName"];
         }
         
+        if ([HBSharedUtils isValidNumber:jsonDict[@"confPrestige"]])
+        {
+            NSLog(@"Changing conf prestige for %@ from base value of %d", confName, confPrestige);
+            NSNumber *prestige = [[HBSharedUtils prestigeNumberFormatter] numberFromString:jsonDict[@"confPrestige"]];
+            if (prestige.intValue > 95) {
+                confPrestige = 95;
+            } else if (prestige.intValue < 25) {
+                confPrestige = 25;
+            } else {
+                confPrestige = prestige.intValue;
+            }
+            NSLog(@"New prestige for %@: %d", confName,confPrestige);
+        }
+        
         NSArray *jsonConfTeams = jsonDict[@"confTeams"];
         
         for (int i = 0; i < confTeams.count; i++) {
             [confTeams[i] applyJSONMetadataChanges:jsonConfTeams[i]];
             [confTeams[i] setConference:confName];
         }
-        [self sortConfTeams];
-        
     } else {
         NSLog(@"ERROR parsing conf metadata: %@", error);
     }

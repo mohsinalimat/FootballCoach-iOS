@@ -117,12 +117,12 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Pick your team!";
-//    southTeams = league.conferences[0].confTeams;
-//    lakesTeams = league.conferences[1].confTeams;
-//    northTeams = league.conferences[2].confTeams;
-//    cowbyTeams = league.conferences[3].confTeams;
-//    pacificTeams = league.conferences[4].confTeams;
-//    mountTeams = league.conferences[5].confTeams;
+    for (Conference *c in league.conferences) {
+        [c.confTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+        }];
+    }
+    [self.tableView reloadData];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(confirmTeamSelection)];
     [self.navigationItem.rightBarButtonItem setEnabled:NO];
 }

@@ -18,8 +18,8 @@
 		751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */; };
 		751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF8231CA1D66D003C62F2 /* TeamStrategyViewController.m */; };
 		751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */; };
-		752ECC802240069F00C33EAE /* CareerLeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 752ECC7F2240069F00C33EAE /* CareerLeaderboardViewController.m */; };
 		752ECC7D223AE69D00C33EAE /* base.json in Resources */ = {isa = PBXBuildFile; fileRef = 752ECC7C223AE69D00C33EAE /* base.json */; };
+		752ECC802240069F00C33EAE /* CareerLeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 752ECC7F2240069F00C33EAE /* CareerLeaderboardViewController.m */; };
 		75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 75300A5F1CB2DC96001EBBCB /* TeamStreak.m */; };
 		75315AFE21E64E72006A1372 /* CFCAwardTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75315AFD21E64E72006A1372 /* CFCAwardTagView.m */; };
 		754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754318FE1CC02CF400D380F1 /* ConferenceStandingsViewController.m */; };
@@ -879,6 +879,7 @@
 		755BBC6A1C9E1196001A8314 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				752ECC7C223AE69D00C33EAE /* base.json */,
 				75A86C861C9C790D0034140C /* FCTableViewController.h */,
 				75A86C871C9C790D0034140C /* FCTableViewController.m */,
 				7571DD1E1C9CBDA900E67080 /* HBSharedUtils.h */,
@@ -1113,7 +1114,6 @@
 				756973961FAAB50400A66C42 /* LeagueUpdater.m */,
 				75924A531C99D24500B165AD /* League.h */,
 				75924A541C99D24500B165AD /* League.m */,
-				752ECC7C223AE69D00C33EAE /* base.json */,
 				7591FE3F1D465B940037ECFB /* NSArray+Uniqueness.h */,
 				7591FE401D465B940037ECFB /* NSArray+Uniqueness.m */,
 				75924A4D1C99D05E00B165AD /* Conference.h */,

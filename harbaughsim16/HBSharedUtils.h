@@ -197,4 +197,6 @@ typedef enum {
 + (CGFloat)calculateConferencePrestigeFactor:(NSString *)conf resetMarker:(BOOL)resetMarker;
 + (void)showRetirementControllerUsingSourceViewController:(UIViewController *)viewController;
 + (void)addCoachToCoachLeaderboard:(HeadCoach *)coach;
+
++(NSNumberFormatter *)prestigeNumberFormatter;
 @end

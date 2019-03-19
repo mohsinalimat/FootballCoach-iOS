@@ -300,7 +300,12 @@
         }
 
         if (![decoder containsValueForKey:@"bowlTitles"]) {
-            self.bowlTitles = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+            self.bowlTitles = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl",
+                                @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl",@"Lilac Bowl", @"Apple Bowl",
+                                @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl",
+                                @"Tropical Bowl", @"Music Bowl",@"Carnation Bowl", @"Mandarin Bowl", @"Honey Bowl", @"Party Bowl",
+                                @"Nectatrine Bowl", @"Polyester Bowl", @"Lemon-Lime Bowl", @"Crocodile Bowl", @"Desert Bowl", @"Fort Bowl",
+                                @"Vacation Bowl", @"Star Bowl", @"Bell Bowl", @"Freedom Bowl", @"Casino Bowl", @"American Bowl"];
         } else {
             self.bowlTitles = [decoder decodeObjectForKey:@"bowlTitles"];
         }
@@ -1055,8 +1060,16 @@
 }
 
 -(NSArray*)bowlGameTitles {
+    // Expanded set from here: https://github.com/antdroidx/CFB-Coach/blob/master/src/main/java/simulation/League.java#L226
     if (bowlTitles == nil || bowlTitles.count == 0) {
-        return @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+        return @[
+                 @"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl",
+                 @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl",@"Lilac Bowl", @"Apple Bowl",
+                 @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl",
+                 @"Tropical Bowl", @"Music Bowl",@"Carnation Bowl", @"Mandarin Bowl", @"Honey Bowl", @"Party Bowl",
+                 @"Nectatrine Bowl", @"Polyester Bowl", @"Lemon-Lime Bowl", @"Crocodile Bowl", @"Desert Bowl", @"Fort Bowl",
+                 @"Vacation Bowl", @"Star Bowl", @"Bell Bowl", @"Freedom Bowl", @"Casino Bowl", @"American Bowl"
+                 ];
     } else {
         return bowlTitles;
     }
@@ -1114,7 +1127,14 @@
         currentWeek = 0;
         bowlGames = [NSMutableArray array];
 
-        bowlTitles = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+        bowlTitles = @[
+                       @"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl",
+                       @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl",@"Lilac Bowl", @"Apple Bowl",
+                       @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl",
+                       @"Tropical Bowl", @"Music Bowl",@"Carnation Bowl", @"Mandarin Bowl", @"Honey Bowl", @"Party Bowl",
+                       @"Nectatrine Bowl", @"Polyester Bowl", @"Lemon-Lime Bowl", @"Crocodile Bowl", @"Desert Bowl", @"Fort Bowl",
+                       @"Vacation Bowl", @"Star Bowl", @"Bell Bowl", @"Freedom Bowl", @"Casino Bowl", @"American Bowl"
+                       ];
 
         conferences = [NSMutableArray array];
         blessedTeam = nil;
@@ -1515,7 +1535,11 @@
 
     //other bowls
     NSMutableArray *bowlEligibleTeams = [NSMutableArray array];
-    for (int i = 4; i < ([self bowlGameTitles].count * 2); i++) {
+    int numBowlEligible = (int)([self bowlGameTitles].count * 2); // accounts for expanded team set
+    if (teamList.count < ([self bowlGameTitles].count * 2)) {
+        numBowlEligible = 20; // but can fall back to original limit
+    }
+    for (int i = 4; i < numBowlEligible; i++) {
         [bowlEligibleTeams addObject:teamList[i]];
     }
 
@@ -3207,7 +3231,7 @@
 
     if (!error) {
         NSArray *jsonConfs = jsonDict[@"conferences"];
-        for (int i = 0; i < conferences.count; i++) {
+        for (int i = 0; i < jsonConfs.count; i++) {
             // Apply the changes from the JSON file
             [conferences[i] applyJSONMetadataChanges:jsonConfs[i]];
 
@@ -3218,16 +3242,20 @@
         }
 
         // Rebuild the schedule just in case there were rivalry changes
-        for (Conference *c in conferences) {
-            [c setUpSchedule];
-            [c setUpOOCSchedule];
-            [c insertOOCSchedule];
+        @synchronized (conferences) {
+            for (Conference *c in conferences) {
+                [c setUpSchedule];
+            }
+            [self scheduleOOCGames];
+            for (Conference *c in conferences) {
+                [c insertOOCSchedule];
+            }
         }
 
         NSMutableArray *bowlNames = [NSMutableArray arrayWithArray:jsonDict[@"bowlGames"]];
-        if (bowlNames.count < 10) {
-            NSInteger need = 10 - bowlNames.count;
-            NSArray *baseBowlNames = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+        if (bowlNames.count < 36) {
+            NSInteger need = 36 - bowlNames.count;
+            NSArray *baseBowlNames = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl",@"Carnation Bowl", @"Mandarin Bowl", @"Honey Bowl", @"Party Bowl", @"Nectatrine Bowl", @"Polyester Bowl", @"Lemon-Lime Bowl", @"Crocodile Bowl", @"Desert Bowl", @"Fort Bowl", @"Vacation Bowl", @"Star Bowl", @"Bell Bowl", @"Freedom Bowl", @"Casino Bowl", @"American Bowl", @"Island Bowl", @"Philantropy Bowl", @"Steak Bowl", @"Camping Bowl", @"Spud Bowl", @"Ponchatraine Bowl", @"Ranchers Bowl", @"Santa Fe Bowl", @"Burrito Bowl", @"Mexico Bowl", @"Chicken Bowl", @"Empire Bowl", @"Rainbow Bowl", @"Mushroom Bowl", @"Coffee Bowl", @"Cascade Bowl", @"Alliance Bowl", @"Appalachian Bowl", @"Bayou Bowl"];
             for (int i = 0; i < need; i++) {
                 [bowlNames addObject:baseBowlNames[i]];
             }
