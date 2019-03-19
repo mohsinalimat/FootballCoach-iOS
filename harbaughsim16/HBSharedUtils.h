@@ -193,4 +193,5 @@ typedef enum {
 +(NSComparisonResult)compareStatHistoryYears:(NSString *)year1 year2:(NSString *)year2;
 
 + (void)showRetirementControllerUsingSourceViewController:(UIViewController *)viewController;
++ (void)addCoachToCoachLeaderboard:(HeadCoach *)coach;
 @end

@@ -24,6 +24,7 @@
 #import "TransferLogViewController.h"
 #import "AvailableJobsViewController.h"
 #import "CareerCompletionViewController.h"
+#import "CareerLeaderboardViewController.h"
 
 #import "ZGNavigationBarTitleViewController.h"
 
@@ -605,12 +606,21 @@ static UIColor *styleColor = nil;
 }
 
 + (void)showRetirementControllerUsingSourceViewController:(UIViewController *)viewController {
-    UIAlertController *retirementOptionsController = [UIAlertController alertControllerWithTitle:@"Retirement Options" message:@"You have retired and ended your career. Thanks for playing College Football Coach! What would you like to do next?" preferredStyle:UIAlertControllerStyleAlert];
+    [HBSharedUtils addCoachToCoachLeaderboard:[[HBSharedUtils currentLeague].userTeam getCurrentHC]];
+    UIAlertController *retirementOptionsController = [UIAlertController alertControllerWithTitle:@"Retirement Options" message:@"You have retired and ended your career. This career has been automatically added to your leaderboard! Thanks for playing College Football Coach! What would you like to do next?" preferredStyle:UIAlertControllerStyleAlert];
     [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"View Career Card" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [viewController presentViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]] animated:YES completion:nil];
         });
     }]];
+    //view career leaderboard
+    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"View Career Leaderboard" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CareerLeaderboardViewController *helpVC = [[CareerLeaderboardViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:helpVC] animated:YES completion:nil];
+        });
+    }]];
+    
     [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"Reincarnate" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
         UIAlertController *reincarnateVC = [UIAlertController alertControllerWithTitle:@"Are you sure you want to proceed?" message:@"This will reset your ratings to league average and roll your age back to 32, but allow you to continue playing in your current save file and with your existing coaching history. You can also choose to take a new job at this time." preferredStyle:UIAlertControllerStyleAlert];
@@ -1216,5 +1226,44 @@ static UIColor *styleColor = nil;
     return [keys sortedArrayUsingComparator:^NSComparisonResult(NSString*  _Nonnull obj1, NSString*  _Nonnull obj2) {
         return [[HBSharedUtils convertStatKeyToSortingValue:obj1] compare:[HBSharedUtils convertStatKeyToSortingValue:obj2]];
     }];
+}
+
++ (void)addCoachToCoachLeaderboard:(HeadCoach *)coach {
+    //Get the documents directory path
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"coach-leaderboard.plist"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath: path]) {
+        
+        path = [documentsDirectory stringByAppendingPathComponent: [NSString stringWithFormat:@"coach-leaderboard.plist"] ];
+    }
+    
+    NSMutableDictionary *data;
+    NSMutableArray *coaches;
+    
+    if ([fileManager fileExistsAtPath: path]) {
+        data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+        coaches = data[@"coaches"];
+    } else {
+        // If the file doesn’t exist, create an empty dictionary
+        data = [[NSMutableDictionary alloc] init];
+        coaches = [NSMutableArray array];
+    }
+    
+    NSMutableDictionary *coachData = [NSMutableDictionary dictionary];
+    [coachData addEntriesFromDictionary:[coach detailedRatings]];
+    [coachData addEntriesFromDictionary:[coach detailedCareerStats]];
+    [coachData setObject:[coach teamsCoachedString] forKey:@"teamsCoached"];
+    [coachData setObject:[coach playerAwardReportString] forKey:@"playerAwards"];
+    [coachData setObject:[coach coachAwardReportString] forKey:@"coachAwards"];
+    [coachData setObject:@([coach getCoachCareerScore]) forKey:@"coachScore"];
+    [coachData setObject:coach.name forKey:@"coachName"];
+    [coaches addObject:coachData];
+    
+    //To insert the data into the plist
+    [data setObject:coaches forKey:@"coaches"];
+    [data writeToFile:path atomically:YES];
 }
 @end

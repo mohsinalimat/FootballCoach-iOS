@@ -12,6 +12,7 @@
 #import "Team.h"
 #import "AppDelegate.h"
 #import "HelpViewController.h"
+#import "CareerLeaderboardViewController.h"
 
 #import "MBProgressHUD.h"
 
@@ -40,6 +41,11 @@
     helpVC.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStyleDone target:self action:@selector(dismissVC)];
     [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:helpVC] animated:YES completion:nil];
 
+}
+
+-(IBAction)pushLeaderboard:(id)sender {
+    CareerLeaderboardViewController *helpVC = [[CareerLeaderboardViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:helpVC] animated:YES completion:nil];
 }
 
 -(void)dismissVC {

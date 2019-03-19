@@ -18,6 +18,7 @@
 		751DF8211CA17F81003C62F2 /* HBSettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 751DF81F1CA17F81003C62F2 /* HBSettingsCell.xib */; };
 		751DF8241CA1D66D003C62F2 /* TeamStrategyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF8231CA1D66D003C62F2 /* TeamStrategyViewController.m */; };
 		751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */; };
+		752ECC802240069F00C33EAE /* CareerLeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 752ECC7F2240069F00C33EAE /* CareerLeaderboardViewController.m */; };
 		75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 75300A5F1CB2DC96001EBBCB /* TeamStreak.m */; };
 		75315AFE21E64E72006A1372 /* CFCAwardTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75315AFD21E64E72006A1372 /* CFCAwardTagView.m */; };
 		754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754318FE1CC02CF400D380F1 /* ConferenceStandingsViewController.m */; };
@@ -273,6 +274,8 @@
 		751DF8251CA1F273003C62F2 /* TeamRosterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamRosterViewController.h; sourceTree = "<group>"; };
 		751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamRosterViewController.m; sourceTree = "<group>"; };
 		75245BDC1D2069CE00F0A8AB /* TeamHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TeamHistoryViewController.h; sourceTree = "<group>"; };
+		752ECC7E2240069F00C33EAE /* CareerLeaderboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CareerLeaderboardViewController.h; sourceTree = "<group>"; };
+		752ECC7F2240069F00C33EAE /* CareerLeaderboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CareerLeaderboardViewController.m; sourceTree = "<group>"; };
 		75300A5E1CB2DC96001EBBCB /* TeamStreak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamStreak.h; sourceTree = "<group>"; };
 		75300A5F1CB2DC96001EBBCB /* TeamStreak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreak.m; sourceTree = "<group>"; };
 		75315AFC21E64E72006A1372 /* CFCAwardTagView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFCAwardTagView.h; sourceTree = "<group>"; };
@@ -1086,6 +1089,8 @@
 				75FA3F9821E1A99A00DC7869 /* CareerCompletionViewController.h */,
 				75FA3F9921E1A99A00DC7869 /* CareerCompletionViewController.m */,
 				75FA3F9B21E1A9B800DC7869 /* CareerCompletionViewController.xib */,
+				752ECC7E2240069F00C33EAE /* CareerLeaderboardViewController.h */,
+				752ECC7F2240069F00C33EAE /* CareerLeaderboardViewController.m */,
 			);
 			name = "Career Mode";
 			sourceTree = "<group>";
@@ -1635,6 +1640,7 @@
 				7586330A1CC142B900E1E458 /* MockDraftViewController.m in Sources */,
 				7562A8931FFF4370004C0985 /* BalloonMarker.swift in Sources */,
 				75FFAB3721CF28C5002156C1 /* TransferLogViewController.m in Sources */,
+				752ECC802240069F00C33EAE /* CareerLeaderboardViewController.m in Sources */,
 				75F8F66D21DBF0C6006981E7 /* CFCTeamHistoryView.m in Sources */,
 				7571DD201C9CBDA900E67080 /* HBSharedUtils.m in Sources */,
 				7510B8501C9C76E600BE9CD6 /* SettingsViewController.m in Sources */,

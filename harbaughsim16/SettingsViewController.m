@@ -12,6 +12,7 @@
 #import "Team.h"
 #import "RebrandConferenceSelectorViewController.h"
 #import "HelpViewController.h"
+#import "CareerLeaderboardViewController.h"
 
 #import "HexColors.h"
 #import "FCFileManager.h"
@@ -56,6 +57,11 @@
     
     [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)openLeaderboard {
+    CareerLeaderboardViewController *helpVC = [[CareerLeaderboardViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:helpVC] animated:YES completion:nil];
 }
 
 -(void)changeTeamName {
@@ -256,7 +262,7 @@
     } else if (section == 1) {
         return 16;
     } else {
-        return 6;
+        return 7;
     }
 }
 
@@ -385,6 +391,10 @@
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
             } else if (indexPath.row == 4) {
+                [cell.textLabel setText:@"View Career Leaderboard"];
+                [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            } else if (indexPath.row == 5) {
                 [cell.textLabel setText:@"Export League Metadata"];
                 [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
                 cell.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -518,7 +528,7 @@
             }
         }
     } else {
-        if (indexPath.row == 5) {
+        if (indexPath.row == 6) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete your save file and start your career over?" message:@"This will take you back to the Team Selection screen." preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
@@ -554,7 +564,9 @@
                 popupController.style = STPopupStyleBottomSheet;
                 [popupController presentInViewController:self];
             }
-        } else if (indexPath.row == 4) { // export
+        } else if (indexPath.row == 4) {
+            [self openLeaderboard];
+        } else if (indexPath.row == 5) { // export
             NSString *metadataFile = ([HBSharedUtils currentLeague] != nil) ? [[HBSharedUtils currentLeague] leagueMetadataJSON] : @"";
             UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[metadataFile] applicationActivities:nil];
             activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,UIActivityTypeAirDrop,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr,UIActivityTypeOpenInIBooks,UIActivityTypePostToWeibo,UIActivityTypeAddToReadingList,UIActivityTypePostToFacebook,UIActivityTypePostToTencentWeibo];
