@@ -367,7 +367,19 @@
         if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
             if (indexPath.row == 0) {
                 [cell.textLabel setText:@"Head Coach"];
-                [cell.detailTextLabel setText:[[selectedTeam getCurrentHC] getInitialName]];
+                if (selectedTeam.coachFired) {
+                    [cell.detailTextLabel setText:@"None (coach fired)"];
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                } else if (selectedTeam.coachRetired) {
+                    [cell.detailTextLabel setText:@"None (coach retired)"];
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                } else {
+                    [cell.detailTextLabel setText:[[selectedTeam getCurrentHC] getInitialName]];
+                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                }
             } else if (indexPath.row == 1) {
                 [cell.textLabel setText:@"Roster"];
             } else if (indexPath.row == 2) {
@@ -403,7 +415,9 @@
         if (self.popupController) {
             if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
                 if (indexPath.row == 0) {
-                    [self.popupController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]] animated:YES];
+                    if (!selectedTeam.coachRetired && !selectedTeam.coachFired) {
+                        [self.popupController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]] animated:YES];
+                    }
                 } else if (indexPath.row == 1) {
                     [self.popupController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else if (indexPath.row == 2) {

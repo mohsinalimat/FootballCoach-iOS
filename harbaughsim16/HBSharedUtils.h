@@ -195,4 +195,6 @@ typedef enum {
 +(NSComparisonResult)compareStatHistoryYears:(NSString *)year1 year2:(NSString *)year2;
 
 + (CGFloat)calculateConferencePrestigeFactor:(NSString *)conf resetMarker:(BOOL)resetMarker;
++ (void)showRetirementControllerUsingSourceViewController:(UIViewController *)viewController;
++ (void)addCoachToCoachLeaderboard:(HeadCoach *)coach;
 @end

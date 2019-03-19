@@ -97,13 +97,13 @@
     stats = [[HBSharedUtils currentLeague].userTeam getTeamStatsArray];
     [teamHeaderView.teamRankLabel setText:currentCoach.name];
     [teamHeaderView.teamRecordLabel setText:[NSString stringWithFormat:@"Career: %ld-%ld",(long)currentCoach.totalWins,(long)currentCoach.totalLosses]];
-    [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Age: %d | Prestige: %d",currentCoach.age, currentCoach.cumulativePrestige]];
+    [teamHeaderView.teamPrestigeLabel setText:[NSString stringWithFormat:@"Age: %d | Overall: %d | Prestige: %d",currentCoach.age, currentCoach.ratOvr,currentCoach.cumulativePrestige]];
     [teamHeaderView setBackgroundColor:[HBSharedUtils styleColor]];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"My Career";
+    self.title = @"Career";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(openSettings)];
     //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"team"] style:UIBarButtonItemStylePlain target:self action:@selector(openMyTeamView)];
     [self setupTeamHeader];

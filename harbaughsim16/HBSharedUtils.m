@@ -24,6 +24,7 @@
 #import "TransferLogViewController.h"
 #import "AvailableJobsViewController.h"
 #import "CareerCompletionViewController.h"
+#import "CareerLeaderboardViewController.h"
 
 #import "ZGNavigationBarTitleViewController.h"
 
@@ -475,7 +476,7 @@ static UIColor *styleColor = nil;
     // Testing
 //    [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
+//            [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] initWithJobStatus:NO]] animated:YES completion:nil];
 //        });
 //    }]];
 
@@ -514,68 +515,40 @@ static UIColor *styleColor = nil;
 //    }]];
 
     if ([[self class] currentLeague].isCareerMode && ([[self class] currentLeague].userTeam.coachFired && (![[self class] currentLeague].didFinishCoachingCarousel && [[self class] currentLeague].coachList.count > 0))) {
-        [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
-            });
-        }]];
-    } else {
-        if ([[self class] currentLeague].isCareerMode && [[[self class] currentLeague].userTeam getCurrentHC].age > 59) {
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Retire" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+
+        NSMutableArray<Team *> *availableJobs = [NSMutableArray array];
+        for (Team *t in [HBSharedUtils currentLeague].teamList) {
+            if (![t isEqual:[HBSharedUtils currentLeague].userTeam]
+                && (t.coachFired || t.coachRetired || t.coaches.count == 0)
+                && ![availableJobs containsObject:t]) {
+                [availableJobs addObject:t];
+            }
+        }
+
+        [availableJobs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return ([a getMinCoachHireReq] < [b getMinCoachHireReq]) ? -1 : ((([a getMinCoachHireReq] == [b getMinCoachHireReq])) ? [a.name compare:b.name] : 1);
+        }];
+
+        if ([availableJobs[0] getMinCoachHireReq] > [[HBSharedUtils currentLeague].userTeam getHC:0].ratOvr) {
+            alertController.message = @"Your overall rating is too low to qualify for available jobs. As a result, your career is over.";
+            [[self class] addRetirementOptionsUsingAlertController:alertController sourceViewController:viewController];
+        } else {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] initWithJobStatus:YES]] animated:YES completion:nil];
+                });
+            }]];
+        }
+    } else {
+        if (([[self class] currentLeague].isCareerMode && [[[self class] currentLeague].userTeam getCurrentHC].age > 59)) {
 
-                    UIAlertController *retirementOptionsController = [UIAlertController alertControllerWithTitle:@"Retirement Options" message:@"You have retired and ended your career. Thanks for playing College Football Coach! What would you like to do next?" preferredStyle:UIAlertControllerStyleAlert];
-                    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"View Career Card" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [viewController presentViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]] animated:YES completion:nil];
-                        });
-                    }]];
-                    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"Reincarnate" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-
-                        UIAlertController *reincarnateVC = [UIAlertController alertControllerWithTitle:@"This will reset your ratings to league average and roll your age back to 32, but allow you to continue playing in your current save file and with your existing coaching history. You can also choose to take a new job at this time." message:@"Are you sure you want to proceed?" preferredStyle:UIAlertControllerStyleAlert];
-                        [reincarnateVC addAction:[UIAlertAction actionWithTitle:@"Yes, and I want to stay with my current team." style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].age = 32;
-                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratOff = [[HBSharedUtils currentLeague] getAvgCoachOff];
-                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDef = [[HBSharedUtils currentLeague] getAvgCoachDef];
-                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratTalent = [[HBSharedUtils currentLeague] getAvgCoachTalent];
-                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDiscipline = [[HBSharedUtils currentLeague] getAvgCoachDiscipline];
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [[NSNotificationCenter defaultCenter] postNotificationName:@"reincarnateCoach" object:nil];
-                            });
-                        }]];
-                        [reincarnateVC addAction:[UIAlertAction actionWithTitle:@"Yes, but I want to change teams." style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].age = 32;
-                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratOff = [[HBSharedUtils currentLeague] getAvgCoachOff];
-                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDef = [[HBSharedUtils currentLeague] getAvgCoachDef];
-                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratTalent = [[HBSharedUtils currentLeague] getAvgCoachTalent];
-                            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDiscipline = [[HBSharedUtils currentLeague] getAvgCoachDiscipline];
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [[NSNotificationCenter defaultCenter] postNotificationName:@"reincarnateCoach" object:nil];
-                                [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
-                            });
-                        }]];
-                        [reincarnateVC addAction:[UIAlertAction actionWithTitle:@"No, I do not want to proceed." style:UIAlertActionStyleCancel handler:nil]];
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [viewController presentViewController:reincarnateVC animated:YES completion:nil];
-                        });
-                    }]];
-                    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"Start New Game" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                       // are you sure?
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            UIAlertController *checkController = [UIAlertController alertControllerWithTitle:@"Starting new save file" message:@"Are you sure you want to start a new game?\n\nThis WILL delete your current save file and all of your progress." preferredStyle:UIAlertControllerStyleAlert];
-                            [checkController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-
-                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                    [((AppDelegate*)[[UIApplication sharedApplication] delegate]) startNewSaveFile];
-                                });
-                            }]];
-                            [checkController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:nil]];
-                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                [viewController presentViewController:checkController animated:YES completion:nil];
-                            });
-                        });
-                    }]];
-                    [viewController presentViewController:retirementOptionsController animated:YES completion:nil];
+            [[self class] addRetirementOptionsUsingAlertController:alertController sourceViewController:viewController];
+        } else if ([[self class] currentLeague].isCareerMode && [[[self class] currentLeague].userTeam getCurrentHC].contractYear != 0) {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] initWithJobStatus:NO]] animated:YES completion:nil];
                 });
             }]];
         }
@@ -622,7 +595,82 @@ static UIColor *styleColor = nil;
 
     [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
     [viewController presentViewController:alertController animated:YES completion:nil];
+}
 
++ (void)addRetirementOptionsUsingAlertController:(UIAlertController *)alertController sourceViewController:(UIViewController *)viewController {
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Retire" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[self class] showRetirementControllerUsingSourceViewController:viewController];
+        });
+    }]];
+}
+
++ (void)showRetirementControllerUsingSourceViewController:(UIViewController *)viewController {
+    [HBSharedUtils addCoachToCoachLeaderboard:[[HBSharedUtils currentLeague].userTeam getCurrentHC]];
+    UIAlertController *retirementOptionsController = [UIAlertController alertControllerWithTitle:@"Retirement Options" message:@"You have retired and ended your career. This career has been automatically added to your leaderboard! Thanks for playing College Football Coach! What would you like to do next?" preferredStyle:UIAlertControllerStyleAlert];
+    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"View Career Card" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [viewController presentViewController:[[CareerCompletionViewController alloc] initWithCoach:[[HBSharedUtils currentLeague].userTeam getCurrentHC]] animated:YES completion:nil];
+        });
+    }]];
+    //view career leaderboard
+    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"View Career Leaderboard" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            CareerLeaderboardViewController *helpVC = [[CareerLeaderboardViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:helpVC] animated:YES completion:nil];
+        });
+    }]];
+
+    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"Reincarnate" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+
+        UIAlertController *reincarnateVC = [UIAlertController alertControllerWithTitle:@"Are you sure you want to proceed?" message:@"This will reset your ratings to league average and roll your age back to 32, but allow you to continue playing in your current save file and with your existing coaching history. You can also choose to take a new job at this time." preferredStyle:UIAlertControllerStyleAlert];
+        [reincarnateVC addAction:[UIAlertAction actionWithTitle:@"Yes, stay with current team." style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [[HBSharedUtils currentLeague].userTeam getCurrentHC].age = 32;
+            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratOff = [[HBSharedUtils currentLeague] getAvgCoachOff];
+            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDef = [[HBSharedUtils currentLeague] getAvgCoachDef];
+            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratTalent = [[HBSharedUtils currentLeague] getAvgCoachTalent];
+            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDiscipline = [[HBSharedUtils currentLeague] getAvgCoachDiscipline];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"reincarnateCoach" object:nil];
+            });
+        }]];
+        [reincarnateVC addAction:[UIAlertAction actionWithTitle:@"Yes, but change teams." style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [[HBSharedUtils currentLeague].userTeam getCurrentHC].age = 32;
+            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratOff = [[HBSharedUtils currentLeague] getAvgCoachOff];
+            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDef = [[HBSharedUtils currentLeague] getAvgCoachDef];
+            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratTalent = [[HBSharedUtils currentLeague] getAvgCoachTalent];
+            [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratDiscipline = [[HBSharedUtils currentLeague] getAvgCoachDiscipline];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"reincarnateCoach" object:nil];
+                [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] init]] animated:YES completion:nil];
+            });
+        }]];
+        [reincarnateVC addAction:[UIAlertAction actionWithTitle:@"No, cancel." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [HBSharedUtils showRetirementControllerUsingSourceViewController:viewController];
+            });
+        }]];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [viewController presentViewController:reincarnateVC animated:YES completion:nil];
+        });
+    }]];
+    [retirementOptionsController addAction:[UIAlertAction actionWithTitle:@"Start New Game" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        // are you sure?
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIAlertController *checkController = [UIAlertController alertControllerWithTitle:@"Starting new save file" message:@"Are you sure you want to start a new game?\n\nThis WILL delete your current save file and all of your progress." preferredStyle:UIAlertControllerStyleAlert];
+            [checkController addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [((AppDelegate*)[[UIApplication sharedApplication] delegate]) startNewSaveFile];
+                });
+            }]];
+            [checkController addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleDefault handler:nil]];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [viewController presentViewController:checkController animated:YES completion:nil];
+            });
+        });
+    }]];
+    [viewController presentViewController:retirementOptionsController animated:YES completion:nil];
 }
 
 +(void)playWeek:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback {
@@ -1091,29 +1139,29 @@ static UIColor *styleColor = nil;
                                                           @"passYardsPerGame" : @"Pass Yards per Game",
                                                           @"passTouchdowns" : @"Pass TD",
                                                           //@"interceptions" : @(0),
-                                                          
+
                                                           @"carries" : @"Carries",
                                                           @"rushYards" : @"Rush Yards",
                                                           @"yardsPerCarry" : @"Yards per Carry",
                                                           @"rushYardsPerGame" : @"Rush Yards Per Game",
                                                           //@"fumbles" : @(0),
                                                           @"rushTouchdowns": @"Rush TD",
-                                                          
-                                                          
+
+
                                                           @"catches": @"Catches",
                                                           @"recYards": @"Rec Yards",
                                                           @"yardsPerCatch": @"Yards per Catch",
                                                           @"recTouchdowns": @"Rec TD",
                                                           @"fumbles": @"Fumbles",
                                                           @"recYardsPerGame" : @"Yards per Game",
-                                                          
+
                                                           @"passesDefended": @"Passes Defended",
                                                           @"tackles": @"Tackles",
                                                           @"sacks": @"Sacks",
                                                           @"interceptions": @"Interceptions",
                                                           @"forcedFumbles": @"Forced Fumbles",
                                   };
-    
+
     if (definitions[key] == nil) {
         return key;
     } else {
@@ -1131,14 +1179,14 @@ static UIColor *styleColor = nil;
                                                           @"passYardsPerGame" : @(5),
                                                           @"passTouchdowns" : @(0),
                                                           //@"interceptions" : @(0),
-                                                          
+
                                                           @"carries" : @(6),
                                                           @"rushYards" : @(7),
                                                           @"yardsPerCarry" : @(8),
                                                           @"rushYardsPerGame" : @(9),
                                                           //@"fumbles" : @(0),
                                                           @"rushTouchdowns": @(10),
-                                                          
+
 
                                                           @"catches": @(12),
                                                           @"recYards": @(13),
@@ -1146,14 +1194,14 @@ static UIColor *styleColor = nil;
                                                           @"recTouchdowns": @(15),
                                                           @"fumbles": @(16),
                                                           @"recYardsPerGame" : @(17),
-                                                          
+
                                                           @"passesDefended": @(18),
                                                           @"tackles": @(19),
                                                           @"sacks": @(20),
                                                           @"interceptions": @(21),
                                                           @"forcedFumbles": @(22),
                                   };
-    
+
     if (definitions[key] == nil) {
         return [NSNumber numberWithInteger:0];
     } else {
@@ -1164,7 +1212,7 @@ static UIColor *styleColor = nil;
 +(NSComparisonResult)compareStatHistoryYears:(NSString *)year1 year2:(NSString *)year2 {
     NSString *cleanedYear1 = [year1 stringByReplacingOccurrencesOfString:@" (RS)" withString:@""];
     NSString *cleanedYear2 = [year2 stringByReplacingOccurrencesOfString:@" (RS)" withString:@""];
-    
+
     return [[NSNumber numberWithInteger:[cleanedYear1 integerValue]] compare:[NSNumber numberWithInteger:[cleanedYear2 integerValue]]];
 }
 
@@ -1192,7 +1240,7 @@ static UIColor *styleColor = nil;
     dispatch_once(&onceToken, ^{
         confPrestigeDict = [NSMutableDictionary dictionary];
     });
-    
+
     if ([confPrestigeDict.allKeys containsObject:conf] && !resetMarker) {
         return [confPrestigeDict[conf] doubleValue];
     } else {
@@ -1202,27 +1250,65 @@ static UIColor *styleColor = nil;
             [confs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 return [HBSharedUtils compareConfPrestige:obj1 toObj2:obj2];
             }];
-            
+
             Conference *bestConf = [[HBSharedUtils currentLeague].conferences firstObject];
             NSLog(@"BEST CONF: %@ (%d)", bestConf.confName, bestConf.confPrestige);
             Conference *worstConf = [[HBSharedUtils currentLeague].conferences lastObject];
             NSLog(@"WORST CONF: %@ (%d)", worstConf.confName, worstConf.confPrestige);
-            
+
             CGFloat inMin = (CGFloat)worstConf.confPrestige;
             CGFloat inMax = (CGFloat)bestConf.confPrestige;
-            
+
             CGFloat outMin = 0.35;
             CGFloat outMax = 1.0;
-            
+
             CGFloat input = (CGFloat) foundConf.confPrestige;
             CGFloat result = (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
-            
+
             [confPrestigeDict setObject:@(result) forKey:conf];
             return result;
         }
     }
-    
+
     return 1.0;
 }
 
++ (void)addCoachToCoachLeaderboard:(HeadCoach *)coach {
+    //Get the documents directory path
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *path = [documentsDirectory stringByAppendingPathComponent:@"coach-leaderboard.plist"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    if (![fileManager fileExistsAtPath: path]) {
+
+        path = [documentsDirectory stringByAppendingPathComponent: [NSString stringWithFormat:@"coach-leaderboard.plist"] ];
+    }
+
+    NSMutableDictionary *data;
+    NSMutableArray *coaches;
+
+    if ([fileManager fileExistsAtPath: path]) {
+        data = [[NSMutableDictionary alloc] initWithContentsOfFile: path];
+        coaches = data[@"coaches"];
+    } else {
+        // If the file doesn’t exist, create an empty dictionary
+        data = [[NSMutableDictionary alloc] init];
+        coaches = [NSMutableArray array];
+    }
+
+    NSMutableDictionary *coachData = [NSMutableDictionary dictionary];
+    [coachData addEntriesFromDictionary:[coach detailedRatings]];
+    [coachData addEntriesFromDictionary:[coach detailedCareerStats]];
+    [coachData setObject:[coach teamsCoachedString] forKey:@"teamsCoached"];
+    [coachData setObject:[coach playerAwardReportString] forKey:@"playerAwards"];
+    [coachData setObject:[coach coachAwardReportString] forKey:@"coachAwards"];
+    [coachData setObject:@([coach getCoachCareerScore]) forKey:@"coachScore"];
+    [coachData setObject:coach.name forKey:@"coachName"];
+    [coaches addObject:coachData];
+
+    //To insert the data into the plist
+    [data setObject:coaches forKey:@"coaches"];
+    [data writeToFile:path atomically:YES];
+}
 @end

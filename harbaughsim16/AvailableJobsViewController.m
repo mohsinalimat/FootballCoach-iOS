@@ -19,8 +19,12 @@
 #import "HexColors.h"
 #import "MBProgressHUD.h"
 #import "UIScrollView+EmptyDataSet.h"
+#import "ZMJTipView.h"
 
-@interface AvailableJobsViewController () <DZNEmptyDataSetDelegate, DZNEmptyDataSetSource>
+#define FCTutorialTeamSelect 1000
+#define FCTutorialCloseJobsWindow 1004
+
+@interface AvailableJobsViewController () <DZNEmptyDataSetDelegate, DZNEmptyDataSetSource, ZMJTipViewDelegate>
 {
     STPopupController *popupController;
     NSMutableArray *availableJobs;
@@ -33,11 +37,37 @@
     NSMutableDictionary<NSString *, NSString *> *lastBowlMap;
     NSMutableDictionary<NSString *, NSString *> *lastCCGMap;
     NSMutableDictionary<NSString *, NSString *> *lastNCGMap;
+    
+    BOOL coachUnemployed;
 }
 
 @end
 
 @implementation AvailableJobsViewController
+
+//MARK: ZMJTipViewDelegate
+- (void)tipViewDidDimiss:(ZMJTipView *)tipView {
+    // show new tips based on last shown tipview
+    if (tipView.tag == FCTutorialTeamSelect) {
+        NSString *tipText = @"Tap here to close the jobs window. Note: if you close the jobs window, you will be randomly signed to a team.";
+        if (!coachUnemployed) {
+            tipText = @"Tap here to close the jobs window.";
+        }
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
+        editTip.tag = FCTutorialCloseJobsWindow;
+        [editTip showAnimated:YES forItem:self.navigationItem.leftBarButtonItem withinSuperview:self.navigationController.view];
+    }
+}
+
+- (void)tipViewDidSelected:(ZMJTipView *)tipView {
+    // do nothing
+}
+
+-(instancetype)initWithJobStatus:(BOOL)wasFired {
+    self = [super init];
+    coachUnemployed = wasFired;
+    return self;
+}
 
 -(void)backgroundViewDidTap {
     [popupController dismiss];
@@ -75,7 +105,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recieveSigningNotif:) name:@"signingWithTeam" object:nil];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"help"] style:UIBarButtonItemStylePlain target:self action:@selector(openJobTutorial)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"help"] style:UIBarButtonItemStylePlain target:self action:@selector(openJobTutorial)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStyleDone target:self action:@selector(closeCarousel)];
     
     
@@ -92,50 +122,61 @@
 
 -(void)openJobTutorial {
     //display intro screen
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to the Coaching Carousel!" message:[HBSharedUtils jobPickerTutorial:userCoach.team.coachFired] preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self->availableJobs.count > 0) {
+            NSString *tipText = @"Here's an job opening from across the nation. You can read about how the program has done recently, and tap on the program to sign a contract with it.\n\nSometimes teams might be grayed out -- if that's the case, you don't have a high enough overall rating to sign with them.";
+            ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
+            editTip.tag = FCTutorialTeamSelect;
+            [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] withinSuperview:self.tableView];
+        }
+    });
 }
 
 -(void)closeCarousel {
     // do you want to close?
     // will be assigned to a random team if one is not selected
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Exiting Coaching Carousel" message:@"Are you sure you want to exit and sim the coaching carousel? You will be randomly signed to a team with a head coaching vacancy." preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-            [hud setMode:MBProgressHUDModeIndeterminate];
-            [hud.label setText:@"Processing open coaching positions..."];
-            [HBSharedUtils currentLeague].userTeam.isUserControlled = NO;
-            //        [[HBSharedUtils currentLeague].userTeam.coaches removeObject:self->userCoach];
-            if (![[HBSharedUtils currentLeague].coachList containsObject:self->userCoach]) {
-                [[HBSharedUtils currentLeague].coachList addObject:self->userCoach];
-            }
-            
-            for (Team *t in self->availableJobs) {
-                if (t.coaches.count != 0 && (t.coachFired || t.coachRetired)) {
-                    [t.coaches removeObjectAtIndex:0]; // remove all fired coaches (if not removed already)
-                }
-            }
-            
-            // process rest of coaching carousel
-            [[HBSharedUtils currentLeague] processCoachingCarousel];
-            // mark coaching carousel as over
-            [HBSharedUtils currentLeague].didFinishCoachingCarousel = YES;
-            // save
-            [[HBSharedUtils currentLeague] save];
-            // post newCoach notif (same as newSaveFile)
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
-            [hud hideAnimated:YES];
-            // dismiss
+    if (coachUnemployed) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Exiting Coaching Carousel" message:@"Are you sure you want to exit and sim the coaching carousel? You will be randomly signed to a team with a head coaching vacancy." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self dismissViewControllerAnimated:YES completion:nil];
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+                [hud setMode:MBProgressHUDModeIndeterminate];
+                [hud.label setText:@"Processing open coaching positions..."];
+                [HBSharedUtils currentLeague].userTeam.isUserControlled = NO;
+                //        [[HBSharedUtils currentLeague].userTeam.coaches removeObject:self->userCoach];
+                if (![[HBSharedUtils currentLeague].coachList containsObject:self->userCoach]) {
+                    [[HBSharedUtils currentLeague].coachList addObject:self->userCoach];
+                }
+                
+                for (Team *t in self->availableJobs) {
+                    if (t.coaches.count != 0 && (t.coachFired || t.coachRetired)) {
+                        [t.coaches removeObjectAtIndex:0]; // remove all fired coaches (if not removed already)
+                    }
+                }
+                
+                // process rest of coaching carousel
+                [[HBSharedUtils currentLeague] processCoachingCarousel];
+                // mark coaching carousel as over
+                [HBSharedUtils currentLeague].didFinishCoachingCarousel = YES;
+                // save
+                [[HBSharedUtils currentLeague] save];
+                // post newCoach notif (same as newSaveFile)
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
+                [hud hideAnimated:YES];
+                // dismiss
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                });
             });
+        }]];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"No, keep looking at offers." style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:nil];
         });
-    }]];
-     
-     [alert addAction:[UIAlertAction actionWithTitle:@"No, I want to keep looking at offers." style:UIAlertActionStyleCancel handler:nil]];
-     [self presentViewController:alert animated:YES completion:nil];
+    }
 }
 
 -(void)recieveSigningNotif:(NSNotification *)notif {
@@ -377,7 +418,7 @@
 
 -(void)configureCellForTeam:(Team *)t indexPath:(NSIndexPath *)indexPath cell:(CFCRecruitCell *)cell {
     [cell.nameLabel setText:t.name];
-    [cell.stateLabel setText:t.state];
+    [cell.stateLabel setText:[NSString stringWithFormat:@"Conference: %@", t.conference]];
     if (userCoach.ratOvr >= [t getMinCoachHireReq]) {
         if ([t.natlChampWL containsString:@"NCW"]) {
             [cell.nameLabel setTextColor:[HBSharedUtils champColor]];
@@ -413,7 +454,7 @@
     [cell.fortyYdDashLabel setAttributedText:lastCCGString];
     [cell.otherOffersLabel setAttributedText:lastNCGString];
     
-    NSMutableAttributedString *recordString = [[NSMutableAttributedString alloc] initWithString:@"2019: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    NSMutableAttributedString *recordString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld: ", (long)[[HBSharedUtils currentLeague] getCurrentYear]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
     [recordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d-%d",t.wins,t.losses] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
     NSMutableAttributedString *lifetimeRecordString = [[NSMutableAttributedString alloc] initWithString:@"Lifetime: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
@@ -426,15 +467,17 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
-    TeamViewController *teamVC = [[TeamViewController alloc] initWithTeam:availableJobs[indexPath.row]];
-    teamVC.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.75 * [UIScreen mainScreen].bounds.size.height);
-    teamVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign" style:UIBarButtonItemStyleDone target:teamVC action:@selector(finalizeCoachingCarousel)];
-    popupController = [[STPopupController alloc] initWithRootViewController:teamVC];
-    [popupController.navigationBar setDraggable:YES];
-    [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
-    popupController.style = STPopupStyleBottomSheet;
-    [popupController presentInViewController:self];
+    Team *t = availableJobs[indexPath.row];
+    if (userCoach.ratOvr >= [t getMinCoachHireReq]) {
+        TeamViewController *teamVC = [[TeamViewController alloc] initWithTeam:t];
+        teamVC.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.75 * [UIScreen mainScreen].bounds.size.height);
+        teamVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign" style:UIBarButtonItemStyleDone target:teamVC action:@selector(finalizeCoachingCarousel)];
+        popupController = [[STPopupController alloc] initWithRootViewController:teamVC];
+        [popupController.navigationBar setDraggable:YES];
+        [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
+        popupController.style = STPopupStyleBottomSheet;
+        [popupController presentInViewController:self];
+    }
 }
 
 
