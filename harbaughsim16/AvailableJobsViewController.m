@@ -170,7 +170,7 @@
             });
         }]];
         
-        [alert addAction:[UIAlertAction actionWithTitle:@"No, I want to keep looking at offers." style:UIAlertActionStyleCancel handler:nil]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"No, keep looking at offers." style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
