@@ -4096,4 +4096,12 @@
     return rating;
 }
 
+-(NSString *)debugDescription {
+    if (hasPlayed) {
+        return [NSString stringWithFormat:@"%@ %d, %@ %d", awayTeam.abbreviation, awayScore, homeTeam.abbreviation, homeScore];
+    } else {
+        return [NSString stringWithFormat:@"%@ @ %@",awayTeam.abbreviation, homeTeam.abbreviation];
+    }
+}
+
 @end

@@ -866,6 +866,7 @@
 
 -(BOOL)isSaveCorrupt {
     int userControl = 0;
+    NSLog(@"Current League Week: %d", self.currentWeek);
     for (Team *t in teamList) {
          // check this at all points EXCEPT at the end of the season after transfers processed. Teams will be uneven after transfers process.
         if (!didFinishTransferPeriod) {
@@ -921,6 +922,11 @@
         }
         
         if (t.gameSchedule.count < 12) {
+            return YES;
+        }
+    
+        if (self.currentWeek < 15 && (t.wins + t.losses) != self.currentWeek) {
+            NSLog(@"%@ record: %d-%d", t.abbreviation, t.wins, t.losses);
             return YES;
         }
         
@@ -1277,7 +1283,6 @@
             Team *b;
             
             if (availTeamsB.count == 0) {
-                //b = new Team(teamsFCS[(int) (teamsFCS.length * Math.random())], "FCS", "FCS Division", (int) (Math.random() * 40), "FCS1", 0, this, false);
                 b = [Team newTeamWithName:[self fcsTeamNames][(int)([self fcsTeamNames].count * [HBSharedUtils randomValue])] abbreviation:@"FCS" conference:@"FCS" league:self prestige:(int)([HBSharedUtils randomValue] * 50) rivalTeam:@"FCS1" state:@"USA"];
                 fcsGames++;
             } else {
@@ -1321,8 +1326,8 @@
     canRebrandTeam = NO;
 
     if (currentWeek <= 12 ) {
-        for (int i = 0; i < conferences.count; ++i) {
-            [conferences[i] playWeek];
+        for (Conference * c in conferences) {
+            [c playWeek];
         }
 
 
@@ -1783,23 +1788,26 @@
         [teamList[t] updateRingOfHonor];
         [teamList[t] advanceSeason];
     }
-    for (int c = 0; c < conferences.count; ++c) {
-        conferences[c].robinWeek = 0;
-        conferences[c].week = 0;
-        conferences[c].ccg = nil;
-        [conferences[c] updateConfPrestige];
-        CGFloat prestigeFactor = [HBSharedUtils calculateConferencePrestigeFactor:conferences[c].confName resetMarker:YES];
-        NSLog(@"%@ conf prestige factor: %f", conferences[c].confName,prestigeFactor);
-    }
-    //set up schedule
-    for (Conference *c in conferences) {
-        [c setUpSchedule];
-    }
-
-    [self scheduleOOCGames];
-
-    for (Conference *c in conferences) {
-        [c insertOOCSchedule];
+    
+    @synchronized (conferences) {
+        for (Conference *c in conferences) {
+            c.robinWeek = 0;
+            c.week = 0;
+            c.ccg = nil;
+            [c updateConfPrestige];
+            CGFloat prestigeFactor = [HBSharedUtils calculateConferencePrestigeFactor:c.confName resetMarker:YES];
+            NSLog(@"%@ conf prestige factor: %f", c.confName,prestigeFactor);
+        }
+        //set up schedule
+        for (Conference *c in conferences) {
+            [c setUpSchedule];
+        }
+        
+        [self scheduleOOCGames];
+        
+        for (Conference *c in conferences) {
+            [c insertOOCSchedule];
+        }
     }
 
     hasScheduledBowls = false;

@@ -272,8 +272,8 @@
     if ( self.week == 12 ) {
         [self playConfChamp];
     } else {
-        for ( int i = 0; i < self.confTeams.count; ++i ) {
-            [[self.confTeams[i] gameSchedule][self.week] playGame];
+        for (Team *t in confTeams) {
+            [t.gameSchedule[self.week] playGame];
         }
         if (self.week == 11 ) [self scheduleConfChamp];
         self.week++;
@@ -664,7 +664,7 @@
 }
 
 -(NSString *)debugDescription {
-    return [NSString stringWithFormat:@"%@ Conference (Abbr: %@, Pres: %d) - Teams: %@", confFullName, confName, confPrestige, confTeams];
+    return [NSString stringWithFormat:@"%@ Conference (Week: %d, Robin Week: %d, Abbr: %@, Pres: %d) - Teams: %@", confFullName, week, robinWeek, confName, confPrestige, confTeams];
 }
 
 @end

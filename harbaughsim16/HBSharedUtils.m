@@ -1198,7 +1198,8 @@ static UIColor *styleColor = nil;
     } else {
         Conference *foundConf = [[HBSharedUtils currentLeague] findConference:conf];
         if (foundConf != nil) {
-            [[HBSharedUtils currentLeague].conferences sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            NSMutableArray *confs = [[HBSharedUtils currentLeague].conferences mutableCopy];
+            [confs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
                 return [HBSharedUtils compareConfPrestige:obj1 toObj2:obj2];
             }];
             
