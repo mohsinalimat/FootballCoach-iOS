@@ -490,6 +490,8 @@
                     }
                 }
                 
+                [t updateDepthChartPositions];
+                
                 for (PlayerDL *dl in t.teamDLs) {
                     dl.statsTkl = 0;
                     dl.statsSacks = 0;

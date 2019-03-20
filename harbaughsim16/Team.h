@@ -332,4 +332,7 @@
 -(void)getTransferringPlayers;
 -(NSString*)getTransferringPlayersString;
 -(void)updatePlayerHistories;
+
+-(void)updateDepthChartPositions;
+-(void)updateDepthChartPositionsForPosition:(int)position;
 @end

@@ -826,6 +826,7 @@
 
     //done making players, sort them
     [self sortPlayers];
+    [self updateDepthChartPositions];
 }
 
 -(void)createNewCustomHeadCoach:(NSString *)name stars:(int)stars {
@@ -2654,7 +2655,205 @@
 
 
     if (numInjured > 0) {
-        [self sortPlayers];
+        [self reinsertRecoveredPlayers];
+        [self sortPlayersPostInjury];
+    }
+}
+
+-(void)reinsertRecoveredPlayers {
+    for (Player *p in recoveredPlayers) {
+        [self reinsertRecoveredPlayer:p atPosition:[Player getPosNumber:p.position]];
+    }
+}
+
+-(void)reinsertRecoveredPlayer:(Player*)p atPosition:(int)position {
+    // remove p from current index (wherever it is)
+    // insert p into teamPositions[depthChartPosition]
+    // make sure no dupes exist
+    NSInteger injuredPlayerIndex = 0;
+    switch (position) {
+        case 0: { //QBs
+            injuredPlayerIndex = [teamQBs indexOfObject:(PlayerQB *)p];
+            if (injuredPlayerIndex != NSNotFound) {
+                [teamQBs removeObjectAtIndex:injuredPlayerIndex];
+                [teamQBs insertObject:(PlayerQB *)p atIndex:p.depthChartPosition];
+            }
+            break;
+        }
+        case 1: { //RBs
+            injuredPlayerIndex = [teamRBs indexOfObject:(PlayerRB *)p];
+            if (injuredPlayerIndex != NSNotFound) {
+                [teamRBs removeObjectAtIndex:injuredPlayerIndex];
+                [teamRBs insertObject:(PlayerRB *)p atIndex:p.depthChartPosition];
+            }
+            break;
+        }
+        case 2: { //WRs
+            injuredPlayerIndex = [teamWRs indexOfObject:(PlayerWR *)p];
+            if (injuredPlayerIndex != NSNotFound) {
+                [teamWRs removeObjectAtIndex:injuredPlayerIndex];
+                [teamWRs insertObject:(PlayerWR *)p atIndex:p.depthChartPosition];
+            }
+            break;
+        }
+        case 3: { //TEs
+            injuredPlayerIndex = [teamTEs indexOfObject:(PlayerTE *)p];
+            if (injuredPlayerIndex != NSNotFound) {
+                [teamTEs removeObjectAtIndex:injuredPlayerIndex];
+                [teamTEs insertObject:(PlayerTE *)p atIndex:p.depthChartPosition];
+            }
+            break;
+        }
+        case 4: { //OLs
+            injuredPlayerIndex = [teamOLs indexOfObject:(PlayerOL *)p];
+            if (injuredPlayerIndex != NSNotFound) {
+                [teamOLs removeObjectAtIndex:injuredPlayerIndex];
+                [teamOLs insertObject:(PlayerOL *)p atIndex:p.depthChartPosition];
+            }
+            break;
+        }
+        case 5: { //DLs
+            injuredPlayerIndex = [teamDLs indexOfObject:(PlayerDL *)p];
+            if (injuredPlayerIndex != NSNotFound) {
+                [teamDLs removeObjectAtIndex:injuredPlayerIndex];
+                [teamDLs insertObject:(PlayerDL *)p atIndex:p.depthChartPosition];
+            }
+            break;
+        }
+        case 6: { //LBs
+            injuredPlayerIndex = [teamLBs indexOfObject:(PlayerLB *)p];
+            if (injuredPlayerIndex != NSNotFound) {
+                [teamLBs removeObjectAtIndex:injuredPlayerIndex];
+                [teamLBs insertObject:(PlayerLB *)p atIndex:p.depthChartPosition];
+            }
+            break;
+        }
+        case 7: { //CBs
+            injuredPlayerIndex = [teamCBs indexOfObject:(PlayerCB *)p];
+            if (injuredPlayerIndex != NSNotFound) {
+                [teamCBs removeObjectAtIndex:injuredPlayerIndex];
+                [teamCBs insertObject:(PlayerCB *)p atIndex:p.depthChartPosition];
+            }
+            break;
+        }
+        case 8: { //Ss
+            injuredPlayerIndex = [teamSs indexOfObject:(PlayerS *)p];
+            if (injuredPlayerIndex != NSNotFound) {
+                [teamSs removeObjectAtIndex:injuredPlayerIndex];
+                [teamSs insertObject:(PlayerS *)p atIndex:p.depthChartPosition];
+            }
+            break;
+        }
+        case 9: { //Ks
+            injuredPlayerIndex = [teamKs indexOfObject:(PlayerK *)p];
+            if (injuredPlayerIndex != NSNotFound) {
+                [teamKs removeObjectAtIndex:injuredPlayerIndex];
+                [teamKs insertObject:(PlayerK *)p atIndex:p.depthChartPosition];
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+-(void)updateDepthChartPositions {
+    [self updateDepthChartPositionsForPosition:0];
+    [self updateDepthChartPositionsForPosition:1];
+    [self updateDepthChartPositionsForPosition:2];
+    [self updateDepthChartPositionsForPosition:3];
+    [self updateDepthChartPositionsForPosition:4];
+    [self updateDepthChartPositionsForPosition:5];
+    [self updateDepthChartPositionsForPosition:6];
+    [self updateDepthChartPositionsForPosition:7];
+    [self updateDepthChartPositionsForPosition:8];
+    [self updateDepthChartPositionsForPosition:9];
+}
+
+-(void)updateDepthChartPositionsForPosition:(int)position {
+    switch (position) {
+        case 0: { //QBs
+            for (int i = 0; i < teamQBs.count; i++) {
+                if (!teamQBs[i].isInjured && !teamQBs[i].hasRedshirt && !teamQBs[i].isTransfer) {
+                    teamQBs[i].depthChartPosition = i;
+                }
+            }
+            break;
+        }
+        case 1: { //RBs
+            for (int i = 0; i < teamRBs.count; i++) {
+                if (!teamRBs[i].isInjured && !teamRBs[i].hasRedshirt && !teamRBs[i].isTransfer) {
+                    teamRBs[i].depthChartPosition = i;
+                }
+            }
+            break;
+        }
+        case 2: { //WRs
+            for (int i = 0; i < teamWRs.count; i++) {
+                if (!teamWRs[i].isInjured && !teamWRs[i].hasRedshirt && !teamWRs[i].isTransfer) {
+                    teamWRs[i].depthChartPosition = i;
+                }
+            }
+            break;
+        }
+        case 3: { //TEs
+            for (int i = 0; i < teamTEs.count; i++) {
+                if (!teamTEs[i].isInjured && !teamTEs[i].hasRedshirt && !teamTEs[i].isTransfer) {
+                    teamTEs[i].depthChartPosition = i;
+                }
+            }
+            break;
+        }
+        case 4: { //OLs
+            for (int i = 0; i < teamOLs.count; i++) {
+                if (!teamOLs[i].isInjured && !teamOLs[i].hasRedshirt && !teamOLs[i].isTransfer) {
+                    teamOLs[i].depthChartPosition = i;
+                }
+            }
+            break;
+        }
+        case 5: { //DLs
+            for (int i = 0; i < teamDLs.count; i++) {
+                if (!teamDLs[i].isInjured && !teamDLs[i].hasRedshirt && !teamDLs[i].isTransfer) {
+                    teamDLs[i].depthChartPosition = i;
+                }
+            }
+            break;
+        }
+        case 6: { //LBs
+            for (int i = 0; i < teamLBs.count; i++) {
+                if (!teamLBs[i].isInjured && !teamLBs[i].hasRedshirt && !teamLBs[i].isTransfer) {
+                    teamLBs[i].depthChartPosition = i;
+                }
+            }
+            break;
+        }
+        case 7: { //CBs
+            for (int i = 0; i < teamCBs.count; i++) {
+                if (!teamCBs[i].isInjured && !teamCBs[i].hasRedshirt && !teamCBs[i].isTransfer) {
+                    teamCBs[i].depthChartPosition = i;
+                }
+            }
+            break;
+        }
+        case 8: { //Ss
+            for (int i = 0; i < teamSs.count; i++) {
+                if (!teamSs[i].isInjured && !teamSs[i].hasRedshirt && !teamSs[i].isTransfer) {
+                    teamSs[i].depthChartPosition = i;
+                }
+            }
+            break;
+        }
+        case 9: { //Ks
+            for (int i = 0; i < teamKs.count; i++) {
+                if (!teamKs[i].isInjured && !teamKs[i].hasRedshirt && !teamKs[i].isTransfer) {
+                    teamKs[i].depthChartPosition = i;
+                }
+            }
+            break;
+        }
+        default:
+            break;
     }
 }
 
@@ -2938,6 +3137,8 @@
         default:
             break;
     }
+    [self updateDepthChartPositionsForPosition:position];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updatedStarters" object:nil];
 
 }

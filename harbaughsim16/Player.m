@@ -10,7 +10,7 @@
 #import "HBSharedUtils.h"
 
 @implementation Player
-@synthesize position,draftPosition,ratDur,personalDetails,endYear,name,team,year,isHeisman,startYear,gamesPlayedSeason,cost,gamesPlayed,hasRedshirt,isAllAmerican,isAllConference,careerAllAmericans,careerAllConferences,ratOvr,ratPot,ratFootIQ,ratImprovement,wasRedshirted,injury,careerHeismans,statHistoryDictionary;
+@synthesize position,draftPosition,ratDur,personalDetails,endYear,name,team,year,isHeisman,startYear,gamesPlayedSeason,cost,gamesPlayed,hasRedshirt,isAllAmerican,isAllConference,careerAllAmericans,careerAllConferences,ratOvr,ratPot,ratFootIQ,ratImprovement,wasRedshirted,injury,careerHeismans,statHistoryDictionary,depthChartPosition;
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
@@ -163,6 +163,12 @@
         } else {
             self.statHistoryDictionary = [NSMutableDictionary dictionary];
         }
+        
+        if ([aDecoder containsValueForKey:@"depthChartPosition"]) {
+            self.depthChartPosition = [aDecoder decodeIntForKey:@"depthChartPosition"];
+        } else {
+            self.depthChartPosition = 0;
+        }
     }
     return self;
 }
@@ -198,6 +204,7 @@
     [aCoder encodeBool:self.isROTY forKey:@"isROTY"];
     [aCoder encodeInt:self.careerROTYs forKey:@"careerROTYs"];
     [aCoder encodeObject:self.statHistoryDictionary forKey:@"statHistoryDictionary"];
+    [aCoder encodeInt:self.depthChartPosition forKey:@"depthChartPosition"];
 }
 
 +(int)getPosNumber:(NSString*)pos {

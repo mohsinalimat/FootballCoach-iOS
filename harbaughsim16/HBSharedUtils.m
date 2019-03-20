@@ -264,7 +264,37 @@ static UIColor *styleColor = nil;
             return [a.name compare:b.name];
         }
     } else { //(!a.isInjured && !b.isInjured)
-        return 0;
+        if (!a.hasRedshirt && !b.hasRedshirt && !a.isTransfer && !b.isTransfer) {
+            if (a.depthChartPosition < b.depthChartPosition) {
+                return -1;
+            } else if (a.depthChartPosition > b.depthChartPosition) {
+                return 1;
+            } else {
+                return [a.name compare:b.name];
+            }
+        } else if (a.hasRedshirt) {
+            return 1;
+        } else if (b.hasRedshirt) {
+            return -1;
+        } else if (a.isTransfer) {
+            return 1;
+        } else if (b.isTransfer) {
+            return -1;
+        } else {
+            if (a.ratOvr > b.ratOvr) {
+                return -1;
+            } else if (a.ratOvr < b.ratOvr) {
+                return 1;
+            } else {
+                if (a.ratPot > b.ratPot) {
+                    return -1;
+                } else if (a.ratPot < b.ratPot) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        }
     }
 }
 
