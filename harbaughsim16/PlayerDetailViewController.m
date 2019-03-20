@@ -90,7 +90,7 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
     
-    if (selectedPlayer.statHistoryDictionary != nil && selectedPlayer.statHistoryDictionary.count > 0) {
+    if (![selectedPlayer.position isEqualToString:@"OL"] && (selectedPlayer.statHistoryDictionary != nil && selectedPlayer.statHistoryDictionary.count > 0)) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"history-unselected"] style:UIBarButtonItemStylePlain target:self action:@selector(openStatHistory)];
     }
 }
