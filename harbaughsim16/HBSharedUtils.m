@@ -492,7 +492,31 @@ static UIColor *styleColor = nil;
 }
 
 + (void)startOffseason:(UIViewController*)viewController callback:(void (^)(void))callback {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu %@ Offseason", (long)([HBSharedUtils currentLeague].leagueHistoryDictionary.count + [HBSharedUtils currentLeague].baseYear), [HBSharedUtils currentLeague].userTeam.abbreviation] message:nil preferredStyle:UIAlertControllerStyleAlert];
+    NSMutableString *seasonShortText = [NSMutableString string];
+//    [NSString stringWithFormat:@"Record: %d-%d\nPlayers Graduating: %ld\nPlayers Transferring:%ld",[HBSharedUtils currentLeague].userTeam.wins, [HBSharedUtils currentLeague].userTeam.losses, [HBSharedUtils currentLeague].userTeam.playersLeaving.count, [HBSharedUtils currentLeague].userTeam.playersTransferring.count]
+    [seasonShortText appendFormat:@"Record: %d-%d\n",[HBSharedUtils currentLeague].userTeam.wins, [HBSharedUtils currentLeague].userTeam.losses];
+    [seasonShortText appendFormat:@"Final Poll Finish: %d\n",[HBSharedUtils currentLeague].userTeam.rankTeamPollScore];
+    [seasonShortText appendFormat:@"Finished #%ld in %@\n", ([[[HBSharedUtils currentLeague] findConference:[HBSharedUtils currentLeague].userTeam.conference].confTeams indexOfObject:[HBSharedUtils currentLeague].userTeam] + 1), [HBSharedUtils currentLeague].userTeam.conference];
+    if ([[HBSharedUtils currentLeague].userTeam.confChampion isEqualToString:@"CC"]) {
+        [seasonShortText appendFormat:@"Won %@ CCG\n", [HBSharedUtils currentLeague].userTeam.conference];
+    } else if ([[HBSharedUtils currentLeague].userTeam.confChampion isEqualToString:@"CCL"]) {
+        [seasonShortText appendFormat:@"Lost %@ CCG\n", [HBSharedUtils currentLeague].userTeam.conference];
+    }
+    
+    if ([[HBSharedUtils currentLeague].userTeam.natlChampWL isEqualToString:@"NCW"]) {
+        [seasonShortText appendString:@"Won NCG\n"];
+    } else if ([[HBSharedUtils currentLeague].userTeam.natlChampWL isEqualToString:@"NCL"]) {
+        [seasonShortText appendString:@"Lost NCG\n"];
+    }
+    [seasonShortText appendString:@"\n"];
+    if ([HBSharedUtils currentLeague].userTeam.playersLeaving.count > 0) {
+        [seasonShortText appendFormat:@"Players Graduating: %ld\n",[HBSharedUtils currentLeague].userTeam.playersLeaving.count];
+    }
+    if ([HBSharedUtils currentLeague].userTeam.playersTransferring.count > 0) {
+        [seasonShortText appendFormat:@"Players Transferring: %ld\n",[HBSharedUtils currentLeague].userTeam.playersTransferring.count];
+    }
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu %@ Offseason", (long)([HBSharedUtils currentLeague].leagueHistoryDictionary.count + [HBSharedUtils currentLeague].baseYear), [HBSharedUtils currentLeague].userTeam.abbreviation] message:seasonShortText preferredStyle:UIAlertControllerStyleAlert];
 
     [alertController addAction:[UIAlertAction actionWithTitle:@"View Season Summary" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -1191,6 +1215,13 @@ static UIColor *styleColor = nil;
                                                           @"sacks": @"Sacks",
                                                           @"interceptions": @"Interceptions",
                                                           @"forcedFumbles": @"Forced Fumbles",
+                                                          
+                                                          @"xpPercentage" : @"XP %",
+                                                          @"fgPercentage" : @"FG %",
+                                                          @"fgAtt" : @"Field Goal Attempts",
+                                                          @"fgMade" : @"Field Goals Made",
+                                                          @"xpAtt" : @"Extra Point Attempts",
+                                                          @"xpMade" : @"Extra Points Made"
                                   };
 
     if (definitions[key] == nil) {
@@ -1208,7 +1239,7 @@ static UIColor *styleColor = nil;
                                                           @"completionPercentage" : @(3),
                                                           @"yardsPerAttempt" : @(4),
                                                           @"passYardsPerGame" : @(5),
-                                                          @"passTouchdowns" : @(0),
+                                                          @"passTouchdowns" : @(6),
                                                           //@"interceptions" : @(0),
 
                                                           @"carries" : @(6),
@@ -1231,6 +1262,13 @@ static UIColor *styleColor = nil;
                                                           @"sacks": @(20),
                                                           @"interceptions": @(21),
                                                           @"forcedFumbles": @(22),
+                                                          
+                                                          @"fgMade" : @(23),
+                                                          @"fgAtt" : @(24),
+                                                          @"fgPercentage" : @(25),
+                                                          @"xpMade" : @(26),
+                                                          @"xpAtt" : @(27),
+                                                          @"xpPercentage" : @(28),
                                   };
 
     if (definitions[key] == nil) {
@@ -1282,9 +1320,9 @@ static UIColor *styleColor = nil;
                 return [HBSharedUtils compareConfPrestige:obj1 toObj2:obj2];
             }];
 
-            Conference *bestConf = [[HBSharedUtils currentLeague].conferences firstObject];
+            Conference *bestConf = [confs firstObject];
             NSLog(@"BEST CONF: %@ (%d)", bestConf.confName, bestConf.confPrestige);
-            Conference *worstConf = [[HBSharedUtils currentLeague].conferences lastObject];
+            Conference *worstConf = [confs lastObject];
             NSLog(@"WORST CONF: %@ (%d)", worstConf.confName, worstConf.confPrestige);
 
             CGFloat inMin = (CGFloat)worstConf.confPrestige;
@@ -1351,5 +1389,22 @@ static UIColor *styleColor = nil;
         numFormatter.numberStyle = NSNumberFormatterDecimalStyle;
     });
     return numFormatter;
+}
+
++ (CGFloat)calculateMaxPrestige {
+    NSMutableArray *teams = [NSMutableArray array];
+    @synchronized ([HBSharedUtils currentLeague].teamList) {
+        teams = [[HBSharedUtils currentLeague].teamList mutableCopy];
+        [teams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+        }];
+    }
+    if (teams.count > 0) {
+        Team *bestTeam = [teams firstObject];
+        NSLog(@"BEST Team: %@ (%d)", bestTeam.name, bestTeam.teamPrestige);
+        return (CGFloat)bestTeam.teamPrestige;
+    } else {
+        return 100;
+    }
 }
 @end

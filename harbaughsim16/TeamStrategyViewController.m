@@ -42,7 +42,7 @@
                 selectedIndexPath = [NSIndexPath indexPathForRow:[HBSharedUtils currentLeague].userTeam.teamStatDefNum inSection:0];
             }
         }
-        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, MIN(10 + (options.count * 85), [UIScreen mainScreen].bounds.size.height - 100));
+        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.75 * [UIScreen mainScreen].bounds.size.height);
         teamStrats = options;
         
     }
@@ -51,9 +51,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.rowHeight = 85;
-    self.tableView.estimatedRowHeight = 85;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 115;
     [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
+    [self.tableView setBackgroundColor:[HBSharedUtils styleColor]];
     self.tableView.tableFooterView = [UIView new];
 }
 

@@ -189,6 +189,9 @@
     if (success) {
         self->_league.userTeam = nil;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            for (UITabBarItem *item in self->tabBarController.tabBar.items) {
+                [item setBadgeValue:nil];
+            }
             [[NSNotificationCenter defaultCenter] postNotificationName:@"noSaveFile" object:nil];
             [self displayIntro];
         });

@@ -2189,13 +2189,19 @@
     deltaPrestige = 0;
     NSMutableString *summary = [NSMutableString stringWithFormat:@"Your team, %@, finished the season ranked #%d with %d wins and %d losses.",name, rankTeamPollScore, wins, losses];
     int expectedPollFinish = 100 - teamPrestige;
-    int diffExpected = expectedPollFinish - rankTeamPollScore;
-    int oldPrestige = teamPrestige;
-    int newPrestige;
-    if (teamPrestige > 45 || diffExpected > 0) {
-        newPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);
-        deltaPrestige = (newPrestige - oldPrestige);
+    NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - 5, 0), 6);
+    if (NSLocationInRange(rankTeamPollScore, expectedPollFinishRange)) {
+        deltaPrestige = 0; // they finished around where they should have, cut them some slack
+    } else {
+        int diffExpected = expectedPollFinish - rankTeamPollScore;
+        int oldPrestige = teamPrestige;
+        int newPrestige;
+        if (teamPrestige > 45 || diffExpected > 0) {
+            newPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);
+            deltaPrestige = (newPrestige - oldPrestige);
+        }
     }
+
 
     if (deltaPrestige > 0) {
         [summary appendFormat:@"\n\nGreat job, coach! You exceeded expectations and gained %ld prestige! This will help your recruiting.", (long)deltaPrestige];
@@ -2260,7 +2266,7 @@
 
     if (league.isCareerMode) {
         if (coachGotNewContract) {
-            [summary appendFormat:@"\n\nCongratulations! Your contract has been extended %d years!", [self getCurrentHC].contractLength];
+            [summary appendFormat:@"\n\nCongratulations! Because of your recent good performance, your contract has been extended %d years!", [self getCurrentHC].contractLength];
         } else if (coachFired) {
             [summary appendString:@"\n\nSince you failed to raise your team's prestige during your contract, your athletic director has decided to fire you. Your now-former program may take an additional prestige hit because of your firing."];
         } else {
@@ -2889,21 +2895,21 @@
 -(NSArray<TeamStrategy *>*)getOffensiveTeamStrategies {
     return @[
              [TeamStrategy newStrategy], // default - Balanced
-             [TeamStrategy newStrategyWithName:@"Smashmouth" description:@"Play a conservative, run-heavy offense where the running game sets up the pass." rPref:2 runProt:1 runPot:-1 rUsg:1 pPref:1 passProt:2 passPot:1 pUsg:0],
-             [TeamStrategy newStrategyWithName:@"West Coast" description:@"Play a dink-and-dunk passing game. Short accurate passes will set up the run game." rPref:2 runProt:0 runPot:1 rUsg:0 pPref:3 passProt:1 passPot:-2 pUsg:2],
-             [TeamStrategy newStrategyWithName:@"Spread" description:@"Play a pass-heavy offense that focuses on big plays but runs the risk of turnovers." rPref:1 runProt:-2 runPot:1 rUsg:0 pPref:2 passProt:-2 passPot:1 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Read Option" description:@"Play an offense that relies heavily on option reads for running plays based on coverage and LB positioning." rPref:3 runProt:-1 runPot:1 rUsg:1 pPref:2 passProt:-1 passPot:-1 pUsg:0],
-             [TeamStrategy newStrategyWithName:@"Run-Pass Option" description:@"Play an offense relying on option reads for running and passing plays based on coverage and LB positioning." rPref:2 runProt:-1 runPot:1 rUsg:1 pPref:3 passProt:-1 passPot:-1 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Smashmouth" description:@"Play a conservative, run-heavy offense where the running game sets up the pass.\n\nBonuses: +1 Run Play Frequency, +1 Run Blocking, -1 Big Run Play Potential, +2 Pass Blocking, +1 Big Pass Play Potential, -1 TE Pass Catching" rPref:2 runProt:1 runPot:-1 rUsg:1 pPref:1 passProt:2 passPot:1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"West Coast" description:@"Play a dink-and-dunk passing game. Short accurate passes will set up the run game.\n\nBonuses: +1 Run Play Frequency, +1 Big Run Play Potential, -1 TE Run Blocking, +2 Pass Play Frequency, +1 Pass Blocking, -2 Big Pass Play Potential, +1 TE Pass Catching" rPref:2 runProt:0 runPot:1 rUsg:0 pPref:3 passProt:1 passPot:-2 pUsg:2],
+             [TeamStrategy newStrategyWithName:@"Spread" description:@"Play a pass-heavy offense that focuses on big plays but runs the risk of turnovers.\n\nBonuses: -2 Run Blocking, +1 Big Run Play Potential, -1 TE Run Blocking, +1 Pass Play Frequency, -2 Pass Blocking, +1 Big Pass Play Potential" rPref:1 runProt:-2 runPot:1 rUsg:0 pPref:2 passProt:-2 passPot:1 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Read Option" description:@"Play an offense that relies heavily on option reads for running plays based on coverage and LB positioning.\n\nBonuses: +2 Run Play Frequency, -1 Run Blocking, +1 Big Run Play Potential, +1 Pass Play Frequency, -1 Pass Blocking, -1 Big Pass Play Potential, -1 TE Pass Catching" rPref:3 runProt:-1 runPot:1 rUsg:1 pPref:2 passProt:-1 passPot:-1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"Run-Pass Option" description:@"Play an offense relying on option reads for running and passing plays based on coverage and LB positioning.\n\nBonuses: +1 Run Play Frequency, -1 Run Blocking, +1 Big Run Play Potential, +2 Pass Play Frequency, -1 Pass Blocking, -1 Big Pass Play Potential" rPref:2 runProt:-1 runPot:1 rUsg:1 pPref:3 passProt:-1 passPot:-1 pUsg:1],
 
              ];
 }
 
 -(NSArray<TeamStrategy *>*)getDefensiveTeamStrategies {
     return @[
-             [TeamStrategy newStrategyWithName:@"4-3 Man" description:@"Play a standard 4-3 man-to-man balanced defense." rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"4-6 Bear" description:@"Play a defense focused on stopping the run. Will allow few yards and big plays on the ground, but may give up big passing plays." rPref:2 runProt:0 runPot:2 rUsg:1 pPref:1 passProt:-1 passPot:-1 pUsg:0],
-             [TeamStrategy newStrategyWithName:@"Cover 2" description:@"Play a zone defense with safety help in the back against the pass and LBs that stay home to cover the run." rPref:2 runProt:0 runPot:-1 rUsg:1 pPref:3 passProt:2 passPot:0 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense that will stop big passing plays, but may allow short gains underneath." rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1]
+             [TeamStrategy newStrategyWithName:@"4-3 Man" description:@"Play a standard 4-3 man-to-man balanced defense. (default)" rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1], // default
+             [TeamStrategy newStrategyWithName:@"4-6 Bear" description:@"Play a defense focused on stopping the run. Will allow few yards and big plays on the ground, but may give up big passing plays.\n\nBonuses: +1 Run Defense, +2 Long Run Stopping, -1 Pass Rush, -1 Pass Coverage, -1 LB/S Blitz" rPref:2 runProt:0 runPot:2 rUsg:1 pPref:1 passProt:-1 passPot:-1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"Cover 2" description:@"Play a zone defense with safety help in the back against the pass and LBs that stay home to cover the run.\n\nBonuses: +2 Run Defense, -1 Long Run Stopping, +3 Pass Defense, +2 Pass Rush" rPref:2 runProt:0 runPot:-1 rUsg:1 pPref:3 passProt:2 passPot:0 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense that will stop big passing plays, but may allow short gains underneath.\n\nBonuses: +2 Run Defense, -2 Long Run Stopping, +6 Pass Defense, +2 Pass Rush, +2 Pass Coverage" rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1]
              ];
 }
 

@@ -14,6 +14,7 @@
 #import "TeamRecordsViewController.h"
 #import "RingOfHonorViewController.h"
 #import "HeadCoachDetailViewController.h"
+#import "TeamStreaksViewController.h"
 
 #import "STPopup.h"
 
@@ -320,9 +321,9 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
-            return 6;
+            return 7;
         } else {
-            return 5;
+            return 6;
         }
     } else {
         return stats.count;
@@ -385,8 +386,10 @@
             } else if (indexPath.row == 2) {
                 [cell.textLabel setText:@"Schedule"];
             } else if (indexPath.row == 3) {
-                [cell.textLabel setText:@"Team History"];
+                [cell.textLabel setText:@"Team Streaks"];
             } else if (indexPath.row == 4) {
+                [cell.textLabel setText:@"Team History"];
+            } else if (indexPath.row == 5) {
                 [cell.textLabel setText:@"Ring of Honor"];
             } else {
                 [cell.textLabel setText:@"Team Records"];
@@ -397,8 +400,10 @@
             } else if (indexPath.row == 1) {
                 [cell.textLabel setText:@"Schedule"];
             } else if (indexPath.row == 2) {
-                [cell.textLabel setText:@"Team History"];
+                [cell.textLabel setText:@"Team Streaks"];
             } else if (indexPath.row == 3) {
+                [cell.textLabel setText:@"Team History"];
+            } else if (indexPath.row == 4) {
                 [cell.textLabel setText:@"Ring of Honor"];
             } else {
                 [cell.textLabel setText:@"Team Records"];
@@ -423,8 +428,10 @@
                 } else if (indexPath.row == 2) {
                     [self.popupController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else if (indexPath.row == 3) {
-                    [self.popupController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                    [self.popupController pushViewController:[[TeamStreaksViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else if (indexPath.row == 4) {
+                    [self.popupController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 5) {
                     [self.popupController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else {
                     [self.popupController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
@@ -435,8 +442,10 @@
                 } else if (indexPath.row == 1) {
                     [self.popupController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else if (indexPath.row == 2) {
-                    [self.popupController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                    [self.popupController pushViewController:[[TeamStreaksViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else if (indexPath.row == 3) {
+                    [self.popupController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 4) {
                     [self.popupController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else {
                     [self.popupController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
@@ -451,8 +460,10 @@
                 } else if (indexPath.row == 2) {
                     [self.navigationController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else if (indexPath.row == 3) {
-                    [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                    [self.navigationController pushViewController:[[TeamStreaksViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else if (indexPath.row == 4) {
+                    [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 5) {
                     [self.navigationController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else {
                     [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
@@ -463,8 +474,10 @@
                 } else if (indexPath.row == 1) {
                     [self.navigationController pushViewController:[[TeamScheduleViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else if (indexPath.row == 2) {
-                    [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                    [self.navigationController pushViewController:[[TeamStreaksViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else if (indexPath.row == 3) {
+                    [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:selectedTeam] animated:YES];
+                } else if (indexPath.row == 4) {
                     [self.navigationController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else {
                     [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:selectedTeam] animated:YES];
