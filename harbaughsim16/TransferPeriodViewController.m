@@ -106,7 +106,7 @@
         editTip.tag = FCTutorialCloseTransferWindow;
         [editTip showAnimated:YES forItem:self.navigationItem.leftBarButtonItem withinSuperview:self.navigationController.view];
     } else if (tipView.tag == FCTutorialCloseTransferWindow) {
-        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to advance to the next week of the transfer period. Be warned: other teams may make offers to recruits you have contacted." preferences:nil delegate:self];
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to advance to the next week of the transfer period. Be warned: other teams may make offers to players you have contacted." preferences:nil delegate:self];
         editTip.tag = FCTutorialAdvanceWeek;
         [editTip showAnimated:YES forItem:self.navigationItem.rightBarButtonItem withinSuperview:self.navigationController.view];
     }
