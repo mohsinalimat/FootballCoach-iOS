@@ -16,6 +16,7 @@
 #define HB_NUMBER_OF_COLOR_OPTIONS 4
 #define HB_RECRUITING_TUTORIAL_SHOWN @"kHBTutorialShownKey"
 #define HB_ROSTER_TUTORIAL_SHOWN_KEY @"kHBRosterTutorialShownKey"
+#define HB_TRANSFER_TUTORIAL_SHOWN_KEY @"kHBTransferTutorialShownKey"
 #define HB_COACHING_TUTORIAL_SHOWN_KEY @"kHBCoachingTutorialShownKey"
 #define kHBSimFirstLaunchKey @"firstLaunch"
 #define HB_OFFSEASON_TUTORIAL_SHOWN_KEY @"kHBOffseasonTutorialShownKey"

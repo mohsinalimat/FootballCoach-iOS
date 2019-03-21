@@ -863,14 +863,6 @@
     availLBs = [NSMutableArray array];
     
     [self generateRecruits];
-    
-    //display tutorial alert on first launch
-    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
-    if (!tutorialShown) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [self showTutorial];
-    }
 }
 
 -(void)showTutorial {
@@ -1050,6 +1042,15 @@
                 [self->positionSelectionControl setSelectedSegmentIndex:0];
             }
             [self.tableView reloadData];
+            if (self->totalRecruits.count > 0) {
+                //display tutorial alert on first launch
+                BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
+                if (!tutorialShown) {
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    [self showTutorial];
+                }
+            }
         });
     });
 }
