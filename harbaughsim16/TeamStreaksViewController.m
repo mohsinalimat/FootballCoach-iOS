@@ -233,7 +233,7 @@
     NSMutableAttributedString *teamString = [[NSMutableAttributedString alloc] initWithString:ts.opponent.name attributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
     [cell.detailTextLabel setText:[ts stringRepresentation]];
     
-    if ([ts.opponent.abbreviation isEqualToString:[HBSharedUtils currentLeague].userTeam.rivalTeam]) {
+    if ([ts.opponent.abbreviation isEqualToString:selectedTeam.rivalTeam]) {
         [teamString appendAttributedString:[[NSAttributedString alloc] initWithString:@" RIVAL" attributes:@{NSForegroundColorAttributeName : [HBSharedUtils styleColor], NSFontAttributeName : [UIFont systemFontOfSize:12.0]}]];
     }
     [cell.textLabel setAttributedText:teamString];
