@@ -42,14 +42,18 @@
 
 -(void)changeCoachName {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rename Coach" message:@"Enter your coach's new name below." preferredStyle:UIAlertControllerStyleAlert];
+    NSArray *nameParts = [[[HBSharedUtils currentLeague].userTeam getCurrentHC].name componentsSeparatedByString:@" "];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"Coach Name";
-        textField.text = [[HBSharedUtils currentLeague].userTeam getCurrentHC].name;
+        textField.placeholder = @"Coach First Name";
+        textField.text = nameParts[0];
+    }];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Coach Last Name";
+        textField.text = nameParts[1];
     }];
     
-    
     [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [[HBSharedUtils currentLeague].userTeam getCurrentHC].name = alert.textFields[0].text;
+        [[HBSharedUtils currentLeague].userTeam getCurrentHC].name = [NSString stringWithFormat:@"%@ %@", alert.textFields[0].text, alert.textFields[1].text];
         [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Rename successful!" message:[NSString stringWithFormat:@"Coach renamed to %@",[[HBSharedUtils currentLeague].userTeam getCurrentHC].name] onViewController:self];
         [[HBSharedUtils currentLeague] save];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"updatedCoachName" object:nil];

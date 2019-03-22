@@ -48,6 +48,8 @@
     Game *selectedGame;
     NSDictionary *stats;
     Player *heisman;
+    
+    BOOL pbpEnabled;
 }
 @end
 
@@ -312,6 +314,7 @@
     self.title = @"Game";
     heisman = [[HBSharedUtils currentLeague] heisman];
     stats = [selectedGame gameReport];
+    pbpEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:HB_PLAY_BY_PLAY_ENABLED];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBStatsCell" bundle:nil] forCellReuseIdentifier:@"HBStatsCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBScoreCell" bundle:nil] forCellReuseIdentifier:@"HBScoreCell"];
@@ -813,7 +816,11 @@
                     [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
                 }
 
-                [cell.textLabel setText:@"View Game Summary"];
+                if (pbpEnabled) {
+                    [cell.textLabel setText:@"View Play by Play"];
+                } else {
+                    [cell.textLabel setText:@"View Game Summary"];
+                }
 
                 return cell;
             }

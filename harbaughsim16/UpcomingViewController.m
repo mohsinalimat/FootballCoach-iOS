@@ -41,8 +41,15 @@
 #import "HexColors.h"
 #import "STPopup.h"
 #import "UIScrollView+EmptyDataSet.h"
+#import "ZMJTipView.h"
 
-@interface UpcomingViewController () <UIViewControllerPreviewingDelegate>
+#define FCTutorialSimulateSeason 1000
+#define FCTutorialViewLeaderboards 1001
+#define FCTutorialTabBarOptions 1002
+#define FCTutorialScrollToNews 1003
+#define FCTutorialSimWeek 1004
+
+@interface UpcomingViewController () <UIViewControllerPreviewingDelegate, ZMJTipViewDelegate>
 {
     PlayerQB *passLeader;
     Player *rushLeader;
@@ -61,6 +68,38 @@
 @end
 
 @implementation UpcomingViewController
+
+//MARK: ZMJTipViewDelegate
+- (void)tipViewDidDimiss:(ZMJTipView *)tipView {
+    // show new tips based on last shown tipview
+    if (tipView.tag == FCTutorialSimulateSeason) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to view various statistics and rankings during the season." preferences:nil delegate:self];
+        editTip.tag = FCTutorialViewLeaderboards;
+        [editTip showAnimated:YES forItem:self.navigationItem.rightBarButtonItem withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialViewLeaderboards) {
+        ZMJPreferences *prefs = [ZMJTipView globalPreferences];
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Scroll down to view statistical leaders and news stories as the season progresses." preferences:prefs delegate:self];
+        editTip.tag = FCTutorialScrollToNews;
+        if (self.tableView.numberOfSections > 0) {
+            [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]] withinSuperview:self.navigationController.view];
+        }
+    } else if (tipView.tag == FCTutorialScrollToNews) {
+//        ZMJPreferences *prefs = [ZMJTipView globalPreferences];
+//        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap the options on the tab bar to " preferences:prefs delegate:self];
+//        editTip.tag = FCTutorialTabBarOptions;
+//        if (self.tableView.numberOfSections > 0) {
+//            [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]] withinSuperview:self.navigationController.view];
+//        }
+    } else if (tipView.tag == FCTutorialTabBarOptions) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to simulate the next week of the season." preferences:nil delegate:self];
+        editTip.tag = FCTutorialSimWeek;
+        [editTip showAnimated:YES forView:teamHeaderView.playButton withinSuperview:self.navigationController.view];
+    }
+}
+
+- (void)tipViewDidSelected:(ZMJTipView *)tipView {
+    // do nothing
+}
 
 -(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self showViewController:viewControllerToCommit sender:self];
@@ -481,7 +520,7 @@
     if (simLeague.userTeam.gameWLSchedule.count > 0 && !simLeague.userTeam.gameSchedule.lastObject.hasPlayed && simLeague.userTeam.gameSchedule.count >= simLeague.currentWeek) {
         if (simLeague.currentWeek > 12) {
             nextGame = [userTeam.gameSchedule lastObject];
-            lastGame = userTeam.gameSchedule[simLeague.currentWeek - 1];
+            lastGame = userTeam.gameSchedule[userTeam.gameSchedule.count - 2];
         } else {
             lastGame = userTeam.gameSchedule[simLeague.currentWeek - 1];
             nextGame = userTeam.gameSchedule[simLeague.currentWeek];
@@ -633,6 +672,18 @@
             [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
         }
     }
+    
+//    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_UPCOMING_TUTORIAL_SHOWN_KEY];
+//    if (!tutorialShown) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_UPCOMING_TUTORIAL_SHOWN_KEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            NSString *tipText = @"Tap here to simulate up to various points in the season.";
+            ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
+            editTip.tag = FCTutorialSimulateSeason;
+            [editTip showAnimated:YES forItem:self.navigationItem.leftBarButtonItem withinSuperview:self.navigationController.view];
+        });
+//    }
 }
 
 -(void)refreshView {

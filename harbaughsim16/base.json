@@ -546,7 +546,7 @@
             {
                 "name":"Fresno",
                 "abbreviation":"FRE",
-                "prestige":"70",
+                "prestige":"75",
                 "state":"California",
                 "rival":"BOI"
             },
@@ -581,7 +581,7 @@
             {
                 "name":"Boise",
                 "abbreviation":"BOI",
-                "prestige":"85",
+                "prestige":"80",
                 "state":"Idaho",
                 "rival":"FRE"
             },
@@ -777,7 +777,7 @@
             {
                 "name":"Orlando",
                 "abbreviation":"MCO",
-                "prestige":"75",
+                "prestige":"70",
                 "state":"Florida",
                 "rival":"HTF"
             },
@@ -896,7 +896,7 @@
             {
                 "name":"Ruston",
                 "abbreviation":"RST",
-                "prestige":"45",
+                "prestige":"55",
                 "state":"Louisiana",
                 "rival":"CMS"
             },
@@ -917,7 +917,7 @@
             {
                 "name":"Middle Arkansas",
                 "abbreviation":"MAK",
-                "prestige":"55",
+                "prestige":"65",
                 "state":"Arkansas",
                 "rival":"KSI"
             }
