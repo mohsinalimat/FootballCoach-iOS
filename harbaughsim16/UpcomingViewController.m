@@ -48,6 +48,12 @@
 #define FCTutorialTabBarOptions 1002
 #define FCTutorialScrollToNews 1003
 #define FCTutorialSimWeek 1004
+#define FCTutorialTabBarOptionsSchedule 1005
+#define FCTutorialTabBarOptionsDepthChart 1006
+#define FCTutorialTabBarOptionsSearch 1007
+#define FCTutorialTabBarOptionsCareer 1008
+#define FCTutorialTabBarOptionsTeam 1009
+
 
 @interface UpcomingViewController () <UIViewControllerPreviewingDelegate, ZMJTipViewDelegate>
 {
@@ -84,13 +90,28 @@
             [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]] withinSuperview:self.navigationController.view];
         }
     } else if (tipView.tag == FCTutorialScrollToNews) {
-//        ZMJPreferences *prefs = [ZMJTipView globalPreferences];
-//        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap the options on the tab bar to " preferences:prefs delegate:self];
-//        editTip.tag = FCTutorialTabBarOptions;
-//        if (self.tableView.numberOfSections > 0) {
-//            [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]] withinSuperview:self.navigationController.view];
-//        }
-    } else if (tipView.tag == FCTutorialTabBarOptions) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to view your schedule for this season." preferences:nil delegate:self];
+        editTip.tag = FCTutorialTabBarOptionsSchedule;
+        [editTip showAnimated:YES forItem:self.navigationController.tabBarController.tabBar.items[1] withinSuperview:self.view.window];
+    } else if (tipView.tag == FCTutorialTabBarOptionsSchedule) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to view and edit your school's depth chart." preferences:nil delegate:self];
+        editTip.tag = FCTutorialTabBarOptionsDepthChart;
+        [editTip showAnimated:YES forItem:self.navigationController.tabBarController.tabBar.items[2] withinSuperview:self.view.window];
+    } else if (tipView.tag == FCTutorialTabBarOptionsDepthChart) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to search through other in the league and view their details." preferences:nil delegate:self];
+        editTip.tag = FCTutorialTabBarOptionsSearch;
+        [editTip showAnimated:YES forItem:self.navigationController.tabBarController.tabBar.items[3] withinSuperview:self.view.window];
+    } else if (tipView.tag == FCTutorialTabBarOptionsSearch) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"" preferences:nil delegate:self];
+        if ([HBSharedUtils currentLeague].isCareerMode) {
+            editTip.tag = FCTutorialTabBarOptionsCareer;
+            editTip.text = @"Tap here to view details about your coaching career.";
+        } else {
+            editTip.tag = FCTutorialTabBarOptionsTeam;
+            editTip.text = @"Tap here to view details about your team.";
+        }
+        [editTip showAnimated:YES forItem:self.navigationController.tabBarController.tabBar.items[4] withinSuperview:self.view.window];
+    } else if (tipView.tag == FCTutorialTabBarOptionsTeam || tipView.tag == FCTutorialTabBarOptionsCareer) {
         ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to simulate the next week of the season." preferences:nil delegate:self];
         editTip.tag = FCTutorialSimWeek;
         [editTip showAnimated:YES forView:teamHeaderView.playButton withinSuperview:self.navigationController.view];
@@ -673,8 +694,8 @@
         }
     }
     
-//    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_UPCOMING_TUTORIAL_SHOWN_KEY];
-//    if (!tutorialShown) {
+    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_UPCOMING_TUTORIAL_SHOWN_KEY];
+    if (!tutorialShown) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_UPCOMING_TUTORIAL_SHOWN_KEY];
             [[NSUserDefaults standardUserDefaults] synchronize];
@@ -683,7 +704,7 @@
             editTip.tag = FCTutorialSimulateSeason;
             [editTip showAnimated:YES forItem:self.navigationItem.leftBarButtonItem withinSuperview:self.navigationController.view];
         });
-//    }
+    }
 }
 
 -(void)refreshView {
