@@ -136,20 +136,22 @@
     self.tableView.tableFooterView = [UIView new];
     
     if (streaks.count > 0) {
-        navSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-        [navSearchBar setPlaceholder:@"Search Streaks"];
-        [navSearchBar setDelegate:self];
-        [navSearchBar setBarStyle:UIBarStyleDefault];
-        [navSearchBar setSearchBarStyle:UISearchBarStyleMinimal];
-        [navSearchBar setKeyboardType:UIKeyboardTypeAlphabet];
-        [navSearchBar setReturnKeyType:UIReturnKeySearch];
-        [navSearchBar setTintColor:[UIColor whiteColor]];
-        [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-        
-        [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
-        [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
-        
-        self.navigationItem.titleView = navSearchBar;
+        if (!self.popupController.presented) {
+            navSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+            [navSearchBar setPlaceholder:@"Search Streaks"];
+            [navSearchBar setDelegate:self];
+            [navSearchBar setBarStyle:UIBarStyleDefault];
+            [navSearchBar setSearchBarStyle:UISearchBarStyleMinimal];
+            [navSearchBar setKeyboardType:UIKeyboardTypeAlphabet];
+            [navSearchBar setReturnKeyType:UIReturnKeySearch];
+            [navSearchBar setTintColor:[UIColor whiteColor]];
+            [self.view setBackgroundColor:[HBSharedUtils styleColor]];
+            
+            [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
+            [[UITextField appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]] setTextColor:[UIColor whiteColor]];
+            
+            self.navigationItem.titleView = navSearchBar;
+        }
     }
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
@@ -243,7 +245,12 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     TeamStreak *ts = streaks[indexPath.row];
-    [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:ts.opponent] animated:YES];
+    TeamViewController *teamVC = [[TeamViewController alloc] initWithTeam:ts.opponent];
+    if (self.popupController.presented) {
+        [self.popupController pushViewController:teamVC animated:YES];
+    } else {
+        [self.navigationController pushViewController:teamVC animated:YES];
+    }
 }
 
 

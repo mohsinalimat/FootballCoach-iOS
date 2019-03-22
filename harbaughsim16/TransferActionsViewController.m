@@ -91,6 +91,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted && selectedRecruit.team == [HBSharedUtils currentLeague].userTeam) {
         return 2; // these are transfer class entries so no options to display
+    } else if (selectedRecruit.recruitStatus != CFCRecruitStatusCommitted && [selectedRecruit.team isEqual:[HBSharedUtils currentLeague].userTeam]) {
+        return 2; // player is transferring out of program
     }
     return 3;
 }
@@ -167,15 +169,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 1) {
-        if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted) {
-            return 36;
-        } else {
-            if (selectedRecruit.offers.count == 0) {
-                return 36;
-            }
-        }
+        return 36;
     } else if (section == 0) {
-        return 50;
+        return 54;
     }
     return 18;
 }

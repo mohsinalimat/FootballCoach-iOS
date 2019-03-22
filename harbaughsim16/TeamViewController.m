@@ -56,8 +56,10 @@
                 } else if (indexPath.row == 2) {
                     peekVC = [[TeamScheduleViewController alloc] initWithTeam:selectedTeam];
                 } else if (indexPath.row == 3) {
-                    peekVC = [[TeamHistoryViewController alloc] initWithTeam:selectedTeam];
+                    peekVC = [[TeamStreaksViewController alloc] initWithTeam:selectedTeam];
                 } else if (indexPath.row == 4) {
+                    peekVC = [[TeamHistoryViewController alloc] initWithTeam:selectedTeam];
+                } else if (indexPath.row == 5) {
                     peekVC = [[RingOfHonorViewController alloc] initWithTeam:selectedTeam];
                 } else {
                     peekVC = [[TeamRecordsViewController alloc] initWithTeam:selectedTeam];
@@ -68,8 +70,10 @@
                 } else if (indexPath.row == 1) {
                     peekVC = [[TeamScheduleViewController alloc] initWithTeam:selectedTeam];
                 } else if (indexPath.row == 2) {
-                    peekVC = [[TeamHistoryViewController alloc] initWithTeam:selectedTeam];
+                    peekVC = [[TeamStreaksViewController alloc] initWithTeam:selectedTeam];
                 } else if (indexPath.row == 3) {
+                    peekVC = [[TeamHistoryViewController alloc] initWithTeam:selectedTeam];
+                } else if (indexPath.row == 4) {
                     peekVC = [[RingOfHonorViewController alloc] initWithTeam:selectedTeam];
                 } else {
                     peekVC = [[TeamRecordsViewController alloc] initWithTeam:selectedTeam];

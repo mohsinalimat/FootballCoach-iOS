@@ -1761,6 +1761,8 @@
         }
     }
     coachList = [NSMutableArray array];
+    cotyWinner = nil;
+    cotyDecided = NO;
     didFinishCoachingCarousel = NO;
 
     // Bless a random team with lots of prestige

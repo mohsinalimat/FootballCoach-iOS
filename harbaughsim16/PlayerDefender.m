@@ -69,6 +69,15 @@
 //    [aCoder encodeObject:self.personalDetails forKey:@"personalDetails"];
 }
 
+-(void)advanceSeason {
+    self.statsTkl = 0;
+    self.statsInt = 0;
+    self.statsSacks = 0;
+    self.statsPassDef = 0;
+    self.statsForcedFum = 0;
+    
+    [super advanceSeason];
+}
 
 -(int)getHeismanScore {
     return (self.statsTkl * 25 + self.statsSacks * 425 + self.statsForcedFum * 425 + self.statsInt * 425) * 0.65; // lower bc defenders don't win awards :/

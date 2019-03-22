@@ -495,8 +495,8 @@ static UIColor *styleColor = nil;
     NSMutableString *seasonShortText = [NSMutableString string];
 //    [NSString stringWithFormat:@"Record: %d-%d\nPlayers Graduating: %ld\nPlayers Transferring:%ld",[HBSharedUtils currentLeague].userTeam.wins, [HBSharedUtils currentLeague].userTeam.losses, [HBSharedUtils currentLeague].userTeam.playersLeaving.count, [HBSharedUtils currentLeague].userTeam.playersTransferring.count]
     [seasonShortText appendFormat:@"Record: %d-%d\n",[HBSharedUtils currentLeague].userTeam.wins, [HBSharedUtils currentLeague].userTeam.losses];
-    [seasonShortText appendFormat:@"Final Poll Finish: %d\n",[HBSharedUtils currentLeague].userTeam.rankTeamPollScore];
-    [seasonShortText appendFormat:@"Finished #%u in %@\n", ([[[HBSharedUtils currentLeague] findConference:[HBSharedUtils currentLeague].userTeam.conference].confTeams indexOfObject:[HBSharedUtils currentLeague].userTeam] + 1), [HBSharedUtils currentLeague].userTeam.conference];
+    [seasonShortText appendFormat:@"Final Poll Finish: #%d\n",[HBSharedUtils currentLeague].userTeam.rankTeamPollScore];
+    [seasonShortText appendFormat:@"Finished #%ld in %@\n", (long)([[[HBSharedUtils currentLeague] findConference:[HBSharedUtils currentLeague].userTeam.conference].confTeams indexOfObject:[HBSharedUtils currentLeague].userTeam] + 1), [HBSharedUtils currentLeague].userTeam.conference];
     if ([[HBSharedUtils currentLeague].userTeam.confChampion isEqualToString:@"CC"]) {
         [seasonShortText appendFormat:@"Won %@ CCG\n", [HBSharedUtils currentLeague].userTeam.conference];
     } else if ([[HBSharedUtils currentLeague].userTeam.confChampion isEqualToString:@"CCL"]) {

@@ -503,6 +503,14 @@
     coachRetired = NO;
     coachFired = NO;
     coachGotNewContract = NO;
+    
+    if ([self getCurrentHC].wonTopHC) {
+        [self getCurrentHC].wonTopHC = NO;
+    }
+    
+    if ([self getCurrentHC].wonConfHC) {
+        [self getCurrentHC].wonConfHC = NO;
+    }
 }
 
 -(void)advanceSeasonPlayers {

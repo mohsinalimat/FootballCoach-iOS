@@ -1124,7 +1124,20 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UIViewController *peekVC;
     NSInteger section = indexPath.section;
-    if (section == 1) {
+    
+    if (section == 0) {
+        if (indexPath.row == 0) { // awayTeam
+            if (![selectedGame.awayTeam.abbreviation isEqualToString:@"FCS"]) {
+                [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.awayTeam] animated:YES];
+            }
+        } else if (indexPath.row == 1) { // homeTeam
+            if (![selectedGame.homeTeam.abbreviation isEqualToString:@"FCS"]) {
+                [self.navigationController pushViewController:[[TeamViewController alloc] initWithTeam:selectedGame.homeTeam] animated:YES];
+            }
+        } else { //game log
+            [self viewGameSummary];
+        }
+    } else if (section == 1) {
         if (!selectedGame.hasPlayed) {
             Player *p;
             if (indexPath.row == 0) {
