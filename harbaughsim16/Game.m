@@ -3573,7 +3573,7 @@
 
 -(void)_addGameStat:(FCDefensiveStat)statType forDefender:(Player *)defender onDefense:(Team *)defense amount:(NSInteger)amount {
     
-    if (gamePoss) { // home
+    if (!gamePoss) { // away is on defense
         if ([defender isKindOfClass:[PlayerCB class]]) {
             PlayerCB *cb = (PlayerCB*)defender;
 //            if (statType == FCDefensiveStatTkl) {
