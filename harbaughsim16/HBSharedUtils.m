@@ -623,11 +623,17 @@ static UIColor *styleColor = nil;
                         [viewController presentViewController:[[ZGNavigationBarTitleViewController alloc] initWithRootViewController:[[TransferPeriodViewController alloc] init]] animated:YES completion:nil];
                     });
                 }]];
-                [alertController addAction:[UIAlertAction actionWithTitle:@"View Outgoing Transfers" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [viewController.navigationController pushViewController:[[TransferringPlayersViewController alloc] initWithTeam:[[self class] currentLeague].userTeam viewOption:CRCTransferViewOptionOutgoing] animated:YES];
-                    });
-                }]];
+                if ([[self class] currentLeague].userTeam.playersTransferring.count > 0) {
+                    [alertController addAction:[UIAlertAction actionWithTitle:@"View Outgoing Transfers" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [viewController.navigationController pushViewController:[[TransferringPlayersViewController alloc] initWithTeam:[[self class] currentLeague].userTeam viewOption:CRCTransferViewOptionOutgoing] animated:YES];
+                        });
+                    }]];
+                } else {
+                    UIAlertAction *action = [UIAlertAction actionWithTitle:@"No Outgoing Transfers" style:UIAlertActionStyleDefault handler:nil];
+                    action.enabled = NO;
+                    [alertController addAction:action];
+                }
             } else {
                 UIAlertAction *action = [UIAlertAction actionWithTitle:@"No Transfers Available" style:UIAlertActionStyleDefault handler:nil];
                 action.enabled = NO;

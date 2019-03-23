@@ -360,6 +360,12 @@
     if ((!self.hasRedshirt && !self.isTransfer && !self.isGradTransfer && !self.wasRedshirted && self.year > 0 && self.year < 4) && self.gamesPlayedSeason < 5) {
         self.year--;
         self.wasRedshirted = YES;
+        @synchronized (self.statHistoryDictionary) {
+            NSString *yearKey = [NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+            NSDictionary *stats = self.statHistoryDictionary[yearKey];
+            [self.statHistoryDictionary removeObjectForKey:yearKey];
+            [self.statHistoryDictionary setObject:stats forKey:[NSString stringWithFormat:@"%@ (RS)", yearKey]];
+        }
     }
     
     self.gamesPlayedSeason = 0;

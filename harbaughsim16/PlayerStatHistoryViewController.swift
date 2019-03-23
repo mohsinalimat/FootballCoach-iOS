@@ -8,6 +8,7 @@
 
 import UIKit
 import AccordionSwift
+import ZMJTipView
 
 struct YearCellModel {
     let name: String
@@ -57,8 +58,21 @@ struct StatCellModel {
         self.tableView.register(UINib.init(nibName: "StatCell", bundle: nil), forCellReuseIdentifier: "StatCell")
         
         self.tableView.backgroundColor = HBSharedUtils.styleColor()
+        self.perform(#selector(openTutorial), with: nil, afterDelay: 0.25)
+
     }
     
+    @objc private func openTutorial() {
+        if ((self.tableView.dataSource?.tableView(tableView, numberOfRowsInSection: 0))! > 0) {
+            let tutorialShown: Bool = UserDefaults.standard.bool(forKey: HB_STAT_HISTORY_TUTORIAL_SHOWN_KEY)
+            if (!tutorialShown) {
+                UserDefaults.standard.set(true, forKey: HB_STAT_HISTORY_TUTORIAL_SHOWN_KEY)
+                UserDefaults.standard.synchronize()
+                let tipView: ZMJTipView = ZMJTipView(text: "Tap any of the years in this table to view this player's stats for that year. If the player redshirted that year (designated by RS), then he did not record any stats and the year will not expand with his stats.", preferences: nil, delegate: self)
+                tipView.show(animated: true, for: self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)), withinSuperview: self.view)
+            }
+        }
+    }
     
     // MARK: - Methods
     
@@ -71,16 +85,18 @@ struct StatCellModel {
                 let years: Array = HBSharedUtils.sortStatHistoryYears((selectedPlayer!.statHistoryDictionary!).allKeys as? [String])
                 for (year) in years {
                     let statDict: NSDictionary = (selectedPlayer!.statHistoryDictionary)![year] as! NSDictionary
-                    var childItems = [StatCellModel]()
-                    // sort children by stat order for position
-                    let statKeys: Array = HBSharedUtils.sortStatKeyArray(statDict.allKeys as? [String])
-                    //                for (statName, value) in (statDict as! NSDictionary) {
-                    //                    childItems.append(StatCellModel(name: HBSharedUtils.convertStatKey(toTitle: statName as? String), value: value as! String))
-                    //                }
-                    for statName in statKeys {
-                        childItems.append(StatCellModel(name: HBSharedUtils.convertStatKey(toTitle: statName as? String), value: statDict[statName] as! String))
+                    var parentItem: Parent<YearCellModel, StatCellModel>
+                    if (!(year as! String).contains(" (RS)")) {
+                        var childItems = [StatCellModel]()
+                        // sort children by stat order for position
+                        let statKeys: Array = HBSharedUtils.sortStatKeyArray(statDict.allKeys as? [String])
+                        for statName in statKeys {
+                            childItems.append(StatCellModel(name: HBSharedUtils.convertStatKey(toTitle: statName as? String), value: statDict[statName] as! String))
+                        }
+                        parentItem = Parent(state: .collapsed, item: YearCellModel(name: year as! String), childs: childItems)
+                    } else {
+                        parentItem = Parent(state: .collapsed, item: YearCellModel(name: year as! String), childs: [])
                     }
-                    let parentItem = Parent(state: .collapsed, item: YearCellModel(name: year as! String), childs: childItems)
                     dataset.append(parentItem)
                 }
             }
@@ -94,6 +110,13 @@ struct StatCellModel {
         reuseIdentifier: "YearCell") { (cell, model, tableView, indexPath) -> UITableViewCell in
             cell.textLabel?.text = model?.item.name
             cell.textLabel?.textColor = HBSharedUtils.styleColor()
+            if (model?.item.name.contains("RS") ?? false) {
+                cell.accessoryType = .none
+                cell.selectionStyle = .none
+            } else {
+                cell.accessoryType = .disclosureIndicator
+                cell.selectionStyle = .blue
+            }
             return cell
         }
         
@@ -164,4 +187,14 @@ extension PlayerStatHistoryViewController: DZNEmptyDataSetSource {
 
 extension PlayerStatHistoryViewController : DZNEmptyDataSetDelegate {
     
+}
+
+extension PlayerStatHistoryViewController : ZMJTipViewDelegate {
+    func tipViewDidDimiss(_ tipView: ZMJTipView!) {
+        
+    }
+    
+    func tipViewDidSelected(_ tipView: ZMJTipView!) {
+        
+    }
 }

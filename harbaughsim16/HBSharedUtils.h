@@ -19,6 +19,7 @@
 #define HB_ROSTER_TUTORIAL_SHOWN_KEY @"kHBRosterTutorialShownKey"
 #define HB_TRANSFER_TUTORIAL_SHOWN_KEY @"kHBTransferTutorialShownKey"
 #define HB_COACHING_TUTORIAL_SHOWN_KEY @"kHBCoachingTutorialShownKey"
+#define HB_STAT_HISTORY_TUTORIAL_SHOWN_KEY @"kHBStatHistoryTutorialShownKey"
 #define kHBSimFirstLaunchKey @"firstLaunch"
 #define HB_OFFSEASON_TUTORIAL_SHOWN_KEY @"kHBOffseasonTutorialShownKey"
 #define HB_PLAY_BY_PLAY_ENABLED @"playByPlayEnabled"
