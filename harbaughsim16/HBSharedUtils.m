@@ -13,9 +13,6 @@
 #import "Player.h"
 #import "HBTeamPlayView.h"
 
-#import "RMessage.h"
-#import "HexColors.h"
-
 #import "MockDraftViewController.h"
 #import "RecruitingPeriodViewController.h"
 #import "TransferPeriodViewController.h"
@@ -27,6 +24,9 @@
 #import "CareerLeaderboardViewController.h"
 
 #import "ZGNavigationBarTitleViewController.h"
+#import "RMessage.h"
+#import "HexColors.h"
+#import "MBProgressHUD.h"
 
 #define ARC4RANDOM_MAX      0x100000000
 static UIColor *styleColor = nil;
@@ -731,15 +731,37 @@ static UIColor *styleColor = nil;
 +(void)playWeek:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback {
     League *simLeague = [HBSharedUtils currentLeague];
     if (simLeague.recruitingStage == 0) {
+        MBProgressHUD *hud;
+        if ([MBProgressHUD HUDForView:viewController.navigationController.view] != nil) {
+            hud = [MBProgressHUD HUDForView:viewController.navigationController.view];
+        } else {
+            hud = [MBProgressHUD showHUDAddedTo:viewController.navigationController.view animated:YES];
+            [hud setMode:MBProgressHUDModeIndeterminate];
+        }
+        NSString *weekTitle;
+        if (simLeague.currentWeek < 12) {
+            weekTitle = [NSString stringWithFormat:@"Playing Week %d...", simLeague.currentWeek];
+        } else if (simLeague.currentWeek == 12) {
+            weekTitle = @"Playing Conference Championships...";
+        } else if (simLeague.currentWeek == 13) {
+            weekTitle = @"Playing Bowl Games...";
+        } else if (simLeague.currentWeek == 14) {
+            weekTitle = @"Playing National Championship...";
+        } else {
+            weekTitle = @"Preparing for Offseason...";
+        }
+        [hud.label setText:weekTitle];
         // Perform action on click
         if (simLeague.currentWeek == 15) {
             simLeague.recruitingStage = 1;
             [HBSharedUtils currentLeague].canRebrandTeam = YES;
+            [hud hideAnimated:YES];
             [HBSharedUtils startOffseason:viewController callback:nil];
         } else {
             NSInteger numGamesPlayed = simLeague.userTeam.gameWLSchedule.count;
             [simLeague playWeek];
             [[HBSharedUtils currentLeague] save];
+            [hud hideAnimated:YES];
             if (simLeague.currentWeek == 15) {
                 // Show NCG summary
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
@@ -869,6 +891,16 @@ static UIColor *styleColor = nil;
     League *simLeague = [HBSharedUtils currentLeague];
     [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
     [teamHeaderView.playButton setEnabled:NO];
+    __block MBProgressHUD *hud;
+    if ([MBProgressHUD HUDForView:viewController.navigationController.view] != nil) {
+        hud = [MBProgressHUD HUDForView:viewController.navigationController.view];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            hud = [MBProgressHUD showHUDAddedTo:viewController.navigationController.view animated:YES];
+            [hud setMode:MBProgressHUDModeIndeterminate];
+            [hud.label setText:@"Simulating games..."];
+        });
+    }
     if (simLeague.recruitingStage == 0) {
         // Perform action on click
         if (simLeague.currentWeek == 15) {
@@ -937,6 +969,9 @@ static UIColor *styleColor = nil;
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateInjuryCount" object:nil];
                     }
                     [[HBSharedUtils currentLeague] save];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:YES];
+                    });
                 }
             });
         }
