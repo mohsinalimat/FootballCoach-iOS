@@ -1315,8 +1315,10 @@
                 p.wasRedshirted = YES;
             }
             
-            p.gamesPlayedSeason++;
-            p.gamesPlayed++;
+            if (![p isEqual:[homeTeam getWR:2]]) {
+                p.gamesPlayedSeason++;
+                p.gamesPlayed++;
+            }
         }
         
         for (Player *p in awayStarters) {
@@ -1325,8 +1327,10 @@
                 p.wasRedshirted = YES;
             }
             
-            p.gamesPlayedSeason++;
-            p.gamesPlayed++;
+            if (![p isEqual:[awayTeam getWR:2]]) {
+                p.gamesPlayedSeason++;
+                p.gamesPlayed++;
+            }
         }
         
         [awayTeam getCurrentHC].gamesCoached++;
