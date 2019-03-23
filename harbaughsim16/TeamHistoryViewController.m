@@ -111,7 +111,11 @@
     
     PrestigeHistoryViewController *prestigeHistoryVC = [[PrestigeHistoryViewController alloc] initWithDataSets:@[prestigeHistLine]];
     prestigeHistoryVC.title = [NSString stringWithFormat:@"%@ Prestige History", selectedTeam.abbreviation];
-    [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
+    if (self.popupController.presented) {
+        [self.popupController pushViewController:prestigeHistoryVC animated:YES];
+    } else {
+        [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
+    }
 }
 
 - (NSNumberFormatter *)numberFormatter {

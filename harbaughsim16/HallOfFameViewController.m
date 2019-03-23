@@ -320,7 +320,11 @@
     } else {
         playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
     }
-    [self.navigationController pushViewController:playerDetail animated:YES];
+    if (self.popupController.presented) {
+        [self.popupController pushViewController:playerDetail animated:YES];
+    } else {
+        [self.navigationController pushViewController:playerDetail animated:YES];
+    }
 }
 
 @end

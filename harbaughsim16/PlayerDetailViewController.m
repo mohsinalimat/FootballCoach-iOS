@@ -42,7 +42,11 @@
 
 -(void)openStatHistory {
     PlayerStatHistoryViewController *vc = [[PlayerStatHistoryViewController alloc] initWithPlayer: selectedPlayer];
-    [self.popupController pushViewController:vc animated:YES];
+    if (self.popupController.presented) {
+        [self.popupController pushViewController:vc animated:YES];
+    } else {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)viewDidLoad {

@@ -56,7 +56,7 @@
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     
     if (history.allKeys.count > 5) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"graph"] style:UIBarButtonItemStylePlain target:self action:@selector(viewPrestigeHistory)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"graph"] style:UIBarButtonItemStylePlain target:self action:@selector(viewChartOptions)];
         
     }
     
@@ -115,7 +115,11 @@
     
     PrestigeHistoryViewController *prestigeHistoryVC = [[PrestigeHistoryViewController alloc] initWithDataSets:@[prestigeHistLine]];
     prestigeHistoryVC.title = [NSString stringWithFormat:@"Coach Score History for %@", [selectedCoach getInitialName]];
-    [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
+    if (self.popupController.presented) {
+        [self.popupController pushViewController:prestigeHistoryVC animated:YES];
+    } else {
+        [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
+    }
 }
 
 -(void)viewPrestigeHistory {
@@ -124,8 +128,8 @@
     
     for (int i = 0; i < selectedCoach.prestigeHistoryDictionary.count; i++) {
         NSInteger year = [HBSharedUtils currentLeague].baseYear + i;
-        NSInteger coachScore = [selectedCoach.prestigeHistoryDictionary[[NSString stringWithFormat:@"%ld",year]][@"prestige"] integerValue];
-        NSString *hist = history[[NSString stringWithFormat:@"%ld",year]];
+        NSInteger coachScore = [selectedCoach.prestigeHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)year]][@"prestige"] integerValue];
+        NSString *hist = history[[NSString stringWithFormat:@"%ld",(long)year]];
         
         UIColor *teamColor;
         if ([hist containsString:@"NCG - W"] || [hist containsString:@"NCW"]) {
@@ -156,7 +160,11 @@
     
     PrestigeHistoryViewController *prestigeHistoryVC = [[PrestigeHistoryViewController alloc] initWithDataSets:@[prestigeHistLine]];
     prestigeHistoryVC.title = [NSString stringWithFormat:@"Team Prestige History for %@", [selectedCoach getInitialName]];
-    [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
+    if (self.popupController.presented) {
+        [self.popupController pushViewController:prestigeHistoryVC animated:YES];
+    } else {
+        [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
+    }
 }
 
 - (NSNumberFormatter *)numberFormatter {
