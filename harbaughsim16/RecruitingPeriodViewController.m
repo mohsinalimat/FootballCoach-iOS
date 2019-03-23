@@ -608,7 +608,7 @@
     [players enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         Player *p = (Player *)obj;
         if (!postReset) {
-            if ([p.position isEqualToString:pos] && [t.transferClass containsObject:p]) {
+            if ([p.position isEqualToString:pos] && [t.transferClass containsObject:p] && !p.isGradTransfer) {
                 [mapped addObject:p];
             }
         } else {
