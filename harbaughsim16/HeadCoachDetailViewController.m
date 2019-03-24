@@ -283,7 +283,7 @@
         } else if (indexPath.row == 6) {
             // Cumulative Prestige
             [cell.textLabel setText:@"Cumulative Prestige"];
-            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.cumulativePrestige]];
+            [cell.detailTextLabel setText:(selectedCoach.cumulativePrestige > 0) ? [NSString stringWithFormat:@"+%d", selectedCoach.cumulativePrestige] : [NSString stringWithFormat:@"%d", selectedCoach.cumulativePrestige]];
         } else if (indexPath.row == 7) {
             // COTYs
             [cell.textLabel setText:@"National Coach of the Year Awards"];
