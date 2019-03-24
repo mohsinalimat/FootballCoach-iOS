@@ -122,11 +122,13 @@
 
 -(FCCoachStatus)getCoachStatus {
     FCCoachStatus status = FCCoachStatusNormal;
-    if(self.baselinePrestige > (self.team.teamPrestige + 5)) status = FCCoachStatusHotSeat;
-    else if(self.baselinePrestige + 7 < (self.team.teamPrestige)) status = FCCoachStatusSecure;
-    else if(self.baselinePrestige + 3 < (self.team.teamPrestige)) status = FCCoachStatusSafe;
-    else if (self.baselinePrestige > (self.team.teamPrestige + 3)) status = FCCoachStatusUnsafe;
-    else status = FCCoachStatusOk;
+    if (self.contractYear > 0) {
+        if(self.baselinePrestige > (self.team.teamPrestige + 5)) status = FCCoachStatusHotSeat;
+        else if(self.baselinePrestige + 7 < (self.team.teamPrestige)) status = FCCoachStatusSecure;
+        else if(self.baselinePrestige + 3 < (self.team.teamPrestige)) status = FCCoachStatusSafe;
+        else if (self.baselinePrestige > (self.team.teamPrestige + 3)) status = FCCoachStatusUnsafe;
+        else status = FCCoachStatusOk;
+    }
     
     return status;
 }
