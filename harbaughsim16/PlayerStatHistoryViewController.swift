@@ -75,6 +75,9 @@ struct StatCellModel {
     }
     
     // MARK: - Methods
+    private func cleanYearString(yearString: String?) -> String {
+        return yearString?.replacingOccurrences(of: ") (", with: ", ") ?? ""
+    }
     
     /// Configure the data source
     private func configDataSource() {
@@ -86,7 +89,7 @@ struct StatCellModel {
                 for (year) in years {
                     let statDict: NSDictionary = (selectedPlayer!.statHistoryDictionary)![year] as! NSDictionary
                     var parentItem: Parent<YearCellModel, StatCellModel>
-                    if (!(year as! String).contains(" (RS)")) {
+                    if (!(year as! String).contains("(RS)") && !(year as! String).contains("(XFER)")) {
                         var childItems = [StatCellModel]()
                         // sort children by stat order for position
                         let statKeys: Array = HBSharedUtils.sortStatKeyArray(statDict.allKeys as? [String])
@@ -108,14 +111,25 @@ struct StatCellModel {
         
         let parentCellConfig = CellViewConfig<Parent<YearCellModel, StatCellModel>, UITableViewCell>(
         reuseIdentifier: "YearCell") { (cell, model, tableView, indexPath) -> UITableViewCell in
-            cell.textLabel?.text = model?.item.name
-            cell.textLabel?.textColor = HBSharedUtils.styleColor()
-            if (model?.item.name.contains("RS") ?? false) {
+            cell.textLabel?.text = self.cleanYearString(yearString: model?.item.name)
+            if (model?.item.name.contains("RS") ?? false || model?.item.name.contains("XFER") ?? false) {
                 cell.accessoryType = .none
                 cell.selectionStyle = .none
             } else {
                 cell.accessoryType = .disclosureIndicator
                 cell.selectionStyle = .blue
+            }
+            
+            if (model?.item.name.contains("RS") ?? false || model?.item.name.contains("XFER") ?? false) {
+                cell.textLabel?.textColor = UIColor.lightGray
+            } else if (model?.item.name.contains("ROTY") ?? false || model?.item.name.contains("POTY") ?? false) {
+                cell.textLabel?.textColor = HBSharedUtils.champColor()
+            } else if (model?.item.name.contains("All-League") ?? false) {
+                cell.textLabel?.textColor = UIColor.orange
+            } else if (model?.item.name.contains("All-") ?? false) {
+                cell.textLabel?.textColor = HBSharedUtils.successColor()
+            } else {
+                cell.textLabel?.textColor = HBSharedUtils.styleColor()
             }
             return cell
         }

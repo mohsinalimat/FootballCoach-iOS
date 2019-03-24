@@ -350,7 +350,7 @@
     if (self.statHistoryDictionary == nil) {
         self.statHistoryDictionary = [NSMutableDictionary dictionary];
     }
-    [self.statHistoryDictionary setObject:[self detailedStats:self.gamesPlayedSeason] forKey:[NSString stringWithFormat:@"%ld%@",(long)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count),(self.hasRedshirt ? @" (RS)" : @"")]];
+    [self.statHistoryDictionary setObject:[self detailedStats:self.gamesPlayedSeason] forKey:[NSString stringWithFormat:@"%ld%@%@%@%@%@%@",(long)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count),(self.hasRedshirt ? @" (RS)" : @""),(self.isTransfer ? @" (XFER)" : @""),(self.isROTY ? @" (ROTY)" : @""),(self.isHeisman ? @" (POTY)" : @""),(self.isAllAmerican ? @" (All-League)" : @""),(self.isAllConference ? [NSString stringWithFormat:@" (All-%@)",self.team.conference] : @"")]];
 }
 
 -(void)advanceSeason {
