@@ -766,7 +766,6 @@ static UIColor *styleColor = nil;
         } else {
             NSInteger numGamesPlayed = simLeague.userTeam.gameWLSchedule.count;
             [simLeague playWeek];
-            [[HBSharedUtils currentLeague] save];
             [hud hideAnimated:YES];
             if (simLeague.currentWeek == 15) {
                 // Show NCG summary
@@ -884,6 +883,7 @@ static UIColor *styleColor = nil;
                 [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
             }
+            [[HBSharedUtils currentLeague] save];
 
             callback();
         }

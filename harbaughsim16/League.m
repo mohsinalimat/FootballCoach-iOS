@@ -1489,9 +1489,6 @@
     [self generateCFPNews];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
-
-
-
     [self setTeamRanks];
     currentWeek++;
 }
