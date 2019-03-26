@@ -1237,7 +1237,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Akshay Easwaran";
 				TargetAttributes = {
 					75924A1A1C99CCC000B165AD = {
@@ -1262,7 +1262,7 @@
 			};
 			buildConfigurationList = 75924A161C99CCC000B165AD /* Build configuration list for PBXProject "harbaughsim16" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,

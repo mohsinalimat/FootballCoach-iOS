@@ -10,6 +10,6 @@
 #import "League.h"
 
 @interface LeagueUpdater : NSObject
-+ (BOOL)needsUpdateFromVersion:(NSString*)actualVersion toVersion:(NSString*)requiredVersion;
++ (BOOL)needsUpdateFromVersion:(NSString* _Nullable)actualVersion toVersion:(NSString* _Nonnull)requiredVersion;
 + (void)convertLeagueFromOldVersion:(League* _Nonnull)oldLigue updatingBlock:(void (^_Nullable)(float progress, NSString * _Nullable updateStatus))updatingBlock completionBlock:(void (^_Nullable)(BOOL success, NSString * _Nullable finalStatus, League * _Nonnull ligue))completionBlock;
 @end
