@@ -497,6 +497,13 @@ static UIColor *styleColor = nil;
     [seasonShortText appendFormat:@"Record: %d-%d\n",[HBSharedUtils currentLeague].userTeam.wins, [HBSharedUtils currentLeague].userTeam.losses];
     [seasonShortText appendFormat:@"Final Poll Finish: #%d\n",[HBSharedUtils currentLeague].userTeam.rankTeamPollScore];
     [seasonShortText appendFormat:@"Finished #%ld in %@\n", (long)([[[HBSharedUtils currentLeague] findConference:[HBSharedUtils currentLeague].userTeam.conference].confTeams indexOfObject:[HBSharedUtils currentLeague].userTeam] + 1), [HBSharedUtils currentLeague].userTeam.conference];
+    if ([[self class] currentLeague].isCareerMode) {
+        if ([[self class] currentLeague].userTeam.coachFired) {
+            [seasonShortText appendString:@"Current Job Status: Fired\n"];
+        } else {
+            [seasonShortText appendFormat:@"Current Job Status: %@\n",[[[HBSharedUtils currentLeague].userTeam getCurrentHC] getCoachStatusString]];
+        }
+    }
     if ([[HBSharedUtils currentLeague].userTeam.confChampion isEqualToString:@"CC"]) {
         [seasonShortText appendFormat:@"Won %@ CCG\n", [HBSharedUtils currentLeague].userTeam.conference];
     } else if ([[HBSharedUtils currentLeague].userTeam.confChampion isEqualToString:@"CCL"]) {
