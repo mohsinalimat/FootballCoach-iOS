@@ -18,6 +18,7 @@ def use_pod_list
     pod 'RSEmailFeedback'
     pod 'AccordionSwift', :git => 'https://github.com/Vkt0r/AccordionSwift.git'
     pod 'ZMJTipView'
+    pod 'WhatsNew'
 end
 
 target 'harbaughsim16' do

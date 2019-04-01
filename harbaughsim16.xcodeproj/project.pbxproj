@@ -23,6 +23,7 @@
 		75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 75300A5F1CB2DC96001EBBCB /* TeamStreak.m */; };
 		75315AFE21E64E72006A1372 /* CFCAwardTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75315AFD21E64E72006A1372 /* CFCAwardTagView.m */; };
 		75316B3D22528E3D0022553D /* CoachScoreYearMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75316B3C22528E3D0022553D /* CoachScoreYearMarkerView.swift */; };
+		75316B452252B45F0022553D /* WhatsNewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75316B442252B45F0022553D /* WhatsNewHandler.swift */; };
 		754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754318FE1CC02CF400D380F1 /* ConferenceStandingsViewController.m */; };
 		754319021CC02D2200D380F1 /* ConferenceStandingsSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754319011CC02D2200D380F1 /* ConferenceStandingsSelectorViewController.m */; };
 		7543190E1CC02F2200D380F1 /* HBTeamRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7543190C1CC02F2200D380F1 /* HBTeamRankCell.m */; };
@@ -284,6 +285,7 @@
 		75315AFC21E64E72006A1372 /* CFCAwardTagView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFCAwardTagView.h; sourceTree = "<group>"; };
 		75315AFD21E64E72006A1372 /* CFCAwardTagView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CFCAwardTagView.m; sourceTree = "<group>"; };
 		75316B3C22528E3D0022553D /* CoachScoreYearMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachScoreYearMarkerView.swift; sourceTree = "<group>"; };
+		75316B442252B45F0022553D /* WhatsNewHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatsNewHandler.swift; sourceTree = "<group>"; };
 		754318FD1CC02CF400D380F1 /* ConferenceStandingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConferenceStandingsViewController.h; sourceTree = "<group>"; };
 		754318FE1CC02CF400D380F1 /* ConferenceStandingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConferenceStandingsViewController.m; sourceTree = "<group>"; };
 		754319001CC02D2100D380F1 /* ConferenceStandingsSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConferenceStandingsSelectorViewController.h; sourceTree = "<group>"; };
@@ -887,6 +889,7 @@
 				75A86C871C9C790D0034140C /* FCTableViewController.m */,
 				7571DD1E1C9CBDA900E67080 /* HBSharedUtils.h */,
 				7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */,
+				75316B442252B45F0022553D /* WhatsNewHandler.swift */,
 				75F0E25E1FECD7C100719086 /* alt-designs.json */,
 			);
 			name = Base;
@@ -1449,6 +1452,7 @@
 				"${BUILT_PRODUCTS_DIR}/RSEmailFeedback/RSEmailFeedback.framework",
 				"${BUILT_PRODUCTS_DIR}/STPopup/STPopup.framework",
 				"${BUILT_PRODUCTS_DIR}/ScrollableSegmentedControl/ScrollableSegmentedControl.framework",
+				"${BUILT_PRODUCTS_DIR}/WhatsNew/WhatsNew.framework",
 				"${BUILT_PRODUCTS_DIR}/ZGNavigationBarTitle/ZGNavigationBarTitle.framework",
 				"${BUILT_PRODUCTS_DIR}/ZMJTipView/ZMJTipView.framework",
 			);
@@ -1468,6 +1472,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSEmailFeedback.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STPopup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScrollableSegmentedControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WhatsNew.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZGNavigationBarTitle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZMJTipView.framework",
 			);
@@ -1497,6 +1502,7 @@
 				"${BUILT_PRODUCTS_DIR}/RSEmailFeedback/RSEmailFeedback.framework",
 				"${BUILT_PRODUCTS_DIR}/STPopup/STPopup.framework",
 				"${BUILT_PRODUCTS_DIR}/ScrollableSegmentedControl/ScrollableSegmentedControl.framework",
+				"${BUILT_PRODUCTS_DIR}/WhatsNew/WhatsNew.framework",
 				"${BUILT_PRODUCTS_DIR}/ZGNavigationBarTitle/ZGNavigationBarTitle.framework",
 				"${BUILT_PRODUCTS_DIR}/ZMJTipView/ZMJTipView.framework",
 			);
@@ -1516,6 +1522,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RSEmailFeedback.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/STPopup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ScrollableSegmentedControl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WhatsNew.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZGNavigationBarTitle.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ZMJTipView.framework",
 			);
@@ -1658,6 +1665,7 @@
 				7571DD3C1C9CFF6500E67080 /* HBRosterCell.m in Sources */,
 				75DF165B2239B55100E85626 /* YearCell.m in Sources */,
 				754E90781CA58BF800C450CF /* BowlProjectionViewController.m in Sources */,
+				75316B452252B45F0022553D /* WhatsNewHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
