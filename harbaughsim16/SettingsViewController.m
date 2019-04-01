@@ -46,10 +46,12 @@
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"Coach First Name";
         textField.text = nameParts[0];
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     }];
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"Coach Last Name";
         textField.text = nameParts[1];
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     }];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -75,16 +77,19 @@
         [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.placeholder = @"Team Name";
             textField.text = userTeam.name;
+            textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
         }];
         
         [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.placeholder = @"Abbreviation";
             textField.text = userTeam.abbreviation;
+            textField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
         }];
         
         [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.placeholder = @"State";
             textField.text = userTeam.state;
+            textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
         }];
         
         [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

@@ -50,9 +50,11 @@
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"New Career - Coach Name" message:@"What do you want your coach to be named?" preferredStyle:UIAlertControllerStyleAlert];
                 [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                     textField.placeholder = @"Coach First Name";
+                    textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
                 }];
                 [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                     textField.placeholder = @"Coach Last Name";
+                    textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
                 }];
                 
                 [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
