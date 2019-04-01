@@ -89,6 +89,12 @@
         if (_league.leagueVersion == nil || [LeagueUpdater needsUpdateFromVersion:_league.leagueVersion toVersion:HB_APP_VERSION_CURRENT_MINOR_VERSION]) {
             //NSLog(@"Current league version: %@", _league.leagueVersion);
             [self startSaveFileUpdate];
+            
+            // disable new tutorials if they've already played the game before
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_ROSTER_TUTORIAL_SHOWN_KEY];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_UPCOMING_TUTORIAL_SHOWN_KEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
         
         if (_league.isCareerMode) {

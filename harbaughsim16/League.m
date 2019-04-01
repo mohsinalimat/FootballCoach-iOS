@@ -998,33 +998,26 @@
 }
 
 -(void)save {
+    [self save:nil];
+}
+
+-(void)save:(void (^)(BOOL success, NSError *err))completionBlock {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"saveInProgress" object:nil];
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^(void){
+    dispatch_sync(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^(void){
         @synchronized (self) {
-            if([FCFileManager existsItemAtPath:@"league.cfb"]) {
-                NSError *error;
-                BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:self error:&error];
-                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    if (success) {
-                        NSLog(@"Save was successful");
-                    } else {
-                        NSLog(@"Something went wrong on save: %@", error.localizedDescription);
-                    }
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
-                });
-            } else {
-                //Run UI Updates
-                NSError *error;
-                BOOL success = [FCFileManager createFileAtPath:@"league.cfb" withContent:self error:&error];
-                dispatch_async(dispatch_get_main_queue(), ^(void){
-                    if (success) {
-                        NSLog(@"Create and Save were successful");
-                    } else {
-                        NSLog(@"Something went wrong on create and save: %@", error.localizedDescription);
-                    }
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
-                });
-            }
+            NSError *error;
+            BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:self error:&error];
+            dispatch_async(dispatch_get_main_queue(), ^(void){
+                if (success) {
+                    NSLog(@"Save was successful");
+                } else {
+                    NSLog(@"ERROR: Something went wrong on save: %@", error.localizedDescription);
+                }
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
+                if (completionBlock != nil) {
+                    completionBlock(success, error);
+                }
+            });
         }
     });
 }

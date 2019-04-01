@@ -189,6 +189,7 @@
 
 -(void)setTeamRanks;
 -(void)save;
+-(void)save:(void (^)(BOOL success, NSError *err))completionBlock;
 
 -(NSArray*)getBowlPredictions;
 -(NSArray*)getHeismanLeaders;

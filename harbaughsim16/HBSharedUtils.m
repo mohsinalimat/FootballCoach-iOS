@@ -883,8 +883,21 @@ static UIColor *styleColor = nil;
                 [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
             }
-            [[HBSharedUtils currentLeague] save];
-
+            
+            if ([MBProgressHUD HUDForView:viewController.navigationController.view] != nil) {
+                hud = [MBProgressHUD HUDForView:viewController.navigationController.view];
+            } else {
+                hud = [MBProgressHUD showHUDAddedTo:viewController.navigationController.view animated:YES];
+                [hud setMode:MBProgressHUDModeIndeterminate];
+            }
+            [hud.label setText:@"Saving league data..."];
+            [[HBSharedUtils currentLeague] save:^(BOOL success, NSError *err) {
+                [hud hideAnimated:YES];
+                if (err) {
+                    NSLog(@"Error: %@", err);
+                }
+            }];
+            
             callback();
         }
     } else {

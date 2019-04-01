@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@import Charts;
+#import "harbaughsim16-Swift.h"
 
 @interface PrestigeHistoryViewController : UIViewController
 

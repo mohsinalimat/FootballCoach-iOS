@@ -22,6 +22,7 @@
 		752ECC802240069F00C33EAE /* CareerLeaderboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 752ECC7F2240069F00C33EAE /* CareerLeaderboardViewController.m */; };
 		75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 75300A5F1CB2DC96001EBBCB /* TeamStreak.m */; };
 		75315AFE21E64E72006A1372 /* CFCAwardTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75315AFD21E64E72006A1372 /* CFCAwardTagView.m */; };
+		75316B3D22528E3D0022553D /* CoachScoreYearMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75316B3C22528E3D0022553D /* CoachScoreYearMarkerView.swift */; };
 		754318FF1CC02CF400D380F1 /* ConferenceStandingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754318FE1CC02CF400D380F1 /* ConferenceStandingsViewController.m */; };
 		754319021CC02D2200D380F1 /* ConferenceStandingsSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754319011CC02D2200D380F1 /* ConferenceStandingsSelectorViewController.m */; };
 		7543190E1CC02F2200D380F1 /* HBTeamRankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7543190C1CC02F2200D380F1 /* HBTeamRankCell.m */; };
@@ -282,6 +283,7 @@
 		75300A5F1CB2DC96001EBBCB /* TeamStreak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamStreak.m; sourceTree = "<group>"; };
 		75315AFC21E64E72006A1372 /* CFCAwardTagView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFCAwardTagView.h; sourceTree = "<group>"; };
 		75315AFD21E64E72006A1372 /* CFCAwardTagView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CFCAwardTagView.m; sourceTree = "<group>"; };
+		75316B3C22528E3D0022553D /* CoachScoreYearMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachScoreYearMarkerView.swift; sourceTree = "<group>"; };
 		754318FD1CC02CF400D380F1 /* ConferenceStandingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConferenceStandingsViewController.h; sourceTree = "<group>"; };
 		754318FE1CC02CF400D380F1 /* ConferenceStandingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConferenceStandingsViewController.m; sourceTree = "<group>"; };
 		754319001CC02D2100D380F1 /* ConferenceStandingsSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConferenceStandingsSelectorViewController.h; sourceTree = "<group>"; };
@@ -721,6 +723,7 @@
 				7562A8821FFF3C55004C0985 /* PrestigeHistoryViewController.m */,
 				7562A8921FFF4370004C0985 /* BalloonMarker.swift */,
 				7562A8941FFF4394004C0985 /* PrestigeYearMarkerView.swift */,
+				75316B3C22528E3D0022553D /* CoachScoreYearMarkerView.swift */,
 				7562A8831FFF3C55004C0985 /* PrestigeHistoryViewController.xib */,
 			);
 			name = History;
@@ -1574,6 +1577,7 @@
 				75A4519621CC79EA007E481A /* PlayerCBDetailViewController.m in Sources */,
 				75BBDBB61DEC910A00124AA4 /* GraduatingPlayersViewController.m in Sources */,
 				75880F8C1CAC949300AF2C1C /* LeagueRecordsViewController.m in Sources */,
+				75316B3D22528E3D0022553D /* CoachScoreYearMarkerView.swift in Sources */,
 				75FFAB3121CF09EF002156C1 /* TransferActionsViewController.m in Sources */,
 				75A4516C21CC5257007E481A /* HBPlayerDetailView.m in Sources */,
 				75300A601CB2DC96001EBBCB /* TeamStreak.m in Sources */,
