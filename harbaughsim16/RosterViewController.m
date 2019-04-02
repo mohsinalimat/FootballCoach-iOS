@@ -480,7 +480,7 @@
         [cell.medImageView setHidden:YES];
     }
     
-    if (player.hasRedshirt || player.isTransfer) {
+    if (player.hasRedshirt || [player isInjured]) {
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
     } else if (player.isTransfer) {
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
