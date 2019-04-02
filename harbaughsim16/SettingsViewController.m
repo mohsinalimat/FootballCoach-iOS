@@ -269,7 +269,7 @@
     if (section == 2) {
         return 6;
     } else if (section == 1) {
-        return 16;
+        return 17;
     } else {
         return 7;
     }
@@ -314,6 +314,8 @@
         } else if (indexPath.row == 13) {
             [cell.textLabel setText:@"STPopup"];
         } else if (indexPath.row == 14) {
+            [cell.textLabel setText:@"WhatsNew"];
+        } else if (indexPath.row == 15) {
             [cell.textLabel setText:@"ZGNavigationBarTitle"];
         } else {
             [cell.textLabel setText:@"ZMJTipView"];
@@ -473,6 +475,8 @@
         } else if (indexPath.row == 13) {
             url = @"https://github.com/kevin0571/STPopup";
         } else if (indexPath.row == 14) {
+            url = @"https://github.com/BalestraPatrick/WhatsNew";
+        } else if (indexPath.row == 15) {
             url = @"https://github.com/zhigang1992/ZGNavigationBarTitle";
         } else {
             url = @"https://github.com/keshiim/ZMJTipView";

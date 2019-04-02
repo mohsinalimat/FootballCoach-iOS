@@ -117,7 +117,6 @@
             
             WhatsNewHandler *handler = [[WhatsNewHandler alloc] initWithItems: updates];
             [handler displayWhatsNewViewOnViewController:tabBarController];
-
         }
         
         if (_league.isCareerMode) {
