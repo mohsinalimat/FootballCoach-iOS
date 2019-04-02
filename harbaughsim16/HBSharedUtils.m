@@ -986,17 +986,15 @@ static UIColor *styleColor = nil;
                         [((HBTeamPlayView*)teamHeaderView).playButton setEnabled:YES];
                     }
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"injuriesPosted" object:nil];
-                    if (simLeague.userTeam.league.currentWeek != 15) {
+                    [[HBSharedUtils currentLeague] save];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [hud hideAnimated:YES];
                         if (simLeague.userTeam.injuredPlayers.count > 0) {
                             [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)simLeague.userTeam.injuredPlayers.count];
                         } else {
                             [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
                         }
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"updateInjuryCount" object:nil];
-                    }
-                    [[HBSharedUtils currentLeague] save];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [hud hideAnimated:YES];
                     });
                 }
             });

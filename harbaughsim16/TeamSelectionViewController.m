@@ -87,7 +87,7 @@
                     
                     NSLog(@"HARD MODE ENGAGED");
                     [Answers logContentViewWithName:@"New Hard Mode Save Created" contentType:@"Team" contentId:@"hardmode-team16" customAttributes:@{@"Team Name":self->userTeam.name}];
-                    
+                    [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForNormal];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
                     [self dismissViewControllerAnimated:YES completion:nil];
@@ -102,7 +102,7 @@
                     [self->league save];
                     
                     [Answers logContentViewWithName:@"New Easy Mode Save Created" contentType:@"Team" contentId:@"team16" customAttributes:@{@"Team Name":self->userTeam.name}];
-                    
+                    [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForNormal];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
                     [self dismissViewControllerAnimated:YES completion:nil];

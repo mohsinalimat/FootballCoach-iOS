@@ -228,6 +228,7 @@
 }
 
 -(void)updateTabBarForCareer {
+    [self clearTabBar];
     UINavigationController *teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyCareerViewController alloc] init]];
     teamNav.title = @"Career";
     teamNav.tabBarItem.image = [UIImage imageNamed:@"coach-unselected"];
@@ -238,6 +239,23 @@
     tabBarController.viewControllers = navs;
 }
 
+-(void)updateTabBarForNormal {
+    [self clearTabBar];
+    UINavigationController *teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyTeamViewController alloc] init]];
+    teamNav.title = @"My Team";
+    teamNav.tabBarItem.image = [UIImage imageNamed:@"team"];
+    teamNav.tabBarItem.selectedImage = [UIImage imageNamed:@"team-selected"];
+    NSMutableArray *navs = [NSMutableArray arrayWithArray:tabBarController.viewControllers];
+    [navs removeLastObject];
+    [navs addObject:teamNav];
+    tabBarController.viewControllers = navs;
+}
+
+-(void)clearTabBar {
+    for (UITabBarItem *item in tabBarController.tabBar.items) {
+        item.badgeValue = nil;
+    }
+}
 
 -(void)setupAppearance {
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
