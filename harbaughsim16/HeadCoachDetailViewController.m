@@ -120,7 +120,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 1) {
-        return 13;
+        return 14;
     } else if (section == 0) {
         return 11;
     } else {
@@ -304,10 +304,14 @@
             // All Americans
             [cell.textLabel setText:@"All-League Players Coached"];
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.totalAllAmericans]];
-        } else {
+        } else if (indexPath.row == 12) {
             // All Conference
             [cell.textLabel setText:@"All-Conference Players Coached"];
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.totalAllConferences]];
+        } else {
+            // All Conference
+            [cell.textLabel setText:@"Players Drafted"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.careerDraftPicks]];
         }
     } else {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

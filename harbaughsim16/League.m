@@ -2915,6 +2915,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"1", @"pick" : [NSString stringWithFormat:@"%li", (long)(i+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round1 addObject:p];
     }
 
@@ -2926,6 +2927,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"2", @"pick" : [NSString stringWithFormat:@"%li", (long)(j+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round2 addObject:p];
     }
 
@@ -2935,6 +2937,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"3", @"pick" : [NSString stringWithFormat:@"%li", (long)(k+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round3 addObject:p];
     }
 
@@ -2944,6 +2947,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"4", @"pick" : [NSString stringWithFormat:@"%li", (long)(r+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round4 addObject:p];
     }
 
@@ -2953,6 +2957,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"5", @"pick" : [NSString stringWithFormat:@"%li", (long)(c+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round5 addObject:p];
     }
 
@@ -2962,6 +2967,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"6", @"pick" : [NSString stringWithFormat:@"%li", (long)(a+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round6 addObject:p];
     }
 
@@ -2971,6 +2977,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"7", @"pick" : [NSString stringWithFormat:@"%li", (long)b]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round7 addObject:p];
     }
 

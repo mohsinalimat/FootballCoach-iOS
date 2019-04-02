@@ -47,6 +47,7 @@
     hc.careerCOTYs = 0;
     hc.cumulativePrestige = 0;
     hc.totalROTYs = 0;
+    hc.careerDraftPicks = 0;
     hc.retirement = NO;
     hc.wonTopHC = NO;
     hc.wonConfHC = NO;
@@ -190,6 +191,7 @@
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerConfCOTYs] forKey:@"totalConCOTYs"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerCOTYs] forKey:@"totalCOTYs"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalROTYs] forKey:@"totalROTYs"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.careerDraftPicks] forKey:@"careerDraftPicks"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.cumulativePrestige] forKey:@"cumulativePrestige"];
     return stats;
 }
@@ -449,6 +451,11 @@
     
     if (self.totalHeismans > 0) {
         [awards appendFormat:@"?%lix POTY",(long)self.totalHeismans];
+        parts++;
+    }
+    
+    if (self.careerDraftPicks > 0) {
+        [awards appendFormat:@"?%lix Drafted",(long)self.careerDraftPicks];
         parts++;
     }
     

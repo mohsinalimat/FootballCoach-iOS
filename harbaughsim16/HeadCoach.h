@@ -55,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int totalROTYs;
 @property (nonatomic) int careerCOTYs;
 @property (nonatomic) int careerConfCOTYs;
+@property (nonatomic) int careerDraftPicks;
 @property (nonatomic) BOOL retirement;
 @property (nonatomic) BOOL wonConfHC;
 @property (nonatomic) BOOL wonTopHC;
