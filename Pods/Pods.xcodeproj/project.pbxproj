@@ -567,7 +567,7 @@
 		0A70695051849CB4D4F8540D90C5CC4F /* Pods-harbaughsim16-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-harbaughsim16-resources.sh"; sourceTree = "<group>"; };
 		0A7D60B48E476C2BB2202B19FC302278 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B6630D2B29312382585041F9DAF224E /* CLSLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSLogging.h; path = iOS/Crashlytics.framework/Headers/CLSLogging.h; sourceTree = "<group>"; };
-		0BA4A9CDC568B4AAF8A65642B0D42CBC /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AutoCoding.framework; path = AutoCoding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BA4A9CDC568B4AAF8A65642B0D42CBC /* AutoCoding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AutoCoding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C738D72D71AEA2F591A69AA44678975 /* DataSourceProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DataSourceProvider.swift; path = Source/DataSourceProvider.swift; sourceTree = "<group>"; };
 		0C7CA8A5583CD73CF7BEDB8B4293513A /* CellViewConfig.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CellViewConfig.swift; path = Source/CellViewConfig.swift; sourceTree = "<group>"; };
 		0D72154CC86218A9445A04754A577C3B /* ZMJTipView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ZMJTipView-umbrella.h"; sourceTree = "<group>"; };
@@ -581,7 +581,7 @@
 		1153A484E25B7E89209C0202F8FD851F /* ChartDataRendererBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataRendererBase.swift; path = Source/Charts/Renderers/ChartDataRendererBase.swift; sourceTree = "<group>"; };
 		125496B063C9CE1F515D65A2A01A1F50 /* WhatsNew.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WhatsNew.swift; path = WhatsNew/Items/WhatsNew.swift; sourceTree = "<group>"; };
 		1395A6702155EDAEF6433B3DBD2E541C /* ChartBaseDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartBaseDataSet.swift; path = Source/Charts/Data/Implementations/ChartBaseDataSet.swift; sourceTree = "<group>"; };
-		14A70BEFC7294F5FC15668270685A657 /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PPTopMostController.framework; path = PPTopMostController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		14A70BEFC7294F5FC15668270685A657 /* PPTopMostController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PPTopMostController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		14F80160772391E9F9F9464942E4D224 /* Pods-harbaughsim16.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-harbaughsim16.modulemap"; sourceTree = "<group>"; };
 		1563B2821047002D4C459D8C6D4DEA12 /* ScrollableSegmentedControl.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ScrollableSegmentedControl.modulemap; sourceTree = "<group>"; };
 		1662F76B665E43BE2C96937622DA8F2B /* Pods-harbaughsim16.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-harbaughsim16.release.xcconfig"; sourceTree = "<group>"; };
@@ -609,12 +609,12 @@
 		25491CBAA8594BFAFCCA27C14F9FE1F3 /* GBDeviceInfoInterface.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GBDeviceInfoInterface.h; path = GBDeviceInfo/GBDeviceInfoInterface.h; sourceTree = "<group>"; };
 		255F53AF7DE3E324BFCDC210F8C613B6 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
 		2573ACF22E93888864245B9FDE4B3A8A /* MarkerImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MarkerImage.swift; path = Source/Charts/Components/MarkerImage.swift; sourceTree = "<group>"; };
-		25F1FE89D01520FF0A6C1A43664E337B /* ScrollableSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ScrollableSegmentedControl.framework; path = ScrollableSegmentedControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		25F1FE89D01520FF0A6C1A43664E337B /* ScrollableSegmentedControl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ScrollableSegmentedControl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26311A8A7416CA2280FBC6151C0FBAF8 /* WhatsNewItemTextView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = WhatsNewItemTextView.xib; path = WhatsNew/Resources/WhatsNewItemTextView.xib; sourceTree = "<group>"; };
-		2644CCD04B97D38EAA6055F818A4DCD6 /* GBDeviceInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GBDeviceInfo.framework; path = GBDeviceInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2644CCD04B97D38EAA6055F818A4DCD6 /* GBDeviceInfo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GBDeviceInfo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		26AE3451C3125B0E0EEAFF49F0402933 /* Charts-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Charts-umbrella.h"; sourceTree = "<group>"; };
 		27623DC470F641F7DA2891D0CBA31F6E /* RSEmailFeedback-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RSEmailFeedback-umbrella.h"; sourceTree = "<group>"; };
-		27A55F026F87C98721E643944DE0D9B6 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HexColors.framework; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		27A55F026F87C98721E643944DE0D9B6 /* HexColors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HexColors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F431900F0562F592ABB5856FBEEC9E /* Pods-cfctests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-cfctests-dummy.m"; sourceTree = "<group>"; };
 		282AB8EF8B2F1320E7FAA7849D8A17F8 /* IBarLineScatterCandleBubbleChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IBarLineScatterCandleBubbleChartDataSet.swift; path = Source/Charts/Data/Interfaces/IBarLineScatterCandleBubbleChartDataSet.swift; sourceTree = "<group>"; };
 		28D09389304DFFC08A2F2D2EB819F4B0 /* MBProgressHUD-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD-umbrella.h"; sourceTree = "<group>"; };
@@ -635,14 +635,14 @@
 		35FDA86B3B7DCC93AD4160ADD60F35D4 /* BarLineScatterCandleBubbleChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarLineScatterCandleBubbleChartDataProvider.swift; path = Source/Charts/Interfaces/BarLineScatterCandleBubbleChartDataProvider.swift; sourceTree = "<group>"; };
 		362ACEE2833893AA8CC1B2B92FAD6F63 /* STPopupControllerTransitioningSlideVertical.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupControllerTransitioningSlideVertical.h; path = STPopup/STPopupControllerTransitioningSlideVertical.h; sourceTree = "<group>"; };
 		3647D6B06537BA82991ABB442E90C769 /* HexColors-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-umbrella.h"; sourceTree = "<group>"; };
-		365A3471C223546535D0FA0639E0B0F5 /* Pods_cfctests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_cfctests.framework; path = "Pods-cfctests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		365A3471C223546535D0FA0639E0B0F5 /* Pods_cfctests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cfctests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		373E69A4D0ABFAEF0891EE149FF89C8D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		375157EA9338010231CABBA1923592EC /* MBProgressHUD.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MBProgressHUD.modulemap; sourceTree = "<group>"; };
 		386B3A0B8462836388085F2FB86C0CFA /* LineChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/LineChartDataSet.swift; sourceTree = "<group>"; };
 		38F009405F4A18851761C911280F2DB4 /* BarChartDataProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartDataProvider.swift; path = Source/Charts/Interfaces/BarChartDataProvider.swift; sourceTree = "<group>"; };
 		38F91D30443220B652445E1ADD534844 /* RMessageView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RMessageView.m; path = RMessage/RMessageView.m; sourceTree = "<group>"; };
 		3955AEE4E39142222CB23534B2696C0D /* DefaultAxisValueFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = DefaultAxisValueFormatter.swift; path = Source/Charts/Formatters/DefaultAxisValueFormatter.swift; sourceTree = "<group>"; };
-		3A4FE1BDCD6A70728510D1ABFCF5C619 /* ZMJTipView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZMJTipView.framework; path = ZMJTipView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A4FE1BDCD6A70728510D1ABFCF5C619 /* ZMJTipView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZMJTipView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E2EA756E0CAB190F393C9193B92D00C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		3EDA6592ABAE9D2FE7B1B836BB2B4256 /* GBDeviceInfo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = GBDeviceInfo.modulemap; sourceTree = "<group>"; };
 		3F411017380B079F79FA78798929F5E9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
@@ -686,7 +686,7 @@
 		55C7D928CB86FB9CAB4B319487F8D97B /* FABAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FABAttributes.h; path = iOS/Fabric.framework/Headers/FABAttributes.h; sourceTree = "<group>"; };
 		56007D12E83608B147A201AFC8954E13 /* Highlight.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Highlight.swift; path = Source/Charts/Highlight/Highlight.swift; sourceTree = "<group>"; };
 		56C66E117031B725ACC13DEE464C8DF4 /* PPTopMostController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = PPTopMostController.xcconfig; sourceTree = "<group>"; };
-		56F176AB761FC58F6D1515ADE5BB0AC2 /* WhatsNew.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = WhatsNew.framework; path = WhatsNew.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56F176AB761FC58F6D1515ADE5BB0AC2 /* WhatsNew.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = WhatsNew.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E77A74CC5D241EB3F248C830219B6B /* CombinedChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartRenderer.swift; path = Source/Charts/Renderers/CombinedChartRenderer.swift; sourceTree = "<group>"; };
 		582A07E2DD76DECD0CCC8861F4BDAA8B /* ViewPortHandler.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewPortHandler.swift; path = Source/Charts/Utils/ViewPortHandler.swift; sourceTree = "<group>"; };
 		58E48410DD262E002953A90BE6044BE0 /* STPopup.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopup.h; path = STPopup/STPopup.h; sourceTree = "<group>"; };
@@ -695,7 +695,7 @@
 		598B0DF4A62553FBE6E8D7291B2C4275 /* IChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IChartDataSet.swift; path = Source/Charts/Data/Interfaces/IChartDataSet.swift; sourceTree = "<group>"; };
 		5C3FFA35744ED30D813D8BCE6CEAC262 /* YAxisRendererRadarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = YAxisRendererRadarChart.swift; path = Source/Charts/Renderers/YAxisRendererRadarChart.swift; sourceTree = "<group>"; };
 		5F1572C218BF30762899C1149AE2A107 /* Charts.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Charts.xcconfig; sourceTree = "<group>"; };
-		601C35EE3C328559CE678E747403E41E /* RMessage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RMessage.framework; path = RMessage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		601C35EE3C328559CE678E747403E41E /* RMessage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RMessage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6032CAC0065DA54C536F01D1EE771A0A /* ChartUtils.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartUtils.swift; path = Source/Charts/Utils/ChartUtils.swift; sourceTree = "<group>"; };
 		6039321250A8B47BAAE6310C43DA81BB /* CLSReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSReport.h; path = iOS/Crashlytics.framework/Headers/CLSReport.h; sourceTree = "<group>"; };
 		612854B6C460FA056CC1B63727C4391A /* HorizontalBarHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HorizontalBarHighlighter.swift; path = Source/Charts/Highlight/HorizontalBarHighlighter.swift; sourceTree = "<group>"; };
@@ -703,7 +703,7 @@
 		62AF84B521007D30068F3E275781E53C /* IPieChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IPieChartDataSet.swift; path = Source/Charts/Data/Interfaces/IPieChartDataSet.swift; sourceTree = "<group>"; };
 		62D40CB1611EC5EC3D878706E7CA3FF7 /* HexColors-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HexColors-prefix.pch"; sourceTree = "<group>"; };
 		6301AD92078BAB37F985B8AD3325DA95 /* HorizontalBarChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HorizontalBarChartView.swift; path = Source/Charts/Charts/HorizontalBarChartView.swift; sourceTree = "<group>"; };
-		632F7B43DEF93E159E044854F7EC9915 /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ATAppUpdater.framework; path = ATAppUpdater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		632F7B43DEF93E159E044854F7EC9915 /* ATAppUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ATAppUpdater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		650A6A807A19FD52A17E03870DB383FE /* ComponentBase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ComponentBase.swift; path = Source/Charts/Components/ComponentBase.swift; sourceTree = "<group>"; };
 		66B8068467E5174EAED3F45A625C7723 /* PieHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieHighlighter.swift; path = Source/Charts/Highlight/PieHighlighter.swift; sourceTree = "<group>"; };
 		676E8BA9AA85BB3D559419A9B0D9C6CB /* WhatsNewItemImageView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = WhatsNewItemImageView.xib; path = WhatsNew/Resources/WhatsNewItemImageView.xib; sourceTree = "<group>"; };
@@ -715,11 +715,11 @@
 		6C2FC80608B6D3A85CFD957A27F097D6 /* BubbleChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartView.swift; path = Source/Charts/Charts/BubbleChartView.swift; sourceTree = "<group>"; };
 		6C593C65698A037A956CA3786C728FAA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DEC40511CBF717ADA8EC97A6E034EFC /* STPopupNavigationBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupNavigationBar.h; path = STPopup/STPopupNavigationBar.h; sourceTree = "<group>"; };
-		6E121CEB4F4D6BA80264A0E130442685 /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = STPopup.framework; path = STPopup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E121CEB4F4D6BA80264A0E130442685 /* STPopup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = STPopup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7857BA4DAA36F5FB08AA14E535D175 /* LegendEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LegendEntry.swift; path = Source/Charts/Components/LegendEntry.swift; sourceTree = "<group>"; };
 		6F8B5942E2FCD6D45FCEFAE29567D83C /* Answers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Answers.h; path = iOS/Crashlytics.framework/Headers/Answers.h; sourceTree = "<group>"; };
 		70005D015B04EAFB09EF2732F80B5B23 /* RadarHighlighter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarHighlighter.swift; path = Source/Charts/Highlight/RadarHighlighter.swift; sourceTree = "<group>"; };
-		721F8DD5396AC5CC80072BFB7A277522 /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MBProgressHUD.framework; path = MBProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		721F8DD5396AC5CC80072BFB7A277522 /* MBProgressHUD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MBProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7264DF141316688835787433FE328F28 /* WhatsNew-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WhatsNew-dummy.m"; sourceTree = "<group>"; };
 		72EBC090D8A8406C7C5153F4E83109D8 /* Pods-harbaughsim16-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-harbaughsim16-umbrella.h"; sourceTree = "<group>"; };
 		72F722861F9DE268DF7B0CDAC24BDA2F /* WhatsNewItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WhatsNewItem.swift; path = WhatsNew/Items/WhatsNewItem.swift; sourceTree = "<group>"; };
@@ -753,8 +753,8 @@
 		89A47528227396945CF5568CA984C5AC /* BubbleChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BubbleChartRenderer.swift; path = Source/Charts/Renderers/BubbleChartRenderer.swift; sourceTree = "<group>"; };
 		89FBA5E7C00A5027B295D75231CD4865 /* TableViewDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TableViewDelegate.swift; path = Source/TableViewDelegate.swift; sourceTree = "<group>"; };
 		8A6D4BB7F541AC87F21D2B8BC6D07AEF /* Pods-harbaughsim16-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-harbaughsim16-acknowledgements.plist"; sourceTree = "<group>"; };
-		8AB5F20C4D2605DBE7E6F956C0F36518 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Charts.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C1A61AD447E781AA9DB000671B4D343 /* RSEmailFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = RSEmailFeedback.framework; path = RSEmailFeedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8AB5F20C4D2605DBE7E6F956C0F36518 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C1A61AD447E781AA9DB000671B4D343 /* RSEmailFeedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RSEmailFeedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C29B84B0B2C34348DF854C2EA0136CC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8C33668676783BC83C3727B31BAA098E /* Pods-cfctests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-cfctests-acknowledgements.plist"; sourceTree = "<group>"; };
 		8D804212A451060FFCB72AB36ACD144A /* IndexAxisValueFormatter.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IndexAxisValueFormatter.swift; path = Source/Charts/Formatters/IndexAxisValueFormatter.swift; sourceTree = "<group>"; };
@@ -772,11 +772,11 @@
 		9149B39206EB947AC1D4667BFC98DD8A /* IScatterChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IScatterChartDataSet.swift; path = Source/Charts/Data/Interfaces/IScatterChartDataSet.swift; sourceTree = "<group>"; };
 		91E10153E8C0B6C2A7D2796F95C063AE /* STPopupControllerTransitioningFade.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = STPopupControllerTransitioningFade.m; path = STPopup/STPopupControllerTransitioningFade.m; sourceTree = "<group>"; };
 		92DDB68EDC2187315D772802BEFBC807 /* ANSCompatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANSCompatibility.h; path = iOS/Crashlytics.framework/Headers/ANSCompatibility.h; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		95225065833CE2C15CC7EAF0D53C5BA6 /* LineChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineChartView.swift; path = Source/Charts/Charts/LineChartView.swift; sourceTree = "<group>"; };
 		954D0FC516FB733D864DB1B4A9ECB943 /* RSEmailFeedback-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RSEmailFeedback-prefix.pch"; sourceTree = "<group>"; };
 		958FCC645C69713C1B664E0C0E14DA6E /* ScrollableSegmentedControl-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ScrollableSegmentedControl-umbrella.h"; sourceTree = "<group>"; };
-		96F6DF7C7434CB47D1399D8B985525F7 /* ZGNavigationBarTitle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ZGNavigationBarTitle.framework; path = ZGNavigationBarTitle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		96F6DF7C7434CB47D1399D8B985525F7 /* ZGNavigationBarTitle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ZGNavigationBarTitle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9709B4BBE02B4E3EB227D8B5B250DE63 /* GBDeviceInfo_Common.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GBDeviceInfo_Common.m; path = GBDeviceInfo/GBDeviceInfo_Common.m; sourceTree = "<group>"; };
 		97280DD09EE7D2DB0ED3D63CFD97A544 /* YAxisRendererHorizontalBarChart.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = YAxisRendererHorizontalBarChart.swift; path = Source/Charts/Renderers/YAxisRendererHorizontalBarChart.swift; sourceTree = "<group>"; };
 		975AFD7D59BB45502E3255257947E04B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -791,12 +791,12 @@
 		A16B965B133A3E93C798C0B828F024C6 /* FCFileManager.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FCFileManager.modulemap; sourceTree = "<group>"; };
 		A1775DF7C88F6643E742D3535D87BEC1 /* ZGNavigationBarTitle.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ZGNavigationBarTitle.modulemap; sourceTree = "<group>"; };
 		A2FE987F12ACF9415B65412DE5554C15 /* STPopupController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = STPopupController.h; path = STPopup/STPopupController.h; sourceTree = "<group>"; };
-		A39ADBAE638A8B24CD34670AF89F6A17 /* AccordionSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = AccordionSwift.framework; path = AccordionSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A39ADBAE638A8B24CD34670AF89F6A17 /* AccordionSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AccordionSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3A3FACB96EE280B7B3F03AFC8CFDF6F /* MarkerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = MarkerView.swift; path = Source/Charts/Components/MarkerView.swift; sourceTree = "<group>"; };
 		A49B81FF166CC8877FD8A2080A46418D /* BarChartDataSet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartDataSet.swift; path = Source/Charts/Data/Implementations/Standard/BarChartDataSet.swift; sourceTree = "<group>"; };
 		A62A218F2F9EFC336FDB7988D3515564 /* RadarChartView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarChartView.swift; path = Source/Charts/Charts/RadarChartView.swift; sourceTree = "<group>"; };
 		A697CCA4AC0092C157ECEB09E43CD016 /* Charts.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Charts.modulemap; sourceTree = "<group>"; };
-		A6C3FAD2AE50AEC41CF772518EB62BE9 /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_harbaughsim16.framework; path = "Pods-harbaughsim16.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6C3FAD2AE50AEC41CF772518EB62BE9 /* Pods_harbaughsim16.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_harbaughsim16.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C7EA403A1B1BD7425B8BDB9C7C1278 /* CombinedChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CombinedChartData.swift; path = Source/Charts/Data/Implementations/Standard/CombinedChartData.swift; sourceTree = "<group>"; };
 		A8066C60F4ECFF99E90904A831504053 /* BarChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BarChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/BarChartDataEntry.swift; sourceTree = "<group>"; };
 		A88A737C6CFB3CB1164DEBAD3E6BFFAA /* PieChartRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PieChartRenderer.swift; path = Source/Charts/Renderers/PieChartRenderer.swift; sourceTree = "<group>"; };
@@ -831,7 +831,7 @@
 		BFE6A62E2F8F7B0D70FC071B0C8853BA /* STPopup-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "STPopup-umbrella.h"; sourceTree = "<group>"; };
 		BFF30F697C09A01C0C4D690AE2E5AA30 /* DZNEmptyDataSet-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "DZNEmptyDataSet-prefix.pch"; sourceTree = "<group>"; };
 		C032B68193E076D2A2CFE43E3FFCDFC4 /* WhatsNew.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = WhatsNew.xib; path = WhatsNew/Resources/WhatsNew.xib; sourceTree = "<group>"; };
-		C12752B03A4E9D8BFDB51BB41CF28627 /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = DZNEmptyDataSet.framework; path = DZNEmptyDataSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C12752B03A4E9D8BFDB51BB41CF28627 /* DZNEmptyDataSet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DZNEmptyDataSet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2191C11C9DDBF7120CEA3538F1FCAD8 /* ZMJTipView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ZMJTipView.xcconfig; sourceTree = "<group>"; };
 		C28A696DEA827FA9E118F4ACE503E9EB /* AnimatedMoveViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedMoveViewJob.swift; path = Source/Charts/Jobs/AnimatedMoveViewJob.swift; sourceTree = "<group>"; };
 		C48AF8EADA95FD50461E14FC2F86B348 /* ZMJTipView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZMJTipView.h; path = ZMJTipView/Classes/ZMJTipView.h; sourceTree = "<group>"; };
@@ -840,13 +840,13 @@
 		C932F911C354F1A5D5EEEC0B9D317D44 /* AutoCoding-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "AutoCoding-prefix.pch"; sourceTree = "<group>"; };
 		C969B9CBE96F15FDD38407E9FF905AEE /* DataApproximator+N.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "DataApproximator+N.swift"; path = "Source/Charts/Filters/DataApproximator+N.swift"; sourceTree = "<group>"; };
 		C9D8DFE96E19398F28CC7C3B6D19C07C /* WhatsNew.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = WhatsNew.modulemap; sourceTree = "<group>"; };
-		CAABC41250BD8FB5F8838AE0E1173239 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FCFileManager.framework; path = FCFileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAABC41250BD8FB5F8838AE0E1173239 /* FCFileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FCFileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CABDEF886F607B4ECA009D497E8D6306 /* GBDeviceInfo-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GBDeviceInfo-prefix.pch"; sourceTree = "<group>"; };
 		CBADEA33505167C8B39F2990E717167E /* STPopup.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = STPopup.modulemap; sourceTree = "<group>"; };
 		CC9619F77D8576D1E2EDCDD8770DAF6D /* ChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartData.swift; path = Source/Charts/Data/Implementations/Standard/ChartData.swift; sourceTree = "<group>"; };
 		CCCBA967D1F8BDF39F1B0024B1705DF8 /* LineScatterCandleRadarRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LineScatterCandleRadarRenderer.swift; path = Source/Charts/Renderers/LineScatterCandleRadarRenderer.swift; sourceTree = "<group>"; };
 		CF2F13E1691A16BD338F23972C8BCBE6 /* PPTopMostController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = PPTopMostController.modulemap; sourceTree = "<group>"; };
-		CFCEDD565FD4D42C06470B59E560CB75 /* RMessageDefaultDesign.json */ = {isa = PBXFileReference; includeInIndex = 1; name = RMessageDefaultDesign.json; path = RMessage/Assets/RMessageDefaultDesign.json; sourceTree = "<group>"; };
+		CFCEDD565FD4D42C06470B59E560CB75 /* RMessageDefaultDesign.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = RMessageDefaultDesign.json; path = RMessage/Assets/RMessageDefaultDesign.json; sourceTree = "<group>"; };
 		D01676FAC65F308E6252ECF4663933E8 /* RadarChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RadarChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/RadarChartDataEntry.swift; sourceTree = "<group>"; };
 		D02693EB883DE6960D32031F3DD47E08 /* DZNEmptyDataSet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = DZNEmptyDataSet.modulemap; sourceTree = "<group>"; };
 		D079A7C6C61810304F0F795DE0792582 /* FCFileManager-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FCFileManager-umbrella.h"; sourceTree = "<group>"; };
@@ -1103,7 +1103,6 @@
 				FA1E9BA19FED82008ABB5044BEB55BDE /* Core */,
 				EEF09CD40873C0FF992CBAEAB01A580B /* Support Files */,
 			);
-			name = GBDeviceInfo;
 			path = GBDeviceInfo;
 			sourceTree = "<group>";
 		};
@@ -1114,7 +1113,6 @@
 				203FD655080456E76A11F4A521703C13 /* ZMJTipView.m */,
 				07F6FEAE8F26D63D2028BF754CDBC2DE /* Support Files */,
 			);
-			name = ZMJTipView;
 			path = ZMJTipView;
 			sourceTree = "<group>";
 		};
@@ -1152,7 +1150,6 @@
 				1F69EB3E97379C6365E429E6D14F589A /* UIViewController+STPopup.m */,
 				8E74D905AAF9780FCC9CD5282FB3451E /* Support Files */,
 			);
-			name = STPopup;
 			path = STPopup;
 			sourceTree = "<group>";
 		};
@@ -1182,7 +1179,6 @@
 				05C4230E51BF38001E23927E99DB9009 /* Crashlytics.h */,
 				C6039ACBD3C46D77EC64A0F156A5995A /* Frameworks */,
 			);
-			name = Crashlytics;
 			path = Crashlytics;
 			sourceTree = "<group>";
 		};
@@ -1196,7 +1192,6 @@
 				65856B242E74F462423989D06E059F8C /* Resources */,
 				D7BFB88D42FBF2C3B8804E1E055989FB /* Support Files */,
 			);
-			name = RMessage;
 			path = RMessage;
 			sourceTree = "<group>";
 		};
@@ -1207,7 +1202,6 @@
 				D5DA2B5ECAD7BF42F3D922598B034FC3 /* HexColors.m */,
 				F96BEF8EB3800F18B4D2627C647E2C85 /* Support Files */,
 			);
-			name = HexColors;
 			path = HexColors;
 			sourceTree = "<group>";
 		};
@@ -1270,7 +1264,6 @@
 				89FBA5E7C00A5027B295D75231CD4865 /* TableViewDelegate.swift */,
 				02A8C3500B5E04C353F23308C865A33E /* Support Files */,
 			);
-			name = AccordionSwift;
 			path = AccordionSwift;
 			sourceTree = "<group>";
 		};
@@ -1322,7 +1315,6 @@
 				BBC4A7E88CE24A1E048A7FB93CC23695 /* Fabric.h */,
 				B75A8E47FD137B04EEB178174214C28C /* Frameworks */,
 			);
-			name = Fabric;
 			path = Fabric;
 			sourceTree = "<group>";
 		};
@@ -1507,7 +1499,6 @@
 				99F0A0227BDEBAC63D7B1707EFE5158A /* Resources */,
 				F393647F806E2560572B016604AEA97E /* Support Files */,
 			);
-			name = WhatsNew;
 			path = WhatsNew;
 			sourceTree = "<group>";
 		};
@@ -1527,7 +1518,6 @@
 				F15552A52F01AF798919475843FCA49D /* MBProgressHUD.m */,
 				398963F26EC617E5F64248F315A1BB69 /* Support Files */,
 			);
-			name = MBProgressHUD;
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -1625,7 +1615,6 @@
 				507CABECFFA52A2FEAE42AF653DCCBF5 /* Core */,
 				EF65A1235153AD55D92861EF5215E1E3 /* Support Files */,
 			);
-			name = Charts;
 			path = Charts;
 			sourceTree = "<group>";
 		};
@@ -1697,7 +1686,6 @@
 				5222DCE5B971711D0C43E26923FA1825 /* ScrollableSegmentedControl.swift */,
 				77429D6576DA1175509FD96421C960CB /* Support Files */,
 			);
-			name = ScrollableSegmentedControl;
 			path = ScrollableSegmentedControl;
 			sourceTree = "<group>";
 		};
@@ -1721,7 +1709,6 @@
 				9C0E6724DA0681BDDF7122285738FCC3 /* UIViewController+PPTopMostController.m */,
 				D685ECC8C7165A778FD3C45CBEA09845 /* Support Files */,
 			);
-			name = PPTopMostController;
 			path = PPTopMostController;
 			sourceTree = "<group>";
 		};
@@ -1732,7 +1719,6 @@
 				04AB5BB6585837A2658FA725CECE347F /* ATAppUpdater.m */,
 				2DE6FE8827F36D346FD36CDACE4E10DF /* Support Files */,
 			);
-			name = ATAppUpdater;
 			path = ATAppUpdater;
 			sourceTree = "<group>";
 		};
@@ -1745,7 +1731,6 @@
 				90FDD37B2D7E4D9833C5C59A9CD02896 /* ZGNavigationTitleView.m */,
 				5C8428B47513D749C5EE19898AC207E5 /* Support Files */,
 			);
-			name = ZGNavigationBarTitle;
 			path = ZGNavigationBarTitle;
 			sourceTree = "<group>";
 		};
@@ -1756,7 +1741,6 @@
 				B452E837089609637796EB94BFF6660E /* AutoCoding.m */,
 				C02F6EE44DFE8392D0CB29602AAF8814 /* Support Files */,
 			);
-			name = AutoCoding;
 			path = AutoCoding;
 			sourceTree = "<group>";
 		};
@@ -1795,7 +1779,6 @@
 				C6AF9E5ADE80DC3B5B3ABAA0B99C5D99 /* RSEmailFeedback.m */,
 				C23277AE9F3D8A93F401F4549FAF48DC /* Support Files */,
 			);
-			name = RSEmailFeedback;
 			path = RSEmailFeedback;
 			sourceTree = "<group>";
 		};
@@ -1806,7 +1789,6 @@
 				E704E899FCDFA47ECA345B8022688BBA /* FCFileManager.m */,
 				29735EFD74BDC5ED196F32C3BCEA5686 /* Support Files */,
 			);
-			name = FCFileManager;
 			path = FCFileManager;
 			sourceTree = "<group>";
 		};
@@ -1873,7 +1855,6 @@
 				C73C7CAE907710094406D1E19FF01289 /* UIScrollView+EmptyDataSet.m */,
 				F214D22D72CCEB3DD87AA7CBF40CE6A4 /* Support Files */,
 			);
-			name = DZNEmptyDataSet;
 			path = DZNEmptyDataSet;
 			sourceTree = "<group>";
 		};
@@ -2482,13 +2463,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0930;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
@@ -4050,6 +4032,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -4307,6 +4290,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -4358,8 +4342,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 4.2;
 				SYMROOT = "${SRCROOT}/../build";
 			};

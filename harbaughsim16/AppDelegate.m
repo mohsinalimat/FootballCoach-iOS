@@ -95,28 +95,6 @@
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_UPCOMING_TUTORIAL_SHOWN_KEY];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            
-            
-            NSArray *updates = @[
-                                 @{
-                                     @"title": @"Career Mode",
-                                     @"subtitle" : @"A coaching carousel has been added to CFC in 3.0! Start a new game in career mode and plot the course of your very own college football coaching career! But be warned: fail to meet program expectations and you might get fired!"
-                                     
-                                     },
-                                 @{
-                                     @"title": @"Defensive Stats",
-                                     @"subtitle" : @"Stat tracking and award-winning has been added for defensive players! Play games to accumulate fumbles, interceptions, sacks, tackles, and passes defended and watch your defenders rise to the top!"
-                                     },
-                                 @{
-                                     @"title": @"Stat History",
-                                     @"subtitle" : @"Compare players' stats across their careers by viewing their stat history. Available from any player's profile after the first season you play in version 3.0!",
-                                     //                                 @"image" : @"history-selected"
-                                     
-                                     }
-                                 ];
-            
-            WhatsNewHandler *handler = [[WhatsNewHandler alloc] initWithItems: updates];
-            [handler displayWhatsNewViewOnViewController:tabBarController];
         }
         
         if (_league.isCareerMode) {
@@ -176,7 +154,30 @@
                 } else { // 2.0.x -> 2.1.x
                     convertProgressAlert.message = [NSString stringWithFormat:@"Your save file has been updated for use in version %@!", HB_CURRENT_APP_VERSION];
                 }
-                [convertProgressAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+                [convertProgressAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    NSArray *updates = @[
+                                         @{
+                                             @"title": @"Career Mode",
+                                             @"subtitle" : @"A coaching carousel has been added to CFC in 3.0! Start a new game in career mode and plot the course of your very own college football coaching career! But be warned: fail to meet program expectations and you might get fired!"
+                                             
+                                             },
+                                         @{
+                                             @"title": @"Defensive Stats",
+                                             @"subtitle" : @"Stat tracking and award-winning has been added for defensive players! Play games to accumulate fumbles, interceptions, sacks, tackles, and passes defended and watch your defenders rise to the top!"
+                                             },
+                                         @{
+                                             @"title": @"Stat History",
+                                             @"subtitle" : @"Compare players' stats across their careers by viewing their stat history. Available from any player's profile after the first season you play in version 3.0!",
+                                             //                                 @"image" : @"history-selected"
+                                             
+                                             }
+                                         ];
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        WhatsNewHandler *handler = [[WhatsNewHandler alloc] initWithItems: updates];
+                        [handler displayWhatsNewViewOnViewController:self->tabBarController];
+                    });
+                }]];
                 self->_league = ligue;
                 [self->_league save];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFileUpdate" object:nil];
