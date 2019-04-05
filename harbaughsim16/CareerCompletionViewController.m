@@ -67,7 +67,7 @@
 
 -(void)updateGlimpseView {
     [glimpseView.nameLabel setText:selectedCoach.name];
-    [glimpseView.ageLabel setText:[NSString stringWithFormat:@"Age: %d | Overall: %d", selectedCoach.age, selectedCoach.baselinePrestige]];
+    [glimpseView.ageLabel setText:[NSString stringWithFormat:@"Age: %d | %d-%d | Overall: %d", selectedCoach.age, selectedCoach.startYear, selectedCoach.startYear + selectedCoach.year, selectedCoach.baselinePrestige]];
     [glimpseView.teamsLabel setText:[selectedCoach teamsCoachedString]];
     [glimpseView.teamsLabel sizeToFit];
     
@@ -84,11 +84,6 @@
     [glimpseView.playerAwardsReportLabel sizeToFit];
     
     [glimpseView.coachCareerScoreLabel setText:[NSString stringWithFormat:@"%d", [selectedCoach getCoachCareerScore]]];
-    
-    if (IS_IPHONE_5) {
-        [glimpseView.careerConfRecordTitleLabel setText:@"Conf"];
-        [glimpseView.careerCCGRecordTitleLabel setText:@"In CCG"];
-    }
     
     [glimpseView setNeedsLayout];
 }
