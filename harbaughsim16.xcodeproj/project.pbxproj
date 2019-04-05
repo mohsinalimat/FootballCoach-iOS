@@ -31,8 +31,6 @@
 		754E90781CA58BF800C450CF /* BowlProjectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E90771CA58BF800C450CF /* BowlProjectionViewController.m */; };
 		754E907B1CA58C0F00C450CF /* HeismanLeadersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E907A1CA58C0F00C450CF /* HeismanLeadersViewController.m */; };
 		754E907E1CA59A0900C450CF /* RankingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 754E907D1CA59A0900C450CF /* RankingsViewController.m */; };
-		7551AC201FFFD9CA0033680E /* CFCWatchlistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */; };
-		7551AC211FFFD9CA0033680E /* CFCWatchlistCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */; };
 		755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC461C9DD0DF001A8314 /* HBStatsCell.m */; };
 		755BBC491C9DD0DF001A8314 /* HBStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC471C9DD0DF001A8314 /* HBStatsCell.xib */; };
 		755BBC4D1C9DEDF0001A8314 /* HBPlayerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC4B1C9DEDF0001A8314 /* HBPlayerCell.m */; };
@@ -299,9 +297,6 @@
 		754E907A1CA58C0F00C450CF /* HeismanLeadersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeismanLeadersViewController.m; sourceTree = "<group>"; };
 		754E907C1CA59A0900C450CF /* RankingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingsViewController.h; sourceTree = "<group>"; };
 		754E907D1CA59A0900C450CF /* RankingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingsViewController.m; sourceTree = "<group>"; };
-		7551AC1D1FFFD9CA0033680E /* CFCWatchlistCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CFCWatchlistCell.h; sourceTree = "<group>"; };
-		7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CFCWatchlistCell.m; sourceTree = "<group>"; };
-		7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CFCWatchlistCell.xib; sourceTree = "<group>"; };
 		755BBC451C9DD0DF001A8314 /* HBStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBStatsCell.h; sourceTree = "<group>"; };
 		755BBC461C9DD0DF001A8314 /* HBStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBStatsCell.m; sourceTree = "<group>"; };
 		755BBC471C9DD0DF001A8314 /* HBStatsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBStatsCell.xib; sourceTree = "<group>"; };
@@ -631,9 +626,6 @@
 				75CEE94B1FF593F5005A86C1 /* CFCRecruitCell.h */,
 				75CEE94C1FF593F5005A86C1 /* CFCRecruitCell.m */,
 				75CEE94D1FF593F5005A86C1 /* CFCRecruitCell.xib */,
-				7551AC1D1FFFD9CA0033680E /* CFCWatchlistCell.h */,
-				7551AC1E1FFFD9CA0033680E /* CFCWatchlistCell.m */,
-				7551AC1F1FFFD9CA0033680E /* CFCWatchlistCell.xib */,
 			);
 			name = Recruiting;
 			sourceTree = "<group>";
@@ -1357,7 +1349,6 @@
 				75E8D89921D743FE0077CBC1 /* HeadCoachDetailViewController.xib in Resources */,
 				75A4517321CC55F4007E481A /* PlayerRBDetailViewController.xib in Resources */,
 				7571DD241C9CC62E00E67080 /* stats@3x.png in Resources */,
-				7551AC211FFFD9CA0033680E /* CFCWatchlistCell.xib in Resources */,
 				75A86C9B1C9C7C0C0034140C /* schedule-selected@3x.png in Resources */,
 				75F0E2671FECDAEA00719086 /* loser@2x.png in Resources */,
 				75968B7221DC12EE009B040C /* coach-unselected@2x.png in Resources */,
@@ -1639,7 +1630,6 @@
 				756973971FAAB50400A66C42 /* LeagueUpdater.m in Sources */,
 				75924A3D1C99CD8D00B165AD /* Team.m in Sources */,
 				75924A201C99CCC000B165AD /* main.m in Sources */,
-				7551AC201FFFD9CA0033680E /* CFCWatchlistCell.m in Sources */,
 				75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */,
 				75DF165F2239B57A00E85626 /* StatCell.swift in Sources */,
 				75924A641C99E65600B165AD /* PlayerOL.m in Sources */,

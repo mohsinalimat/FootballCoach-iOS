@@ -417,6 +417,8 @@
                 [t getCurrentHC].gamesCoached = [t getCurrentHC].totalWins + [t getCurrentHC].totalLosses;
                 [t getCurrentHC].offStratNum = t.teamStatOffNum;
                 [t getCurrentHC].defStratNum = t.teamStatDefNum;
+                [t getCurrentHC].startYear = (int)t.league.baseYear;
+                [t getCurrentHC].year = (int)([t.league getCurrentYear] - t.league.baseYear);
                 
                 // give HC the team history too
                 [t getCurrentHC].coachingHistoryDictionary = [t.teamHistoryDictionary mutableCopy];

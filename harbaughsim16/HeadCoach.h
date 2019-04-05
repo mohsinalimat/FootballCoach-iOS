@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSMutableDictionary *coachingHistoryDictionary;
 @property (strong, nonatomic) NSMutableDictionary *prestigeHistoryDictionary; // { @"2019" : { @"team" : @"ATL", @"prestige" : 90 } } 
 @property (nonatomic) int year;
+@property (nonatomic) int startYear;
 @property (nonatomic) int age;
 @property (nonatomic) int ratOvr;
 @property (nonatomic) int ratImprovement;

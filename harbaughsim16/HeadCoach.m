@@ -18,6 +18,7 @@
     hc.name = nm;
     hc.year = yr;
     hc.team = t;
+    hc.startYear = (int)[t.league getCurrentYear];
     hc.homeState = [HBSharedUtils randomState];
     hc.age = 30 + (int) ([HBSharedUtils randomValue] * 28);
     hc.contractYear = (int)(6 * [HBSharedUtils randomValue]);
@@ -177,7 +178,7 @@
 
 -(NSDictionary*)detailedCareerStats {
     NSMutableDictionary *stats = [NSMutableDictionary dictionary];
-    
+    [stats setObject:[NSString stringWithFormat:@"%d",self.year] forKey:@"yearsCoachedFor"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalWins] forKey:@"totalWins"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalLosses] forKey:@"totalLosses"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalConfWins] forKey:@"totalConfWins"];
@@ -197,7 +198,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    return @{@"offensiveAbility" : [HBSharedUtils getLetterGrade:self.ratOff], @"defensiveAbility" : [HBSharedUtils getLetterGrade:self.ratDef],  @"talentProgression" : [HBSharedUtils getLetterGrade:self.ratTalent], @"discipline" :  [HBSharedUtils getLetterGrade:self.ratDiscipline], @"jobStatus" : [self getCoachStatusString],@"potential" : [HBSharedUtils getLetterGrade:self.ratPot],@"contractYearsLeft" : @(self.contractLength - self.contractYear - 1),@"contractLength" : @(self.contractLength), @"offensivePlaybook" : [self.team getOffensiveTeamStrategies][self.offStratNum].stratName,@"defensivePlaybook" : [self.team getDefensiveTeamStrategies][self.defStratNum].stratName};
+    return @{@"offensiveAbility" : [HBSharedUtils getLetterGrade:self.ratOff], @"defensiveAbility" : [HBSharedUtils getLetterGrade:self.ratDef],  @"talentProgression" : [HBSharedUtils getLetterGrade:self.ratTalent], @"discipline" :  [HBSharedUtils getLetterGrade:self.ratDiscipline], @"jobStatus" : [self getCoachStatusString],@"potential" : [HBSharedUtils getLetterGrade:self.ratPot],@"contractYearsLeft" : @(self.contractLength - self.contractYear - 1),@"contractLength" : @(self.contractLength), @"offensivePlaybook" : [self.team getOffensiveTeamStrategies][self.offStratNum].stratName,@"defensivePlaybook" : [self.team getDefensiveTeamStrategies][self.defStratNum].stratName, @"startYear" : @(self.startYear),@"age" : @(self.age)};
 }
 
 -(NSString*)getInitialName {
@@ -222,7 +223,7 @@
 -(NSString *)coachMetadataJSON {
     NSMutableString *jsonString = [NSMutableString string];
     [jsonString appendString:@"{"];
-    [jsonString appendFormat:@"\"name\" : \"%@\", \"age\" : \"%d\", \"contractYear\" : \"%d\", \"contractLength\" : \"%d\", \"homeState\" : \"%@\", \"baselinePrestige\" : \"%d\", \"cumulativePrestige\" : \"%d\", \"ratOvr\" : \"%d\", \"ratDef\" : \"%d\", \"ratOff\" : \"%d\", \"ratTalent\" : \"%d\", \"ratDiscipline\" : \"%d\", \"ratPot\" : \"%d\"",self.name,self.age, self.contractYear, self.contractLength, self.homeState, self.baselinePrestige,self.cumulativePrestige,self.ratOvr,self.ratDef,self.ratOff,self.ratTalent,self.ratDiscipline,self.ratPot];
+    [jsonString appendFormat:@"\"name\" : \"%@\", \"age\" : \"%d\", \"startYear\" : \"%d\", \"contractYear\" : \"%d\", \"contractLength\" : \"%d\", \"homeState\" : \"%@\", \"baselinePrestige\" : \"%d\", \"cumulativePrestige\" : \"%d\", \"ratOvr\" : \"%d\", \"ratDef\" : \"%d\", \"ratOff\" : \"%d\", \"ratTalent\" : \"%d\", \"ratDiscipline\" : \"%d\", \"ratPot\" : \"%d\"",self.name,self.age, self.startYear,self.contractYear, self.contractLength, self.homeState, self.baselinePrestige,self.cumulativePrestige,self.ratOvr,self.ratDef,self.ratOff,self.ratTalent,self.ratDiscipline,self.ratPot];
     [jsonString appendString:@"}"];
     return jsonString;
 }
@@ -280,6 +281,20 @@
                 self.cumulativePrestige = prestige.intValue;
             }
             NSLog(@"New prestige for %@: %d", self.name,self.cumulativePrestige);
+        }
+        
+        if ([jsonDict[@"startYear"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
+        {
+            NSLog(@"Changing start year for %@ from original value of %d", self.name, self.startYear);
+            NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"startYear"]];
+            if (year.intValue > self.team.league.baseYear) {
+                self.startYear = (int)self.team.league.baseYear;
+            } else if (year.intValue < (self.team.league.baseYear - 85)) { // https://herosports.com/college-football/oldest-coaches-moglia-solich-mack-brown-ahah --> giving some room for coaches to be as old as 84
+                self.startYear = (int)(self.team.league.baseYear - 85);
+            } else {
+                self.startYear = year.intValue;
+            }
+            NSLog(@"New start year for %@: %d", self.name,self.startYear);
         }
         
         if ([jsonDict[@"contractYear"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
@@ -455,7 +470,7 @@
     }
     
     if (self.careerDraftPicks > 0) {
-        [awards appendFormat:@"?%lix Drafted",(long)self.careerDraftPicks];
+        [awards appendFormat:@"?%li Drafted",(long)self.careerDraftPicks];
         parts++;
     }
     
@@ -497,24 +512,33 @@
     __block NSMutableString *awards = [NSMutableString string];
     __block int parts = 0;
 
-    for (NSString *hist in self.coachingHistoryDictionary) {
-        NSArray *stringParts = [hist componentsSeparatedByString:@"\n"];
-        NSString *teamInfo = (stringParts.count > 0) ? stringParts[0] : [NSString stringWithFormat:@"%@ (0-0)",self.team.abbreviation];
-    
-        NSError *error = NULL;
-        NSRegularExpression *regex = [NSRegularExpression
-                                      regularExpressionWithPattern:@"([A-Z])\\w+"
-                                      options:NSRegularExpressionCaseInsensitive
-                                      error:&error];
-        [regex enumerateMatchesInString:teamInfo options:0 range:NSMakeRange(0, [teamInfo length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
-            if (match != nil) {
-                NSString *matchedTeam = [teamInfo substringWithRange:match.range];
-                if (![awards containsString:matchedTeam]) {
-                    [awards appendFormat:@"?%@",matchedTeam];
-                    parts++;
-                }
-            }
+    if (self.coachingHistoryDictionary.count > 0) {
+        NSArray *keys = [self.coachingHistoryDictionary.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj1 compare:obj2];
         }];
+        for (NSString *k in keys) {
+            NSString *hist = self.coachingHistoryDictionary[k];
+            NSArray *stringParts = [hist componentsSeparatedByString:@"\n"];
+            NSString *teamInfo = (stringParts.count > 0) ? stringParts[0] : [NSString stringWithFormat:@"%@ (0-0)",self.team.abbreviation];
+            
+            NSError *error = NULL;
+            NSRegularExpression *regex = [NSRegularExpression
+                                          regularExpressionWithPattern:@"([A-Z])\\w+"
+                                          options:NSRegularExpressionCaseInsensitive
+                                          error:&error];
+            [regex enumerateMatchesInString:teamInfo options:0 range:NSMakeRange(0, [teamInfo length]) usingBlock:^(NSTextCheckingResult *match, NSMatchingFlags flags, BOOL *stop){
+                if (match != nil) {
+                    NSString *matchedTeam = [teamInfo substringWithRange:match.range];
+                    if (![awards containsString:matchedTeam]) {
+                        [awards appendFormat:@"?%@",matchedTeam];
+                        parts++;
+                    }
+                }
+            }];
+        }
+    } else {
+        [awards appendFormat:@"?%@",self.team.abbreviation];
+        parts++;
     }
     
     if (parts > 1) {

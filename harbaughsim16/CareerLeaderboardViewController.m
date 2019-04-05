@@ -10,7 +10,6 @@
 #import "League.h"
 #import "Team.h"
 
-#import "CFCRecruitCell.h"
 #import "NSArray+Uniqueness.h"
 #import "TeamViewController.h"
 
@@ -33,6 +32,8 @@
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     self.title = @"Lifetime Career Leaderboard";
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 180;
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -64,10 +65,7 @@
     
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
-    self.tableView.estimatedRowHeight = 150;
-    self.tableView.rowHeight = 150;
     self.tableView.tableFooterView = [UIView new];
-    [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -92,7 +90,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
     text = @"No coaches on leaderboard";
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:16.0];
     textColor = [UIColor lightTextColor];
     
     
@@ -167,60 +165,56 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        [cell.detailTextLabel setNumberOfLines:0];
+        [cell.textLabel setFont:[UIFont boldSystemFontOfSize:17.0]];
+    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSDictionary *coachDict = coachList[indexPath.row];
     if (coachDict != nil) {
         [self configureCellForCoach:coachDict indexPath:indexPath cell:cell];
     } else {
-        [cell.interestLabel setText:@""];
-        [cell.starImageView setImage:nil];
-        [cell.nameLabel setText:@""];
-        [cell.stateLabel setText:@""];
-        [cell.heightLabel setText:@""];
-        [cell.weightLabel setText:@""];
+        [cell.textLabel setText:@""];
+        [cell.detailTextLabel setText:@""];
     }
     
     return cell;
 }
 
--(void)configureCellForCoach:(NSDictionary *)coachDict indexPath:(NSIndexPath *)indexPath cell:(CFCRecruitCell *)cell {
-    [cell.nameLabel setText:coachDict[@"coachName"]];
-    [cell.stateLabel setText:[NSString stringWithFormat:@"Coach Score: %@", coachDict[@"coachScore"]]];
+-(void)configureCellForCoach:(NSDictionary *)coachDict indexPath:(NSIndexPath *)indexPath cell:(UITableViewCell *)cell {
+    [cell.textLabel setText:[NSString stringWithFormat:@"HC %@ (Age: %@)", coachDict[@"coachName"],coachDict[@"age"]]];
 
-    CGFloat inMin = [worstCoachScore floatValue];
-    CGFloat inMax = [bestCoachScore floatValue];
-
-    CGFloat outMin = 1.0;
-    CGFloat outMax = 5.0;
-
-    CGFloat input = (CGFloat)[coachDict[@"coachScore"] floatValue];
-    int stars = (int)(outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
-
-    [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:MAX(1, stars)]]];
+//    NSMutableAttributedString *ageString = [[NSMutableAttributedString alloc] initWithString:@"Age: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+//    [ageString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", coachDict[@"age"]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
-    NSMutableAttributedString *lastBowlString = [[NSMutableAttributedString alloc] initWithString:@"Teams Coached: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [lastBowlString appendAttributedString:[[NSAttributedString alloc] initWithString:coachDict[@"teamsCoached"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
-    [cell.heightLabel setAttributedText:lastBowlString];
-
-    NSMutableAttributedString *coachAwardsString = [[NSMutableAttributedString alloc] initWithString:@"Coach Awards: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [coachAwardsString appendAttributedString:[[NSAttributedString alloc] initWithString:coachDict[@"coachAwards"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
-    [cell.fortyYdDashLabel setAttributedText:coachAwardsString];
-
-    NSMutableAttributedString *playerAwardsString = [[NSMutableAttributedString alloc] initWithString:@"Player Awards: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [playerAwardsString appendAttributedString:[[NSAttributedString alloc] initWithString:coachDict[@"playerAwards"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
-    [cell.otherOffersLabel setAttributedText:playerAwardsString];
+    NSMutableAttributedString *yearString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Coached from %@ to %d", coachDict[@"startYear"],([coachDict[@"startYear"] intValue] + [coachDict[@"yearsCoachedFor"] intValue])] attributes:@{NSFontAttributeName : [UIFont italicSystemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
     
-//    NSMutableAttributedString *recordString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld: ", (long)[[HBSharedUtils currentLeague] getCurrentYear]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-//    [recordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d-%d",t.wins,t.losses] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
-//        [cell.weightLabel setAttributedText:recordString];
-
-    NSMutableAttributedString *lifetimeRecordString = [[NSMutableAttributedString alloc] initWithString:@"Lifetime: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [lifetimeRecordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@-%@", coachDict[@"totalWins"],coachDict[@"totalLosses"]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
-    [cell.weightLabel setAttributedText:lifetimeRecordString];
+    NSMutableAttributedString *careerScoreString = [[NSMutableAttributedString alloc] initWithString:@"\nCareer Score: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [careerScoreString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", coachDict[@"coachScore"]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
-    [cell.rankLabel setText:[NSString stringWithFormat:@"#%ld HC", (long)(indexPath.row + 1)]];
+    NSMutableAttributedString *lifetimeRecordString = [[NSMutableAttributedString alloc] initWithString:@"\nLifetime: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [lifetimeRecordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@-%@", coachDict[@"totalWins"],coachDict[@"totalLosses"]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    
+    NSMutableAttributedString *lastBowlString = [[NSMutableAttributedString alloc] initWithString:@"\nTeams Coached: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [lastBowlString appendAttributedString:[[NSAttributedString alloc] initWithString:coachDict[@"teamsCoached"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+
+    NSMutableAttributedString *coachAwardsString = [[NSMutableAttributedString alloc] initWithString:@"\nCoach Awards: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [coachAwardsString appendAttributedString:[[NSAttributedString alloc] initWithString:coachDict[@"coachAwards"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+
+    NSMutableAttributedString *playerAwardsString = [[NSMutableAttributedString alloc] initWithString:@"\nPlayer Awards: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [playerAwardsString appendAttributedString:[[NSAttributedString alloc] initWithString:coachDict[@"playerAwards"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+
+    NSMutableAttributedString *compoundHistoryString = [[NSMutableAttributedString alloc] initWithAttributedString:yearString];
+//    [compoundHistoryString appendAttributedString:yearString];
+    [compoundHistoryString appendAttributedString:careerScoreString];
+    [compoundHistoryString appendAttributedString:lifetimeRecordString];
+    [compoundHistoryString appendAttributedString:lastBowlString];
+    [compoundHistoryString appendAttributedString:coachAwardsString];
+    [compoundHistoryString appendAttributedString:playerAwardsString];
+    
+    [cell.detailTextLabel setAttributedText:compoundHistoryString];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
