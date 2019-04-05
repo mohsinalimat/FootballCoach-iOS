@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rnC-us-UIA" customClass="CareerCompletionGlimpseView">
-                    <rect key="frame" x="16" y="96" width="288" height="396"/>
+                    <rect key="frame" x="16" y="102" width="288" height="396"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="lcJ-bI-KeH">
                             <rect key="frame" x="15" y="21" width="258" height="281"/>
@@ -197,7 +197,7 @@
                             </subviews>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Career Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K5a-yu-bk2">
-                            <rect key="frame" x="92" y="310" width="105" height="14.5"/>
+                            <rect key="frame" x="91.5" y="310" width="105" height="14.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                             <nil key="highlightedColor"/>
@@ -244,7 +244,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MvV-8O-oVQ">
-                    <rect key="frame" x="16" y="500" width="288" height="36"/>
+                    <rect key="frame" x="16" y="516" width="288" height="36"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="Share Career">
                         <color key="titleColor" red="0.23921568630000001" green="0.70196078429999997" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -265,7 +265,7 @@
             </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
             <constraints>
-                <constraint firstItem="rnC-us-UIA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="10" id="2cS-vs-gdx"/>
+                <constraint firstItem="rnC-us-UIA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="16" id="2cS-vs-gdx"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="MvV-8O-oVQ" secondAttribute="trailing" constant="16" id="834-4q-iU2"/>
                 <constraint firstItem="MvV-8O-oVQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="ALc-4M-BZf"/>
                 <constraint firstItem="rnC-us-UIA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="OHQ-Xe-4yi"/>
@@ -273,11 +273,11 @@
                 <constraint firstItem="rnC-us-UIA" firstAttribute="trailing" secondItem="FcM-kn-GCe" secondAttribute="trailing" id="RsY-bK-pQn"/>
                 <constraint firstItem="FcM-kn-GCe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Y8W-TX-Lnd"/>
                 <constraint firstItem="8pi-LW-VgZ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="gwk-nj-G7C"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="MvV-8O-oVQ" secondAttribute="bottom" constant="32" id="ruz-Rb-tSd"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="MvV-8O-oVQ" secondAttribute="bottom" constant="16" id="ruz-Rb-tSd"/>
                 <constraint firstItem="FcM-kn-GCe" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="38" id="tXt-7K-hQL"/>
                 <constraint firstItem="8pi-LW-VgZ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="vf9-7K-dnE"/>
-                <constraint firstItem="MvV-8O-oVQ" firstAttribute="top" secondItem="rnC-us-UIA" secondAttribute="bottom" constant="8" id="wRm-s1-Vhh"/>
-                <constraint firstItem="rnC-us-UIA" firstAttribute="top" secondItem="FcM-kn-GCe" secondAttribute="bottom" constant="8" id="xmC-sS-on9"/>
+                <constraint firstItem="MvV-8O-oVQ" firstAttribute="top" secondItem="rnC-us-UIA" secondAttribute="bottom" constant="18" id="wRm-s1-Vhh"/>
+                <constraint firstItem="rnC-us-UIA" firstAttribute="top" secondItem="FcM-kn-GCe" secondAttribute="bottom" constant="14" id="xmC-sS-on9"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
