@@ -930,7 +930,7 @@
             return YES;
         }
     
-        if (self.currentWeek < 15 && (t.wins + t.losses) != self.currentWeek) {
+        if (self.currentWeek < 12 && (t.wins + t.losses) != self.currentWeek) {
             NSLog(@"%@ record: %d-%d", t.abbreviation, t.wins, t.losses);
             return YES;
         }
@@ -1263,6 +1263,138 @@
     return self;
 }
 
+-(void)generateGOTWNews {
+    if (currentWeek >= 14) {
+        return;
+    }
+    
+    NSMutableArray<Game*> *allGames = [NSMutableArray array];
+    if (currentWeek < 12) {
+        for (Conference *c in conferences) {
+            if (currentWeek == 11) {
+                if (c.ccg != nil && ![allGames containsObject:c.ccg]) {
+                    [allGames addObject:c.ccg];
+                }
+            } else {
+                for (Team *t in c.confTeams) {
+                    Game *g = t.gameSchedule[currentWeek + 1];
+                    if (g != nil && ![allGames containsObject:g]) {
+                        [allGames addObject:g];
+                    }
+                }
+            }
+        }
+        if (allGames.count > 0) {
+            [allGames sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                Game *a = (Game *)obj1;
+                Game *b = (Game *)obj2;
+                
+                return [[NSNumber numberWithInt:(b.homeTeam.teamPollScore + b.awayTeam.teamPollScore)] compare:[NSNumber numberWithInt:(a.homeTeam.teamPollScore + a.awayTeam.teamPollScore)]];
+            }];
+            
+            Game *gotw = allGames[0];
+            NSMutableString *newsString = [NSMutableString string];
+            
+            if (gotw.awayTeam.rankTeamPollScore < 26 && gotw.homeTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: #%d %@ @ #%d %@\nThe College Football Preview Show travels to %@ this week to take in a battle between national heavyweights. #%d %@ faces off against #%d %@",gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.abbreviation,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.abbreviation,gotw.homeTeam.state,gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.name,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.name];
+            } else if (gotw.awayTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: #%d %@ @ %@\nThe College Football Preview Show travels to %@ this week to watch if a contender can hold serve on the road. #%d %@ faces off against %@",gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.abbreviation,gotw.homeTeam.abbreviation,gotw.homeTeam.state,gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.name,gotw.homeTeam.name];
+            } else if (gotw.homeTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: %@ @ #%d %@\nThe College Football Preview Show travels to %@ this week to see if a contender can defend its home turf. %@ faces off against #%d %@",gotw.awayTeam.abbreviation,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.abbreviation,gotw.homeTeam.state,gotw.awayTeam.name,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.name];
+            } else {
+                [newsString appendFormat:@"National Game of the Week: %@ @ %@\nThe College Football Preview Show travels to %@ this week to witness a battle between mid-table teams. %@ faces off against %@",gotw.awayTeam.abbreviation,gotw.homeTeam.abbreviation,gotw.homeTeam.state,gotw.awayTeam.name,gotw.homeTeam.name];
+            }
+            
+            
+            if (currentWeek < 3) {
+                [newsString appendString:@" with early season expectations and high hopes looming."];
+            } else if (currentWeek < 6) {
+                if ([gotw.gameName containsString:@"In Conf"]) {
+                    [newsString appendFormat:@" with both teams jockeying for pole position in the %@.", gotw.awayTeam.conference];
+                } else if ([gotw.gameName containsString:@"Rivalry"]) {
+                    [newsString appendString:@" in this year's edition of their historic feud."];
+                } else {
+                    [newsString appendString:@" in a massive midseason clash."];
+                }
+            } else if (currentWeek < 9) {
+                if ([gotw.gameName containsString:@"In Conf"]) {
+                    [newsString appendFormat:@", and the result could have a major impact on the %@ conference title race.", gotw.awayTeam.conference];
+                } else if ([gotw.gameName containsString:@"Rivalry"]) {
+                    [newsString appendString:@" in another heated edition of their historic rivalry with conference and national title hopes on the line."];
+                } else  {
+                    [newsString appendString:@", and the result could drastically reshape the polls."];
+                }
+            } else if (currentWeek < 11) {
+                if ([gotw.gameName containsString:@"In Conf"]) {
+                    if (gotw.awayTeam.rankTeamPollScore < 5 || gotw.homeTeam.rankTeamPollScore < 5) {
+                        [newsString appendFormat:@", which could decide if the %@ plays a role in this year's Playoff.", gotw.awayTeam.conference];
+                    } else {
+                        [newsString appendFormat:@" in a pivotal late-season %@ matchup.", gotw.awayTeam.conference];
+                    }
+                } else if ([gotw.gameName containsString:@"Rivalry"]) {
+                    if (gotw.awayTeam.rankTeamPollScore < gotw.homeTeam.rankTeamPollScore) {
+                        [newsString appendFormat:@" -- can %@ play spoiler to their rival's sensational season?", gotw.homeTeam.abbreviation];
+                    } else {
+                        [newsString appendFormat:@" -- can %@ play spoiler to their rival's sensational season?", gotw.awayTeam.abbreviation];
+                    }
+                } else {
+                    [newsString appendString:@" in a massive game that could see one of these teams through to the Playoff."];
+                }
+            } else if (currentWeek == 11) {
+                if (gotw.awayTeam.rankTeamPollScore < 5 || gotw.homeTeam.rankTeamPollScore < 5) {
+                    [newsString appendFormat:@", which could decide if the %@ plays a role in this year's Playoff.", gotw.awayTeam.conference];
+                } else {
+                    [newsString appendFormat:@" in a pivotal %@ conference championship game.", gotw.awayTeam.conference];
+                }
+            }
+            NSMutableArray *nextWeekNews = newsStories[currentWeek + 1];
+            [nextWeekNews addObject:newsString];
+        }
+    } else if (currentWeek == 12) {
+        for (Game *g in bowlGames) {
+            if (g != nil && ![allGames containsObject:g]) {
+                [allGames addObject:g];
+            }
+        }
+        
+        if (allGames.count > 0) {
+            [allGames sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                Game *a = (Game *)obj1;
+                Game *b = (Game *)obj2;
+                
+                return [[NSNumber numberWithInt:(b.homeTeam.teamPollScore + b.awayTeam.teamPollScore)] compare:[NSNumber numberWithInt:(a.homeTeam.teamPollScore + a.awayTeam.teamPollScore)]];
+            }];
+            
+            Game *gotw = allGames[0];
+            NSMutableString *newsString = [NSMutableString string];
+            
+            if (gotw.awayTeam.rankTeamPollScore < 26 && gotw.homeTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: #%d %@ vs #%d %@\nThe College Football Preview Show is at the ",gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.abbreviation,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.abbreviation];
+            } else if (gotw.awayTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: #%d %@ vs %@\nThe College Football Preview Show is at the ",gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.abbreviation,gotw.homeTeam.abbreviation];
+            } else if (gotw.homeTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: %@ vs #%d %@\nThe College Football Preview Show is at the ",gotw.awayTeam.abbreviation,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.abbreviation];
+            } else {
+                [newsString appendFormat:@"National Game of the Week: %@ vs %@\nThe College Football Preview Show is at the ",gotw.awayTeam.abbreviation,gotw.homeTeam.abbreviation];
+            }
+            
+            if ([gotw.gameName containsString:@"Semis"]) {
+                [newsString appendFormat:@"National Semifinals this week, ready to take in a huge game pitting powerhouses #%d %@ and #%d %@ to decide who will play for the %ld national title!",gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.name,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.name, (long)[self getCurrentYear]];
+            } else {
+                [newsString appendFormat:@"%@ this week, ready for a massive postseason clash between %@ and %@ that will finally determine which conference is better: the %@ or the %@.",gotw.gameName, gotw.awayTeam.name, gotw.homeTeam.name, gotw.awayTeam.conference, gotw.homeTeam.conference];
+            }
+            NSMutableArray *nextWeekNews = newsStories[currentWeek + 1];
+            [nextWeekNews addObject:newsString];
+        }
+    } else if (currentWeek == 13) {
+        NSMutableString *newsString = [NSMutableString string];
+        [newsString appendFormat:@"National Game of the Week: #%d %@ @ #%d %@\nThe College Football Preview Show is at the National Championship Game this week! #%d %@ takes on #%d %@ to determine the nation's undisputed national champion!",ncg.awayTeam.rankTeamPollScore,ncg.awayTeam.abbreviation,ncg.homeTeam.rankTeamPollScore,ncg.homeTeam.abbreviation,ncg.awayTeam.rankTeamPollScore,ncg.awayTeam.name,ncg.homeTeam.rankTeamPollScore,ncg.homeTeam.name];
+        
+        NSMutableArray *nextWeekNews = newsStories[currentWeek + 1];
+        [nextWeekNews addObject:newsString];
+    }
+}
+
 -(void)scheduleOOCGames {
     int fcsGames = 0;
     NSArray *weeks = @[@(0), @(4), @(9)];
@@ -1480,9 +1612,9 @@
         canRebrandTeam = YES;
     }
     [self generateCFPNews];
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     [self setTeamRanks];
+    [self generateGOTWNews];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     currentWeek++;
 }
 
