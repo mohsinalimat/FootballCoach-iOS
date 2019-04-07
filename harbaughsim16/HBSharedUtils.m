@@ -711,36 +711,14 @@ static UIColor *styleColor = nil;
 +(void)playWeek:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback {
     League *simLeague = [HBSharedUtils currentLeague];
     if (simLeague.recruitingStage == 0) {
-        MBProgressHUD *hud;
-        if ([MBProgressHUD HUDForView:viewController.navigationController.view] != nil) {
-            hud = [MBProgressHUD HUDForView:viewController.navigationController.view];
-        } else {
-            hud = [MBProgressHUD showHUDAddedTo:viewController.navigationController.view animated:YES];
-            [hud setMode:MBProgressHUDModeIndeterminate];
-        }
-        NSString *weekTitle;
-        if (simLeague.currentWeek < 12) {
-            weekTitle = [NSString stringWithFormat:@"Playing Week %d...", simLeague.currentWeek];
-        } else if (simLeague.currentWeek == 12) {
-            weekTitle = @"Playing Conference Championships...";
-        } else if (simLeague.currentWeek == 13) {
-            weekTitle = @"Playing Bowl Games...";
-        } else if (simLeague.currentWeek == 14) {
-            weekTitle = @"Playing National Championship...";
-        } else {
-            weekTitle = @"Preparing for Offseason...";
-        }
-        [hud.label setText:weekTitle];
         // Perform action on click
         if (simLeague.currentWeek == 15) {
             simLeague.recruitingStage = 1;
             [HBSharedUtils currentLeague].canRebrandTeam = YES;
-            [hud hideAnimated:YES];
             [HBSharedUtils startOffseason:viewController callback:nil];
         } else {
             NSInteger numGamesPlayed = simLeague.userTeam.gameWLSchedule.count;
             [simLeague playWeek];
-            [hud hideAnimated:YES];
             if (simLeague.currentWeek == 15) {
                 // Show NCG summary
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
@@ -858,15 +836,7 @@ static UIColor *styleColor = nil;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"hideSimButton" object:nil];
             }
             
-            if ([MBProgressHUD HUDForView:viewController.navigationController.view] != nil) {
-                hud = [MBProgressHUD HUDForView:viewController.navigationController.view];
-            } else {
-                hud = [MBProgressHUD showHUDAddedTo:viewController.navigationController.view animated:YES];
-                [hud setMode:MBProgressHUDModeIndeterminate];
-            }
-            [hud.label setText:@"Saving league data..."];
             [[HBSharedUtils currentLeague] save:^(BOOL success, NSError *err) {
-                [hud hideAnimated:YES];
                 if (err) {
                     NSLog(@"Error: %@", err);
                 }
