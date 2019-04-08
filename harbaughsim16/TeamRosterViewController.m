@@ -322,6 +322,7 @@
     [popupController.navigationBar setDraggable:YES];
     [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
     popupController.style = STPopupStyleBottomSheet;
+    popupController.safeAreaInsets = UIEdgeInsetsZero;
     [popupController presentInViewController:self];
 }
 

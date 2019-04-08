@@ -474,6 +474,7 @@
         teamVC.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign" style:UIBarButtonItemStyleDone target:teamVC action:@selector(finalizeCoachingCarousel)];
         popupController = [[STPopupController alloc] initWithRootViewController:teamVC];
         [popupController.navigationBar setDraggable:YES];
+        popupController.safeAreaInsets = UIEdgeInsetsZero;
         [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
         popupController.style = STPopupStyleBottomSheet;
         [popupController presentInViewController:self];

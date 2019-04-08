@@ -119,9 +119,18 @@
         [[HBSharedUtils currentLeague].userTeam setTeamStatDefNum:(int)indexPath.row];
         [[[HBSharedUtils currentLeague].userTeam getCurrentHC] setDefStratNum:(int)indexPath.row];
     }
-    [self.tableView reloadData];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"changedStrategy" object:nil];
-    [[HBSharedUtils currentLeague] save];
+    
+    [[HBSharedUtils currentLeague] save:^(BOOL success, NSError *err) {
+        if (err) {
+            NSLog(@"SAVE ERROR: %@", err);
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"changedStrategy" object:nil];
+        });
+    }];
+
+    
 }
 
 @end

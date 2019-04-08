@@ -39,7 +39,6 @@ static UIColor *styleColor = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         letterGrades = @[@"F", @"F+", @"D", @"D+", @"C", @"C+", @"B", @"B+", @"A", @"A+"];
-
     });
     return letterGrades;
 }

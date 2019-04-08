@@ -402,12 +402,14 @@
             [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
+            popupController.safeAreaInsets = UIEdgeInsetsZero;
             [popupController presentInViewController:self];
         } else if (indexPath.row == 2) { //defensive
             popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:FALSE options:[[HBSharedUtils currentLeague].userTeam getDefensiveTeamStrategies]]];
             [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
+            popupController.safeAreaInsets = UIEdgeInsetsZero;
             [popupController presentInViewController:self];
         } else if (indexPath.row == 3) {
             [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:userTeam] animated:YES];

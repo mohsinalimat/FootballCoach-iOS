@@ -1685,16 +1685,19 @@
         } else {
             int yearsLeft = MAX(0, ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear - 1));
             if (yearsLeft == 0) {
-                coachContractString = [NSString stringWithFormat:@"This will be the last year of your contract. Your team prestige is currently at %d and started at %d.", teamPrestige, [self getCurrentHC].baselinePrestige];
+                coachContractString = [NSString stringWithFormat:@"This will be the last year of your contract."];
             } else if (yearsLeft == 1) {
-                coachContractString = [NSString stringWithFormat:@"You have 1 year left on your contract. Your team prestige is currently at %d and started at %d.", teamPrestige, [self getCurrentHC].baselinePrestige];
+                coachContractString = [NSString stringWithFormat:@"You have 1 year left on your contract."];
             } else {
-                coachContractString = [NSString stringWithFormat:@"You have %d years left on your contract. Your team prestige is currently at %d and started at %d.", yearsLeft, teamPrestige, [self getCurrentHC].baselinePrestige];
+                coachContractString = [NSString stringWithFormat:@"You have %d years left on your contract.", yearsLeft];
             }
         }
     }
 }
 
+-(NSString *)updatedCoachContactString {
+    return [NSString stringWithFormat:@"%@ Your prestige started at %d and is now %d.", coachContractString,[self getCurrentHC].baselinePrestige,(teamPrestige - deltaPrestige)];
+}
 
 -(void)updateCoachHistory {
     NSMutableString *hist = [NSMutableString string];
@@ -2207,11 +2210,31 @@
     }
 }
 
+-(NSRange)reverseTeamExpectationsToPollRank:(FCTeamExpectations)expectations {
+    if (expectations == FCTeamExpectationsTitleContender) {
+        return NSMakeRange(0, 15);
+    } else if (expectations == FCTeamExpectationsBowlContender) {
+        return NSMakeRange(16, 56);
+    } else if (expectations == FCTeamExpectationsMidTable) {
+        return NSMakeRange(72, 18);
+    } else {
+        return NSMakeRange(90, 120);
+    }
+}
+
 -(NSString*)getSeasonSummaryString {
     deltaPrestige = 0;
-    NSMutableString *summary = [NSMutableString stringWithFormat:@"Your team, %@, finished the season ranked #%d with %d wins and %d losses.",name, rankTeamPollScore, wins, losses];
-    int expectedPollFinish = 100 - teamPrestige;
-    NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - 5, 0), 6);
+    NSMutableString *summary = [NSMutableString stringWithFormat:@"Your team, %@, finished the season ranked #%d in the nation with %d wins and %d losses.",name, rankTeamPollScore, wins, losses];
+
+    int expectedPollFinish;
+    NSRange expectedPollFinishRange;
+    if (league.teamList.count <= 60) {
+        expectedPollFinish = (100 - teamPrestige);
+        expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - 5, 0), 6);
+    } else {
+        expectedPollFinishRange = [self reverseTeamExpectationsToPollRank:[self calculateTeamExpectations]];
+        expectedPollFinish = expectedPollFinishRange.location;
+    }
     if (NSLocationInRange(rankTeamPollScore, expectedPollFinishRange)) {
         deltaPrestige = 0; // they finished around where they should have, cut them some slack
     } else {
@@ -2291,7 +2314,7 @@
         } else if (coachFired) {
             [summary appendString:@"\n\nSince you failed to raise your team's prestige during your contract, your athletic director has decided to fire you. Your now-former program may take an additional prestige hit because of your firing."];
         } else {
-            [summary appendFormat:@"\n\n%@",coachContractString];
+            [summary appendFormat:@"\n\n%@",[self updatedCoachContactString]];
         }
     }
 

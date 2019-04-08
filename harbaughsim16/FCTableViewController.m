@@ -29,6 +29,7 @@
 
 -(void)viewDidLoad {
     [super viewDidLoad];
+    self.popupController.safeAreaInsets = UIEdgeInsetsZero;
     [self setNeedsStatusBarAppearanceUpdate];
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 }

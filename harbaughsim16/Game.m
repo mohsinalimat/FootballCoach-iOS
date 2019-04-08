@@ -916,7 +916,11 @@
     
     if ((adjYardLine + yardsGained) >= 100) yardsNeedAdj = @"Goal";
     //return [NSString stringWithFormat:@"\n\n%@ %ld - %ld %@, Time: %@\n%@ %@ and %@ at the %@.\n",awayTeam.abbreviation,(long)awayScore,(long)homeScore,homeTeam.abbreviation, [self convGameTime],possStr,downString,yardsNeedAdj,ydLineStr];
-    return [NSString stringWithFormat:@"\n\n%@ | %@ & %@ | %@ | (%@) ", ydLineStr, downString, yardsNeedAdj, [self convGameQuarter], [self convGameTimeMinute]];
+    if (!playingOT) {
+        return [NSString stringWithFormat:@"\n\n%@ | %@ & %@ | %@ | (%@) ", ydLineStr, downString, yardsNeedAdj, [self convGameQuarter], [self convGameTimeMinute]];
+    } else {
+        return [NSString stringWithFormat:@"\n\n%@ | %@ & %@ | %@ | ", ydLineStr, downString, yardsNeedAdj, [self convGameQuarter]];
+    }
 }
 
 -(NSString *)convGameQuarter {

@@ -332,6 +332,7 @@
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
         
@@ -349,6 +350,7 @@
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
 
@@ -378,6 +380,7 @@
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
         
@@ -390,6 +393,7 @@
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
     } else if ([HBSharedUtils currentLeague].currentWeek == 13) {
@@ -418,6 +422,7 @@
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
         
@@ -447,6 +452,7 @@
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
         
@@ -459,6 +465,7 @@
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
     }
