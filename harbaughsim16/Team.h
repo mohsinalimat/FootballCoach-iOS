@@ -28,6 +28,13 @@
 @class PlayerS;
 @class TeamStreak;
 
+typedef enum {
+    FCTeamExpectationsBottomTable,
+    FCTeamExpectationsMidTable,
+    FCTeamExpectationsBowlContender,
+    FCTeamExpectationsTitleContender
+} FCTeamExpectations;
+
 
 @interface Team : NSObject <NSCoding> {
     //deprecated ivars
@@ -335,4 +342,6 @@
 
 -(void)updateDepthChartPositions;
 -(void)updateDepthChartPositionsForPosition:(int)position;
+
+-(FCTeamExpectations)calculateTeamExpectations;
 @end

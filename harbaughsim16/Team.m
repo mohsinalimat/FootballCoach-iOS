@@ -2193,6 +2193,20 @@
     return [ts0 copy];
 }
 
+-(FCTeamExpectations)calculateTeamExpectations {
+    int expectedPollFinish = 100 - teamPrestige;
+    NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - 5, 0), 6);
+    if (expectedPollFinishRange.location < 16) {
+        return FCTeamExpectationsTitleContender;
+    } else if (expectedPollFinishRange.location < 72) {
+        return FCTeamExpectationsBowlContender;
+    } else if (expectedPollFinishRange.location < 90) {
+        return FCTeamExpectationsMidTable;
+    } else {
+        return FCTeamExpectationsBottomTable;
+    }
+}
+
 -(NSString*)getSeasonSummaryString {
     deltaPrestige = 0;
     NSMutableString *summary = [NSMutableString stringWithFormat:@"Your team, %@, finished the season ranked #%d with %d wins and %d losses.",name, rankTeamPollScore, wins, losses];
@@ -2210,13 +2224,12 @@
         }
     }
 
-
     if (deltaPrestige > 0) {
-        [summary appendFormat:@"\n\nGreat job, coach! You exceeded expectations and gained %ld prestige! This will help your recruiting.", (long)deltaPrestige];
+        [summary appendFormat:@"\n\nGreat job, coach! You exceeded media expectations and gained %ld prestige!", (long)deltaPrestige];
     } else if (deltaPrestige < 0) {
-        [summary appendString:[[NSString stringWithFormat:@"\n\nA bit of a down year, coach? You fell short expectations and lost %ld prestige. This will hurt your recruiting.",(long)deltaPrestige] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+        [summary appendString:[[NSString stringWithFormat:@"\n\nA bit of a down year, coach? You fell short of media expectations and lost %ld prestige.",(long)deltaPrestige] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
     } else {
-        [summary appendString:@"\n\nWell, your team performed exactly how many expected. This won't hurt or help recruiting, but try to improve next year!"];
+        [summary appendString:@"\n\nWell, your team performed exactly the media thought it would."];
     }
 
     if ([natlChampWL isEqualToString:@"NCW"]) {

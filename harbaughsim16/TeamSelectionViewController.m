@@ -61,6 +61,7 @@
                     [self->userTeam setupUserCoach:[NSString stringWithFormat:@"%@ %@", alert.textFields[0].text, alert.textFields[1].text]];
                     self->userTeam.isUserControlled = YES;
                     [self->league setUserTeam:self->userTeam];
+                    [self->league generateExpectationsNews];
                     [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
                     [self->league save];
                     
@@ -82,6 +83,7 @@
                     [self->league setUserTeam:self->userTeam];
                     self->league.isHardMode = YES;
                     self->league.canRebrandTeam = YES;
+                    [self->league generateExpectationsNews];
                     [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
                     [self->league save];
                     
@@ -98,6 +100,7 @@
                     [self->league setUserTeam:self->userTeam];
                     self->league.isHardMode = NO;
                     self->league.canRebrandTeam = YES;
+                    [self->league generateExpectationsNews];
                     [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
                     [self->league save];
                     

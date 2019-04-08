@@ -1192,7 +1192,7 @@
         }
 
         NSMutableArray *first = newsStories[0];
-        [first addObject:@"New Season!\nReady for the new season, coach? Whether the National Championship is on your mind, or just a winning season, good luck!"];
+        [first addObject:@"New Season!\nReady for the new season, coach? Whether the winning the National Championship or just a winning season is on your mind -- good luck!"];
 
         nameList = [NSMutableArray array];
         NSArray *namesSplit = [namesCSV componentsSeparatedByString:@","];
@@ -1977,6 +1977,24 @@
     }
 
     [self setTeamRanks];
+    [self generateExpectationsNews];
+}
+
+-(void)generateExpectationsNews {
+    FCTeamExpectations userExpectations = [self.userTeam calculateTeamExpectations];
+    NSString *expectationsString = @"";
+    if (userExpectations == FCTeamExpectationsTitleContender) {
+        expectationsString = [NSString stringWithFormat:@"%ld Projections: %@ in the Playoff Hunt!\nMedia members are high on %@ and coach %@ in %ld, projecting them to battle for a Playoff spot.", (long)[self getCurrentYear], self.userTeam.abbreviation, self.userTeam.name,[self.userTeam getCurrentHC].name, (long)[self getCurrentYear]];
+    } else if (userExpectations == FCTeamExpectationsBowlContender) {
+        NSString *bowlName = bowlTitles[((int)([HBSharedUtils randomValue] * bowlTitles.count))];
+        expectationsString = [NSString stringWithFormat:@"%ld Projections: %@ Going Bowling!\nMedia members recently released their predictions for %ld, which saw %@ cap off a great season with a %@ berth.",(long)[self getCurrentYear], self.userTeam.abbreviation,(long)[self getCurrentYear],self.userTeam.name, bowlName];
+    } else if (userExpectations == FCTeamExpectationsMidTable) {
+        expectationsString = [NSString stringWithFormat:@"%ld Projections: %@, conference contenders?\nMedia members recently released their predictions for %ld, and they were very tepid on %@, who they predicted to finish in the middle of the %@.",(long)[self getCurrentYear], self.userTeam.abbreviation,(long)[self getCurrentYear],self.userTeam.name,self.userTeam.conference];
+    } else { // bottom table
+        expectationsString = [NSString stringWithFormat:@"%ld Projections: Sell all your %@ stock!\nMedia members recently released their predictions for %ld, and they set the bar very low for %@ this season, seeing them as bottom-tier in the %@.",(long)[self getCurrentYear], self.userTeam.abbreviation,(long)[self getCurrentYear],self.userTeam.name,self.userTeam.conference];
+    }
+    [newsStories[0] insertObject:expectationsString atIndex:0];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
 
 -(void)updateTeamHistories {

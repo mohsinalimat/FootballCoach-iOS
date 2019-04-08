@@ -238,4 +238,6 @@
 -(NSMutableArray<Team*> *)getFiredCoachTeams:(int)rating oldTeam:(NSString *)oldTeam;
 -(int)getAvgYards;
 -(int)getAvgConfPrestige;
+
+-(void)generateExpectationsNews;
 @end
