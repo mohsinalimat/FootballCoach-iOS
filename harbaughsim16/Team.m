@@ -1696,7 +1696,16 @@
 }
 
 -(NSString *)updatedCoachContactString {
-    return [NSString stringWithFormat:@"%@ Your prestige started at %d and is now %d.", coachContractString,[self getCurrentHC].baselinePrestige,(teamPrestige - deltaPrestige)];
+    int currentPrestige = teamPrestige + deltaPrestige;
+    if (![name isEqualToString:@"American Samoa"]) {
+        currentPrestige = MAX(45, currentPrestige);
+    } else {
+        currentPrestige = MAX(0, currentPrestige);
+    }
+    
+    currentPrestige = MIN(95, currentPrestige);
+    
+    return [NSString stringWithFormat:@"%@ Your prestige started at %d and is now %d.", coachContractString,[self getCurrentHC].baselinePrestige,currentPrestige];
 }
 
 -(void)updateCoachHistory {
@@ -2233,7 +2242,7 @@
         expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - 5, 0), 6);
     } else {
         expectedPollFinishRange = [self reverseTeamExpectationsToPollRank:[self calculateTeamExpectations]];
-        expectedPollFinish = expectedPollFinishRange.location;
+        expectedPollFinish = (int)expectedPollFinishRange.location;
     }
     if (NSLocationInRange(rankTeamPollScore, expectedPollFinishRange)) {
         deltaPrestige = 0; // they finished around where they should have, cut them some slack
