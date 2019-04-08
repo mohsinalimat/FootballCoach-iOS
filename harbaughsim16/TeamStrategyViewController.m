@@ -12,6 +12,7 @@
 #import "HeadCoach.h"
 
 #import "STPopup.h"
+#import "MBProgressHUD.h"
 
 @interface TeamStrategyViewController ()
 {
@@ -103,34 +104,42 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if ([selectedIndexPath isEqual:indexPath]) {
-        selectedIndexPath = nil;
-    } else {
-        selectedIndexPath = indexPath;
-    }
+    __block MBProgressHUD *hud;
+    dispatch_async(dispatch_get_main_queue(), ^{
+       hud = [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+        [hud.label setText:@"Saving league data..."];
+        hud.mode = MBProgressHUDModeIndeterminate;
+    });
     
-    if(isOffense) {
-        [[HBSharedUtils currentLeague].userTeam setOffensiveStrategy:teamStrats[indexPath.row]];
-        [[HBSharedUtils currentLeague].userTeam setTeamStatOffNum:(int)indexPath.row];
-        [[[HBSharedUtils currentLeague].userTeam getCurrentHC] setOffStratNum:(int)indexPath.row];
-    } else {
-        [[HBSharedUtils currentLeague].userTeam setDefensiveStrategy:teamStrats[indexPath.row]];
-        [[HBSharedUtils currentLeague].userTeam setTeamStatDefNum:(int)indexPath.row];
-        [[[HBSharedUtils currentLeague].userTeam getCurrentHC] setDefStratNum:(int)indexPath.row];
-    }
-    
-    [[HBSharedUtils currentLeague] save:^(BOOL success, NSError *err) {
-        if (err) {
-            NSLog(@"SAVE ERROR: %@", err);
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+        if ([self->selectedIndexPath isEqual:indexPath]) {
+            self->selectedIndexPath = nil;
+        } else {
+            self->selectedIndexPath = indexPath;
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"changedStrategy" object:nil];
-        });
-    }];
-
-    
+        
+        if(self->isOffense) {
+            [[HBSharedUtils currentLeague].userTeam setOffensiveStrategy:self->teamStrats[indexPath.row]];
+            [[HBSharedUtils currentLeague].userTeam setTeamStatOffNum:(int)indexPath.row];
+            [[[HBSharedUtils currentLeague].userTeam getCurrentHC] setOffStratNum:(int)indexPath.row];
+        } else {
+            [[HBSharedUtils currentLeague].userTeam setDefensiveStrategy:self->teamStrats[indexPath.row]];
+            [[HBSharedUtils currentLeague].userTeam setTeamStatDefNum:(int)indexPath.row];
+            [[[HBSharedUtils currentLeague].userTeam getCurrentHC] setDefStratNum:(int)indexPath.row];
+        }
+        
+        [[HBSharedUtils currentLeague] save:^(BOOL success, NSError *err) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                if (err) {
+                    NSLog(@"SAVE ERROR: %@", err);
+                }
+                [hud hideAnimated:YES];
+                [tableView reloadData];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"changedStrategy" object:nil];
+            });
+        }];
+    });
 }
 
 @end
