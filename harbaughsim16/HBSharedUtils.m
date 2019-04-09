@@ -758,34 +758,27 @@ static UIColor *styleColor = nil;
                             } else {
                                 [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils successColor] title:[NSString stringWithFormat:@"%lu Week %lu", (long)[simLeague getCurrentYear], (long)simLeague.currentWeek] message:[simLeague.userTeam weekSummaryString] onViewController:viewController];
                             }
-                        } else {
-                            if (simLeague.currentWeek == 15) {
-                                [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
-                                NSString *gameSummary = [simLeague.userTeam weekSummaryString];
-                                if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
-                                    [HBSharedUtils showNotificationWithTintColor:[UIColor redColor] title:[NSString stringWithFormat:@"%lu National Championship Game", (long)[simLeague getCurrentYear] + 1] message:[simLeague.userTeam weekSummaryString] onViewController:viewController];
-                                } else {
-                                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils champColor] title:[NSString stringWithFormat:@"%lu National Championship Game", (long)[simLeague getCurrentYear] + 1] message:[simLeague.userTeam weekSummaryString] onViewController:viewController];
-                                }
-                            } else if (simLeague.currentWeek == 14) {
-                                NSString *gameSummary = [simLeague.userTeam weekSummaryString];
-                                if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
-                                    [HBSharedUtils showNotificationWithTintColor:[UIColor redColor] title:[NSString stringWithFormat:@"%lu Bowl Season", (long)[simLeague getCurrentYear]] message:[simLeague.userTeam weekSummaryString] onViewController:viewController];
-                                } else {
-                                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils successColor] title:[NSString stringWithFormat:@"%lu Bowl Season", (long)[simLeague getCurrentYear]] message:[simLeague.userTeam weekSummaryString] onViewController:viewController];
-                                }
-                            } else if (simLeague.currentWeek == 13) {
-                                NSString *gameSummary = [simLeague.userTeam weekSummaryString];
-                                if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
-                                    [HBSharedUtils showNotificationWithTintColor:[UIColor redColor] message:[NSString stringWithFormat:@"%lu %@ CCG: %@", (long)[simLeague getCurrentYear], simLeague.userTeam.conference, [simLeague.userTeam weekSummaryString]] onViewController:viewController];
-                                } else {
-                                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils successColor] message:[NSString stringWithFormat:@"%lu %@ CCG: %@", (long)[simLeague getCurrentYear],simLeague.userTeam.conference, [simLeague.userTeam weekSummaryString]] onViewController:viewController];
-                                }
-                                if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
-                                    [HBSharedUtils showNotificationWithTintColor:[UIColor redColor] title:[NSString stringWithFormat:@"%lu %@ Conference Championship", (long)[simLeague getCurrentYear], simLeague.userTeam.conference] message:[simLeague.userTeam weekSummaryString] onViewController:viewController];
-                                } else {
-                                    [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils successColor] title:[NSString stringWithFormat:@"%lu %@ Conference Championship", (long)[simLeague getCurrentYear], simLeague.userTeam.conference] message:[simLeague.userTeam weekSummaryString] onViewController:viewController];
-                                }
+                        } else if (simLeague.currentWeek == 15) {
+                            [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
+                            NSString *gameSummary = [simLeague.userTeam weekSummaryString];
+                            if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                                [HBSharedUtils showNotificationWithTintColor:[UIColor redColor] title:[NSString stringWithFormat:@"%lu National Championship Game", (long)[simLeague getCurrentYear] + 1] message:[simLeague.userTeam weekSummaryString] onViewController:viewController];
+                            } else {
+                                [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils champColor] title:[NSString stringWithFormat:@"%lu National Championship Game", (long)[simLeague getCurrentYear] + 1] message:[simLeague.userTeam weekSummaryString] onViewController:viewController];
+                            }
+                        } else if (simLeague.currentWeek == 14) {
+                            NSString *gameSummary = [simLeague.userTeam weekSummaryString];
+                            if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                                [HBSharedUtils showNotificationWithTintColor:[UIColor redColor] title:[NSString stringWithFormat:@"%lu Bowl Season", (long)[simLeague getCurrentYear]] message:[simLeague.userTeam weekSummaryString] onViewController:viewController];
+                            } else {
+                                [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils successColor] title:[NSString stringWithFormat:@"%lu Bowl Season", (long)[simLeague getCurrentYear]] message:[simLeague.userTeam weekSummaryString] onViewController:viewController];
+                            }
+                        } else if (simLeague.currentWeek == 13) {
+                            NSString *gameSummary = [simLeague.userTeam weekSummaryString];
+                            if ([gameSummary containsString:@" L "] || [gameSummary containsString:@"Lost "]) {
+                                [HBSharedUtils showNotificationWithTintColor:[UIColor redColor] message:[NSString stringWithFormat:@"%lu %@ CCG: %@", (long)[simLeague getCurrentYear], simLeague.userTeam.conference, [simLeague.userTeam weekSummaryString]] onViewController:viewController];
+                            } else {
+                                [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils successColor] message:[NSString stringWithFormat:@"%lu %@ CCG: %@", (long)[simLeague getCurrentYear],simLeague.userTeam.conference, [simLeague.userTeam weekSummaryString]] onViewController:viewController];
                             }
                         }
                     }

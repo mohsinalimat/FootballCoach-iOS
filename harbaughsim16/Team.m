@@ -707,6 +707,7 @@
         [self resetStats];
     //}
     [self sortPlayers];
+    [self updateDepthChartPositions];
 }
 
 -(void)recruitPlayers:(NSArray*)needs {
@@ -2206,7 +2207,17 @@
 }
 
 -(FCTeamExpectations)calculateTeamExpectations {
-    int expectedPollFinish = 100 - teamPrestige;
+    static dispatch_once_t onceToken;
+    static NSMutableArray *leagueTeams;
+    dispatch_once(&onceToken, ^{
+        leagueTeams = [self.league.teamList mutableCopy];
+    });
+    [leagueTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+    }];
+    
+    NSInteger expectedPollFinish = [leagueTeams indexOfObject:self];
+    
     NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - 5, 0), 6);
     if (expectedPollFinishRange.location < 16) {
         return FCTeamExpectationsTitleContender;
@@ -2415,7 +2426,7 @@
 
 -(NSString*)weekSummaryString {
     NSInteger i = gameWLSchedule.count - 1;
-    Game *g = gameSchedule[i];
+    Game *g = (gameSchedule.count > i) ? gameSchedule[i] : [gameSchedule lastObject];
     NSString *gameSummary = [NSString stringWithFormat:@"%@ %@",[gameWLSchedule lastObject],[self gameSummaryString:g]];
     NSString *rivalryGameStr = @"";
     if ([g.gameName isEqualToString:@"Rivalry Game"] || [g.homeTeam.rivalTeam isEqualToString:g.awayTeam.abbreviation] || [g.awayTeam.rivalTeam isEqualToString:g.homeTeam.abbreviation]) {

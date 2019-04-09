@@ -66,14 +66,20 @@
         [playerDetailView.medImageView setHidden:YES];
     }
 
+    NSLayoutConstraint *allConfConstraint = [NSLayoutConstraint constraintWithItem:playerDetailView.yrLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationLessThanOrEqual toItem:playerDetailView.allConfTagView attribute:NSLayoutAttributeLeading multiplier:1 constant:0];
     if (!selectedPlayer.isHeisman && !selectedPlayer.isROTY) {
-        [playerDetailView addConstraint:[NSLayoutConstraint constraintWithItem:playerDetailView.yrLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationLessThanOrEqual toItem:playerDetailView.allConfTagView attribute:NSLayoutAttributeLeading multiplier:1 constant:0]];
+        if (playerDetailView.allConfTagView != nil) {
+            [playerDetailView addConstraint:allConfConstraint];
+        }
         [playerDetailView.potyTagView removeFromSuperview];
     } else if (selectedPlayer.isROTY) {
         [playerDetailView.potyTagView.titleLabel setText:@"ROTY"];
     }
     
     if (!selectedPlayer.isAllConference & !selectedPlayer.isAllAmerican) {
+        if (allConfConstraint != nil) {
+            [playerDetailView removeConstraint:allConfConstraint];
+        }
         [playerDetailView.allConfTagView removeFromSuperview];
     } else if (selectedPlayer.isAllAmerican) {
         [playerDetailView.allConfTagView.titleLabel setText:@"All-League"];
