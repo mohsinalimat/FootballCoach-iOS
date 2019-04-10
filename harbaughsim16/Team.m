@@ -2272,7 +2272,7 @@
     } else if (deltaPrestige < 0) {
         [summary appendString:[[NSString stringWithFormat:@"\n\nA bit of a down year, coach? You fell short of media expectations and lost %ld prestige.",(long)deltaPrestige] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
     } else {
-        [summary appendString:@"\n\nWell, your team performed exactly the media thought it would."];
+        [summary appendString:@"\n\nWell, your team performed exactly how the media thought it would."];
     }
 
     if ([natlChampWL isEqualToString:@"NCW"]) {
