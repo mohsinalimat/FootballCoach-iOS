@@ -2746,7 +2746,16 @@
             injuredPlayerIndex = [teamQBs indexOfObject:(PlayerQB *)p];
             if (injuredPlayerIndex != NSNotFound) {
                 [teamQBs removeObjectAtIndex:injuredPlayerIndex];
-                [teamQBs insertObject:(PlayerQB *)p atIndex:p.depthChartPosition];
+                NSInteger placementIndex = p.depthChartPosition;
+                if (placementIndex >= teamQBs.count) {
+                    placementIndex = teamQBs.count - 1;
+                }
+                
+                if (placementIndex < 0) {
+                    placementIndex = 0;
+                }
+                
+                [teamQBs insertObject:(PlayerQB *)p atIndex:placementIndex];
             }
             break;
         }
@@ -2754,7 +2763,15 @@
             injuredPlayerIndex = [teamRBs indexOfObject:(PlayerRB *)p];
             if (injuredPlayerIndex != NSNotFound) {
                 [teamRBs removeObjectAtIndex:injuredPlayerIndex];
-                [teamRBs insertObject:(PlayerRB *)p atIndex:p.depthChartPosition];
+                NSInteger placementIndex = p.depthChartPosition;
+                if (placementIndex >= teamRBs.count) {
+                    placementIndex = teamRBs.count - 1;
+                }
+                
+                if (placementIndex < 0) {
+                    placementIndex = 0;
+                }
+                [teamRBs insertObject:(PlayerRB *)p atIndex:placementIndex];
             }
             break;
         }
@@ -2762,7 +2779,15 @@
             injuredPlayerIndex = [teamWRs indexOfObject:(PlayerWR *)p];
             if (injuredPlayerIndex != NSNotFound) {
                 [teamWRs removeObjectAtIndex:injuredPlayerIndex];
-                [teamWRs insertObject:(PlayerWR *)p atIndex:p.depthChartPosition];
+                NSInteger placementIndex = p.depthChartPosition;
+                if (placementIndex >= teamWRs.count) {
+                    placementIndex = teamWRs.count - 1;
+                }
+                
+                if (placementIndex < 0) {
+                    placementIndex = 0;
+                }
+                [teamWRs insertObject:(PlayerWR *)p atIndex:placementIndex];
             }
             break;
         }
@@ -2770,7 +2795,15 @@
             injuredPlayerIndex = [teamTEs indexOfObject:(PlayerTE *)p];
             if (injuredPlayerIndex != NSNotFound) {
                 [teamTEs removeObjectAtIndex:injuredPlayerIndex];
-                [teamTEs insertObject:(PlayerTE *)p atIndex:p.depthChartPosition];
+                NSInteger placementIndex = p.depthChartPosition;
+                if (placementIndex >= teamTEs.count) {
+                    placementIndex = teamTEs.count - 1;
+                }
+                
+                if (placementIndex < 0) {
+                    placementIndex = 0;
+                }
+                [teamTEs insertObject:(PlayerTE *)p atIndex:placementIndex];
             }
             break;
         }
@@ -2778,7 +2811,15 @@
             injuredPlayerIndex = [teamOLs indexOfObject:(PlayerOL *)p];
             if (injuredPlayerIndex != NSNotFound) {
                 [teamOLs removeObjectAtIndex:injuredPlayerIndex];
-                [teamOLs insertObject:(PlayerOL *)p atIndex:p.depthChartPosition];
+                NSInteger placementIndex = p.depthChartPosition;
+                if (placementIndex >= teamOLs.count) {
+                    placementIndex = teamOLs.count - 1;
+                }
+                
+                if (placementIndex < 0) {
+                    placementIndex = 0;
+                }
+                [teamOLs insertObject:(PlayerOL *)p atIndex:placementIndex];
             }
             break;
         }
@@ -2786,7 +2827,15 @@
             injuredPlayerIndex = [teamDLs indexOfObject:(PlayerDL *)p];
             if (injuredPlayerIndex != NSNotFound) {
                 [teamDLs removeObjectAtIndex:injuredPlayerIndex];
-                [teamDLs insertObject:(PlayerDL *)p atIndex:p.depthChartPosition];
+                NSInteger placementIndex = p.depthChartPosition;
+                if (placementIndex >= teamDLs.count) {
+                    placementIndex = teamDLs.count - 1;
+                }
+                
+                if (placementIndex < 0) {
+                    placementIndex = 0;
+                }
+                [teamDLs insertObject:(PlayerDL *)p atIndex:placementIndex];
             }
             break;
         }
@@ -2794,7 +2843,15 @@
             injuredPlayerIndex = [teamLBs indexOfObject:(PlayerLB *)p];
             if (injuredPlayerIndex != NSNotFound) {
                 [teamLBs removeObjectAtIndex:injuredPlayerIndex];
-                [teamLBs insertObject:(PlayerLB *)p atIndex:p.depthChartPosition];
+                NSInteger placementIndex = p.depthChartPosition;
+                if (placementIndex >= teamLBs.count) {
+                    placementIndex = teamLBs.count - 1;
+                }
+                
+                if (placementIndex < 0) {
+                    placementIndex = 0;
+                }
+                [teamLBs insertObject:(PlayerLB *)p atIndex:placementIndex];
             }
             break;
         }
@@ -2802,7 +2859,15 @@
             injuredPlayerIndex = [teamCBs indexOfObject:(PlayerCB *)p];
             if (injuredPlayerIndex != NSNotFound) {
                 [teamCBs removeObjectAtIndex:injuredPlayerIndex];
-                [teamCBs insertObject:(PlayerCB *)p atIndex:p.depthChartPosition];
+                NSInteger placementIndex = p.depthChartPosition;
+                if (placementIndex >= teamCBs.count) {
+                    placementIndex = teamCBs.count - 1;
+                }
+                
+                if (placementIndex < 0) {
+                    placementIndex = 0;
+                }
+                [teamCBs insertObject:(PlayerCB *)p atIndex:placementIndex];
             }
             break;
         }
@@ -2810,7 +2875,15 @@
             injuredPlayerIndex = [teamSs indexOfObject:(PlayerS *)p];
             if (injuredPlayerIndex != NSNotFound) {
                 [teamSs removeObjectAtIndex:injuredPlayerIndex];
-                [teamSs insertObject:(PlayerS *)p atIndex:p.depthChartPosition];
+                NSInteger placementIndex = p.depthChartPosition;
+                if (placementIndex >= teamSs.count) {
+                    placementIndex = teamSs.count - 1;
+                }
+                
+                if (placementIndex < 0) {
+                    placementIndex = 0;
+                }
+                [teamSs insertObject:(PlayerS *)p atIndex:placementIndex];
             }
             break;
         }
@@ -2818,7 +2891,15 @@
             injuredPlayerIndex = [teamKs indexOfObject:(PlayerK *)p];
             if (injuredPlayerIndex != NSNotFound) {
                 [teamKs removeObjectAtIndex:injuredPlayerIndex];
-                [teamKs insertObject:(PlayerK *)p atIndex:p.depthChartPosition];
+                NSInteger placementIndex = p.depthChartPosition;
+                if (placementIndex >= teamKs.count) {
+                    placementIndex = teamKs.count - 1;
+                }
+                
+                if (placementIndex < 0) {
+                    placementIndex = 0;
+                }
+                [teamKs insertObject:(PlayerK *)p atIndex:placementIndex];
             }
             break;
         }
