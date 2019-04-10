@@ -671,13 +671,13 @@
             oldLigue.singleSeasonDefInterceptionsRecord = nil;
             
             // if all league players were calculated, then recalculate
-            if (oldLigue.currentWeek >= 14 && (oldLigue.allLeaguePlayers != nil || oldLigue.allLeaguePlayers.count != 0)) {
+            if (oldLigue.currentWeek > 14 && (oldLigue.allLeaguePlayers != nil || oldLigue.allLeaguePlayers.count != 0)) {
                 [oldLigue refreshAllLeaguePlayers];
             }
             
             // if all conf players were calculated, then recalculate
             for (Conference *c in oldLigue.conferences) {
-                if (oldLigue.currentWeek >= 14 && (c.allConferencePlayers != nil || c.allConferencePlayers.count != 0)) {
+                if (oldLigue.currentWeek > 14 && (c.allConferencePlayers != nil || c.allConferencePlayers.count != 0)) {
                     [c refreshAllConferencePlayers];
                 }
             }
