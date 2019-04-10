@@ -360,7 +360,8 @@
                 NSLog(@"ROTY: %@", roty);
             }
             
-            if (![[self class] needsUpdateFromVersion:oldLigue.leagueVersion toVersion:@"3.0"]) {
+            // we can't run these until 3.0 because of HC changes, so if we need to update to 3.0 from here, avoid running these
+            if (![HB_APP_VERSION_CURRENT_MINOR_VERSION isEqualToString:@"3.0"]) {
                 // if all league players were calculated, then recalculate
                 if (oldLigue.currentWeek > 14 && (oldLigue.allLeaguePlayers != nil || oldLigue.allLeaguePlayers.count != 0)) {
                     [oldLigue refreshAllLeaguePlayers];
