@@ -1056,12 +1056,14 @@ static UIColor *styleColor = nil;
         return @{@"color" : [HBSharedUtils _calculateInterestColor:interestVal], @"interest" : [HBSharedUtils _calculateInterestString:interestVal]};
     } else {
         NSMutableDictionary *totalOffers = [NSMutableDictionary dictionaryWithDictionary:offers];
-        [totalOffers setObject:@(interestVal) forKey:[HBSharedUtils currentLeague].userTeam.abbreviation];
+        if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil) {
+             [totalOffers setObject:@(interestVal) forKey:[HBSharedUtils currentLeague].userTeam.abbreviation];
+        }
         NSArray *sortedOffers = [totalOffers keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [obj2 compare:obj1];
         }];
 
-        NSInteger offIdx = [sortedOffers indexOfObject:[HBSharedUtils currentLeague].userTeam.abbreviation];
+        NSInteger offIdx = ([HBSharedUtils currentLeague].userTeam.abbreviation != nil) ? [sortedOffers indexOfObject:[HBSharedUtils currentLeague].userTeam.abbreviation] : -1;
 
         UIColor *letterColor = [UIColor lightGrayColor];
         NSString *interestString = @"LOW";
