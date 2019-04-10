@@ -424,8 +424,8 @@
 
 -(void)advanceSeason {
     if (![self isEqual:league.blessedTeam] && ![self isEqual:league.cursedTeam]) {
-        [self getSeasonSummaryString];
-
+//        [self getSeasonSummaryString];
+        deltaPrestige = [self calculatePrestigeChange];
         teamPrestige += deltaPrestige;
     }
 
@@ -1482,24 +1482,47 @@
 
 -(void)updatePollScore {
     [self updateStrengthOfWins];
-    int preseasonBias = 8 - (wins + losses);
-    if (preseasonBias < 0) preseasonBias = 0;
-    teamPollScore = (wins*200 + 3*(teamPoints-teamOppPoints) + (teamYards-teamOppYards)/40 + (teamStrengthOfWins / 2) + 3*(preseasonBias)*(teamPrestige + [self getOffensiveTalent] + [self getDefensiveTalent]) + teamStrengthOfWins)/11 + (teamPrestige / 5);
-    if ([@"CC" isEqualToString:confChampion] ) {
-        //bonus for winning conference
-        teamPollScore += 25;
+//    int preseasonBias = 15 - (wins + losses);
+//    if (preseasonBias < 0) preseasonBias = 0;
+//    teamPollScore = (wins*200 + 3*(teamPoints-teamOppPoints) + (teamYards-teamOppYards)/40 + (teamStrengthOfWins / 2) + 3*(preseasonBias)*(teamPrestige + [self getOffensiveTalent] + [self getDefensiveTalent]) + teamStrengthOfWins)/11 + (teamPrestige / 5);
+    
+    int preseasonBias = 15 - (wins + losses);
+    if (preseasonBias < 3) preseasonBias = 3;
+    preseasonBias /= 15;
+    teamPollScore = (preseasonBias * [self _getPreseasonBiasScore]) + ([self getOffensiveTalent] + [self getDefensiveTalent] + self.teamStrengthOfWins);
+    
+    if (league.currentWeek == 0) {
+        teamPollScore = [self _getPreseasonBiasScore];
     }
+
     if ( [@"NCW" isEqualToString:natlChampWL] ) {
         //bonus for winning champ game
         teamPollScore += 100;
     }
     if ( [@"NCL" isEqualToString:natlChampWL] ) {
-        //bonus for winning champ game
+        //bonus for losing champ game
+        teamPollScore += 75;
+    }
+    if ( [@"SFW" isEqualToString:semifinalWL] ) {
+        //bonus for winning semi game
+        teamPollScore += 50;
+    }
+    if ( [@"SFL" isEqualToString:semifinalWL] ) {
+        //bonus for losing semi game
+        teamPollScore += 25;
+    }
+    if ([@"CC" isEqualToString:confChampion]) {
+        //bonus for winning conference
         teamPollScore += 15;
     }
+    if ([@"CL" isEqualToString:confChampion]) {
+        //bonus for losing conference
+        teamPollScore += 10;
+    }
+    
     if (losses == 0) {
         teamPollScore += 30;
-    } else if (losses == 1 ) {
+    } else if (losses == 1) {
         teamPollScore += 15;
     } else {
         teamPollScore += 0;
@@ -1599,7 +1622,7 @@
             }
         }
         //New Contracts or Firing
-        if (([self getCurrentHC].contractYear) == [self getCurrentHC].contractLength
+        if (([self getCurrentHC].contractYear) >= [self getCurrentHC].contractLength
             || [natlChampWL isEqualToString:@"NCW"]
             || [natlChampWL isEqualToString:@"NCL"]
             || ([self getCurrentHC].contractYear + 1 == [self getCurrentHC].contractLength && [HBSharedUtils randomValue] < 0.38)
@@ -1629,6 +1652,7 @@
                     [self getCurrentHC].contractYear = 0;
                     [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                     coachGotNewContract = true;
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 3 additional years after their recent success.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
                 }
             } else if ((totalPrestigeDiff < 0 && deltaPrestige > 2) || (rankTeamPrestige > 15 && deltaPrestige > 2)) {
                 if ([HBSharedUtils randomValue] > 0.40) {
@@ -1676,13 +1700,15 @@
         }
     }
     if (isUserControlled) {
-        if (coachGotNewContract && proveIt)
+        if (coachGotNewContract && proveIt) {
             coachContractString = [NSString stringWithFormat:@"You've been given an %d-year contract to prove your abilities based on the recent success of your team.",[self getCurrentHC].contractLength];
-        else if (coachGotNewContract) {
+            NSLog(@"[Carousel] User Coach Status: Extended");
+        } else if (coachGotNewContract) {
             coachContractString = [NSString stringWithFormat:@"Congratulations! Your performance has been rewarded with a contract extension for %d years!", [self getCurrentHC].contractLength];
+            NSLog(@"[Carousel] User Coach Status: Prove It");
         } else if (coachFired) {
             coachContractString = [NSString stringWithFormat:@"Because of your team's poor performances, %@'s Athletic Director has terminated your contract.", name];
-            NSLog(@"[Carousel] Coach Status: Fired");
+            NSLog(@"[Carousel] User Coach Status: Fired");
         } else {
             int yearsLeft = MAX(0, ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear - 1));
             if (yearsLeft == 0) {
@@ -1697,7 +1723,7 @@
 }
 
 -(NSString *)updatedCoachContactString {
-    int currentPrestige = teamPrestige + deltaPrestige;
+    int currentPrestige = teamPrestige + [self calculatePrestigeChange];
     if (![name isEqualToString:@"American Samoa"]) {
         currentPrestige = MAX(45, currentPrestige);
     } else {
@@ -2242,10 +2268,8 @@
     }
 }
 
--(NSString*)getSeasonSummaryString {
-    deltaPrestige = 0;
-    NSMutableString *summary = [NSMutableString stringWithFormat:@"Your team, %@, finished the season ranked #%d in the nation with %d wins and %d losses.",name, rankTeamPollScore, wins, losses];
-
+-(int)_calculatePerformancePrestigeDelta {
+    int delta = 0;
     int expectedPollFinish;
     NSRange expectedPollFinishRange;
     if (league.teamList.count <= 60) {
@@ -2256,45 +2280,32 @@
         expectedPollFinish = (int)expectedPollFinishRange.location;
     }
     if (NSLocationInRange(rankTeamPollScore, expectedPollFinishRange)) {
-        deltaPrestige = 0; // they finished around where they should have, cut them some slack
+        delta = 0; // they finished around where they should have, cut them some slack
     } else {
         int diffExpected = expectedPollFinish - rankTeamPollScore;
         int oldPrestige = teamPrestige;
         int newPrestige;
         if (teamPrestige > 45 || diffExpected > 0) {
             newPrestige = (int)pow(teamPrestige, 1 + (float)diffExpected/1500);
-            deltaPrestige = (newPrestige - oldPrestige);
+            delta = (newPrestige - oldPrestige);
         }
     }
+    return delta;
+}
 
-    if (deltaPrestige > 0) {
-        [summary appendFormat:@"\n\nGreat job, coach! You exceeded media expectations and gained %ld prestige!", (long)deltaPrestige];
-    } else if (deltaPrestige < 0) {
-        [summary appendString:[[NSString stringWithFormat:@"\n\nA bit of a down year, coach? You fell short of media expectations and lost %ld prestige.",(long)deltaPrestige] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
-    } else {
-        [summary appendString:@"\n\nWell, your team performed exactly how the media thought it would."];
-    }
-
-    if ([natlChampWL isEqualToString:@"NCW"]) {
-        [summary appendString:@"\n\nYou won the National Championship! Recruits want to play for winners and you have proved that you are one. You gain 3 prestige!"];
-        deltaPrestige += 3;
-    }
-
+-(int)_calculateRivalryPrestigeDelta {
+    int delta = 0;
     NSLog(@"RIVALRY SERIES FOR %@: %d - %d", abbreviation, rivalryWins, rivalryLosses);
     if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 25) ) {
-        [summary appendString:@"\n\nRecruits were impressed that you defeated your rival. You gained 2 prestige."];
-        deltaPrestige += 2;
+        delta += 2;
     } else if ((rivalryLosses > rivalryWins) && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20)) {
-        [summary appendString:@"\n\nSince you couldn't win your rivalry series, recruits aren't excited to attend your school. You lost 2 prestige."];
-        deltaPrestige -= 2;
-    } else if (rivalryWins == rivalryLosses) {
-        [summary appendString:@"\n\nThe season series between you and your rival was tied. You gain no prestige for this."];
-    } else if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 25)) {
-        [summary appendString:@"\n\nYou won your rivalry series, but it was expected given the state of their program. You gain no prestige for this."];
-    } else if ((rivalryWins < rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 25)) {
-        [summary appendString:@"\n\nYou lost your rivalry series, but this was expected given your rebuilding program. You lost no prestige for this."];
+        delta -= 2;
     }
+    return delta;
+}
 
+-(NSDictionary<NSString *, NSNumber *> *)_calculateDraftPrestigeDelta {
+    int delta = 0;
     NSArray *draftRounds = self.league.allDraftedPlayers;
     int nflPts = 0, players = 0;
     for (NSArray *round in draftRounds) {
@@ -2305,10 +2316,67 @@
         }
     }
     if (players > 2) {
-         nflPts = 2;
+        nflPts = 2;
     } else {
         nflPts = players;
     }
+    if (nflPts > 0) {
+        delta += nflPts;
+    }
+    return @{@"delta" : @(delta), @"players" : @(players)};
+}
+
+-(int)_calculateNCGPrestigeDelta {
+    int delta = 0;
+    
+    if ([natlChampWL isEqualToString:@"NCW"]) {
+        delta += 3;
+    }
+    
+    return delta;
+}
+
+-(int)calculatePrestigeChange {
+    return [self _calculatePerformancePrestigeDelta] + [self _calculateNCGPrestigeDelta] + [self _calculateRivalryPrestigeDelta] + [[self _calculateDraftPrestigeDelta][@"delta"] intValue];
+}
+
+-(NSString*)getSeasonSummaryString {
+    NSMutableString *summary = [NSMutableString stringWithFormat:@"Your team, %@, finished the season ranked #%d in the nation with %d wins and %d losses.",name, rankTeamPollScore, wins, losses];
+
+    int performancePrestige = [self _calculatePerformancePrestigeDelta];
+    if (performancePrestige > 0) {
+        [summary appendFormat:@"\n\nGreat job, coach! You exceeded media expectations and gained %ld prestige!", (long)performancePrestige];
+    } else if (performancePrestige < 0) {
+        [summary appendString:[[NSString stringWithFormat:@"\n\nA bit of a down year, coach? You fell short of media expectations and lost %ld prestige.",(long)performancePrestige] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+    } else {
+        [summary appendString:@"\n\nWell, your team performed exactly how the media thought it would."];
+    }
+
+    int ncgDelta = [self _calculateNCGPrestigeDelta];
+    if ([natlChampWL isEqualToString:@"NCW"]) {
+        [summary appendString:@"\n\nYou won the National Championship! Recruits want to play for winners and you have proved that you are one. You gain 3 prestige!"];
+    }
+
+    int rivalryDelta = [self _calculateRivalryPrestigeDelta];
+    NSLog(@"RIVALRY SERIES FOR %@: %d - %d", abbreviation, rivalryWins, rivalryLosses);
+    if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 25) ) {
+        [summary appendString:@"\n\nRecruits were impressed that you defeated your rival. You gained 2 prestige."];
+    } else if ((rivalryLosses > rivalryWins) && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20)) {
+        [summary appendString:@"\n\nSince you couldn't win your rivalry series, recruits aren't excited to attend your school. You lost 2 prestige."];
+    } else if (rivalryWins == rivalryLosses) {
+        [summary appendString:@"\n\nThe season series between you and your rival was tied. You gain no prestige for this."];
+    } else if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 25)) {
+        [summary appendString:@"\n\nYou won your rivalry series, but it was expected given the state of their program. You gain no prestige for this."];
+    } else if ((rivalryWins < rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige >= 25)) {
+        [summary appendString:@"\n\nYou lost your rivalry series, but this was expected given your rebuilding program. You lost no prestige for this."];
+    }
+
+    int nflPts = 0;
+    int players = 0;
+    NSDictionary *draftDeltaDict = [self _calculateDraftPrestigeDelta];
+    nflPts = [draftDeltaDict[@"delta"] intValue];
+    players = [draftDeltaDict[@"players"] intValue];
+    
     if (nflPts > 0) {
         NSMutableString *playerString = [NSMutableString stringWithFormat:@"%d", players];
         if (nflPts == 1) {
@@ -2317,13 +2385,13 @@
             [playerString appendString:@" players"];
         }
         [summary appendFormat:@"\n\nYou had %@ drafted this year. For this, you gained %d prestige.",playerString,nflPts];
-        deltaPrestige += nflPts;
     }
 
-    if (deltaPrestige > 0) {
-        [summary appendFormat:@"\n\nOverall, your program gained %ld prestige this season.", (long)deltaPrestige];
-    } else if (deltaPrestige < 0) {
-        [summary appendString:[[NSString stringWithFormat:@"\n\nOverall, your program lost %ld prestige this season.", (long)deltaPrestige] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+    int sum = nflPts + ncgDelta + rivalryDelta + performancePrestige;
+    if (sum > 0) {
+        [summary appendFormat:@"\n\nOverall, your program gained %ld prestige this season.", (long)sum];
+    } else if (sum < 0) {
+        [summary appendString:[[NSString stringWithFormat:@"\n\nOverall, your program lost %ld prestige this season.", (long)sum] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
     } else {
         [summary appendString:@"\n\nOverall, your program didn't gain or lose prestige this season."];
     }
@@ -3569,6 +3637,48 @@
 
 -(NSString *)description {
     return [NSString stringWithFormat:@"%@ (Abbr: %@, Conf: %@, Pres: %d, Rival: %@)", name, abbreviation, conference, teamPrestige, rivalTeam];
+}
+
+-(int)projectTeamWins {
+    int projectedWins = 0;
+    int projectedPollScore = [self _getPreseasonBiasScore];
+    int otherProjectedPollScore = 0;
+    for (Game *g in gameSchedule) {
+        if (g != nil) {
+            if ([self isEqual:g.homeTeam]) {
+                otherProjectedPollScore = [g.awayTeam _getPreseasonBiasScore];
+                if (projectedPollScore > otherProjectedPollScore) {
+                    projectedWins++;
+                }
+            } else {
+                otherProjectedPollScore = [g.homeTeam _getPreseasonBiasScore];
+                if (projectedPollScore > otherProjectedPollScore) {
+                    projectedWins++;
+                }
+            }
+        }
+    }
+    return projectedWins;
+}
+
+-(int)projectPollScore {
+    return [self _getPreseasonBiasScore] + ([self projectTeamWins] * 10);
+}
+
+-(int)_getPreseasonBiasScore {
+    int score = 0;
+    if (self.league.currentWeek > 0) {
+        score += self.league.teamList.count - rankTeamOffTalent;
+        score += self.league.teamList.count - rankTeamDefTalent;
+        score += (int)ceil((1.5 * (self.league.teamList.count - rankTeamPrestige)));
+        score += (([self.league findConference:self.conference] != nil) ? ([self.league findConference:self.conference].confPrestige / 2) : 0);
+    } else {
+        score += [self getOffensiveTalent];
+        score += [self getDefensiveTalent];
+        score += (3 * self.teamPrestige);
+        score += (([self.league findConference:self.conference] != nil) ? ([self.league findConference:self.conference].confPrestige / 2) : 0);
+    }
+    return score;
 }
 
 @end

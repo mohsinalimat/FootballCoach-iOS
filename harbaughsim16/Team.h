@@ -344,4 +344,7 @@ typedef enum {
 -(void)updateDepthChartPositionsForPosition:(int)position;
 
 -(FCTeamExpectations)calculateTeamExpectations;
+-(int)projectTeamWins;
+-(int)projectPollScore;
+-(int)calculatePrestigeChange;
 @end
