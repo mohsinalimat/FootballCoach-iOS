@@ -502,40 +502,78 @@
         }
     } else if (indexPath.section == 1) {
         if ([HBSharedUtils currentLeague].currentWeek > 0 && [HBSharedUtils currentLeague].isCareerMode && [selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
-            if (indexPath.row == 0) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
-            } else if (indexPath.row == 1) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOffTalent] animated:YES];
-            } else if (indexPath.row == 2) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeDefTalent] animated:YES];
-            } else if (indexPath.row == 3) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeTeamPrestige] animated:YES];
-            } else if (indexPath.row == 4) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeWins] animated:YES];
-            } else if (indexPath.row == 5) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeCCGs] animated:YES];
-            } else if (indexPath.row == 6) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeNCGs] animated:YES];
-            } else if (indexPath.row == 7) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeSOS] animated:YES];
-            } else if (indexPath.row == 8) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePPG] animated:YES];
-            } else if (indexPath.row == 9) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG] animated:YES];
-            } else if (indexPath.row == 10) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeYPG] animated:YES];
-            } else if (indexPath.row == 11) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG] animated:YES];
-            } else if (indexPath.row == 12) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePYPG] animated:YES];
-            } else if (indexPath.row == 13) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG] animated:YES];
-            } else if (indexPath.row == 14) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG] animated:YES];
-            } else if (indexPath.row == 15) {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppRYPG] animated:YES];
+            if (self.popupController.presented) {
+                if (indexPath.row == 0) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
+                } else if (indexPath.row == 1) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOffTalent] animated:YES];
+                } else if (indexPath.row == 2) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeDefTalent] animated:YES];
+                } else if (indexPath.row == 3) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeTeamPrestige] animated:YES];
+                } else if (indexPath.row == 4) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeWins] animated:YES];
+                } else if (indexPath.row == 5) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeCCGs] animated:YES];
+                } else if (indexPath.row == 6) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeNCGs] animated:YES];
+                } else if (indexPath.row == 7) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeSOS] animated:YES];
+                } else if (indexPath.row == 8) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePPG] animated:YES];
+                } else if (indexPath.row == 9) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG] animated:YES];
+                } else if (indexPath.row == 10) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeYPG] animated:YES];
+                } else if (indexPath.row == 11) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG] animated:YES];
+                } else if (indexPath.row == 12) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePYPG] animated:YES];
+                } else if (indexPath.row == 13) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG] animated:YES];
+                } else if (indexPath.row == 14) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG] animated:YES];
+                } else if (indexPath.row == 15) {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppRYPG] animated:YES];
+                } else {
+                    [self.popupController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeTODiff] animated:YES];
+                }
             } else {
-                [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeTODiff] animated:YES];
+                if (indexPath.row == 0) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
+                } else if (indexPath.row == 1) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOffTalent] animated:YES];
+                } else if (indexPath.row == 2) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeDefTalent] animated:YES];
+                } else if (indexPath.row == 3) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeTeamPrestige] animated:YES];
+                } else if (indexPath.row == 4) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeWins] animated:YES];
+                } else if (indexPath.row == 5) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeCCGs] animated:YES];
+                } else if (indexPath.row == 6) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeAllTimeNCGs] animated:YES];
+                } else if (indexPath.row == 7) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeSOS] animated:YES];
+                } else if (indexPath.row == 8) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePPG] animated:YES];
+                } else if (indexPath.row == 9) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPPG] animated:YES];
+                } else if (indexPath.row == 10) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeYPG] animated:YES];
+                } else if (indexPath.row == 11) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG] animated:YES];
+                } else if (indexPath.row == 12) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePYPG] animated:YES];
+                } else if (indexPath.row == 13) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRYPG] animated:YES];
+                } else if (indexPath.row == 14) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppPYPG] animated:YES];
+                } else if (indexPath.row == 15) {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeOppRYPG] animated:YES];
+                } else {
+                    [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeTODiff] animated:YES];
+                }
             }
         }
     }
