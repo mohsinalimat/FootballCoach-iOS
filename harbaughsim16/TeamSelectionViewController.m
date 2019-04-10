@@ -51,10 +51,12 @@
                 [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                     textField.placeholder = @"Coach First Name";
                     textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+                    [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 }];
                 [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                     textField.placeholder = @"Coach Last Name";
                     textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+                    [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
                 }];
                 
                 [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -221,7 +223,22 @@
         }
         [self reloadTable];
     }
+}
+
+- (void)textFieldDidChange:(UITextField*)sender
+{
+    UIResponder *resp = sender;
+    while (![resp isKindOfClass:[UIAlertController class]]) {
+        resp = resp.nextResponder;
+    }
+    UIAlertController *alertController = (UIAlertController *)resp;
+    [((UIAlertAction *)alertController.actions[0]) setEnabled:(!([sender.text isEqualToString:@""] || sender.text.length == 0))];
     
+    if (![((UIAlertAction *)alertController.actions[0]) isEnabled]) {
+        [alertController setMessage:@"Please fill in all fields to start your career."];
+    } else {
+        [alertController setMessage:@"Tap \"Save\" to start your career!"];
+    }
 }
 
 @end
