@@ -362,9 +362,11 @@
         self.wasRedshirted = YES;
         @synchronized (self.statHistoryDictionary) {
             NSString *yearKey = [NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
-            NSDictionary *stats = self.statHistoryDictionary[yearKey];
-            [self.statHistoryDictionary removeObjectForKey:yearKey];
-            [self.statHistoryDictionary setObject:stats forKey:[NSString stringWithFormat:@"%@ (RS)", yearKey]];
+            if ([self.statHistoryDictionary.allKeys containsObject:yearKey]) {
+                NSDictionary *stats = [self.statHistoryDictionary[yearKey] copy];
+                [self.statHistoryDictionary removeObjectForKey:yearKey];
+                [self.statHistoryDictionary setObject:stats forKey:[NSString stringWithFormat:@"%@ (RS)", yearKey]];
+            }
         }
     }
     
