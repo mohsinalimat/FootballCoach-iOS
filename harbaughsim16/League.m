@@ -1469,15 +1469,15 @@
     NSLog(@"FCS GAMES: %d", fcsGames);
 }
 
--(void)playWeek {
+-(void)playWeek:(void (^)(void))callback {
     canRebrandTeam = NO;
-
+    
     if (currentWeek <= 12 ) {
         for (Conference * c in conferences) {
             [c playWeek];
         }
-
-
+        
+        
         // bless/curse progression updates should appear at week 6 (news stories index 6)
         //if blessed team wins > losses - post story about reaping benefits from blessing, otherwise, post story about them fumbling with it
         //if cursed team wins > losses - post story about success despite early season setbacks, otherwise, post story about how early setback has crippled team this season
@@ -1509,7 +1509,7 @@
                     }
                 }
             }
-
+            
             if (cursedTeam != nil && ![cursedTeam isEqual:userTeam]) {
                 NSLog(@"CURSED TEAM: %@ STORY: %ld COACH: %@", cursedTeam.abbreviation, (long)cursedStoryIndex, cursedTeamCoachName);
                 if (cursedTeam.wins > cursedTeam.losses) {
@@ -1543,40 +1543,40 @@
                 }
             }
         }
-
+        
         //calculate poty leader and post story about how he is leading competition
         if (currentWeek == 9) {
             NSMutableArray *week11 = newsStories[10];
-
+            
             NSArray *heismanContenders = [self getHeismanLeaders];
             Player *heismanLeader = heismanContenders[0];
             [week11 addObject:[NSString stringWithFormat:@"%@'s %@ leads the pack\n%@ %@ %@ is the frontrunner for Player of the Year, playing a key role in the team's %ld-%ld season.", heismanLeader.team.abbreviation, [heismanLeader getInitialName], heismanLeader.team.name, heismanLeader.position, heismanLeader.name, (long)heismanLeader.team.wins, (long)heismanLeader.team.losses]];
-
+            
             NSArray *rotyContenders = [self getROTYLeaders];
             Player *rotyLeader = rotyContenders[0];
             [week11 addObject:[NSString stringWithFormat:@"%@'s %@ leads the rookies\n%@ %@ %@ is the frontrunner for Rookie of the Year, playing a key role in the team's %ld-%ld season.", rotyLeader.team.abbreviation, [rotyLeader getInitialName], rotyLeader.team.name, rotyLeader.position, rotyLeader.name, (long)rotyLeader.team.wins, (long)rotyLeader.team.losses]];
         }
     }
-
+    
     if (currentWeek == 12) {
         //bowl week
         for (int i = 0; i < teamList.count; ++i) {
             [teamList[i] updatePollScore];
         }
-
+        
         teamList = [[teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
-
+            
         }] mutableCopy];
-
+        
         [self scheduleBowlGames];
     } else if (currentWeek == 13 ) {
         [self playBowlGames];
-
+        
     } else if (currentWeek == 14 ) {
-
+        
         [ncg playGame];
         if (ncg.homeScore > ncg.awayScore ) {
             //ncg.homeTeam.semifinalWL = @"";
@@ -1589,7 +1589,7 @@
             [ncg.awayTeam getCurrentHC].totalNCLosses++;
             NSMutableArray *week15 = newsStories[15];
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", ncg.homeTeam.name, [ncg.homeTeam strRep], [ncg.awayTeam strRep], (long)ncg.homeScore, (long)ncg.awayScore, ncg.homeTeam.name]];
-
+            
         } else {
             //ncg.homeTeam.semifinalWL = @"";
             //ncg.awayTeam.semifinalWL = @"";
@@ -1602,7 +1602,7 @@
             NSMutableArray *week15 = newsStories[15];
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", ncg.awayTeam.name, [ncg.awayTeam strRep], [ncg.homeTeam strRep], (long)ncg.awayScore, (long)ncg.homeScore, ncg.awayTeam.name]];
         }
-
+        
         [self refreshAllLeaguePlayers];
         for (Conference *c in conferences) {
             [c refreshAllConferencePlayers];
@@ -1616,6 +1616,13 @@
     [self generateGOTWNews];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     currentWeek++;
+    if (callback != nil) {
+        callback();
+    }
+}
+
+-(void)playWeek {
+    [self playWeek:nil];
 }
 
 -(void)generateCFPNews {

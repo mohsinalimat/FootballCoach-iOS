@@ -168,6 +168,7 @@
 +(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName;
 
 -(void)playWeek;
+-(void)playWeek:(void (^)(void))callback;
 -(void)scheduleBowlGames;
 -(void)playBowlGames;
 -(void)playBowl:(Game*)g;
