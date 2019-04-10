@@ -2472,7 +2472,11 @@
         [sb addObject:[Game newGameWithHome:t1 away:t2 name:@"Semis, 2v3"]];
 
         NSMutableArray *bowlEligibleTeams = [NSMutableArray array];
-        for (int i = 4; i < ([self bowlGameTitles].count * 2); i++) {
+        int numBowlEligible = (int)([self bowlGameTitles].count * 2); // accounts for expanded team set
+        if (teamList.count < ([self bowlGameTitles].count * 2)) {
+            numBowlEligible = 20; // but can fall back to original limit
+        }
+        for (int i = 4; i < numBowlEligible; i++) {
             [bowlEligibleTeams addObject:teamList[i]];
         }
 
