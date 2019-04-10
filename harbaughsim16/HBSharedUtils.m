@@ -719,7 +719,7 @@ static UIColor *styleColor = nil;
         }
         NSString *weekTitle;
         if (simLeague.currentWeek < 12) {
-            weekTitle = [NSString stringWithFormat:@"Playing Week %d...", simLeague.currentWeek];
+            weekTitle = [NSString stringWithFormat:@"Playing Week %d...", (simLeague.currentWeek + 1)];
         } else if (simLeague.currentWeek == 12) {
             weekTitle = @"Playing Conference Championships...";
         } else if (simLeague.currentWeek == 13) {

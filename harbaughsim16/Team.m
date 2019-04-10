@@ -2218,7 +2218,7 @@
     
     NSInteger expectedPollFinish = [leagueTeams indexOfObject:self];
     
-    NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - 5, 0), 6);
+    NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - 5, 0), (self.league.isHardMode) ? 6 : 11);
     if (expectedPollFinishRange.location < 16) {
         return FCTeamExpectationsTitleContender;
     } else if (expectedPollFinishRange.location < 72) {
