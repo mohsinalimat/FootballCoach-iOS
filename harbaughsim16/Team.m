@@ -1632,18 +1632,19 @@
                 [self getCurrentHC].contractYear = 0;
                 [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                 coachGotNewContract = true;
-                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs long-term contract extension at %@!\n%@ has extended the contract of their head coach %@ for 7 additional years after putting together several successful seasons.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
+                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs long-term contract extension at %@!\n%@ has extended the contract of their head coach %@ for 7 additional years after building the program into a national contender.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
             } else if (totalPrestigeDiff > 10) {
                 [self getCurrentHC].contractLength = 4;
                 [self getCurrentHC].contractYear = 0;
                 [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                 coachGotNewContract = true;
-                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 4 additional years after putting together several successful seasons.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
+                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 4 additional years after stringing together a number of successful seasons.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
             } else if (totalPrestigeDiff > 7) {
                 [self getCurrentHC].contractLength = 4;
                 [self getCurrentHC].contractYear = 0;
                 [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                 coachGotNewContract = true;
+                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 4 additional years for his excellent work at the helm of the program.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
             } else if (totalPrestigeDiff > 5 || ([natlChampWL isEqualToString:@"NCL"])) {
                 if (([natlChampWL isEqualToString:@"NCL"]) && [self getCurrentHC].contractLength - [self getCurrentHC].contractYear > 2) {
                     // nothing, I guess? sourced from https://github.com/antdroidx/CFB-Coach/blob/master/src/main/java/simulation/Team.java#L1503
@@ -2635,7 +2636,7 @@
                 break;
         }
 
-        if (![playersLeaving containsObject:q] && q.year > transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && !q.isHeisman && !q.isROTY && !q.isInjured && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer && !q.isGradTransfer && futurePositionalScore < 20) {
+        if (![playersLeaving containsObject:q] && q.year >= transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && !q.isHeisman && !q.isROTY && !q.isInjured && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer && !q.isGradTransfer && futurePositionalScore < 20) {
             NSLog(@"XFER: Confirmed that %@ %@ is a valid transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
             if (q.year == 4) {
                 q.isTransfer = false;

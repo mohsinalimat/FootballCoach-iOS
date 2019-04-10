@@ -557,7 +557,7 @@ static UIColor *styleColor = nil;
             alertController.message = @"Your overall rating is too low to qualify for available jobs. As a result, your career is over.";
             [[self class] addRetirementOptionsUsingAlertController:alertController sourceViewController:viewController];
         } else {
-            alertController.message = @"Due to your team's recent lackluster performance, you have been fired. You can now look for other jobs around the country.";
+            alertController.message = @"Due to your lackluster performance, you have been fired. You can now look for other jobs around the country.";
             [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] initWithJobStatus:YES]] animated:YES completion:nil];
