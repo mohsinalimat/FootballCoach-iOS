@@ -16,7 +16,7 @@
 +(instancetype)newHC:(Team *)t name:(NSString *)nm stars:(int)stars year:(int)yr {
     HeadCoach *hc = [HeadCoach new];
     hc.name = nm;
-    hc.year = yr;
+    hc.year = 0;
     hc.team = t;
     hc.startYear = (int)[t.league getCurrentYear];
     hc.homeState = [HBSharedUtils randomState];
