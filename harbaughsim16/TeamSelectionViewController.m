@@ -73,14 +73,22 @@
     }];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *first = alert.textFields[0].text;
-        NSString *last = alert.textFields[1].text;
+        __block NSString *first = alert.textFields[0].text;
+        __block NSString *last = alert.textFields[1].text;
         if (![self isValidName:first] || ![self isValidName:last]) {
             // one of them is randomized
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 UIAlertController *nameAlert = [UIAlertController alertControllerWithTitle:@"Warning! Blank Name" message:@"You have left part of your coach's name blank. To preserve data quality, this will be filled in for you by the computer. Do you want to proceed?" preferredStyle:UIAlertControllerStyleAlert];
                 [nameAlert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        if (![self isValidName:first]) {
+                            int fn = (int)([HBSharedUtils randomValue] * self->league.nameList.count);
+                            first = self->league.nameList[fn];
+                        }
+                        if (![self isValidName:last]) {
+                            int ln = (int)([HBSharedUtils randomValue] * self->league.lastNameList.count);
+                            last = self->league.lastNameList[ln];
+                        }
                         saveBlock(first, last);
                     });
                 }]];
