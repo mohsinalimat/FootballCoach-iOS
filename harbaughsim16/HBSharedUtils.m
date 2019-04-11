@@ -709,6 +709,8 @@ static UIColor *styleColor = nil;
 
 +(void)playWeek:(UIViewController*)viewController headerView:(HBTeamPlayView*)teamHeaderView callback:(void (^)(void))callback {
     League *simLeague = [HBSharedUtils currentLeague];
+    [teamHeaderView.playButton setEnabled:NO];
+    [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
     if (simLeague.recruitingStage == 0) {
         __block MBProgressHUD *hud;
         if ([MBProgressHUD HUDForView:viewController.navigationController.view] != nil) {
@@ -736,6 +738,8 @@ static UIColor *styleColor = nil;
                 simLeague.recruitingStage = 1;
                 [HBSharedUtils currentLeague].canRebrandTeam = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [teamHeaderView.playButton setEnabled:YES];
+                    [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
                     [hud hideAnimated:YES];
                     [HBSharedUtils startOffseason:viewController callback:nil];
                 });
@@ -818,6 +822,7 @@ static UIColor *styleColor = nil;
                         
                         if (simLeague.currentWeek < 12) {
                             [HBSharedUtils currentLeague].canRebrandTeam = NO;
+                            [teamHeaderView.playButton setEnabled:YES];
                             [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
                             [teamHeaderView.playButton setTitle:@" Play Week" forState:UIControlStateNormal];
                             
@@ -832,6 +837,8 @@ static UIColor *styleColor = nil;
                             
                         } else if (simLeague.currentWeek == 12) {
                             [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
+                            [teamHeaderView.playButton setEnabled:YES];
+                            [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
                         } else if (simLeague.currentWeek == 13) {
                             NSString *heismanString = [simLeague getHeismanCeremonyStr];
                             NSArray *heismanParts = [heismanString componentsSeparatedByString:@"?"];
@@ -851,8 +858,12 @@ static UIColor *styleColor = nil;
                             NSLog(@"COTY: %@", coty); //can't do anything with this result, just want to run it tbh
                             
                             [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
+                            [teamHeaderView.playButton setEnabled:YES];
+                            [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
                         } else if (simLeague.currentWeek == 14) {
                             [teamHeaderView.playButton setTitle:@" Play National Championship" forState:UIControlStateNormal];
+                            [teamHeaderView.playButton setEnabled:YES];
+                            [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
                         } else {
                             [HBSharedUtils currentLeague].canRebrandTeam = YES;
                             [teamHeaderView.playButton setEnabled:YES];
