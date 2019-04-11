@@ -470,7 +470,9 @@
         } else {
             if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
                 if (indexPath.row == 0) {
-                    [self.navigationController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]] animated:YES];
+                    if (!selectedTeam.coachRetired && !selectedTeam.coachFired) {
+                        [self.popupController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]] animated:YES];
+                    }
                 } else if (indexPath.row == 1) {
                     [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];
                 } else if (indexPath.row == 2) {
