@@ -2243,7 +2243,15 @@
         return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
     }];
     
-    NSInteger expectedPollFinish = [leagueTeams indexOfObject:self];
+    NSMutableArray *mapped = [NSMutableArray array];
+    [leagueTeams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Team *t = (Team *)obj;
+        if (![mapped containsObject:t.abbreviation]) {
+            [mapped addObject:t.abbreviation];
+        }
+    }];
+    
+    NSInteger expectedPollFinish = [mapped indexOfObject:self.abbreviation];
     
     NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - 5, 0), (self.league.isHardMode) ? 6 : 11);
     if (expectedPollFinishRange.location < 16) {

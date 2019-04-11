@@ -1998,7 +1998,7 @@
     } else if (userExpectations == FCTeamExpectationsMidTable) {
         expectationsString = [NSString stringWithFormat:@"%ld Projections: %@, conference contenders?\nMedia members recently released their predictions for %ld, and they were very tepid on %@, who they predicted to finish in the middle of the %@.",(long)[self getCurrentYear], self.userTeam.abbreviation,(long)[self getCurrentYear],self.userTeam.name,self.userTeam.conference];
     } else { // bottom table
-        expectationsString = [NSString stringWithFormat:@"%ld Projections: Sell all your %@ stock!\nMedia members recently released their predictions for %ld, and they set the bar very low for %@ this season, seeing them as bottom-tier in the %@.",(long)[self getCurrentYear], self.userTeam.abbreviation,(long)[self getCurrentYear],self.userTeam.name,self.userTeam.conference];
+        expectationsString = [NSString stringWithFormat:@"%ld Projections: Sell all your %@ stock!\nMedia members recently released their predictions for %ld, and they set the bar very low for %@ this season, projecting them as bottom-tier in the %@.",(long)[self getCurrentYear], self.userTeam.abbreviation,(long)[self getCurrentYear],self.userTeam.name,self.userTeam.conference];
     }
     [newsStories[0] insertObject:expectationsString atIndex:0];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
