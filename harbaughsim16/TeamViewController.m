@@ -51,7 +51,9 @@
         if (indexPath.section == 0) {
             if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
                 if (indexPath.row == 0) {
-                    peekVC = [[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]];
+                    if (!selectedTeam.coachRetired && !selectedTeam.coachFired) {
+                        peekVC = [[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]];
+                    }
                 } else if (indexPath.row == 1) {
                     peekVC = [[TeamRosterViewController alloc] initWithTeam:selectedTeam];
                 } else if (indexPath.row == 2) {
@@ -471,7 +473,7 @@
             if (([HBSharedUtils currentLeague].isCareerMode && (!selectedTeam.isUserControlled && ![selectedTeam isEqual:[HBSharedUtils currentLeague].userTeam])) || ![HBSharedUtils currentLeague].isCareerMode) {
                 if (indexPath.row == 0) {
                     if (!selectedTeam.coachRetired && !selectedTeam.coachFired) {
-                        [self.popupController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]] animated:YES];
+                        [self.navigationController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[selectedTeam getCurrentHC]] animated:YES];
                     }
                 } else if (indexPath.row == 1) {
                     [self.navigationController pushViewController:[[TeamRosterViewController alloc] initWithTeam:selectedTeam] animated:YES];

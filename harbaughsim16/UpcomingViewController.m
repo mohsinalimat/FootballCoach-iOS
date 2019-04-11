@@ -133,54 +133,54 @@
     if (indexPath != nil) {
         if ([HBSharedUtils currentLeague].userTeam.gameWLSchedule.count > 0 && ![HBSharedUtils currentLeague].userTeam.gameSchedule.lastObject.hasPlayed && [HBSharedUtils currentLeague].userTeam.gameSchedule.count >= [HBSharedUtils currentLeague].currentWeek) {
             if (indexPath.section == 0) {
-                Game *bowl = lastGame;
-                if (indexPath.row == 0 || indexPath.row == 1) {
-                    peekVC = nil;
-                } else {
-                    peekVC =  [[GameDetailViewController alloc] initWithGame:bowl];
+                if (indexPath.row == 2) {
+                    peekVC = [[GameDetailViewController alloc] initWithGame:lastGame];
                 }
             } else if (indexPath.section == 1) {
-                if (indexPath.row == 0) {
+                if (indexPath.row == 2) {
+                    peekVC = [[GameDetailViewController alloc] initWithGame:nextGame];
+                }
+            } else if (indexPath.section == 2) {
+                //return @"League Leaders";
+                if (indexPath.row == 0) { //QB
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionQB];
-                } else if (indexPath.row == 1) {
+                } else if (indexPath.row == 1) { //RB
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionRB];
-                } else if (indexPath.row == 2) {
+                } else if (indexPath.row == 2) { //WR
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionWR];
-                } else if (indexPath.row == 3) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
-                } else {
+                } else if (indexPath.row == 3) { //DEF
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionDEF];
+                } else { //K
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK];
                 }
             }
         } else if ([HBSharedUtils currentLeague].userTeam.gameSchedule.lastObject.hasPlayed) {
             if (indexPath.section == 0) {
-                Game *bowl = lastGame;
-                if (indexPath.row == 0 || indexPath.row == 1) {
-                    peekVC = nil;
-                } else {
-                    peekVC =  [[GameDetailViewController alloc] initWithGame:bowl];
+                if (indexPath.row == 2) {
+                    peekVC = [[GameDetailViewController alloc] initWithGame:lastGame];
                 }
             } else if (indexPath.section == 1) {
-                if (indexPath.row == 0) {
+                //return @"League Leaders";
+                if (indexPath.row == 0) { //QB
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionQB];
-                } else if (indexPath.row == 1) {
+                } else if (indexPath.row == 1) { //RB
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionRB];
-                } else if (indexPath.row == 2) {
+                } else if (indexPath.row == 2) { //WR
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionWR];
-                } else if (indexPath.row == 3) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
-                } else {
+                } else if (indexPath.row == 3) { //DEF
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionDEF];
+                } else { //K
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK];
                 }
             }
         } else {
-            Game *bowl = nextGame;
-            if (indexPath.row == 0 || indexPath.row == 1) {
-                peekVC = nil;
-            } else {
-                peekVC =  [[GameDetailViewController alloc] initWithGame:bowl];
+            if (indexPath.section == 0) {
+                if (indexPath.row == 2) {
+                    peekVC = [[GameDetailViewController alloc] initWithGame:nextGame];
+                }
             }
         }
+        
         if (peekVC != nil) {
             peekVC.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
             previewingContext.sourceRect = cell.frame;
