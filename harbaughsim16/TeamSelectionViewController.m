@@ -104,7 +104,7 @@
             saveBlock(first, last);
         }
      }]];
-    alert.actions[0].enabled = NO;
+    alert.actions[0].enabled = ([self isValidName:firstName] && [self isValidName:lastName]);
     [self presentViewController:alert animated:YES completion:nil];
 }
 
