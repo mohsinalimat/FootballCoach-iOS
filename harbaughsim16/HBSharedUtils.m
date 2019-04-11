@@ -74,15 +74,15 @@ static UIColor *styleColor = nil;
 
     [tutorial appendString:@"You're now looking at other open jobs around the country. In the table, you'll see the name of the team, its prestige as a program (denoted by the number of stars it has), its record in the past season, its lifetime record, and the last time it reached various milestones: bowl games, conference championships, and national championships. From here, you can tap on a team to view other details - its roster, history, schedule, etc. You may be unable to take some jobs because you may not meet the requirements; these teams will be grayed out in the table. When you want to sign with a team, tap the \"Sign\" button that appears in the top-right of the team pop-up window. You'll then be asked to confirm your selection."];
     [tutorial appendString:@"\n\n"];
-    [tutorial appendString:@"If you don't really care where you sign, click the X in the top-left of your screen to exit the coaching carousel and get randomly signed to a team. You will be asked to confirm your selection."];
+    [tutorial appendString:@"If you don't really care where you sign, tap the X in the top-left of your screen to exit the coaching carousel and get randomly signed to a team. You will be asked to confirm your selection."];
     [tutorial appendString:@"\n\n"];
-    [tutorial appendString:@"You can view this tutorial again at any time by tapping the question-mark button at the top-right of your screen. Good luck and happy job-hunting, coach!"];
+    [tutorial appendString:@"Good luck and happy job-hunting, coach!"];
 
     return tutorial;
 }
 
 + (NSString *)metadataEditingText {
-    return @"After you edit team and conference names during an offseason, you can export a JSON file containing all of the metadata for your league from Settings. This file will include conference names and abbreviations; team names, states, and prestige levels; and bowl game titles. You can edit this file and upload it to any cloud service, then use it in CFC by starting a new game with the \"Import League Metadata\" option.";
+    return @"At any time, you can export a JSON file containing all of the metadata for your league using the \"Export Team Metadata\" option in the Settings panel. Once you tap this button, you\'ll be asked where you want to save the file to (I recommend a cloud service or copying it over to Notes for easy editing on desktop).\n\nThis file will include conference names and abbreviations; team names, states, and ratings; coach names and ratings; and bowl game titles. You can customize all of this information using the text editor, then upload it to a cloud service (Dropbox, GitHub Gists, etc). Be sure to save it with the extension \'.json\'.\n\nOnce you've uploaded your file and gotten a URL (also ending in \'.json\'), you can bring the file in in-game by starting a new game with the \"Import League Metadata\" option and pasting in the URL of your file.\n\nPlease note: you will have to delete your current save file to import a league metadata file and use it in-game.";
 }
 
 +(double)randomValue {
