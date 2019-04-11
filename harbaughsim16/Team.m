@@ -295,6 +295,7 @@
 
         teamPrestige = prestige;
         [self recruitPlayers: @[@2, @4, @6, @2, @10, @2, @6, @8, @6, @2]];
+        [self getCurrentHC].contractYear = (int)(6 * [HBSharedUtils randomValue]);
 
         //set stats
         totalWins = 0;
@@ -1691,6 +1692,7 @@
                 [self getCurrentHC].contractLength = 2;
                 [self getCurrentHC].contractYear = 0;
                 [self getCurrentHC].baselinePrestige = (3 * [self getCurrentHC].baselinePrestige + teamPrestige) / 4;
+                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite an overall disappointing tenure. However, he has posted a career record of %d-%d, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                 coachGotNewContract = true;
                 proveIt = true;
             }
