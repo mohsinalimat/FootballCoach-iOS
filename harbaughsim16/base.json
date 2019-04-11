@@ -110,7 +110,7 @@
                 "rival":"CHI"
             },
             {
-                "name":"Univ of Chicago",
+                "name":"Chicago",
                 "abbreviation":"CHI",
                 "prestige":"70",
                 "state":"Illinois",
@@ -292,7 +292,7 @@
                 "rival":"AMO"
             },
             {
-                "name":"Univ of Austin",
+                "name":"Austin",
                 "abbreviation":"AUS",
                 "prestige":"50",
                 "state":"Texas",
@@ -404,7 +404,7 @@
                 "rival":"YEL"
             },
             {
-                "name":"Univ of Denver",
+                "name":"Denver",
                 "abbreviation":"DEN",
                 "prestige":"75",
                 "state":"Colorado",
