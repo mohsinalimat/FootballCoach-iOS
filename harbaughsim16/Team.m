@@ -1593,6 +1593,10 @@
     int wins = [self getCurrentHC].totalWins;
     int losses = [self getCurrentHC].totalLosses;
     BOOL proveIt = false;
+    int lastYearPrestigeDelta = [self calculatePrestigeChange];
+    
+    BOOL hardModeUserFiring = self.league.isHardMode && ((totalPrestigeDiff < -1 && self.league.isCareerMode && rankTeamPrestige > 15) || (totalPrestigeDiff < -2 && self.league.isCareerMode && rankTeamPrestige > 25));
+    BOOL easyModeUserFiring = !self.league.isHardMode && ((totalPrestigeDiff < -3 && self.league.isCareerMode && rankTeamPrestige > 15) || (totalPrestigeDiff < -5 && self.league.isCareerMode && rankTeamPrestige > 25));
 
     //RETIREMENT
     if (age > retire && !isUserControlled) {
@@ -1619,41 +1623,63 @@
             }
         }
         //New Contracts or Firing
-        if (([self getCurrentHC].contractYear) >= [self getCurrentHC].contractLength
-            || [natlChampWL isEqualToString:@"NCW"]
-            || [natlChampWL isEqualToString:@"NCL"]
-            || ([self getCurrentHC].contractYear + 1 == [self getCurrentHC].contractLength && [HBSharedUtils randomValue] < 0.38)
-            || ([self getCurrentHC].contractYear + 2 == [self getCurrentHC].contractLength && [HBSharedUtils randomValue] < 0.23)) {
+        if ([self getCurrentHC].contractYear >= [self getCurrentHC].contractLength
+            || [self.natlChampWL containsString:@"NC"]
+            || ([self getCurrentHC].contractYear + 1 == [self getCurrentHC].contractLength && [HBSharedUtils randomValue] < 0.65)
+            || ([self getCurrentHC].contractYear + 2 == [self getCurrentHC].contractLength && [HBSharedUtils randomValue] < 0.32)) {
             if (totalPrestigeDiff > 15 || [natlChampWL isEqualToString:@"NCW"]) {
+                // NCG or dramatic rebuild? 7 year extension automatically
                 [self getCurrentHC].contractLength = 7;
                 [self getCurrentHC].contractYear = 0;
                 [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                 coachGotNewContract = true;
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs long-term contract extension at %@!\n%@ has extended the contract of their head coach %@ for 7 additional years after building the program into a national contender.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
             } else if (totalPrestigeDiff > 10) {
-                [self getCurrentHC].contractLength = 4;
+                // Pulling team up a prestige bracket? 5 year extension automatically
+                [self getCurrentHC].contractLength = 5;
                 [self getCurrentHC].contractYear = 0;
                 [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                 coachGotNewContract = true;
-                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 4 additional years after stringing together a number of successful seasons.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
+                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 5 additional years after stringing together a number of successful seasons.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
             } else if (totalPrestigeDiff > 7) {
+                // Great work so far? 4 year extension
                 [self getCurrentHC].contractLength = 4;
                 [self getCurrentHC].contractYear = 0;
                 [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                 coachGotNewContract = true;
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 4 additional years for his excellent work at the helm of the program.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
-            } else if (totalPrestigeDiff > 5 || ([natlChampWL isEqualToString:@"NCL"])) {
-                if (([natlChampWL isEqualToString:@"NCL"]) && [self getCurrentHC].contractLength - [self getCurrentHC].contractYear > 2) {
-                    // nothing, I guess? sourced from https://github.com/antdroidx/CFB-Coach/blob/master/src/main/java/simulation/Team.java#L1503
-                } else {
+            } else if (totalPrestigeDiff > 5 || [natlChampWL isEqualToString:@"NCL"]) {
+                // Good work so far or lost NCG?
+                if (![natlChampWL isEqualToString:@"NCL"] || ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear <= 2)) {
+                    // +5 prestige and in the last 2 years of contract? 3 year extension
                     [self getCurrentHC].contractLength = 3;
                     [self getCurrentHC].contractYear = 0;
                     [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                     coachGotNewContract = true;
                     [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 3 additional years after their recent success.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
                 }
-            } else if ((totalPrestigeDiff < 0 && deltaPrestige > 2) || (rankTeamPrestige > 15 && deltaPrestige > 2)) {
-                if ([HBSharedUtils randomValue] > 0.40) {
+            } else if (totalPrestigeDiff < 6 && totalPrestigeDiff > 0) {
+                // in hard: do nothing, you haven't _really_ earned an extension - also it's hard mode, bro
+                // in easy: if you're on the last year of your contract, you get a prove it deal based on rank and outcome
+                //      if supposed national or conf contender (ranks 0 to 25ish) and won a conf title
+                //      if supposed conf contender or middling team (ranks 26ish to 72ish and won a bowl or appeared in conf title game
+                if (!self.league.isHardMode
+                    && self.isUserControlled
+                    && [self getCurrentHC].contractYear >= [self getCurrentHC].contractLength) {
+                    if ((rankTeamPrestige < 25 && [confChampion isEqualToString:@"CC"]) || (rankTeamPrestige > 24 && rankTeamPrestige < 72 && ([confChampion containsString:@"C"] || [semifinalWL containsString:@"BW"]))) {
+                        // prove it deal
+                        [self getCurrentHC].contractLength = 2;
+                        [self getCurrentHC].contractYear = 0;
+                        [self getCurrentHC].baselinePrestige = [self getCurrentHC].baselinePrestige;
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite an overall average tenure. However, he has posted a career record of %d-%d, and the %@ AD noted this year's postseason appearance has earned his coach a vote of confidence.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        coachGotNewContract = true;
+                        proveIt = true;
+                    }
+                }
+                
+            } else if (totalPrestigeDiff < 0 && lastYearPrestigeDelta > 2) {
+                if ([HBSharedUtils randomValue] < 0.60) {
+                    // net negative prestige under coach, but +2 last year? Prove it deal
                     [self getCurrentHC].contractLength = 2;
                     [self getCurrentHC].contractYear = 0;
                     [self getCurrentHC].baselinePrestige = [self getCurrentHC].baselinePrestige;
@@ -1661,16 +1687,19 @@
                     coachGotNewContract = true;
                     proveIt = true;
                 } else {
+                    // net negative prestige under coach, but +2 last year? Fired due to overall poor performance.
                     coachFired = true;
                      [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ despite his efforts to get the program back on the right track. His teams struggled in his first couple of seasons at the helm, but he seemed to have righted the ship this year. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                     teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                     if (!isUserControlled) {
                         [league.coachList addObject:[self getCurrentHC]];
                     }
-                   // [coaches removeObjectAtIndex:0];
-                    NSLog(@"[Carousel] %@ COACH Status: Fired", abbreviation);
                 }
-            } else if ((totalPrestigeDiff < -2 && !league.isCareerMode && !isUserControlled && rankTeamPrestige > 10) || (!isUserControlled && rankTeamPrestige > 15 && totalPrestigeDiff < -1)) {
+            } else if ((totalPrestigeDiff < -1 && !self.league.isCareerMode && !self.isUserControlled && rankTeamPrestige > 15)
+                       || (totalPrestigeDiff < -2 && !self.league.isCareerMode && !self.isUserControlled && rankTeamPrestige > 25)) {
+                // For CPU teams:
+                // if net -1 prestige and the team is supposed to be a national contender? Fire the coach.
+                // if net -2 prestige and the team is supposed to be conference champs? Fire the coach
                 coachFired = true;
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                 teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
@@ -1678,26 +1707,33 @@
                     [league.coachList addObject:[self getCurrentHC]];
                 }
                 NSLog(@"[Carousel] %@ COACH Status: Fired", abbreviation);
-                //[coaches removeObjectAtIndex:0];
-            } else if ((totalPrestigeDiff < -2 && league.isCareerMode && rankTeamPrestige > 10) || (rankTeamPrestige > 15 && totalPrestigeDiff < -1)) {
+            } else if (hardModeUserFiring || easyModeUserFiring) {
+                // For user teams:
+                // if hard mode:
+                // if net -1 prestige and the team is supposed to be a national contender? Fire the coach.
+                // if net -2 prestige and the team is supposed to be conference champs? Fire the coach
+                // if easy mode:
+                // if net -3 prestige and the team is supposed to be a national contender? Fire the coach.
+                // if net -5 prestige and the team is supposed to be conference champs? Fire the coach.
                 coachFired = true;
-                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure that saw the program decline. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                 teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                 if (!isUserControlled) {
                     [league.coachList addObject:[self getCurrentHC]];
                 }
                 NSLog(@"[Carousel] %@ COACH Status: Fired", abbreviation);
-                //[coaches removeObjectAtIndex:0];
             } else {
+                // any other case? Normal 2-year extension.
                 [self getCurrentHC].contractLength = 2;
                 [self getCurrentHC].contractYear = 0;
-                [self getCurrentHC].baselinePrestige = (3 * [self getCurrentHC].baselinePrestige + teamPrestige) / 4;
-                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite an overall disappointing tenure. However, he has posted a career record of %d-%d, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + teamPrestige) * 0.75;
+                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years. He has posted a career record of %d-%d, and the %@ AD noted that things are trending up for the program.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                 coachGotNewContract = true;
-                proveIt = true;
+//                proveIt = true;
             }
         }
     }
+    
     if (isUserControlled) {
         if (coachGotNewContract && proveIt) {
             coachContractString = [NSString stringWithFormat:@"You've been given an %d-year contract to prove your abilities based on the recent success of your team.",[self getCurrentHC].contractLength];
@@ -2232,26 +2268,26 @@
 }
 
 -(FCTeamExpectations)calculateTeamExpectations {
-    static dispatch_once_t onceToken;
-    static NSMutableArray *leagueTeams;
-    dispatch_once(&onceToken, ^{
-        leagueTeams = [self.league.teamList mutableCopy];
-    });
-    [leagueTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
-    }];
+//    static dispatch_once_t onceToken;
+//    static NSMutableArray *leagueTeams;
+//    dispatch_once(&onceToken, ^{
+//        leagueTeams = [self.league.teamList mutableCopy];
+//    });
+//    [leagueTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+//    }];
+//
+//    NSMutableArray *mapped = [NSMutableArray array];
+//    [leagueTeams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+//        Team *t = (Team *)obj;
+//        if (![mapped containsObject:t.abbreviation]) {
+//            [mapped addObject:t.abbreviation];
+//        }
+//    }];
     
-    NSMutableArray *mapped = [NSMutableArray array];
-    [leagueTeams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        Team *t = (Team *)obj;
-        if (![mapped containsObject:t.abbreviation]) {
-            [mapped addObject:t.abbreviation];
-        }
-    }];
+    NSInteger expectedPollFinish = rankTeamPrestige;
     
-    NSInteger expectedPollFinish = [mapped indexOfObject:self.abbreviation];
-    
-    NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - 5, 0), (self.league.isHardMode) ? 6 : 11);
+    NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - (self.league.isHardMode) ? 5 : 10, 0), (self.league.isHardMode) ? 6 : 11);
     if (expectedPollFinishRange.location < 16) {
         return FCTeamExpectationsTitleContender;
     } else if (expectedPollFinishRange.location < 72) {
