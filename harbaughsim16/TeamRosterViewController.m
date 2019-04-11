@@ -243,7 +243,7 @@
             [cell.nameLabel setTextColor:[UIColor blackColor]];
         }
     } else {
-        if (player.hasRedshirt) {
+        if (player.hasRedshirt || player.isInjured) {
             [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
         } else if (player.isTransfer) {
             [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
