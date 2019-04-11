@@ -890,6 +890,9 @@ static UIColor *styleColor = nil;
         });
     } else {
         simLeague.recruitingStage = 1;
+        [HBSharedUtils currentLeague].canRebrandTeam = YES;
+        [teamHeaderView.playButton setEnabled:YES];
+        [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
         [HBSharedUtils startOffseason:viewController callback:nil];
     }
 }
