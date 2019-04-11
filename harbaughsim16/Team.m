@@ -1482,17 +1482,13 @@
 
 -(void)updatePollScore {
     [self updateStrengthOfWins];
-//    int preseasonBias = 15 - (wins + losses);
-//    if (preseasonBias < 0) preseasonBias = 0;
-//    teamPollScore = (wins*200 + 3*(teamPoints-teamOppPoints) + (teamYards-teamOppYards)/40 + (teamStrengthOfWins / 2) + 3*(preseasonBias)*(teamPrestige + [self getOffensiveTalent] + [self getDefensiveTalent]) + teamStrengthOfWins)/11 + (teamPrestige / 5);
-    
-    int preseasonBias = 15 - (wins + losses);
-    if (preseasonBias < 3) preseasonBias = 3;
-    preseasonBias /= 15;
-    teamPollScore = (preseasonBias * [self _getPreseasonBiasScore]) + ([self getOffensiveTalent] + [self getDefensiveTalent] + self.teamStrengthOfWins);
     
     if (league.currentWeek == 0) {
         teamPollScore = [self _getPreseasonBiasScore];
+    } else {
+        int preseasonBias = 15 - (wins + losses);
+        if (preseasonBias < 0) preseasonBias = 0;
+        teamPollScore = (wins*200 + 3*(teamPoints-teamOppPoints) + (teamYards-teamOppYards)/40 + (teamStrengthOfWins / 2) + 3*(preseasonBias)*(teamPrestige + [self getOffensiveTalent] + [self getDefensiveTalent]) + teamStrengthOfWins)/11 + (teamPrestige / 5) + ([self _getPreseasonBiasScore] / 100);
     }
 
     if ( [@"NCW" isEqualToString:natlChampWL] ) {

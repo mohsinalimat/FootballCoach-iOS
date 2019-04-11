@@ -43,6 +43,7 @@
 		755BBC871C9F7DA4001A8314 /* HBScoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC851C9F7DA4001A8314 /* HBScoreCell.xib */; };
 		755BBC8B1CA03252001A8314 /* HBRecruitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 755BBC891CA03252001A8314 /* HBRecruitCell.m */; };
 		755BBC8C1CA03252001A8314 /* HBRecruitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */; };
+		755D2DE2225EC73A002F1D2C /* NSMutableArray+Mapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 755D2DE1225EC73A002F1D2C /* NSMutableArray+Mapping.m */; };
 		7562A8841FFF3C55004C0985 /* PrestigeHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7562A8821FFF3C55004C0985 /* PrestigeHistoryViewController.m */; };
 		7562A8851FFF3C55004C0985 /* PrestigeHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7562A8831FFF3C55004C0985 /* PrestigeHistoryViewController.xib */; };
 		7562A8881FFF3E26004C0985 /* graph@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7562A8861FFF3E26004C0985 /* graph@2x.png */; };
@@ -315,6 +316,8 @@
 		755BBC881CA03252001A8314 /* HBRecruitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBRecruitCell.h; sourceTree = "<group>"; };
 		755BBC891CA03252001A8314 /* HBRecruitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HBRecruitCell.m; sourceTree = "<group>"; };
 		755BBC8A1CA03252001A8314 /* HBRecruitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HBRecruitCell.xib; sourceTree = "<group>"; };
+		755D2DE0225EC73A002F1D2C /* NSMutableArray+Mapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Mapping.h"; sourceTree = "<group>"; };
+		755D2DE1225EC73A002F1D2C /* NSMutableArray+Mapping.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Mapping.m"; sourceTree = "<group>"; };
 		7562A8811FFF3C55004C0985 /* PrestigeHistoryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrestigeHistoryViewController.h; sourceTree = "<group>"; };
 		7562A8821FFF3C55004C0985 /* PrestigeHistoryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrestigeHistoryViewController.m; sourceTree = "<group>"; };
 		7562A8831FFF3C55004C0985 /* PrestigeHistoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrestigeHistoryViewController.xib; sourceTree = "<group>"; };
@@ -876,6 +879,8 @@
 		755BBC6A1C9E1196001A8314 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				755D2DE0225EC73A002F1D2C /* NSMutableArray+Mapping.h */,
+				755D2DE1225EC73A002F1D2C /* NSMutableArray+Mapping.m */,
 				752ECC7C223AE69D00C33EAE /* base.json */,
 				75A86C861C9C790D0034140C /* FCTableViewController.h */,
 				75A86C871C9C790D0034140C /* FCTableViewController.m */,
@@ -1561,6 +1566,7 @@
 				755BBC481C9DD0DF001A8314 /* HBStatsCell.m in Sources */,
 				75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */,
 				75924A581C99E62F00B165AD /* PlayerQB.m in Sources */,
+				755D2DE2225EC73A002F1D2C /* NSMutableArray+Mapping.m in Sources */,
 				75E10F211CA0E0170000DA78 /* LeagueHistoryController.m in Sources */,
 				7562CC3F200C7488000A7A1C /* RecruitingActionsViewController.m in Sources */,
 				751DF8271CA1F273003C62F2 /* TeamRosterViewController.m in Sources */,
