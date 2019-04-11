@@ -65,7 +65,7 @@
 }
 
 -(void)advanceSeason:(int)avgYards offTalent:(int)offTalent defTalent:(int)defTalent {
-    int prestigeDiff = self.team.deltaPrestige;
+    int prestigeDiff = [self.team calculatePrestigeChange];
     
     int oldOvr = [self getHCOverall];
     self.age++;
