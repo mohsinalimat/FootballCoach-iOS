@@ -547,13 +547,15 @@ static UIColor *styleColor = nil;
             }
         }
         
-        [availableJobs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            Team *a = (Team*)obj1;
-            Team *b = (Team*)obj2;
-            return ([a getMinCoachHireReq] < [b getMinCoachHireReq]) ? -1 : ((([a getMinCoachHireReq] == [b getMinCoachHireReq])) ? [a.name compare:b.name] : 1);
-        }];
+        if (availableJobs.count > 0) {
+            [availableJobs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                Team *a = (Team*)obj1;
+                Team *b = (Team*)obj2;
+                return ([a getMinCoachHireReq] < [b getMinCoachHireReq]) ? -1 : ((([a getMinCoachHireReq] == [b getMinCoachHireReq])) ? [a.name compare:b.name] : 1);
+            }];
+        }
         
-        if ([availableJobs[0] getMinCoachHireReq] > [[HBSharedUtils currentLeague].userTeam getHC:0].ratOvr) {
+        if (availableJobs.count == 0 || [availableJobs[0] getMinCoachHireReq] > [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratOvr) {
             alertController.message = @"Your overall rating is too low to qualify for available jobs. As a result, your career is over.";
             [[self class] addRetirementOptionsUsingAlertController:alertController sourceViewController:viewController];
         } else {
