@@ -216,7 +216,7 @@
 -(int)getCoachCareerScore {
     if (self.year < 1) return 0;
     else
-        return (5 * (self.totalWins) - 2 * (self.totalLosses) + 10 * self.totalNCs + 3 * self.totalCCs + 10 * self.careerCOTYs + 3 * self.careerConfCOTYs + self.totalAllConferences + 2 * self.totalAllAmericans + 5* self.cumulativePrestige) / self.year;
+        return ((5 * self.totalWins) - (2 * self.totalLosses) + (10 * self.totalNCs) + (3 * self.totalCCs) + (10 * self.careerCOTYs) + (3 * self.careerConfCOTYs) + self.totalAllConferences + (2 * self.totalAllAmericans) + (5* self.cumulativePrestige)) / (0.75 * self.year);
 }
 
 -(NSString *)coachMetadataJSON {
