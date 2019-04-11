@@ -2272,6 +2272,7 @@
 
         heisman.team.heismans++;
         heisman.careerHeismans++;
+        [heisman.team getCurrentHC].totalHeismans++;
         heisman.isHeisman = YES;
         if ([heisman isKindOfClass:[PlayerQB class]]) {
             //qb heisman
