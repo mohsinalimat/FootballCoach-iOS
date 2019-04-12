@@ -36,6 +36,7 @@
     NSMutableArray *players;
     HBStatPosition position;
     Player *heisman;
+    Player *roty;
 
 }
 @end
@@ -94,6 +95,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     heisman = [[HBSharedUtils currentLeague] heisman];
+    roty = [[HBSharedUtils currentLeague] roty];
 
     if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
@@ -723,8 +725,8 @@
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
-        if ([HBSharedUtils currentLeague].currentWeek > 14 && heisman != nil) {
-            if ([heisman isEqual:plyr]) {
+        if ([HBSharedUtils currentLeague].currentWeek > 14 && heisman != nil && roty != nil) {
+            if ([heisman isEqual:plyr] || [roty isEqual:plyr]) {
                 [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
             } else {
                 [statsCell.playerLabel setTextColor:[UIColor blackColor]];
