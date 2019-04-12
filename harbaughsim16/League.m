@@ -4091,23 +4091,25 @@
         NSInteger i = 0;
         NSInteger count = coachList.count;
         while (count > 0 && i < count) {
-            HeadCoach *c = coachList[i];
-            for (Team *t in teamList) {
-                if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
-                    Team *oldTeam = c.team;
-                    c.contractYear = 0;
-                    c.team = t;
-                    c.contractYear = 0;
-                    c.contractLength = 6;
-                    c.baselinePrestige = t.teamPrestige;
-                    c.cumulativePrestige = 0;
-                    [t.coaches addObject:c];
-                    [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Switch: %@\nAfter an extensive nationwide search, %@ has hired %@ to lead its football program. His last stop was at %@, where he was let go after this past season.",t.abbreviation,t.name,c.name,oldTeam.name]];
-                    [oldTeam.coaches removeObject:c];
-                    [coachList removeObject:c];
-                    count--;
-                    NSLog(@"[Coaching Carousel]  %@ %@ hired by %@", oldTeam.abbreviation, [c getInitialName], t.abbreviation);
-                    break; // should break from Team loop
+            if (i < coachList.count) {
+                HeadCoach *c = coachList[i];
+                for (Team *t in teamList) {
+                    if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
+                        Team *oldTeam = c.team;
+                        c.contractYear = 0;
+                        c.team = t;
+                        c.contractYear = 0;
+                        c.contractLength = 6;
+                        c.baselinePrestige = t.teamPrestige;
+                        c.cumulativePrestige = 0;
+                        [t.coaches addObject:c];
+                        [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Switch: %@\nAfter an extensive nationwide search, %@ has hired %@ to lead its football program. His last stop was at %@, where he was let go after this past season.",t.abbreviation,t.name,c.name,oldTeam.name]];
+                        [oldTeam.coaches removeObject:c];
+                        [coachList removeObject:c];
+                        count--;
+                        NSLog(@"[Coaching Carousel]  %@ %@ hired by %@", oldTeam.abbreviation, [c getInitialName], t.abbreviation);
+                        break; // should break from Team loop
+                    }
                 }
             }
             i++;
