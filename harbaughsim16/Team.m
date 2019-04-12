@@ -2268,26 +2268,26 @@
 }
 
 -(FCTeamExpectations)calculateTeamExpectations {
-//    static dispatch_once_t onceToken;
-//    static NSMutableArray *leagueTeams;
-//    dispatch_once(&onceToken, ^{
-//        leagueTeams = [self.league.teamList mutableCopy];
-//    });
-//    [leagueTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-//        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
-//    }];
-//
-//    NSMutableArray *mapped = [NSMutableArray array];
-//    [leagueTeams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-//        Team *t = (Team *)obj;
-//        if (![mapped containsObject:t.abbreviation]) {
-//            [mapped addObject:t.abbreviation];
-//        }
-//    }];
+    static dispatch_once_t onceToken;
+    static NSMutableArray *leagueTeams;
+    dispatch_once(&onceToken, ^{
+        leagueTeams = [self.league.teamList mutableCopy];
+    });
+    [leagueTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+    }];
+
+    NSMutableArray *mapped = [NSMutableArray array];
+    [leagueTeams enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Team *t = (Team *)obj;
+        if (![mapped containsObject:t.abbreviation]) {
+            [mapped addObject:t.abbreviation];
+        }
+    }];
     
-    NSInteger expectedPollFinish = rankTeamPrestige;
+    NSInteger expectedPollFinish = [mapped indexOfObject:self.abbreviation];
     
-    NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - ((self.league.isHardMode) ? 5 : 10), 0), (self.league.isHardMode) ? 6 : 11);
+    NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - ((self.league.isHardMode) ? 5 : 10), 0), (self.league.isHardMode) ? 12 : 22);
     if (expectedPollFinishRange.location < 16) {
         return FCTeamExpectationsTitleContender;
     } else if (expectedPollFinishRange.location < 72) {
