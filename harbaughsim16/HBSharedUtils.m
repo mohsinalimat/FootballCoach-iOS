@@ -500,6 +500,12 @@ static UIColor *styleColor = nil;
 //    [NSString stringWithFormat:@"Record: %d-%d\nPlayers Graduating: %ld\nPlayers Transferring:%ld",[HBSharedUtils currentLeague].userTeam.wins, [HBSharedUtils currentLeague].userTeam.losses, [HBSharedUtils currentLeague].userTeam.playersLeaving.count, [HBSharedUtils currentLeague].userTeam.playersTransferring.count]
     [seasonShortText appendFormat:@"Record: %d-%d\n",[HBSharedUtils currentLeague].userTeam.wins, [HBSharedUtils currentLeague].userTeam.losses];
     [seasonShortText appendFormat:@"Final Poll Finish: #%d\n",[HBSharedUtils currentLeague].userTeam.rankTeamPollScore];
+    int delta = [[HBSharedUtils currentLeague].userTeam calculatePrestigeChange];
+    if (delta > 0) {
+        [seasonShortText appendFormat:@"Prestige Change: +%d\n",delta];
+    } else {
+        [seasonShortText appendFormat:@"Prestige Change: %d\n",delta];
+    }
     [seasonShortText appendFormat:@"Finished #%ld in %@\n", (long)([[[HBSharedUtils currentLeague] findConference:[HBSharedUtils currentLeague].userTeam.conference].confTeams indexOfObject:[HBSharedUtils currentLeague].userTeam] + 1), [HBSharedUtils currentLeague].userTeam.conference];
     if ([[self class] currentLeague].isCareerMode) {
         if ([[self class] currentLeague].userTeam.coachFired) {
@@ -569,8 +575,8 @@ static UIColor *styleColor = nil;
     } else {
         if (([[self class] currentLeague].isCareerMode && ([[[self class] currentLeague].userTeam getCurrentHC].age > 59))) {
             [[self class] addRetirementOptionsUsingAlertController:alertController sourceViewController:viewController];
-        } else if ([[self class] currentLeague].isCareerMode && [[[self class] currentLeague].userTeam getCurrentHC].contractYear != 0) {
-            [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        } else if ([[self class] currentLeague].isCareerMode && [[[self class] currentLeague].userTeam getCurrentHC].contractYear != 0 && ![[self class] currentLeague].didFinishTransferPeriod && ![[self class] currentLeague].didFinishTransferPeriod) {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] initWithJobStatus:NO]] animated:YES completion:nil];
                 });
@@ -848,16 +854,16 @@ static UIColor *styleColor = nil;
                             for (int i = 1; i < heismanParts.count; i++) {
                                 [composeHeis appendString:heismanParts[i]];
                             }
-                            NSLog(@"HEISMAN: %@", composeHeis);
+                            NSLog(@"[Play Week] Generated POTY: %@", composeHeis);
                             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu's Player of the Year", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:composeHeis preferredStyle:UIAlertControllerStyleAlert];
                             [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
                             [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
                             
                             NSString *roty = [simLeague getROTYCeremonyStr];
-                            NSLog(@"ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
+                            NSLog(@"[Play Week] Generated ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
                             
                             NSString *coty = [simLeague getCoachAwardStr];
-                            NSLog(@"COTY: %@", coty); //can't do anything with this result, just want to run it tbh
+                            NSLog(@"[Play Week] Generated COTY: %@", coty); //can't do anything with this result, just want to run it tbh
                             
                             [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
                             [teamHeaderView.playButton setEnabled:YES];
@@ -877,7 +883,7 @@ static UIColor *styleColor = nil;
                         [hud.label setText:@"Saving league data..."];
                         [[HBSharedUtils currentLeague] save:^(BOOL success, NSError *err) {
                             if (err) {
-                                NSLog(@"Error: %@", err);
+                                NSLog(@"[Play Week] Error: %@", err);
                             }
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [hud hideAnimated:YES];
@@ -937,13 +943,13 @@ static UIColor *styleColor = nil;
                     [teamHeaderView.playButton setTitle:@" Play Conf Championships" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 13) {
                     NSString *heisman = [simLeague getHeismanCeremonyStr];
-                    NSLog(@"HEISMAN: %@", heisman); //can't do anything with this result, just want to run it tbh
+                    NSLog(@"[Sim Season] Generated Heisman: %@", heisman); //can't do anything with this result, just want to run it tbh
 
                     NSString *roty = [simLeague getROTYCeremonyStr];
-                    NSLog(@"ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
+                    NSLog(@"[Sim Season] Generated ROTY: %@", roty); //can't do anything with this result, just want to run it tbh
 
                     NSString *coty = [simLeague getCoachAwardStr];
-                    NSLog(@"COTY: %@", coty); //can't do anything with this result, just want to run it tbh
+                    NSLog(@"[Sim Season] Generated COTY: %@", coty); //can't do anything with this result, just want to run it tbh
 
                     [teamHeaderView.playButton setTitle:@" Play Bowl Games" forState:UIControlStateNormal];
                 } else if (simLeague.currentWeek == 14) {
@@ -959,10 +965,10 @@ static UIColor *styleColor = nil;
 
                 callback();
                 if (weekTotal > 1 && simLeague.currentWeek < 15) {
-                    NSLog(@"WEEK TOTAL: %d",weekTotal);
+                    NSLog(@"[Sim Season] WEEK TOTAL: %d",weekTotal);
                     [[self class] simulateEntireSeason:(weekTotal - 1) viewController:viewController headerView:teamHeaderView callback:callback];
                 } else {
-                    NSLog(@"NO WEEKS LEFT");
+                    NSLog(@"[Sim Season] NO WEEKS LEFT");
                     if (simLeague.currentWeek > 14) {
                        [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
                     } else {
@@ -1068,7 +1074,7 @@ static UIColor *styleColor = nil;
 
 +(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers {
     if (offers == nil || offers.count == 0 || (offers.count == 1 && [offers.allKeys containsObject:[HBSharedUtils currentLeague].userTeam.abbreviation])) {
-        NSLog(@"INTEREST: %d", interestVal);
+        NSLog(@"[Calculating Interest] INTEREST: %d", interestVal);
         return @{@"color" : [HBSharedUtils _calculateInterestColor:interestVal], @"interest" : [HBSharedUtils _calculateInterestString:interestVal]};
     } else {
         NSMutableDictionary *totalOffers = [NSMutableDictionary dictionaryWithDictionary:offers];
@@ -1161,7 +1167,7 @@ static UIColor *styleColor = nil;
 
 +(NSString *)currentMinorVersion {
     NSString *version = HB_CURRENT_APP_VERSION;
-    NSLog(@"Minor Version %@", [version stringByDeletingPathExtension]);
+    NSLog(@"[Main] Minor Version %@", [version stringByDeletingPathExtension]);
     return [version stringByDeletingPathExtension];
 }
 
@@ -1366,9 +1372,9 @@ static UIColor *styleColor = nil;
             }];
 
             Conference *bestConf = [confs firstObject];
-            NSLog(@"BEST CONF: %@ (%d)", bestConf.confName, bestConf.confPrestige);
+            NSLog(@"[Conference Prestige] BEST CONF: %@ (%d)", bestConf.confName, bestConf.confPrestige);
             Conference *worstConf = [confs lastObject];
-            NSLog(@"WORST CONF: %@ (%d)", worstConf.confName, worstConf.confPrestige);
+            NSLog(@"[Conference Prestige] WORST CONF: %@ (%d)", worstConf.confName, worstConf.confPrestige);
 
             CGFloat inMin = (CGFloat)worstConf.confPrestige;
             CGFloat inMax = (CGFloat)bestConf.confPrestige;
@@ -1446,7 +1452,7 @@ static UIColor *styleColor = nil;
     }
     if (teams.count > 0) {
         Team *bestTeam = [teams firstObject];
-        NSLog(@"BEST Team: %@ (%d)", bestTeam.name, bestTeam.teamPrestige);
+        NSLog(@"[Team Prestige] BEST Team: %@ (%d)", bestTeam.name, bestTeam.teamPrestige);
         return (CGFloat)bestTeam.teamPrestige;
     } else {
         return 100;

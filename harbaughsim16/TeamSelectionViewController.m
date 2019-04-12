@@ -129,7 +129,7 @@
                                      [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
                                      [self->league save];
                                      
-                                     NSLog(@"Career MODE ENGAGED: %@, difficulty: %@", [self->userTeam getCurrentHC].name, (self->league.isHardMode) ? @"hard" : @"easy");
+                                     NSLog(@"[Team Selection] Career MODE ENGAGED: %@, difficulty: %@", [self->userTeam getCurrentHC].name, (self->league.isHardMode) ? @"hard" : @"easy");
                                      [Answers logContentViewWithName:@"New career Save Created" contentType:@"Team" contentId:@"career-team19" customAttributes:@{@"Team Name":self->userTeam.name}];
                                      
                                      [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForCareer];
@@ -147,7 +147,7 @@
                             [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
                             [self->league save];
                             
-                            NSLog(@"Career MODE ENGAGED: %@, difficulty: %@", [self->userTeam getCurrentHC].name, (self->league.isHardMode) ? @"hard" : @"easy");
+                            NSLog(@"[Team Selection] Career MODE ENGAGED: %@, difficulty: %@", [self->userTeam getCurrentHC].name, (self->league.isHardMode) ? @"hard" : @"easy");
                             [Answers logContentViewWithName:@"New career Save Created" contentType:@"Team" contentId:@"career-team19" customAttributes:@{@"Team Name":self->userTeam.name}];
                             
                             [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForCareer];
@@ -169,7 +169,7 @@
                         [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
                         [self->league save];
                         
-                        NSLog(@"Career MODE ENGAGED: %@, difficulty: %@", [self->userTeam getCurrentHC].name, (self->league.isHardMode) ? @"hard" : @"easy");
+                        NSLog(@"[Team Selection] Career MODE ENGAGED: %@, difficulty: %@", [self->userTeam getCurrentHC].name, (self->league.isHardMode) ? @"hard" : @"easy");
                         [Answers logContentViewWithName:@"New career Save Created" contentType:@"Team" contentId:@"career-team19" customAttributes:@{@"Team Name":self->userTeam.name}];
                         
                         [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForCareer];
@@ -191,7 +191,7 @@
                     [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
                     [self->league save];
                     
-                    NSLog(@"HARD MODE ENGAGED");
+                    NSLog(@"[Team Selection] HARD MODE ENGAGED");
                     [Answers logContentViewWithName:@"New Hard Mode Save Created" contentType:@"Team" contentId:@"hardmode-team16" customAttributes:@{@"Team Name":self->userTeam.name}];
                     [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForNormal];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];

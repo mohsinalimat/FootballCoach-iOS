@@ -104,7 +104,7 @@
 }
 
 -(void)finalizeCoachingCarousel {
-    NSLog(@"Carousel team: %@",selectedTeam.abbreviation);
+    NSLog(@"[Coaching Carousel] Carousel team: %@",selectedTeam.abbreviation);
     [[NSNotificationCenter defaultCenter] postNotificationName:@"signingWithTeam" object:selectedTeam];
 }
 

@@ -553,7 +553,7 @@
             NSError *error;
             NSString *lastNameCSV = [NSString stringWithContentsOfFile:lastNameFullPath encoding:NSUTF8StringEncoding error:&error];
             if (error) {
-                NSLog(@"Last name list retrieve error: %@", error);
+                NSLog(@"[Name CSV Import] Last name list retrieve error: %@", error);
             }
             self.lastNameList = [NSMutableArray array];
             NSArray *lastNamesSplit = [lastNameCSV componentsSeparatedByString:@","];
@@ -871,7 +871,7 @@
 
 -(BOOL)isSaveCorrupt {
     int userControl = 0;
-    NSLog(@"Current League Week: %d", self.currentWeek);
+    NSLog(@"[Save Corruption Check] Current League Week: %d", self.currentWeek);
     for (Team *t in teamList) {
          // check this at all points EXCEPT at the end of the season after transfers processed. Teams will be uneven after transfers process.
         if (!didFinishTransferPeriod) {
@@ -910,7 +910,7 @@
         }
 
         if (t.isUserControlled) {
-            NSLog(@"%@ is marked user controlled", t.abbreviation);
+            NSLog(@"[Save Corruption Check] %@ is marked user controlled", t.abbreviation);
             userControl++;
         }
         
@@ -931,7 +931,7 @@
         }
     
         if (self.currentWeek < 12 && (t.wins + t.losses) != self.currentWeek) {
-            NSLog(@"%@ record: %d-%d", t.abbreviation, t.wins, t.losses);
+            NSLog(@"[Save Corruption Check] %@ record: %d-%d", t.abbreviation, t.wins, t.losses);
             return YES;
         }
         
@@ -980,10 +980,10 @@
     }
 
     if (userControl > 1) {
-        NSLog(@"Only %@ is to be user controlled", userTeam.abbreviation);
+        NSLog(@"[Save Corruption Check] Only %@ is to be user controlled", userTeam.abbreviation);
         return YES;
     } else if (userControl == 0) {
-        NSLog(@"%@ not marked as user controlled", userTeam.abbreviation);
+        NSLog(@"[Save Corruption Check] %@ not marked as user controlled", userTeam.abbreviation);
         return YES;
     }
 
@@ -1009,9 +1009,9 @@
             BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:self error:&error];
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 if (success) {
-                    NSLog(@"Save was successful");
+                    NSLog(@"[League Saving] Save was successful");
                 } else {
-                    NSLog(@"ERROR: Something went wrong on save: %@", error.localizedDescription);
+                    NSLog(@"[League Saving] ERROR: Something went wrong on save: %@", error.localizedDescription);
                 }
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
                 if (completionBlock != nil) {
@@ -1224,7 +1224,7 @@
                                                         error:&error];
         
         if (error || !rawConfs || ![rawConfs isKindOfClass:[NSArray class]]) {
-            NSLog(@"Something went wrong! %@", error.localizedDescription);
+            NSLog(@"[League Creation] Error: %@", error.localizedDescription);
         } else {
             NSArray *confs = (NSArray *)rawConfs;
             for (NSDictionary *confDict in confs) {
@@ -1439,11 +1439,11 @@
             
 
             if (b == nil || a == nil) {
-                NSLog(@"WHY");
+                NSLog(@"[OOC Scheduling] WHY");
             }
             if (a != nil && b != nil) {
                 Game *gm;
-                NSLog(@"Scheduling %@ vs %@ game", a.conference, b.conference);
+                NSLog(@"[OOC Scheduling] Scheduling %@ vs %@ game", a.conference, b.conference);
                 if (week % 2 == 0) {
                     gm = [Game newGameWithHome:a away:b name:[NSString stringWithFormat:@"%@ vs %@",[b.conference substringWithRange:NSMakeRange(0, MIN(3, b.conference.length))],[a.conference substringWithRange:NSMakeRange(0, MIN(3, a.conference.length))]]];
                 } else {
@@ -1466,7 +1466,7 @@
             }
         }
     }
-    NSLog(@"FCS GAMES: %d", fcsGames);
+    NSLog(@"[OOC Scheduling] FCS GAMES: %d", fcsGames);
 }
 
 -(void)playWeek:(void (^)(void))callback {
@@ -1484,7 +1484,7 @@
         if (currentWeek == 5) {
             NSMutableArray *newsWeek = newsStories[6];
             if (blessedTeam != nil && ![blessedTeam isEqual:userTeam]) {
-                NSLog(@"BLESSED TEAM: %@ STORY: %ld COACH: %@", blessedTeam.abbreviation, (long)blessedStoryIndex, blessedTeamCoachName);
+                NSLog(@"[Bless/Curse Progression] BLESSED TEAM: %@ STORY: %ld COACH: %@", blessedTeam.abbreviation, (long)blessedStoryIndex, blessedTeamCoachName);
                 if (blessedTeam.wins > blessedTeam.losses) {
                     switch (blessedStoryIndex) {
                         case 1: //new coach
@@ -1511,7 +1511,7 @@
             }
             
             if (cursedTeam != nil && ![cursedTeam isEqual:userTeam]) {
-                NSLog(@"CURSED TEAM: %@ STORY: %ld COACH: %@", cursedTeam.abbreviation, (long)cursedStoryIndex, cursedTeamCoachName);
+                NSLog(@"[Bless/Curse Progression] CURSED TEAM: %@ STORY: %ld COACH: %@", cursedTeam.abbreviation, (long)cursedStoryIndex, cursedTeamCoachName);
                 if (cursedTeam.wins > cursedTeam.losses) {
                     switch (cursedStoryIndex) {
                         case 1: //recruiting sanctions
@@ -1953,7 +1953,7 @@
             c.ccg = nil;
             [c updateConfPrestige];
             CGFloat prestigeFactor = [HBSharedUtils calculateConferencePrestigeFactor:c.confName resetMarker:YES];
-            NSLog(@"%@ conf prestige factor: %f", c.confName,prestigeFactor);
+            NSLog(@"[Conference Prestige] %@ conf prestige factor: %f", c.confName,prestigeFactor);
         }
         //set up schedule
         for (Conference *c in conferences) {
@@ -3068,7 +3068,7 @@
 
         return adjADraftGrade > adjBDraftGrade ? -1 : adjADraftGrade == adjBDraftGrade ? 0 : 1;
     }];
-    NSLog(@"TOTAL DRAFTABLE PLAYERS: %ld", (unsigned long)(long)players.count);
+    NSLog(@"[Pro Draft] TOTAL DRAFTABLE PLAYERS: %ld", (unsigned long)(long)players.count);
     int userDraftees = 0;
     Team *userTeam = [HBSharedUtils currentLeague].userTeam;
     for (int i = 0; i < 32; i++) {
@@ -3248,7 +3248,7 @@
     //Check against that
     NSRange  range = [name.lowercaseString rangeOfCharacterFromSet:[validChars invertedSet]];
     if (NSNotFound != range.location) {
-        NSLog(@"Found invalid character in team name: %@", name);
+        NSLog(@"[Team Name Validity] Found invalid character in team name: %@", name);
         return false;
     }
 
@@ -3284,7 +3284,7 @@
     //Check against that
     NSRange  range = [abbr.lowercaseString rangeOfCharacterFromSet:validChars];
     if (NSNotFound != range.location) {
-        NSLog(@"Found invalid character in team abbr: %@", abbr);
+        NSLog(@"[Team Abbreviation Validity] Found invalid character in team abbr: %@", abbr);
         return false;
     }
 
@@ -3302,7 +3302,7 @@
             }
         }
     } else {
-        NSLog(@"IGNORING EXISTING DATA");
+        NSLog(@"[Team Abbreviation Validity] IGNORING EXISTING DATA");
     }
 
     return true;
@@ -3320,7 +3320,7 @@
     //Check against that
     NSRange  range = [name.lowercaseString rangeOfCharacterFromSet:[validChars invertedSet]];
     if (NSNotFound != range.location) {
-        NSLog(@"Found invalid character in conf name: %@", name);
+        NSLog(@"[Conference Name Validity] Found invalid character in conf name: %@", name);
         return false;
     }
 
@@ -3350,7 +3350,7 @@
     //Check against that
     NSRange  range = [abbr.lowercaseString rangeOfCharacterFromSet:validChars];
     if (NSNotFound != range.location) {
-        NSLog(@"Found invalid character in conf abbr: %@", abbr);
+        NSLog(@"[Conference Abbreviation Validity] Found invalid character in conf abbr: %@", abbr);
         return false;
     }
 
@@ -3435,7 +3435,7 @@
         bowlTitles = [bowlNames copy];
         NSLog(@"BOWLS: %@", bowlTitles);
     } else {
-        NSLog(@"ERROR parsing league metadata: %@", error);
+        NSLog(@"[Importing League Metadata] ERROR parsing league metadata: %@", error);
     }
 }
 
@@ -4077,7 +4077,7 @@
                         }
                         [coachStarList removeObject:coach];
                         starCount--;
-                        NSLog(@"[Carousel] Star coach for %@ %@ hired by %@", oldTeam.abbreviation, [coach debugDescription], t.abbreviation);
+                        NSLog(@"[Coaching Carousel] Star coach for %@ %@ hired by %@", oldTeam.abbreviation, [coach debugDescription], t.abbreviation);
                         break;
                     }
                 }
@@ -4106,7 +4106,7 @@
                     [oldTeam.coaches removeObject:c];
                     [coachList removeObject:c];
                     count--;
-                    NSLog(@"[Carousel] %@ %@ hired by %@", oldTeam.abbreviation, [c getInitialName], t.abbreviation);
+                    NSLog(@"[Coaching Carousel]  %@ %@ hired by %@", oldTeam.abbreviation, [c getInitialName], t.abbreviation);
                     break; // should break from Team loop
                 }
             }
@@ -4135,7 +4135,7 @@
                     [oldTeam.coaches removeObject:c];
                     [coachFreeAgents removeObject:c];
                     faCount--;
-                    NSLog(@"[Carousel] FA %@ hired by %@", [c getInitialName], t.abbreviation);
+                    NSLog(@"[Coaching Carousel] FA %@ hired by %@", [c getInitialName], t.abbreviation);
                     break; // should break from Team loop
                 }
             }
@@ -4146,18 +4146,18 @@
             if (t.coaches.count == 0) {
                 [t promoteCoach];
                 [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Promotion: %@\nAfter the departure of their previous head coach, %@ has promoted %@ %@ to lead the team.",t.abbreviation,t.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC",[t getCurrentHC].name]];
-                NSLog(@"[Carousel] %@ promoted internally", t.abbreviation);
+                NSLog(@"[Coaching Carousel] %@ promoted internally", t.abbreviation);
             }
         }
         didFinishCoachingCarousel = YES;
     } else if (didFinishCoachingCarousel) {
-        NSLog(@"Carousel already complete");
+        NSLog(@"[Coaching Carousel] Carousel already complete");
     } else { // making sure no teams seriously need coaches //if (coachList.count == 0 || coachStarList.count == 0) {
         for (Team *t in teamList) {
             if (t.coaches.count == 0) {
                 [t promoteCoach];
                 [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Promotion: %@\nAfter the departure of their previous head coach, %@ has promoted %@ %@ to lead the team.",t.abbreviation,t.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC",[t getCurrentHC].name]];
-                NSLog(@"[Carousel] %@ promoted internally", t.abbreviation);
+                NSLog(@"[Coaching Carousel] %@ promoted internally", t.abbreviation);
             }
         }
         didFinishCoachingCarousel = YES;

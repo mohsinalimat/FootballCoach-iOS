@@ -454,7 +454,7 @@
             if (selectedRecruit.team != [HBSharedUtils currentLeague].userTeam) {
                 // flip
                 if ([recruitEvents containsObject:@(CFCRecruitEventFlipped)] || ((id<TransferActionsDelegate>)_delegate).recruitingPoints - (((id<TransferActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:CFCRecruitEventFlipped].intValue) <= 0) {
-                    NSLog(@"NOT LEGAL");
+                    NSLog(@"[Transfers] NOT LEGAL");
                 } else {
                     [recruitEvents addObject:@(CFCRecruitEventFlipped)];
                     if (_delegate && [_delegate respondsToSelector:@selector(transferActionsController:didUpdateTransfer:withEvent:)]) {
@@ -465,7 +465,7 @@
         } else {
             NSNumber *event = availableEvents[indexPath.row];
             if (((id<TransferActionsDelegate>)_delegate).recruitingPoints - (((id<TransferActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:(CFCRecruitEvent)event.integerValue].intValue) <= 0 || [recruitEvents containsObject:event]) {
-                NSLog(@"NOT LEGAL");
+                NSLog(@"[Transfers] NOT LEGAL");
             } else {
                 [recruitEvents addObject:event];
                 if (_delegate && [_delegate respondsToSelector:@selector(transferActionsController:didUpdateTransfer:withEvent:)]) {

@@ -629,7 +629,7 @@
     } else if ([json isKindOfClass:[NSDictionary class]]) {
         jsonDict = (NSDictionary *)json;
     } else {
-        NSLog(@"JSON is of invalid type");
+        NSLog(@"[Importing Conference Metadata] JSON is of invalid type");
         return;
     }
     
@@ -644,7 +644,7 @@
         
         if ([HBSharedUtils isValidNumber:jsonDict[@"confPrestige"]])
         {
-            NSLog(@"Changing conf prestige for %@ from base value of %d", confName, confPrestige);
+            NSLog(@"[Importing Conference Metadata] Changing conf prestige for %@ from base value of %d", confName, confPrestige);
             NSNumber *prestige = [[HBSharedUtils prestigeNumberFormatter] numberFromString:jsonDict[@"confPrestige"]];
             if (prestige.intValue > 95) {
                 confPrestige = 95;
@@ -653,7 +653,7 @@
             } else {
                 confPrestige = prestige.intValue;
             }
-            NSLog(@"New prestige for %@: %d", confName,confPrestige);
+            NSLog(@"[Importing Conference Metadata] New prestige for %@: %d", confName,confPrestige);
         }
         
         NSArray *jsonConfTeams = jsonDict[@"confTeams"];
@@ -663,7 +663,7 @@
             [confTeams[i] setConference:confName];
         }
     } else {
-        NSLog(@"ERROR parsing conf metadata: %@", error);
+        NSLog(@"[Importing Conference Metadata] ERROR parsing conf metadata: %@", error);
     }
 }
 

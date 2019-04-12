@@ -505,10 +505,10 @@
             emailFeedback.subject = [NSString stringWithFormat:@"Feedback on College Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
             [emailFeedback showOnViewController:self withCompletionHandler:^(MFMailComposeResult result, NSError *error) {
                 if (result == MFMailComposeResultSent) {
-                    NSLog(@"email sent");
+                    NSLog(@"[Support Email] email sent");
                     [self emailSuccess];
                 } else if (result == MFMailComposeResultFailed) {
-                    NSLog(@"email not sent");
+                    NSLog(@"[Support Email] email not sent");
                     [self emailFail:error];
                 }
             }];
@@ -594,10 +594,10 @@
                     activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,UIActivityTypeAirDrop,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr,UIActivityTypeOpenInIBooks,UIActivityTypePostToWeibo,UIActivityTypeAddToReadingList,UIActivityTypePostToFacebook,UIActivityTypePostToTencentWeibo];
                     [self presentViewController:activityVC animated:YES completion:nil];
                 } else {
-                    NSLog(@"SERIALIZE ERR: %@", serializeErr);
+                    NSLog(@"[Metadata Export] SERIALIZE ERR: %@", serializeErr);
                 }
             } else {
-                NSLog(@"DATA ERR: %@", dataErr);
+                NSLog(@"[Metadata Export] DATA ERR: %@", dataErr);
             }
         }
     }

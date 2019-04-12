@@ -1606,7 +1606,7 @@
         NSString *oldCoach = [self getCurrentHC].name;
 //        coachFired = true;
         //[coaches removeObjectAtIndex:0];
-        NSLog(@"[Carousel] %@ COACH Status: Retired", abbreviation);
+        NSLog(@"[Coaching Carousel] %@ COACH Status: Retired", abbreviation);
         [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ Coach Retires!\n%@ has announced his retirement from football at the age of %d. %@ has not yet announced a successor. Coach %@ had a career record of %d-%d. We wish him the best in retirement!",abbreviation, oldCoach,age,name,oldCoach,wins,losses]];
     }
 
@@ -1706,7 +1706,7 @@
                 if (!isUserControlled) {
                     [league.coachList addObject:[self getCurrentHC]];
                 }
-                NSLog(@"[Carousel] %@ COACH Status: Fired", abbreviation);
+                NSLog(@"[Coaching Carousel] %@ COACH Status: Fired", abbreviation);
             } else if (hardModeUserFiring || easyModeUserFiring) {
                 // For user teams:
                 // if hard mode:
@@ -1721,7 +1721,7 @@
                 if (!isUserControlled) {
                     [league.coachList addObject:[self getCurrentHC]];
                 }
-                NSLog(@"[Carousel] %@ COACH Status: Fired", abbreviation);
+                NSLog(@"[Coaching Carousel] %@ COACH Status: Fired", abbreviation);
             } else {
                 // any other case? Normal 2-year extension.
                 [self getCurrentHC].contractLength = 2;
@@ -1737,13 +1737,13 @@
     if (isUserControlled) {
         if (coachGotNewContract && proveIt) {
             coachContractString = [NSString stringWithFormat:@"You've been given an %d-year contract to prove your abilities based on the recent success of your team.",[self getCurrentHC].contractLength];
-            NSLog(@"[Carousel] User Coach Status: Extended");
+            NSLog(@"[Coaching Carousel] User Coach Status: Extended");
         } else if (coachGotNewContract) {
             coachContractString = [NSString stringWithFormat:@"Congratulations! Your performance has been rewarded with a contract extension for %d years!", [self getCurrentHC].contractLength];
-            NSLog(@"[Carousel] User Coach Status: Prove It");
+            NSLog(@"[Coaching Carousel] User Coach Status: Prove It");
         } else if (coachFired) {
             coachContractString = [NSString stringWithFormat:@"Because of your team's poor performances, %@'s Athletic Director has terminated your contract.", name];
-            NSLog(@"[Carousel] User Coach Status: Fired");
+            NSLog(@"[Coaching Carousel] User Coach Status: Fired");
         } else {
             int yearsLeft = MAX(0, ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear - 1));
             if (yearsLeft == 0) {
@@ -2288,6 +2288,7 @@
     NSInteger expectedPollFinish = [mapped indexOfObject:self.abbreviation];
     
     NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - ((self.league.isHardMode) ? 5 : 10), 0), (self.league.isHardMode) ? 12 : 22);
+    NSLog(@"[Preseason Expectations] %@ should finish between #%lu and #%lu.", self.abbreviation, expectedPollFinishRange.location, (expectedPollFinishRange.location + expectedPollFinishRange.length - 1));
     if (expectedPollFinishRange.location < 16) {
         return FCTeamExpectationsTitleContender;
     } else if (expectedPollFinishRange.location < 72) {
@@ -2338,7 +2339,7 @@
 
 -(int)_calculateRivalryPrestigeDelta {
     int delta = 0;
-    NSLog(@"RIVALRY SERIES FOR %@: %d - %d", abbreviation, rivalryWins, rivalryLosses);
+    NSLog(@"[Rivalry Prestige] RIVALRY SERIES FOR %@: %d - %d", abbreviation, rivalryWins, rivalryLosses);
     if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 25) ) {
         delta += 2;
     } else if ((rivalryLosses > rivalryWins) && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20)) {
@@ -2401,7 +2402,7 @@
     }
 
     int rivalryDelta = [self _calculateRivalryPrestigeDelta];
-    NSLog(@"RIVALRY SERIES FOR %@: %d - %d", abbreviation, rivalryWins, rivalryLosses);
+    NSLog(@"[Season Summary] RIVALRY SERIES FOR %@: %d - %d", abbreviation, rivalryWins, rivalryLosses);
     if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 25) ) {
         [summary appendString:@"\n\nRecruits were impressed that you defeated your rival. You gained 2 prestige."];
     } else if ((rivalryLosses > rivalryWins) && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20)) {
@@ -2679,7 +2680,7 @@
         }
 
         if (![playersLeaving containsObject:q] && q.year >= transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && !q.isHeisman && !q.isROTY && !q.isInjured && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer && !q.isGradTransfer && futurePositionalScore < 20) {
-            NSLog(@"XFER: Confirmed that %@ %@ is a valid transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
+            NSLog(@"[Transfers] Confirmed that %@ %@ is a valid transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
             if (q.year == 4) {
                 q.isTransfer = false;
                 q.isGradTransfer = true;
@@ -2690,7 +2691,7 @@
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to leave town for greener pastures after getting limited playing time during his time at %@. If he signs with another school, he will have to sit for one year.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
             }
             //q.team = nil;
-            NSLog(@"XFER: Adding %@ %@ to team's outgoing transfers", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
+            NSLog(@"[Transfers] Adding %@ %@ to team's outgoing transfers", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
             q.recruitStatus = CFCRecruitStatusUncommitted;
             if (![playersTransferring containsObject:q]) {
                 [playersTransferring addObject:q];
@@ -2716,7 +2717,7 @@
                                         };
             }
 
-            NSLog(@"XFER: Adding %@ %@ to league transfer portal as %@ transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str], (q.isGradTransfer) ? @"grad" : @"normal");
+            NSLog(@"[Transfers] Adding %@ %@ to league transfer portal as %@ transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str], (q.isGradTransfer) ? @"grad" : @"normal");
             [league.transferList[pos] addObject:q];
         }
         ++i;
@@ -2737,7 +2738,7 @@
         [self _calculateTransferringPlayers:teamCBs position:@"CB" starterCount:3];
         [self _calculateTransferringPlayers:teamSs position:@"S" starterCount:1];
         [self _calculateTransferringPlayers:teamKs position:@"K" starterCount:1];
-        NSLog(@"XFER: There are %ld transfers for %@ this year.", (long)playersTransferring.count, abbreviation);
+        NSLog(@"[Transfers] There are %ld transfers for %@ this year.", (long)playersTransferring.count, abbreviation);
     }
 }
 
@@ -3238,7 +3239,7 @@
             float homeAbility = ((float)[g.homeTeam getOffensiveTalent] + (float)[g.homeTeam getDefensiveTalent] + (self.league.currentWeek > 0 ? [self mapFloat:(float)(60-g.homeTeam.rankTeamPollScore)] : 0.0 + (float)g.homeTeam.teamPrestige));
             float awayAbility = ((float)[g.awayTeam getOffensiveTalent] + (float)[g.awayTeam getDefensiveTalent] + (self.league.currentWeek > 0 ? [self mapFloat:(float)(60-g.awayTeam.rankTeamPollScore)] : 0.0  + (float)g.awayTeam.teamPrestige));
             float basicSpread = (homeAbility - awayAbility) / (self.league.currentWeek > 0 ? 4.0 : 3.0);
-            //NSLog(@"Home: %f, Away: %f, Diff: %f", homeAbility, awayAbility, basicSpread);
+            //NSLog(@"[Odds] Home: %f, Away: %f, Diff: %f", homeAbility, awayAbility, basicSpread);
 
             float roundedSpread = floorf(basicSpread * 2) / 2;
             if (roundedSpread > 0.5) {
@@ -3512,7 +3513,7 @@
     } else if ([json isKindOfClass:[NSDictionary class]]) {
         jsonDict = (NSDictionary *)json;
     } else {
-        NSLog(@"JSON is of invalid type");
+        NSLog(@"[Importing Team Metadata] JSON is of invalid type");
         return;
     }
 
@@ -3525,7 +3526,7 @@
 
         if ([HBSharedUtils isValidNumber:jsonDict[@"prestige"]])
         {
-            NSLog(@"Changing prestige for %@ from base value of %d", abbreviation, teamPrestige);
+            NSLog(@"[Importing Team Metadata] Changing prestige for %@ from base value of %d", abbreviation, teamPrestige);
             NSNumber *prestige = [[HBSharedUtils prestigeNumberFormatter] numberFromString:jsonDict[@"prestige"]];
             if (prestige.intValue > 95) {
                 teamPrestige = 95;
@@ -3534,8 +3535,8 @@
             } else {
                 teamPrestige = prestige.intValue;
             }
-            NSLog(@"New prestige for %@: %d", abbreviation,teamPrestige);
-            NSLog(@"recycling players...");
+            NSLog(@"[Importing Team Metadata] New prestige for %@: %d", abbreviation,teamPrestige);
+            NSLog(@"[Importing Team Metadata] recycling players...");
             [self recruitPlayers: @[@2, @4, @6, @2, @10, @2, @6, @8, @6, @2]];
         }
 
@@ -3548,13 +3549,13 @@
         }
 
         if ([league isTeamAbbrValid:jsonDict[@"rival"] allowUserTeam:YES allowOverwrite:YES]) {
-            NSLog(@"CHANGING RIVAL FOR %@ TO %@", abbreviation, json[@"rival"]);
+            NSLog(@"[Importing Team Metadata] CHANGING RIVAL FOR %@ TO %@", abbreviation, json[@"rival"]);
             rivalTeam = jsonDict[@"rival"];
         } else {
-            NSLog(@"RIVAL FOR %@ REMAINING %@", abbreviation, rivalTeam);
+            NSLog(@"[Importing Team Metadata] RIVAL FOR %@ REMAINING %@", abbreviation, rivalTeam);
         }
     } else {
-        NSLog(@"ERROR parsing team metadata: %@", error);
+        NSLog(@"[Importing Team Metadata] ERROR parsing team metadata: %@", error);
     }
 }
 

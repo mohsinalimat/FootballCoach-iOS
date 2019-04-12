@@ -246,7 +246,7 @@
     } else if ([json isKindOfClass:[NSDictionary class]]) {
         jsonDict = (NSDictionary *)json;
     } else {
-        NSLog(@"JSON is of invalid type");
+        NSLog(@"[Importing Coach Metadata] JSON is of invalid type");
         return;
     }
     
@@ -256,7 +256,7 @@
         NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
         if ([jsonDict[@"baselinePrestige"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing baseline prestige for %@ from original value of %d", self.name, self.baselinePrestige);
+            NSLog(@"[Importing Coach Metadata] Changing baseline prestige for %@ from original value of %d", self.name, self.baselinePrestige);
             NSNumber *prestige = [[self numberFormatter] numberFromString:jsonDict[@"baselinePrestige"]];
             if (prestige.intValue > 95) {
                 self.baselinePrestige = 95;
@@ -265,12 +265,12 @@
             } else {
                 self.baselinePrestige = prestige.intValue;
             }
-            NSLog(@"New prestige for %@: %d", self.name,self.baselinePrestige);
+            NSLog(@"[Importing Coach Metadata] New prestige for %@: %d", self.name,self.baselinePrestige);
         }
         
         if ([jsonDict[@"cumulativePrestige"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing cumulative prestige for %@ from original value of %d", self.name, self.cumulativePrestige);
+            NSLog(@"[Importing Coach Metadata] Changing cumulative prestige for %@ from original value of %d", self.name, self.cumulativePrestige);
             NSNumber *prestige = [[self numberFormatter] numberFromString:jsonDict[@"cumulativePrestige"]];
             if (prestige.intValue > 95) {
                 self.cumulativePrestige = 95;
@@ -279,12 +279,12 @@
             } else {
                 self.cumulativePrestige = prestige.intValue;
             }
-            NSLog(@"New prestige for %@: %d", self.name,self.cumulativePrestige);
+            NSLog(@"[Importing Coach Metadata] New prestige for %@: %d", self.name,self.cumulativePrestige);
         }
         
         if ([jsonDict[@"startYear"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing start year for %@ from original value of %d", self.name, self.startYear);
+            NSLog(@"[Importing Coach Metadata] Changing start year for %@ from original value of %d", self.name, self.startYear);
             NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"startYear"]];
             if (year.intValue > self.team.league.baseYear) {
                 self.startYear = (int)self.team.league.baseYear;
@@ -293,12 +293,12 @@
             } else {
                 self.startYear = year.intValue;
             }
-            NSLog(@"New start year for %@: %d", self.name,self.startYear);
+            NSLog(@"[Importing Coach Metadata] New start year for %@: %d", self.name,self.startYear);
         }
         
         if ([jsonDict[@"contractYear"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing contract year for %@ from original value of %d", self.name, self.contractYear);
+            NSLog(@"[Importing Coach Metadata] Changing contract year for %@ from original value of %d", self.name, self.contractYear);
             NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"contractYear"]];
             if (year.intValue > 10) {
                 self.contractYear = 10;
@@ -307,12 +307,12 @@
             } else {
                 self.contractYear = year.intValue;
             }
-            NSLog(@"New contract year for %@: %d", self.name,self.contractYear);
+            NSLog(@"[Importing Coach Metadata] New contract year for %@: %d", self.name,self.contractYear);
         }
         
         if ([jsonDict[@"contractLength"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing contract length for %@ from original value of %d", self.name, self.contractLength);
+            NSLog(@"[Importing Coach Metadata] Changing contract length for %@ from original value of %d", self.name, self.contractLength);
             NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"contractLength"]];
             if (year.intValue > 10) {
                 self.contractLength = 10;
@@ -321,12 +321,12 @@
             } else {
                 self.contractLength = year.intValue;
             }
-            NSLog(@"New contract length for %@: %d", self.name,self.contractLength);
+            NSLog(@"[Importing Coach Metadata] New contract length for %@: %d", self.name,self.contractLength);
         }
         
         if ([jsonDict[@"age"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing age for %@ from original value of %d", self.name, self.age);
+            NSLog(@"[Importing Coach Metadata] Changing age for %@ from original value of %d", self.name, self.age);
             NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"age"]];
             if (year.intValue > 80) {
                 self.age = 80;
@@ -335,12 +335,12 @@
             } else {
                 self.age = year.intValue;
             }
-            NSLog(@"New age for %@: %d", self.name,self.age);
+            NSLog(@"[Importing Coach Metadata] New age for %@: %d", self.name,self.age);
         }
         
         if ([jsonDict[@"ratOvr"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing ratOvr for %@ from original value of %d", self.name, self.ratOvr);
+            NSLog(@"[Importing Coach Metadata] Changing ratOvr for %@ from original value of %d", self.name, self.ratOvr);
             NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratOvr"]];
             if (year.intValue > 95) {
                 self.ratOvr = 95;
@@ -349,12 +349,12 @@
             } else {
                 self.ratOvr = year.intValue;
             }
-            NSLog(@"New ratOvr for %@: %d", self.name,self.ratOvr);
+            NSLog(@"[Importing Coach Metadata] New ratOvr for %@: %d", self.name,self.ratOvr);
         }
         
         if ([jsonDict[@"ratPot"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing ratPot for %@ from original value of %d", self.name, self.ratPot);
+            NSLog(@"[Importing Coach Metadata] Changing ratPot for %@ from original value of %d", self.name, self.ratPot);
             NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratPot"]];
             if (year.intValue > 95) {
                 self.ratPot = 95;
@@ -363,12 +363,12 @@
             } else {
                 self.ratPot = year.intValue;
             }
-            NSLog(@"New ratPot for %@: %d", self.name,self.ratPot);
+            NSLog(@"[Importing Coach Metadata] New ratPot for %@: %d", self.name,self.ratPot);
         }
         
         if ([jsonDict[@"ratOff"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing ratOff for %@ from original value of %d", self.name, self.ratOff);
+            NSLog(@"[Importing Coach Metadata] Changing ratOff for %@ from original value of %d", self.name, self.ratOff);
             NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratOff"]];
             if (year.intValue > 95) {
                 self.ratOff = 95;
@@ -377,12 +377,12 @@
             } else {
                 self.ratOff = year.intValue;
             }
-            NSLog(@"New ratOff for %@: %d", self.name,self.ratOff);
+            NSLog(@"[Importing Coach Metadata] New ratOff for %@: %d", self.name,self.ratOff);
         }
         
         if ([jsonDict[@"ratDef"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing ratDef for %@ from original value of %d", self.name, self.ratDef);
+            NSLog(@"[Importing Coach Metadata] Changing ratDef for %@ from original value of %d", self.name, self.ratDef);
             NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratDef"]];
             if (year.intValue > 95) {
                 self.ratDef = 95;
@@ -391,12 +391,12 @@
             } else {
                 self.ratDef = year.intValue;
             }
-            NSLog(@"New ratDef for %@: %d", self.name,self.ratDef);
+            NSLog(@"[Importing Coach Metadata] New ratDef for %@: %d", self.name,self.ratDef);
         }
         
         if ([jsonDict[@"ratTalent"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing ratTalent for %@ from original value of %d", self.name, self.ratTalent);
+            NSLog(@"[Importing Coach Metadata] Changing ratTalent for %@ from original value of %d", self.name, self.ratTalent);
             NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratTalent"]];
             if (year.intValue > 95) {
                 self.ratTalent = 95;
@@ -405,12 +405,12 @@
             } else {
                 self.ratTalent = year.intValue;
             }
-            NSLog(@"New ratTalent for %@: %d", self.name,self.ratTalent);
+            NSLog(@"[Importing Coach Metadata] New ratTalent for %@: %d", self.name,self.ratTalent);
         }
         
         if ([jsonDict[@"ratDiscipline"] rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
-            NSLog(@"Changing ratDiscipline for %@ from original value of %d", self.name, self.ratDiscipline);
+            NSLog(@"[Importing Coach Metadata] Changing ratDiscipline for %@ from original value of %d", self.name, self.ratDiscipline);
             NSNumber *year = [[self numberFormatter] numberFromString:jsonDict[@"ratDiscipline"]];
             if (year.intValue > 95) {
                 self.ratDiscipline = 95;
@@ -419,7 +419,7 @@
             } else {
                 self.ratDiscipline = year.intValue;
             }
-            NSLog(@"New ratDiscipline for %@: %d", self.name,self.ratDiscipline);
+            NSLog(@"[Importing League Metadata] New ratDiscipline for %@: %d", self.name,self.ratDiscipline);
         }
         
         if ([self.team.league isStateValid:[jsonDict[@"state"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]]) {
@@ -427,7 +427,7 @@
         }
     
     } else {
-        NSLog(@"ERROR parsing team metadata: %@", error);
+        NSLog(@"[Importing Coach Metadata] ERROR parsing coach metadata: %@", error);
     }
 }
 

@@ -1223,7 +1223,7 @@
 -(void)playGame {
     if ( !hasPlayed ) {
         pbpEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:HB_PLAY_BY_PLAY_ENABLED];
-        //NSLog(@"START PLAY GAME, GAME SETUP");
+        //NSLog(@"[Game] START PLAY GAME, GAME SETUP");
         gameEventLog = [NSMutableString stringWithFormat:@"LOG: #%ld %@ (%ld-%ld) @ #%ld %@ (%ld-%ld)\n---------------------------------------------------------",(long)awayTeam.rankTeamPollScore, awayTeam.abbreviation,(long)awayTeam.wins,(long)awayTeam.losses,(long)homeTeam.rankTeamPollScore,homeTeam.abbreviation,(long)homeTeam.wins,(long)homeTeam.losses];
         //probably establish some home field advantage before playing
         gameTime = 3600;
@@ -1312,7 +1312,7 @@
                                                          [awayTeam getLB:2]]];
 //        NSLog(@"END AWAY STARTERS FOR %@", awayTeam.abbreviation);
         //break redshirts if starters are marked as such and add gamesPlayed/gamesPlayedSeason
-        //NSLog(@"BREAKING REDSHIRTS IF NECESSARY");
+        //NSLog(@"[Game] BREAKING REDSHIRTS IF NECESSARY");
         for (Player *p in homeStarters) {
             if (p.hasRedshirt) {
                 p.hasRedshirt = NO;
@@ -1340,7 +1340,7 @@
         [awayTeam getCurrentHC].gamesCoached++;
         [homeTeam getCurrentHC].gamesCoached++;
         
-        //NSLog(@"START PLAYING GAME");
+        //NSLog(@"[Game] START PLAYING GAME");
         int homePlays = 0;
         int awayPlays = 0;
         while ( gameTime > 0 ) {
@@ -1353,16 +1353,16 @@
                 awayPlays++;
             }
         }
-        //NSLog(@"OUT OF TIME");
+        //NSLog(@"[Game] OUT OF TIME");
         
-        //NSLog(@"CHECK IF OT NEEDED");
+        //NSLog(@"[Game] CHECK IF OT NEEDED");
         if (homeScore != awayScore) {
             [gameEventLog appendFormat:@"\n\nTime has expired! The game is over.\n\nFINAL SCORE: %@ %ld - %ld %@", awayTeam.abbreviation, (long)awayScore, (long)homeScore, homeTeam.abbreviation ];
         } else {
             [gameEventLog appendFormat:@"%@\nOVERTIME!\n\nTie game at 0:00 - we're headed to overtime!",[self getEventPrefix]];
         }
         
-        //NSLog(@"SETTING UP OT IF NECESSARY");
+        //NSLog(@"[Game] SETTING UP OT IF NECESSARY");
         if (gameTime <= 0 && homeScore == awayScore) {
             playingOT = YES;
             gamePoss = FALSE;
@@ -1386,13 +1386,13 @@
                 [gameEventLog appendFormat:@"\n\nFINAL SCORE: %@ %ld - %ld %@", awayTeam.abbreviation, (long)awayScore, (long)homeScore, homeTeam.abbreviation];
             }
         }
-        //NSLog(@"END OT");
+        //NSLog(@"[Game] END OT");
         
 //        NSLog(@"%@ Plays (Home): %d", homeTeam.abbreviation, homePlays);
 //        NSLog(@"%@ Plays (Away): %d", awayTeam.abbreviation, awayPlays);
         
         // Add points/opp points
-        //NSLog(@"DOING SEASON STATS");
+        //NSLog(@"[Game] DOING SEASON STATS");
         homeTeam.teamPoints += homeScore;
         awayTeam.teamPoints += awayScore;
         
@@ -1412,12 +1412,12 @@
         
         homeTeam.teamTODiff += awayTOs-homeTOs;
         awayTeam.teamTODiff += homeTOs-awayTOs;
-        //NSLog(@"END SEASON STATS");
+        //NSLog(@"[Game] END SEASON STATS");
         
         hasPlayed = true;
         
-        //NSLog(@"COMPILING PLAYER STATS");
-        //NSLog(@"HOME TEAM");
+        //NSLog(@"[Game] COMPILING PLAYER STATS");
+        //NSLog(@"[Game] HOME TEAM");
         NSNumber *qbComp, *qbAtt, *qbYds, *qbTD, *qbInt, *qbRushAtt, *qbRushYds, *qbRushTDs, *qbRushFum;
         NSNumber *rb1Att, *rb1Yds, *rb1TDs, *rb1Fum;
         NSNumber *rb2Att, *rb2Yds, *rb2TDs, *rb2Fum;
@@ -1704,10 +1704,10 @@
         ffum = HomeLB3Stats[FCDefensiveStatForcedFum];
         [homeTeam getLB:2].statsForcedFum += [ffum intValue];
         [homeTeam getLB:2].careerStatsForcedFum += [ffum intValue];
-        //NSLog(@"END HOME TEAM");
+        //NSLog(@"[Game] END HOME TEAM");
         
         //away team career stats tracking
-        //NSLog(@"START AWAY TEAM");
+        //NSLog(@"[Game] START AWAY TEAM");
         qbComp = AwayQBStats[FCQBStatPassComp];
         [awayTeam getQB:0].careerStatsPassComp += [qbComp intValue];
         qbAtt = AwayQBStats[FCQBStatPassAtt];
@@ -1984,10 +1984,10 @@
         ffum = AwayLB3Stats[FCDefensiveStatForcedFum];
         [awayTeam getLB:2].statsForcedFum += [ffum intValue];
         [awayTeam getLB:2].careerStatsForcedFum += [ffum intValue];
-        //NSLog(@"END AWAY TEAM");
+        //NSLog(@"[Game] END AWAY TEAM");
         
         //game over, add wins
-        //NSLog(@"CALCULATING STREAKS");
+        //NSLog(@"[Game] CALCULATING STREAKS");
         if (homeScore > awayScore) {
             homeTeam.wins++;
             [homeTeam getCurrentHC].totalWins++;
@@ -2080,8 +2080,8 @@
             }
         }
         
-        //NSLog(@"END CALCULATING STREAKS");
-        //NSLog(@"START CONF GAME CALC");
+        //NSLog(@"[Game] END CALCULATING STREAKS");
+        //NSLog(@"[Game] START CONF GAME CALC");
         if (([homeTeam.conference isEqualToString:awayTeam.conference]) || [gameName isEqualToString:@"In Conf"] || [gameName isEqualToString:@"Rivalry Game"] ) {
             // in conference game, see if was won
             if (homeScore > awayScore) {
@@ -2100,9 +2100,9 @@
                 [homeTeam getCurrentHC].totalConfLosses++;
             }
         }
-        //NSLog(@"END CONF GAME CALC");
+        //NSLog(@"[Game] END CONF GAME CALC");
         
-        //NSLog(@"START RIVALRY GAME CALC");
+        //NSLog(@"[Game] START RIVALRY GAME CALC");
         if ([gameName isEqualToString:@"Rivalry Game"] || [homeTeam.rivalTeam isEqualToString:awayTeam.abbreviation] || [awayTeam.rivalTeam isEqualToString:homeTeam.abbreviation]) {
             if (homeScore > awayScore) {
                 homeTeam.wonRivalryGame = true;
@@ -2120,7 +2120,7 @@
                 [homeTeam getCurrentHC].totalRivalryLosses++;
             }
         }
-        //NSLog(@"END RIVALRY GAME CALC");
+        //NSLog(@"[Game] END RIVALRY GAME CALC");
         
         [homeTeam checkForInjury];
         [awayTeam checkForInjury];
@@ -2129,7 +2129,7 @@
         
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"playedGame" object:nil];
-    //NSLog(@"TEARDOWN AND END PLAY GAME");
+    //NSLog(@"[Game] TEARDOWN AND END PLAY GAME");
 }
 
 -(void)addNewsStory {

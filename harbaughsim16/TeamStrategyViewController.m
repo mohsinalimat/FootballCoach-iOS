@@ -132,7 +132,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [tableView deselectRowAtIndexPath:indexPath animated:YES];
                 if (err) {
-                    NSLog(@"SAVE ERROR: %@", err);
+                    NSLog(@"[Playbooks] SAVE ERROR: %@", err);
                 }
                 [hud hideAnimated:YES];
                 [tableView reloadData];

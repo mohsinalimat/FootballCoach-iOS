@@ -75,7 +75,7 @@
 }
 
 -(void)startNewCareerModeGame {
-    NSLog(@"Career Mode");
+    NSLog(@"[Team Selection] Career Mode");
     // show alert for career vs normal
     UIAlertController *modeChooser = [UIAlertController alertControllerWithTitle:@"Game Difficulty" message:@"Would you like to set your career difficulty to hard? On hard, your rival will be more competitive, good players will have a higher chance of leaving for the pros, and your program can incur sanctions from the league." preferredStyle:UIAlertControllerStyleAlert];
     [modeChooser addAction:[UIAlertAction actionWithTitle:@"Yes, I'd like a challenge." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -132,7 +132,7 @@
         NSError *error;
         firstNameCSV = [NSString stringWithContentsOfFile:firstNameFullPath encoding:NSUTF8StringEncoding error:&error];
         if (error) {
-            NSLog(@"First name list retrieve error: %@", error);
+            NSLog(@"[Name CSV Import] First name list retrieve error: %@", error);
         }
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -142,7 +142,7 @@
             NSError *error;
             lastNameCSV = [NSString stringWithContentsOfFile:lastNameFullPath encoding:NSUTF8StringEncoding error:&error];
             if (error) {
-                NSLog(@"Last name list retrieve error: %@", error);
+                NSLog(@"[Name CSV Import] Last name list retrieve error: %@", error);
             }
             
             // do UI updates on main queue
@@ -289,7 +289,7 @@
                             NSError *error;
                             firstNameCSV = [NSString stringWithContentsOfFile:firstNameFullPath encoding:NSUTF8StringEncoding error:&error];
                             if (error) {
-                                NSLog(@"First name list retrieve error: %@", error);
+                                NSLog(@"[Name CSV Import] First name list retrieve error: %@", error);
                             }
                             
                             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -299,7 +299,7 @@
                                 NSError *error;
                                 lastNameCSV = [NSString stringWithContentsOfFile:lastNameFullPath encoding:NSUTF8StringEncoding error:&error];
                                 if (error) {
-                                    NSLog(@"Last name list retrieve error: %@", error);
+                                    NSLog(@"[Name CSV Import] Last name list retrieve error: %@", error);
                                 }
                                 
                                 // do UI updates on main queue

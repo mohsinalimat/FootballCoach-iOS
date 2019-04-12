@@ -587,7 +587,7 @@
         }
     }
     int sum = locationScore + positionalScore + prestigeScore + coachAbility + playbookScore;
-    //NSLog(@"Location Score: %d Positional Score: %d Prestige Score: %d Playbook Score: %d => TOTAL %@ INTEREST: %d", locationScore,positionalScore, prestigeScore, playbookScore, position, sum);
+    //NSLog(@"[Player] Location Score: %d Positional Score: %d Prestige Score: %d Playbook Score: %d => TOTAL %@ INTEREST: %d", locationScore,positionalScore, prestigeScore, playbookScore, position, sum);
     return sum;
 }
 

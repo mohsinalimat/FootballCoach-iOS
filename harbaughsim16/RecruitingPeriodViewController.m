@@ -303,7 +303,7 @@
                             });
                         }
                     } else {
-                        NSLog(@"YOU AIN'T GOT NO OFFERS, LT. DAN!");
+                        NSLog(@"[Recruiting] YOU AIN'T GOT NO OFFERS, LT. DAN!");
                     }
                 }
             }
@@ -863,7 +863,7 @@
     recruitingPoints = [HBSharedUtils currentLeague].userTeam.recruitingPoints;
     usedRecruitingPoints = [HBSharedUtils currentLeague].userTeam.usedRecruitingPoints;
 
-    NSLog(@"Recruiting points total: %d", recruitingPoints);
+    NSLog(@"[Recruiting] Recruiting points total: %d", recruitingPoints);
     
     [self updateRecruitingPointUsage];
     
@@ -1289,7 +1289,7 @@
 
             p.offers = highestOffers;
             if (highestOffers.count == 0) {
-                NSLog(@"%@ %@ has no offers; may cause crash", p.position, p.name);
+                NSLog(@"[Recruiting] %@ %@ has no offers; may cause crash", p.position, p.name);
             }
         }
 

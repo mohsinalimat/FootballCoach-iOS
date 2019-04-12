@@ -357,7 +357,7 @@
             
             if (oldLigue.currentWeek > 12 && oldLigue.roty == nil) {
                 NSString *roty = [oldLigue getROTYCeremonyStr];
-                NSLog(@"ROTY: %@", roty);
+                NSLog(@"[League Updater] Generating ROTY: %@", roty);
             }
             
             // we can't run these until 3.0 because of HC changes, so if we need to update to 3.0 from here, avoid running these

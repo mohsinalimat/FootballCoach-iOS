@@ -45,7 +45,7 @@
     NSError *firstError;
     NSString *firstNameCSV = [NSString stringWithContentsOfFile:firstNameFullPath encoding:NSUTF8StringEncoding error:&firstError];
     if (firstError) {
-        NSLog(@"First name list retrieve error: %@", firstError);
+        NSLog(@"[Name CSV Import] First name list retrieve error: %@", firstError);
     }
     
     NSArray *lastNamePathFrags = [[HBSharedUtils lastNamesCSV] componentsSeparatedByString:@"."];
@@ -54,7 +54,7 @@
     NSError *lastError;
     NSString *lastNameCSV = [NSString stringWithContentsOfFile:lastNameFullPath encoding:NSUTF8StringEncoding error:&lastError];
     if (lastError) {
-        NSLog(@"Last name list retrieve error: %@", lastError);
+        NSLog(@"[Name CSV Import] Last name list retrieve error: %@", lastError);
     }
     currentLeague = [League newLeagueFromCSV:firstNameCSV lastNamesCSV:lastNameCSV];
 }
