@@ -678,6 +678,7 @@
                 [t recruitPlayersFreshman:[self _generateTeamNeeds:t]];
             }
             
+            [t updateDepthChartPositions];
             [t calculateRecruitingClassRanking];
         }
         [[HBSharedUtils currentLeague] setTeamRanks];
