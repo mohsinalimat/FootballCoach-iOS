@@ -67,7 +67,7 @@
 
 -(void)updateGlimpseView {
     [glimpseView.nameLabel setText:selectedCoach.name];
-    [glimpseView.ageLabel setText:[NSString stringWithFormat:@"Age: %d | %d-%d | Overall: %d", selectedCoach.age, selectedCoach.startYear, selectedCoach.startYear + selectedCoach.year, selectedCoach.baselinePrestige]];
+    [glimpseView.ageLabel setText:[NSString stringWithFormat:@"Age: %d | %d-%d | Overall: %d", selectedCoach.age, selectedCoach.startYear, selectedCoach.startYear + selectedCoach.year, selectedCoach.ratOvr]];
     [glimpseView.teamsLabel setText:[selectedCoach teamsCoachedString]];
     [glimpseView.teamsLabel sizeToFit];
     
