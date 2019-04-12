@@ -582,9 +582,23 @@
             [self openLeaderboard];
         } else if (indexPath.row == 5) { // export
             NSString *metadataFile = ([HBSharedUtils currentLeague] != nil) ? [[HBSharedUtils currentLeague] leagueMetadataJSON] : @"";
-            UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[metadataFile] applicationActivities:nil];
-            activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,UIActivityTypeAirDrop,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr,UIActivityTypeOpenInIBooks,UIActivityTypePostToWeibo,UIActivityTypeAddToReadingList,UIActivityTypePostToFacebook,UIActivityTypePostToTencentWeibo];
-            [self presentViewController:activityVC animated:YES completion:nil];
+            NSError *dataErr;
+            NSData *jsonData = [metadataFile dataUsingEncoding:NSUTF8StringEncoding];
+            id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&dataErr];
+            if (jsonObject != nil && !dataErr) {
+                NSError *serializeErr;
+                NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&serializeErr];
+                if (prettyJsonData != nil && !serializeErr) {
+                    NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
+                    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[prettyPrintedJson] applicationActivities:nil];
+                    activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,UIActivityTypeAirDrop,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr,UIActivityTypeOpenInIBooks,UIActivityTypePostToWeibo,UIActivityTypeAddToReadingList,UIActivityTypePostToFacebook,UIActivityTypePostToTencentWeibo];
+                    [self presentViewController:activityVC animated:YES completion:nil];
+                } else {
+                    NSLog(@"SERIALIZE ERR: %@", serializeErr);
+                }
+            } else {
+                NSLog(@"DATA ERR: %@", dataErr);
+            }
         }
     }
 }
