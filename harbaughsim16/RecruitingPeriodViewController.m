@@ -654,77 +654,58 @@
 }
 
 -(void)finishRecruiting {
-    __block MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    [hud setMode:MBProgressHUDModeIndeterminate];
-    [hud.label setText:@"Saving season data..."];
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
-        [[HBSharedUtils currentLeague] updateTeamHistories];
-        [[HBSharedUtils currentLeague] updateLeagueHistory];
-        [[HBSharedUtils currentLeague] advanceSeason];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [hud.label setText:@"Advancing to next season..."];
-        });
-        
-        for (Team *t in [HBSharedUtils currentLeague].teamList) {
-            for (Player *p in t.recruitingClass) {
-                [t addPlayer:p];
-            }
-            // if necessary, add walk-ons
-            if (t.isUserControlled) {
-                NSLog(@"%@", [self _generateTeamNeeds:t]);
-                [t recruitWalkOns:[self _generateTeamNeeds:t]];
-            } else {
-                [t recruitPlayersFreshman:[self _generateTeamNeeds:t]];
-            }
-            
-            [t updateDepthChartPositions];
-            [t calculateRecruitingClassRanking];
+    [[HBSharedUtils currentLeague] updateTeamHistories];
+    [[HBSharedUtils currentLeague] updateLeagueHistory];
+    [[HBSharedUtils currentLeague] advanceSeason];
+
+    for (Team *t in [HBSharedUtils currentLeague].teamList) {
+        for (Player *p in t.recruitingClass) {
+            [t addPlayer:p];
         }
-        [[HBSharedUtils currentLeague] setTeamRanks];
-        
-        // post a news story about recruiting
-        [[HBSharedUtils currentLeague].teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return [HBSharedUtils compareRecruitingComposite:obj1 toObj2:obj2];
-        }];
-        NSMutableString *recruitingRanks = [NSMutableString stringWithFormat:@"%@ leads the pack, has best recruiting class of %lu\n%@ has the nation's best recruiting class this year, pulling in %lu recruits and posting a composite score of %d. Rounding out the top 5 are: ", [HBSharedUtils currentLeague].teamList[0].abbreviation, (long)[[HBSharedUtils currentLeague] getCurrentYear], [HBSharedUtils currentLeague].teamList[0].name, (long)[HBSharedUtils currentLeague].teamList[0].recruitingClass.count, [HBSharedUtils currentLeague].teamList[0].teamRecruitingClassScore];
-        for (int i = 1; i < 5; i++) {
-            Team *t = [HBSharedUtils currentLeague].teamList[i];
-            if (i == 4) {
-                [recruitingRanks appendFormat:@"and %d) %@.", (i + 1), t.name];
-            } else {
-                [recruitingRanks appendFormat:@"%d) %@, ", (i + 1), t.name];
-            }
+        // if necessary, add walk-ons
+        if (t.isUserControlled) {
+            NSLog(@"%@", [self _generateTeamNeeds:t]);
+            [t recruitWalkOns:[self _generateTeamNeeds:t]];
+        } else {
+            [t recruitPlayersFreshman:[self _generateTeamNeeds:t]];
         }
-        [[HBSharedUtils currentLeague].newsStories[0] addObject:recruitingRanks];
-        
-        [[HBSharedUtils currentLeague] setTeamRanks];
-        for (Team *t in [HBSharedUtils currentLeague].teamList) {
-            // clear the recruiting classes
-            t.recruitingClass = [NSMutableArray array];
-            [t updateTalentRatings];
+        [t updateDepthChartPositions];
+        [t calculateRecruitingClassRanking];
+    }
+    [[HBSharedUtils currentLeague] setTeamRanks];
+
+    // post a news story about recruiting
+    [[HBSharedUtils currentLeague].teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareRecruitingComposite:obj1 toObj2:obj2];
+    }];
+    NSMutableString *recruitingRanks = [NSMutableString stringWithFormat:@"%@ leads the pack, has best recruiting class of %lu\n%@ has the nation's best recruiting class this year, pulling in %lu recruits and posting a composite score of %d. Rounding out the top 5 are: ", [HBSharedUtils currentLeague].teamList[0].abbreviation, (long)[[HBSharedUtils currentLeague] getCurrentYear], [HBSharedUtils currentLeague].teamList[0].name, (long)[HBSharedUtils currentLeague].teamList[0].recruitingClass.count, [HBSharedUtils currentLeague].teamList[0].teamRecruitingClassScore];
+    for (int i = 1; i < 5; i++) {
+        Team *t = [HBSharedUtils currentLeague].teamList[i];
+        if (i == 4) {
+            [recruitingRanks appendFormat:@"and %d) %@.", (i + 1), t.name];
+        } else {
+            [recruitingRanks appendFormat:@"%d) %@, ", (i + 1), t.name];
         }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [hud.label setText:@"Saving league data..."];
-        });
-        
-        [HBSharedUtils currentLeague].recruitingStage = 0;
-        [[HBSharedUtils currentLeague] save:^(BOOL success, NSError *err) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if ([HBSharedUtils currentLeague].isHardMode && [[HBSharedUtils currentLeague].cursedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"userTeamSanctioned" object:nil];
-                }
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
-                
-                [hud hideAnimated:YES];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                });
-            });
-        }];
-    });
+    }
+    [[HBSharedUtils currentLeague].newsStories[0] addObject:recruitingRanks];
+
+    [[HBSharedUtils currentLeague] setTeamRanks];
+    for (Team *t in [HBSharedUtils currentLeague].teamList) {
+        // clear the recruiting classes
+        t.recruitingClass = [NSMutableArray array];
+        [t updateTalentRatings];
+    }
+
+    [HBSharedUtils currentLeague].recruitingStage = 0;
+    [[HBSharedUtils currentLeague] save];
+
+    if ([HBSharedUtils currentLeague].isHardMode && [[HBSharedUtils currentLeague].cursedTeam isEqual:[HBSharedUtils currentLeague].userTeam]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"userTeamSanctioned" object:nil];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newSeasonStart" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"endedSeason" object:nil];
+
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)finishRecruitingSeason {
