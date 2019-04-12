@@ -592,7 +592,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     prgs += (0.30 / leagueGames.count);
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        updatingBlock(prgs, @"Updating league structure for version 3...");
+                        updatingBlock(prgs, @"Updating league structure for version 3.0...");
                     });
                 });
                 if (g != nil) {
