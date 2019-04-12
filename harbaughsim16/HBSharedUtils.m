@@ -562,10 +562,10 @@ static UIColor *styleColor = nil;
         }
         
         if (availableJobs.count == 0 || [availableJobs[0] getMinCoachHireReq] > [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratOvr) {
-            alertController.message = [NSString stringWithFormat:@"%@\nYour overall rating is too low to qualify for available jobs. As a result, your career is over.",alertController.message];
+            alertController.message = [NSString stringWithFormat:@"%@\nDue to your lackluster performance, you have been fired. Your overall rating is too low to qualify for available jobs. As a result, your career is over.",alertController.message];
             [[self class] addRetirementOptionsUsingAlertController:alertController sourceViewController:viewController];
         } else {
-            alertController.message = @"Due to your lackluster performance, you have been fired. You can now look for other jobs around the country.";
+            alertController.message = [NSString stringWithFormat:@"%@\nDue to your lackluster performance, you have been fired. You can now look for other jobs around the country.",alertController.message];
             [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] initWithJobStatus:YES]] animated:YES completion:nil];
