@@ -562,7 +562,7 @@ static UIColor *styleColor = nil;
         }
         
         if (availableJobs.count == 0 || [availableJobs[0] getMinCoachHireReq] > [[HBSharedUtils currentLeague].userTeam getCurrentHC].ratOvr) {
-            alertController.message = @"Your overall rating is too low to qualify for available jobs. As a result, your career is over.";
+            alertController.message = [NSString stringWithFormat:@"%@\nYour overall rating is too low to qualify for available jobs. As a result, your career is over.",alertController.message];
             [[self class] addRetirementOptionsUsingAlertController:alertController sourceViewController:viewController];
         } else {
             alertController.message = @"Due to your lackluster performance, you have been fired. You can now look for other jobs around the country.";
