@@ -327,6 +327,10 @@
             [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Coaching Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionHC] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
@@ -375,6 +379,10 @@
             [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Coaching Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionHC] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
@@ -417,6 +425,10 @@
             [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Coaching Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionHC] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
@@ -445,6 +457,10 @@
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"COTY Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Coaching Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionHC] animated:YES];
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

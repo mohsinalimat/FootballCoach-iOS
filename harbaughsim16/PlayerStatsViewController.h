@@ -12,7 +12,8 @@ typedef NS_ENUM(NSUInteger, HBStatPosition) {
     HBStatPositionRB,
     HBStatPositionWR,
     HBStatPositionDEF,
-    HBStatPositionK
+    HBStatPositionK,
+    HBStatPositionHC
 };
 
 @interface PlayerStatsViewController : FCTableViewController
