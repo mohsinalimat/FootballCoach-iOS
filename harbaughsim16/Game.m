@@ -653,35 +653,35 @@
         //DLs
         NSMutableDictionary *DLs = [NSMutableDictionary dictionary];
         
-        [DLs setObject:homeStarters[20] forKey:@"homeDL1"];
+        [DLs setObject:homeStarters[17] forKey:@"homeDL1"];
         [DLs setObject:HomeDL1Stats forKey:@"homeDL1Stats"];
         
-        [DLs setObject:homeStarters[21] forKey:@"homeDL2"];
+        [DLs setObject:homeStarters[18] forKey:@"homeDL2"];
         [DLs setObject:HomeDL2Stats forKey:@"homeDL2Stats"];
         
-        [DLs setObject:homeStarters[22] forKey:@"homeDL3"];
+        [DLs setObject:homeStarters[19] forKey:@"homeDL3"];
         [DLs setObject:HomeDL3Stats forKey:@"homeDL3Stats"];
         
-        if (homeStarters.count < 24) {
+        if (homeStarters.count < 21) {
             [DLs setObject:[homeTeam getDL:3] forKey:@"homeDL4"];
         } else {
-            [DLs setObject:homeStarters[23] forKey:@"homeDL4"];
+            [DLs setObject:homeStarters[20] forKey:@"homeDL4"];
         }
         [DLs setObject:HomeDL4Stats forKey:@"homeDL4Stats"];
         
-        [DLs setObject:awayStarters[20] forKey:@"awayDL1"];
+        [DLs setObject:awayStarters[17] forKey:@"awayDL1"];
         [DLs setObject:AwayDL1Stats forKey:@"awayDL1Stats"];
         
-        [DLs setObject:awayStarters[21] forKey:@"awayDL2"];
+        [DLs setObject:awayStarters[18] forKey:@"awayDL2"];
         [DLs setObject:AwayDL2Stats forKey:@"awayDL2Stats"];
         
-        [DLs setObject:awayStarters[22] forKey:@"awayDL3"];
+        [DLs setObject:awayStarters[19] forKey:@"awayDL3"];
         [DLs setObject:AwayDL3Stats forKey:@"awayDL3Stats"];
         
-        if (awayStarters.count < 24) {
+        if (awayStarters.count < 21) {
             [DLs setObject:[awayTeam getDL:3] forKey:@"awayDL4"];
         } else {
-            [DLs setObject:awayStarters[23] forKey:@"awayDL4"];
+            [DLs setObject:awayStarters[20] forKey:@"awayDL4"];
         }
         [DLs setObject:AwayDL4Stats forKey:@"awayDL4Stats"];
         
@@ -691,22 +691,22 @@
         //LBs
         NSMutableDictionary *lbs = [NSMutableDictionary dictionary];
         
-        [lbs setObject:homeStarters[17] forKey:@"homeLB1"];
+        [lbs setObject:homeStarters[21] forKey:@"homeLB1"];
         [lbs setObject:HomeLB1Stats forKey:@"homeLB1Stats"];
         
-        [lbs setObject:homeStarters[18] forKey:@"homeLB2"];
+        [lbs setObject:homeStarters[22] forKey:@"homeLB2"];
         [lbs setObject:HomeLB2Stats forKey:@"homeLB2Stats"];
         
-        [lbs setObject:homeStarters[19] forKey:@"homeLB3"];
+        [lbs setObject:homeStarters[23] forKey:@"homeLB3"];
         [lbs setObject:HomeLB3Stats forKey:@"homeLB3Stats"];
         
-        [lbs setObject:awayStarters[17] forKey:@"awayLB1"];
+        [lbs setObject:awayStarters[21] forKey:@"awayLB1"];
         [lbs setObject:AwayLB1Stats forKey:@"awayLB1Stats"];
         
-        [lbs setObject:awayStarters[18] forKey:@"awayLB2"];
+        [lbs setObject:awayStarters[22] forKey:@"awayLB2"];
         [lbs setObject:AwayLB2Stats forKey:@"awayLB2Stats"];
         
-        [lbs setObject:awayStarters[19] forKey:@"awayLB3"];
+        [lbs setObject:awayStarters[23] forKey:@"awayLB3"];
         [lbs setObject:AwayLB3Stats forKey:@"awayLB3Stats"];
         
         [report setObject:lbs forKey:@"LBs"];
