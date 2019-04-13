@@ -1628,12 +1628,14 @@
             || ([self getCurrentHC].contractYear + 1 == [self getCurrentHC].contractLength && [HBSharedUtils randomValue] < 0.65)
             || ([self getCurrentHC].contractYear + 2 == [self getCurrentHC].contractLength && [HBSharedUtils randomValue] < 0.32)) {
             if (totalPrestigeDiff > 15 || [natlChampWL isEqualToString:@"NCW"]) {
-                // NCG or dramatic rebuild? 7 year extension automatically
-                [self getCurrentHC].contractLength = 7;
-                [self getCurrentHC].contractYear = 0;
-                [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
-                coachGotNewContract = true;
-                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs long-term contract extension at %@!\n%@ has extended the contract of their head coach %@ for 7 additional years after building the program into a national contender.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
+                // NCG or dramatic rebuild? 7 year extension automatically -- if you are within the last two years of your contract
+                if ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear <= 2) {
+                    [self getCurrentHC].contractLength = 7;
+                    [self getCurrentHC].contractYear = 0;
+                    [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
+                    coachGotNewContract = true;
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs long-term contract extension at %@!\n%@ has extended the contract of their head coach %@ for 7 additional years after building the program into a national contender.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
+                }
             } else if (totalPrestigeDiff > 10) {
                 // Pulling team up a prestige bracket? 5 year extension automatically
                 [self getCurrentHC].contractLength = 5;
