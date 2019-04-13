@@ -4122,23 +4122,25 @@
         NSInteger j = 0;
         NSInteger faCount = coachFreeAgents.count;
         while (faCount > 0 && j < faCount) {
-            HeadCoach *c = coachFreeAgents[j];
-            for (Team *t in teamList) {
-                if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
-                    Team *oldTeam = c.team;
-                    c.contractYear = 0;
-                    c.team = t;
-                    c.contractYear = 0;
-                    c.contractLength = 6;
-                    c.baselinePrestige = t.teamPrestige;
-                    c.cumulativePrestige = 0;
-                    [t.coaches addObject:c];
-                    [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Return to the Sidelines: %@\nAfter an extensive search, %@ has hired %@ to lead its football program. His last stop was at %@ a few years ago, but he now makes his triumphant return to the sideline.",t.abbreviation,t.name,c.name,oldTeam.name]];
-                    [oldTeam.coaches removeObject:c];
-                    [coachFreeAgents removeObject:c];
-                    faCount--;
-                    NSLog(@"[Coaching Carousel] FA %@ hired by %@", [c getInitialName], t.abbreviation);
-                    break; // should break from Team loop
+            if (j < coachFreeAgents.count) {
+                HeadCoach *c = coachFreeAgents[j];
+                for (Team *t in teamList) {
+                    if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
+                        Team *oldTeam = c.team;
+                        c.contractYear = 0;
+                        c.team = t;
+                        c.contractYear = 0;
+                        c.contractLength = 6;
+                        c.baselinePrestige = t.teamPrestige;
+                        c.cumulativePrestige = 0;
+                        [t.coaches addObject:c];
+                        [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Return to the Sidelines: %@\nAfter an extensive search, %@ has hired %@ to lead its football program. His last stop was at %@ a few years ago, but he now makes his triumphant return to the sideline.",t.abbreviation,t.name,c.name,oldTeam.name]];
+                        [oldTeam.coaches removeObject:c];
+                        [coachFreeAgents removeObject:c];
+                        faCount--;
+                        NSLog(@"[Coaching Carousel] FA %@ hired by %@", [c getInitialName], t.abbreviation);
+                        break; // should break from Team loop
+                    }
                 }
             }
             j++;
@@ -4215,7 +4217,7 @@
         }];
 
         for (int i = 0; i < coachFreeAgents.count; i++) {
-            HeadCoach *c = coachList[i];
+            HeadCoach *c = coachFreeAgents[i];
             if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
                 Team *oldTeam = c.team;
                 c.team = t;
