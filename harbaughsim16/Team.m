@@ -1650,7 +1650,7 @@
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 4 additional years for his excellent work at the helm of the program.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
             } else if (totalPrestigeDiff > 5 || [natlChampWL isEqualToString:@"NCL"]) {
                 // Good work so far or lost NCG?
-                if (![natlChampWL isEqualToString:@"NCL"] || ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear <= 2)) {
+                if (![natlChampWL containsString:@"NC"] || ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear <= 2)) {
                     // +5 prestige and in the last 2 years of contract? 3 year extension
                     [self getCurrentHC].contractLength = 3;
                     [self getCurrentHC].contractYear = 0;
