@@ -215,7 +215,7 @@
             } else {
                 plyr = wrStats[@"homeDL4"];
             }
-            PlayerWRDetailViewController *playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
+            PlayerDLDetailViewController *playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:plyr];
             peekVC = playerDetail;
         } else if (section == 7) {
             Player *plyr;
@@ -233,7 +233,7 @@
             } else {
                 plyr = wrStats[@"homeLB3"];
             }
-            PlayerWRDetailViewController *playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
+            PlayerLBDetailViewController *playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:plyr];
             peekVC = playerDetail;
         } else if (section == 8) {
             Player *plyr;
@@ -251,7 +251,7 @@
             } else {
                 plyr = wrStats[@"homeCB3"];
             }
-            PlayerWRDetailViewController *playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
+            PlayerCBDetailViewController *playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:plyr];
             peekVC = playerDetail;
         } else if (section == 9) {
             Player *plyr;
@@ -1284,7 +1284,7 @@
         } else {
             plyr = wrStats[@"homeDL4"];
         }
-        PlayerWRDetailViewController *playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
+        PlayerDLDetailViewController *playerDetail = [[PlayerDLDetailViewController alloc] initWithPlayer:plyr];
         peekVC = playerDetail;
     } else if (section == 7) {
         Player *plyr;
@@ -1302,7 +1302,7 @@
         } else {
             plyr = wrStats[@"homeLB3"];
         }
-        PlayerWRDetailViewController *playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
+        PlayerLBDetailViewController *playerDetail = [[PlayerLBDetailViewController alloc] initWithPlayer:plyr];
         peekVC = playerDetail;
     } else if (section == 8) {
         Player *plyr;
@@ -1320,7 +1320,7 @@
         } else {
             plyr = wrStats[@"homeCB3"];
         }
-        PlayerWRDetailViewController *playerDetail = [[PlayerWRDetailViewController alloc] initWithPlayer:plyr];
+        PlayerCBDetailViewController *playerDetail = [[PlayerCBDetailViewController alloc] initWithPlayer:plyr];
         peekVC = playerDetail;
     } else if (section == 9) {
         Player *plyr;
