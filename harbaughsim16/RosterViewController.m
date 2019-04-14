@@ -264,6 +264,10 @@
         [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Save Roster Changes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self manageEditing];
         }]];
+        [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Auto-sort Depth Chart" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[HBSharedUtils currentLeague].userTeam sortPlayers];
+            [self.tableView reloadData];
+        }]];
     }
     
     if ([HBSharedUtils currentLeague].isHardMode) {
@@ -285,11 +289,7 @@
     //[userTeam sortPlayers];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
-    if (userTeam.league.isHardMode) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(viewRosterOptions)];
-    } else {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reorder" style:UIBarButtonItemStylePlain target:self action:@selector(manageEditing)];
-    }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(viewRosterOptions)];
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(scrollToPositionGroup)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"injuriesPosted" object:nil];
