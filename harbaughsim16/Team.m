@@ -3527,8 +3527,13 @@
         if ([league isTeamNameValid:jsonDict[@"name"] allowUserTeam:YES allowOverwrite:YES]) {
             name = jsonDict[@"name"];
         }
+        
         [[self getCurrentHC] applyJSONMetadataChanges:jsonDict[@"headCoach"]];
         [self getCurrentHC].team = self; // just in case
+        
+        if ([league isTeamAbbrValid:jsonDict[@"abbreviation"] allowUserTeam:YES allowOverwrite:YES]) {
+            abbreviation = jsonDict[@"abbreviation"];
+        }
 
         if ([HBSharedUtils isValidNumber:jsonDict[@"prestige"]])
         {
@@ -3544,10 +3549,6 @@
             NSLog(@"[Importing Team Metadata] New prestige for %@: %d", abbreviation,teamPrestige);
             NSLog(@"[Importing Team Metadata] recycling players...");
             [self recruitPlayers: @[@2, @4, @6, @2, @10, @2, @6, @8, @6, @2]];
-        }
-
-        if ([league isTeamAbbrValid:jsonDict[@"abbreviation"] allowUserTeam:YES allowOverwrite:YES]) {
-            abbreviation = jsonDict[@"abbreviation"];
         }
 
         if ([league isStateValid:jsonDict[@"state"]]) {
