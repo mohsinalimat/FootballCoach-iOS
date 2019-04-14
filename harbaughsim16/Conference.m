@@ -660,8 +660,10 @@
         
         // rely on the file to tell us how many teams to change
         for (int i = 0; i < jsonConfTeams.count; i++) {
-            [confTeams[i] applyJSONMetadataChanges:jsonConfTeams[i]];
-            [confTeams[i] setConference:confName];
+            if (i < confTeams.count) {
+                [confTeams[i] applyJSONMetadataChanges:jsonConfTeams[i]];
+                [confTeams[i] setConference:confName];
+            }
         }
     } else {
         NSLog(@"[Importing Conference Metadata] ERROR parsing conf metadata: %@", error);
