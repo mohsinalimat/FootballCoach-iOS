@@ -44,9 +44,7 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    teams = [HBSharedUtils currentLeague].teamList;
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    teams=[[teams sortedArrayUsingDescriptors:@[sort]] mutableCopy];
+    [self reloadAll];
     
     navSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     [navSearchBar setPlaceholder:@"Search Teams"];
@@ -79,6 +77,9 @@
 }
 
 -(void)reloadAll {
+    teams = [HBSharedUtils currentLeague].teamList;
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    teams=[[teams sortedArrayUsingDescriptors:@[sort]] mutableCopy];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView reloadData];
 }
