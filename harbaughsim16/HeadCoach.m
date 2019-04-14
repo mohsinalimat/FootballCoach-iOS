@@ -183,13 +183,15 @@
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalLosses] forKey:@"totalLosses"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalConfWins] forKey:@"totalConfWins"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalConfLosses] forKey:@"totalConfLosses"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.totalRivalryWins] forKey:@"totalRivalryWins"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.totalRivalryLosses] forKey:@"totalRivalryLosses"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalBowls] forKey:@"totalBowls"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalBowlLosses] forKey:@"totalBowlLosses"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalCCs] forKey:@"totalCCs"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalCCLosses] forKey:@"totalCCLosses"];
-    [stats setObject:[NSString stringWithFormat:@"%d",self.totalNCs] forKey:@"totalBowls"];
-    [stats setObject:[NSString stringWithFormat:@"%d",self.totalNCLosses] forKey:@"totalBowlLosses"];
-    [stats setObject:[NSString stringWithFormat:@"%d",self.careerConfCOTYs] forKey:@"totalConCOTYs"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.totalNCs] forKey:@"totalNCs"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.totalNCLosses] forKey:@"totalNCLosses"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.careerConfCOTYs] forKey:@"totalConfCOTYs"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerCOTYs] forKey:@"totalCOTYs"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalROTYs] forKey:@"totalROTYs"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerDraftPicks] forKey:@"careerDraftPicks"];
@@ -198,7 +200,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    return @{@"offensiveAbility" : [HBSharedUtils getLetterGrade:self.ratOff], @"defensiveAbility" : [HBSharedUtils getLetterGrade:self.ratDef],  @"talentProgression" : [HBSharedUtils getLetterGrade:self.ratTalent], @"discipline" :  [HBSharedUtils getLetterGrade:self.ratDiscipline], @"jobStatus" : [self getCoachStatusString],@"contractYearsLeft" : @(self.contractLength - self.contractYear - 1),@"contractLength" : @(self.contractLength), @"offensivePlaybook" : [self.team getOffensiveTeamStrategies][self.offStratNum].stratName,@"defensivePlaybook" : [self.team getDefensiveTeamStrategies][self.defStratNum].stratName, @"startYear" : @(self.startYear),@"age" : @(self.age)};
+    return @{@"offensiveAbility" : [HBSharedUtils getLetterGrade:self.ratOff], @"defensiveAbility" : [HBSharedUtils getLetterGrade:self.ratDef],  @"talentProgression" : [HBSharedUtils getLetterGrade:self.ratTalent], @"discipline" :  [HBSharedUtils getLetterGrade:self.ratDiscipline], @"jobStatus" : [self getCoachStatusString],@"contractYearsLeft" : @(self.contractLength - self.contractYear - 1),@"contractLength" : @(self.contractLength), @"offensivePlaybook" : [self.team getOffensiveTeamStrategies][self.offStratNum].stratName,@"defensivePlaybook" : [self.team getDefensiveTeamStrategies][self.defStratNum].stratName, @"startYear" : @(self.startYear),@"age" : @(self.age),@"ratOvr" : @(self.ratOvr)};
 }
 
 -(NSString*)getInitialName {
