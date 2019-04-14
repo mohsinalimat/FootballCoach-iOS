@@ -4168,97 +4168,6 @@
     }
 }
 
--(void)coachHiringForSingleTeam:(Team *)t {
-    for (HeadCoach *coach in coachStarList) {
-        NSString *tmName = coach.team.name;
-        int tmPrestige = coach.team.teamPrestige;
-        Team *oldTeam = coach.team;
-        int confPrestige = [self findConference:coach.team.conference].confPrestige;
-        if (t.coaches.count == 0 && coach.ratOvr >= [t getMinCoachHireReq] && ![t.name isEqualToString:tmName]) {
-            if ((t.teamPrestige > tmPrestige && [self findConference:t.conference].confPrestige > confPrestige) || t.teamPrestige > (tmPrestige + 5) || [self findConference:t.conference].confPrestige + 10 > confPrestige) {
-                [oldTeam.coaches removeObject:coach];
-                [t getCurrentHC].team = t;
-                [t.coaches addObject:coach];
-                [t getCurrentHC].contractLength = 6;
-                [t getCurrentHC].contractYear = 0;
-                [t getCurrentHC].baselinePrestige = t.teamPrestige;
-                // newsStories.get(currentWeek + 1).add("Rising Star Coach Hired: " + teamList.get(t).name + ">Rising star head coach " + teamList.get(t).HC.get(0).name + " has announced his departure from " + tmName + " after being selected by " + teamList.get(t).name + " as their new head coach. His previous track record has had him on the top list of many schools.");
-                if ([HBSharedUtils randomValue] < 0.20) {
-                    [oldTeam promoteCoach];
-                    //                        teamList.get(j).HC.get(0).history.add("");
-                    //                        newsStories.get(currentWeek + 1).add("Replacement Promoted: " + teamList.get(j).name + ">" + teamList.get(j).name + " hopes to continue their recent success, despite the recent loss of coach " + teamList.get(t).HC.get(0).name + ". The team has promoted his assistant coach " + teamList.get(j).HC.get(0).name + " to the head coaching job at the school.");
-                }
-            }
-        }
-    }
-
-    [coachList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
-    }];
-    for (int i = 0; i < coachList.count; i++) {
-        HeadCoach *c = coachList[i];
-        if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
-            Team *oldTeam = c.team;
-            c.team = t;
-            [t.coaches addObject:c];
-            [t getCurrentHC].contractLength = 6;
-            [t getCurrentHC].contractYear = 0;
-            [t getCurrentHC].baselinePrestige = t.teamPrestige;
-            // newsStories.get(currentWeek + 1).add("Coaching Change: " + school.name + ">After an extensive search for a new head coach, " + school.name + " has hired " + school.HC.get(0).name + " to lead the team. Coach " + school.HC.get(0).name + " previously coached at " + coachList.get(i).team.name + ", before being let go this past season.");
-            [oldTeam.coaches removeObject:c];
-            [coachList removeObject:c];
-            break; // should break from Team loop
-        }
-    }
-
-    if (t.coaches.count == 0) {
-        [coachFreeAgents sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
-        }];
-
-        for (int i = 0; i < coachFreeAgents.count; i++) {
-            HeadCoach *c = coachFreeAgents[i];
-            if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
-                Team *oldTeam = c.team;
-                c.team = t;
-                [t.coaches addObject:c];
-                [t getCurrentHC].contractLength = 6;
-                [t getCurrentHC].contractYear = 0;
-                [t getCurrentHC].baselinePrestige = t.teamPrestige;
-                //newsStories.get(currentWeek + 1).add("Back to Coaching: " + school.name + ">After an extensive search for a new head coach, " + school.name + " has hired " + school.HC.get(0).name + " to lead the team. Coach " + school.HC.get(0).name + " has been out of football, but is returning this upcoming season!");
-                [oldTeam.coaches removeObject:c];
-                [coachFreeAgents removeObject:c];
-                break; // should break from Team loop
-            }
-        }
-    }
-
-
-    if (t.coaches.count == 0) {
-        [t promoteCoach];
-//        school.HC.get(0).history.add("");
-//        newsStories.get(currentWeek + 1).add("Coaching Promotion: " + school.name + ">Following the departure of their previous head coach, " + school.name + " has promoted assistant " + school.HC.get(0).name + " to lead the team.");
-    }
-}
-
--(void)coachingHotSeat {
-    if (currentWeek == 0) {
-        for (Team *t in teamList) {
-            if ([t getCurrentHC].baselinePrestige < t.teamPrestige && [t getCurrentHC].contractYear == [t getCurrentHC].contractLength) {
-                //newsStories.get(0).add("Coaching Hot Seat: " + teamList.get(i).name + ">Head Coach " + teamList.get(i).HC.get(0).name + " has struggled over the course of his current contract with " + teamList.get(i).name + " and has failed to raise the team prestige. Because this is his final contract year, the team will be evaluating whether to continue with the coach at the end of " + "this season. He'll remain on the hot seat throughout this year.");
-            } else if (t.teamPrestige > ([t getCurrentHC].baselinePrestige + 10) && t.teamPrestige < teamList[(int)(teamList.count * 0.35)].teamPrestige) {
-                //newsStories.get(0).add("Coaching Rising Star: " + teamList.get(i).HC.get(0).name + ">" + teamList.get(i).name + " head coach " + teamList.get(i).HC.get(0).name + " has been building a strong program and if he continues this path, he'll be on the top of the wishlist at a major program in the future.");
-            }
-        }
-    } else if (currentWeek == 7) {
-        for (Team *t in teamList) {
-            if ([t getCurrentHC].baselinePrestige < t.teamPrestige && [t getCurrentHC].contractYear == [t getCurrentHC].contractLength && t.rankTeamPollScore > (100 - [t getCurrentHC].baselinePrestige)) {
-                //newsStories.get(currentWeek + 1).add("Coaching Hot Seat: " + teamList.get(i).name + ">Head Coach " + teamList.get(i).HC.get(0).name + " future is in jeopardy at  " + teamList.get(i).name + ". The coach has failed to get out of the hot seat this season with disappointing losses and failing to live up to the school's standards.");
-            }
-        }
-    }
-}
-
 -(int)getAvgCoachTalent {
     int avg = 0;
     for (Team *t in teamList) {
@@ -4314,13 +4223,5 @@
     }
     return avgPrestige / conferences.count;
 }
-
-//-(void)setUserTeam:(Team *)t {
-//    if (userTeam != nil) {
-//        userTeam.isUserControlled = NO;
-//    }
-//    self.userTeam = t;
-//    self.userTeam.isUserControlled = YES;
-//}
 
 @end
