@@ -214,6 +214,7 @@
                 [HBSharedUtils currentLeague].userTeam = self->selectedTeam;
                 [HBSharedUtils currentLeague].userTeam.isUserControlled = YES;
                 [HBSharedUtils currentLeague].userTeam.coachFired = NO;
+                [HBSharedUtils currentLeague].userTeam.coachRetired = NO;
                 [self->selectedTeam.coaches addObject:self->userCoach];
                 
                 if ([[HBSharedUtils currentLeague].coachList containsObject:self->userCoach]) {
