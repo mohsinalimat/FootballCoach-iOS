@@ -513,6 +513,14 @@ static UIColor *styleColor = nil;
         } else {
             [seasonShortText appendFormat:@"Current Job Status: %@\n",[[[HBSharedUtils currentLeague].userTeam getCurrentHC] getCoachStatusString]];
         }
+        
+        if ([[[self class] currentLeague].userTeam getCurrentHC].wonConfHC) {
+            [seasonShortText appendFormat:@"Won %@ COTY\n", [HBSharedUtils currentLeague].userTeam.conference];
+        }
+        
+        if ([[[self class] currentLeague].userTeam getCurrentHC].wonTopHC) {
+            [seasonShortText appendString:@"Won COTY\n"];
+        }
     }
     if ([[HBSharedUtils currentLeague].userTeam.confChampion isEqualToString:@"CC"]) {
         [seasonShortText appendFormat:@"Won %@ CCG\n", [HBSharedUtils currentLeague].userTeam.conference];
