@@ -212,6 +212,7 @@
                 self->userCoach.cumulativePrestige = 0;
                 [HBSharedUtils currentLeague].userTeam = self->selectedTeam;
                 [HBSharedUtils currentLeague].userTeam.isUserControlled = YES;
+                [HBSharedUtils currentLeague].userTeam.coachFired = NO;
                 [self->selectedTeam.coaches addObject:self->userCoach];
                 
                 if ([[HBSharedUtils currentLeague].coachList containsObject:self->userCoach]) {
@@ -227,14 +228,15 @@
                 // mark coaching carousel as over
                 [HBSharedUtils currentLeague].didFinishCoachingCarousel = YES;
                 // save
-                [[HBSharedUtils currentLeague] save];
-                // post newCoach notif (same as newSaveFile)
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
-                [hud hideAnimated:YES];
-                // dismiss
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                });
+                [[HBSharedUtils currentLeague] save:^(BOOL success, NSError *err) {
+                    // post newCoach notif (same as newSaveFile)
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
+                    [hud hideAnimated:YES];
+                    // dismiss
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    });
+                }];
             });
         }]];
         
