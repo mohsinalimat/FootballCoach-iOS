@@ -40,6 +40,7 @@
     Player *heisman;
     Player *roty;
     HeadCoach *coty;
+    FCHeadCoachStat hcStatType;
 }
 @end
 
@@ -48,6 +49,9 @@
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
         position = type;
+        if (type == HBStatPositionHC) {
+            self->hcStatType = FCHeadCoachStatTotalWins;
+        }
     }
     return self;
 }
@@ -187,7 +191,7 @@
         [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             HeadCoach *a = (HeadCoach*)obj1;
             HeadCoach *b = (HeadCoach*)obj2;
-            return ([a getCoachScore] > [b getCoachScore]) ? -1 : (([a getCoachScore] == [b getCoachScore]) ? [a.name compare:b.name] : 1);
+            return (a.totalWins > b.totalWins) ? -1 : ((a.totalWins == b.totalWins) ? [a.name compare:b.name] : 1);
         }];
     }
 
@@ -610,6 +614,7 @@
                 
                 return (a.totalWins > b.totalWins) ? -1 : ((a.totalWins == b.totalWins) ? 0 : 1);
             }];
+            self->hcStatType = FCHeadCoachStatTotalWins;
             [self.tableView reloadData];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"National Championships" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -619,6 +624,8 @@
                 
                 return (a.totalNCs > b.totalNCs) ? -1 : ((a.totalNCs == b.totalNCs) ? 0 : 1);
             }];
+            self->hcStatType = FCHeadCoachStatNatlChamps;
+            self.title = @"National Championships Won";
             [self.tableView reloadData];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Championships" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -628,6 +635,30 @@
                 
                 return (a.totalCCs > b.totalCCs) ? -1 : ((a.totalCCs == b.totalCCs) ? 0 : 1);
             }];
+            self->hcStatType = FCHeadCoachStatConfChamps;
+            self.title = @"Conference Championships Won";
+            [self.tableView reloadData];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Bowl Wins" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                HeadCoach *a = (HeadCoach *)obj1;
+                HeadCoach *b = (HeadCoach *)obj2;
+                
+                return (a.totalBowls > b.totalBowls) ? -1 : ((a.totalBowls == b.totalBowls) ? 0 : 1);
+            }];
+            self->hcStatType = FCHeadCoachStatBowlWins;
+            self.title = @"Bowls Won";
+            [self.tableView reloadData];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Rivalry Wins" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                HeadCoach *a = (HeadCoach *)obj1;
+                HeadCoach *b = (HeadCoach *)obj2;
+                
+                return (a.totalRivalryWins > b.totalRivalryWins) ? -1 : ((a.totalRivalryWins == b.totalRivalryWins) ? 0 : 1);
+            }];
+            self->hcStatType = FCHeadCoachStatRivalryWins;
+            self.title = @"Rivalry Games Won";
             [self.tableView reloadData];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"Coach of the Year Awards" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -637,6 +668,74 @@
                 
                 return (a.careerCOTYs > b.careerCOTYs) ? -1 : ((a.careerCOTYs == b.careerCOTYs) ? 0 : 1);
             }];
+            self->hcStatType = FCHeadCoachStatCOTYs;
+            self.title = @"Coach of the Year Awards Won";
+            [self.tableView reloadData];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Conf Coach of the Year Awards" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                HeadCoach *a = (HeadCoach *)obj1;
+                HeadCoach *b = (HeadCoach *)obj2;
+                
+                return (a.careerConfCOTYs > b.careerConfCOTYs) ? -1 : ((a.careerConfCOTYs == b.careerConfCOTYs) ? 0 : 1);
+            }];
+            self->hcStatType = FCHeadCoachStatConfCOTYs;
+            self.title = @"Conf Coach of the Year Awards Won";
+            [self.tableView reloadData];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Players Drafted" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                HeadCoach *a = (HeadCoach *)obj1;
+                HeadCoach *b = (HeadCoach *)obj2;
+                
+                return (a.careerDraftPicks > b.careerDraftPicks) ? -1 : ((a.careerDraftPicks == b.careerDraftPicks) ? 0 : 1);
+            }];
+            self->hcStatType = FCHeadCoachStatPlayersDrafted;
+            self.title = @"Players Drafted";
+            [self.tableView reloadData];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"POTYs Coached" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                HeadCoach *a = (HeadCoach *)obj1;
+                HeadCoach *b = (HeadCoach *)obj2;
+                
+                return (a.totalHeismans > b.totalHeismans) ? -1 : ((a.totalHeismans == b.totalHeismans) ? 0 : 1);
+            }];
+            self->hcStatType = FCHeadCoachStatPOTYsCoached;
+            self.title = @"POTYs Coached";
+            [self.tableView reloadData];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"All-League Players Coached" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                HeadCoach *a = (HeadCoach *)obj1;
+                HeadCoach *b = (HeadCoach *)obj2;
+                
+                return (a.totalAllAmericans > b.totalAllAmericans) ? -1 : ((a.totalAllAmericans == b.totalAllAmericans) ? 0 : 1);
+            }];
+            self->hcStatType = FCHeadCoachStatAllLeaguePlayersCoached;
+            self.title = @"All-League Players Coached";
+            [self.tableView reloadData];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"All-Conference Players Coached" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                HeadCoach *a = (HeadCoach *)obj1;
+                HeadCoach *b = (HeadCoach *)obj2;
+                
+                return (a.totalAllConferences > b.totalAllConferences) ? -1 : ((a.totalAllConferences == b.totalAllConferences) ? 0 : 1);
+            }];
+            self->hcStatType = FCHeadCoachStatAllConfPlayersCoached;
+            self.title = @"All-Conference Players Coached";
+            [self.tableView reloadData];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"ROTYs Coached" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                HeadCoach *a = (HeadCoach *)obj1;
+                HeadCoach *b = (HeadCoach *)obj2;
+                
+                return (a.totalROTYs > b.totalROTYs) ? -1 : ((a.totalROTYs == b.totalROTYs) ? 0 : 1);
+            }];
+            self->hcStatType = FCHeadCoachStatROTYsCoached;
+            self.title = @"ROTYs Coached";
             [self.tableView reloadData];
         }]];
     }
@@ -766,21 +865,52 @@
             stat3Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsForcedFum];
             stat4Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsPassDef];
         }
-        
-//        stat1Value = [NSString stringWithFormat:@"%d",((PlayerDefender *)plyr).statsTkl];
-//        stat2Value = [NSString stringWithFormat:@"%d",((PlayerDefender *)plyr).statsSacks];
-//        stat3Value = [NSString stringWithFormat:@"%d",((Player<PlayerDefender>)plyr).statsForcedFum];
-//        stat4Value = [NSString stringWithFormat:@"%d",((Player<PlayerDefender>)plyr).statsPassDef];
     } else { //if ([plyr isKindOfClass:[HeadCoach Class]]) {
-        stat1 = @"Wins";
-        stat2 = @"NCs";
-        stat3 = @"CCs";
-        stat4 = @"COTYs";
+        stat2 = @"Age";
+        stat3 = @"OVR";
+        stat4 = @"";
         
-        stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalWins];
-        stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalNCs];
-        stat3Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalCCs];
-        stat4Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).careerCOTYs];
+        stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).age];
+        stat3Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).ratOvr];
+        stat4Value = @""; //[NSString stringWithFormat:@"%d",((HeadCoach*)plyr).careerCOTYs];
+        
+        if (hcStatType == FCHeadCoachStatTotalWins) {
+            stat1 = @"Wins"; //stat
+            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalWins];
+        } else if (hcStatType == FCHeadCoachStatNatlChamps) {
+            stat1 = @"NCs"; //stat
+            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalNCs];
+        } else if (hcStatType == FCHeadCoachStatConfChamps) {
+            stat1 = @"CCs"; //stat
+            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalCCs];
+        } else if (hcStatType == FCHeadCoachStatBowlWins) {
+            stat1 = @"BWins"; //stat
+            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalBowls];
+        } else if (hcStatType == FCHeadCoachStatRivalryWins) {
+            stat1 = @"RWins"; //stat
+            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalRivalryWins];
+        } else if (hcStatType == FCHeadCoachStatCOTYs) {
+            stat1 = @"COTYs"; //stat
+            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).careerCOTYs];
+        } else if (hcStatType == FCHeadCoachStatConfCOTYs) {
+            stat1 = @"COTYs"; //stat
+            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).careerConfCOTYs];
+        } else if (hcStatType == FCHeadCoachStatPOTYsCoached) {
+            stat1 = @"POTYs"; //stat
+            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalHeismans];
+        } else if (hcStatType == FCHeadCoachStatAllLeaguePlayersCoached) {
+            stat1 = @"ALL"; //stat
+            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalAllAmericans];
+        } else if (hcStatType == FCHeadCoachStatAllConfPlayersCoached) {
+            stat1 = @"ALL"; //stat
+            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalAllConferences];
+        } else if (hcStatType == FCHeadCoachStatROTYsCoached) {
+            stat1 = @"ROTYs"; //stat
+            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalROTYs];
+        } else {
+            stat1 = @""; //stat
+            stat1Value = @"";
+        }
     }
 
 

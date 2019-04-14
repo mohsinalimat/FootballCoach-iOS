@@ -16,6 +16,21 @@ typedef NS_ENUM(NSUInteger, HBStatPosition) {
     HBStatPositionHC
 };
 
+typedef NS_ENUM(NSUInteger, FCHeadCoachStat) {
+    FCHeadCoachStatNatlChamps,
+    FCHeadCoachStatConfChamps,
+    FCHeadCoachStatBowlWins,
+    FCHeadCoachStatRivalryWins,
+    FCHeadCoachStatTotalWins,
+    FCHeadCoachStatCOTYs,
+    FCHeadCoachStatConfCOTYs,
+    FCHeadCoachStatPlayersDrafted,
+    FCHeadCoachStatAllConfPlayersCoached,
+    FCHeadCoachStatAllLeaguePlayersCoached,
+    FCHeadCoachStatPOTYsCoached,
+    FCHeadCoachStatROTYsCoached
+};
+
 @interface PlayerStatsViewController : FCTableViewController
 -(instancetype)initWithStatType:(HBStatPosition)type;
 @end
