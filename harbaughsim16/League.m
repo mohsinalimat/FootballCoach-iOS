@@ -3724,19 +3724,19 @@
                 parts++;
             }
             if (heis.statsSacks > 0) {
-                [statString appendFormat:@"%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+                [statString appendFormat:@"?%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
                 parts++;
             }
             if (heis.statsPassDef > 0) {
-                [statString appendFormat:@"%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+                [statString appendFormat:@"?%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
                 parts++;
             }
             if (heis.statsInt > 0) {
-                [statString appendFormat:@"%ld INT", (long)heis.statsInt];
+                [statString appendFormat:@"?%ld INT", (long)heis.statsInt];
                 parts++;
             }
             if (heis.statsForcedFum > 0) {
-                [statString appendFormat:@"%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+                [statString appendFormat:@"?%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
                 parts++;
             }
             
@@ -3753,19 +3753,19 @@
                 parts++;
             }
             if (heis.statsSacks > 0) {
-                [statString appendFormat:@"%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+                [statString appendFormat:@"?%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
                 parts++;
             }
             if (heis.statsPassDef > 0) {
-                [statString appendFormat:@"%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+                [statString appendFormat:@"?%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
                 parts++;
             }
             if (heis.statsInt > 0) {
-                [statString appendFormat:@"%ld INT", (long)heis.statsInt];
+                [statString appendFormat:@"?%ld INT", (long)heis.statsInt];
                 parts++;
             }
             if (heis.statsForcedFum > 0) {
-                [statString appendFormat:@"%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+                [statString appendFormat:@"?%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
                 parts++;
             }
             
@@ -3782,19 +3782,19 @@
                 parts++;
             }
             if (heis.statsSacks > 0) {
-                [statString appendFormat:@"%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+                [statString appendFormat:@"?%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
                 parts++;
             }
             if (heis.statsPassDef > 0) {
-                [statString appendFormat:@"%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+                [statString appendFormat:@"?%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
                 parts++;
             }
             if (heis.statsInt > 0) {
-                [statString appendFormat:@"%ld INT", (long)heis.statsInt];
+                [statString appendFormat:@"?%ld INT", (long)heis.statsInt];
                 parts++;
             }
             if (heis.statsForcedFum > 0) {
-                [statString appendFormat:@"%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+                [statString appendFormat:@"?%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
                 parts++;
             }
             
@@ -3807,23 +3807,23 @@
             int parts = 0;
             // %ld tackles, %ld sacks, %ld forced fum, %ld passes defended, and %ld interceptions
             if (heis.statsTkl > 0) {
-                [statString appendFormat:@"%ld %@", (long)heis.statsTkl, (heis.statsTkl > 1 ? @"tackles" : @"tackle")];
+                [statString appendFormat:@"?%ld %@", (long)heis.statsTkl, (heis.statsTkl > 1 ? @"tackles" : @"tackle")];
                 parts++;
             }
             if (heis.statsSacks > 0) {
-                [statString appendFormat:@"%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+                [statString appendFormat:@"?%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
                 parts++;
             }
             if (heis.statsPassDef > 0) {
-                [statString appendFormat:@"%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+                [statString appendFormat:@"?%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
                 parts++;
             }
             if (heis.statsInt > 0) {
-                [statString appendFormat:@"%ld INT", (long)heis.statsInt];
+                [statString appendFormat:@"?%ld INT", (long)heis.statsInt];
                 parts++;
             }
             if (heis.statsForcedFum > 0) {
-                [statString appendFormat:@"%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+                [statString appendFormat:@"?%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
                 parts++;
             }
             

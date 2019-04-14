@@ -231,7 +231,6 @@
 -(int)getAvgCoachTalent;
 -(int)getAvgCoachOff;
 -(int)getAvgCoachDef;
--(void)coachHiringForSingleTeam:(Team *)t;
 -(void)processCoachingCarousel;
 -(void)newJobTransfer:(NSString *)coachTeam;
 -(NSMutableArray<Team*> *)getPromotedCoachTeams:(int)rating offers:(double)offers oldTeam:(NSString *)oldTeam;
