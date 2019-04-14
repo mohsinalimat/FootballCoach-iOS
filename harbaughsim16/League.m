@@ -4063,12 +4063,14 @@
                 if (t.coaches.count == 0 && coach.ratOvr >= [t getMinCoachHireReq] && ![t.name isEqualToString:tmName]) {
                     if ((t.teamPrestige > tmPrestige && [self findConference:t.conference].confPrestige > confPrestige) || t.teamPrestige > (tmPrestige + 5) || [self findConference:t.conference].confPrestige + 10 > confPrestige) {
                         [oldTeam.coaches removeObject:coach];
-                        coach.team = t;
                         coach.contractYear = 0;
-                        coach.contractLength = 6;
-                        coach.baselinePrestige = t.teamPrestige;
-                        coach.cumulativePrestige = 0;
-                        [t.coaches addObject:coach];
+//                        coach.team = t;
+//                        coach.contractYear = 0;
+//                        coach.contractLength = 6;
+//                        coach.baselinePrestige = t.teamPrestige;
+//                        coach.cumulativePrestige = 0;
+//                        [t.coaches addObject:coach];
+                        [t addCoach:coach];
                         [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Rising Star Hired at %@!\nAfter an offseason full of rumors, %@ head coach %@ has decided to take the job at %@. His success at %@ had him on many top programs' radars.",coach.team.abbreviation,oldTeam.abbreviation,coach.name,coach.team.name,oldTeam.name]];
                         if ([HBSharedUtils randomValue] < 0.20) {
                             [oldTeam promoteCoach];
@@ -4097,12 +4099,13 @@
                     if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
                         Team *oldTeam = c.team;
                         c.contractYear = 0;
-                        c.team = t;
-                        c.contractYear = 0;
-                        c.contractLength = 6;
-                        c.baselinePrestige = t.teamPrestige;
-                        c.cumulativePrestige = 0;
-                        [t.coaches addObject:c];
+                        [t addCoach:c];
+//                        c.team = t;
+//                        c.contractYear = 0;
+//                        c.contractLength = 6;
+//                        c.baselinePrestige = t.teamPrestige;
+//                        c.cumulativePrestige = 0;
+//                        [t.coaches addObject:c];
                         [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Switch: %@\nAfter an extensive nationwide search, %@ has hired %@ to lead its football program. His last stop was at %@, where he was let go after this past season.",t.abbreviation,t.name,c.name,oldTeam.name]];
                         [oldTeam.coaches removeObject:c];
                         [coachList removeObject:c];
@@ -4128,12 +4131,13 @@
                     if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
                         Team *oldTeam = c.team;
                         c.contractYear = 0;
-                        c.team = t;
-                        c.contractYear = 0;
-                        c.contractLength = 6;
-                        c.baselinePrestige = t.teamPrestige;
-                        c.cumulativePrestige = 0;
-                        [t.coaches addObject:c];
+                        [t addCoach:c];
+//                        c.team = t;
+//                        c.contractYear = 0;
+//                        c.contractLength = 6;
+//                        c.baselinePrestige = t.teamPrestige;
+//                        c.cumulativePrestige = 0;
+//                        [t.coaches addObject:c];
                         [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Return to the Sidelines: %@\nAfter an extensive search, %@ has hired %@ to lead its football program. His last stop was at %@ a few years ago, but he now makes his triumphant return to the sideline.",t.abbreviation,t.name,c.name,oldTeam.name]];
                         [oldTeam.coaches removeObject:c];
                         [coachFreeAgents removeObject:c];

@@ -347,4 +347,6 @@ typedef enum {
 -(int)projectTeamWins;
 -(int)projectPollScore;
 -(int)calculatePrestigeChange;
+
+-(void)addCoach:(HeadCoach *)hc;
 @end

@@ -3731,4 +3731,17 @@
     return score;
 }
 
+-(void)addCoach:(HeadCoach *)hc {
+    hc.team = self;
+    hc.contractYear = 0;
+    hc.contractLength = 6;
+    hc.baselinePrestige = self.teamPrestige;
+    hc.cumulativePrestige = 0;
+    if (![self.coaches containsObject:hc]) {
+        [self.coaches addObject:hc];
+    }
+    self.offensiveStrategy = [self getOffensiveTeamStrategies][hc.offStratNum];
+    self.defensiveStrategy = [self getDefensiveTeamStrategies][hc.defStratNum];
+}
+
 @end

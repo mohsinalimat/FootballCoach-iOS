@@ -205,11 +205,12 @@
                 // yes
                 [HBSharedUtils currentLeague].userTeam.isUserControlled = NO;
                 [[HBSharedUtils currentLeague].userTeam.coaches removeObject:self->userCoach];
-                self->userCoach.team = self->selectedTeam;
-                self->userCoach.contractYear = 0;
-                self->userCoach.contractLength = 6;
-                self->userCoach.baselinePrestige = self->selectedTeam.teamPrestige;
-                self->userCoach.cumulativePrestige = 0;
+//                self->userCoach.team = self->selectedTeam;
+//                self->userCoach.contractYear = 0;
+//                self->userCoach.contractLength = 6;
+//                self->userCoach.baselinePrestige = self->selectedTeam.teamPrestige;
+//                self->userCoach.cumulativePrestige = 0;
+                [self->selectedTeam addCoach:self->userCoach];
                 [HBSharedUtils currentLeague].userTeam = self->selectedTeam;
                 [HBSharedUtils currentLeague].userTeam.isUserControlled = YES;
                 [HBSharedUtils currentLeague].userTeam.coachFired = NO;
