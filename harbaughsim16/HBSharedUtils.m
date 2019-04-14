@@ -509,9 +509,9 @@ static UIColor *styleColor = nil;
     [seasonShortText appendFormat:@"Finished #%ld in %@\n", (long)([[[HBSharedUtils currentLeague] findConference:[HBSharedUtils currentLeague].userTeam.conference].confTeams indexOfObject:[HBSharedUtils currentLeague].userTeam] + 1), [HBSharedUtils currentLeague].userTeam.conference];
     if ([[self class] currentLeague].isCareerMode) {
         if ([[self class] currentLeague].userTeam.coachFired) {
-            [seasonShortText appendString:@"Current Job Status: Fired\n"];
+            [seasonShortText appendString:@"\nCurrent Job Status: Fired\n"];
         } else {
-            [seasonShortText appendFormat:@"Current Job Status: %@\n",[[[HBSharedUtils currentLeague].userTeam getCurrentHC] getCoachStatusString]];
+            [seasonShortText appendFormat:@"\nCurrent Job Status: %@\n",[[[HBSharedUtils currentLeague].userTeam getCurrentHC] getCoachStatusString]];
         }
         
         if ([[[self class] currentLeague].userTeam getCurrentHC].wonConfHC) {
@@ -583,7 +583,7 @@ static UIColor *styleColor = nil;
     } else {
         if (([[self class] currentLeague].isCareerMode && ([[[self class] currentLeague].userTeam getCurrentHC].age > 59))) {
             [[self class] addRetirementOptionsUsingAlertController:alertController sourceViewController:viewController];
-        } else if ([[self class] currentLeague].isCareerMode && [[[self class] currentLeague].userTeam getCurrentHC].contractYear != 0 && ![[self class] currentLeague].didFinishTransferPeriod && ![[self class] currentLeague].didFinishTransferPeriod) {
+        } else if ([[self class] currentLeague].isCareerMode && [[[self class] currentLeague].userTeam getCurrentHC].contractYear != 0 && ![[self class] currentLeague].didFinishTransferPeriod && ![[self class] currentLeague].didFinishCoachingCarousel) {
             [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] initWithJobStatus:NO]] animated:YES completion:nil];
