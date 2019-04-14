@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CareerCompletionViewController : UIViewController
 -(instancetype)initWithCoach:(HeadCoach *)coach;
+-(instancetype)initWithCoachDictionary:(NSDictionary *)coachDict;
 @end
 
 NS_ASSUME_NONNULL_END

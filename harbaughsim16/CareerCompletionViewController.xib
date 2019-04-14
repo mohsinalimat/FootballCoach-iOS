@@ -235,6 +235,7 @@
                         <outlet property="nameLabel" destination="MBf-Oo-RMJ" id="AAS-nl-fuk"/>
                         <outlet property="playerAwardsReportLabel" destination="H3s-NJ-1hv" id="fVM-5m-kpf"/>
                         <outlet property="teamsLabel" destination="bw0-pL-QZc" id="icv-fe-e2r"/>
+                        <outlet property="titleLabel" destination="FcM-kn-GCe" id="WTY-69-iuB"/>
                     </connections>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pi-LW-VgZ">

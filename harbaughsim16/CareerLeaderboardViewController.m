@@ -12,6 +12,7 @@
 
 #import "NSArray+Uniqueness.h"
 #import "TeamViewController.h"
+#import "CareerCompletionViewController.h"
 
 #import "STPopup.h"
 #import "HexColors.h"
@@ -170,8 +171,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setNumberOfLines:0];
         [cell.textLabel setFont:[UIFont boldSystemFontOfSize:17.0]];
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     NSDictionary *coachDict = coachList[indexPath.row];
     if (coachDict != nil) {
         [self configureCellForCoach:coachDict indexPath:indexPath cell:cell];
@@ -218,7 +219,8 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.navigationController presentViewController:[[CareerCompletionViewController alloc] initWithCoachDictionary:coachList[indexPath.row]] animated:YES completion:nil];
 }
 
 @end
