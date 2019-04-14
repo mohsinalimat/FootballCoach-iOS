@@ -2294,7 +2294,7 @@
     NSInteger expectedPollFinish = [mapped indexOfObject:self.abbreviation];
     
     NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - ((self.league.isHardMode) ? 5 : 10), 0), (self.league.isHardMode) ? 12 : 22);
-    NSLog(@"[Preseason Expectations] %@ should finish between #%lu and #%lu.", self.abbreviation, expectedPollFinishRange.location, (expectedPollFinishRange.location + expectedPollFinishRange.length - 1));
+    NSLog(@"[Preseason Expectations] %@ should finish between #%lu and #%lu.", self.abbreviation, (unsigned long)expectedPollFinishRange.location, (unsigned long)(expectedPollFinishRange.location + expectedPollFinishRange.length - 1));
     if (expectedPollFinishRange.location < 16) {
         return FCTeamExpectationsTitleContender;
     } else if (expectedPollFinishRange.location < 72) {
