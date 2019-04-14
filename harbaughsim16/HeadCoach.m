@@ -198,7 +198,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    return @{@"offensiveAbility" : [HBSharedUtils getLetterGrade:self.ratOff], @"defensiveAbility" : [HBSharedUtils getLetterGrade:self.ratDef],  @"talentProgression" : [HBSharedUtils getLetterGrade:self.ratTalent], @"discipline" :  [HBSharedUtils getLetterGrade:self.ratDiscipline], @"jobStatus" : [self getCoachStatusString],@"potential" : [HBSharedUtils getLetterGrade:self.ratPot],@"contractYearsLeft" : @(self.contractLength - self.contractYear - 1),@"contractLength" : @(self.contractLength), @"offensivePlaybook" : [self.team getOffensiveTeamStrategies][self.offStratNum].stratName,@"defensivePlaybook" : [self.team getDefensiveTeamStrategies][self.defStratNum].stratName, @"startYear" : @(self.startYear),@"age" : @(self.age)};
+    return @{@"offensiveAbility" : [HBSharedUtils getLetterGrade:self.ratOff], @"defensiveAbility" : [HBSharedUtils getLetterGrade:self.ratDef],  @"talentProgression" : [HBSharedUtils getLetterGrade:self.ratTalent], @"discipline" :  [HBSharedUtils getLetterGrade:self.ratDiscipline], @"jobStatus" : [self getCoachStatusString],@"contractYearsLeft" : @(self.contractLength - self.contractYear - 1),@"contractLength" : @(self.contractLength), @"offensivePlaybook" : [self.team getOffensiveTeamStrategies][self.offStratNum].stratName,@"defensivePlaybook" : [self.team getDefensiveTeamStrategies][self.defStratNum].stratName, @"startYear" : @(self.startYear),@"age" : @(self.age)};
 }
 
 -(NSString*)getInitialName {
@@ -222,7 +222,7 @@
 -(NSString *)coachMetadataJSON {
     NSMutableString *jsonString = [NSMutableString string];
     [jsonString appendString:@"{"];
-    [jsonString appendFormat:@"\"name\" : \"%@\", \"age\" : \"%d\", \"startYear\" : \"%d\", \"contractYear\" : \"%d\", \"contractLength\" : \"%d\", \"homeState\" : \"%@\", \"baselinePrestige\" : \"%d\", \"cumulativePrestige\" : \"%d\", \"ratOvr\" : \"%d\", \"ratDef\" : \"%d\", \"ratOff\" : \"%d\", \"ratTalent\" : \"%d\", \"ratDiscipline\" : \"%d\", \"ratPot\" : \"%d\"",self.name,self.age, self.startYear,self.contractYear, self.contractLength, self.homeState, self.baselinePrestige,self.cumulativePrestige,self.ratOvr,self.ratDef,self.ratOff,self.ratTalent,self.ratDiscipline,self.ratPot];
+    [jsonString appendFormat:@"\"name\" : \"%@\", \"age\" : \"%d\", \"startYear\" : \"%d\", \"contractYear\" : \"%d\", \"contractLength\" : \"%d\", \"homeState\" : \"%@\", \"baselinePrestige\" : \"%d\", \"cumulativePrestige\" : \"%d\", \"ratOvr\" : \"%d\", \"ratDef\" : \"%d\", \"ratOff\" : \"%d\", \"ratTalent\" : \"%d\", \"ratDiscipline\" : \"%d\"",self.name,self.age, self.startYear,self.contractYear, self.contractLength, self.homeState, self.baselinePrestige,self.cumulativePrestige,self.ratOvr,self.ratDef,self.ratOff,self.ratTalent,self.ratDiscipline];
     [jsonString appendString:@"}"];
     return jsonString;
 }

@@ -122,7 +122,8 @@
     if (section == 1) {
         return 14;
     } else if (section == 0) {
-        return 11;
+//        return 11; // -- removing potential and discipline from viewable stats
+        return 9;
     } else {
         return 1;
     }
@@ -183,18 +184,10 @@
             // def
             [cell.textLabel setText:@"Defensive Ability"];
             [cell.detailTextLabel setText:ratings[@"defensiveAbility"]];
-        } else if (indexPath.row == 8) {
+        } else {
             // talent
             [cell.textLabel setText:@"Talent Progression"];
             [cell.detailTextLabel setText:ratings[@"talentProgression"]];
-        } else if (indexPath.row == 9) {
-            // discipline
-            [cell.textLabel setText:@"Discipline"];
-            [cell.detailTextLabel setText:ratings[@"discipline"]];
-        } else {
-            // potential
-            [cell.textLabel setText:@"Potential"];
-            [cell.detailTextLabel setText:ratings[@"potential"]];
         }
         
         if (indexPath.section == 0 && indexPath.row > 5) {
