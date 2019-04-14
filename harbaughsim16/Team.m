@@ -2280,7 +2280,7 @@
         leagueTeams = [self.league.teamList mutableCopy];
     });
     [leagueTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+        return [HBSharedUtils comparePollScore:obj1 toObj2:obj2];
     }];
 
     NSMutableArray *mapped = [NSMutableArray array];
