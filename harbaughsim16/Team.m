@@ -2279,6 +2279,7 @@
     dispatch_once(&onceToken, ^{
         leagueTeams = [self.league.teamList mutableCopy];
     });
+    
     [leagueTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [HBSharedUtils comparePollScore:obj1 toObj2:obj2];
     }];
@@ -2295,26 +2296,51 @@
     
     NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - ((self.league.isHardMode) ? 5 : 10), 0), (self.league.isHardMode) ? 12 : 22);
     NSLog(@"[Preseason Expectations] %@ should finish between #%lu and #%lu.", self.abbreviation, (unsigned long)expectedPollFinishRange.location, (unsigned long)(expectedPollFinishRange.location + expectedPollFinishRange.length - 1));
-    if (expectedPollFinishRange.location < 16) {
-        return FCTeamExpectationsTitleContender;
-    } else if (expectedPollFinishRange.location < 72) {
-        return FCTeamExpectationsBowlContender;
-    } else if (expectedPollFinishRange.location < 90) {
-        return FCTeamExpectationsMidTable;
+    NSInteger rankAvgLocation = expectedPollFinishRange.location;
+    if (leagueTeams.count > 60) {
+        if (rankAvgLocation < 16) {
+            return FCTeamExpectationsTitleContender;
+        } else if (rankAvgLocation < 72) {
+            return FCTeamExpectationsBowlContender;
+        } else if (rankAvgLocation < 90) {
+            return FCTeamExpectationsMidTable;
+        } else {
+            return FCTeamExpectationsBottomTable;
+        }
     } else {
-        return FCTeamExpectationsBottomTable;
+        if (rankAvgLocation < 10) {
+            return FCTeamExpectationsTitleContender;
+        } else if (rankAvgLocation < 24) {
+            return FCTeamExpectationsBowlContender;
+        } else if (rankAvgLocation < 45) {
+            return FCTeamExpectationsMidTable;
+        } else {
+            return FCTeamExpectationsBottomTable;
+        }
     }
 }
 
 -(NSRange)reverseTeamExpectationsToPollRank:(FCTeamExpectations)expectations {
-    if (expectations == FCTeamExpectationsTitleContender) {
-        return NSMakeRange(0, 15);
-    } else if (expectations == FCTeamExpectationsBowlContender) {
-        return NSMakeRange(16, 56);
-    } else if (expectations == FCTeamExpectationsMidTable) {
-        return NSMakeRange(72, 18);
+    if (self.league.teamList.count > 60) {
+        if (expectations == FCTeamExpectationsTitleContender) {
+            return NSMakeRange(0, 15);
+        } else if (expectations == FCTeamExpectationsBowlContender) {
+            return NSMakeRange(16, 56);
+        } else if (expectations == FCTeamExpectationsMidTable) {
+            return NSMakeRange(72, 18);
+        } else {
+            return NSMakeRange(90, 30);
+        }
     } else {
-        return NSMakeRange(90, 120);
+        if (expectations == FCTeamExpectationsTitleContender) {
+            return NSMakeRange(0, 10);
+        } else if (expectations == FCTeamExpectationsBowlContender) {
+            return NSMakeRange(10, 14);
+        } else if (expectations == FCTeamExpectationsMidTable) {
+            return NSMakeRange(24, 21);
+        } else {
+            return NSMakeRange(45, 15);
+        }
     }
 }
 
