@@ -2468,6 +2468,9 @@
     if ( gotTD ) {
         [self kickXP:offense defense:defense];
         gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
+        if (!pbpEnabled) {
+            [gameEventLog appendString:[NSString stringWithFormat:@" [%@ %d - %@ %d]",awayTeam.abbreviation, awayScore, homeTeam.abbreviation, homeScore]];
+        }
         if (!playingOT) {
             [self kickOff:offense];
         } else {
@@ -2686,6 +2689,9 @@
     if ( gotTD ) {
         [self kickXP:offense defense:defense];
         gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
+        if (!pbpEnabled) {
+            [gameEventLog appendString:[NSString stringWithFormat:@" [%@ %d - %@ %d]",awayTeam.abbreviation, awayScore, homeTeam.abbreviation, homeScore]];
+        }
         if (!playingOT) {
             [self kickOff:offense];
         } else {
@@ -2836,6 +2842,9 @@
     if ( gotTD ) {
         [self kickXP:offense defense:defense];
         gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
+        if (!pbpEnabled) {
+            [gameEventLog appendString:[NSString stringWithFormat:@" [%@ %d - %@ %d]",awayTeam.abbreviation, awayScore, homeTeam.abbreviation, homeScore]];
+        }
         if (!playingOT) {
             [self kickOff:offense];
         } else {
@@ -2990,6 +2999,10 @@
     if ( gotTD ) {
         [self kickXP:offense defense:defense];
         gameTime -= [self calculateSecondsPerPlay:offense.offensiveStrategy];
+        if (!pbpEnabled) {
+            [gameEventLog appendString:[NSString stringWithFormat:@" [%@ %d - %@ %d]",awayTeam.abbreviation, awayScore, homeTeam.abbreviation, homeScore]];
+        }
+        
         if (!playingOT) {
             [self kickOff:offense];
         } else {
@@ -3107,6 +3120,9 @@
         [offense getK:0].statsFGMade++;
         [offense getK:0].statsFGAtt++;
         //[offense getK:0].careerStatsFGAtt++;
+        if (!pbpEnabled) {
+            [gameEventLog appendString:[NSString stringWithFormat:@" [%@ %d - %@ %d]",awayTeam.abbreviation, awayScore, homeTeam.abbreviation, homeScore]];
+        }
         if (!playingOT) {
             [self kickOff:offense];
         } else {
