@@ -1595,8 +1595,8 @@
     BOOL proveIt = false;
     int lastYearPrestigeDelta = [self calculatePrestigeChange];
     
-    BOOL hardModeUserFiring = self.league.isHardMode && ((totalPrestigeDiff < -1 && self.league.isCareerMode && rankTeamPrestige > 15) || (totalPrestigeDiff < -2 && self.league.isCareerMode && rankTeamPrestige > 25));
-    BOOL easyModeUserFiring = !self.league.isHardMode && ((totalPrestigeDiff < -3 && self.league.isCareerMode && rankTeamPrestige > 15) || (totalPrestigeDiff < -5 && self.league.isCareerMode && rankTeamPrestige > 25));
+    BOOL hardModeUserFiring = self.league.isHardMode && ((totalPrestigeDiff < -5 && self.league.isCareerMode && rankTeamPrestige > 15) || (totalPrestigeDiff < -7 && self.league.isCareerMode && rankTeamPrestige > 25));
+    BOOL easyModeUserFiring = !self.league.isHardMode && ((totalPrestigeDiff < -7 && self.league.isCareerMode && rankTeamPrestige > 15) || (totalPrestigeDiff < -10 && self.league.isCareerMode && rankTeamPrestige > 25));
 
     //RETIREMENT
     if (age > retire && !isUserControlled) {
@@ -1679,8 +1679,8 @@
                     }
                 }
                 
-            } else if (totalPrestigeDiff < 0 && lastYearPrestigeDelta > 2) {
-                if ([HBSharedUtils randomValue] < 0.60) {
+            } else if (totalPrestigeDiff < 0 && (lastYearPrestigeDelta > 2 || (rankTeamPrestige < 25 && [confChampion isEqualToString:@"CC"]) || (rankTeamPrestige > 24 && rankTeamPrestige < 72 && ([confChampion containsString:@"C"] || [semifinalWL containsString:@"BW"])))) {
+                if ([HBSharedUtils randomValue] < 0.65) {
                     // net negative prestige under coach, but +2 last year? Prove it deal
                     [self getCurrentHC].contractLength = 2;
                     [self getCurrentHC].contractYear = 0;
@@ -1691,32 +1691,36 @@
                 } else {
                     // net negative prestige under coach, but +2 last year? Fired due to overall poor performance.
                     coachFired = true;
-                     [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ despite his efforts to get the program back on the right track. His teams struggled in his first couple of seasons at the helm, but he seemed to have righted the ship this year. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ despite his efforts to get the program back on the right track. His teams struggled in his first couple of seasons at the helm, but he seemed to have righted the ship this year. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                     teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                     if (!isUserControlled) {
                         [league.coachList addObject:[self getCurrentHC]];
                     }
                 }
-            } else if ((totalPrestigeDiff < -1 && !self.league.isCareerMode && !self.isUserControlled && rankTeamPrestige > 15)
-                       || (totalPrestigeDiff < -2 && !self.league.isCareerMode && !self.isUserControlled && rankTeamPrestige > 25)) {
-                // For CPU teams:
-                // if net -1 prestige and the team is supposed to be a national contender? Fire the coach.
-                // if net -2 prestige and the team is supposed to be conference champs? Fire the coach
-                coachFired = true;
-                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
-                teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
-                if (!isUserControlled) {
-                    [league.coachList addObject:[self getCurrentHC]];
-                }
-                NSLog(@"[Coaching Carousel] %@ COACH Status: Fired", abbreviation);
-            } else if (hardModeUserFiring || easyModeUserFiring) {
+            }
+            
+//            else if ((totalPrestigeDiff < -1 && !self.league.isCareerMode && !self.isUserControlled && rankTeamPrestige > 15)
+//                       || (totalPrestigeDiff < -2 && !self.league.isCareerMode && !self.isUserControlled && rankTeamPrestige > 25)) {
+//                // For CPU teams:
+//                // if net -1 prestige and the team is supposed to be a national contender? Fire the coach.
+//                // if net -2 prestige and the team is supposed to be conference champs? Fire the coach
+//                coachFired = true;
+//                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+//                teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
+//                if (!isUserControlled) {
+//                    [league.coachList addObject:[self getCurrentHC]];
+//                }
+//                NSLog(@"[Coaching Carousel] %@ COACH Status: Fired", abbreviation);
+//            }
+            
+            else if (hardModeUserFiring || easyModeUserFiring) {
                 // For user teams:
                 // if hard mode:
-                // if net -1 prestige and the team is supposed to be a national contender? Fire the coach.
-                // if net -2 prestige and the team is supposed to be conference champs? Fire the coach
+                // if net -5 prestige and the team is supposed to be a national contender? Fire the coach.
+                // if net -7 prestige and the team is supposed to be conference champs? Fire the coach
                 // if easy mode:
-                // if net -3 prestige and the team is supposed to be a national contender? Fire the coach.
-                // if net -5 prestige and the team is supposed to be conference champs? Fire the coach.
+                // if net -7 prestige and the team is supposed to be a national contender? Fire the coach.
+                // if net -10 prestige and the team is supposed to be conference champs? Fire the coach.
                 coachFired = true;
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure that saw the program decline. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                 teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
