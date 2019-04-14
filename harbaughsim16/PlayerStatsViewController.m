@@ -866,50 +866,50 @@
             stat4Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsPassDef];
         }
     } else { //if ([plyr isKindOfClass:[HeadCoach Class]]) {
-        stat2 = @"Age";
-        stat3 = @"OVR";
-        stat4 = @"";
+        stat3 = @"Age";
+        stat4 = @"OVR";
+        stat1 = @"";
         
-        stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).age];
-        stat3Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).ratOvr];
-        stat4Value = @""; //[NSString stringWithFormat:@"%d",((HeadCoach*)plyr).careerCOTYs];
+        stat3Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).age];
+        stat4Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).ratOvr];
+        stat1Value = @""; //[NSString stringWithFormat:@"%d",((HeadCoach*)plyr).careerCOTYs];
         
         if (hcStatType == FCHeadCoachStatTotalWins) {
-            stat1 = @"Wins"; //stat
-            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalWins];
+            stat2 = @"Wins"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalWins];
         } else if (hcStatType == FCHeadCoachStatNatlChamps) {
-            stat1 = @"NCs"; //stat
-            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalNCs];
+            stat2 = @"NCs"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalNCs];
         } else if (hcStatType == FCHeadCoachStatConfChamps) {
-            stat1 = @"CCs"; //stat
-            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalCCs];
+            stat2 = @"CCs"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalCCs];
         } else if (hcStatType == FCHeadCoachStatBowlWins) {
-            stat1 = @"BWins"; //stat
-            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalBowls];
+            stat2 = @"BWins"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalBowls];
         } else if (hcStatType == FCHeadCoachStatRivalryWins) {
-            stat1 = @"RWins"; //stat
-            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalRivalryWins];
+            stat2 = @"RWins"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalRivalryWins];
         } else if (hcStatType == FCHeadCoachStatCOTYs) {
-            stat1 = @"COTYs"; //stat
-            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).careerCOTYs];
+            stat2 = @"COTYs"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).careerCOTYs];
         } else if (hcStatType == FCHeadCoachStatConfCOTYs) {
-            stat1 = @"COTYs"; //stat
-            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).careerConfCOTYs];
+            stat2 = @"COTYs"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).careerConfCOTYs];
         } else if (hcStatType == FCHeadCoachStatPOTYsCoached) {
-            stat1 = @"POTYs"; //stat
-            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalHeismans];
+            stat2 = @"POTYs"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalHeismans];
         } else if (hcStatType == FCHeadCoachStatAllLeaguePlayersCoached) {
-            stat1 = @"ALL"; //stat
-            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalAllAmericans];
+            stat2 = @"ALL"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalAllAmericans];
         } else if (hcStatType == FCHeadCoachStatAllConfPlayersCoached) {
-            stat1 = @"ALL"; //stat
-            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalAllConferences];
+            stat2 = @"ALL"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalAllConferences];
         } else if (hcStatType == FCHeadCoachStatROTYsCoached) {
-            stat1 = @"ROTYs"; //stat
-            stat1Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalROTYs];
+            stat2 = @"ROTYs"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalROTYs];
         } else {
-            stat1 = @""; //stat
-            stat1Value = @"";
+            stat2 = @""; //stat
+            stat2Value = @"";
         }
     }
 
