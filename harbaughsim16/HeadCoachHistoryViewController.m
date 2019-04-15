@@ -331,7 +331,7 @@
         if ([hist containsString:@"Bowl - W"] || [hist containsString:@"Semis,1v4 - W"] || [hist containsString:@"Semis,2v3 - W"] || [hist containsString:@"BW"] || [hist containsString:@"SFW"]) {
             teamColor = [UIColor orangeColor];
         } else {
-            if ([hist containsString:@"CCG - W"] || [hist containsString:@"CC"]) {
+            if ([hist containsString:@"CCG - W"]) {
                 teamColor = [HBSharedUtils successColor];
             } else {
                 teamColor = [UIColor lightGrayColor];
