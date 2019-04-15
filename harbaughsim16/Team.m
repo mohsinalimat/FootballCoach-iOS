@@ -60,8 +60,12 @@
     }
     
     if (![aDecoder containsValueForKey:@"projectedPollScore"]) {
-        NSLog(@"[Team Attributes] Adding Projected Poll Score to %@", self.abbreviation);
-        projectedPollScore = [self projectPollScore];
+        if (teamOLs != nil && teamQBs != nil && teamRBs != nil && teamWRs != nil && teamTEs != nil) {
+            NSLog(@"[Team Attributes] Adding Projected Poll Score to %@", self.abbreviation);
+            projectedPollScore = [self projectPollScore];
+        } else {
+            projectedPollScore = 0;
+        }
     }
 }
 
