@@ -1120,7 +1120,7 @@
             NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
             NSRange firstLine = [attString.string rangeOfString:@"\n"];
             [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
-            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [[attString attributedSubstringFromRange:NSMakeRange(0, firstLine.location)].string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
                 [attString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, firstLine.location)];
             } else {
                 [attString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, firstLine.location)];
@@ -1292,7 +1292,7 @@
             NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
             NSRange firstLine = [attString.string rangeOfString:@"\n"];
             [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
-            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [[attString attributedSubstringFromRange:NSMakeRange(0, firstLine.location)].string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
                 [attString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, firstLine.location)];
             } else {
                 [attString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, firstLine.location)];
@@ -1394,7 +1394,7 @@
             NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:newsStory attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
             NSRange firstLine = [attString.string rangeOfString:@"\n"];
             [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
-            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [[attString attributedSubstringFromRange:NSMakeRange(0, firstLine.location)].string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
                 [attString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, firstLine.location)];
             } else {
                 [attString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, firstLine.location)];
