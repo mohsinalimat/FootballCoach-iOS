@@ -2443,7 +2443,7 @@
     }
 
     int rivalryDelta = [self _calculateRivalryPrestigeDelta];
-    NSLog(@"[Season Summary] RIVALRY SERIES FOR %@: %d - %d", abbreviation, rivalryWins, rivalryLosses);
+//    NSLog(@"[Season Summary] RIVALRY SERIES FOR %@: %d - %d", abbreviation, rivalryWins, rivalryLosses);
     if ((rivalryWins > rivalryLosses) && (teamPrestige - [league findTeam:rivalTeam].teamPrestige < 25) ) {
         [summary appendString:@"\n\nRecruits were impressed that you defeated your rival. You gained 2 prestige."];
     } else if ((rivalryLosses > rivalryWins) && ([league findTeam:rivalTeam].teamPrestige - teamPrestige < 20)) {
