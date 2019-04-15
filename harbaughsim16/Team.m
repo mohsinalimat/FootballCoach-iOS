@@ -1763,7 +1763,11 @@
     
     currentPrestige = MIN(95, currentPrestige);
     
-    return [NSString stringWithFormat:@"%@ Your prestige started at %d and is now %d.", coachContractString,[self getCurrentHC].baselinePrestige,currentPrestige];
+    if (coachContractString != nil) {
+        return [NSString stringWithFormat:@"%@ Your prestige started at %d and is now %d.", coachContractString,[self getCurrentHC].baselinePrestige,currentPrestige];
+    } else {
+        return [NSString stringWithFormat:@"Your prestige started at %d and is now %d.",[self getCurrentHC].baselinePrestige,currentPrestige];
+    }
 }
 
 -(void)updateCoachHistory {
