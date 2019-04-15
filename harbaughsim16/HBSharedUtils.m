@@ -922,7 +922,7 @@ static UIColor *styleColor = nil;
         dispatch_async(dispatch_get_main_queue(), ^{
             hud = [MBProgressHUD showHUDAddedTo:viewController.navigationController.view animated:YES];
             [hud setMode:MBProgressHUDModeIndeterminate];
-            [hud.label setText:@"Simulating games..."];
+            [hud.label setText:@"Simulating season..."];
         });
     }
     if (simLeague.recruitingStage == 0) {
@@ -930,11 +930,17 @@ static UIColor *styleColor = nil;
         if (simLeague.currentWeek == 15) {
             simLeague.recruitingStage = 1;
             [HBSharedUtils currentLeague].canRebrandTeam = YES;
-            [[HBSharedUtils currentLeague] save];
-
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
-            [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
+            [[HBSharedUtils currentLeague] save:^(BOOL success, NSError *err) {
+                if (err) {
+                    NSLog(@"[Sim Season] ERROR: %@", err);
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%lu Season Summary", (long)([[HBSharedUtils currentLeague] getCurrentYear])] message:[simLeague seasonSummaryStr] preferredStyle:UIAlertControllerStyleAlert];
+                    [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
+                    [viewController.tabBarController presentViewController:alertController animated:YES completion:nil];
+                });
+            }];
         } else {
             float simTime = 0.5;
             if (IS_IPHONE_5 || IS_IPHONE_4_OR_LESS) {
@@ -977,23 +983,29 @@ static UIColor *styleColor = nil;
                     [[self class] simulateEntireSeason:(weekTotal - 1) viewController:viewController headerView:teamHeaderView callback:callback];
                 } else {
                     NSLog(@"[Sim Season] NO WEEKS LEFT");
-                    if (simLeague.currentWeek > 14) {
-                       [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
-                    } else {
-                        [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
-                        [((HBTeamPlayView*)teamHeaderView).playButton setEnabled:YES];
-                    }
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"injuriesPosted" object:nil];
-                    [[HBSharedUtils currentLeague] save];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [hud hideAnimated:YES];
-                        if (simLeague.userTeam.injuredPlayers.count > 0) {
-                            [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)simLeague.userTeam.injuredPlayers.count];
-                        } else {
-                            [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
+                    [[HBSharedUtils currentLeague] save:^(BOOL success, NSError *err) {
+                        if (err) {
+                            NSLog(@"[Sim Season] ERROR: %@", err);
                         }
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateInjuryCount" object:nil];
-                    });
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            if (simLeague.currentWeek > 14) {
+                                [viewController.navigationItem.leftBarButtonItem setEnabled:NO];
+                            } else {
+                                [viewController.navigationItem.leftBarButtonItem setEnabled:YES];
+                                [((HBTeamPlayView*)teamHeaderView).playButton setEnabled:YES];
+                            }
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"injuriesPosted" object:nil];
+                            
+                            if (simLeague.userTeam.injuredPlayers.count > 0) {
+                                [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = [NSString stringWithFormat:@"%lu", (long)simLeague.userTeam.injuredPlayers.count];
+                            } else {
+                                [viewController.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
+                            }
+                            [hud hideAnimated:YES];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateInjuryCount" object:nil];
+                        });
+                    }];
+                    
                 }
             });
         }
