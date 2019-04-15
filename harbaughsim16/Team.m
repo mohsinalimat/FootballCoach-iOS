@@ -2059,6 +2059,9 @@
 
 -(int)getCompositeOLPass {
     int compositeOL = 0;
+    if (teamOLs == nil || teamOLs.count == 0) {
+        return 0;
+    }
     if (teamOLs.count >= 5) {
         for ( int i = 0; i < 5; ++i ) {
             compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkP)/2;
@@ -2084,6 +2087,9 @@
 
 -(int)getCompositeOLRush {
     int compositeOL = 0;
+    if (teamOLs == nil || teamOLs.count == 0) {
+        return 0;
+    }
     if (teamOLs.count >= 5) {
         for ( int i = 0; i < 5; ++i ) {
             compositeOL += (teamOLs[i].ratOLPow + teamOLs[i].ratOLBkR)/2;
