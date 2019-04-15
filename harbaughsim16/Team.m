@@ -2346,7 +2346,7 @@
         expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - 5, 0), 6);
     } else {
         expectedPollFinishRange = [self reverseTeamExpectationsToPollRank:[self calculateTeamExpectations]];
-        expectedPollFinish = (int)expectedPollFinishRange.location;
+        expectedPollFinish = (self.league.isHardMode) ? (int)(expectedPollFinishRange.location) : (int)((expectedPollFinishRange.location + expectedPollFinishRange.length - 1) / 2);
     }
     if (NSLocationInRange(rankTeamPollScore, expectedPollFinishRange)) {
         delta = 0; // they finished around where they should have, cut them some slack
