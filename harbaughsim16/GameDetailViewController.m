@@ -528,7 +528,7 @@
         if (section == 0) {
             return 3;
         } else if (section == 1) {
-            return 4;
+            return 5;
         } else if (section == 2) {
             return 2;
         } else if (section == 3) {
@@ -1104,8 +1104,10 @@
                 title = @"Total Yards";
             } else if (indexPath.row == 2) {
                 title = @"Pass Yards";
-            } else {
+            } else if (indexPath.row == 3)  {
                 title = @"Rush Yards";
+            } else {
+                title = @"Turnovers Lost";
             }
             stat = gameStats[title];
 

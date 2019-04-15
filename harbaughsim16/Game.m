@@ -524,6 +524,8 @@
                                [NSString stringWithFormat:@"%d",[self getPassYards:FALSE]]] forKey:@"Pass Yards"];
         [gameStats setObject:@[[NSString stringWithFormat:@"%d",[self getRushYards:TRUE]],
                                [NSString stringWithFormat:@"%d",[self getRushYards:FALSE]]] forKey:@"Rush Yards"];
+        [gameStats setObject:@[[NSString stringWithFormat:@"%d",self.awayTOs],
+                               [NSString stringWithFormat:@"%d",self.homeTOs]] forKey:@"Turnovers Lost"]; // gotta flip the numbers cause the numbers count how many turnovers the team recovered, not how many they gave up
         
         [report setObject:gameStats forKey:@"gameStats"];
         
