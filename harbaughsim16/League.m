@@ -1259,6 +1259,10 @@
         for (int i = 0; i < conferences.count; ++i ) {
             [conferences[i] insertOOCSchedule];
         }
+        
+        for (Team *t in teamList) {
+            t.projectedPollScore = [t projectPollScore];
+        }
     }
     return self;
 }

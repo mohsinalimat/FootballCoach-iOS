@@ -35,7 +35,7 @@
 #define PROMOTION_NUM 0
 
 @implementation Team
-@synthesize league, name, abbreviation,conference,rivalTeam,isUserControlled,wonRivalryGame,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamLBs, teamDLs,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers,teamHistoryDictionary, teamHistory,teamTEs,teamF7s, state,recruitingClass,coaches,playersTransferring,transferClass,recruitingPoints,usedRecruitingPoints, totalCOTYs,coachFired,coachRetired,coachContractString,coachGotNewContract,singleSeasonSacksRecord,singleSeasonTacklesRecord,singleSeasonPassDefRecord,singleSeasonForcedFumRecord,singleSeasonDefInterceptionsRecord,careerSacksRecord,careerTacklesRecord,careerPassDefRecord,careerForcedFumRecord,careerDefInterceptionsRecord;
+@synthesize league, name, abbreviation,conference,rivalTeam,isUserControlled,wonRivalryGame,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamLBs, teamDLs,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers,teamHistoryDictionary, teamHistory,teamTEs,teamF7s, state,recruitingClass,coaches,playersTransferring,transferClass,recruitingPoints,usedRecruitingPoints, totalCOTYs,coachFired,coachRetired,coachContractString,coachGotNewContract,singleSeasonSacksRecord,singleSeasonTacklesRecord,singleSeasonPassDefRecord,singleSeasonForcedFumRecord,singleSeasonDefInterceptionsRecord,careerSacksRecord,careerTacklesRecord,careerPassDefRecord,careerForcedFumRecord,careerDefInterceptionsRecord,projectedPollScore;
 
 -(void)setWithCoder:(NSCoder *)aDecoder {
     [super setWithCoder:aDecoder];
@@ -57,6 +57,11 @@
 
     if (playersTransferring == nil) {
         playersTransferring = [NSMutableArray array];
+    }
+    
+    if (![aDecoder containsValueForKey:@"projectedPollScore"]) {
+        NSLog(@"[Team Attributes] Adding Projected Poll Score to %@", self.abbreviation);
+        projectedPollScore = [self projectPollScore];
     }
 }
 
@@ -406,22 +411,6 @@
     teamPollScore = teamPrestige + [self getOffensiveTalent] + [self getDefensiveTalent];
 }
 
-//-(void)advanceHC {
-//    coachGotNewContract = NO;
-//    coachFired = NO;
-//    coachRetired = NO;
-//    int avgOff = [league getAvgYards];
-//    int totalPrestigeDiff = teamPrestige - [self getCurrentHC].baselinePrestige;
-//    [[self getCurrentHC] advanceSeason:avgOff offTalent:teamOffTalent defTalent:teamDefTalent];
-//
-//    [self calculateCoachingContracts:totalPrestigeDiff newPrestige:teamPrestige];
-//
-//    if (coaches.count != 0) {
-//        if (isUserControlled && league.isCareerMode && teamPrestige >= [self getCurrentHC].baselinePrestige && totalPrestigeDiff > PROMOTION_NUM) {
-//            [self getCurrentHC].promotionCandidate = YES;
-//        }
-//    }
-//}
 
 -(void)advanceSeason {
     if (![self isEqual:league.blessedTeam] && ![self isEqual:league.cursedTeam]) {
@@ -512,6 +501,8 @@
     if ([self getCurrentHC].wonConfHC) {
         [self getCurrentHC].wonConfHC = NO;
     }
+    
+    self.projectedPollScore = [self projectPollScore];
 }
 
 -(void)advanceSeasonPlayers {
@@ -2281,10 +2272,9 @@
     });
     
     [leagueTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-//        Team *a = (Team *)obj1;
-//        Team *b = (Team *)obj2;
-//        return [a projectPollScore] > [b projectPollScore] ? -1 : [a projectPollScore] == [b projectPollScore] ? 0 : 1;
-        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+        Team *a = (Team *)obj1;
+        Team *b = (Team *)obj2;
+        return a.projectedPollScore > b.projectedPollScore ? -1 : a.projectedPollScore == b.projectedPollScore ? [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2] : 1;
     }];
 
     NSMutableArray *mapped = [NSMutableArray array];
@@ -2297,25 +2287,22 @@
     
     NSInteger expectedPollFinish = [mapped indexOfObject:self.abbreviation];
     
-    NSRange expectedPollFinishRange = NSMakeRange(MAX(expectedPollFinish - ((self.league.isHardMode) ? 5 : 10), 0), (self.league.isHardMode) ? 12 : 22);
-    NSLog(@"[Preseason Expectations] %@ should finish between #%lu and #%lu.", self.abbreviation, (unsigned long)expectedPollFinishRange.location, (unsigned long)(expectedPollFinishRange.location + expectedPollFinishRange.length - 1));
-    NSInteger rankAvgLocation = expectedPollFinishRange.location;
     if (leagueTeams.count > 60) {
-        if (rankAvgLocation < 16) {
+        if (expectedPollFinish < 16) {
             return FCTeamExpectationsTitleContender;
-        } else if (rankAvgLocation < 72) {
+        } else if (expectedPollFinish < 72) {
             return FCTeamExpectationsBowlContender;
-        } else if (rankAvgLocation < 90) {
+        } else if (expectedPollFinish < 90) {
             return FCTeamExpectationsMidTable;
         } else {
             return FCTeamExpectationsBottomTable;
         }
     } else {
-        if (rankAvgLocation < 10) {
+        if (expectedPollFinish < 10) {
             return FCTeamExpectationsTitleContender;
-        } else if (rankAvgLocation < 24) {
+        } else if (expectedPollFinish < 24) {
             return FCTeamExpectationsBowlContender;
-        } else if (rankAvgLocation < 45) {
+        } else if (expectedPollFinish < 45) {
             return FCTeamExpectationsMidTable;
         } else {
             return FCTeamExpectationsBottomTable;
@@ -3747,17 +3734,11 @@
 
 -(int)_getPreseasonBiasScore {
     int score = 0;
-    if (self.league.currentWeek > 0) {
-        score += self.league.teamList.count - rankTeamOffTalent;
-        score += self.league.teamList.count - rankTeamDefTalent;
-        score += (int)ceil((1.5 * (self.league.teamList.count - rankTeamPrestige)));
-        score += (([self.league findConference:self.conference] != nil) ? ([self.league findConference:self.conference].confPrestige / 2) : 0);
-    } else {
-        score += [self getOffensiveTalent];
-        score += [self getDefensiveTalent];
-        score += (3 * self.teamPrestige);
-        score += (([self.league findConference:self.conference] != nil) ? ([self.league findConference:self.conference].confPrestige / 2) : 0);
-    }
+    score += [self getOffensiveTalent];
+    score += [self getDefensiveTalent];
+    score += (3 * self.teamPrestige);
+    score += (([self.league findConference:self.conference] != nil) ? ([self.league findConference:self.conference].confPrestige / 2) : 0);
+    score /= 6;
     return score;
 }
 

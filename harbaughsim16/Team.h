@@ -240,6 +240,7 @@ typedef enum {
 @property (nonatomic) BOOL coachRetired;
 @property (strong, nonatomic) NSString *coachContractString;
 
+@property (nonatomic) int projectedPollScore;
 
 -(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr state:(NSString*)stt;
 +(instancetype)newTeamWithName:(NSString *)nm abbreviation:(NSString *)abbr conference:(NSString *)conf league:(League *)league prestige:(int)prestige rivalTeam:(NSString *)rivalTeamAbbr state:(NSString*)stt;
