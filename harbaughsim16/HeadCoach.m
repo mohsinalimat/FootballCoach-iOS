@@ -447,6 +447,10 @@
     return [NSString stringWithFormat:@"%@ HC %@ [Age: %d, Ovr: %d]",self.team.abbreviation, self.name, self.age,self.ratOvr];
 }
 
+-(NSString *)description {
+    return [self debugDescription];
+}
+
 -(NSString *)playerAwardReportString {
     NSMutableString *awards = [NSMutableString string];
     int parts = 0;
