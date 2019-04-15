@@ -1653,7 +1653,7 @@
                 }
             } else if (totalPrestigeDiff < 6 && totalPrestigeDiff > 0) {
                 // in hard: do nothing, you haven't _really_ earned an extension - also it's hard mode, bro
-                // in easy: if you're on the last year of your contract, you get a prove it deal based on rank and outcome
+                // in easy: if you're on the last year of your contract, you get a prove-it deal based on rank and outcome
                 //      if supposed national or conf contender (ranks 0 to 25ish) and won a conf title
                 //      if supposed conf contender or middling team (ranks 26ish to 72ish and won a bowl or appeared in conf title game
                 if (!self.league.isHardMode
