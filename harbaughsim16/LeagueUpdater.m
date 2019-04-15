@@ -568,6 +568,8 @@
                 t.singleSeasonPassDefRecord = nil;
                 t.singleSeasonForcedFumRecord = nil;
                 t.singleSeasonDefInterceptionsRecord = nil;
+                
+                t.projectedPollScore = [t projectPollScore];
             }
             
             // if NCG, bowls, semis are not null, add TEStats and TE and 4 more QB stats
