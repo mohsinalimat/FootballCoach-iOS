@@ -36,12 +36,6 @@
 #import "ZGNavigationBarTitleViewController.h"
 #import "ZMJTipView.h"
 
-#ifdef DEBUG
-#   define NSLog(...) NSLog(__VA_ARGS__)
-#else
-#   define NSLog(...) (void)0
-#endif
-
 #define FCTutorialRecruitSelect 1000
 #define FCTutorialAdvanceWeek 1001
 #define FCTutorialViewCurrentRoster 1002

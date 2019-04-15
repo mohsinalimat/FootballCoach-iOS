@@ -65,6 +65,12 @@
 #define EXTEND_OFFER_COST 75
 #define FLIP_COST 150
 
+#ifdef DEBUG
+#   define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#   define NSLog(...) (void)0
+#endif
+
 typedef enum {
     CFCRegionDistanceMatch,
     CFCRegionDistanceNeighbor,
