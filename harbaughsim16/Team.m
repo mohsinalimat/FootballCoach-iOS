@@ -2281,7 +2281,10 @@
     });
     
     [leagueTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils comparePollScore:obj1 toObj2:obj2];
+//        Team *a = (Team *)obj1;
+//        Team *b = (Team *)obj2;
+//        return [a projectPollScore] > [b projectPollScore] ? -1 : [a projectPollScore] == [b projectPollScore] ? 0 : 1;
+        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
     }];
 
     NSMutableArray *mapped = [NSMutableArray array];
