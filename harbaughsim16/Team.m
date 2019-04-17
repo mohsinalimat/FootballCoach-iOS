@@ -1655,7 +1655,7 @@
                     coachGotNewContract = true;
                     [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 3 additional years after their recent success.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
                 }
-            } else if (totalPrestigeDiff < 6 && totalPrestigeDiff > 0) {
+            } else if (totalPrestigeDiff < 6 && totalPrestigeDiff > -2) {
                 // in hard: do nothing, you haven't _really_ earned an extension - also it's hard mode, bro
                 // in easy: if you're on the last year of your contract, you get a prove-it deal based on rank and outcome
                 //      if supposed national or conf contender (ranks 0 to 25ish) and won a conf title
@@ -1668,13 +1668,13 @@
                         [self getCurrentHC].contractLength = 2;
                         [self getCurrentHC].contractYear = 0;
                         [self getCurrentHC].baselinePrestige = [self getCurrentHC].baselinePrestige;
-                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite an overall average tenure. However, he has posted a career record of %d-%d, and the %@ AD noted this year's postseason appearance has earned his coach a vote of confidence.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite an average tenure. However, he has posted a career record of %d-%d, and the %@ AD noted this year's postseason appearance has earned his coach a vote of confidence.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                         coachGotNewContract = true;
                         proveIt = true;
                     }
                 }
                 
-            } else if (totalPrestigeDiff < 0
+            } else if (totalPrestigeDiff <= -2
                        && (lastYearPrestigeDelta > 2
                         || (rankTeamPrestige < 25 && [confChampion isEqualToString:@"CC"])
                         || (rankTeamPrestige > 24 && rankTeamPrestige < 72 && ([confChampion containsString:@"C"] || [semifinalWL containsString:@"BW"])))) {
@@ -1683,7 +1683,7 @@
                     [self getCurrentHC].contractLength = 2;
                     [self getCurrentHC].contractYear = 0;
                     [self getCurrentHC].baselinePrestige = [self getCurrentHC].baselinePrestige;
-                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite an overall disappointing tenure. However, he has posted a career record of %d-%d, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite a disappointing tenure. However, he has posted a career record of %d-%d, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                     coachGotNewContract = true;
                     proveIt = true;
                 } else {
