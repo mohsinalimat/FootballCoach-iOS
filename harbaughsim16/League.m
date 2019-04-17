@@ -976,6 +976,18 @@
                     return YES;
                 }
             }
+            
+            if (t.coaches.count > 0) {
+                for (HeadCoach *hc in t.coaches) {
+                    if (hc != nil) {
+                        if (self.currentWeek != 15 && hc.coachingHistoryDictionary.count != self.leagueHistoryDictionary.count) {
+                            return YES;
+                        }
+                    } else {
+                        return YES;
+                    }
+                }
+            }
         }
     }
 
