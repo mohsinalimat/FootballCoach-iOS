@@ -4070,33 +4070,35 @@
         NSInteger k = 0;
         NSInteger starCount = coachStarList.count;
         while (starCount > 0 && k < starCount) {
-            HeadCoach *coach = coachStarList[k];
-            NSString *tmName = coach.team.name;
-            int tmPrestige = coach.team.teamPrestige;
-            Team *oldTeam = coach.team;
-            int confPrestige = [self findConference:coach.team.conference].confPrestige;
-            for (Team *t in teamList) {
-                if (t.coaches.count == 0 && coach.ratOvr >= [t getMinCoachHireReq] && ![t.name isEqualToString:tmName]) {
-                    if ((t.teamPrestige > tmPrestige && [self findConference:t.conference].confPrestige > confPrestige) || t.teamPrestige > (tmPrestige + 5) || [self findConference:t.conference].confPrestige + 10 > confPrestige) {
-                        [oldTeam.coaches removeObject:coach];
-                        coach.contractYear = 0;
-//                        coach.team = t;
-//                        coach.contractYear = 0;
-//                        coach.contractLength = 6;
-//                        coach.baselinePrestige = t.teamPrestige;
-//                        coach.cumulativePrestige = 0;
-//                        [t.coaches addObject:coach];
-                        [t addCoach:coach];
-                        [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Rising Star Hired at %@!\nAfter an offseason full of rumors, %@ head coach %@ has decided to take the job at %@. His success at %@ had him on many top programs' radars.",coach.team.abbreviation,oldTeam.abbreviation,coach.name,coach.team.name,oldTeam.name]];
-                        if ([HBSharedUtils randomValue] < 0.20) {
-                            [oldTeam promoteCoach];
-                            [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Promotion at %@!\n%@ hopes to continue their recent success despite the loss of head coach %@ to %@, promoting %@ %@ to be its next head coach.", oldTeam.abbreviation, oldTeam.name, coach.name,coach.team.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC", [oldTeam getCurrentHC].name]];
-
+            if (k < coachStarList.count) {
+                HeadCoach *coach = coachStarList[k];
+                NSString *tmName = coach.team.name;
+                int tmPrestige = coach.team.teamPrestige;
+                Team *oldTeam = coach.team;
+                int confPrestige = [self findConference:coach.team.conference].confPrestige;
+                for (Team *t in teamList) {
+                    if (t.coaches.count == 0 && coach.ratOvr >= [t getMinCoachHireReq] && ![t.name isEqualToString:tmName]) {
+                        if ((t.teamPrestige > tmPrestige && [self findConference:t.conference].confPrestige > confPrestige) || t.teamPrestige > (tmPrestige + 5) || [self findConference:t.conference].confPrestige + 10 > confPrestige) {
+                            [oldTeam.coaches removeObject:coach];
+                            coach.contractYear = 0;
+                            //                        coach.team = t;
+                            //                        coach.contractYear = 0;
+                            //                        coach.contractLength = 6;
+                            //                        coach.baselinePrestige = t.teamPrestige;
+                            //                        coach.cumulativePrestige = 0;
+                            //                        [t.coaches addObject:coach];
+                            [t addCoach:coach];
+                            [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Rising Star Hired at %@!\nAfter an offseason full of rumors, %@ head coach %@ has decided to take the job at %@. His success at %@ had him on many top programs' radars.",coach.team.abbreviation,oldTeam.abbreviation,coach.name,coach.team.name,oldTeam.name]];
+                            if ([HBSharedUtils randomValue] < 0.20) {
+                                [oldTeam promoteCoach];
+                                [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Promotion at %@!\n%@ hopes to continue their recent success despite the loss of head coach %@ to %@, promoting %@ %@ to be its next head coach.", oldTeam.abbreviation, oldTeam.name, coach.name,coach.team.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC", [oldTeam getCurrentHC].name]];
+                                
+                            }
+                            [coachStarList removeObject:coach];
+                            starCount--;
+                            NSLog(@"[Coaching Carousel] Star coach for %@ %@ hired by %@", oldTeam.abbreviation, [coach debugDescription], t.abbreviation);
+                            break;
                         }
-                        [coachStarList removeObject:coach];
-                        starCount--;
-                        NSLog(@"[Coaching Carousel] Star coach for %@ %@ hired by %@", oldTeam.abbreviation, [coach debugDescription], t.abbreviation);
-                        break;
                     }
                 }
             }
