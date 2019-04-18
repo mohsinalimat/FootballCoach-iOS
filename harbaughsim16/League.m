@@ -4011,7 +4011,7 @@
         return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
     }];
     for (Team *t in teamList) {
-        [t updateCoachHistory];
+        [[t getCurrentHC] updateCoachHistory];
         t.coachGotNewContract = NO;
         t.coachFired = NO;
         t.coachRetired = NO;

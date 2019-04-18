@@ -82,6 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *)coachAwardReportString;
 -(NSString *)playerAwardReportString;
 -(NSString *)teamsCoachedString;
+-(void)updateCoachHistory;
 
 @end
 

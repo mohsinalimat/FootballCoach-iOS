@@ -556,4 +556,55 @@
     return (awards.length > 0) ? awards : @"None";
 }
 
+-(void)updateCoachHistory {
+    NSMutableString *hist = [NSMutableString string];
+    
+    if (self.team.rankTeamPollScore > 0 && self.team.rankTeamPollScore < 26) {
+        [hist appendFormat:@"#%ld %@ (%ld-%ld)\nPrestige: %ld",(long)self.team.rankTeamPollScore, self.team.abbreviation, (long)self.team.wins, (long)self.team.losses, (long)self.team.teamPrestige];
+    } else {
+        [hist appendFormat:@"%@ (%ld-%ld)\nPrestige: %ld",self.team.abbreviation, (long)self.team.wins, (long)self.team.losses, (long)self.team.teamPrestige];
+    }
+    
+    [hist appendFormat:@"\nCoach Score: %d", [self getCoachScore]];
+    
+    if (![self.team.confChampion isEqualToString:@""] && self.team.confChampion.length > 0) {
+        Game *ccg = [self.team.league findConference:self.team.conference].ccg;
+        if (self.team.gameWLSchedule.count >= 13) {
+            if ([self.team.confChampion isEqualToString:@"CC"]) {
+                [hist appendFormat:@"\n%@ - W %@",ccg.gameName,[self.team gameSummaryString:ccg]];
+            } else {
+                [hist appendFormat:@"\n%@ - L %@",ccg.gameName,[self.team gameSummaryString:ccg]];
+            }
+        }
+    }
+    
+    if (self.team.gameSchedule.count > 12 && self.team.gameWLSchedule.count > 12) {
+        if (![self.team.semifinalWL isEqualToString:@""] && self.team.semifinalWL.length > 0) {
+            if ([self.team.semifinalWL isEqualToString:@"BW"] || [self.team.semifinalWL isEqualToString:@"BL"] || [self.team.semifinalWL containsString:@"SF"]) {
+                if (self.team.gameSchedule.count > 12 && self.team.gameWLSchedule.count > 12) {
+                    Game *bowl = self.team.gameSchedule[12];
+                    if (bowl && ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"])) {
+                        [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,self.team.gameWLSchedule[12],[self.team gameSummaryString:bowl]];
+                    }
+                }
+                
+                if (self.team.gameSchedule.count > 13 && self.team.gameWLSchedule.count > 13) {
+                    Game *bowl = self.team.gameSchedule[13];
+                    if (bowl && ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"])) {
+                        [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,self.team.gameWLSchedule[13],[self.team gameSummaryString:bowl]];
+                    }
+                }
+            }
+        }
+        
+        if (![self.team.natlChampWL isEqualToString:@""] && self.team.natlChampWL.length > 0) {
+            Game *ncg = self.team.league.ncg;
+            [hist appendFormat:@"\n%@ - %@ %@",ncg.gameName,self.team.gameWLSchedule[self.team.gameWLSchedule.count - 1],[self.team gameSummaryString:ncg]];
+        }
+    }
+    
+    [self.coachingHistoryDictionary setObject:hist forKey:[NSString stringWithFormat:@"%ld",(long)([self.team.league getCurrentYear])]];
+    [self.prestigeHistoryDictionary setObject:@{@"team" : self.team.abbreviation, @"prestige" : @(self.team.teamPrestige), @"coachScore" : @([self getCoachScore])} forKey:[NSString stringWithFormat:@"%ld",(long)([self.team.league getCurrentYear])]];
+}
+
 @end

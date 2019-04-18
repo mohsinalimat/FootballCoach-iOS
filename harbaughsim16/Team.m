@@ -1780,58 +1780,6 @@
     }
 }
 
--(void)updateCoachHistory {
-    NSMutableString *hist = [NSMutableString string];
-
-    if (rankTeamPollScore > 0 && rankTeamPollScore < 26) {
-        [hist appendFormat:@"#%ld %@ (%ld-%ld)\nPrestige: %ld",(long)rankTeamPollScore, abbreviation, (long)wins, (long)losses, (long)teamPrestige];
-    } else {
-        [hist appendFormat:@"%@ (%ld-%ld)\nPrestige: %ld",abbreviation, (long)wins, (long)losses, (long)teamPrestige];
-    }
-
-    [hist appendFormat:@"\nCoach Score: %d", [[self getCurrentHC] getCoachScore]];
-
-    if (![confChampion isEqualToString:@""] && confChampion.length > 0) {
-        Game *ccg = [league findConference:conference].ccg;
-        if (gameWLSchedule.count >= 13) {
-            if ([confChampion isEqualToString:@"CC"]) {
-                [hist appendFormat:@"\n%@ - W %@",ccg.gameName,[self gameSummaryString:ccg]];
-            } else {
-                [hist appendFormat:@"\n%@ - L %@",ccg.gameName,[self gameSummaryString:ccg]];
-            }
-        }
-    }
-
-    if (gameSchedule.count > 12 && gameWLSchedule.count > 12) {
-        if (![semifinalWL isEqualToString:@""] && semifinalWL.length > 0) {
-            if ([semifinalWL isEqualToString:@"BW"] || [semifinalWL isEqualToString:@"BL"] || [semifinalWL containsString:@"SF"]) {
-                if (gameSchedule.count > 12 && gameWLSchedule.count > 12) {
-                    Game *bowl = gameSchedule[12];
-                    if (bowl && ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"])) {
-                        [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[12],[self gameSummaryString:bowl]];
-                    }
-                }
-
-                if (gameSchedule.count > 13 && gameWLSchedule.count > 13) {
-                    Game *bowl = gameSchedule[13];
-                    if (bowl && ([bowl.gameName containsString:@"Bowl"] || [bowl.gameName containsString:@"Semis"])) {
-                        [hist appendFormat:@"\n%@ - %@ %@",bowl.gameName,gameWLSchedule[13],[self gameSummaryString:bowl]];
-                    }
-                }
-            }
-        }
-
-        if (![natlChampWL isEqualToString:@""] && natlChampWL.length > 0) {
-            Game *ncg = league.ncg;
-            [hist appendFormat:@"\n%@ - %@ %@",ncg.gameName,gameWLSchedule[gameWLSchedule.count - 1],[self gameSummaryString:ncg]];
-        }
-    }
-    if (coaches.count != 0) {
-        [[self getCurrentHC].coachingHistoryDictionary setObject:hist forKey:[NSString stringWithFormat:@"%ld",(long)([league getCurrentYear])]];
-        [[self getCurrentHC].prestigeHistoryDictionary setObject:@{@"team" : self.abbreviation, @"prestige" : @(self.teamPrestige), @"coachScore" : @([[self getCurrentHC] getCoachScore])} forKey:[NSString stringWithFormat:@"%ld",(long)([league getCurrentYear])]];
-    }
-}
-
 -(void)updateStrengthOfWins {
     int strWins = 0;
     for ( int i = 0; i < gameSchedule.count; ++i ) {

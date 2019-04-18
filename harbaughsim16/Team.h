@@ -330,7 +330,7 @@ typedef enum {
 -(void)calculateRecruitingClassRanking;
 -(NSMutableArray<Player*>*)getAllPlayers;
 -(void)checkCoachingContracts:(int)totalPrestigeDiff newPrestige:(int)newPrestige;
--(void)updateCoachHistory;
+//-(void)updateCoachHistory;
 -(void)setupUserCoach:(NSString *)name;
 -(void)createNewCustomHeadCoach:(NSString *)name stars:(int)stars;
 -(void)promoteCoach;
