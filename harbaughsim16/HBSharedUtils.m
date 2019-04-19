@@ -580,7 +580,7 @@ static UIColor *styleColor = nil;
                 });
             }]];
         }
-    } else if (([[self class] currentLeague].isCareerMode && ([[[self class] currentLeague].userTeam getCurrentHC].age > 89))) {
+    } else if (([[self class] currentLeague].isCareerMode && ([[[self class] currentLeague].userTeam getCurrentHC].age > 94))) {
         alertController.message = [NSString stringWithFormat:@"%@\nDue to your age, you have had to retire from coaching this offseason.",alertController.message];
         [[self class] addRetirementOptionsUsingAlertController:alertController sourceViewController:viewController];
     } else {
