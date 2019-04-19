@@ -921,7 +921,7 @@
         [statsCell.teamLabel setText:plyr.team.abbreviation];
     }
 
-    if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+    if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
         if ([HBSharedUtils currentLeague].currentWeek > 14 && heisman != nil && roty != nil && coty != nil) {
