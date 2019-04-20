@@ -26,6 +26,7 @@
 #import "CFCTeamHistoryView.h"
 #import "TeamViewController.h"
 #import "HeadCoachHistoryViewController.h"
+#import "PlayerStatsViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -154,7 +155,7 @@
     } else if (section == 2) {
         return 5;
     } else {
-        return 4;
+        return 5;
     }
 }
 
@@ -248,8 +249,10 @@
         if (indexPath.row == 0) {
             title = @"Coaching History";
         } else if (indexPath.row == 1) {
+            title = @"Coaching Leaders";
+        }  else if (indexPath.row == 2) {
             title = @"League History";
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             title = @"Hall of Fame";
         } else {
             title = @"League Records";
@@ -290,8 +293,11 @@
             [self.navigationController pushViewController:[[HeadCoachHistoryViewController alloc] initWithCoach:currentCoach] animated:YES];
         } else if (indexPath.row == 1) {
             //league
+            [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionHC] animated:YES];
+        } else if (indexPath.row == 2) {
+            //league
             [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];
-        } else if (indexPath.row == 2) { //hallOfFame
+        } else if (indexPath.row == 3) { //hallOfFame
             [self.navigationController pushViewController:[[HallOfFameViewController alloc] init] animated:YES];
         } else {
             //league records

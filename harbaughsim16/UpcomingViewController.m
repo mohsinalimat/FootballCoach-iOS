@@ -301,10 +301,6 @@
 -(void)viewResultsOptions {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"News Options" message:@"What would you like to view?" preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Coaching Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionHC] animated:YES];
-    }]];
-    
     if ([HBSharedUtils currentLeague].currentWeek < 1 && [HBSharedUtils currentLeague].baseYear != [[HBSharedUtils currentLeague] getCurrentYear] && ![LeagueUpdater needsUpdateFromVersion:[HBSharedUtils currentLeague].leagueVersion toVersion:@"2.0"]) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Recruiting Composite Rankings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRecruitingScore] animated:YES];
