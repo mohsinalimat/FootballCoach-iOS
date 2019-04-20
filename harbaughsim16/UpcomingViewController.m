@@ -115,6 +115,10 @@
         ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to simulate the next week of the season." preferences:nil delegate:self];
         editTip.tag = FCTutorialSimWeek;
         [editTip showAnimated:YES forView:teamHeaderView.playButton withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialSimWeek) {
+        [teamHeaderView.playButton setEnabled:YES];
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+        [self.navigationItem.leftBarButtonItem setEnabled:YES];
     }
 }
 
@@ -708,6 +712,9 @@
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_UPCOMING_TUTORIAL_SHOWN_KEY];
             [[NSUserDefaults standardUserDefaults] synchronize];
             NSString *tipText = @"Tap here to simulate up to various points in the season.";
+            [self->teamHeaderView.playButton setEnabled:NO];
+            [self.navigationItem.rightBarButtonItem setEnabled:NO];
+            [self.navigationItem.leftBarButtonItem setEnabled:NO];
             ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
             editTip.tag = FCTutorialSimulateSeason;
             [editTip showAnimated:YES forItem:self.navigationItem.leftBarButtonItem withinSuperview:self.navigationController.view];
