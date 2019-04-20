@@ -28,7 +28,8 @@
 #import "TeamStreak.h"
 
 // goal: get tackle distribution to something like this - https://www.ncaa.com/stats/football/fbs/current/individual/34
-#define TACKLE_VS_OUT_OF_BOUNDS_RATE 0.75
+#define TACKLE_VS_OUT_OF_BOUNDS_RATE 0.80
+#define PASS_DEF_VS_INCOMPLETION_RATE 0.09
 
 @implementation Game
 @synthesize AwayKStats,AwayQBStats,AwayRB1Stats,AwayRB2Stats,AwayWR1Stats,AwayWR2Stats,AwayWR3Stats,awayTOs,awayTeam,awayScore,awayYards,awayQScore,awayStarters,gameName,homeTeam,hasPlayed,homeYards,HomeKStats,superclass,HomeQBStats,HomeRB1Stats,HomeRB2Stats,homeStarters,HomeWR1Stats,HomeWR2Stats,HomeWR3Stats,homeScore,homeQScore,homeTOs,numOT,AwayTEStats,HomeTEStats, gameEventLog,HomeSStats,HomeCB1Stats,HomeCB2Stats,HomeCB3Stats,HomeDL1Stats,HomeDL2Stats,HomeDL3Stats,HomeDL4Stats,HomeLB1Stats,HomeLB2Stats,HomeLB3Stats,AwaySStats,AwayCB1Stats,AwayCB2Stats,AwayCB3Stats,AwayDL1Stats,AwayDL2Stats,AwayDL3Stats,AwayDL4Stats,AwayLB1Stats,AwayLB2Stats,AwayLB3Stats;
@@ -3854,6 +3855,7 @@
     }
     // add game stats
     [self _addGameStat:FCDefensiveStatINT forDefender:defender onDefense:defense amount:1];
+    [self _addGameStat:FCDefensiveStatPassDef forDefender:defender onDefense:defense amount:1];
     
     [gameEventLog appendString:[NSString stringWithFormat:@"%@%@ QB %@ pass %@ INTERCEPTED by %@ %@ %@.", [self getEventPrefix],offense.abbreviation, [offense getQB:0].name, [self retrieveRandomPassDirection], defender.team.abbreviation,defender.position,defender.name]];
 }
@@ -3965,7 +3967,7 @@
     qb.statsPassAtt++;
     selWR.statsTargets++;
     
-    if ([HBSharedUtils randomValue] < 0.50) {
+    if ([HBSharedUtils randomValue] < PASS_DEF_VS_INCOMPLETION_RATE) {
         NSArray *defenders = @[selS,selCB,selDL,selLB];
         NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
         for (Player *p in defenders) {
