@@ -144,16 +144,26 @@
     NSString *stat4Value = @"";
     
     if ([plyr isKindOfClass:[PlayerQB class]]) {
-        stat1 = @"CMP%"; //comp/att, yds, td, int
-        stat2 = @"Yds";
-        stat3 = @"TDs";
-        stat4 = @"INTs";
-        
-        stat1Value = [NSString stringWithFormat:@"%d%%",(100 * ((PlayerQB*)plyr).statsPassComp/((PlayerQB*)plyr).statsPassAtt)];
-        stat2Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsPassYards];
-        stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsTD];
-        stat4Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsInt];
-        //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:13.0]];
+        if ([((PlayerQB*)plyr) getRushScore] >= [((PlayerQB*)plyr) getPassScore]) {
+            stat1 = @"Car";
+            stat2 = @"Yds";
+            stat3 = @"TD";
+            stat4 = @"Fum";
+            stat1Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsRushAtt];
+            stat2Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsRushYards];
+            stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsTD];
+            stat4Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsFumbles];
+        } else {
+            stat1 = @"CMP%"; //comp/att, yds, td, int
+            stat2 = @"Yds";
+            stat3 = @"TDs";
+            stat4 = @"INTs";
+            
+            stat1Value = [NSString stringWithFormat:@"%d%%",(100 * ((PlayerQB*)plyr).statsPassComp/((PlayerQB*)plyr).statsPassAtt)];
+            stat2Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsPassYards];
+            stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsTD];
+            stat4Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsInt];
+        }
     } else if ([plyr isKindOfClass:[PlayerRB class]]) {
         stat1 = @"Car";
         stat2 = @"Yds";

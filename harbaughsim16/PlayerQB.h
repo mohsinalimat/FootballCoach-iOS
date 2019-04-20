@@ -48,4 +48,7 @@
 
 +(instancetype)newQBWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow accuracy:(int)acc eva:(int)eva dur:(int)dur;
 +(instancetype)newQBWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t;
+
+-(int)getRushScore;
+-(int)getPassScore;
 @end
