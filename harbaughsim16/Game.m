@@ -27,6 +27,7 @@
 
 #import "TeamStreak.h"
 
+// goal: get tackle distribution to something like this - https://www.ncaa.com/stats/football/fbs/current/individual/34
 #define TACKLE_VS_OUT_OF_BOUNDS_RATE 0.75
 
 @implementation Game
