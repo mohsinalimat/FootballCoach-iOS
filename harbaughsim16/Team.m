@@ -1723,6 +1723,10 @@
                 }
                 NSLog(@"[Coaching Carousel] %@ COACH Status: Fired", abbreviation);
             } else {
+                NSLog(@"[Coaching Carousel] %@ COACH Contract Years Left: %d", self.abbreviation, [self getCurrentHC].contractLength - [self getCurrentHC].contractYear);
+                if (([self getCurrentHC].contractLength - [self getCurrentHC].contractYear) < 0) {
+                    NSLog(@"[Coaching Carousel] %@ COACH Contract Years Left is NEGATIVE", self.abbreviation);
+                }
                 if ([self getCurrentHC].contractYear >= [self getCurrentHC].contractLength) {
                     coachFired = true;
                     if ([self isEqual:self.league.cursedTeam]) {
