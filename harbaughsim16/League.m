@@ -4016,6 +4016,7 @@
         t.coachFired = NO;
         t.coachRetired = NO;
         int avgOff = [self getAvgYards];
+        int avgDef = [self getAvgOppYards];
         int totalPrestigeDiff = (t.teamPrestige + [t calculatePrestigeChange]) - [t getCurrentHC].baselinePrestige;
         [[t getCurrentHC] advanceSeason:avgOff offTalent:t.teamOffTalent defTalent:t.teamDefTalent];
         [t checkCoachingContracts:totalPrestigeDiff newPrestige:(t.teamPrestige + [t calculatePrestigeChange])];
@@ -4230,6 +4231,15 @@
     int average = 0;
     for (Team *t in teamList) {
         average += t.teamYards;
+    }
+    average = average / teamList.count;
+    return average;
+}
+
+-(int)getAvgOppYards {
+    int average = 0;
+    for (Team *t in teamList) {
+        average += t.teamOppYards;
     }
     average = average / teamList.count;
     return average;

@@ -64,7 +64,7 @@
     return hc;
 }
 
--(void)advanceSeason:(int)avgYards offTalent:(int)offTalent defTalent:(int)defTalent {
+-(void)advanceSeason:(int)avgYards avgDefYards:(int)avgDefYards offTalent:(int)offTalent defTalent:(int)defTalent {
     int prestigeDiff = [self.team calculatePrestigeChange];
     
     int oldOvr = [self getHCOverall];
@@ -73,29 +73,28 @@
     self.contractYear++;
     
     double off = (double)self.team.teamYards - avgYards;
-    double def = avgYards - (double)self.team.teamOppYards;
+    double def = avgDefYards - (double)self.team.teamOppYards;
     double offTal = self.team.diffOffTalent;
     double defTal = self.team.diffDefTalent;
     double offpts = ((off / avgYards) + (offTal / offTalent)) * 4;
-    double defpts = ((def / avgYards) + (defTal / defTalent)) * 4;
+    double defpts = ((def / avgDefYards) + (defTal / defTalent)) * 4;
     double coachScore = ([self getCoachScore] - [self.team.league findConference:self.team.conference].confPrestige)/10;
     if (coachScore < -4) coachScore = -4;
     
-    self.ratOff += (2*prestigeDiff + offpts + coachScore)/4;
+    self.ratOff += (2*prestigeDiff + offpts + coachScore + self.ratPot)/5;
     if (self.ratOff > 95) self.ratOff = 95;
     if (self.ratOff < 20) self.ratOff = 20;
     
-    self.ratDef += (2*prestigeDiff + defpts + coachScore)/4;
+    self.ratDef += (2*prestigeDiff + defpts + coachScore + self.ratPot)/4;
     if (self.ratDef > 95) self.ratDef = 95;
     if (self.ratDef < 20) self.ratDef = 20;
     
-    self.ratTalent += prestigeDiff  + coachScore;
+    self.ratTalent += (prestigeDiff + coachScore + self.ratPot)/3;
     if (self.ratTalent > 95) self.ratTalent = 95;
     if (self.ratTalent < 20) self.ratTalent = 20;
     
     if (self.ratDiscipline > 90) self.ratDiscipline = 90;
     if (self.ratDiscipline < 15) self.ratDiscipline = 15;
-    
     
     if (self.age > 65 && !self.team.isUserControlled) {
         self.ratOff -= (int) ([HBSharedUtils randomValue] * 4);
