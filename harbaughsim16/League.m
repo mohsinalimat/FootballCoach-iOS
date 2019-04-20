@@ -4018,7 +4018,7 @@
         int avgOff = [self getAvgYards];
         int avgDef = [self getAvgOppYards];
         int totalPrestigeDiff = (t.teamPrestige + [t calculatePrestigeChange]) - [t getCurrentHC].baselinePrestige;
-        [[t getCurrentHC] advanceSeason:avgOff offTalent:t.teamOffTalent defTalent:t.teamDefTalent];
+        [[t getCurrentHC] advanceSeason:avgOff avgDefYards:avgDef offTalent:t.teamOffTalent defTalent:t.teamDefTalent];
         [t checkCoachingContracts:totalPrestigeDiff newPrestige:(t.teamPrestige + [t calculatePrestigeChange])];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"checkedContracts" object:nil];
