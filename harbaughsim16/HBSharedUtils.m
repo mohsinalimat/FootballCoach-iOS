@@ -512,6 +512,9 @@ static UIColor *styleColor = nil;
             [seasonShortText appendString:@"\nCurrent Job Status: Fired\n"];
         } else {
             [seasonShortText appendFormat:@"\nCurrent Job Status: %@\n",[[[HBSharedUtils currentLeague].userTeam getCurrentHC] getCoachStatusString]];
+            if ([[self class] currentLeague].userTeam.coachGotNewContract) {
+                [seasonShortText appendFormat:@"Contract: Extended for %d Years\n", [[[self class] currentLeague].userTeam getCurrentHC].contractLength];
+            }
         }
         
         if ([[[self class] currentLeague].userTeam getCurrentHC].wonConfHC) {
