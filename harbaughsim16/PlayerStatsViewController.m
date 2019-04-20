@@ -179,9 +179,9 @@
             [players addObjectsFromArray:t.teamSs];
         }
         [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            Player *a = (Player*)obj1;
-            Player *b = (Player*)obj2;
-            return ([a getHeismanScore] > [b getHeismanScore]) ? -1 : (([a getHeismanScore] == [b getHeismanScore]) ? [a.name compare:b.name] : 1);
+            PlayerDefender *a = (PlayerDefender*)obj1;
+            PlayerDefender *b = (PlayerDefender*)obj2;
+            return (a.statsTkl > b.statsTkl) ? -1 : ((a.statsTkl == b.statsTkl) ? [a.name compare:b.name] : 1);
         }];
     } else if (position == HBStatPositionHC) {
         self.title = @"Coaching Leaders";
