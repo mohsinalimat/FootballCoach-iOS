@@ -27,6 +27,8 @@
 
 #import "TeamStreak.h"
 
+#define TACKLE_VS_OUT_OF_BOUNDS_RATE 0.75
+
 @implementation Game
 @synthesize AwayKStats,AwayQBStats,AwayRB1Stats,AwayRB2Stats,AwayWR1Stats,AwayWR2Stats,AwayWR3Stats,awayTOs,awayTeam,awayScore,awayYards,awayQScore,awayStarters,gameName,homeTeam,hasPlayed,homeYards,HomeKStats,superclass,HomeQBStats,HomeRB1Stats,HomeRB2Stats,homeStarters,HomeWR1Stats,HomeWR2Stats,HomeWR3Stats,homeScore,homeQScore,homeTOs,numOT,AwayTEStats,HomeTEStats, gameEventLog,HomeSStats,HomeCB1Stats,HomeCB2Stats,HomeCB3Stats,HomeDL1Stats,HomeDL2Stats,HomeDL3Stats,HomeDL4Stats,HomeLB1Stats,HomeLB2Stats,HomeLB3Stats,AwaySStats,AwayCB1Stats,AwayCB2Stats,AwayCB3Stats,AwayDL1Stats,AwayDL2Stats,AwayDL3Stats,AwayDL4Stats,AwayLB1Stats,AwayLB2Stats,AwayLB3Stats;
 
@@ -3891,24 +3893,26 @@
     selWR.statsRecYards += yardsGained;
     offense.teamPassYards += yardsGained;
     
-    NSArray *defenders = @[selS,selCB,selDL,selLB];
-    NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
-    for (Player *p in defenders) {
-        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationTackle relatedPlayer:selWR yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
-    }
-    
-    NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [obj2 compare:obj1];
-    }];
-    
-    Player *defender = defenders[0];
-    for (Player *p in defenders) {
-        if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
-            defender = p;
-            break;
+    if ([HBSharedUtils randomValue] < TACKLE_VS_OUT_OF_BOUNDS_RATE) {
+        NSArray *defenders = @[selS,selCB,selDL,selLB];
+        NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+        for (Player *p in defenders) {
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationTackle relatedPlayer:selWR yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
         }
+        
+        NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj2 compare:obj1];
+        }];
+        
+        Player *defender = defenders[0];
+        for (Player *p in defenders) {
+            if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+                defender = p;
+                break;
+            }
+        }
+        [self _addGameStat:FCDefensiveStatTkl forDefender:defender onDefense:defense amount:1];
     }
-    [self _addGameStat:FCDefensiveStatTkl forDefender:defender onDefense:defense amount:1];
     
     if ( gamePoss ) { // home possession
         homeYards += yardsGained;
@@ -4009,24 +4013,26 @@
     selQB.statsRushYards += yardsGained;
     offense.teamRushYards += yardsGained;
     
-    NSArray *defenders = @[selS,selCB,selDL,selLB];
-    NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
-    for (Player *p in defenders) {
-        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationRunDefense relatedPlayer:selQB yardsGained:yardsGained gotTD:NO]) forKey:[p uniqueIdentifier]];
-    }
-    
-    NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [obj2 compare:obj1];
-    }];
-    
-    Player *defender = defenders[0];
-    for (Player *p in defenders) {
-        if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
-            defender = p;
-            break;
+    if ([HBSharedUtils randomValue] < TACKLE_VS_OUT_OF_BOUNDS_RATE) {
+        NSArray *defenders = @[selS,selCB,selDL,selLB];
+        NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+        for (Player *p in defenders) {
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationTackle relatedPlayer:selQB yardsGained:yardsGained gotTD:NO]) forKey:[p uniqueIdentifier]];
         }
+        
+        NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj2 compare:obj1];
+        }];
+        
+        Player *defender = defenders[0];
+        for (Player *p in defenders) {
+            if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+                defender = p;
+                break;
+            }
+        }
+        [self _addGameStat:FCDefensiveStatTkl forDefender:defender onDefense:defense amount:1];
     }
-    [self _addGameStat:FCDefensiveStatTkl forDefender:defender onDefense:defense amount:1];
     
     if ( gamePoss ) { // home possession
         homeYards += yardsGained;
@@ -4054,24 +4060,26 @@
     selRB.statsRushYards += yardsGained;
     offense.teamRushYards += yardsGained;
     
-    NSArray *defenders = @[selS,selCB,selDL,selLB];
-    NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
-    for (Player *p in defenders) {
-        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationRunDefense relatedPlayer:selRB yardsGained:yardsGained gotTD:NO]) forKey:[p uniqueIdentifier]];
-    }
-    
-    NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [obj2 compare:obj1];
-    }];
-    
-    Player *defender = defenders[0];
-    for (Player *p in defenders) {
-        if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
-            defender = p;
-            break;
+    if ([HBSharedUtils randomValue] < TACKLE_VS_OUT_OF_BOUNDS_RATE) {
+        NSArray *defenders = @[selS,selCB,selDL,selLB];
+        NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
+        for (Player *p in defenders) {
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationTackle relatedPlayer:selRB yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
         }
+        
+        NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [obj2 compare:obj1];
+        }];
+        
+        Player *defender = defenders[0];
+        for (Player *p in defenders) {
+            if ([[p uniqueIdentifier] isEqualToString:sortedDefenderIds[0]]) {
+                defender = p;
+                break;
+            }
+        }
+        [self _addGameStat:FCDefensiveStatTkl forDefender:defender onDefense:defense amount:1];
     }
-    [self _addGameStat:FCDefensiveStatTkl forDefender:defender onDefense:defense amount:1];
     
     if ( gamePoss ) { // home possession
         homeYards += yardsGained;
