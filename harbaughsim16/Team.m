@@ -1608,15 +1608,22 @@
     if (!coachRetired) {
         if ((teamPrestige > ([self getCurrentHC].baselinePrestige + 9)
              && teamPrestige < league.teamList[(int) (league.teamList.count * 0.35)].teamPrestige
-             && !isUserControlled && [self getCurrentHC].age < 53) || (teamPrestige > ([self getCurrentHC].baselinePrestige + 12)
-                                                                       && [league findConference:conference].confPrestige < [league getAvgConfPrestige]
-                                                                       && teamPrestige < league.teamList[(int) (league.teamList.count * 0.20)].teamPrestige
-                                                                       && !isUserControlled && [self getCurrentHC].age < 48)) {
+             && !isUserControlled && [self getCurrentHC].age < 53)
+            || (teamPrestige > ([self getCurrentHC].baselinePrestige + 12)
+                && [league findConference:conference].confPrestige < [league getAvgConfPrestige]
+                && teamPrestige < league.teamList[(int) (league.teamList.count * 0.20)].teamPrestige
+                && !isUserControlled && [self getCurrentHC].age < 48)) {
             [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"Head Coach Rumor Mill\nAfter another successful season at %@, %d-year-old head coach %@ has been rumored to be a top candidate for various open head coaching positions this offseason. He has a career record of %d wins and %d losses. ", self.name, [self getCurrentHC].age, [self getCurrentHC].name,[self getCurrentHC].totalWins,[self getCurrentHC].totalLosses]];
             if ([HBSharedUtils randomValue] > 0.50) {
                 [league.coachStarList addObject:[self getCurrentHC]];
             }
         }
+        
+        NSLog(@"[Coaching Carousel] %@ COACH Contract Years Left: %d", self.abbreviation, [self getCurrentHC].contractLength - [self getCurrentHC].contractYear);
+        if (([self getCurrentHC].contractLength - [self getCurrentHC].contractYear) < 0) {
+            NSLog(@"[Coaching Carousel] %@ COACH Contract Years Left is NEGATIVE", self.abbreviation);
+        }
+        
         //New Contracts or Firing
         if ([self getCurrentHC].contractYear >= [self getCurrentHC].contractLength
             || [self.natlChampWL containsString:@"NC"]
@@ -1723,10 +1730,6 @@
                 }
                 NSLog(@"[Coaching Carousel] %@ COACH Status: Fired", abbreviation);
             } else {
-                NSLog(@"[Coaching Carousel] %@ COACH Contract Years Left: %d", self.abbreviation, [self getCurrentHC].contractLength - [self getCurrentHC].contractYear);
-                if (([self getCurrentHC].contractLength - [self getCurrentHC].contractYear) < 0) {
-                    NSLog(@"[Coaching Carousel] %@ COACH Contract Years Left is NEGATIVE", self.abbreviation);
-                }
                 if ([self getCurrentHC].contractYear >= [self getCurrentHC].contractLength) {
                     coachFired = true;
                     if ([self isEqual:self.league.cursedTeam]) {
@@ -1747,10 +1750,10 @@
     if (isUserControlled) {
         if (coachGotNewContract && proveIt) {
             coachContractString = [NSString stringWithFormat:@"You've been given an %d-year contract to prove your abilities based on the recent success of your team.",[self getCurrentHC].contractLength];
-            NSLog(@"[Coaching Carousel] User Coach Status: Extended");
+            NSLog(@"[Coaching Carousel] User Coach Status: Extended (Prove It)");
         } else if (coachGotNewContract) {
             coachContractString = [NSString stringWithFormat:@"Congratulations! Your performance has been rewarded with a contract extension for %d years!", [self getCurrentHC].contractLength];
-            NSLog(@"[Coaching Carousel] User Coach Status: Prove It");
+            NSLog(@"[Coaching Carousel] User Coach Status: Extended");
         } else if (coachFired) {
             coachContractString = [NSString stringWithFormat:@"Because of your team's poor performances, %@'s Athletic Director has terminated your contract.", name];
             NSLog(@"[Coaching Carousel] User Coach Status: Fired");
