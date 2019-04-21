@@ -510,11 +510,12 @@ static UIColor *styleColor = nil;
     if ([[self class] currentLeague].isCareerMode) {
         if ([[self class] currentLeague].userTeam.coachFired) {
             [seasonShortText appendString:@"\nCurrent Job Status: Fired\n"];
+        } else if ([[self class] currentLeague].userTeam.coachGotNewContract) { //extended
+            [seasonShortText appendFormat:@"\nCurrent Job Status: %@\n",[[[HBSharedUtils currentLeague].userTeam getCurrentHC] getCoachStatusString]];
+            [seasonShortText appendFormat:@"Contract: Extended for %d years\n", [[[self class] currentLeague].userTeam getCurrentHC].contractLength];
         } else {
             [seasonShortText appendFormat:@"\nCurrent Job Status: %@\n",[[[HBSharedUtils currentLeague].userTeam getCurrentHC] getCoachStatusString]];
-            if ([[self class] currentLeague].userTeam.coachGotNewContract) {
-                [seasonShortText appendFormat:@"Contract: Extended for %d Years\n", [[[self class] currentLeague].userTeam getCurrentHC].contractLength];
-            }
+            [seasonShortText appendFormat:@"Contract: %d years left\n", ([[[self class] currentLeague].userTeam getCurrentHC].contractLength - [[[self class] currentLeague].userTeam getCurrentHC].contractYear - 1)];
         }
         
         if ([[[self class] currentLeague].userTeam getCurrentHC].wonConfHC) {
