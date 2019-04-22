@@ -23,6 +23,7 @@
 #import "RingOfHonorViewController.h"
 #import "HallOfFameViewController.h"
 #import "HeadCoachDetailViewController.h"
+#import "PlayerStatsViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -230,7 +231,7 @@
     if (section == 0) {
         return 7;
     } else if (section == 2) {
-        return 3;
+        return 4;
     } else {
         return stats.count;
     }
@@ -302,8 +303,10 @@
         
 
         if (indexPath.row == 0) {
-            title = @"League History";
+            title = @"Coaching Leaders";
         } else if (indexPath.row == 1) {
+            title = @"League History";
+        } else if (indexPath.row == 2) {
             title = @"Hall of Fame";
         } else {
             title = @"League Records";
@@ -386,9 +389,11 @@
         }
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
+            [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionHC] animated:YES];
+        } else if (indexPath.row == 1) {
             //league
             [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];
-        } else if (indexPath.row == 1) { //hallOfFame
+        } else if (indexPath.row == 2) { //hallOfFame
             [self.navigationController pushViewController:[[HallOfFameViewController alloc] init] animated:YES];
         } else {
             //league records
