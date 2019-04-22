@@ -802,7 +802,9 @@
     int footIQadv = ([homeTeam getCompositeFootIQ] - [awayTeam getCompositeFootIQ])/5;
     if (footIQadv > 3) footIQadv = 3;
     if (footIQadv < -3) footIQadv = -3;
-    if (gamePoss) {
+    if ([gameName containsString:@"Bowl"] || [gameName containsString:@"NCG"] || [gameName containsString:@"Semis"]) {
+        return 0;
+    } else if (gamePoss) {
         return 3 + footIQadv;
     } else {
         return -footIQadv;
