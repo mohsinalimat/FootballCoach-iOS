@@ -811,6 +811,19 @@
     }
 }
 
+-(int)getCoachAdv {
+    int adv = 0;
+    
+    if (gamePoss) {
+        adv = (int)(round([homeTeam getCurrentHC].ratOff - [awayTeam getCurrentHC].ratDef) / 5);
+    } else {
+        adv = (int)(round([awayTeam getCurrentHC].ratOff - [homeTeam getCurrentHC].ratDef) / 5);
+    }
+    if (adv > 4) adv = 4;
+    if (adv < -4) adv = -4;
+    return adv;
+}
+
 -(NSString *)getEventPrefix {
     return  [self getEventPrefix:0];
 }
@@ -980,11 +993,11 @@
     }
 }
 
--(int)calculatePlayerPreferenceForPlayer:(Player *)p inGameSituation:(FCGameSituation)situation relatedPlayer:(nonnull Player*)relatedPlayer yardsGained:(int)yardsGain {
-    return [self calculatePlayerPreferenceForPlayer:p inGameSituation:situation relatedPlayer:relatedPlayer yardsGained:yardsGain gotTD:NO];
+-(int)calculatePlayerPreferenceForDefender:(Player *)p inGameSituation:(FCGameSituation)situation relatedPlayer:(nonnull Player*)relatedPlayer yardsGained:(int)yardsGain {
+    return [self calculatePlayerPreferenceForDefender:p inGameSituation:situation relatedPlayer:relatedPlayer yardsGained:yardsGain gotTD:NO];
 }
 
--(int)calculatePlayerPreferenceForPlayer:(Player *)p inGameSituation:(FCGameSituation)situation relatedPlayer:(nonnull Player*)relatedPlayer yardsGained:(int)yardsGain gotTD:(BOOL)gotTD {
+-(int)calculatePlayerPreferenceForDefender:(Player *)p inGameSituation:(FCGameSituation)situation relatedPlayer:(nonnull Player*)relatedPlayer yardsGained:(int)yardsGain gotTD:(BOOL)gotTD {
     if (situation == FCGameSituationPassCompletion) {
         if ([relatedPlayer.position isEqualToString:@"WR"]) {
             if ([p.position isEqualToString:@"CB"]) {
@@ -2304,7 +2317,7 @@
     BOOL gotFumble = false;
     
     //get how much pressure there is on qb, check if sack
-    int pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass] - [self getHFAdv] + (defense.defensiveStrategy.runProtection*2 - offense.offensiveStrategy.runProtection);
+    int pressureOnQB = [defense getCompositeF7Pass]*2 - [offense getCompositeOLPass] - [self getHFAdv] + [self getCoachAdv] + (defense.defensiveStrategy.runProtection*2 - offense.offensiveStrategy.runProtection);
     if ([HBSharedUtils randomValue]*100 < pressureOnQB/8 ) {
         //sacked!
         
@@ -2334,7 +2347,7 @@
     }
     
     //throw ball, check for completion
-    double completion = ( [self getHFAdv] + [self normalize:selQB.ratPassAcc] + [self normalize:selTE.ratRecCat] - [self normalize:selLB.ratLBPas])/2 + 18.25 - pressureOnQB/16.8 + offense.offensiveStrategy.passProtection - defense.defensiveStrategy.passProtection;
+    double completion = ( [self getHFAdv] + [self getCoachAdv] + [self normalize:selQB.ratPassAcc] + [self normalize:selTE.ratRecCat] - [self normalize:selLB.ratLBPas])/2 + 18.25 - pressureOnQB/16.8 + offense.offensiveStrategy.passProtection - defense.defensiveStrategy.passProtection;
     if ( 100* [HBSharedUtils randomValue] < completion ) {
         if ( 100* [HBSharedUtils randomValue] < (100 - selTE.ratRecCat)/3 ) {
             //drop
@@ -2351,7 +2364,7 @@
             return;
         } else {
             //no drop
-            yardsGain = (int) (( [self normalize:[offense getQB:0].ratPassPow] + [self normalize:selTE.ratRecSpd] - [self normalize:selCB.ratCBSpd] )* [HBSharedUtils randomValue]/3.7 + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential);
+            yardsGain = (int) (( [self normalize:[offense getQB:0].ratPassPow] + [self normalize:selTE.ratRecSpd] - [self normalize:selCB.ratCBSpd] )* [HBSharedUtils randomValue]/3.7 + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential) + (int)([HBSharedUtils randomValue] * [self getCoachAdv]);
             //see if receiver can get yards after catch
             double escapeChance = ([self normalize:selTE.ratRecEva] * 3 - selLB.ratLBTkl - selS.ratSTkl) * [HBSharedUtils randomValue] + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential;
             if ( escapeChance > 92 ||[HBSharedUtils randomValue] > 0.95 ) {
@@ -2425,7 +2438,7 @@
         NSArray *defenders = @[selS,selCB,selDL,selLB];
         NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
         for (Player *p in defenders) {
-            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationFumble relatedPlayer:selTE yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForDefender:p inGameSituation:FCGameSituationFumble relatedPlayer:selTE yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
         }
         
         NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -2505,7 +2518,7 @@
     }
     
     //throw ball, check for completion
-    double completion = ([self getHFAdv] + (int) ([HBSharedUtils randomValue]) + [self normalize:[offense getQB:0].ratPassAcc] + [self normalize:selWR.ratRecCat] - [self normalize:selCB.ratCBCov]) / 2 + 18.25 - pressureOnQB / 16.8 + offense.offensiveStrategy.passProtection - defense.defensiveStrategy.passProtection;
+    double completion = ([self getHFAdv] + [self getCoachAdv] + (int) ([HBSharedUtils randomValue]) + [self normalize:[offense getQB:0].ratPassAcc] + [self normalize:selWR.ratRecCat] - [self normalize:selCB.ratCBCov]) / 2 + 18.25 - pressureOnQB / 16.8 + offense.offensiveStrategy.passProtection - defense.defensiveStrategy.passProtection;
     if ( 100* [HBSharedUtils randomValue] < completion ) {
         if ( 100* [HBSharedUtils randomValue] < (100 - selWR.ratRecCat)/3 ) {
             //drop
@@ -2522,7 +2535,7 @@
             return;
         } else {
             //no drop
-            yardsGain = (int) (([self normalize:[offense getQB:0].ratPassPow] + [self normalize:selWR.ratRecSpd] - [self normalize:selCB.ratCBSpd]) * [HBSharedUtils randomValue] / 4.8 + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential);
+            yardsGain = (int) (([self normalize:[offense getQB:0].ratPassPow] + [self normalize:selWR.ratRecSpd] - [self normalize:selCB.ratCBSpd]) * [HBSharedUtils randomValue] / 4.8 + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential) + (int)([HBSharedUtils randomValue] * [self getCoachAdv]);
 
             //see if receiver can get yards after catch
             double escapeChance = ([self normalize:(selWR.ratRecEva)*3 - selCB.ratCBTkl - selS.ratOvr]* [HBSharedUtils randomValue] + offense.offensiveStrategy.passPotential - defense.defensiveStrategy.passPotential);
@@ -2588,7 +2601,7 @@
         NSArray *defenders = @[selS,selCB,selDL,selLB];
         NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
         for (Player *p in defenders) {
-            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationFumble relatedPlayer:selWR yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForDefender:p inGameSituation:FCGameSituationFumble relatedPlayer:selWR yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
         }
         
         NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -2739,7 +2752,7 @@
     
     int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush] + (offense.offensiveStrategy.runProtection - defense.defensiveStrategy.runProtection);
     int blockAdvOutside = selTE.ratTERunBlk * 2 - selLB.ratLBRsh - selS.ratSTkl + (offense.offensiveStrategy.runUsage - defense.defensiveStrategy.runUsage);
-    int yardsGain = (int) ((selQB.ratSpeed + blockAdv + blockAdvOutside + [self getHFAdv]) * [HBSharedUtils randomValue] / 10 + offense.offensiveStrategy.runPotential/2 - defense.defensiveStrategy.runPotential/2);
+    int yardsGain = (int) ((selQB.ratSpeed + blockAdv + blockAdvOutside + [self getHFAdv]) * [HBSharedUtils randomValue] / 10 + offense.offensiveStrategy.runPotential/2 - defense.defensiveStrategy.runPotential/2) + (int)([HBSharedUtils randomValue] * [self getCoachAdv]);
     if (yardsGain < 2) {
         yardsGain += selQB.ratPassEva/20 - 3 - defense.defensiveStrategy.runPotential/2;
     } else {
@@ -2799,7 +2812,7 @@
         NSArray *defenders = @[selS,selCB,selDL,selLB];
         NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
         for (Player *p in defenders) {
-            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationFumble relatedPlayer:selTE yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForDefender:p inGameSituation:FCGameSituationFumble relatedPlayer:selTE yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
         }
         
         NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -2885,7 +2898,7 @@
     BOOL gotTD = false;
     int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush] + (offense.offensiveStrategy.runProtection - defense.defensiveStrategy.runProtection);
     int blockAdvOutside = selTE.ratTERunBlk * 2 - selLB.ratLBRsh - selS.ratSTkl + (offense.offensiveStrategy.runUsage - defense.defensiveStrategy.runUsage);
-    int yardsGain = (int) ((selRB.ratRushSpd + blockAdv + blockAdvOutside + [self getHFAdv]) * [HBSharedUtils randomValue] / 10 + offense.offensiveStrategy.runPotential/2 - defense.defensiveStrategy.runPotential/2);
+    int yardsGain = (int) ((selRB.ratRushSpd + blockAdv + blockAdvOutside + [self getHFAdv]) * [HBSharedUtils randomValue] / 10 + offense.offensiveStrategy.runPotential/2 - defense.defensiveStrategy.runPotential/2) + (int)([HBSharedUtils randomValue] * [self getCoachAdv]);
     if (yardsGain < 2) {
         yardsGain += selRB.ratRushPow/20 - 3 - defense.defensiveStrategy.runPotential/2;
     } else {
@@ -2958,7 +2971,7 @@
         NSArray *defenders = @[selS,selCB,selDL,selLB];
         NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
         for (Player *p in defenders) {
-            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationFumble relatedPlayer:selTE yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForDefender:p inGameSituation:FCGameSituationFumble relatedPlayer:selTE yardsGained:yardsGain]) forKey:[p uniqueIdentifier]];
         }
         
         NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -3134,7 +3147,7 @@
                         [gameEventLog appendString:[NSString stringWithFormat:@"%@%@TWO-POINT CONVERSION ATTEMPT. %@ stopped at the line of scrimmage. ATTEMPT FAILS.",[self getEventPrefix: yardsGain],tdInfo,[offense getRB:0].name]];
                     }
                 } else {
-                    int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass];
+                    int pressureOnQB = ([defense getCompositeF7Pass]*2) - [offense getCompositeOLPass] + [self getCoachAdv];
                     double completion = ([self normalize:[offense getQB:0].ratPassAcc] + [offense getWR:0].ratRecCat - [defense getCB:0].ratCBCov )/2 + 25 - pressureOnQB/20;
                     if ( 100*[HBSharedUtils randomValue] < completion ) {
                         //successConversion = true;
@@ -3206,7 +3219,7 @@
                         if ( [HBSharedUtils randomValue] <= 0.50 ) {
                             //rushing
                             int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
-                            int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
+                            int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6) + (int)([HBSharedUtils randomValue] * [self getCoachAdv]);
                             if ( yardsGain > 5 ) {
                                 //successConversion = true;
                                 if ( gamePoss ) { // home possession
@@ -3282,7 +3295,7 @@
                     if ( [HBSharedUtils randomValue] <= 0.50 ) {
                         //rushing
                         int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
-                        int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
+                        int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6) + (int)([HBSharedUtils randomValue] * [self getCoachAdv]);
                         if ( yardsGain > 5 ) {
                             //successConversion = true;
                             if ( gamePoss ) { // home possession
@@ -3321,7 +3334,7 @@
                     if ( [HBSharedUtils randomValue] <= 0.50 ) {
                         //rushing
                         int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
-                        int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
+                        int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6) + (int)([HBSharedUtils randomValue] * [self getCoachAdv]);
                         if ( yardsGain > 5 ) {
                             //successConversion = true;
                             if ( gamePoss ) { // home possession
@@ -3397,7 +3410,7 @@
                 if ( [HBSharedUtils randomValue] <= 0.50 ) {
                     //rushing
                     int blockAdv = [offense getCompositeOLRush] - [defense getCompositeF7Rush];
-                    int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6);
+                    int yardsGain = (int) (([offense getRB:0].ratRushSpd + blockAdv) * [HBSharedUtils randomValue] / 6) + (int)([HBSharedUtils randomValue] * [self getCoachAdv]);
                     if ( yardsGain > 5 ) {
                         //successConversion = true;
                         if ( gamePoss ) { // home possession
@@ -3502,7 +3515,7 @@
     NSArray *defenders = @[selS,selCB,selDL,selLB];
     NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
     for (Player *p in defenders) {
-        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationSack relatedPlayer:[offense getQB:0] yardsGained:sackLoss]) forKey:[p uniqueIdentifier]];
+        [playerPrefs setObject:@([self calculatePlayerPreferenceForDefender:p inGameSituation:FCGameSituationSack relatedPlayer:[offense getQB:0] yardsGained:sackLoss]) forKey:[p uniqueIdentifier]];
     }
     
     NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -3777,7 +3790,7 @@
     NSArray *defenders = @[selS,selCB,selDL,selLB];
     NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
     for (Player *p in defenders) {
-        [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationInterception relatedPlayer:selPlayer yardsGained:0]) forKey:[p uniqueIdentifier]];
+        [playerPrefs setObject:@([self calculatePlayerPreferenceForDefender:p inGameSituation:FCGameSituationInterception relatedPlayer:selPlayer yardsGained:0]) forKey:[p uniqueIdentifier]];
     }
     
     NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -3838,7 +3851,7 @@
         NSArray *defenders = @[selS,selCB,selDL,selLB];
         NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
         for (Player *p in defenders) {
-            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationTackle relatedPlayer:selWR yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForDefender:p inGameSituation:FCGameSituationTackle relatedPlayer:selWR yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
         }
         
         NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -3909,7 +3922,7 @@
         NSArray *defenders = @[selS,selCB,selDL,selLB];
         NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
         for (Player *p in defenders) {
-            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationPassDefense relatedPlayer:selWR yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForDefender:p inGameSituation:FCGameSituationPassDefense relatedPlayer:selWR yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
         }
         
         NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -3958,7 +3971,7 @@
         NSArray *defenders = @[selS,selCB,selDL,selLB];
         NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
         for (Player *p in defenders) {
-            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationTackle relatedPlayer:selQB yardsGained:yardsGained gotTD:NO]) forKey:[p uniqueIdentifier]];
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForDefender:p inGameSituation:FCGameSituationTackle relatedPlayer:selQB yardsGained:yardsGained gotTD:NO]) forKey:[p uniqueIdentifier]];
         }
         
         NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
@@ -4005,7 +4018,7 @@
         NSArray *defenders = @[selS,selCB,selDL,selLB];
         NSMutableDictionary *playerPrefs = [NSMutableDictionary dictionary];
         for (Player *p in defenders) {
-            [playerPrefs setObject:@([self calculatePlayerPreferenceForPlayer:p inGameSituation:FCGameSituationTackle relatedPlayer:selRB yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
+            [playerPrefs setObject:@([self calculatePlayerPreferenceForDefender:p inGameSituation:FCGameSituationTackle relatedPlayer:selRB yardsGained:yardsGained]) forKey:[p uniqueIdentifier]];
         }
         
         NSArray *sortedDefenderIds = [playerPrefs keysSortedByValueUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {

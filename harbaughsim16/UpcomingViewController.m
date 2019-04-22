@@ -1303,18 +1303,25 @@
             
             [cell.textLabel setAttributedText:attString];
             [cell.textLabel sizeToFit];
-            if (curNewsWeek > 0 && curNewsWeek <= 12) {
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)]];
-            } else if (curNewsWeek == 0) {
-                [cell.detailTextLabel setText:@"Preseason"];
-            } else if (curNewsWeek == 13) {
-                [cell.detailTextLabel setText:@"Conference Championships"];
-            } else if (curNewsWeek == 14) {
-                [cell.detailTextLabel setText:@"Bowls"];
-            } else if (curNewsWeek == 15) {
-                [cell.detailTextLabel setText:@"National Championship"];
-            } else  {
-                [cell.detailTextLabel setText:@"Offseason"];
+            if ([cell.textLabel.attributedText.string containsString:@"on the move"]) {
+                [cell.detailTextLabel setText:@"Transfers"];
+            } else if ([cell.textLabel.attributedText.string containsString:@"let go"] || [cell.textLabel.attributedText.string containsString:@"fired"]
+                       || [cell.textLabel.attributedText.string containsString:@"extension"]) {
+                [cell.detailTextLabel setText:@"Coaching Carousel"];
+            } else {
+                if (curNewsWeek > 0 && curNewsWeek <= 12) {
+                    [cell.detailTextLabel setText:[NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)]];
+                } else if (curNewsWeek == 0) {
+                    [cell.detailTextLabel setText:@"Preseason"];
+                } else if (curNewsWeek == 13) {
+                    [cell.detailTextLabel setText:@"Conference Championships"];
+                } else if (curNewsWeek == 14) {
+                    [cell.detailTextLabel setText:@"Bowls"];
+                } else if (curNewsWeek == 15) {
+                    [cell.detailTextLabel setText:@"National Championship"];
+                } else {
+                    [cell.detailTextLabel setText:@"Offseason"];
+                }
             }
             
             
