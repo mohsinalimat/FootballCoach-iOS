@@ -534,75 +534,11 @@
         [report setObject:gameStats forKey:@"gameStats"];
         
         if (homeStarters.count == 0 || homeStarters == nil) {
-            homeStarters = [NSMutableArray arrayWithArray:@[[homeTeam getQB:0],
-                                                             
-                                                             [homeTeam getRB:0],
-                                                             [homeTeam getRB:1],
-                                                             
-                                                             [homeTeam getWR:0],
-                                                             [homeTeam getWR:1],
-                                                             [homeTeam getWR:2],
-                                                            
-                                                            [homeTeam getTE:0],
-                                                             
-                                                             [homeTeam getOL:0],
-                                                             [homeTeam getOL:1],
-                                                             [homeTeam getOL:2],
-                                                             [homeTeam getOL:3],
-                                                             [homeTeam getOL:4],
-                                                             
-                                                             [homeTeam getK:0],
-                                                             
-                                                             [homeTeam getS:0],
-                                                             
-                                                             [homeTeam getCB:0],
-                                                             [homeTeam getCB:1],
-                                                             [homeTeam getCB:2],
-                                                             
-                                                             [homeTeam getDL:0],
-                                                             [homeTeam getDL:1],
-                                                             [homeTeam getDL:2],
-                                                             [homeTeam getDL:3],
-                                                             
-                                                             [homeTeam getLB:0],
-                                                             [homeTeam getLB:1],
-                                                             [homeTeam getLB:3]]];
+            homeStarters = [NSMutableArray arrayWithArray:[homeTeam getDefaultStarters]];
         }
         
         if (awayStarters.count == 0 || awayStarters == nil) {
-            awayStarters = [NSMutableArray arrayWithArray:@[[awayTeam getQB:0],
-                                                             
-                                                             [awayTeam getRB:0],
-                                                             [awayTeam getRB:1],
-                                                             
-                                                             [awayTeam getWR:0],
-                                                             [awayTeam getWR:1],
-                                                             [awayTeam getWR:2],
-                                                            
-                                                             [awayTeam getTE:0],
-                                                             
-                                                             [awayTeam getOL:0],
-                                                             [awayTeam getOL:1],
-                                                             [awayTeam getOL:2],
-                                                             [awayTeam getOL:3],
-                                                             [awayTeam getOL:4],
-                                                             
-                                                             [awayTeam getK:0],
-                                                             
-                                                             [awayTeam getS:0],
-                                                             
-                                                             [awayTeam getCB:0],
-                                                             [awayTeam getCB:1],
-                                                             [awayTeam getCB:2],
-                                                             
-                                                             [awayTeam getDL:0],
-                                                             [awayTeam getDL:1],
-                                                             [awayTeam getDL:2],
-                                                             [awayTeam getDL:3],
-                                                             
-                                                             [awayTeam getLB:0],
-                                                             [awayTeam getLB:1],
-                                                             [awayTeam getLB:2]]];
+            awayStarters = [NSMutableArray arrayWithArray:[awayTeam getDefaultStarters]];
         }
         
         //QBs - dicts go home, away - yes, I'm aware that's confusing

@@ -3729,4 +3729,64 @@
     self.defensiveStrategy = [self getDefensiveTeamStrategies][hc.defStratNum];
 }
 
+-(NSArray<Player *> *)getDefaultStarters {
+    return @[[self getQB:0],
+             
+             [self getRB:0],
+             [self getRB:1],
+             
+             [self getWR:0],
+             [self getWR:1],
+             [self getWR:2],
+             
+             [self getTE:0],
+             
+             [self getOL:0],
+             [self getOL:1],
+             [self getOL:2],
+             [self getOL:3],
+             [self getOL:4],
+             
+             [self getK:0],
+             
+             [self getS:0],
+             
+             [self getCB:0],
+             [self getCB:1],
+             [self getCB:2],
+             
+             [self getDL:0],
+             [self getDL:1],
+             [self getDL:2],
+             [self getDL:3],
+             
+             [self getLB:0],
+             [self getLB:1],
+             [self getLB:2]];
+}
+
+-(NSDictionary<NSString *, NSArray<Player *> *> *)getStartersSet {
+    return @{
+             @"QB" : @[[self getQB:0]],
+             
+             @"RB" : @[[self getRB:0], [self getRB:1]],
+             
+             @"WR" : @[[self getWR:0], [self getWR:1], [self getWR:2]],
+             
+             @"TE" : @[[self getTE:0]],
+             
+             @"OL" : @[[self getOL:0], [self getOL:1], [self getOL:2], [self getOL:3], [self getOL:4]],
+             
+             @"K" : @[[self getK:0]],
+             
+             @"S" : @[[self getS:0]],
+             
+             @"CB" : @[[self getCB:0], [self getCB:1], [self getCB:2]],
+             
+             @"DL" : @[[self getDL:0], [self getDL:1], [self getDL:2], [self getDL:3]],
+             
+             @"LB" : @[[self getLB:0], [self getLB:1], [self getLB:2]]
+             };
+}
+
 @end

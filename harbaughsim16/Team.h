@@ -304,6 +304,7 @@ typedef enum {
 -(NSArray*)getTeamStatsArray;
 
 -(void)setStarters:(NSArray<Player*>*)starters position:(int)position;
+-(NSArray<Player *> *)getDefaultStarters;
 
 -(void)getGraduatingPlayers;
 
