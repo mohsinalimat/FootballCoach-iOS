@@ -186,7 +186,11 @@
     } else if (position == HBStatPositionHC) {
         self.title = @"Coaching Leaders";
         for (Team *t in [HBSharedUtils currentLeague].teamList) {
-            [players addObjectsFromArray:t.coaches];
+            for (HeadCoach *c in t.coaches) {
+                if (![self->players containsObject:c]) {
+                    [players addObject:c];
+                }
+            }
         }
         [self->players sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             HeadCoach *a = (HeadCoach*)obj1;
