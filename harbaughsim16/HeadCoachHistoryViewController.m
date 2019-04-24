@@ -82,7 +82,7 @@
     NSMutableArray *colorValues = [NSMutableArray array];
     
     for (int i = 0; i < selectedCoach.prestigeHistoryDictionary.count; i++) {
-        NSInteger year = [HBSharedUtils currentLeague].baseYear + i;
+        NSInteger year = selectedCoach.startYear + i;
         NSInteger coachScore = [selectedCoach.prestigeHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)year]][@"coachScore"] integerValue];
         NSString *hist = history[[NSString stringWithFormat:@"%ld",(long)year]];
         
@@ -127,7 +127,7 @@
     NSMutableArray *colorValues = [NSMutableArray array];
     
     for (int i = 0; i < selectedCoach.prestigeHistoryDictionary.count; i++) {
-        NSInteger year = [HBSharedUtils currentLeague].baseYear + i;
+        NSInteger year = selectedCoach.startYear + i;
         NSInteger coachScore = [selectedCoach.prestigeHistoryDictionary[[NSString stringWithFormat:@"%ld",(long)year]][@"prestige"] integerValue];
         NSString *hist = history[[NSString stringWithFormat:@"%ld",(long)year]];
         
@@ -315,12 +315,12 @@
         [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
     }
     
-    [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+    [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(selectedCoach.startYear + indexPath.row)]];
     NSString *hist;
-    if (![history.allKeys containsObject:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
+    if (![history.allKeys containsObject:[NSString stringWithFormat:@"%ld", (long)(selectedCoach.startYear + indexPath.row)]]) {
         hist = [NSString stringWithFormat:@"%@ (0-0)",selectedCoach.team.abbreviation];
     } else {
-        hist = selectedCoach.coachingHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+        hist = selectedCoach.coachingHistoryDictionary[[NSString stringWithFormat:@"%ld", (long)(selectedCoach.startYear + indexPath.row)]];
     }
     NSArray *comps = [hist componentsSeparatedByString:@"\n"];
     
