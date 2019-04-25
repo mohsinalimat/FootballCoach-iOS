@@ -1433,7 +1433,7 @@
             
             NSMutableArray<Team *> *availTeamsB = [NSMutableArray array];
             for (Team *k in teamList) {
-                if (![k.conference isEqualToString:a.conference] && ((week == 0 && k.oocGame0 == nil) || (week == 4 && k.oocGame4 == nil) || (week == 9 && k.oocGame9 == nil))) {
+                if (![k.conference isEqualToString:a.conference] && ((week == 0 && k.oocGame0 == nil) || (week == 4 && k.oocGame4 == nil && ![a.oocGame0.homeTeam isEqual:k] && ![a.oocGame0.awayTeam isEqual:k]) || (week == 9 && k.oocGame9 == nil && ![a.oocGame0.homeTeam isEqual:k] && ![a.oocGame0.awayTeam isEqual:k] && ![a.oocGame4.homeTeam isEqual:k] && ![a.oocGame4.awayTeam isEqual:k]))) {
                     [availTeamsB addObject:k];
                 }
             }
