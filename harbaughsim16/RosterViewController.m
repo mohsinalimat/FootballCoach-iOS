@@ -74,6 +74,7 @@
             [self.navigationItem.rightBarButtonItem setTitle:@"Reorder"];
             [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
         }
+        [[HBSharedUtils currentLeague].userTeam updateDepthChartPositions];
         [[HBSharedUtils currentLeague] save];
     } else {
         [super setEditing:YES animated:YES];
@@ -264,10 +265,10 @@
         [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Save Roster Changes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self manageEditing];
         }]];
-//        [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Auto-sort Depth Chart" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            [[HBSharedUtils currentLeague].userTeam sortPlayers];
-//            [self.tableView reloadData];
-//        }]];
+        [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Auto-sort Depth Chart" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[HBSharedUtils currentLeague].userTeam sortPlayers];
+            [self.tableView reloadData];
+        }]];
     }
     
     if ([HBSharedUtils currentLeague].isHardMode) {
