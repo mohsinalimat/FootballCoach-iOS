@@ -304,7 +304,7 @@
 }
 
 -(int)getRushScore {
-    return (self.statsRushTD * 100) - (self.statsFumbles * 80) + ((int)(self.statsRushYards * 2.35));;
+    return (self.statsRushTD * 100) - (self.statsFumbles * 80) + ((int)(self.statsRushYards * 2.35));
 }
 
 -(NSDictionary*)detailedStats:(int)games {
