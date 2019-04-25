@@ -239,9 +239,9 @@
     [statsCell.playerLabel setText:[plyr getInitialName]];
     
     if ([HBSharedUtils currentLeague].currentWeek >= 13 && roty != nil) {
-        [statsCell.teamLabel setText:plyr.team.abbreviation];
+        [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ %@", plyr.team.abbreviation, plyr.position]];
     } else {
-        [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ (%d vts)", plyr.team.abbreviation, [plyr getHeismanScore]]];
+        [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ %@ (%d vts)", plyr.team.abbreviation, plyr.position, [plyr getHeismanScore]]];
     }
     
     if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {

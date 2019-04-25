@@ -922,7 +922,7 @@
 
 
     [statsCell.playerLabel setText:[plyr getInitialName]];
-    if (position == HBStatPositionDEF) {
+    if (position != HBStatPositionHC) {
         [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ %@", plyr.team.abbreviation, plyr.position]];
     } else {
         [statsCell.teamLabel setText:plyr.team.abbreviation];
