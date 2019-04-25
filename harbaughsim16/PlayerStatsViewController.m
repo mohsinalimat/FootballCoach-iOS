@@ -684,7 +684,7 @@
                 return (a.careerConfCOTYs > b.careerConfCOTYs) ? -1 : ((a.careerConfCOTYs == b.careerConfCOTYs) ? 0 : 1);
             }];
             self->hcStatType = FCHeadCoachStatConfCOTYs;
-            self.title = @"Conf Coach of the Year Awards Won";
+            self.title = @"Conf COTY Awards Won";
             [self.tableView reloadData];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"Players Drafted" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -911,6 +911,9 @@
         } else if (hcStatType == FCHeadCoachStatROTYsCoached) {
             stat2 = @"ROTYs"; //stat
             stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).totalROTYs];
+        } else if (hcStatType == FCHeadCoachStatPlayersDrafted) {
+            stat2 = @"DRFT"; //stat
+            stat2Value = [NSString stringWithFormat:@"%d",((HeadCoach*)plyr).careerDraftPicks];
         } else {
             stat2 = @""; //stat
             stat2Value = @"";
