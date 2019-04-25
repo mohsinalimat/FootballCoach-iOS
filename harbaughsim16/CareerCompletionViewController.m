@@ -102,7 +102,7 @@
         [glimpseView.teamsLabel sizeToFit];
         
         [glimpseView.careerRecordLabel setText:[NSString stringWithFormat:@"%@-%@", [self retrieveStat:@"totalWins"],[self retrieveStat:@"totalLosses"]]];
-        [glimpseView.careerConfRecordLabel setText:[NSString stringWithFormat:@"%@-%@", [self retrieveStat:@"totalConfWins"],[self retrieveStat:@"totalConfWins"]]];
+        [glimpseView.careerConfRecordLabel setText:[NSString stringWithFormat:@"%@-%@", [self retrieveStat:@"totalConfWins"],[self retrieveStat:@"totalConfLosses"]]];
         [glimpseView.careerRivalryRecordLabel setText:[NSString stringWithFormat:@"%@-%@", [self retrieveStat:@"totalRivalryWins"],[self retrieveStat:@"totalRivalryLosses"]]];
         [glimpseView.careerBowlRecordLabel setText:[NSString stringWithFormat:@"%@-%@", [self retrieveStat:@"totalBowls"],[self retrieveStat:@"totalBowlLosses"]]];
         [glimpseView.careerCCGRecordLabel setText:[NSString stringWithFormat:@"%@-%@", [self retrieveStat:@"totalCCs"],[self retrieveStat:@"totalCCLosses"]]];
