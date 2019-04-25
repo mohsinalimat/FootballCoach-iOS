@@ -1911,41 +1911,51 @@
     cotyWinner = nil;
     cotyDecided = NO;
     didFinishCoachingCarousel = NO;
+    
+    [teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+    }];
 
-    // Bless a random team with lots of prestige
-    int blessNumber = (int)([HBSharedUtils randomValue]*9);
-    Team *blessTeam = teamList[50 + blessNumber];
+    // Bless a random team from the third quartile with lots of prestige
+    NSRange thirdQuartile = NSMakeRange((teamList.count / 2), (teamList.count / 4) + 1);
+    int blessNumber = (int)([HBSharedUtils randomValue] * thirdQuartile.length) + (int)thirdQuartile.location;
+    Team *blessTeam = teamList[blessNumber];
     while ([blessTeam isEqual:userTeam] || [blessTeam isEqual:blessedTeam] || [blessTeam isEqual:cursedTeam]) {
-        blessNumber = (int)([HBSharedUtils randomValue]*9);
-        blessTeam = teamList[50 + blessNumber];
+        blessNumber = (int)([HBSharedUtils randomValue] * thirdQuartile.length) + (int)thirdQuartile.location;
+        blessTeam = teamList[blessNumber];
     }
 
     if (!blessTeam.isUserControlled && ![blessTeam.name isEqualToString:@"American Samoa"]) {
         blessTeam.teamPrestige += 30;
         blessedTeam = blessTeam;
         if (blessTeam.teamPrestige > 90) blessTeam.teamPrestige = 90;
+    } else {
+        blessedTeam = nil;
     }
 
-    //Curse a good team
-    int curseNumber = (int)([HBSharedUtils randomValue]*7);
-    Team *curseTeam = teamList[3 + curseNumber];
+    //Curse a good team from the 1st quartile of teams
+    NSRange upperQuartile = NSMakeRange(0, (teamList.count / 4) + 1);
+    int curseNumber = (int)([HBSharedUtils randomValue] * upperQuartile.length) + (int)upperQuartile.location;
+    Team *curseTeam = teamList[curseNumber];
     if (!isHardMode) {
         while ([curseTeam isEqual:userTeam] || [curseTeam isEqual:blessedTeam] || [curseTeam isEqual:cursedTeam]) {
-            curseNumber = (int)([HBSharedUtils randomValue]*7);
-            curseTeam = teamList[3 + curseNumber];
+            curseNumber = (int)([HBSharedUtils randomValue] * upperQuartile.length) + (int)upperQuartile.location;
+            curseTeam = teamList[curseNumber];
         }
 
         if (!curseTeam.isUserControlled) {
             curseTeam.teamPrestige -= 20;
             cursedTeam = curseTeam;
+        } else {
+            cursedTeam = nil;
         }
     } else {
         while ([curseTeam isEqual:blessedTeam] || [curseTeam isEqual:cursedTeam]) {
-            curseNumber = (int)([HBSharedUtils randomValue]*7);
-            curseTeam = teamList[3 + curseNumber];
+            curseNumber = (int)([HBSharedUtils randomValue] * upperQuartile.length) + (int)upperQuartile.location;
+            curseTeam = teamList[curseNumber];
         }
 
-        if (curseTeam.teamPrestige > 85) {
+        if (curseTeam.teamPrestige > 80) {
             curseTeam.teamPrestige -= 20;
             if ([curseTeam.name isEqualToString:@"American Samoa"]) {
                 curseTeam.teamPrestige = MAX(0, curseTeam.teamPrestige);
@@ -1953,6 +1963,8 @@
                 curseTeam.teamPrestige = MAX(25, curseTeam.teamPrestige);
             }
             cursedTeam = curseTeam;
+        } else {
+            cursedTeam = nil;
         }
     }
 
@@ -1987,13 +1999,13 @@
     heismanDecided = NO;
     [bowlGames removeAllObjects];
 
-    if (blessedTeam) {
+    if (blessedTeam != nil) {
         NSMutableArray *week0 = newsStories[0];
         [week0 addObject:[self randomBlessedTeamStory:blessedTeam]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
 
-    if (cursedTeam) {
+    if (cursedTeam != nil) {
         NSMutableArray *week0 = newsStories[0];
         [week0 addObject:[self randomCursedTeamStory:cursedTeam]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
