@@ -1637,6 +1637,7 @@
                     [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                     coachGotNewContract = true;
                     [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs long-term contract extension at %@!\n%@ has extended the contract of their head coach %@ for 7 additional years after building the program into a national contender.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
+                    NSLog(@"[Coaching Carousel] %@ COACH Status: Extended 7 years", abbreviation);
                 }
             } else if (totalPrestigeDiff > 10) {
                 // Pulling team up a prestige bracket? 5 year extension automatically
@@ -1645,6 +1646,7 @@
                 [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                 coachGotNewContract = true;
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 5 additional years after stringing together a number of successful seasons.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
+                NSLog(@"[Coaching Carousel] %@ COACH Status: Extended 5 years", abbreviation);
             } else if (totalPrestigeDiff > 7) {
                 // Great work so far? 4 year extension
                 [self getCurrentHC].contractLength = 4;
@@ -1652,6 +1654,7 @@
                 [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                 coachGotNewContract = true;
                 [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 4 additional years for his excellent work at the helm of the program.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
+                NSLog(@"[Coaching Carousel] %@ COACH Status: Extended 4 years", abbreviation);
             } else if (totalPrestigeDiff > 5 || [natlChampWL isEqualToString:@"NCL"]) {
                 // Good work so far or lost NCG?
                 if (![natlChampWL containsString:@"NC"] || ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear <= 2)) {
@@ -1661,11 +1664,13 @@
                     [self getCurrentHC].baselinePrestige = ([self getCurrentHC].baselinePrestige + 2 * teamPrestige) / 3;
                     coachGotNewContract = true;
                     [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ signs contract extension at %@!\n%@ has extended the contract of their head coach %@ for 3 additional years after their recent success.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name]];
+                    NSLog(@"[Coaching Carousel] %@ COACH Status: Extended 3 years", abbreviation);
                 }
             } else if (totalPrestigeDiff < 6 && totalPrestigeDiff > -2) {
                 // if you're on the last year of your contract, you get a prove-it deal based on rank and outcome
                 //      if supposed national or conf contender (ranks 0 to 25ish) and won a conf title
                 //      if supposed conf contender or middling team (ranks 26ish to 72ish and won a bowl or appeared in conf title game
+                // if you're on the last year of your contract and you have improved the program marginally: 65% chance of a prove it deal
                 if (([self getCurrentHC].contractYear >= [self getCurrentHC].contractLength || ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear) <= 0)
                     && ((rankTeamPrestige < 25 && [confChampion isEqualToString:@"CC"]) || (rankTeamPrestige > 24 && rankTeamPrestige < 72 && ([confChampion containsString:@"C"] || [semifinalWL containsString:@"BW"])) || [self getCurrentHC].wonTopHC || [self getCurrentHC].wonConfHC)) {
                     // prove it deal
@@ -1675,6 +1680,7 @@
                     [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite an average tenure. However, he has posted a career record of %d-%d, and the %@ AD noted this year's postseason appearance has earned his coach a vote of confidence.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                     coachGotNewContract = true;
                     proveIt = true;
+                    NSLog(@"[Coaching Carousel] %@ COACH Status: Extended (Prove It)", abbreviation);
                 } else if ([self getCurrentHC].contractYear >= [self getCurrentHC].contractLength || ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear) <= 0) {
                     if (totalPrestigeDiff > -2 && [HBSharedUtils randomValue] < 0.65) {
                         // overall uneven career? Prove it deal
@@ -1684,6 +1690,7 @@
                         [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite a disappointing tenure. However, he has posted a career record of %d-%d, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                         coachGotNewContract = true;
                         proveIt = true;
+                        NSLog(@"[Coaching Carousel] %@ COACH Status: Extended (Prove It)", abbreviation);
                     } else {
                         coachFired = true;
                         if ([self isEqual:self.league.cursedTeam]) {
@@ -1710,6 +1717,7 @@
                     [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite a disappointing tenure. However, he has posted a career record of %d-%d, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                     coachGotNewContract = true;
                     proveIt = true;
+                    NSLog(@"[Coaching Carousel] %@ COACH Status: Extended (Prove It)", abbreviation);
                 } else {
                     // net negative prestige under coach, but +2 last year? Fired due to overall poor performance.
                     coachFired = true;
@@ -1767,13 +1775,13 @@
     if (isUserControlled) {
         if (coachGotNewContract && proveIt) {
             coachContractString = [NSString stringWithFormat:@"You've been given an %d-year contract to prove your abilities based on the recent success of your team.",[self getCurrentHC].contractLength];
-            NSLog(@"[Coaching Carousel] User Coach Status: Extended (Prove It)");
+//            NSLog(@"[Coaching Carousel] User Coach Status: Extended (Prove It)");
         } else if (coachGotNewContract) {
             coachContractString = [NSString stringWithFormat:@"Congratulations! Your performance has been rewarded with a contract extension for %d years!", [self getCurrentHC].contractLength];
-            NSLog(@"[Coaching Carousel] User Coach Status: Extended");
+//            NSLog(@"[Coaching Carousel] User Coach Status: Extended");
         } else if (coachFired) {
             coachContractString = [NSString stringWithFormat:@"Because of your team's poor performances, %@'s Athletic Director has terminated your contract.", name];
-            NSLog(@"[Coaching Carousel] User Coach Status: Fired");
+//            NSLog(@"[Coaching Carousel] User Coach Status: Fired");
         } else {
             int yearsLeft = MAX(0, ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear - 1));
             if (yearsLeft == 0) {
