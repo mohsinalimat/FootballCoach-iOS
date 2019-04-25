@@ -66,6 +66,12 @@
 #define FLIP_COST 150
 
 #ifdef DEBUG
+#   define IS_DEBUG true
+#else
+#   define IS_DEBUG false
+#endif
+
+#ifdef DEBUG
 #   define NSLog(...) NSLog(__VA_ARGS__)
 #else
 #   define NSLog(...) (void)0

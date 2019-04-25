@@ -1619,9 +1619,11 @@
             }
         }
         
-        NSLog(@"[Coaching Carousel] %@ COACH Contract Years Left: %d", self.abbreviation, [self getCurrentHC].contractLength - [self getCurrentHC].contractYear);
-        if (([self getCurrentHC].contractLength - [self getCurrentHC].contractYear) < 0) {
-            NSLog(@"[Coaching Carousel] %@ COACH Contract Years Left is NEGATIVE", self.abbreviation);
+        if (IS_DEBUG) {
+            NSLog(@"[Coaching Carousel] %@ COACH Contract Years Left: %d", self.abbreviation, [self getCurrentHC].contractLength - [self getCurrentHC].contractYear);
+            if (([self getCurrentHC].contractLength - [self getCurrentHC].contractYear) < 0) {
+                NSLog(@"[Coaching Carousel] %@ COACH Contract Years Left is NEGATIVE", self.abbreviation);
+            }
         }
         
         //New Contracts or Firing
