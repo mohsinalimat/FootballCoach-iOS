@@ -2702,7 +2702,7 @@
                 break;
         }
 
-        if (![playersLeaving containsObject:q] && q.year >= transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && !q.isHeisman && !q.isROTY && !q.isInjured && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer && !q.isGradTransfer && futurePositionalScore < 20) {
+        if (![playersLeaving containsObject:q] && q.year >= transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && !q.isHeisman && !q.isROTY && !q.isAllAmerican && !q.isAllConference && !q.isInjured && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer && !q.isGradTransfer && futurePositionalScore < 20) {
             NSLog(@"[Transfers] Confirmed that %@ %@ is a valid transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
             if (q.year == 4) {
                 q.isTransfer = false;
