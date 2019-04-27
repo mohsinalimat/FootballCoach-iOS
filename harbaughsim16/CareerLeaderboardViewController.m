@@ -198,6 +198,9 @@
     NSMutableAttributedString *lifetimeRecordString = [[NSMutableAttributedString alloc] initWithString:@"\nLifetime: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
     [lifetimeRecordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@-%@", coachDict[@"totalWins"],coachDict[@"totalLosses"]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
+    NSMutableAttributedString *natlTitleString = [[NSMutableAttributedString alloc] initWithString:@"\nNatl Titles: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [natlTitleString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", coachDict[@"totalNCs"]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    
     NSMutableAttributedString *lastBowlString = [[NSMutableAttributedString alloc] initWithString:@"\nTeams Coached: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
     [lastBowlString appendAttributedString:[[NSAttributedString alloc] initWithString:coachDict[@"teamsCoached"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
 
@@ -211,6 +214,7 @@
 //    [compoundHistoryString appendAttributedString:yearString];
     [compoundHistoryString appendAttributedString:careerScoreString];
     [compoundHistoryString appendAttributedString:lifetimeRecordString];
+    [compoundHistoryString appendAttributedString:natlTitleString];
     [compoundHistoryString appendAttributedString:lastBowlString];
     [compoundHistoryString appendAttributedString:coachAwardsString];
     [compoundHistoryString appendAttributedString:playerAwardsString];
