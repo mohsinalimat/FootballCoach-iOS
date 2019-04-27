@@ -143,7 +143,7 @@
     NSString *stat4Value = @"";
     
     if ([plyr isKindOfClass:[PlayerQB class]]) {
-        if ([((PlayerQB*)plyr) getRushScore] >= [((PlayerQB*)plyr) getPassScore]) {
+        if ([((PlayerQB*)plyr) getRushScore] > [((PlayerQB*)plyr) getPassScore]) {
             stat1 = @"Car";
             stat2 = @"Yds";
             stat3 = @"TD";

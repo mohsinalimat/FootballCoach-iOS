@@ -296,7 +296,8 @@
 }
 
 -(int)getHeismanScore {
-    return [self getPassScore] + [self getRushScore];
+    return ([self getPassScore] >= [self getRushScore]) ? [self getPassScore] : [self getRushScore];
+    
 }
 
 -(int)getPassScore {
