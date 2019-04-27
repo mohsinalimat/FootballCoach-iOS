@@ -2094,7 +2094,7 @@
                     if (![heismanCandidates containsObject:wrec]) {
                         [heismanCandidates addObject:wrec];
                     }
-                    tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
                         heisman = wrec;
                         heismanScore = tempScore;
@@ -2108,7 +2108,7 @@
                 if (![heismanCandidates containsObject:wrec]) {
                     [heismanCandidates addObject:wrec];
                 }
-                tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                 if ( tempScore > heismanScore ) {
                     heisman = wrec;
                     heismanScore = tempScore;
@@ -2122,7 +2122,7 @@
                     if (![heismanCandidates containsObject:wrec]) {
                         [heismanCandidates addObject:wrec];
                     }
-                    tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
                         heisman = wrec;
                         heismanScore = tempScore;
@@ -2137,7 +2137,7 @@
                     if (![heismanCandidates containsObject:wrec]) {
                         [heismanCandidates addObject:wrec];
                     }
-                    tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
                         heisman = wrec;
                         heismanScore = tempScore;
@@ -2152,7 +2152,7 @@
                     if (![heismanCandidates containsObject:wrec]) {
                         [heismanCandidates addObject:wrec];
                     }
-                    tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
                         heisman = wrec;
                         heismanScore = tempScore;
@@ -2166,7 +2166,7 @@
                 if (![heismanCandidates containsObject:wrec]) {
                     [heismanCandidates addObject:wrec];
                 }
-                tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                 if ( tempScore > heismanScore ) {
                     heisman = wrec;
                     heismanScore = tempScore;
@@ -3498,7 +3498,7 @@
                 if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
                     [rotyCandidates addObject:wrec];
                 }
-                tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                 if ( tempScore > heismanScore ) {
                     roty = wrec;
                     heismanScore = tempScore;
@@ -3512,7 +3512,7 @@
                     if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
                         [rotyCandidates addObject:wrec];
                     }
-                    tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
                         roty = wrec;
                         heismanScore = tempScore;
@@ -3527,7 +3527,7 @@
                     if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
                         [rotyCandidates addObject:wrec];
                     }
-                    tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
                         roty = wrec;
                         heismanScore = tempScore;
@@ -3541,7 +3541,7 @@
                 if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
                     [rotyCandidates addObject:wrec];
                 }
-                tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                 if ( tempScore > heismanScore ) {
                     roty = wrec;
                     heismanScore = tempScore;
@@ -3555,7 +3555,7 @@
                     if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
                         [rotyCandidates addObject:wrec];
                     }
-                    tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
                         roty = wrec;
                         heismanScore = tempScore;
@@ -3570,7 +3570,7 @@
                     if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
                         [rotyCandidates addObject:wrec];
                     }
-                    tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
                         roty = wrec;
                         heismanScore = tempScore;
@@ -3585,7 +3585,7 @@
                     if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
                         [rotyCandidates addObject:wrec];
                     }
-                    tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
                         roty = wrec;
                         heismanScore = tempScore;
@@ -3599,7 +3599,7 @@
                 if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
                     [rotyCandidates addObject:wrec];
                 }
-                tempScore = (int)((CGFloat)([wrec getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
+                tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                 if ( tempScore > heismanScore ) {
                     roty = wrec;
                     heismanScore = tempScore;

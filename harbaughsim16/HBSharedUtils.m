@@ -1409,7 +1409,7 @@ static UIColor *styleColor = nil;
             CGFloat inMin = (CGFloat)worstConf.confPrestige;
             CGFloat inMax = (CGFloat)bestConf.confPrestige;
 
-            CGFloat outMin = 0.35;
+            CGFloat outMin = 0.75;
             CGFloat outMax = 1.0;
 
             CGFloat input = (CGFloat) foundConf.confPrestige;
