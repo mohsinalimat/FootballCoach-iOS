@@ -277,4 +277,16 @@
     }
 }
 
+-(NSString *)getPlayerArchetype {
+    if (self.ratLBTkl >= self.ratLBPas && self.ratLBTkl >= self.ratLBRsh) {
+        return @"Grappler";
+    } else if (self.ratLBPas >= self.ratLBRsh && self.ratLBPas >= self.ratLBTkl) {
+        return @"Roving Spy";
+    } else if (self.ratLBRsh >= self.ratLBPas && self.ratLBRsh >= self.ratLBTkl) {
+        return @"Run Stuffer";
+    } else {
+        return @"Middle Threat";
+    }
+}
+
 @end

@@ -122,7 +122,7 @@
     if (section == 1) {
         return 14;
     } else if (section == 0) {
-        return 12;
+        return 13;
     } else {
         return 1;
     }
@@ -160,39 +160,43 @@
             int years = (int)[[HBSharedUtils currentLeague] getCurrentYear] - selectedCoach.startYear;
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d %@", years, (years == 1) ? @"year" : @"years"]];
         } else if (indexPath.row == 2) {
+            // off
+            [cell.textLabel setText:@"Coaching Specialty"];
+            [cell.detailTextLabel setText:[selectedCoach getCoachArchetype]];
+        } else if (indexPath.row == 3) {
             // coach status
             [cell.textLabel setText:@"Status with Team"];
             [cell.detailTextLabel setText:[selectedCoach getCoachStatusString]];
             [cell.detailTextLabel setTextColor:[HBSharedUtils _colorForCoachStatus:[selectedCoach getCoachStatus]]];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             // contract yera + length
             [cell.textLabel setText:@"Contract Details"];
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d years (%d left)", selectedCoach.contractLength,(selectedCoach.contractLength - selectedCoach.contractYear - 1)]];
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             // baseline prestige
             [cell.textLabel setText:@"Baseline Prestige"];
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.baselinePrestige]];
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 6) {
             // off
             [cell.textLabel setText:@"Offensive Philosophy"];
             [cell.detailTextLabel setText:ratings[@"offensivePlaybook"]];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 7) {
             // def
             [cell.textLabel setText:@"Defensive Philosophy"];
             [cell.detailTextLabel setText:ratings[@"defensivePlaybook"]];
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 8) {
             // off
             [cell.textLabel setText:@"Offensive Ability"];
             [cell.detailTextLabel setText:ratings[@"offensiveAbility"]];
-        } else if (indexPath.row == 8) {
+        } else if (indexPath.row == 9) {
             // def
             [cell.textLabel setText:@"Defensive Ability"];
             [cell.detailTextLabel setText:ratings[@"defensiveAbility"]];
-        } else if (indexPath.row == 9) {
+        } else if (indexPath.row == 10) {
             // talent
             [cell.textLabel setText:@"Talent Progression"];
             [cell.detailTextLabel setText:ratings[@"talentProgression"]];
-        } else if (indexPath.row == 10) {
+        } else if (indexPath.row == 11) {
             // discipline
             [cell.textLabel setText:@"Discipline"];
             [cell.detailTextLabel setText:ratings[@"discipline"]];
@@ -202,7 +206,7 @@
             [cell.detailTextLabel setText:ratings[@"potential"]];
         }
         
-        if (indexPath.section == 0 && indexPath.row > 6) {
+        if (indexPath.section == 0 && indexPath.row > 7) {
             NSString *stat = cell.detailTextLabel.text;
             if (indexPath.section == 0) {
                 UIColor *letterColor;   //colors for ratings to tell what's what

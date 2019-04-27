@@ -397,4 +397,16 @@
     }
 }
 
+-(NSString *)getPlayerArchetype {
+    if (self.ratRecCat >= self.ratRecSpd && self.ratRecCat >= self.ratRecEva) {
+        return @"Mr. Reliable";
+    } else if (self.ratRecEva >= self.ratRecCat && self.ratRecEva >= self.ratRecSpd) {
+        return @"Slippery";
+    } else if (self.ratRecSpd >= self.ratRecCat && self.ratRecSpd >= self.ratRecEva) {
+        return @"Four Verts";
+    } else {
+        return @"Gym Rat";
+    }
+}
+
 @end

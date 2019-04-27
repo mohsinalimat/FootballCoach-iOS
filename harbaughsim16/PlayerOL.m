@@ -188,5 +188,16 @@
     return [stats copy];
 }
 
+-(NSString *)getPlayerArchetype {
+    if (self.ratOLPow >= self.ratOLBkP && self.ratOLPow >= self.ratOLBkR) {
+        return @"Pancake Flipper";
+    } else if (self.ratOLBkP >= self.ratOLPow && self.ratOLBkP >= self.ratOLBkR) {
+        return @"Pass Protector";
+    } else if (self.ratOLBkR >= self.ratOLPow && self.ratOLBkR >= self.ratOLBkP) {
+        return @"Rushing Shield";
+    } else {
+        return @"Solid and Steady";
+    }
+}
 
 @end

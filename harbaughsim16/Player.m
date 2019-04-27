@@ -444,7 +444,7 @@
 }
 
 -(NSDictionary*)detailedRatings {
-    return @{@"potential" : [self getLetterGrade:self.ratPot], @"durability" : [self getLetterGrade:self.ratDur]};
+    return @{@"potential" : [self getLetterGrade:self.ratPot], @"durability" : [self getLetterGrade:self.ratDur], @"archetype" : [self getPlayerArchetype]};
 }
 
 -(void)checkRecords {
@@ -603,6 +603,10 @@
 
 -(NSString *)debugDescription {
     return [self getPosNameYrOvrPot_Str];
+}
+
+-(NSString *)getPlayerArchetype {
+    return @"";
 }
 
 @end

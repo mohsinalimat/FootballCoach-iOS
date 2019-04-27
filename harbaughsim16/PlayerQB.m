@@ -558,4 +558,18 @@
     }
 }
 
+-(NSString *)getPlayerArchetype {
+    if (self.ratSpeed >= self.ratPassPow && self.ratSpeed >= self.ratPassEva && self.ratSpeed >= self.ratPassAcc) {
+        return @"Dual-Threat";
+    } else if (self.ratPassPow >= self.ratSpeed && self.ratPassPow >= self.ratPassEva && self.ratPassPow >= self.ratPassAcc) {
+        return @"Cannon Arm";
+    } else if (self.ratPassEva >= self.ratSpeed && self.ratPassEva >= self.ratPassPow && self.ratPassEva >= self.ratPassAcc) {
+        return @"Scrambler";
+    } else if (self.ratPassAcc >= self.ratSpeed && self.ratPassAcc >= self.ratPassPow && self.ratPassAcc >= self.ratPassPow) {
+        return @"Bullseye";
+    } else {
+        return @"Field General";
+    }
+}
+
 @end

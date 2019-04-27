@@ -349,4 +349,16 @@
     }
 }
 
+-(NSString *)getPlayerArchetype {
+    if (self.ratRushPow >= self.ratRushSpd && self.ratRushPow >= self.ratRushEva) {
+        return @"Wrecking Ball";
+    } else if (self.ratRushSpd >= self.ratRushPow && self.ratRushSpd >= self.ratRushEva) {
+        return @"Speedster";
+    } else if (self.ratRushEva >= self.ratRushSpd && self.ratRushEva >= self.ratRushPow) {
+        return @"Shifty";
+    } else {
+        return @"Jack-of-All-Trades";
+    }
+}
+
 @end

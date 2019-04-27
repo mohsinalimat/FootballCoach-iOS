@@ -606,4 +606,20 @@
     [self.prestigeHistoryDictionary setObject:@{@"team" : self.team.abbreviation, @"prestige" : @(self.team.teamPrestige), @"coachScore" : @([self getCoachScore])} forKey:[NSString stringWithFormat:@"%ld",(long)([self.team.league getCurrentYear])]];
 }
 
+-(NSString *)getCoachArchetype {
+    if (self.ratOff >= self.ratDef && self.ratOff >= self.ratTalent && self.ratOff >= self.ratDiscipline) {
+        return @"Offensive Guru";
+    } else if (self.ratDef >= self.ratTalent && self.ratDef >= self.ratDiscipline && self.ratDef >= self.ratOff) {
+        return @"Defensive Wizard";
+    } else if (self.ratTalent >= self.ratDiscipline && self.ratTalent >= self.ratOff && self.ratTalent >= self.ratDef) {
+        return @"Talent Prospector";
+    }
+//    else if (self.ratDiscipline >= self.ratOff && self.ratDiscipline >= self.ratDef && self.ratDiscipline >= self.ratTalent) {
+//        return @"Disciplinarian";
+//    }
+    else {
+        return @"Players' Coach";
+    }
+}
+
 @end

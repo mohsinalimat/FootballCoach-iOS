@@ -30,6 +30,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewDidLoad {
+    [super viewDidLoad];
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
         return 2;
@@ -56,29 +60,32 @@
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d-star", MIN(5, selectedPlayer.stars)]];
             [cell.textLabel setText:@"Recruit Rating"];
         } else if (indexPath.row == 2) {
+            [cell.detailTextLabel setText:[selectedPlayer getPlayerArchetype]];
+            [cell.textLabel setText:@"Player Specialty"];
+        } else if (indexPath.row == 3) {
             [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"height"]];
             [cell.textLabel setText:@"Height"];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"weight"]];
             [cell.textLabel setText:@"Weight"];
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             [cell.detailTextLabel setText:ratings[@"potential"]];
             [cell.textLabel setText:@"Potential"];
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 6) {
             [cell.detailTextLabel setText:ratings[@"footballIQ"]];
             [cell.textLabel setText:@"Football IQ"];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 7) {
             [cell.detailTextLabel setText:ratings[@"durability"]];
             [cell.textLabel setText:@"Durability"];
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 8) {
             //pow
             [cell.detailTextLabel setText:ratings[@"passPower"]];
             [cell.textLabel setText:@"Throwing Power"];
-        } else if (indexPath.row == 8) {
+        } else if (indexPath.row == 9) {
             //acc
             [cell.detailTextLabel setText:ratings[@"passAccuracy"]];
             [cell.textLabel setText:@"Throwing Accuracy"];
-        } else if (indexPath.row == 9) {
+        } else if (indexPath.row == 10) {
             //eva
             [cell.detailTextLabel setText:ratings[@"passEvasion"]];
             [cell.textLabel setText:@"Evasion"];
@@ -247,7 +254,7 @@
         }
     }
     
-    if (indexPath.section == 0 && indexPath.row > 3) {
+    if (indexPath.section == 0 && indexPath.row > 4) {
         NSString *stat = cell.detailTextLabel.text;
         
         if (indexPath.section == 0) {

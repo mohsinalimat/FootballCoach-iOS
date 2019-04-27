@@ -84,6 +84,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *)teamsCoachedString;
 -(void)updateCoachHistory;
 
+-(NSString *)getCoachArchetype;
 @end
 
 NS_ASSUME_NONNULL_END

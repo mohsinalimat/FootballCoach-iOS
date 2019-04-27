@@ -325,4 +325,16 @@
     
 }
 
+-(NSString *)getPlayerArchetype {
+    if (self.ratKickFum >= self.ratKickAcc && self.ratKickFum >= self.ratKickPow) {
+        return @"\'Go For It Instead\'";
+    } else if (self.ratKickAcc >= self.ratKickPow && self.ratKickAcc >= self.ratKickFum) {
+        return @"Deadeye";
+    } else if (self.ratKickPow >= self.ratKickFum && self.ratKickPow >= self.ratKickAcc) {
+        return @"Cannon Leg";
+    } else {
+        return @"Das Boot";
+    }
+}
+
 @end
