@@ -11,6 +11,7 @@
 #import "Conference.h"
 #import "Game.h"
 #import "Team.h"
+#import "TeamStreak.h"
 #import "AppDelegate.h"
 #import "Record.h"
 
@@ -422,6 +423,12 @@
                 [t getCurrentHC].defStratNum = t.teamStatDefNum;
                 [t getCurrentHC].startYear = (int)t.league.baseYear;
                 [t getCurrentHC].year = (int)([t.league getCurrentYear] - t.league.baseYear);
+                
+                TeamStreak *rivalRecord = t.streaks[t.rivalTeam];
+                if (rivalRecord != nil) {
+                    [t getCurrentHC].totalRivalryWins = (int)rivalRecord.wins;
+                    [t getCurrentHC].totalRivalryLosses = (int)rivalRecord.losses;
+                }
                 
                 // give HC the team history too
                 [t getCurrentHC].coachingHistoryDictionary = [t.teamHistoryDictionary mutableCopy];
