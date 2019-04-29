@@ -171,6 +171,7 @@
 		75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */; };
 		75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */; };
 		75BBDBB61DEC910A00124AA4 /* GraduatingPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BBDBB51DEC910A00124AA4 /* GraduatingPlayersViewController.m */; };
+		75C2EA7122767D86002622BF /* PlaybookSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C2EA7022767D86002622BF /* PlaybookSummaryViewController.m */; };
 		75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C01CAD748F00906A38 /* AllLeagueTeamViewController.m */; };
 		75C321C41CAD7BBB00906A38 /* AllConferenceTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C31CAD7BBB00906A38 /* AllConferenceTeamViewController.m */; };
 		75C321C71CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C61CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m */; };
@@ -478,6 +479,8 @@
 		75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTeamViewController.m; sourceTree = "<group>"; };
 		75BBDBB41DEC910A00124AA4 /* GraduatingPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraduatingPlayersViewController.h; sourceTree = "<group>"; };
 		75BBDBB51DEC910A00124AA4 /* GraduatingPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraduatingPlayersViewController.m; sourceTree = "<group>"; };
+		75C2EA6F22767D86002622BF /* PlaybookSummaryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybookSummaryViewController.h; sourceTree = "<group>"; };
+		75C2EA7022767D86002622BF /* PlaybookSummaryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybookSummaryViewController.m; sourceTree = "<group>"; };
 		75C321BF1CAD748F00906A38 /* AllLeagueTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllLeagueTeamViewController.h; sourceTree = "<group>"; };
 		75C321C01CAD748F00906A38 /* AllLeagueTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllLeagueTeamViewController.m; sourceTree = "<group>"; };
 		75C321C21CAD7BBB00906A38 /* AllConferenceTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllConferenceTeamViewController.h; sourceTree = "<group>"; };
@@ -629,6 +632,8 @@
 				75CEE94B1FF593F5005A86C1 /* CFCRecruitCell.h */,
 				75CEE94C1FF593F5005A86C1 /* CFCRecruitCell.m */,
 				75CEE94D1FF593F5005A86C1 /* CFCRecruitCell.xib */,
+				75C2EA6F22767D86002622BF /* PlaybookSummaryViewController.h */,
+				75C2EA7022767D86002622BF /* PlaybookSummaryViewController.m */,
 			);
 			name = Recruiting;
 			sourceTree = "<group>";
@@ -1556,6 +1561,7 @@
 				75A4518721CC76F6007E481A /* PlayerKDetailViewController.m in Sources */,
 				75924A4C1C99D03300B165AD /* Player.m in Sources */,
 				75A4519121CC7946007E481A /* PlayerLBDetailViewController.m in Sources */,
+				75C2EA7122767D86002622BF /* PlaybookSummaryViewController.m in Sources */,
 				7563A8E11CB7F6F20023E43B /* Record.m in Sources */,
 				75315AFE21E64E72006A1372 /* CFCAwardTagView.m in Sources */,
 				75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */,
