@@ -296,7 +296,7 @@
     } else if (self.ratCBSpd >= self.ratCBCov && self.ratCBSpd >= self.ratCBTkl) {
         return @"Man Marker";
     } else if (self.ratCBTkl >= self.ratCBCov && self.ratCBTkl >= self.ratCBSpd) {
-        return @"Buckle and Secure";
+        return @"Tackling Tiger";
     } else {
         return @"Shutdown Corner";
     }
