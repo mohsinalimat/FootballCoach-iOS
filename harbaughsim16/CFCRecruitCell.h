@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *fortyYdDashLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *rankLabel;
+@property (weak, nonatomic) IBOutlet UILabel *specialtyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *otherOffersLabel;
 @end

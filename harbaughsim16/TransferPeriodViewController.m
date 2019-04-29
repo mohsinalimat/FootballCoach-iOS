@@ -792,8 +792,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.estimatedRowHeight = 150;
-    self.tableView.rowHeight = 150;
+    self.tableView.estimatedRowHeight = 175;
+    self.tableView.rowHeight = 175;
     self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
     self.tableView.emptyDataSetSource = self;
@@ -1315,11 +1315,15 @@
     }
     [cell.otherOffersLabel setAttributedText:offerString];
     
+    NSMutableAttributedString *specString = [[NSMutableAttributedString alloc] initWithString:@"Specialty: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [specString appendAttributedString:[[NSAttributedString alloc] initWithString:[p getPlayerArchetype] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    
     [cell.interestLabel setAttributedText:interestString];
     [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:stars]]];
     [cell.nameLabel setAttributedText:nameString];
     [cell.stateLabel setText:state];
     [cell.weightLabel setAttributedText:typeString];
+    [cell.specialtyLabel setAttributedText:specString];
     
     NSMutableAttributedString *potAtt = [[NSMutableAttributedString alloc] initWithString:@"Potential: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0]}];
     NSString *stat1 = [p getLetterGrade:p.ratPot];
