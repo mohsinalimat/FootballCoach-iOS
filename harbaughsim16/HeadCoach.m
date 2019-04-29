@@ -60,7 +60,7 @@
 
 +(instancetype)newHC:(Team *)t name:(NSString *)nm stars:(int)stars year:(int)yr newHire:(BOOL)newHire {
     HeadCoach *hc = [HeadCoach newHC:t name:nm stars:stars year:yr];
-//    BOOL promote = newHire;
+    hc.promotionCandidate = !newHire;
     return hc;
 }
 
