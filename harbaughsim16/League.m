@@ -974,7 +974,7 @@
             if (t.coaches.count > 0) {
                 for (HeadCoach *hc in t.coaches) {
                     if (hc != nil) {
-                        if (self.currentWeek != 15 && hc.year != 0 && hc.coachingHistoryDictionary.count != self.leagueHistoryDictionary.count) {
+                        if (self.currentWeek != 15 && hc.year != 0 && hc.year != hc.coachingHistoryDictionary.count) {
                             return YES;
                         }
                     } else {
@@ -1613,10 +1613,10 @@
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", ncg.awayTeam.name, [ncg.awayTeam strRep], [ncg.homeTeam strRep], (long)ncg.awayScore, (long)ncg.homeScore, ncg.awayTeam.name]];
         }
         
-        [self refreshAllLeaguePlayers];
         for (Conference *c in conferences) {
             [c refreshAllConferencePlayers];
         }
+        [self refreshAllLeaguePlayers];
         [self completeProDraft];
         [self processCoachingContracts];
         canRebrandTeam = YES;
@@ -2812,73 +2812,100 @@
     [leadingQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (a.isHeisman || a.isROTY) return -1;
-        else if (b.isHeisman || b.isROTY) return 1;
-        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman || [a isEqual: self->heisman] || [a isEqual: self->roty] || a.isROTY || a.isAllConference)
+            return -1;
+        else if (b.isHeisman || [b isEqual: self->heisman] || [b isEqual: self->roty] || b.isROTY || b.isAllConference)
+            return 1;
+        else
+            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
 
     [leadingRBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (a.isHeisman || a.isROTY) return -1;
-        else if (b.isHeisman || b.isROTY) return 1;
-        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman || [a isEqual: self->heisman] || [a isEqual: self->roty] || a.isROTY || a.isAllConference)
+            return -1;
+        else if (b.isHeisman || [b isEqual: self->heisman] || [b isEqual: self->roty] || b.isROTY || b.isAllConference)
+            return 1;
+        else
+            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
 
     [leadingWRs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (a.isHeisman || a.isROTY) return -1;
-        else if (b.isHeisman || b.isROTY) return 1;
-        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman || [a isEqual: self->heisman] || [a isEqual: self->roty] || a.isROTY || a.isAllConference)
+            return -1;
+        else if (b.isHeisman || [b isEqual: self->heisman] || [b isEqual: self->roty] || b.isROTY || b.isAllConference)
+            return 1;
+        else
+            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
 
     [leadingTEs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (a.isHeisman || a.isROTY) return -1;
-        else if (b.isHeisman || b.isROTY) return 1;
-        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman || [a isEqual: self->heisman] || [a isEqual: self->roty] || a.isROTY || a.isAllConference)
+            return -1;
+        else if (b.isHeisman || [b isEqual: self->heisman] || [b isEqual: self->roty] || b.isROTY || b.isAllConference)
+            return 1;
+        else
+            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
     [leadingDLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (a.isHeisman || a.isROTY) return -1;
-        else if (b.isHeisman || b.isROTY) return 1;
-        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman || [a isEqual: self->heisman] || [a isEqual: self->roty] || a.isROTY || a.isAllConference)
+            return -1;
+        else if (b.isHeisman || [b isEqual: self->heisman] || [b isEqual: self->roty] || b.isROTY || b.isAllConference)
+            return 1;
+        else
+            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
     [leadingLBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (a.isHeisman || a.isROTY) return -1;
-        else if (b.isHeisman || b.isROTY) return 1;
-        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman || [a isEqual: self->heisman] || [a isEqual: self->roty] || a.isROTY || a.isAllConference)
+            return -1;
+        else if (b.isHeisman || [b isEqual: self->heisman] || [b isEqual: self->roty] || b.isROTY || b.isAllConference)
+            return 1;
+        else
+            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
     [leadingCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (a.isHeisman || a.isROTY) return -1;
-        else if (b.isHeisman || b.isROTY) return 1;
-        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman || [a isEqual: self->heisman] || [a isEqual: self->roty] || a.isROTY || a.isAllConference)
+            return -1;
+        else if (b.isHeisman || [b isEqual: self->heisman] || [b isEqual: self->roty] || b.isROTY || b.isAllConference)
+            return 1;
+        else
+            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
     [leadingSs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
         Player *b = (Player*)obj2;
-        if (a.isHeisman || a.isROTY) return -1;
-        else if (b.isHeisman || b.isROTY) return 1;
-        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman || [a isEqual: self->heisman] || [a isEqual: self->roty] || a.isROTY || a.isAllConference)
+            return -1;
+        else if (b.isHeisman || [b isEqual: self->heisman] || [b isEqual: self->roty] || b.isROTY || b.isAllConference)
+            return 1;
+        else
+            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
 
     [leadingKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         PlayerK *a = (PlayerK*)obj1;
         PlayerK *b = (PlayerK*)obj2;
-        if (a.isHeisman || a.isROTY) return -1;
-        else if (b.isHeisman || b.isROTY) return 1;
-        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+        if (a.isHeisman || [a isEqual: self->heisman] || [a isEqual: self->roty] || a.isROTY || a.isAllConference)
+            return -1;
+        else if (b.isHeisman || [b isEqual: self->heisman] || [b isEqual: self->roty] || b.isROTY || b.isAllConference)
+            return 1;
+        else
+            return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
 
     PlayerQB *qb = leadingQBs[0];

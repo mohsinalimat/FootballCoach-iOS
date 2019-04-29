@@ -41,6 +41,7 @@
     Conference *selectedConf;
     NSDictionary *players;
     Player *heisman;
+    Player *roty;
     HeadCoach *coty;
 }
 @end
@@ -132,6 +133,7 @@
     [super viewDidLoad];
 
     heisman = [[HBSharedUtils currentLeague] heisman];
+    roty = [[HBSharedUtils currentLeague] roty];
     coty = [[HBSharedUtils currentLeague] cotyWinner];
 
     self.title = [NSString stringWithFormat:@"%ld's All-%@ Team", (long)([HBSharedUtils currentLeague].baseYear + [HBSharedUtils currentLeague].leagueHistoryDictionary.count), selectedConf.confName];
@@ -385,8 +387,8 @@
         if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
             [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
         } else {
-            if (heisman != nil) {
-                if ([heisman isEqual:plyr]) {
+            if (heisman != nil && roty != nil) {
+                if ([heisman isEqual:plyr] || [roty isEqual: plyr]) {
                     [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
                 } else {
                     [statsCell.playerLabel setTextColor:[UIColor blackColor]];

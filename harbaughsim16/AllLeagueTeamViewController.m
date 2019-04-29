@@ -38,6 +38,7 @@
 {
     NSDictionary *players;
     Player *heisman;
+    Player *roty;
 }
 @end
 
@@ -115,7 +116,7 @@
     [super viewDidLoad];
 
     heisman = [[HBSharedUtils currentLeague] heisman];
-
+    roty = [[HBSharedUtils currentLeague] roty];
     self.title = [NSString stringWithFormat:@"%ld's All-League Team", (long)([HBSharedUtils currentLeague].baseYear + [HBSharedUtils currentLeague].leagueHistoryDictionary.count)];
     players = [[HBSharedUtils currentLeague] allLeaguePlayers];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBPlayerCell" bundle:nil] forCellReuseIdentifier:@"HBPlayerCell"];
@@ -334,8 +335,8 @@
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
-        if (heisman != nil) {
-            if ([heisman isEqual:plyr]) {
+        if (heisman != nil && roty != nil) {
+            if ([heisman isEqual:plyr] || [roty isEqual: plyr]) {
                 [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
             } else {
                 [statsCell.playerLabel setTextColor:[UIColor blackColor]];
