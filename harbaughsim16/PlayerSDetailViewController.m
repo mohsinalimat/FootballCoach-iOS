@@ -63,7 +63,7 @@
             [cell.textLabel setText:@"Recruit Rating"];
         } else if (indexPath.row == 2) {
             [cell.detailTextLabel setText:[selectedPlayer getPlayerArchetype]];
-            [cell.textLabel setText:@"Player Specialty"];
+            [cell.textLabel setText:@"Player Archetype"];
         } else if (indexPath.row == 3) {
             [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"height"]];
             [cell.textLabel setText:@"Height"];

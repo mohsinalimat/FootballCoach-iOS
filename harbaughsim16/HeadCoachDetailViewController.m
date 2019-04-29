@@ -161,7 +161,7 @@
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d %@", years, (years == 1) ? @"year" : @"years"]];
         } else if (indexPath.row == 2) {
             // off
-            [cell.textLabel setText:@"Coaching Specialty"];
+            [cell.textLabel setText:@"Coaching Archetype"];
             [cell.detailTextLabel setText:[selectedCoach getCoachArchetype]];
         } else if (indexPath.row == 3) {
             // coach status
