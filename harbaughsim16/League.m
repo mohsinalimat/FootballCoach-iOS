@@ -1580,7 +1580,7 @@
             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
             
         }] mutableCopy];
-        
+        [self setTeamRanks];
         [self scheduleBowlGames];
     } else if (currentWeek == 13 ) {
         [self playBowlGames];
