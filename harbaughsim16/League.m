@@ -958,7 +958,7 @@
                     return YES;
                 }
 
-                if (p.gamesPlayed > (15 * p.year) || p.gamesPlayedSeason > 15) {
+                if ((p.wasRedshirted && p.gamesPlayed > (15 * (p.year + 1))) || (!p.wasRedshirted && p.gamesPlayed > (15 * p.year)) || p.gamesPlayedSeason > 15) {
                     return YES;
                 }
 
@@ -974,7 +974,7 @@
             if (t.coaches.count > 0) {
                 for (HeadCoach *hc in t.coaches) {
                     if (hc != nil) {
-                        if (self.currentWeek != 15 && hc.coachingHistoryDictionary.count != self.leagueHistoryDictionary.count) {
+                        if (self.currentWeek != 15 && hc.year != 0 && hc.coachingHistoryDictionary.count != self.leagueHistoryDictionary.count) {
                             return YES;
                         }
                     } else {
