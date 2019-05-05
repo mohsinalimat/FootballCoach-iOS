@@ -714,6 +714,8 @@
             oldLigue.careerCoachWinsRecord = nil;
             oldLigue.cotyHistoryDictionary = [NSMutableDictionary dictionary];
             oldLigue.coachingHallOfFamers = [NSMutableArray array];
+            
+            oldLigue.leagueVersion = HB_CURRENT_APP_VERSION;
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
