@@ -1384,14 +1384,34 @@
             }
         }
         if (allGames.count > 0) {
-            [allGames sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Game *a = (Game *)obj1;
-                Game *b = (Game *)obj2;
-                
-                return [[NSNumber numberWithInt:(b.homeTeam.teamPollScore + b.awayTeam.teamPollScore)] compare:[NSNumber numberWithInt:(a.homeTeam.teamPollScore + a.awayTeam.teamPollScore)]];
-            }];
+            Game *gotw;
             
-            Game *gotw = allGames[0];
+            if ([HBSharedUtils randomValue] < 0.85) {
+                NSString *oldGOTW = [newsStories[currentWeek] lastObject];
+                if (oldGOTW == nil) {
+                    oldGOTW = @"";
+                }
+                [allGames sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                    Game *a = (Game *)obj1;
+                    Game *b = (Game *)obj2;
+                    
+                    if ([oldGOTW containsString:a.awayTeam.abbreviation] || [oldGOTW containsString:a.homeTeam.abbreviation]) {
+                        return 1;
+                    }
+                    
+                    if ([oldGOTW containsString:b.awayTeam.abbreviation] || [oldGOTW containsString:b.homeTeam.abbreviation]) {
+                        return -1;
+                    }
+                    
+                    return [[NSNumber numberWithInt:(b.homeTeam.teamPollScore + b.awayTeam.teamPollScore)] compare:[NSNumber numberWithInt:(a.homeTeam.teamPollScore + a.awayTeam.teamPollScore)]];
+                }];
+                
+                gotw = allGames[0];
+            } else {
+                int index = (int)([HBSharedUtils randomValue] * (allGames.count / 2));
+                gotw = allGames[index];
+            }
+            
             NSMutableString *newsString = [NSMutableString string];
             
             if (gotw.awayTeam.rankTeamPollScore < 26 && gotw.homeTeam.rankTeamPollScore < 26) {
