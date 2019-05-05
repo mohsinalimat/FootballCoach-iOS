@@ -110,7 +110,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
 
     text = @"No injuries to report";
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
 
 
@@ -137,7 +137,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
 
     text = [NSString stringWithFormat:@"All %@ players are cleared to play this week!",selectedTeam.name];
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
 
 
@@ -193,8 +193,8 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15.0]];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
     }
 
     Player *p = selectedTeam.injuredPlayers[indexPath.row];

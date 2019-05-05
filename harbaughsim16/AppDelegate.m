@@ -272,17 +272,17 @@
     [STPopupNavigationBar appearance].tintColor = [UIColor whiteColor];
     [STPopupNavigationBar appearance].barStyle = UIBarStyleDefault;
     
-    [[ZGNavigationTitleView appearance] setNavigationBarTitleFont:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold]];
+    [[ZGNavigationTitleView appearance] setNavigationBarTitleFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE weight:UIFontWeightSemibold]];
     [[ZGNavigationTitleView appearance] setNavigationBarTitleFontColor:[UIColor whiteColor]];
     
-    [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFont:[UIFont systemFontOfSize:12.0]];
+    [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
     [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFontColor:[UIColor lightTextColor]];
     
     
     [RMessage addDesignsFromFileWithName:@"alt-designs" inBundle:[NSBundle mainBundle]];
     
     ZMJPreferences *prefs = [ZMJPreferences new];
-    prefs.drawing.font = [UIFont systemFontOfSize:12.0];
+    prefs.drawing.font = [UIFont systemFontOfSize:SMALL_FONT_SIZE];
     prefs.drawing.foregroundColor = [UIColor whiteColor];
     prefs.drawing.backgroundColor = [HBSharedUtils styleColor];
     [ZMJTipView setGlobalPreferences:prefs];

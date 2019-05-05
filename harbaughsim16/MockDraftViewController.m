@@ -292,7 +292,7 @@
 {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.contentView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F7F7F7"];
-    [header.textLabel setFont:[UIFont boldSystemFontOfSize:17.0]];
+    [header.textLabel setFont:[UIFont boldSystemFontOfSize:LARGE_FONT_SIZE]];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

@@ -33,7 +33,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
     text = @"No league history yet";
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -60,7 +60,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"As you play season after season, the national champion, Player of the Year, Rookie of the Year, and Coach of the Year for each season will be immortalized here.";
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -154,7 +154,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         [cell.detailTextLabel setNumberOfLines:0];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         
     }
     // Configure the cell...
@@ -190,28 +190,28 @@
         coty = @"None";
     }
     
-    NSMutableAttributedString *champString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Champion: %@",leagueYear[0]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
+    NSMutableAttributedString *champString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Champion: %@",leagueYear[0]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE]}];
     if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [champString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [champString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, champString.string.length)];
     } else {
         [champString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, champString.string.length)];
     }
     
-    NSMutableAttributedString *heismanString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nPOTY: %@",heisman] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
+    NSMutableAttributedString *heismanString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nPOTY: %@",heisman] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE]}];
     if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [heisman containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [heismanString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, heismanString.string.length)];
     } else {
         [heismanString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, heismanString.string.length)];
     }
     
-    NSMutableAttributedString *rotyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nROTY: %@",roty] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
+    NSMutableAttributedString *rotyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nROTY: %@",roty] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE]}];
     if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [roty containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [rotyString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, rotyString.string.length)];
     } else {
         [rotyString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, rotyString.string.length)];
     }
     
-    NSMutableAttributedString *cotyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nCOTY: %@",coty] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
+    NSMutableAttributedString *cotyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nCOTY: %@",coty] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE]}];
     if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [coty containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [cotyString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, cotyString.string.length)];
     } else {

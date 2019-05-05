@@ -48,7 +48,7 @@
     } else {
         text = @"No all-time records yet";
     }
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
 
     
@@ -75,7 +75,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"When players set or break records, they will be immortalized here!";
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
 
     

@@ -906,7 +906,7 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [header.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [header.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
@@ -976,7 +976,7 @@
                     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
                     [cell.textLabel setTextColor:self.view.tintColor];
                     [cell setAccessoryType:UITableViewCellAccessoryNone];
-                    [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+                    [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
                 }
                 
                 if (bowl.hasPlayed) {
@@ -1033,7 +1033,7 @@
                     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
                     [cell.textLabel setTextColor:self.view.tintColor];
                     [cell setAccessoryType:UITableViewCellAccessoryNone];
-                    [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+                    [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
                 }
                 
                 if (bowl.hasPlayed) {
@@ -1049,8 +1049,8 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"NewsCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
-                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
                 
             }
             
@@ -1116,11 +1116,11 @@
                 [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
                 [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                [cell.textLabel setFont:[UIFont systemFontOfSize:15.0]];
-                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:13.0]];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
             }
             
-            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
+            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE]}];
             NSRange firstLine = [attString.string rangeOfString:@"\n"];
             [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
             if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
@@ -1205,7 +1205,7 @@
                     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
                     [cell.textLabel setTextColor:self.view.tintColor];
                     [cell setAccessoryType:UITableViewCellAccessoryNone];
-                    [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+                    [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
                 }
                 
                 if (bowl.hasPlayed) {
@@ -1221,8 +1221,8 @@
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"NewsCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
-                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
                 
             }
             
@@ -1288,11 +1288,11 @@
                 [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
                 [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                [cell.textLabel setFont:[UIFont systemFontOfSize:15.0]];
-                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:13.0]];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
             }
             
-            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
+            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE]}];
             NSRange firstLine = [attString.string rangeOfString:@"\n"];
             [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
             if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
@@ -1374,7 +1374,7 @@
                     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
                     [cell.textLabel setTextColor:self.view.tintColor];
                     [cell setAccessoryType:UITableViewCellAccessoryNone];
-                    [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+                    [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
                 }
                 
                 if (bowl.hasPlayed) {
@@ -1393,15 +1393,15 @@
                 [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
                 [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                [cell.textLabel setFont:[UIFont systemFontOfSize:15.0]];
-                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:13.0]];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
             }
             
             NSString *newsStory = @"";
             if (indexPath.row < news.count) {
                 newsStory = news[indexPath.row];
             }
-            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:newsStory attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
+            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:newsStory attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE]}];
             NSRange firstLine = [attString.string rangeOfString:@"\n"];
             [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
             if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {

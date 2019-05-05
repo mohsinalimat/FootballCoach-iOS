@@ -67,6 +67,10 @@
 #define EXTEND_OFFER_COST 75 + AGE_ADDED_COST
 #define FLIP_COST 150 + AGE_ADDED_COST
 
+#define LARGE_FONT_SIZE 17.0
+#define MEDIUM_FONT_SIZE 15.0
+#define SMALL_FONT_SIZE 12.0
+
 #ifdef DEBUG
 #   define IS_DEBUG true
 #else

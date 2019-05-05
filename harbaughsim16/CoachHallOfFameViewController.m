@@ -154,7 +154,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
     text = @"No Hall of Fame Coaches";
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -181,7 +181,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"No former coaches have been enshrined yet!";
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -238,8 +238,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         [cell.detailTextLabel setNumberOfLines:0];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15.0]];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
     }
     
     HeadCoach *hc = curLeague.coachingHallOfFamers[indexPath.row];
@@ -278,28 +278,28 @@
 -(void)configureCellForCoach:(HeadCoach *)coach indexPath:(NSIndexPath *)indexPath cell:(UITableViewCell *)cell {
     [cell.textLabel setText:[NSString stringWithFormat:@"HC %@ (Age: %d)", coach.name,coach.age]];
     
-    //    NSMutableAttributedString *ageString = [[NSMutableAttributedString alloc] initWithString:@"Age: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    //    [ageString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", coachDict[@"age"]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    //    NSMutableAttributedString *ageString = [[NSMutableAttributedString alloc] initWithString:@"Age: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    //    [ageString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", coachDict[@"age"]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
-    NSMutableAttributedString *yearString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Coached from %d to %d", coach.startYear,(coach.startYear + coach.year)] attributes:@{NSFontAttributeName : [UIFont italicSystemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
+    NSMutableAttributedString *yearString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Coached from %d to %d", coach.startYear,(coach.startYear + coach.year)] attributes:@{NSFontAttributeName : [UIFont italicSystemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
     
-    NSMutableAttributedString *careerScoreString = [[NSMutableAttributedString alloc] initWithString:@"\nCareer Score: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [careerScoreString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", [self suffixNumber:[NSNumber numberWithInt:[coach getCoachCareerScore]]]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *careerScoreString = [[NSMutableAttributedString alloc] initWithString:@"\nCareer Score: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [careerScoreString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@", [self suffixNumber:[NSNumber numberWithInt:[coach getCoachCareerScore]]]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
-    NSMutableAttributedString *lifetimeRecordString = [[NSMutableAttributedString alloc] initWithString:@"\nLifetime: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [lifetimeRecordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d-%d", coach.totalWins,coach.totalLosses] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *lifetimeRecordString = [[NSMutableAttributedString alloc] initWithString:@"\nLifetime: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [lifetimeRecordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d-%d", coach.totalWins,coach.totalLosses] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
-    NSMutableAttributedString *natlTitleString = [[NSMutableAttributedString alloc] initWithString:@"\nNatl Titles: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [natlTitleString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d", coach.totalNCs] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *natlTitleString = [[NSMutableAttributedString alloc] initWithString:@"\nNatl Titles: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [natlTitleString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d", coach.totalNCs] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
-    NSMutableAttributedString *lastBowlString = [[NSMutableAttributedString alloc] initWithString:@"\nTeams Coached: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [lastBowlString appendAttributedString:[[NSAttributedString alloc] initWithString:[coach teamsCoachedString] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *lastBowlString = [[NSMutableAttributedString alloc] initWithString:@"\nTeams Coached: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [lastBowlString appendAttributedString:[[NSAttributedString alloc] initWithString:[coach teamsCoachedString] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
-    NSMutableAttributedString *coachAwardsString = [[NSMutableAttributedString alloc] initWithString:@"\nCoach Awards: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [coachAwardsString appendAttributedString:[[NSAttributedString alloc] initWithString:[coach coachAwardReportString] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *coachAwardsString = [[NSMutableAttributedString alloc] initWithString:@"\nCoach Awards: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [coachAwardsString appendAttributedString:[[NSAttributedString alloc] initWithString:[coach coachAwardReportString] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
-    NSMutableAttributedString *playerAwardsString = [[NSMutableAttributedString alloc] initWithString:@"\nPlayer Awards: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [playerAwardsString appendAttributedString:[[NSAttributedString alloc] initWithString:[coach playerAwardReportString] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *playerAwardsString = [[NSMutableAttributedString alloc] initWithString:@"\nPlayer Awards: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [playerAwardsString appendAttributedString:[[NSAttributedString alloc] initWithString:[coach playerAwardReportString] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
     NSMutableAttributedString *compoundHistoryString = [[NSMutableAttributedString alloc] initWithAttributedString:yearString];
     //    [compoundHistoryString appendAttributedString:yearString];

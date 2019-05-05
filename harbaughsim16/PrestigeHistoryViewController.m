@@ -50,7 +50,7 @@
     if ([self.title containsString:@"Coach Score"]) {
         CoachScoreYearMarkerView *marker = [[CoachScoreYearMarkerView alloc]
                                           initWithColor: [UIColor colorWithWhite:255/255. alpha:1.0]
-                                          font: [UIFont systemFontOfSize:12.0]
+                                          font: [UIFont systemFontOfSize:SMALL_FONT_SIZE]
                                           textColor: [HBSharedUtils styleColor]
                                           insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
                                           xAxisValueFormatter: self.chartView.xAxis.valueFormatter];
@@ -60,7 +60,7 @@
     } else {
         PrestigeYearMarkerView *marker = [[PrestigeYearMarkerView alloc]
                                           initWithColor: [UIColor colorWithWhite:255/255. alpha:1.0]
-                                          font: [UIFont systemFontOfSize:12.0]
+                                          font: [UIFont systemFontOfSize:SMALL_FONT_SIZE]
                                           textColor: [HBSharedUtils styleColor]
                                           insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
                                           xAxisValueFormatter: self.chartView.xAxis.valueFormatter];

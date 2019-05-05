@@ -326,7 +326,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
     text = @"No available jobs";
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -353,7 +353,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"There are no head coaching jobs currently available.";
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -446,23 +446,23 @@
     
     [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:MAX(1, stars)]]];
     
-    NSMutableAttributedString *lastBowlString = [[NSMutableAttributedString alloc] initWithString:@"Last Bowl: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [lastBowlString appendAttributedString:[[NSAttributedString alloc] initWithString:lastBowlMap[t.abbreviation] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *lastBowlString = [[NSMutableAttributedString alloc] initWithString:@"Last Bowl: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [lastBowlString appendAttributedString:[[NSAttributedString alloc] initWithString:lastBowlMap[t.abbreviation] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
 
-    NSMutableAttributedString *lastCCGString = [[NSMutableAttributedString alloc] initWithString:@"Last CCG: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [lastCCGString appendAttributedString:[[NSAttributedString alloc] initWithString:lastCCGMap[t.abbreviation] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *lastCCGString = [[NSMutableAttributedString alloc] initWithString:@"Last CCG: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [lastCCGString appendAttributedString:[[NSAttributedString alloc] initWithString:lastCCGMap[t.abbreviation] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
-    NSMutableAttributedString *lastNCGString = [[NSMutableAttributedString alloc] initWithString:@"Last NCG: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [lastNCGString appendAttributedString:[[NSAttributedString alloc] initWithString:lastNCGMap[t.abbreviation] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *lastNCGString = [[NSMutableAttributedString alloc] initWithString:@"Last NCG: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [lastNCGString appendAttributedString:[[NSAttributedString alloc] initWithString:lastNCGMap[t.abbreviation] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     [cell.heightLabel setAttributedText:lastBowlString];
     [cell.fortyYdDashLabel setAttributedText:lastCCGString];
     [cell.otherOffersLabel setAttributedText:lastNCGString];
     
-    NSMutableAttributedString *recordString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld: ", (long)[[HBSharedUtils currentLeague] getCurrentYear]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [recordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d-%d",t.wins,t.losses] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *recordString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld: ", (long)[[HBSharedUtils currentLeague] getCurrentYear]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [recordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d-%d",t.wins,t.losses] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
-    NSMutableAttributedString *lifetimeRecordString = [[NSMutableAttributedString alloc] initWithString:@"Lifetime: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [lifetimeRecordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d-%d",t.totalWins,t.totalLosses] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *lifetimeRecordString = [[NSMutableAttributedString alloc] initWithString:@"Lifetime: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [lifetimeRecordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d-%d",t.totalWins,t.totalLosses] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     [cell.weightLabel setAttributedText:recordString];
     [cell.interestLabel setAttributedText:lifetimeRecordString];
     

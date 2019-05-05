@@ -65,13 +65,13 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [header.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [header.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
-    [footer.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [footer.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [footer.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
@@ -82,8 +82,8 @@
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.detailTextLabel setNumberOfLines:0];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:13.0]];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     }
     TeamStrategy *strat;
     if (indexPath.section == 0) {

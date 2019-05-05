@@ -190,7 +190,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
 
     text = @"No Honorees";
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
 
 
@@ -217,7 +217,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
 
     text = [NSString stringWithFormat:@"No former %@ players have been enshrined yet!",selectedTeam.name];
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
 
 
@@ -274,8 +274,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         [cell.detailTextLabel setNumberOfLines:4];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15.0]];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
     }
 
     Player *p = selectedTeam.hallOfFamers[indexPath.row];

@@ -188,7 +188,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
 
     text = @"No Hall of Famers";
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
 
 
@@ -215,7 +215,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
 
     text = @"No former players have been enshrined yet!";
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
 
 
@@ -272,8 +272,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         [cell.detailTextLabel setNumberOfLines:4];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15.0]];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
     }
 
     Player *p = curLeague.hallOfFamers[indexPath.row];
