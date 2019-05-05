@@ -193,6 +193,7 @@
 		75CEE9631FF5FF5E005A86C1 /* 2star-recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CEE95E1FF5FF5E005A86C1 /* 2star-recruit@3x.png */; };
 		75CEE9641FF5FF5E005A86C1 /* 1star-recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CEE95F1FF5FF5E005A86C1 /* 1star-recruit@3x.png */; };
 		75CEE9651FF5FF5E005A86C1 /* 3star-recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CEE9601FF5FF5E005A86C1 /* 3star-recruit@3x.png */; };
+		75DDC947227EA627000FEF94 /* NewsUpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DDC946227EA627000FEF94 /* NewsUpdatesViewController.m */; };
 		75DF165722399AD600E85626 /* PlayerStatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DF165622399AD600E85626 /* PlayerStatHistoryViewController.swift */; };
 		75DF165B2239B55100E85626 /* YearCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DF16592239B55100E85626 /* YearCell.m */; };
 		75DF165C2239B55100E85626 /* YearCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75DF165A2239B55100E85626 /* YearCell.xib */; };
@@ -525,6 +526,8 @@
 		75CEE95E1FF5FF5E005A86C1 /* 2star-recruit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2star-recruit@3x.png"; sourceTree = "<group>"; };
 		75CEE95F1FF5FF5E005A86C1 /* 1star-recruit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1star-recruit@3x.png"; sourceTree = "<group>"; };
 		75CEE9601FF5FF5E005A86C1 /* 3star-recruit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3star-recruit@3x.png"; sourceTree = "<group>"; };
+		75DDC945227EA627000FEF94 /* NewsUpdatesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsUpdatesViewController.h; sourceTree = "<group>"; };
+		75DDC946227EA627000FEF94 /* NewsUpdatesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsUpdatesViewController.m; sourceTree = "<group>"; };
 		75DF165622399AD600E85626 /* PlayerStatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatHistoryViewController.swift; sourceTree = "<group>"; };
 		75DF16582239B55100E85626 /* YearCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YearCell.h; sourceTree = "<group>"; };
 		75DF16592239B55100E85626 /* YearCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YearCell.m; sourceTree = "<group>"; };
@@ -867,6 +870,8 @@
 				75C5C3311F83447A00D7CAAD /* UpcomingViewController.h */,
 				75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */,
 				75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */,
+				75DDC945227EA627000FEF94 /* NewsUpdatesViewController.h */,
+				75DDC946227EA627000FEF94 /* NewsUpdatesViewController.m */,
 				75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */,
 				75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */,
 				754319031CC02EAC00D380F1 /* Conference Standings */,
@@ -1674,6 +1679,7 @@
 				75DF165B2239B55100E85626 /* YearCell.m in Sources */,
 				754E90781CA58BF800C450CF /* BowlProjectionViewController.m in Sources */,
 				75316B452252B45F0022553D /* WhatsNewHandler.swift in Sources */,
+				75DDC947227EA627000FEF94 /* NewsUpdatesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

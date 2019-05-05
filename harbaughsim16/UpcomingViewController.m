@@ -37,6 +37,7 @@
 #import "MockDraftViewController.h"
 
 #import "RecruitingPeriodViewController.h"
+#import "NewsUpdatesViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -70,10 +71,91 @@
     
     NSMutableArray *news;
     NSInteger curNewsWeek;
+    
+    NSMutableDictionary<NSString *, NSMutableArray*> *newsDictionary;
+    NSArray *sortedNewsCategories;
 }
 @end
 
 @implementation UpcomingViewController
+
+-(void)categorizeNews:(NSArray *)stories week:(int)wk {
+    newsDictionary = [NSMutableDictionary dictionary];
+    
+    for (NSString *story in stories) {
+        NSString *key = @"";
+        if ([story containsString:@"on the move"]) {
+            key = @"Transfers";
+        } else if ([story containsString:@"let go"] || [story containsString:@"fired"]
+                   || [story containsString:@"extension"] || [story containsString:@"asked to prove it"]) {
+            key = @"Coaching Carousel";
+        } else {
+            if (wk > 0 && wk <= 12) {
+                key = [NSString stringWithFormat:@"Week %ld Updates", (long)(wk)];
+            } else if (wk == 0) {
+                key = @"Preseason";
+            } else if (wk == 13) {
+                key = @"Conference Championships";
+            } else if (wk == 14) {
+                key = @"Bowls";
+            } else if (wk == 15) {
+                key = @"National Championship";
+            } else {
+                key = @"Offseason";
+            }
+        }
+        
+        if (key.length > 0) {
+            if (![newsDictionary.allKeys containsObject:key]) {
+                [newsDictionary setObject:[NSMutableArray array] forKey:key];
+            }
+            [newsDictionary[key] addObject:story];
+        }
+    }
+    
+    if (newsDictionary.count > 0) {
+        sortedNewsCategories = [newsDictionary.allKeys sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            NSString *a = (NSString *)obj1;
+            NSString *b = (NSString *)obj2;
+            if ([a containsString:@"Preseason"]) {
+                return -1;
+            } else if ([b containsString:@"Preseason"]) {
+                return 1;
+            } else if ([a containsString:@"Week"]) {
+                return -1;
+            } else if ([b containsString:@"Week"]) {
+                return 1;
+            } else if ([a containsString:@"Conference Championships"]) {
+                return -1;
+            } else if ([b containsString:@"Conference Championships"]) {
+                return 1;
+            } else if ([a containsString:@"Bowls"]) {
+                return -1;
+            } else if ([b containsString:@"Bowls"]) {
+                return 1;
+            } else if ([a containsString:@"National Championship"]) {
+                return -1;
+            } else if ([b containsString:@"National Championship"]) {
+                return 1;
+            } else if ([a containsString:@"Offseason"]) {
+                return -1;
+            } else if ([b containsString:@"Offseason"]) {
+                return 1;
+            } else if ([a containsString:@"Coaching Carousel"]) {
+                return -1;
+            } else if ([b containsString:@"Coaching Carousel"]) {
+                return 1;
+            } else if ([a containsString:@"Transfers"]) {
+                return -1;
+            } else if ([b containsString:@"Transfers"]) {
+                return 1;
+            } else {
+                return [a compare:b];
+            }
+        }];
+    }
+    [self.tableView reloadData];
+}
 
 //MARK: ZMJTipViewDelegate
 - (void)tipViewDidDimiss:(ZMJTipView *)tipView {
@@ -735,6 +817,7 @@
     
     curNewsWeek = curWeek;
     news = [HBSharedUtils currentLeague].newsStories[curWeek];
+    [self categorizeNews:news week:curWeek];
     [self.tableView reloadData];
 }
 
@@ -761,7 +844,7 @@
         if (section == 0) {
             return 3;
         } else {
-            return news.count;
+            return newsDictionary.count;
         }
     } else if ([HBSharedUtils currentLeague].userTeam.gameWLSchedule.count > 0 && ![HBSharedUtils currentLeague].userTeam.gameSchedule.lastObject.hasPlayed && [HBSharedUtils currentLeague].userTeam.gameSchedule.count >= [HBSharedUtils currentLeague].currentWeek) {
         if (section == 0) {
@@ -771,7 +854,7 @@
         } else if (section == 2) {
             return 5;
         } else {
-            return news.count;
+            return newsDictionary.count;
         }
     } else if ([HBSharedUtils currentLeague].userTeam.gameSchedule.lastObject.hasPlayed) {
         if (section == 0) {
@@ -779,7 +862,7 @@
         } else if (section == 1) {
             return 5;
         } else {
-            return news.count;
+            return newsDictionary.count;
         }
     } else {
         if (section == 0) {
@@ -787,7 +870,7 @@
         } else if (section == 1) {
             return 5;
         } else {
-            return news.count;
+            return newsDictionary.count;
         }
     }
 }
@@ -1108,43 +1191,16 @@
             
             return cell;
         } else {
-            UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+            UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"NewsCatCell"];
             if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-                [cell.textLabel setNumberOfLines:0];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewsCatCell"];
                 [cell setBackgroundColor:[UIColor whiteColor]];
-                [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-                [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                [cell.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
-                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
             }
             
-            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE]}];
-            NSRange firstLine = [attString.string rangeOfString:@"\n"];
-            [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
-            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
-                [attString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, firstLine.location)];
-            } else {
-                [attString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, firstLine.location)];
-            }
-            
-            [cell.textLabel setAttributedText:attString];
-            [cell.textLabel sizeToFit];
-            if (curNewsWeek > 0 && curNewsWeek <= 12) {
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)]];
-            } else if (curNewsWeek == 0) {
-                [cell.detailTextLabel setText:@"Preseason"];
-            } else if (curNewsWeek == 13) {
-                [cell.detailTextLabel setText:@"Conference Championships"];
-            } else if (curNewsWeek == 14) {
-                [cell.detailTextLabel setText:@"Bowls"];
-            } else if (curNewsWeek == 15) {
-                [cell.detailTextLabel setText:@"National Championship"];
-            } else  {
-                [cell.detailTextLabel setText:@"Offseason"];
-            }
-            
+            [cell.textLabel setText:sortedNewsCategories[indexPath.row]];
             
             return cell;
         }
@@ -1280,50 +1336,16 @@
             
             return cell;
         } else {
-            UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+            UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"NewsCatCell"];
             if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-                [cell.textLabel setNumberOfLines:0];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewsCatCell"];
                 [cell setBackgroundColor:[UIColor whiteColor]];
-                [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-                [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                [cell.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
-                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
             }
             
-            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE]}];
-            NSRange firstLine = [attString.string rangeOfString:@"\n"];
-            [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
-            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
-                [attString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, firstLine.location)];
-            } else {
-                [attString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, firstLine.location)];
-            }
-            
-            [cell.textLabel setAttributedText:attString];
-            [cell.textLabel sizeToFit];
-            if ([cell.textLabel.attributedText.string containsString:@"on the move"]) {
-                [cell.detailTextLabel setText:@"Transfers"];
-            } else if ([cell.textLabel.attributedText.string containsString:@"let go"] || [cell.textLabel.attributedText.string containsString:@"fired"]
-                       || [cell.textLabel.attributedText.string containsString:@"extension"]) {
-                [cell.detailTextLabel setText:@"Coaching Carousel"];
-            } else {
-                if (curNewsWeek > 0 && curNewsWeek <= 12) {
-                    [cell.detailTextLabel setText:[NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)]];
-                } else if (curNewsWeek == 0) {
-                    [cell.detailTextLabel setText:@"Preseason"];
-                } else if (curNewsWeek == 13) {
-                    [cell.detailTextLabel setText:@"Conference Championships"];
-                } else if (curNewsWeek == 14) {
-                    [cell.detailTextLabel setText:@"Bowls"];
-                } else if (curNewsWeek == 15) {
-                    [cell.detailTextLabel setText:@"National Championship"];
-                } else {
-                    [cell.detailTextLabel setText:@"Offseason"];
-                }
-            }
-            
+            [cell.textLabel setText:sortedNewsCategories[indexPath.row]];
             
             return cell;
         }
@@ -1385,46 +1407,16 @@
                 return cell;
             }
         } else {
-            UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"Cell"];
+            UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"NewsCatCell"];
             if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
-                [cell.textLabel setNumberOfLines:0];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NewsCatCell"];
                 [cell setBackgroundColor:[UIColor whiteColor]];
-                [cell.textLabel setLineBreakMode:NSLineBreakByWordWrapping];
-                [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                [cell.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
-                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
             }
             
-            NSString *newsStory = @"";
-            if (indexPath.row < news.count) {
-                newsStory = news[indexPath.row];
-            }
-            NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:newsStory attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE]}];
-            NSRange firstLine = [attString.string rangeOfString:@"\n"];
-            [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
-            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
-                [attString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, firstLine.location)];
-            } else {
-                [attString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, firstLine.location)];
-            }
-            
-            [cell.textLabel setAttributedText:attString];
-            [cell.textLabel sizeToFit];
-            if (curNewsWeek > 0 && curNewsWeek <= 12) {
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)]];
-            } else if (curNewsWeek == 0) {
-                [cell.detailTextLabel setText:@"Preseason"];
-            } else if (curNewsWeek == 13) {
-                [cell.detailTextLabel setText:@"Conference Championships"];
-            } else if (curNewsWeek == 14) {
-                [cell.detailTextLabel setText:@"Bowls"];
-            } else if (curNewsWeek == 15) {
-                [cell.detailTextLabel setText:@"National Championship"];
-            } else  {
-                [cell.detailTextLabel setText:@"Offseason"];
-            }
+            [cell.textLabel setText:sortedNewsCategories[indexPath.row]];
             
             return cell;
         }
@@ -1458,6 +1450,9 @@
             } else { //K
                 [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK] animated:YES];
             }
+        } else {
+            NSString *key = sortedNewsCategories[indexPath.row];
+            [self.navigationController pushViewController:[[NewsUpdatesViewController alloc] initWithStories:newsDictionary[key] title:key] animated:YES];
         }
     } else if ([HBSharedUtils currentLeague].userTeam.gameSchedule.lastObject.hasPlayed) {
         if (indexPath.section == 0) {
@@ -1480,12 +1475,18 @@
             } else { //K
                 [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK] animated:YES];
             }
+        } else {
+            NSString *key = sortedNewsCategories[indexPath.row];
+            [self.navigationController pushViewController:[[NewsUpdatesViewController alloc] initWithStories:newsDictionary[key] title:key] animated:YES];
         }
     } else {
         if (indexPath.section == 0) {
             if (indexPath.row == 2) {
                 [self.navigationController pushViewController:[[GameDetailViewController alloc] initWithGame:nextGame] animated:YES];
             }
+        } else {
+            NSString *key = sortedNewsCategories[indexPath.row];
+            [self.navigationController pushViewController:[[NewsUpdatesViewController alloc] initWithStories:newsDictionary[key] title:key] animated:YES];
         }
     }
 }
