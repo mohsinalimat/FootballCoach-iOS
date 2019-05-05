@@ -14,8 +14,9 @@
 #import "CFCRecruitCell.h"
 
 #import "STPopup.h"
+#import "ZMJTipView.h"
 
-@interface RecruitingActionsViewController ()
+@interface RecruitingActionsViewController () <ZMJTipViewDelegate>
 {
     Player *selectedRecruit;
     NSMutableArray *recruitEvents;
@@ -25,6 +26,14 @@
 @end
 
 @implementation RecruitingActionsViewController
+
+- (void)tipViewDidDimiss:(ZMJTipView *)tipView {
+    
+}
+
+- (void)tipViewDidSelected:(ZMJTipView *)tipView {
+    
+}
 
 -(instancetype)initWithRecruit:(Player *)p events:(NSArray *)events {
     self = [super initWithStyle:UITableViewStyleGrouped];
@@ -49,7 +58,28 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
     self.title = @"Recruit Profile";
+    
+    //display tutorial alert on first launch
+    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
+    if (!tutorialShown) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self showTutorial];
+    }
 }
+
+-(void)showTutorial {
+    //display intro screen
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSString *tipText = @"Tap on any of these actions to use some recruiting effort to woo this recruit to your program. Keep in mind: each option costs a different amount of effort.";
+        if ([HBSharedUtils currentLeague].isCareerMode && [HBSharedUtils currentLeague].isHardMode) {
+            tipText = @"Tap on any of these actions to use some recruiting effort to woo this recruit to your program. Keep in mind: each option costs a different amount of effort, and the amount of effort you need to expend will increase as your coach gets older.";
+        }
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
+        [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]] withinSuperview:self.tableView];
+    });
+}
+
 
 -(void)reloadOffers {
     offers = [NSMutableArray array];
@@ -128,7 +158,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 150;
+        return 175;
     } else if (indexPath.section == 2) {
         return 120;
     } else {
@@ -138,7 +168,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 150;
+        return 175;
     } else if (indexPath.section == 2) {
         return 120;
     } else {
@@ -261,6 +291,9 @@
             [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils generateOfferString:selectedRecruit.offers] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
         }
         
+        NSMutableAttributedString *specString = [[NSMutableAttributedString alloc] initWithString:@"Archetype: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+        [specString appendAttributedString:[[NSAttributedString alloc] initWithString:[selectedRecruit getPlayerArchetype] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+
         
         CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -270,6 +303,7 @@
         [cell.stateLabel setText:state];
         [cell.heightLabel setAttributedText:heightString];
         [cell.weightLabel setAttributedText:weightString];
+        [cell.specialtyLabel setAttributedText:specString];
         
         NSMutableAttributedString *potAtt = [[NSMutableAttributedString alloc] initWithString:@"Potential: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0]}];
         NSString *stat1 = [selectedRecruit getLetterGrade:selectedRecruit.ratPot];
@@ -446,6 +480,5 @@
         [self.tableView reloadData];
     }
 }
-
 
 @end

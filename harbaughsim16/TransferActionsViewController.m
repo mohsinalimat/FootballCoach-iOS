@@ -149,7 +149,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 150;
+        return 175;
     } else if (indexPath.section == 2) {
         return 120;
     } else {
@@ -159,7 +159,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 150;
+        return 175;
     } else if (indexPath.section == 2) {
         return 120;
     } else {
@@ -313,6 +313,9 @@
             [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils generateOfferString:selectedRecruit.offers] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
         }
         
+        NSMutableAttributedString *specString = [[NSMutableAttributedString alloc] initWithString:@"Archetype: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+        [specString appendAttributedString:[[NSAttributedString alloc] initWithString:[selectedRecruit getPlayerArchetype] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+        
         
         CFCRecruitCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CFCRecruitCell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -322,6 +325,7 @@
         [cell.stateLabel setText:state];
         [cell.heightLabel setAttributedText:overallString];
         [cell.weightLabel setAttributedText:typeString];
+        [cell.specialtyLabel setAttributedText:specString];
         
         NSMutableAttributedString *potAtt = [[NSMutableAttributedString alloc] initWithString:@"Potential: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0]}];
         NSString *stat1 = [selectedRecruit getLetterGrade:selectedRecruit.ratPot];
