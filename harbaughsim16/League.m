@@ -34,7 +34,7 @@
 #import "AutoCoding.h"
 
 @implementation League
-@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles,coachList,coachStarList,coachFreeAgents, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary,cotyWinnerStrFull,cotyWinner,isCareerMode,cotyFinalists,didFinishCoachingCarousel,singleSeasonSacksRecord,singleSeasonTacklesRecord,singleSeasonPassDefRecord,singleSeasonForcedFumRecord,singleSeasonDefInterceptionsRecord,careerSacksRecord,careerTacklesRecord,careerPassDefRecord,careerForcedFumRecord,careerDefInterceptionsRecord;
+@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles,coachList,coachStarList,coachFreeAgents, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary,cotyWinnerStrFull,cotyWinner,isCareerMode,cotyFinalists,didFinishCoachingCarousel,singleSeasonSacksRecord,singleSeasonTacklesRecord,singleSeasonPassDefRecord,singleSeasonForcedFumRecord,singleSeasonDefInterceptionsRecord,careerSacksRecord,careerTacklesRecord,careerPassDefRecord,careerForcedFumRecord,careerDefInterceptionsRecord,careerCoachWinsRecord,careerCoachBowlWinsRecord,careerCoachConfWinsRecord,careerCoachConfTitlesRecord,careerCoachNatlTitlesRecord,careerCoachRivalryWinsRecord;
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
@@ -109,6 +109,13 @@
     [encoder encodeObject:self.careerPassDefRecord forKey:@"careerPassDefRecord"];
     [encoder encodeObject:self.careerForcedFumRecord forKey:@"careerForcedFumRecord"];
     [encoder encodeObject:self.careerDefInterceptionsRecord forKey:@"careerDefInterceptionsRecord"];
+    
+    [encoder encodeObject:self.careerCoachWinsRecord forKey:@"careerCoachWinsRecord"];
+    [encoder encodeObject:self.careerCoachNatlTitlesRecord forKey:@"careerCoachNatlTitlesRecord"];
+    [encoder encodeObject:self.careerCoachConfTitlesRecord forKey:@"careerCoachConfTitlesRecord"];
+    [encoder encodeObject:self.careerCoachBowlWinsRecord forKey:@"careerCoachBowlWinsRecord"];
+    [encoder encodeObject:self.careerCoachRivalryWinsRecord forKey:@"careerCoachRivalryWinsRecord"];
+    [encoder encodeObject:self.careerCoachConfWinsRecord forKey:@"careerCoachConfWinsRecord"];
 
     //deprecated
     [encoder encodeInt:leagueRecordFum forKey:@"leagueRecordFum"];
@@ -539,6 +546,43 @@
         } else {
             self.careerForcedFumRecord = [decoder decodeObjectForKey:@"careerForcedFumRecord"];
         }
+        
+        // Coach Career
+        if (![decoder containsValueForKey:@"careerCoachWinsRecord"]) {
+            self.careerCoachWinsRecord = nil;
+        } else {
+            self.careerTacklesRecord = [decoder decodeObjectForKey:@"careerCoachWinsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerCoachNatlTitlesRecord"]) {
+            self.careerCoachNatlTitlesRecord = nil;
+        } else {
+            self.careerPassDefRecord = [decoder decodeObjectForKey:@"careerCoachNatlTitlesRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerCoachConfTitlesRecord"]) {
+            self.careerCoachConfTitlesRecord = nil;
+        } else {
+            self.careerCoachConfTitlesRecord = [decoder decodeObjectForKey:@"careerCoachConfTitlesRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerCoachBowlWinsRecord"]) {
+            self.careerCoachBowlWinsRecord = nil;
+        } else {
+            self.careerCoachBowlWinsRecord = [decoder decodeObjectForKey:@"careerCoachBowlWinsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerCoachRivalryWinsRecord"]) {
+            self.careerCoachRivalryWinsRecord = nil;
+        } else {
+            self.careerCoachRivalryWinsRecord = [decoder decodeObjectForKey:@"careerCoachRivalryWinsRecord"];
+        }
+        
+        if (![decoder containsValueForKey:@"careerCoachConfWinsRecord"]) {
+            self.careerCoachConfWinsRecord = nil;
+        } else {
+            self.careerCoachConfWinsRecord = [decoder decodeObjectForKey:@"careerCoachConfWinsRecord"];
+        }
 
         if (![decoder containsValueForKey:@"lastNameList"]) {
             NSArray *lastNamePathFrags = [[HBSharedUtils lastNamesCSV] componentsSeparatedByString:@"."];
@@ -858,6 +902,30 @@
 
     if (careerDefInterceptionsRecord != nil) {
         [records addObject:careerDefInterceptionsRecord];
+    }
+    
+    if (careerCoachWinsRecord != nil) {
+        [records addObject:careerCoachWinsRecord];
+    }
+    
+    if (careerCoachNatlTitlesRecord != nil) {
+        [records addObject:careerCoachNatlTitlesRecord];
+    }
+    
+    if (careerCoachConfTitlesRecord != nil) {
+        [records addObject:careerCoachConfTitlesRecord];
+    }
+    
+    if (careerCoachBowlWinsRecord != nil) {
+        [records addObject:careerCoachBowlWinsRecord];
+    }
+    
+    if (careerCoachRivalryWinsRecord != nil) {
+        [records addObject:careerCoachRivalryWinsRecord];
+    }
+    
+    if (careerCoachConfWinsRecord != nil) {
+        [records addObject:careerCoachConfWinsRecord];
     }
 
     return records;

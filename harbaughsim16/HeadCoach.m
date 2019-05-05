@@ -10,6 +10,7 @@
 #import "HBSharedUtils.h"
 #import "Player.h"
 #import "TeamStrategy.h"
+#import "Record.h"
 
 @implementation HeadCoach
 
@@ -620,6 +621,63 @@
     else {
         return @"Players' Coach";
     }
+}
+
+-(void)checkCoachRecords {
+    // Wins
+    if (self.totalWins > self.team.careerCoachWinsRecord.statistic) {
+        self.team.careerCoachWinsRecord = [Record newRecord:@"Total Wins" coach:self stat:self.totalWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalWins > self.team.league.careerCoachWinsRecord.statistic) {
+        self.team.league.careerCoachWinsRecord = [Record newRecord:@"Total Wins" coach:self stat:self.totalWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // Conf Wins
+    if (self.totalConfWins > self.team.careerCoachConfWinsRecord.statistic) {
+        self.team.careerCoachConfWinsRecord = [Record newRecord:@"Conference Wins" coach:self stat:self.totalConfWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalWins > self.team.league.careerCoachWinsRecord.statistic) {
+        self.team.league.careerCoachConfWinsRecord = [Record newRecord:@"Conference Wins" coach:self stat:self.totalConfWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // Conf Titles
+    if (self.totalCCs > self.team.careerCoachConfTitlesRecord.statistic) {
+        self.team.careerCoachConfTitlesRecord = [Record newRecord:@"Conference Titles" coach:self stat:self.totalCCs year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalCCs > self.team.league.careerCoachConfTitlesRecord.statistic) {
+        self.team.league.careerCoachConfTitlesRecord = [Record newRecord:@"Conference Titles" coach:self stat:self.totalCCs year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // Natl Titles
+    if (self.totalNCs > self.team.careerCoachNatlTitlesRecord.statistic) {
+        self.team.careerCoachNatlTitlesRecord = [Record newRecord:@"National Titles" coach:self stat:self.totalNCs year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalNCs > self.team.league.careerCoachConfTitlesRecord.statistic) {
+        self.team.league.careerCoachNatlTitlesRecord = [Record newRecord:@"National Titles" coach:self stat:self.totalNCs year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // Rivalry Wins
+    if (self.totalRivalryWins > self.team.careerCoachRivalryWinsRecord.statistic) {
+        self.team.careerCoachRivalryWinsRecord = [Record newRecord:@"Rivalry Wins" coach:self stat:self.totalRivalryWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalRivalryWins > self.team.league.careerCoachConfTitlesRecord.statistic) {
+        self.team.league.careerCoachRivalryWinsRecord = [Record newRecord:@"Rivalry Wins" coach:self stat:self.totalRivalryWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // Bowl Wins
+    if (self.totalBowls > self.team.careerCoachBowlWinsRecord.statistic) {
+        self.team.careerCoachBowlWinsRecord = [Record newRecord:@"Bowl Wins" coach:self stat:self.totalBowls year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalBowls > self.team.league.careerCoachBowlWinsRecord.statistic) {
+        self.team.league.careerCoachBowlWinsRecord = [Record newRecord:@"Bowl Wins" coach:self stat:self.totalBowls year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+   
 }
 
 @end

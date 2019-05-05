@@ -184,7 +184,7 @@ typedef enum {
 @property (strong, nonatomic) TeamStrategy *defensiveStrategy;
 
 
-//Single Season Records
+// Single Season Records
 @property (strong, nonatomic) Record *singleSeasonCompletionsRecord;
 @property (strong, nonatomic) Record *singleSeasonPassYardsRecord;
 @property (strong, nonatomic) Record *singleSeasonPassTDsRecord;
@@ -208,7 +208,7 @@ typedef enum {
 @property (strong, nonatomic) Record *singleSeasonForcedFumRecord;
 @property (strong, nonatomic) Record *singleSeasonTacklesRecord;
 
-//career Records
+// Career Records
 @property (strong, nonatomic) Record *careerCompletionsRecord;
 @property (strong, nonatomic) Record *careerPassYardsRecord;
 @property (strong, nonatomic) Record *careerPassTDsRecord;
@@ -231,6 +231,14 @@ typedef enum {
 @property (strong, nonatomic) Record *careerSacksRecord;
 @property (strong, nonatomic) Record *careerForcedFumRecord;
 @property (strong, nonatomic) Record *careerTacklesRecord;
+
+// Coach Career Records
+@property (strong, nonatomic) Record *careerCoachWinsRecord;
+@property (strong, nonatomic) Record *careerCoachNatlTitlesRecord;
+@property (strong, nonatomic) Record *careerCoachConfTitlesRecord;
+@property (strong, nonatomic) Record *careerCoachBowlWinsRecord;
+@property (strong, nonatomic) Record *careerCoachRivalryWinsRecord;
+@property (strong, nonatomic) Record *careerCoachConfWinsRecord;
 
 // coaching
 @property (strong, nonatomic) NSMutableArray<HeadCoach *> *coaches;

@@ -11,6 +11,7 @@
 #import "HBRecordCell.h"
 #import "Record.h"
 #import "Player.h"
+#import "HeadCoach.h"
 
 #import "UIScrollView+EmptyDataSet.h"
 #import "HexColors.h"
@@ -169,6 +170,9 @@
     if (curRecord.holder) {
         [cell.playerLabel setText:[curRecord.holder getInitialName]];
         [cell.teamLabel setText:curRecord.holder.team.abbreviation];
+    } else if (curRecord.coachHolder) {
+        [cell.playerLabel setText:[curRecord.coachHolder getInitialName]];
+        [cell.teamLabel setText:curRecord.coachHolder.team.abbreviation];
     } else {
         [cell.playerLabel setText:@"No record holder"];
         [cell.teamLabel setText:@"N/A"];

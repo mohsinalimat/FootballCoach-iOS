@@ -156,6 +156,14 @@
 @property (strong, nonatomic) Record *careerForcedFumRecord;
 @property (strong, nonatomic) Record *careerTacklesRecord;
 
+// Coach Career Records
+@property (strong, nonatomic) Record *careerCoachWinsRecord;
+@property (strong, nonatomic) Record *careerCoachNatlTitlesRecord;
+@property (strong, nonatomic) Record *careerCoachConfTitlesRecord;
+@property (strong, nonatomic) Record *careerCoachBowlWinsRecord;
+@property (strong, nonatomic) Record *careerCoachRivalryWinsRecord;
+@property (strong, nonatomic) Record *careerCoachConfWinsRecord;
+
 @property (strong, nonatomic) NSString *leagueVersion;
 
 +(BOOL)loadSavedData;

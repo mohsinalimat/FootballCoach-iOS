@@ -694,6 +694,25 @@
             oldLigue.leagueVersion = HB_CURRENT_APP_VERSION;
         }
         
+        if ([[self class] needsUpdateFromVersion:oldLigue.leagueVersion toVersion:@"3.1"]) {
+            // set up team and league coaching records
+            for (Team *t in oldLigue.teamList) {
+                t.careerCoachRivalryWinsRecord = nil;
+                t.careerCoachConfWinsRecord = nil;
+                t.careerCoachNatlTitlesRecord = nil;
+                t.careerCoachConfTitlesRecord = nil;
+                t.careerCoachBowlWinsRecord = nil;
+                t.careerCoachWinsRecord = nil;
+            }
+            
+            oldLigue.careerCoachRivalryWinsRecord = nil;
+            oldLigue.careerCoachConfWinsRecord = nil;
+            oldLigue.careerCoachNatlTitlesRecord = nil;
+            oldLigue.careerCoachConfTitlesRecord = nil;
+            oldLigue.careerCoachBowlWinsRecord = nil;
+            oldLigue.careerCoachWinsRecord = nil;
+        }
+        
         
         dispatch_async(dispatch_get_main_queue(), ^{
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

@@ -85,6 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)updateCoachHistory;
 
 -(NSString *)getCoachArchetype;
+
+-(void)checkCoachRecords;
 @end
 
 NS_ASSUME_NONNULL_END
