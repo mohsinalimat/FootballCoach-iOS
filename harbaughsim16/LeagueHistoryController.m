@@ -17,6 +17,7 @@
     NSDictionary *leagueHistory;
     NSDictionary *heismanHistory;
     NSDictionary *rotyHistory;
+    NSDictionary *cotyHistory;
 }
 @end
 
@@ -58,7 +59,7 @@
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     paragraph.alignment = NSTextAlignmentCenter;
     
-    text = @"As you play season after season, the national champion and the Player of the Year for each season will be immortalized here.";
+    text = @"As you play season after season, the national champion, Player of the Year, Rookie of the Year, and Coach of the Year for each season will be immortalized here.";
     font = [UIFont systemFontOfSize:15.0];
     textColor = [UIColor lightTextColor];
     
@@ -111,6 +112,7 @@
     leagueHistory = [HBSharedUtils currentLeague].leagueHistoryDictionary;
     heismanHistory = [HBSharedUtils currentLeague].heismanHistoryDictionary;
     rotyHistory = [HBSharedUtils currentLeague].rotyHistoryDictionary;
+    cotyHistory = [HBSharedUtils currentLeague].cotyHistoryDictionary;
     [self.tableView setRowHeight:105];
     [self.tableView setEstimatedRowHeight:105];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
@@ -159,13 +161,9 @@
     [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
     NSString *heisman = @"None";
     NSMutableArray *leagueYear = [NSMutableArray arrayWithObject:@"None"];
-//    if (indexPath.row < heismanHistory.count || indexPath.row < leagueHistory.count) {
-//        heisman = heismanHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
-//        leagueYear = leagueHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
-//    } else {
-//        heisman = @"None";
-//        leagueYear = [NSMutableArray arrayWithObject:@"None"];
-//    }
+    NSString *roty;
+    NSString *coty;
+    
     if ([heismanHistory.allKeys containsObject:[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
         heisman = heismanHistory[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
     } else {
@@ -176,6 +174,20 @@
         leagueYear = leagueHistory[[NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
     } else {
         leagueYear = [NSMutableArray arrayWithObject:@"None"];
+    }
+    
+    if ([rotyHistory.allKeys containsObject:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
+        roty = rotyHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+        
+    } else {
+        roty = @"None";
+    }
+    
+    if ([cotyHistory.allKeys containsObject:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
+        coty = cotyHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
+        
+    } else {
+        roty = @"None";
     }
     
     NSMutableAttributedString *champString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Champion: %@",leagueYear[0]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
@@ -192,21 +204,21 @@
         [heismanString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, heismanString.string.length)];
     }
     
-    NSString *roty;
-    if ([rotyHistory.allKeys containsObject:[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]]) {
-         roty = rotyHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
-
-    } else {
-        roty = @"None";
-    }
-    
     NSMutableAttributedString *rotyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nROTY: %@",roty] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
-    if ([roty containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+    if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [roty containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [rotyString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, rotyString.string.length)];
     } else {
         [rotyString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, rotyString.string.length)];
     }
     
+    NSMutableAttributedString *cotyString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nCOTY: %@",coty] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
+    if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [coty containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+        [cotyString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, cotyString.string.length)];
+    } else {
+        [cotyString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, cotyString.string.length)];
+    }
+    
+    [champString appendAttributedString:cotyString];
     [champString appendAttributedString:heismanString];
     [champString appendAttributedString:rotyString];
     [cell.detailTextLabel setAttributedText:champString];

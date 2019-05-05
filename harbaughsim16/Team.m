@@ -1555,9 +1555,9 @@
     NSMutableString *hist = [NSMutableString string];
 
     if (rankTeamPollScore > 0 && rankTeamPollScore < 26) {
-        [hist appendFormat:@"#%ld %@ (%ld-%ld)\nPrestige: %ld",(long)rankTeamPollScore, abbreviation, (long)wins, (long)losses, (long)teamPrestige];
+        [hist appendFormat:@"#%ld %@ (%ld-%ld)\nCoach: %@\nPrestige: %ld",(long)rankTeamPollScore, abbreviation, (long)wins, (long)losses, [[self getCurrentHC] getInitialName],(long)teamPrestige];
     } else {
-        [hist appendFormat:@"%@ (%ld-%ld)\nPrestige: %ld",abbreviation, (long)wins, (long)losses, (long)teamPrestige];
+        [hist appendFormat:@"%@ (%ld-%ld)\nCoach: %@\nPrestige: %ld",abbreviation, (long)wins, (long)losses, [[self getCurrentHC] getInitialName],(long)teamPrestige];
     }
 
     if (![confChampion isEqualToString:@""] && confChampion.length > 0) {

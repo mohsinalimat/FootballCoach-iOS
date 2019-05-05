@@ -696,6 +696,7 @@
         
         if ([[self class] needsUpdateFromVersion:oldLigue.leagueVersion toVersion:@"3.1"]) {
             // set up team and league coaching records
+            // set up coaching history dictionary
             for (Team *t in oldLigue.teamList) {
                 t.careerCoachRivalryWinsRecord = nil;
                 t.careerCoachConfWinsRecord = nil;
@@ -711,8 +712,8 @@
             oldLigue.careerCoachConfTitlesRecord = nil;
             oldLigue.careerCoachBowlWinsRecord = nil;
             oldLigue.careerCoachWinsRecord = nil;
+            oldLigue.cotyHistoryDictionary = [NSMutableDictionary dictionary];
         }
-        
         
         dispatch_async(dispatch_get_main_queue(), ^{
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
