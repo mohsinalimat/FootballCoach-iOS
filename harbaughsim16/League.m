@@ -950,6 +950,10 @@
         if (IS_DEBUG) {
             NSArray *players = [t getAllPlayers];
             for (Player *p in players) {
+                if (p.startYear > [self getCurrentYear] || (p.startYear > p.endYear && p.endYear != 0) || (p.draftPosition != nil && p.endYear != 0 && p.startYear > (p.endYear - 3))) {
+                    return YES;
+                }
+                
                 if (p.careerROTYs > 1) {
                     return YES;
                 }
@@ -3489,7 +3493,7 @@
 }
 
 -(NSInteger)getCurrentYear {
-    return baseYear + [HBSharedUtils currentLeague].leagueHistoryDictionary.count;
+    return baseYear + self.leagueHistoryDictionary.count;
 }
 
 -(BOOL)transferListEmpty {
