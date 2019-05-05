@@ -1515,7 +1515,7 @@
 
     if ( [@"NCW" isEqualToString:natlChampWL] ) {
         //bonus for winning champ game
-        teamPollScore += 100;
+        teamPollScore += 125;
     }
     if ( [@"NCL" isEqualToString:natlChampWL] ) {
         //bonus for losing champ game
