@@ -1,14 +1,14 @@
 //
-//  CFCWatchlistCell.m
+//  YearCell.m
 //  harbaughsim16
 //
-//  Created by Akshay Easwaran on 1/5/18.
-//  Copyright © 2018 Akshay Easwaran. All rights reserved.
+//  Created by Akshay Easwaran on 3/13/19.
+//  Copyright © 2019 Akshay Easwaran. All rights reserved.
 //
 
-#import "CFCWatchlistCell.h"
+#import "YearCell.h"
 
-@implementation CFCWatchlistCell
+@implementation YearCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

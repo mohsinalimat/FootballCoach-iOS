@@ -27,7 +27,9 @@ typedef enum {
 @property (strong, nonatomic) NSString *position;
 @property (strong, nonatomic) NSDictionary *personalDetails; // { "height" : "6\'2\"", "weight" : "235 lbs", "home_state" : "Hawaii" };
 
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSDictionary *> *statHistoryDictionary;
 
+@property (nonatomic) int depthChartPosition;
 
 @property (strong, nonatomic) NSMutableDictionary<NSString *, NSNumber *> *offers;
 @property (nonatomic) int ratOvr;
@@ -62,7 +64,6 @@ typedef enum {
 
 -(BOOL)isInjured;
 -(NSString *)simpleAwardReport;
-+(NSArray *)letterGrades;
 -(NSString*)getYearString;
 -(NSString*)getFullYearString;
 -(void)advanceSeason;
@@ -82,4 +83,6 @@ typedef enum {
 
 -(int)calculateInterestInTeam:(Team *)t;
 -(NSString *)uniqueIdentifier;
+
+-(void)updateStatHistory;
 @end

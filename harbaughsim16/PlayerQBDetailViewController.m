@@ -117,10 +117,10 @@
                 [cell.detailTextLabel setText:careerStats[@"yardsPerAttempt"]];
                 [cell.textLabel setText:@"Yards Per Attempt"];
             } else if (indexPath.row == 9) {
-                [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+                [cell.detailTextLabel setText:careerStats[@"passYardsPerGame"]];
                 [cell.textLabel setText:@"Pass Yards Per Game"];
             } else if (indexPath.row == 10) {
-                [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+                [cell.detailTextLabel setText:careerStats[@"passTouchdowns"]];
                 [cell.textLabel setText:@"Pass TDs"];
             } else if (indexPath.row == 11) {
                 [cell.detailTextLabel setText:careerStats[@"interceptions"]];
@@ -161,10 +161,10 @@
                 [cell.detailTextLabel setText:stats[@"yardsPerAttempt"]];
                 [cell.textLabel setText:@"Pass Yards Per Attempt"];
             } else if (indexPath.row == 5) {
-                [cell.detailTextLabel setText:stats[@"yardsPerGame"]];
+                [cell.detailTextLabel setText:stats[@"passYardsPerGame"]];
                 [cell.textLabel setText:@"Pass Yards Per Game"];
             } else if (indexPath.row == 6) {
-                [cell.detailTextLabel setText:stats[@"touchdowns"]];
+                [cell.detailTextLabel setText:stats[@"passTouchdowns"]];
                 [cell.textLabel setText:@"Pass TDs"];
             } else if (indexPath.row == 7) {
                 [cell.detailTextLabel setText:stats[@"interceptions"]];
@@ -218,10 +218,10 @@
             [cell.detailTextLabel setText:careerStats[@"yardsPerAttempt"]];
             [cell.textLabel setText:@"Yards Per Attempt"];
         } else if (indexPath.row == 9) {
-            [cell.detailTextLabel setText:careerStats[@"yardsPerGame"]];
+            [cell.detailTextLabel setText:careerStats[@"passYardsPerGame"]];
             [cell.textLabel setText:@"Yards Per Game"];
         } else if (indexPath.row == 10) {
-            [cell.detailTextLabel setText:careerStats[@"touchdowns"]];
+            [cell.detailTextLabel setText:careerStats[@"passTouchdowns"]];
             [cell.textLabel setText:@"Touchdowns"];
         } else if (indexPath.row == 11) {
             [cell.detailTextLabel setText:careerStats[@"interceptions"]];

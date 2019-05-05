@@ -21,7 +21,6 @@
 #import "Player.h"
 #import "Team.h"
 #import "Injury.h"
-
 #import "UIScrollView+EmptyDataSet.h"
 
 @interface InjuryReportViewController () <DZNEmptyDataSetSource, DZNEmptyDataSetDelegate, UIViewControllerPreviewingDelegate>
@@ -48,7 +47,7 @@
     self.tableView.tableFooterView = [UIView new];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
-    
+
     if(self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
@@ -92,7 +91,7 @@
         } else {
             playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
         }
-        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
         previewingContext.sourceRect = cell.frame;
         return playerDetail;
     } else {
@@ -107,21 +106,21 @@
     NSString *text = nil;
     UIFont *font = nil;
     UIColor *textColor = nil;
-    
+
     NSMutableDictionary *attributes = [NSMutableDictionary new];
-    
+
     text = @"No injuries to report";
     font = [UIFont boldSystemFontOfSize:17.0];
     textColor = [UIColor lightTextColor];
-    
-    
+
+
     if (!text) {
         return nil;
     }
-    
+
     if (font) [attributes setObject:font forKey:NSFontAttributeName];
     if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
-    
+
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
@@ -130,28 +129,28 @@
     NSString *text = nil;
     UIFont *font = nil;
     UIColor *textColor = nil;
-    
+
     NSMutableDictionary *attributes = [NSMutableDictionary new];
-    
+
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     paragraph.alignment = NSTextAlignmentCenter;
-    
+
     text = [NSString stringWithFormat:@"All %@ players are cleared to play this week!",selectedTeam.name];
     font = [UIFont systemFontOfSize:15.0];
     textColor = [UIColor lightTextColor];
-    
-    
+
+
     if (!text) {
         return nil;
     }
-    
+
     if (font) [attributes setObject:font forKey:NSFontAttributeName];
     if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
     if (paragraph) [attributes setObject:paragraph forKey:NSParagraphStyleAttributeName];
-    
+
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
-    
+
     return attributedString;
 }
 
@@ -197,11 +196,11 @@
         [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15.0]];
         [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
     }
-    
+
     Player *p = selectedTeam.injuredPlayers[indexPath.row];
     [cell.textLabel setText:[NSString stringWithFormat:@"%@ %@ (OVR: %li)",p.position,p.name,(long)p.ratOvr]];
     [cell.detailTextLabel setText:[p.injury injuryDescription]];
-    
+
     return cell;
 }
 

@@ -8,12 +8,25 @@
 
 #import "Player.h"
 #import "PlayerF7.h"
+#import "PlayerDefender.h"
 
-@interface PlayerDL : Player <NSCoding>
+@interface PlayerDL : PlayerDefender <NSCoding>
 
 @property (nonatomic) int ratDLPow;
 @property (nonatomic) int ratDLRsh;
 @property (nonatomic) int ratDLPas;
+
+//@property (nonatomic) int statsTkl;
+//@property (nonatomic) int statsForcedFum;
+//@property (nonatomic) int statsInt;
+//@property (nonatomic) int statsSacks;
+//@property (nonatomic) int statsPassDef;
+//
+//@property (nonatomic) int careerStatsTkl;
+//@property (nonatomic) int careerStatsForcedFum;
+//@property (nonatomic) int careerStatsInt;
+//@property (nonatomic) int careerStatsSacks;
+//@property (nonatomic) int careerStatsPassDef;
 
 +(instancetype)newDLWithName:(NSString *)nm team:(Team *)t year:(int)yr potential:(int)pot footballIQ:(int)iq power:(int)pow rush:(int)rsh pass:(int)pass dur:(int)dur;
 +(instancetype)newDLWithName:(NSString*)nm year:(int)yr stars:(int)stars team:(Team*)t;

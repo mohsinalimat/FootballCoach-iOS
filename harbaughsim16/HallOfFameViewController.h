@@ -6,8 +6,8 @@
 //  Copyright © 2016 Akshay Easwaran. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "FCTableViewController.h"
 
-@interface HallOfFameViewController : UITableViewController
+@interface HallOfFameViewController : FCTableViewController
 
 @end

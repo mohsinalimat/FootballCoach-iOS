@@ -77,7 +77,7 @@
         } else {
             p = round7[indexPath.row];
         }
-        
+
         if ([p.position isEqualToString:@"QB"]) {
             vc = [[PlayerQBDetailViewController alloc] initWithPlayer:p];
         } else if ([p.position isEqualToString:@"RB"]) {
@@ -101,7 +101,7 @@
         } else {
             vc = [[PlayerDetailViewController alloc] initWithPlayer:p];
         }
-        vc.preferredContentSize = CGSizeMake(0.0, 600);
+        vc.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
         previewingContext.sourceRect = cell.frame;
         return vc;
     } else {
@@ -118,61 +118,61 @@
             [userDraftees addObject:p];
         }
     }
-    
+
     for (Player *p in userTeam.teamRBs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];
         }
     }
-    
+
     for (Player *p in userTeam.teamWRs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];
         }
     }
-    
+
     for (Player *p in userTeam.teamTEs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];
         }
     }
-    
+
     for (Player *p in userTeam.teamOLs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];
         }
     }
-    
+
     for (Player *p in userTeam.teamDLs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];
         }
     }
-    
+
     for (Player *p in userTeam.teamLBs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];
         }
     }
-    
+
     for (Player *p in userTeam.teamCBs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];
         }
     }
-    
+
     for (Player *p in userTeam.teamSs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];
         }
     }
-    
+
     for (Player *p in userTeam.teamKs) {
         if (p.draftPosition != nil) {
             [userDraftees addObject:p];
         }
     }
-    
+
     [userDraftees sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player *)obj1;
         Player *b = (Player *)obj2;
@@ -180,7 +180,7 @@
         NSInteger bDraftRound = [b.draftPosition[@"round"] integerValue];
         NSInteger aDraftPick = [a.draftPosition[@"pick"] integerValue];
         NSInteger bDraftPick = [b.draftPosition[@"pick"] integerValue];
-        
+
         if (aDraftRound < bDraftRound) {
             return -1;
         } else if (bDraftRound < aDraftRound) {
@@ -195,24 +195,24 @@
             }
         }
     }];
-    
+
     for (Player *p in userDraftees) {
         [draftSummary appendFormat:@"Rd %@, Pk %@: %@ %@ (OVR: %li)\n", p.draftPosition[@"round"], p.draftPosition[@"pick"], p.position, [p getInitialName], (long)p.ratOvr];
     }
-    
+
     if (draftSummary.length == 0) {
         [draftSummary appendString:@"No players drafted"];
     }
-    
+
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ Draft Summary", [HBSharedUtils currentLeague].userTeam.abbreviation] message:draftSummary preferredStyle:UIAlertControllerStyleAlert];
-    
+
     [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
     [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],[[UIBarButtonItem alloc] initWithTitle:@"View Draft Summary" style:UIBarButtonItemStylePlain target:self action:@selector(viewDraftSummary)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
     self.navigationController.toolbarHidden = NO;
 }
@@ -234,16 +234,16 @@
         [alertController addAction:[UIAlertAction actionWithTitle:week style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:i] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }]];
-        
+
     }
-    
+
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     draftRounds = [[HBSharedUtils currentLeague] allDraftedPlayers];
     if (draftRounds != nil && draftRounds.count == 7) {
         round1 = (draftRounds != nil && [draftRounds[0] count] > 0) ? draftRounds[0] : [NSMutableArray array];
@@ -256,20 +256,20 @@
     } else {
         draftRounds = [NSArray arrayWithObjects:[NSMutableArray array],[NSMutableArray array],[NSMutableArray array],[NSMutableArray array],[NSMutableArray array],[NSMutableArray array],[NSMutableArray array], nil];
     }
-    
+
     if (!heisman) {
         NSArray *candidates = [[HBSharedUtils currentLeague] calculateHeismanCandidates];
         if (candidates.count > 0) {
             heisman = candidates[0];
         }
     }
-    
+
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissVC)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(changeRounds)];
     self.title = [NSString stringWithFormat:@"%ld Pro Draft", (long)([HBSharedUtils currentLeague].baseYear + [HBSharedUtils currentLeague].leagueHistoryDictionary.count)];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
-    
-    
+
+
     if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) {
         [self registerForPreviewingWithDelegate:self sourceView:self.view];
     }
@@ -321,7 +321,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         [cell setBackgroundColor:[UIColor whiteColor]];
     }
-    
+
     Player *p;
     if (indexPath.section == 0) {
         p = round1[indexPath.row];
@@ -339,9 +339,9 @@
         p = round7[indexPath.row];
     }
     NSMutableAttributedString *attName = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld: ",(long)(1 + indexPath.row)] attributes:@{NSForegroundColorAttributeName : [UIColor blackColor]}];
-    
+
     [attName appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", p.position] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
-    
+
     UIColor *nameColor = [UIColor blackColor];
     if ([p.team isEqual:[HBSharedUtils currentLeague].userTeam]) {
         nameColor = [HBSharedUtils styleColor];
@@ -354,10 +354,10 @@
             }
         }
     }
-    
+
     [attName appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", [p getInitialName]] attributes:@{NSForegroundColorAttributeName : nameColor}]];
     [attName appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@" %@", [p getYearString]] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
-    
+
     [cell.textLabel setAttributedText:attName];
     [cell.detailTextLabel setText:[p.team strRep]];
     return cell;

@@ -77,7 +77,7 @@
         } else {
             playerDetail = [[PlayerDetailViewController alloc] initWithPlayer:p];
         }
-        playerDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        playerDetail.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
         previewingContext.sourceRect = cell.frame;
         return playerDetail;
     } else {
@@ -143,16 +143,26 @@
     NSString *stat4Value = @"";
     
     if ([plyr isKindOfClass:[PlayerQB class]]) {
-        stat1 = @"CMP%"; //comp/att, yds, td, int
-        stat2 = @"Yds";
-        stat3 = @"TDs";
-        stat4 = @"INTs";
-        
-        stat1Value = [NSString stringWithFormat:@"%d%%",(100 * ((PlayerQB*)plyr).statsPassComp/((PlayerQB*)plyr).statsPassAtt)];
-        stat2Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsPassYards];
-        stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsTD];
-        stat4Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsInt];
-        //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:13.0]];
+        if ([((PlayerQB*)plyr) getRushScore] > [((PlayerQB*)plyr) getPassScore]) {
+            stat1 = @"Car";
+            stat2 = @"Yds";
+            stat3 = @"TD";
+            stat4 = @"Fum";
+            stat1Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsRushAtt];
+            stat2Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsRushYards];
+            stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsTD];
+            stat4Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsFumbles];
+        } else {
+            stat1 = @"CMP%"; //comp/att, yds, td, int
+            stat2 = @"Yds";
+            stat3 = @"TDs";
+            stat4 = @"INTs";
+            
+            stat1Value = [NSString stringWithFormat:@"%d%%",(100 * ((PlayerQB*)plyr).statsPassComp/((PlayerQB*)plyr).statsPassAtt)];
+            stat2Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsPassYards];
+            stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsTD];
+            stat4Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsInt];
+        }
     } else if ([plyr isKindOfClass:[PlayerRB class]]) {
         stat1 = @"Car";
         stat2 = @"Yds";
@@ -163,7 +173,7 @@
         stat3Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsTD];
         stat4Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsFumbles];
         //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
-    } else {
+    } else if ([plyr isKindOfClass:[PlayerWR class]]) {
         stat1 = @"Rec";
         stat2 = @"Yds";
         stat3 = @"TD";
@@ -173,14 +183,64 @@
         stat3Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsTD];
         stat4Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsFumbles];
         //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+    } else if ([plyr isKindOfClass:[PlayerK class]]) { //PlayerK class
+        stat1 = @"XPM";
+        stat2 = @"XPA";
+        stat3 = @"FGM";
+        stat4 = @"FGA";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsXPMade];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsXPAtt];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsFGMade];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerK*)plyr).statsFGAtt];
+    } else if ([plyr isKindOfClass:[PlayerDL class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"Sck";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsSacks];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerDL*)plyr).statsPassDef];
+    } else if ([plyr isKindOfClass:[PlayerLB class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"Sck";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsSacks];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerLB*)plyr).statsPassDef];
+    } else if ([plyr isKindOfClass:[PlayerCB class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"INT";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsInt];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerCB*)plyr).statsPassDef];
+    } else if ([plyr isKindOfClass:[PlayerS class]]) {
+        stat1 = @"Tkl";
+        stat2 = @"INT";
+        stat3 = @"FFum";
+        stat4 = @"PsDef";
+        
+        stat1Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsTkl];
+        stat2Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsInt];
+        stat3Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsForcedFum];
+        stat4Value = [NSString stringWithFormat:@"%d",((PlayerS*)plyr).statsPassDef];
     }
     
     [statsCell.playerLabel setText:[plyr getInitialName]];
     
     if ([HBSharedUtils currentLeague].currentWeek >= 13 && heisman != nil) {
-        [statsCell.teamLabel setText:plyr.team.abbreviation];
+        [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ %@", plyr.team.abbreviation, plyr.position]];
     } else {
-        [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ (%d votes)", plyr.team.abbreviation, [plyr getHeismanScore]]];
+        [statsCell.teamLabel setText:[NSString stringWithFormat:@"%@ %@ (%d vts)", plyr.team.abbreviation, plyr.position, [plyr getHeismanScore]]];
     }
     
     if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {

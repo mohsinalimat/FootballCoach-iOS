@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CFCAwardTagView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *yrLabel;
 @property (weak, nonatomic) IBOutlet UILabel *posLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *medImageView;
+
+@property (weak, nonatomic) IBOutlet CFCAwardTagView *potyTagView;
+@property (weak, nonatomic) IBOutlet CFCAwardTagView *allConfTagView;
+@property (weak, nonatomic) IBOutlet CFCAwardTagView *allLeagueTagView;
 @end
 
 NS_ASSUME_NONNULL_END

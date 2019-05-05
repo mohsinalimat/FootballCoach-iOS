@@ -85,7 +85,7 @@
 }
 
 +(instancetype)newStrategy {
-    return [[TeamStrategy alloc] initWithName:@"Pro-Style" description:@"Play a standard pro-style offense with equal emphasis on passing and running." rPref:1 pPref:1 runPot:0 passPot:0 runProt:0 passProt:0 rUsg:1 pUsg:1];
+    return [[TeamStrategy alloc] initWithName:@"Pro-Style" description:@"Play a standard pro-style offense with equal emphasis on passing and running. (default)" rPref:1 pPref:1 runPot:0 passPot:0 runProt:0 passProt:0 rUsg:1 pUsg:1];
 }
 
 +(instancetype)newStrategyWithName:(NSString *)name description:(NSString *)description rYB:(int)rYB rAB:(int)rAB pYB:(int)pYB pAB:(int)pAB {

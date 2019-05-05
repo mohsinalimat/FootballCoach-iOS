@@ -290,11 +290,11 @@
                 });
             });
             
-            oldLigue.leagueVersion = HB_CURRENT_APP_VERSION;
+            oldLigue.leagueVersion = @"2.0";
             [oldLigue save];
         }
         
-        if ([[self class] needsUpdateFromVersion:oldLigue.leagueVersion toVersion:HB_CURRENT_APP_VERSION]) {
+        if ([[self class] needsUpdateFromVersion:oldLigue.leagueVersion toVersion:@"2.1"]) {
             __block float prgs = 0.0;
             dispatch_async(dispatch_get_main_queue(), ^{
                 prgs += 0.05;
@@ -357,8 +357,320 @@
             
             if (oldLigue.currentWeek > 12 && oldLigue.roty == nil) {
                 NSString *roty = [oldLigue getROTYCeremonyStr];
-                NSLog(@"ROTY: %@", roty);
+                NSLog(@"[League Updater] Generating ROTY: %@", roty);
             }
+            
+            // we can't run these until 3.0 because of HC changes, so if we need to update to 3.0 from here, avoid running these
+            if (![HB_APP_VERSION_CURRENT_MINOR_VERSION containsString:@"3"]) {
+                // if all league players were calculated, then recalculate
+                if (oldLigue.currentWeek > 14 && (oldLigue.allLeaguePlayers != nil || oldLigue.allLeaguePlayers.count != 0)) {
+                    [oldLigue refreshAllLeaguePlayers];
+                }
+                
+                // if all conf players were calculated, then recalculate
+                for (Conference *c in oldLigue.conferences) {
+                    if (oldLigue.currentWeek > 14 && (c.allConferencePlayers != nil || c.allConferencePlayers.count != 0)) {
+                        [c refreshAllConferencePlayers];
+                    }
+                }
+            }
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                prgs += 0.15;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    updatingBlock(prgs, @"Cleaning up...");
+                });
+            });
+            
+            oldLigue.leagueVersion = @"2.1";
+            [oldLigue save];
+        }
+        
+        if ([[self class] needsUpdateFromVersion:oldLigue.leagueVersion toVersion:@"3.0"]) {
+            __block float prgs = 0.0;
+            oldLigue.isCareerMode = NO;
+            oldLigue.coachList = [NSMutableArray array];
+            oldLigue.coachStarList = [NSMutableArray array];
+            oldLigue.coachFreeAgents = [NSMutableArray array];
+            oldLigue.cotyWinner = nil;
+            oldLigue.cotyWinnerStrFull = nil;
+            
+            for (Team *t in oldLigue.teamList) {
+                t.coaches = [NSMutableArray array];
+                t.totalCOTYs = 0;
+                t.coachGotNewContract = NO;
+                t.coachContractString = nil;
+                t.coachRetired = NO;
+                t.coachFired = NO;
+                [t createNewCustomHeadCoach:[oldLigue getRandName] stars:((int)([HBSharedUtils randomValue] * 4) + 1)];
+                [t getCurrentHC].contractLength = 1 + (int)([HBSharedUtils randomValue] * 6);
+                [t getCurrentHC].contractYear = (int)([HBSharedUtils randomValue] * [t getCurrentHC].contractLength);
+                [t getCurrentHC].totalWins = t.totalWins;
+                [t getCurrentHC].totalLosses = t.totalLosses;
+                [t getCurrentHC].totalConfWins = t.totalConfWins;
+                [t getCurrentHC].totalConfLosses = t.totalConfLosses;
+                [t getCurrentHC].totalHeismans = t.heismans;
+                [t getCurrentHC].totalROTYs = t.rotys;
+                [t getCurrentHC].totalCCs = t.totalCCs;
+                [t getCurrentHC].totalNCs = t.totalNCs;
+                [t getCurrentHC].totalBowls = t.totalBowls;
+                [t getCurrentHC].totalCCLosses = t.totalCCLosses;
+                [t getCurrentHC].totalNCLosses = t.totalNCLosses;
+                [t getCurrentHC].totalBowlLosses = t.totalBowlLosses;
+                [t getCurrentHC].gamesCoached = [t getCurrentHC].totalWins + [t getCurrentHC].totalLosses;
+                [t getCurrentHC].offStratNum = t.teamStatOffNum;
+                [t getCurrentHC].defStratNum = t.teamStatDefNum;
+                [t getCurrentHC].startYear = (int)t.league.baseYear;
+                [t getCurrentHC].year = (int)([t.league getCurrentYear] - t.league.baseYear);
+                
+                // give HC the team history too
+                [t getCurrentHC].coachingHistoryDictionary = [t.teamHistoryDictionary mutableCopy];
+            }
+            
+            if (oldLigue.currentWeek > 13 && oldLigue.cotyWinner == nil) {
+                [oldLigue getCoachAwardStr];
+            }
+            
+            // add defensive stats to all games
+            for (Team *t in oldLigue.teamList) {
+                for (Game *g in t.gameSchedule) {
+                    g.HomeCB1Stats = [NSMutableArray array];
+                    g.HomeCB2Stats = [NSMutableArray array];
+                    g.HomeCB3Stats = [NSMutableArray array];
+                    g.AwayCB1Stats = [NSMutableArray array];
+                    g.AwayCB2Stats = [NSMutableArray array];
+                    g.AwayCB3Stats = [NSMutableArray array];
+                    
+                    g.HomeLB1Stats = [NSMutableArray array];
+                    g.HomeLB2Stats = [NSMutableArray array];
+                    g.HomeLB3Stats = [NSMutableArray array];
+                    g.AwayLB1Stats = [NSMutableArray array];
+                    g.AwayLB2Stats = [NSMutableArray array];
+                    g.AwayLB3Stats = [NSMutableArray array];
+                    
+                    g.HomeDL1Stats = [NSMutableArray array];
+                    g.HomeDL2Stats = [NSMutableArray array];
+                    g.HomeDL3Stats = [NSMutableArray array];
+                    g.HomeDL4Stats = [NSMutableArray array];
+                    g.AwayDL1Stats = [NSMutableArray array];
+                    g.AwayDL2Stats = [NSMutableArray array];
+                    g.AwayDL3Stats = [NSMutableArray array];
+                    g.AwayDL4Stats = [NSMutableArray array];
+                    g.HomeSStats = [NSMutableArray array];
+                    g.AwaySStats = [NSMutableArray array];
+                    
+                    for (int i = 0; i < 5; i++) {
+                        [g.HomeDL1Stats addObject:@(0)];
+                        [g.AwayDL1Stats addObject:@(0)];
+                        
+                        [g.HomeDL2Stats addObject:@(0)];
+                        [g.AwayDL2Stats addObject:@(0)];
+                        
+                        [g.HomeDL3Stats addObject:@(0)];
+                        [g.AwayDL3Stats addObject:@(0)];
+                        
+                        [g.HomeDL4Stats addObject:@(0)];
+                        [g.AwayDL4Stats addObject:@(0)];
+                        
+                        [g.HomeLB1Stats addObject:@(0)];
+                        [g.AwayLB1Stats addObject:@(0)];
+                        
+                        [g.HomeLB2Stats addObject:@(0)];
+                        [g.AwayLB2Stats addObject:@(0)];
+                        
+                        [g.HomeLB3Stats addObject:@(0)];
+                        [g.AwayLB3Stats addObject:@(0)];
+                        
+                        [g.HomeCB1Stats addObject:@(0)];
+                        [g.AwayCB1Stats addObject:@(0)];
+                        
+                        [g.HomeCB2Stats addObject:@(0)];
+                        [g.AwayCB2Stats addObject:@(0)];
+                        
+                        [g.HomeCB3Stats addObject:@(0)];
+                        [g.AwayCB3Stats addObject:@(0)];
+                        
+                        [g.HomeSStats addObject:@(0)];
+                        [g.AwaySStats addObject:@(0)];
+                    }
+                }
+                
+                [t updateDepthChartPositions];
+                
+                for (PlayerDL *dl in t.teamDLs) {
+                    dl.statsTkl = 0;
+                    dl.statsSacks = 0;
+                    dl.statsPassDef = 0;
+                    dl.statsForcedFum = 0;
+                    dl.statsInt = 0;
+                    
+                    dl.careerStatsTkl = 0;
+                    dl.careerStatsSacks = 0;
+                    dl.careerStatsPassDef = 0;
+                    dl.careerStatsForcedFum = 0;
+                    dl.careerStatsInt = 0;
+                }
+                
+                for (PlayerLB *dl in t.teamLBs) {
+                    dl.statsTkl = 0;
+                    dl.statsSacks = 0;
+                    dl.statsPassDef = 0;
+                    dl.statsForcedFum = 0;
+                    dl.statsInt = 0;
+                    
+                    dl.careerStatsTkl = 0;
+                    dl.careerStatsSacks = 0;
+                    dl.careerStatsPassDef = 0;
+                    dl.careerStatsForcedFum = 0;
+                    dl.careerStatsInt = 0;
+                }
+                
+                for (PlayerCB *dl in t.teamCBs) {
+                    dl.statsTkl = 0;
+                    dl.statsSacks = 0;
+                    dl.statsPassDef = 0;
+                    dl.statsForcedFum = 0;
+                    dl.statsInt = 0;
+                    
+                    dl.careerStatsTkl = 0;
+                    dl.careerStatsSacks = 0;
+                    dl.careerStatsPassDef = 0;
+                    dl.careerStatsForcedFum = 0;
+                    dl.careerStatsInt = 0;
+                }
+                
+                for (PlayerS *dl in t.teamSs) {
+                    dl.statsTkl = 0;
+                    dl.statsSacks = 0;
+                    dl.statsPassDef = 0;
+                    dl.statsForcedFum = 0;
+                    dl.statsInt = 0;
+                    
+                    dl.careerStatsTkl = 0;
+                    dl.careerStatsSacks = 0;
+                    dl.careerStatsPassDef = 0;
+                    dl.careerStatsForcedFum = 0;
+                    dl.careerStatsInt = 0;
+                }
+                
+                for (Player *p in [t getAllPlayers]) {
+                    p.statHistoryDictionary = [NSMutableDictionary dictionary];
+                }
+                
+                t.careerSacksRecord = nil;
+                t.careerTacklesRecord = nil;
+                t.careerPassDefRecord = nil;
+                t.careerForcedFumRecord = nil;
+                t.careerDefInterceptionsRecord = nil;
+                
+                t.singleSeasonSacksRecord = nil;
+                t.singleSeasonTacklesRecord = nil;
+                t.singleSeasonPassDefRecord = nil;
+                t.singleSeasonForcedFumRecord = nil;
+                t.singleSeasonDefInterceptionsRecord = nil;
+                
+                t.projectedPollScore = [t projectPollScore];
+            }
+            
+            // if NCG, bowls, semis are not null, add TEStats and TE and 4 more QB stats
+            NSMutableArray *leagueGames;
+            if (oldLigue.bowlGames.count > 0) {
+                leagueGames = [NSMutableArray arrayWithArray:oldLigue.bowlGames];
+            }
+            
+            if (oldLigue.ncg != nil) {
+                [leagueGames addObject:oldLigue.ncg];
+            }
+            
+            if (oldLigue.semiG14 != nil) {
+                [leagueGames addObject:oldLigue.semiG14];
+            }
+            
+            if (oldLigue.semiG23 != nil) {
+                [leagueGames addObject:oldLigue.semiG23];
+            }
+            
+            for (Game *g in leagueGames) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    prgs += (0.30 / leagueGames.count);
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        updatingBlock(prgs, @"Updating league structure for version 3.0...");
+                    });
+                });
+                if (g != nil) {
+                    g.HomeCB1Stats = [NSMutableArray array];
+                    g.HomeCB2Stats = [NSMutableArray array];
+                    g.HomeCB3Stats = [NSMutableArray array];
+                    g.AwayCB1Stats = [NSMutableArray array];
+                    g.AwayCB2Stats = [NSMutableArray array];
+                    g.AwayCB3Stats = [NSMutableArray array];
+                    
+                    g.HomeLB1Stats = [NSMutableArray array];
+                    g.HomeLB2Stats = [NSMutableArray array];
+                    g.HomeLB3Stats = [NSMutableArray array];
+                    g.AwayLB1Stats = [NSMutableArray array];
+                    g.AwayLB2Stats = [NSMutableArray array];
+                    g.AwayLB3Stats = [NSMutableArray array];
+                    
+                    g.HomeDL1Stats = [NSMutableArray array];
+                    g.HomeDL2Stats = [NSMutableArray array];
+                    g.HomeDL3Stats = [NSMutableArray array];
+                    g.HomeDL4Stats = [NSMutableArray array];
+                    g.AwayDL1Stats = [NSMutableArray array];
+                    g.AwayDL2Stats = [NSMutableArray array];
+                    g.AwayDL3Stats = [NSMutableArray array];
+                    g.AwayDL4Stats = [NSMutableArray array];
+                    g.HomeSStats = [NSMutableArray array];
+                    g.AwaySStats = [NSMutableArray array];
+                    
+                    for (int i = 0; i < 5; i++) {
+                        [g.HomeDL1Stats addObject:@(0)];
+                        [g.AwayDL1Stats addObject:@(0)];
+                        
+                        [g.HomeDL2Stats addObject:@(0)];
+                        [g.AwayDL2Stats addObject:@(0)];
+                        
+                        [g.HomeDL3Stats addObject:@(0)];
+                        [g.AwayDL3Stats addObject:@(0)];
+                        
+                        [g.HomeDL4Stats addObject:@(0)];
+                        [g.AwayDL4Stats addObject:@(0)];
+                        
+                        [g.HomeLB1Stats addObject:@(0)];
+                        [g.AwayLB1Stats addObject:@(0)];
+                        
+                        [g.HomeLB2Stats addObject:@(0)];
+                        [g.AwayLB2Stats addObject:@(0)];
+                        
+                        [g.HomeLB3Stats addObject:@(0)];
+                        [g.AwayLB3Stats addObject:@(0)];
+                        
+                        [g.HomeCB1Stats addObject:@(0)];
+                        [g.AwayCB1Stats addObject:@(0)];
+                        
+                        [g.HomeCB2Stats addObject:@(0)];
+                        [g.AwayCB2Stats addObject:@(0)];
+                        
+                        [g.HomeCB3Stats addObject:@(0)];
+                        [g.AwayCB3Stats addObject:@(0)];
+                        
+                        [g.HomeSStats addObject:@(0)];
+                        [g.AwaySStats addObject:@(0)];
+                    }
+                }
+            }
+            
+            oldLigue.careerSacksRecord = nil;
+            oldLigue.careerTacklesRecord = nil;
+            oldLigue.careerPassDefRecord = nil;
+            oldLigue.careerForcedFumRecord = nil;
+            oldLigue.careerDefInterceptionsRecord = nil;
+            
+            oldLigue.singleSeasonSacksRecord = nil;
+            oldLigue.singleSeasonTacklesRecord = nil;
+            oldLigue.singleSeasonPassDefRecord = nil;
+            oldLigue.singleSeasonForcedFumRecord = nil;
+            oldLigue.singleSeasonDefInterceptionsRecord = nil;
             
             // if all league players were calculated, then recalculate
             if (oldLigue.currentWeek > 14 && (oldLigue.allLeaguePlayers != nil || oldLigue.allLeaguePlayers.count != 0)) {
@@ -371,17 +683,10 @@
                     [c refreshAllConferencePlayers];
                 }
             }
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                prgs += 0.15;
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    updatingBlock(prgs, @"Cleaning up...");
-                });
-            });
             
             oldLigue.leagueVersion = HB_CURRENT_APP_VERSION;
-            [oldLigue save];
         }
+        
         
         dispatch_async(dispatch_get_main_queue(), ^{
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

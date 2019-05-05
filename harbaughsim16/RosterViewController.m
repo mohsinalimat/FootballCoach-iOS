@@ -36,8 +36,13 @@
 
 #import "HexColors.h"
 #import "STPopup.h"
+#import "ZMJTipView.h"
 
-@interface RosterViewController ()
+#define FCTutorialEditDepthChart 1000
+#define FCTutorialScrollToPosition 1001
+#define FCTutorialInjuryToolbar 1002
+
+@interface RosterViewController () <ZMJTipViewDelegate>
 {
     Team *userTeam;
     STPopupController *popupController;
@@ -45,6 +50,20 @@
 @end
 
 @implementation RosterViewController
+
+//MARK: ZMJTipViewDelegate
+- (void)tipViewDidDimiss:(ZMJTipView *)tipView {
+    // show new tips based on last shown tipview
+    if (tipView.tag == FCTutorialEditDepthChart) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to select a specific position to scroll down to view." preferences:nil delegate:self];
+        editTip.tag = FCTutorialScrollToPosition;
+        [editTip showAnimated:YES forItem:self.navigationItem.leftBarButtonItem withinSuperview:self.navigationController.view];
+    }
+}
+
+- (void)tipViewDidSelected:(ZMJTipView *)tipView {
+    // do nothing
+}
 
 -(void)manageEditing {
     if (self.editing) {
@@ -55,6 +74,7 @@
             [self.navigationItem.rightBarButtonItem setTitle:@"Reorder"];
             [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStylePlain];
         }
+        [[HBSharedUtils currentLeague].userTeam updateDepthChartPositions];
         [[HBSharedUtils currentLeague] save];
     } else {
         [super setEditing:YES animated:YES];
@@ -245,6 +265,10 @@
         [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Save Roster Changes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self manageEditing];
         }]];
+        [rosterOptionsController addAction:[UIAlertAction actionWithTitle:@"Auto-sort Depth Chart" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[HBSharedUtils currentLeague].userTeam sortPlayers];
+            [self.tableView reloadData];
+        }]];
     }
     
     if ([HBSharedUtils currentLeague].isHardMode) {
@@ -266,11 +290,7 @@
     //[userTeam sortPlayers];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     
-    if (userTeam.league.isHardMode) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(viewRosterOptions)];
-    } else {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reorder" style:UIBarButtonItemStylePlain target:self action:@selector(manageEditing)];
-    }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(viewRosterOptions)];
 
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(scrollToPositionGroup)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"injuriesPosted" object:nil];
@@ -278,6 +298,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSeasonStart" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"newSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reincarnateCoach" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadRoster) name:@"updateInjuryCount" object:nil];
     
     BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_ROSTER_TUTORIAL_SHOWN_KEY];
@@ -286,9 +307,15 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         //display intro screen
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Depth Chart Tips" message:[HBSharedUtils depthChartTutorialText] preferredStyle:UIAlertControllerStyleAlert];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleCancel handler:nil]];
-            [self presentViewController:alertController animated:YES completion:nil];
+
+            NSString *tipText = @"Tap here to edit your depth chart. When you're done, tap again to save your changes.";
+            if ([HBSharedUtils currentLeague].isHardMode) {
+                tipText = @"Tap here to view your roster options. From here, you can edit your depth chart and view your injury report for this week.";
+            }
+            ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
+            editTip.tag = FCTutorialEditDepthChart;
+            [editTip showAnimated:YES forItem:self.navigationItem.rightBarButtonItem withinSuperview:self.navigationController.view];
+            
         });
     }
     [self.tableView setRowHeight:50];
@@ -454,7 +481,7 @@
         [cell.medImageView setHidden:YES];
     }
     
-    if (player.hasRedshirt || player.isTransfer) {
+    if (player.hasRedshirt || [player isInjured]) {
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
     } else if (player.isTransfer) {
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
@@ -587,6 +614,7 @@
     [popupController.navigationBar setDraggable:YES];
     [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
     popupController.style = STPopupStyleBottomSheet;
+    popupController.safeAreaInsets = UIEdgeInsetsZero;
     [popupController presentInViewController:self];
 }
 

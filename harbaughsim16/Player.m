@@ -10,7 +10,7 @@
 #import "HBSharedUtils.h"
 
 @implementation Player
-@synthesize position,draftPosition,ratDur,personalDetails,endYear,name,team,year,isHeisman,startYear,gamesPlayedSeason,cost,gamesPlayed,hasRedshirt,isAllAmerican,isAllConference,careerAllAmericans,careerAllConferences,ratOvr,ratPot,ratFootIQ,ratImprovement,wasRedshirted,injury,careerHeismans;
+@synthesize position,draftPosition,ratDur,personalDetails,endYear,name,team,year,isHeisman,startYear,gamesPlayedSeason,cost,gamesPlayed,hasRedshirt,isAllAmerican,isAllConference,careerAllAmericans,careerAllConferences,ratOvr,ratPot,ratFootIQ,ratImprovement,wasRedshirted,injury,careerHeismans,statHistoryDictionary,depthChartPosition;
 
 -(id)initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
@@ -157,6 +157,18 @@
         } else {
             self.careerROTYs = 0;
         }
+        
+        if ([aDecoder containsValueForKey:@"statHistoryDictionary"]) {
+            self.statHistoryDictionary = [aDecoder decodeObjectForKey:@"statHistoryDictionary"];
+        } else {
+            self.statHistoryDictionary = [NSMutableDictionary dictionary];
+        }
+        
+        if ([aDecoder containsValueForKey:@"depthChartPosition"]) {
+            self.depthChartPosition = [aDecoder decodeIntForKey:@"depthChartPosition"];
+        } else {
+            self.depthChartPosition = 0;
+        }
     }
     return self;
 }
@@ -191,6 +203,8 @@
     [aCoder encodeBool:self.isTransfer forKey:@"isTransfer"];
     [aCoder encodeBool:self.isROTY forKey:@"isROTY"];
     [aCoder encodeInt:self.careerROTYs forKey:@"careerROTYs"];
+    [aCoder encodeObject:self.statHistoryDictionary forKey:@"statHistoryDictionary"];
+    [aCoder encodeInt:self.depthChartPosition forKey:@"depthChartPosition"];
 }
 
 +(int)getPosNumber:(NSString*)pos {
@@ -222,17 +236,6 @@
 - (NSComparisonResult)compare:(id)other
 {
     return [HBSharedUtils comparePlayers:self toObj2:other];
-}
-
-+ (NSArray *)letterGrades
-{
-    static NSArray *letterGrades;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        letterGrades = @[@"F", @"F+", @"D", @"D+", @"C", @"C+", @"B", @"B+", @"A", @"A+"];
-        
-    });
-    return letterGrades;
 }
 
 -(NSString*)getYearString {
@@ -343,6 +346,13 @@
     return (self.injury != nil);
 }
 
+-(void)updateStatHistory {
+    if (self.statHistoryDictionary == nil) {
+        self.statHistoryDictionary = [NSMutableDictionary dictionary];
+    }
+    [self.statHistoryDictionary setObject:[self detailedStats:self.gamesPlayedSeason] forKey:[NSString stringWithFormat:@"%ld%@%@%@%@%@%@",(long)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count),(self.hasRedshirt ? @" (RS)" : @""),(self.isTransfer ? @" (XFER)" : @""),(self.isROTY ? @" (ROTY)" : @""),(self.isHeisman ? @" (POTY)" : @""),(self.isAllAmerican ? @" (All-League)" : @""),(self.isAllConference ? [NSString stringWithFormat:@" (All-%@)",self.team.conference] : @"")]];
+}
+
 -(void)advanceSeason {
     self.year++;
     
@@ -350,6 +360,14 @@
     if ((!self.hasRedshirt && !self.isTransfer && !self.isGradTransfer && !self.wasRedshirted && self.year > 0 && self.year < 4) && self.gamesPlayedSeason < 5) {
         self.year--;
         self.wasRedshirted = YES;
+        @synchronized (self.statHistoryDictionary) {
+            NSString *yearKey = [NSString stringWithFormat:@"%ld",(long)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+            if ([self.statHistoryDictionary.allKeys containsObject:yearKey]) {
+                NSDictionary *stats = [self.statHistoryDictionary[yearKey] copy];
+                [self.statHistoryDictionary removeObjectForKey:yearKey];
+                [self.statHistoryDictionary setObject:stats forKey:[NSString stringWithFormat:@"%@ (RS)", yearKey]];
+            }
+        }
     }
     
     self.gamesPlayedSeason = 0;
@@ -393,28 +411,22 @@
     int ind = ([num intValue] - 50)/5;
     if (ind > 9) ind = 9;
     if (ind < 0) ind = 0;
-    return [[self class] letterGrades][ind];
+    return [HBSharedUtils getLetterGrade:ind];
 }
 
 -(NSString*)getLetterGradePotWithString:(NSString*)num {
-    int ind = ([num intValue]) / 10;
+    int ind = [num intValue] / 10;
     if (ind > 9) ind = 9;
     if (ind < 0) ind = 0;
-    return [[self class] letterGrades][ind];
+    return [HBSharedUtils getLetterGrade:ind];
 }
 
 -(NSString*)getLetterGrade:(int)num {
-    int ind = (num - 50)/5;
-    if (ind > 9) ind = 9;
-    if (ind < 0) ind = 0;
-    return [[self class] letterGrades][ind];
+    return [HBSharedUtils getLetterGrade:num];
 }
 
 -(NSString*)getLetterGradePot:(int)num {
-    int ind = num / 10;
-    if (ind > 9) ind = 9;
-    if (ind < 0) ind = 0;
-    return [[self class] letterGrades][ind];
+    return [HBSharedUtils getLetterGrade:num];
 }
 
 -(NSDictionary*)detailedStats:(int)games {
@@ -476,7 +488,8 @@
     // calculate based on:
     //      team location (25%) - if state match, then 25; if neighboring, then 20; if diff region, then 15; if cross-country, then 5,
     //      open positional slots (25%) -- if guaranteed first starter, all 25; if starter, 20; if not starting, 10; if bottom of depth chart, 5,
-    //      prestige (35%) -- map prestige values between 0 and 35
+    //      prestige (25%) -- map prestige values between 0 and 25
+    //      coach abililty (10%) -- map coach overall values between 0 and 10
     //      playbook match (15%) -- use stats to determine best playbook for player. If team playbook matches best playbook: 15 points; if team playbook is player's second best: 8 points; else: no points
     int locationScore = 0;
     CFCRegion playerRegion = [HBSharedUtils regionForState:self.personalDetails[@"home_state"]];
@@ -526,10 +539,14 @@
     CGFloat inMax = 100.0;
     
     CGFloat outMin = 0.0;
-    CGFloat outMax = 35.0;
+    CGFloat outMax = 25.0;
     
     CGFloat input = (CGFloat) t.teamPrestige;
     int prestigeScore = (int)(outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+    
+    outMax = 15.0;
+    input = (CGFloat)[t getCurrentHC].ratOvr;
+    int coachAbility = (int)(outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
     
     int playbookScore = 0;
     if ([self.position isEqualToString:@"QB"] || [self.position isEqualToString:@"RB"] || [self.position isEqualToString:@"WR"] || [self.position isEqualToString:@"TE"] || [self.position isEqualToString:@"OL"]) {
@@ -569,8 +586,8 @@
             }
         }
     }
-    int sum = locationScore + positionalScore + prestigeScore + playbookScore;
-    //NSLog(@"Location Score: %d Positional Score: %d Prestige Score: %d Playbook Score: %d => TOTAL %@ INTEREST: %d", locationScore,positionalScore, prestigeScore, playbookScore, position, sum);
+    int sum = locationScore + positionalScore + prestigeScore + coachAbility + playbookScore;
+    //NSLog(@"[Player] Location Score: %d Positional Score: %d Prestige Score: %d Playbook Score: %d => TOTAL %@ INTEREST: %d", locationScore,positionalScore, prestigeScore, playbookScore, position, sum);
     return sum;
 }
 

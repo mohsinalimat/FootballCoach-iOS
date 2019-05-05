@@ -41,6 +41,9 @@
     [sectionSelect addAction:[UIAlertAction actionWithTitle:@"Metadata Editing" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:4] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     }]];
+    [sectionSelect addAction:[UIAlertAction actionWithTitle:@"Coaching Carousel" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:5] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }]];
     
     [sectionSelect addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
     [self presentViewController:sectionSelect animated:YES completion:nil];
@@ -57,7 +60,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 5;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -74,8 +77,10 @@
         title = @"Recruiting";
     } else if (section == 3) {
         title = @"Transfers";
-    } else {
+    } else if (section == 4) {
         title = @"Metadata Editing";
+    } else {
+        title = @"Coaching Carousel";
     }
     return title;
 }
@@ -108,8 +113,10 @@
         [cell.textLabel setText:[HBSharedUtils recruitingTutorialText]];
     } else if (indexPath.section == 3) { // recruiting
         [cell.textLabel setText:[HBSharedUtils transferTutorialText]];
-    } else { //metadata editing
+    } else if (indexPath.section == 4)  { //metadata editing
         [cell.textLabel setText:[HBSharedUtils metadataEditingText]];
+    } else { //coaching carousel
+        [cell.textLabel setText:[HBSharedUtils jobPickerTutorial:NO]];
     }
     [cell.textLabel sizeToFit];
     return cell;

@@ -91,6 +91,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted && selectedRecruit.team == [HBSharedUtils currentLeague].userTeam) {
         return 2; // these are transfer class entries so no options to display
+    } else if (selectedRecruit.recruitStatus != CFCRecruitStatusCommitted && [selectedRecruit.team isEqual:[HBSharedUtils currentLeague].userTeam]) {
+        return 2; // player is transferring out of program
     }
     return 3;
 }
@@ -167,15 +169,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     if (section == 1) {
-        if (selectedRecruit.recruitStatus == CFCRecruitStatusCommitted) {
-            return 36;
-        } else {
-            if (selectedRecruit.offers.count == 0) {
-                return 36;
-            }
-        }
+        return 36;
     } else if (section == 0) {
-        return 50;
+        return 54;
     }
     return 18;
 }
@@ -458,7 +454,7 @@
             if (selectedRecruit.team != [HBSharedUtils currentLeague].userTeam) {
                 // flip
                 if ([recruitEvents containsObject:@(CFCRecruitEventFlipped)] || ((id<TransferActionsDelegate>)_delegate).recruitingPoints - (((id<TransferActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:CFCRecruitEventFlipped].intValue) <= 0) {
-                    NSLog(@"NOT LEGAL");
+                    NSLog(@"[Transfers] NOT LEGAL");
                 } else {
                     [recruitEvents addObject:@(CFCRecruitEventFlipped)];
                     if (_delegate && [_delegate respondsToSelector:@selector(transferActionsController:didUpdateTransfer:withEvent:)]) {
@@ -469,7 +465,7 @@
         } else {
             NSNumber *event = availableEvents[indexPath.row];
             if (((id<TransferActionsDelegate>)_delegate).recruitingPoints - (((id<TransferActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:(CFCRecruitEvent)event.integerValue].intValue) <= 0 || [recruitEvents containsObject:event]) {
-                NSLog(@"NOT LEGAL");
+                NSLog(@"[Transfers] NOT LEGAL");
             } else {
                 [recruitEvents addObject:event];
                 if (_delegate && [_delegate respondsToSelector:@selector(transferActionsController:didUpdateTransfer:withEvent:)]) {

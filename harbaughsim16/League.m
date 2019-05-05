@@ -13,6 +13,7 @@
 #import "Team.h"
 #import "AppDelegate.h"
 #import "Record.h"
+#import "HeadCoach.h"
 
 #import "PlayerQB.h"
 #import "PlayerRB.h"
@@ -32,14 +33,8 @@
 #import "FCFileManager.h"
 #import "AutoCoding.h"
 
-#ifdef DEBUG
-#   define IS_DEBUG true
-#else
-#   define IS_DEBUG false
-#endif
-
 @implementation League
-@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary;
+@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles,coachList,coachStarList,coachFreeAgents, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary,cotyWinnerStrFull,cotyWinner,isCareerMode,cotyFinalists,didFinishCoachingCarousel,singleSeasonSacksRecord,singleSeasonTacklesRecord,singleSeasonPassDefRecord,singleSeasonForcedFumRecord,singleSeasonDefInterceptionsRecord,careerSacksRecord,careerTacklesRecord,careerPassDefRecord,careerForcedFumRecord,careerDefInterceptionsRecord;
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
@@ -90,6 +85,11 @@
     [encoder encodeObject:self.singleSeasonCatchesRecord forKey:@"singleSeasonCatchesRecord"];
     [encoder encodeObject:self.singleSeasonFgMadeRecord forKey:@"singleSeasonFgMadeRecord"];
     [encoder encodeObject:self.singleSeasonXpMadeRecord forKey:@"singleSeasonXpMadeRecord"];
+    [encoder encodeObject:self.singleSeasonSacksRecord forKey:@"singleSeasonSacksRecord"];
+    [encoder encodeObject:self.singleSeasonTacklesRecord forKey:@"singleSeasonTacklesRecord"];
+    [encoder encodeObject:self.singleSeasonPassDefRecord forKey:@"singleSeasonPassDefRecord"];
+    [encoder encodeObject:self.singleSeasonForcedFumRecord forKey:@"singleSeasonForcedFumRecord"];
+    [encoder encodeObject:self.singleSeasonDefInterceptionsRecord forKey:@"singleSeasonDefInterceptionsRecord"];
 
     [encoder encodeObject:self.careerCompletionsRecord forKey:@"careerCompletionsRecord"];
     [encoder encodeObject:self.careerPassYardsRecord forKey:@"careerPassYardsRecord"];
@@ -104,6 +104,11 @@
     [encoder encodeObject:self.careerCatchesRecord forKey:@"careerCatchesRecord"];
     [encoder encodeObject:self.careerFgMadeRecord forKey:@"careerFgMadeRecord"];
     [encoder encodeObject:self.careerXpMadeRecord forKey:@"careerXpMadeRecord"];
+    [encoder encodeObject:self.careerSacksRecord forKey:@"careerSacksRecord"];
+    [encoder encodeObject:self.careerTacklesRecord forKey:@"careerTacklesRecord"];
+    [encoder encodeObject:self.careerPassDefRecord forKey:@"careerPassDefRecord"];
+    [encoder encodeObject:self.careerForcedFumRecord forKey:@"careerForcedFumRecord"];
+    [encoder encodeObject:self.careerDefInterceptionsRecord forKey:@"careerDefInterceptionsRecord"];
 
     //deprecated
     [encoder encodeInt:leagueRecordFum forKey:@"leagueRecordFum"];
@@ -146,6 +151,16 @@
     [encoder encodeObject:self.roty forKey:@"roty"];
     [encoder encodeBool:rotyDecided forKey:@"rotyDecided"];
     [encoder encodeObject:rotyWinnerStrFull forKey:@"rotyWinnerStrFull"];
+
+    [encoder encodeObject:cotyWinnerStrFull forKey:@"cotyWinnerStrFull"];
+    [encoder encodeObject:coachFreeAgents forKey:@"coachFreeAgents"];
+    [encoder encodeObject:coachStarList forKey:@"coachStarList"];
+    [encoder encodeObject:coachList forKey:@"coachList"];
+    [encoder encodeObject:cotyWinner forKey:@"cotyWinner"];
+    [encoder encodeObject:cotyFinalists forKey:@"cotyFinalists"];
+    [encoder encodeBool:cotyDecided forKey:@"cotyDecided"];
+    [encoder encodeBool:self.isCareerMode forKey:@"isCareerMode"];
+    [encoder encodeBool:self.didFinishCoachingCarousel forKey:@"didFinishCoachingCarousel"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -279,7 +294,12 @@
         }
 
         if (![decoder containsValueForKey:@"bowlTitles"]) {
-            self.bowlTitles = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+            self.bowlTitles = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl",
+                                @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl",@"Lilac Bowl", @"Apple Bowl",
+                                @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl",
+                                @"Tropical Bowl", @"Music Bowl",@"Carnation Bowl", @"Mandarin Bowl", @"Honey Bowl", @"Party Bowl",
+                                @"Nectatrine Bowl", @"Polyester Bowl", @"Lemon-Lime Bowl", @"Crocodile Bowl", @"Desert Bowl", @"Fort Bowl",
+                                @"Vacation Bowl", @"Star Bowl", @"Bell Bowl", @"Freedom Bowl", @"Casino Bowl", @"American Bowl"];
         } else {
             self.bowlTitles = [decoder decodeObjectForKey:@"bowlTitles"];
         }
@@ -371,6 +391,37 @@
             self.singleSeasonFgMadeRecord = [decoder decodeObjectForKey:@"singleSeasonFgMadeRecord"];
         }
 
+        //def records
+        if (![decoder containsValueForKey:@"singleSeasonSacksRecord"]) {
+            self.singleSeasonSacksRecord = nil;
+        } else {
+            self.singleSeasonSacksRecord = [decoder decodeObjectForKey:@"singleSeasonSacksRecord"];
+        }
+
+        if (![decoder containsValueForKey:@"singleSeasonTacklesRecord"]) {
+            self.singleSeasonTacklesRecord = nil;
+        } else {
+            self.singleSeasonTacklesRecord = [decoder decodeObjectForKey:@"singleSeasonTacklesRecord"];
+        }
+
+        if (![decoder containsValueForKey:@"singleSeasonPassDefRecord"]) {
+            self.singleSeasonPassDefRecord = nil;
+        } else {
+            self.singleSeasonPassDefRecord = [decoder decodeObjectForKey:@"singleSeasonPassDefRecord"];
+        }
+
+        if (![decoder containsValueForKey:@"singleSeasonDefInterceptionsRecord"]) {
+            self.singleSeasonDefInterceptionsRecord = nil;
+        } else {
+            self.singleSeasonDefInterceptionsRecord = [decoder decodeObjectForKey:@"singleSeasonDefInterceptionsRecord"];
+        }
+
+        if (![decoder containsValueForKey:@"singleSeasonForcedFumRecord"]) {
+            self.singleSeasonForcedFumRecord = nil;
+        } else {
+            self.singleSeasonForcedFumRecord = [decoder decodeObjectForKey:@"singleSeasonForcedFumRecord"];
+        }
+
         //career
         //pass records
         if (![decoder containsValueForKey:@"careerCompletionsRecord"]) {
@@ -458,6 +509,37 @@
             self.careerFgMadeRecord = [decoder decodeObjectForKey:@"careerFgMadeRecord"];
         }
 
+        //def records
+        if (![decoder containsValueForKey:@"careerSacksRecord"]) {
+            self.careerSacksRecord = nil;
+        } else {
+            self.careerSacksRecord = [decoder decodeObjectForKey:@"careerSacksRecord"];
+        }
+
+        if (![decoder containsValueForKey:@"careerTacklesRecord"]) {
+            self.careerTacklesRecord = nil;
+        } else {
+            self.careerTacklesRecord = [decoder decodeObjectForKey:@"careerTacklesRecord"];
+        }
+
+        if (![decoder containsValueForKey:@"careerPassDefRecord"]) {
+            self.careerPassDefRecord = nil;
+        } else {
+            self.careerPassDefRecord = [decoder decodeObjectForKey:@"careerPassDefRecord"];
+        }
+
+        if (![decoder containsValueForKey:@"careerDefInterceptionsRecord"]) {
+            self.careerDefInterceptionsRecord = nil;
+        } else {
+            self.careerDefInterceptionsRecord = [decoder decodeObjectForKey:@"careerDefInterceptionsRecord"];
+        }
+
+        if (![decoder containsValueForKey:@"careerForcedFumRecord"]) {
+            self.careerForcedFumRecord = nil;
+        } else {
+            self.careerForcedFumRecord = [decoder decodeObjectForKey:@"careerForcedFumRecord"];
+        }
+
         if (![decoder containsValueForKey:@"lastNameList"]) {
             NSArray *lastNamePathFrags = [[HBSharedUtils lastNamesCSV] componentsSeparatedByString:@"."];
             NSString *lastNamePath = lastNamePathFrags[0];
@@ -465,7 +547,7 @@
             NSError *error;
             NSString *lastNameCSV = [NSString stringWithContentsOfFile:lastNameFullPath encoding:NSUTF8StringEncoding error:&error];
             if (error) {
-                NSLog(@"Last name list retrieve error: %@", error);
+                NSLog(@"[Name CSV Import] Last name list retrieve error: %@", error);
             }
             self.lastNameList = [NSMutableArray array];
             NSArray *lastNamesSplit = [lastNameCSV componentsSeparatedByString:@","];
@@ -524,7 +606,66 @@
             rotyWinnerStrFull = [decoder decodeObjectForKey:@"rotyWinnerStrFull"];
         }
 
-        self.roty = [decoder decodeObjectForKey:@"roty"];
+        if (![decoder containsValueForKey:@"roty"]) {
+            roty = nil;
+        } else {
+            roty = [decoder decodeObjectForKey:@"roty"];
+        }
+
+        // coaching
+        if (![decoder containsValueForKey:@"cotyWinnerStrFull"]) {
+            cotyWinnerStrFull = @"";
+        } else {
+            cotyWinnerStrFull = [decoder decodeObjectForKey:@"cotyWinnerStrFull"];
+        }
+
+        if (![decoder containsValueForKey:@"cotyWinner"]) {
+            cotyWinner = nil;
+        } else {
+            cotyWinner = [decoder decodeObjectForKey:@"cotyWinner"];
+        }
+
+        if (![decoder containsValueForKey:@"coachFreeAgents"]) {
+            coachFreeAgents = nil;
+        } else {
+            coachFreeAgents = [decoder decodeObjectForKey:@"coachFreeAgents"];
+        }
+
+        if (![decoder containsValueForKey:@"coachStarList"]) {
+            coachStarList = nil;
+        } else {
+            coachStarList = [decoder decodeObjectForKey:@"coachStarList"];
+        }
+
+        if (![decoder containsValueForKey:@"coachList"]) {
+            coachList = nil;
+        } else {
+            coachList = [decoder decodeObjectForKey:@"coachList"];
+        }
+
+        if (![decoder containsValueForKey:@"isCareerMode"]) {
+            isCareerMode = NO;
+        } else {
+            isCareerMode = [decoder decodeBoolForKey:@"isCareerMode"];
+        }
+
+        if (![decoder containsValueForKey:@"cotyDecided"]) {
+            cotyDecided = NO;
+        } else {
+            cotyDecided = [decoder decodeBoolForKey:@"cotyDecided"];
+        }
+
+        if (![decoder containsValueForKey:@"cotyFinalists"]) {
+            cotyFinalists = [NSMutableArray array];
+        } else {
+            cotyFinalists = [decoder decodeObjectForKey:@"cotyFinalists"];
+        }
+
+        if (![decoder containsValueForKey:@"didFinishCoachingCarousel"]) {
+            self.didFinishCoachingCarousel = NO;
+        } else {
+            self.didFinishCoachingCarousel = [decoder decodeBoolForKey:@"didFinishCoachingCarousel"];
+        }
 
         //deprecated
         leagueRecordYearPassYards = 0;
@@ -558,6 +699,16 @@
     }
     return self;
 }
+
+-(NSArray *)fcsTeamNames {
+    static NSArray *names;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        names = @[@"New Mexico Tech", @"Southwest Alaska", @"San Luis Obispo", @"Central Arkansas", @"Chattanooga", @"Fraklin", @"East Tennessee", @"Charlotte", @"Boston Central", @"Nebraska Tech", @"Coastal NJ", @"Four Corners Univ", @"Potomac Tech", @"Idaho State", @"Independence St", @"Banff St", @"Miss Valley", @"South Dakota", @"South Dakota St", @"Southern Arizona", @"Portland", @"Rhode Island", @"Southern TX", @"Youngstown"];
+    });
+    return names;
+}
+
 -(NSArray*)singleSeasonRecords {
     NSMutableArray *records = [NSMutableArray array];
     if (singleSeasonCompletionsRecord != nil) {
@@ -610,6 +761,26 @@
 
     if (singleSeasonFgMadeRecord != nil) {
         [records addObject:singleSeasonFgMadeRecord];
+    }
+
+    if (singleSeasonSacksRecord != nil) {
+        [records addObject:singleSeasonSacksRecord];
+    }
+
+    if (singleSeasonTacklesRecord != nil) {
+        [records addObject:singleSeasonTacklesRecord];
+    }
+
+    if (singleSeasonPassDefRecord != nil) {
+        [records addObject:singleSeasonPassDefRecord];
+    }
+
+    if (singleSeasonForcedFumRecord != nil) {
+        [records addObject:singleSeasonForcedFumRecord];
+    }
+
+    if (singleSeasonDefInterceptionsRecord != nil) {
+        [records addObject:singleSeasonDefInterceptionsRecord];
     }
 
     return records;
@@ -669,13 +840,35 @@
         [records addObject:careerFgMadeRecord];
     }
 
+    if (careerSacksRecord != nil) {
+        [records addObject:careerSacksRecord];
+    }
+
+    if (careerTacklesRecord != nil) {
+        [records addObject:careerTacklesRecord];
+    }
+
+    if (careerPassDefRecord != nil) {
+        [records addObject:careerPassDefRecord];
+    }
+
+    if (careerForcedFumRecord != nil) {
+        [records addObject:careerForcedFumRecord];
+    }
+
+    if (careerDefInterceptionsRecord != nil) {
+        [records addObject:careerDefInterceptionsRecord];
+    }
+
     return records;
 }
 
 -(BOOL)isSaveCorrupt {
+    int userControl = 0;
+    NSLog(@"[Save Corruption Check] Current League Week: %d", self.currentWeek);
     for (Team *t in teamList) {
          // check this at all points EXCEPT at the end of the season after transfers processed. Teams will be uneven after transfers process.
-        if (didFinishTransferPeriod == NO && currentWeek > 15) {
+        if (!didFinishTransferPeriod) {
             if ((t.teamQBs == nil || t.teamQBs.count < 2)
                 || (t.teamRBs == nil || t.teamRBs.count < 4)
                 || (t.teamWRs == nil || t.teamWRs.count < 6)
@@ -697,6 +890,60 @@
                 if ((((p.isTransfer || p.isGradTransfer) && p.team == nil) || ![p.team isEqual:t])) {
                     return YES;
                 }
+            }
+        }
+
+        if (t.coaches.count == 0) {
+            return YES;
+        }
+
+        for (HeadCoach *hc in t.coaches) {
+            if (![hc.team isEqual:t]) {
+                return YES;
+            }
+        }
+
+        if (t.isUserControlled) {
+            NSLog(@"[Save Corruption Check] %@ is marked user controlled", t.abbreviation);
+            userControl++;
+        }
+        
+        if (t.oocGame0 == nil) {
+            return YES;
+        }
+        
+        if (t.oocGame4 == nil) {
+            return YES;
+        }
+        
+        if (t.oocGame9 == nil) {
+            return YES;
+        }
+        
+        if (t.gameSchedule.count < 12) {
+            return YES;
+        }
+    
+        if (self.currentWeek < 12 && (t.wins + t.losses) != self.currentWeek) {
+            NSLog(@"[Save Corruption Check] %@ record: %d-%d", t.abbreviation, t.wins, t.losses);
+            return YES;
+        }
+        
+        for (Game *g in t.gameSchedule) {
+            if (g == nil) {
+                return YES;
+            }
+            
+            if (g.homeTeam == nil) {
+                return YES;
+            }
+            
+            if (g.awayTeam == nil) {
+                return YES;
+            }
+            
+            if ([g.gameName containsString:@"(null)"]) {
+                return YES;
             }
         }
 
@@ -723,7 +970,27 @@
                     return YES;
                 }
             }
+            
+            if (t.coaches.count > 0) {
+                for (HeadCoach *hc in t.coaches) {
+                    if (hc != nil) {
+                        if (self.currentWeek != 15 && hc.coachingHistoryDictionary.count != self.leagueHistoryDictionary.count) {
+                            return YES;
+                        }
+                    } else {
+                        return YES;
+                    }
+                }
+            }
         }
+    }
+
+    if (userControl > 1) {
+        NSLog(@"[Save Corruption Check] Only %@ is to be user controlled", userTeam.abbreviation);
+        return YES;
+    } else if (userControl == 0) {
+        NSLog(@"[Save Corruption Check] %@ not marked as user controlled", userTeam.abbreviation);
+        return YES;
     }
 
     // check this at all times. Conferences always need to be in working order.
@@ -732,34 +999,30 @@
             return YES;
         }
     }
+    
     return NO;
 }
 
 -(void)save {
+    [self save:nil];
+}
+
+-(void)save:(void (^)(BOOL success, NSError *err))completionBlock {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"saveInProgress" object:nil];
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^(void){
-        if([FCFileManager existsItemAtPath:@"league.cfb"]) {
+    dispatch_sync(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^(void){
+        @synchronized (self) {
             NSError *error;
             BOOL success = [FCFileManager writeFileAtPath:@"league.cfb" content:self error:&error];
             dispatch_async(dispatch_get_main_queue(), ^(void){
                 if (success) {
-                    NSLog(@"Save was successful");
+                    NSLog(@"[League Saving] Save was successful");
                 } else {
-                    NSLog(@"Something went wrong on save: %@", error.localizedDescription);
+                    NSLog(@"[League Saving] ERROR: Something went wrong on save: %@", error.localizedDescription);
                 }
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
-            });
-        } else {
-            //Run UI Updates
-            NSError *error;
-            BOOL success = [FCFileManager createFileAtPath:@"league.cfb" withContent:self error:&error];
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                if (success) {
-                    NSLog(@"Create and Save were successful");
-                } else {
-                    NSLog(@"Something went wrong on create and save: %@", error.localizedDescription);
+                if (completionBlock != nil) {
+                    completionBlock(success, error);
                 }
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFinished" object:nil];
             });
         }
     });
@@ -798,8 +1061,16 @@
 }
 
 -(NSArray*)bowlGameTitles {
+    // Expanded set from here: https://github.com/antdroidx/CFB-Coach/blob/master/src/main/java/simulation/League.java#L226
     if (bowlTitles == nil || bowlTitles.count == 0) {
-        return @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+        return @[
+                 @"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl",
+                 @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl",@"Lilac Bowl", @"Apple Bowl",
+                 @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl",
+                 @"Tropical Bowl", @"Music Bowl",@"Carnation Bowl", @"Mandarin Bowl", @"Honey Bowl", @"Party Bowl",
+                 @"Nectatrine Bowl", @"Polyester Bowl", @"Lemon-Lime Bowl", @"Crocodile Bowl", @"Desert Bowl", @"Fort Bowl",
+                 @"Vacation Bowl", @"Star Bowl", @"Bell Bowl", @"Freedom Bowl", @"Casino Bowl", @"American Bowl"
+                 ];
     } else {
         return bowlTitles;
     }
@@ -821,6 +1092,7 @@
     self = [super init];
     if (self){
         isHardMode = NO;
+        isCareerMode = NO;
         recruitingStage = 0;
         heismanDecided = NO;
         hasScheduledBowls = NO;
@@ -856,7 +1128,14 @@
         currentWeek = 0;
         bowlGames = [NSMutableArray array];
 
-        bowlTitles = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+        bowlTitles = @[
+                       @"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl",
+                       @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl",@"Lilac Bowl", @"Apple Bowl",
+                       @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl",
+                       @"Tropical Bowl", @"Music Bowl",@"Carnation Bowl", @"Mandarin Bowl", @"Honey Bowl", @"Party Bowl",
+                       @"Nectatrine Bowl", @"Polyester Bowl", @"Lemon-Lime Bowl", @"Crocodile Bowl", @"Desert Bowl", @"Fort Bowl",
+                       @"Vacation Bowl", @"Star Bowl", @"Bell Bowl", @"Freedom Bowl", @"Casino Bowl", @"American Bowl"
+                       ];
 
         conferences = [NSMutableArray array];
         blessedTeam = nil;
@@ -866,6 +1145,14 @@
 
         leagueVersion = HB_CURRENT_APP_VERSION;
         baseYear = [[[NSCalendar currentCalendar] components: NSCalendarUnitYear fromDate:[NSDate date]] year];
+
+        cotyWinner = nil;
+        cotyWinnerStrFull = nil;
+        coachFreeAgents = [NSMutableArray array];
+        coachStarList = [NSMutableArray array];
+        coachList = [NSMutableArray array];
+        cotyFinalists = [NSMutableArray array];
+        cotyDecided = NO;
 
         careerCompletionsRecord = nil;
         careerPassYardsRecord = nil;
@@ -880,6 +1167,11 @@
         careerCatchesRecord = nil;
         careerXpMadeRecord = nil;
         careerFgMadeRecord = nil;
+        careerSacksRecord = nil;
+        careerTacklesRecord = nil;
+        careerPassDefRecord = nil;
+        careerForcedFumRecord = nil;
+        careerDefInterceptionsRecord = nil;
 
         singleSeasonCompletionsRecord = nil;
         singleSeasonPassYardsRecord = nil;
@@ -894,21 +1186,19 @@
         singleSeasonCatchesRecord = nil;
         singleSeasonXpMadeRecord = nil;
         singleSeasonFgMadeRecord = nil;
-
-        [conferences addObject:[Conference newConferenceWithName:@"SOUTH" fullName:@"Southern" league:self]];
-        [conferences addObject:[Conference newConferenceWithName:@"LAKES" fullName:@"Lakes" league:self]];
-        [conferences addObject:[Conference newConferenceWithName:@"NORTH" fullName:@"North" league:self]];
-        [conferences addObject:[Conference newConferenceWithName:@"COWBY" fullName:@"Cowboy" league:self]];
-        [conferences addObject:[Conference newConferenceWithName:@"PACIF" fullName:@"Pacific" league:self]];
-        [conferences addObject:[Conference newConferenceWithName:@"MOUNT" fullName:@"Mountain" league:self]];
-
+        singleSeasonSacksRecord = nil;
+        singleSeasonTacklesRecord = nil;
+        singleSeasonPassDefRecord = nil;
+        singleSeasonForcedFumRecord = nil;
+        singleSeasonDefInterceptionsRecord = nil;
+        
         newsStories = [NSMutableArray array];
         for (int i = 0; i < 16; i++) {
             [newsStories addObject:[NSMutableArray array]];
         }
 
         NSMutableArray *first = newsStories[0];
-        [first addObject:@"New Season!\nReady for the new season, coach? Whether the National Championship is on your mind, or just a winning season, good luck!"];
+        [first addObject:@"New Season!\nReady for the new season, coach? Whether the winning the National Championship or just a winning season is on your mind -- good luck!"];
 
         nameList = [NSMutableArray array];
         NSArray *namesSplit = [namesCSV componentsSeparatedByString:@","];
@@ -928,86 +1218,34 @@
             }
         }
 
-        Conference *south = conferences[0];
-        Conference *lakes = conferences[1];
-        Conference *north = conferences[2];
-        Conference *cowboy = conferences[3];
-        Conference *pacific = conferences[4];
-        Conference *mountain = conferences[5];
-
-        //SOUTH
-        [south.confTeams addObject:[Team newTeamWithName:@"Alabama" abbreviation:@"ALA" conference:@"SOUTH" league:self prestige:95 rivalTeam:@"ATH" state:@"Alabama"]]; //"Alabama", "ALA", "SOUTH", this, 95, "GEO" )
-        [south.confTeams addObject:[Team newTeamWithName:@"Athens" abbreviation:@"ATH" conference:@"SOUTH" league:self prestige:90 rivalTeam:@"ALA" state:@"Georgia"]];//south.confTeams.add( new Team( "Georgia", "GEO", "SOUTH", this, 90, "ALA" ));
-        [south.confTeams addObject:[Team newTeamWithName:@"Florida" abbreviation:@"FLA" conference:@"SOUTH" league:self prestige:85 rivalTeam:@"TEN" state:@"Florida"]];//Florida( new Team( "Florida", "FLA", "SOUTH", this, 85, "TEN" ));
-        [south.confTeams addObject:[Team newTeamWithName:@"Tennessee" abbreviation:@"TEN" conference:@"SOUTH" league:self prestige:80 rivalTeam:@"FLA" state:@"Tennessee"]];//south.confTeams.add( new Team( "Tennessee", "TEN", "SOUTH", this, 80, "FLA" ));
-        [south.confTeams addObject:[Team newTeamWithName:@"Atlanta" abbreviation:@"ATL" conference:@"SOUTH" league:self prestige:75 rivalTeam:@"KYW" state:@"Georgia"]];//south.confTeams.add( new Team( "Atlanta", "ATL", "SOUTH", this, 75, "KYW" ));
-        [south.confTeams addObject:[Team newTeamWithName:@"New Orleans" abbreviation:@"NOR" conference:@"SOUTH" league:self prestige:75 rivalTeam:@"LOU" state:@"Louisiana"]];//south.confTeams.add( new Team( "New Orleans", "NOR", "SOUTH", this, 75, "LOU" ));
-        [south.confTeams addObject:[Team newTeamWithName:@"Arkansas" abbreviation:@"ARK" conference:@"SOUTH" league:self prestige:70 rivalTeam:@"KTY" state:@"Arkansas"]];//south.confTeams.add( new Team( "Arkansas", "ARK", "SOUTH", this, 70, "KTY" ));
-        [south.confTeams addObject:[Team newTeamWithName:@"Louisiana" abbreviation:@"LOU" conference:@"SOUTH" league:self prestige:65 rivalTeam:@"NOR" state:@"Louisiana"]];//south.confTeams.add( new Team( "Louisiana", "LOU", "SOUTH", this, 65, "NOR" ));
-        [south.confTeams addObject:[Team newTeamWithName:@"Key West" abbreviation:@"KYW" conference:@"SOUTH" league:self prestige:65 rivalTeam:@"ATL" state:@"Florida"]];//south.confTeams.add( new Team( "Key West", "KYW", "SOUTH", this, 65, "ATL" ));
-        [south.confTeams addObject:[Team newTeamWithName:@"Kentucky" abbreviation:@"KTY" conference:@"SOUTH" league:self prestige:50 rivalTeam:@"ARK" state:@"Kentucky"]];//south.confTeams.add( new Team( "Kentucky", "KTY", "SOUTH", this, 50, "ARK" ));
-
-
-         //LAKES
-         [lakes.confTeams addObject:[Team newTeamWithName:@"Ohio State" abbreviation:@"OHI" conference:@"LAKES" league:self prestige:90 rivalTeam:@"MIC" state:@"Ohio"]];//lakes.confTeams.add( new Team( "Ohio State", "OHI", "LAKES", this, 90, "MIC" ));
-         [lakes.confTeams addObject:[Team newTeamWithName:@"Michigan" abbreviation:@"MIC" conference:@"LAKES" league:self prestige:90 rivalTeam:@"OHI" state:@"Michigan"]];//lakes.confTeams.add( new Team( "Michigan", "MIC", "LAKES", this, 90, "OHI" ));
-         [lakes.confTeams addObject:[Team newTeamWithName:@"Michigan St" abbreviation:@"MSU" conference:@"LAKES" league:self prestige:80 rivalTeam:@"MIN" state:@"Michigan"]];//lakes.confTeams.add( new Team( "Michigan St", "MSU", "LAKES", this, 80, "MIN" ));
-         [lakes.confTeams addObject:[Team newTeamWithName:@"Wisconsin" abbreviation:@"WIS" conference:@"LAKES" league:self prestige:70 rivalTeam:@"IND" state:@"Wisconsin"]];//lakes.confTeams.add( new Team( "Wisconsin", "WIS", "LAKES", this, 70, "IND" ));
-         [lakes.confTeams addObject:[Team newTeamWithName:@"Minnesota" abbreviation:@"MIN" conference:@"LAKES" league:self prestige:70 rivalTeam:@"MSU" state:@"Minnesota"]];//lakes.confTeams.add( new Team( "Minnesota", "MIN", "LAKES", this, 70, "MSU" ));
-         [lakes.confTeams addObject:[Team newTeamWithName:@"Univ of Chicago" abbreviation:@"CHI" conference:@"LAKES" league:self prestige:70 rivalTeam:@"DET" state:@"Illinois"]];//lakes.confTeams.add( new Team( "Univ of Chicago", "CHI", "LAKES", this, 70, "DET" ));
-         [lakes.confTeams addObject:[Team newTeamWithName:@"Detroit St" abbreviation:@"DET" conference:@"LAKES" league:self prestige:65 rivalTeam:@"CHI" state:@"Michigan"]];//lakes.confTeams.add( new Team( "Detroit St", "DET", "LAKES", this, 65, "CHI" ));
-         [lakes.confTeams addObject:[Team newTeamWithName:@"Indiana" abbreviation:@"IND" conference:@"LAKES" league:self prestige:65 rivalTeam:@"WIS" state:@"Indiana"]];//( new Team( "Indiana", "IND", "LAKES", this, 65, "WIS" ));
-         [lakes.confTeams addObject:[Team newTeamWithName:@"Cleveland State" abbreviation:@"CLE" conference:@"LAKES" league:self prestige:55 rivalTeam:@"MIL" state:@"Ohio"]];//lakes.confTeams.add( new Team( "Cleveland St", "CLE", "LAKES", this, 55, "MIL" ));
-         [lakes.confTeams addObject:[Team newTeamWithName:@"Milwaukee" abbreviation:@"MIL" conference:@"LAKES" league:self prestige:45 rivalTeam:@"CLE" state:@"Wisconsin"]];//lakes.confTeams.add( new Team( "Milwaukee", "MIL", "LAKES", this, 45, "CLE" ));
-
-         //NORTH
-        [north.confTeams addObject:[Team newTeamWithName:@"New York St" abbreviation:@"NYS" conference:@"NORTH" league:self prestige:90 rivalTeam:@"NYC" state:@"New York"]];//north.confTeams.add( new Team( "New York St", "NYS", "NORTH", this, 90, "NYC" ));
-         [north.confTeams addObject:[Team newTeamWithName:@"New Jersey" abbreviation:@"NWJ" conference:@"NORTH" league:self prestige:85 rivalTeam:@"PEN" state:@"New Jersey"]];//north.confTeams.add( new Team( "New Jersey", "NWJ", "NORTH", this, 85, "PEN" ));
-         [north.confTeams addObject:[Team newTeamWithName:@"New York City" abbreviation:@"NYC" conference:@"NORTH" league:self prestige:75 rivalTeam:@"NYS" state:@"New York"]];//north.confTeams.add( new Team( "New York City", "NYC", "NORTH", this, 75, "NYS" ));
-         [north.confTeams addObject:[Team newTeamWithName:@"Pennsylvania" abbreviation:@"PEN" conference:@"NORTH" league:self prestige:75 rivalTeam:@"NWJ" state:@"Pennsylvania"]];//north.confTeams.add( new Team( "Pennsylvania", "PEN", "NORTH", this, 75, "NWJ" ));
-         [north.confTeams addObject:[Team newTeamWithName:@"Maryland" abbreviation:@"MAR" conference:@"NORTH" league:self prestige:70 rivalTeam:@"WDC" state:@"Maryland"]];//north.confTeams.add( new Team( "Maryland", "MAR", "NORTH", this, 70, "WDC" ));
-         [north.confTeams addObject:[Team newTeamWithName:@"Washington DC" abbreviation:@"WDC" conference:@"NORTH" league:self prestige:70 rivalTeam:@"MAR" state:@"District of Columbia"]];//north.confTeams.add( new Team( "Washington DC", "WDC", "NORTH", this, 70, "MAR" ));
-         [north.confTeams addObject:[Team newTeamWithName:@"Boston St" abbreviation:@"BOS" conference:@"NORTH" league:self prestige:65 rivalTeam:@"VER" state:@"Massachusetts"]];//north.confTeams.add( new Team( "Boston St", "BOS", "NORTH", this, 65, "VER" ));
-         [north.confTeams addObject:[Team newTeamWithName:@"Pittsburgh" abbreviation:@"PIT" conference:@"NORTH" league:self prestige:60 rivalTeam:@"MAI" state:@"Pennsylvania"]];//north.confTeams.add( new Team( "Pittsburgh", "PIT", "NORTH", this, 60, "MAI" ));
-         [north.confTeams addObject:[Team newTeamWithName:@"Maine" abbreviation:@"MAI" conference:@"NORTH" league:self prestige:50 rivalTeam:@"PIT" state:@"Maine"]];//north.confTeams.add( new Team( "Maine", "MAI", "NORTH", this, 50, "PIT" ));
-         [north.confTeams addObject:[Team newTeamWithName:@"Vermont" abbreviation:@"VER" conference:@"NORTH" league:self prestige:45 rivalTeam:@"BOS" state:@"Vermont"]];//north.confTeams.add( new Team( "Vermont", "VER", "NORTH", this, 45, "BOS" ));
-
-         //COWBY
-         [cowboy.confTeams addObject:[Team newTeamWithName:@"Oklahoma" abbreviation:@"OKL" conference:@"COWBY" league:self prestige:90 rivalTeam:@"TEX" state:@"Oklahoma"]];//cowboy.confTeams.add( new Team( "Oklahoma", "OKL", "COWBY", this, 90, "TEX" ));
-         [cowboy.confTeams addObject:[Team newTeamWithName:@"Texas" abbreviation:@"TEX" conference:@"COWBY" league:self prestige:90 rivalTeam:@"OKL" state:@"Texas"]];//cowboy.confTeams.add( new Team( "Texas", "TEX", "COWBY", this, 90, "OKL" ));
-         [cowboy.confTeams addObject:[Team newTeamWithName:@"Houston" abbreviation:@"HOU" conference:@"COWBY" league:self prestige:80 rivalTeam:@"DAL" state:@"Texas"]];//cowboy.confTeams.add( new Team( "Houston", "HOU", "COWBY", this, 80, "DAL" ));
-         [cowboy.confTeams addObject:[Team newTeamWithName:@"Dallas" abbreviation:@"DAL" conference:@"COWBY" league:self prestige:80 rivalTeam:@"HOU" state:@"Texas"]];//cowboy.confTeams.add( new Team( "Dallas", "DAL", "COWBY", this, 80, "HOU" ));
-         [cowboy.confTeams addObject:[Team newTeamWithName:@"Alamo St" abbreviation:@"AMO" conference:@"COWBY" league:self prestige:70 rivalTeam:@"PAS" state:@"Texas"]];//cowboy.confTeams.add( new Team( "Alamo St", "AMO", "COWBY", this, 70, "PAS" ));
-         [cowboy.confTeams addObject:[Team newTeamWithName:@"Oklahoma St" abbreviation:@"OKS" conference:@"COWBY" league:self prestige:70 rivalTeam:@"TUL" state:@"Oklahoma"]];//cowboy.confTeams.add( new Team( "Oklahoma St", "OKS", "COWBY", this, 70, "TUL" ));
-         [cowboy.confTeams addObject:[Team newTeamWithName:@"El Paso St" abbreviation:@"PAS" conference:@"COWBY" league:self prestige:60 rivalTeam:@"AMO" state:@"Texas"]];//cowboy.confTeams.add( new Team( "El Paso St", "PAS", "COWBY", this, 60, "AMO" ));
-         [cowboy.confTeams addObject:[Team newTeamWithName:@"Texas St" abbreviation:@"TXS" conference:@"COWBY" league:self prestige:60 rivalTeam:@"AUS" state:@"Texas"]];//cowboy.confTeams.add( new Team( "Texas St", "TXS", "COWBY", this, 60, "AUS" ));
-         [cowboy.confTeams addObject:[Team newTeamWithName:@"Tulsa" abbreviation:@"TUL" conference:@"COWBY" league:self prestige:55 rivalTeam:@"OKS" state:@"Oklahoma"]];//cowboy.confTeams.add( new Team( "Tulsa", "TUL", "COWBY", this, 55, "OKS" ));
-         [cowboy.confTeams addObject:[Team newTeamWithName:@"Univ of Austin" abbreviation:@"AUS" conference:@"COWBY" league:self prestige:50 rivalTeam:@"TXS" state:@"Texas"]];//cowboy.confTeams.add( new Team( "Univ of Austin", "AUS", "COWBY", this, 50, "TXS" ));
-
-         //PACIF
-         [pacific.confTeams addObject:[Team newTeamWithName:@"California" abbreviation:@"CAL" conference:@"PACIF" league:self prestige:90 rivalTeam:@"ULA" state:@"California"]];//pacific.confTeams.add( new Team( "California", "CAL", "PACIF", this, 90, "ULA" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"Oregon" abbreviation:@"ORE" conference:@"PACIF" league:self prestige:85 rivalTeam:@"WAS" state:@"Oregon"]];//pacific.confTeams.add( new Team( "Oregon", "ORE", "PACIF", this, 85, "WAS" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"Los Angeles" abbreviation:@"ULA" conference:@"PACIF" league:self prestige:80 rivalTeam:@"CAL" state:@"California"]];//pacific.confTeams.add( new Team( "Los Angeles", "ULA", "PACIF", this, 80, "CAL" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"Oakland St" abbreviation:@"OAK" conference:@"PACIF" league:self prestige:75 rivalTeam:@"HOL" state:@"California"]];//pacific.confTeams.add( new Team( "Oakland St", "OAK", "PACIF", this, 75, "HOL" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"Washington" abbreviation:@"WAS" conference:@"PACIF" league:self prestige:75 rivalTeam:@"ORE" state:@"Washington"]];//pacific.confTeams.add( new Team( "Washington", "WAS", "PACIF", this, 75, "ORE" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"Hawaii" abbreviation:@"HAW" conference:@"PACIF" league:self prestige:70 rivalTeam:@"SAM" state:@"Hawaii"]];//pacific.confTeams.add( new Team( "Hawaii", "HAW", "PACIF", this, 70, "SAM" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"Pullman" abbreviation:@"PUL" conference:@"PACIF" league:self prestige:70 rivalTeam:@"SAN" state:@"Washington"]];//pacific.confTeams.add( new Team( "Seattle", "SEA", "PACIF", this, 70, "SAN" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"Hollywood St" abbreviation:@"HOL" conference:@"PACIF" league:self prestige:70 rivalTeam:@"OAK" state:@"California"]];//pacific.confTeams.add( new Team( "Hollywood St", "HOL", "PACIF", this, 70, "OAK" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"San Diego St" abbreviation:@"SAN" conference:@"PACIF" league:self prestige:60 rivalTeam:@"SEA" state:@"California"]];//pacific.confTeams.add( new Team( "San Diego St", "SAN", "PACIF", this, 60, "SEA" ));
-         [pacific.confTeams addObject:[Team newTeamWithName:@"American Samoa" abbreviation:@"SAM" conference:@"PACIF" league:self prestige:25 rivalTeam:@"HAW" state:@"American Samoa"]];//pacific.confTeams.add( new Team( "American Samoa", "SAM", "PACIF", this, 25, "HAW" ));
-
-         //MOUNT
-         [mountain.confTeams addObject:[Team newTeamWithName:@"Colorado" abbreviation:@"COL" conference:@"MOUNT" league:self prestige:80 rivalTeam:@"DEN" state:@"Colorado"]];//mountain.confTeams.add( new Team( "Colorado", "COL", "MOUNT", this, 80, "DEN" ));
-         [mountain.confTeams addObject:[Team newTeamWithName:@"Yellowstone St" abbreviation:@"YEL" conference:@"MOUNT" league:self prestige:75 rivalTeam:@"ALB" state:@"Wyoming"]];//mountain.confTeams.add( new Team( "Yellowstone St", "YEL", "MOUNT", this, 75, "ALB" ));
-         [mountain.confTeams addObject:[Team newTeamWithName:@"Utah" abbreviation:@"UTA" conference:@"MOUNT" league:self prestige:75 rivalTeam:@"SAL"  state:@"Utah"]];//mountain.confTeams.add( new Team( "Utah", "UTA", "MOUNT", this, 75, "SAL" ));
-         [mountain.confTeams addObject:[Team newTeamWithName:@"Univ of Denver" abbreviation:@"DEN" conference:@"MOUNT" league:self prestige:75 rivalTeam:@"COL" state:@"Colorado"]];//mountain.confTeams.add( new Team( "Univ of Denver", "DEN", "MOUNT", this, 75, "COL" ));
-         [mountain.confTeams addObject:[Team newTeamWithName:@"Albuquerque" abbreviation:@"ALB" conference:@"MOUNT" league:self prestige:70 rivalTeam:@"YEL" state:@"New Mexico"]];//mountain.confTeams.add( new Team( "Albuquerque", "ALB", "MOUNT", this, 70, "YEL" ));
-         [mountain.confTeams addObject:[Team newTeamWithName:@"Salt Lake St" abbreviation:@"SAL" conference:@"MOUNT" league:self prestige:65 rivalTeam:@"UTA" state:@"Utah"]];//mountain.confTeams.add( new Team( "Salt Lake St", "SAL", "MOUNT", this, 65, "UTA" ));
-         [mountain.confTeams addObject:[Team newTeamWithName:@"Wyoming" abbreviation:@"WYO" conference:@"MOUNT" league:self prestige:60 rivalTeam:@"MON" state:@"Wyoming"]];//mountain.confTeams.add( new Team( "Wyoming", "WYO", "MOUNT", this, 60, "MON" ));
-         [mountain.confTeams addObject:[Team newTeamWithName:@"Montana" abbreviation:@"MON" conference:@"MOUNT" league:self prestige:55 rivalTeam:@"WYO" state:@"Montana"]];//mountain.confTeams.add( new Team( "Montana", "MON", "MOUNT", this, 55, "WYO" ));
-         [mountain.confTeams addObject:[Team newTeamWithName:@"Las Vegas" abbreviation:@"LSV" conference:@"MOUNT" league:self prestige:50 rivalTeam:@"PHO" state:@"Nevada"]];//mountain.confTeams.add( new Team( "Las Vegas", "LSV", "MOUNT", this, 50, "PHO" ));
-         [mountain.confTeams addObject:[Team newTeamWithName:@"Phoenix" abbreviation:@"PHO" conference:@"MOUNT" league:self prestige:45 rivalTeam:@"LSV" state:@"Arizona"]];//mountain.confTeams.add( new Team( "Phoenix", "PHO", "MOUNT", this, 45, "LSV" ));
-
+        // add from base.json same way that conferences would be processed
+        NSString *fileName = [[NSBundle mainBundle] pathForResource:@"base"
+                                                             ofType:@"json"];
+        
+        NSData *confData = [[NSData alloc] initWithContentsOfFile:fileName];
+        
+        NSError *error;
+        id rawConfs = [NSJSONSerialization JSONObjectWithData:confData
+                                                      options:0
+                                                        error:&error];
+        
+        if (error || !rawConfs || ![rawConfs isKindOfClass:[NSArray class]]) {
+            NSLog(@"[League Creation] Error: %@", error.localizedDescription);
+        } else {
+            NSArray *confs = (NSArray *)rawConfs;
+            for (NSDictionary *confDict in confs) {
+                Conference *newConf = [Conference newConferenceWithName:confDict[@"confName"] fullName:confDict[@"confFullName"] league:self prestige:[confDict[@"confPrestige"] intValue]];
+                NSArray *teamData = confDict[@"confTeams"];
+                for (NSDictionary *teamDict in teamData) {
+                    [newConf.confTeams addObject:[Team newTeamWithName:teamDict[@"name"] abbreviation:teamDict[@"abbreviation"] conference:newConf.confName league:self prestige:[teamDict[@"prestige"] intValue] rivalTeam:teamDict[@"rival"] state:teamDict[@"state"]]];
+                }
+                //[newConf updateConfPrestige];
+                [newConf.confTeams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                    return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+                }];
+                [conferences addObject:newConf];
+            }
+        }
 
         teamList = [NSMutableArray array];
         for (int i = 0; i < conferences.count; ++i ) {
@@ -1020,42 +1258,243 @@
         for (int i = 0; i < conferences.count; ++i ) {
             [conferences[i] setUpSchedule];
         }
-        for (int i = 0; i < conferences.count; ++i ) {
-            [conferences[i] setUpOOCSchedule];
-        }
+        
+        // set up OOC scheduling
+        [self scheduleOOCGames];
+        
         for (int i = 0; i < conferences.count; ++i ) {
             [conferences[i] insertOOCSchedule];
+        }
+        
+        for (Team *t in teamList) {
+            t.projectedPollScore = [t projectPollScore];
         }
     }
     return self;
 }
 
--(int)getConfNumber:(NSString*)conf {
-    if ([conf isEqualToString:@"SOUTH"]) return 0;
-    if ([conf isEqualToString:@"LAKES"]) return 1;
-    if ([conf isEqualToString:@"NORTH"]) return 2;
-    if ([conf isEqualToString:@"COWBY"]) return 3;
-    if ([conf isEqualToString:@"PACIF"]) return 4;
-    if ([conf isEqualToString:@"MOUNT"]) return 5;
-    return 0;
+-(void)generateGOTWNews {
+    if (currentWeek >= 14) {
+        return;
+    }
+    
+    NSMutableArray<Game*> *allGames = [NSMutableArray array];
+    if (currentWeek < 12) {
+        for (Conference *c in conferences) {
+            if (currentWeek == 11) {
+                if (c.ccg != nil && ![allGames containsObject:c.ccg]) {
+                    [allGames addObject:c.ccg];
+                }
+            } else {
+                for (Team *t in c.confTeams) {
+                    Game *g = t.gameSchedule[currentWeek + 1];
+                    if (g != nil && ![allGames containsObject:g]) {
+                        [allGames addObject:g];
+                    }
+                }
+            }
+        }
+        if (allGames.count > 0) {
+            [allGames sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                Game *a = (Game *)obj1;
+                Game *b = (Game *)obj2;
+                
+                return [[NSNumber numberWithInt:(b.homeTeam.teamPollScore + b.awayTeam.teamPollScore)] compare:[NSNumber numberWithInt:(a.homeTeam.teamPollScore + a.awayTeam.teamPollScore)]];
+            }];
+            
+            Game *gotw = allGames[0];
+            NSMutableString *newsString = [NSMutableString string];
+            
+            if (gotw.awayTeam.rankTeamPollScore < 26 && gotw.homeTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: #%d %@ @ #%d %@\nThe College Football Preview Show travels to %@ this week to take in a battle between national heavyweights. #%d %@ faces off against #%d %@",gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.abbreviation,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.abbreviation,gotw.homeTeam.state,gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.name,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.name];
+            } else if (gotw.awayTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: #%d %@ @ %@\nThe College Football Preview Show travels to %@ this week to watch if a contender can hold serve on the road. #%d %@ faces off against %@",gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.abbreviation,gotw.homeTeam.abbreviation,gotw.homeTeam.state,gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.name,gotw.homeTeam.name];
+            } else if (gotw.homeTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: %@ @ #%d %@\nThe College Football Preview Show travels to %@ this week to see if a contender can defend its home turf. %@ faces off against #%d %@",gotw.awayTeam.abbreviation,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.abbreviation,gotw.homeTeam.state,gotw.awayTeam.name,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.name];
+            } else {
+                [newsString appendFormat:@"National Game of the Week: %@ @ %@\nThe College Football Preview Show travels to %@ this week to witness a battle between mid-table teams. %@ faces off against %@",gotw.awayTeam.abbreviation,gotw.homeTeam.abbreviation,gotw.homeTeam.state,gotw.awayTeam.name,gotw.homeTeam.name];
+            }
+            
+            
+            if (currentWeek < 3) {
+                [newsString appendString:@" with early season expectations and high hopes looming."];
+            } else if (currentWeek < 6) {
+                if ([gotw.gameName containsString:@"In Conf"]) {
+                    [newsString appendFormat:@" with both teams jockeying for pole position in the %@.", gotw.awayTeam.conference];
+                } else if ([gotw.gameName containsString:@"Rivalry"]) {
+                    [newsString appendString:@" in this year's edition of their historic feud."];
+                } else {
+                    [newsString appendString:@" in a massive midseason clash."];
+                }
+            } else if (currentWeek < 9) {
+                if ([gotw.gameName containsString:@"In Conf"]) {
+                    [newsString appendFormat:@", and the result could have a major impact on the %@ conference title race.", gotw.awayTeam.conference];
+                } else if ([gotw.gameName containsString:@"Rivalry"]) {
+                    [newsString appendString:@" in another heated edition of their historic rivalry with conference and national title hopes on the line."];
+                } else  {
+                    [newsString appendString:@", and the result could drastically reshape the polls."];
+                }
+            } else if (currentWeek < 11) {
+                if ([gotw.gameName containsString:@"In Conf"]) {
+                    if (gotw.awayTeam.rankTeamPollScore < 5 || gotw.homeTeam.rankTeamPollScore < 5) {
+                        [newsString appendFormat:@", which could decide if the %@ plays a role in this year's Playoff.", gotw.awayTeam.conference];
+                    } else {
+                        [newsString appendFormat:@" in a pivotal late-season %@ matchup.", gotw.awayTeam.conference];
+                    }
+                } else if ([gotw.gameName containsString:@"Rivalry"]) {
+                    if (gotw.awayTeam.rankTeamPollScore < gotw.homeTeam.rankTeamPollScore) {
+                        [newsString appendFormat:@" -- can %@ play spoiler to their rival's sensational season?", gotw.homeTeam.abbreviation];
+                    } else {
+                        [newsString appendFormat:@" -- can %@ play spoiler to their rival's sensational season?", gotw.awayTeam.abbreviation];
+                    }
+                } else {
+                    [newsString appendString:@" in a massive game that could see one of these teams through to the Playoff."];
+                }
+            } else if (currentWeek == 11) {
+                if (gotw.awayTeam.rankTeamPollScore < 5 || gotw.homeTeam.rankTeamPollScore < 5) {
+                    [newsString appendFormat:@", which could decide if the %@ plays a role in this year's Playoff.", gotw.awayTeam.conference];
+                } else {
+                    [newsString appendFormat:@" in a pivotal %@ conference championship game.", gotw.awayTeam.conference];
+                }
+            }
+            NSMutableArray *nextWeekNews = newsStories[currentWeek + 1];
+            [nextWeekNews addObject:newsString];
+        }
+    } else if (currentWeek == 12) {
+        for (Game *g in bowlGames) {
+            if (g != nil && ![allGames containsObject:g]) {
+                [allGames addObject:g];
+            }
+        }
+        
+        if (allGames.count > 0) {
+            [allGames sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                Game *a = (Game *)obj1;
+                Game *b = (Game *)obj2;
+                
+                return [[NSNumber numberWithInt:(b.homeTeam.teamPollScore + b.awayTeam.teamPollScore)] compare:[NSNumber numberWithInt:(a.homeTeam.teamPollScore + a.awayTeam.teamPollScore)]];
+            }];
+            
+            Game *gotw = allGames[0];
+            NSMutableString *newsString = [NSMutableString string];
+            
+            if (gotw.awayTeam.rankTeamPollScore < 26 && gotw.homeTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: #%d %@ vs #%d %@\nThe College Football Preview Show is at the ",gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.abbreviation,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.abbreviation];
+            } else if (gotw.awayTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: #%d %@ vs %@\nThe College Football Preview Show is at the ",gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.abbreviation,gotw.homeTeam.abbreviation];
+            } else if (gotw.homeTeam.rankTeamPollScore < 26) {
+                [newsString appendFormat:@"National Game of the Week: %@ vs #%d %@\nThe College Football Preview Show is at the ",gotw.awayTeam.abbreviation,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.abbreviation];
+            } else {
+                [newsString appendFormat:@"National Game of the Week: %@ vs %@\nThe College Football Preview Show is at the ",gotw.awayTeam.abbreviation,gotw.homeTeam.abbreviation];
+            }
+            
+            if ([gotw.gameName containsString:@"Semis"]) {
+                [newsString appendFormat:@"National Semifinals this week, ready to take in a huge game pitting powerhouses #%d %@ and #%d %@ to decide who will play for the %ld national title!",gotw.awayTeam.rankTeamPollScore,gotw.awayTeam.name,gotw.homeTeam.rankTeamPollScore,gotw.homeTeam.name, (long)[self getCurrentYear]];
+            } else {
+                [newsString appendFormat:@"%@ this week, ready for a massive postseason clash between %@ and %@ that will finally determine which conference is better: the %@ or the %@.",gotw.gameName, gotw.awayTeam.name, gotw.homeTeam.name, gotw.awayTeam.conference, gotw.homeTeam.conference];
+            }
+            NSMutableArray *nextWeekNews = newsStories[currentWeek + 1];
+            [nextWeekNews addObject:newsString];
+        }
+    } else if (currentWeek == 13) {
+        NSMutableString *newsString = [NSMutableString string];
+        [newsString appendFormat:@"National Game of the Week: #%d %@ @ #%d %@\nThe College Football Preview Show is at the National Championship Game this week! #%d %@ takes on #%d %@ to determine the nation's undisputed national champion!",ncg.awayTeam.rankTeamPollScore,ncg.awayTeam.abbreviation,ncg.homeTeam.rankTeamPollScore,ncg.homeTeam.abbreviation,ncg.awayTeam.rankTeamPollScore,ncg.awayTeam.name,ncg.homeTeam.rankTeamPollScore,ncg.homeTeam.name];
+        
+        NSMutableArray *nextWeekNews = newsStories[currentWeek + 1];
+        [nextWeekNews addObject:newsString];
+    }
 }
 
--(void)playWeek {
-    canRebrandTeam = NO;
-
-    if (currentWeek <= 12 ) {
-        for (int i = 0; i < conferences.count; ++i) {
-            [conferences[i] playWeek];
+-(void)scheduleOOCGames {
+    int fcsGames = 0;
+    NSArray *weeks = @[@(0), @(4), @(9)];
+    for (NSNumber *weekNum in weeks) {
+        int week = [weekNum intValue];
+        NSMutableArray<Team *> *availTeams = [NSMutableArray array];
+        for (Team *t in teamList) {
+            if (week == 0) {
+                if (t.oocGame0 == nil) {
+                    [availTeams addObject:t];
+                }
+            } else if (week == 4) {
+                if (t.oocGame4 == nil) {
+                    [availTeams addObject:t];
+                }
+            } else {
+                if (t.oocGame9 == nil) {
+                    [availTeams addObject:t];
+                }
+            }
         }
+        
+        while (availTeams.count > 0) {
+            int selTeamA = (int) (availTeams.count * [HBSharedUtils randomValue]);
+            Team *a = availTeams[selTeamA];
+            
+            NSMutableArray<Team *> *availTeamsB = [NSMutableArray array];
+            for (Team *k in teamList) {
+                if (![k.conference isEqualToString:a.conference] && ((week == 0 && k.oocGame0 == nil) || (week == 4 && k.oocGame4 == nil && ![a.oocGame0.homeTeam isEqual:k] && ![a.oocGame0.awayTeam isEqual:k]) || (week == 9 && k.oocGame9 == nil && ![a.oocGame0.homeTeam isEqual:k] && ![a.oocGame0.awayTeam isEqual:k] && ![a.oocGame4.homeTeam isEqual:k] && ![a.oocGame4.awayTeam isEqual:k]))) {
+                    [availTeamsB addObject:k];
+                }
+            }
+            Team *b;
+            
+            if (availTeamsB.count == 0) {
+                b = [Team newTeamWithName:[self fcsTeamNames][(int)([self fcsTeamNames].count * [HBSharedUtils randomValue])] abbreviation:@"FCS" conference:@"FCS" league:self prestige:(int)([HBSharedUtils randomValue] * 50) rivalTeam:@"FCS1" state:@"USA"];
+                fcsGames++;
+            } else {
+                int selTeamB = (int) (availTeamsB.count * [HBSharedUtils randomValue]);
+                b = availTeamsB[selTeamB];
+            }
+            
 
+            if (b == nil || a == nil) {
+                NSLog(@"[OOC Scheduling] WHY");
+            }
+            if (a != nil && b != nil) {
+                Game *gm;
+                NSLog(@"[OOC Scheduling] Scheduling %@ vs %@ game", a.conference, b.conference);
+                if (week % 2 == 0) {
+                    gm = [Game newGameWithHome:a away:b name:[NSString stringWithFormat:@"%@ vs %@",[b.conference substringWithRange:NSMakeRange(0, MIN(3, b.conference.length))],[a.conference substringWithRange:NSMakeRange(0, MIN(3, a.conference.length))]]];
+                } else {
+                    gm = [Game newGameWithHome:b away:a name:[NSString stringWithFormat:@"%@ vs %@",[a.conference substringWithRange:NSMakeRange(0, MIN(3, a.conference.length))],[b.conference substringWithRange:NSMakeRange(0, MIN(3, b.conference.length))]]];
+                }
+                
+                if ( week == 0 ) {
+                    a.oocGame0 = gm;
+                    b.oocGame0 = gm;
+                } else if ( week == 4 ) {
+                    a.oocGame4 = gm;
+                    b.oocGame4 = gm;
+                } else if ( week == 9 ) {
+                    a.oocGame9 = gm;
+                    b.oocGame9 = gm;
+                }
+                
+                [availTeams removeObject:a];
+                [availTeams removeObject:b];
+            }
+        }
+    }
+    NSLog(@"[OOC Scheduling] FCS GAMES: %d", fcsGames);
+}
 
+-(void)playWeek:(void (^)(void))callback {
+    canRebrandTeam = NO;
+    
+    if (currentWeek <= 12 ) {
+        for (Conference * c in conferences) {
+            [c playWeek];
+        }
+        
+        
         // bless/curse progression updates should appear at week 6 (news stories index 6)
         //if blessed team wins > losses - post story about reaping benefits from blessing, otherwise, post story about them fumbling with it
         //if cursed team wins > losses - post story about success despite early season setbacks, otherwise, post story about how early setback has crippled team this season
         if (currentWeek == 5) {
             NSMutableArray *newsWeek = newsStories[6];
             if (blessedTeam != nil && ![blessedTeam isEqual:userTeam]) {
-                NSLog(@"BLESSED TEAM: %@ STORY: %ld COACH: %@", blessedTeam.abbreviation, (long)blessedStoryIndex, blessedTeamCoachName);
+                NSLog(@"[Bless/Curse Progression] BLESSED TEAM: %@ STORY: %ld COACH: %@", blessedTeam.abbreviation, (long)blessedStoryIndex, blessedTeamCoachName);
                 if (blessedTeam.wins > blessedTeam.losses) {
                     switch (blessedStoryIndex) {
                         case 1: //new coach
@@ -1080,9 +1519,9 @@
                     }
                 }
             }
-
+            
             if (cursedTeam != nil && ![cursedTeam isEqual:userTeam]) {
-                NSLog(@"CURSED TEAM: %@ STORY: %ld COACH: %@", cursedTeam.abbreviation, (long)cursedStoryIndex, cursedTeamCoachName);
+                NSLog(@"[Bless/Curse Progression] CURSED TEAM: %@ STORY: %ld COACH: %@", cursedTeam.abbreviation, (long)cursedStoryIndex, cursedTeamCoachName);
                 if (cursedTeam.wins > cursedTeam.losses) {
                     switch (cursedStoryIndex) {
                         case 1: //recruiting sanctions
@@ -1114,40 +1553,40 @@
                 }
             }
         }
-
+        
         //calculate poty leader and post story about how he is leading competition
         if (currentWeek == 9) {
             NSMutableArray *week11 = newsStories[10];
-
+            
             NSArray *heismanContenders = [self getHeismanLeaders];
             Player *heismanLeader = heismanContenders[0];
             [week11 addObject:[NSString stringWithFormat:@"%@'s %@ leads the pack\n%@ %@ %@ is the frontrunner for Player of the Year, playing a key role in the team's %ld-%ld season.", heismanLeader.team.abbreviation, [heismanLeader getInitialName], heismanLeader.team.name, heismanLeader.position, heismanLeader.name, (long)heismanLeader.team.wins, (long)heismanLeader.team.losses]];
-
+            
             NSArray *rotyContenders = [self getROTYLeaders];
             Player *rotyLeader = rotyContenders[0];
             [week11 addObject:[NSString stringWithFormat:@"%@'s %@ leads the rookies\n%@ %@ %@ is the frontrunner for Rookie of the Year, playing a key role in the team's %ld-%ld season.", rotyLeader.team.abbreviation, [rotyLeader getInitialName], rotyLeader.team.name, rotyLeader.position, rotyLeader.name, (long)rotyLeader.team.wins, (long)rotyLeader.team.losses]];
         }
     }
-
+    
     if (currentWeek == 12) {
         //bowl week
         for (int i = 0; i < teamList.count; ++i) {
             [teamList[i] updatePollScore];
         }
-
+        
         teamList = [[teamList sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Team *a = (Team*)obj1;
             Team *b = (Team*)obj2;
             return a.teamPollScore > b.teamPollScore ? -1 : a.teamPollScore == b.teamPollScore ? 0 : 1;
-
+            
         }] mutableCopy];
-
+        
         [self scheduleBowlGames];
     } else if (currentWeek == 13 ) {
         [self playBowlGames];
-
+        
     } else if (currentWeek == 14 ) {
-
+        
         [ncg playGame];
         if (ncg.homeScore > ncg.awayScore ) {
             //ncg.homeTeam.semifinalWL = @"";
@@ -1155,36 +1594,45 @@
             ncg.homeTeam.natlChampWL = @"NCW";
             ncg.awayTeam.natlChampWL = @"NCL";
             ncg.homeTeam.totalNCs++;
+            [ncg.homeTeam getCurrentHC].totalNCs++;
             ncg.awayTeam.totalNCLosses++;
+            [ncg.awayTeam getCurrentHC].totalNCLosses++;
             NSMutableArray *week15 = newsStories[15];
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", ncg.homeTeam.name, [ncg.homeTeam strRep], [ncg.awayTeam strRep], (long)ncg.homeScore, (long)ncg.awayScore, ncg.homeTeam.name]];
-
+            
         } else {
             //ncg.homeTeam.semifinalWL = @"";
             //ncg.awayTeam.semifinalWL = @"";
             ncg.awayTeam.natlChampWL = @"NCW";
             ncg.homeTeam.natlChampWL = @"NCL";
             ncg.awayTeam.totalNCs++;
+            [ncg.awayTeam getCurrentHC].totalNCs++;
             ncg.homeTeam.totalNCLosses++;
+            [ncg.homeTeam getCurrentHC].totalNCLosses++;
             NSMutableArray *week15 = newsStories[15];
             [week15 addObject:[NSString stringWithFormat:@"%@ wins the National Championship!\n%@ defeats %@ in the national championship game %ld to %ld. Congratulations %@!", ncg.awayTeam.name, [ncg.awayTeam strRep], [ncg.homeTeam strRep], (long)ncg.awayScore, (long)ncg.homeScore, ncg.awayTeam.name]];
         }
-
+        
         [self refreshAllLeaguePlayers];
         for (Conference *c in conferences) {
             [c refreshAllConferencePlayers];
         }
         [self completeProDraft];
+        [self processCoachingContracts];
         canRebrandTeam = YES;
     }
     [self generateCFPNews];
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
-
-
-
     [self setTeamRanks];
+    [self generateGOTWNews];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     currentWeek++;
+    if (callback != nil) {
+        callback();
+    }
+}
+
+-(void)playWeek {
+    [self playWeek:nil];
 }
 
 -(void)generateCFPNews {
@@ -1228,7 +1676,11 @@
 
     //other bowls
     NSMutableArray *bowlEligibleTeams = [NSMutableArray array];
-    for (int i = 4; i < ([self bowlGameTitles].count * 2); i++) {
+    int numBowlEligible = (int)([self bowlGameTitles].count * 2); // accounts for expanded team set
+    if (teamList.count < ([self bowlGameTitles].count * 2)) {
+        numBowlEligible = 20; // but can fall back to original limit
+    }
+    for (int i = 4; i < numBowlEligible; i++) {
         [bowlEligibleTeams addObject:teamList[i]];
     }
 
@@ -1269,8 +1721,10 @@
     if (semiG14.homeScore > semiG14.awayScore ) {
         semiG14.homeTeam.semifinalWL = @"SFW";
         semiG14.homeTeam.totalBowls++;
+        [semiG14.homeTeam getCurrentHC].totalBowls++;
         semiG14.awayTeam.semifinalWL = @"SFL";
         semiG14.awayTeam.totalBowlLosses++;
+        [semiG14.awayTeam getCurrentHC].totalBowlLosses++;
         semi14winner = semiG14.homeTeam;
         NSMutableArray *week14 = newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",semiG14.homeTeam.name, semiG14.gameName, semiG14.homeTeam.strRep, semiG14.awayTeam.strRep, (long)semiG14.homeScore, (long)semiG14.awayScore, semiG14.homeTeam.name]];
@@ -1278,8 +1732,10 @@
     } else {
         semiG14.homeTeam.semifinalWL = @"SFL";
         semiG14.homeTeam.totalBowlLosses++;
+        [semiG14.homeTeam getCurrentHC].totalBowlLosses++;
         semiG14.awayTeam.semifinalWL = @"SFW";
         semiG14.awayTeam.totalBowls++;
+        [semiG14.awayTeam getCurrentHC].totalBowls++;
         semi14winner = semiG14.awayTeam;
         NSMutableArray *week14 = newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",semiG14.awayTeam.name, semiG14.gameName, semiG14.awayTeam.strRep, semiG14.homeTeam.strRep, (long)semiG14.awayScore, (long)semiG14.homeScore, semiG14.awayTeam.name]];
@@ -1288,8 +1744,10 @@
     if (semiG23.homeScore > semiG23.awayScore ) {
         semiG23.homeTeam.semifinalWL = @"SFW";
         semiG23.homeTeam.totalBowls++;
+        [semiG23.homeTeam getCurrentHC].totalBowls++;
         semiG23.awayTeam.semifinalWL = @"SFL";
         semiG23.awayTeam.totalBowlLosses++;
+        [semiG23.awayTeam getCurrentHC].totalBowlLosses++;
         semi23winner = semiG23.homeTeam;
         //newsStories.get(14).add(semiG14.homeTeam.name + " wins the " + semiG14.gameName +"!\n" + semiG14.homeTeam.strRep() + " defeats " + semiG14.awayTeam.strRep() + " in the semifinals, winning " + semiG14.homeScore + " to " + semiG14.awayScore + ". " + semiG14.homeTeam.name + " advances to the National Championship!" );
         NSMutableArray *week14 = newsStories[14];
@@ -1298,8 +1756,10 @@
     } else {
         semiG23.homeTeam.semifinalWL = @"SFL";
         semiG23.homeTeam.totalBowlLosses++;
+        [semiG23.homeTeam getCurrentHC].totalBowlLosses++;
         semiG23.awayTeam.semifinalWL = @"SFW";
         semiG23.awayTeam.totalBowls++;
+        [semiG23.awayTeam getCurrentHC].totalBowls++;
         semi23winner = semiG23.awayTeam;
         NSMutableArray *week14 = newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the semifinals, winning %ld to %ld. %@ advances to the National Championship!",semiG23.awayTeam.name, semiG23.gameName, semiG23.awayTeam.strRep, semiG23.homeTeam.strRep, (long)semiG23.awayScore, (long)semiG23.homeScore, semiG23.awayTeam.name]];
@@ -1319,19 +1779,22 @@
     if (g.homeScore > g.awayScore ) {
         g.homeTeam.semifinalWL = @"BW";
         g.homeTeam.totalBowls++;
+        [g.homeTeam getCurrentHC].totalBowls++;
         g.awayTeam.semifinalWL = @"BL";
         g.awayTeam.totalBowlLosses++;
+        [g.awayTeam getCurrentHC].totalBowlLosses++;
         NSMutableArray *week14 = newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %d to %d.",g.homeTeam.name, g.gameName, g.homeTeam.strRep, g.awayTeam.strRep, g.gameName, g.homeScore, g.awayScore]];
 
     } else {
         g.homeTeam.semifinalWL = @"BL";
         g.homeTeam.totalBowlLosses++;
+        [g.homeTeam getCurrentHC].totalBowlLosses++;
         g.awayTeam.semifinalWL = @"BW";
         g.awayTeam.totalBowls++;
+        [g.awayTeam getCurrentHC].totalBowls++;
         NSMutableArray *week14 = newsStories[14];
         [week14 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ defeats %@ in the %@, winning %d to %d.",g.awayTeam.name, g.gameName, g.awayTeam.strRep, g.homeTeam.strRep, g.gameName, g.awayScore, g.homeScore]];
-       // [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
      [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
@@ -1370,11 +1833,11 @@
 }
 
 -(NSString*)randomBlessedTeamStory:(Team*)t {
-    blessedTeamCoachName = [self getRandName];
+    blessedTeamCoachName = [t getCurrentHC].name;
    NSArray *stories = @[
                          [NSString stringWithFormat:@"%@ gets new digs!\nAn anonymous benefactor has completely covered the cost of new training facilities for %@, resulting in large scale improvements to the program's infrastructure.",t.abbreviation,t.name],
-                         [NSString stringWithFormat:@"%@ makes a big splash at head coach!\n%@ has hired alumnus and professional football coach %@ in hopes of revitalizing the program.", t.abbreviation, t.name, blessedTeamCoachName],
-                         [NSString stringWithFormat:@"%@ hires new AD!\n%@ has hired alumnus %@ as athletic director, who has pledged to invest more in the school's football program.", t.abbreviation, t.name, blessedTeamCoachName],
+                         //[NSString stringWithFormat:@"%@ makes a big splash at head coach!\n%@ has hired alumnus and professional football coach %@ in hopes of revitalizing the program.", t.abbreviation, t.name, blessedTeamCoachName],
+                         [NSString stringWithFormat:@"%@ hires new AD!\n%@ has hired alumnus %@ as athletic director, who has pledged to invest more in the school's football program.", t.abbreviation, t.name, [self getRandName]],
                          [NSString stringWithFormat:@"New drink fuels %@!\nA new recovery drink developed by the science department at %@ has been a hit at offseason practice. The players are singing its praises and coming out of this offseason better than ever.", t.abbreviation, t.name],
                          [NSString stringWithFormat:@"%@ gets a fresh coat of paint!\nAfter starting a successful athletic apparel company, one of %@'s alumni proclaims that the team will never have to play another game with the same uniform combination.",t.abbreviation,t.name],
                          [NSString stringWithFormat:@"%@ improving in the classroom!\n%@ has seen a dramatic increase in their academic performance over the past couple of years. Recruits have taken notice and are showing more interest in attending a school with high academic integrity.",t.abbreviation,t.name]
@@ -1384,11 +1847,10 @@
 }
 
 -(NSString*)randomCursedTeamStory:(Team*)t {
-     cursedTeamCoachName = [self getRandName];
+    cursedTeamCoachName = [t getCurrentHC].name;
     NSArray *stories = @[
                          [NSString stringWithFormat:@"League hits %@ with sanctions!\n%@ hit with two-year probation after league investigation finds program committed minor infractions.",t.abbreviation,t.name],
                          [NSString stringWithFormat:@"Scandal at %@!\n%@ puts itself on a 3-year probation after school self-reports dozens of recruiting violations.",t.abbreviation,t.name],
-                         [NSString stringWithFormat:@"The end of an era at %@\n%@ head coach %@ announces sudden retirement effective immediately.", t.abbreviation,t.abbreviation, cursedTeamCoachName],
                          [NSString stringWithFormat:@"%@ head coach in hot water!\nAfter a scandal involving a sleepover at a prospect's home, %@'s head coach %@ has been suspended. No charges have been filed, but it is safe to say he won't be having any more pajama parties any time soon.", t.abbreviation, t.name, cursedTeamCoachName],
                          [NSString stringWithFormat:@"%@ won the College Basketball National Championship\nReporters everywhere are now wondering if %@ has lost its emphasis on football.", t.abbreviation,t.name],
                          [NSString stringWithFormat:@"%@ didn't come to play school\n%@'s reputation takes a hit after news surfaced that the university falsified grades for student-athletes in order to retain their athletic eligibility. Recruits are leery of being associated with such a program.",t.abbreviation,t.name]
@@ -1404,6 +1866,7 @@
 
 
 -(void)advanceSeason {
+
     currentWeek = 0;
     ncg = nil;
     heisman = nil;
@@ -1415,47 +1878,78 @@
     rotyCandidates = [NSMutableArray array];
     rotyDecided = NO;
 
-//    if (!didFinishTransferPeriod) {
-//        [self processTransfers];
-//    }
-
     didFinishTransferPeriod = NO;
     transferList = nil;
 
-    // Bless a random team with lots of prestige
-    int blessNumber = (int)([HBSharedUtils randomValue]*9);
-    Team *blessTeam = teamList[50 + blessNumber];
+    for (NSMutableArray *week in newsStories) {
+        [week removeAllObjects];
+    }
+
+    for (Team *t in teamList) {
+        if (t.coaches.count != 0 && (t.coachFired || t.coachRetired) && (!t.isUserControlled)) {
+            [t.coaches removeObjectAtIndex:0];
+        } else if (t.coaches.count != 0 && (t.coachFired || t.coachRetired) && t.isUserControlled && !isCareerMode) {
+            [t.coaches removeObjectAtIndex:0];
+        }
+    }
+
+    // process coaching carousel if it hasn't already
+    [self processCoachingCarousel];
+    // Store remaining coaches in free agents
+    for (HeadCoach *hc in coachList) {
+        if (![coachFreeAgents containsObject:hc]) {
+            [coachFreeAgents addObject:hc];
+        }
+    }
+    coachList = [NSMutableArray array];
+    cotyWinner = nil;
+    cotyDecided = NO;
+    didFinishCoachingCarousel = NO;
+    
+    [teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+    }];
+
+    // Bless a random team from the third quartile with lots of prestige
+    NSRange thirdQuartile = NSMakeRange((teamList.count / 2), (teamList.count / 4) + 1);
+    int blessNumber = (int)([HBSharedUtils randomValue] * thirdQuartile.length) + (int)thirdQuartile.location;
+    Team *blessTeam = teamList[blessNumber];
     while ([blessTeam isEqual:userTeam] || [blessTeam isEqual:blessedTeam] || [blessTeam isEqual:cursedTeam]) {
-        blessNumber = (int)([HBSharedUtils randomValue]*9);
-        blessTeam = teamList[50 + blessNumber];
+        blessNumber = (int)([HBSharedUtils randomValue] * thirdQuartile.length) + (int)thirdQuartile.location;
+        blessTeam = teamList[blessNumber];
     }
 
     if (!blessTeam.isUserControlled && ![blessTeam.name isEqualToString:@"American Samoa"]) {
         blessTeam.teamPrestige += 30;
         blessedTeam = blessTeam;
         if (blessTeam.teamPrestige > 90) blessTeam.teamPrestige = 90;
+    } else {
+        blessedTeam = nil;
     }
 
-    //Curse a good team
-    int curseNumber = (int)([HBSharedUtils randomValue]*7);
-    Team *curseTeam = teamList[3 + curseNumber];
+    //Curse a good team from the 1st quartile of teams
+    NSRange upperQuartile = NSMakeRange(0, (teamList.count / 4) + 1);
+    int curseNumber = (int)([HBSharedUtils randomValue] * upperQuartile.length) + (int)upperQuartile.location;
+    Team *curseTeam = teamList[curseNumber];
     if (!isHardMode) {
         while ([curseTeam isEqual:userTeam] || [curseTeam isEqual:blessedTeam] || [curseTeam isEqual:cursedTeam]) {
-            curseNumber = (int)([HBSharedUtils randomValue]*7);
-            curseTeam = teamList[3 + curseNumber];
+            curseNumber = (int)([HBSharedUtils randomValue] * upperQuartile.length) + (int)upperQuartile.location;
+            curseTeam = teamList[curseNumber];
         }
 
         if (!curseTeam.isUserControlled) {
             curseTeam.teamPrestige -= 20;
             cursedTeam = curseTeam;
+        } else {
+            cursedTeam = nil;
         }
     } else {
         while ([curseTeam isEqual:blessedTeam] || [curseTeam isEqual:cursedTeam]) {
-            curseNumber = (int)([HBSharedUtils randomValue]*7);
-            curseTeam = teamList[3 + curseNumber];
+            curseNumber = (int)([HBSharedUtils randomValue] * upperQuartile.length) + (int)upperQuartile.location;
+            curseTeam = teamList[curseNumber];
         }
 
-        if (curseTeam.teamPrestige > 85) {
+        if (curseTeam.teamPrestige > 80) {
             curseTeam.teamPrestige -= 20;
             if ([curseTeam.name isEqualToString:@"American Samoa"]) {
                 curseTeam.teamPrestige = MAX(0, curseTeam.teamPrestige);
@@ -1463,6 +1957,8 @@
                 curseTeam.teamPrestige = MAX(25, curseTeam.teamPrestige);
             }
             cursedTeam = curseTeam;
+        } else {
+            cursedTeam = nil;
         }
     }
 
@@ -1471,48 +1967,69 @@
         [teamList[t] updateRingOfHonor];
         [teamList[t] advanceSeason];
     }
-    for (int c = 0; c < conferences.count; ++c) {
-        conferences[c].robinWeek = 0;
-        conferences[c].week = 0;
-        conferences[c].ccg = nil;
-    }
-    //set up schedule
-    for (int i = 0; i < conferences.count; ++i ) {
-        [conferences[i] setUpSchedule];
-    }
-    for (int i = 0; i < conferences.count; ++i ) {
-        [conferences[i] setUpOOCSchedule];
-    }
-    for (int i = 0; i < conferences.count; ++i ) {
-        [conferences[i] insertOOCSchedule];
+    
+    @synchronized (conferences) {
+        for (Conference *c in conferences) {
+            c.robinWeek = 0;
+            c.week = 0;
+            c.ccg = nil;
+            [c updateConfPrestige];
+            CGFloat prestigeFactor = [HBSharedUtils calculateConferencePrestigeFactor:c.confName resetMarker:YES];
+            NSLog(@"[Conference Prestige] %@ conf prestige factor: %f", c.confName,prestigeFactor);
+        }
+        //set up schedule
+        for (Conference *c in conferences) {
+            [c setUpSchedule];
+        }
+        
+        [self scheduleOOCGames];
+        
+        for (Conference *c in conferences) {
+            [c insertOOCSchedule];
+        }
     }
 
     hasScheduledBowls = false;
     heismanDecided = NO;
     [bowlGames removeAllObjects];
 
-    for (NSMutableArray *week in newsStories) {
-        [week removeAllObjects];
-    }
-
-    if (blessedTeam) {
+    if (blessedTeam != nil) {
         NSMutableArray *week0 = newsStories[0];
         [week0 addObject:[self randomBlessedTeamStory:blessedTeam]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
 
-    if (cursedTeam) {
+    if (cursedTeam != nil) {
         NSMutableArray *week0 = newsStories[0];
         [week0 addObject:[self randomCursedTeamStory:cursedTeam]];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
     }
 
     [self setTeamRanks];
+    [self generateExpectationsNews];
+}
+
+-(void)generateExpectationsNews {
+    FCTeamExpectations userExpectations = [self.userTeam calculateTeamExpectations];
+    NSString *expectationsString = @"";
+    if (userExpectations == FCTeamExpectationsTitleContender) {
+        expectationsString = [NSString stringWithFormat:@"%ld Projections: %@ in the Playoff Hunt!\nMedia members are high on %@ and coach %@ in %ld, projecting them to battle for a Playoff spot.", (long)[self getCurrentYear], self.userTeam.abbreviation, self.userTeam.name,[self.userTeam getCurrentHC].name, (long)[self getCurrentYear]];
+    } else if (userExpectations == FCTeamExpectationsBowlContender) {
+        NSString *bowlName = bowlTitles[((int)([HBSharedUtils randomValue] * bowlTitles.count))];
+        expectationsString = [NSString stringWithFormat:@"%ld Projections: %@ Going Bowling!\nMedia members recently released their predictions for %ld, which saw %@ cap off a great season with a %@ berth.",(long)[self getCurrentYear], self.userTeam.abbreviation,(long)[self getCurrentYear],self.userTeam.name, bowlName];
+    } else if (userExpectations == FCTeamExpectationsMidTable) {
+        expectationsString = [NSString stringWithFormat:@"%ld Projections: %@, conference contenders?\nMedia members recently released their predictions for %ld, and they were very tepid on %@, whom they projected to finish in the middle of the %@.",(long)[self getCurrentYear], self.userTeam.abbreviation,(long)[self getCurrentYear],self.userTeam.name,self.userTeam.conference];
+    } else { // bottom table
+        expectationsString = [NSString stringWithFormat:@"%ld Projections: Sell all your %@ stock!\nMedia members recently released their predictions for %ld, and they set the bar very low for %@ this season, projecting them as bottom-tier in the %@.",(long)[self getCurrentYear], self.userTeam.abbreviation,(long)[self getCurrentYear],self.userTeam.name,self.userTeam.conference];
+    }
+    [newsStories[0] insertObject:expectationsString atIndex:0];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
 
 -(void)updateTeamHistories {
     for (int i = 0; i < teamList.count; ++i) {
         [teamList[i] updateTeamHistory];
+        [teamList[i] updatePlayerHistories];
     }
 }
 
@@ -1548,7 +2065,7 @@
                 if (![heismanCandidates containsObject:qb]) {
                     [heismanCandidates addObject:qb];
                 }
-                tempScore = [qb getHeismanScore] + teamList[i].wins*150;
+                tempScore = (int)((CGFloat)([qb getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
                 if ( tempScore > heismanScore ) {
                     heisman = qb;
                     heismanScore = tempScore;
@@ -1562,7 +2079,7 @@
                     if (![heismanCandidates containsObject:rback]) {
                         [heismanCandidates addObject:rback];
                     }
-                    tempScore = [rback getHeismanScore] + teamList[i].wins*150;
+                    tempScore = (int)((CGFloat)([rback getHeismanScore] + teamList[i].wins*150) * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]);
                     if ( tempScore > heismanScore ) {
                         heisman = rback;
                         heismanScore = tempScore;
@@ -1577,7 +2094,7 @@
                     if (![heismanCandidates containsObject:wrec]) {
                         [heismanCandidates addObject:wrec];
                     }
-                    tempScore = [wrec getHeismanScore] + teamList[i].wins*150;
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
                         heisman = wrec;
                         heismanScore = tempScore;
@@ -1591,7 +2108,65 @@
                 if (![heismanCandidates containsObject:wrec]) {
                     [heismanCandidates addObject:wrec];
                 }
-                tempScore = [wrec getHeismanScore] + teamList[i].wins*150;
+                tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
+                if ( tempScore > heismanScore ) {
+                    heisman = wrec;
+                    heismanScore = tempScore;
+                }
+            }
+            
+            //DL
+            if (teamList[i].teamDLs.count > 4) {
+                for (int dl = 0; dl < 4; ++dl) {
+                    PlayerDL *wrec = teamList[i].teamDLs[dl];
+                    if (![heismanCandidates containsObject:wrec]) {
+                        [heismanCandidates addObject:wrec];
+                    }
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
+                    if ( tempScore > heismanScore ) {
+                        heisman = wrec;
+                        heismanScore = tempScore;
+                    }
+                }
+            }
+            
+            //LB
+            if (teamList[i].teamLBs.count > 3) {
+                for (int lb = 0; lb < 3; ++lb) {
+                    PlayerLB *wrec = teamList[i].teamLBs[lb];
+                    if (![heismanCandidates containsObject:wrec]) {
+                        [heismanCandidates addObject:wrec];
+                    }
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
+                    if ( tempScore > heismanScore ) {
+                        heisman = wrec;
+                        heismanScore = tempScore;
+                    }
+                }
+            }
+            
+            //CB
+            if (teamList[i].teamCBs.count > 3) {
+                for (int lb = 0; lb < 3; ++lb) {
+                    PlayerCB *wrec = teamList[i].teamCBs[lb];
+                    if (![heismanCandidates containsObject:wrec]) {
+                        [heismanCandidates addObject:wrec];
+                    }
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
+                    if ( tempScore > heismanScore ) {
+                        heisman = wrec;
+                        heismanScore = tempScore;
+                    }
+                }
+            }
+            
+            //S
+            if (teamList[i].teamSs.count > 1) {
+                PlayerS *wrec = teamList[i].teamSs[0];
+                if (![heismanCandidates containsObject:wrec]) {
+                    [heismanCandidates addObject:wrec];
+                }
+                tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                 if ( tempScore > heismanScore ) {
                     heisman = wrec;
                     heismanScore = tempScore;
@@ -1697,6 +2272,18 @@
             } else if ([p isKindOfClass:[PlayerWR class]]) {
                 PlayerWR *pwr = (PlayerWR*)p;
                 heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" WR %@: %ld votes\n\t(%ld TDs, %ld Fum, %ld Yds)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTD,(long)pwr.statsFumbles,(long)pwr.statsRecYards]];
+            } else if ([p isKindOfClass:[PlayerDL class]]) {
+                PlayerDL *pwr = (PlayerDL*)p;
+                heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" DL %@: %ld votes\n\t(%ld Tkl, %ld Sk, %ld FFum, %ld INT, %ld Pass Def)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTkl,(long)pwr.statsSacks,(long)pwr.statsForcedFum,(long)pwr.statsInt,(long)pwr.statsPassDef]];
+            } else if ([p isKindOfClass:[PlayerLB class]]) {
+                PlayerLB *pwr = (PlayerLB*)p;
+                heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" LB %@: %ld votes\n\t(%ld Tkl, %ld Sk, %ld FFum, %ld INT, %ld Pass Def)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTkl,(long)pwr.statsSacks,(long)pwr.statsForcedFum,(long)pwr.statsInt,(long)pwr.statsPassDef]];
+            } else if ([p isKindOfClass:[PlayerCB class]]) {
+                PlayerCB *pwr = (PlayerCB*)p;
+                heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" CB %@: %ld votes\n\t(%ld Tkl, %ld Sk, %ld FFum, %ld INT, %ld Pass Def)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTkl,(long)pwr.statsSacks,(long)pwr.statsForcedFum,(long)pwr.statsInt,(long)pwr.statsPassDef]];
+            } else if ([p isKindOfClass:[PlayerS class]]) {
+                PlayerS *pwr = (PlayerS*)p;
+                heismanTop5 = [heismanTop5 stringByAppendingString:[NSString stringWithFormat:@" S %@: %ld votes\n\t(%ld Tkl, %ld Sk, %ld FFum, %ld INT, %ld Pass Def)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTkl,(long)pwr.statsSacks,(long)pwr.statsForcedFum,(long)pwr.statsInt,(long)pwr.statsPassDef]];
             }
             if (p != nil && ![heismanFinalists containsObject:p]) {
                 [heismanFinalists addObject:p];
@@ -1707,6 +2294,7 @@
 
         heisman.team.heismans++;
         heisman.careerHeismans++;
+        [heisman.team getCurrentHC].totalHeismans++;
         heisman.isHeisman = YES;
         if ([heisman isKindOfClass:[PlayerQB class]]) {
             //qb heisman
@@ -1747,7 +2335,131 @@
             }
 
             [heismanStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",heismanWinnerStr, heismanTop5]];
+        } else if ([heisman isKindOfClass:[PlayerDefender class]]) {
+            PlayerDefender *heis = (PlayerDefender*)heisman;
+            NSMutableString *statString = [NSMutableString string];
+            int parts = 0;
+            // %ld tackles, %ld sacks, %ld forced fum, %ld passes defended, and %ld interceptions
+            if (heis.statsTkl > 0) {
+                [statString appendFormat:@"%ld %@", (long)heis.statsTkl, (heis.statsTkl > 1 ? @"tackles" : @"tackle")];
+                parts++;
+            }
+            if (heis.statsSacks > 0) {
+                [statString appendFormat:@"?%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+                parts++;
+            }
+            if (heis.statsPassDef > 0) {
+                [statString appendFormat:@"?%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+                parts++;
+            }
+            if (heis.statsInt > 0) {
+                [statString appendFormat:@"?%ld INT", (long)heis.statsInt];
+                parts++;
+            }
+            if (heis.statsForcedFum > 0) {
+                [statString appendFormat:@"?%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+                parts++;
+            }
+            
+//            if (parts > 1) {
+//                [statString replaceOccurrencesOfString:@"?" withString:@", " options:NSCaseInsensitiveSearch range:NSMakeRange(0, statString.length)];
+//            } else {
+//                [statString replaceOccurrencesOfString:@"?" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, statString.length)];
+//            }
+//            
+//            statString = [NSMutableString stringWithString:[[statString stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+            
+            heismanWinnerStr = [NSString stringWithFormat:@"%ld's POTY: %@ %@ %@!\n?Congratulations to %@ %@ %@ [%@], who had %@ and led %@ to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heis.team.abbreviation,heis.position, [heis getInitialName],heis.team.abbreviation, heis.position, heis.name, [heis getYearString], [self _cleanListString:statString numberOfParts:parts],heis.team.name, (long)heis.team.wins,(long)heis.team.losses,(long)heis.team.rankTeamPollScore];
+            [heismanStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",heismanWinnerStr, heismanTop5]];
         }
+//        else if ([heisman isKindOfClass:[PlayerLB class]]) {
+//            PlayerLB *heis = (PlayerLB*)heisman;
+//            NSMutableString *statString = [NSMutableString string];
+//            int parts = 0;
+//            // %ld tackles, %ld sacks, %ld forced fum, %ld passes defended, and %ld interceptions
+//            if (heis.statsTkl > 0) {
+//                [statString appendFormat:@"%ld %@", (long)heis.statsTkl, (heis.statsTkl > 1 ? @"tackles" : @"tackle")];
+//                parts++;
+//            }
+//            if (heis.statsSacks > 0) {
+//                [statString appendFormat:@"%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+//                parts++;
+//            }
+//            if (heis.statsPassDef > 0) {
+//                [statString appendFormat:@"%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+//                parts++;
+//            }
+//            if (heis.statsInt > 0) {
+//                [statString appendFormat:@"%ld INT", (long)heis.statsInt];
+//                parts++;
+//            }
+//            if (heis.statsForcedFum > 0) {
+//                [statString appendFormat:@"%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+//                parts++;
+//            }
+//
+//
+//            heismanWinnerStr = [NSString stringWithFormat:@"%ld's POTY: %@ LB %@!\n?Congratulations to %@ LB %@ [%@], who had %@ and led %@ to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heis.team.abbreviation, [heis getInitialName],heis.team.abbreviation, heis.name, [heis getYearString], [self _cleanListString:statString numberOfParts:parts],heis.team.name, (long)heis.team.wins,(long)heis.team.losses,(long)heis.team.rankTeamPollScore];
+//            [heismanStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",heismanWinnerStr, heismanTop5]];
+//        } else if ([heisman isKindOfClass:[PlayerCB class]]) {
+//            PlayerCB *heis = (PlayerCB*)heisman;
+//            NSMutableString *statString = [NSMutableString string];
+//            int parts = 0;
+//            // %ld tackles, %ld sacks, %ld forced fum, %ld passes defended, and %ld interceptions
+//            if (heis.statsTkl > 0) {
+//                [statString appendFormat:@"%ld %@", (long)heis.statsTkl, (heis.statsTkl > 1 ? @"tackles" : @"tackle")];
+//                parts++;
+//            }
+//            if (heis.statsSacks > 0) {
+//                [statString appendFormat:@"%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+//                parts++;
+//            }
+//            if (heis.statsPassDef > 0) {
+//                [statString appendFormat:@"%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+//                parts++;
+//            }
+//            if (heis.statsInt > 0) {
+//                [statString appendFormat:@"%ld INT", (long)heis.statsInt];
+//                parts++;
+//            }
+//            if (heis.statsForcedFum > 0) {
+//                [statString appendFormat:@"%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+//                parts++;
+//            }
+//
+//
+//            heismanWinnerStr = [NSString stringWithFormat:@"%ld's POTY: %@ CB %@!\n?Congratulations to %@ CB %@ [%@], who had %@ and led %@ to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heis.team.abbreviation, [heis getInitialName],heis.team.abbreviation, heis.name, [heis getYearString], [self _cleanListString:statString numberOfParts:parts],heis.team.name, (long)heis.team.wins,(long)heis.team.losses,(long)heis.team.rankTeamPollScore];
+//            [heismanStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",heismanWinnerStr, heismanTop5]];
+//        } else if ([heisman isKindOfClass:[PlayerS class]]) {
+//            PlayerS *heis = (PlayerS*)heisman;
+//            NSMutableString *statString = [NSMutableString string];
+//            int parts = 0;
+//            // %ld tackles, %ld sacks, %ld forced fum, %ld passes defended, and %ld interceptions
+//            if (heis.statsTkl > 0) {
+//                [statString appendFormat:@"%ld %@", (long)heis.statsTkl, (heis.statsTkl > 1 ? @"tackles" : @"tackle")];
+//                parts++;
+//            }
+//            if (heis.statsSacks > 0) {
+//                [statString appendFormat:@"%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+//                parts++;
+//            }
+//            if (heis.statsPassDef > 0) {
+//                [statString appendFormat:@"%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+//                parts++;
+//            }
+//            if (heis.statsInt > 0) {
+//                [statString appendFormat:@"%ld INT", (long)heis.statsInt];
+//                parts++;
+//            }
+//            if (heis.statsForcedFum > 0) {
+//                [statString appendFormat:@"%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+//                parts++;
+//            }
+//
+//
+//            heismanWinnerStr = [NSString stringWithFormat:@"%ld's POTY: %@ S %@!\n?Congratulations to %@ S %@ [%@], who had %@ and led %@ to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heis.team.abbreviation, [heis getInitialName],heis.team.abbreviation, heis.name, [heis getYearString], [self _cleanListString:statString numberOfParts:parts],heis.team.name, (long)heis.team.wins,(long)heis.team.losses,(long)heis.team.rankTeamPollScore];
+//            [heismanStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",heismanWinnerStr, heismanTop5]];
+//        }
 
         // Add news story
         if (putNewsStory) {
@@ -1790,7 +2502,11 @@
         [sb addObject:[Game newGameWithHome:t1 away:t2 name:@"Semis, 2v3"]];
 
         NSMutableArray *bowlEligibleTeams = [NSMutableArray array];
-        for (int i = 4; i < ([self bowlGameTitles].count * 2); i++) {
+        int numBowlEligible = (int)([self bowlGameTitles].count * 2); // accounts for expanded team set
+        if (teamList.count < ([self bowlGameTitles].count * 2)) {
+            numBowlEligible = 20; // but can fall back to original limit
+        }
+        for (int i = 4; i < numBowlEligible; i++) {
             [bowlEligibleTeams addObject:teamList[i]];
         }
 
@@ -2057,16 +2773,39 @@
     NSMutableArray *leadingRBs = [NSMutableArray array];
     NSMutableArray *leadingWRs = [NSMutableArray array];
     NSMutableArray *leadingTEs = [NSMutableArray array];
+    NSMutableArray *leadingDLs = [NSMutableArray array];
+    NSMutableArray *leadingLBs = [NSMutableArray array];
+    NSMutableArray *leadingCBs = [NSMutableArray array];
+    NSMutableArray *leadingSs = [NSMutableArray array];
     NSMutableArray *leadingKs = [NSMutableArray array];
 
     for (Team *t in teamList) {
         [leadingQBs addObject:[t getQB:0]];
+        
         [leadingRBs addObject:[t getRB:0]];
         [leadingRBs addObject:[t getRB:1]];
+        
         [leadingWRs addObject:[t getWR:0]];
         [leadingWRs addObject:[t getWR:1]];
         [leadingWRs addObject:[t getWR:2]];
+        
         [leadingTEs addObject:[t getTE:0]];
+        
+        [leadingDLs addObject:[t getDL:0]];
+        [leadingDLs addObject:[t getDL:1]];
+        [leadingDLs addObject:[t getDL:2]];
+        [leadingDLs addObject:[t getDL:3]];
+        
+        [leadingLBs addObject:[t getLB:0]];
+        [leadingLBs addObject:[t getLB:1]];
+        [leadingLBs addObject:[t getLB:2]];
+        
+        [leadingCBs addObject:[t getCB:0]];
+        [leadingCBs addObject:[t getCB:1]];
+        [leadingCBs addObject:[t getCB:2]];
+        
+        [leadingSs addObject:[t getS:0]];
+        
         [leadingKs addObject:[t getK:0]];
     }
 
@@ -2101,6 +2840,38 @@
         else if (b.isHeisman || b.isROTY) return 1;
         else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
+    
+    [leadingDLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingLBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingSs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
 
     [leadingKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         PlayerK *a = (PlayerK*)obj1;
@@ -2112,34 +2883,97 @@
 
     PlayerQB *qb = leadingQBs[0];
     qb.careerAllAmericans++;
+    [qb.team getCurrentHC].totalAllAmericans++;
     qb.isAllAmerican = YES;
 
     PlayerRB *rb1 = leadingRBs[0];
     rb1.careerAllAmericans++;
+    [rb1.team getCurrentHC].totalAllAmericans++;
     rb1.isAllAmerican = YES;
 
     PlayerRB *rb2 = leadingRBs[1];
     rb2.careerAllAmericans++;
+    [rb2.team getCurrentHC].totalAllAmericans++;
     rb2.isAllAmerican = YES;
 
     PlayerWR *wr1 = leadingWRs[0];
     wr1.careerAllAmericans++;
+    [wr1.team getCurrentHC].totalAllAmericans++;
     wr1.isAllAmerican = YES;
 
     PlayerWR *wr2 = leadingWRs[1];
     wr2.careerAllAmericans++;
+    [wr2.team getCurrentHC].totalAllAmericans++;
     wr2.isAllAmerican = YES;
 
     PlayerWR *wr3 = leadingWRs[2];
     wr3.careerAllAmericans++;
+    [wr3.team getCurrentHC].totalAllAmericans++;
     wr3.isAllAmerican = YES;
 
     PlayerTE *te = leadingTEs[0];
     te.careerAllAmericans++;
+    [te.team getCurrentHC].totalAllAmericans++;
     te.isAllAmerican = YES;
+    
+    PlayerDL *dl1 = leadingDLs[0];
+    dl1.careerAllAmericans++;
+    [dl1.team getCurrentHC].totalAllAmericans++;
+    dl1.isAllAmerican = YES;
+    
+    PlayerDL *dl2 = leadingDLs[1];
+    dl2.careerAllAmericans++;
+    [dl2.team getCurrentHC].totalAllAmericans++;
+    dl2.isAllAmerican = YES;
+    
+    PlayerDL *dl3 = leadingDLs[2];
+    dl3.careerAllAmericans++;
+    [dl3.team getCurrentHC].totalAllAmericans++;
+    dl3.isAllAmerican = YES;
+    
+    PlayerDL *dl4 = leadingDLs[3];
+    dl4.careerAllAmericans++;
+    [dl4.team getCurrentHC].totalAllAmericans++;
+    dl4.isAllAmerican = YES;
+    
+    PlayerLB *lb1 = leadingLBs[0];
+    lb1.careerAllAmericans++;
+    [lb1.team getCurrentHC].totalAllAmericans++;
+    lb1.isAllAmerican = YES;
+    
+    PlayerLB *lb2 = leadingLBs[1];
+    lb2.careerAllAmericans++;
+    [lb2.team getCurrentHC].totalAllAmericans++;
+    lb2.isAllAmerican = YES;
+    
+    PlayerLB *lb3 = leadingLBs[2];
+    lb3.careerAllAmericans++;
+    [lb3.team getCurrentHC].totalAllAmericans++;
+    lb3.isAllAmerican = YES;
+    
+    PlayerCB *cb1 = leadingCBs[0];
+    cb1.careerAllAmericans++;
+    [cb1.team getCurrentHC].totalAllAmericans++;
+    cb1.isAllAmerican = YES;
+    
+    PlayerCB *cb2 = leadingCBs[1];
+    cb2.careerAllAmericans++;
+    [cb2.team getCurrentHC].totalAllAmericans++;
+    cb2.isAllAmerican = YES;
+    
+    PlayerCB *cb3 = leadingCBs[2];
+    cb3.careerAllAmericans++;
+    [cb3.team getCurrentHC].totalAllAmericans++;
+    cb3.isAllAmerican = YES;
+    
+    PlayerS *s = leadingSs[0];
+    s.careerAllAmericans++;
+    [s.team getCurrentHC].totalAllAmericans++;
+    s.isAllAmerican = YES;
 
     PlayerK *k = leadingKs[0];
     k.careerAllAmericans++;
+    [k.team getCurrentHC].totalAllAmericans++;
     k.isAllAmerican = YES;
 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"awardsPosted" object:nil];
@@ -2149,6 +2983,10 @@
                            @"RB" : @[rb1,rb2],
                            @"WR" : @[wr1,wr2,wr3],
                            @"TE" : @[te],
+                           @"DL" : @[dl1,dl2,dl3,dl4],
+                           @"LB" : @[lb1,lb2,lb3],
+                           @"CB" : @[cb1,cb2,cb3],
+                           @"S" : @[s],
                            @"K"  : @[k]
                            };
 
@@ -2252,7 +3090,7 @@
 
         return adjADraftGrade > adjBDraftGrade ? -1 : adjADraftGrade == adjBDraftGrade ? 0 : 1;
     }];
-    NSLog(@"TOTAL DRAFTABLE PLAYERS: %ld", (unsigned long)(long)players.count);
+    NSLog(@"[Pro Draft] TOTAL DRAFTABLE PLAYERS: %ld", (unsigned long)(long)players.count);
     int userDraftees = 0;
     Team *userTeam = [HBSharedUtils currentLeague].userTeam;
     for (int i = 0; i < 32; i++) {
@@ -2261,6 +3099,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"1", @"pick" : [NSString stringWithFormat:@"%li", (long)(i+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round1 addObject:p];
     }
 
@@ -2272,6 +3111,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"2", @"pick" : [NSString stringWithFormat:@"%li", (long)(j+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round2 addObject:p];
     }
 
@@ -2281,6 +3121,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"3", @"pick" : [NSString stringWithFormat:@"%li", (long)(k+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round3 addObject:p];
     }
 
@@ -2290,6 +3131,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"4", @"pick" : [NSString stringWithFormat:@"%li", (long)(r+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round4 addObject:p];
     }
 
@@ -2299,6 +3141,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"5", @"pick" : [NSString stringWithFormat:@"%li", (long)(c+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round5 addObject:p];
     }
 
@@ -2308,6 +3151,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"6", @"pick" : [NSString stringWithFormat:@"%li", (long)(a+1)]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round6 addObject:p];
     }
 
@@ -2317,6 +3161,7 @@
             userDraftees++;
         }
         p.draftPosition = @{@"round" : @"7", @"pick" : [NSString stringWithFormat:@"%li", (long)b]};
+        [p.team getCurrentHC].careerDraftPicks++;
         [round7 addObject:p];
     }
 
@@ -2425,7 +3270,7 @@
     //Check against that
     NSRange  range = [name.lowercaseString rangeOfCharacterFromSet:[validChars invertedSet]];
     if (NSNotFound != range.location) {
-        NSLog(@"Found invalid character in team name: %@", name);
+        NSLog(@"[Team Name Validity] Found invalid character in team name: %@", name);
         return false;
     }
 
@@ -2461,7 +3306,7 @@
     //Check against that
     NSRange  range = [abbr.lowercaseString rangeOfCharacterFromSet:validChars];
     if (NSNotFound != range.location) {
-        NSLog(@"Found invalid character in team abbr: %@", abbr);
+        NSLog(@"[Team Abbreviation Validity] Found invalid character in team abbr: %@", abbr);
         return false;
     }
 
@@ -2479,7 +3324,7 @@
             }
         }
     } else {
-        NSLog(@"IGNORING EXISTING DATA");
+        NSLog(@"[Team Abbreviation Validity] IGNORING EXISTING DATA");
     }
 
     return true;
@@ -2497,7 +3342,7 @@
     //Check against that
     NSRange  range = [name.lowercaseString rangeOfCharacterFromSet:[validChars invertedSet]];
     if (NSNotFound != range.location) {
-        NSLog(@"Found invalid character in conf name: %@", name);
+        NSLog(@"[Conference Name Validity] Found invalid character in conf name: %@", name);
         return false;
     }
 
@@ -2527,7 +3372,7 @@
     //Check against that
     NSRange  range = [abbr.lowercaseString rangeOfCharacterFromSet:validChars];
     if (NSNotFound != range.location) {
-        NSLog(@"Found invalid character in conf abbr: %@", abbr);
+        NSLog(@"[Conference Abbreviation Validity] Found invalid character in conf abbr: %@", abbr);
         return false;
     }
 
@@ -2580,7 +3425,7 @@
 
     if (!error) {
         NSArray *jsonConfs = jsonDict[@"conferences"];
-        for (int i = 0; i < conferences.count; i++) {
+        for (int i = 0; i < jsonConfs.count; i++) {
             // Apply the changes from the JSON file
             [conferences[i] applyJSONMetadataChanges:jsonConfs[i]];
 
@@ -2591,16 +3436,20 @@
         }
 
         // Rebuild the schedule just in case there were rivalry changes
-        for (Conference *c in conferences) {
-            [c setUpSchedule];
-            [c setUpOOCSchedule];
-            [c insertOOCSchedule];
+        @synchronized (conferences) {
+            for (Conference *c in conferences) {
+                [c setUpSchedule];
+            }
+            [self scheduleOOCGames];
+            for (Conference *c in conferences) {
+                [c insertOOCSchedule];
+            }
         }
 
         NSMutableArray *bowlNames = [NSMutableArray arrayWithArray:jsonDict[@"bowlGames"]];
-        if (bowlNames.count < 10) {
-            NSInteger need = 10 - bowlNames.count;
-            NSArray *baseBowlNames = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl"];
+        if (bowlNames.count < 36) {
+            NSInteger need = 36 - bowlNames.count;
+            NSArray *baseBowlNames = @[@"Lilac Bowl", @"Apple Bowl", @"Salty Bowl", @"Salsa Bowl", @"Mango Bowl",@"Patriot Bowl", @"Salad Bowl", @"Frost Bowl", @"Tropical Bowl", @"Music Bowl",@"Carnation Bowl", @"Mandarin Bowl", @"Honey Bowl", @"Party Bowl", @"Nectatrine Bowl", @"Polyester Bowl", @"Lemon-Lime Bowl", @"Crocodile Bowl", @"Desert Bowl", @"Fort Bowl", @"Vacation Bowl", @"Star Bowl", @"Bell Bowl", @"Freedom Bowl", @"Casino Bowl", @"American Bowl", @"Island Bowl", @"Philantropy Bowl", @"Steak Bowl", @"Camping Bowl", @"Spud Bowl", @"Ponchatraine Bowl", @"Ranchers Bowl", @"Santa Fe Bowl", @"Burrito Bowl", @"Mexico Bowl", @"Chicken Bowl", @"Empire Bowl", @"Rainbow Bowl", @"Mushroom Bowl", @"Coffee Bowl", @"Cascade Bowl", @"Alliance Bowl", @"Appalachian Bowl", @"Bayou Bowl"];
             for (int i = 0; i < need; i++) {
                 [bowlNames addObject:baseBowlNames[i]];
             }
@@ -2608,7 +3457,7 @@
         bowlTitles = [bowlNames copy];
         NSLog(@"BOWLS: %@", bowlTitles);
     } else {
-        NSLog(@"ERROR parsing league metadata: %@", error);
+        NSLog(@"[Importing League Metadata] ERROR parsing league metadata: %@", error);
     }
 }
 
@@ -2645,13 +3494,13 @@
         for ( int i = 0; i < teamList.count; ++i ) {
             //qb
             if (teamList[i].teamQBs.count > 0) {
-                PlayerQB *qb = teamList[i].teamQBs[0];
-                if (qb.year == 1 && ![rotyCandidates containsObject:qb]) {
-                    [rotyCandidates addObject:qb];
+                PlayerQB *wrec = teamList[i].teamQBs[0];
+                if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
+                    [rotyCandidates addObject:wrec];
                 }
-                tempScore = [qb getHeismanScore] + teamList[i].wins*150;
+                tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                 if ( tempScore > heismanScore ) {
-                    roty = qb;
+                    roty = wrec;
                     heismanScore = tempScore;
                 }
             }
@@ -2659,13 +3508,13 @@
             //rb
             if (teamList[i].teamRBs.count > 1) {
                 for (int rb = 0; rb < 2; ++rb) {
-                    Player *rback = teamList[i].teamRBs[rb];
-                    if (rback.year == 1 && ![rotyCandidates containsObject:rback]) {
-                        [rotyCandidates addObject:rback];
+                    Player *wrec = teamList[i].teamRBs[rb];
+                    if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
+                        [rotyCandidates addObject:wrec];
                     }
-                    tempScore = [rback getHeismanScore] + teamList[i].wins*150;
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
-                        roty = rback;
+                        roty = wrec;
                         heismanScore = tempScore;
                     }
                 }
@@ -2678,7 +3527,7 @@
                     if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
                         [rotyCandidates addObject:wrec];
                     }
-                    tempScore = [wrec getHeismanScore] + teamList[i].wins*150;
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                     if ( tempScore > heismanScore ) {
                         roty = wrec;
                         heismanScore = tempScore;
@@ -2692,7 +3541,65 @@
                 if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
                     [rotyCandidates addObject:wrec];
                 }
-                tempScore = [wrec getHeismanScore] + teamList[i].wins*150;
+                tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
+                if ( tempScore > heismanScore ) {
+                    roty = wrec;
+                    heismanScore = tempScore;
+                }
+            }
+            
+            //DL
+            if (teamList[i].teamDLs.count > 4) {
+                for (int dl = 0; dl < 4; ++dl) {
+                    PlayerDL *wrec = teamList[i].teamDLs[dl];
+                    if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
+                        [rotyCandidates addObject:wrec];
+                    }
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
+                    if ( tempScore > heismanScore ) {
+                        roty = wrec;
+                        heismanScore = tempScore;
+                    }
+                }
+            }
+            
+            //LB
+            if (teamList[i].teamLBs.count > 3) {
+                for (int lb = 0; lb < 3; ++lb) {
+                    PlayerLB *wrec = teamList[i].teamLBs[lb];
+                    if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
+                        [rotyCandidates addObject:wrec];
+                    }
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
+                    if ( tempScore > heismanScore ) {
+                        roty = wrec;
+                        heismanScore = tempScore;
+                    }
+                }
+            }
+            
+            //CB
+            if (teamList[i].teamCBs.count > 3) {
+                for (int lb = 0; lb < 3; ++lb) {
+                    PlayerCB *wrec = teamList[i].teamCBs[lb];
+                    if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
+                        [rotyCandidates addObject:wrec];
+                    }
+                    tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
+                    if ( tempScore > heismanScore ) {
+                        roty = wrec;
+                        heismanScore = tempScore;
+                    }
+                }
+            }
+            
+            //S
+            if (teamList[i].teamSs.count > 1) {
+                PlayerS *wrec = teamList[i].teamSs[0];
+                if (wrec.year == 1 && ![rotyCandidates containsObject:wrec]) {
+                    [rotyCandidates addObject:wrec];
+                }
+                tempScore = (int)([wrec getHeismanScore] + (teamList[i].wins * 150.0 * [HBSharedUtils calculateConferencePrestigeFactor:teamList[i].conference resetMarker:NO]));
                 if ( tempScore > heismanScore ) {
                     roty = wrec;
                     heismanScore = tempScore;
@@ -2766,6 +3673,18 @@
             } else if ([p isKindOfClass:[PlayerWR class]]) {
                 PlayerWR *pwr = (PlayerWR*)p;
                 rotyTop5 = [rotyTop5 stringByAppendingString:[NSString stringWithFormat:@" WR %@: %ld votes\n\t(%ld TDs, %ld Fum, %ld Yds)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTD,(long)pwr.statsFumbles,(long)pwr.statsRecYards]];
+            } else if ([p isKindOfClass:[PlayerDL class]]) {
+                PlayerDL *pwr = (PlayerDL*)p;
+                rotyTop5 = [rotyTop5 stringByAppendingString:[NSString stringWithFormat:@" DL %@: %ld votes\n\t(%ld Tkl, %ld Sk, %ld FFum, %ld INT, %ld Pass Def)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTkl,(long)pwr.statsSacks,(long)pwr.statsForcedFum,(long)pwr.statsInt,(long)pwr.statsPassDef]];
+            } else if ([p isKindOfClass:[PlayerLB class]]) {
+                PlayerLB *pwr = (PlayerLB*)p;
+                rotyTop5 = [rotyTop5 stringByAppendingString:[NSString stringWithFormat:@" LB %@: %ld votes\n\t(%ld Tkl, %ld Sk, %ld FFum, %ld INT, %ld Pass Def)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTkl,(long)pwr.statsSacks,(long)pwr.statsForcedFum,(long)pwr.statsInt,(long)pwr.statsPassDef]];
+            } else if ([p isKindOfClass:[PlayerCB class]]) {
+                PlayerCB *pwr = (PlayerCB*)p;
+                rotyTop5 = [rotyTop5 stringByAppendingString:[NSString stringWithFormat:@" CB %@: %ld votes\n\t(%ld Tkl, %ld Sk, %ld FFum, %ld INT, %ld Pass Def)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTkl,(long)pwr.statsSacks,(long)pwr.statsForcedFum,(long)pwr.statsInt,(long)pwr.statsPassDef]];
+            } else if ([p isKindOfClass:[PlayerS class]]) {
+                PlayerS *pwr = (PlayerS*)p;
+                rotyTop5 = [rotyTop5 stringByAppendingString:[NSString stringWithFormat:@" S %@: %ld votes\n\t(%ld Tkl, %ld Sk, %ld FFum, %ld INT, %ld Pass Def)\n",[pwr getInitialName],(long)[pwr getHeismanScore],(long)pwr.statsTkl,(long)pwr.statsSacks,(long)pwr.statsForcedFum,(long)pwr.statsInt,(long)pwr.statsPassDef]];
             }
             if (p != nil && ![rotyFinalists containsObject:p]) {
                 [rotyFinalists addObject:p];
@@ -2776,6 +3695,7 @@
 
         roty.team.rotys++;
         roty.careerROTYs++;
+        [roty.team getCurrentHC].totalROTYs++;
         roty.isROTY = YES;
         if ([roty isKindOfClass:[PlayerQB class]]) {
             //qb heisman
@@ -2816,6 +3736,122 @@
             }
 
             [rotyStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",rotyWinnerStr, rotyTop5]];
+        } else if ([roty isKindOfClass:[PlayerDL class]]) {
+            PlayerDL *heis = (PlayerDL*)roty;
+            NSMutableString *statString = [NSMutableString string];
+            int parts = 0;
+            // %ld tackles, %ld sacks, %ld forced fum, %ld passes defended, and %ld interceptions
+            if (heis.statsTkl > 0) {
+                [statString appendFormat:@"%ld %@", (long)heis.statsTkl, (heis.statsTkl > 1 ? @"tackles" : @"tackle")];
+                parts++;
+            }
+            if (heis.statsSacks > 0) {
+                [statString appendFormat:@"?%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+                parts++;
+            }
+            if (heis.statsPassDef > 0) {
+                [statString appendFormat:@"?%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+                parts++;
+            }
+            if (heis.statsInt > 0) {
+                [statString appendFormat:@"?%ld INT", (long)heis.statsInt];
+                parts++;
+            }
+            if (heis.statsForcedFum > 0) {
+                [statString appendFormat:@"?%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+                parts++;
+            }
+            
+            
+            rotyWinnerStr = [NSString stringWithFormat:@"%ld's ROTY: %@ DL %@!\n?Congratulations to %@ DL %@ [%@], who had %@ and helped %@ get to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heis.team.abbreviation, [heis getInitialName],heis.team.abbreviation, heis.name, [heis getYearString], [self _cleanListString:statString numberOfParts:parts],heis.team.name, (long)heis.team.wins,(long)heis.team.losses,(long)heis.team.rankTeamPollScore];
+            [rotyStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",rotyWinnerStr, rotyTop5]];
+        } else if ([roty isKindOfClass:[PlayerLB class]]) {
+            PlayerLB *heis = (PlayerLB*)roty;
+            NSMutableString *statString = [NSMutableString string];
+            int parts = 0;
+            // %ld tackles, %ld sacks, %ld forced fum, %ld passes defended, and %ld interceptions
+            if (heis.statsTkl > 0) {
+                [statString appendFormat:@"%ld %@", (long)heis.statsTkl, (heis.statsTkl > 1 ? @"tackles" : @"tackle")];
+                parts++;
+            }
+            if (heis.statsSacks > 0) {
+                [statString appendFormat:@"?%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+                parts++;
+            }
+            if (heis.statsPassDef > 0) {
+                [statString appendFormat:@"?%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+                parts++;
+            }
+            if (heis.statsInt > 0) {
+                [statString appendFormat:@"?%ld INT", (long)heis.statsInt];
+                parts++;
+            }
+            if (heis.statsForcedFum > 0) {
+                [statString appendFormat:@"?%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+                parts++;
+            }
+            
+            
+            rotyWinnerStr = [NSString stringWithFormat:@"%ld's ROTY: %@ LB %@!\n?Congratulations to %@ LB %@ [%@], who had %@ and helped %@ get to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heis.team.abbreviation, [heis getInitialName],heis.team.abbreviation, heis.name, [heis getYearString], [self _cleanListString:statString numberOfParts:parts],heis.team.name, (long)heis.team.wins,(long)heis.team.losses,(long)heis.team.rankTeamPollScore];
+            [rotyStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",rotyWinnerStr, rotyTop5]];
+        } else if ([roty isKindOfClass:[PlayerCB class]]) {
+            PlayerCB *heis = (PlayerCB*)roty;
+            NSMutableString *statString = [NSMutableString string];
+            int parts = 0;
+            // %ld tackles, %ld sacks, %ld forced fum, %ld passes defended, and %ld interceptions
+            if (heis.statsTkl > 0) {
+                [statString appendFormat:@"%ld %@", (long)heis.statsTkl, (heis.statsTkl > 1 ? @"tackles" : @"tackle")];
+                parts++;
+            }
+            if (heis.statsSacks > 0) {
+                [statString appendFormat:@"?%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+                parts++;
+            }
+            if (heis.statsPassDef > 0) {
+                [statString appendFormat:@"?%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+                parts++;
+            }
+            if (heis.statsInt > 0) {
+                [statString appendFormat:@"?%ld INT", (long)heis.statsInt];
+                parts++;
+            }
+            if (heis.statsForcedFum > 0) {
+                [statString appendFormat:@"?%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+                parts++;
+            }
+            
+            
+            rotyWinnerStr = [NSString stringWithFormat:@"%ld's ROTY: %@ CB %@!\n?Congratulations to %@ CB %@ [%@], who had %@ and helped %@ get to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heis.team.abbreviation, [heis getInitialName],heis.team.abbreviation, heis.name, [heis getYearString], [self _cleanListString:statString numberOfParts:parts],heis.team.name, (long)heis.team.wins,(long)heis.team.losses,(long)heis.team.rankTeamPollScore];
+            [rotyStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",rotyWinnerStr, rotyTop5]];
+        } else if ([roty isKindOfClass:[PlayerS class]]) {
+            PlayerS *heis = (PlayerS*)roty;
+            NSMutableString *statString = [NSMutableString string];
+            int parts = 0;
+            // %ld tackles, %ld sacks, %ld forced fum, %ld passes defended, and %ld interceptions
+            if (heis.statsTkl > 0) {
+                [statString appendFormat:@"?%ld %@", (long)heis.statsTkl, (heis.statsTkl > 1 ? @"tackles" : @"tackle")];
+                parts++;
+            }
+            if (heis.statsSacks > 0) {
+                [statString appendFormat:@"?%ld %@", (long)heis.statsSacks, (heis.statsSacks > 1 ? @"sacks" : @"sack")];
+                parts++;
+            }
+            if (heis.statsPassDef > 0) {
+                [statString appendFormat:@"?%ld %@", (long)heis.statsPassDef, (heis.statsPassDef > 1 ? @"passes defended" : @"pass defended")];
+                parts++;
+            }
+            if (heis.statsInt > 0) {
+                [statString appendFormat:@"?%ld INT", (long)heis.statsInt];
+                parts++;
+            }
+            if (heis.statsForcedFum > 0) {
+                [statString appendFormat:@"?%ld forced %@", (long)heis.statsForcedFum, (heis.statsForcedFum > 1 ? @"fumbles" : @"fumble")];
+                parts++;
+            }
+            
+            
+            rotyWinnerStr = [NSString stringWithFormat:@"%ld's ROTY: %@ S %@!\n?Congratulations to %@ S %@ [%@], who had %@ and helped %@ get to a %ld-%ld record and a #%ld poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), heis.team.abbreviation, [heis getInitialName],heis.team.abbreviation, heis.name, [heis getYearString], [self _cleanListString:statString numberOfParts:parts],heis.team.name, (long)heis.team.wins,(long)heis.team.losses,(long)heis.team.rankTeamPollScore];
+            [rotyStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",rotyWinnerStr, rotyTop5]];
         }
 
         // Add news story
@@ -2831,6 +3867,16 @@
         rotyWinnerStrFull = rotyStats;
         return rotyStats;
     }
+}
+
+-(NSString *)_cleanListString:(NSMutableString *)baseString numberOfParts:(int)parts {
+    if (parts > 1) {
+        [baseString replaceOccurrencesOfString:@"?" withString:@", " options:NSCaseInsensitiveSearch range:NSMakeRange(0, baseString.length)];
+    } else {
+        [baseString replaceOccurrencesOfString:@"?" withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, baseString.length)];
+    }
+    
+    return [NSMutableString stringWithString:[[baseString stringByTrimmingCharactersInSet:[NSCharacterSet punctuationCharacterSet]] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 }
 
 -(NSInteger)_calculateNeededPlayersAtPosition:(NSString *)pos {
@@ -2878,6 +3924,342 @@
     } else {
         return [rotyFinalists copy];
     }
+}
+
+// Coaching stuff
+-(NSArray<HeadCoach*> *)getCOTYLeaders {
+    if (!cotyDecided || !cotyFinalists) {
+        NSMutableArray *tempHeis = [NSMutableArray array];
+        NSArray *candidates = [self calculateCOTYCandidates];
+        int i = 0;
+        while (tempHeis.count < 5 && i < candidates.count) {
+            Player *p = candidates[i];
+            if (p != nil && ![tempHeis containsObject:p]) {
+                [tempHeis addObject:p];
+            }
+
+            i++;
+        }
+
+        [tempHeis sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [HBSharedUtils compareCoachScore:obj1 toObj2:obj2];
+        }];
+
+        return [tempHeis copy];
+    } else {
+        return [cotyFinalists copy];
+    }
+}
+
+-(NSArray *)calculateCOTYCandidates {
+    cotyWinner = nil;
+    NSMutableArray<HeadCoach *> *cotyCandidates = [NSMutableArray array];
+    for (Team *t in teamList) {
+        if (![cotyCandidates containsObject:[t getCurrentHC]]) {
+            [cotyCandidates addObject:[t getCurrentHC]];
+        }
+    }
+    [cotyCandidates sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareCoachScore:obj1 toObj2:obj2];
+    }];
+    return cotyCandidates;
+}
+
+-(NSString *)getCoachAwardStr {
+    if (cotyWinner != nil && cotyWinnerStrFull != nil && cotyWinnerStrFull.length != 0) {
+        cotyWinner.wonTopHC = YES;
+        return cotyWinnerStrFull;
+    } else {
+        NSMutableArray *cotyCandidates = [[self calculateCOTYCandidates] mutableCopy];
+        cotyWinner = cotyCandidates[0];
+        cotyDecided = true;
+        cotyFinalists = [NSMutableArray array];
+
+        NSMutableString* heismanTop5 = [NSMutableString stringWithString:@"\n"];
+        NSMutableString* heismanStats = [NSMutableString string];
+        NSString* heismanWinnerStr = @"";
+        //heismanFinalists = [NSMutableArray array];
+        //full results string
+        int i = 0;
+        int place = 1;
+        while (i < cotyCandidates.count && i < 5) {
+            HeadCoach *hc = cotyCandidates[i];
+            [heismanTop5 appendFormat:@"%d. %@ HC %@ (%ld-%ld) - %d votes\n",place,hc.team.abbreviation,[hc getInitialName],(long)hc.team.wins,(long)hc.team.losses, [hc getCoachScore]];
+            [cotyFinalists addObject:hc];
+            i++;
+            place++;
+        }
+
+        cotyWinner.team.totalCOTYs++;
+        cotyWinner.careerCOTYs++;
+        cotyWinner.wonTopHC = YES;
+        heismanWinnerStr = [NSString stringWithFormat:@"%ld's COTY: %@ HC %@!\n?Congratulations to the Coach of the Year, %@!\nHe led %@ to a %d-%d record and a #%d poll ranking.",(long)([HBSharedUtils currentLeague].baseYear + self.leagueHistoryDictionary.count), cotyWinner.team.abbreviation, [cotyWinner getInitialName], cotyWinner.name, cotyWinner.team.name, cotyWinner.team.wins, cotyWinner.team.losses, cotyWinner.team.rankTeamPollScore];
+
+        [heismanStats appendString:[NSString stringWithFormat:@"%@\n\nFull Results: %@",heismanWinnerStr, heismanTop5]];
+
+        // Add news story
+        NSMutableArray *week13 = newsStories[13];
+        NSString *newsString = [heismanWinnerStr stringByReplacingOccurrencesOfString:@"?" withString:@""];
+        if (![week13 containsObject:newsString]) {
+            [week13 addObject:newsString];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
+
+        cotyWinnerStrFull = heismanStats;
+        return heismanStats;
+    }
+}
+
+-(void)processCoachingContracts {
+    [coachList removeAllObjects];
+    [coachStarList removeAllObjects];
+    [teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+    }];
+    for (Team *t in teamList) {
+        [[t getCurrentHC] updateCoachHistory];
+        t.coachGotNewContract = NO;
+        t.coachFired = NO;
+        t.coachRetired = NO;
+        int avgOff = [self getAvgYards];
+        int avgDef = [self getAvgOppYards];
+        int totalPrestigeDiff = (t.teamPrestige + [t calculatePrestigeChange]) - [t getCurrentHC].baselinePrestige;
+        [[t getCurrentHC] advanceSeason:avgOff avgDefYards:avgDef offTalent:t.teamOffTalent defTalent:t.teamDefTalent];
+        [t checkCoachingContracts:totalPrestigeDiff newPrestige:(t.teamPrestige + [t calculatePrestigeChange])];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"checkedContracts" object:nil];
+}
+
+-(NSMutableArray<Team *> *)getHardModeTeamVacancyList {
+    NSMutableArray<Team *> *vacancies = [NSMutableArray array];
+    for (Conference *c in conferences) {
+        [vacancies addObject:[c.confTeams lastObject]];
+        [vacancies addObject:c.confTeams[c.confTeams.count - 2]];
+    }
+    return vacancies;
+}
+
+-(NSMutableArray<Team*> *)getFiredCoachTeams:(int)rating oldTeam:(NSString *)oldTeam {
+    NSMutableArray<Team *> *vacancies = [NSMutableArray array];
+    for (Team *t in teamList) {
+        if ([t getMinCoachHireReq] < rating && t.coaches.count == 0 && ![t.name isEqualToString:oldTeam]) {
+            [vacancies addObject:t];
+        }
+    }
+    return vacancies;
+}
+
+-(NSMutableArray<Team*> *)getPromotedCoachTeams:(int)rating offers:(double)offers oldTeam:(NSString *)oldTeam {
+    NSMutableArray<Team *> *vacancies = [NSMutableArray array];
+    for (Team *t in teamList) {
+        if ([t getMinCoachHireReq] < rating && t.coaches.count == 0 && ![t.name isEqualToString:oldTeam] && offers < 0.50) {
+            [vacancies addObject:t];
+        }
+    }
+    return vacancies;
+}
+
+-(void)newJobTransfer:(NSString *)coachTeam {
+    for (Team *t in teamList) {
+        if ([t.name isEqualToString:coachTeam]) {
+            t.isUserControlled = YES;
+            userTeam = t;
+        }
+    }
+}
+
+-(void)processCoachingCarousel {
+    if (!didFinishCoachingCarousel && coachList.count > 0) {
+        [teamList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+        }];
+
+        NSInteger k = 0;
+        NSInteger starCount = coachStarList.count;
+        while (starCount > 0 && k < starCount) {
+            if (k < coachStarList.count) {
+                HeadCoach *coach = coachStarList[k];
+                NSString *tmName = coach.team.name;
+                int tmPrestige = coach.team.teamPrestige;
+                Team *oldTeam = coach.team;
+                int confPrestige = [self findConference:coach.team.conference].confPrestige;
+                for (Team *t in teamList) {
+                    if (t.coaches.count == 0 && coach.ratOvr >= [t getMinCoachHireReq] && ![t.name isEqualToString:tmName]) {
+                        if ((t.teamPrestige > tmPrestige && [self findConference:t.conference].confPrestige > confPrestige) || t.teamPrestige > (tmPrestige + 5) || [self findConference:t.conference].confPrestige + 10 > confPrestige) {
+                            [oldTeam.coaches removeObject:coach];
+                            coach.contractYear = 0;
+                            //                        coach.team = t;
+                            //                        coach.contractYear = 0;
+                            //                        coach.contractLength = 6;
+                            //                        coach.baselinePrestige = t.teamPrestige;
+                            //                        coach.cumulativePrestige = 0;
+                            //                        [t.coaches addObject:coach];
+                            [t addCoach:coach];
+                            [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Rising Star Hired at %@!\nAfter an offseason full of rumors, %@ head coach %@ has decided to take the job at %@. His success at %@ had him on many top programs' radars.",coach.team.abbreviation,oldTeam.abbreviation,coach.name,coach.team.name,oldTeam.name]];
+                            if ([HBSharedUtils randomValue] < 0.20) {
+                                [oldTeam promoteCoach];
+                                [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Promotion at %@!\n%@ hopes to continue their recent success despite the loss of head coach %@ to %@, promoting %@ %@ to be its next head coach.", oldTeam.abbreviation, oldTeam.name, coach.name,coach.team.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC", [oldTeam getCurrentHC].name]];
+                                
+                            }
+                            [coachStarList removeObject:coach];
+                            starCount--;
+                            NSLog(@"[Coaching Carousel] Star coach for %@ %@ hired by %@", oldTeam.abbreviation, [coach debugDescription], t.abbreviation);
+                            break;
+                        }
+                    }
+                }
+            }
+            k++;
+        }
+
+        [coachList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
+        }];
+        NSInteger i = 0;
+        NSInteger count = coachList.count;
+        while (count > 0 && i < count) {
+            if (i < coachList.count) {
+                HeadCoach *c = coachList[i];
+                for (Team *t in teamList) {
+                    if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
+                        Team *oldTeam = c.team;
+                        c.contractYear = 0;
+                        [t addCoach:c];
+//                        c.team = t;
+//                        c.contractYear = 0;
+//                        c.contractLength = 6;
+//                        c.baselinePrestige = t.teamPrestige;
+//                        c.cumulativePrestige = 0;
+//                        [t.coaches addObject:c];
+                        [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Switch: %@\nAfter an extensive nationwide search, %@ has hired %@ to lead its football program. His last stop was at %@, where he was let go after this past season.",t.abbreviation,t.name,c.name,oldTeam.name]];
+                        [oldTeam.coaches removeObject:c];
+                        [coachList removeObject:c];
+                        count--;
+                        NSLog(@"[Coaching Carousel]  %@ %@ hired by %@", oldTeam.abbreviation, [c getInitialName], t.abbreviation);
+                        break; // should break from Team loop
+                    }
+                }
+            }
+            i++;
+        }
+
+        [coachFreeAgents sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [HBSharedUtils compareCoachOvr:obj1 toObj2:obj2];
+        }];
+
+        NSInteger j = 0;
+        NSInteger faCount = coachFreeAgents.count;
+        while (faCount > 0 && j < faCount) {
+            if (j < coachFreeAgents.count) {
+                HeadCoach *c = coachFreeAgents[j];
+                for (Team *t in teamList) {
+                    if (t.coaches.count == 0 && c.ratOvr >= [t getMinCoachHireReq] && ![t isEqual:c.team] && [HBSharedUtils randomValue] > 0.60) {
+                        Team *oldTeam = c.team;
+                        c.contractYear = 0;
+                        [t addCoach:c];
+//                        c.team = t;
+//                        c.contractYear = 0;
+//                        c.contractLength = 6;
+//                        c.baselinePrestige = t.teamPrestige;
+//                        c.cumulativePrestige = 0;
+//                        [t.coaches addObject:c];
+                        [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Return to the Sidelines: %@\nAfter an extensive search, %@ has hired %@ to lead its football program. His last stop was at %@ a few years ago, but he now makes his triumphant return to the sideline.",t.abbreviation,t.name,c.name,oldTeam.name]];
+                        [oldTeam.coaches removeObject:c];
+                        [coachFreeAgents removeObject:c];
+                        faCount--;
+                        NSLog(@"[Coaching Carousel] FA %@ hired by %@", [c getInitialName], t.abbreviation);
+                        break; // should break from Team loop
+                    }
+                }
+            }
+            j++;
+        }
+
+        for (Team *t in teamList) {
+            if (t.coaches.count == 0) {
+                [t promoteCoach];
+                [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Promotion: %@\nAfter the departure of their previous head coach, %@ has promoted %@ %@ to lead the team.",t.abbreviation,t.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC",[t getCurrentHC].name]];
+                NSLog(@"[Coaching Carousel] %@ promoted internally", t.abbreviation);
+            }
+        }
+        didFinishCoachingCarousel = YES;
+    } else if (didFinishCoachingCarousel) {
+        NSLog(@"[Coaching Carousel] Carousel already complete");
+    } else { // making sure no teams seriously need coaches //if (coachList.count == 0 || coachStarList.count == 0) {
+        for (Team *t in teamList) {
+            if (t.coaches.count == 0) {
+                [t promoteCoach];
+                [newsStories[currentWeek] addObject:[NSString stringWithFormat:@"Coaching Promotion: %@\nAfter the departure of their previous head coach, %@ has promoted %@ %@ to lead the team.",t.abbreviation,t.name,([HBSharedUtils randomValue] > 0.5) ? @"OC" : @"DC",[t getCurrentHC].name]];
+                NSLog(@"[Coaching Carousel] %@ promoted internally", t.abbreviation);
+            }
+        }
+        didFinishCoachingCarousel = YES;
+    }
+}
+
+-(int)getAvgCoachTalent {
+    int avg = 0;
+    for (Team *t in teamList) {
+        if (t != userTeam && t.coaches.count > 0)
+            avg += [t getCurrentHC].ratTalent;
+    }
+    return avg / (teamList.count - 1);
+}
+
+-(int)getAvgCoachDef {
+    int avg = 0;
+    for (Team *t in teamList) {
+        if (![t isEqual: userTeam] && t.coaches.count > 0)
+            avg += [t getCurrentHC].ratDef;
+    }
+    return avg / (teamList.count - 1);
+}
+
+-(int)getAvgCoachOff {
+    int avg = 0;
+    for (Team *t in teamList) {
+        if (![t isEqual: userTeam] && t.coaches.count > 0)
+            avg += [t getCurrentHC].ratOff;
+    }
+    return avg / (teamList.count - 1);
+}
+
+-(int)getAvgCoachDiscipline {
+    int avg = 0;
+    for (Team *t in teamList) {
+        if (![t isEqual: userTeam] && t.coaches.count > 0)
+            avg += [t getCurrentHC].ratDiscipline;
+    }
+    return avg / (teamList.count - 1);
+}
+
+-(int)getAvgYards {
+    int average = 0;
+    for (Team *t in teamList) {
+        average += t.teamYards;
+    }
+    average = average / teamList.count;
+    return average;
+}
+
+-(int)getAvgOppYards {
+    int average = 0;
+    for (Team *t in teamList) {
+        average += t.teamOppYards;
+    }
+    average = average / teamList.count;
+    return average;
+}
+
+-(int)getAvgConfPrestige {
+    int avgPrestige = 0;
+    for (Conference *c in conferences) {
+        [c updateConfPrestige];
+    }
+    for (Conference *c in conferences) {
+        avgPrestige += c.confPrestige;
+    }
+    return avgPrestige / conferences.count;
 }
 
 @end

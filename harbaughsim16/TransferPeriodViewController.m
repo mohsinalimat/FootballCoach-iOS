@@ -34,6 +34,7 @@
 #import "RMessage.h"
 #import "UIScrollView+EmptyDataSet.h"
 #import "ZGNavigationBarTitleViewController.h"
+#import "ZMJTipView.h"
 
 #ifdef DEBUG
 #   define NSLog(...) NSLog(__VA_ARGS__)
@@ -41,7 +42,13 @@
 #   define NSLog(...) (void)0
 #endif
 
-@interface TransferPeriodViewController ()<DZNEmptyDataSetDelegate, DZNEmptyDataSetSource>
+#define FCTutorialRecruitSelect 1000
+#define FCTutorialAdvanceWeek 1001
+#define FCTutorialViewCurrentRoster 1002
+#define FCTutorialViewTeamNeeds 1003
+#define FCTutorialCloseTransferWindow 1004
+
+@interface TransferPeriodViewController ()<DZNEmptyDataSetDelegate, DZNEmptyDataSetSource,ZMJTipViewDelegate>
 {
     ScrollableSegmentedControl *positionSelectionControl;
     STPopupController *popupController;
@@ -82,6 +89,32 @@
 
 @implementation TransferPeriodViewController
 @synthesize signedTransferRanks,progressedTransfers,recruitingPoints,usedRecruitingPoints,transferActivities;
+
+//MARK: ZMJTipViewDelegate
+- (void)tipViewDidDimiss:(ZMJTipView *)tipView {
+    // show new tips based on last shown tipview
+    if (tipView.tag == FCTutorialRecruitSelect) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to view your current roster and check where you need to bolster it." preferences:nil delegate:self];
+        editTip.tag = FCTutorialViewCurrentRoster;
+        [editTip showAnimated:YES forItem:self.toolbarItems[0] withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialViewCurrentRoster) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to view a list of your roster's current positional needs." preferences:nil delegate:self];
+        editTip.tag = FCTutorialViewTeamNeeds;
+        [editTip showAnimated:YES forItem:self.toolbarItems[2] withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialViewTeamNeeds) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to end the transfer period. Note: if you select this option, you will not be able to return to this screen and sign transfers again." preferences:nil delegate:self];
+        editTip.tag = FCTutorialCloseTransferWindow;
+        [editTip showAnimated:YES forItem:self.navigationItem.leftBarButtonItem withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialCloseTransferWindow) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to advance to the next week of the transfer period. Be warned: other teams may make offers to players you have contacted." preferences:nil delegate:self];
+        editTip.tag = FCTutorialAdvanceWeek;
+        [editTip showAnimated:YES forItem:self.navigationItem.rightBarButtonItem withinSuperview:self.navigationController.view];
+    }
+}
+
+- (void)tipViewDidSelected:(ZMJTipView *)tipView {
+    // do nothing
+}
 
 -(void)backgroundViewDidTap {
     [popupController dismiss];
@@ -269,7 +302,7 @@
                             });
                         }
                     } else {
-                        NSLog(@"YOU AIN'T GOT NO OFFERS, LT. DAN!");
+                        NSLog(@"[Transfers] YOU AIN'T GOT NO OFFERS, LT. DAN!");
                     }
                 }
             }
@@ -315,7 +348,7 @@
                         if (self->currentRecruits.count > 0) {
                             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
                         }
-                        self.navigationController.toolbarHidden = YES;
+//                        self.navigationController.toolbarHidden = YES;
                         if (@available(iOS 11, *)) {
                             [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
                         } else {
@@ -603,6 +636,7 @@
     [popupController.navigationBar setDraggable:YES];
     [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
     popupController.style = STPopupStyleBottomSheet;
+    popupController.safeAreaInsets = UIEdgeInsetsZero;
     [popupController presentInViewController:self];
 }
 
@@ -778,7 +812,7 @@
         [[HBSharedUtils currentLeague].userTeam.transferClass removeAllObjects];
     }
     
-    NSLog(@"Recruiting points total: %d", recruitingPoints);
+    NSLog(@"[Transfers] Recruiting points total: %d", recruitingPoints);
     
     [self setSubtitle:@"0% of total recruiting effort used"];
     
@@ -830,21 +864,18 @@
     availLBs = [NSMutableArray array];
     
     [self generateRecruits];
-    
-    //display tutorial alert on first launch
-    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
-    if (!tutorialShown) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [self showTutorial];
-    }
 }
 
 -(void)showTutorial {
     //display intro screen
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Welcome to the Transfer Period, Coach!" message:[HBSharedUtils transferTutorialText] preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleCancel handler:nil]];
-    [self presentViewController:alertController animated:YES completion:nil];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (self->totalRecruits.count > 0) {
+            NSString *tipText = @"Tap on a player to view how you can interact with them to recruit them to your program.";
+            ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
+            editTip.tag = FCTutorialRecruitSelect;
+            [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] withinSuperview:self.tableView];
+        }
+    });
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -853,7 +884,7 @@
     
     UIBarButtonItem *needsButton = [[UIBarButtonItem alloc] initWithTitle:@"View Team Needs" style:UIBarButtonItemStylePlain target:self action:@selector(showRemainingNeeds)];
     
-    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"roster"] style:UIBarButtonItemStylePlain target:self action:@selector(viewRoster)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],needsButton, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"help"] style:UIBarButtonItemStylePlain target:self action:@selector(showTutorial)]]];
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"roster"] style:UIBarButtonItemStylePlain target:self action:@selector(viewRoster)],[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],needsButton, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil]]];
     self.navigationController.toolbarHidden = NO;
     self.tableView.allowsMultipleSelectionDuringEditing = NO;
     if (@available(iOS 11, *)) {
@@ -1002,7 +1033,7 @@
             
             p.offers = highestOffers;
             if (highestOffers.count == 0) {
-                NSLog(@"%@ %@ has no offers; may cause crash", p.position, p.name);
+                NSLog(@"[Transfers] %@ %@ has no offers; may cause crash", p.position, p.name);
             }
         }
         
@@ -1012,6 +1043,15 @@
                 [self->positionSelectionControl setSelectedSegmentIndex:0];
             }
             [self.tableView reloadData];
+            if (self->totalRecruits.count > 0) {
+                //display tutorial alert on first launch
+                BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
+                if (!tutorialShown) {
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    [self showTutorial];
+                }
+            }
         });
     });
 }
@@ -1357,6 +1397,7 @@
         [popupController.navigationBar setDraggable:YES];
         [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
         popupController.style = STPopupStyleBottomSheet;
+        popupController.safeAreaInsets = UIEdgeInsetsZero;
         [popupController presentInViewController:self];
     }
 }

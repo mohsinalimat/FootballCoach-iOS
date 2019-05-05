@@ -13,6 +13,7 @@
 #import "MyTeamViewController.h"
 #import "IntroViewController.h"
 #import "TeamSearchViewController.h"
+#import "MyCareerViewController.h"
 
 #import "League.h"
 #import "LeagueUpdater.h"
@@ -25,6 +26,8 @@
 #import "ATAppUpdater.h"
 #import "FCFileManager.h"
 #import "ZGNavigationTitleView.h"
+#import <ZMJTipView/ZMJTipView.h>
+#import "harbaughsim16-Swift.h"
 
 #define kHBSimFirstLaunchKey @"firstLaunch"
 
@@ -86,6 +89,16 @@
         if (_league.leagueVersion == nil || [LeagueUpdater needsUpdateFromVersion:_league.leagueVersion toVersion:HB_APP_VERSION_CURRENT_MINOR_VERSION]) {
             //NSLog(@"Current league version: %@", _league.leagueVersion);
             [self startSaveFileUpdate];
+            
+            // disable new tutorials if they've already played the game before
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_ROSTER_TUTORIAL_SHOWN_KEY];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_UPCOMING_TUTORIAL_SHOWN_KEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        if (_league.isCareerMode) {
+            [self updateTabBarForCareer];
         }
         
         //check if data file is corrupt, alert user
@@ -141,7 +154,30 @@
                 } else { // 2.0.x -> 2.1.x
                     convertProgressAlert.message = [NSString stringWithFormat:@"Your save file has been updated for use in version %@!", HB_CURRENT_APP_VERSION];
                 }
-                [convertProgressAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+                [convertProgressAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    NSArray *updates = @[
+                                         @{
+                                             @"title": @"Career Mode",
+                                             @"subtitle" : @"A coaching carousel has been added to CFC in 3.0! Start a new game in career mode and plot the course of your very own college football coaching career! But be warned: fail to meet program expectations and you might get fired!"
+                                             
+                                             },
+                                         @{
+                                             @"title": @"Defensive Stats",
+                                             @"subtitle" : @"Stat tracking and award-winning has been added for defensive players! Play games to accumulate fumbles, interceptions, sacks, tackles, and passes defended and watch your defenders rise to the top!"
+                                             },
+                                         @{
+                                             @"title": @"Stat History",
+                                             @"subtitle" : @"Compare players' stats across their careers by viewing their stat history. Available from any player's profile after the first season you play in version 3.0!",
+                                             //                                 @"image" : @"history-selected"
+                                             
+                                             }
+                                         ];
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        WhatsNewHandler *handler = [[WhatsNewHandler alloc] initWithItems: updates];
+                        [handler displayWhatsNewViewOnViewController:self->tabBarController];
+                    });
+                }]];
                 self->_league = ligue;
                 [self->_league save];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"saveFileUpdate" object:nil];
@@ -177,6 +213,49 @@
     [tabBarController presentViewController:convertAlertPerm animated:YES completion:nil];
 }
 
+-(void)startNewSaveFile {
+    BOOL success = [FCFileManager removeItemAtPath:@"league.cfb"];
+    if (success) {
+        self->_league.userTeam = nil;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            for (UITabBarItem *item in self->tabBarController.tabBar.items) {
+                [item setBadgeValue:nil];
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"noSaveFile" object:nil];
+            [self displayIntro];
+        });
+    }
+}
+
+-(void)updateTabBarForCareer {
+    [self clearTabBar];
+    UINavigationController *teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyCareerViewController alloc] init]];
+    teamNav.title = @"Career";
+    teamNav.tabBarItem.image = [UIImage imageNamed:@"coach-unselected"];
+    teamNav.tabBarItem.selectedImage = [UIImage imageNamed:@"coach"];
+    NSMutableArray *navs = [NSMutableArray arrayWithArray:tabBarController.viewControllers];
+    [navs removeLastObject];
+    [navs addObject:teamNav];
+    tabBarController.viewControllers = navs;
+}
+
+-(void)updateTabBarForNormal {
+    [self clearTabBar];
+    UINavigationController *teamNav = [[UINavigationController alloc] initWithRootViewController:[[MyTeamViewController alloc] init]];
+    teamNav.title = @"My Team";
+    teamNav.tabBarItem.image = [UIImage imageNamed:@"team"];
+    teamNav.tabBarItem.selectedImage = [UIImage imageNamed:@"team-selected"];
+    NSMutableArray *navs = [NSMutableArray arrayWithArray:tabBarController.viewControllers];
+    [navs removeLastObject];
+    [navs addObject:teamNav];
+    tabBarController.viewControllers = navs;
+}
+
+-(void)clearTabBar {
+    for (UITabBarItem *item in tabBarController.tabBar.items) {
+        item.badgeValue = nil;
+    }
+}
 
 -(void)setupAppearance {
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
@@ -201,6 +280,12 @@
     
     
     [RMessage addDesignsFromFileWithName:@"alt-designs" inBundle:[NSBundle mainBundle]];
+    
+    ZMJPreferences *prefs = [ZMJPreferences new];
+    prefs.drawing.font = [UIFont systemFontOfSize:12.0];
+    prefs.drawing.foregroundColor = [UIColor whiteColor];
+    prefs.drawing.backgroundColor = [HBSharedUtils styleColor];
+    [ZMJTipView setGlobalPreferences:prefs];
 
 }
 

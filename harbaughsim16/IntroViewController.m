@@ -12,6 +12,7 @@
 #import "Team.h"
 #import "AppDelegate.h"
 #import "HelpViewController.h"
+#import "CareerLeaderboardViewController.h"
 
 #import "MBProgressHUD.h"
 
@@ -42,11 +43,70 @@
 
 }
 
+-(IBAction)pushLeaderboard:(id)sender {
+    CareerLeaderboardViewController *helpVC = [[CareerLeaderboardViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController presentViewController:[[UINavigationController alloc] initWithRootViewController:helpVC] animated:YES completion:nil];
+}
+
 -(void)dismissVC {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
--(IBAction)newDynasty {
+-(IBAction)newGame:(id)sender {
+    // show alert for career vs normal
+    UIAlertController *modeChooser = [UIAlertController alertControllerWithTitle:@"What mode would you like to play?" message:@"In Career mode, you can change jobs if other schools have openings and be fired from your program for poor performance.\n\nIn Normal mode, there's no hiring and firing. You can play forever as the same coach at the same program." preferredStyle:UIAlertControllerStyleAlert];
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Normal Mode" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // career mode stuff
+            [self startNewNormalModeGame];
+        });
+    }]];
+    
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Career Mode" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // career mode stuff
+            [self startNewCareerModeGame];
+        });
+    }]];
+    
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    
+    [self presentViewController:modeChooser animated:YES completion:nil];
+}
+
+-(void)startNewCareerModeGame {
+    NSLog(@"[Team Selection] Career Mode");
+    // show alert for career vs normal
+    UIAlertController *modeChooser = [UIAlertController alertControllerWithTitle:@"Game Difficulty" message:@"Would you like to set your career difficulty to hard? On hard, your rival will be more competitive, good players will have a higher chance of leaving for the pros, and your program can incur sanctions from the league." preferredStyle:UIAlertControllerStyleAlert];
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Yes, I'd like a challenge." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self provisionNewCareer:YES];
+        });
+    }]];
+
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"No, I'll stick with easy." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self provisionNewCareer:NO];
+        });
+    }]];
+    [self presentViewController:modeChooser animated:YES completion:nil];
+}
+
+-(void)provisionNewCareer:(BOOL)isHardMode {
+    [self createLeague:^(League * _Nullable ligue) {
+        ligue.isCareerMode = YES;
+        ligue.isHardMode = isHardMode;
+        [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:ligue] animated:YES];
+    }];
+}
+
+-(void)startNewNormalModeGame {
+    [self createLeague:^(League * _Nullable ligue) {
+        [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:ligue] animated:YES];
+    }];
+}
+
+-(void)createLeague:(void (^_Nullable)(League * _Nullable ligue))completionBlock {
     __block NSString *firstNameCSV, *lastNameCSV;
     // display a HUD while we wait for things to get done
     UIAlertController *convertProgressAlert = [UIAlertController alertControllerWithTitle:@"Welcome, Coach!" message:@"Preparing new game..." preferredStyle:UIAlertControllerStyleAlert];
@@ -58,7 +118,7 @@
     convertProgressView.tintColor = [HBSharedUtils styleColor];
     [convertProgressView setUserInteractionEnabled:NO];
     [convertProgressView startAnimating];
-
+    
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self presentViewController:convertProgressAlert animated:YES completion:nil];
@@ -72,7 +132,7 @@
         NSError *error;
         firstNameCSV = [NSString stringWithContentsOfFile:firstNameFullPath encoding:NSUTF8StringEncoding error:&error];
         if (error) {
-            NSLog(@"First name list retrieve error: %@", error);
+            NSLog(@"[Name CSV Import] First name list retrieve error: %@", error);
         }
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -82,7 +142,7 @@
             NSError *error;
             lastNameCSV = [NSString stringWithContentsOfFile:lastNameFullPath encoding:NSUTF8StringEncoding error:&error];
             if (error) {
-                NSLog(@"Last name list retrieve error: %@", error);
+                NSLog(@"[Name CSV Import] Last name list retrieve error: %@", error);
             }
             
             // do UI updates on main queue
@@ -95,16 +155,68 @@
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     League *ligue = [League newLeagueFromCSV:firstNameCSV lastNamesCSV:lastNameCSV];
                     ligue.canRebrandTeam = YES;
-                    [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:ligue] animated:YES];
+                    completionBlock(ligue);
                 });
             });
         });
     });
 }
 
--(IBAction)importLeagueMetadata:(id)sender {
+-(void)showDifficultySelectionForMetadataGameMode:(BOOL)isForCareerMode {
+    NSString *introText = @"Would you like to set your game difficulty to hard?\n\nOn hard, your rival will be more competitive, good players will have a higher chance of leaving for the pros, and your program can incur sanctions from the league.";
+    if (isForCareerMode) {
+        introText = @"Would you like to set your career difficulty to hard?\n\nOn hard, you will have to start your coaching career with a conference bottom-feeder, your team's rival will be more competitive, good players will have a higher chance of leaving for the pros, and your program can incur sanctions from the league.";
+    }
+    UIAlertController *modeChooser = [UIAlertController alertControllerWithTitle:@"Game Difficulty" message:introText preferredStyle:UIAlertControllerStyleAlert];
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Yes, I'd like a challenge." style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self showLeagueMetadataWindowForGameMode:isForCareerMode difficulty:YES];
+        });
+    }]];
     
-    UIAlertController *urlAlert = [UIAlertController alertControllerWithTitle:@"Import League Metadata" message:@"Please enter the valid URL of a league metadata JSON file." preferredStyle:UIAlertControllerStyleAlert];
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"No, I'll stick with easy." style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self showLeagueMetadataWindowForGameMode:isForCareerMode difficulty:NO];
+        });
+    }]];
+    [self presentViewController:modeChooser animated:YES completion:nil];
+}
+
+-(IBAction)importLeagueMetadata:(id)sender
+{
+    // show alert for career vs normal
+    UIAlertController *modeChooser = [UIAlertController alertControllerWithTitle:@"What mode would you like to import a file for?" message:@"In Career mode, you can change jobs if other schools have openings and be fired from your program for poor performance.\n\nIn Normal mode, there's no hiring and firing. You can play forever as the same coach at the same program." preferredStyle:UIAlertControllerStyleAlert];
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Normal Mode" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // normal mode stuff
+            [self showDifficultySelectionForMetadataGameMode:NO];
+        });
+    }]];
+    
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Career Mode" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            // career mode stuff
+            [self showDifficultySelectionForMetadataGameMode:YES];
+        });
+    }]];
+    
+    [modeChooser addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    
+    [self presentViewController:modeChooser animated:YES completion:nil];
+}
+
+-(void)showLeagueMetadataWindowForGameMode:(BOOL)isForCareerMode difficulty:(BOOL)isForHardMode {
+    NSString *introText;
+    if (isForHardMode && isForCareerMode) {
+        introText = @"Please enter the valid URL of a league metadata JSON file. This file will be used to start a Career mode save file on Hard difficulty.";
+    } else if (!isForHardMode) { // career mode + easy difficulty
+        introText = @"Please enter the valid URL of a league metadata JSON file. This file will be used to start a Career mode save file.";
+    } else if (!isForCareerMode) { // normal mode + hard difficulty
+        introText = @"Please enter the valid URL of a league metadata JSON file. This file will be used to start a Normal mode save file on Hard difficulty.";
+    } else { // normal mode + easy difficulty;
+        introText = @"Please enter the valid URL of a league metadata JSON file. This file will be used to start a Normal mode save file.";
+    }
+    UIAlertController *urlAlert = [UIAlertController alertControllerWithTitle:@"Import League Metadata" message:introText preferredStyle:UIAlertControllerStyleAlert];
     [urlAlert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         [textField setPlaceholder:@"URL to File"];
         [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -177,7 +289,7 @@
                             NSError *error;
                             firstNameCSV = [NSString stringWithContentsOfFile:firstNameFullPath encoding:NSUTF8StringEncoding error:&error];
                             if (error) {
-                                NSLog(@"First name list retrieve error: %@", error);
+                                NSLog(@"[Name CSV Import] First name list retrieve error: %@", error);
                             }
                             
                             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -187,12 +299,14 @@
                                 NSError *error;
                                 lastNameCSV = [NSString stringWithContentsOfFile:lastNameFullPath encoding:NSUTF8StringEncoding error:&error];
                                 if (error) {
-                                    NSLog(@"Last name list retrieve error: %@", error);
+                                    NSLog(@"[Name CSV Import] Last name list retrieve error: %@", error);
                                 }
                                 
                                 // do UI updates on main queue
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     League *ligue = [League newLeagueFromCSV:firstNameCSV lastNamesCSV:lastNameCSV];
+                                    ligue.isCareerMode = isForCareerMode;
+                                    ligue.isHardMode = isForHardMode;
                                     [ligue applyJSONMetadataChanges:metadataFile];
                                     
                                     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -202,7 +316,7 @@
                                     });
                                     
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                        [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:ligue] animated:YES];
+                                        [self.navigationController pushViewController:[[TeamSelectionViewController alloc] initWithLeague:ligue fromMetadata:YES] animated:YES];
                                     });
                                 });
                             });

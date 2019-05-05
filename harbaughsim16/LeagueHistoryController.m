@@ -116,6 +116,7 @@
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     self.title = @"League History";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reincarnateCoach" object:nil];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
 }
@@ -178,14 +179,14 @@
     }
     
     NSMutableAttributedString *champString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Champion: %@",leagueYear[0]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
-    if ([champString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+    if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [champString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [champString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, champString.string.length)];
     } else {
         [champString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, champString.string.length)];
     }
     
     NSMutableAttributedString *heismanString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"\nPOTY: %@",heisman] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
-    if ([heisman containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+    if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [heisman containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
         [heismanString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, heismanString.string.length)];
     } else {
         [heismanString addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(0, heismanString.string.length)];

@@ -144,6 +144,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ATAppUpdater/ATAppUpdater.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AccordionSwift/AccordionSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AutoCoding/AutoCoding.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Charts/Charts.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework"
@@ -156,10 +157,13 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/RSEmailFeedback/RSEmailFeedback.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/STPopup/STPopup.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ScrollableSegmentedControl/ScrollableSegmentedControl.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/WhatsNew/WhatsNew.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZGNavigationBarTitle/ZGNavigationBarTitle.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZMJTipView/ZMJTipView.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ATAppUpdater/ATAppUpdater.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AccordionSwift/AccordionSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/AutoCoding/AutoCoding.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Charts/Charts.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework"
@@ -172,7 +176,9 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/RSEmailFeedback/RSEmailFeedback.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/STPopup/STPopup.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ScrollableSegmentedControl/ScrollableSegmentedControl.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/WhatsNew/WhatsNew.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/ZGNavigationBarTitle/ZGNavigationBarTitle.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ZMJTipView/ZMJTipView.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait

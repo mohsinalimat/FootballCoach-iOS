@@ -52,7 +52,7 @@
         }
     }
     
-    NSLog(@"NEW INJURY:\n\nDURATION: %ld, SEV: %ld,TYPE: %ld\n\n",(long)i.duration,(long)i.severity,(long)i.type);
+    NSLog(@"[Injuries] NEW INJURY:\n\nDURATION: %ld, SEV: %ld,TYPE: %ld\n\n",(long)i.duration,(long)i.severity,(long)i.type);
     return i;
 }
 

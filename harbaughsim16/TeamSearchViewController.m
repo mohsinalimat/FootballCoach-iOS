@@ -33,7 +33,7 @@
     if (indexPath != nil) {
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         TeamViewController *teamDetail = [[TeamViewController alloc] initWithTeam:teams[indexPath.row]];
-        teamDetail.preferredContentSize = CGSizeMake(0.0, 600);
+        teamDetail.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
         previewingContext.sourceRect = cell.frame;
         return teamDetail;
     } else {
@@ -44,9 +44,7 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     
-    teams = [HBSharedUtils currentLeague].teamList;
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
-    teams=[[teams sortedArrayUsingDescriptors:@[sort]] mutableCopy];
+    [self reloadAll];
     
     navSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
     [navSearchBar setPlaceholder:@"Search Teams"];
@@ -63,7 +61,9 @@
     
     self.navigationItem.titleView = navSearchBar;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reincarnateCoach" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reloadTeams" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newSaveFile" object:nil];
     
     self.tableView.tableFooterView = [UIView new];
     
@@ -72,7 +72,14 @@
     }
 }
 
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(void)reloadAll {
+    teams = [HBSharedUtils currentLeague].teamList;
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
+    teams=[[teams sortedArrayUsingDescriptors:@[sort]] mutableCopy];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.tableView reloadData];
 }
@@ -131,7 +138,7 @@
         [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
     }
     Team *t = teams[indexPath.row];
-    if (t.isUserControlled) {
+    if ([t isEqual:[HBSharedUtils currentLeague].userTeam]) {
         [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
     } else {
         [cell.textLabel setTextColor:[UIColor blackColor]];

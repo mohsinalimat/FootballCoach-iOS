@@ -10,6 +10,7 @@
 #import "HBSharedUtils.h"
 #import "League.h"
 #import "HexColors.h"
+#import "STPopup.h"
 
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)

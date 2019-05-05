@@ -33,19 +33,34 @@
 #import "GameDetailViewController.h"
 #import "PlayerStatsViewController.h"
 #import "ROTYLeadersViewController.h"
+#import "COTYLeadersViewController.h"
+#import "MockDraftViewController.h"
 
 #import "RecruitingPeriodViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
 #import "UIScrollView+EmptyDataSet.h"
+#import "ZMJTipView.h"
 
-@interface UpcomingViewController () <UIViewControllerPreviewingDelegate>
+#define FCTutorialSimulateSeason 1000
+#define FCTutorialViewLeaderboards 1001
+#define FCTutorialTabBarOptions 1002
+#define FCTutorialScrollToNews 1003
+#define FCTutorialSimWeek 1004
+#define FCTutorialTabBarOptionsSchedule 1005
+#define FCTutorialTabBarOptionsDepthChart 1006
+#define FCTutorialTabBarOptionsSearch 1007
+#define FCTutorialTabBarOptionsCareer 1008
+#define FCTutorialTabBarOptionsTeam 1009
+
+
+@interface UpcomingViewController () <UIViewControllerPreviewingDelegate, ZMJTipViewDelegate>
 {
     PlayerQB *passLeader;
     Player *rushLeader;
     Player *recLeader;
-    Team *defLeader;
+    Player *defLeader;
     PlayerK *kickLeader;
     Team *userTeam;
     IBOutlet HBTeamPlayView *teamHeaderView;
@@ -60,6 +75,57 @@
 
 @implementation UpcomingViewController
 
+//MARK: ZMJTipViewDelegate
+- (void)tipViewDidDimiss:(ZMJTipView *)tipView {
+    // show new tips based on last shown tipview
+    if (tipView.tag == FCTutorialSimulateSeason) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to view various statistics and rankings during the season." preferences:nil delegate:self];
+        editTip.tag = FCTutorialViewLeaderboards;
+        [editTip showAnimated:YES forItem:self.navigationItem.rightBarButtonItem withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialViewLeaderboards) {
+        ZMJPreferences *prefs = [ZMJTipView globalPreferences];
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Scroll down to view statistical leaders and news stories as the season progresses." preferences:prefs delegate:self];
+        editTip.tag = FCTutorialScrollToNews;
+        if (self.tableView.numberOfSections > 0) {
+            [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]] withinSuperview:self.navigationController.view];
+        }
+    } else if (tipView.tag == FCTutorialScrollToNews) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to view your schedule for this season." preferences:nil delegate:self];
+        editTip.tag = FCTutorialTabBarOptionsSchedule;
+        [editTip showAnimated:YES forItem:self.navigationController.tabBarController.tabBar.items[1] withinSuperview:self.view.window];
+    } else if (tipView.tag == FCTutorialTabBarOptionsSchedule) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to view and edit your school's depth chart." preferences:nil delegate:self];
+        editTip.tag = FCTutorialTabBarOptionsDepthChart;
+        [editTip showAnimated:YES forItem:self.navigationController.tabBarController.tabBar.items[2] withinSuperview:self.view.window];
+    } else if (tipView.tag == FCTutorialTabBarOptionsDepthChart) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to search through other in the league and view their details." preferences:nil delegate:self];
+        editTip.tag = FCTutorialTabBarOptionsSearch;
+        [editTip showAnimated:YES forItem:self.navigationController.tabBarController.tabBar.items[3] withinSuperview:self.view.window];
+    } else if (tipView.tag == FCTutorialTabBarOptionsSearch) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"" preferences:nil delegate:self];
+        if ([HBSharedUtils currentLeague].isCareerMode) {
+            editTip.tag = FCTutorialTabBarOptionsCareer;
+            editTip.text = @"Tap here to view details about your coaching career.";
+        } else {
+            editTip.tag = FCTutorialTabBarOptionsTeam;
+            editTip.text = @"Tap here to view details about your team.";
+        }
+        [editTip showAnimated:YES forItem:self.navigationController.tabBarController.tabBar.items[4] withinSuperview:self.view.window];
+    } else if (tipView.tag == FCTutorialTabBarOptionsTeam || tipView.tag == FCTutorialTabBarOptionsCareer) {
+        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to simulate the next week of the season." preferences:nil delegate:self];
+        editTip.tag = FCTutorialSimWeek;
+        [editTip showAnimated:YES forView:teamHeaderView.playButton withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialSimWeek) {
+        [teamHeaderView.playButton setEnabled:YES];
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+        [self.navigationItem.leftBarButtonItem setEnabled:YES];
+    }
+}
+
+- (void)tipViewDidSelected:(ZMJTipView *)tipView {
+    // do nothing
+}
+
 -(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self showViewController:viewControllerToCommit sender:self];
 }
@@ -71,56 +137,56 @@
     if (indexPath != nil) {
         if ([HBSharedUtils currentLeague].userTeam.gameWLSchedule.count > 0 && ![HBSharedUtils currentLeague].userTeam.gameSchedule.lastObject.hasPlayed && [HBSharedUtils currentLeague].userTeam.gameSchedule.count >= [HBSharedUtils currentLeague].currentWeek) {
             if (indexPath.section == 0) {
-                Game *bowl = lastGame;
-                if (indexPath.row == 0 || indexPath.row == 1) {
-                    peekVC = nil;
-                } else {
-                    peekVC =  [[GameDetailViewController alloc] initWithGame:bowl];
+                if (indexPath.row == 2) {
+                    peekVC = [[GameDetailViewController alloc] initWithGame:lastGame];
                 }
             } else if (indexPath.section == 1) {
-                if (indexPath.row == 0) {
+                if (indexPath.row == 2) {
+                    peekVC = [[GameDetailViewController alloc] initWithGame:nextGame];
+                }
+            } else if (indexPath.section == 2) {
+                //return @"League Leaders";
+                if (indexPath.row == 0) { //QB
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionQB];
-                } else if (indexPath.row == 1) {
+                } else if (indexPath.row == 1) { //RB
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionRB];
-                } else if (indexPath.row == 2) {
+                } else if (indexPath.row == 2) { //WR
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionWR];
-                } else if (indexPath.row == 3) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
-                } else {
+                } else if (indexPath.row == 3) { //DEF
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionDEF];
+                } else { //K
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK];
                 }
             }
         } else if ([HBSharedUtils currentLeague].userTeam.gameSchedule.lastObject.hasPlayed) {
             if (indexPath.section == 0) {
-                Game *bowl = lastGame;
-                if (indexPath.row == 0 || indexPath.row == 1) {
-                    peekVC = nil;
-                } else {
-                    peekVC =  [[GameDetailViewController alloc] initWithGame:bowl];
+                if (indexPath.row == 2) {
+                    peekVC = [[GameDetailViewController alloc] initWithGame:lastGame];
                 }
             } else if (indexPath.section == 1) {
-                if (indexPath.row == 0) {
+                //return @"League Leaders";
+                if (indexPath.row == 0) { //QB
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionQB];
-                } else if (indexPath.row == 1) {
+                } else if (indexPath.row == 1) { //RB
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionRB];
-                } else if (indexPath.row == 2) {
+                } else if (indexPath.row == 2) { //WR
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionWR];
-                } else if (indexPath.row == 3) {
-                    peekVC = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
-                } else {
+                } else if (indexPath.row == 3) { //DEF
+                    peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionDEF];
+                } else { //K
                     peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK];
                 }
             }
         } else {
-            Game *bowl = nextGame;
-            if (indexPath.row == 0 || indexPath.row == 1) {
-                peekVC = nil;
-            } else {
-                peekVC =  [[GameDetailViewController alloc] initWithGame:bowl];
+            if (indexPath.section == 0) {
+                if (indexPath.row == 2) {
+                    peekVC = [[GameDetailViewController alloc] initWithGame:nextGame];
+                }
             }
         }
+        
         if (peekVC != nil) {
-            peekVC.preferredContentSize = CGSizeMake(0.0, 600);
+            peekVC.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
             previewingContext.sourceRect = cell.frame;
             return peekVC;
         } else {
@@ -238,6 +304,7 @@
 
 -(void)viewResultsOptions {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"News Options" message:@"What would you like to view?" preferredStyle:UIAlertControllerStyleActionSheet];
+    
     if ([HBSharedUtils currentLeague].currentWeek < 1 && [HBSharedUtils currentLeague].baseYear != [[HBSharedUtils currentLeague] getCurrentYear] && ![LeagueUpdater needsUpdateFromVersion:[HBSharedUtils currentLeague].leagueVersion toVersion:@"2.0"]) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Recruiting Composite Rankings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypeRecruitingScore] animated:YES];
@@ -261,12 +328,23 @@
             [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"COTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:@"Pro Draft Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[MockDraftViewController alloc] init]] animated:YES completion:nil];
+            });
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:@"All-League Team" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -277,8 +355,10 @@
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
+
     } else if ([HBSharedUtils currentLeague].currentWeek == 14) {
         [alertController addAction:[UIAlertAction actionWithTitle:@"Current Polls" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
              [self.navigationController pushViewController:[[RankingsViewController alloc] initWithStatType:HBStatTypePollScore] animated:YES];
@@ -296,11 +376,16 @@
             [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"COTY Results" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
         
@@ -313,6 +398,7 @@
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
     } else if ([HBSharedUtils currentLeague].currentWeek == 13) {
@@ -332,11 +418,16 @@
             [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"COTY Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
         
@@ -357,11 +448,16 @@
             [self.navigationController pushViewController:[[ROTYLeadersViewController alloc] init] animated:YES];
         }]];
         
+        [alertController addAction:[UIAlertAction actionWithTitle:@"COTY Leaders" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController pushViewController:[[COTYLeadersViewController alloc] init] animated:YES];
+        }]];
+        
         [alertController addAction:[UIAlertAction actionWithTitle:@"Conference Standings" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             self->popupController = [[STPopupController alloc] initWithRootViewController:[[ConferenceStandingsSelectorViewController alloc] init]];
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
         
@@ -374,6 +470,7 @@
             [self->popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [self->popupController.navigationBar setDraggable:YES];
             self->popupController.style = STPopupStyleBottomSheet;
+            self->popupController.safeAreaInsets = UIEdgeInsetsZero;
             [self->popupController presentInViewController:self];
         }]];
     }
@@ -456,7 +553,7 @@
     if (simLeague.userTeam.gameWLSchedule.count > 0 && !simLeague.userTeam.gameSchedule.lastObject.hasPlayed && simLeague.userTeam.gameSchedule.count >= simLeague.currentWeek) {
         if (simLeague.currentWeek > 12) {
             nextGame = [userTeam.gameSchedule lastObject];
-            lastGame = userTeam.gameSchedule[simLeague.currentWeek - 1];
+            lastGame = userTeam.gameSchedule[userTeam.gameSchedule.count - 2];
         } else {
             lastGame = userTeam.gameSchedule[simLeague.currentWeek - 1];
             nextGame = userTeam.gameSchedule[simLeague.currentWeek];
@@ -528,9 +625,24 @@
         return ([a getHeismanScore] > [b getHeismanScore]) ? -1 : (([a getHeismanScore] == [b getHeismanScore]) ? [a.name compare:b.name] : 1);
     }];
     
-    NSMutableArray *teams = [[HBSharedUtils currentLeague].teamList mutableCopy];
-    [teams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        return [HBSharedUtils compareOppYPG:obj1 toObj2:obj2];
+// Old Defense Leader:
+//    NSMutableArray *teams = [[HBSharedUtils currentLeague].teamList mutableCopy];
+//    [teams sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//        return [HBSharedUtils compareOppYPG:obj1 toObj2:obj2];
+//    }];
+    
+    // New Defense Leader:
+    NSMutableArray *defenders = [NSMutableArray array];
+    for (Team *t in simLeague.teamList) {
+        [defenders addObjectsFromArray:t.teamDLs];
+        [defenders addObjectsFromArray:t.teamLBs];
+        [defenders addObjectsFromArray:t.teamCBs];
+        [defenders addObjectsFromArray:t.teamSs];
+    }
+    [defenders sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        PlayerDefender *a = (PlayerDefender*)obj1;
+        PlayerDefender *b = (PlayerDefender*)obj2;
+        return (a.statsTkl > b.statsTkl) ? -1 : ((a.statsTkl == b.statsTkl) ? [a.name compare:b.name] : 1);
     }];
     
     
@@ -538,7 +650,7 @@
     rushLeader = [rushers firstObject];
     recLeader = [wrs firstObject];
     kickLeader = [ks firstObject];
-    defLeader = [teams firstObject];
+    defLeader = [defenders firstObject];
     [self.tableView reloadData];
 }
 
@@ -580,6 +692,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newSaveFile" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reincarnateCoach" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToConfTeam:) name:@"pushToConfTeam" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToConfStandings:) name:@"pushToConfStandings" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(runOnSaveInProgress) name:@"saveInProgress" object:nil];
@@ -591,6 +704,21 @@
         } else {
             [self.navigationController.tabBarController.tabBar.items objectAtIndex:2].badgeValue = nil;
         }
+    }
+    
+    BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_UPCOMING_TUTORIAL_SHOWN_KEY];
+    if (!tutorialShown) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_UPCOMING_TUTORIAL_SHOWN_KEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            NSString *tipText = @"Tap here to simulate up to various points in the season.";
+            [self->teamHeaderView.playButton setEnabled:NO];
+            [self.navigationItem.rightBarButtonItem setEnabled:NO];
+            [self.navigationItem.leftBarButtonItem setEnabled:NO];
+            ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
+            editTip.tag = FCTutorialSimulateSeason;
+            [editTip showAnimated:YES forItem:self.navigationItem.leftBarButtonItem withinSuperview:self.navigationController.view];
+        });
     }
 }
 
@@ -958,8 +1086,10 @@
                 }
             } else if (indexPath.row == 3) {
                 cell.textLabel.text = @"Defense";
-                cell.detailTextLabel.text = defLeader.name;
-                if ([cell.detailTextLabel.text containsString:userTeam.name]) {
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", defLeader.team.abbreviation, defLeader.position, [defLeader getInitialName]]];
+                if (defLeader.isHeisman || defLeader.isROTY) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
                 } else {
                     [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
@@ -993,7 +1123,11 @@
             NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
             NSRange firstLine = [attString.string rangeOfString:@"\n"];
             [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
-            
+            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+                [attString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, firstLine.location)];
+            } else {
+                [attString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, firstLine.location)];
+            }
             
             [cell.textLabel setAttributedText:attString];
             [cell.textLabel sizeToFit];
@@ -1124,8 +1258,10 @@
                 }
             } else if (indexPath.row == 3) {
                 cell.textLabel.text = @"Defense";
-                cell.detailTextLabel.text = defLeader.name;
-                if ([cell.detailTextLabel.text containsString:userTeam.name]) {
+                [cell.detailTextLabel setText:[NSString stringWithFormat:@"%@ %@ %@", defLeader.team.abbreviation, defLeader.position, [defLeader getInitialName]]];
+                if (defLeader.isHeisman || defLeader.isROTY) {
+                    [cell.detailTextLabel setTextColor:[HBSharedUtils champColor]];
+                } else if ([cell.detailTextLabel.text containsString:userTeam.abbreviation]) {
                     [cell.detailTextLabel setTextColor:[HBSharedUtils styleColor]];
                 } else {
                     [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
@@ -1159,22 +1295,33 @@
             NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:news[indexPath.row] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
             NSRange firstLine = [attString.string rangeOfString:@"\n"];
             [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
-            
+            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+                [attString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, firstLine.location)];
+            } else {
+                [attString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, firstLine.location)];
+            }
             
             [cell.textLabel setAttributedText:attString];
             [cell.textLabel sizeToFit];
-            if (curNewsWeek > 0 && curNewsWeek <= 12) {
-                [cell.detailTextLabel setText:[NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)]];
-            } else if (curNewsWeek == 0) {
-                [cell.detailTextLabel setText:@"Preseason"];
-            } else if (curNewsWeek == 13) {
-                [cell.detailTextLabel setText:@"Conference Championships"];
-            } else if (curNewsWeek == 14) {
-                [cell.detailTextLabel setText:@"Bowls"];
-            } else if (curNewsWeek == 15) {
-                [cell.detailTextLabel setText:@"National Championship"];
-            } else  {
-                [cell.detailTextLabel setText:@"Offseason"];
+            if ([cell.textLabel.attributedText.string containsString:@"on the move"]) {
+                [cell.detailTextLabel setText:@"Transfers"];
+            } else if ([cell.textLabel.attributedText.string containsString:@"let go"] || [cell.textLabel.attributedText.string containsString:@"fired"]
+                       || [cell.textLabel.attributedText.string containsString:@"extension"]) {
+                [cell.detailTextLabel setText:@"Coaching Carousel"];
+            } else {
+                if (curNewsWeek > 0 && curNewsWeek <= 12) {
+                    [cell.detailTextLabel setText:[NSString stringWithFormat:@"Week %ld", (long)(curNewsWeek)]];
+                } else if (curNewsWeek == 0) {
+                    [cell.detailTextLabel setText:@"Preseason"];
+                } else if (curNewsWeek == 13) {
+                    [cell.detailTextLabel setText:@"Conference Championships"];
+                } else if (curNewsWeek == 14) {
+                    [cell.detailTextLabel setText:@"Bowls"];
+                } else if (curNewsWeek == 15) {
+                    [cell.detailTextLabel setText:@"National Championship"];
+                } else {
+                    [cell.detailTextLabel setText:@"Offseason"];
+                }
             }
             
             
@@ -1257,7 +1404,11 @@
             NSMutableAttributedString *attString = [[NSMutableAttributedString alloc] initWithString:newsStory attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];
             NSRange firstLine = [attString.string rangeOfString:@"\n"];
             [attString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:17 weight:UIFontWeightMedium] range:NSMakeRange(0, firstLine.location)];
-            
+            if ([HBSharedUtils currentLeague].userTeam.abbreviation != nil && [attString.string containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
+                [attString addAttribute:NSForegroundColorAttributeName value:[HBSharedUtils styleColor] range:NSMakeRange(0, firstLine.location)];
+            } else {
+                [attString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, firstLine.location)];
+            }
             
             [cell.textLabel setAttributedText:attString];
             [cell.textLabel sizeToFit];
@@ -1300,9 +1451,10 @@
             } else if (indexPath.row == 2) { //WR
                 [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionWR] animated:YES];
             } else if (indexPath.row == 3) { //DEF
-                RankingsViewController *def = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
-                def.title = @"Defense";
-                [self.navigationController pushViewController:def animated:YES];
+//                RankingsViewController *def = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
+//                def.title = @"Defense";
+//                [self.navigationController pushViewController:def animated:YES];
+                [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionDEF] animated:YES];
             } else { //K
                 [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK] animated:YES];
             }
@@ -1321,9 +1473,10 @@
             } else if (indexPath.row == 2) { //WR
                 [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionWR] animated:YES];
             } else if (indexPath.row == 3) { //DEF
-                RankingsViewController *def = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
-                def.title = @"Defense";
-                [self.navigationController pushViewController:def animated:YES];
+//                RankingsViewController *def = [[RankingsViewController alloc] initWithStatType:HBStatTypeOppYPG];
+//                def.title = @"Defense";
+//                [self.navigationController pushViewController:def animated:YES];
+                [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionDEF] animated:YES];
             } else { //K
                 [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionK] animated:YES];
             }

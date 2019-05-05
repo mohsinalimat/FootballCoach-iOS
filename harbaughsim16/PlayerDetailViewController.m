@@ -22,6 +22,7 @@
 
 #import "HexColors.h"
 #import "STPopup.h"
+#import "harbaughsim16-Swift.h"
 
 @interface PlayerDetailViewController ()
 {
@@ -37,6 +38,15 @@
         self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, ([UIScreen mainScreen].bounds.size.height * (3.0/4.0)));
     }
     return self;
+}
+
+-(void)openStatHistory {
+    PlayerStatHistoryViewController *vc = [[PlayerStatHistoryViewController alloc] initWithPlayer: selectedPlayer];
+    if (self.popupController.presented) {
+        [self.popupController pushViewController:vc animated:YES];
+    } else {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)viewDidLoad {
@@ -55,12 +65,44 @@
     } else {
         [playerDetailView.medImageView setHidden:YES];
     }
+
+    NSLayoutConstraint *allConfConstraint = [NSLayoutConstraint constraintWithItem:playerDetailView.yrLabel attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationLessThanOrEqual toItem:playerDetailView.allConfTagView attribute:NSLayoutAttributeLeading multiplier:1 constant:0];
+    if (!selectedPlayer.isHeisman && !selectedPlayer.isROTY) {
+        if (playerDetailView.allConfTagView != nil) {
+            [playerDetailView addConstraint:allConfConstraint];
+        }
+        [playerDetailView.potyTagView removeFromSuperview];
+    } else if (selectedPlayer.isROTY) {
+        [playerDetailView.potyTagView.titleLabel setText:@"ROTY"];
+    }
+    
+    if (!selectedPlayer.isAllConference & !selectedPlayer.isAllAmerican) {
+        if (allConfConstraint != nil) {
+            [playerDetailView removeConstraint:allConfConstraint];
+        }
+        [playerDetailView.allConfTagView removeFromSuperview];
+    } else if (selectedPlayer.isAllAmerican) {
+        [playerDetailView.allConfTagView.titleLabel setText:@"All-League"];
+        [playerDetailView.allConfTagView setBackgroundColor:[UIColor orangeColor]];
+    } else if (selectedPlayer.isAllConference) {
+        [playerDetailView.allConfTagView.titleLabel setText:[NSString stringWithFormat:@"All-%@",selectedPlayer.team.conference]];
+        [playerDetailView.allConfTagView setBackgroundColor:[HBSharedUtils successColor]];
+        [playerDetailView.allConfTagView.titleLabel sizeToFit];
+        //[playerDetailView.allConfTagView setFrame:CGRectMake(playerDetailView.allConfTagView.frame.origin.x, playerDetailView.allConfTagView.frame.origin.y, playerDetailView.allConfTagView.titleLabel.frame.size.width + 16, playerDetailView.allConfTagView.frame.size.height)];
+    }
+    
+    [playerDetailView layoutIfNeeded];
     
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reincarnateCoach" object:nil];
     [playerDetailView setBackgroundColor:[HBSharedUtils styleColor]];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     [self.popupController.containerView setBackgroundColor:[HBSharedUtils styleColor]];
+    
+    if (![selectedPlayer.position isEqualToString:@"OL"] && (selectedPlayer.statHistoryDictionary != nil && selectedPlayer.statHistoryDictionary.count > 0)) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"history-unselected"] style:UIBarButtonItemStylePlain target:self action:@selector(openStatHistory)];
+    }
 }
 
 -(void)reloadAll {
@@ -141,18 +183,26 @@
 -(NSString*)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
         if (section == 1) {
-            return [NSString stringWithFormat:@"Over %ld games", (long)selectedPlayer.gamesPlayed];
+            if (selectedPlayer.gamesPlayed > 1 || selectedPlayer.gamesPlayed == 0) {
+                return [NSString stringWithFormat:@"Over %ld career games", (long)selectedPlayer.gamesPlayed];
+            } else {
+                return @"Through 1 career game";
+            }
         } else {
             return nil;
         }
     } else {
         if (section == 2) {
-            return [NSString stringWithFormat:@"Over %ld games", (long)selectedPlayer.gamesPlayed];
-        } else if (section == 1) {
-            if ([selectedPlayer isKindOfClass:[PlayerDL class]] || [selectedPlayer isKindOfClass:[PlayerLB class]] || [selectedPlayer isKindOfClass:[PlayerCB class]] || [selectedPlayer isKindOfClass:[PlayerS class]]) {
-                return [NSString stringWithFormat:@"Through %ld games this season (%ld games total)", (long)selectedPlayer.gamesPlayedSeason, (long)selectedPlayer.gamesPlayed];
+            if (selectedPlayer.gamesPlayed > 1 || selectedPlayer.gamesPlayed == 0) {
+                return [NSString stringWithFormat:@"Over %ld career games", (long)selectedPlayer.gamesPlayed];
             } else {
+                return @"Through 1 career game";
+            }
+        } else if (section == 1) {
+            if (selectedPlayer.gamesPlayedSeason > 1 || selectedPlayer.gamesPlayedSeason == 0) {
                 return [NSString stringWithFormat:@"Through %ld games this season", (long)selectedPlayer.gamesPlayedSeason];
+            } else {
+                return @"Through 1 game this season";
             }
         } else {
             return nil;

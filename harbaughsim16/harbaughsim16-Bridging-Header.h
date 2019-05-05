@@ -8,6 +8,9 @@
 
 #ifndef harbaughsim16_Bridging_Header_h
 #define harbaughsim16_Bridging_Header_h
+#import "STPopup.h"
+#import "UIScrollView+EmptyDataSet.h"
+#import "Player.h"
 
 
 #endif /* harbaughsim16_Bridging_Header_h */

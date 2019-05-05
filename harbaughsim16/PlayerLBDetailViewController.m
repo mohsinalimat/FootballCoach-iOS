@@ -36,7 +36,11 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
+        return 2;
+    } else {
+        return 3;
+    }
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
@@ -83,16 +87,82 @@
             [cell.detailTextLabel setText:ratings[@"lbRun"]];
             [cell.textLabel setText:@"Run Stopping"];
         }
+    } else if (indexPath.section == 1) {
+        if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
+            if (indexPath.row == 0) {
+                [cell.detailTextLabel setText:careerStats[@"ROTYs"]];
+                [cell.textLabel setText:@"Rookie of the Year Awards"];
+            } else if (indexPath.row == 1) {
+                [cell.detailTextLabel setText:careerStats[@"heismans"]];
+                [cell.textLabel setText:@"Player of the Year Awards"];
+            } else if (indexPath.row == 2) {
+                [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
+                [cell.textLabel setText:@"All-League Nominations"];
+            } else if (indexPath.row == 3) {
+                [cell.detailTextLabel setText:careerStats[@"allConferences"]];
+                [cell.textLabel setText:@"All-Conference Nominations"];
+            } else if (indexPath.row == 4) {
+                [cell.detailTextLabel setText:careerStats[@"tackles"]];
+                [cell.textLabel setText:@"Tackles"];
+            } else if (indexPath.row == 5) {
+                [cell.detailTextLabel setText:careerStats[@"passesDefended"]];
+                [cell.textLabel setText:@"Passes Defended"];
+            } else if (indexPath.row == 6) {
+                [cell.detailTextLabel setText:careerStats[@"interceptions"]];
+                [cell.textLabel setText:@"Interceptions"];
+            } else if (indexPath.row == 7) {
+                [cell.detailTextLabel setText:careerStats[@"sacks"]];
+                [cell.textLabel setText:@"Sacks"];
+            } else {
+                [cell.detailTextLabel setText:careerStats[@"forcedFumbles"]];
+                [cell.textLabel setText:@"Forced Fumbles"];
+            }
+        } else {
+            if (indexPath.row == 0) {
+                [cell.detailTextLabel setText:stats[@"tackles"]];
+                [cell.textLabel setText:@"Tackles"];
+            } else if (indexPath.row == 1) {
+                [cell.detailTextLabel setText:stats[@"passesDefended"]];
+                [cell.textLabel setText:@"Passes Defended"];
+            } else if (indexPath.row == 2) {
+                [cell.detailTextLabel setText:stats[@"interceptions"]];
+                [cell.textLabel setText:@"Interceptions"];
+            } else if (indexPath.row == 3) {
+                [cell.detailTextLabel setText:stats[@"sacks"]];
+                [cell.textLabel setText:@"Sacks"];
+            } else {
+                [cell.detailTextLabel setText:stats[@"forcedFumbles"]];
+                [cell.textLabel setText:@"Forced Fumbles"];
+            }
+        }
     } else {
         if (indexPath.row == 0) {
+            [cell.detailTextLabel setText:careerStats[@"ROTYs"]];
+            [cell.textLabel setText:@"Rookie of the Year Awards"];
+        } else if (indexPath.row == 1) {
             [cell.detailTextLabel setText:careerStats[@"heismans"]];
             [cell.textLabel setText:@"Player of the Year Awards"];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
             [cell.textLabel setText:@"All-League Nominations"];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             [cell.detailTextLabel setText:careerStats[@"allConferences"]];
             [cell.textLabel setText:@"All-Conference Nominations"];
+        } else if (indexPath.row == 4) {
+            [cell.detailTextLabel setText:careerStats[@"tackles"]];
+            [cell.textLabel setText:@"Tackles"];
+        } else if (indexPath.row == 5) {
+            [cell.detailTextLabel setText:careerStats[@"passesDefended"]];
+            [cell.textLabel setText:@"Passes Defended"];
+        } else if (indexPath.row == 6) {
+            [cell.detailTextLabel setText:careerStats[@"interceptions"]];
+            [cell.textLabel setText:@"Interceptions"];
+        } else if (indexPath.row == 7) {
+            [cell.detailTextLabel setText:careerStats[@"sacks"]];
+            [cell.textLabel setText:@"Sacks"];
+        } else {
+            [cell.detailTextLabel setText:careerStats[@"forcedFumbles"]];
+            [cell.textLabel setText:@"Forced Fumbles"];
         }
     }
     

@@ -40,6 +40,10 @@ open class BalloonMarker: MarkerImage
         _paragraphStyle?.alignment = .center
     }
     
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     open override func offsetForDrawing(atPoint point: CGPoint) -> CGPoint
     {
         let size = self.size

@@ -20,6 +20,10 @@ open class PrestigeYearMarkerView: BalloonMarker
         yFormatter.maximumFractionDigits = 0
     }
     
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     open override func refreshContent(entry: ChartDataEntry, highlight: Highlight)
     {
         setLabel("Year: " + xAxisValueFormatter!.stringForValue(entry.x, axis: nil) + "\nPrestige: " + yFormatter.string(from: NSNumber(floatLiteral: entry.y))!)

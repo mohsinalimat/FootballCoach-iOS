@@ -10,6 +10,8 @@
 #import "Conference.h"
 #import "Game.h"
 #import "TeamStrategy.h"
+#import "HeadCoach.h"
+
 @class Player;
 @class League;
 @class Record;
@@ -25,6 +27,13 @@
 @class PlayerCB;
 @class PlayerS;
 @class TeamStreak;
+
+typedef enum {
+    FCTeamExpectationsBottomTable,
+    FCTeamExpectationsMidTable,
+    FCTeamExpectationsBowlContender,
+    FCTeamExpectationsTitleContender
+} FCTeamExpectations;
 
 
 @interface Team : NSObject <NSCoding> {
@@ -193,6 +202,12 @@
 @property (strong, nonatomic) Record *singleSeasonXpMadeRecord;
 @property (strong, nonatomic) Record *singleSeasonFgMadeRecord;
 
+@property (strong, nonatomic) Record *singleSeasonDefInterceptionsRecord;
+@property (strong, nonatomic) Record *singleSeasonPassDefRecord;
+@property (strong, nonatomic) Record *singleSeasonSacksRecord;
+@property (strong, nonatomic) Record *singleSeasonForcedFumRecord;
+@property (strong, nonatomic) Record *singleSeasonTacklesRecord;
+
 //career Records
 @property (strong, nonatomic) Record *careerCompletionsRecord;
 @property (strong, nonatomic) Record *careerPassYardsRecord;
@@ -211,6 +226,21 @@
 @property (strong, nonatomic) Record *careerXpMadeRecord;
 @property (strong, nonatomic) Record *careerFgMadeRecord;
 
+@property (strong, nonatomic) Record *careerDefInterceptionsRecord;
+@property (strong, nonatomic) Record *careerPassDefRecord;
+@property (strong, nonatomic) Record *careerSacksRecord;
+@property (strong, nonatomic) Record *careerForcedFumRecord;
+@property (strong, nonatomic) Record *careerTacklesRecord;
+
+// coaching
+@property (strong, nonatomic) NSMutableArray<HeadCoach *> *coaches;
+@property (nonatomic) int totalCOTYs;
+@property (nonatomic) BOOL coachFired;
+@property (nonatomic) BOOL coachGotNewContract;
+@property (nonatomic) BOOL coachRetired;
+@property (strong, nonatomic) NSString *coachContractString;
+
+@property (nonatomic) int projectedPollScore;
 
 -(instancetype)initWithName:(NSString*)nm abbreviation:(NSString*)abbr conference:(NSString*)conf league:(League*)ligue prestige:(int)prestige rivalTeam:(NSString*)rivalTeamAbbr state:(NSString*)stt;
 +(instancetype)newTeamWithName:(NSString *)nm abbreviation:(NSString *)abbr conference:(NSString *)conf league:(League *)league prestige:(int)prestige rivalTeam:(NSString *)rivalTeamAbbr state:(NSString*)stt;
@@ -240,6 +270,8 @@
 -(PlayerTE*)getTE:(int)depth;
 -(PlayerDL*)getDL:(int)depth;
 -(PlayerLB*)getLB:(int)depth;
+-(HeadCoach*)getHC:(int)depth;
+-(HeadCoach*)getCurrentHC;
 
 -(int)getPassProf;
 -(int)getRushProf;
@@ -266,12 +298,13 @@
 -(NSString*)gameSummaryStringOpponent:(Game*)g;
 -(NSString*)getGraduatingPlayersString;
 
--(NSMutableArray*)getOffensiveTeamStrategies;
--(NSMutableArray*)getDefensiveTeamStrategies;
+-(NSArray<TeamStrategy *>*)getOffensiveTeamStrategies;
+-(NSArray<TeamStrategy *>*)getDefensiveTeamStrategies;
 
 -(NSArray*)getTeamStatsArray;
 
 -(void)setStarters:(NSArray<Player*>*)starters position:(int)position;
+-(NSArray<Player *> *)getDefaultStarters;
 
 -(void)getGraduatingPlayers;
 
@@ -296,8 +329,26 @@
 -(NSInteger)getTeamSize;
 
 -(void)calculateRecruitingClassRanking;
+-(NSMutableArray<Player*>*)getAllPlayers;
+-(void)checkCoachingContracts:(int)totalPrestigeDiff newPrestige:(int)newPrestige;
+//-(void)updateCoachHistory;
+-(void)setupUserCoach:(NSString *)name;
+-(void)createNewCustomHeadCoach:(NSString *)name stars:(int)stars;
+-(void)promoteCoach;
+-(int)getMinCoachHireReq;
+
 -(void)calculateRecruitingPoints;
 -(void)getTransferringPlayers;
 -(NSString*)getTransferringPlayersString;
--(NSMutableArray<Player*>*)getAllPlayers;
+-(void)updatePlayerHistories;
+
+-(void)updateDepthChartPositions;
+-(void)updateDepthChartPositionsForPosition:(int)position;
+
+-(FCTeamExpectations)calculateTeamExpectations;
+-(int)projectTeamWins;
+-(int)projectPollScore;
+-(int)calculatePrestigeChange;
+
+-(void)addCoach:(HeadCoach *)hc;
 @end

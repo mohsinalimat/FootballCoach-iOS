@@ -8,7 +8,6 @@
 
 #import "PrestigeHistoryViewController.h"
 #import "HBSharedUtils.h"
-#import "harbaughsim16-Swift.h"
 
 @interface PrestigeHistoryViewController ()
 {
@@ -48,15 +47,27 @@
     self.chartView.drawMarkers = YES;
     self.chartView.marker = [[ChartMarkerView alloc] init];
     
-    PrestigeYearMarkerView *marker = [[PrestigeYearMarkerView alloc]
-                            initWithColor: [UIColor colorWithWhite:255/255. alpha:1.0]
-                            font: [UIFont systemFontOfSize:12.0]
-                            textColor: [HBSharedUtils styleColor]
-                            insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
-                            xAxisValueFormatter: self.chartView.xAxis.valueFormatter];
-    marker.chartView = self.chartView;
-    marker.minimumSize = CGSizeMake(80.f, 40.f);
-    self.chartView.marker = marker;
+    if ([self.title containsString:@"Coach Score"]) {
+        CoachScoreYearMarkerView *marker = [[CoachScoreYearMarkerView alloc]
+                                          initWithColor: [UIColor colorWithWhite:255/255. alpha:1.0]
+                                          font: [UIFont systemFontOfSize:12.0]
+                                          textColor: [HBSharedUtils styleColor]
+                                          insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
+                                          xAxisValueFormatter: self.chartView.xAxis.valueFormatter];
+        marker.chartView = self.chartView;
+        marker.minimumSize = CGSizeMake(80.f, 40.f);
+        self.chartView.marker = marker;
+    } else {
+        PrestigeYearMarkerView *marker = [[PrestigeYearMarkerView alloc]
+                                          initWithColor: [UIColor colorWithWhite:255/255. alpha:1.0]
+                                          font: [UIFont systemFontOfSize:12.0]
+                                          textColor: [HBSharedUtils styleColor]
+                                          insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
+                                          xAxisValueFormatter: self.chartView.xAxis.valueFormatter];
+        marker.chartView = self.chartView;
+        marker.minimumSize = CGSizeMake(80.f, 40.f);
+        self.chartView.marker = marker;
+    }
     
     [self.chartView setData:lineChartData];
 }

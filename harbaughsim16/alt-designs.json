@@ -1,6 +1,5 @@
 {
     "alternate-error": {
-        "buttonBackgroundImageName": "",
         "buttonTitleTextColor": "#FF0040",
         "subTitleFontSize": 14,
         "subTitleTextColor": "#FFFFFF",
@@ -11,7 +10,6 @@
         "opacity": 0.95
     },
     "loss": {
-        "buttonBackgroundImageName": "",
         "buttonTitleTextColor": "#FF0040",
         "subTitleFontSize": 14,
         "subTitleTextColor": "#FFFFFF",
@@ -22,7 +20,6 @@
         "opacity": 0.95
     },
     "alternate-success": {
-        "buttonBackgroundImageName": "",
         "buttonTitleTextColor": "#FF0040",
         "subTitleFontSize": 14,
         "subTitleTextColor": "#FFFFFF",
@@ -33,7 +30,6 @@
         "opacity": 0.95
     },
     "win": {
-        "buttonBackgroundImageName": "",
         "buttonTitleTextColor": "#FF0040",
         "subTitleFontSize": 14,
         "subTitleTextColor": "#FFFFFF",
@@ -44,7 +40,6 @@
         "opacity": 0.95
     },
     "champs" : {
-        "buttonBackgroundImageName": "",
         "buttonTitleTextColor": "#FF0040",
         "subTitleFontSize": 14,
         "subTitleTextColor": "#FFFFFF",

@@ -7,21 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+
 @class Player;
 @class Game;
 @class Team;
 @class Conference;
 @class Record;
+@class HeadCoach;
 
 @interface League : NSObject <NSCoding> {
     BOOL heismanDecided;
-    
     NSString *heismanWinnerStrFull;
-    
+
     BOOL rotyDecided;
-    
     NSString *rotyWinnerStrFull;
     
+    BOOL cotyDecided;
+
     //deprecated record tracking ivars
     int leagueRecordCompletions;
     int leagueRecordPassYards;
@@ -51,13 +53,13 @@
     int leagueRecordYearFGMade;
     NSMutableArray<NSArray*> *leagueHistory;
     NSMutableArray<NSString*> *heismanHistory;
-    
+
 }
 @property (strong, nonatomic)  NSMutableDictionary *leagueHistoryDictionary;
 @property (strong, nonatomic)  NSMutableDictionary *heismanHistoryDictionary;
 @property (strong, nonatomic)  NSDictionary *allLeaguePlayers;
 @property (strong, nonatomic)  NSArray *allDraftedPlayers;
-@property (strong, nonatomic) NSMutableArray<Player*> *heismanCandidates;
+@property (strong, nonatomic)  NSMutableArray<Player*> *heismanCandidates;
 @property (strong, nonatomic)  NSMutableArray<Conference*> *conferences;
 @property (strong, nonatomic)  NSMutableArray<Team*> *teamList;
 @property (strong, nonatomic)  NSMutableArray<NSString*> *nameList;
@@ -81,7 +83,7 @@
 //Current week, 1-14
 @property (nonatomic) int currentWeek;
 @property (nonatomic) BOOL isHardMode;
- 
+
 //Bowl Games
 @property (strong, nonatomic) Player *heisman;
 @property (strong, nonatomic) NSMutableArray<Player*> *heismanFinalists;
@@ -90,6 +92,16 @@
 @property (strong, nonatomic)  Game *semiG23;
 @property (strong, nonatomic)  Game *ncg;
 @property (strong, nonatomic)  NSMutableArray<Game*> *bowlGames;
+
+// Coaching Carousel
+@property (strong, nonatomic) NSMutableArray<HeadCoach*> *coachList;
+@property (strong, nonatomic) NSMutableArray<HeadCoach*> *coachStarList;
+@property (strong, nonatomic) NSMutableArray<HeadCoach*> *coachFreeAgents;
+@property (strong, nonatomic) HeadCoach *cotyWinner;
+@property (strong, nonatomic) NSString *cotyWinnerStrFull;
+@property (strong, nonatomic) NSMutableArray<HeadCoach*> *cotyFinalists;
+@property (nonatomic) BOOL isCareerMode;
+@property (nonatomic) BOOL didFinishCoachingCarousel;
 
 //User Team
 @property (strong, nonatomic) Team *userTeam;
@@ -114,6 +126,12 @@
 @property (strong, nonatomic) Record *singleSeasonXpMadeRecord;
 @property (strong, nonatomic) Record *singleSeasonFgMadeRecord;
 
+@property (strong, nonatomic) Record *singleSeasonDefInterceptionsRecord;
+@property (strong, nonatomic) Record *singleSeasonPassDefRecord;
+@property (strong, nonatomic) Record *singleSeasonSacksRecord;
+@property (strong, nonatomic) Record *singleSeasonForcedFumRecord;
+@property (strong, nonatomic) Record *singleSeasonTacklesRecord;
+
 //career Records
 @property (strong, nonatomic) Record *careerCompletionsRecord;
 @property (strong, nonatomic) Record *careerPassYardsRecord;
@@ -132,6 +150,12 @@
 @property (strong, nonatomic) Record *careerXpMadeRecord;
 @property (strong, nonatomic) Record *careerFgMadeRecord;
 
+@property (strong, nonatomic) Record *careerDefInterceptionsRecord;
+@property (strong, nonatomic) Record *careerPassDefRecord;
+@property (strong, nonatomic) Record *careerSacksRecord;
+@property (strong, nonatomic) Record *careerForcedFumRecord;
+@property (strong, nonatomic) Record *careerTacklesRecord;
+
 @property (strong, nonatomic) NSString *leagueVersion;
 
 +(BOOL)loadSavedData;
@@ -143,8 +167,8 @@
 +(instancetype)newLeagueFromCSV:(NSString*)namesCSV lastNamesCSV:(NSString*)lastNameCSV;
 +(instancetype)newLeagueFromSaveFile:(NSString*)saveFileName;
 
--(int)getConfNumber:(NSString*)conf;
 -(void)playWeek;
+-(void)playWeek:(void (^)(void))callback;
 -(void)scheduleBowlGames;
 -(void)playBowlGames;
 -(void)playBowl:(Game*)g;
@@ -166,6 +190,7 @@
 
 -(void)setTeamRanks;
 -(void)save;
+-(void)save:(void (^)(BOOL success, NSError *err))completionBlock;
 
 -(NSArray*)getBowlPredictions;
 -(NSArray*)getHeismanLeaders;
@@ -186,6 +211,7 @@
 -(void)applyJSONMetadataChanges:(NSString *)json;
 
 -(NSInteger)getCurrentYear;
+// Transfer stuff
 -(BOOL)transferListEmpty;
 
 @property (strong, nonatomic) NSMutableDictionary *rotyHistoryDictionary;
@@ -194,4 +220,24 @@
 @property (strong, nonatomic) NSMutableArray<Player*> *rotyFinalists;
 -(NSArray*)getROTYLeaders;
 -(NSString*)getROTYCeremonyStr;
+
+
+//Coaching stuff
+-(void)processCoachingContracts;
+-(NSString *)getCoachAwardStr;
+-(NSArray *)calculateCOTYCandidates;
+-(NSArray*)getCOTYLeaders;
+-(int)getAvgCoachDiscipline;
+-(int)getAvgCoachTalent;
+-(int)getAvgCoachOff;
+-(int)getAvgCoachDef;
+-(void)processCoachingCarousel;
+-(void)newJobTransfer:(NSString *)coachTeam;
+-(NSMutableArray<Team*> *)getPromotedCoachTeams:(int)rating offers:(double)offers oldTeam:(NSString *)oldTeam;
+-(NSMutableArray<Team *> *)getHardModeTeamVacancyList;
+-(NSMutableArray<Team*> *)getFiredCoachTeams:(int)rating oldTeam:(NSString *)oldTeam;
+-(int)getAvgYards;
+-(int)getAvgConfPrestige;
+
+-(void)generateExpectationsNews;
 @end

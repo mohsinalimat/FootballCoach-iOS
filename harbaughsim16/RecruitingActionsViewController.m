@@ -32,8 +32,7 @@
         selectedRecruit = p;
         recruitEvents = [NSMutableArray arrayWithArray:events];
 
-        
-        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height * 0.85);
+        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height * 0.80);
     }
     return self;
 }
@@ -412,7 +411,7 @@
             if (selectedRecruit.team != [HBSharedUtils currentLeague].userTeam) {
                 // flip
                 if ([recruitEvents containsObject:@(CFCRecruitEventFlipped)] || ((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - (((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:CFCRecruitEventFlipped].intValue) <= 0) {
-                    NSLog(@"NOT LEGAL");
+                    NSLog(@"[Recruiting] NOT LEGAL");
                 } else {
                     [recruitEvents addObject:@(CFCRecruitEventFlipped)];
                     if (_delegate && [_delegate respondsToSelector:@selector(recruitingActionsController:didUpdateRecruit:withEvent:)]) {
@@ -434,7 +433,7 @@
         } else {
             NSNumber *event = availableEvents[indexPath.row];
             if (((id<RecruitingActionsDelegate>)_delegate).recruitingPoints - (((id<RecruitingActionsDelegate>)_delegate).usedRecruitingPoints + [self _retreiveEventCost:(CFCRecruitEvent)event.integerValue].intValue) <= 0 || [recruitEvents containsObject:event]) {
-                NSLog(@"NOT LEGAL");
+                NSLog(@"[Recruiting] NOT LEGAL");
             } else {
                 [recruitEvents addObject:event];
                 if (_delegate && [_delegate respondsToSelector:@selector(recruitingActionsController:didUpdateRecruit:withEvent:)]) {

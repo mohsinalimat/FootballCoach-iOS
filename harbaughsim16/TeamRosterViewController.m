@@ -88,6 +88,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(scrollToPositionGroup)];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reincarnateCoach" object:nil];
 }
 
 -(void)reloadAll {
@@ -242,7 +243,7 @@
             [cell.nameLabel setTextColor:[UIColor blackColor]];
         }
     } else {
-        if (player.hasRedshirt) {
+        if (player.hasRedshirt || player.isInjured) {
             [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
         } else if (player.isTransfer) {
             [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
@@ -321,6 +322,7 @@
     [popupController.navigationBar setDraggable:YES];
     [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
     popupController.style = STPopupStyleBottomSheet;
+    popupController.safeAreaInsets = UIEdgeInsetsZero;
     [popupController presentInViewController:self];
 }
 

@@ -15,7 +15,11 @@
 #define HB_CURRENT_THEME_COLOR @"themeColor"
 #define HB_NUMBER_OF_COLOR_OPTIONS 4
 #define HB_RECRUITING_TUTORIAL_SHOWN @"kHBTutorialShownKey"
+#define HB_UPCOMING_TUTORIAL_SHOWN_KEY @"kHBPlayingTutorialKey"
 #define HB_ROSTER_TUTORIAL_SHOWN_KEY @"kHBRosterTutorialShownKey"
+#define HB_TRANSFER_TUTORIAL_SHOWN_KEY @"kHBTransferTutorialShownKey"
+#define HB_COACHING_TUTORIAL_SHOWN_KEY @"kHBCoachingTutorialShownKey"
+#define HB_STAT_HISTORY_TUTORIAL_SHOWN_KEY @"kHBStatHistoryTutorialShownKey"
 #define kHBSimFirstLaunchKey @"firstLaunch"
 #define HB_OFFSEASON_TUTORIAL_SHOWN_KEY @"kHBOffseasonTutorialShownKey"
 #define HB_PLAY_BY_PLAY_ENABLED @"playByPlayEnabled"
@@ -61,6 +65,18 @@
 #define EXTEND_OFFER_COST 75
 #define FLIP_COST 150
 
+#ifdef DEBUG
+#   define IS_DEBUG true
+#else
+#   define IS_DEBUG false
+#endif
+
+#ifdef DEBUG
+#   define NSLog(...) NSLog(__VA_ARGS__)
+#else
+#   define NSLog(...) (void)0
+#endif
+
 typedef enum {
     CFCRegionDistanceMatch,
     CFCRegionDistanceNeighbor,
@@ -102,6 +118,15 @@ typedef enum {
     CRCTransferViewOptionOutgoing,
     CRCTransferViewOptionBoth
 } CRCTransferViewOption;
+
+typedef enum {
+    FCCoachStatusNormal,
+    FCCoachStatusHotSeat,
+    FCCoachStatusSecure,
+    FCCoachStatusSafe,
+    FCCoachStatusUnsafe,
+    FCCoachStatusOk
+} FCCoachStatus;
 
 @interface HBSharedUtils : NSObject
 +(double)randomValue;
@@ -154,6 +179,11 @@ typedef enum {
 +(NSComparisonResult)compareTeamPrestige:(id)obj1 toObj2:(id)obj2;
 +(NSComparisonResult)compareTeamLeastWins:(id)obj1 toObj2:(id)obj2;
 
++(NSComparisonResult)compareCoachScore:(id)obj1 toObj2:(id)obj2;
++(NSComparisonResult)compareCoachOvr:(id)obj1 toObj2:(id)obj2;
+
++(NSComparisonResult)compareConfPrestige:(id)obj1 toObj2:(id)obj2;
+
 +(NSString *)generateOfferString:(NSDictionary *)offers;
 +(NSDictionary *)generateInterestMetadata:(int)interestVal otherOffers:(NSDictionary *)offers;
 +(NSString *)_calculateInterestString:(int)interestVal;
@@ -167,6 +197,22 @@ typedef enum {
 +(CFCRegionDistance)distanceFromRegion:(CFCRegion)region1 toRegion:(CFCRegion)region2;
 + (float)randomFloatBetween:(float)smallNumber and:(float)bigNumber;
 
++(NSString*)getLetterGrade:(int)num;
++(UIColor *)_colorForCoachStatus:(FCCoachStatus)status;
++(UIColor *)_colorForLetterGrade:(NSString *)letterGrade;
++ (NSString *)jobPickerTutorial:(BOOL)wasFired;
 +(BOOL)isValidNumber:(id)supposedNumber;
 +(NSString *)currentMinorVersion;
+
++(NSString *)convertStatKeyToTitle:(NSString *)key;
++(NSArray *)sortStatKeyArray:(NSArray<NSString *> *)keys;
++(NSArray *)sortStatHistoryYears:(NSArray<NSString *> *)keys;
++(NSComparisonResult)compareStatHistoryYears:(NSString *)year1 year2:(NSString *)year2;
+
++ (CGFloat)calculateConferencePrestigeFactor:(NSString *)conf resetMarker:(BOOL)resetMarker;
++ (CGFloat)calculateMaxPrestige;
++ (void)showRetirementControllerUsingSourceViewController:(UIViewController *)viewController;
++ (void)addCoachToCoachLeaderboard:(HeadCoach *)coach;
+
++(NSNumberFormatter *)prestigeNumberFormatter;
 @end

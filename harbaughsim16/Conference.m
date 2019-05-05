@@ -80,11 +80,15 @@
 }
 
 +(instancetype)newConferenceWithName:(NSString*)name fullName:(NSString*)fullName league:(League*)league {
+    return [Conference newConferenceWithName:name fullName:fullName league:league prestige:75];
+}
+
++(instancetype)newConferenceWithName:(NSString*)name fullName:(NSString*)fullName league:(League*)league prestige:(int)defPrest {
     Conference *conf = [[Conference alloc] init];
     if (conf) {
         conf.confName = name;
         conf.confFullName = fullName;
-        conf.confPrestige = 75;
+        conf.confPrestige = defPrest;
         conf.confTeams = [NSMutableArray array];
         conf.allConferencePlayers = [NSDictionary dictionary];
         conf.league = league;
@@ -147,14 +151,18 @@
          self.confTeams[0].confChampion = @"CC";
          self.confTeams[1].confChampion = @"CL";
          self.confTeams[0].totalCCs++;
+         [self.confTeams[0] getCurrentHC].totalCCs++;
          self.confTeams[1].totalCCLosses++;
+         [self.confTeams[1] getCurrentHC].totalCCLosses++;
          NSMutableArray *week13 = self.league.newsStories[13];
          [week13 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ took care of business in the conference championship against %@, winning at home with a score of %ld to %ld.",self.ccg.homeTeam.name, self.confName, self.ccg.homeTeam.strRep, self.ccg.awayTeam.strRep, (long)self.ccg.homeScore, (long)self.ccg.awayScore]];
      } else {
          self.confTeams[1].confChampion = @"CC";
          self.confTeams[0].confChampion = @"CL";
          self.confTeams[1].totalCCs++;
+         [self.confTeams[1] getCurrentHC].totalCCs++;
          self.confTeams[0].totalCCLosses++;
+         [self.confTeams[0] getCurrentHC].totalCCLosses++;
          NSMutableArray *week13 = self.league.newsStories[13];
          [week13 addObject:[NSString stringWithFormat:@"%@ wins the %@!\n%@ surprised many in the conference championship against %@, winning on the road with a score of %ld to %ld.",self.ccg.awayTeam.name, self.confName, self.ccg.awayTeam.strRep, self.ccg.homeTeam.strRep, (long)self.ccg.awayScore, (long)self.ccg.homeScore]];
      }
@@ -264,8 +272,8 @@
     if ( self.week == 12 ) {
         [self playConfChamp];
     } else {
-        for ( int i = 0; i < self.confTeams.count; ++i ) {
-            [[self.confTeams[i] gameSchedule][self.week] playGame];
+        for (Team *t in confTeams) {
+            [t.gameSchedule[self.week] playGame];
         }
         if (self.week == 11 ) [self scheduleConfChamp];
         self.week++;
@@ -335,16 +343,15 @@
 }
 
 -(void)setUpSchedule {
-    
-    self.robinWeek = 0;
+    int confRoundWeek = 0;
     for (int r = 0; r < 9; ++r) {
         for (int g = 0; g < 5; ++g) {
-            Team *a = self.confTeams[(self.robinWeek + g) % 9];
+            Team *a = self.confTeams[(confRoundWeek + g) % 9];
             Team *b;
             if ( g == 0 ) {
                 b = self.confTeams[9];
             } else {
-                b = self.confTeams[(9 - g + self.robinWeek) % 9];
+                b = self.confTeams[(9 - g + confRoundWeek) % 9];
             }
             
             Game *gm;
@@ -359,28 +366,56 @@
             [a.gameSchedule addObject:gm];
             [b.gameSchedule addObject:gm];
         }
-        self.robinWeek++;
+        confRoundWeek++;
     }
-    
 }
 
 -(void)refreshAllConferencePlayers {
+    NSMutableArray *leadingHCs = [NSMutableArray array];
     NSMutableArray *leadingQBs = [NSMutableArray array];
     NSMutableArray *leadingRBs = [NSMutableArray array];
     NSMutableArray *leadingWRs = [NSMutableArray array];
     NSMutableArray *leadingTEs = [NSMutableArray array];
+    NSMutableArray *leadingDLs = [NSMutableArray array];
+    NSMutableArray *leadingLBs = [NSMutableArray array];
+    NSMutableArray *leadingCBs = [NSMutableArray array];
+    NSMutableArray *leadingSs = [NSMutableArray array];
     NSMutableArray *leadingKs = [NSMutableArray array];
     
     for (Team *t in self.confTeams) {
+        [leadingHCs addObject:[t getCurrentHC]];
         [leadingQBs addObject:[t getQB:0]];
+        
         [leadingRBs addObject:[t getRB:0]];
         [leadingRBs addObject:[t getRB:1]];
+        
         [leadingWRs addObject:[t getWR:0]];
         [leadingWRs addObject:[t getWR:1]];
         [leadingWRs addObject:[t getWR:2]];
+        
         [leadingTEs addObject:[t getTE:0]];
+        
+        [leadingDLs addObject:[t getDL:0]];
+        [leadingDLs addObject:[t getDL:1]];
+        [leadingDLs addObject:[t getDL:2]];
+        [leadingDLs addObject:[t getDL:3]];
+        
+        [leadingLBs addObject:[t getLB:0]];
+        [leadingLBs addObject:[t getLB:1]];
+        [leadingLBs addObject:[t getLB:2]];
+        
+        [leadingCBs addObject:[t getCB:0]];
+        [leadingCBs addObject:[t getCB:1]];
+        [leadingCBs addObject:[t getCB:2]];
+        
+        [leadingSs addObject:[t getS:0]];
+        
         [leadingKs addObject:[t getK:0]];
     }
+    
+    [leadingHCs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        return [HBSharedUtils compareCoachScore:obj1 toObj2:obj2];
+    }];
     
     [leadingQBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Player *a = (Player*)obj1;
@@ -414,6 +449,38 @@
         else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
+    [leadingDLs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingLBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingCBs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
+    [leadingSs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        Player *a = (Player*)obj1;
+        Player *b = (Player*)obj2;
+        if (a.isHeisman || a.isROTY) return -1;
+        else if (b.isHeisman || b.isROTY) return 1;
+        else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
+    }];
+    
     [leadingKs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         PlayerK *a = (PlayerK*)obj1;
         PlayerK *b = (PlayerK*)obj2;
@@ -422,45 +489,117 @@
         else return [a getHeismanScore] > [b getHeismanScore] ? -1 : [a getHeismanScore] == [b getHeismanScore] ? 0 : 1;
     }];
     
+    HeadCoach *hc = leadingHCs[0];
+    hc.careerConfCOTYs++;
+    hc.wonConfHC = YES;
+    
     PlayerQB *qb = leadingQBs[0];
     qb.careerAllConferences++;
+    [qb.team getCurrentHC].totalAllConferences++;
     qb.isAllConference = YES;
     
     PlayerRB *rb1 = leadingRBs[0];
     rb1.careerAllConferences++;
+    [rb1.team getCurrentHC].totalAllConferences++;
     rb1.isAllConference = YES;
     
     PlayerRB *rb2 = leadingRBs[1];
     rb2.careerAllConferences++;
+    [rb2.team getCurrentHC].totalAllConferences++;
     rb2.isAllConference = YES;
     
     PlayerWR *wr1 = leadingWRs[0];
     wr1.careerAllConferences++;
+    [wr1.team getCurrentHC].totalAllConferences++;
     wr1.isAllConference = YES;
     
     PlayerWR *wr2 = leadingWRs[1];
     wr2.careerAllConferences++;
+    [wr2.team getCurrentHC].totalAllConferences++;
     wr2.isAllConference = YES;
     
     PlayerWR *wr3 = leadingWRs[2];
     wr3.careerAllConferences++;
+    [wr3.team getCurrentHC].totalAllConferences++;
     wr3.isAllConference = YES;
     
     PlayerTE *te = leadingTEs[0];
     te.careerAllConferences++;
+    [te.team getCurrentHC].totalAllConferences++;
     te.isAllConference = YES;
+    
+    PlayerDL *dl1 = leadingDLs[0];
+    dl1.careerAllConferences++;
+    [dl1.team getCurrentHC].totalAllConferences++;
+    dl1.isAllConference = YES;
+    
+    PlayerDL *dl2 = leadingDLs[1];
+    dl2.careerAllConferences++;
+    [dl2.team getCurrentHC].totalAllConferences++;
+    dl2.isAllConference = YES;
+    
+    PlayerDL *dl3 = leadingDLs[2];
+    dl3.careerAllConferences++;
+    [dl3.team getCurrentHC].totalAllConferences++;
+    dl3.isAllConference = YES;
+    
+    PlayerDL *dl4 = leadingDLs[3];
+    dl4.careerAllConferences++;
+    [dl4.team getCurrentHC].totalAllConferences++;
+    dl4.isAllConference = YES;
+    
+    PlayerLB *lb1 = leadingLBs[0];
+    lb1.careerAllConferences++;
+    [lb1.team getCurrentHC].totalAllConferences++;
+    lb1.isAllConference = YES;
+    
+    PlayerLB *lb2 = leadingLBs[1];
+    lb2.careerAllConferences++;
+    [lb2.team getCurrentHC].totalAllConferences++;
+    lb2.isAllConference = YES;
+    
+    PlayerLB *lb3 = leadingLBs[2];
+    lb3.careerAllConferences++;
+    [lb3.team getCurrentHC].totalAllConferences++;
+    lb3.isAllConference = YES;
+    
+    PlayerCB *cb1 = leadingCBs[0];
+    cb1.careerAllConferences++;
+    [cb1.team getCurrentHC].totalAllConferences++;
+    cb1.isAllConference = YES;
+    
+    PlayerCB *cb2 = leadingCBs[1];
+    cb2.careerAllConferences++;
+    [cb2.team getCurrentHC].totalAllConferences++;
+    cb2.isAllConference = YES;
+    
+    PlayerCB *cb3 = leadingCBs[2];
+    cb3.careerAllConferences++;
+    [cb3.team getCurrentHC].totalAllConferences++;
+    cb3.isAllConference = YES;
+    
+    PlayerS *s = leadingSs[0];
+    s.careerAllConferences++;
+    [s.team getCurrentHC].totalAllConferences++;
+    s.isAllConference = YES;
     
     PlayerK *k = leadingKs[0];
     k.careerAllConferences++;
+    [k.team getCurrentHC].totalAllConferences++;
     k.isAllConference = YES;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"awardsPosted" object:nil];
 
     self.allConferencePlayers = @{
+                           @"HC" : @[hc],
                            @"QB" : @[qb],
                            @"RB" : @[rb1,rb2],
                            @"WR" : @[wr1,wr2,wr3],
                            @"TE" : @[te],
+                           @"DL" : @[dl1,dl2,dl3,dl4],
+                           @"LB" : @[lb1,lb2,lb3],
+                           @"CB" : @[cb1,cb2,cb3],
+                           @"S" : @[s],
                            @"K"  : @[k]
                            };
     
@@ -469,7 +608,7 @@
 -(NSString *)conferenceMetadataJSON {
     NSMutableString *jsonString = [NSMutableString string];
     [jsonString appendString:@"{"];
-    [jsonString appendFormat:@"\"confName\" : \"%@\", \"confFullName\" : \"%@\", \"confTeams\" : [",confName, confFullName];
+    [jsonString appendFormat:@"\"confName\" : \"%@\", \"confFullName\" : \"%@\", \"confPrestige\" : \"%d\", \"confTeams\" : [",confName, confFullName,confPrestige];
     for (Team *t in confTeams) {
         [jsonString appendFormat:@"%@,",[t teamMetadataJSON]];
     }
@@ -490,7 +629,7 @@
     } else if ([json isKindOfClass:[NSDictionary class]]) {
         jsonDict = (NSDictionary *)json;
     } else {
-        NSLog(@"JSON is of invalid type");
+        NSLog(@"[Importing Conference Metadata] JSON is of invalid type");
         return;
     }
     
@@ -503,17 +642,44 @@
             confFullName = jsonDict[@"confFullName"];
         }
         
+        if ([HBSharedUtils isValidNumber:jsonDict[@"confPrestige"]])
+        {
+            NSLog(@"[Importing Conference Metadata] Changing conf prestige for %@ from base value of %d", confName, confPrestige);
+            NSNumber *prestige = [[HBSharedUtils prestigeNumberFormatter] numberFromString:jsonDict[@"confPrestige"]];
+            if (prestige.intValue > 95) {
+                confPrestige = 95;
+            } else if (prestige.intValue < 25) {
+                confPrestige = 25;
+            } else {
+                confPrestige = prestige.intValue;
+            }
+            NSLog(@"[Importing Conference Metadata] New prestige for %@: %d", confName,confPrestige);
+        }
+        
         NSArray *jsonConfTeams = jsonDict[@"confTeams"];
         
-        for (int i = 0; i < confTeams.count; i++) {
-            [confTeams[i] applyJSONMetadataChanges:jsonConfTeams[i]];
-            [confTeams[i] setConference:confName];
+        // rely on the file to tell us how many teams to change
+        for (int i = 0; i < jsonConfTeams.count; i++) {
+            if (i < confTeams.count) {
+                [confTeams[i] applyJSONMetadataChanges:jsonConfTeams[i]];
+                [confTeams[i] setConference:confName];
+            }
         }
-        [self sortConfTeams];
-        
     } else {
-        NSLog(@"ERROR parsing conf metadata: %@", error);
+        NSLog(@"[Importing Conference Metadata] ERROR parsing conf metadata: %@", error);
     }
+}
+
+-(void)updateConfPrestige {
+    int CP = 0;
+    for (Team *t in confTeams) {
+        CP += t.teamPrestige;
+    }
+    confPrestige = CP / confTeams.count;
+}
+
+-(NSString *)debugDescription {
+    return [NSString stringWithFormat:@"%@ Conference (Week: %d, Robin Week: %d, Abbr: %@, Pres: %d) - Teams: %@", confFullName, week, robinWeek, confName, confPrestige, confTeams];
 }
 
 @end

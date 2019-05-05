@@ -12,6 +12,7 @@
 #import "Team.h"
 #import "RebrandConferenceSelectorViewController.h"
 #import "HelpViewController.h"
+#import "CareerLeaderboardViewController.h"
 
 #import "HexColors.h"
 #import "FCFileManager.h"
@@ -39,6 +40,36 @@
     return self;
 }
 
+-(void)changeCoachName {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rename Coach" message:@"Enter your coach's new name below." preferredStyle:UIAlertControllerStyleAlert];
+    NSArray *nameParts = [[[HBSharedUtils currentLeague].userTeam getCurrentHC].name componentsSeparatedByString:@" "];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Coach First Name";
+        textField.text = nameParts[0];
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    }];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Coach Last Name";
+        textField.text = nameParts[1];
+        textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+    }];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [[HBSharedUtils currentLeague].userTeam getCurrentHC].name = [NSString stringWithFormat:@"%@ %@", alert.textFields[0].text, alert.textFields[1].text];
+        [HBSharedUtils showNotificationWithTintColor:[HBSharedUtils styleColor] title:@"Rename successful!" message:[NSString stringWithFormat:@"Coach renamed to %@",[[HBSharedUtils currentLeague].userTeam getCurrentHC].name] onViewController:self];
+        [[HBSharedUtils currentLeague] save];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updatedCoachName" object:nil];
+    }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+-(void)openLeaderboard {
+    CareerLeaderboardViewController *helpVC = [[CareerLeaderboardViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:helpVC] animated:YES completion:nil];
+}
+
 -(void)changeTeamName {
     if ([HBSharedUtils currentLeague].canRebrandTeam) {
         __block Team *userTeam = [HBSharedUtils currentLeague].userTeam;
@@ -46,16 +77,19 @@
         [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.placeholder = @"Team Name";
             textField.text = userTeam.name;
+            textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
         }];
         
         [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.placeholder = @"Abbreviation";
             textField.text = userTeam.abbreviation;
+            textField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
         }];
         
         [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
             textField.placeholder = @"State";
             textField.text = userTeam.state;
+            textField.autocapitalizationType = UITextAutocapitalizationTypeWords;
         }];
         
         [alert addAction:[UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -173,6 +207,7 @@
     [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewHeaderFooterView class],[self class]]] setTextColor:[UIColor lightTextColor]];
     [self.tableView registerNib:[UINib nibWithNibName:@"HBSettingsCell" bundle:nil] forCellReuseIdentifier:@"HBSettingsCell"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"newTeamName" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadAll) name:@"reincarnateCoach" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleConfError) name:@"updatedConferenceError" object:nil];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy"];
@@ -234,9 +269,9 @@
     if (section == 2) {
         return 6;
     } else if (section == 1) {
-        return 14;
+        return 17;
     } else {
-        return 6;
+        return 7;
     }
 }
 
@@ -251,33 +286,39 @@
         }
         
         if (indexPath.row == 0) {
-            [cell.textLabel setText:@"ATAppUpdater"];
+            [cell.textLabel setText:@"AccordionSwift"];
         } else if (indexPath.row == 1) {
-            [cell.textLabel setText:@"AutoCoding"];
+            [cell.textLabel setText:@"ATAppUpdater"];
         } else if (indexPath.row == 2) {
-            [cell.textLabel setText:@"ios-charts"];
+            [cell.textLabel setText:@"AutoCoding"];
         } else if (indexPath.row == 3) {
-            [cell.textLabel setText:@"DZNEmptyDataSet"];
+            [cell.textLabel setText:@"ios-charts"];
         } else if (indexPath.row == 4) {
-            [cell.textLabel setText:@"Fabric"];
+            [cell.textLabel setText:@"DZNEmptyDataSet"];
         } else if (indexPath.row == 5) {
-            [cell.textLabel setText:@"FCFileManager"];
+            [cell.textLabel setText:@"Fabric"];
         } else if (indexPath.row == 6) {
-            [cell.textLabel setText:@"HexColors"];
+            [cell.textLabel setText:@"FCFileManager"];
         } else if (indexPath.row == 7) {
-            [cell.textLabel setText:@"Icons8"];
+            [cell.textLabel setText:@"HexColors"];
         } else if (indexPath.row == 8) {
-            [cell.textLabel setText:@"MBProgressHUD"];
+            [cell.textLabel setText:@"Icons8"];
         } else if (indexPath.row == 9) {
-            [cell.textLabel setText:@"RMessage"];
+            [cell.textLabel setText:@"MBProgressHUD"];
         } else if (indexPath.row == 10) {
-            [cell.textLabel setText:@"RSEmailFeedback"];
+            [cell.textLabel setText:@"RMessage"];
         } else if (indexPath.row == 11) {
-            [cell.textLabel setText:@"ScrollableSegmentedControl"];
+            [cell.textLabel setText:@"RSEmailFeedback"];
         } else if (indexPath.row == 12) {
+            [cell.textLabel setText:@"ScrollableSegmentedControl"];
+        } else if (indexPath.row == 13) {
             [cell.textLabel setText:@"STPopup"];
-        } else {
+        } else if (indexPath.row == 14) {
+            [cell.textLabel setText:@"WhatsNew"];
+        } else if (indexPath.row == 15) {
             [cell.textLabel setText:@"ZGNavigationBarTitle"];
+        } else {
+            [cell.textLabel setText:@"ZMJTipView"];
         }
         return cell;
     } else if (indexPath.section == 2) {
@@ -336,14 +377,20 @@
             }
             
             if (indexPath.row == 2) {
-                [cell.textLabel setText:@"Rebrand Team"];
-                if ([HBSharedUtils currentLeague].canRebrandTeam) {
+                if ([HBSharedUtils currentLeague].isCareerMode) {
+                    [cell.textLabel setText:@"Rename Coach"];
                     [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
                     cell.selectionStyle = UITableViewCellSelectionStyleBlue;
                 } else {
-                    [cell.textLabel setTextColor:[UIColor lightGrayColor]];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    
+                    [cell.textLabel setText:@"Rebrand Team"];
+                    if ([HBSharedUtils currentLeague].canRebrandTeam) {
+                        [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+                        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+                    } else {
+                        [cell.textLabel setTextColor:[UIColor lightGrayColor]];
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        
+                    }
                 }
             } else if (indexPath.row == 3) {
                 [cell.textLabel setText:@"Rebrand Conferences"];
@@ -355,6 +402,10 @@
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 }
             } else if (indexPath.row == 4) {
+                [cell.textLabel setText:@"View Career Leaderboard"];
+                [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
+                cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            } else if (indexPath.row == 5) {
                 [cell.textLabel setText:@"Export League Metadata"];
                 [cell.textLabel setTextColor:[HBSharedUtils styleColor]];
                 cell.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -396,33 +447,39 @@
     if (indexPath.section == 1) {
         NSString *url;
         if (indexPath.row == 0) {
-            url = @"https://github.com/apptality/ATAppUpdater";
+            url = @"https://github.com/Vkt0r/AccordionSwift";
         } else if (indexPath.row == 1) {
-            url = @"https://github.com/nicklockwood/AutoCoding";
+            url = @"https://github.com/apptality/ATAppUpdater";
         } else if (indexPath.row == 2) {
-            url = @"https://github.com/danielgindi/Charts";
+            url = @"https://github.com/nicklockwood/AutoCoding";
         } else if (indexPath.row == 3) {
-            url = @"https://github.com/dzenbot/DZNEmptyDataSet";
+            url = @"https://github.com/danielgindi/Charts";
         } else if (indexPath.row == 4) {
-            url = @"https://fabric.io";
+            url = @"https://github.com/dzenbot/DZNEmptyDataSet";
         } else if (indexPath.row == 5) {
-            url = @"https://github.com/fabiocaccamo/FCFileManager";
+            url = @"https://fabric.io";
         } else if (indexPath.row == 6) {
-            url = @"https://github.com/mRs-/HexColors";
+            url = @"https://github.com/fabiocaccamo/FCFileManager";
         } else if (indexPath.row == 7) {
-            url = @"http://icons8.com";
+            url = @"https://github.com/mRs-/HexColors";
         } else if (indexPath.row == 8) {
-            url = @"https://github.com/jdg/MBProgressHUD/";
+            url = @"http://icons8.com";
         } else if (indexPath.row == 9) {
-            url = @"https://github.com/donileo/RMessage";
+            url = @"https://github.com/jdg/MBProgressHUD/";
         } else if (indexPath.row == 10) {
-            url = @"https://github.com/ricsantos/RSEmailFeedback";
+            url = @"https://github.com/donileo/RMessage";
         } else if (indexPath.row == 11) {
-            url = @"https://github.com/GocePetrovski/ScrollableSegmentedControl";
+            url = @"https://github.com/ricsantos/RSEmailFeedback";
         } else if (indexPath.row == 12) {
+            url = @"https://github.com/GocePetrovski/ScrollableSegmentedControl";
+        } else if (indexPath.row == 13) {
             url = @"https://github.com/kevin0571/STPopup";
-        } else {
+        } else if (indexPath.row == 14) {
+            url = @"https://github.com/BalestraPatrick/WhatsNew";
+        } else if (indexPath.row == 15) {
             url = @"https://github.com/zhigang1992/ZGNavigationBarTitle";
+        } else {
+            url = @"https://github.com/keshiim/ZMJTipView";
         }
         
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
@@ -443,14 +500,15 @@
             [self presentViewController:safariVC animated:YES completion:nil];
         } else if (indexPath.row == 2) {
             RSEmailFeedback *emailFeedback = [[RSEmailFeedback alloc] init];
+            emailFeedback.additionalDeviceInfo = @[([HBSharedUtils currentLeague].isHardMode ? @"Difficulty: Hard" : @"Difficulty: Easy"),([HBSharedUtils currentLeague].isCareerMode ? @"Mode: Career" : @"Mode: Normal")];
             emailFeedback.toRecipients = @[@"akeaswaran@me.com"];
             emailFeedback.subject = [NSString stringWithFormat:@"Feedback on College Football Coach %@ (%@)",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
             [emailFeedback showOnViewController:self withCompletionHandler:^(MFMailComposeResult result, NSError *error) {
                 if (result == MFMailComposeResultSent) {
-                    NSLog(@"email sent");
+                    NSLog(@"[Support Email] email sent");
                     [self emailSuccess];
                 } else if (result == MFMailComposeResultFailed) {
-                    NSLog(@"email not sent");
+                    NSLog(@"[Support Email] email not sent");
                     [self emailFail:error];
                 }
             }];
@@ -483,7 +541,7 @@
             }
         }
     } else {
-        if (indexPath.row == 5) {
+        if (indexPath.row == 6) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete your save file and start your career over?" message:@"This will take you back to the Team Selection screen." preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil]];
             [alert addAction:[UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
@@ -502,8 +560,13 @@
             [self presentViewController:alert animated:YES completion:nil];
             
         } else if (indexPath.row == 2) {
-            if ([HBSharedUtils currentLeague].canRebrandTeam) {
-                [self changeTeamName];
+            if ([HBSharedUtils currentLeague].isCareerMode) {
+                // rename coach
+                [self changeCoachName];
+            } else {
+                if ([HBSharedUtils currentLeague].canRebrandTeam) {
+                    [self changeTeamName];
+                }
             }
         } else if (indexPath.row == 3) {
             if ([HBSharedUtils currentLeague].canRebrandTeam) {
@@ -512,13 +575,30 @@
                 [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
                 [popupController.navigationBar setDraggable:YES];
                 popupController.style = STPopupStyleBottomSheet;
+                popupController.safeAreaInsets = UIEdgeInsetsZero;
                 [popupController presentInViewController:self];
             }
-        } else if (indexPath.row == 4) { // export
+        } else if (indexPath.row == 4) {
+            [self openLeaderboard];
+        } else if (indexPath.row == 5) { // export
             NSString *metadataFile = ([HBSharedUtils currentLeague] != nil) ? [[HBSharedUtils currentLeague] leagueMetadataJSON] : @"";
-            UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[metadataFile] applicationActivities:nil];
-            activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,UIActivityTypeAirDrop,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr,UIActivityTypeOpenInIBooks,UIActivityTypePostToWeibo,UIActivityTypeAddToReadingList,UIActivityTypePostToFacebook,UIActivityTypePostToTencentWeibo];
-            [self presentViewController:activityVC animated:YES completion:nil];
+            NSError *dataErr;
+            NSData *jsonData = [metadataFile dataUsingEncoding:NSUTF8StringEncoding];
+            id jsonObject = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&dataErr];
+            if (jsonObject != nil && !dataErr) {
+                NSError *serializeErr;
+                NSData *prettyJsonData = [NSJSONSerialization dataWithJSONObject:jsonObject options:NSJSONWritingPrettyPrinted error:&serializeErr];
+                if (prettyJsonData != nil && !serializeErr) {
+                    NSString *prettyPrintedJson = [NSString stringWithUTF8String:[prettyJsonData bytes]];
+                    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[prettyPrintedJson] applicationActivities:nil];
+                    activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,UIActivityTypeAirDrop,UIActivityTypePostToVimeo,UIActivityTypePostToFlickr,UIActivityTypeOpenInIBooks,UIActivityTypePostToWeibo,UIActivityTypeAddToReadingList,UIActivityTypePostToFacebook,UIActivityTypePostToTencentWeibo];
+                    [self presentViewController:activityVC animated:YES completion:nil];
+                } else {
+                    NSLog(@"[Metadata Export] SERIALIZE ERR: %@", serializeErr);
+                }
+            } else {
+                NSLog(@"[Metadata Export] DATA ERR: %@", dataErr);
+            }
         }
     }
 }

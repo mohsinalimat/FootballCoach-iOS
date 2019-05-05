@@ -296,7 +296,16 @@
 }
 
 -(int)getHeismanScore {
+    return ([self getPassScore] >= [self getRushScore]) ? [self getPassScore] : [self getRushScore];
+    
+}
+
+-(int)getPassScore {
     return self.statsTD * 140 - self.statsInt * 250 + self.statsPassYards;
+}
+
+-(int)getRushScore {
+    return (self.statsRushTD * 100) - (self.statsFumbles * 80) + ((int)(self.statsRushYards * 2.35));
 }
 
 -(NSDictionary*)detailedStats:(int)games {
@@ -322,9 +331,9 @@
     if (games > 0) {
         ypg = (int)ceil((double)self.statsPassYards/(double)games);
     }
-    [stats setObject:[NSString stringWithFormat:@"%d yards/gm",ypg] forKey:@"yardsPerGame"];
+    [stats setObject:[NSString stringWithFormat:@"%d yards/gm",ypg] forKey:@"passYardsPerGame"];
 
-    [stats setObject:[NSString stringWithFormat:@"%d TDs",self.statsTD] forKey:@"touchdowns"];
+    [stats setObject:[NSString stringWithFormat:@"%d TDs",self.statsTD] forKey:@"passTouchdowns"];
     [stats setObject:[NSString stringWithFormat:@"%d INTs",self.statsInt] forKey:@"interceptions"];
 
     [stats setObject:[NSString stringWithFormat:@"%d TDs",self.statsRushTD] forKey:@"rushTouchdowns"];
@@ -373,9 +382,9 @@
         ypg = (int)ceil((double)self.careerStatsPassYards/(double)self.gamesPlayed);
     }
     
-    [stats setObject:[NSString stringWithFormat:@"%d yards/gm",ypg] forKey:@"yardsPerGame"];
+    [stats setObject:[NSString stringWithFormat:@"%d yards/gm",ypg] forKey:@"passYardsPerGame"];
 
-    [stats setObject:[NSString stringWithFormat:@"%d TDs",self.careerStatsTD] forKey:@"touchdowns"];
+    [stats setObject:[NSString stringWithFormat:@"%d TDs",self.careerStatsTD] forKey:@"passTouchdowns"];
     [stats setObject:[NSString stringWithFormat:@"%d INTs",self.careerStatsInt] forKey:@"interceptions"];
     
     [stats setObject:[NSString stringWithFormat:@"%d TDs",self.careerStatsRushTD] forKey:@"rushTouchdowns"];

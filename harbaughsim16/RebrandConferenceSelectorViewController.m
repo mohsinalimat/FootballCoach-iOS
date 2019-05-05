@@ -74,7 +74,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     Conference *selectedConf = conferences[indexPath.row];
-    NSLog(@"SELECTED CONF: %@", selectedConf.confName);
+    NSLog(@"[Rebrand Conference] SELECTED CONF: %@", selectedConf.confName);
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"Rebranding %@", selectedConf.confName] message:@"Please enter a new conference name and abbreviation." preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -93,7 +93,7 @@
         BOOL _notBad = ([[HBSharedUtils currentLeague] isConfAbbrValid:alertController.textFields[1].text allowOverwrite:NO] && [[HBSharedUtils currentLeague] isConfNameValid:alertController.textFields[0].text allowOverwrite:NO]);
         
         if (!_notBad) {
-            NSLog(@"BAD");
+            NSLog(@"[Rebrand Conference] BAD");
             [self dismissViewControllerAnimated:YES completion:nil];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"updatedConferenceError" object:nil];

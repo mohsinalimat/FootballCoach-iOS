@@ -22,26 +22,14 @@
 #import "TeamStreaksViewController.h"
 #import "RingOfHonorViewController.h"
 #import "HallOfFameViewController.h"
+#import "HeadCoachDetailViewController.h"
+#import "PlayerStatsViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
 
-@interface HBTeamHistoryView : UIView
-@property (weak, nonatomic) IBOutlet UILabel *teamRankLabel;
-@property (weak, nonatomic) IBOutlet UILabel *teamRecordLabel;
-@property (weak, nonatomic) IBOutlet UILabel *teamPrestigeLabel;
-@end
-
-@implementation HBTeamHistoryView
-@end
-
 @interface MyTeamViewController () <UIViewControllerPreviewingDelegate>
-{
-    IBOutlet HBTeamHistoryView *teamHeaderView;
-    STPopupController *popupController;
-    Team *userTeam;
-    NSArray *stats;
-}
+
 @end
 
 @implementation MyTeamViewController
@@ -106,11 +94,13 @@
                 peekVC = [[LeagueRecordsViewController alloc] init];
             }
         } else if (indexPath.section == 0) {
-            if (indexPath.row == 2) {
+            if (indexPath.row == 0) {
+                peekVC = [[HeadCoachDetailViewController alloc] initWithCoach:[userTeam getCurrentHC]];
+            } else if (indexPath.row == 3) {
                 peekVC = [[TeamHistoryViewController alloc] initWithTeam:userTeam];
-            } else if (indexPath.row == 3) { //hallOfFame
+            } else if (indexPath.row == 4) { //hallOfFame
                 peekVC = [[RingOfHonorViewController alloc] initWithTeam:userTeam];
-            } else if (indexPath.row == 4) { //teamRecords
+            } else if (indexPath.row == 5) { //teamRecords
                 peekVC = [[TeamRecordsViewController alloc] initWithTeam:userTeam];
             } else { //team streaks
                 peekVC = [[TeamStreaksViewController alloc] initWithTeam:userTeam];
@@ -118,7 +108,7 @@
         }
         
         if (peekVC != nil) {
-            peekVC.preferredContentSize = CGSizeMake(0.0, 600);
+            peekVC.preferredContentSize = CGSizeMake(0.0, 0.60 * [UIScreen mainScreen].bounds.size.height);
             previewingContext.sourceRect = cell.frame;
             return peekVC;
         } else {
@@ -239,9 +229,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 6;
+        return 7;
     } else if (section == 2) {
-        return 3;
+        return 4;
     } else {
         return stats.count;
     }
@@ -249,7 +239,7 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (indexPath.row < 2) {
+        if (indexPath.row < 3) {
             UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:@"StratCell"];
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"StratCell"];
@@ -261,6 +251,9 @@
             NSString *title = @"";
             NSString *strat = @"";
             if (indexPath.row == 0) {
+                title = @"Head Coach";
+                strat = [[userTeam getCurrentHC] getInitialName];
+            } else if (indexPath.row == 1) {
                 title = @"Offensive Playbook";
                 strat = userTeam.offensiveStrategy.stratName;
             } else {
@@ -282,11 +275,11 @@
             
             NSString *title = @"";
             
-            if (indexPath.row == 2) {
+            if (indexPath.row == 3) {
                 title = @"Team History";
-            } else if (indexPath.row == 3) {
-                title = @"Ring of Honor";
             } else if (indexPath.row == 4) {
+                title = @"Ring of Honor";
+            } else if (indexPath.row == 5) {
                 title = @"Team Records";
             } else {
                 title = @"Team Streaks";
@@ -310,8 +303,10 @@
         
 
         if (indexPath.row == 0) {
-            title = @"League History";
+            title = @"Coaching Leaders";
         } else if (indexPath.row == 1) {
+            title = @"League History";
+        } else if (indexPath.row == 2) {
             title = @"Hall of Fame";
         } else {
             title = @"League Records";
@@ -394,38 +389,42 @@
         }
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
+            [self.navigationController pushViewController:[[PlayerStatsViewController alloc] initWithStatType:HBStatPositionHC] animated:YES];
+        } else if (indexPath.row == 1) {
             //league
             [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];
-        } else if (indexPath.row == 1) { //hallOfFame
+        } else if (indexPath.row == 2) { //hallOfFame
             [self.navigationController pushViewController:[[HallOfFameViewController alloc] init] animated:YES];
         } else {
             //league records
             [self.navigationController pushViewController:[[LeagueRecordsViewController alloc] init] animated:YES];
         }
     } else if (indexPath.section == 0) {
-        if (indexPath.row == 0) { //offensive
+        if (indexPath.row == 0) { //coach
+            [self.navigationController pushViewController:[[HeadCoachDetailViewController alloc] initWithCoach:[userTeam getCurrentHC]] animated:YES];
+        } else if (indexPath.row == 1) { //offensive
             popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:TRUE options:[[HBSharedUtils currentLeague].userTeam getOffensiveTeamStrategies]]];
             [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
+            popupController.safeAreaInsets = UIEdgeInsetsZero;
             [popupController presentInViewController:self];
-        } else if (indexPath.row == 1) { //defensive
+        } else if (indexPath.row == 2) { //defensive
             popupController = [[STPopupController alloc] initWithRootViewController:[[TeamStrategyViewController alloc] initWithType:FALSE options:[[HBSharedUtils currentLeague].userTeam getDefensiveTeamStrategies]]];
             [popupController.backgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewDidTap)]];
             [popupController.navigationBar setDraggable:YES];
             popupController.style = STPopupStyleBottomSheet;
+            popupController.safeAreaInsets = UIEdgeInsetsZero;
             [popupController presentInViewController:self];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             [self.navigationController pushViewController:[[TeamHistoryViewController alloc] initWithTeam:userTeam] animated:YES];
-        } else if (indexPath.row == 3) { //hallOfFame
+        } else if (indexPath.row == 4) { //hallOfFame
             [self.navigationController pushViewController:[[RingOfHonorViewController alloc] initWithTeam:userTeam] animated:YES];
-        } else if (indexPath.row == 4) { //teamRecords
+        } else if (indexPath.row == 5) { //teamRecords
             [self.navigationController pushViewController:[[TeamRecordsViewController alloc] initWithTeam:userTeam] animated:YES];
         } else { //team streaks
             [self.navigationController pushViewController:[[TeamStreaksViewController alloc] initWithTeam:userTeam] animated:YES];
         }
-    } else {
-       //do nothing
     }
 }
 

@@ -12,4 +12,5 @@
 
 @interface TeamSelectionViewController : FCTableViewController
 -(instancetype)initWithLeague:(League*)selectedLeague;
+-(instancetype)initWithLeague:(League*)selectedLeague fromMetadata:(BOOL)metadataStatus;
 @end
