@@ -93,27 +93,30 @@
     } else if (indexPath.section == 1) {
         if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
             if (indexPath.row == 0) {
+                [cell.detailTextLabel setText:careerStats[@"ROTYs"]];
+                [cell.textLabel setText:@"Rookie of the Year Awards"];
+            } else if (indexPath.row == 1) {
                 [cell.detailTextLabel setText:careerStats[@"heismans"]];
                 [cell.textLabel setText:@"Player of the Year Awards"];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 2) {
                 [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
                 [cell.textLabel setText:@"All-League Nominations"];
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 [cell.detailTextLabel setText:careerStats[@"allConferences"]];
                 [cell.textLabel setText:@"All-Conference Nominations"];
-            } else if (indexPath.row == 3) {
+            } else if (indexPath.row == 4) {
                 [cell.detailTextLabel setText:careerStats[@"xpMade"]];
                 [cell.textLabel setText:@"XP Made"];
-            } else if (indexPath.row == 4) {
+            } else if (indexPath.row == 5) {
                 [cell.detailTextLabel setText:careerStats[@"xpAtt"]];
                 [cell.textLabel setText:@"XP Attempted"];
-            } else if (indexPath.row == 5) {
+            } else if (indexPath.row == 6) {
                 [cell.detailTextLabel setText:careerStats[@"xpPercentage"]];
                 [cell.textLabel setText:@"XP Percentage"];
-            } else if (indexPath.row == 6) {
+            } else if (indexPath.row == 7) {
                 [cell.detailTextLabel setText:careerStats[@"fgMade"]];
                 [cell.textLabel setText:@"FG Made"];
-            } else if (indexPath.row == 7) {
+            } else if (indexPath.row == 8) {
                 [cell.detailTextLabel setText:careerStats[@"fgAtt"]];
                 [cell.textLabel setText:@"FG Attempted"];
             } else {
@@ -143,27 +146,30 @@
         }
     } else {
         if (indexPath.row == 0) {
+            [cell.detailTextLabel setText:careerStats[@"ROTYs"]];
+            [cell.textLabel setText:@"Rookie of the Year Awards"];
+        } else if (indexPath.row == 1) {
             [cell.detailTextLabel setText:careerStats[@"heismans"]];
             [cell.textLabel setText:@"Player of the Year Awards"];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
             [cell.textLabel setText:@"All-League Nominations"];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             [cell.detailTextLabel setText:careerStats[@"allConferences"]];
             [cell.textLabel setText:@"All-Conference Nominations"];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             [cell.detailTextLabel setText:careerStats[@"xpMade"]];
             [cell.textLabel setText:@"XP Made"];
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             [cell.detailTextLabel setText:careerStats[@"xpAtt"]];
             [cell.textLabel setText:@"XP Attempted"];
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 6) {
             [cell.detailTextLabel setText:careerStats[@"xpPercentage"]];
             [cell.textLabel setText:@"XP Percentage"];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 7) {
             [cell.detailTextLabel setText:careerStats[@"fgMade"]];
             [cell.textLabel setText:@"FG Made"];
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 8) {
             [cell.detailTextLabel setText:careerStats[@"fgAtt"]];
             [cell.textLabel setText:@"FG Attempted"];
         } else {
