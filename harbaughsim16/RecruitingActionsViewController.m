@@ -62,24 +62,23 @@
     //display tutorial alert on first launch
     BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
     if (!tutorialShown) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
-        [[NSUserDefaults standardUserDefaults] synchronize];
         [self showTutorial];
     }
 }
 
 -(void)showTutorial {
     //display intro screen
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSString *tipText = @"Tap on any of these actions to use some recruiting effort to woo this recruit to your program. Keep in mind: each option costs a different amount of effort.";
-        if ([HBSharedUtils currentLeague].isCareerMode && [HBSharedUtils currentLeague].isHardMode) {
-            tipText = @"Tap on any of these actions to use some recruiting effort to woo this recruit to your program. Keep in mind: each option costs a different amount of effort, and the amount of effort you need to expend will increase as your coach gets older.";
-        }
-        ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
-        [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:2]] withinSuperview:self.tableView];
-    });
+    if (selectedRecruit.recruitStatus != CFCRecruitStatusCommitted && ![selectedRecruit.team isEqual:[HBSharedUtils currentLeague].userTeam]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSString *tipText = @"Tap on any of these actions to use some recruiting effort to woo this recruit to your program. Keep in mind: each option costs a different amount of effort.";
+            if ([HBSharedUtils currentLeague].isCareerMode && [HBSharedUtils currentLeague].isHardMode) {
+                tipText = @"Tap on any of these actions to use some recruiting effort to woo this recruit to your program. Keep in mind: each option costs a different amount of effort, and the amount of effort you need to expend will increase as your coach gets older.";
+            }
+            ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
+            [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] withinSuperview:self.tableView];
+        });
+    }
 }
-
 
 -(void)reloadOffers {
     offers = [NSMutableArray array];

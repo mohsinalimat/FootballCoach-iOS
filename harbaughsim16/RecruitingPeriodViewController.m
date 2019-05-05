@@ -105,6 +105,8 @@
     } else if (tipView.tag == FCTutorialAdvanceWeek) {
         [self.navigationItem.rightBarButtonItem setEnabled:YES];
         [self.navigationItem.leftBarButtonItem setEnabled:YES];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
@@ -1310,8 +1312,6 @@
             //display tutorial alert on first launch
             BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_RECRUITING_TUTORIAL_SHOWN];
             if (!tutorialShown) {
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_RECRUITING_TUTORIAL_SHOWN];
-                [[NSUserDefaults standardUserDefaults] synchronize];
                 [self showTutorial];
             }
         });

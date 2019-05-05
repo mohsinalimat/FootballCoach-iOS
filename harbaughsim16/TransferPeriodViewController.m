@@ -109,6 +109,11 @@
         ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to advance to the next week of the transfer period. Be warned: other teams may make offers to players you have contacted." preferences:nil delegate:self];
         editTip.tag = FCTutorialAdvanceWeek;
         [editTip showAnimated:YES forItem:self.navigationItem.rightBarButtonItem withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialAdvanceWeek) {
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+        [self.navigationItem.leftBarButtonItem setEnabled:YES];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
@@ -870,6 +875,8 @@
     //display intro screen
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self->totalRecruits.count > 0) {
+            [self.navigationItem.rightBarButtonItem setEnabled:NO];
+            [self.navigationItem.leftBarButtonItem setEnabled:NO];
             NSString *tipText = @"Tap on a player to view how you can interact with them to recruit them to your program.";
             ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
             editTip.tag = FCTutorialRecruitSelect;
@@ -1047,8 +1054,6 @@
                 //display tutorial alert on first launch
                 BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
                 if (!tutorialShown) {
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
                     [self showTutorial];
                 }
             }
