@@ -2011,6 +2011,25 @@
 
     [self setTeamRanks];
     [self generateExpectationsNews];
+    if (self.isCareerMode) {
+        [self generateCoachingPerformanceNews];
+    }
+}
+
+-(void)generateCoachingPerformanceNews {
+    FCCoachStatus userPerformance = [[self.userTeam getCurrentHC] getCoachStatus];
+    NSString *performanceString = @"";
+    if (userPerformance == FCCoachStatusSafe || userPerformance == FCCoachStatusNormal || userPerformance == FCCoachStatusSecure) {
+        performanceString = [NSString stringWithFormat:@"%@ Performance Evaluation: Stellar!\nMedia members recently assessed the nation's coaches and pegged %@ head coach %@ as one of the best in the business. Sports news anchor %@ noted, \"Unless something goes seriously awry this season, I don't see any changes at %@. The work %@'s done there has been magnificent.\".", self.userTeam.abbreviation, self.userTeam.name, [self.userTeam getCurrentHC].name, [self getRandName],self.userTeam.name, [[self.userTeam getCurrentHC] getInitialName]];
+    } else if (userPerformance == FCCoachStatusOk) {
+        performanceString = [NSString stringWithFormat:@"%@ Performance Evaluation: Meh?\nMedia members recently assessed the nation's coaches and were lukewarm at best on %@ head coach %@. One of the hosts of college football podcast 'Marriage of CFB Numbers and Words' explained, \"I don't think it's time for a change at %@ just yet, but %@'s really got to move the needle in the next few years to keep his job.\".", self.userTeam.abbreviation, self.userTeam.name, [self.userTeam getCurrentHC].name, self.userTeam.abbreviation, [[self.userTeam getCurrentHC] getInitialName]];
+    } else if (userPerformance == FCCoachStatusUnsafe) {
+        performanceString = [NSString stringWithFormat:@"%@ Performance Evaluation: Thumbs-down!\nMedia members recently assessed the nation's coaches and expressed some concern about %@ head coach %@. \"It might be time for a change at %@,\" one seemingly-knowledgable internet commentor argued. \"%@ just hasn't impressed enough in his time there, and the fans are starting to get disgruntled with the lack of success.", self.userTeam.abbreviation, self.userTeam.name, [self.userTeam getCurrentHC].name, self.userTeam.name, [[self.userTeam getCurrentHC] getInitialName]];
+    } else { // hot seat
+        performanceString = [NSString stringWithFormat:@"%@ Performance Evaluation: \"He's still there?\"\nMedia members recently assessed the nation's coaches and panned %@ for keeping head coach %@. \"He just hasn't done that great a job at %@,\" explained national writer %@. \"I think it's time for both parties to move on.\".",self.userTeam.abbreviation,self.userTeam.name, [self.userTeam getCurrentHC].name, self.userTeam.name, [self getRandName]];
+    }
+    [newsStories[0] insertObject:performanceString atIndex:0];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
 }
 
 -(void)generateExpectationsNews {
