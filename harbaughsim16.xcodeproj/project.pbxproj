@@ -144,6 +144,7 @@
 		75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C971C9C7C0C0034140C /* team-selected@3x.png */; };
 		75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */; };
 		75AB014921DD87CA009E7A61 /* AvailableJobsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AB014821DD87CA009E7A61 /* AvailableJobsViewController.m */; };
+		75B2356C227E94D7003039B6 /* CoachHallOfFameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B2356B227E94D7003039B6 /* CoachHallOfFameViewController.m */; };
 		75B9792F20067BD20050E077 /* cfctests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B9792E20067BD20050E077 /* cfctests.m */; };
 		75B9793620067CEA0050E077 /* HBSharedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */; };
 		75B9793720067CEA0050E077 /* LeagueUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 756973961FAAB50400A66C42 /* LeagueUpdater.m */; };
@@ -470,6 +471,8 @@
 		75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roster-selected@3x.png"; sourceTree = "<group>"; };
 		75AB014721DD87CA009E7A61 /* AvailableJobsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AvailableJobsViewController.h; sourceTree = "<group>"; };
 		75AB014821DD87CA009E7A61 /* AvailableJobsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AvailableJobsViewController.m; sourceTree = "<group>"; };
+		75B2356A227E94D7003039B6 /* CoachHallOfFameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoachHallOfFameViewController.h; sourceTree = "<group>"; };
+		75B2356B227E94D7003039B6 /* CoachHallOfFameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoachHallOfFameViewController.m; sourceTree = "<group>"; };
 		75B9792C20067BD20050E077 /* cfctests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cfctests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75B9792E20067BD20050E077 /* cfctests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cfctests.m; sourceTree = "<group>"; };
 		75B9793020067BD20050E077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -805,6 +808,8 @@
 				75EC9A781D08E12D00F24BE6 /* RingOfHonorViewController.m */,
 				75EC9A7A1D08E5B300F24BE6 /* HallOfFameViewController.h */,
 				75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */,
+				75B2356A227E94D7003039B6 /* CoachHallOfFameViewController.h */,
+				75B2356B227E94D7003039B6 /* CoachHallOfFameViewController.m */,
 				751DF8251CA1F273003C62F2 /* TeamRosterViewController.h */,
 				751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */,
 				7571DD361C9CFD4000E67080 /* RosterViewController.h */,
@@ -1611,6 +1616,7 @@
 				75A86C881C9C790D0034140C /* FCTableViewController.m in Sources */,
 				7595342E21CDA65B00AF6FE3 /* HeadCoach.m in Sources */,
 				75924A611C99E64D00B165AD /* PlayerK.m in Sources */,
+				75B2356C227E94D7003039B6 /* CoachHallOfFameViewController.m in Sources */,
 				75DF165722399AD600E85626 /* PlayerStatHistoryViewController.swift in Sources */,
 				75CEE94A1FF593B6005A86C1 /* RecruitingPeriodViewController.m in Sources */,
 				75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */,

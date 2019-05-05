@@ -164,6 +164,7 @@
 @property (strong, nonatomic) Record *careerCoachRivalryWinsRecord;
 @property (strong, nonatomic) Record *careerCoachConfWinsRecord;
 @property (strong, nonatomic) NSMutableDictionary *cotyHistoryDictionary;
+@property (strong, nonatomic) NSMutableArray<HeadCoach *> *coachingHallOfFamers;
 
 @property (strong, nonatomic) NSString *leagueVersion;
 

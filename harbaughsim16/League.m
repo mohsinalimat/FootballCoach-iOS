@@ -34,7 +34,7 @@
 #import "AutoCoding.h"
 
 @implementation League
-@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles,coachList,coachStarList,coachFreeAgents, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary,cotyWinnerStrFull,cotyWinner,isCareerMode,cotyFinalists,didFinishCoachingCarousel,singleSeasonSacksRecord,singleSeasonTacklesRecord,singleSeasonPassDefRecord,singleSeasonForcedFumRecord,singleSeasonDefInterceptionsRecord,careerSacksRecord,careerTacklesRecord,careerPassDefRecord,careerForcedFumRecord,careerDefInterceptionsRecord,careerCoachWinsRecord,careerCoachBowlWinsRecord,careerCoachConfWinsRecord,careerCoachConfTitlesRecord,careerCoachNatlTitlesRecord,careerCoachRivalryWinsRecord, cotyHistoryDictionary;
+@synthesize teamList,userTeam,cursedTeam,blessedTeam,cursedTeamCoachName,blessedTeamCoachName,canRebrandTeam,careerRecTDsRecord,careerPassTDsRecord,careerRushTDsRecord,singleSeasonRecTDsRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,nameList,currentWeek,newsStories,recruitingStage,cursedStoryIndex,heismanFinalists,semiG14,semiG23,bowlGames,ncg,allLeaguePlayers,allDraftedPlayers,heisman,hallOfFamers,hasScheduledBowls,careerRecYardsRecord,careerRushYardsRecord,careerFgMadeRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassYardsRecord,careerCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonXpMadeRecord,careerInterceptionsRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonCompletionsRecord,singleSeasonInterceptionsRecord,leagueHistoryDictionary,heismanHistoryDictionary,isHardMode,blessedStoryIndex,conferences, heismanCandidates, leagueVersion, baseYear,lastNameList, bowlTitles,coachList,coachStarList,coachFreeAgents, transferList,transferLog,didFinishTransferPeriod,roty,rotyFinalists,rotyCandidates,rotyHistoryDictionary,cotyWinnerStrFull,cotyWinner,isCareerMode,cotyFinalists,didFinishCoachingCarousel,singleSeasonSacksRecord,singleSeasonTacklesRecord,singleSeasonPassDefRecord,singleSeasonForcedFumRecord,singleSeasonDefInterceptionsRecord,careerSacksRecord,careerTacklesRecord,careerPassDefRecord,careerForcedFumRecord,careerDefInterceptionsRecord,careerCoachWinsRecord,careerCoachBowlWinsRecord,careerCoachConfWinsRecord,careerCoachConfTitlesRecord,careerCoachNatlTitlesRecord,careerCoachRivalryWinsRecord, cotyHistoryDictionary,coachingHallOfFamers;
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeBool:self.isHardMode forKey:@"isHardMode"];
@@ -118,6 +118,7 @@
     [encoder encodeObject:self.careerCoachConfWinsRecord forKey:@"careerCoachConfWinsRecord"];
     
     [encoder encodeObject:self.cotyHistoryDictionary forKey:@"cotyHistoryDictionary"];
+    [encoder encodeObject:self.coachingHallOfFamers forKey:@"coachingHallOfFamers"];
 
     //deprecated
     [encoder encodeInt:leagueRecordFum forKey:@"leagueRecordFum"];
@@ -718,6 +719,12 @@
         } else {
             self.didFinishCoachingCarousel = [decoder decodeBoolForKey:@"didFinishCoachingCarousel"];
         }
+        
+        if (![decoder containsValueForKey:@"coachingHallOfFamers"]) {
+            self.coachingHallOfFamers = [NSMutableArray array];
+        } else {
+            self.coachingHallOfFamers = [decoder decodeObjectForKey:@"coachingHallOfFamers"];
+        }
 
         //deprecated
         leagueRecordYearPassYards = 0;
@@ -1182,7 +1189,7 @@
         heismanHistory = [NSMutableArray array];
         heismanHistoryDictionary = [NSMutableDictionary dictionary];
         heismanFinalists = [NSMutableArray array];
-
+        
         rotyHistoryDictionary = [NSMutableDictionary dictionary];
         rotyFinalists = [NSMutableArray array];
         rotyCandidates = [NSMutableArray array];
@@ -1226,6 +1233,8 @@
         leagueVersion = HB_CURRENT_APP_VERSION;
         baseYear = [[[NSCalendar currentCalendar] components: NSCalendarUnitYear fromDate:[NSDate date]] year];
 
+        cotyHistoryDictionary = [NSMutableDictionary dictionary];
+        coachingHallOfFamers = [NSMutableArray array];
         cotyWinner = nil;
         cotyWinnerStrFull = nil;
         coachFreeAgents = [NSMutableArray array];
@@ -2049,6 +2058,7 @@
     }
 
     [self updateHallOfFame];
+    [self updateCoachHallOfFame];
     for (int t = 0; t < teamList.count; ++t) {
         [teamList[t] updateRingOfHonor];
         [teamList[t] advanceSeason];
@@ -3309,7 +3319,8 @@
 
 -(void)updateHallOfFame {
     for (Team *t in teamList) {
-        for (Player *p in t.teamQBs) {
+        NSArray *players = [t getAllPlayers];
+        for (Player *p in players) {
             if (((t.isUserControlled && [t.playersLeaving containsObject:p]) || (!t.isUserControlled && p.year == 4))
                 && (p.careerAllConferences > 3 || p.careerHeismans > 0 || p.careerAllAmericans > 2)) {
                 if (![hallOfFamers containsObject:p]) {
@@ -3318,85 +3329,96 @@
                 }
             }
         }
-
-        for (Player *p in t.teamRBs) {
-            if (((t.isUserControlled && [t.playersLeaving containsObject:p]) || (!t.isUserControlled && p.year == 4))
-                && (p.careerAllConferences > 3 || p.careerHeismans > 0 || p.careerAllAmericans > 2)) {
-                if (![hallOfFamers containsObject:p]) {
-                    p.injury = nil; //sanity check to make sure our immortals are actually immortal
-                    [hallOfFamers addObject:p];
-                }
-            }
-        }
-
-        for (Player *p in t.teamWRs) {
-            if (((t.isUserControlled && [t.playersLeaving containsObject:p]) || (!t.isUserControlled && p.year == 4))
-                && (p.careerAllConferences > 3 || p.careerHeismans > 0 || p.careerAllAmericans > 2)) {
-                if (![hallOfFamers containsObject:p]) {
-                    p.injury = nil; //sanity check to make sure our immortals are actually immortal
-                    [hallOfFamers addObject:p];
-                }
-            }
-        }
-
-        for (Player *p in t.teamTEs) {
-            if (((t.isUserControlled && [t.playersLeaving containsObject:p]) || (!t.isUserControlled && p.year == 4))
-                && (p.careerAllConferences > 3 || p.careerHeismans > 0 || p.careerAllAmericans > 2)) {
-                if (![hallOfFamers containsObject:p]) {
-                    p.injury = nil; //sanity check to make sure our immortals are actually immortal
-                    [hallOfFamers addObject:p];
-                }
-            }
-        }
-
-        if (hallOfFamers.count > 0) {
-            //for (Player *p in hallOfFamers) {
-               // p.year = 5;
-            //}
-
-            //sort normally
-            [hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
-            }];
-
-            //sort by most hallowed (hallowScore = normalized OVR + 2 * all-conf + 4 * all-Amer + 6 * Heisman; tie-break w/ pure OVR, then gamesPlayed, then potential)
-            int maxOvr = hallOfFamers[0].ratOvr;
-            [hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-                Player *a = (Player*)obj1;
-                Player *b = (Player*)obj2;
-                int aHallowScore = (100 * ((double)a.ratOvr / (double) maxOvr)) + (2 * a.careerAllConferences) + (4 * a.careerAllAmericans) + (6 * a.careerHeismans);
-                int bHallowScore = (100 * ((double)b.ratOvr / (double) maxOvr)) + (2 * b.careerAllConferences) + (4 * b.careerAllAmericans) + (6 * b.careerHeismans);
-                if (aHallowScore > bHallowScore) {
+    }
+    
+    if (hallOfFamers.count > 0) {
+        //for (Player *p in hallOfFamers) {
+        // p.year = 5;
+        //}
+        
+        //sort normally
+        [hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [HBSharedUtils comparePlayers:obj1 toObj2:obj2];
+        }];
+        
+        //sort by most hallowed (hallowScore = normalized OVR + 2 * all-conf + 4 * all-Amer + 6 * Heisman; tie-break w/ pure OVR, then gamesPlayed, then potential)
+        int maxOvr = hallOfFamers[0].ratOvr;
+        [hallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Player *a = (Player*)obj1;
+            Player *b = (Player*)obj2;
+            int aHallowScore = (100 * ((double)a.ratOvr / (double) maxOvr)) + (2 * a.careerAllConferences) + (4 * a.careerAllAmericans) + (6 * a.careerHeismans);
+            int bHallowScore = (100 * ((double)b.ratOvr / (double) maxOvr)) + (2 * b.careerAllConferences) + (4 * b.careerAllAmericans) + (6 * b.careerHeismans);
+            if (aHallowScore > bHallowScore) {
+                return -1;
+            } else if (bHallowScore > aHallowScore) {
+                return 1;
+            } else {
+                if (a.ratOvr > b.ratOvr) {
                     return -1;
-                } else if (bHallowScore > aHallowScore) {
+                } else if (a.ratOvr < b.ratOvr) {
                     return 1;
                 } else {
-                    if (a.ratOvr > b.ratOvr) {
+                    if (a.gamesPlayed > b.gamesPlayed) {
                         return -1;
-                    } else if (a.ratOvr < b.ratOvr) {
+                    } else if (a.gamesPlayed < b.gamesPlayed) {
                         return 1;
                     } else {
-                        if (a.gamesPlayed > b.gamesPlayed) {
+                        if (a.ratPot > b.ratPot) {
                             return -1;
-                        } else if (a.gamesPlayed < b.gamesPlayed) {
+                        } else if (a.ratPot < b.ratPot) {
                             return 1;
                         } else {
-                            if (a.ratPot > b.ratPot) {
-                                return -1;
-                            } else if (a.ratPot < b.ratPot) {
-                                return 1;
-                            } else {
-                                return 0;
-                            }
+                            return 0;
                         }
                     }
                 }
-            }];
-        }
+            }
+        }];
     }
 }
 
--(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite  {
+-(void)updateCoachHallOfFame {
+    for (Team *t in teamList) {
+        if (t.coachRetired && ([t getCurrentHC].totalAllConferences > 50 || [t getCurrentHC].totalHeismans > 5 || [t getCurrentHC].totalAllAmericans > 25 || [t getCurrentHC].careerCOTYs > 3 || [t getCurrentHC].careerConfCOTYs > 7 || [t getCurrentHC].totalNCs > 3 || [t getCurrentHC].totalCCs > 10 || [t getCurrentHC].totalBowls > 25) && ![coachingHallOfFamers containsObject:[t getCurrentHC]]) {
+            [coachingHallOfFamers addObject:[t getCurrentHC]];
+        }
+    }
+    
+    int maxOvr = coachingHallOfFamers[0].ratOvr;
+    [coachingHallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        HeadCoach *a = (HeadCoach*)obj1;
+        HeadCoach *b = (HeadCoach*)obj2;
+        int aHallowScore = (100 * ((double)a.ratOvr / (double) maxOvr)) + [a getCoachCareerScore];
+        int bHallowScore = (100 * ((double)b.ratOvr / (double) maxOvr)) + [b getCoachCareerScore];
+        if (aHallowScore > bHallowScore) {
+            return -1;
+        } else if (bHallowScore > aHallowScore) {
+            return 1;
+        } else {
+            if (a.ratOvr > b.ratOvr) {
+                return -1;
+            } else if (a.ratOvr < b.ratOvr) {
+                return 1;
+            } else {
+                if (a.gamesCoached > b.gamesCoached) {
+                    return -1;
+                } else if (a.gamesCoached < b.gamesCoached) {
+                    return 1;
+                } else {
+                    if (a.ratPot > b.ratPot) {
+                        return -1;
+                    } else if (a.ratPot < b.ratPot) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+            }
+        }
+    }];
+}
+
+-(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite {
     if (name == nil || name.length == 0) {
         return NO;
     }

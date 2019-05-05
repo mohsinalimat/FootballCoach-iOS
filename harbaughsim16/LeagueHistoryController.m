@@ -113,7 +113,7 @@
     heismanHistory = [HBSharedUtils currentLeague].heismanHistoryDictionary;
     rotyHistory = [HBSharedUtils currentLeague].rotyHistoryDictionary;
     cotyHistory = [HBSharedUtils currentLeague].cotyHistoryDictionary;
-    [self.tableView setRowHeight:105];
+    [self.tableView setRowHeight:UITableViewAutomaticDimension];
     [self.tableView setEstimatedRowHeight:105];
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
     self.title = @"League History";
@@ -187,7 +187,7 @@
         coty = cotyHistory[[NSString stringWithFormat:@"%ld", (long)([HBSharedUtils currentLeague].baseYear + indexPath.row)]];
         
     } else {
-        roty = @"None";
+        coty = @"None";
     }
     
     NSMutableAttributedString *champString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"Champion: %@",leagueYear[0]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0]}];

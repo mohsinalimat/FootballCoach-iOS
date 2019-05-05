@@ -24,6 +24,7 @@
 #import "HallOfFameViewController.h"
 #import "HeadCoachDetailViewController.h"
 #import "PlayerStatsViewController.h"
+#import "CoachHallOfFameViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -85,9 +86,13 @@
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
+                peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionHC];
+            } else if (indexPath.row == 1) {
                 //league
                 peekVC = [[LeagueHistoryController alloc] init];
-            } else if (indexPath.row == 1) { //hallOfFame
+            } else if (indexPath.row == 2) { //hallOfFame
+                peekVC = [[CoachHallOfFameViewController alloc] init];
+            } else if (indexPath.row == 3) { //hallOfFame
                 peekVC = [[HallOfFameViewController alloc] init];
             } else {
                 //league records
@@ -231,7 +236,7 @@
     if (section == 0) {
         return 7;
     } else if (section == 2) {
-        return 4;
+        return 5;
     } else {
         return stats.count;
     }
@@ -307,6 +312,8 @@
         } else if (indexPath.row == 1) {
             title = @"League History";
         } else if (indexPath.row == 2) {
+            title = @"Coaching Hall of Fame";
+        } else if (indexPath.row == 3) {
             title = @"Hall of Fame";
         } else {
             title = @"League Records";
@@ -394,6 +401,8 @@
             //league
             [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];
         } else if (indexPath.row == 2) { //hallOfFame
+            [self.navigationController pushViewController:[[CoachHallOfFameViewController alloc] init] animated:YES];
+        } else if (indexPath.row == 3) { //hallOfFame
             [self.navigationController pushViewController:[[HallOfFameViewController alloc] init] animated:YES];
         } else {
             //league records

@@ -27,6 +27,7 @@
 #import "TeamViewController.h"
 #import "HeadCoachHistoryViewController.h"
 #import "PlayerStatsViewController.h"
+#import "CoachHallOfFameViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -59,10 +60,14 @@
             if (indexPath.row == 0) {
                 //league
                 peekVC = [[HeadCoachHistoryViewController alloc] initWithCoach:currentCoach];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 1) { //hallOfFame
+                peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionHC];
+            } else if (indexPath.row == 2) {
                 //league
                 peekVC = [[LeagueHistoryController alloc] init];
-            } else if (indexPath.row == 2) { //hallOfFame
+            } else if (indexPath.row == 3) { //hallOfFame
+                peekVC = [[CoachHallOfFameViewController alloc] init];
+            } else if (indexPath.row == 4) { //hallOfFame
                 peekVC = [[HallOfFameViewController alloc] init];
             } else {
                 //league records
@@ -155,7 +160,7 @@
     } else if (section == 2) {
         return 5;
     } else {
-        return 5;
+        return 6;
     }
 }
 
@@ -250,9 +255,11 @@
             title = @"Coaching History";
         } else if (indexPath.row == 1) {
             title = @"Coaching Leaders";
-        }  else if (indexPath.row == 2) {
+        } else if (indexPath.row == 2) {
             title = @"League History";
         } else if (indexPath.row == 3) {
+            title = @"Coaching Hall of Fame";
+        } else if (indexPath.row == 4) {
             title = @"Hall of Fame";
         } else {
             title = @"League Records";
@@ -298,6 +305,8 @@
             //league
             [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];
         } else if (indexPath.row == 3) { //hallOfFame
+            [self.navigationController pushViewController:[[CoachHallOfFameViewController alloc] init] animated:YES];
+        } else if (indexPath.row == 4) { //hallOfFame
             [self.navigationController pushViewController:[[HallOfFameViewController alloc] init] animated:YES];
         } else {
             //league records
