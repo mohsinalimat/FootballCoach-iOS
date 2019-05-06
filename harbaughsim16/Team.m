@@ -1634,13 +1634,13 @@
     if (!coachRetired) {
         if ((teamPrestige > ([self getCurrentHC].baselinePrestige + 9)
              && teamPrestige < league.teamList[(int) (league.teamList.count * 0.35)].teamPrestige
-             && !isUserControlled && [self getCurrentHC].age < 53)
+             && [self getCurrentHC].age < 53)
             || (teamPrestige > ([self getCurrentHC].baselinePrestige + 12)
                 && [league findConference:conference].confPrestige < [league getAvgConfPrestige]
                 && teamPrestige < league.teamList[(int) (league.teamList.count * 0.20)].teamPrestige
-                && !isUserControlled && [self getCurrentHC].age < 48)) {
+                && [self getCurrentHC].age < 48)) {
             [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"Head Coach Rumor Mill\nAfter another successful season at %@, %d-year-old head coach %@ has been rumored to be a top candidate for various open head coaching positions this offseason. He has a career record of %d wins and %d losses. ", self.name, [self getCurrentHC].age, [self getCurrentHC].name,[self getCurrentHC].totalWins,[self getCurrentHC].totalLosses]];
-            if ([HBSharedUtils randomValue] > 0.50) {
+            if ([HBSharedUtils randomValue] > 0.50 && !self.isUserControlled) {
                 [league.coachStarList addObject:[self getCurrentHC]];
             }
         }
