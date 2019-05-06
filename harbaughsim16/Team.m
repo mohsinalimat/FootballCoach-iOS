@@ -1726,7 +1726,7 @@
                         } else {
                             [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                         }
-                        teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
+    //                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                         if (!isUserControlled) {
                             [league.coachList addObject:[self getCurrentHC]];
                         }
@@ -1754,7 +1754,7 @@
                     } else {
                         [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ despite his efforts to get the program back on the right track. His teams struggled in his first couple of seasons at the helm, but he seemed to have righted the ship this year. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                     }
-                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
+//                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                     if (!isUserControlled) {
                         [league.coachList addObject:[self getCurrentHC]];
                     }
@@ -1790,7 +1790,7 @@
                     } else {
                         [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
                     }
-                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
+//                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                     if (!isUserControlled) {
                         [league.coachList addObject:[self getCurrentHC]];
                     }
