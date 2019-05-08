@@ -3404,38 +3404,40 @@
         }
     }
     
-    int maxOvr = coachingHallOfFamers[0].ratOvr;
-    [coachingHallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        HeadCoach *a = (HeadCoach*)obj1;
-        HeadCoach *b = (HeadCoach*)obj2;
-        int aHallowScore = (100 * ((double)a.ratOvr / (double) maxOvr)) + [a getCoachCareerScore];
-        int bHallowScore = (100 * ((double)b.ratOvr / (double) maxOvr)) + [b getCoachCareerScore];
-        if (aHallowScore > bHallowScore) {
-            return -1;
-        } else if (bHallowScore > aHallowScore) {
-            return 1;
-        } else {
-            if (a.ratOvr > b.ratOvr) {
+    if (coachingHallOfFamers.count > 0) {
+        int maxOvr = coachingHallOfFamers[0].ratOvr;
+        [coachingHallOfFamers sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            HeadCoach *a = (HeadCoach*)obj1;
+            HeadCoach *b = (HeadCoach*)obj2;
+            int aHallowScore = (100 * ((double)a.ratOvr / (double) maxOvr)) + [a getCoachCareerScore];
+            int bHallowScore = (100 * ((double)b.ratOvr / (double) maxOvr)) + [b getCoachCareerScore];
+            if (aHallowScore > bHallowScore) {
                 return -1;
-            } else if (a.ratOvr < b.ratOvr) {
+            } else if (bHallowScore > aHallowScore) {
                 return 1;
             } else {
-                if (a.gamesCoached > b.gamesCoached) {
+                if (a.ratOvr > b.ratOvr) {
                     return -1;
-                } else if (a.gamesCoached < b.gamesCoached) {
+                } else if (a.ratOvr < b.ratOvr) {
                     return 1;
                 } else {
-                    if (a.ratPot > b.ratPot) {
+                    if (a.gamesCoached > b.gamesCoached) {
                         return -1;
-                    } else if (a.ratPot < b.ratPot) {
+                    } else if (a.gamesCoached < b.gamesCoached) {
                         return 1;
                     } else {
-                        return 0;
+                        if (a.ratPot > b.ratPot) {
+                            return -1;
+                        } else if (a.ratPot < b.ratPot) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
                     }
                 }
             }
-        }
-    }];
+        }];
+    }
 }
 
 -(BOOL)isTeamNameValid:(NSString*)name allowUserTeam:(BOOL)allowUserTeam allowOverwrite:(BOOL)allowOverwrite {
