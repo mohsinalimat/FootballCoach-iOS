@@ -2481,6 +2481,17 @@
     }
 
     int sum = nflPts + ncgDelta + rivalryDelta + performancePrestige;
+    
+    if ([[HBSharedUtils currentLeague].cursedTeam isEqual:self]) {
+        if (sum > 0) {
+            [summary appendString:@"\n\nDespite its performance this season, your program was sanctioned by the league to begin the year. As a result, you lost 20 prestige."];
+        } else if (sum < 0) {
+            [summary appendString:@"\n\nIn addition to your performance this season, your program was sanctioned by the league to begin the year. As a result, you lost 20 prestige."];
+        } else {
+            [summary appendString:@"\n\nYour program was sanctioned by the league to begin the year. As a result, you lost 20 prestige."];
+        }
+    }
+    
     if (sum > 0) {
         [summary appendFormat:@"\n\nOverall, your program gained %ld prestige this season.", (long)sum];
     } else if (sum < 0) {
