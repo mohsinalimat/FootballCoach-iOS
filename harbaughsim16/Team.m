@@ -2733,11 +2733,15 @@
             if (q.year == 4) {
                 q.isTransfer = false;
                 q.isGradTransfer = true;
-                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to transfer after graduating from %@. If he signs with another school, he is immediately eligible to play.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+                if (q.ratOvr >= 78) { // only newsworthy if the player is B++
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to transfer after graduating from %@. If he signs with another school, he is immediately eligible to play.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+                }
             } else {
                 q.isTransfer = true;
                 q.isGradTransfer = false;
-                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to leave town for greener pastures after getting limited playing time during his time at %@. If he signs with another school, he will have to sit for one year.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+                if (q.ratOvr >= 78) { // only newsworthy if the player is B++
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to leave town for greener pastures after getting limited playing time during his time at %@. If he signs with another school, he will have to sit for one year.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+                }
             }
             //q.team = nil;
             NSLog(@"[Transfers] Adding %@ %@ to team's outgoing transfers", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
