@@ -329,11 +329,13 @@
                 }
             }
         }
-        NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:hist attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE weight:UIFontWeightRegular]}];
-        [attText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE weight:UIFontWeightRegular] range:[hist rangeOfString:comps[0]]];
-        [attText addAttribute:NSForegroundColorAttributeName value:teamColor range:[hist rangeOfString:comps[0]]];
-        [cell.detailTextLabel setAttributedText:attText];
-        [cell.detailTextLabel sizeToFit];
+        if (hist != nil) {
+            NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:hist attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE weight:UIFontWeightRegular]}];
+            [attText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE weight:UIFontWeightRegular] range:[hist rangeOfString:comps[0]]];
+            [attText addAttribute:NSForegroundColorAttributeName value:teamColor range:[hist rangeOfString:comps[0]]];
+            [cell.detailTextLabel setAttributedText:attText];
+            [cell.detailTextLabel sizeToFit];
+        }
         return cell;
     }
 }
