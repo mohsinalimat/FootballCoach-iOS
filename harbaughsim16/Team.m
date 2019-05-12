@@ -3785,6 +3785,8 @@
 }
 
 -(void)addCoach:(HeadCoach *)hc {
+    hc.teamWins = 0;
+    hc.teamLosses = 0;
     hc.team = self;
     hc.contractYear = 0;
     hc.contractLength = 6;

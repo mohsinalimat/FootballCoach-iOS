@@ -62,6 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL wonTopHC;
 @property (nonatomic) BOOL promotionCandidate;
 
+@property (nonatomic) int teamWins;
+@property (nonatomic) int teamLosses;
+
 -(FCCoachStatus)getCoachStatus;
 -(NSString *)getCoachStatusString;
 -(int)getHCOverall;

@@ -12,7 +12,23 @@
 #import "TeamStrategy.h"
 #import "Record.h"
 
+#import "AutoCoding.h"
+
 @implementation HeadCoach
+
+-(void)setWithCoder:(NSCoder *)aDecoder {
+    if (![aDecoder containsValueForKey:@"teamWins"]) {
+        if (self.team != nil) {
+            self.teamWins = self.team.wins;
+        }
+    }
+    
+    if (![aDecoder containsValueForKey:@"teamLosses"]) {
+        if (self.team != nil) {
+            self.teamLosses = self.team.losses;
+        }
+    }
+}
 
 +(instancetype)newHC:(Team *)t name:(NSString *)nm stars:(int)stars year:(int)yr {
     HeadCoach *hc = [HeadCoach new];
@@ -37,6 +53,8 @@
     hc.totalLosses = 0;
     hc.totalRivalryWins = 0;
     hc.totalRivalryLosses = 0;
+    hc.teamWins = 0;
+    hc.teamLosses = 0;
     hc.totalCCs = 0;
     hc.totalCCLosses = 0;
     hc.totalNCs = 0;
@@ -196,6 +214,8 @@
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalROTYs] forKey:@"totalROTYs"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerDraftPicks] forKey:@"careerDraftPicks"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.cumulativePrestige] forKey:@"cumulativePrestige"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.teamWins] forKey:@"teamWins"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.teamLosses] forKey:@"teamLosses"];
     return stats;
 }
 
@@ -625,12 +645,12 @@
 
 -(void)checkCoachRecords {
     // Wins
-    if (self.totalWins > self.team.careerCoachWinsRecord.statistic) {
-        self.team.careerCoachWinsRecord = [Record newRecord:@"Total Wins" coach:self stat:self.totalWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    if (self.teamWins > self.team.careerCoachWinsRecord.statistic) {
+        self.team.careerCoachWinsRecord = [Record newRecord:@"Total Wins With Team" coach:self stat:self.teamWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     if (self.totalWins > self.team.league.careerCoachWinsRecord.statistic) {
-        self.team.league.careerCoachWinsRecord = [Record newRecord:@"Total Wins" coach:self stat:self.totalWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+        self.team.league.careerCoachWinsRecord = [Record newRecord:@"Career Wins" coach:self stat:self.totalWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
     }
     
     // Conf Wins

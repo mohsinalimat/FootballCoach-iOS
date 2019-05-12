@@ -704,6 +704,9 @@
                 t.careerCoachConfTitlesRecord = nil;
                 t.careerCoachBowlWinsRecord = nil;
                 t.careerCoachWinsRecord = nil;
+                
+                [t getCurrentHC].teamWins = t.wins;
+                [t getCurrentHC].teamLosses = t.losses;
             }
             
             oldLigue.careerCoachRivalryWinsRecord = nil;
