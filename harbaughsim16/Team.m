@@ -1705,7 +1705,7 @@
                     [self getCurrentHC].contractLength = 2;
                     [self getCurrentHC].contractYear = 0;
                     [self getCurrentHC].baselinePrestige = [self getCurrentHC].baselinePrestige;
-                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite an average tenure. However, he has posted a career record of %d-%d, and the %@ AD noted this year's postseason appearance has earned his coach a vote of confidence.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite an average tenure. However, he has posted a record of %d-%d while at %@, and the %@ AD noted this year's postseason appearance has earned his coach a vote of confidence.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                     coachGotNewContract = true;
                     proveIt = true;
                     NSLog(@"[Coaching Carousel] %@ COACH Status: Extended (Prove It)", abbreviation);
@@ -1715,16 +1715,16 @@
                         [self getCurrentHC].contractLength = 2;
                         [self getCurrentHC].contractYear = 0;
                         [self getCurrentHC].baselinePrestige = [self getCurrentHC].baselinePrestige;
-                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite a disappointing tenure. However, he has posted a career record of %d-%d, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite a disappointing tenure. However, he has posted a record of %d-%d while at %@, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                         coachGotNewContract = true;
                         proveIt = true;
                         NSLog(@"[Coaching Carousel] %@ COACH Status: Extended (Prove It)", abbreviation);
                     } else {
                         coachFired = true;
                         if ([self isEqual:self.league.cursedTeam]) {
-                            [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@ after sanctions derailed the program. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                            [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@ after sanctions derailed the program. He posted a record of %d-%d while at %@. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                         } else {
-                            [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                            [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@. He posted a record of %d-%d while at %@. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                         }
     //                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                         if (!isUserControlled) {
@@ -1742,7 +1742,7 @@
                     [self getCurrentHC].contractLength = 2;
                     [self getCurrentHC].contractYear = 0;
                     [self getCurrentHC].baselinePrestige = [self getCurrentHC].baselinePrestige;
-                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite a disappointing tenure. However, he has posted a career record of %d-%d, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite a disappointing tenure. However, he has posted a record of %d-%d while at %@, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                     coachGotNewContract = true;
                     proveIt = true;
                     NSLog(@"[Coaching Carousel] %@ COACH Status: Extended (Prove It)", abbreviation);
@@ -1750,9 +1750,9 @@
                     // net negative prestige under coach, but +2 last year? Fired due to overall poor performance.
                     coachFired = true;
                     if ([self isEqual:self.league.cursedTeam]) {
-                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after sanctions derailed the program. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after sanctions derailed the program. He posted a record of %d-%d while at %@. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, self.name, abbreviation]];
                     } else {
-                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ despite his efforts to get the program back on the right track. His teams struggled in his first couple of seasons at the helm, but he seemed to have righted the ship this year. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ despite his efforts to get the program back on the right track. His teams struggled in his first couple of seasons at the helm, but he seemed to have righted the ship this year. He posted a record of %d-%d while at %@. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                     }
 //                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                     if (!isUserControlled) {
@@ -1772,9 +1772,9 @@
                 // if net -15 prestige and any other team? Fire the coach.
                 coachFired = true;
                 if ([self isEqual:self.league.cursedTeam]) {
-                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after sanctions derailed the program. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after sanctions derailed the program. He posted a record of %d-%d while at %@. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                 } else {
-                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure that saw the program decline. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure that saw the program decline. He posted a record of %d-%d while at %@. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                 }
                 
                 teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
@@ -1786,9 +1786,9 @@
                 if ([self getCurrentHC].contractYear >= [self getCurrentHC].contractLength || ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear) <= 0) {
                     coachFired = true;
                     if ([self isEqual:self.league.cursedTeam]) {
-                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@ after sanctions derailed the program. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@ after sanctions derailed the program. He posted a record of %d-%d while at %@. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                     } else {
-                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@. He posted a record of %d-%d while at %@. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name, self.abbreviation]];
                     }
 //                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                     if (!isUserControlled) {
