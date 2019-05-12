@@ -1948,10 +1948,12 @@
         if (homeScore > awayScore) {
             homeTeam.wins++;
             [homeTeam getCurrentHC].totalWins++;
+            [homeTeam getCurrentHC].teamWins++;
             homeTeam.totalWins++;
             [homeTeam.gameWLSchedule addObject:@"W"];
             awayTeam.losses++;
             [awayTeam getCurrentHC].totalLosses++;
+            [awayTeam getCurrentHC].teamLosses++;
             awayTeam.totalLosses++;
             [awayTeam.gameWLSchedule addObject:@"L"];
             [homeTeam.gameWinsAgainst addObject:awayTeam];
@@ -1994,10 +1996,12 @@
             homeTeam.losses++;
             homeTeam.totalLosses++;
             [homeTeam getCurrentHC].totalLosses++;
+            [homeTeam getCurrentHC].teamLosses++;
             [homeTeam.gameWLSchedule addObject:@"L"];
             awayTeam.wins++;
             awayTeam.totalWins++;
             [awayTeam getCurrentHC].totalWins++;
+            [awayTeam getCurrentHC].teamWins++;
             [awayTeam.gameWLSchedule addObject:@"W"];
             [awayTeam.gameWinsAgainst addObject:homeTeam];
             
