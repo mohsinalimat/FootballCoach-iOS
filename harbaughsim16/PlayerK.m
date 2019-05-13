@@ -326,7 +326,7 @@
 }
 
 -(NSString *)getPlayerArchetype {
-    if (self.ratKickFum >= self.ratKickAcc && self.ratKickFum >= self.ratKickPow) {
+    if (self.ratKickFum >= self.ratKickAcc && self.ratKickFum >= self.ratKickPow && self.ratKickPow < 70 && self.ratKickAcc < 70) {
         return @"\'Go For It Instead\'";
     } else if (self.ratKickAcc >= self.ratKickPow && self.ratKickAcc >= self.ratKickFum) {
         return @"Deadeye";
