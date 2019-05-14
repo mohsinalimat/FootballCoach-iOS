@@ -612,7 +612,18 @@
         }
 
         if (![decoder containsValueForKey:@"transferList"]) {
-            self.transferList = @{};
+            self.transferList = @{
+                                 @"QB" : [NSMutableArray array],
+                                 @"RB" : [NSMutableArray array],
+                                 @"WR" : [NSMutableArray array],
+                                 @"TE" : [NSMutableArray array],
+                                 @"OL" : [NSMutableArray array],
+                                 @"DL" : [NSMutableArray array],
+                                 @"LB" : [NSMutableArray array],
+                                 @"CB" : [NSMutableArray array],
+                                 @"S" : [NSMutableArray array],
+                                 @"K" : [NSMutableArray array]
+                                 };
         } else {
             self.transferList = [decoder decodeObjectForKey:@"transferList"];
         }
@@ -1994,7 +2005,18 @@
     rotyDecided = NO;
 
     didFinishTransferPeriod = NO;
-    transferList = nil;
+    transferList = @{
+                   @"QB" : [NSMutableArray array],
+                   @"RB" : [NSMutableArray array],
+                   @"WR" : [NSMutableArray array],
+                   @"TE" : [NSMutableArray array],
+                   @"OL" : [NSMutableArray array],
+                   @"DL" : [NSMutableArray array],
+                   @"LB" : [NSMutableArray array],
+                   @"CB" : [NSMutableArray array],
+                   @"S" : [NSMutableArray array],
+                   @"K" : [NSMutableArray array]
+                   };
 
     for (NSMutableArray *week in newsStories) {
         [week removeAllObjects];
@@ -3650,7 +3672,7 @@
 -(BOOL)transferListEmpty {
     if (transferList != nil) {
         for (NSMutableArray *players in transferList.allValues) {
-            if (players.count > 0) {
+            if (players != nil && players.count > 0) {
                 return NO;
             }
         }
