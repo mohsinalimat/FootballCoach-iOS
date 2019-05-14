@@ -2721,7 +2721,7 @@
         [positionalOveralls setObject:@(q.ratOvr) forKey:q.name];
         [playersAtPosition enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             Player *p = (Player *)obj;
-            if (![self->playersLeaving containsObject:p]) {
+            if (![self->playersLeaving containsObject:p] && ![self->playersTransferring containsObject:p]) {
                 [positionalOveralls setObject:@(p.ratOvr) forKey:p.name];
             }
         }];
