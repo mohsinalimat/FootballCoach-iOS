@@ -1196,9 +1196,18 @@ static UIColor *styleColor = nil;
 }
 
 +(NSString *)currentMinorVersion {
-    NSString *version = HB_CURRENT_APP_VERSION;
-    NSLog(@"[Main] Minor Version %@", [version stringByDeletingPathExtension]);
-    return [version stringByDeletingPathExtension];
+    static dispatch_once_t onceToken;
+    static NSString *minorVersion;
+    dispatch_once(&onceToken, ^{
+        NSString *version = HB_CURRENT_APP_VERSION;
+        NSMutableArray<NSString *> *components = [NSMutableArray arrayWithArray:[version componentsSeparatedByString:@"."]];
+        if (components.count > 2) {
+            [components removeLastObject];
+        }
+        minorVersion = [components componentsJoinedByString:@"."];
+        NSLog(@"[Main] Minor Version %@", minorVersion);
+    });
+    return minorVersion;
 }
 
 +(NSComparisonResult)compareCoachScore:(id)obj1 toObj2:(id)obj2 {
