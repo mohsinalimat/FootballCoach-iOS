@@ -17,6 +17,7 @@
 @implementation HeadCoach
 
 -(void)setWithCoder:(NSCoder *)aDecoder {
+    [super setWithCoder:aDecoder];
     if (![aDecoder containsValueForKey:@"teamWins"]) {
         if (self.team != nil) {
             self.teamWins = self.team.wins;
