@@ -1837,13 +1837,13 @@
     if (isUserControlled) {
         if (coachGotNewContract && proveIt) {
             coachContractString = [NSString stringWithFormat:@"You've been given an %d-year contract to prove your abilities based on the recent success of your team.",[self getCurrentHC].contractLength];
-//            NSLog(@"[Coaching Carousel] User Coach Status: Extended (Prove It)");
+            NSLog(@"[Coaching Carousel] User Coach Status: Extended (Prove It)");
         } else if (coachGotNewContract) {
             coachContractString = [NSString stringWithFormat:@"Congratulations! Your performance has been rewarded with a contract extension for %d years!", [self getCurrentHC].contractLength];
-//            NSLog(@"[Coaching Carousel] User Coach Status: Extended");
+            NSLog(@"[Coaching Carousel] User Coach Status: Extended");
         } else if (coachFired) {
             coachContractString = [NSString stringWithFormat:@"Because of your team's poor performances, %@'s Athletic Director has terminated your contract.", name];
-//            NSLog(@"[Coaching Carousel] User Coach Status: Fired");
+            NSLog(@"[Coaching Carousel] User Coach Status: Fired");
         } else {
             int yearsLeft = MAX(0, ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear - 1));
             if (yearsLeft == 0) {
