@@ -1268,12 +1268,12 @@
                                                          [awayTeam getLB:1],
                                                          [awayTeam getLB:2]]];
 //        NSLog(@"END AWAY STARTERS FOR %@", awayTeam.abbreviation);
-        //break redshirts if starters are marked as such and add gamesPlayed/gamesPlayedSeason
         //NSLog(@"[Game] BREAKING REDSHIRTS IF NECESSARY");
+        //break redshirts if starters are marked as such and add gamesPlayed/gamesPlayedSeason
         for (Player *p in homeStarters) {
-            if (p.hasRedshirt) {
+            if (p.hasRedshirt && p.gamesPlayedSeason > 4) {
                 p.hasRedshirt = NO;
-                p.wasRedshirted = YES;
+//                p.wasRedshirted = YES;
             }
             
             if (![p isEqual:[homeTeam getWR:2]]) {
@@ -1283,9 +1283,9 @@
         }
         
         for (Player *p in awayStarters) {
-            if (p.hasRedshirt) {
+            if (p.hasRedshirt && p.gamesPlayedSeason > 4) {
                 p.hasRedshirt = NO;
-                p.wasRedshirted = YES;
+//                p.wasRedshirted = YES;
             }
             
             if (![p isEqual:[awayTeam getWR:2]]) {
