@@ -978,6 +978,40 @@
     return mapped.count;
 }
 
+-(NSInteger)_calculatePlayersTransferringOut:(NSString *)pos {
+    NSMutableArray *players = [NSMutableArray array];
+    if ([pos isEqualToString:@"QB"]) {
+        players = self.teamQBs;
+    } else if ([pos isEqualToString:@"RB"]) {
+        players = self.teamRBs;
+    } else if ([pos isEqualToString:@"WR"]) {
+        players = self.teamWRs;
+    } else if ([pos isEqualToString:@"TE"]) {
+        players = self.teamTEs;
+    } else if ([pos isEqualToString:@"OL"]) {
+        players = self.teamOLs;
+    } else if ([pos isEqualToString:@"DL"]) {
+        players = self.teamDLs;
+    } else if ([pos isEqualToString:@"LB"]) {
+        players = self.teamLBs;
+    } else if ([pos isEqualToString:@"CB"]) {
+        players = self.teamCBs;
+    } else if ([pos isEqualToString:@"S"]) {
+        players = self.teamSs;
+    } else { // K
+        players = self.teamKs;
+    }
+    
+    NSMutableArray *mapped = [NSMutableArray array];
+    [players enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Player *p = (Player *)obj;
+        if ([p.position isEqualToString:pos] && (p.isTransfer || p.isGradTransfer)) {
+            [mapped addObject:p];
+        }
+    }];
+    return mapped.count;
+}
+
 -(void)recruitPlayersFreshman:(NSArray*)needs {
     int qbNeeds, rbNeeds, wrNeeds, kNeeds, olNeeds, sNeeds, cbNeeds, dlNeeds, lbNeeds, teNeeds;
     qbNeeds = [needs[0] intValue];
@@ -2657,6 +2691,12 @@
 }
 
 -(void)_calculateTransferringPlayers:(NSMutableArray *)positionPlayers position:(NSString *)pos starterCount:(int)starterCount {
+    NSInteger alreadyTransferring = [self _calculatePlayersTransferringOut:pos];
+    // Artificially limiting the number of transfers by checking if the number of players at this position already transferring out is greater than or equal to half the number of starters at that position.
+    if (alreadyTransferring >= (starterCount / 2)) {
+        return;
+    }
+    
     int i = 0;
     int transferChance = 12;
     int transferYear = 2;
