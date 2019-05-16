@@ -2716,7 +2716,7 @@
                         || [q isEqual: [self getK:0]]);
 
         int futurePositionalScore = 0;
-        NSArray *playersAtPosition = [self getPlayersAtPosition: q.position];
+        NSArray *playersAtPosition = [positionPlayers copy];
         NSMutableDictionary *positionalOveralls = [NSMutableDictionary dictionary];
         [positionalOveralls setObject:@(q.ratOvr) forKey:q.name];
         [playersAtPosition enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -2730,16 +2730,13 @@
             return [obj2 compare:obj1];
         }];
         NSInteger plyrNameIndex = [sortedOveralls indexOfObject:self.name];
-        switch (plyrNameIndex) {
-            case 0:
-                futurePositionalScore = 25;
-                break;
-            default:
-                futurePositionalScore = 25 - ((int)(25.0 * ((float)plyrNameIndex / (float)sortedOveralls.count)));
-                break;
+        if (plyrNameIndex < starterCount) {
+            futurePositionalScore = 25;
+        } else {
+            futurePositionalScore = 25 - ((int)(25.0 * ((float)plyrNameIndex / (float)sortedOveralls.count)));
         }
 
-        if (![playersLeaving containsObject:q] && q.year >= transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && !q.isHeisman && !q.isROTY && !q.isAllAmerican && !q.isAllConference && !q.isInjured && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer && !q.isGradTransfer && futurePositionalScore < 20) {
+        if (![playersLeaving containsObject:q] && q.year >= transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && !q.isHeisman && !q.isROTY && !q.isAllAmerican && !q.isAllConference && !q.isInjured && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer && !q.isGradTransfer && futurePositionalScore < 25) {
             NSLog(@"[Transfers] Confirmed that %@ %@ is a valid transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
             if (q.year == 4) {
                 q.isTransfer = false;
