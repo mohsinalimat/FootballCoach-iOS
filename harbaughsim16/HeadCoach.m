@@ -105,11 +105,11 @@
     double coachScore = ([self getCoachScore] - [self.team.league findConference:self.team.conference].confPrestige)/10;
     if (coachScore < -4) coachScore = -4;
     
-    self.ratOff += (2*prestigeDiff + offpts + coachScore + 2*self.ratPot)/6;
+    self.ratOff += (2*prestigeDiff + offpts + coachScore + 2*(self.ratPot / 10))/6;
     if (self.ratOff > 95) self.ratOff = 95;
     if (self.ratOff < 20) self.ratOff = 20;
     
-    self.ratDef += (2*prestigeDiff + defpts + coachScore + 2*self.ratPot)/6;
+    self.ratDef += (2*prestigeDiff + defpts + coachScore + 2*(self.ratPot / 10))/6;
     if (self.ratDef > 95) self.ratDef = 95;
     if (self.ratDef < 20) self.ratDef = 20;
     
