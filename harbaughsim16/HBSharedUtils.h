@@ -59,7 +59,7 @@
 #define OFFICIAL_VISIT_INTEREST_BONUS 10
 #define INHOME_VISIT_INTEREST_BONUS 15
 
-#define AGE_ADDED_COST (([HBSharedUtils currentLeague].isCareerMode && [HBSharedUtils currentLeague].isHardMode) ? MAX(0, ([[HBSharedUtils currentLeague].userTeam getCurrentHC].age - 60) * 2) : 0)
+#define AGE_ADDED_COST (([HBSharedUtils currentLeague].isCareerMode && [HBSharedUtils currentLeague].isHardMode) ? MAX(0, ([[HBSharedUtils currentLeague].userTeam getCurrentHC].age - 70) * 2.0) : 0)
 
 #define MEETING_COST 12 + AGE_ADDED_COST
 #define OFFICIAL_VISIT_COST 25 + AGE_ADDED_COST
