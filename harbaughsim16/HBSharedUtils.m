@@ -1497,4 +1497,8 @@ static UIColor *styleColor = nil;
         return 100;
     }
 }
+
++ (CGFloat)mapValue:(CGFloat)input inputMin:(CGFloat)inMin inputMax:(CGFloat)inMax outputMin:(CGFloat)outMin outputMax:(CGFloat)outMax {
+    return (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
+}
 @end

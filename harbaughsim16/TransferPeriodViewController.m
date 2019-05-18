@@ -1229,7 +1229,6 @@
         }
     }
     
-    int stars = p.stars;
     //// NSLog(@"%@'s OVR: %d stars: %d interest: %d offers: %@", p.name, p.ratOvr, stars, interest, p.offers);
     NSString *name = [p getInitialName];
     NSString *position = p.position;
@@ -1323,8 +1322,10 @@
     NSMutableAttributedString *specString = [[NSMutableAttributedString alloc] initWithString:@"Archetype: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
     [specString appendAttributedString:[[NSAttributedString alloc] initWithString:[p getPlayerArchetype] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     
+    CGFloat overallStars = [HBSharedUtils mapValue:p.ratOvr inputMin:50 inputMax:100 outputMin:1 outputMax:5];
+    
     [cell.interestLabel setAttributedText:interestString];
-    [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:stars]]];
+    [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:(int)ceilf(overallStars)]]];
     [cell.nameLabel setAttributedText:nameString];
     [cell.stateLabel setText:state];
     [cell.weightLabel setAttributedText:typeString];
@@ -1350,17 +1351,17 @@
     [potAtt appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE weight:UIFontWeightMedium]}]];
     [cell.fortyYdDashLabel setAttributedText:potAtt];
     
-    NSString *stat2 = [p getLetterGrade:p.ratOvr];
     UIColor *stat2Color = [UIColor lightGrayColor];
-    if ([stat2 containsString:@"A"]) {
+    NSString *stat2 = [NSString stringWithFormat:@"%d",p.ratOvr];
+    if ([stat2 containsString:@"9"]) {
         stat2Color = [HBSharedUtils successColor];
-    } else if ([stat2 containsString:@"B"]) {
+    } else if ([stat2 containsString:@"8"]) {
         stat2Color = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
-    } else if ([stat2 containsString:@"C"]) {
+    } else if ([stat2 containsString:@"7"]) {
         stat2Color = [HBSharedUtils champColor];
-    } else if ([stat2 containsString:@"D"]) {
+    } else if ([stat2 containsString:@"6"]) {
         stat2Color = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
-    } else if ([stat2 containsString:@"F"]) {
+    } else if ([stat2 containsString:@"5"]) {
         stat2Color = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
     } else {
         stat2Color = [UIColor lightGrayColor];

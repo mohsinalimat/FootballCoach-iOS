@@ -221,4 +221,6 @@ typedef enum {
 + (void)addCoachToCoachLeaderboard:(HeadCoach *)coach;
 
 +(NSNumberFormatter *)prestigeNumberFormatter;
+
++ (CGFloat)mapValue:(CGFloat)input inputMin:(CGFloat)inMin inputMax:(CGFloat)inMax outputMin:(CGFloat)outMin outputMax:(CGFloat)outMax;
 @end

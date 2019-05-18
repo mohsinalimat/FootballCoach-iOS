@@ -307,17 +307,17 @@
         
         [nameString appendAttributedString:[[NSAttributedString alloc] initWithString:name attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE weight:UIFontWeightMedium], NSForegroundColorAttributeName : nameColor}]];
         
-        NSString *stat2 = [selectedRecruit getLetterGrade:selectedRecruit.ratOvr];
         UIColor *stat2Color = [UIColor lightGrayColor];
-        if ([stat2 containsString:@"A"]) {
+        NSString *stat2 = [NSString stringWithFormat:@"%d",selectedRecruit.ratOvr];
+        if ([stat2 containsString:@"9"]) {
             stat2Color = [HBSharedUtils successColor];
-        } else if ([stat2 containsString:@"B"]) {
+        } else if ([stat2 containsString:@"8"]) {
             stat2Color = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
-        } else if ([stat2 containsString:@"C"]) {
+        } else if ([stat2 containsString:@"7"]) {
             stat2Color = [HBSharedUtils champColor];
-        } else if ([stat2 containsString:@"D"]) {
+        } else if ([stat2 containsString:@"6"]) {
             stat2Color = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
-        } else if ([stat2 containsString:@"F"]) {
+        } else if ([stat2 containsString:@"5"]) {
             stat2Color = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
         } else {
             stat2Color = [UIColor lightGrayColor];
