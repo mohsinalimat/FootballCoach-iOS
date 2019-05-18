@@ -144,11 +144,11 @@
 -(FCCoachStatus)getCoachStatus {
     FCCoachStatus status = FCCoachStatusNormal;
     if (self.contractYear > 0) {
-        if(self.baselinePrestige > (self.team.teamPrestige + 5)) status = FCCoachStatusHotSeat;
-        else if(self.baselinePrestige + 7 < (self.team.teamPrestige)) status = FCCoachStatusSecure;
-        else if(self.baselinePrestige + 3 < (self.team.teamPrestige)) status = FCCoachStatusSafe;
+        if ((self.baselinePrestige + 7) < self.team.teamPrestige) status = FCCoachStatusSecure;
+        else if ((self.baselinePrestige + 3) < self.team.teamPrestige) status = FCCoachStatusSafe;
         else if (self.baselinePrestige > (self.team.teamPrestige + 3)) status = FCCoachStatusUnsafe;
-        else status = FCCoachStatusOk;
+        else if (self.baselinePrestige > (self.team.teamPrestige + 5)) status = FCCoachStatusHotSeat;
+        else status = FCCoachStatusOk; // appears if prestige delta is [-3, +3]
     }
     
     return status;
