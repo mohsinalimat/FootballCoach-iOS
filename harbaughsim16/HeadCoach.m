@@ -96,25 +96,26 @@
     double def = avgDefYards - (double)self.team.teamOppYards;
     double offTal = self.team.diffOffTalent;
     double defTal = self.team.diffDefTalent;
-    double offpts = ((off / avgYards) + (offTal / offTalent)) * 4;
-    double defpts = ((def / avgDefYards) + (defTal / defTalent)) * 4;
+    
+    double offensiveMultiplier = (self.team.league.isHardMode) ? ([HBSharedUtils randomValue] * 2.5) : 4;
+    double defensiveMultiplier = (self.team.league.isHardMode) ? ([HBSharedUtils randomValue] * 2.5) : 4;
+    
+    double offpts = ((off / avgYards) + (offTal / offTalent)) * offensiveMultiplier;
+    double defpts = ((def / avgDefYards) + (defTal / defTalent)) * defensiveMultiplier;
     double coachScore = ([self getCoachScore] - [self.team.league findConference:self.team.conference].confPrestige)/10;
     if (coachScore < -4) coachScore = -4;
     
-    self.ratOff += (2*prestigeDiff + offpts + coachScore + self.ratPot)/5;
+    self.ratOff += (2*prestigeDiff + offpts + coachScore + 2*self.ratPot)/6;
     if (self.ratOff > 95) self.ratOff = 95;
     if (self.ratOff < 20) self.ratOff = 20;
     
-    self.ratDef += (2*prestigeDiff + defpts + coachScore + self.ratPot)/4;
+    self.ratDef += (2*prestigeDiff + defpts + coachScore + 2*self.ratPot)/6;
     if (self.ratDef > 95) self.ratDef = 95;
     if (self.ratDef < 20) self.ratDef = 20;
     
     self.ratTalent += (prestigeDiff + coachScore + self.ratPot)/3;
     if (self.ratTalent > 95) self.ratTalent = 95;
     if (self.ratTalent < 20) self.ratTalent = 20;
-    
-    if (self.ratDiscipline > 90) self.ratDiscipline = 90;
-    if (self.ratDiscipline < 15) self.ratDiscipline = 15;
     
     if (self.age > 65 && !self.team.isUserControlled) {
         self.ratOff -= (int) ([HBSharedUtils randomValue] * 4);
@@ -123,12 +124,15 @@
         self.ratDiscipline -= (int) ([HBSharedUtils randomValue] * 4);
     }
     
-    if (self.age > 70 && self.team.isUserControlled && self.team.league.isCareerMode) { //&& !team.league.neverRetire ) {
+    if (self.age > 70 && self.team.isUserControlled && self.team.league.isCareerMode) {
         self.ratOff -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
         self.ratDef -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
         self.ratTalent -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
         self.ratDiscipline -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
     }
+    
+    if (self.ratDiscipline > 90) self.ratDiscipline = 90;
+    if (self.ratDiscipline < 15) self.ratDiscipline = 15;
     
     self.ratOvr = [self getHCOverall];
     self.ratImprovement = self.ratOvr - oldOvr;
