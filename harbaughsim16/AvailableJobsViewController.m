@@ -28,16 +28,16 @@
 {
     STPopupController *popupController;
     NSMutableArray *availableJobs;
-    
+
     HeadCoach *userCoach;
-    
+
     NSIndexPath *selectedIndexPath;
     Team *selectedTeam;
-    
+
     NSMutableDictionary<NSString *, NSString *> *lastBowlMap;
     NSMutableDictionary<NSString *, NSString *> *lastCCGMap;
     NSMutableDictionary<NSString *, NSString *> *lastNCGMap;
-    
+
     BOOL coachUnemployed;
 }
 
@@ -78,9 +78,9 @@
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
     self.title = [NSString stringWithFormat:@"%ld Coaching Carousel", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
-    
+
     userCoach = [[HBSharedUtils currentLeague].userTeam getCurrentHC];
-    
+
     availableJobs = [NSMutableArray array];
     for (Team *t in [HBSharedUtils currentLeague].teamList) {
         if (![t isEqual:[HBSharedUtils currentLeague].userTeam]
@@ -107,8 +107,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recieveSigningNotif:) name:@"signingWithTeam" object:nil];
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"help"] style:UIBarButtonItemStylePlain target:self action:@selector(openJobTutorial)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStyleDone target:self action:@selector(closeCarousel)];
-    
-    
+
+
     BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_COACHING_TUTORIAL_SHOWN_KEY];
     if (!tutorialShown) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_COACHING_TUTORIAL_SHOWN_KEY];
@@ -147,13 +147,13 @@
                 if (![[HBSharedUtils currentLeague].coachList containsObject:self->userCoach]) {
                     [[HBSharedUtils currentLeague].coachList addObject:self->userCoach];
                 }
-                
+
                 for (Team *t in self->availableJobs) {
                     if (t.coaches.count != 0 && (t.coachFired || t.coachRetired)) {
                         [t.coaches removeObjectAtIndex:0]; // remove all fired coaches (if not removed already)
                     }
                 }
-                
+
                 // process rest of coaching carousel
                 [[HBSharedUtils currentLeague] processCoachingCarousel];
                 // mark coaching carousel as over
@@ -169,7 +169,7 @@
                 });
             });
         }]];
-        
+
         [alert addAction:[UIAlertAction actionWithTitle:@"No, keep looking at offers." style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
     } else {
@@ -201,7 +201,7 @@
                         [t.coaches removeObjectAtIndex:0]; // remove all fired coaches
                     }
                 }
-                
+
                 // yes
                 [HBSharedUtils currentLeague].userTeam.isUserControlled = NO;
                 [[HBSharedUtils currentLeague].userTeam.coaches removeObject:self->userCoach];
@@ -216,14 +216,14 @@
                 [HBSharedUtils currentLeague].userTeam.coachFired = NO;
                 [HBSharedUtils currentLeague].userTeam.coachRetired = NO;
                 [self->selectedTeam.coaches addObject:self->userCoach];
-                
+
                 if ([[HBSharedUtils currentLeague].coachList containsObject:self->userCoach]) {
                     [[HBSharedUtils currentLeague].coachList removeObject:self->userCoach];
                 }
                 if ([[HBSharedUtils currentLeague].coachStarList containsObject:self->userCoach]) {
                     [[HBSharedUtils currentLeague].coachStarList removeObject:self->userCoach];
                 }
-                
+
                 [hud.label setText:@"Processing remaining open coaching positions..."];
                 // process rest of coaching carousel
                 [[HBSharedUtils currentLeague] processCoachingCarousel];
@@ -241,7 +241,7 @@
                 }];
             });
         }]];
-        
+
         // NO
         // cancel
         [alert addAction:[UIAlertAction actionWithTitle:@"No, let me see other offers." style:UIAlertActionStyleCancel handler:nil]];
@@ -266,10 +266,13 @@
     lastCCGMap = [NSMutableDictionary dictionary];
     lastBowlMap = [NSMutableDictionary dictionary];
     lastNCGMap = [NSMutableDictionary dictionary];
+    NSString *lastCCGYear = @"Never";
+    NSString *lastNCGYear = @"Never";
+    NSString *lastBowlYear = @"Never";
     for (Team *t in availableJobs) {
-        NSString *lastCCGYear = @"Never";
-        NSString *lastNCGYear = @"Never";
-        NSString *lastBowlYear = @"Never";
+        lastCCGYear = @"Never";
+        lastNCGYear = @"Never";
+        lastBowlYear = @"Never";
         NSMutableArray *years = [NSMutableArray arrayWithArray:t.teamHistoryDictionary.allKeys];
         [years sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             return [[NSNumber numberWithInt:[obj2 intValue]] compare:[NSNumber numberWithInt:[obj1 intValue]]];
@@ -286,12 +289,12 @@
             lastBowlYear = [NSString stringWithFormat:@"%ld", (long)[[HBSharedUtils currentLeague] getCurrentYear]];
         }
         [lastBowlMap setObject:lastBowlYear forKey:t.abbreviation];
-        
+
         if (![t.confChampion containsString:@"CC"]) {
             for (NSString *year in years) {
                 NSString *history = t.teamHistoryDictionary[year];
                 if ([history containsString:@"CCG -"]) {
-                    lastNCGYear = year;
+                    lastCCGYear = year;
                 }
                 break;
             }
@@ -299,7 +302,7 @@
             lastCCGYear = [NSString stringWithFormat:@"%ld", (long)[[HBSharedUtils currentLeague] getCurrentYear]];
         }
         [lastCCGMap setObject:lastCCGYear forKey:t.abbreviation];
-        
+
         if (![t.natlChampWL containsString:@"NC"]) {
             for (NSString *year in years) {
                 NSString *history = t.teamHistoryDictionary[year];
@@ -322,21 +325,21 @@
     NSString *text = nil;
     UIFont *font = nil;
     UIColor *textColor = nil;
-    
+
     NSMutableDictionary *attributes = [NSMutableDictionary new];
-    
+
     text = @"No available jobs";
     font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
-    
-    
+
+
     if (!text) {
         return nil;
     }
-    
+
     if (font) [attributes setObject:font forKey:NSFontAttributeName];
     if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
-    
+
     return [[NSAttributedString alloc] initWithString:text attributes:attributes];
 }
 
@@ -345,28 +348,28 @@
     NSString *text = nil;
     UIFont *font = nil;
     UIColor *textColor = nil;
-    
+
     NSMutableDictionary *attributes = [NSMutableDictionary new];
-    
+
     NSMutableParagraphStyle *paragraph = [NSMutableParagraphStyle new];
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     paragraph.alignment = NSTextAlignmentCenter;
-    
+
     text = @"There are no head coaching jobs currently available.";
     font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
-    
-    
+
+
     if (!text) {
         return nil;
     }
-    
+
     if (font) [attributes setObject:font forKey:NSFontAttributeName];
     if (textColor) [attributes setObject:textColor forKey:NSForegroundColorAttributeName];
     if (paragraph) [attributes setObject:paragraph forKey:NSParagraphStyleAttributeName];
-    
+
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:text attributes:attributes];
-    
+
     return attributedString;
 }
 
@@ -416,7 +419,7 @@
         [cell.weightLabel setText:@""];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+
     return cell;
 }
 
@@ -434,38 +437,39 @@
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+
     CGFloat inMin = 20.0;
     CGFloat inMax = 95.0;
-    
+
     CGFloat outMin = 1.0;
     CGFloat outMax = 5.0;
-    
+
     CGFloat input = (CGFloat) t.teamPrestige;
     int stars = (int)(outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
-    
+
     [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:MAX(1, stars)]]];
-    
+
     NSMutableAttributedString *lastBowlString = [[NSMutableAttributedString alloc] initWithString:@"Last Bowl: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
     [lastBowlString appendAttributedString:[[NSAttributedString alloc] initWithString:lastBowlMap[t.abbreviation] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
 
     NSMutableAttributedString *lastCCGString = [[NSMutableAttributedString alloc] initWithString:@"Last CCG: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
     [lastCCGString appendAttributedString:[[NSAttributedString alloc] initWithString:lastCCGMap[t.abbreviation] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
-    
+
     NSMutableAttributedString *lastNCGString = [[NSMutableAttributedString alloc] initWithString:@"Last NCG: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
     [lastNCGString appendAttributedString:[[NSAttributedString alloc] initWithString:lastNCGMap[t.abbreviation] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     [cell.heightLabel setAttributedText:lastBowlString];
     [cell.fortyYdDashLabel setAttributedText:lastCCGString];
-    [cell.otherOffersLabel setAttributedText:lastNCGString];
-    
+    [cell.specialtyLabel setAttributedText:lastNCGString];
+    [cell.otherOffersLabel setAlpha:0.0];
+
     NSMutableAttributedString *recordString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%ld: ", (long)[[HBSharedUtils currentLeague] getCurrentYear]] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
     [recordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d-%d",t.wins,t.losses] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
-    
+
     NSMutableAttributedString *lifetimeRecordString = [[NSMutableAttributedString alloc] initWithString:@"Lifetime: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
     [lifetimeRecordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d-%d",t.totalWins,t.totalLosses] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     [cell.weightLabel setAttributedText:recordString];
     [cell.interestLabel setAttributedText:lifetimeRecordString];
-    
+
     [cell.rankLabel setText:[NSString stringWithFormat:@"#%ld job avl", (long)(indexPath.row + 1)]];
 }
 
