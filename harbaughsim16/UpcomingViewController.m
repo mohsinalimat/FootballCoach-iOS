@@ -844,7 +844,7 @@
         if (section == 0) {
             return 3;
         } else {
-            return newsDictionary.count;
+            return sortedNewsCategories.count;
         }
     } else if ([HBSharedUtils currentLeague].userTeam.gameWLSchedule.count > 0 && ![HBSharedUtils currentLeague].userTeam.gameSchedule.lastObject.hasPlayed && [HBSharedUtils currentLeague].userTeam.gameSchedule.count >= [HBSharedUtils currentLeague].currentWeek) {
         if (section == 0) {
@@ -854,7 +854,7 @@
         } else if (section == 2) {
             return 5;
         } else {
-            return newsDictionary.count;
+            return sortedNewsCategories.count;
         }
     } else if ([HBSharedUtils currentLeague].userTeam.gameSchedule.lastObject.hasPlayed) {
         if (section == 0) {
@@ -862,7 +862,7 @@
         } else if (section == 1) {
             return 5;
         } else {
-            return newsDictionary.count;
+            return sortedNewsCategories.count;
         }
     } else {
         if (section == 0) {
@@ -870,7 +870,7 @@
         } else if (section == 1) {
             return 5;
         } else {
-            return newsDictionary.count;
+            return sortedNewsCategories.count;
         }
     }
 }
