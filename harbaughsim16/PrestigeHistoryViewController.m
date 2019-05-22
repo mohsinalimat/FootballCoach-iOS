@@ -18,6 +18,14 @@
 
 @implementation PrestigeHistoryViewController
 
+- (instancetype)init
+{
+    if (self = [super init]) {
+        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.75 * [UIScreen mainScreen].bounds.size.height);
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

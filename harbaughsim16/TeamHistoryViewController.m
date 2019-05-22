@@ -112,6 +112,7 @@
     PrestigeHistoryViewController *prestigeHistoryVC = [[PrestigeHistoryViewController alloc] initWithDataSets:@[prestigeHistLine]];
     prestigeHistoryVC.title = [NSString stringWithFormat:@"%@ Prestige History", selectedTeam.abbreviation];
     if (self.popupController.presented) {
+        prestigeHistoryVC.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.75 * [UIScreen mainScreen].bounds.size.height);
         [self.popupController pushViewController:prestigeHistoryVC animated:YES];
     } else {
         [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
