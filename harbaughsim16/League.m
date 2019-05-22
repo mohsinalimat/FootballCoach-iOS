@@ -4295,6 +4295,7 @@
                     }
                 }
             }
+            starCount = coachStarList.count;
             k++;
         }
 
@@ -4326,6 +4327,7 @@
                     }
                 }
             }
+            count = coachList.count;
             i++;
         }
 
@@ -4358,6 +4360,7 @@
                     }
                 }
             }
+            faCount = coachFreeAgents.count;
             j++;
         }
 
