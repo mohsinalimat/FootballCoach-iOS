@@ -96,7 +96,11 @@
     [super viewDidLoad];
     self.tableView.emptyDataSetSource = self;
     self.tableView.emptyDataSetDelegate = self;
-    self.title = [NSString stringWithFormat:@"%ld Job Offers", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
+    if (userCoach.team.coachFired) {
+        self.title = [NSString stringWithFormat:@"%ld Job Offers", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
+    } else {
+        self.title = [NSString stringWithFormat:@"%ld Coaching Carousel", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
+    }
 
     userCoach = [[HBSharedUtils currentLeague].userTeam getCurrentHC];
     [self _generateJobOffers];
@@ -164,7 +168,10 @@
     //display intro screen
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self->availableJobs.count > 0) {
-            NSString *tipText = @"Here's an job offer from another program. You can read a short version of how the program has done recently, and tap on the program to learn more and sign a contract with them.";
+            NSString *tipText = @"This is a job offer from another program. You can read a short version of how the program has done recently, and tap on the program to learn more and sign a contract with them.";
+            if (!self->userCoach.team.coachFired) {
+                tipText = @"This is a job opening at another program. You can read a short version of how the program has done recently, and tap on the program to learn more and sign a contract with them.";
+            }
             ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
             editTip.tag = FCTutorialTeamSelect;
             [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] withinSuperview:self.tableView];

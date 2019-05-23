@@ -578,7 +578,7 @@ static UIColor *styleColor = nil;
             [[self class] addRetirementOptionsUsingAlertController:alertController sourceViewController:viewController];
         } else {
             alertController.message = [NSString stringWithFormat:@"%@\nDue to your lackluster performance, you have been fired. You can now look for other jobs around the country.",alertController.message];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"View Job Offers" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] initWithJobStatus:YES]] animated:YES completion:nil];
                 });
