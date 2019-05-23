@@ -78,9 +78,11 @@
     for (Team *t in [HBSharedUtils currentLeague].teamList) {
         if (![t isEqual:[HBSharedUtils currentLeague].userTeam]
             && (t.coachFired || t.coachRetired || t.coaches.count == 0)
-            && ![availableJobs containsObject:t]
-            && [t getMinCoachHireReq] <= userCoach.ratOvr) {
-            [availableJobs addObject:t];
+            && ![availableJobs containsObject:t]) {
+            // view all available if the coach wasn't fired, but if he was, only show the ones he qualifies for.
+            if ((userCoach.team.coachFired && [t getMinCoachHireReq] <= userCoach.ratOvr) || !userCoach.team.coachFired) {
+                [availableJobs addObject:t];
+            }
         }
     }
     
@@ -170,7 +172,7 @@
         if (self->availableJobs.count > 0) {
             NSString *tipText = @"This is a job offer from another program. You can read a short version of how the program has done recently, and tap on the program to learn more and sign a contract with them.";
             if (!self->userCoach.team.coachFired) {
-                tipText = @"This is a job opening at another program. You can read a short version of how the program has done recently, and tap on the program to learn more and sign a contract with them.";
+                tipText = @"This is a job opening at another program. You can read a short version of how the program has done recently, and tap on the program to learn more and sign a contract with them. If the program's information is grayed out, you do not meet the minimum requirements for their posting.";
             }
             ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
             editTip.tag = FCTutorialTeamSelect;
