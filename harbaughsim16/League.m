@@ -1561,6 +1561,7 @@
             
             if (availTeamsB.count == 0) {
                 b = [Team newTeamWithName:[self fcsTeamNames][(int)([self fcsTeamNames].count * [HBSharedUtils randomValue])] abbreviation:@"FCS" conference:@"FCS" league:self prestige:(int)([HBSharedUtils randomValue] * 50) rivalTeam:@"FCS1" state:@"USA"];
+                b.rankTeamPollScore = 121;
                 fcsGames++;
             } else {
                 int selTeamB = (int) (availTeamsB.count * [HBSharedUtils randomValue]);
