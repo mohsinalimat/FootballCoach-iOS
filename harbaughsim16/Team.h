@@ -359,4 +359,6 @@ typedef enum {
 -(int)calculatePrestigeChange;
 
 -(void)addCoach:(HeadCoach *)hc;
+
+- (int)calculateInterestInCoach:(HeadCoach *)hc;
 @end

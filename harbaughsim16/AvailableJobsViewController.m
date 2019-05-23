@@ -73,29 +73,35 @@
     [popupController dismiss];
 }
 
--(void)viewDidLoad {
-    [super viewDidLoad];
-    self.tableView.emptyDataSetSource = self;
-    self.tableView.emptyDataSetDelegate = self;
-    self.title = [NSString stringWithFormat:@"%ld Coaching Carousel", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
-
-    userCoach = [[HBSharedUtils currentLeague].userTeam getCurrentHC];
-
+-(void)_generateJobOffers {
     availableJobs = [NSMutableArray array];
     for (Team *t in [HBSharedUtils currentLeague].teamList) {
         if (![t isEqual:[HBSharedUtils currentLeague].userTeam]
             && (t.coachFired || t.coachRetired || t.coaches.count == 0)
-            && ![availableJobs containsObject:t]) {
+            && ![availableJobs containsObject:t]
+            && [t getMinCoachHireReq] <= userCoach.ratOvr) {
             [availableJobs addObject:t];
         }
     }
-
+    
     [availableJobs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
     }];
+    
     [self generateDetailStrings];
-    //[hud hideAnimated:YES];
     [self.tableView reloadData];
+}
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    self.tableView.emptyDataSetSource = self;
+    self.tableView.emptyDataSetDelegate = self;
+    self.title = [NSString stringWithFormat:@"%ld Job Offers", (long)([[HBSharedUtils currentLeague] getCurrentYear] + 1)];
+
+    userCoach = [[HBSharedUtils currentLeague].userTeam getCurrentHC];
+    [self _generateJobOffers];
+
+    //[hud hideAnimated:YES];
 
     [self.view setBackgroundColor:[HBSharedUtils styleColor]];
 
@@ -105,7 +111,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recieveSigningNotif:) name:@"signingWithTeam" object:nil];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"help"] style:UIBarButtonItemStylePlain target:self action:@selector(openJobTutorial)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"news-sort"] style:UIBarButtonItemStylePlain target:self action:@selector(sortJobs)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"close"] style:UIBarButtonItemStyleDone target:self action:@selector(closeCarousel)];
 
 
@@ -120,11 +126,45 @@
     }
 }
 
+-(void)sortJobs {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Job Sort Options" message:@"What metric would you like to sort by?" preferredStyle:UIAlertControllerStyleActionSheet];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Prestige" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self->availableJobs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [HBSharedUtils compareTeamPrestige:obj1 toObj2:obj2];
+        }];
+        [self.tableView reloadData];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Interest" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self->availableJobs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return [a calculateInterestInCoach:self->userCoach] > [b calculateInterestInCoach:self->userCoach] ? -1 : [a calculateInterestInCoach:self->userCoach] == [b calculateInterestInCoach:self->userCoach] ? 0 : 1;
+        }];
+        [self.tableView reloadData];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Total Wins" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self->availableJobs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Team *a = (Team*)obj1;
+            Team *b = (Team*)obj2;
+            return a.totalWins > b.totalWins ? -1 : a.totalWins == b.totalWins ? 0 : 1;
+        }];
+        [self.tableView reloadData];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%ld Record",(long)[[HBSharedUtils currentLeague] getCurrentYear]] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self->availableJobs sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            return [HBSharedUtils compareTeamLeastWins:obj2 toObj2:obj1];
+        }];
+        [self.tableView reloadData];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 -(void)openJobTutorial {
     //display intro screen
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self->availableJobs.count > 0) {
-            NSString *tipText = @"Here's an job opening from across the nation. You can read about how the program has done recently, and tap on the program to sign a contract with it.\n\nSometimes teams might be grayed out -- if that's the case, you don't have a high enough overall rating to sign with them.";
+            NSString *tipText = @"Here's an job offer from another program. You can read a short version of how the program has done recently, and tap on the program to learn more and sign a contract with them.";
             ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
             editTip.tag = FCTutorialTeamSelect;
             [editTip showAnimated:YES forView:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] withinSuperview:self.tableView];
@@ -328,7 +368,7 @@
 
     NSMutableDictionary *attributes = [NSMutableDictionary new];
 
-    text = @"No available jobs";
+    text = @"No job offers";
     font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
 
@@ -437,18 +477,18 @@
         [cell.nameLabel setTextColor:[UIColor lightGrayColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    int stars = (int)ceilf([HBSharedUtils mapValue:t.teamPrestige inputMin:50 inputMax:100 outputMin:1 outputMax:5]);
+    [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:stars]]];
+    
 
-    CGFloat inMin = 20.0;
-    CGFloat inMax = 95.0;
-
-    CGFloat outMin = 1.0;
-    CGFloat outMax = 5.0;
-
-    CGFloat input = (CGFloat) t.teamPrestige;
-    int stars = (int)(outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
-
-    [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:MAX(1, stars)]]];
-
+    UIColor *interestColor = [HBSharedUtils _calculateInterestColor:[t calculateInterestInCoach:userCoach]];
+    NSString *interestString = [HBSharedUtils _calculateInterestString:[t calculateInterestInCoach:userCoach]];
+    NSMutableAttributedString *interestAttString = [[NSMutableAttributedString alloc] initWithString:@"Interest: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [interestAttString appendAttributedString:[[NSAttributedString alloc] initWithString:interestString attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : interestColor}]];
+    [cell.rankLabel setAttributedText:interestAttString];
+    
+    
     NSMutableAttributedString *lastBowlString = [[NSMutableAttributedString alloc] initWithString:@"Last Bowl: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
     [lastBowlString appendAttributedString:[[NSAttributedString alloc] initWithString:lastBowlMap[t.abbreviation] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
 
@@ -469,8 +509,6 @@
     [lifetimeRecordString appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%d-%d",t.totalWins,t.totalLosses] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     [cell.weightLabel setAttributedText:recordString];
     [cell.interestLabel setAttributedText:lifetimeRecordString];
-
-    [cell.rankLabel setText:[NSString stringWithFormat:@"#%ld job avl", (long)(indexPath.row + 1)]];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

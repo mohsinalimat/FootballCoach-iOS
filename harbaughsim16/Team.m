@@ -3896,4 +3896,93 @@
              };
 }
 
+<<<<<<< HEAD
+=======
+-(NSDictionary<NSString *, NSArray<Player *> *> *)getStartersBasedOnSet:(NSDictionary *)starterSet {
+    NSMutableDictionary<NSString *, NSArray<Player *> *> *starters = [NSMutableDictionary dictionary];
+    for (NSString *position in starterSet.allKeys) {
+        NSNumber *numStarters = starterSet[position];
+        NSArray *positionPlayers = [self getPlayersAtPosition:position];
+        NSMutableArray *starting = [NSMutableArray array];
+        for (int i = 0; i < numStarters.intValue; i++) {
+            if (i < positionPlayers.count) {
+                if (positionPlayers[i] != nil && ![starting containsObject:positionPlayers[i]]) {
+                    [starting addObject:positionPlayers[i]];
+                }
+            }
+        }
+
+        [starters setObject:starting forKey:position];
+    }
+
+    return starters;
+}
+
+-(NSDictionary<NSString *, NSArray<Player *> *> *)getOffensivePlaybookStarters {
+    return [self getStartersBasedOnSet:self.offensiveStrategy.starterSet];
+}
+
+-(NSDictionary<NSString *, NSArray<Player *> *> *)getDefensivePlaybookStarters {
+    return [self getStartersBasedOnSet:self.defensiveStrategy.starterSet];
+}
+
+
+-(int)calculateInterestInCoach:(HeadCoach *)hc {
+    // calculate based on:
+    //      team location (15%) - if state match, then 25; if neighboring, then 20; if diff region, then 15; if cross-country, then 5,
+    //      coach overall rating (15%)
+    //      possible offensive improvement (25%)
+    //      possible defensive improvement (25%)
+    //      talent progression (10%)
+    //      difference between min hire req and overall rating (10%)
+    int locationScore = 0;
+    CFCRegion playerRegion = [HBSharedUtils regionForState:hc.homeState];
+    CFCRegion teamRegion = [HBSharedUtils regionForState:self.state];
+    
+    CFCRegionDistance distance = [HBSharedUtils distanceFromRegion:playerRegion toRegion:teamRegion];
+    switch (distance) {
+        case CFCRegionDistanceMatch:
+            locationScore = 15;
+            break;
+        case CFCRegionDistanceNeighbor:
+            locationScore = 10;
+            break;
+        case CFCRegionDistanceFar:
+            locationScore = 5;
+            break;
+        case CFCRegionDistanceCrossCountry:
+            locationScore = 5;
+            break;
+        default:
+            break;
+    }
+    
+    CGFloat overallRatingScore = [HBSharedUtils mapValue:hc.ratOvr inputMin:0 inputMax:100 outputMin:0 outputMax:25];
+    
+    CGFloat offensiveImprovementScore = [HBSharedUtils mapValue:[self _calculateGrowthFromRating:self.teamOffTalent byRate:(1 + (hc.ratOff / 1000.0)) comparisonRating:self.diffOffTalent] inputMin:-10 inputMax:10 outputMin:0 outputMax:25];
+    CGFloat defensiveImprovementScore = [HBSharedUtils mapValue:[self _calculateGrowthFromRating:self.teamDefTalent byRate:(1 + (hc.ratDef / 1000.0)) comparisonRating:self.diffDefTalent] inputMin:-10 inputMax:10 outputMin:0 outputMax:25];
+
+    // default progression is assumed to be exponential growth
+    CGFloat talentAvg = (self.teamDefTalent + self.teamOffTalent) / 2.0;
+    CGFloat potentialGrowthRate = 1 + (hc.ratTalent / 1000.0);
+    CGFloat avgGrowth = (self.diffDefTalent + self.diffOffTalent) / 2.0;
+    CGFloat potentialProgressionScore = [HBSharedUtils mapValue:[self _calculateGrowthFromRating:talentAvg byRate:potentialGrowthRate comparisonRating:avgGrowth] inputMin:-10 inputMax:10 outputMin:0 outputMax:10];
+    
+    // Schools that have lower hiring requirements should be more interested in the coach
+    CGFloat minHireReqScore = [HBSharedUtils mapValue:(hc.ratOvr - [self getMinCoachHireReq]) inputMin:0 inputMax:25 outputMin:0 outputMax:10];
+
+    int sum = (int)(ceilf(locationScore + overallRatingScore + offensiveImprovementScore + defensiveImprovementScore + potentialProgressionScore + minHireReqScore));
+//    FCLog(@"[Team] Calculating %@ interest in coach (%@)\nLocation Score: %d\nOverall Rating Score: %f\nOffensive Improvement Score: %f\nDefensive Improvement Score: %f\nTalent Progression Score: %f\nMin Hire Req Score: %f\n=> TOTAL INTEREST (rounded up): %d\n\n", abbreviation, hc.name, locationScore, overallRatingScore, offensiveImprovementScore, defensiveImprovementScore,potentialProgressionScore,minHireReqScore, sum);
+    return sum;
+}
+
+-(CGFloat)_calculateGrowthFromRating:(CGFloat)baseRating byRate:(CGFloat)rate comparisonRating:(CGFloat)compRating {
+    CGFloat step1 = (baseRating * rate);
+    CGFloat step2 = step1 - baseRating;
+    CGFloat step3 = step2 - compRating;
+    return step3;
+}
+
+
+>>>>>>> a6fdaa9... rewrote available jobs to consider team interest in coach
 @end

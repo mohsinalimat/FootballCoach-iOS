@@ -48,6 +48,7 @@
                             </label>
                             <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" image="5stars" translatesAutoresizingMaskIntoConstraints="NO" id="E0t-f0-VeY">
                                 <rect key="frame" x="216" y="37" width="96" height="23.5"/>
+                                <color key="tintColor" red="0.93333333333333335" green="0.69803921568627447" blue="0.066666666666666666" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="96" id="hj0-Bw-bvQ"/>
                                 </constraints>
