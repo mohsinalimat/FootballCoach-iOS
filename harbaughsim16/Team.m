@@ -3896,37 +3896,6 @@
              };
 }
 
-<<<<<<< HEAD
-=======
--(NSDictionary<NSString *, NSArray<Player *> *> *)getStartersBasedOnSet:(NSDictionary *)starterSet {
-    NSMutableDictionary<NSString *, NSArray<Player *> *> *starters = [NSMutableDictionary dictionary];
-    for (NSString *position in starterSet.allKeys) {
-        NSNumber *numStarters = starterSet[position];
-        NSArray *positionPlayers = [self getPlayersAtPosition:position];
-        NSMutableArray *starting = [NSMutableArray array];
-        for (int i = 0; i < numStarters.intValue; i++) {
-            if (i < positionPlayers.count) {
-                if (positionPlayers[i] != nil && ![starting containsObject:positionPlayers[i]]) {
-                    [starting addObject:positionPlayers[i]];
-                }
-            }
-        }
-
-        [starters setObject:starting forKey:position];
-    }
-
-    return starters;
-}
-
--(NSDictionary<NSString *, NSArray<Player *> *> *)getOffensivePlaybookStarters {
-    return [self getStartersBasedOnSet:self.offensiveStrategy.starterSet];
-}
-
--(NSDictionary<NSString *, NSArray<Player *> *> *)getDefensivePlaybookStarters {
-    return [self getStartersBasedOnSet:self.defensiveStrategy.starterSet];
-}
-
-
 -(int)calculateInterestInCoach:(HeadCoach *)hc {
     // calculate based on:
     //      team location (15%) - if state match, then 25; if neighboring, then 20; if diff region, then 15; if cross-country, then 5,
@@ -3983,6 +3952,4 @@
     return step3;
 }
 
-
->>>>>>> a6fdaa9... rewrote available jobs to consider team interest in coach
 @end
