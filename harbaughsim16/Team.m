@@ -35,7 +35,7 @@
 #define PROMOTION_NUM 0
 
 @implementation Team
-@synthesize league, name, abbreviation,conference,rivalTeam,isUserControlled,wonRivalryGame,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamLBs, teamDLs,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers,teamHistoryDictionary, teamHistory,teamTEs,teamF7s, state,recruitingClass,coaches,playersTransferring,transferClass,recruitingPoints,usedRecruitingPoints, totalCOTYs,coachFired,coachRetired,coachContractString,coachGotNewContract,singleSeasonSacksRecord,singleSeasonTacklesRecord,singleSeasonPassDefRecord,singleSeasonForcedFumRecord,singleSeasonDefInterceptionsRecord,careerSacksRecord,careerTacklesRecord,careerPassDefRecord,careerForcedFumRecord,careerDefInterceptionsRecord,projectedPollScore;
+@synthesize league, name, abbreviation,conference,rivalTeam,isUserControlled,wonRivalryGame,numberOfRecruits,wins,losses,totalWins,totalLosses,totalCCs,totalNCs,totalCCLosses,totalNCLosses,totalBowlLosses,gameSchedule,oocGame0,oocGame4,oocGame9,gameWLSchedule,gameWinsAgainst,confChampion,semifinalWL,natlChampWL,teamPoints,teamOppPoints,teamYards,teamOppYards,teamPassYards,teamRushYards,teamOppPassYards,teamOppRushYards,teamTODiff,teamOffTalent,teamDefTalent,teamPrestige,teamPollScore,teamStrengthOfWins,teamStatDefNum,teamStatOffNum,rankTeamPoints,rankTeamOppPoints,rankTeamYards,rankTeamOppYards,rankTeamPassYards,rankTeamRushYards,rankTeamOppPassYards,rankTeamOppRushYards,rankTeamTODiff,rankTeamOffTalent,rankTeamDefTalent,rankTeamPrestige,rankTeamPollScore,rankTeamStrengthOfWins,diffPrestige,diffOffTalent,diffDefTalent,teamSs,teamKs,teamCBs,teamLBs, teamDLs,teamOLs,teamQBs,teamRBs,teamWRs,offensiveStrategy,defensiveStrategy,totalBowls,playersLeaving,singleSeasonCompletionsRecord,singleSeasonFgMadeRecord,singleSeasonRecTDsRecord,singleSeasonXpMadeRecord,singleSeasonCarriesRecord,singleSeasonCatchesRecord,singleSeasonFumblesRecord,singleSeasonPassTDsRecord,singleSeasonRushTDsRecord,singleSeasonRecYardsRecord,singleSeasonPassYardsRecord,singleSeasonRushYardsRecord,singleSeasonInterceptionsRecord,careerCompletionsRecord,careerFgMadeRecord,careerRecTDsRecord,careerXpMadeRecord,careerCarriesRecord,careerCatchesRecord,careerFumblesRecord,careerPassTDsRecord,careerRushTDsRecord,careerRecYardsRecord,careerPassYardsRecord,careerRushYardsRecord,careerInterceptionsRecord,streaks,deltaPrestige,heismans,rivalryWins,rivalryLosses,totalConfWins,totalConfLosses, confWins,confLosses,rankTeamTotalWins, injuredPlayers,recoveredPlayers,hallOfFamers,teamHistoryDictionary, teamHistory,teamTEs,teamF7s, state,recruitingClass,coaches,playersTransferring,transferClass,recruitingPoints,usedRecruitingPoints, totalCOTYs,coachFired,coachRetired,coachContractString,coachGotNewContract,singleSeasonSacksRecord,singleSeasonTacklesRecord,singleSeasonPassDefRecord,singleSeasonForcedFumRecord,singleSeasonDefInterceptionsRecord,careerSacksRecord,careerTacklesRecord,careerPassDefRecord,careerForcedFumRecord,careerDefInterceptionsRecord,projectedPollScore,careerCoachRivalryWinsRecord,careerCoachNatlTitlesRecord,careerCoachConfTitlesRecord,careerCoachConfWinsRecord,careerCoachBowlWinsRecord,careerCoachWinsRecord;
 
 -(void)setWithCoder:(NSCoder *)aDecoder {
     [super setWithCoder:aDecoder];
@@ -256,6 +256,30 @@
 
     if (careerDefInterceptionsRecord != nil) {
         [records addObject:careerDefInterceptionsRecord];
+    }
+    
+    if (careerCoachWinsRecord != nil) {
+        [records addObject:careerCoachWinsRecord];
+    }
+    
+    if (careerCoachNatlTitlesRecord != nil) {
+        [records addObject:careerCoachNatlTitlesRecord];
+    }
+    
+    if (careerCoachConfTitlesRecord != nil) {
+        [records addObject:careerCoachConfTitlesRecord];
+    }
+    
+    if (careerCoachBowlWinsRecord != nil) {
+        [records addObject:careerCoachBowlWinsRecord];
+    }
+    
+    if (careerCoachRivalryWinsRecord != nil) {
+        [records addObject:careerCoachRivalryWinsRecord];
+    }
+    
+    if (careerCoachConfWinsRecord != nil) {
+        [records addObject:careerCoachConfWinsRecord];
     }
 
     return records;
@@ -485,6 +509,8 @@
     [s checkRecords];
     
     [k checkRecords];
+    
+    [[self getCurrentHC] checkCoachRecords];
 
     [self advanceSeasonPlayers];
 
@@ -946,6 +972,40 @@
     [players enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         Player *p = (Player *)obj;
         if ([p.position isEqualToString:pos] && p.isTransfer) {
+            [mapped addObject:p];
+        }
+    }];
+    return mapped.count;
+}
+
+-(NSInteger)_calculatePlayersTransferringOut:(NSString *)pos {
+    NSMutableArray *players = [NSMutableArray array];
+    if ([pos isEqualToString:@"QB"]) {
+        players = self.teamQBs;
+    } else if ([pos isEqualToString:@"RB"]) {
+        players = self.teamRBs;
+    } else if ([pos isEqualToString:@"WR"]) {
+        players = self.teamWRs;
+    } else if ([pos isEqualToString:@"TE"]) {
+        players = self.teamTEs;
+    } else if ([pos isEqualToString:@"OL"]) {
+        players = self.teamOLs;
+    } else if ([pos isEqualToString:@"DL"]) {
+        players = self.teamDLs;
+    } else if ([pos isEqualToString:@"LB"]) {
+        players = self.teamLBs;
+    } else if ([pos isEqualToString:@"CB"]) {
+        players = self.teamCBs;
+    } else if ([pos isEqualToString:@"S"]) {
+        players = self.teamSs;
+    } else { // K
+        players = self.teamKs;
+    }
+    
+    NSMutableArray *mapped = [NSMutableArray array];
+    [players enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Player *p = (Player *)obj;
+        if ([p.position isEqualToString:pos] && (p.isTransfer || p.isGradTransfer)) {
             [mapped addObject:p];
         }
     }];
@@ -1489,7 +1549,7 @@
 
     if ( [@"NCW" isEqualToString:natlChampWL] ) {
         //bonus for winning champ game
-        teamPollScore += 100;
+        teamPollScore += 125;
     }
     if ( [@"NCL" isEqualToString:natlChampWL] ) {
         //bonus for losing champ game
@@ -1529,9 +1589,9 @@
     NSMutableString *hist = [NSMutableString string];
 
     if (rankTeamPollScore > 0 && rankTeamPollScore < 26) {
-        [hist appendFormat:@"#%ld %@ (%ld-%ld)\nPrestige: %ld",(long)rankTeamPollScore, abbreviation, (long)wins, (long)losses, (long)teamPrestige];
+        [hist appendFormat:@"#%ld %@ (%ld-%ld)\nCoach: %@\nPrestige: %ld",(long)rankTeamPollScore, abbreviation, (long)wins, (long)losses, [[self getCurrentHC] getInitialName],(long)teamPrestige];
     } else {
-        [hist appendFormat:@"%@ (%ld-%ld)\nPrestige: %ld",abbreviation, (long)wins, (long)losses, (long)teamPrestige];
+        [hist appendFormat:@"%@ (%ld-%ld)\nCoach: %@\nPrestige: %ld",abbreviation, (long)wins, (long)losses, [[self getCurrentHC] getInitialName],(long)teamPrestige];
     }
 
     if (![confChampion isEqualToString:@""] && confChampion.length > 0) {
@@ -1608,13 +1668,13 @@
     if (!coachRetired) {
         if ((teamPrestige > ([self getCurrentHC].baselinePrestige + 9)
              && teamPrestige < league.teamList[(int) (league.teamList.count * 0.35)].teamPrestige
-             && !isUserControlled && [self getCurrentHC].age < 53)
+             && [self getCurrentHC].age < 53)
             || (teamPrestige > ([self getCurrentHC].baselinePrestige + 12)
                 && [league findConference:conference].confPrestige < [league getAvgConfPrestige]
                 && teamPrestige < league.teamList[(int) (league.teamList.count * 0.20)].teamPrestige
-                && !isUserControlled && [self getCurrentHC].age < 48)) {
+                && [self getCurrentHC].age < 48)) {
             [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"Head Coach Rumor Mill\nAfter another successful season at %@, %d-year-old head coach %@ has been rumored to be a top candidate for various open head coaching positions this offseason. He has a career record of %d wins and %d losses. ", self.name, [self getCurrentHC].age, [self getCurrentHC].name,[self getCurrentHC].totalWins,[self getCurrentHC].totalLosses]];
-            if ([HBSharedUtils randomValue] > 0.50) {
+            if ([HBSharedUtils randomValue] > 0.50 && !self.isUserControlled) {
                 [league.coachStarList addObject:[self getCurrentHC]];
             }
         }
@@ -1679,7 +1739,7 @@
                     [self getCurrentHC].contractLength = 2;
                     [self getCurrentHC].contractYear = 0;
                     [self getCurrentHC].baselinePrestige = [self getCurrentHC].baselinePrestige;
-                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite an average tenure. However, he has posted a career record of %d-%d, and the %@ AD noted this year's postseason appearance has earned his coach a vote of confidence.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite an average tenure. However, he has posted a record of %d-%d while at %@, and the %@ AD noted this year's postseason appearance has earned his coach a vote of confidence.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                     coachGotNewContract = true;
                     proveIt = true;
                     NSLog(@"[Coaching Carousel] %@ COACH Status: Extended (Prove It)", abbreviation);
@@ -1689,18 +1749,18 @@
                         [self getCurrentHC].contractLength = 2;
                         [self getCurrentHC].contractYear = 0;
                         [self getCurrentHC].baselinePrestige = [self getCurrentHC].baselinePrestige;
-                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite a disappointing tenure. However, he has posted a career record of %d-%d, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite a disappointing tenure. However, he has posted a record of %d-%d while at %@, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                         coachGotNewContract = true;
                         proveIt = true;
                         NSLog(@"[Coaching Carousel] %@ COACH Status: Extended (Prove It)", abbreviation);
                     } else {
                         coachFired = true;
                         if ([self isEqual:self.league.cursedTeam]) {
-                            [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@ after sanctions derailed the program. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                            [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@ after sanctions derailed the program. He posted a record of %d-%d while at %@. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                         } else {
-                            [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                            [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@. He posted a record of %d-%d while at %@. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                         }
-                        teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
+    //                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                         if (!isUserControlled) {
                             [league.coachList addObject:[self getCurrentHC]];
                         }
@@ -1716,7 +1776,7 @@
                     [self getCurrentHC].contractLength = 2;
                     [self getCurrentHC].contractYear = 0;
                     [self getCurrentHC].baselinePrestige = [self getCurrentHC].baselinePrestige;
-                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite a disappointing tenure. However, he has posted a career record of %d-%d, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ asked to prove it at %@!\n%@ has extended the contract of their head coach %@ for 2 additional years despite a disappointing tenure. However, he has posted a record of %d-%d while at %@, and the %@ AD notes that recent success has inspired his confidence in his coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                     coachGotNewContract = true;
                     proveIt = true;
                     NSLog(@"[Coaching Carousel] %@ COACH Status: Extended (Prove It)", abbreviation);
@@ -1724,11 +1784,11 @@
                     // net negative prestige under coach, but +2 last year? Fired due to overall poor performance.
                     coachFired = true;
                     if ([self isEqual:self.league.cursedTeam]) {
-                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after sanctions derailed the program. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after sanctions derailed the program. He posted a record of %d-%d while at %@. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, self.name, abbreviation]];
                     } else {
-                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ despite his efforts to get the program back on the right track. His teams struggled in his first couple of seasons at the helm, but he seemed to have righted the ship this year. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ despite his efforts to get the program back on the right track. His teams struggled in his first couple of seasons at the helm, but he seemed to have righted the ship this year. He posted a record of %d-%d while at %@. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                     }
-                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
+//                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                     if (!isUserControlled) {
                         [league.coachList addObject:[self getCurrentHC]];
                     }
@@ -1746,9 +1806,9 @@
                 // if net -15 prestige and any other team? Fire the coach.
                 coachFired = true;
                 if ([self isEqual:self.league.cursedTeam]) {
-                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after sanctions derailed the program. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after sanctions derailed the program. He posted a record of %d-%d while at %@. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                 } else {
-                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure that saw the program decline. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ out at %@!\n%@ fired head coach %@ after a disappointing tenure that saw the program decline. He posted a record of %d-%d while at %@. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                 }
                 
                 teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
@@ -1760,11 +1820,11 @@
                 if ([self getCurrentHC].contractYear >= [self getCurrentHC].contractLength || ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear) <= 0) {
                     coachFired = true;
                     if ([self isEqual:self.league.cursedTeam]) {
-                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@ after sanctions derailed the program. He posted a career record of %d-%d. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@ after sanctions derailed the program. He posted a record of %d-%d while at %@. The %@ AD is now searching for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].teamWins, [self getCurrentHC].teamLosses, name, self.abbreviation]];
                     } else {
-                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@. He posted a career record of %d-%d. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name]];
+                        [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ let go from %@!\n%@ did not offer a contract extension to head coach %@. He posted a record of %d-%d while at %@. The %@ AD is now looking for a new head coach.", [[self getCurrentHC] getInitialName], abbreviation, name, [self getCurrentHC].name, [self getCurrentHC].totalWins, [self getCurrentHC].totalLosses, name, self.abbreviation]];
                     }
-                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
+//                    teamPrestige -= (int) [HBSharedUtils randomValue] * 8;
                     if (!isUserControlled) {
                         [league.coachList addObject:[self getCurrentHC]];
                     }
@@ -1777,13 +1837,13 @@
     if (isUserControlled) {
         if (coachGotNewContract && proveIt) {
             coachContractString = [NSString stringWithFormat:@"You've been given an %d-year contract to prove your abilities based on the recent success of your team.",[self getCurrentHC].contractLength];
-//            NSLog(@"[Coaching Carousel] User Coach Status: Extended (Prove It)");
+            NSLog(@"[Coaching Carousel] User Coach Status: Extended (Prove It)");
         } else if (coachGotNewContract) {
             coachContractString = [NSString stringWithFormat:@"Congratulations! Your performance has been rewarded with a contract extension for %d years!", [self getCurrentHC].contractLength];
-//            NSLog(@"[Coaching Carousel] User Coach Status: Extended");
+            NSLog(@"[Coaching Carousel] User Coach Status: Extended");
         } else if (coachFired) {
             coachContractString = [NSString stringWithFormat:@"Because of your team's poor performances, %@'s Athletic Director has terminated your contract.", name];
-//            NSLog(@"[Coaching Carousel] User Coach Status: Fired");
+            NSLog(@"[Coaching Carousel] User Coach Status: Fired");
         } else {
             int yearsLeft = MAX(0, ([self getCurrentHC].contractLength - [self getCurrentHC].contractYear - 1));
             if (yearsLeft == 0) {
@@ -2455,6 +2515,17 @@
     }
 
     int sum = nflPts + ncgDelta + rivalryDelta + performancePrestige;
+    
+    if ([[HBSharedUtils currentLeague].cursedTeam isEqual:self]) {
+        if (sum > 0) {
+            [summary appendString:@"\n\nDespite its performance this season, your program was sanctioned by the league to begin the year. As a result, you lost 20 prestige."];
+        } else if (sum < 0) {
+            [summary appendString:@"\n\nIn addition to your performance this season, your program was sanctioned by the league to begin the year. As a result, you lost 20 prestige."];
+        } else {
+            [summary appendString:@"\n\nYour program was sanctioned by the league to begin the year. As a result, you lost 20 prestige."];
+        }
+    }
+    
     if (sum > 0) {
         [summary appendFormat:@"\n\nOverall, your program gained %ld prestige this season.", (long)sum];
     } else if (sum < 0) {
@@ -2620,6 +2691,12 @@
 }
 
 -(void)_calculateTransferringPlayers:(NSMutableArray *)positionPlayers position:(NSString *)pos starterCount:(int)starterCount {
+    NSInteger alreadyTransferring = [self _calculatePlayersTransferringOut:pos];
+    // Artificially limiting the number of transfers by checking if the number of players at this position already transferring out is greater than or equal to half the number of starters at that position.
+    if (alreadyTransferring >= (starterCount / 2)) {
+        return;
+    }
+    
     int i = 0;
     int transferChance = 12;
     int transferYear = 2;
@@ -2679,12 +2756,12 @@
                         || [q isEqual: [self getK:0]]);
 
         int futurePositionalScore = 0;
-        NSArray *playersAtPosition = [self getPlayersAtPosition: q.position];
+        NSArray *playersAtPosition = [positionPlayers copy];
         NSMutableDictionary *positionalOveralls = [NSMutableDictionary dictionary];
         [positionalOveralls setObject:@(q.ratOvr) forKey:q.name];
         [playersAtPosition enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             Player *p = (Player *)obj;
-            if (![self->playersLeaving containsObject:p]) {
+            if (![self->playersLeaving containsObject:p] && ![self->playersTransferring containsObject:p]) {
                 [positionalOveralls setObject:@(p.ratOvr) forKey:p.name];
             }
         }];
@@ -2693,25 +2770,26 @@
             return [obj2 compare:obj1];
         }];
         NSInteger plyrNameIndex = [sortedOveralls indexOfObject:self.name];
-        switch (plyrNameIndex) {
-            case 0:
-                futurePositionalScore = 25;
-                break;
-            default:
-                futurePositionalScore = 25 - ((int)(25.0 * ((float)plyrNameIndex / (float)sortedOveralls.count)));
-                break;
+        if (plyrNameIndex < starterCount) {
+            futurePositionalScore = 25;
+        } else {
+            futurePositionalScore = 25 - ((int)(25.0 * ((float)plyrNameIndex / (float)sortedOveralls.count)));
         }
 
-        if (![playersLeaving containsObject:q] && q.year >= transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && !q.isHeisman && !q.isROTY && !q.isAllAmerican && !q.isAllConference && !q.isInjured && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer && !q.isGradTransfer && futurePositionalScore < 20) {
+        if (![playersLeaving containsObject:q] && q.year >= transferYear && !q.hasRedshirt && q.ratOvr > RAT_TRANSFER && !starter && !q.isHeisman && !q.isROTY && !q.isAllAmerican && !q.isAllConference && !q.isInjured && (int) ([HBSharedUtils randomValue] * (transferChance - 2)) < chance && !q.isTransfer && !q.isGradTransfer && futurePositionalScore < 25) {
             NSLog(@"[Transfers] Confirmed that %@ %@ is a valid transfer", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
             if (q.year == 4) {
                 q.isTransfer = false;
                 q.isGradTransfer = true;
-                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to transfer after graduating from %@. If he signs with another school, he is immediately eligible to play.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+                if (q.ratOvr >= 78 || [q.team isEqual:[HBSharedUtils currentLeague].userTeam]) { // only newsworthy if the player is B++ or on your team
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to transfer after graduating from %@. If he signs with another school, he is immediately eligible to play.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+                }
             } else {
                 q.isTransfer = true;
                 q.isGradTransfer = false;
-                [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to leave town for greener pastures after getting limited playing time during his time at %@. If he signs with another school, he will have to sit for one year.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+                if (q.ratOvr >= 78 || [q.team isEqual:[HBSharedUtils currentLeague].userTeam]) { // only newsworthy if the player is B++ or on your team
+                    [league.newsStories[league.currentWeek + 1] addObject:[NSString stringWithFormat:@"%@ %@ on the move!\n%@ %@ %@ has decided to leave town for greener pastures after getting limited playing time during his time at %@. If he signs with another school, he will have to sit for one year.",q.position,[q getInitialName],self.abbreviation,q.position,q.name, self.name]];
+                }
             }
             //q.team = nil;
             NSLog(@"[Transfers] Adding %@ %@ to team's outgoing transfers", q.team.abbreviation, [q getPosNameYrOvrPot_Str]);
@@ -3175,21 +3253,21 @@
 -(NSArray<TeamStrategy *>*)getOffensiveTeamStrategies {
     return @[
              [TeamStrategy newStrategy], // default - Balanced
-             [TeamStrategy newStrategyWithName:@"Smashmouth" description:@"Play a conservative, run-heavy offense where the running game sets up the pass.\n\nBonuses: +1 Run Play Frequency, +1 Run Blocking, -1 Big Run Play Potential, +2 Pass Blocking, +1 Big Pass Play Potential, -1 TE Pass Catching" rPref:2 runProt:1 runPot:-1 rUsg:1 pPref:1 passProt:2 passPot:1 pUsg:0],
-             [TeamStrategy newStrategyWithName:@"West Coast" description:@"Play a dink-and-dunk passing game. Short accurate passes will set up the run game.\n\nBonuses: +1 Run Play Frequency, +1 Big Run Play Potential, -1 TE Run Blocking, +2 Pass Play Frequency, +1 Pass Blocking, -2 Big Pass Play Potential, +1 TE Pass Catching" rPref:2 runProt:0 runPot:1 rUsg:0 pPref:3 passProt:1 passPot:-2 pUsg:2],
-             [TeamStrategy newStrategyWithName:@"Spread" description:@"Play a pass-heavy offense that focuses on big plays but runs the risk of turnovers.\n\nBonuses: -2 Run Blocking, +1 Big Run Play Potential, -1 TE Run Blocking, +1 Pass Play Frequency, -2 Pass Blocking, +1 Big Pass Play Potential" rPref:1 runProt:-2 runPot:1 rUsg:0 pPref:2 passProt:-2 passPot:1 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Read Option" description:@"Play an offense that relies heavily on option reads for running plays based on coverage and LB positioning.\n\nBonuses: +2 Run Play Frequency, -1 Run Blocking, +1 Big Run Play Potential, +1 Pass Play Frequency, -1 Pass Blocking, -1 Big Pass Play Potential, -1 TE Pass Catching" rPref:3 runProt:-1 runPot:1 rUsg:1 pPref:2 passProt:-1 passPot:-1 pUsg:0],
-             [TeamStrategy newStrategyWithName:@"Run-Pass Option" description:@"Play an offense relying on option reads for running and passing plays based on coverage and LB positioning.\n\nBonuses: +1 Run Play Frequency, -1 Run Blocking, +1 Big Run Play Potential, +2 Pass Play Frequency, -1 Pass Blocking, -1 Big Pass Play Potential" rPref:2 runProt:-1 runPot:1 rUsg:1 pPref:3 passProt:-1 passPot:-1 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Smashmouth" description:@"Play a conservative, run-heavy offense where the running game sets up the pass.\n\nBonuses: +1 Run Play Frequency, +1 Run Blocking, -1 Big Run Play Potential, +2 Pass Blocking, +1 Big Pass Play Potential, -1 TE Pass Catching\n\nArchetypes Needed:\nRB - Wrecking Ball\nOL - Rush Shield\nTE - Edge Sealant" rPref:2 runProt:1 runPot:-1 rUsg:1 pPref:1 passProt:2 passPot:1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"West Coast" description:@"Play a dink-and-dunk passing game. Short accurate passes will set up the run game.\n\nBonuses: +1 Run Play Frequency, +1 Big Run Play Potential, -1 TE Run Blocking, +2 Pass Play Frequency, +1 Pass Blocking, -2 Big Pass Play Potential, +1 TE Pass Catching\n\nArchetypes Needed:\nQB - Cannon Arm\nTE/WR - Mr. Reliable\nOL - Pass Protector" rPref:2 runProt:0 runPot:1 rUsg:0 pPref:3 passProt:1 passPot:-2 pUsg:2],
+             [TeamStrategy newStrategyWithName:@"Spread" description:@"Play a pass-heavy offense that focuses on big plays but runs the risk of turnovers.\n\nBonuses: -2 Run Blocking, +1 Big Run Play Potential, -1 TE Run Blocking, +1 Pass Play Frequency, -2 Pass Blocking, +1 Big Pass Play Potential\n\nArchetypes Needed:\nQB - Bullseye/Cannon Arm\nTE/WR - Slippery" rPref:1 runProt:-2 runPot:1 rUsg:0 pPref:2 passProt:-2 passPot:1 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Read Option" description:@"Play an offense that relies heavily on option reads for running plays based on coverage and LB positioning.\n\nBonuses: +2 Run Play Frequency, -1 Run Blocking, +1 Big Run Play Potential, +1 Pass Play Frequency, -1 Pass Blocking, -1 Big Pass Play Potential, -1 TE Pass Catching\n\nArchetypes Needed:\nQB - Scrambler/Dual-Threat\nRB - Speedster/Shifty\nTE - Edge Sealant\nOL - Rush Shield" rPref:3 runProt:-1 runPot:1 rUsg:1 pPref:2 passProt:-1 passPot:-1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"Run-Pass Option" description:@"Play an offense relying on option reads for running and passing plays based on coverage and LB positioning.\n\nBonuses: +1 Run Play Frequency, -1 Run Blocking, +1 Big Run Play Potential, +2 Pass Play Frequency, -1 Pass Blocking, -1 Big Pass Play Potential\n\nArchetypes Needed:\nQB - Dual-Threat\nRB - Speedster/Shifty\nTE - Edge Sealant" rPref:2 runProt:-1 runPot:1 rUsg:1 pPref:3 passProt:-1 passPot:-1 pUsg:1],
 
              ];
 }
 
 -(NSArray<TeamStrategy *>*)getDefensiveTeamStrategies {
     return @[
-             [TeamStrategy newStrategyWithName:@"4-3 Man" description:@"Play a standard 4-3 man-to-man balanced defense. (default)" rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1], // default
-             [TeamStrategy newStrategyWithName:@"4-6 Bear" description:@"Play a defense focused on stopping the run. Will allow few yards and big plays on the ground, but may give up big passing plays.\n\nBonuses: +1 Run Defense, +2 Long Run Stopping, -1 Pass Rush, -1 Pass Coverage, -1 LB/S Blitz" rPref:2 runProt:0 runPot:2 rUsg:1 pPref:1 passProt:-1 passPot:-1 pUsg:0],
-             [TeamStrategy newStrategyWithName:@"Cover 2" description:@"Play a zone defense with safety help in the back against the pass and LBs that stay home to cover the run.\n\nBonuses: +2 Run Defense, -1 Long Run Stopping, +3 Pass Defense, +2 Pass Rush" rPref:2 runProt:0 runPot:-1 rUsg:1 pPref:3 passProt:2 passPot:0 pUsg:1],
-             [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense that will stop big passing plays, but may allow short gains underneath.\n\nBonuses: +2 Run Defense, -2 Long Run Stopping, +6 Pass Defense, +2 Pass Rush, +2 Pass Coverage" rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1]
+             [TeamStrategy newStrategyWithName:@"4-3 Man" description:@"Play a standard 4-3 man-to-man balanced defense. (default)\n\nArchetypes Needed:\nAny" rPref:1 runProt:0 runPot:0 rUsg:1 pPref:1 passProt:0 passPot:0 pUsg:1], // default
+             [TeamStrategy newStrategyWithName:@"4-6 Bear" description:@"Play a defense focused on stopping the run. Will allow few yards and big plays on the ground, but may give up big passing plays.\n\nBonuses: +1 Run Defense, +2 Long Run Stopping, -1 Pass Rush, -1 Pass Coverage, -1 LB/S Blitz\n\nArchetypes Needed:\nDL - Tread Lightly\nLB - Run Stuffer\nCB - Tackling Tiger\nS - Up Close and Personal" rPref:2 runProt:0 runPot:2 rUsg:1 pPref:1 passProt:-1 passPot:-1 pUsg:0],
+             [TeamStrategy newStrategyWithName:@"Cover 2" description:@"Play a zone defense with safety help in the back against the pass and LBs that stay home to cover the run.\n\nBonuses: +2 Run Defense, -1 Long Run Stopping, +3 Pass Defense, +2 Pass Rush\n\nArchetypes Needed:\nDL - Tread Lightly\nLB - Run Stuffer\nCB - Ballhawk\nS - Chasedown Expert" rPref:2 runProt:0 runPot:-1 rUsg:1 pPref:3 passProt:2 passPot:0 pUsg:1],
+             [TeamStrategy newStrategyWithName:@"Cover 3" description:@"Play a zone defense that will stop big passing plays, but may allow short gains underneath.\n\nBonuses: +2 Run Defense, -2 Long Run Stopping, +6 Pass Defense, +2 Pass Rush, +2 Pass Coverage\n\nArchetypes Needed:\nDL - Knockdown Specialist\nLB - Roving Spy\nCB - Man Marker\nS - Downfield Spy" rPref:3 runProt:0 runPot:-2 rUsg:1 pPref:7 passProt:2 passPot:2 pUsg:1]
              ];
 }
 
@@ -3744,6 +3822,8 @@
 }
 
 -(void)addCoach:(HeadCoach *)hc {
+    hc.teamWins = 0;
+    hc.teamLosses = 0;
     hc.team = self;
     hc.contractYear = 0;
     hc.contractLength = 6;
@@ -3814,6 +3894,62 @@
              
              @"LB" : @[[self getLB:0], [self getLB:1], [self getLB:2]]
              };
+}
+
+-(int)calculateInterestInCoach:(HeadCoach *)hc {
+    // calculate based on:
+    //      team location (15%) - if state match, then 25; if neighboring, then 20; if diff region, then 15; if cross-country, then 5,
+    //      coach overall rating (15%)
+    //      possible offensive improvement (25%)
+    //      possible defensive improvement (25%)
+    //      talent progression (10%)
+    //      difference between min hire req and overall rating (10%)
+    int locationScore = 0;
+    CFCRegion playerRegion = [HBSharedUtils regionForState:hc.homeState];
+    CFCRegion teamRegion = [HBSharedUtils regionForState:self.state];
+    
+    CFCRegionDistance distance = [HBSharedUtils distanceFromRegion:playerRegion toRegion:teamRegion];
+    switch (distance) {
+        case CFCRegionDistanceMatch:
+            locationScore = 15;
+            break;
+        case CFCRegionDistanceNeighbor:
+            locationScore = 10;
+            break;
+        case CFCRegionDistanceFar:
+            locationScore = 5;
+            break;
+        case CFCRegionDistanceCrossCountry:
+            locationScore = 5;
+            break;
+        default:
+            break;
+    }
+    
+    CGFloat overallRatingScore = [HBSharedUtils mapValue:hc.ratOvr inputMin:0 inputMax:100 outputMin:0 outputMax:25];
+    
+    CGFloat offensiveImprovementScore = [HBSharedUtils mapValue:[self _calculateGrowthFromRating:self.teamOffTalent byRate:(1 + (hc.ratOff / 1000.0)) comparisonRating:self.diffOffTalent] inputMin:-10 inputMax:10 outputMin:0 outputMax:25];
+    CGFloat defensiveImprovementScore = [HBSharedUtils mapValue:[self _calculateGrowthFromRating:self.teamDefTalent byRate:(1 + (hc.ratDef / 1000.0)) comparisonRating:self.diffDefTalent] inputMin:-10 inputMax:10 outputMin:0 outputMax:25];
+
+    // default progression is assumed to be exponential growth
+    CGFloat talentAvg = (self.teamDefTalent + self.teamOffTalent) / 2.0;
+    CGFloat potentialGrowthRate = 1 + (hc.ratTalent / 1000.0);
+    CGFloat avgGrowth = (self.diffDefTalent + self.diffOffTalent) / 2.0;
+    CGFloat potentialProgressionScore = [HBSharedUtils mapValue:[self _calculateGrowthFromRating:talentAvg byRate:potentialGrowthRate comparisonRating:avgGrowth] inputMin:-10 inputMax:10 outputMin:0 outputMax:10];
+    
+    // Schools that have lower hiring requirements should be more interested in the coach
+    CGFloat minHireReqScore = [HBSharedUtils mapValue:(hc.ratOvr - [self getMinCoachHireReq]) inputMin:0 inputMax:25 outputMin:0 outputMax:10];
+
+    int sum = (int)(ceilf(locationScore + overallRatingScore + offensiveImprovementScore + defensiveImprovementScore + potentialProgressionScore + minHireReqScore));
+//    FCLog(@"[Team] Calculating %@ interest in coach (%@)\nLocation Score: %d\nOverall Rating Score: %f\nOffensive Improvement Score: %f\nDefensive Improvement Score: %f\nTalent Progression Score: %f\nMin Hire Req Score: %f\n=> TOTAL INTEREST (rounded up): %d\n\n", abbreviation, hc.name, locationScore, overallRatingScore, offensiveImprovementScore, defensiveImprovementScore,potentialProgressionScore,minHireReqScore, sum);
+    return sum;
+}
+
+-(CGFloat)_calculateGrowthFromRating:(CGFloat)baseRating byRate:(CGFloat)rate comparisonRating:(CGFloat)compRating {
+    CGFloat step1 = (baseRating * rate);
+    CGFloat step2 = step1 - baseRating;
+    CGFloat step3 = step2 - compRating;
+    return step3;
 }
 
 @end

@@ -82,4 +82,9 @@
 -(int)getHeismanScore {
     return (self.statsTkl * 25 + self.statsSacks * 425 + self.statsForcedFum * 425 + self.statsInt * 425) * 0.65; // lower bc defenders don't win awards :/
 }
+
+-(NSString *)getPlayerArchetype {
+    return @"Athlete";
+}
+
 @end

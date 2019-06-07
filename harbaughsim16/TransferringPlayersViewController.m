@@ -114,7 +114,7 @@
     } else {
         text = @"No incoming transfers";
     }
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -145,7 +145,7 @@
     } else {
         text = @"No players transferred into your program this offseason.";
     }
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -200,8 +200,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         
     }
     Player *player = players[indexPath.row];
@@ -221,7 +221,7 @@
     
     NSString *name = (IS_IPHONE_5) ? [player getInitialName] : player.name;
     
-    NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@ (Ovr: %d)",player.position,name, player.ratOvr] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightRegular]}];
+    NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@ (Ovr: %d)",player.position,name, player.ratOvr] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE weight:UIFontWeightRegular]}];
     [attText addAttribute:NSForegroundColorAttributeName value:nameColor range:[attText.string rangeOfString:name]];
     [attText addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:[attText.string rangeOfString:player.position]];
     [attText addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:[attText.string rangeOfString:[NSString stringWithFormat:@"(Ovr: %d)", (player.ratOvr)]]];

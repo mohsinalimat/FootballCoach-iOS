@@ -18,6 +18,14 @@
 
 @implementation PrestigeHistoryViewController
 
+- (instancetype)init
+{
+    if (self = [super init]) {
+        self.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.75 * [UIScreen mainScreen].bounds.size.height);
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -50,7 +58,7 @@
     if ([self.title containsString:@"Coach Score"]) {
         CoachScoreYearMarkerView *marker = [[CoachScoreYearMarkerView alloc]
                                           initWithColor: [UIColor colorWithWhite:255/255. alpha:1.0]
-                                          font: [UIFont systemFontOfSize:12.0]
+                                          font: [UIFont systemFontOfSize:SMALL_FONT_SIZE]
                                           textColor: [HBSharedUtils styleColor]
                                           insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
                                           xAxisValueFormatter: self.chartView.xAxis.valueFormatter];
@@ -60,7 +68,7 @@
     } else {
         PrestigeYearMarkerView *marker = [[PrestigeYearMarkerView alloc]
                                           initWithColor: [UIColor colorWithWhite:255/255. alpha:1.0]
-                                          font: [UIFont systemFontOfSize:12.0]
+                                          font: [UIFont systemFontOfSize:SMALL_FONT_SIZE]
                                           textColor: [HBSharedUtils styleColor]
                                           insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
                                           xAxisValueFormatter: self.chartView.xAxis.valueFormatter];

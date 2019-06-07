@@ -41,7 +41,7 @@
     } else {
         text = @"No all-time records yet";
     }
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -68,7 +68,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"When players set or break records, they will be immortalized here!";
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -175,6 +175,9 @@
     if (curRecord.holder) {
         [cell.playerLabel setText:[curRecord.holder getInitialName]];
         [cell.teamLabel setText:curRecord.holder.team.abbreviation];
+    } else if (curRecord.coachHolder) {
+        [cell.playerLabel setText:[curRecord.coachHolder getInitialName]];
+        [cell.teamLabel setText:curRecord.coachHolder.team.abbreviation];
     } else {
         [cell.playerLabel setText:@"No record holder"];
         [cell.teamLabel setText:@"N/A"];

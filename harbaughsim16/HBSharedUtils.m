@@ -578,7 +578,7 @@ static UIColor *styleColor = nil;
             [[self class] addRetirementOptionsUsingAlertController:alertController sourceViewController:viewController];
         } else {
             alertController.message = [NSString stringWithFormat:@"%@\nDue to your lackluster performance, you have been fired. You can now look for other jobs around the country.",alertController.message];
-            [alertController addAction:[UIAlertAction actionWithTitle:@"View Available Jobs" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [alertController addAction:[UIAlertAction actionWithTitle:@"View Job Offers" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     [viewController presentViewController:[[UINavigationController alloc] initWithRootViewController:[[AvailableJobsViewController alloc] initWithJobStatus:YES]] animated:YES completion:nil];
                 });
@@ -1196,9 +1196,18 @@ static UIColor *styleColor = nil;
 }
 
 +(NSString *)currentMinorVersion {
-    NSString *version = HB_CURRENT_APP_VERSION;
-    NSLog(@"[Main] Minor Version %@", [version stringByDeletingPathExtension]);
-    return [version stringByDeletingPathExtension];
+    static dispatch_once_t onceToken;
+    static NSString *minorVersion;
+    dispatch_once(&onceToken, ^{
+        NSString *version = HB_CURRENT_APP_VERSION;
+        NSMutableArray<NSString *> *components = [NSMutableArray arrayWithArray:[version componentsSeparatedByString:@"."]];
+        if (components.count > 2) {
+            [components removeLastObject];
+        }
+        minorVersion = [components componentsJoinedByString:@"."];
+        NSLog(@"[Main] Minor Version %@", minorVersion);
+    });
+    return minorVersion;
 }
 
 +(NSComparisonResult)compareCoachScore:(id)obj1 toObj2:(id)obj2 {
@@ -1487,5 +1496,9 @@ static UIColor *styleColor = nil;
     } else {
         return 100;
     }
+}
+
++ (CGFloat)mapValue:(CGFloat)input inputMin:(CGFloat)inMin inputMax:(CGFloat)inMax outputMin:(CGFloat)outMin outputMax:(CGFloat)outMax {
+    return (outMin + (outMax - outMin) * (input - inMin) / (inMax - inMin));
 }
 @end

@@ -289,5 +289,16 @@
     return [stats copy];
 }
 
+-(NSString *)getPlayerArchetype {
+    if (self.ratSCov >= self.ratSSpd && self.ratSCov >= self.ratSTkl) {
+        return @"Downfield Spy";
+    } else if (self.ratSSpd >= self.ratSCov && self.ratSSpd >= self.ratSTkl) {
+        return @"Chasedown Expert";
+    } else if (self.ratSTkl >= self.ratSCov && self.ratSTkl >= self.ratSSpd) {
+        return @"Up Close and Personal";
+    } else {
+        return @"Hybrid";
+    }
+}
 
 @end

@@ -41,6 +41,7 @@
     Conference *selectedConf;
     NSDictionary *players;
     Player *heisman;
+    Player *roty;
     HeadCoach *coty;
 }
 @end
@@ -132,6 +133,7 @@
     [super viewDidLoad];
 
     heisman = [[HBSharedUtils currentLeague] heisman];
+    roty = [[HBSharedUtils currentLeague] roty];
     coty = [[HBSharedUtils currentLeague] cotyWinner];
 
     self.title = [NSString stringWithFormat:@"%ld's All-%@ Team", (long)([HBSharedUtils currentLeague].baseYear + [HBSharedUtils currentLeague].leagueHistoryDictionary.count), selectedConf.confName];
@@ -185,7 +187,7 @@
 {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.contentView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F7F7F7"];
-    [header.textLabel setFont:[UIFont boldSystemFontOfSize:17.0]];
+    [header.textLabel setFont:[UIFont boldSystemFontOfSize:LARGE_FONT_SIZE]];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -296,7 +298,7 @@
             stat2Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsPassYards];
             stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsTD];
             stat4Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsInt];
-            //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:13.0]];
+            //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
         } else if ([plyr isKindOfClass:[PlayerRB class]]) {
             stat1 = @"Car";
             stat2 = @"Yds";
@@ -306,7 +308,7 @@
             stat2Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsRushYards];
             stat3Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsTD];
             stat4Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsFumbles];
-            //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+            //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         } else if ([plyr isKindOfClass:[PlayerWR class]]) {
             stat1 = @"Rec";
             stat2 = @"Yds";
@@ -316,7 +318,7 @@
             stat2Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsRecYards];
             stat3Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsTD];
             stat4Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsFumbles];
-            //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+            //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         } else if ([plyr isKindOfClass:[PlayerTE class]]) {
             stat1 = @"Rec";
             stat2 = @"Yds";
@@ -326,7 +328,7 @@
             stat2Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsRecYards];
             stat3Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsTD];
             stat4Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsFumbles];
-            //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+            //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         } else if ([plyr isKindOfClass:[PlayerK class]]) { //PlayerK class
             stat1 = @"XPM";
             stat2 = @"XPA";
@@ -385,8 +387,8 @@
         if ([statsCell.teamLabel.text containsString:[HBSharedUtils currentLeague].userTeam.abbreviation]) {
             [statsCell.playerLabel setTextColor:[HBSharedUtils styleColor]];
         } else {
-            if (heisman != nil) {
-                if ([heisman isEqual:plyr]) {
+            if (heisman != nil && roty != nil) {
+                if ([heisman isEqual:plyr] || [roty isEqual: plyr]) {
                     [statsCell.playerLabel setTextColor:[HBSharedUtils champColor]];
                 } else {
                     [statsCell.playerLabel setTextColor:[UIColor blackColor]];

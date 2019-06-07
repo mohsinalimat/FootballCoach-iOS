@@ -155,28 +155,30 @@
                     convertProgressAlert.message = [NSString stringWithFormat:@"Your save file has been updated for use in version %@!", HB_CURRENT_APP_VERSION];
                 }
                 [convertProgressAlert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    NSArray *updates = @[
-                                         @{
-                                             @"title": @"Career Mode",
-                                             @"subtitle" : @"A coaching carousel has been added to CFC in 3.0! Start a new game in career mode and plot the course of your very own college football coaching career! But be warned: fail to meet program expectations and you might get fired!"
-                                             
-                                             },
-                                         @{
-                                             @"title": @"Defensive Stats",
-                                             @"subtitle" : @"Stat tracking and award-winning has been added for defensive players! Play games to accumulate fumbles, interceptions, sacks, tackles, and passes defended and watch your defenders rise to the top!"
-                                             },
-                                         @{
-                                             @"title": @"Stat History",
-                                             @"subtitle" : @"Compare players' stats across their careers by viewing their stat history. Available from any player's profile after the first season you play in version 3.0!",
-                                             //                                 @"image" : @"history-selected"
-                                             
-                                             }
-                                         ];
-                    
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        WhatsNewHandler *handler = [[WhatsNewHandler alloc] initWithItems: updates];
-                        [handler displayWhatsNewViewOnViewController:self->tabBarController];
-                    });
+                    if ([LeagueUpdater needsUpdateFromVersion:oldLigue.leagueVersion toVersion:@"3.0"]) {
+                        NSArray *updates = @[
+                                             @{
+                                                 @"title": @"Career Mode",
+                                                 @"subtitle" : @"A coaching carousel has been added to CFC in 3.0! Start a new game in career mode and plot the course of your very own college football coaching career! But be warned: fail to meet program expectations and you might get fired!"
+                                                 
+                                                 },
+                                             @{
+                                                 @"title": @"Defensive Stats",
+                                                 @"subtitle" : @"Stat tracking and award-winning has been added for defensive players! Play games to accumulate fumbles, interceptions, sacks, tackles, and passes defended and watch your defenders rise to the top!"
+                                                 },
+                                             @{
+                                                 @"title": @"Stat History",
+                                                 @"subtitle" : @"Compare players' stats across their careers by viewing their stat history. Available from any player's profile after the first season you play in version 3.0!",
+                                                 //                                 @"image" : @"history-selected"
+                                                 
+                                                 }
+                                             ];
+                        
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            WhatsNewHandler *handler = [[WhatsNewHandler alloc] initWithItems: updates];
+                            [handler displayWhatsNewViewOnViewController:self->tabBarController];
+                        });
+                    }
                 }]];
                 self->_league = ligue;
                 [self->_league save];
@@ -272,17 +274,17 @@
     [STPopupNavigationBar appearance].tintColor = [UIColor whiteColor];
     [STPopupNavigationBar appearance].barStyle = UIBarStyleDefault;
     
-    [[ZGNavigationTitleView appearance] setNavigationBarTitleFont:[UIFont systemFontOfSize:17.0 weight:UIFontWeightSemibold]];
+    [[ZGNavigationTitleView appearance] setNavigationBarTitleFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE weight:UIFontWeightSemibold]];
     [[ZGNavigationTitleView appearance] setNavigationBarTitleFontColor:[UIColor whiteColor]];
     
-    [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFont:[UIFont systemFontOfSize:12.0]];
+    [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
     [[ZGNavigationTitleView appearance] setNavigationBarSubtitleFontColor:[UIColor lightTextColor]];
     
     
     [RMessage addDesignsFromFileWithName:@"alt-designs" inBundle:[NSBundle mainBundle]];
     
     ZMJPreferences *prefs = [ZMJPreferences new];
-    prefs.drawing.font = [UIFont systemFontOfSize:12.0];
+    prefs.drawing.font = [UIFont systemFontOfSize:SMALL_FONT_SIZE];
     prefs.drawing.foregroundColor = [UIColor whiteColor];
     prefs.drawing.backgroundColor = [HBSharedUtils styleColor];
     [ZMJTipView setGlobalPreferences:prefs];

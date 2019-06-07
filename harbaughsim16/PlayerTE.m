@@ -347,4 +347,12 @@
     }
 }
 
+-(NSString *)getPlayerArchetype {
+    if (self.ratTERunBlk >= self.ratRecSpd && self.ratTERunBlk >= self.ratRecEva && self.ratTERunBlk >= self.ratRecCat) {
+        return @"Edge Sealant";
+    } else {
+        return [super getPlayerArchetype];
+    }
+}
+
 @end

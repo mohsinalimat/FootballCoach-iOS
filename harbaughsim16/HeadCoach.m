@@ -10,8 +10,26 @@
 #import "HBSharedUtils.h"
 #import "Player.h"
 #import "TeamStrategy.h"
+#import "Record.h"
+
+#import "AutoCoding.h"
 
 @implementation HeadCoach
+
+-(void)setWithCoder:(NSCoder *)aDecoder {
+    [super setWithCoder:aDecoder];
+    if (![aDecoder containsValueForKey:@"teamWins"]) {
+        if (self.team != nil) {
+            self.teamWins = self.team.wins;
+        }
+    }
+    
+    if (![aDecoder containsValueForKey:@"teamLosses"]) {
+        if (self.team != nil) {
+            self.teamLosses = self.team.losses;
+        }
+    }
+}
 
 +(instancetype)newHC:(Team *)t name:(NSString *)nm stars:(int)stars year:(int)yr {
     HeadCoach *hc = [HeadCoach new];
@@ -36,6 +54,8 @@
     hc.totalLosses = 0;
     hc.totalRivalryWins = 0;
     hc.totalRivalryLosses = 0;
+    hc.teamWins = 0;
+    hc.teamLosses = 0;
     hc.totalCCs = 0;
     hc.totalCCLosses = 0;
     hc.totalNCs = 0;
@@ -60,7 +80,7 @@
 
 +(instancetype)newHC:(Team *)t name:(NSString *)nm stars:(int)stars year:(int)yr newHire:(BOOL)newHire {
     HeadCoach *hc = [HeadCoach newHC:t name:nm stars:stars year:yr];
-//    BOOL promote = newHire;
+    hc.promotionCandidate = !newHire;
     return hc;
 }
 
@@ -76,25 +96,26 @@
     double def = avgDefYards - (double)self.team.teamOppYards;
     double offTal = self.team.diffOffTalent;
     double defTal = self.team.diffDefTalent;
-    double offpts = ((off / avgYards) + (offTal / offTalent)) * 4;
-    double defpts = ((def / avgDefYards) + (defTal / defTalent)) * 4;
+    
+    double offensiveMultiplier = (self.team.league.isHardMode) ? ([HBSharedUtils randomValue] * 2.5) : 4;
+    double defensiveMultiplier = (self.team.league.isHardMode) ? ([HBSharedUtils randomValue] * 2.5) : 4;
+    
+    double offpts = ((off / avgYards) + (offTal / offTalent)) * offensiveMultiplier;
+    double defpts = ((def / avgDefYards) + (defTal / defTalent)) * defensiveMultiplier;
     double coachScore = ([self getCoachScore] - [self.team.league findConference:self.team.conference].confPrestige)/10;
     if (coachScore < -4) coachScore = -4;
     
-    self.ratOff += (2*prestigeDiff + offpts + coachScore + self.ratPot)/5;
+    self.ratOff += (2*prestigeDiff + offpts + coachScore + 2*(self.ratPot / 10))/6;
     if (self.ratOff > 95) self.ratOff = 95;
     if (self.ratOff < 20) self.ratOff = 20;
     
-    self.ratDef += (2*prestigeDiff + defpts + coachScore + self.ratPot)/4;
+    self.ratDef += (2*prestigeDiff + defpts + coachScore + 2*(self.ratPot / 10))/6;
     if (self.ratDef > 95) self.ratDef = 95;
     if (self.ratDef < 20) self.ratDef = 20;
     
     self.ratTalent += (prestigeDiff + coachScore + self.ratPot)/3;
     if (self.ratTalent > 95) self.ratTalent = 95;
     if (self.ratTalent < 20) self.ratTalent = 20;
-    
-    if (self.ratDiscipline > 90) self.ratDiscipline = 90;
-    if (self.ratDiscipline < 15) self.ratDiscipline = 15;
     
     if (self.age > 65 && !self.team.isUserControlled) {
         self.ratOff -= (int) ([HBSharedUtils randomValue] * 4);
@@ -103,12 +124,15 @@
         self.ratDiscipline -= (int) ([HBSharedUtils randomValue] * 4);
     }
     
-    if (self.age > 70 && self.team.isUserControlled && self.team.league.isCareerMode) { //&& !team.league.neverRetire ) {
+    if (self.age > 70 && self.team.isUserControlled && self.team.league.isCareerMode) {
         self.ratOff -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
         self.ratDef -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
         self.ratTalent -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
         self.ratDiscipline -= (int) ([HBSharedUtils randomValue] * (self.age / 20));
     }
+    
+    if (self.ratDiscipline > 90) self.ratDiscipline = 90;
+    if (self.ratDiscipline < 15) self.ratDiscipline = 15;
     
     self.ratOvr = [self getHCOverall];
     self.ratImprovement = self.ratOvr - oldOvr;
@@ -124,11 +148,11 @@
 -(FCCoachStatus)getCoachStatus {
     FCCoachStatus status = FCCoachStatusNormal;
     if (self.contractYear > 0) {
-        if(self.baselinePrestige > (self.team.teamPrestige + 5)) status = FCCoachStatusHotSeat;
-        else if(self.baselinePrestige + 7 < (self.team.teamPrestige)) status = FCCoachStatusSecure;
-        else if(self.baselinePrestige + 3 < (self.team.teamPrestige)) status = FCCoachStatusSafe;
+        if ((self.baselinePrestige + 7) < self.team.teamPrestige) status = FCCoachStatusSecure;
+        else if ((self.baselinePrestige + 3) < self.team.teamPrestige) status = FCCoachStatusSafe;
         else if (self.baselinePrestige > (self.team.teamPrestige + 3)) status = FCCoachStatusUnsafe;
-        else status = FCCoachStatusOk;
+        else if (self.baselinePrestige > (self.team.teamPrestige + 5)) status = FCCoachStatusHotSeat;
+        else status = FCCoachStatusOk; // appears if prestige delta is [-3, +3]
     }
     
     return status;
@@ -195,6 +219,8 @@
     [stats setObject:[NSString stringWithFormat:@"%d",self.totalROTYs] forKey:@"totalROTYs"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.careerDraftPicks] forKey:@"careerDraftPicks"];
     [stats setObject:[NSString stringWithFormat:@"%d",self.cumulativePrestige] forKey:@"cumulativePrestige"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.teamWins] forKey:@"teamWins"];
+    [stats setObject:[NSString stringWithFormat:@"%d",self.teamLosses] forKey:@"teamLosses"];
     return stats;
 }
 
@@ -604,6 +630,79 @@
     
     [self.coachingHistoryDictionary setObject:hist forKey:[NSString stringWithFormat:@"%ld",(long)([self.team.league getCurrentYear])]];
     [self.prestigeHistoryDictionary setObject:@{@"team" : self.team.abbreviation, @"prestige" : @(self.team.teamPrestige), @"coachScore" : @([self getCoachScore])} forKey:[NSString stringWithFormat:@"%ld",(long)([self.team.league getCurrentYear])]];
+}
+
+-(NSString *)getCoachArchetype {
+    if (self.ratOff >= self.ratDef && self.ratOff >= self.ratTalent && self.ratOff >= self.ratDiscipline) {
+        return @"Offensive Guru";
+    } else if (self.ratDef >= self.ratTalent && self.ratDef >= self.ratDiscipline && self.ratDef >= self.ratOff) {
+        return @"Defensive Wizard";
+    } else if (self.ratTalent >= self.ratDiscipline && self.ratTalent >= self.ratOff && self.ratTalent >= self.ratDef) {
+        return @"Talent Prospector";
+    }
+//    else if (self.ratDiscipline >= self.ratOff && self.ratDiscipline >= self.ratDef && self.ratDiscipline >= self.ratTalent) {
+//        return @"Disciplinarian";
+//    }
+    else {
+        return @"Players' Coach";
+    }
+}
+
+-(void)checkCoachRecords {
+    // Wins
+    if (self.teamWins > self.team.careerCoachWinsRecord.statistic) {
+        self.team.careerCoachWinsRecord = [Record newRecord:@"Total Wins With Team" coach:self stat:self.teamWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalWins > self.team.league.careerCoachWinsRecord.statistic) {
+        self.team.league.careerCoachWinsRecord = [Record newRecord:@"Career Wins" coach:self stat:self.totalWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // Conf Wins
+    if (self.totalConfWins > self.team.careerCoachConfWinsRecord.statistic) {
+        self.team.careerCoachConfWinsRecord = [Record newRecord:@"Conference Wins" coach:self stat:self.totalConfWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalWins > self.team.league.careerCoachWinsRecord.statistic) {
+        self.team.league.careerCoachConfWinsRecord = [Record newRecord:@"Conference Wins" coach:self stat:self.totalConfWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // Conf Titles
+    if (self.totalCCs > self.team.careerCoachConfTitlesRecord.statistic) {
+        self.team.careerCoachConfTitlesRecord = [Record newRecord:@"Conference Titles" coach:self stat:self.totalCCs year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalCCs > self.team.league.careerCoachConfTitlesRecord.statistic) {
+        self.team.league.careerCoachConfTitlesRecord = [Record newRecord:@"Conference Titles" coach:self stat:self.totalCCs year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // Natl Titles
+    if (self.totalNCs > self.team.careerCoachNatlTitlesRecord.statistic) {
+        self.team.careerCoachNatlTitlesRecord = [Record newRecord:@"National Titles" coach:self stat:self.totalNCs year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalNCs > self.team.league.careerCoachConfTitlesRecord.statistic) {
+        self.team.league.careerCoachNatlTitlesRecord = [Record newRecord:@"National Titles" coach:self stat:self.totalNCs year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // Rivalry Wins
+    if (self.totalRivalryWins > self.team.careerCoachRivalryWinsRecord.statistic) {
+        self.team.careerCoachRivalryWinsRecord = [Record newRecord:@"Rivalry Wins" coach:self stat:self.totalRivalryWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalRivalryWins > self.team.league.careerCoachConfTitlesRecord.statistic) {
+        self.team.league.careerCoachRivalryWinsRecord = [Record newRecord:@"Rivalry Wins" coach:self stat:self.totalRivalryWins year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    // Bowl Wins
+    if (self.totalBowls > self.team.careerCoachBowlWinsRecord.statistic) {
+        self.team.careerCoachBowlWinsRecord = [Record newRecord:@"Bowl Wins" coach:self stat:self.totalBowls year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+    
+    if (self.totalBowls > self.team.league.careerCoachBowlWinsRecord.statistic) {
+        self.team.league.careerCoachBowlWinsRecord = [Record newRecord:@"Bowl Wins" coach:self stat:self.totalBowls year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+   
 }
 
 @end

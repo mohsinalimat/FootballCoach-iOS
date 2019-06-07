@@ -24,6 +24,7 @@
 #import "HallOfFameViewController.h"
 #import "HeadCoachDetailViewController.h"
 #import "PlayerStatsViewController.h"
+#import "CoachHallOfFameViewController.h"
 
 #import "HexColors.h"
 #import "STPopup.h"
@@ -85,9 +86,13 @@
             }
         } else if (indexPath.section == 2) {
             if (indexPath.row == 0) {
+                peekVC = [[PlayerStatsViewController alloc] initWithStatType:HBStatPositionHC];
+            } else if (indexPath.row == 1) {
                 //league
                 peekVC = [[LeagueHistoryController alloc] init];
-            } else if (indexPath.row == 1) { //hallOfFame
+            } else if (indexPath.row == 2) { //hallOfFame
+                peekVC = [[CoachHallOfFameViewController alloc] init];
+            } else if (indexPath.row == 3) { //hallOfFame
                 peekVC = [[HallOfFameViewController alloc] init];
             } else {
                 //league records
@@ -201,13 +206,13 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [header.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [header.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
-    [footer.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [footer.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [footer.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
@@ -231,7 +236,7 @@
     if (section == 0) {
         return 7;
     } else if (section == 2) {
-        return 4;
+        return 5;
     } else {
         return stats.count;
     }
@@ -244,8 +249,8 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"StratCell"];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
-                [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
             }
             
             NSString *title = @"";
@@ -269,8 +274,8 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"RecordCell"];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
-                [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
             }
             
             NSString *title = @"";
@@ -295,8 +300,8 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
-            [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+            [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+            [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         }
         
         NSString *title = @"";
@@ -307,6 +312,8 @@
         } else if (indexPath.row == 1) {
             title = @"League History";
         } else if (indexPath.row == 2) {
+            title = @"Coaching Hall of Fame";
+        } else if (indexPath.row == 3) {
             title = @"Hall of Fame";
         } else {
             title = @"League Records";
@@ -319,8 +326,8 @@
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"StatCell"];
             cell.accessoryType = UITableViewCellAccessoryNone;
-            [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
-            [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+            [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+            [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         }
         NSArray *cellStat = stats[indexPath.row];
         
@@ -394,6 +401,8 @@
             //league
             [self.navigationController pushViewController:[[LeagueHistoryController alloc] init] animated:YES];
         } else if (indexPath.row == 2) { //hallOfFame
+            [self.navigationController pushViewController:[[CoachHallOfFameViewController alloc] init] animated:YES];
+        } else if (indexPath.row == 3) { //hallOfFame
             [self.navigationController pushViewController:[[HallOfFameViewController alloc] init] animated:YES];
         } else {
             //league records

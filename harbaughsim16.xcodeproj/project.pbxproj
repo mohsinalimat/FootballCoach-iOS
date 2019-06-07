@@ -144,6 +144,7 @@
 		75A86C9C1C9C7C0C0034140C /* team-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C971C9C7C0C0034140C /* team-selected@3x.png */; };
 		75A86C9E1C9C7C9E0034140C /* roster-selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */; };
 		75AB014921DD87CA009E7A61 /* AvailableJobsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AB014821DD87CA009E7A61 /* AvailableJobsViewController.m */; };
+		75B2356C227E94D7003039B6 /* CoachHallOfFameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B2356B227E94D7003039B6 /* CoachHallOfFameViewController.m */; };
 		75B9792F20067BD20050E077 /* cfctests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B9792E20067BD20050E077 /* cfctests.m */; };
 		75B9793620067CEA0050E077 /* HBSharedUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7571DD1F1C9CBDA900E67080 /* HBSharedUtils.m */; };
 		75B9793720067CEA0050E077 /* LeagueUpdater.m in Sources */ = {isa = PBXBuildFile; fileRef = 756973961FAAB50400A66C42 /* LeagueUpdater.m */; };
@@ -171,6 +172,7 @@
 		75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF3B1C9A5D1100A68CD6 /* ScheduleViewController.m */; };
 		75BABF451C9A5D5300A68CD6 /* MyTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */; };
 		75BBDBB61DEC910A00124AA4 /* GraduatingPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75BBDBB51DEC910A00124AA4 /* GraduatingPlayersViewController.m */; };
+		75C2EA7122767D86002622BF /* PlaybookSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C2EA7022767D86002622BF /* PlaybookSummaryViewController.m */; };
 		75C321C11CAD748F00906A38 /* AllLeagueTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C01CAD748F00906A38 /* AllLeagueTeamViewController.m */; };
 		75C321C41CAD7BBB00906A38 /* AllConferenceTeamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C31CAD7BBB00906A38 /* AllConferenceTeamViewController.m */; };
 		75C321C71CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75C321C61CAD7C5500906A38 /* AllConferenceTeamConferenceSelectorViewController.m */; };
@@ -191,6 +193,7 @@
 		75CEE9631FF5FF5E005A86C1 /* 2star-recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CEE95E1FF5FF5E005A86C1 /* 2star-recruit@3x.png */; };
 		75CEE9641FF5FF5E005A86C1 /* 1star-recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CEE95F1FF5FF5E005A86C1 /* 1star-recruit@3x.png */; };
 		75CEE9651FF5FF5E005A86C1 /* 3star-recruit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75CEE9601FF5FF5E005A86C1 /* 3star-recruit@3x.png */; };
+		75DDC947227EA627000FEF94 /* NewsUpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DDC946227EA627000FEF94 /* NewsUpdatesViewController.m */; };
 		75DF165722399AD600E85626 /* PlayerStatHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DF165622399AD600E85626 /* PlayerStatHistoryViewController.swift */; };
 		75DF165B2239B55100E85626 /* YearCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75DF16592239B55100E85626 /* YearCell.m */; };
 		75DF165C2239B55100E85626 /* YearCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75DF165A2239B55100E85626 /* YearCell.xib */; };
@@ -469,6 +472,8 @@
 		75A86C9D1C9C7C9E0034140C /* roster-selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "roster-selected@3x.png"; sourceTree = "<group>"; };
 		75AB014721DD87CA009E7A61 /* AvailableJobsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AvailableJobsViewController.h; sourceTree = "<group>"; };
 		75AB014821DD87CA009E7A61 /* AvailableJobsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AvailableJobsViewController.m; sourceTree = "<group>"; };
+		75B2356A227E94D7003039B6 /* CoachHallOfFameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoachHallOfFameViewController.h; sourceTree = "<group>"; };
+		75B2356B227E94D7003039B6 /* CoachHallOfFameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoachHallOfFameViewController.m; sourceTree = "<group>"; };
 		75B9792C20067BD20050E077 /* cfctests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cfctests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75B9792E20067BD20050E077 /* cfctests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cfctests.m; sourceTree = "<group>"; };
 		75B9793020067BD20050E077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -478,6 +483,8 @@
 		75BABF441C9A5D5300A68CD6 /* MyTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyTeamViewController.m; sourceTree = "<group>"; };
 		75BBDBB41DEC910A00124AA4 /* GraduatingPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraduatingPlayersViewController.h; sourceTree = "<group>"; };
 		75BBDBB51DEC910A00124AA4 /* GraduatingPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraduatingPlayersViewController.m; sourceTree = "<group>"; };
+		75C2EA6F22767D86002622BF /* PlaybookSummaryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlaybookSummaryViewController.h; sourceTree = "<group>"; };
+		75C2EA7022767D86002622BF /* PlaybookSummaryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlaybookSummaryViewController.m; sourceTree = "<group>"; };
 		75C321BF1CAD748F00906A38 /* AllLeagueTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllLeagueTeamViewController.h; sourceTree = "<group>"; };
 		75C321C01CAD748F00906A38 /* AllLeagueTeamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllLeagueTeamViewController.m; sourceTree = "<group>"; };
 		75C321C21CAD7BBB00906A38 /* AllConferenceTeamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllConferenceTeamViewController.h; sourceTree = "<group>"; };
@@ -519,6 +526,8 @@
 		75CEE95E1FF5FF5E005A86C1 /* 2star-recruit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "2star-recruit@3x.png"; sourceTree = "<group>"; };
 		75CEE95F1FF5FF5E005A86C1 /* 1star-recruit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1star-recruit@3x.png"; sourceTree = "<group>"; };
 		75CEE9601FF5FF5E005A86C1 /* 3star-recruit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "3star-recruit@3x.png"; sourceTree = "<group>"; };
+		75DDC945227EA627000FEF94 /* NewsUpdatesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewsUpdatesViewController.h; sourceTree = "<group>"; };
+		75DDC946227EA627000FEF94 /* NewsUpdatesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewsUpdatesViewController.m; sourceTree = "<group>"; };
 		75DF165622399AD600E85626 /* PlayerStatHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStatHistoryViewController.swift; sourceTree = "<group>"; };
 		75DF16582239B55100E85626 /* YearCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YearCell.h; sourceTree = "<group>"; };
 		75DF16592239B55100E85626 /* YearCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YearCell.m; sourceTree = "<group>"; };
@@ -629,6 +638,8 @@
 				75CEE94B1FF593F5005A86C1 /* CFCRecruitCell.h */,
 				75CEE94C1FF593F5005A86C1 /* CFCRecruitCell.m */,
 				75CEE94D1FF593F5005A86C1 /* CFCRecruitCell.xib */,
+				75C2EA6F22767D86002622BF /* PlaybookSummaryViewController.h */,
+				75C2EA7022767D86002622BF /* PlaybookSummaryViewController.m */,
 			);
 			name = Recruiting;
 			sourceTree = "<group>";
@@ -800,6 +811,8 @@
 				75EC9A781D08E12D00F24BE6 /* RingOfHonorViewController.m */,
 				75EC9A7A1D08E5B300F24BE6 /* HallOfFameViewController.h */,
 				75EC9A7B1D08E5B300F24BE6 /* HallOfFameViewController.m */,
+				75B2356A227E94D7003039B6 /* CoachHallOfFameViewController.h */,
+				75B2356B227E94D7003039B6 /* CoachHallOfFameViewController.m */,
 				751DF8251CA1F273003C62F2 /* TeamRosterViewController.h */,
 				751DF8261CA1F273003C62F2 /* TeamRosterViewController.m */,
 				7571DD361C9CFD4000E67080 /* RosterViewController.h */,
@@ -857,6 +870,8 @@
 				75C5C3311F83447A00D7CAAD /* UpcomingViewController.h */,
 				75C5C32F1F83447900D7CAAD /* UpcomingViewController.m */,
 				75C5C3301F83447A00D7CAAD /* UpcomingViewController.xib */,
+				75DDC945227EA627000FEF94 /* NewsUpdatesViewController.h */,
+				75DDC946227EA627000FEF94 /* NewsUpdatesViewController.m */,
 				75C5C3361F83489C00D7CAAD /* HBTeamPlayView.h */,
 				75C5C3371F83489D00D7CAAD /* HBTeamPlayView.m */,
 				754319031CC02EAC00D380F1 /* Conference Standings */,
@@ -1556,6 +1571,7 @@
 				75A4518721CC76F6007E481A /* PlayerKDetailViewController.m in Sources */,
 				75924A4C1C99D03300B165AD /* Player.m in Sources */,
 				75A4519121CC7946007E481A /* PlayerLBDetailViewController.m in Sources */,
+				75C2EA7122767D86002622BF /* PlaybookSummaryViewController.m in Sources */,
 				7563A8E11CB7F6F20023E43B /* Record.m in Sources */,
 				75315AFE21E64E72006A1372 /* CFCAwardTagView.m in Sources */,
 				75EC9A741D07D6D100F24BE6 /* InjuryReportViewController.m in Sources */,
@@ -1605,6 +1621,7 @@
 				75A86C881C9C790D0034140C /* FCTableViewController.m in Sources */,
 				7595342E21CDA65B00AF6FE3 /* HeadCoach.m in Sources */,
 				75924A611C99E64D00B165AD /* PlayerK.m in Sources */,
+				75B2356C227E94D7003039B6 /* CoachHallOfFameViewController.m in Sources */,
 				75DF165722399AD600E85626 /* PlayerStatHistoryViewController.swift in Sources */,
 				75CEE94A1FF593B6005A86C1 /* RecruitingPeriodViewController.m in Sources */,
 				75BABF3C1C9A5D1100A68CD6 /* ScheduleViewController.m in Sources */,
@@ -1662,6 +1679,7 @@
 				75DF165B2239B55100E85626 /* YearCell.m in Sources */,
 				754E90781CA58BF800C450CF /* BowlProjectionViewController.m in Sources */,
 				75316B452252B45F0022553D /* WhatsNewHandler.swift in Sources */,
+				75DDC947227EA627000FEF94 /* NewsUpdatesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

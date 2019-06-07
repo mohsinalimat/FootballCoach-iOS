@@ -85,4 +85,6 @@ typedef enum {
 -(NSString *)uniqueIdentifier;
 
 -(void)updateStatHistory;
+
+-(NSString *)getPlayerArchetype;
 @end

@@ -109,6 +109,11 @@
         ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:@"Tap here to advance to the next week of the transfer period. Be warned: other teams may make offers to players you have contacted." preferences:nil delegate:self];
         editTip.tag = FCTutorialAdvanceWeek;
         [editTip showAnimated:YES forItem:self.navigationItem.rightBarButtonItem withinSuperview:self.navigationController.view];
+    } else if (tipView.tag == FCTutorialAdvanceWeek) {
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+        [self.navigationItem.leftBarButtonItem setEnabled:YES];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 
@@ -792,8 +797,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.estimatedRowHeight = 150;
-    self.tableView.rowHeight = 150;
+    self.tableView.estimatedRowHeight = 175;
+    self.tableView.rowHeight = 175;
     self.tableView.tableFooterView = [UIView new];
     [self.tableView registerNib:[UINib nibWithNibName:@"CFCRecruitCell" bundle:nil] forCellReuseIdentifier:@"CFCRecruitCell"];
     self.tableView.emptyDataSetSource = self;
@@ -870,6 +875,8 @@
     //display intro screen
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (self->totalRecruits.count > 0) {
+            [self.navigationItem.rightBarButtonItem setEnabled:NO];
+            [self.navigationItem.leftBarButtonItem setEnabled:NO];
             NSString *tipText = @"Tap on a player to view how you can interact with them to recruit them to your program.";
             ZMJTipView *editTip = [[ZMJTipView alloc] initWithText:tipText preferences:nil delegate:self];
             editTip.tag = FCTutorialRecruitSelect;
@@ -1047,8 +1054,6 @@
                 //display tutorial alert on first launch
                 BOOL tutorialShown = [[NSUserDefaults standardUserDefaults] boolForKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
                 if (!tutorialShown) {
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:HB_TRANSFER_TUTORIAL_SHOWN_KEY];
-                    [[NSUserDefaults standardUserDefaults] synchronize];
                     [self showTutorial];
                 }
             }
@@ -1088,7 +1093,7 @@
     } else {
         text = @"No signed transfers";
     }
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -1119,7 +1124,7 @@
     } else {
         text = @"You weren't able to sign any transfers this year. Better luck next year!";
     }
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -1224,7 +1229,6 @@
         }
     }
     
-    int stars = p.stars;
     //// NSLog(@"%@'s OVR: %d stars: %d interest: %d offers: %@", p.name, p.ratOvr, stars, interest, p.offers);
     NSString *name = [p getInitialName];
     NSString *position = p.position;
@@ -1267,8 +1271,8 @@
     
     
     // Valid cell data formatting code
-    NSMutableAttributedString *interestString = [[NSMutableAttributedString alloc] initWithString:@"Interest: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [interestString appendAttributedString:[[NSAttributedString alloc] initWithString:(p.recruitStatus == CFCRecruitStatusCommitted && p.team == [HBSharedUtils currentLeague].userTeam) ? @"LOCK" : interestMetadata[@"interest"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : interestMetadata[@"color"]}]];
+    NSMutableAttributedString *interestString = [[NSMutableAttributedString alloc] initWithString:@"Interest: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [interestString appendAttributedString:[[NSAttributedString alloc] initWithString:(p.recruitStatus == CFCRecruitStatusCommitted && p.team == [HBSharedUtils currentLeague].userTeam) ? @"LOCK" : interestMetadata[@"interest"] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : interestMetadata[@"color"]}]];
     
     
     UIColor *nameColor = [UIColor blackColor];
@@ -1292,36 +1296,42 @@
         offerTitle = @"Other Offers: ";
     }
     
-    NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ", position] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
+    NSMutableAttributedString *nameString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ", position] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}];
     
-    [nameString appendAttributedString:[[NSAttributedString alloc] initWithString:name attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium], NSForegroundColorAttributeName : nameColor}]];
+    [nameString appendAttributedString:[[NSAttributedString alloc] initWithString:name attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE weight:UIFontWeightMedium], NSForegroundColorAttributeName : nameColor}]];
     
     NSString *type = p.isGradTransfer ? @"Grad" : @"Normal";
-    NSMutableAttributedString *typeString = [[NSMutableAttributedString alloc] initWithString:@"Type: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [typeString appendAttributedString:[[NSAttributedString alloc] initWithString:type attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    NSMutableAttributedString *typeString = [[NSMutableAttributedString alloc] initWithString:@"Type: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [typeString appendAttributedString:[[NSAttributedString alloc] initWithString:type attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
 
     
-    NSMutableAttributedString *offerString = [[NSMutableAttributedString alloc] initWithString:offerTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    NSMutableAttributedString *offerString = [[NSMutableAttributedString alloc] initWithString:offerTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
     if (p.recruitStatus == CFCRecruitStatusCommitted) {
         if (p.team == [HBSharedUtils currentLeague].userTeam) {
-            [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils currentLeague].userTeam.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium], NSForegroundColorAttributeName : [HBSharedUtils styleColor]}]];
+            [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils currentLeague].userTeam.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE weight:UIFontWeightMedium], NSForegroundColorAttributeName : [HBSharedUtils styleColor]}]];
         } else if ([transferActivities.allKeys containsObject:[p uniqueIdentifier]]) {
-            [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:p.team.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium], NSForegroundColorAttributeName : [HBSharedUtils errorColor]}]];
+            [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:p.team.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE weight:UIFontWeightMedium], NSForegroundColorAttributeName : [HBSharedUtils errorColor]}]];
         } else {
-            [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:p.team.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+            [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:p.team.abbreviation attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE weight:UIFontWeightMedium], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
         }
     } else {
-        [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils generateOfferString:p.offers] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+        [offerString appendAttributedString:[[NSAttributedString alloc] initWithString:[HBSharedUtils generateOfferString:p.offers] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
     }
     [cell.otherOffersLabel setAttributedText:offerString];
     
+    NSMutableAttributedString *specString = [[NSMutableAttributedString alloc] initWithString:@"Archetype: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [specString appendAttributedString:[[NSAttributedString alloc] initWithString:[p getPlayerArchetype] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor lightGrayColor]}]];
+    
+    CGFloat overallStars = [HBSharedUtils mapValue:p.ratOvr inputMin:50 inputMax:100 outputMin:1 outputMax:5];
+    
     [cell.interestLabel setAttributedText:interestString];
-    [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:stars]]];
+    [cell.starImageView setImage:[UIImage imageNamed:[HBSharedUtils convertStarsToUIImageName:(int)ceilf(overallStars)]]];
     [cell.nameLabel setAttributedText:nameString];
     [cell.stateLabel setText:state];
     [cell.weightLabel setAttributedText:typeString];
+    [cell.specialtyLabel setAttributedText:specString];
     
-    NSMutableAttributedString *potAtt = [[NSMutableAttributedString alloc] initWithString:@"Potential: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:16.0]}];
+    NSMutableAttributedString *potAtt = [[NSMutableAttributedString alloc] initWithString:@"Potential: " attributes:@{NSForegroundColorAttributeName : [UIColor blackColor], NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE]}];
     NSString *stat1 = [p getLetterGrade:p.ratPot];
     UIColor *letterColor = [UIColor lightGrayColor];
     if ([stat1 containsString:@"A"]) {
@@ -1338,27 +1348,27 @@
         letterColor = [UIColor lightGrayColor];
     }
     
-    [potAtt appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightMedium]}]];
+    [potAtt appendAttributedString:[[NSAttributedString alloc] initWithString:stat1 attributes:@{NSForegroundColorAttributeName : letterColor, NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE weight:UIFontWeightMedium]}]];
     [cell.fortyYdDashLabel setAttributedText:potAtt];
     
-    NSString *stat2 = [p getLetterGrade:p.ratOvr];
     UIColor *stat2Color = [UIColor lightGrayColor];
-    if ([stat2 containsString:@"A"]) {
+    NSString *stat2 = [NSString stringWithFormat:@"%d",p.ratOvr];
+    if ([stat2 containsString:@"9"]) {
         stat2Color = [HBSharedUtils successColor];
-    } else if ([stat2 containsString:@"B"]) {
+    } else if ([stat2 containsString:@"8"]) {
         stat2Color = [UIColor hx_colorWithHexRGBAString:@"#a6d96a"];
-    } else if ([stat2 containsString:@"C"]) {
+    } else if ([stat2 containsString:@"7"]) {
         stat2Color = [HBSharedUtils champColor];
-    } else if ([stat2 containsString:@"D"]) {
+    } else if ([stat2 containsString:@"6"]) {
         stat2Color = [UIColor hx_colorWithHexRGBAString:@"#fdae61"];
-    } else if ([stat2 containsString:@"F"]) {
+    } else if ([stat2 containsString:@"5"]) {
         stat2Color = [UIColor hx_colorWithHexRGBAString:@"#d7191c"];
     } else {
         stat2Color = [UIColor lightGrayColor];
     }
     
-    NSMutableAttributedString *overallString = [[NSMutableAttributedString alloc] initWithString:@"Overall: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : [UIColor blackColor]}];
-    [overallString appendAttributedString:[[NSAttributedString alloc] initWithString:stat2 attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0], NSForegroundColorAttributeName : stat2Color}]];
+    NSMutableAttributedString *overallString = [[NSMutableAttributedString alloc] initWithString:@"Overall: " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : [UIColor blackColor]}];
+    [overallString appendAttributedString:[[NSAttributedString alloc] initWithString:stat2 attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE], NSForegroundColorAttributeName : stat2Color}]];
     [cell.heightLabel setAttributedText:overallString];
 }
 

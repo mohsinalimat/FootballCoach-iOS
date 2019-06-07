@@ -55,7 +55,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
     text = @"No streaks yet";
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -82,7 +82,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"When your team starts playing games, its records against other teams will be displayed here.";
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -226,8 +226,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     }
     
     TeamStreak *ts = streaks[indexPath.row];
@@ -236,7 +236,7 @@
     [cell.detailTextLabel setText:[ts stringRepresentation]];
     
     if ([ts.opponent.abbreviation isEqualToString:selectedTeam.rivalTeam]) {
-        [teamString appendAttributedString:[[NSAttributedString alloc] initWithString:@" RIVAL" attributes:@{NSForegroundColorAttributeName : [HBSharedUtils styleColor], NSFontAttributeName : [UIFont systemFontOfSize:12.0]}]];
+        [teamString appendAttributedString:[[NSAttributedString alloc] initWithString:@" RIVAL" attributes:@{NSForegroundColorAttributeName : [HBSharedUtils styleColor], NSFontAttributeName : [UIFont systemFontOfSize:SMALL_FONT_SIZE]}]];
     }
     [cell.textLabel setAttributedText:teamString];
     return cell;

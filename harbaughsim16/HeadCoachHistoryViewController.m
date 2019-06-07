@@ -116,6 +116,7 @@
     PrestigeHistoryViewController *prestigeHistoryVC = [[PrestigeHistoryViewController alloc] initWithDataSets:@[prestigeHistLine]];
     prestigeHistoryVC.title = [NSString stringWithFormat:@"Coach Score History for %@", [selectedCoach getInitialName]];
     if (self.popupController.presented) {
+        prestigeHistoryVC.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.75 * [UIScreen mainScreen].bounds.size.height);
         [self.popupController pushViewController:prestigeHistoryVC animated:YES];
     } else {
         [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
@@ -161,6 +162,7 @@
     PrestigeHistoryViewController *prestigeHistoryVC = [[PrestigeHistoryViewController alloc] initWithDataSets:@[prestigeHistLine]];
     prestigeHistoryVC.title = [NSString stringWithFormat:@"Team Prestige History for %@", [selectedCoach getInitialName]];
     if (self.popupController.presented) {
+        prestigeHistoryVC.contentSizeInPopup = CGSizeMake([UIScreen mainScreen].bounds.size.width, 0.75 * [UIScreen mainScreen].bounds.size.height);
         [self.popupController pushViewController:prestigeHistoryVC animated:YES];
     } else {
         [self.navigationController pushViewController:prestigeHistoryVC animated:YES];
@@ -193,7 +195,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
     text = @"No history to view";
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -220,7 +222,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = [NSString stringWithFormat:@"This coach has no previous coaching history to review."];
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -282,13 +284,13 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [header.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [header.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
-    [footer.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [footer.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [footer.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
@@ -312,7 +314,7 @@
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.detailTextLabel setNumberOfLines:7];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
     }
     
     [cell.textLabel setText:[NSString stringWithFormat:@"%ld", (long)(selectedCoach.startYear + indexPath.row)]];
@@ -338,8 +340,8 @@
             }
         }
     }
-    NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:hist attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular]}];
-    [attText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular] range:[hist rangeOfString:comps[0]]];
+    NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:hist attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:MEDIUM_FONT_SIZE weight:UIFontWeightRegular]}];
+    [attText addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE weight:UIFontWeightRegular] range:[hist rangeOfString:comps[0]]];
     [attText addAttribute:NSForegroundColorAttributeName value:teamColor range:[hist rangeOfString:comps[0]]];
     [cell.detailTextLabel setAttributedText:attText];
     [cell.detailTextLabel sizeToFit];

@@ -1268,12 +1268,12 @@
                                                          [awayTeam getLB:1],
                                                          [awayTeam getLB:2]]];
 //        NSLog(@"END AWAY STARTERS FOR %@", awayTeam.abbreviation);
-        //break redshirts if starters are marked as such and add gamesPlayed/gamesPlayedSeason
         //NSLog(@"[Game] BREAKING REDSHIRTS IF NECESSARY");
+        //break redshirts if starters are marked as such and add gamesPlayed/gamesPlayedSeason
         for (Player *p in homeStarters) {
-            if (p.hasRedshirt) {
+            if (p.hasRedshirt && p.gamesPlayedSeason > 4) {
                 p.hasRedshirt = NO;
-                p.wasRedshirted = YES;
+//                p.wasRedshirted = YES;
             }
             
             if (![p isEqual:[homeTeam getWR:2]]) {
@@ -1283,9 +1283,9 @@
         }
         
         for (Player *p in awayStarters) {
-            if (p.hasRedshirt) {
+            if (p.hasRedshirt && p.gamesPlayedSeason > 4) {
                 p.hasRedshirt = NO;
-                p.wasRedshirted = YES;
+//                p.wasRedshirted = YES;
             }
             
             if (![p isEqual:[awayTeam getWR:2]]) {
@@ -1948,10 +1948,12 @@
         if (homeScore > awayScore) {
             homeTeam.wins++;
             [homeTeam getCurrentHC].totalWins++;
+            [homeTeam getCurrentHC].teamWins++;
             homeTeam.totalWins++;
             [homeTeam.gameWLSchedule addObject:@"W"];
             awayTeam.losses++;
             [awayTeam getCurrentHC].totalLosses++;
+            [awayTeam getCurrentHC].teamLosses++;
             awayTeam.totalLosses++;
             [awayTeam.gameWLSchedule addObject:@"L"];
             [homeTeam.gameWinsAgainst addObject:awayTeam];
@@ -1994,10 +1996,12 @@
             homeTeam.losses++;
             homeTeam.totalLosses++;
             [homeTeam getCurrentHC].totalLosses++;
+            [homeTeam getCurrentHC].teamLosses++;
             [homeTeam.gameWLSchedule addObject:@"L"];
             awayTeam.wins++;
             awayTeam.totalWins++;
             [awayTeam getCurrentHC].totalWins++;
+            [awayTeam getCurrentHC].teamWins++;
             [awayTeam.gameWLSchedule addObject:@"W"];
             [awayTeam.gameWinsAgainst addObject:homeTeam];
             

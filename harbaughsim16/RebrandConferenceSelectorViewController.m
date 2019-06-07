@@ -59,8 +59,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.backgroundColor = [UIColor whiteColor];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
     }
     

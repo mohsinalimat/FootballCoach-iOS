@@ -67,8 +67,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
     }
     
     if (indexPath.section == 0) {
@@ -79,29 +79,32 @@
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d-star", MIN(5, selectedPlayer.stars)]];
             [cell.textLabel setText:@"Recruit Rating"];
         } else if (indexPath.row == 2) {
+            [cell.detailTextLabel setText:[selectedPlayer getPlayerArchetype]];
+            [cell.textLabel setText:@"Player Archetype"];
+        } else if (indexPath.row == 3) {
             [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"height"]];
             [cell.textLabel setText:@"Height"];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"weight"]];
             [cell.textLabel setText:@"Weight"];
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             [cell.detailTextLabel setText:ratings[@"potential"]];
             [cell.textLabel setText:@"Potential"];
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 6) {
             [cell.detailTextLabel setText:ratings[@"footballIQ"]];
             [cell.textLabel setText:@"Football IQ"];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 7) {
             [cell.detailTextLabel setText:ratings[@"durability"]];
             [cell.textLabel setText:@"Durability"];
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 8) {
             //cat
             [cell.detailTextLabel setText:ratings[@"recCatch"]];
             [cell.textLabel setText:@"Catching"];
-        } else if (indexPath.row == 8) {
+        } else if (indexPath.row == 9) {
             //spd
             [cell.detailTextLabel setText:ratings[@"recSpeed"]];
             [cell.textLabel setText:@"Speed"];
-        } else if (indexPath.row == 9)  {
+        } else if (indexPath.row == 10)  {
             //blkP
             [cell.detailTextLabel setText:ratings[@"recEvasion"]];
             [cell.textLabel setText:@"Evasion"];
@@ -198,7 +201,7 @@
         }
     }
     
-    if (indexPath.section == 0 && indexPath.row > 3) {
+    if (indexPath.section == 0 && indexPath.row > 4) {
         NSString *stat = cell.detailTextLabel.text;
         
         if (indexPath.section == 0) {

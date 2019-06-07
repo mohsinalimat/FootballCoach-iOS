@@ -290,4 +290,16 @@
     return [stats copy];
 }
 
+-(NSString *)getPlayerArchetype {
+    if (self.ratCBCov >= self.ratCBSpd && self.ratCBCov >= self.ratCBTkl) {
+        return @"Ballhawk";
+    } else if (self.ratCBSpd >= self.ratCBCov && self.ratCBSpd >= self.ratCBTkl) {
+        return @"Man Marker";
+    } else if (self.ratCBTkl >= self.ratCBCov && self.ratCBTkl >= self.ratCBSpd) {
+        return @"Tackling Tiger";
+    } else {
+        return @"Shutdown Corner";
+    }
+}
+
 @end

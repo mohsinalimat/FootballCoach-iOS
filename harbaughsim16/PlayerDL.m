@@ -331,4 +331,16 @@
     }
 }
 
+-(NSString *)getPlayerArchetype {
+    if (self.ratDLPow >= self.ratDLPas && self.ratDLPow >= self.ratDLRsh) {
+        return @"Sack Machine";
+    } else if (self.ratDLPas >= self.ratDLRsh && self.ratDLPas >= self.ratDLPow) {
+        return @"Knockdown Specialist";
+    } else if (self.ratDLRsh >= self.ratDLPas && self.ratDLRsh >= self.ratDLPow) {
+        return @"Tread Lightly";
+    } else {
+        return @"TFL Expert";
+    }
+}
+
 @end

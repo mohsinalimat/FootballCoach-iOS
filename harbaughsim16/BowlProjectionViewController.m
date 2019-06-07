@@ -70,7 +70,7 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [header.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [header.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
@@ -150,7 +150,7 @@
             [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
             [cell.textLabel setTextColor:self.view.tintColor];
             [cell setAccessoryType:UITableViewCellAccessoryNone];
-            [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+            [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         }
         
         if (bowl.hasPlayed) {

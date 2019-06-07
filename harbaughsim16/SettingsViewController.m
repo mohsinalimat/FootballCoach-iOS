@@ -235,13 +235,13 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [header.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [header.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
-    [footer.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [footer.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [footer.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
@@ -282,7 +282,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"LinkCell"];
             cell.backgroundColor = [UIColor whiteColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+            [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         }
         
         if (indexPath.row == 0) {
@@ -327,7 +327,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Sec2Cell"];
             cell.backgroundColor = [UIColor whiteColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+            [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         }
         
         if (indexPath.row == 0) {
@@ -372,7 +372,7 @@
                 cell.backgroundColor = [UIColor whiteColor];
                 [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
                 [cell setAccessoryType:UITableViewCellAccessoryNone];
-                [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
                
             }
             

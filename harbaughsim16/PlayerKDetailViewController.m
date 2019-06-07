@@ -48,8 +48,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
     }
     
     if (indexPath.section == 0) {
@@ -60,25 +60,28 @@
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d-star", MIN(5, selectedPlayer.stars)]];
             [cell.textLabel setText:@"Recruit Rating"];
         } else if (indexPath.row == 2) {
+            [cell.detailTextLabel setText:[selectedPlayer getPlayerArchetype]];
+            [cell.textLabel setText:@"Player Archetype"];
+        } else if (indexPath.row == 3) {
             [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"height"]];
             [cell.textLabel setText:@"Height"];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             [cell.detailTextLabel setText:selectedPlayer.personalDetails[@"weight"]];
             [cell.textLabel setText:@"Weight"];
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             [cell.detailTextLabel setText:ratings[@"potential"]];
             [cell.textLabel setText:@"Potential"];
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 6) {
             [cell.detailTextLabel setText:ratings[@"footballIQ"]];
             [cell.textLabel setText:@"Football IQ"];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 7) {
             [cell.detailTextLabel setText:ratings[@"durability"]];
             [cell.textLabel setText:@"Durability"];
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 8) {
             //pow
             [cell.detailTextLabel setText:ratings[@"kickPower"]];
             [cell.textLabel setText:@"Kick Power"];
-        } else if (indexPath.row == 8) {
+        } else if (indexPath.row == 9) {
             //acc
             [cell.detailTextLabel setText:ratings[@"kickAccuracy"]];
             [cell.textLabel setText:@"Kick Accuracy"];
@@ -90,27 +93,30 @@
     } else if (indexPath.section == 1) {
         if ((selectedPlayer.year > 4 && selectedPlayer.isGradTransfer == NO) || selectedPlayer.draftPosition != nil) {
             if (indexPath.row == 0) {
+                [cell.detailTextLabel setText:careerStats[@"ROTYs"]];
+                [cell.textLabel setText:@"Rookie of the Year Awards"];
+            } else if (indexPath.row == 1) {
                 [cell.detailTextLabel setText:careerStats[@"heismans"]];
                 [cell.textLabel setText:@"Player of the Year Awards"];
-            } else if (indexPath.row == 1) {
+            } else if (indexPath.row == 2) {
                 [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
                 [cell.textLabel setText:@"All-League Nominations"];
-            } else if (indexPath.row == 2) {
+            } else if (indexPath.row == 3) {
                 [cell.detailTextLabel setText:careerStats[@"allConferences"]];
                 [cell.textLabel setText:@"All-Conference Nominations"];
-            } else if (indexPath.row == 3) {
+            } else if (indexPath.row == 4) {
                 [cell.detailTextLabel setText:careerStats[@"xpMade"]];
                 [cell.textLabel setText:@"XP Made"];
-            } else if (indexPath.row == 4) {
+            } else if (indexPath.row == 5) {
                 [cell.detailTextLabel setText:careerStats[@"xpAtt"]];
                 [cell.textLabel setText:@"XP Attempted"];
-            } else if (indexPath.row == 5) {
+            } else if (indexPath.row == 6) {
                 [cell.detailTextLabel setText:careerStats[@"xpPercentage"]];
                 [cell.textLabel setText:@"XP Percentage"];
-            } else if (indexPath.row == 6) {
+            } else if (indexPath.row == 7) {
                 [cell.detailTextLabel setText:careerStats[@"fgMade"]];
                 [cell.textLabel setText:@"FG Made"];
-            } else if (indexPath.row == 7) {
+            } else if (indexPath.row == 8) {
                 [cell.detailTextLabel setText:careerStats[@"fgAtt"]];
                 [cell.textLabel setText:@"FG Attempted"];
             } else {
@@ -140,27 +146,30 @@
         }
     } else {
         if (indexPath.row == 0) {
+            [cell.detailTextLabel setText:careerStats[@"ROTYs"]];
+            [cell.textLabel setText:@"Rookie of the Year Awards"];
+        } else if (indexPath.row == 1) {
             [cell.detailTextLabel setText:careerStats[@"heismans"]];
             [cell.textLabel setText:@"Player of the Year Awards"];
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             [cell.detailTextLabel setText:careerStats[@"allAmericans"]];
             [cell.textLabel setText:@"All-League Nominations"];
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             [cell.detailTextLabel setText:careerStats[@"allConferences"]];
             [cell.textLabel setText:@"All-Conference Nominations"];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             [cell.detailTextLabel setText:careerStats[@"xpMade"]];
             [cell.textLabel setText:@"XP Made"];
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             [cell.detailTextLabel setText:careerStats[@"xpAtt"]];
             [cell.textLabel setText:@"XP Attempted"];
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 6) {
             [cell.detailTextLabel setText:careerStats[@"xpPercentage"]];
             [cell.textLabel setText:@"XP Percentage"];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 7) {
             [cell.detailTextLabel setText:careerStats[@"fgMade"]];
             [cell.textLabel setText:@"FG Made"];
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 8) {
             [cell.detailTextLabel setText:careerStats[@"fgAtt"]];
             [cell.textLabel setText:@"FG Attempted"];
         } else {
@@ -169,7 +178,7 @@
         }
     }
     
-    if (indexPath.section == 0 && indexPath.row > 3) {
+    if (indexPath.section == 0 && indexPath.row > 4) {
         NSString *stat = cell.detailTextLabel.text;
         
         if (indexPath.section == 0) {

@@ -96,13 +96,13 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [header.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [header.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
-    [footer.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [footer.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [footer.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
@@ -122,7 +122,7 @@
     if (section == 1) {
         return 14;
     } else if (section == 0) {
-        return 12;
+        return 14;
     } else {
         return 1;
     }
@@ -142,8 +142,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
@@ -160,39 +160,47 @@
             int years = (int)[[HBSharedUtils currentLeague] getCurrentYear] - selectedCoach.startYear;
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d %@", years, (years == 1) ? @"year" : @"years"]];
         } else if (indexPath.row == 2) {
+            // off
+            [cell.textLabel setText:@"Coaching Archetype"];
+            [cell.detailTextLabel setText:[selectedCoach getCoachArchetype]];
+        } else if (indexPath.row == 3) {
             // coach status
             [cell.textLabel setText:@"Status with Team"];
             [cell.detailTextLabel setText:[selectedCoach getCoachStatusString]];
             [cell.detailTextLabel setTextColor:[HBSharedUtils _colorForCoachStatus:[selectedCoach getCoachStatus]]];
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
+            // coach status
+            [cell.textLabel setText:@"Record with Team"];
+            [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d-%d", selectedCoach.teamWins, selectedCoach.teamLosses]];
+        } else if (indexPath.row == 5) {
             // contract yera + length
             [cell.textLabel setText:@"Contract Details"];
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d years (%d left)", selectedCoach.contractLength,(selectedCoach.contractLength - selectedCoach.contractYear - 1)]];
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 6) {
             // baseline prestige
             [cell.textLabel setText:@"Baseline Prestige"];
             [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d", selectedCoach.baselinePrestige]];
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 7) {
             // off
             [cell.textLabel setText:@"Offensive Philosophy"];
             [cell.detailTextLabel setText:ratings[@"offensivePlaybook"]];
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 8) {
             // def
             [cell.textLabel setText:@"Defensive Philosophy"];
             [cell.detailTextLabel setText:ratings[@"defensivePlaybook"]];
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 9) {
             // off
             [cell.textLabel setText:@"Offensive Ability"];
             [cell.detailTextLabel setText:ratings[@"offensiveAbility"]];
-        } else if (indexPath.row == 8) {
+        } else if (indexPath.row == 10) {
             // def
             [cell.textLabel setText:@"Defensive Ability"];
             [cell.detailTextLabel setText:ratings[@"defensiveAbility"]];
-        } else if (indexPath.row == 9) {
+        } else if (indexPath.row == 11) {
             // talent
             [cell.textLabel setText:@"Talent Progression"];
             [cell.detailTextLabel setText:ratings[@"talentProgression"]];
-        } else if (indexPath.row == 10) {
+        } else if (indexPath.row == 12) {
             // discipline
             [cell.textLabel setText:@"Discipline"];
             [cell.detailTextLabel setText:ratings[@"discipline"]];
@@ -202,7 +210,7 @@
             [cell.detailTextLabel setText:ratings[@"potential"]];
         }
         
-        if (indexPath.section == 0 && indexPath.row > 6) {
+        if (indexPath.section == 0 && indexPath.row > 8) {
             NSString *stat = cell.detailTextLabel.text;
             if (indexPath.section == 0) {
                 UIColor *letterColor;   //colors for ratings to tell what's what
@@ -221,7 +229,7 @@
             } else {
                 [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
             }
-        } else if (indexPath.row != 2) {
+        } else if (indexPath.row != 3) {
             [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         } else {
             [cell.detailTextLabel setTextColor:[HBSharedUtils _colorForCoachStatus:[selectedCoach getCoachStatus]]];
@@ -233,7 +241,7 @@
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         if (indexPath.row == 0) {
             // Career Record
-            [cell.textLabel setText:@"Win %"];
+            [cell.textLabel setText:@"Career Win %"];
             if ((selectedCoach.totalWins + selectedCoach.totalLosses) > 0) {
                 int winPercent = (int)ceil(100 * ((double)selectedCoach.totalWins) / (double)(selectedCoach.totalWins + selectedCoach.totalLosses));
                 [cell.detailTextLabel setText:[NSString stringWithFormat:@"%d%% (%d-%d)",winPercent, selectedCoach.totalWins,selectedCoach.totalLosses]];

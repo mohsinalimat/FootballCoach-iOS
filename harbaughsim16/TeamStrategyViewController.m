@@ -84,8 +84,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         [cell.detailTextLabel setNumberOfLines:0];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:13.0]];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     }
     TeamStrategy *strat = teamStrats[indexPath.row];
     [cell.textLabel setText:strat.stratName];

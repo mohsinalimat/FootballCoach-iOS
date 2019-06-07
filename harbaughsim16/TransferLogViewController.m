@@ -51,7 +51,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.textLabel setNumberOfLines:0];
         [cell setBackgroundColor:[UIColor whiteColor]];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
         [cell.textLabel setTextColor:[UIColor blackColor]];
     }
     
@@ -78,7 +78,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
     text = @"No transfers";
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -105,7 +105,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"No players transferred this offseason.";
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     

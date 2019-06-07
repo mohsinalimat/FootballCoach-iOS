@@ -33,26 +33,26 @@
             self.careerStatsRushYards = [aDecoder decodeIntForKey:@"careerStatsRushYards"];
     
             if ([aDecoder containsValueForKey:@"personalDetails"]) {
-                    self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
-                    if (self.personalDetails == nil) {
-                            NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
-                            NSInteger inches = (int)([HBSharedUtils randomValue] * 4);
-                            self.personalDetails = @{
-                                                                                               @"home_state" : [HBSharedUtils randomState],
-                                                                                                                                         @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                                                                                                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                                                                                                                         };
-                        }
-                } else {
-                        NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
-                        NSInteger inches = (int)([HBSharedUtils randomValue] * 4);
-                        self.personalDetails = @{
-                                                                                       @"home_state" : [HBSharedUtils randomState],
-                                                                                                                             @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
-                                                                                                                             @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
-                                                                                                                             };
-                    }
-        }
+                self.personalDetails = [aDecoder decodeObjectForKey:@"personalDetails"];
+                if (self.personalDetails == nil) {
+                    NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
+                    NSInteger inches = (int)([HBSharedUtils randomValue] * 6) + 70;
+                    self.personalDetails = @{
+                                             @"home_state" : [HBSharedUtils randomState],
+                                             @"height" : (inches >= 72) ? [NSString stringWithFormat:@"6\'%ld\"",(long)(inches - 72)] : [NSString stringWithFormat:@"5\'%ld\"",(long)(inches - 60)],
+                                             @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                             };
+                }
+            } else {
+                NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
+                NSInteger inches = (int)([HBSharedUtils randomValue] * 6) + 70;
+                self.personalDetails = @{
+                                         @"home_state" : [HBSharedUtils randomState],
+                                         @"height" : (inches >= 72) ? [NSString stringWithFormat:@"6\'%ld\"",(long)(inches - 72)] : [NSString stringWithFormat:@"5\'%ld\"",(long)(inches - 60)],
+                                         @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
+                                         };
+            }
+    }
     return self;
 }
 
@@ -92,10 +92,10 @@
         self.ratRushEva = eva;
         
         NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
-        NSInteger inches = (int)([HBSharedUtils randomValue] * 4);
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 6) + 70;
         self.personalDetails = @{
                                  @"home_state" : [HBSharedUtils randomState],
-                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"height" : (inches >= 72) ? [NSString stringWithFormat:@"6\'%ld\"",(long)(inches - 72)] : [NSString stringWithFormat:@"5\'%ld\"",(long)(inches - 60)],
                                  @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
                                  };
         
@@ -151,10 +151,10 @@
         self.fortyYardDashTime = [NSString stringWithFormat:@"%.2fs", fortyTime];
         
         NSInteger weight = (int)([HBSharedUtils randomValue] * 35) + 205;
-        NSInteger inches = (int)([HBSharedUtils randomValue] * 4);
+        NSInteger inches = (int)([HBSharedUtils randomValue] * 6) + 70;
         self.personalDetails = @{
                                  @"home_state" : [HBSharedUtils randomState],
-                                 @"height" : [NSString stringWithFormat:@"6\'%ld\"",(long)inches],
+                                 @"height" : (inches >= 72) ? [NSString stringWithFormat:@"6\'%ld\"",(long)(inches - 72)] : [NSString stringWithFormat:@"5\'%ld\"",(long)(inches - 60)],
                                  @"weight" : [NSString stringWithFormat:@"%ld lbs", (long)weight]
                                  };
         
@@ -346,6 +346,18 @@
     
     if (self.careerStatsFumbles > self.team.league.careerFumblesRecord.statistic) {
         self.team.league.careerFumblesRecord = [Record newRecord:@"Fumbles" player:self stat:self.careerStatsFumbles year:(int)([HBSharedUtils currentLeague].baseYear + self.team.league.leagueHistoryDictionary.count - 1)];
+    }
+}
+
+-(NSString *)getPlayerArchetype {
+    if (self.ratRushPow >= self.ratRushSpd && self.ratRushPow >= self.ratRushEva) {
+        return @"Wrecking Ball";
+    } else if (self.ratRushSpd >= self.ratRushPow && self.ratRushSpd >= self.ratRushEva) {
+        return @"Speedster";
+    } else if (self.ratRushEva >= self.ratRushSpd && self.ratRushEva >= self.ratRushPow) {
+        return @"Shifty";
+    } else {
+        return @"Jack-of-All-Trades";
     }
 }
 

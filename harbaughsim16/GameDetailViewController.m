@@ -373,13 +373,13 @@
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    [header.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [header.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [header.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
-    [footer.textLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [footer.textLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     [footer.textLabel setTextColor:[UIColor lightTextColor]];
 }
 
@@ -660,7 +660,7 @@
                 stat2Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsPassYards];
                 stat3Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsTD];
                 stat4Value = [NSString stringWithFormat:@"%d",((PlayerQB*)plyr).statsInt];
-                //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:13.0]];
+                //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:SMALL_FONT_SIZE]];
             } else if ([plyr isKindOfClass:[PlayerRB class]]) {
                 stat1 = @"Car";
                 stat2 = @"Yds";
@@ -670,7 +670,7 @@
                 stat2Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsRushYards];
                 stat3Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsTD];
                 stat4Value = [NSString stringWithFormat:@"%d",((PlayerRB*)plyr).statsFumbles];
-                //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+                //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
             } else if ([plyr isKindOfClass:[PlayerWR class]]) {
                 stat1 = @"Rec";
                 stat2 = @"Yds";
@@ -680,7 +680,7 @@
                 stat2Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsRecYards];
                 stat3Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsTD];
                 stat4Value = [NSString stringWithFormat:@"%d",((PlayerWR*)plyr).statsFumbles];
-                //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+                //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
             } else if ([plyr isKindOfClass:[PlayerTE class]]) {
                 stat1 = @"Rec";
                 stat2 = @"Yds";
@@ -690,7 +690,7 @@
                 stat2Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsRecYards];
                 stat3Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsTD];
                 stat4Value = [NSString stringWithFormat:@"%d",((PlayerTE*)plyr).statsFumbles];
-                //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:17.0]];
+                //[statsCell.stat1ValueLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
             } else if ([plyr isKindOfClass:[PlayerDefender class]]) {
                 stat1 = @"Tkl";
                 stat2 = @"INT";
@@ -728,8 +728,8 @@
             if (!cell) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"InjuryCell"];
                 [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
-                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
-                [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+                [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+                [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
 
@@ -813,7 +813,7 @@
                     [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
                     [cell.textLabel setTextColor:self.view.tintColor];
                     [cell setAccessoryType:UITableViewCellAccessoryNone];
-                    [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
+                    [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
                 }
 
                 if (pbpEnabled) {

@@ -130,7 +130,7 @@
                                      [self->league save];
                                      
                                      NSLog(@"[Team Selection] Career MODE ENGAGED: %@, difficulty: %@", [self->userTeam getCurrentHC].name, (self->league.isHardMode) ? @"hard" : @"easy");
-                                     [Answers logContentViewWithName:@"New career Save Created" contentType:@"Team" contentId:@"career-team19" customAttributes:@{@"Team Name":self->userTeam.name}];
+                                     //[Answers logContentViewWithName:@"New career Save Created" contentType:@"Team" contentId:@"career-team19" customAttributes:@{@"Team Name":self->userTeam.name}];
                                      
                                      [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForCareer];
                                      [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
@@ -148,7 +148,7 @@
                             [self->league save];
                             
                             NSLog(@"[Team Selection] Career MODE ENGAGED: %@, difficulty: %@", [self->userTeam getCurrentHC].name, (self->league.isHardMode) ? @"hard" : @"easy");
-                            [Answers logContentViewWithName:@"New career Save Created" contentType:@"Team" contentId:@"career-team19" customAttributes:@{@"Team Name":self->userTeam.name}];
+                            //[Answers logContentViewWithName:@"New career Save Created" contentType:@"Team" contentId:@"career-team19" customAttributes:@{@"Team Name":self->userTeam.name}];
                             
                             [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForCareer];
                             [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
@@ -170,7 +170,7 @@
                         [self->league save];
                         
                         NSLog(@"[Team Selection] Career MODE ENGAGED: %@, difficulty: %@", [self->userTeam getCurrentHC].name, (self->league.isHardMode) ? @"hard" : @"easy");
-                        [Answers logContentViewWithName:@"New career Save Created" contentType:@"Team" contentId:@"career-team19" customAttributes:@{@"Team Name":self->userTeam.name}];
+                        //[Answers logContentViewWithName:@"New career Save Created" contentType:@"Team" contentId:@"career-team19" customAttributes:@{@"Team Name":self->userTeam.name}];
                         
                         [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForCareer];
                         [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
@@ -192,7 +192,7 @@
                     [self->league save];
                     
                     NSLog(@"[Team Selection] HARD MODE ENGAGED");
-                    [Answers logContentViewWithName:@"New Hard Mode Save Created" contentType:@"Team" contentId:@"hardmode-team16" customAttributes:@{@"Team Name":self->userTeam.name}];
+                    //[Answers logContentViewWithName:@"New Hard Mode Save Created" contentType:@"Team" contentId:@"hardmode-team16" customAttributes:@{@"Team Name":self->userTeam.name}];
                     [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForNormal];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
@@ -208,7 +208,7 @@
                     [((AppDelegate*)[[UIApplication sharedApplication] delegate]) setLeague:self->league];
                     [self->league save];
                     
-                    [Answers logContentViewWithName:@"New Easy Mode Save Created" contentType:@"Team" contentId:@"team16" customAttributes:@{@"Team Name":self->userTeam.name}];
+                    //[Answers logContentViewWithName:@"New Easy Mode Save Created" contentType:@"Team" contentId:@"team16" customAttributes:@{@"Team Name":self->userTeam.name}];
                     [((AppDelegate*)[[UIApplication sharedApplication] delegate]) updateTabBarForNormal];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newNewsStory" object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"newSaveFile" object:nil];
@@ -249,7 +249,7 @@
 {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.contentView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F7F7F7"];
-    [header.textLabel setFont:[UIFont boldSystemFontOfSize:17.0]];
+    [header.textLabel setFont:[UIFont boldSystemFontOfSize:LARGE_FONT_SIZE]];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -270,8 +270,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         cell.accessoryType = UITableViewCellAccessoryNone;
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:15.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:MEDIUM_FONT_SIZE]];
     }
     
     Team *team;

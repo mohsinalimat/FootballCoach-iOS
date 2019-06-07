@@ -195,9 +195,7 @@
         else if ([b.confChampion isEqualToString:@"CC"]) return 1;
         else if ([a calculateConfWins] > [b calculateConfWins]) {
             return -1;
-        } else if ([b calculateConfWins] > [a calculateConfWins]) {
-            return 1;
-        } else {
+        } else if ([b calculateConfWins] == [a calculateConfWins]) {
             //check for h2h tiebreaker
             if ([a.gameWinsAgainst containsObject:b]) {
                 return -1;
@@ -206,6 +204,8 @@
             } else {
                 return 0;
             }
+        } else {
+            return 1;
         }
     }];
     
@@ -225,7 +225,7 @@
     if (teamTB.count > 2) {
         // ugh 3 way tiebreaker
         [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return [HBSharedUtils comparePlayoffTeams:obj1 toObj2:obj2];
+            return [HBSharedUtils comparePollScore:obj1 toObj2:obj2];
         }];
         for (int j = 0; j < teamTB.count; ++j) {
             [self.confTeams replaceObjectAtIndex:j withObject:teamTB[j]];
@@ -249,7 +249,7 @@
     if (teamTB.count > 2) {
         // ugh 3 way tiebreaker
         [teamTB sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-            return [HBSharedUtils comparePlayoffTeams:obj1 toObj2:obj2];
+            return [HBSharedUtils comparePollScore:obj1 toObj2:obj2];
         }];
         for (int j = 0; j < teamTB.count; ++j) {
             [self.confTeams replaceObjectAtIndex:(j+1) withObject:teamTB[j]];

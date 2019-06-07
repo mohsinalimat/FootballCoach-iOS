@@ -117,7 +117,7 @@
     NSMutableDictionary *attributes = [NSMutableDictionary new];
     
     text = @"No Players Leaving";
-    font = [UIFont boldSystemFontOfSize:17.0];
+    font = [UIFont boldSystemFontOfSize:LARGE_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -144,7 +144,7 @@
     paragraph.alignment = NSTextAlignmentCenter;
     
     text = @"No players are leaving your program this offseason.";
-    font = [UIFont systemFontOfSize:15.0];
+    font = [UIFont systemFontOfSize:MEDIUM_FONT_SIZE];
     textColor = [UIColor lightTextColor];
     
     
@@ -201,8 +201,8 @@
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
         [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        [cell.textLabel setFont:[UIFont systemFontOfSize:17.0]];
-        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:17.0]];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
+        [cell.detailTextLabel setFont:[UIFont systemFontOfSize:LARGE_FONT_SIZE]];
         
     }
     Player *player = grads[indexPath.row];
@@ -220,7 +220,7 @@
         nameColor = [UIColor blackColor];
     }
     
-    NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",player.position,player.name] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:17.0 weight:UIFontWeightRegular]}];
+    NSMutableAttributedString *attText = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ %@",player.position,player.name] attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:LARGE_FONT_SIZE weight:UIFontWeightRegular]}];
     [attText addAttribute:NSForegroundColorAttributeName value:nameColor range:[attText.string rangeOfString:player.name]];
     [attText addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:[attText.string rangeOfString:player.position]];
     [cell.textLabel setAttributedText:attText];
